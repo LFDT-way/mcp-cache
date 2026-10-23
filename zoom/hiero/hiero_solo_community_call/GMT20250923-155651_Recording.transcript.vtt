@@ -1,0 +1,1270 @@
+WEBVTT
+
+1
+00:01:07.740 --> 00:01:09.040
+Nathan Klick (Hashgraph): Hmm…
+
+2
+00:02:21.110 --> 00:02:22.550
+Alex (HashGraph): Good morning, good afternoon.
+
+3
+00:02:24.500 --> 00:02:26.100
+Nathan Klick (Hashgraph): Hey, Alex. Hey, Jeremy.
+
+4
+00:02:26.100 --> 00:02:26.960
+Jeromy Cannon: No.
+
+5
+00:02:28.270 --> 00:02:29.549
+Jeromy Cannon: Good day, good day.
+
+6
+00:02:58.750 --> 00:03:01.689
+Jeromy Cannon: On an unrelated topic, I made a…
+
+7
+00:03:02.030 --> 00:03:13.040
+Jeromy Cannon: GitHub, GitHub Dependabot change that allowed it to, aggregate,
+
+8
+00:03:13.170 --> 00:03:31.040
+Jeromy Cannon: changes, and that has been so helpful. We really should make that a standard across our repos, unless we have good reasons not to, because instead of running, like, 5 different, or 10 different PRs and eating up all these resources, now I just consolidated one for
+
+9
+00:03:32.000 --> 00:03:36.480
+Jeromy Cannon: NPM, and one for GitHub Actions. It's so much nicer.
+
+10
+00:03:36.480 --> 00:03:39.670
+Nathan Klick (Hashgraph): No, you're talking about the… the ballotic grouping?
+
+11
+00:03:40.140 --> 00:03:41.210
+Jeromy Cannon: Yeah, yeah.
+
+12
+00:03:41.210 --> 00:03:43.439
+Nathan Klick (Hashgraph): Did I turn that on on the solo repo?
+
+13
+00:03:43.620 --> 00:03:57.620
+Jeromy Cannon: No, I actually merged a change for that. I was reading through the docs, and I found it, and I had it on my list for a month or two, and so finally, the other day, I merged that, and man, it's been nice ever since.
+
+14
+00:03:57.930 --> 00:04:05.649
+Nathan Klick (Hashgraph): It's on Pavel's audit list, but he hasn't… I don't think he's come around to the repos yet, but that was something that's on his to-do.
+
+15
+00:04:05.680 --> 00:04:15.459
+Jeromy Cannon: Yeah, we should… we should… I mean, I'm, you know, of course, we're still as the guinea pig, but, like, I like it so far, you know, but we'll… we'll see.
+
+16
+00:04:15.460 --> 00:04:20.890
+Nathan Klick (Hashgraph): I've turned it on… I've turned it on for a couple repos that were having some major spam.
+
+17
+00:04:20.899 --> 00:04:21.539
+Jeromy Cannon: Yeah, yeah.
+
+18
+00:04:21.540 --> 00:04:25.019
+Nathan Klick (Hashgraph): Purple, though, because of the supply chain. I don't know if you guys saw the supply chain.
+
+19
+00:04:25.020 --> 00:04:39.000
+Jeromy Cannon: Well, yeah, you gotta, you gotta still… There's more to look at inside one PR than before, but you really… I mean, it's one of those things, too, like… Yeah, we gotta pay attention. It's a lot of…
+
+20
+00:04:39.090 --> 00:04:45.319
+Jeromy Cannon: it's a lot of, responsibility to be merging one of those PRs anyway, so…
+
+21
+00:04:46.030 --> 00:04:52.719
+Nathan Klick (Hashgraph): Yes, you need to be, yes, watching that closely. Another 200 and something packages are now compromised.
+
+22
+00:04:53.990 --> 00:05:11.979
+Jeromy Cannon: Yeah, I was looking at… there's this feature about, like, cold delay, and I was like, will this make it so that it's out a certain number of days before it gets pulled in? I'm like, nope, what it's… it is is, like, a certain number of times… it's the amount of time that's passed since the last time it's generated.
+
+23
+00:05:11.980 --> 00:05:21.459
+Jeromy Cannon: a PR, which is not as useful. And to me, like, an almost… a cool-down should be, like, like, that, you know, you're not gonna accept
+
+24
+00:05:21.500 --> 00:05:34.809
+Jeromy Cannon: you know, this… this change until it's been out, you know, in the public for a little bit of time. But then… but then you could potentially miss, like, a zero-day vulnerability, so I don't know. Like, it's… it's… it's…
+
+25
+00:05:34.950 --> 00:05:37.819
+Jeromy Cannon: You've got pluses and minuses, no matter which way.
+
+26
+00:05:37.820 --> 00:05:56.759
+Nathan Klick (Hashgraph): Well, we have step security. Step security has a cool-down feature. I just need to check… we need to actually check with them to make sure it works with a group depend upon PRs, because they have a cool-down functionality that actually does what it's supposed… what it needs to do, which is say that the… that this third-party dependency was just recently released.
+
+27
+00:05:57.230 --> 00:06:00.300
+Jeromy Cannon: Oh, yeah, yeah, yeah, I've seen that.
+
+28
+00:06:00.300 --> 00:06:08.070
+Nathan Klick (Hashgraph): have a cooldown function on… they added a cooldown feature on step security, and I believe we turned it on across the board recently.
+
+29
+00:06:08.070 --> 00:06:11.240
+Jeromy Cannon: Yeah, I saw that, maybe I'm just not using it correctly.
+
+30
+00:06:11.400 --> 00:06:13.150
+Jeromy Cannon: I did actually see that.
+
+31
+00:06:13.150 --> 00:06:18.089
+Nathan Klick (Hashgraph): It shouldn't be any cool-down feature as part of Dependabot. It's a cool-down feature in steps.
+
+32
+00:06:18.090 --> 00:06:22.199
+Jeromy Cannon: Yeah, yeah, it's a step… yeah, it's a step one, yeah, yeah, yeah, I saw that.
+
+33
+00:06:22.200 --> 00:06:23.150
+Nathan Klick (Hashgraph): It should be forcefully.
+
+34
+00:06:23.150 --> 00:06:28.700
+Jeromy Cannon: It says… where is it at? Well, now it's not showing up on this one, but…
+
+35
+00:06:30.310 --> 00:06:31.010
+Nathan Klick (Hashgraph): It shouldn't seem.
+
+36
+00:06:31.010 --> 00:06:31.340
+Jeromy Cannon: Yes.
+
+37
+00:06:31.340 --> 00:06:35.389
+Nathan Klick (Hashgraph): merge, and it should not let the pipelines run. I mean, if it's not doing what we need it to do.
+
+38
+00:06:35.390 --> 00:06:44.419
+Jeromy Cannon: Oh, no, it will! It will let them run, and it will let you merge. It's, because it's not a mandatory… we haven't added it to the approved set.
+
+39
+00:06:45.220 --> 00:06:49.119
+Jeromy Cannon: But it's in there, and it will show it as an X.
+
+40
+00:06:49.290 --> 00:06:52.700
+Nathan Klick (Hashgraph): It should be blocked… oh, it should be blocked in the PR… the workflow.
+
+41
+00:06:52.700 --> 00:06:55.750
+Jeromy Cannon: No… No, it doesn't.
+
+42
+00:06:57.530 --> 00:06:59.370
+Jeromy Cannon: I don't think… let me see…
+
+43
+00:07:01.310 --> 00:07:03.900
+Jeromy Cannon: Oh, no, don't branch, don't do that.
+
+44
+00:07:04.650 --> 00:07:07.240
+Jeromy Cannon: the wrong thing.
+
+45
+00:07:07.660 --> 00:07:13.120
+Jeromy Cannon: I guess it's not showing… Oh, wait, there it is. Step security required checks.
+
+46
+00:07:13.720 --> 00:07:20.580
+Jeromy Cannon: I don't think we've… so it got… I think it got added to our pipeline, but it hasn't been added to the rule set.
+
+47
+00:07:21.500 --> 00:07:25.229
+Nathan Klick (Hashgraph): It shouldn't have to be, this is a forcible check. I'm looking at those, hold on.
+
+48
+00:07:25.420 --> 00:07:28.450
+Nathan Klick (Hashgraph): NPM package compromised updates.
+
+49
+00:07:29.580 --> 00:07:31.610
+Nathan Klick (Hashgraph): Okay, and package cool down required.
+
+50
+00:07:31.610 --> 00:07:43.070
+Jeromy Cannon: There was an NPM package cooldown check. That was a package area that was released within the configured cooldown period, helped to avoid brand new and potentially unreviewed or malicious releases.
+
+51
+00:07:43.410 --> 00:07:46.400
+Jeromy Cannon: And then there's a history, previous, and occasional results.
+
+52
+00:07:46.630 --> 00:07:58.630
+Jeromy Cannon: So, should we just basically let that sit out there until that, step security check passes, and should we update our rulesets to make it pass, so that I don't do a force override?
+
+53
+00:07:59.540 --> 00:08:00.620
+Nathan Klick (Hashgraph): I'm running.
+
+54
+00:08:00.620 --> 00:08:07.820
+Jeromy Cannon: I don't think it's requiring a force override now, I don't think, maybe it is. Here, let me go check the rulesets. Maybe I was, I don't know.
+
+55
+00:08:08.020 --> 00:08:11.310
+Jeromy Cannon: I don't think I was, though. I think I… I don't think it was…
+
+56
+00:08:11.920 --> 00:08:14.249
+Jeromy Cannon: I don't think I was having to override it.
+
+57
+00:08:15.440 --> 00:08:21.000
+Jeromy Cannon: Let's see… test… I don't know which one to be in.
+
+58
+00:08:22.100 --> 00:08:25.410
+Nathan Klick (Hashgraph): So it still runs the pipelines, I guess, I don't know.
+
+59
+00:08:25.410 --> 00:08:28.189
+Jeromy Cannon: Status checks? Yeah, I don't know.
+
+60
+00:08:28.370 --> 00:08:30.729
+Jeromy Cannon: Actually, I don't even know which rules that it's in.
+
+61
+00:08:33.059 --> 00:08:35.450
+Jeromy Cannon: PR requirements? Layer 2.
+
+62
+00:08:35.799 --> 00:08:42.959
+Nathan Klick (Hashgraph): It shouldn't be… I don't think it's in a rule set. It should be coming… it should be forcibly enforced by step security, but let me take a look at how this.
+
+63
+00:08:42.960 --> 00:08:45.270
+Jeromy Cannon: Yeah, I don't think it's even got a real set.
+
+64
+00:08:45.270 --> 00:08:54.089
+Nathan Klick (Hashgraph): We're actually missing a checkbox to enforce it on the seller repo, or enforce step security hardened runner on the seller repo, so I don't know, let me look at that again.
+
+65
+00:08:55.130 --> 00:08:55.900
+Jeromy Cannon: Yeah.
+
+66
+00:08:56.680 --> 00:09:02.820
+Jeromy Cannon: I mean, nobody's here, but I know this is being recorded, so, maybe we should.
+
+67
+00:09:03.260 --> 00:09:04.310
+Nathan Klick (Hashgraph): I'm just making sure we're.
+
+68
+00:09:04.310 --> 00:09:11.250
+Jeromy Cannon: I mean, it is technically related to solos, so… but I'm not sharing my screen, so… .
+
+69
+00:09:11.250 --> 00:09:21.400
+Nathan Klick (Hashgraph): Yeah, anyway, big thing we should talk about, I guess, in relation to this call, I'd like to have us turn on, the stale action, stale issues, and stale…
+
+70
+00:09:21.680 --> 00:09:29.660
+Nathan Klick (Hashgraph): It's called stale action. It's action, stale action, but it closes stale PRs and or issues.
+
+71
+00:09:30.180 --> 00:09:32.480
+Nathan Klick (Hashgraph): Preferably PRs that haven't been.
+
+72
+00:09:32.880 --> 00:09:47.429
+Jeromy Cannon: Well, do you want to just go ahead and drive and turn that on, and I can watch, and then… because I'm already, following the whole, repo, so whenever it does close it, I'll get an email, and I'm reviewing those emails, and I can always reopen it, so…
+
+73
+00:09:47.430 --> 00:09:52.049
+Nathan Klick (Hashgraph): Yeah, what I wanted to say, though, is I wanted to discuss that because I don't know that we have
+
+74
+00:09:52.870 --> 00:09:57.579
+Nathan Klick (Hashgraph): I think we have… you know, internal quorum, but I don't know that we have
+
+75
+00:09:57.840 --> 00:10:02.790
+Nathan Klick (Hashgraph): you know, any of the other contributors, no one's on the call but us, so I guess, you know, for the record…
+
+76
+00:10:02.790 --> 00:10:09.400
+Jeromy Cannon: I think the only person… so we've got… we have, Jason from Bug Bites occasionally shows up.
+
+77
+00:10:09.410 --> 00:10:18.829
+Jeromy Cannon: And then we have, you know, internal people like Roger and Andrew show up, and then, of course, Alex is on the call, and now Jeffrey.
+
+78
+00:10:18.830 --> 00:10:39.939
+Jeromy Cannon: And then sometimes Jean and Eva will show up. And then, there was one guy that showed up one time, I'm sorry to memorize his name, and he was kind of listening in. But yeah, I think we've only had maybe 2 or 3 contributors, but they're not consistent.
+
+79
+00:10:40.060 --> 00:10:50.649
+Jeromy Cannon: So, yeah, so usually it's just internal, people from Hashgraph that are more consistent so far. But we've, you know, we've only had, like, 4 or 5 meetings, so…
+
+80
+00:10:50.790 --> 00:10:51.310
+Jeromy Cannon: Yeah.
+
+81
+00:10:51.310 --> 00:10:53.749
+Nathan Klick (Hashgraph): Yeah, yeah, it's just getting underway, so…
+
+82
+00:10:53.910 --> 00:10:58.800
+Nathan Klick (Hashgraph): My sense would be, you know, we should… I would vote to turn on…
+
+83
+00:10:59.120 --> 00:11:12.429
+Nathan Klick (Hashgraph): the stale action to 4 PRs only that are stale and outstanding. That way, we don't have to be the bad guys, and we have a consistent policy on how pull requests that are lingering get closed out.
+
+84
+00:11:12.860 --> 00:11:13.950
+Nathan Klick (Hashgraph): Meaning, we're not…
+
+85
+00:11:13.950 --> 00:11:32.019
+Jeromy Cannon: with that, and then I can always, because I watch all of that stuff, and I have emails, so I'll just go ahead and reopen them if I feel there's a need to. But that way, to your point, it's automated, and we don't have to, like… it doesn't make it look like we're taking any biased action, so…
+
+86
+00:11:32.020 --> 00:11:49.360
+Nathan Klick (Hashgraph): It eliminates bias, it, you know, it means that it's applying consistently across the board based on a well-defined set of rules that we… we control those rules and what they're defined as, but it's a published set of rules that we set and are well documented.
+
+87
+00:11:49.360 --> 00:12:04.440
+Nathan Klick (Hashgraph): you know, standard tooling that is provided by GitHub now. It was originally Protobot, provided an app for that. Now they've… GitHub has converted that to a CI pipeline and taken ownership of what used to be the Protobot,
+
+88
+00:12:07.410 --> 00:12:26.409
+Nathan Klick (Hashgraph): Right, and now it's just a standard CI action that comes off the shelf from GitHub, and it has quite a few different knobs on it. It's got, like… I think I looked at its knobs this morning again, it's got, like, 60-something knobs you can tweak, or some crazy amount. It was a long, long list of configurable knobs and options you could turn on the thing.
+
+89
+00:12:26.410 --> 00:12:29.600
+Jeromy Cannon: Do you want to share your screen and turn it on real quick?
+
+90
+00:12:29.600 --> 00:12:39.400
+Nathan Klick (Hashgraph): Yeah, let me open my code editor here real fast, and get a solo code, and get a… should we… can you create an issue for that on the repo?
+
+91
+00:12:39.700 --> 00:12:40.830
+Jeromy Cannon: Sure.
+
+92
+00:12:41.580 --> 00:12:47.470
+Nathan Klick (Hashgraph): It's… I'm in a couple different projects here that I need to get out of real fast.
+
+93
+00:13:01.810 --> 00:13:05.519
+Jeromy Cannon: Or we want to do issues and, pull requests?
+
+94
+00:13:07.290 --> 00:13:09.610
+Jeromy Cannon: Purchase issues. Not setting yet.
+
+95
+00:13:11.760 --> 00:13:12.390
+Jeromy Cannon: Huh?
+
+96
+00:13:12.710 --> 00:13:14.730
+Alex (HashGraph): Oh, Nathan is not sharing screen yet.
+
+97
+00:13:15.010 --> 00:13:16.919
+Nathan Klick (Hashgraph): Yeah, well, I'm just creating… I just.
+
+98
+00:13:16.920 --> 00:13:19.709
+Jeromy Cannon: I was… I was… I was creating the, the issue.
+
+99
+00:13:20.220 --> 00:13:21.780
+Nathan Klick (Hashgraph): And then.
+
+100
+00:13:23.160 --> 00:13:29.269
+Jeromy Cannon: So, the auto-close, still GitHub issues and stale, pull requests?
+
+101
+00:13:29.270 --> 00:13:32.130
+Nathan Klick (Hashgraph): I want to start with just pull requests, for starters.
+
+102
+00:13:32.290 --> 00:13:34.720
+Jeromy Cannon: Oh, okay, still GitHub pull requests, okay.
+
+103
+00:13:34.720 --> 00:13:41.999
+Nathan Klick (Hashgraph): Let's just do PRs, for, for, for, for the get-go here, and then we'll, we'll,
+
+104
+00:13:43.640 --> 00:13:45.619
+Nathan Klick (Hashgraph): Work it from there, because…
+
+105
+00:13:45.830 --> 00:13:48.480
+Jeromy Cannon: Let's see…
+
+106
+00:14:02.290 --> 00:14:07.900
+Jeromy Cannon: Okay, and then here I'll put In the Zoom chat.
+
+107
+00:14:09.710 --> 00:14:13.230
+Jeromy Cannon: Because, you know, we're doing this publicly anyway.
+
+108
+00:14:13.690 --> 00:14:17.519
+Jeromy Cannon: So, there's the, the issue. It's 2666.
+
+109
+00:14:19.000 --> 00:14:26.899
+Jeromy Cannon: Double demon, I'm just kidding. Double demon. Double automated.
+
+110
+00:14:28.670 --> 00:14:33.460
+Nathan Klick (Hashgraph): Alright, hang on, let me pull the latest from the… repo here.
+
+111
+00:14:34.490 --> 00:14:36.369
+Jeromy Cannon: Always found that funny, like, the…
+
+112
+00:14:36.580 --> 00:14:42.440
+Jeromy Cannon: demon, and a demon have a… it's like, okay, well, you've got this evil demon.
+
+113
+00:14:42.440 --> 00:14:59.940
+Jeromy Cannon: But if you look at it from a computer science, it's a demon, and it's an automated thing that runs in the background. So that's kind of what a demon is, too, in the evil sense. It's something that runs in the background. So it's kind of funny that you just got, like, an A, an extra character in the spelling.
+
+114
+00:14:59.980 --> 00:15:08.959
+Jeromy Cannon: So, I'm like, so yeah, two, and then 666 is, like, evil, so it's like, okay, that's double demon, double daemon.
+
+115
+00:15:09.500 --> 00:15:11.670
+Nathan Klick (Hashgraph): The ticket number is 686, right?
+
+116
+00:15:12.000 --> 00:15:15.079
+Jeromy Cannon: 2666, yeah.
+
+117
+00:15:17.160 --> 00:15:20.180
+Jeromy Cannon: Sorry, I have a funny sense of humor sometimes, so…
+
+118
+00:15:23.050 --> 00:15:26.780
+Jeromy Cannon: It doesn't mean everybody else laughs at my jokes, but at least I laugh at my jokes.
+
+119
+00:15:30.960 --> 00:15:34.429
+Nathan Klick (Hashgraph): Alright, I'm creating that PR, let me share my screen.
+
+120
+00:15:34.900 --> 00:15:40.960
+Nathan Klick (Hashgraph): my… Find my zoom window again, it's lost in the… Shuffle? Okay.
+
+121
+00:15:43.590 --> 00:15:44.530
+Nathan Klick (Hashgraph): Yeah.
+
+122
+00:15:48.630 --> 00:15:49.460
+Nathan Klick (Hashgraph): terrible.
+
+123
+00:15:50.830 --> 00:15:52.049
+Jeromy Cannon: You got your…
+
+124
+00:15:52.750 --> 00:15:53.740
+Nathan Klick (Hashgraph): move this over.
+
+125
+00:15:54.830 --> 00:15:56.640
+Nathan Klick (Hashgraph): All right.
+
+126
+00:15:56.640 --> 00:15:59.960
+Jeromy Cannon: One billion resolution turned on, you know.
+
+127
+00:15:59.960 --> 00:16:01.849
+Nathan Klick (Hashgraph): Do I need to zoom in here?
+
+128
+00:16:05.730 --> 00:16:07.790
+Nathan Klick (Hashgraph): Let's see… there's all these…
+
+129
+00:16:13.760 --> 00:16:18.340
+Jeromy Cannon: So do you have to make code changes to do it, or do you just do it through the ruleset?
+
+130
+00:16:18.340 --> 00:16:20.710
+Nathan Klick (Hashgraph): change, it's a GitHub workflow.
+
+131
+00:16:21.360 --> 00:16:21.720
+Jeromy Cannon: Oh.
+
+132
+00:16:22.080 --> 00:16:23.330
+Nathan Klick (Hashgraph): To add a workflow.
+
+133
+00:16:35.440 --> 00:16:38.919
+Jeromy Cannon: So it's doing it, like one of those.
+
+134
+00:16:39.260 --> 00:16:42.429
+Jeromy Cannon: API checks or something like that.
+
+135
+00:16:42.670 --> 00:16:49.590
+Nathan Klick (Hashgraph): It's… so this was previously an app, they converted it to an actual GitHub-maintained action.
+
+136
+00:16:50.060 --> 00:16:50.950
+Jeromy Cannon: Oh, okay.
+
+137
+00:16:50.950 --> 00:16:56.160
+Nathan Klick (Hashgraph): some GitHub now as an official project managed by the GitHub team, so…
+
+138
+00:16:57.370 --> 00:17:04.309
+Jeromy Cannon: So, like, they exposed it through the API, it's just everybody was doing it, so they sculpted action around it, so it made it easier to use.
+
+139
+00:17:04.319 --> 00:17:19.599
+Nathan Klick (Hashgraph): Well, yeah, it's always been an API, right? It's just making the standard API calls to manage… read issue and PR details and manage issues and PRs, right? That API exists a long, long time where you can open and close issues and PRs through the API call.
+
+140
+00:17:19.599 --> 00:17:25.649
+Nathan Klick (Hashgraph): Et cetera, et cetera, et cetera, comment on them, assuming you have the permissions to do so, so that's all this is.
+
+141
+00:17:26.990 --> 00:17:38.209
+Jeromy Cannon: Oh, while we're on the topic, so we have a new one, that Jeffrey has created for us that, I had asked for. It was, like, that flow examples test.
+
+142
+00:17:38.210 --> 00:17:50.880
+Jeromy Cannon: and probably since he probably merged it, he probably gets notified. How do we, like, what's the best way so that we can all get notified on it? Do we…
+
+143
+00:17:50.880 --> 00:18:01.740
+Jeromy Cannon: just have to… do I need to put in a PR, or I need a GitHub issue to push it to a Slack channel, or, or push it to, like, a…
+
+144
+00:18:01.880 --> 00:18:15.960
+Jeromy Cannon: Discord channel, or, like, what's… what's a good approach so that we can see that, like, if I want to go check and make sure this job is running correctly every night, and be notified about it?
+
+145
+00:18:16.060 --> 00:18:23.210
+Jeromy Cannon: Because I know Jeffrey probably gets the notification, because he was the last one to merge it, but I don't, so…
+
+146
+00:18:23.210 --> 00:18:29.410
+Nathan Klick (Hashgraph): Typically, he's gonna only get notified… I think the default is now, failures only.
+
+147
+00:18:31.490 --> 00:18:39.030
+Jeromy Cannon: But I'm not getting notified, so, like, do I… but I follow the whole repo, so is there, like, a setting I need to go in there and follow the action or something?
+
+148
+00:18:39.030 --> 00:18:42.150
+Nathan Klick (Hashgraph): There's a separate action setting for managing
+
+149
+00:18:42.600 --> 00:18:45.550
+Nathan Klick (Hashgraph): It's under here, it's under your settings.
+
+150
+00:18:45.910 --> 00:18:49.609
+Nathan Klick (Hashgraph): Personally, it's under notifications, I believe.
+
+151
+00:18:49.840 --> 00:18:53.770
+Nathan Klick (Hashgraph): And here's their settings here on how to deal with failed workflows.
+
+152
+00:18:55.640 --> 00:19:03.930
+Nathan Klick (Hashgraph): I think this is now the default, only notify for failed workflows, and you've got options on GitHub or via email. So if that's not…
+
+153
+00:19:03.930 --> 00:19:04.710
+Jeromy Cannon: etc.
+
+154
+00:19:04.710 --> 00:19:07.450
+Nathan Klick (Hashgraph): foremost, then you're not necessarily going to get emails.
+
+155
+00:19:07.570 --> 00:19:12.300
+Nathan Klick (Hashgraph): or GitHub notification, if this is turned off, so you need to check to make sure that's set up.
+
+156
+00:19:13.560 --> 00:19:21.489
+Nathan Klick (Hashgraph): And that'll… that should trigger… send you the notification if it's a commit. So, really what this does, and the way most of these actions work, like, if it's on…
+
+157
+00:19:21.490 --> 00:19:24.130
+Jeromy Cannon: Which tab are you in? I didn't see what you.
+
+158
+00:19:24.130 --> 00:19:25.890
+Nathan Klick (Hashgraph): I mean, Kazoo settings?
+
+159
+00:19:27.220 --> 00:19:30.109
+Jeromy Cannon: Oh, so… but underneath your user.
+
+160
+00:19:30.110 --> 00:19:32.019
+Nathan Klick (Hashgraph): Yes, my personal settings?
+
+161
+00:19:32.020 --> 00:19:32.680
+Jeromy Cannon: Okay.
+
+162
+00:19:32.680 --> 00:19:34.140
+Nathan Klick (Hashgraph): notifications.
+
+163
+00:19:35.270 --> 00:19:39.569
+Nathan Klick (Hashgraph): And then there's a system actions drop-down here.
+
+164
+00:19:40.230 --> 00:19:41.810
+Jeromy Cannon: Okay.
+
+165
+00:19:46.790 --> 00:19:49.090
+Jeromy Cannon: What was the… what was the one on the left?
+
+166
+00:19:49.530 --> 00:19:50.200
+Nathan Klick (Hashgraph): Notification.
+
+167
+00:19:54.640 --> 00:19:55.340
+Jeromy Cannon: airport.
+
+168
+00:19:56.840 --> 00:20:00.989
+Nathan Klick (Hashgraph): And then it's the… Scroll down, there's an Actions line item.
+
+169
+00:20:01.980 --> 00:20:02.670
+Jeromy Cannon: Okay.
+
+170
+00:20:03.020 --> 00:20:09.080
+Jeromy Cannon: Okay, so mine says, on GitHub, email only notified for workflows.
+
+171
+00:20:09.360 --> 00:20:10.680
+Jeromy Cannon: But…
+
+172
+00:20:11.790 --> 00:20:14.670
+Nathan Klick (Hashgraph): But it doesn't say email, does it? Is email checked?
+
+173
+00:20:15.980 --> 00:20:19.990
+Jeromy Cannon: email list checked, but… but I'm not getting…
+
+174
+00:20:20.360 --> 00:20:24.770
+Jeromy Cannon: an email when… I only get an email when I'm…
+
+175
+00:20:25.440 --> 00:20:33.649
+Jeromy Cannon: following, I guess, a particular workflow that runs. And so, in this particular example, this is a batch job.
+
+176
+00:20:33.990 --> 00:20:42.860
+Nathan Klick (Hashgraph): It's not going to… it's going to… if it's running as a cron task, then it's going to email the author, the last author that…
+
+177
+00:20:43.080 --> 00:20:46.129
+Nathan Klick (Hashgraph): committed a change, I believe, to that workflow.
+
+178
+00:20:46.130 --> 00:20:48.279
+Jeromy Cannon: So how do I follow that one, then?
+
+179
+00:20:48.280 --> 00:20:51.510
+Nathan Klick (Hashgraph): There is, unfortunately, no way to follow that one.
+
+180
+00:20:51.510 --> 00:20:55.930
+Jeromy Cannon: So then, should we send a message to Slack and or Discord?
+
+181
+00:20:56.480 --> 00:20:58.330
+Nathan Klick (Hashgraph): I don't know if we can.
+
+182
+00:20:59.420 --> 00:21:00.110
+Nathan Klick (Hashgraph): Without.
+
+183
+00:21:00.110 --> 00:21:00.580
+Jeromy Cannon: What do you mean?
+
+184
+00:21:00.580 --> 00:21:03.149
+Nathan Klick (Hashgraph): Without having to modify the pipeline.
+
+185
+00:21:03.150 --> 00:21:08.569
+Jeromy Cannon: Well, that's… I mean, but what… that's what I'm asking is, what's our recommended approach?
+
+186
+00:21:08.570 --> 00:21:14.380
+Nathan Klick (Hashgraph): I don't think… I think that if it's a cron task, depending on the importance level.
+
+187
+00:21:14.540 --> 00:21:22.960
+Nathan Klick (Hashgraph): You know, if it fails, internally, we should probably create an alert, we should probably send a Rootly alert.
+
+188
+00:21:23.750 --> 00:21:25.130
+Jeromy Cannon: A root lead alert?
+
+189
+00:21:25.270 --> 00:21:32.479
+Jeromy Cannon: Well, but so… so this is… this is… so what this does is it runs for all of our example workflows in Solo.
+
+190
+00:21:32.750 --> 00:21:44.730
+Jeromy Cannon: example jobs. So, I don't know, I mean, I can, I guess, create a rudely, but I don't want people to get paged for it, but I don't mind creating it as long as it doesn't wake anybody up, I'm fine.
+
+191
+00:21:45.280 --> 00:21:45.870
+Nathan Klick (Hashgraph): Well, we can…
+
+192
+00:21:45.870 --> 00:21:46.410
+Jeromy Cannon: But…
+
+193
+00:21:46.440 --> 00:21:47.030
+Nathan Klick (Hashgraph): How could a reserve.
+
+194
+00:21:47.030 --> 00:21:54.429
+Jeromy Cannon: But this is also a way of thinking forward to, like, open source repo long-term, too, right? So, is rootly, you know…
+
+195
+00:21:54.590 --> 00:22:02.209
+Jeromy Cannon: the right choice if somebody wants to go and see, like, oh, did my thing fell? You know, did I break this.
+
+196
+00:22:02.210 --> 00:22:10.109
+Nathan Klick (Hashgraph): So, the problem is, is we either send it to… you can't send it to the individual user. You're sending it to a channel.
+
+197
+00:22:10.340 --> 00:22:12.040
+Nathan Klick (Hashgraph): You know what I mean? That's shared.
+
+198
+00:22:12.040 --> 00:22:14.760
+Jeromy Cannon: Yeah. So, I mean, I could put… I mean, I could create
+
+199
+00:22:15.100 --> 00:22:24.400
+Jeromy Cannon: Discord channel for it, or throw it into the solo Discord channel, or I could throw it into our Slack, or I could throw it into.
+
+200
+00:22:24.400 --> 00:22:26.760
+Nathan Klick (Hashgraph): It's a different conversation, and it's not…
+
+201
+00:22:26.990 --> 00:22:30.620
+Nathan Klick (Hashgraph): You know, you know what I mean? I think when you have that at some other point in time.
+
+202
+00:22:30.620 --> 00:22:33.159
+Jeromy Cannon: Okay, so that's not public conversation, okay.
+
+203
+00:22:33.160 --> 00:22:38.959
+Nathan Klick (Hashgraph): It's public, but I don't know that… I think you wanted to solve for the stale issues right now, right?
+
+204
+00:22:39.150 --> 00:22:39.840
+Nathan Klick (Hashgraph): Oh my god.
+
+205
+00:22:39.840 --> 00:22:44.339
+Jeromy Cannon: Oh, no, yeah, yeah, I'm overlapping while you're working on that, so, yeah.
+
+206
+00:22:45.080 --> 00:22:45.830
+Nathan Klick (Hashgraph): Yeah.
+
+207
+00:22:50.420 --> 00:22:51.910
+Nathan Klick (Hashgraph): Yeah…
+
+208
+00:22:55.490 --> 00:23:01.050
+Nathan Klick (Hashgraph): Speak of the devil. Why don't we have a permissions block on this guy? Oops. Okay, we need to fix that, too.
+
+209
+00:23:01.780 --> 00:23:06.159
+Nathan Klick (Hashgraph): Well… There should be a permissions block on this thing.
+
+210
+00:23:07.400 --> 00:23:08.780
+Nathan Klick (Hashgraph): We don't have one.
+
+211
+00:23:09.770 --> 00:23:10.890
+Nathan Klick (Hashgraph): To figure out what's that permission.
+
+212
+00:23:11.290 --> 00:23:30.759
+Jeromy Cannon: on the… I haven't been following all the super details on the Rootly. If a contributor is contributing the consensus node, and it causes a Rootly incident, they won't be aware of it, will they? There's no way for a contributor to be involved in Rootly, it's only HashCraft employees? I don't know.
+
+213
+00:23:31.210 --> 00:23:33.000
+Jeromy Cannon: How's Rootly being used?
+
+214
+00:23:45.930 --> 00:23:47.170
+Nathan Klick (Hashgraph): Do that backwards.
+
+215
+00:23:47.760 --> 00:23:49.799
+Jeromy Cannon: Seems like, weirdly would just be employee…
+
+216
+00:23:51.570 --> 00:23:54.000
+Jeromy Cannon: Contractors that we're staff on.
+
+217
+00:23:55.690 --> 00:23:59.469
+Jeromy Cannon: Do we have the ability to add them to sugar if we wanted to? No.
+
+218
+00:23:59.470 --> 00:24:02.830
+Nathan Klick (Hashgraph): No, and this conversation about rooting needs to be private.
+
+219
+00:24:02.930 --> 00:24:05.649
+Nathan Klick (Hashgraph): That portion does need to be private.
+
+220
+00:24:05.650 --> 00:24:06.929
+Jeromy Cannon: Okay, alright.
+
+221
+00:24:06.930 --> 00:24:11.220
+Nathan Klick (Hashgraph): So, again, that's… Rootly's our internal tooling, and what we do…
+
+222
+00:24:11.220 --> 00:24:12.060
+Jeromy Cannon: Yeah, okay.
+
+223
+00:24:12.060 --> 00:24:13.980
+Nathan Klick (Hashgraph): World is a different story.
+
+224
+00:24:14.230 --> 00:24:25.810
+Nathan Klick (Hashgraph): I don't know what the right answer there is. I mean, I am a channel to high heavens every time it fails. I think it's just… I think, number one, right now, we need to…
+
+225
+00:24:25.970 --> 00:24:27.639
+Nathan Klick (Hashgraph): Figure out what…
+
+226
+00:24:29.650 --> 00:24:32.850
+Jeromy Cannon: Sorry, we can take that offline, I could stop now. That's all you had.
+
+227
+00:24:32.850 --> 00:24:39.300
+Nathan Klick (Hashgraph): The author that commit… I… we have to look at what GitHub Actions actually is doing, because I think the author that commits that would
+
+228
+00:24:39.520 --> 00:24:42.490
+Nathan Klick (Hashgraph): I think it notifies whoever broke main.
+
+229
+00:24:42.650 --> 00:24:46.840
+Nathan Klick (Hashgraph): I think, if we're running it on main, and it's running as a cron task.
+
+230
+00:24:47.850 --> 00:24:52.729
+Nathan Klick (Hashgraph): It should notify whoever's commit was at the head of main, I believe.
+
+231
+00:24:53.970 --> 00:24:55.260
+Nathan Klick (Hashgraph): When it breaks.
+
+232
+00:24:55.550 --> 00:25:14.559
+Jeromy Cannon: I don't… I think it's whoever last committed the change to this particular workflow, because for a long time, I kept getting these consensus node ones, because I modified one of the workflows, and that workflow, Chrome job, when it broke, I would get notified.
+
+233
+00:25:14.560 --> 00:25:14.950
+Nathan Klick (Hashgraph): That's my…
+
+234
+00:25:14.950 --> 00:25:15.410
+Jeromy Cannon: Never.
+
+235
+00:25:15.410 --> 00:25:18.650
+Nathan Klick (Hashgraph): The issue is that… .
+
+236
+00:25:21.730 --> 00:25:35.420
+Jeromy Cannon: And I guess maybe somebody eventually changed it, and I stopped getting them, maybe? I don't know, but yeah. Or we retired it. It might have been we just retired it, because this is one of those JRS ones, so it might have just been eventually retired and I stopped getting the emails, but…
+
+237
+00:26:06.640 --> 00:26:10.180
+Jeromy Cannon: You got an extra empty one on 7 and 8.
+
+238
+00:26:12.980 --> 00:26:13.759
+Nathan Klick (Hashgraph): Which one?
+
+239
+00:26:14.500 --> 00:26:18.299
+Jeromy Cannon: You got an extra empty line on line 7, 8.
+
+240
+00:26:23.000 --> 00:26:26.579
+Nathan Klick (Hashgraph): Oh, yeah, I don't really care yet. I was thinking I may add something.
+
+241
+00:26:26.920 --> 00:26:28.310
+Nathan Klick (Hashgraph): Yeah.
+
+242
+00:26:41.800 --> 00:26:46.729
+Jeromy Cannon: our, marked down in YAML and try to complain about that stuff.
+
+243
+00:26:48.690 --> 00:26:50.890
+Jeromy Cannon: I think we were talking earlier about that.
+
+244
+00:27:25.800 --> 00:27:31.479
+Jeromy Cannon: Let's see. So, I mean, it's, it's, it's 524,
+
+245
+00:27:32.560 --> 00:27:36.630
+Jeromy Cannon: This is, like, basically the whole content of this meeting.
+
+246
+00:27:36.930 --> 00:27:49.569
+Jeromy Cannon: Let's see if there's anything else. Oh, so while you're working on that, the version 44, is gonna be the one that has all of the
+
+247
+00:27:49.900 --> 00:27:51.920
+Jeromy Cannon: CLI changes in it.
+
+248
+00:27:52.050 --> 00:28:11.799
+Jeromy Cannon: We did get a 44.0, but it wasn't ready yet, so rolled it back to 43.1, as latest, until we get it ready. I'm working through some, dock, pipeline changes. So, either 43.44.1 or 44.2, depending on once I get the
+
+249
+00:28:11.800 --> 00:28:20.460
+Jeromy Cannon: the docs CICD stuff working correctly will be the version of the, the CI changes that has all of the,
+
+250
+00:28:21.020 --> 00:28:25.099
+Jeromy Cannon: And hopefully not 45, unless we push a feature.
+
+251
+00:28:25.430 --> 00:28:37.230
+Jeromy Cannon: But that's kind of where we restructure all the command calls to 3 layers deep with a lot of renames and that sort of thing. But we are also enhancing…
+
+252
+00:28:37.670 --> 00:28:40.470
+Jeromy Cannon: One shot.
+
+253
+00:28:40.720 --> 00:28:58.090
+Jeromy Cannon: And so, with 43.2 that pushed last week, we exposed some environment variables that allow people to override versions, so if they need to, so that, Alex, if you need to, you can go in there and override the
+
+254
+00:28:58.090 --> 00:29:02.330
+Jeromy Cannon: versions using environment variables, using OneShot.
+
+255
+00:29:02.340 --> 00:29:08.249
+Jeromy Cannon: I know you probably used the more complex one, but if you wanted to use OneShot.
+
+256
+00:29:08.970 --> 00:29:18.679
+Jeromy Cannon: you could, and depending on what you're trying to do. The value styles, though, that doesn't work yet. We're actually in the process of creating one-shot
+
+257
+00:29:18.750 --> 00:29:43.090
+Jeromy Cannon: Falcon, and so Falcon will be, like, the Millennium Falcon, so it's more advanced, and so that one, you'll be able to supply the val- all the different values files, in a single value file, actually. So it'll be one value file, but we'll have, like, you'll have a section for block node, a section for relay, etc, etc, etc, as well as being able to specify all the versions. So.
+
+258
+00:29:43.090 --> 00:29:57.389
+Jeromy Cannon: hopefully, you know, coming up, and I'm not sure what lease number that will be, but once that work is done, you might even, Alex, be able to use, one-shot Falcon, and not have to…
+
+259
+00:29:57.390 --> 00:30:02.449
+Jeromy Cannon: Deal with all of those, you know, 15 different commands, or whatever, how many ever you have.
+
+260
+00:30:03.220 --> 00:30:04.060
+Alex (HashGraph): Great.
+
+261
+00:30:06.110 --> 00:30:07.060
+Jeromy Cannon: Yeah.
+
+262
+00:30:10.500 --> 00:30:16.079
+Jeromy Cannon: Yours is one of a more complex ones, so I'm not sure if we'll hit them all.
+
+263
+00:30:16.240 --> 00:30:23.700
+Jeromy Cannon: perfectly right off the bat, but, like, you know, we'll get it, and then you can give us some feedback, like, I could almost use it if
+
+264
+00:30:23.700 --> 00:30:38.760
+Jeromy Cannon: this, this, this, and this, and then we can look at it, and maybe we can get those incorporated also, so… or give you some environment variable switches or something as a workaround, so that you can still use it, you know, and yeah, so we'll just have to work that out, but…
+
+265
+00:30:39.950 --> 00:30:40.830
+Jeromy Cannon: Yeah.
+
+266
+00:30:42.160 --> 00:30:43.969
+Jeromy Cannon: It's getting more flexible.
+
+267
+00:30:50.310 --> 00:30:52.180
+Jeromy Cannon: What are we setting it to?
+
+268
+00:30:52.980 --> 00:30:54.380
+Nathan Klick (Hashgraph): For sale?
+
+269
+00:30:57.450 --> 00:30:59.300
+Jeromy Cannon: I see, I see you're looking around.
+
+270
+00:30:59.300 --> 00:31:03.050
+Nathan Klick (Hashgraph): I'm gonna go for sailing as 14 days, 2 weeks?
+
+271
+00:31:03.660 --> 00:31:04.550
+Jeromy Cannon: Oh, okay.
+
+272
+00:31:05.420 --> 00:31:10.689
+Nathan Klick (Hashgraph): So it goes stale first, then it goes closed, then it closes.
+
+273
+00:31:10.690 --> 00:31:11.389
+Jeromy Cannon: Oh, okay.
+
+274
+00:31:11.390 --> 00:31:12.910
+Nathan Klick (Hashgraph): number of days.
+
+275
+00:31:16.830 --> 00:31:21.129
+Jeromy Cannon: So what are you gonna… so you said 2 weeks for Stelle, what are you gonna set the close to?
+
+276
+00:31:23.150 --> 00:31:25.210
+Jeromy Cannon: 30? 60?
+
+277
+00:31:25.430 --> 00:31:26.720
+Jeromy Cannon: 30? I don't know.
+
+278
+00:31:28.450 --> 00:31:34.680
+Nathan Klick (Hashgraph): So it's… it's probably… so it's… so what happens? Once it goes stale, then it starts counting the closure time.
+
+279
+00:31:35.950 --> 00:31:38.870
+Nathan Klick (Hashgraph): Right, so…
+
+280
+00:31:40.830 --> 00:31:42.740
+Jeromy Cannon: So, like, 14 more days, I guess?
+
+281
+00:31:44.670 --> 00:31:45.550
+Jeromy Cannon: I don't know.
+
+282
+00:31:45.780 --> 00:31:46.810
+Jeromy Cannon: What you…
+
+283
+00:31:46.960 --> 00:31:47.850
+Nathan Klick (Hashgraph): 7 days?
+
+284
+00:31:47.850 --> 00:31:54.570
+Jeromy Cannon: It's good if we're… it's good if we're consistent, of course. I don't know if we've been already implementing this on other repos, probably have.
+
+285
+00:32:01.580 --> 00:32:05.320
+Nathan Klick (Hashgraph): I don't know, I'm gonna do another 14 for now, and we can change it later.
+
+286
+00:32:05.870 --> 00:32:06.560
+Jeromy Cannon: Okay.
+
+287
+00:32:07.170 --> 00:32:08.090
+Jeromy Cannon: Alright.
+
+288
+00:32:10.470 --> 00:32:13.989
+Nathan Klick (Hashgraph): That gives it basically 28 days before it closes.
+
+289
+00:32:14.620 --> 00:32:15.600
+Jeromy Cannon: Damn.
+
+290
+00:32:16.120 --> 00:32:21.600
+Nathan Klick (Hashgraph): And if they comment on it, or there's an activity on it, it'll reset the stale and the closed timer, you know.
+
+291
+00:32:21.600 --> 00:32:22.370
+Jeromy Cannon: Okay.
+
+292
+00:32:22.370 --> 00:32:22.950
+Nathan Klick (Hashgraph): So.
+
+293
+00:32:22.950 --> 00:32:27.489
+Jeromy Cannon: And then we can always manually close it if we want to, or manually reopen it, so…
+
+294
+00:32:27.490 --> 00:32:28.050
+Nathan Klick (Hashgraph): kidding.
+
+295
+00:32:36.750 --> 00:32:39.139
+Nathan Klick (Hashgraph): Let's just with some examples of comments here.
+
+296
+00:32:40.120 --> 00:32:41.409
+Nathan Klick (Hashgraph): Copyer, just…
+
+297
+00:32:41.410 --> 00:32:42.340
+Jeromy Cannon: Don't really want.
+
+298
+00:32:42.340 --> 00:32:45.020
+Nathan Klick (Hashgraph): Okay. And messaging.
+
+299
+00:33:08.830 --> 00:33:18.810
+Jeromy Cannon: Well, it looks like you're almost done. I mean, I guess we could go ahead and close out the meeting, and then, I can just approve, and we can merge the PR offline.
+
+300
+00:33:19.340 --> 00:33:23.400
+Jeromy Cannon: Do we have any other comments or feedback?
+
+301
+00:33:26.670 --> 00:33:28.030
+Alex (HashGraph): No, looks good.
+
+302
+00:33:28.760 --> 00:33:29.390
+Jeromy Cannon: Yeah.
+
+303
+00:33:29.760 --> 00:33:34.770
+Jeromy Cannon: I appreciate you, writing this up in front of us, Nathan.
+
+304
+00:33:34.930 --> 00:33:35.670
+Jeromy Cannon: Yeah.
+
+305
+00:33:35.830 --> 00:33:37.640
+Nathan Klick (Hashgraph): End this every hour.
+
+306
+00:33:38.400 --> 00:33:40.810
+Jeromy Cannon: You're almost done with it, for the most part, so…
+
+307
+00:33:42.120 --> 00:33:42.960
+Nathan Klick (Hashgraph): Yep.
+
+308
+00:33:43.380 --> 00:33:47.789
+Nathan Klick (Hashgraph): Almost… I think this is pretty much it here.
+
+309
+00:33:48.090 --> 00:34:04.480
+Jeromy Cannon: And then the… for anybody watching, I mean, 2666, is the, GitHub issue, so they can go out there and find the PR, even though they haven't opened the PR yet, so they'll be able to find it, so…
+
+310
+00:34:04.710 --> 00:34:10.520
+Jeromy Cannon: Yeah, so they can always review this offline if they wanted to, to follow along.
+
+311
+00:34:11.840 --> 00:34:13.499
+Jeromy Cannon: See what happened to it.
+
+312
+00:34:14.949 --> 00:34:20.100
+Jeromy Cannon: Alright, well, if ever… if nobody's opposed, so let's go ahead and close the meeting down.
+
+313
+00:34:20.219 --> 00:34:25.490
+Jeromy Cannon: And maybe we'll have a larger attendance next time.
+
+314
+00:34:26.949 --> 00:34:27.849
+Nathan Klick (Hashgraph): Sounds good.
+
+315
+00:34:27.850 --> 00:34:28.889
+Jeffrey: Thank you.
+
+316
+00:34:29.469 --> 00:34:32.219
+Jeromy Cannon: Alright, y'all, everybody have a good day. Talk to y'all later.
+
+317
+00:34:32.219 --> 00:34:33.949
+Alex (HashGraph): You too, thank you, bye.
+

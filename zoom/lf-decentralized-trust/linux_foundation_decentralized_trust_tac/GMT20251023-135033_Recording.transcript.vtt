@@ -1,0 +1,1282 @@
+WEBVTT
+
+1
+00:00:36.770 --> 00:00:43.310
+Tracy Kuhrt: Okay, welcome everybody to the October 23rd LF Decentralized Trust Technical Advisory Council meeting.
+
+2
+00:00:43.600 --> 00:00:49.980
+Tracy Kuhrt: I think most of us have been on the call before, but just a reminder, there are two things that we have to abide by.
+
+3
+00:00:50.220 --> 00:01:01.309
+Tracy Kuhrt: The first is our antitrust policy, so we need to be aware of and not participate in any activities that are prohibited under any of the antitrust and competition laws across the world.
+
+4
+00:01:01.870 --> 00:01:12.780
+Tracy Kuhrt: The second thing that we have to abide by is our code of conduct. While everybody is welcome here, we do need to be respectful of others on the call, their opinions and ideas.
+
+5
+00:01:12.900 --> 00:01:17.970
+Tracy Kuhrt: And we should all get along fine, and if you do need the text for the full code of conduct.
+
+6
+00:01:18.160 --> 00:01:21.340
+Tracy Kuhrt: Please do see the link in the meeting agenda.
+
+7
+00:01:23.870 --> 00:01:31.130
+Tracy Kuhrt: For announcements today, we have the LF Decentralized Trust Dev Weekly Developer Newsletter that goes out each Friday.
+
+8
+00:01:31.240 --> 00:01:41.800
+Tracy Kuhrt: If you do have anything that you would like to include in that newsletter, please do leave a comment for consideration on the link here in the agenda.
+
+9
+00:01:42.260 --> 00:01:54.149
+Tracy Kuhrt: The second announcement is a reminder that the nomination period for the 2026 TAC term has begun. It does end October 31st, which is just over a week away.
+
+10
+00:01:54.290 --> 00:01:59.220
+Tracy Kuhrt: And, it does end the… at the end of day Pacific time.
+
+11
+00:01:59.410 --> 00:02:06.380
+Tracy Kuhrt: There is a mechanism to determine if you're eligible, and that site should be updated.
+
+12
+00:02:06.540 --> 00:02:20.859
+Tracy Kuhrt: And if you are eligible, please do file an issue on GitHub with your nomination statement. There is one statement already there from this year that you can see as a reference if you are interested in seeing what others might have to say already.
+
+13
+00:02:21.940 --> 00:02:34.350
+Tracy Kuhrt: For, the next announcement that we have, November 12th, Wednesday, at 8 AM Pacific time, there is a workshop on cross-network interop with Hyperledger Cacti.
+
+14
+00:02:34.520 --> 00:02:40.279
+Tracy Kuhrt: There is a registration link here in the agenda if you are interested in registering for that workshop.
+
+15
+00:02:40.950 --> 00:02:46.129
+Tracy Kuhrt: The next announcement that we have is that the Maintainer Days registration is now open.
+
+16
+00:02:46.290 --> 00:03:05.700
+Tracy Kuhrt: And there is a registration link also in the agenda that you can use to register. The Maintainers Day event is free for all attendees, and the registration will also include a registration for the LFDT Member Summit that is happening immediately after for the Maintainers.
+
+17
+00:03:06.190 --> 00:03:08.489
+Tracy Kuhrt: That are attending Maintainer Days.
+
+18
+00:03:08.870 --> 00:03:14.500
+Tracy Kuhrt: So, even if you're not part of that LFDT member company who is, part of…
+
+19
+00:03:15.130 --> 00:03:23.719
+Tracy Kuhrt: the LF Decentralized Trust, then you can still attend a member summit if you are a maintainer, attending maintainer case.
+
+20
+00:03:25.340 --> 00:03:41.280
+Tracy Kuhrt: And then the last announcement, I just added the reminder that we did have those two poll requests that we discussed last week in our meeting, so if you do have any updates to those, please do leave your comments so that we can get those updated and bring up in a future video.
+
+21
+00:03:41.550 --> 00:03:42.510
+Tracy Kuhrt: Meeting.
+
+22
+00:03:43.350 --> 00:03:47.040
+Tracy Kuhrt: Any other announcements that anybody has or would like to make today?
+
+23
+00:04:00.650 --> 00:04:09.660
+Tracy Kuhrt: Okay, so… and we'll move on to our quarterly reports. We currently have, 3 quarterly reports in the…
+
+24
+00:04:09.690 --> 00:04:27.850
+Tracy Kuhrt: list to review. That would be the Web3J Q3 report. I believe we're still waiting on the maintainers to respond to some comments there. We also have the CACDAQ4 and the Fabric Q4 reports that have come in and are waiting to be reviewed.
+
+25
+00:04:27.950 --> 00:04:39.250
+Tracy Kuhrt: As of this morning, I think only one of those had any reviews on them, and it was only a single review, so please do review those two reports.
+
+26
+00:04:39.390 --> 00:04:42.290
+Tracy Kuhrt: When you have time to take a look at them.
+
+27
+00:04:43.020 --> 00:04:46.859
+Tracy Kuhrt: For overdue reports, we have,
+
+28
+00:04:47.060 --> 00:05:06.050
+Tracy Kuhrt: some… a number of overdue reports. I did see, Arun, you were reaching out to a few of those this week already, but please do, if you haven't reached out to all of them, reach out to the rest of them and let them know that they do have… that they do have some reports that are overdue.
+
+29
+00:05:07.570 --> 00:05:08.350
+Arun S M: Okay, listen.
+
+30
+00:05:10.370 --> 00:05:27.770
+Tracy Kuhrt: And then for upcoming reports, we have two that are due today, one that we'll probably not get because it is a dormant project, but still leaving it on the list, just so we, keep track of that. And then the other one, which is due in two weeks' time, is the Solan Q4 report.
+
+31
+00:05:31.150 --> 00:05:35.980
+Tracy Kuhrt: Any questions on the reports before we move on to the discussion item for today?
+
+32
+00:05:46.080 --> 00:06:00.689
+Tracy Kuhrt: Okay, if not, then our discussion item for today is the project proposal to move Paladin to incubation. So Matthew, you did submit this. Would you like to take us through, the proposal?
+
+33
+00:06:02.070 --> 00:06:03.920
+Matthew Whitehead (Kaleido): Sure, yeah, thank you, Tracy.
+
+34
+00:06:04.060 --> 00:06:08.580
+Matthew Whitehead (Kaleido): Yeah, I see you've got it, yeah, pulled up there.
+
+35
+00:06:08.990 --> 00:06:17.799
+Matthew Whitehead (Kaleido): So yeah, the PR has been open, probably for nearly a week, I think.
+
+36
+00:06:18.310 --> 00:06:36.900
+Matthew Whitehead (Kaleido): And, several people from Kaleido, particularly from… who have worked on, or, or, or, been instrumental in the development of Paladin and Zeto have joined the course, so we have Peter Broadhurst, some of you may be familiar with Peter from his involvement with Firefly.
+
+37
+00:06:36.900 --> 00:06:52.380
+Matthew Whitehead (Kaleido): And one of the founders of Kaleido, Jim Zhang, similarly on both counts, and has been heavily involved in the Zeto side of the Paladin project, and Andrew Richardson, who has been doing a lot of work on both Firefly and Paladin over, over, the last couple of years.
+
+38
+00:06:53.150 --> 00:07:08.309
+Matthew Whitehead (Kaleido): And just to give a… I guess… I guess, I'm looking for you, Tracy, for a little bit of guidance as to how to kind of go through the proposal, but I was going to suggest maybe I give a quick 5-minute recap of Paladin and why we're bringing this proposal forward.
+
+39
+00:07:08.420 --> 00:07:18.530
+Matthew Whitehead (Kaleido): Maybe perhaps open it to, to some on the Paladin Collado side who may want to chip in with, with some comments and, and, and,
+
+40
+00:07:18.660 --> 00:07:23.370
+Matthew Whitehead (Kaleido): provide some more detail on areas, and then perhaps open it for questions. Is that a good way to go about it, Tracy?
+
+41
+00:07:23.370 --> 00:07:25.749
+Tracy Kuhrt: Sounds like a great, approach.
+
+42
+00:07:25.980 --> 00:07:35.119
+Matthew Whitehead (Kaleido): Great, thank you. And Peter, Andrew, Jim, Enrique, do feel free to chip in as I go through if you think that there are things that I've not covered sufficiently.
+
+43
+00:07:35.220 --> 00:07:41.869
+Matthew Whitehead (Kaleido): So, to give a very high-level overview for those who aren't familiar with Paladin.
+
+44
+00:07:42.350 --> 00:07:52.159
+Matthew Whitehead (Kaleido): Paladin provides, a programmable privacy framework, for EVM blockchains.
+
+45
+00:07:52.720 --> 00:08:05.030
+Matthew Whitehead (Kaleido): And it provides, out of the box, both, two, predefined token formats, which we can talk about more in a moment, notarized tokens and zero-knowledge tokens.
+
+46
+00:08:05.230 --> 00:08:11.430
+Matthew Whitehead (Kaleido): and a programmable privacy domain, which is, called Pente.
+
+47
+00:08:11.850 --> 00:08:14.070
+Matthew Whitehead (Kaleido): And…
+
+48
+00:08:14.450 --> 00:08:25.759
+Matthew Whitehead (Kaleido): the intent of Paladin is to solve the problem of how you achieve privacy on both permissioned and public blockchains.
+
+49
+00:08:26.190 --> 00:08:43.329
+Matthew Whitehead (Kaleido): more specifically, how you… how you can deploy tokens and, have programmability of those tokens, do atomic swaps, DVP-like, processes, with the right level of privacy for your business, environment.
+
+50
+00:08:45.520 --> 00:08:54.049
+Matthew Whitehead (Kaleido): Paladin, for a bit more background on where Paladin sits in the LFDT currently, Paladin is, a… an LFDT lab.
+
+51
+00:08:54.390 --> 00:09:07.999
+Matthew Whitehead (Kaleido): And this proposal is actually referring to two labs, the Paladin lab, as it currently stands, and also the Zeto lab, which was created before the switch over to LFDT, so that's a Hyperledger lab.
+
+52
+00:09:08.030 --> 00:09:16.949
+Matthew Whitehead (Kaleido): And this proposal, includes bringing those two labs together under one LFDT project banner,
+
+53
+00:09:17.130 --> 00:09:20.680
+Matthew Whitehead (Kaleido): Albeit keeping their repositories, their codebases separated.
+
+54
+00:09:21.320 --> 00:09:33.279
+Matthew Whitehead (Kaleido): And the intent is really to take Paladin to the next step along its journey to, maturity, to awareness.
+
+55
+00:09:33.280 --> 00:09:35.739
+Matthew Whitehead (Kaleido): To, a broader audience.
+
+56
+00:09:35.740 --> 00:09:54.200
+Matthew Whitehead (Kaleido): to a… hopefully a growing num… Kind of community of maintainers and developers, and as others, I'm sure we'll talk about when we get into the detail, Paladin is very pluggable, and some of the concepts that are described here about, zero-knowledge tokens and no-trice tokens, and EVM smart contracts.
+
+57
+00:09:54.200 --> 00:10:05.340
+Matthew Whitehead (Kaleido): that are within a privacy group, those are all pluggable, and we encourage people to look at Paladin as a framework into which they can add their own privacy mechanisms.
+
+58
+00:10:06.700 --> 00:10:10.690
+Matthew Whitehead (Kaleido): It's probably worth…
+
+59
+00:10:10.690 --> 00:10:33.680
+Matthew Whitehead (Kaleido): kind of covering from a… I guess, from some of the… some of the aspects of the proposal template for LFDT that pretty much everyone I've named so far has been heavily active in a number of LFDT projects, so they're very familiar with both open source development and the LFDT slash Hyperledger framework, that, those other projects fall under.
+
+60
+00:10:34.970 --> 00:10:42.930
+Matthew Whitehead (Kaleido): Our… our intent is that Paladin will… will have its first major release in the very near future.
+
+61
+00:10:43.410 --> 00:10:51.219
+Matthew Whitehead (Kaleido): And… This proposal somewhat aligns with that, with that process.
+
+62
+00:10:54.600 --> 00:11:07.869
+Matthew Whitehead (Kaleido): Now, I don't… I'm just going to pause there for a second. I've covered a little bit of that context that Tracy's showing about the two independent labs at the moment, and the fact that this is intended to bring them together.
+
+63
+00:11:07.940 --> 00:11:15.570
+Matthew Whitehead (Kaleido): I don't… if you want to scroll down a little further through the proposal, Tracy, maybe I'll just stop you as we go,
+
+64
+00:11:15.760 --> 00:11:34.630
+Matthew Whitehead (Kaleido): there's a bit about… in here about just the fundamental need in the EVM space for privacy. That's a kind of an absolute given now in the blockchain space, and particularly in the EVM space. And just to kind of give a very high level of the solution.
+
+65
+00:11:34.770 --> 00:11:41.090
+Matthew Whitehead (Kaleido): Paladin… acts as, I guess,
+
+66
+00:11:41.250 --> 00:11:48.450
+Matthew Whitehead (Kaleido): An off-chain management, transaction management component to, a base ledger of some sort?
+
+67
+00:11:49.280 --> 00:12:00.430
+Matthew Whitehead (Kaleido): where an example-based ledger might be a permission Besu chain, or another really good example might be a level 1 chain like Ethereum, or a level 2 chain like Linea.
+
+68
+00:12:01.600 --> 00:12:10.980
+Matthew Whitehead (Kaleido): It, it supports, it fully supports EVM, compatible, smart contracts being deployed into privacy groups.
+
+69
+00:12:12.000 --> 00:12:30.870
+Matthew Whitehead (Kaleido): And as I mentioned at the beginning, it supports deploying out of the box, using its predefined token formats, both notarized tokens, where you have a notary as a party who is party to all transactions, and potentially involved in all transactions, and has visibility of them.
+
+70
+00:12:31.020 --> 00:12:41.649
+Matthew Whitehead (Kaleido): But also a zero-knowledge-based token with varying degrees of anonymity and confidentiality based on the needs you have, the gas costs you're willing to consume, and so on.
+
+71
+00:12:41.650 --> 00:12:52.169
+Matthew Whitehead (Kaleido): And if people have questions specifically about the Zeto and the zero-knowledge token side of Paladin, as I said, Jim Zhang is on the call and can go into much more detail about that.
+
+72
+00:12:53.180 --> 00:12:58.969
+Matthew Whitehead (Kaleido): Interestingly, Paladin actually brings in, part of Bessu.
+
+73
+00:12:59.330 --> 00:13:03.070
+Matthew Whitehead (Kaleido): in its actual runtime. So,
+
+74
+00:13:03.440 --> 00:13:10.789
+Matthew Whitehead (Kaleido): if you keep scrolling down a little, I think the effort and resources section just talks a little bit about some of the technologies,
+
+75
+00:13:11.150 --> 00:13:17.099
+Matthew Whitehead (Kaleido): So, Paldin is primarily written in Golang, but as I said, it pulls in,
+
+76
+00:13:17.140 --> 00:13:31.019
+Matthew Whitehead (Kaleido): substantial, libraries from BESU in order to provide, EVM, smart contract execution, and also EVM state management.
+
+77
+00:13:31.020 --> 00:13:49.040
+Matthew Whitehead (Kaleido): So there is a reasonable amount of Java. The privacy group domain, as we call it, called Pente, is written in Java, and that integrates with BESU. So Besu, as a robust, tried and tested technology for EVM execution and state.
+
+78
+00:13:49.210 --> 00:13:59.489
+Matthew Whitehead (Kaleido): We actually reused that existing FDT project inside Paladin in order to run smart contracts and maintain state of smart contracts.
+
+79
+00:14:00.290 --> 00:14:03.850
+Matthew Whitehead (Kaleido): So it's quite a complex project,
+
+80
+00:14:03.980 --> 00:14:17.699
+Matthew Whitehead (Kaleido): there are some quite complex concepts involved in Paladin, and as I said, others on the call, I'm sure, can go into detail on those if people would like to kind of explore some of those further.
+
+81
+00:14:18.490 --> 00:14:23.740
+Matthew Whitehead (Kaleido): I guess one more minute, and then I think I'll probably stop talking.
+
+82
+00:14:24.230 --> 00:14:35.249
+Matthew Whitehead (Kaleido): we've been working towards Paladin having quite a… quite a good getting started experience already, so, both the GitHub repo and the Paladin documentation
+
+83
+00:14:35.270 --> 00:14:44.349
+Matthew Whitehead (Kaleido): Has, really clear getting started guides for developers, getting started tutorials for users.
+
+84
+00:14:44.490 --> 00:14:54.090
+Matthew Whitehead (Kaleido): And our documentation maturity is an area we've been focusing on recently as we move towards a V1 release.
+
+85
+00:14:54.180 --> 00:15:13.040
+Matthew Whitehead (Kaleido): So, Paladin's in a pretty good state now for other maintainers, other contributors to come to the project and start contributing to it. And from a user point of view, some coming to Paladin to use it and understand what it offers, understand its architecture and where it fits in the rest of the EVM landscape.
+
+86
+00:15:13.090 --> 00:15:17.070
+Matthew Whitehead (Kaleido): The Paladin docs that I've included some links to.
+
+87
+00:15:17.360 --> 00:15:27.539
+Matthew Whitehead (Kaleido): are pretty mature now, and they give a really good overview of a lot of those areas that people would expect of an incubating LFDT project.
+
+88
+00:15:29.300 --> 00:15:52.469
+Matthew Whitehead (Kaleido): So I'm gonna… I'm gonna pause there. I didn't want to go too far down any one avenue. I think maybe just before we invite questions, I… I'll just invite anyone from the Paladin or Zeto, development side, so Peter, Andrew, Jim, Enrique, is there anything you feel would be really useful to highlight that I've kind of perhaps skimmed over at all?
+
+89
+00:15:52.470 --> 00:16:07.969
+Peter Broadhurst (Kaleido): Yeah, and I'd like to stay up… this is Peter here. I'd like to stay just at the high level for the moment. So, why the Linux Foundation? Why, why, why does this project fit? And there's a few things I just want to double-click on from what… what Matt said.
+
+90
+00:16:07.970 --> 00:16:17.099
+Peter Broadhurst (Kaleido): So, the first is really, the enterprise needs for privacy. So, there are…
+
+91
+00:16:17.160 --> 00:16:38.330
+Peter Broadhurst (Kaleido): the use of EVM, as a programming model for truly shared ledgers is something that's got this great traction, this great momentum in the world. And that's fantastic. But we found, and this actually came a couple of years ago now from a Linux Foundation event for BESU,
+
+92
+00:16:38.330 --> 00:16:49.679
+Peter Broadhurst (Kaleido): But there's this real challenge for these projects to get past, the experimentation space into real, genuine production, thinking about…
+
+93
+00:16:49.770 --> 00:17:07.440
+Peter Broadhurst (Kaleido): Currencies of the whole of the country, ecosystems for, fully regulated, securities in, like, within a regulatory jurisdiction. To really get those to production, you can't skim over, the requirement for, for privacy.
+
+94
+00:17:08.040 --> 00:17:18.150
+Peter Broadhurst (Kaleido): And the needs, from an enterprise perspective, are quite different from the needs from a pureist, Web3 perspective.
+
+95
+00:17:18.150 --> 00:17:28.280
+Peter Broadhurst (Kaleido): And there wasn't really a project out there at the time that Paladin started that was tackling that head-on, that was really thinking about the enterprise needs first.
+
+96
+00:17:28.319 --> 00:17:41.540
+Peter Broadhurst (Kaleido): Now, what's really interesting about Paladin is it did not start by thinking about the problem as what we really need is a super clever piece of cryptography which is going to solve… solve privacy.
+
+97
+00:17:41.540 --> 00:17:54.440
+Peter Broadhurst (Kaleido): it explicitly did not take that approach. There was lots of clever, cryptography approaches, like zero-knowledge proofs and stuff inside of there, but that is not what you should think of like the Paladin project.
+
+98
+00:17:54.440 --> 00:18:03.330
+Peter Broadhurst (Kaleido): Instead, what it said was, enterprises, just like with completely open tokens, like ERC20s.
+
+99
+00:18:03.330 --> 00:18:15.349
+Peter Broadhurst (Kaleido): Where they can use their keys, they know how to connect, they know how to integrate, and then users do as well with MetaMask and the like. This world of privacy-enabled smart contracts
+
+100
+00:18:15.610 --> 00:18:34.519
+Peter Broadhurst (Kaleido): It's not only hard to build, but my goodness me, how on earth do you use it? How do you connect to it? How do you integrate with it? How do you write your own smart contracts? How do you create ecosystems where one company produces the token, another company produces the assets.
+
+101
+00:18:34.520 --> 00:18:39.790
+Peter Broadhurst (Kaleido): And then a third company maybe is creating the market-making in the middle.
+
+102
+00:18:39.800 --> 00:18:53.210
+Peter Broadhurst (Kaleido): Well, if you kind of have to build everything inside of one super special, interesting cryptography world, then it's not an ecosystem. It's one organization that's built one clever piece of cryptography.
+
+103
+00:18:53.210 --> 00:19:00.079
+Peter Broadhurst (Kaleido): and everyone just has to fit inside of it. So Paladin, while it comes with these great reference implementations.
+
+104
+00:19:00.080 --> 00:19:24.650
+Peter Broadhurst (Kaleido): The belief of the Paladin community is that they're actually leading class in their own rights. That's not what Paladin is about. Paladin's about proving that those, and the things that are going to supersede them in a year's time, the new cryptography that's going to come along, the new engines, the upgraded smart contract engines, etc, all of these that come along.
+
+105
+00:19:24.970 --> 00:19:49.609
+Peter Broadhurst (Kaleido): you can build solutions now that are future-proof, because that's the point of EVM. And it's about bringing that promise, this minimum viable ecosystem promise that's been so amazing for public Web3, bringing that to enterprise in a truly open and modular way. So I said, I worked for Waffle for quite a long time, that I'd, I'd, like, bring it back to why
+
+106
+00:19:49.610 --> 00:20:05.380
+Peter Broadhurst (Kaleido): Foundation, and that's because it really is about an open approach to this, which is about if somebody's got a token that they want to bring to Paladin, there's a way to plug it in. It's, if you want to build an ecosystem that's open.
+
+107
+00:20:05.380 --> 00:20:07.810
+Peter Broadhurst (Kaleido): It's about being able to do that.
+
+108
+00:20:07.840 --> 00:20:29.550
+Peter Broadhurst (Kaleido): in an enterprise context, and build a truly open ecosystem. And we think that that's one of the reasons why it's had so much engagement from so many organizations, where… I mean, we're talking probably over 50 large financial institutions that are… that are engaged actively with it right now, because there is this real… real need, to… to sort of…
+
+109
+00:20:29.550 --> 00:20:37.410
+Peter Broadhurst (Kaleido): Get past this barrier of adoption that exists in enterprise blockchain if we don't solve the privacy problem.
+
+110
+00:20:39.290 --> 00:20:49.600
+Peter Broadhurst (Kaleido): Hey, Jim here. I'd like to jump in with a few more comments on Zito, but before I do that, I see Tracy's hand is up. Tracy, did you want to go first?
+
+111
+00:20:50.100 --> 00:21:01.079
+Tracy Kuhrt: No, if there's more to add, please add it, and then I'll ask my questions, because you may actually answer one of the questions that I have, so… I'll let you guys do your thing first, and then I'll ask my question.
+
+112
+00:21:01.300 --> 00:21:02.380
+Peter Broadhurst (Kaleido): Okay, thanks, Jason.
+
+113
+00:21:03.270 --> 00:21:15.420
+Peter Broadhurst (Kaleido): Yeah, if you scroll all the way back up to the beginning of the document, I'd like to call out some of the, contributions from research… from a very talented research team from
+
+114
+00:21:15.620 --> 00:21:30.670
+Peter Broadhurst (Kaleido): UC Berkeley and UNC Chapel Hill. So Zeto, some of you may have seen the code, but you may not realize that Zeto as a domain implementation for Paladin is not just one token.
+
+115
+00:21:30.670 --> 00:21:39.330
+Peter Broadhurst (Kaleido): It's a collection of, I think, at the current count, 11 tokens that, depends on your specific policy needs.
+
+116
+00:21:39.330 --> 00:21:55.979
+Peter Broadhurst (Kaleido): within the zero-knowledge proof, what kind of policy do you need to prove? You pick your token so that you don't have to bear the burden of doing everything in heavy cryptography if you didn't need that kind of additional policies, so…
+
+117
+00:21:55.980 --> 00:22:13.539
+Peter Broadhurst (Kaleido): One of the implementations, I think, is likely the first in the world where post-quantum encryption was performed inside a zero-knowledge-proofed circuit, so that the ciphertext that results from that is guaranteed to be
+
+118
+00:22:13.540 --> 00:22:28.420
+Peter Broadhurst (Kaleido): decipherable by the, by the receiver, in this case, a auditor. So that was a, collaboration with, this research team in, Berkeley and, UNC. In fact, Hart himself.
+
+119
+00:22:28.420 --> 00:22:36.680
+Peter Broadhurst (Kaleido): In his pers- you know, personal time when he's not traveling, was also involved in this effort. So just want to call this out.
+
+120
+00:22:36.680 --> 00:22:41.229
+Peter Broadhurst (Kaleido): And, and, very exciting to, to hear about your thoughts.
+
+121
+00:22:45.540 --> 00:22:51.510
+Peter Broadhurst (Kaleido): So, Tracy, I think that's the team's… she had lots of information there, so I'd love to move to the questions.
+
+122
+00:22:51.510 --> 00:23:03.529
+Tracy Kuhrt: Okay, sounds great. So I actually have 3 questions. We'll take them one by one, but the first question I have is around, are there currently any adopters for Paladin and Zito?
+
+123
+00:23:03.530 --> 00:23:11.740
+Tracy Kuhrt: That are using the projects as they exist today? Or, is that one of the things that is hoped to be…
+
+124
+00:23:11.740 --> 00:23:17.719
+Tracy Kuhrt: Kind of… Gotten, if you will, from moving to an incubation-type stage.
+
+125
+00:23:18.410 --> 00:23:43.030
+Peter Broadhurst (Kaleido): Adoption is definitely actually very high on Paladin. A lot of independent adoption, not even just, that Kaleido as, sort of instigators of the project, are directly involved in. There are very large organizations, I'm afraid, I'm not sure I'm actually able to mention them by name, but if you, if you were to look at recent announcements, in the industry,
+
+126
+00:23:43.030 --> 00:23:46.090
+Peter Broadhurst (Kaleido): and when people are talking about EVM and privacy together.
+
+127
+00:23:46.090 --> 00:23:57.169
+Peter Broadhurst (Kaleido): Talking about that in the context of public chains, for example, or large financial institutions, like, thinking about how to work with public chains, large international institutions.
+
+128
+00:23:57.170 --> 00:24:07.790
+Peter Broadhurst (Kaleido): working together to build new forms of currency, you'll be very likely to find somewhere in that mix that Paladin is involved.
+
+129
+00:24:07.790 --> 00:24:20.650
+Peter Broadhurst (Kaleido): So, so I, I, you know, it wasn't, it, it was, like, I… I personally have been directly working with,
+
+130
+00:24:20.720 --> 00:24:39.110
+Peter Broadhurst (Kaleido): dozens of financial institutions which are, are engaging directly with Paladin. So, there was a lot of traction on that side, and that's not actually really the reason for the incubation push. Actually, the reason is that these are not toy projects.
+
+131
+00:24:39.230 --> 00:24:51.639
+Peter Broadhurst (Kaleido): These are projects that want to get aggressively to production, real, genuine production. And, actually, that means that
+
+132
+00:24:51.650 --> 00:25:04.710
+Peter Broadhurst (Kaleido): Paladin, from the beginning, has been very enterprise-focused, so, quality has been very much a focus of Paladin, but there's a phase of hardening, like a V1 journey that a project needs to go on,
+
+133
+00:25:04.710 --> 00:25:28.670
+Peter Broadhurst (Kaleido): Matt hasn't talked about it, but there's, like, a whole internal brain engine upgrade happening at the moment. There's… that kind of style of engineering is where Paladin is up to. It's proven its value. It's got to work fast, at scale, it's got to, be able to be relied upon for high-value, real financial…
+
+134
+00:25:28.670 --> 00:25:40.230
+Peter Broadhurst (Kaleido): Transactions, and that means it needs that level of scrutiny that comes with, with, the incubating, status.
+
+135
+00:25:40.270 --> 00:25:57.310
+Peter Broadhurst (Kaleido): And, it needs the level of, sort of, focus on hardening that comes from bringing something from a prove-it-has-fit, stage to really prove it can scale and be used at the next phase.
+
+136
+00:25:57.310 --> 00:26:02.859
+Peter Broadhurst (Kaleido): Was that helpful, Tracy, in terms of the why for the incubating phase?
+
+137
+00:26:02.860 --> 00:26:14.849
+Tracy Kuhrt: Yeah, definitely. And just a follow-on question to the adopters. Do you foresee any of those adopters that are currently working with the Paladin
+
+138
+00:26:14.850 --> 00:26:25.549
+Tracy Kuhrt: becoming future maintainers? Is there anybody on track for that? Is there anybody thinking about that? Just curious as to how you see that kind of playing out.
+
+139
+00:26:25.820 --> 00:26:34.600
+Peter Broadhurst (Kaleido): That's a really great question. Maybe I'll start, and Jim and Matt might chime in as well. Yes, we do. I think…
+
+140
+00:26:34.770 --> 00:26:50.030
+Peter Broadhurst (Kaleido): there's a journey there for any organization working with this, that what they care about, I think quite correctly, is their use case. first, the smart contracts, the ecosystem, and developing.
+
+141
+00:26:50.110 --> 00:26:56.830
+Peter Broadhurst (Kaleido): And the journey to dedicating the level of real protocol expertise it takes
+
+142
+00:26:56.850 --> 00:27:13.799
+Peter Broadhurst (Kaleido): to engage with a sophisticated runtime that's, you know, treats something like BESU as a small module, one of, like, 50 inside of the… inside of the engine. It is… it is, like, real,
+
+143
+00:27:14.060 --> 00:27:25.779
+Peter Broadhurst (Kaleido): it's hardcore engineering to contribute to the core of Paladin. So where… so, and in terms of, are these adopters looking at
+
+144
+00:27:25.780 --> 00:27:36.589
+Peter Broadhurst (Kaleido): Stumping that up, yes, I… we're definitely having conversations with lots of them that are. Again, I don't feel the confidence to name… to name names here of…
+
+145
+00:27:36.590 --> 00:27:51.250
+Peter Broadhurst (Kaleido): the specific organizations that I'm thinking of, but yes, I do believe that there are real organizations that are thinking about the right way to do that. And I think there's kind of three ways that they might. One is, around…
+
+146
+00:27:51.680 --> 00:27:54.459
+Peter Broadhurst (Kaleido): How do you,
+
+147
+00:27:54.650 --> 00:28:03.080
+Peter Broadhurst (Kaleido): how do you extend it with new reference plugins for token economies? So if you think…
+
+148
+00:28:03.500 --> 00:28:20.880
+Peter Broadhurst (Kaleido): of a privacy-preserving stablecoin being launched onto the mainnet, but wants to get access to enterprise adoption, you need a privacy-preserving wallet. So I think that that's somewhere where we expect to see adoption,
+
+149
+00:28:21.110 --> 00:28:23.379
+Peter Broadhurst (Kaleido): Turn into contribution.
+
+150
+00:28:23.380 --> 00:28:41.309
+Peter Broadhurst (Kaleido): through adding in modules. We've talked about Zeto being a sort of homegrown module inside of Paladin. Well, what about a module completely outside of there that's, I don't know, fully homomorphic encryption, or a, a very Web3-focused
+
+151
+00:28:41.350 --> 00:28:58.550
+Peter Broadhurst (Kaleido): DeFi-focused, rather than enterprise-focused token model. A Railgun, for example, was an interesting question from Railgun in one of the presentations on Paladin, some time back. You know, you think about that as one route in, I think we'll see… we'll see contribution.
+
+152
+00:28:58.810 --> 00:29:05.279
+Peter Broadhurst (Kaleido): Second is, packaging and deployment and rollouts.
+
+153
+00:29:05.280 --> 00:29:23.719
+Peter Broadhurst (Kaleido): That's an area where we may see additional parties coming in. I think a third, is… is chains that want to come to enterprise. And here we are, I actually would think they would be very happy for me to mention them, as they were sort of a friend of…
+
+154
+00:29:23.720 --> 00:29:39.439
+Peter Broadhurst (Kaleido): Kaleido and, and a great friend of, of the Linux Foundation, I know Consensus, and the Linear team, have been, been, working a lot with Paladin, so… so that's an area where we may well see, contribution, because
+
+155
+00:29:39.440 --> 00:29:46.769
+Peter Broadhurst (Kaleido): making sure Paladin works seamlessly with an L2 ecosystem. You can see the benefits there.
+
+156
+00:29:47.430 --> 00:30:03.489
+Peter Broadhurst (Kaleido): And that extends a little bit more to one maybe I'm less confident in talking about, of an ecosystem that maybe is like, well, just a minute, not on the token side, but on the EVM side. We talked about, it's called Pente, the next generation of Tessera.
+
+157
+00:30:03.490 --> 00:30:08.580
+Peter Broadhurst (Kaleido): But it's just one of the modules inside of Paladin, and that lets you write EVM smart contracts.
+
+158
+00:30:08.580 --> 00:30:33.030
+Peter Broadhurst (Kaleido): that run inside of BESU. When you think about, a zero-knowledge proof roll-up toolkit that's running L2s, well, they might see… they also care about enterprise, and they also care about, about privacy. You might see them wanting to put modules into Paladin to say, oh, instead of running, as the BESU Pente implementation does, just signature collection, just like Tesla are used to.
+
+159
+00:30:33.030 --> 00:30:41.120
+Peter Broadhurst (Kaleido): signature collection to verify we've agreed on the smart contract logic. What about zero knowledge proof roll-ups?
+
+160
+00:30:41.250 --> 00:31:00.009
+Peter Broadhurst (Kaleido): as a way to run an EVM inside of, inside of Paladin. Well, that also fits inside of Paladin. So there's lots of routes in, for… for sort of coming and doing it, and I think where we'll see that really happen is where the adoption meets the… meets the use… the use cases.
+
+161
+00:31:00.060 --> 00:31:15.529
+Peter Broadhurst (Kaleido): That was a long answer, Tracy, but lots of different directions where we expect to see that corner getting turned, and we expect to see the move to incubation actually be a real signal, that the project's ready to receive that.
+
+162
+00:31:16.540 --> 00:31:40.529
+Tracy Kuhrt: I love the answer, Peter. I think it's great, and I think the places that you called out are probably good things to have somewhere out front for people to… who might be new to the project, right, coming in and having a look and say, oh, this is some place that I might be able to contribute. You know, those examples were great examples of places that people might, you know, really find some interest in,
+
+163
+00:31:40.530 --> 00:31:43.279
+Tracy Kuhrt: Digging in and putting some thought to…
+
+164
+00:31:43.280 --> 00:31:46.630
+Tracy Kuhrt: Contributing. So, great answer.
+
+165
+00:31:47.080 --> 00:31:49.520
+Peter Broadhurst (Kaleido): Oh, I love the suggestion,
+
+166
+00:31:49.550 --> 00:32:02.770
+Peter Broadhurst (Kaleido): Matt, Gemini, and Andrew will take that away and consider that, a, like, an urgent priority in terms of the next, sort of, couple of weeks, and making sure that we, we sort of bump up some of that, that material.
+
+167
+00:32:02.770 --> 00:32:13.299
+Peter Broadhurst (Kaleido): There are quite a few different APIs, as you can imagine, on Paladin. Some of them are about using Paladin, and we've got lots of really good documentation on that.
+
+168
+00:32:13.300 --> 00:32:26.990
+Peter Broadhurst (Kaleido): Some of them are about extending and adding modules into Paladin, and there's some great diagrams, and there's a lot of internal, like, gRPC interface comments. There isn't quite yet a, how do I, like, oh, I want to build the next
+
+169
+00:32:26.990 --> 00:32:35.460
+Peter Broadhurst (Kaleido): Zito, I want to build the next Pente, how do I do that? And I think that's an area we could actually take a real concrete action, over the next couple of weeks.
+
+170
+00:32:35.640 --> 00:32:39.090
+Tracy Kuhrt: Yeah, sounds great. Okay.
+
+171
+00:32:39.380 --> 00:32:48.639
+Peter Broadhurst (Kaleido): If somebody else does have a question, please raise your hand, because I have two more that I'd like to ask, and I don't want to monopolize the time, but since I don't see any other hands…
+
+172
+00:32:48.640 --> 00:32:57.090
+Tracy Kuhrt: I'm gonna continue. My next question is around… you mentioned, Peter, in your discussion at the beginning.
+
+173
+00:32:57.510 --> 00:33:00.739
+Tracy Kuhrt: A comment that made me think about…
+
+174
+00:33:00.970 --> 00:33:18.139
+Tracy Kuhrt: it was… at the beginning, when we put this together, there was nothing else like this out there. Is there now anything starting or in progress, that is like this type of project in the overall Ethereum ecosystem that
+
+175
+00:33:18.250 --> 00:33:29.119
+Tracy Kuhrt: maybe, you know, the team might want to reach out to you and see about having them contribute to Paladin, rather than start their own new thing.
+
+176
+00:33:29.280 --> 00:33:47.150
+Peter Broadhurst (Kaleido): Yeah, so that's a great point. Maybe I'll start this, and I'll hand over to Matt or Jim to talk a little bit more. So, there's a lot of very active conversations happening with the Ethereum Foundation, actually, at the moment, and other organizations in the EVM space, like EA, who are all thinking, well, just a minute.
+
+177
+00:33:47.150 --> 00:33:52.480
+Peter Broadhurst (Kaleido): We've kind of solved scale. Privacy's the next big barrier to adoption of this whole.
+
+178
+00:33:52.480 --> 00:34:03.690
+Peter Broadhurst (Kaleido): great new Web3 world that we've, we've got started on, here, particularly for the EVM, and Ethereum sort of place, in the world.
+
+179
+00:34:03.690 --> 00:34:14.839
+Peter Broadhurst (Kaleido): And there are some other projects that have popped up. There's a particular one which, Matt or Jen will help me remember the name of, which is like a browser-native version of this, like a much more…
+
+180
+00:34:14.960 --> 00:34:24.909
+Peter Broadhurst (Kaleido): Sorry, Kohaku. Kohaku. And that's, and that's kind of saying, if you imagine end-user Web3 adoption of privacy technologies.
+
+181
+00:34:24.909 --> 00:34:35.019
+Peter Broadhurst (Kaleido): People are used to a world where it's just MetaMask, it just fits into my mobile, it fits into my web browser, and I want to be able to plug in all these privacy technologies.
+
+182
+00:34:35.110 --> 00:34:43.889
+Peter Broadhurst (Kaleido): And that's coming in at a very, sort of, fully decentralized, end-user Web3-in way to this.
+
+183
+00:34:44.060 --> 00:35:01.500
+Peter Broadhurst (Kaleido): And Paladin's coming in a bit, a little bit more from the… we're an enterprise, we know we're gonna need an enterprise-grade engine at the boundary of organization. We've probably got 100,000 customers that are gonna trust us.
+
+184
+00:35:01.530 --> 00:35:20.349
+Peter Broadhurst (Kaleido): to be their gateway to this Web3 world. I need an engine that sits there, and maybe I'm going to be issuing these tokens, not just helping people hold them and do custody on them. I'm going to be issuing them as a large financial institution. So coming at the same problem from two different ends, I think, is the case.
+
+185
+00:35:20.440 --> 00:35:28.700
+Peter Broadhurst (Kaleido): Then there are then tens and tens and tens of projects popping up, which are…
+
+186
+00:35:28.880 --> 00:35:47.210
+Peter Broadhurst (Kaleido): still the approach of, I've got a new shiny way to do privacy. That… those are popping up all the… all the time. And there still seems to be a little bit of a gap that we hope the incubation face, and also the engagement with the EF can help with, of how do those creators of tokens, those creators of privacy.
+
+187
+00:35:47.230 --> 00:35:52.600
+Peter Broadhurst (Kaleido): Like, make themselves pluggable to enterprise and wallets.
+
+188
+00:35:52.750 --> 00:36:06.459
+Peter Broadhurst (Kaleido): And where Compallism fits in with that, and we actually have a journey towards proposing an EIP standard, which is happening in that space, to try and make, like ERC20 said, look, here's a very simple standard that would be the boundary of all your tokens.
+
+189
+00:36:06.460 --> 00:36:12.810
+Peter Broadhurst (Kaleido): That lets them interoperate together, have atomic transactions across them, program across them.
+
+190
+00:36:12.810 --> 00:36:19.350
+Peter Broadhurst (Kaleido): how about, there's, maybe an EIP standard that's a similar sort of approach?
+
+191
+00:36:19.570 --> 00:36:24.609
+Peter Broadhurst (Kaleido): That could be used for interoperability between privacy tokens.
+
+192
+00:36:24.860 --> 00:36:44.090
+Peter Broadhurst (Kaleido): And that's an area where we're… we're… we're working hard behind the scenes to get it right, and where right means it's the right shape to engage with the community properly. So we're talking to the F about it, but it's not quite the shape yet to be… to be proposed.
+
+193
+00:36:44.160 --> 00:36:49.409
+Peter Broadhurst (Kaleido): And I don't know if Matt or Jim want to talk a little bit more about the journey there, and where we are on this… on…
+
+194
+00:36:49.550 --> 00:36:51.429
+Peter Broadhurst (Kaleido): On… on that journey.
+
+195
+00:36:51.530 --> 00:36:58.180
+Peter Broadhurst (Kaleido): Yeah, yeah, there's a lot of excitement, for sure. We're quite proud that we sort of
+
+196
+00:36:59.180 --> 00:37:10.140
+Peter Broadhurst (Kaleido): We're tackling… starting to tackle privacy ahead of anybody else, because, you know, since we live in the enterprise world, privacy is front and center.
+
+197
+00:37:10.190 --> 00:37:21.959
+Peter Broadhurst (Kaleido): So now the whole Web3 ecosystem are all focused… a lot of talents on privacy, and a lot of them bring,
+
+198
+00:37:22.030 --> 00:37:28.579
+Peter Broadhurst (Kaleido): a lens of, I'm gonna use smart cryptography to solve this, versus,
+
+199
+00:37:28.790 --> 00:37:48.590
+Peter Broadhurst (Kaleido): you know, there are practical ways to do this, too, so Paladin is trying to not be opinionated, and is trying to accommodate all these different approaches, and at the end of the day, Paladin is a framework that'll continue to grow, so we're very excited to see how Paladin will help with the roadmap.
+
+200
+00:37:51.820 --> 00:38:04.050
+Tracy Kuhrt: All right, thank you. And then my last question is very different than my other questions. The last question is around the CIRCOM library, that ZATO is using.
+
+201
+00:38:04.250 --> 00:38:09.769
+Tracy Kuhrt: Is that the one that is LGPL licensed, and what kind of implement…
+
+202
+00:38:10.240 --> 00:38:14.919
+Tracy Kuhrt: implications does that have for, bringing something to LFDT?
+
+203
+00:38:15.630 --> 00:38:23.530
+Peter Broadhurst (Kaleido): Yeah, that's a good question. So, CIRCOM, I've been talking with the, the…
+
+204
+00:38:23.600 --> 00:38:41.669
+Peter Broadhurst (Kaleido): founders of IDEN3, professor in the university in Spain, about the licensing. So, he personally said there's no problem of using CIRCOM, which is sort of a generation library. It's kind of a tool.
+
+205
+00:38:41.670 --> 00:38:45.819
+Peter Broadhurst (Kaleido): So that you use it to generate the runtime assembly.
+
+206
+00:38:45.820 --> 00:38:52.629
+Peter Broadhurst (Kaleido): And he's… he said, many teams have taken this approach to say that,
+
+207
+00:38:52.630 --> 00:39:09.669
+Peter Broadhurst (Kaleido): the, LF… the, GPL, licensed code, should continue to have GPL, but the generated code, running those in an enterprise setting, there's no problem with this usage pattern.
+
+208
+00:39:09.670 --> 00:39:17.719
+Peter Broadhurst (Kaleido): At the same time, we're also talking with them about changing the codebase to Apache 2 to be more friendly to
+
+209
+00:39:17.720 --> 00:39:29.950
+Peter Broadhurst (Kaleido): enterprise adoption, and they are pretty acceptive to this suggestion. Some of the libraries have already been converted to Apache 2, but not all.
+
+210
+00:39:31.660 --> 00:39:44.700
+Peter Broadhurst (Kaleido): Just a note, and I wonder if Heart had any other comments on this one, because this was a very hot topic. Zito was the first thing to be open sourced as part of the Paladin journey.
+
+211
+00:39:44.700 --> 00:40:02.659
+Peter Broadhurst (Kaleido): actually went slightly ahead of the original Paladin, lab submission, because, you know, getting zero-knowledge proofs right is so important. You wanted to be out there in the world as early as possible. So a lot of these conversations happened then. I don't know if, Hart, you had any comments
+
+212
+00:40:02.710 --> 00:40:06.950
+Peter Broadhurst (Kaleido): From your recollection of how we went through that conversation at the time?
+
+213
+00:40:07.990 --> 00:40:11.069
+Hart Montgomery: Are you referring to the SERCOM conversation, Peter?
+
+214
+00:40:11.070 --> 00:40:14.159
+Peter Broadhurst (Kaleido): Yeah, Circum, and the LGPL.
+
+215
+00:40:14.760 --> 00:40:20.749
+Hart Montgomery: You know, my recollection is this falls under the linking exception, right?
+
+216
+00:40:23.470 --> 00:40:29.949
+Peter Broadhurst (Kaleido): Yeah, very much so. I think that was what Jim was, was saying from the conversations with the…
+
+217
+00:40:30.040 --> 00:40:44.079
+Peter Broadhurst (Kaleido): with the maintainers of Circum itself, was that they see it that way, within Circum. It's fully covered by the linking, the dynamic linking provision in LGPL.
+
+218
+00:40:46.700 --> 00:40:50.410
+Peter Broadhurst (Kaleido): I guess I was more meaning in terms of.
+
+219
+00:40:51.460 --> 00:40:51.950
+Hart Montgomery: It…
+
+220
+00:40:51.950 --> 00:41:15.179
+Peter Broadhurst (Kaleido): still unusual for LFDT to accept in code that has a touch with LGPL, and whether, there's any more conversation you feel needed on that as part of the move into incubation status, or maybe that's an offline thing to see, and maybe have a chat with Tracy about whether
+
+221
+00:41:15.180 --> 00:41:18.869
+Peter Broadhurst (Kaleido): The analysis that was done as part of the lab,
+
+222
+00:41:18.870 --> 00:41:25.159
+Peter Broadhurst (Kaleido): Like, it just carries forward to the incubation phase, or we need to sort of redo some of that for the incubation phase?
+
+223
+00:41:28.700 --> 00:41:31.229
+Tracy Kuhrt: Yeah, I think, from my perspective.
+
+224
+00:41:31.510 --> 00:41:35.500
+Tracy Kuhrt: Heart, it's more a question of, is there gonna be any problems?
+
+225
+00:41:36.220 --> 00:41:44.080
+Tracy Kuhrt: Foundation Decentralized trust, and the Greater Linux Foundation in bringing this project to…
+
+226
+00:41:44.520 --> 00:42:00.900
+Tracy Kuhrt: incubation, if we are using a library that has the LGPL. And if it's, you know, if there's an exception based on linking, then it's probably not a problem, but I just want to make sure no issues before we go forward and have a vote, or whatever the case.
+
+227
+00:42:00.900 --> 00:42:01.460
+Hart Montgomery: Maybe.
+
+228
+00:42:02.810 --> 00:42:06.520
+Tracy Kuhrt: Yeah, I don't think there should be any issues, obviously not a lawyer.
+
+229
+00:42:06.520 --> 00:42:12.889
+Hart Montgomery: Sure, I'm not even… I think we need… yeah, I think we need to document this.
+
+230
+00:42:13.020 --> 00:42:18.479
+Hart Montgomery: But, generally speaking, if we have in correspondence that the authors have
+
+231
+00:42:18.670 --> 00:42:21.620
+Hart Montgomery: Said it's a linking exception, we're probably fine.
+
+232
+00:42:22.560 --> 00:42:32.230
+Hart Montgomery: We have taken projects into incubation, that… Inadvertently have…
+
+233
+00:42:33.460 --> 00:42:36.630
+Hart Montgomery: Bad license dependencies that we've had to fix out later?
+
+234
+00:42:37.290 --> 00:42:41.389
+Hart Montgomery: so, this one is not especially worrisome for me.
+
+235
+00:42:42.840 --> 00:42:44.170
+Hart Montgomery: And it's not the code.
+
+236
+00:42:45.040 --> 00:42:49.639
+Hart Montgomery: Sorry, the code is not… the CIRCOM code is not going in LFDT.
+
+237
+00:42:49.640 --> 00:42:50.490
+Tracy Kuhrt: Correct.
+
+238
+00:42:51.000 --> 00:42:56.569
+Hart Montgomery: So, it's… It's just, it's a purely external dependency.
+
+239
+00:42:58.270 --> 00:42:59.340
+Tracy Kuhrt: Okay, great.
+
+240
+00:42:59.340 --> 00:43:24.040
+Peter Broadhurst (Kaleido): Just one note, and maybe this is something that might get in the docks or not. If you were an enterprise coming to this project, and as an enterprise you were worried about this aspect at all, you would be able to use the project and most of the features of it without needing this, because the only usage is inside of an optional module.
+
+241
+00:43:25.580 --> 00:43:44.440
+Peter Broadhurst (Kaleido): You obviously couldn't experiment with zero-knowledge proofs, with the project, but you could experiment with privacy as a whole, and all of the other approaches, and the issuer-backed tokens approach, and the privacy groups, and the use of BESU, ephemeral EVMs, and all of that. You could do all of that.
+
+242
+00:43:44.440 --> 00:43:54.970
+Peter Broadhurst (Kaleido): And you could choose then, if you wanted to use Zero Knowledge Boost, you could choose to bring your own toolkit and plug in Zero Knowledge Boost. So it's not like, the project is…
+
+243
+00:43:55.110 --> 00:44:06.150
+Peter Broadhurst (Kaleido): is, not usable by an organization if they chose themselves to, to want to use it without this, without Circum at all.
+
+244
+00:44:08.780 --> 00:44:20.410
+Tracy Kuhrt: Okay, great. Thank you for answering the questions. I think there is a question from Arun. Did we want to talk about that live here instead of in the chat?
+
+245
+00:44:20.860 --> 00:44:21.380
+Tracy Kuhrt: Bruton.
+
+246
+00:44:21.380 --> 00:44:24.389
+Matthew Whitehead (Kaleido): Yeah, I just… yeah, thanks, Tracy. Yeah,
+
+247
+00:44:24.680 --> 00:44:38.269
+Matthew Whitehead (Kaleido): Yeah, so I guess, I don't know if you have visibility of the chat. Peter, I really had a question about, key exchange between Paladin notes. I didn't know if that was something you wanted to touch on briefly, connectivity and key information.
+
+248
+00:44:38.270 --> 00:44:48.900
+Peter Broadhurst (Kaleido): It's… I'd love to, but you're gonna have to stop me keeping on going to… getting too excited and talking too much about… falling too deeply into the well. So I think the short answer is, Paladin…
+
+249
+00:44:48.910 --> 00:45:06.279
+Peter Broadhurst (Kaleido): has two kinds of keys. This is worth noting. Pretty much any good privacy technology has to deal with this, this problem. It was true for Tesla before, and Constellation before that as well. One type of key is, like, blockchain signing keys. How do I sign transactions?
+
+250
+00:45:06.310 --> 00:45:25.400
+Peter Broadhurst (Kaleido): And, Paladin has very pluggable cryptography, there. You can use lots of different, types of keys if you want to, over time. and it also has really advanced key management built in, pretty enterprise-grade key management and pluggable key management built in, out of the box. It's quite,
+
+251
+00:45:25.400 --> 00:45:29.450
+Peter Broadhurst (Kaleido): quite an advanced feature inside of there. So that's blockchain sign-in keys.
+
+252
+00:45:29.450 --> 00:45:33.930
+Peter Broadhurst (Kaleido): And your key stays private to you, in that case.
+
+253
+00:45:34.250 --> 00:45:44.959
+Peter Broadhurst (Kaleido): So I'll come to answering the question in a second, so I want to describe that type of key, and the second type of key, which is important to understand, is different, and that's data transmission keys.
+
+254
+00:45:44.960 --> 00:46:09.910
+Peter Broadhurst (Kaleido): So, if we have private data now, it's not just being exchanged, everybody on the blockchain is receiving a copy of my data, only certain parties are going to receive a copy of it, I need to know how to transfer data privately to that party. If I'm not going to encrypt it and store it on-chain, because I'm worried about post-quantum cryptography or just a massive load on the chain that all that data will cause, I'm going to send it privately to another party.
+
+255
+00:46:09.910 --> 00:46:18.099
+Peter Broadhurst (Kaleido): I need to know how to encrypt and transfer it off-chain to that party, so I need the transfer keys for them.
+
+256
+00:46:18.100 --> 00:46:34.239
+Peter Broadhurst (Kaleido): So… so I've got those two different types of keys. Now, in addition to just managing those keys in the runtime, Paladin provides what's called a registry, and this can be an on-chain registry to, to actually, have a smart contract.
+
+257
+00:46:34.240 --> 00:46:52.640
+Peter Broadhurst (Kaleido): where you say, hey, look, I want to join a private ecosystem with you, I'm going to advertise the public key credentials for transferring me data off-chain, and I'm going to push it onto the blockchain. So you have a blockchain-backed registry, and all of the smart contracts, as a starter are provided
+
+258
+00:46:52.640 --> 00:47:05.780
+Peter Broadhurst (Kaleido): for you in the project for this, it just works out the box, but you can check… you can swap in your own contract for this, if you want to manage your ecosystem your own way, to be like, here's a trusted repository of node endpoints.
+
+259
+00:47:06.020 --> 00:47:14.130
+Peter Broadhurst (Kaleido): And everyone just uses a blockchain transaction to advertise and rotate their off-chain transmission keys.
+
+260
+00:47:14.260 --> 00:47:18.510
+Peter Broadhurst (Kaleido): And once you've done that, if
+
+261
+00:47:18.720 --> 00:47:33.080
+Peter Broadhurst (Kaleido): during creation of a transaction, I need to ask some people for signatures from them that are on-chain signing signatures. I know I'm asking the right person, because I know through this registry.
+
+262
+00:47:33.290 --> 00:47:49.179
+Peter Broadhurst (Kaleido): about the right off-chain key to communicate with them, so I can use the off-chain key to ask them a question, know I'm talking to the right party, and then however they do their key management, they do it themselves, and there are what's called logical identifiers for the keys.
+
+263
+00:47:49.180 --> 00:47:53.529
+Peter Broadhurst (Kaleido): So they can tell me what logical identifier they're going to use for their key.
+
+264
+00:47:53.580 --> 00:47:57.260
+Peter Broadhurst (Kaleido): And… and they manage… manage the keys themselves.
+
+265
+00:47:57.380 --> 00:48:07.189
+Peter Broadhurst (Kaleido): There's a lot of information in there that probably justifies now on its own, but I wonder if that gives you enough to feel like you understand the broad strokes, and I'd be really…
+
+266
+00:48:07.210 --> 00:48:20.400
+Peter Broadhurst (Kaleido): Be really great, maybe, to do a, like, some more deep dive sessions. We've done a few of them in the past, but maybe with the incubation phase, it makes sense to sort of kick off a round of a few more deep dive webinar-style sessions.
+
+267
+00:48:20.660 --> 00:48:25.130
+Peter Broadhurst (Kaleido): To… to sort of share the latest on how some of this stuff works.
+
+268
+00:48:25.700 --> 00:48:29.780
+Arun S M: Awesome. Thank you for detailed answer, Peter. That addresses my question.
+
+269
+00:48:29.940 --> 00:48:36.149
+Arun S M: And this is a great project. Thank you for simplifying how privacy can be achieved in enterprise applications.
+
+270
+00:48:38.040 --> 00:48:39.670
+Peter Broadhurst (Kaleido): That's great. Thanks, Simone.
+
+271
+00:48:42.270 --> 00:48:48.539
+Tracy Kuhrt: All right, any other questions that, need to be discussed before we think about voting?
+
+272
+00:48:58.880 --> 00:48:59.920
+Tracy Kuhrt: Yeah, Diane?
+
+273
+00:49:01.270 --> 00:49:14.199
+Diane Mueller (Hedera Hashgraph LLC): Yeah, I'm just asking a little bit… a few questions in the chat around, governance and community building, since we do have a kind of a leaning towards the majority of people being from Kolido,
+
+274
+00:49:14.510 --> 00:49:28.530
+Diane Mueller (Hedera Hashgraph LLC): a sort of a nudge to open up their TSC to other folks, and how they might be wanting to do that. And Matthew's answering it in the chat. Matthew, if you want to speak to that a little bit, if you can get
+
+275
+00:49:28.560 --> 00:49:37.509
+Diane Mueller (Hedera Hashgraph LLC): perhaps maybe some of these Berkeley.edu folks on a TSC, or some of your end users on a TSC, that would be optimal.
+
+276
+00:49:38.220 --> 00:49:49.080
+Diane Mueller (Hedera Hashgraph LLC): But again, as other folks are saying, I think technically the project is amazing and a good thing, so I'm just curious what your plans are around governance.
+
+277
+00:49:49.770 --> 00:50:07.030
+Matthew Whitehead (Kaleido): Yeah, absolutely, thanks, Dan. Yeah, so absolutely, we'll be looking to explore, bringing on, possible maintainers from outside Kaleido, as Peter's partly touched on, and, and certainly the Zeto side of things is likely to have.
+
+278
+00:50:07.030 --> 00:50:16.279
+Matthew Whitehead (Kaleido): a different, set of maintainers and code owners to… to, the Corps of Paladin. We have outlined in the proposal
+
+279
+00:50:16.280 --> 00:50:27.760
+Matthew Whitehead (Kaleido): Kind of following through the proposal template, some plans around how we plan to structure comms, and, things like community calls.
+
+280
+00:50:28.210 --> 00:50:47.089
+Matthew Whitehead (Kaleido): I've put some suggestions in there about how we might expand our Discord, surface area beyond… beyond what we have at the moment, and that we would, start running community calls, if the project moves to incubating in line with, with,
+
+281
+00:50:47.090 --> 00:50:50.330
+Matthew Whitehead (Kaleido): How, incubating projects run.
+
+282
+00:50:50.380 --> 00:51:03.659
+Matthew Whitehead (Kaleido): So yeah, certainly, I think moving to incubating is a kind of a step, a step on and a step out of the shadows in some respects for projects, and hopefully allows us to.
+
+283
+00:51:03.660 --> 00:51:15.730
+Matthew Whitehead (Kaleido): bring on maintainers from outside Kaleido, and just get broader community involvement, both at the user level, which can potentially lead to contributions over time.
+
+284
+00:51:15.730 --> 00:51:30.930
+Matthew Whitehead (Kaleido): as people get a better understanding for perhaps just a specific area of Paladin, and perhaps they're interested in contributing to a specific part of it without having to necessarily get up to speed with the entire framework. But,
+
+285
+00:51:31.090 --> 00:51:39.679
+Matthew Whitehead (Kaleido): Yeah, we're certainly planning as part of this to… to grow our, our, kind of, our comms and our community, outreach kind of side of the project.
+
+286
+00:51:42.760 --> 00:51:43.719
+Diane Mueller (Hedera Hashgraph LLC): Sounds good.
+
+287
+00:51:48.730 --> 00:51:53.669
+Tracy Kuhrt: All right, any other questions that anybody has before we get to a vote?
+
+288
+00:52:08.540 --> 00:52:20.080
+Tracy Kuhrt: All right, sounds like there are no further questions. Would somebody like to motion to accept Paladin slash Zeto as an incubated project?
+
+289
+00:52:20.270 --> 00:52:21.560
+Matthew Whitehead (Kaleido): I'll raise the motion.
+
+290
+00:52:22.390 --> 00:52:23.770
+Tracy Kuhrt: That was Enrique.
+
+291
+00:52:23.770 --> 00:52:24.410
+Matthew Whitehead (Kaleido): Yep.
+
+292
+00:52:24.680 --> 00:52:26.050
+Tracy Kuhrt: Yeah, thanks, Enrique.
+
+293
+00:52:26.990 --> 00:52:27.750
+Tracy Kuhrt: In a second?
+
+294
+00:52:27.750 --> 00:52:33.450
+Matthew Whitehead (Kaleido): I'm very happy to second it. I don't know about if conflict of interest supply here, but I'm very happy to second it.
+
+295
+00:52:33.450 --> 00:52:41.950
+Ry Jones (The Linux Foundation): We've… we've, over the decade plus, you know, just because you work on the project doesn't mean that you don't have an opinion on its status, so don't worry about that.
+
+296
+00:52:42.520 --> 00:52:44.549
+Matthew Whitehead (Kaleido): Thanks, Ryan. Yeah, happy to second it.
+
+297
+00:52:44.550 --> 00:52:54.470
+Ry Jones (The Linux Foundation): Okay, so in the matter before the TAC, which is the acceptance of the Paladin project proposal and incubating state, Marcus, how do you vote? Aye, nay, or abstain?
+
+298
+00:52:54.860 --> 00:52:55.660
+Marcus Brandenburger (IBM Research Zurich): Aye.
+
+299
+00:52:55.870 --> 00:52:56.590
+Ry Jones (The Linux Foundation): Char?
+
+300
+00:52:57.140 --> 00:52:57.950
+Char Howland (Indicio): Aye.
+
+301
+00:52:57.950 --> 00:52:58.730
+Ry Jones (The Linux Foundation): Tracy?
+
+302
+00:52:58.960 --> 00:52:59.620
+Tracy Kuhrt: Aye.
+
+303
+00:52:59.620 --> 00:53:00.650
+Ry Jones (The Linux Foundation): Enrique.
+
+304
+00:53:00.650 --> 00:53:01.410
+Matthew Whitehead (Kaleido): Aye.
+
+305
+00:53:01.410 --> 00:53:02.190
+Ry Jones (The Linux Foundation): Diane?
+
+306
+00:53:02.440 --> 00:53:03.240
+Diane Mueller (Hedera Hashgraph LLC): Aye.
+
+307
+00:53:03.240 --> 00:53:03.910
+Ry Jones (The Linux Foundation): Rama.
+
+308
+00:53:04.880 --> 00:53:05.710
+Ramakrishna V (International Business Machines Corporation): Hi.
+
+309
+00:53:06.350 --> 00:53:07.290
+Ry Jones (The Linux Foundation): Arun.
+
+310
+00:53:08.320 --> 00:53:09.020
+Arun S M: Aye.
+
+311
+00:53:09.020 --> 00:53:09.780
+Ry Jones (The Linux Foundation): Matthew.
+
+312
+00:53:10.070 --> 00:53:10.770
+Matthew Whitehead (Kaleido): Aye.
+
+313
+00:53:11.630 --> 00:53:16.559
+Ry Jones (The Linux Foundation): Congratulations! The motion passes, and welcome to the fold.
+
+314
+00:53:17.830 --> 00:53:18.530
+Tracy Kuhrt: Great.
+
+315
+00:53:18.530 --> 00:53:26.960
+Matthew Whitehead (Kaleido): Thank you, and thank you everyone for taking the time to listen to the proposal and hear a bit about it. We're really excited about the next steps.
+
+316
+00:53:29.170 --> 00:53:46.609
+Tracy Kuhrt: Perfect. Well, thank you again, for bringing the proposal, and I think unless anybody else has anything, that they'd like to bring up, we are at the end of the call, but give me, let's just give a moment, make sure there's nothing else anybody would like to bring up.
+
+317
+00:53:52.490 --> 00:54:02.520
+Tracy Kuhrt: Okay, so then let's go ahead and close out today's meeting. I think next week, unless something else comes up, that might distract us from
+
+318
+00:54:02.520 --> 00:54:19.470
+Tracy Kuhrt: The two PRs that we discussed last week, we'll get an update on those PRs and see if we want to merge those in or not. With that, let's go ahead and close today's meeting. Thank you all for joining, and congratulations to the Paladin and Zeto team.
+
+319
+00:54:20.480 --> 00:54:23.089
+Peter Broadhurst (Kaleido): Thanks so much, everybody. Thank you.
+
+320
+00:54:23.090 --> 00:54:23.870
+Matthew Whitehead (Kaleido): Thank you.
+

@@ -1,0 +1,1542 @@
+WEBVTT
+
+1
+00:02:40.970 --> 00:02:43.319
+Jonathan Sobel: Are we waiting for Parisa still?
+
+2
+00:02:44.330 --> 00:02:47.609
+Joseph Denman: Reese is out today, along with Kevin. Oh.
+
+3
+00:02:47.880 --> 00:02:52.029
+Joseph Denman: Yeah, and there's actually nothing on the agenda so far.
+
+4
+00:02:52.870 --> 00:02:56.059
+Joseph Denman: So I'm gonna give people a few minutes to show up.
+
+5
+00:02:57.770 --> 00:03:02.240
+Joseph Denman: And if no one has anything they want to talk about, then we'll take back the time.
+
+6
+00:03:02.620 --> 00:03:15.370
+Jonathan Sobel: I just heard from John, the information about opening up security issue reporting for Compact.
+
+7
+00:03:15.580 --> 00:03:19.869
+Jonathan Sobel: And I don't have details, but I think Kent has more details, and we should probably…
+
+8
+00:03:20.280 --> 00:03:23.289
+Jonathan Sobel: Have it on the agenda to mention, at least.
+
+9
+00:03:33.560 --> 00:03:36.599
+Jonathan Sobel: If Kent does, in fact, have more details. You're… you're muted, Kent.
+
+10
+00:03:41.350 --> 00:03:43.320
+Kent Dybvig: So, sorry,
+
+11
+00:03:45.220 --> 00:03:55.199
+Kent Dybvig: somebody opened up a security bug report on the Midnight Network compact repo, which apparently had not yet been archived.
+
+12
+00:03:55.880 --> 00:03:59.709
+Kent Dybvig: And I suspect they were doing it as a favor.
+
+13
+00:04:00.300 --> 00:04:03.109
+Kent Dybvig: Doing it there, instead of doing it
+
+14
+00:04:03.860 --> 00:04:12.380
+Kent Dybvig: And as a regular GitHub issue on Minnikawa, Because we didn't have security, channel there.
+
+15
+00:04:13.100 --> 00:04:19.689
+Kent Dybvig: So part of our action item was to Chris Ferry… for Chris Ferry to go and enable that
+
+16
+00:04:19.950 --> 00:04:25.150
+Kent Dybvig: The ability for people to submit, private,
+
+17
+00:04:25.350 --> 00:04:32.020
+Kent Dybvig: I'm not sure what the mechanism is, but to submit, security reports in a way that they are public.
+
+18
+00:04:32.180 --> 00:04:35.930
+Kent Dybvig: I don't know what the mechanism is, but that's what he enabled, and…
+
+19
+00:04:36.100 --> 00:04:41.360
+Kent Dybvig: To ask this person to repost their… Their report to that.
+
+20
+00:04:42.150 --> 00:04:51.360
+Kent Dybvig: The report is for compact 0.31, so they weren't working off of of the,
+
+21
+00:04:51.690 --> 00:04:53.829
+Kent Dybvig: of the code in the Midnight Network.
+
+22
+00:04:54.310 --> 00:04:59.149
+Kent Dybvig: Repo, because that's way back on 0.5 or something like that, so…
+
+23
+00:04:59.270 --> 00:05:07.330
+Kent Dybvig: Obviously, they're looking at the compact on… the proper compact repo, but reporting it where they thought it was safe to report it.
+
+24
+00:05:07.600 --> 00:05:14.840
+Kent Dybvig: And it's actually a legitimate bug. It's… I introduced it while I was doing the workarounds for the missing guards.
+
+25
+00:05:16.030 --> 00:05:18.260
+Kent Dybvig: It's basically a missing…
+
+26
+00:05:18.570 --> 00:05:27.510
+Kent Dybvig: A missing check in… in the… in common sub-expression elimination whereby it could commonize a…
+
+27
+00:05:27.830 --> 00:05:31.060
+Kent Dybvig: An unsafe cast and a safe cast.
+
+28
+00:05:31.390 --> 00:05:38.080
+Kent Dybvig: And if the safe cast won, then the unsafe cast would be effectively turned into a safe cast.
+
+29
+00:05:40.440 --> 00:05:45.100
+Kent Dybvig: And when an unsafe cast is turned into a safe cast, you can exploit that.
+
+30
+00:05:46.930 --> 00:05:47.900
+Jonathan Sobel: Nice catch.
+
+31
+00:05:48.600 --> 00:05:57.479
+Kent Dybvig: Yeah, it's… the whole thing's AI-generated. I mean, it's possible that somebody actually discovered the bug and used AI to help it, you know, produce a good bug report.
+
+32
+00:05:57.830 --> 00:06:00.950
+Kent Dybvig: But, the other thing that Chris was gonna…
+
+33
+00:06:01.270 --> 00:06:20.029
+Kent Dybvig: talk… think about doing was… well, Bob suggests, I don't know if anybody's actually taking action on it, is to basically have a template for… for these submissions that say, that ask people what the… what AI they used, if they used AI, what AI they used, and what… what prompt… what LLM they used, and what prompts they used.
+
+34
+00:06:21.530 --> 00:06:29.039
+Kent Dybvig: John pointed out, people probably won't give up their prompts, because that's their… that's their differentiators. But you can always ask.
+
+35
+00:06:31.160 --> 00:06:33.670
+Joseph Denman: I do. Okay. Yeah.
+
+36
+00:06:35.050 --> 00:06:37.419
+Jonathan Sobel: So I'm looking at the,
+
+37
+00:06:37.820 --> 00:06:43.359
+Jonathan Sobel: the GitHub repo, the security tab thing, which I guess is the…
+
+38
+00:06:43.650 --> 00:06:46.739
+Jonathan Sobel: Security.md in the top level of main.
+
+39
+00:06:46.930 --> 00:06:51.419
+Jonathan Sobel: And disclosing a security issue.
+
+40
+00:06:52.450 --> 00:07:00.380
+Jonathan Sobel: It says, you know, review GitHub's rules on privately reporting. And then…
+
+41
+00:07:03.990 --> 00:07:11.150
+Jonathan Sobel: I guess you do it through them, and what the problem is that we didn't have the right things open to follow GitHub's rules.
+
+42
+00:07:12.150 --> 00:07:17.800
+Kent Dybvig: Apparently, we didn't have the… the private… Once enabled.
+
+43
+00:07:18.000 --> 00:07:20.529
+Jonathan Sobel: Okay. And then the instructions…
+
+44
+00:07:20.530 --> 00:07:21.230
+Kent Dybvig: it.
+
+45
+00:07:21.640 --> 00:07:26.620
+Jonathan Sobel: Instructions say if for some reason you can't do that, then go to the Midnight Foundation stuff, which may be what happened.
+
+46
+00:07:26.620 --> 00:07:28.300
+Kent Dybvig: Okay.
+
+47
+00:07:28.590 --> 00:07:31.269
+Jonathan Sobel: That's right there in our security policy.
+
+48
+00:07:32.710 --> 00:07:33.800
+Kent Dybvig: Okay, good.
+
+49
+00:07:34.430 --> 00:07:36.299
+Joseph Denman: There is another,
+
+50
+00:07:37.110 --> 00:07:49.059
+Joseph Denman: Am I unmuted? Yeah, there is another, I guess, concern here, which is that even, you know, if by accident someone doesn't read our security policy, they could end up
+
+51
+00:07:49.640 --> 00:07:52.580
+Joseph Denman: Publishing, you know, security issues.
+
+52
+00:07:52.780 --> 00:07:55.230
+Joseph Denman: Publicly, in the form of GitHub issues.
+
+53
+00:07:56.340 --> 00:08:00.270
+Joseph Denman: We actually have no guards against doing that, even accidentally.
+
+54
+00:08:01.140 --> 00:08:07.439
+Joseph Denman: Which could also be a problem, so… I wonder if…
+
+55
+00:08:07.690 --> 00:08:11.910
+Joseph Denman: It's possible to automate that sort of check.
+
+56
+00:08:12.660 --> 00:08:14.899
+Joseph Denman: Possibly using an LLM, actually.
+
+57
+00:08:15.180 --> 00:08:20.980
+Joseph Denman: is this a security bug? Security issue? If so, make sure it has a… A given flag.
+
+58
+00:08:22.320 --> 00:08:25.589
+Joseph Denman: You'd get false flags doing that, but…
+
+59
+00:08:26.750 --> 00:08:31.899
+Joseph Denman: I don't know, otherwise we just have to be very attentive when people file new issues.
+
+60
+00:08:44.360 --> 00:08:45.519
+Jonathan Sobel: Yeah, I don't know if…
+
+61
+00:08:45.630 --> 00:08:53.049
+Jonathan Sobel: If we could detect that, if there's, like, a category when they choose a security category, then something immediately tells them, wait, don't report this way.
+
+62
+00:08:53.710 --> 00:08:55.159
+Joseph Denman: Yeah, something like that.
+
+63
+00:08:56.590 --> 00:08:58.309
+Kent Dybvig: Jonathan, where did you see the…
+
+64
+00:08:59.320 --> 00:09:03.359
+Kent Dybvig: The thing for filing a security one, or you're just looking at the…
+
+65
+00:09:03.710 --> 00:09:14.369
+Jonathan Sobel: if just… if you go to the main page for Compact, there are those tabs for the README is at the top. It's Code of Conduct, Contributing, Apache License Security.
+
+66
+00:09:14.800 --> 00:09:22.579
+Jonathan Sobel: as these little tabs at the top of the README rendering. Security, what it actually shows you is security.md.
+
+67
+00:09:24.120 --> 00:09:24.970
+Kent Dybvig: Oh, okay.
+
+68
+00:09:25.770 --> 00:09:27.620
+Jonathan Sobel: It's just the security MD5.
+
+69
+00:09:29.100 --> 00:09:31.010
+Jonathan Sobel: And… So that's what to do.
+
+70
+00:09:32.820 --> 00:09:33.860
+Kent Dybvig: I got you.
+
+71
+00:09:37.090 --> 00:09:38.200
+Kent Dybvig: Well, yeah.
+
+72
+00:09:40.750 --> 00:09:42.179
+Jonathan Sobel: Says, please report it.
+
+73
+00:09:43.250 --> 00:09:49.429
+Jonathan Sobel: Using private vulnerability reporting and not public GitHub issues. And as Joe was pointing out, it'd be nice to…
+
+74
+00:09:50.810 --> 00:09:56.270
+Jonathan Sobel: Almost give yourself a security category and issues, and if someone chooses it, say, stop!
+
+75
+00:09:58.200 --> 00:10:01.460
+Jonathan Sobel: Yeah, even if you didn't do, like, some LLM filter, you know, you could just…
+
+76
+00:10:01.980 --> 00:10:02.840
+Jonathan Sobel: As soon as you force.
+
+77
+00:10:02.840 --> 00:10:03.709
+Kent Dybvig: Yeah, I mean, it could be…
+
+78
+00:10:03.710 --> 00:10:06.609
+Jonathan Sobel: If you use a category, then you could say, but don't use this one.
+
+79
+00:10:12.210 --> 00:10:18.210
+Joseph Denman: Or, alternatively, You know, if it gets a… Like, a security label.
+
+80
+00:10:18.350 --> 00:10:20.039
+Joseph Denman: any GitHub issue.
+
+81
+00:10:20.350 --> 00:10:22.200
+Joseph Denman: As long as it has a security label.
+
+82
+00:10:22.580 --> 00:10:27.900
+Joseph Denman: Then it's automatically routed to some sort of private reporting kind of thing.
+
+83
+00:10:29.130 --> 00:10:29.680
+Jonathan Sobel: Yep.
+
+84
+00:10:29.850 --> 00:10:31.560
+Jonathan Sobel: Yeah, I don't know if that's possible.
+
+85
+00:10:40.810 --> 00:10:47.379
+Joseph Denman: Okay, but Chris is, I guess, looking into, yeah, like you say, a mechanism for private reporting.
+
+86
+00:10:47.750 --> 00:10:54.589
+Jonathan Sobel: Well, it's basically enabling it, but right now, I think if you try and follow the instructions, it stops because it's not turned on.
+
+87
+00:10:55.170 --> 00:10:57.159
+Kent Dybvig: It is turned on, I can see it right now.
+
+88
+00:10:57.350 --> 00:10:58.339
+Jonathan Sobel: Oh, it is now on.
+
+89
+00:10:58.770 --> 00:10:59.440
+Kent Dybvig: Yeah.
+
+90
+00:10:59.790 --> 00:11:00.480
+Jonathan Sobel: Sweet.
+
+91
+00:11:00.480 --> 00:11:01.500
+Kent Dybvig: he's enabled it.
+
+92
+00:11:01.700 --> 00:11:05.590
+Kent Dybvig: Report a vulnerability, if you click on that button.
+
+93
+00:11:06.300 --> 00:11:10.499
+Kent Dybvig: It says there aren't any published security advisories.
+
+94
+00:11:12.400 --> 00:11:16.869
+Kent Dybvig: And then it has a reported vulnerability. Okay, so that must be how we find them, too.
+
+95
+00:11:18.120 --> 00:11:23.200
+Kent Dybvig: Okay, so we need to be on the lookout for these when they come in, and this one particular
+
+96
+00:11:23.440 --> 00:11:28.379
+Kent Dybvig: I will field, because I will… I already know what the fix is. I mean, actually, the fix was in the…
+
+97
+00:11:28.930 --> 00:11:31.450
+Kent Dybvig: in the bug… report.
+
+98
+00:11:33.090 --> 00:11:37.010
+Kent Dybvig: A good fixes in the bug report already, so… But…
+
+99
+00:11:41.930 --> 00:11:42.560
+Jonathan Sobel: Alright.
+
+100
+00:11:43.470 --> 00:11:45.239
+Joseph Denman: Anything else anyone wants to bring up?
+
+101
+00:11:47.740 --> 00:11:55.499
+Kent Dybvig: So, maybe I'll bring this up. I was hoping Kevin and Frisa would be here, but let me bring up one thing about the syntax of emit.
+
+102
+00:11:55.710 --> 00:11:56.880
+Kent Dybvig: for logging.
+
+103
+00:11:59.770 --> 00:12:01.150
+Jonathan Sobel: Meme for, events?
+
+104
+00:12:01.640 --> 00:12:03.469
+Kent Dybvig: Yes, for logging events.
+
+105
+00:12:03.680 --> 00:12:07.080
+Kent Dybvig: So we decided on Emmet, that's fine, we did that last week.
+
+106
+00:12:07.680 --> 00:12:13.250
+Kent Dybvig: I think it's just F-E-R-R-Y.
+
+107
+00:12:17.310 --> 00:12:17.920
+Joseph Denman: Nope.
+
+108
+00:12:23.310 --> 00:12:26.700
+Kent Dybvig: So the syntax… so we decided that
+
+109
+00:12:26.960 --> 00:12:35.829
+Kent Dybvig: The emit would be a keyword, and that it would take a single… it would look like a function call, and it would take a single argument, which is some expression.
+
+110
+00:12:36.330 --> 00:12:40.450
+Kent Dybvig: It would take a single sub… have a single sub form, which is an expression.
+
+111
+00:12:40.790 --> 00:12:51.760
+Kent Dybvig: And… it would… Require that expression to have one of the, Enumerated exception types.
+
+112
+00:12:52.900 --> 00:13:01.990
+Kent Dybvig: That's all fine. Along with this, we're also implementing something called CRLize, and something called DCRLize.
+
+113
+00:13:02.460 --> 00:13:08.359
+Kent Dybvig: Which we implemented as standard library functions that take a generic type parameter
+
+114
+00:13:08.540 --> 00:13:14.769
+Kent Dybvig: So, serialized takes a generic type parameter and and an argument.
+
+115
+00:13:15.540 --> 00:13:21.630
+Kent Dybvig: And the argument must have… the argument expression must have the same type as the generic type parameter.
+
+116
+00:13:21.970 --> 00:13:24.359
+Kent Dybvig: And it produces a bytes object.
+
+117
+00:13:25.000 --> 00:13:30.369
+Kent Dybvig: representing that serialized object. In fact, it takes two generic parameters. One is the length.
+
+118
+00:13:30.910 --> 00:13:38.169
+Kent Dybvig: And the other is the type. And the length is… it's padded to that length, or it's an error if that length is too short.
+
+119
+00:13:38.690 --> 00:13:46.320
+Kent Dybvig: And then deserialize does the reverse, and deserialize takes a generic… a length and a generic type parameter.
+
+120
+00:13:46.780 --> 00:13:50.550
+Kent Dybvig: And an argument which is a bytes object of that length.
+
+121
+00:13:52.610 --> 00:14:00.339
+Kent Dybvig: And, deseralizes the bytes object back into a compact value.
+
+122
+00:14:00.750 --> 00:14:01.850
+Kent Dybvig: Of that type.
+
+123
+00:14:03.140 --> 00:14:10.290
+Kent Dybvig: And there's, like, there are some restrictions on the type, for example, we… you can't… you can't deserialize an opaque object.
+
+124
+00:14:11.160 --> 00:14:22.730
+Kent Dybvig: Okay, type, okay, so if… if you're following, serialize and emit pretty much look the same.
+
+125
+00:14:24.030 --> 00:14:27.750
+Kent Dybvig: They both… Take a single sub form.
+
+126
+00:14:28.750 --> 00:14:34.699
+Kent Dybvig: And the only difference is that Serialize has this bit of redundant information, which says.
+
+127
+00:14:34.960 --> 00:14:37.340
+Kent Dybvig: I'm serializing an object of this type.
+
+128
+00:14:38.080 --> 00:14:46.240
+Kent Dybvig: And then it can check to see that the expression actually has that type. Whereas emit says, I'm serializing this expression, and I will just
+
+129
+00:14:46.400 --> 00:14:49.749
+Kent Dybvig: Infer what type it is from the type of the expression.
+
+130
+00:14:51.330 --> 00:14:55.120
+Kent Dybvig: Serialized is a… is a non-reserved word.
+
+131
+00:14:55.400 --> 00:14:59.620
+Kent Dybvig: It's just a library binding. An emit is a reserved word, it's a keyword.
+
+132
+00:15:02.870 --> 00:15:06.059
+Joseph Denman: Why do we need to serialize and deserialize again?
+
+133
+00:15:07.400 --> 00:15:23.389
+Kent Dybvig: Well, aside from them being useful, in terms of being able to basically do a cast from anything to anything, or to be able to write something onto the chain that's a representation of any contract compact value, it's useful for the miscellaneous
+
+134
+00:15:23.840 --> 00:15:25.879
+Kent Dybvig: Exception type, where…
+
+135
+00:15:26.000 --> 00:15:35.869
+Kent Dybvig: you want to use that as an escape. So, we have a predefined set of exception types, and one of them is miscellaneous, and it has a bytes object payload.
+
+136
+00:15:36.820 --> 00:15:38.539
+Kent Dybvig: A byte vector payload.
+
+137
+00:15:38.830 --> 00:15:44.359
+Kent Dybvig: And so the idea is that you can produce that… that payload,
+
+138
+00:15:45.110 --> 00:15:55.999
+Kent Dybvig: programmatically from an arbitrary compact value, or almost arbitrary compact value. It has to be short enough, and it has to not contain opaque types, and maybe some other things. I think that's just… I think that may be it.
+
+139
+00:15:56.560 --> 00:16:05.740
+Jonathan Sobel: So it's not that emit generates code that calls a serialized to serialized on the back end. It's that if I want to do an emit of a miscellaneous
+
+140
+00:16:05.840 --> 00:16:10.830
+Jonathan Sobel: Then it is useful to be able to package up whatever To go in it.
+
+141
+00:16:11.330 --> 00:16:15.110
+Kent Dybvig: That's right. But it is also the case that it will…
+
+142
+00:16:15.480 --> 00:16:19.009
+Kent Dybvig: serialize its value, because ultimately emits also just…
+
+143
+00:16:19.210 --> 00:16:23.359
+Kent Dybvig: Sending an encrypt… an encoded… a bytes encoded.
+
+144
+00:16:23.660 --> 00:16:25.700
+Kent Dybvig: Value for the entire event.
+
+145
+00:16:26.360 --> 00:16:29.849
+Kent Dybvig: So, effectively, there'll be two serialized steps.
+
+146
+00:16:30.100 --> 00:16:36.420
+Kent Dybvig: when you omit a miscellaneous. The one the user explicitly uses, if they choose to do that.
+
+147
+00:16:36.690 --> 00:16:39.509
+Kent Dybvig: And the one that puts together the event.
+
+148
+00:16:40.160 --> 00:16:44.390
+Kent Dybvig: Object. Event payload, event package.
+
+149
+00:16:46.760 --> 00:16:51.580
+Kent Dybvig: So… My question really is here,
+
+150
+00:16:53.010 --> 00:16:55.640
+Kent Dybvig: I just, you know, I didn't want to reserve
+
+151
+00:16:55.740 --> 00:16:59.419
+Kent Dybvig: serialized and deserialize, so I told Barisa to make them
+
+152
+00:17:00.210 --> 00:17:05.899
+Kent Dybvig: Just function names, circuit names. And to require the generic argument for both of them.
+
+153
+00:17:06.380 --> 00:17:09.279
+Kent Dybvig: Because otherwise there's…
+
+154
+00:17:09.510 --> 00:17:16.660
+Kent Dybvig: You know, to use it as a function, we can't… we can't have it any other way, because you need to have… you need to basically have a type for the argument.
+
+155
+00:17:17.410 --> 00:17:21.550
+Kent Dybvig: That's independent of the… of the… Place where it's used.
+
+156
+00:17:22.680 --> 00:17:28.930
+Jonathan Sobel: And for deserialize, it's the return type, and there's absolutely nothing you could infer other than just context or something.
+
+157
+00:17:28.930 --> 00:17:34.900
+Kent Dybvig: Right, because we only, we only infer, we only have synthesized types.
+
+158
+00:17:35.410 --> 00:17:37.420
+Kent Dybvig: Nuts, yeah.
+
+159
+00:17:37.590 --> 00:17:39.550
+Kent Dybvig: Inherited types, basically.
+
+160
+00:17:40.260 --> 00:17:43.710
+Joseph Denman: I don't know how to raise my hand, here. I don't actually see the.
+
+161
+00:17:43.710 --> 00:17:47.340
+Kent Dybvig: It's React. It's in the React. There's a raise hand.
+
+162
+00:17:47.630 --> 00:17:48.520
+Kent Dybvig: Switch.
+
+163
+00:17:49.130 --> 00:17:51.400
+Joseph Denman: Yeah, I can't see React, either.
+
+164
+00:17:51.400 --> 00:18:00.739
+Kent Dybvig: In the middle of the three things, it's a, you know, at the very bottom, in the row where it has participants, chat, it has react, share, and more on my page.
+
+165
+00:18:01.540 --> 00:18:03.359
+Joseph Denman: Maybe it's because I'm screen sharing.
+
+166
+00:18:03.590 --> 00:18:04.899
+Jonathan Sobel: Yeah. Could be. Okay, go ahead.
+
+167
+00:18:05.630 --> 00:18:15.640
+Joseph Denman: Yeah, okay, so… In the event, Unnot intended.
+
+168
+00:18:15.820 --> 00:18:23.280
+Joseph Denman: That we ultimately support arbitrary events, like… or arbitrary event messages, like.
+
+169
+00:18:23.980 --> 00:18:28.939
+Joseph Denman: any compact value, possibly ADT values.
+
+170
+00:18:29.350 --> 00:18:34.789
+Joseph Denman: I don't see why it would be necessary. Like, it… so, when we support that.
+
+171
+00:18:35.150 --> 00:18:38.190
+Joseph Denman: We won't have a miscellaneous event type.
+
+172
+00:18:39.060 --> 00:18:41.080
+Joseph Denman: It doesn't make sense to have one.
+
+173
+00:18:41.300 --> 00:18:48.559
+Joseph Denman: And so I wonder if this serialized, deserialized sort of thing will actually even be necessary at that point.
+
+174
+00:18:49.020 --> 00:18:51.449
+Joseph Denman: And also…
+
+175
+00:18:52.550 --> 00:19:03.070
+Joseph Denman: I am, I guess, unconvinced of the utility of serialize and deserialize. One, because you have to know the exact length of the thing that you're serializing, and
+
+176
+00:19:03.520 --> 00:19:10.320
+Joseph Denman: it seems like you could just pass in an opaque that is already the serialized object, like…
+
+177
+00:19:10.820 --> 00:19:17.079
+Joseph Denman: Like, it's only really useful if, for some reason, you want to serialize a value
+
+178
+00:19:17.250 --> 00:19:21.340
+Joseph Denman: That is a partial computation in this circuit.
+
+179
+00:19:26.090 --> 00:19:27.520
+Joseph Denman: I… yeah, again.
+
+180
+00:19:27.520 --> 00:19:31.310
+Kent Dybvig: That's exactly what you want to log. That's often exactly what you want to log.
+
+181
+00:19:32.180 --> 00:19:41.949
+Joseph Denman: If we want arbitrary things, arbitrary compact values, then we could do the serialization behind the scenes. We don't have to expose it as something in the source language.
+
+182
+00:19:42.080 --> 00:19:51.080
+Joseph Denman: We could just do log, or just emit, and pass the value, and then we know how to serialize an arbitrary compact value, and we don't have to have these length constraints.
+
+183
+00:19:53.350 --> 00:19:59.079
+Kent Dybvig: Yes and no. There is a… there is a length constraint.
+
+184
+00:20:00.020 --> 00:20:05.119
+Kent Dybvig: Because the vent… er, the vents are only so large.
+
+185
+00:20:05.560 --> 00:20:08.510
+Kent Dybvig: Events have a limit of 1024 bytes total.
+
+186
+00:20:08.990 --> 00:20:12.140
+Kent Dybvig: So, there already is a restriction there.
+
+187
+00:20:14.800 --> 00:20:20.959
+Joseph Denman: But, yeah, but you wouldn't need to… you wouldn't need to know exactly Like, like, how… okay, so…
+
+188
+00:20:20.960 --> 00:20:31.219
+Kent Dybvig: You don't need to know exactly, you just need to say 1024, and if it doesn't fit in 1024, you can't log that object. If it does fit in 10… and you'll get that message at compile time.
+
+189
+00:20:31.500 --> 00:20:36.660
+Kent Dybvig: And if… if it's… If it's under 1024, it'll just get padded.
+
+190
+00:20:37.260 --> 00:20:39.839
+Joseph Denman: Well, so what's the use, then, of even having
+
+191
+00:20:40.050 --> 00:20:45.009
+Joseph Denman: the length parameter. Why would it ever be anything but 1024? Is in case you want to…
+
+192
+00:20:45.010 --> 00:20:45.390
+Kent Dybvig: Well.
+
+193
+00:20:45.390 --> 00:20:46.100
+Joseph Denman: Pardon?
+
+194
+00:20:46.100 --> 00:20:54.019
+Kent Dybvig: You might want to use serialized or deserialize for your own purposes, independent of that. You might want to store a serialized compact object in a ledger, for example.
+
+195
+00:21:00.030 --> 00:21:00.760
+Jonathan Sobel: Yeah.
+
+196
+00:21:00.760 --> 00:21:01.800
+Joseph Denman: E…
+
+197
+00:21:02.510 --> 00:21:18.270
+Jonathan Sobel: So, is the fundamental thing you're sort of worried about is the asymmetry between the fact that emit is a keyword with magic type behavior, and serialize, deserialize, or library functions with generic GARGs?
+
+198
+00:21:18.850 --> 00:21:35.520
+Kent Dybvig: Yeah, I'm not really… yeah, I think we've already decided we're going to have serialize and deserialize, and as functions in the standard library, they're… they're pretty much innocuous, because you don't have to… you can always just select the entries in the standard library you want, so their presence there doesn't really hurt anybody.
+
+199
+00:21:35.930 --> 00:21:41.399
+Kent Dybvig: But the emit thing being a keyword means you can't use emit for any other purpose.
+
+200
+00:21:41.820 --> 00:21:52.070
+Kent Dybvig: Now, if a MID is used 12 times in every circuit that you write as a matter of practice, then it's a big savings not to add that generic type in there.
+
+201
+00:21:53.170 --> 00:21:55.000
+Kent Dybvig: If…
+
+202
+00:21:55.200 --> 00:22:02.539
+Kent Dybvig: If it's, you know, used once in a… once in a contract, then it's… then it's not much overhead to throw the contract in there.
+
+203
+00:22:02.790 --> 00:22:08.049
+Kent Dybvig: And also, in the first case, if you're using… if emit is used a lot, then it makes sense for it to be a keyword.
+
+204
+00:22:08.890 --> 00:22:14.360
+Kent Dybvig: If it's a rarely used feature, then it's… then it doesn't make sense for it to be a reserved word.
+
+205
+00:22:15.100 --> 00:22:18.659
+Kent Dybvig: So I'm basically just throwing this out, you know, should we make emit
+
+206
+00:22:18.770 --> 00:22:24.740
+Kent Dybvig: a standard library routine and not reserve the word, or should we keep emitt as a keyword and not have to have the generic type?
+
+207
+00:22:25.650 --> 00:22:34.150
+Joseph Denman: So, without the ability to do something like, console logs from within a Compact program, EMIT will almost
+
+208
+00:22:34.390 --> 00:22:36.750
+Joseph Denman: Definitely be used for debugging.
+
+209
+00:22:38.330 --> 00:22:42.830
+Joseph Denman: Which means that I think it'll be used very frequently.
+
+210
+00:22:44.800 --> 00:22:49.159
+Kent Dybvig: Yeah, that was kind of my feeling, too. I wanted to bring this up in case people had
+
+211
+00:22:49.560 --> 00:22:51.139
+Kent Dybvig: opposing viewpoints.
+
+212
+00:22:51.390 --> 00:22:55.150
+Kent Dybvig: I think if it gets used a lot, then it's… then it would be…
+
+213
+00:22:55.620 --> 00:22:59.510
+Kent Dybvig: In a way, unkind not to use a reserved word, because then…
+
+214
+00:22:59.850 --> 00:23:06.790
+Kent Dybvig: People would use them, might use them for some other purpose, and it would be confusing when other people are looking at their code.
+
+215
+00:23:08.110 --> 00:23:18.099
+Jonathan Sobel: Yeah, the asymmetry doesn't bother me, really, because… because of that, because emit feels like this thing you want to be easy to use, and… and a lot of the time, you're…
+
+216
+00:23:18.350 --> 00:23:24.119
+Jonathan Sobel: It… you aren't going to be using it for miscellaneous, you're just going to be emitting something, and you want it just to do the right thing.
+
+217
+00:23:24.180 --> 00:23:40.999
+Jonathan Sobel: And by the time you're thinking serialize, deserialize, you're in this kind of brain space of thinking carefully about types and lengths and so forth. So the fact that those are there on those library functions, and that I don't want to have to think about that when I'm just emitting events, seems fine to me.
+
+218
+00:23:46.140 --> 00:23:47.460
+Kent Dybvig: Yeah, I think we have a…
+
+219
+00:23:47.660 --> 00:23:53.529
+Kent Dybvig: It's kind of interesting, too, on the other side, one of the ways in which this
+
+220
+00:23:53.640 --> 00:23:55.559
+Kent Dybvig: It's potentially useful
+
+221
+00:23:55.920 --> 00:24:02.199
+Kent Dybvig: To have the deserialize here is that you can deserialize your own… you know, you can…
+
+222
+00:24:02.370 --> 00:24:09.519
+Kent Dybvig: An app can receive something from the indexer and pass it to a circuit, which then can deserialize it.
+
+223
+00:24:09.970 --> 00:24:15.599
+Kent Dybvig: At some point, we probably should have a way of deserializing The standard ones.
+
+224
+00:24:16.050 --> 00:24:17.869
+Kent Dybvig: within Compact as well.
+
+225
+00:24:18.620 --> 00:24:25.700
+Kent Dybvig: On the other hand, it may be that the serialize and deserialize should actually be
+
+226
+00:24:26.160 --> 00:24:32.259
+Kent Dybvig: So we need serialize and deserialize at some level… no, sorry, we need serialize at some level.
+
+227
+00:24:32.510 --> 00:24:34.470
+Kent Dybvig: to implement EMIT.
+
+228
+00:24:36.930 --> 00:24:43.569
+Kent Dybvig: I would argue that possibly that should not be Done by compiler-generated
+
+229
+00:24:43.820 --> 00:24:51.790
+Kent Dybvig: A compiler-generated expansion, but rather built into the,
+
+230
+00:24:52.020 --> 00:24:57.809
+Kent Dybvig: on-chain runtime, you know, the VM, that should be a VM instruction, or something analogous to that.
+
+231
+00:24:58.480 --> 00:25:00.219
+Kent Dybvig: I don't know.
+
+232
+00:25:00.850 --> 00:25:02.750
+Kent Dybvig: It's actually…
+
+233
+00:25:06.990 --> 00:25:12.310
+Kent Dybvig: The thing is that the way we currently expand code serializes is almost trivial.
+
+234
+00:25:16.720 --> 00:25:17.560
+Kent Dybvig: Anyway.
+
+235
+00:25:18.040 --> 00:25:19.830
+Kent Dybvig: That's a different issue for later.
+
+236
+00:25:21.100 --> 00:25:21.630
+Jonathan Sobel: Yeah.
+
+237
+00:25:22.580 --> 00:25:26.900
+Jonathan Sobel: I would… I think the… It should be left as is.
+
+238
+00:25:27.220 --> 00:25:33.089
+Jonathan Sobel: And then Joe's question of whether at some point you cease to need serialized for these purposes.
+
+239
+00:25:33.500 --> 00:25:39.280
+Jonathan Sobel: It's still fine to have it in the library, I think, unless there's something terribly wrong with it.
+
+240
+00:25:39.470 --> 00:25:40.010
+Jonathan Sobel: Whoa.
+
+241
+00:25:40.010 --> 00:25:40.899
+Kent Dybvig: Yeah, well then…
+
+242
+00:25:40.900 --> 00:25:41.290
+Jonathan Sobel: that missed.
+
+243
+00:25:41.290 --> 00:25:53.099
+Joseph Denman: It's just very… it's just very clunky, or at least it seems very clunky to me because of this arbitrary, size type parameter, which I suppose is really only
+
+244
+00:25:53.470 --> 00:26:04.060
+Joseph Denman: An artifact of the fact that we don't have non-pick-sized byte strings. Because if, you know, if we had arbitrary length byte strings, it really wouldn't matter.
+
+245
+00:26:04.330 --> 00:26:09.789
+Joseph Denman: But if we… if we are gonna… if we are going to…
+
+246
+00:26:10.970 --> 00:26:12.889
+Joseph Denman: Yeah, if we are gonna have…
+
+247
+00:26:13.070 --> 00:26:19.139
+Joseph Denman: If we're… if we're not gonna… if we're… yeah, if we're limited to fixed size byte strings, then there's no way…
+
+248
+00:26:19.140 --> 00:26:25.269
+Kent Dybvig: Yeah, that's the way… that's what we're limited to in the language right now. Yeah, otherwise, I totally agree with you, it should just return a…
+
+249
+00:26:25.810 --> 00:26:33.680
+Kent Dybvig: A bytes object to the proper size, and if… if we… at some point, we talked about having a bytes
+
+250
+00:26:34.430 --> 00:26:44.010
+Kent Dybvig: Bytes object being a sub… bytes type being a subtype of another type, if the length is less… of the first is less than the length of the second.
+
+251
+00:26:45.350 --> 00:26:49.410
+Kent Dybvig: And that there would be some implicit padding
+
+252
+00:26:49.580 --> 00:26:51.740
+Kent Dybvig: We decided not to do that.
+
+253
+00:26:57.640 --> 00:27:00.879
+Jonathan Sobel: I assume deserialize ignores padding at the end?
+
+254
+00:27:01.680 --> 00:27:02.390
+Kent Dybvig: Yes.
+
+255
+00:27:05.850 --> 00:27:09.369
+Kent Dybvig: I mean, it could check to make sure that everything's zero after that, but…
+
+256
+00:27:09.750 --> 00:27:10.819
+Jonathan Sobel: No, I just met.
+
+257
+00:27:11.160 --> 00:27:11.840
+Jonathan Sobel: Yep.
+
+258
+00:27:14.320 --> 00:27:15.110
+Jonathan Sobel: Alright.
+
+259
+00:27:16.700 --> 00:27:20.129
+Kent Dybvig: Alright, we'll just leave Ahmed the way it is, and
+
+260
+00:27:20.310 --> 00:27:28.200
+Kent Dybvig: Yeah, we can debate whether to keep serialized after… after Q2. At this point, it's…
+
+261
+00:27:28.570 --> 00:27:32.960
+Kent Dybvig: I think there's even example programs are using it, so… Oh, let's…
+
+262
+00:27:33.830 --> 00:27:38.109
+Kent Dybvig: Let's leave it the way… you know, let's talk about that some more later.
+
+263
+00:27:38.430 --> 00:27:51.450
+Kent Dybvig: I actually like serialize and deserialize. I think that Inigo would like it too, because he always says there shouldn't be any casts between any of these cryptographic things, except by way of going through a bytes object.
+
+264
+00:27:52.760 --> 00:27:56.660
+Kent Dybvig: And, yeah.
+
+265
+00:27:57.180 --> 00:27:58.010
+Kent Dybvig: So…
+
+266
+00:27:58.790 --> 00:28:07.679
+Kent Dybvig: I think he would prefer that mechanism for… for getting from a Uint to a field, or from a field to a…
+
+267
+00:28:07.910 --> 00:28:09.820
+Kent Dybvig: a, JobJob Scaler.
+
+268
+00:28:17.120 --> 00:28:17.770
+Jonathan Sobel: Alright.
+
+269
+00:28:19.900 --> 00:28:21.390
+Joseph Denman: Well, I mean, that could be…
+
+270
+00:28:21.550 --> 00:28:28.229
+Joseph Denman: I don't know, in the short term, maybe that could be a heuristic we use to determine what makes sense as a cast.
+
+271
+00:28:28.730 --> 00:28:32.769
+Joseph Denman: You see, I cast from value A to value B.
+
+272
+00:28:32.910 --> 00:28:37.729
+Joseph Denman: should be the same as whatever it would look like casting from A to B through a bytes object.
+
+273
+00:28:39.580 --> 00:28:46.480
+Kent Dybvig: Yeah, we've… you know, and, you know, we've got a little mess with our cast right now because of the…
+
+274
+00:28:47.460 --> 00:28:52.789
+Kent Dybvig: incomplete set that Kevin has implemented, getting… trying to get the SecP stuff finished.
+
+275
+00:28:53.450 --> 00:28:56.039
+Kent Dybvig: We'll be revisiting that issue sometime.
+
+276
+00:28:56.690 --> 00:29:00.430
+Kent Dybvig: In Q3, hopefully getting paid for it, but probably not.
+
+277
+00:29:02.540 --> 00:29:05.249
+Joseph Denman: Okay. Any other topics?
+
+278
+00:29:06.060 --> 00:29:10.240
+Jonathan Sobel: I'll just mention status update on the COIP for,
+
+279
+00:29:10.900 --> 00:29:18.620
+Jonathan Sobel: interfaces and cross-contract calls and so forth. I got stalled a bit there because,
+
+280
+00:29:18.830 --> 00:29:24.280
+Jonathan Sobel: Bob generated, with AI help, a bunch of test cases.
+
+281
+00:29:24.340 --> 00:29:39.510
+Jonathan Sobel: Which I assume Matthew is interested in, too, and his first batch of them was full of stuff that we wouldn't be delivering, in the near term, with, like, private cross-contract calls to things with private, state, and all kinds of stuff.
+
+282
+00:29:39.670 --> 00:29:55.790
+Jonathan Sobel: And so, I was busy going, okay, how do I deal with this? And then he generated an updated one that slurped up the coit that has written so far, and therefore, was able to identify these won't be yet, and these will be sooner, and all that. But it's still,
+
+283
+00:29:57.010 --> 00:30:05.669
+Jonathan Sobel: Basically, it generated everything under the assumption that anyone doing a token, or doing any kind of token… implementing a token, kind of, would
+
+284
+00:30:05.810 --> 00:30:24.770
+Jonathan Sobel: not… you can imagine, I'm anthropomorphizing the AI here, but it's as if it went off and said, why would I bother to do any of this on midnight and just do something I could have done somewhere else? Obviously, I want to do the most interesting differential privacy
+
+285
+00:30:24.770 --> 00:30:42.950
+Jonathan Sobel: I have a token, but even the… how much of it I have is totally private, and when I transfer it to you, it's not that the information is on a ledger, it's that I use a proof that I have enough, and I only submit the proof, and only each of us know our own balances, and nobody else has, you know, the system doesn't know the balances, and the…
+
+286
+00:30:43.040 --> 00:30:44.239
+Jonathan Sobel: So,
+
+287
+00:30:44.650 --> 00:30:53.869
+Jonathan Sobel: it kind of did everything with that, and it made it look like we… that all the tests that could do anything that looks sort of like a DEX would be put off to the future.
+
+288
+00:30:54.260 --> 00:31:13.230
+Jonathan Sobel: And I got kind of stalled trying to figure out how to react to all this, and then some interesting conversations with Thomas Kerber and with Casey about, could we even do that? Does that even make sense? Can you have a token contract where, it's totally behind ZK stuff.
+
+289
+00:31:13.370 --> 00:31:25.579
+Jonathan Sobel: And it's the, you know, my balance is held in my witness, my private state, and the system doesn't know my balance, and yet I can't lie about my,
+
+290
+00:31:26.300 --> 00:31:33.929
+Jonathan Sobel: the operations I do on it, because the proofs say that I'm doing the right thing. And the answer is yes, you can do all that in midnight, which is really cool.
+
+291
+00:31:34.230 --> 00:31:36.119
+Jonathan Sobel: And Thomas.
+
+292
+00:31:36.120 --> 00:31:36.450
+Joseph Denman: Yeah.
+
+293
+00:31:36.450 --> 00:31:39.560
+Jonathan Sobel: did that with Zcash kind of things early on.
+
+294
+00:31:40.100 --> 00:31:50.169
+Joseph Denman: Yeah, there's… if you're interested in this area, Jonathan, there's also something you might want to check out, which is something that was implemented on the Ethereum network called the Semaphore Protocol.
+
+295
+00:31:50.330 --> 00:31:54.379
+Joseph Denman: And the Semaphore protocol, there was a,
+
+296
+00:31:54.600 --> 00:31:57.499
+Joseph Denman: Used to be a partner, at least,
+
+297
+00:31:57.770 --> 00:32:04.079
+Joseph Denman: that wanted to do a private stablecoin, which the organization was called Moneta, I think.
+
+298
+00:32:04.200 --> 00:32:08.620
+Joseph Denman: And I was asking sort of the same thing, it's like, if I wanted to
+
+299
+00:32:08.800 --> 00:32:18.870
+Joseph Denman: Because really, the killer app for Midnight is a privacy-preserving DEX. You know, a public DEX is cool, but a privacy-preserving DEX is really something that
+
+300
+00:32:19.160 --> 00:32:21.780
+Joseph Denman: You know, no one else can really do, but…
+
+301
+00:32:21.920 --> 00:32:40.540
+Joseph Denman: There's a set of primitives in the semaphore protocol, which is privacy-preserving inclusion and exclusion sets, which you would want to use, for example, if you want to prove that you are part of, like, let's just say a group of people that are allowed to audit a coin.
+
+302
+00:32:40.650 --> 00:32:46.979
+Joseph Denman: And different balances and stuff like that without revealing who's the auditor or, you know, who has that capability.
+
+303
+00:32:47.190 --> 00:32:55.470
+Joseph Denman: And so, I would imagine that, you know, a privacy-preserving DEX would involve, basically, Zcache plus those capabilities.
+
+304
+00:32:55.560 --> 00:33:12.900
+Joseph Denman: Because, like, at least for Moneta, what they wanted, what they really needed was the ability to have a private coin, but also allow third-party auditors, such as governments, government agencies, to see who's holding coins, but not to make that a public capability.
+
+305
+00:33:13.850 --> 00:33:29.390
+Jonathan Sobel: So, I mean, so yes, but this wasn't just my own interest. It was that all the test cases for current cross-contract stuff that Bob did sort of assumed that was the only interesting thing to do with cross-contract calls, was the fully privacy-preserving stuff.
+
+306
+00:33:29.390 --> 00:33:40.570
+Jonathan Sobel: And all the test cases looked like that, and then when I said, you know, have it rule out the ones that won't be relevant yet, it more or less ruled out almost all the test cases, and said, actually, cross-contract calls can't do anything yet.
+
+307
+00:33:40.760 --> 00:33:48.149
+Jonathan Sobel: And that's silly, because even as soon as we have, like, you know, ZKR interpreter or something, we'll be able to do all of ERC20.
+
+308
+00:33:48.350 --> 00:33:59.939
+Jonathan Sobel: And so we ought to have test cases that prove that, and even for the near term, we ought to be able to have test cases that do things, but all the tokens use the same contract code, and the… so…
+
+309
+00:34:00.260 --> 00:34:08.699
+Jonathan Sobel: Anyway, all that is to say that that interesting diversion stalled work for a while as I was trying to figure out what to do with it, so I'm gonna take…
+
+310
+00:34:08.870 --> 00:34:24.460
+Jonathan Sobel: his test case stuff, and pound on it a little bit, and break it up into versions that don't require all that privacy stuff, because you don't need that. I mean, you should be able, with what's being delivered this quarter, to do a version of Public Dex.
+
+311
+00:34:25.010 --> 00:34:25.679
+Joseph Denman: Yeah.
+
+312
+00:34:25.920 --> 00:34:37.739
+Joseph Denman: And we had sort of decided also, just in case you end up in conversations where this isn't known, but we saw Bob's acceptance criteria and have basically
+
+313
+00:34:38.030 --> 00:34:40.060
+Joseph Denman: Determined, or, or, you know.
+
+314
+00:34:40.880 --> 00:34:41.870
+Kent Dybvig: So I didn't.
+
+315
+00:34:42.100 --> 00:34:43.580
+Joseph Denman: I've decided that.
+
+316
+00:34:43.580 --> 00:34:44.780
+Matthew Hounslow: Yeah, exactly.
+
+317
+00:34:45.020 --> 00:34:50.180
+Joseph Denman: Yeah, those test cases are not on the hot path for the Q2 deliverable.
+
+318
+00:34:50.710 --> 00:34:53.909
+Joseph Denman: Yeah. Yeah. That if, if,
+
+319
+00:34:54.520 --> 00:35:01.000
+Joseph Denman: What we're going to do is focus on small toy examples, and cast a wide net on those, so that, hopefully.
+
+320
+00:35:01.160 --> 00:35:11.970
+Joseph Denman: Bob can just implement that, after the feature is, like, tested, and at the end of Q2 to create some sort of demo. And it should just work, assuming that all of our test cases,
+
+321
+00:35:12.680 --> 00:35:14.900
+Joseph Denman: You know, we cast a wide enough net.
+
+322
+00:35:16.700 --> 00:35:29.459
+Jonathan Sobel: It did bring up an interesting question about if we have a set of test cases. I mean, suppose that you have a… it is useful to have, here's a catalog of interesting test cases, here are ones we would expect to pass.
+
+323
+00:35:29.520 --> 00:35:38.850
+Jonathan Sobel: For this, and here are some that are interesting that we don't expect to pass yet, so if it's all as designed, we… it doesn't require that these pass, which is useful information to share.
+
+324
+00:35:39.010 --> 00:35:41.620
+Jonathan Sobel: It's almost like supporting material for the coit.
+
+325
+00:35:41.860 --> 00:35:49.320
+Jonathan Sobel: And I wonder, whether… because part of our, COIP standard allows each COIP to have a subdirectory with supporting
+
+326
+00:35:49.490 --> 00:35:52.210
+Jonathan Sobel: Pictures and other documents and things.
+
+327
+00:35:52.390 --> 00:35:57.260
+Jonathan Sobel: And I wonder whether this would be a useful thing to have for this COIP.
+
+328
+00:35:57.520 --> 00:36:06.060
+Jonathan Sobel: Just it not directly in it, but in the subdirectory, here is a little catalog of some test cases that we would expect to pass, and some that we would expect not to.
+
+329
+00:36:06.230 --> 00:36:07.930
+Jonathan Sobel: At least at a high level.
+
+330
+00:36:08.120 --> 00:36:10.580
+Jonathan Sobel: For Discord.
+
+331
+00:36:11.850 --> 00:36:15.650
+Jonathan Sobel: Does that seem like a useful thing to go into the Compact repository with it?
+
+332
+00:36:16.110 --> 00:36:25.800
+Joseph Denman: It would be useful. I don't know that it should determine whether or not the COIP has been completed, or maybe it does, maybe it does.
+
+333
+00:36:25.800 --> 00:36:27.109
+Matthew Hounslow: Yeah, that's interesting.
+
+334
+00:36:30.100 --> 00:36:45.350
+Jonathan Sobel: It seems like the best place to store that stuff, but I agree. So I kind of got derailed, figuring, like, I had to have all that stuff figured out first, but then I arrived at the same place you did. Get the current thing done, then add some of the test cases, and if we have to edit, that's fine, we edit.
+
+335
+00:36:46.800 --> 00:36:53.980
+Joseph Denman: Yeah, but that seems like the most, I guess, natural place to include Such test cases, yeah.
+
+336
+00:36:56.520 --> 00:36:57.060
+Jonathan Sobel: Okay.
+
+337
+00:36:58.080 --> 00:37:01.110
+Jonathan Sobel: Did you start to say something, Matthew? I didn't mean to cut you off there.
+
+338
+00:37:01.800 --> 00:37:03.070
+Matthew Hounslow: No, no, all good.
+
+339
+00:37:06.510 --> 00:37:07.260
+Jonathan Sobel: Alright.
+
+340
+00:37:09.120 --> 00:37:13.180
+Joseph Denman: If there's nothing else, then… Maybe we call it?
+
+341
+00:37:14.100 --> 00:37:14.960
+Jonathan Sobel: Wait, Tracy?
+
+342
+00:37:16.760 --> 00:37:29.389
+Tracy Li: Hi, everyone, this is Tracy. I'm sorry, it's… I'm a security engineer from Certik, and I have some question I want to ask. I'm not sure if it's the right time to do that, or are we just about to wrap up?
+
+343
+00:37:29.750 --> 00:37:30.620
+Joseph Denman: Go for it.
+
+344
+00:37:31.460 --> 00:37:45.719
+Tracy Li: Okay, yeah, so, I'm just curious about, so since Minokawa's compiler does not just emit ordinary code, it will generate, like, modules, like, source mass, circuits, things like that, I would like to know what's…
+
+345
+00:37:45.720 --> 00:37:56.609
+Tracy Li: what is a project's compiler correctness strategy? Like, specifically, like, how do we ensure that the generated circuit and the runtime artifacts preserve the source level semantics?
+
+346
+00:37:57.270 --> 00:38:06.889
+Tracy Li: Like, do we have a formal semantics, like, semantic test suits, or suites, or, like, differential testing against a source-level interpreter?
+
+347
+00:38:07.070 --> 00:38:08.730
+Tracy Li: Puzzing, things like that.
+
+348
+00:38:14.390 --> 00:38:21.609
+Kent Dybvig: Yeah, at this point, we just have the compiler, and this is, something that we're… Actively…
+
+349
+00:38:21.860 --> 00:38:26.920
+Kent Dybvig: Pursuing, through the midnight, sorry, through,
+
+350
+00:38:27.340 --> 00:38:29.860
+Kent Dybvig: one of the groups at, I.O.
+
+351
+00:38:30.100 --> 00:38:42.199
+Kent Dybvig: I don't know where they've gotten to, but it's something we're looking at to verify that ZKR does its job and have a formal definition of ZKR.
+
+352
+00:38:42.490 --> 00:38:51.419
+Kent Dybvig: And also to, figure out a way to verify that Compact actually generates
+
+353
+00:38:52.030 --> 00:38:54.580
+Kent Dybvig: ZKR that's equivalent to the source language.
+
+354
+00:38:54.760 --> 00:38:57.569
+Kent Dybvig: It's a very difficult problem.
+
+355
+00:38:58.020 --> 00:39:01.580
+Kent Dybvig: So, I don't know… I don't know how long it'll be before we have that.
+
+356
+00:39:01.920 --> 00:39:05.929
+Kent Dybvig: So for now, we… we just rely on heavy testing.
+
+357
+00:39:10.000 --> 00:39:25.220
+Jonathan Sobel: Yeah, and in case you weren't plugged into it enough to follow the ZKIR part, it's that, you know, it's… while that, in some sense is just our own internal intermediate representation between what the compiler produces and what the backend
+
+358
+00:39:25.900 --> 00:39:39.390
+Jonathan Sobel: proof systems and all work with. It is a useful point at which to define a semantics and say, does the… is the compiler faithful to the source code in producing this intermediate representation, and involve the cryptographer and ledger kind of people.
+
+359
+00:39:39.390 --> 00:39:47.579
+Jonathan Sobel: And making sure that that intermediate representation does the right thing as it goes back to the chain. It's kind of how it's been broken up so far.
+
+360
+00:39:47.860 --> 00:39:49.419
+Jonathan Sobel: But, not done yet.
+
+361
+00:39:50.360 --> 00:39:53.880
+Kent Dybvig: Yeah, so the answer to the question is it's all aspirational at this point.
+
+362
+00:39:55.990 --> 00:40:03.780
+Tracy Li: Yeah, thank you so much. That's actually what I want to know, and also, like, do we, currently, like, planning to…
+
+363
+00:40:03.990 --> 00:40:16.269
+Tracy Li: Include more, like, maintainers, or maybe, like, third-party contributors, or, maybe, like, institutional user, or, like, security team to, come to
+
+364
+00:40:16.380 --> 00:40:19.759
+Tracy Li: During the maintainership, or things like that.
+
+365
+00:40:22.310 --> 00:40:27.139
+Kent Dybvig: We, yeah, we're welcoming, we welcome people to, to,
+
+366
+00:40:27.950 --> 00:40:39.429
+Kent Dybvig: become maintainers. We want more maintainers from outside, and more security-oriented ones with contributions in that direction would be very welcome.
+
+367
+00:40:39.730 --> 00:40:43.479
+Kent Dybvig: There's a process laid out in…
+
+368
+00:40:43.710 --> 00:40:48.519
+Kent Dybvig: somewhere, I'm not sure where Kevin would know, for…
+
+369
+00:40:48.680 --> 00:40:57.629
+Kent Dybvig: the requirements to become a maintainer, but I think they're… I don't think they're completely fully specified yet. I think that's… that's still somewhat in flux.
+
+370
+00:40:58.340 --> 00:41:04.710
+Kent Dybvig: But yeah, I think, you know, in the… in the… in general, it requires,
+
+371
+00:41:05.410 --> 00:41:12.619
+Kent Dybvig: Producing some pull requests, that get approved that don't have major problems.
+
+372
+00:41:13.850 --> 00:41:21.299
+Kent Dybvig: You know, maybe the first few do, maybe the next few don't, and then we say, this person seems like a good maintainer.
+
+373
+00:41:21.570 --> 00:41:32.819
+Kent Dybvig: So, I mean, speak… not… you know, speaking for myself, if not the rest of the maintainers, the more the merrier, because that's, you know, more people to spread the work out over.
+
+374
+00:41:33.240 --> 00:41:43.060
+Kent Dybvig: But we also want to make sure that, you know, we bring in people who have shown confidence in doing that, and who are…
+
+375
+00:41:43.180 --> 00:41:46.840
+Kent Dybvig: Who are actually… Willing to spend the time on it.
+
+376
+00:41:47.720 --> 00:41:55.859
+Kent Dybvig: And that's… that's where there's… that's where the requirement to actually have some successful PRs before becoming a maintainer comes from.
+
+377
+00:41:57.890 --> 00:42:08.630
+Kent Dybvig: There's actually a sticking point there within our organization, is that there's a couple of people we'd kind of like to make maintainers that aren't maintainers, because they haven't gone through that yet.
+
+378
+00:42:11.930 --> 00:42:14.870
+Kent Dybvig: But we wanna… we wanna keep the same process for everybody.
+
+379
+00:42:16.310 --> 00:42:27.419
+Tracy Li: Thank you, thank you. Yeah, that sounds cool. Yeah, thank you so much. I will, dig more into this, and I will keep a closer, like, a closer look on how, Minakawa, the…
+
+380
+00:42:27.580 --> 00:42:31.439
+Tracy Li: The release notes and everything within the development, and
+
+381
+00:42:31.560 --> 00:42:34.820
+Tracy Li: Yeah, thank you so much. That's all my questions.
+
+382
+00:42:35.200 --> 00:42:36.680
+Kent Dybvig: Okay, well, thank you for joining.
+
+383
+00:42:40.720 --> 00:42:43.790
+Joseph Denman: Okay. If there's nothing else, let's, wrap up.
+
+384
+00:42:44.300 --> 00:42:45.260
+Joseph Denman: Thank you, everyone.
+
+385
+00:42:46.570 --> 00:42:47.380
+Kent Dybvig: Thanks, Joe.
+

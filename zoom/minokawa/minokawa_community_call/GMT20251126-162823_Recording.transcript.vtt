@@ -1,0 +1,1278 @@
+WEBVTT
+
+1
+00:02:09.860 --> 00:02:12.339
+Kevin Millikin: Oh, just giving people 3 minutes to show up.
+
+2
+00:03:03.410 --> 00:03:04.250
+Isk: Hello?
+
+3
+00:03:09.400 --> 00:03:12.160
+Kevin Millikin: Hello, I'm just giving people a couple minutes to show up.
+
+4
+00:04:29.080 --> 00:04:34.019
+Kevin Millikin: Okay, I think we have a… A quorum, as they say.
+
+5
+00:04:34.760 --> 00:04:40.239
+Kevin Millikin: M… So, I… I think that the language agenda's on the screen.
+
+6
+00:04:40.620 --> 00:04:44.909
+Kevin Millikin: this Zoom platform is still sort of weird for me.
+
+7
+00:04:45.230 --> 00:04:48.170
+Kevin Millikin: So, a couple of quick status updates.
+
+8
+00:04:48.340 --> 00:04:56.800
+Kevin Millikin: The… I did cut the branch for the 0.27 release. I'm updating the GitHub actions to actually work.
+
+9
+00:04:56.920 --> 00:05:04.819
+Kevin Millikin: And I'm going to build a… make a build today to give to QA, so I'm expecting that hopefully we can get that by the end of next week.
+
+10
+00:05:05.140 --> 00:05:08.070
+Kevin Millikin: So we have branched. It is… it is ongoing.
+
+11
+00:05:09.500 --> 00:05:18.339
+Kevin Millikin: And then the other status update is that we have, approval from IO Legal on the LFDT Minokawa Charter.
+
+12
+00:05:18.540 --> 00:05:29.709
+Kevin Millikin: And so that, we did, we did make some changes to the standard one, small, superficial things, and that has gone back to the Linux Foundation.
+
+13
+00:05:29.910 --> 00:05:45.209
+Kevin Millikin: for them to just make sure that we didn't sneak anything in there that they don't like. And then… but I think… but it should be fine. So as soon as that's approved, we can transfer ownership of the Compact Export Repository, under the LFDT Minakawa org.
+
+14
+00:05:45.690 --> 00:05:54.290
+Kevin Millikin: And I have, given our SRE team a heads up that that is happening. It's probably, next week.
+
+15
+00:05:54.430 --> 00:05:59.719
+Kevin Millikin: Or as soon as the Linux Foundation is happy with the charter that we have.
+
+16
+00:06:00.470 --> 00:06:12.930
+Kevin Millikin: So that… so that will happen. We will… we will make a fork of it, that we preserve internally, so that we can continue to make releases, because we can't have the… our ability to make even internal releases interrupted.
+
+17
+00:06:16.610 --> 00:06:22.879
+Kevin Millikin: And then, for items on, actually, the language agenda, I was…
+
+18
+00:06:23.180 --> 00:06:28.399
+Kevin Millikin: Contemplating whether we should have the arithmetic operators overloaded.
+
+19
+00:06:29.950 --> 00:06:49.030
+Kevin Millikin: So… so there's two… there's… there's two… two reasons I was thinking about this. One is that, ZKIR version 3 will have overloaded addition and multiplication, for instance, and it will work on field values, but also foreign field values, and it will work on curve points.
+
+20
+00:06:49.420 --> 00:06:53.199
+Kevin Millikin: Rather than having a separate ZKIR instruction.
+
+21
+00:06:53.300 --> 00:07:01.170
+Kevin Millikin: And including foreign curve points, and possibly other things, so it could work, pairwise on a raise
+
+22
+00:07:01.950 --> 00:07:08.340
+Kevin Millikin: For instance. So I was wondering if it… if it made sense for us to have overloaded arithmetic in the source language as well.
+
+23
+00:07:08.590 --> 00:07:13.989
+Kevin Millikin: Currently, if you want to add a pair of curve points, there's a standard library function that you call.
+
+24
+00:07:14.210 --> 00:07:19.950
+Kevin Millikin: Which just makes arithmetic expressions involving curve points a little bit awkward to read if you're not a schemer.
+
+25
+00:07:26.010 --> 00:07:33.960
+Kevin Millikin: And then the second point is that it occurred to me that, in a sense, we already have this, so we've added new type aliases, which are distinct from other types.
+
+26
+00:07:34.350 --> 00:07:54.180
+Kevin Millikin: And, arithmetic still works on them. And when I was thinking about how I would explain this in the language reference, the new type is not a subtype of the underlying type, but it behaves as if it were that type for arithmetic. And one way to explain that is the arithmetic is overloaded for the new type.
+
+27
+00:07:57.780 --> 00:07:59.520
+Kevin Millikin: Thoughts, Kent?
+
+28
+00:08:05.630 --> 00:08:07.219
+Kevin Millikin: I think you're still muted.
+
+29
+00:08:14.550 --> 00:08:16.570
+Kevin Millikin: Kent is still muted.
+
+30
+00:08:19.240 --> 00:08:21.009
+Kevin Millikin: Yes, because as I was trying to…
+
+31
+00:08:21.230 --> 00:08:23.549
+Kent Dybvig: As I was trying to unmute,
+
+32
+00:08:23.700 --> 00:08:33.129
+Kent Dybvig: the layout changed, and I was… found myself trying to unmute Joe instead, because as I was trying to unmute his hand raise, and apparently that put him first, and…
+
+33
+00:08:35.850 --> 00:08:40.229
+Kent Dybvig: Alright, so, yeah, I don't think there's any,
+
+34
+00:08:40.870 --> 00:08:50.139
+Kent Dybvig: technical reason why we couldn't do this. I don't even think it matters that ZKR supports the overloading, because it would be a completely static decision
+
+35
+00:08:50.260 --> 00:08:56.180
+Kent Dybvig: And… In the… type checker,
+
+36
+00:08:57.030 --> 00:09:04.049
+Kent Dybvig: And then it would funnel through to the… could funnel through to the same routines in, in the JavaScript code.
+
+37
+00:09:04.800 --> 00:09:06.370
+Kent Dybvig: So, that third point.
+
+38
+00:09:06.480 --> 00:09:08.099
+Kent Dybvig: Operative is.
+
+39
+00:09:09.020 --> 00:09:14.879
+Kent Dybvig: It'd be nice to… if we could contemplate some way of
+
+40
+00:09:16.520 --> 00:09:20.290
+Kent Dybvig: Of allowing people to create new overload links for
+
+41
+00:09:20.770 --> 00:09:30.950
+Kent Dybvig: dots minus empty, and so on, so that we could actually express those directly in the data library. So we could keep EC add and EC modes under there.
+
+42
+00:09:31.270 --> 00:09:38.820
+Kent Dybvig: And, and just have a way of saying, hey, this is, You know, for this type,
+
+43
+00:09:39.120 --> 00:09:41.350
+Kent Dybvig: The ad operator does this.
+
+44
+00:09:45.560 --> 00:09:49.320
+Joseph Denman: Yeah, that's a… That's exactly what I was gonna say.
+
+45
+00:09:49.570 --> 00:09:52.530
+Joseph Denman: In Python, for example, you can overload and
+
+46
+00:09:53.290 --> 00:09:57.099
+Joseph Denman: Add method on a class and make use of plus syntax, but…
+
+47
+00:09:58.500 --> 00:10:01.850
+Joseph Denman: Yeah, when I was reviewing the new type PR,
+
+48
+00:10:02.530 --> 00:10:11.900
+Joseph Denman: It occurred to me that, yeah, over time, adding support for every data type that we would want that has some sort of addition operation is kind of infeasible.
+
+49
+00:10:12.340 --> 00:10:21.490
+Joseph Denman: you define, you know, add operations for any number of types in different ways that you might want, so I was just wondering if this kind of abstraction in the wrong direction
+
+50
+00:10:21.680 --> 00:10:28.329
+Joseph Denman: And maybe what we wanted is something like, an add trait on structs or custom.
+
+51
+00:10:28.810 --> 00:10:30.200
+Joseph Denman: data types.
+
+52
+00:10:36.040 --> 00:10:43.730
+Kent Dybvig: I think the two issues are orthogonal, but yeah, I think having a… having a… some mechanism for specifying a
+
+53
+00:10:44.970 --> 00:10:49.569
+Kent Dybvig: what addition means and other things.
+
+54
+00:10:50.520 --> 00:10:52.030
+Kent Dybvig: Would definitely be nice.
+
+55
+00:10:53.020 --> 00:11:09.419
+Kevin Millikin: Yeah, I agree, and I do… I do think they are orthogonal. I would say that having numeric new types is not really the killer app for new type. It's… you can have structs or arrays that you just wanted to guarantee were produced by your
+
+56
+00:11:10.350 --> 00:11:14.180
+Kevin Millikin: Your functions rather than const up by the programmer.
+
+57
+00:11:16.820 --> 00:11:18.479
+Kevin Millikin: Joe, your hand is still up.
+
+58
+00:11:21.030 --> 00:11:21.950
+Kevin Millikin: Thomas.
+
+59
+00:11:23.870 --> 00:11:27.440
+Thomas Kerber: Yeah, so… I mean, my comments…
+
+60
+00:11:28.260 --> 00:11:38.600
+Thomas Kerber: One danger I see with overloading arithmetic operators is… Arifamitics have hidden failure modes.
+
+61
+00:11:39.020 --> 00:11:44.689
+Thomas Kerber: And we risk making that even less clear and hiding it.
+
+62
+00:11:45.630 --> 00:11:53.120
+Thomas Kerber: I don't think, actually, it's specifically an issue for… elliptic curves,
+
+63
+00:11:53.520 --> 00:11:58.970
+Thomas Kerber: For elliptic curves, there's an additional confusion, which is that, there's two…
+
+64
+00:11:59.510 --> 00:12:03.600
+Thomas Kerber: Common notations for elliptic curves, multiplicative and additive notation.
+
+65
+00:12:04.150 --> 00:12:05.720
+Thomas Kerber: And this…
+
+66
+00:12:06.240 --> 00:12:18.389
+Thomas Kerber: Well, we kind of… actually, because of the way we've named library functions, we're kind of already implicitly using the additive notation, but this would bake us more into that, and it would make it hard to change in the future.
+
+67
+00:12:20.280 --> 00:12:24.410
+Thomas Kerber: Which isn't necessarily a point against it, it's just a…
+
+68
+00:12:25.470 --> 00:12:36.649
+Thomas Kerber: Oh, it's a complexity, and the other side of that is… one of the oddities is it means that the multiply operation… the multiplication operand
+
+69
+00:12:36.820 --> 00:12:47.199
+Thomas Kerber: is not… It uses two different types for elliptic curves, which is a bit of an odd case.
+
+70
+00:12:49.110 --> 00:12:50.780
+Kent Dybvig: That's currently the case.
+
+71
+00:12:51.810 --> 00:12:56.319
+Thomas Kerber: Yeah, so if you look at the signature for ECMOL, it is not.
+
+72
+00:12:56.320 --> 00:12:57.299
+Kevin Millikin: by a scaler.
+
+73
+00:12:57.490 --> 00:12:58.060
+Kevin Millikin: It's multiple…
+
+74
+00:12:58.060 --> 00:12:58.940
+Kent Dybvig: Right, yeah.
+
+75
+00:12:59.410 --> 00:13:00.859
+Kent Dybvig: So it's not translate.
+
+76
+00:13:01.410 --> 00:13:03.040
+Kent Dybvig: Not trans, I'm not…
+
+77
+00:13:03.420 --> 00:13:04.630
+Kevin Millikin: commutative.
+
+78
+00:13:04.630 --> 00:13:06.070
+Kent Dybvig: I mean, to the face, sorry.
+
+79
+00:13:06.820 --> 00:13:07.940
+Kent Dybvig: It's been a long time.
+
+80
+00:13:10.200 --> 00:13:21.769
+Thomas Kerber: Yeah, you get into all sorts of odd questions, like, do you allow writing, B times A, because… instead of A times B, because it still has
+
+81
+00:13:22.360 --> 00:13:29.110
+Thomas Kerber: a mathematical interpretation. You can still say that they're both defined, but you can't say that
+
+82
+00:13:29.340 --> 00:13:34.600
+Thomas Kerber: A times B times C is well-defined, or, you know, then you start getting into problems.
+
+83
+00:13:34.940 --> 00:13:39.920
+Thomas Kerber: Yeah, it just opens a bit of a can of worms, which…
+
+84
+00:13:40.590 --> 00:13:42.449
+Thomas Kerber: We will have to think about that.
+
+85
+00:13:43.140 --> 00:13:48.830
+Kevin Millikin: Yeah, I do think that's a great point, Thomas, that people expect certain properties of arithmetic.
+
+86
+00:13:48.960 --> 00:13:54.230
+Kevin Millikin: Like, commutativity and associativity, to behave… to behave, and then if you define your own.
+
+87
+00:13:54.940 --> 00:13:56.910
+Kevin Millikin: They don't necessarily have those properties.
+
+88
+00:13:58.370 --> 00:14:06.549
+Seba: Additionally, like, concepts like casting don't really work the way people might expect, because you have to, like, catch the curves.
+
+89
+00:14:06.740 --> 00:14:08.429
+Kent Dybvig: Otherwise, you might be, like.
+
+90
+00:14:08.680 --> 00:14:18.799
+Seba: Subtly have some series of values where, there's, like, values that don't work, because the, scalar field size might be different for different curves.
+
+91
+00:14:19.970 --> 00:14:29.689
+Thomas Kerber: Yeah, that's something we're already running into today, where people are… using ECMOL assuming that it…
+
+92
+00:14:29.840 --> 00:14:34.809
+Thomas Kerber: Should work fine for the entire field size, but it only works fine for the embedded field.
+
+93
+00:14:36.890 --> 00:14:46.309
+Thomas Kerber: And that's something we need to address. I mean, that's a separate issue. We need to define proper casting logic there, because right now it's a runtime failure.
+
+94
+00:14:46.980 --> 00:14:52.169
+Thomas Kerber: But, yeah, we need to be careful about that.
+
+95
+00:14:56.650 --> 00:15:02.780
+Kent Dybvig: Well, it sounds like… We need to bake more information about these into the compiler,
+
+96
+00:15:03.120 --> 00:15:15.689
+Kent Dybvig: Or give the information to the compiler through some sort of table or… or something, and at that point, the compiler might as well just build in arithmetics, you know, plus and minus and time syntax.
+
+97
+00:15:19.830 --> 00:15:23.290
+Kent Dybvig: But you should do that as a special case for the curve points.
+
+98
+00:15:23.660 --> 00:15:32.149
+Kent Dybvig: I mean, if the curve point… since the curve point… since the mole has two different types of operands, you could just say, oh, if you… if you switch the operands, you just…
+
+99
+00:15:33.120 --> 00:15:35.180
+Kent Dybvig: You know, just treat it as if it were the…
+
+100
+00:15:35.500 --> 00:15:37.959
+Kent Dybvig: You know, they were in different… the other order.
+
+101
+00:15:43.580 --> 00:15:53.479
+Kent Dybvig: So what's the hidden failure mode that you're concerned about with using plus and minus? How does that differ from using EC Mall and EC…
+
+102
+00:15:53.580 --> 00:15:58.079
+Kent Dybvig: Well, getting some… functional syntax.
+
+103
+00:16:01.850 --> 00:16:09.980
+Thomas Kerber: So, I mean, the main failure mode I'm concerned with is, or what's sprung to mind is specifically for…
+
+104
+00:16:10.550 --> 00:16:17.889
+Thomas Kerber: The non-native field types right now, subtraction has a failure case if we subtract.
+
+105
+00:16:18.110 --> 00:16:22.660
+Thomas Kerber: If we'd end up with something larger than zero, less than zero.
+
+106
+00:16:23.260 --> 00:16:34.160
+Thomas Kerber: But with the native field type, it's wrapping, and the same would be true for the elliptic curve types, and if we added a type for elliptic curve scalars or for non-native field types.
+
+107
+00:16:34.270 --> 00:16:36.830
+Thomas Kerber: Those would also have a wrapping up from a deck.
+
+108
+00:16:37.470 --> 00:16:47.099
+Thomas Kerber: So, I guess we'd need to be very clear what the overflow mechanics on our types are.
+
+109
+00:16:47.500 --> 00:16:52.530
+Thomas Kerber: And I think that's also a problem with addition, because…
+
+110
+00:16:52.970 --> 00:16:57.010
+Thomas Kerber: Right now we have this expanding notion where we…
+
+111
+00:16:57.370 --> 00:17:02.500
+Thomas Kerber: You know, output a larger type than the input operators.
+
+112
+00:17:03.590 --> 00:17:05.349
+Thomas Kerber: operands, and…
+
+113
+00:17:05.810 --> 00:17:17.559
+Thomas Kerber: That's fine, but it's not… like, if we extend this to other types, it might not be clear in which cases we expand the type and in which cases we don't. And we probably won't be doing.
+
+114
+00:17:17.560 --> 00:17:31.900
+Kent Dybvig: So, I think the only type… the only place where we would do that would be for the… the vanilla unsigned, types. Right now, when you do a new type, like you say, new type, feet equals,
+
+115
+00:17:32.470 --> 00:17:34.120
+Kent Dybvig: Unsigned 32.
+
+116
+00:17:34.310 --> 00:17:40.350
+Kent Dybvig: And you do arithmetic on feet, it automatically casts back to feet.
+
+117
+00:17:40.810 --> 00:17:45.620
+Kent Dybvig: And I think we would probably do that with… With the other things.
+
+118
+00:17:46.450 --> 00:17:49.580
+Kent Dybvig: Although it could be specified per type, what that…
+
+119
+00:17:49.580 --> 00:17:56.669
+Thomas Kerber: But, like, even then, it's not clear what that necessarily means, because just because we're casting back to something.
+
+120
+00:17:56.990 --> 00:18:02.430
+Thomas Kerber: Like, that caste logic could be, if it's out of range.
+
+121
+00:18:03.000 --> 00:18:10.060
+Thomas Kerber: We have a runtime error, or it could be if it's out of range, we do a modulus to get it back in range.
+
+122
+00:18:10.260 --> 00:18:17.200
+Thomas Kerber: And those are… you know, it doesn't define if we have Checked arithmetic or wrapping arithmetic.
+
+123
+00:18:17.540 --> 00:18:18.300
+Thomas Kerber: And I think that…
+
+124
+00:18:18.300 --> 00:18:27.520
+Kent Dybvig: If plus and, you know, say you're gonna overload plus, and you're… and you're specifying what functions to call to do that.
+
+125
+00:18:28.280 --> 00:18:35.690
+Kent Dybvig: Isn't that enough flexibility to… For each, type you might want to define, plus on.
+
+126
+00:18:36.050 --> 00:18:40.340
+Kent Dybvig: To say, well, I'm just deferring to these functions, and these functions do what they do.
+
+127
+00:18:40.900 --> 00:18:46.939
+Kent Dybvig: They return the types they return, they… they do the modulo or the errors as they do.
+
+128
+00:18:46.940 --> 00:18:51.930
+Thomas Kerber: I guess to bring it back to the definition of plus, I think it would be…
+
+129
+00:18:52.110 --> 00:18:58.979
+Thomas Kerber: Beneficial for us to be consistent in the overflow behavior in these operations.
+
+130
+00:18:59.270 --> 00:19:02.040
+Thomas Kerber: And I think we probably want to…
+
+131
+00:19:02.340 --> 00:19:07.480
+Thomas Kerber: Like, explicitly expose different overflow behavior if we have it somehow.
+
+132
+00:19:08.490 --> 00:19:11.460
+Thomas Kerber: And in particular, like, right now.
+
+133
+00:19:13.340 --> 00:19:25.429
+Thomas Kerber: I'm just worried that we'll end up with an inconsistency here, and that it'll be hard, to tell how overflow behavior for a type is without going into the weeds of documentation.
+
+134
+00:19:29.920 --> 00:19:31.790
+Kent Dybvig: Yeah, but I don't see how we're gonna be able to…
+
+135
+00:19:32.160 --> 00:19:42.670
+Kent Dybvig: do the over… you know… I don't see how the compiler could possibly arrange to… to do the modulus on, say, when you're… when you're adding two structs.
+
+136
+00:19:43.820 --> 00:19:49.479
+Kent Dybvig: So I really… I really think it always has to defer to the… to the functions implemented.
+
+137
+00:19:51.460 --> 00:19:56.069
+Thomas Kerber: Yes, I… I'm not sure what I'm advocating for.
+
+138
+00:19:56.860 --> 00:19:59.990
+Thomas Kerber: I'm… I'm just worried about.
+
+139
+00:19:59.990 --> 00:20:04.250
+Kent Dybvig: Yeah, so you're… it sounds like you're advocating for going slowly on this, and I…
+
+140
+00:20:06.780 --> 00:20:08.220
+Kevin Millikin: Not rushing into it.
+
+141
+00:20:08.560 --> 00:20:28.550
+Kevin Millikin: I would say that languages generally take two positions on such things. One is that there are guidelines that you ought to follow for your overloaded operators, but there's nothing that requires you to do that. So you can do some really obscene things with C++ overloading, where the operators have a completely different interpretation than you would expect, because they're just convenient.
+
+142
+00:20:28.850 --> 00:20:32.509
+Kevin Millikin: Or there's something that the language tries to… to enforce.
+
+143
+00:20:32.840 --> 00:20:37.200
+Kevin Millikin: Which requires more… The heavyweight signatures, and we're checking.
+
+144
+00:20:43.220 --> 00:20:53.629
+Kevin Millikin: I was just gonna say that the overflow behavior of uint addition will also potentially, change when we add big uints that can be bigger than the field size.
+
+145
+00:20:54.080 --> 00:21:00.989
+Kevin Millikin: So we should wait till we figure out what that language feature is going to look like before we make any serious decisions.
+
+146
+00:21:02.310 --> 00:21:04.780
+Thomas Kerber: Yeah, and I think that that's part of my worry.
+
+147
+00:21:04.960 --> 00:21:11.680
+Thomas Kerber: Because I suspect that that coming from the cryptography team is more likely to have wrapping arithmetic than
+
+148
+00:21:12.030 --> 00:21:15.320
+Thomas Kerber: expanding the types automatically, but I… I…
+
+149
+00:21:15.660 --> 00:21:16.980
+Thomas Kerber: We'll have to wait and see.
+
+150
+00:21:17.620 --> 00:21:19.950
+Thomas Kerber: I think that's gonna be…
+
+151
+00:21:21.410 --> 00:21:24.140
+Kent Dybvig: Very clumsy in the end.
+
+152
+00:21:24.610 --> 00:21:29.399
+Kent Dybvig: Because… And you have… you have to label every constant with what type it is.
+
+153
+00:21:36.200 --> 00:21:36.990
+Thomas Kerber: Well…
+
+154
+00:21:36.990 --> 00:21:41.629
+Kent Dybvig: Otherwise, you add two constants. You add 1 plus 2…
+
+155
+00:21:42.610 --> 00:21:47.199
+Kent Dybvig: Yeah, you had 1 plus 2, and you're gonna get 1, and you're gonna be, what? I don't know how that happened.
+
+156
+00:21:54.060 --> 00:22:00.539
+Kevin Millikin: Okay, so I think the conclusion is that it's generally appealing that we could do this, but we have to be careful.
+
+157
+00:22:01.690 --> 00:22:03.680
+Kevin Millikin: And so the answer's not no.
+
+158
+00:22:05.440 --> 00:22:17.590
+Kevin Millikin: it's not a breaking change, as far as I can think. It would be a breaking change to remove ECAD, for instance, but to allow additionals to work for curve points would be fine.
+
+159
+00:22:19.020 --> 00:22:23.470
+Kevin Millikin: We have scheduling of audit stories.
+
+160
+00:22:24.030 --> 00:22:29.160
+Kevin Millikin: So, we walked through them a couple weeks ago. There were…
+
+161
+00:22:29.510 --> 00:22:35.170
+Kevin Millikin: There's, like, 8 of… 8… 8 to 12, stories that the auditors identified.
+
+162
+00:22:35.300 --> 00:22:37.539
+Kevin Millikin: We should start pulling them into sprints.
+
+163
+00:22:37.970 --> 00:22:42.440
+Kevin Millikin: I don't know if we have any expected deadline.
+
+164
+00:22:42.830 --> 00:22:48.789
+Kevin Millikin: And I don't… don't know, what the timeline is for another round of auditing.
+
+165
+00:22:55.810 --> 00:22:59.329
+Kent Dybvig: Yeah. And what our response needs to be, and how we…
+
+166
+00:23:02.650 --> 00:23:07.629
+Kent Dybvig: And how we avoid a black eye over a supposed crash that wasn't actually a crash.
+
+167
+00:23:11.990 --> 00:23:12.680
+Kevin Millikin: Right.
+
+168
+00:23:13.160 --> 00:23:17.030
+Kevin Millikin: Yeah, so, when I talk about another round of auditing,
+
+169
+00:23:17.390 --> 00:23:31.010
+Kevin Millikin: Part of that is that the auditors focused on a few compiler passes, and it admittedly did not audit the entire compiler, which we should get them to do, but that's follow-on work.
+
+170
+00:23:33.320 --> 00:23:48.520
+Kevin Millikin: So I'll… so I'll try to figure that out. We should start pulling these in. I have created a… separately, a list of all of the language features we've launched since Testnet that have not yet been written into the language reference, or adequately described in the language reference.
+
+171
+00:23:48.870 --> 00:23:56.810
+Kevin Millikin: And I pass those off to Andre to generate JIRA tickets for us to start working on these, to track what's missing.
+
+172
+00:23:57.110 --> 00:23:57.560
+Andrey Venuto: just generally.
+
+173
+00:23:57.560 --> 00:23:58.090
+Kevin Millikin: Great.
+
+174
+00:23:58.470 --> 00:23:59.130
+Andrey Venuto: It's ready.
+
+175
+00:23:59.130 --> 00:23:59.650
+Kevin Millikin: Good.
+
+176
+00:24:00.960 --> 00:24:01.320
+Kent Dybvig: Good.
+
+177
+00:24:01.320 --> 00:24:01.870
+Kevin Millikin: Good.
+
+178
+00:24:02.560 --> 00:24:11.250
+Kevin Millikin: this was also related because the auditors identified this as a shortcoming, that the language reference was not up-to-date with respect to the language.
+
+179
+00:24:14.760 --> 00:24:15.480
+Kevin Millikin: M.
+
+180
+00:24:18.510 --> 00:24:22.050
+Kent Dybvig: So I… specifically, I… these tickets are in a different…
+
+181
+00:24:22.370 --> 00:24:27.290
+Kent Dybvig: they're not in MNJS, they're not in our, sorry, Midnight Languages.
+
+182
+00:24:27.400 --> 00:24:32.249
+Kent Dybvig: I'm wondering if we should make them more visible to us in…
+
+183
+00:24:32.360 --> 00:24:33.520
+Kevin Millikin: Yep, Jura.
+
+184
+00:24:34.290 --> 00:24:38.690
+Kent Dybvig: maybe either with parallel stories, or…
+
+185
+00:24:39.060 --> 00:24:42.109
+Kent Dybvig: Or with one story that has a link to it, or…
+
+186
+00:24:42.860 --> 00:24:47.079
+Kent Dybvig: I mean, I'd like to have it on my radar. I'd like to… you know, I was thinking today.
+
+187
+00:24:47.280 --> 00:24:53.150
+Kent Dybvig: You know, actually, we were talking with Reece a couple days ago, that we…
+
+188
+00:24:53.360 --> 00:25:01.819
+Kent Dybvig: We have these things to do, we have to schedule them, and we had to be a little careful how we schedule ones that are disruptive to the shape of the codebase.
+
+189
+00:25:01.940 --> 00:25:06.029
+Kent Dybvig: So that we're doing it in a period of relative quiet.
+
+190
+00:25:09.240 --> 00:25:14.420
+Kevin Millikin: Yeah. So I think that there's a… there's a bigger problem there, which is that we're getting,
+
+191
+00:25:15.000 --> 00:25:30.669
+Kevin Millikin: as… we're using Jira for more things, which means there's more different teams, there's more different kinds of ways of tagging issues, and I have also experienced that there are issues that I know exist, but I can't find them, because I don't know how they're tagged, or how to search for them.
+
+192
+00:25:31.700 --> 00:25:40.100
+Kevin Millikin: One thing we could do is, I think we can make really liberal use of tagging JIRA issues, because tags are relatively freeform, and anyone can create them.
+
+193
+00:25:40.250 --> 00:25:49.440
+Kevin Millikin: So we could, instead of filtering by team, or filtering by initiatives, we could also just tag issues that were of interest for some reason.
+
+194
+00:25:49.700 --> 00:25:51.869
+Andrey Venuto: tag, as in label, kind of thing?
+
+195
+00:25:52.260 --> 00:26:10.059
+Kevin Millikin: Yeah, just a label on the issue. Like, GitHub has tags, and you can make them colored, and you can, you can just freely create them, so we could have our own system of tags that we used for things. I was… I filed an issue for the formatter today, and there's no component for the formatter.
+
+196
+00:26:10.250 --> 00:26:12.270
+Kevin Millikin: And I can't… I don't know how to create a component.
+
+197
+00:26:12.580 --> 00:26:14.999
+Kevin Millikin: And I don't know if there should be more components.
+
+198
+00:26:15.110 --> 00:26:19.610
+Kevin Millikin: But it just would make sense to just tag it as what component.
+
+199
+00:26:27.530 --> 00:26:31.589
+Kent Dybvig: We're tagging the team as our team, yeah.
+
+200
+00:26:32.790 --> 00:26:33.460
+Kevin Millikin: Right. Small team.
+
+201
+00:26:33.460 --> 00:26:41.629
+Kent Dybvig: And we're all doing this, you know, our team is going to be doing this and that and the other thing, and for all those things, it's nice to have the experience all in one place.
+
+202
+00:26:42.130 --> 00:26:44.590
+Kent Dybvig: Yeah. And I'll have to use different tags to find them.
+
+203
+00:26:45.210 --> 00:26:58.720
+Kevin Millikin: So I don't know the answer if we can change the team that these audit findings are assigned to, because somebody who wants to look at all the audit findings will now have potentially trouble finding them, so we need to figure that out. But we might be able to change it.
+
+204
+00:26:59.700 --> 00:27:00.230
+Kent Dybvig: Yeah.
+
+205
+00:27:02.520 --> 00:27:07.219
+Kent Dybvig: Okay, I guess the same issue relates to anything that shows up as GitHub issues.
+
+206
+00:27:09.880 --> 00:27:14.009
+Kent Dybvig: They aren't currently being automatically converted to tickets, right?
+
+207
+00:27:15.840 --> 00:27:16.390
+Kevin Millikin: Nope.
+
+208
+00:27:20.140 --> 00:27:26.740
+Kevin Millikin: I… at the moment, I don't think that there's any direction, any integration working.
+
+209
+00:27:27.050 --> 00:27:27.930
+Andrey Venuto: No anymore.
+
+210
+00:27:31.880 --> 00:27:32.660
+Kent Dybvig: We're not, like.
+
+211
+00:27:32.930 --> 00:27:40.219
+Kent Dybvig: Might be something to try to get back once we're… once the dust settles on them, move to Linux Foundation, if that's possible.
+
+212
+00:27:41.050 --> 00:27:52.639
+Kevin Millikin: Yeah. Ideally, my goal would be that when we transfer the repository to the Linux Foundation and open it, then our work happens primarily there, in that repository.
+
+213
+00:27:52.990 --> 00:28:01.120
+Kevin Millikin: And we need to train our internal, users who are filing JIRA issues to file issues there instead.
+
+214
+00:28:01.310 --> 00:28:03.810
+Kevin Millikin: Or… and we do that by just…
+
+215
+00:28:04.130 --> 00:28:11.439
+Kevin Millikin: duplicating the issues ourselves initially. They need to be a little careful that things that they put in those issues
+
+216
+00:28:11.760 --> 00:28:12.960
+Kevin Millikin: are public.
+
+217
+00:28:15.290 --> 00:28:15.900
+Kent Dybvig: Yeah.
+
+218
+00:28:17.040 --> 00:28:19.380
+Kent Dybvig: I'm not… you know…
+
+219
+00:28:20.000 --> 00:28:26.309
+Kent Dybvig: Not looking for us to do a lot of extra work, but it is nice to have the time bounds
+
+220
+00:28:26.870 --> 00:28:29.850
+Kent Dybvig: on Jira, like, you don't get in a… in a…
+
+221
+00:28:30.200 --> 00:28:32.910
+Kent Dybvig: GitHub issues. Issues can just sit there.
+
+222
+00:28:33.040 --> 00:28:33.980
+Kent Dybvig: And…
+
+223
+00:28:35.030 --> 00:28:41.759
+Kent Dybvig: Users have no idea how long, you know, we have… we have no idea what's… what's… what's… what each other
+
+224
+00:28:42.170 --> 00:28:43.440
+Kent Dybvig: are working on.
+
+225
+00:28:44.670 --> 00:28:48.810
+Kent Dybvig: Anyway… We'll have to come up with a good mess… a good method.
+
+226
+00:28:49.050 --> 00:28:56.340
+Kent Dybvig: We're coordinating and making sure that the high priority tickets get done, and that we know what we're doing every sprint.
+
+227
+00:28:56.890 --> 00:28:57.550
+Kevin Millikin: Yep.
+
+228
+00:28:57.550 --> 00:28:58.640
+Kent Dybvig: If it's not through Jira.
+
+229
+00:28:58.640 --> 00:28:59.190
+Kevin Millikin: Doubted.
+
+230
+00:28:59.500 --> 00:29:10.220
+Kevin Millikin: Yeah, there'll be some… there'll be some things that are a little more manual there, but we can create… we can create project boards, and we can put tickets… we can put issues on project boards, and we can move them around.
+
+231
+00:29:10.430 --> 00:29:12.390
+Kevin Millikin: To reflect different statuses.
+
+232
+00:29:12.860 --> 00:29:13.640
+Kent Dybvig: Okay.
+
+233
+00:29:14.170 --> 00:29:23.360
+Kevin Millikin: So we can do some of that. We can do some of that. You still, yeah, you still have some sort of manual triage to make sure that everything is actually in the correct state.
+
+234
+00:29:23.590 --> 00:29:25.659
+Kevin Millikin: Which we have now, anyway.
+
+235
+00:29:27.220 --> 00:29:37.010
+Kevin Millikin: Last issue, reserving the TypeScript keywords, any other breaking changes left to make before 1.0? I took a look at the things that we had tagged as breaking changes in Jira, and I don't think there's any more.
+
+236
+00:29:40.820 --> 00:29:49.240
+Kent Dybvig: Yes, so let… so… The formatting changed, you just…
+
+237
+00:29:49.390 --> 00:29:51.550
+Kent Dybvig: put forward. Is that a breaking change?
+
+238
+00:29:52.090 --> 00:29:56.560
+Kent Dybvig: If we change what the formatter produces for… for,
+
+239
+00:29:59.570 --> 00:30:04.690
+Kent Dybvig: I mean, it could be a breaking change for somebody who's decided that this is a requirement for
+
+240
+00:30:05.940 --> 00:30:11.289
+Kent Dybvig: Their own project to push to… to their GitHub repo.
+
+241
+00:30:11.910 --> 00:30:18.160
+Kent Dybvig: Imagine, you know, imagine somebody out there is using our formatter as the standard for what
+
+242
+00:30:18.490 --> 00:30:25.780
+Kent Dybvig: what you have to push, and… and we change it, we… that changes their… Thing.
+
+243
+00:30:26.630 --> 00:30:35.779
+Kevin Millikin: Yeah, I mean, that's a good point. I would… I would characterize that as not a breaking change. I would say that the actual requirement is that they require that you have run the formatter before you push to GitHub.
+
+244
+00:30:36.640 --> 00:30:37.910
+Kevin Millikin: And so…
+
+245
+00:30:37.910 --> 00:30:39.469
+Kent Dybvig: Say what their requirements are.
+
+246
+00:30:39.470 --> 00:30:50.270
+Kevin Millikin: No, no, yeah, if they… if they require that the exact formatting… that the exact formatter… formatting that was implemented by 0.1 of the formatter is
+
+247
+00:30:51.780 --> 00:30:55.750
+Kevin Millikin: is there, then they have to… then they have to actually run that version of the formatter, I guess.
+
+248
+00:30:57.270 --> 00:30:58.479
+Kent Dybvig: All right, so we won't call that…
+
+249
+00:30:58.480 --> 00:30:58.940
+Kevin Millikin: It's not…
+
+250
+00:30:59.730 --> 00:31:12.730
+Kevin Millikin: Yeah, I wouldn't call that a break change. It's not… it's not easy for people to run an older version of the formatter, with a newer toolchain, because they all get updated in lockstep. But I'm not sure how… how much benefit people have from
+
+251
+00:31:13.000 --> 00:31:17.579
+Kevin Millikin: getting into version confusion, so… I'm pretty happy that…
+
+252
+00:31:18.300 --> 00:31:31.090
+Kevin Millikin: It's fine. But there are… but it is worth asking, like, there was a discussion about providing some more verbose logging when we compile circuits with the ZKIR binary.
+
+253
+00:31:31.540 --> 00:31:34.510
+Kevin Millikin: So more information about circuit size.
+
+254
+00:31:34.620 --> 00:31:46.649
+Kevin Millikin: And then somebody suggested that we should all write this into the contractinfo.json file so that DAPs can see diagnostics or metadata about circuit sizes and do something based on that.
+
+255
+00:31:46.920 --> 00:31:49.979
+Kevin Millikin: And that would… I mean, that…
+
+256
+00:31:50.720 --> 00:32:04.729
+Kevin Millikin: is very… that's very different, we don't want to do that. But it occurred to me that even, logging, informational logging, changing that can be a breaking change, because you might have a script.
+
+257
+00:32:05.030 --> 00:32:07.539
+Kevin Millikin: That parses the logging output.
+
+258
+00:32:07.640 --> 00:32:13.960
+Kevin Millikin: and does something based on it, and now we've broken you. So we just need to be careful, like, when we communicate those.
+
+259
+00:32:14.740 --> 00:32:16.800
+Kent Dybvig: Fixing bugs is also a breaking change.
+
+260
+00:32:21.990 --> 00:32:31.679
+Kent Dybvig: Yeah, just depends on how we define it. You know, what process… how heavyweight our process is, and whether we need to duplicate, you know, we generally won't decide we're going to deprecate
+
+261
+00:32:31.820 --> 00:32:33.160
+Kent Dybvig: Bucky behavior.
+
+262
+00:32:33.510 --> 00:32:36.509
+Kent Dybvig: We're just gonna… we're just gonna stop cold turkey on that?
+
+263
+00:32:39.390 --> 00:32:55.919
+Kent Dybvig: But, on other things, we're gonna have a process, and… and that's just what… what'll pass that bar. Anyway, that's… that's neither here nor there. This question, is… we don't seem to have any other ones. I didn't find any either, but then I have had a lot of trouble finding stories I remembered.
+
+264
+00:32:56.840 --> 00:33:00.360
+Kent Dybvig: And I, obviously, I'm not finding stories I don't remember.
+
+265
+00:33:00.850 --> 00:33:05.890
+Kent Dybvig: So… That's why I want to make sure that we aren't missing something.
+
+266
+00:33:07.310 --> 00:33:16.000
+Kent Dybvig: And then, yeah, we need to reserve the TypeScript keywords, that's the… so that's the last thing. I think we need… we should do that simply because,
+
+267
+00:33:16.720 --> 00:33:21.129
+Kent Dybvig: the, you know, the generated JavaScript code
+
+268
+00:33:21.320 --> 00:33:25.970
+Kent Dybvig: If somebody has a circuit name that conflicts with a
+
+269
+00:33:26.480 --> 00:33:30.690
+Kent Dybvig: TypeScript or JavaScript keyword, it might… it might do funky things.
+
+270
+00:33:31.390 --> 00:33:39.259
+Kent Dybvig: So, maybe in the generated JavaScript code, it wouldn't do funky things with TypeScript keywords, but in the generated header file, it would.
+
+271
+00:33:39.790 --> 00:33:46.690
+Kent Dybvig: I think going forward, I would like, control over new keywords to be
+
+272
+00:33:48.110 --> 00:33:50.550
+Kent Dybvig: Basically via the standard library.
+
+273
+00:33:50.810 --> 00:33:54.380
+Kent Dybvig: So that people can… Opt out.
+
+274
+00:33:54.960 --> 00:33:56.050
+Kent Dybvig: easily.
+
+275
+00:33:56.180 --> 00:34:05.419
+Kent Dybvig: And then I think it's… there's gonna be less pressure on us to deprecate, you know, to have a period where we… where we warn people, or whatever.
+
+276
+00:34:09.260 --> 00:34:25.349
+Kent Dybvig: So, visibility of new keywords that we would add, such as keywords we might add to allow people to specify new arithmetic types. You know, new… sorry, overloading of plus, if we have a keyword for that.
+
+277
+00:34:25.790 --> 00:34:30.419
+Kent Dybvig: You know, overload or something like that, then that would be…
+
+278
+00:34:30.880 --> 00:34:34.589
+Kent Dybvig: Something that you would only get if you imported it from the standard library.
+
+279
+00:34:34.710 --> 00:34:40.959
+Kent Dybvig: And you could always… Arranged not to import it or to rename it to something else.
+
+280
+00:34:44.800 --> 00:34:45.830
+Kevin Millikin: Toughness?
+
+281
+00:34:46.940 --> 00:34:53.810
+Thomas Kerber: Yeah, I was going to ask how having it in the standard library actually helps. I guess, in part, you answer that, because you can…
+
+282
+00:34:54.100 --> 00:34:56.610
+Thomas Kerber: Choose whether you want to import things or not.
+
+283
+00:34:56.770 --> 00:35:00.779
+Thomas Kerber: Though that doesn't really help that much with deprecation.
+
+284
+00:35:01.030 --> 00:35:05.510
+Thomas Kerber: Unless we want to have a way to import old versions of the standard library as well.
+
+285
+00:35:07.130 --> 00:35:10.620
+Kent Dybvig: No, I don't think it helps with removing old features.
+
+286
+00:35:10.930 --> 00:35:16.559
+Kent Dybvig: But… So I think my use of the word deprecation was not a very good
+
+287
+00:35:16.700 --> 00:35:18.420
+Kent Dybvig: choice there, it's just…
+
+288
+00:35:19.540 --> 00:35:25.969
+Kent Dybvig: There's removing features, which is the deprecation, and that is definitely, something that we're gonna have to do.
+
+289
+00:35:26.550 --> 00:35:30.480
+Kent Dybvig: in, in steps. But…
+
+290
+00:35:30.950 --> 00:35:38.440
+Kent Dybvig: for new features, I would like to say that it would be nice if new features we add to the language aren't
+
+291
+00:35:38.900 --> 00:35:43.369
+Kent Dybvig: aren't… We generally aren't breaking changes, because we…
+
+292
+00:35:43.770 --> 00:35:48.239
+Kent Dybvig: We can have this mechanism for providing them through the
+
+293
+00:35:48.730 --> 00:35:51.780
+Kent Dybvig: You know, visibility to them through the standard library.
+
+294
+00:35:53.250 --> 00:35:53.940
+Thomas Kerber: Right.
+
+295
+00:35:54.820 --> 00:35:56.529
+Kent Dybvig: Or it could be at the library.
+
+296
+00:35:57.600 --> 00:36:02.309
+Thomas Kerber: One concern… I have with it is,
+
+297
+00:36:03.070 --> 00:36:08.620
+Thomas Kerber: Will it limit, uptake of new features because
+
+298
+00:36:09.470 --> 00:36:14.800
+Thomas Kerber: People have to manually import every single feature that they want to use, then.
+
+299
+00:36:15.050 --> 00:36:20.060
+Kent Dybvig: No, no, they wouldn't do that. I mean, the point is… It would be, like,
+
+300
+00:36:20.220 --> 00:36:29.510
+Kent Dybvig: It would be there in the new language version. They'd get an error, but they could… they could… they could, remove it from the… from the import set.
+
+301
+00:36:29.510 --> 00:36:37.229
+Thomas Kerber: Right. Right. So the path to fixing the conflict would be minimal, because they can just hide it, essentially.
+
+302
+00:36:37.940 --> 00:36:43.299
+Kent Dybvig: Right, and if they're in the habit, as I think some people will be.
+
+303
+00:36:43.440 --> 00:36:50.089
+Kent Dybvig: Of explicitly importing only the things that they wish to import, then yes, they would actually have to opt into it.
+
+304
+00:36:50.940 --> 00:36:56.419
+Kent Dybvig: You know, some people will use the syntax where they only import what they need.
+
+305
+00:36:56.600 --> 00:37:02.229
+Kent Dybvig: So that they don't clutter their namespace with everything that's in the standard library until they need it.
+
+306
+00:37:02.940 --> 00:37:07.689
+Kent Dybvig: For those people, they would have to opt into it. For the other people, they'd have to opt out of it.
+
+307
+00:37:14.670 --> 00:37:25.220
+Kent Dybvig: I don't want to get in a situation where other languages get where they have a fixed set of keywords from day one, and then they have to reuse keywords for 12 different things.
+
+308
+00:37:39.350 --> 00:37:43.030
+Kent Dybvig: The Shea scheme has literally one reserved word, and that's library.
+
+309
+00:37:44.480 --> 00:37:47.170
+Kent Dybvig: And it's only reserved at the very top level of your program.
+
+310
+00:37:53.490 --> 00:37:59.069
+Kevin Millikin: Yeah, I agree in general with that. You get into a syntactic corner that you painted yourself into.
+
+311
+00:37:59.840 --> 00:38:01.170
+Kevin Millikin: Something easily.
+
+312
+00:38:04.570 --> 00:38:06.270
+Kevin Millikin: Okay, yeah.
+
+313
+00:38:07.330 --> 00:38:12.269
+Kevin Millikin: Good. Is there anything else we'd like to talk about while we're all here?
+
+314
+00:38:18.360 --> 00:38:20.179
+Kevin Millikin: Anything else to add to the agenda?
+
+315
+00:38:23.330 --> 00:38:31.030
+Kevin Millikin: Okay, if you're not working in the US, be aware that tomorrow and Friday are our company holidays for Shielded.
+
+316
+00:38:31.520 --> 00:38:34.509
+Kent Dybvig: So U.S.-based employees will be out.
+
+317
+00:38:36.600 --> 00:38:40.080
+Kevin Millikin: Otherwise, thanks for this. Happy hacking, everybody.
+
+318
+00:38:42.240 --> 00:38:42.979
+Joseph Denman: Thank you.
+
+319
+00:38:43.300 --> 00:38:44.050
+Kent Dybvig: Due.
+

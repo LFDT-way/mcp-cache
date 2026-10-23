@@ -1,0 +1,310 @@
+WEBVTT
+
+1
+00:00:07.330 --> 00:00:08.990
+Robert Andersen: Good morning!
+
+2
+00:00:10.890 --> 00:00:23.080
+Robert Andersen: It is… March 17th, 2026, and… this is our… Weekly Identity Bot Meetup.
+
+3
+00:00:24.710 --> 00:00:27.580
+Robert Andersen: Let me get one thing straight here.
+
+4
+00:00:36.390 --> 00:00:39.229
+Robert Andersen: There we go, had to claim host.
+
+5
+00:00:39.370 --> 00:00:45.610
+Robert Andersen: So this is, yeah, March 17, 2026, weekly meetup for Identity Bot.
+
+6
+00:00:46.120 --> 00:00:53.130
+Robert Andersen: And… we did not have a meeting last week, but we are this week, and a lot has happened.
+
+7
+00:00:54.170 --> 00:01:01.330
+Robert Andersen: Since 2 weeks ago. So what I'm going to do is… Just provide a update.
+
+8
+00:01:01.600 --> 00:01:03.449
+Robert Andersen: And share my screen.
+
+9
+00:01:18.330 --> 00:01:23.700
+Robert Andersen: So, if we check up repo, A bunch of commits, and…
+
+10
+00:01:24.560 --> 00:01:37.739
+Robert Andersen: We updated… I added the sandbox app functionality, so that basically allows people to run an app inside of the identity agent, and it's a container sandbox app.
+
+11
+00:01:38.780 --> 00:01:45.940
+Robert Andersen: And then the point was to prove that data could be sent from the inside of the Sandbox app to…
+
+12
+00:01:46.450 --> 00:01:55.610
+Robert Andersen: the identity agent host, And the purpose of that was to… Be the first stepping…
+
+13
+00:01:55.990 --> 00:02:03.440
+Robert Andersen: The first step to be able to show it… the identity agent acting as a proxy to, you know, for all data.
+
+14
+00:02:03.610 --> 00:02:11.210
+Robert Andersen: That a individual has, so that the individual can manage their entire digital life through their identity agent, so it has to be able to
+
+15
+00:02:12.770 --> 00:02:17.150
+Robert Andersen: Have the… it has to have the ability to send data to
+
+16
+00:02:17.460 --> 00:02:28.490
+Robert Andersen: other apps within the identity agent, at the identity agent's discretion, which really means at the individual's discretion, because the policy engine and other
+
+17
+00:02:29.420 --> 00:02:37.559
+Robert Andersen: functionalities within the identity agent just implement exactly what the human using the identity agent wants.
+
+18
+00:02:38.750 --> 00:02:48.050
+Robert Andersen: And then… on the memory architecture, which I will be merging today, That one had…
+
+19
+00:02:49.830 --> 00:02:56.259
+Robert Andersen: Let's see, I think it was… 40 or something commits?
+
+20
+00:02:56.410 --> 00:03:00.720
+Robert Andersen: So, I've had a lot more commits… yeah, 42.
+
+21
+00:03:00.940 --> 00:03:03.530
+Robert Andersen: Commits ahead of… Mean.
+
+22
+00:03:04.740 --> 00:03:09.039
+Robert Andersen: So, this one, let's look at the activity on this one.
+
+23
+00:03:11.120 --> 00:03:13.310
+Robert Andersen: Let's start all the way at the bottom.
+
+24
+00:03:14.020 --> 00:03:16.169
+Robert Andersen: Okay, so we had a lot of…
+
+25
+00:03:17.590 --> 00:03:22.559
+Robert Andersen: We have the identity agent working on… Android, and then…
+
+26
+00:03:22.910 --> 00:03:28.310
+Robert Andersen: Yeah, there were a bunch of certificate and TLS issues we had to figure out.
+
+27
+00:03:30.070 --> 00:03:31.570
+Robert Andersen: And then…
+
+28
+00:03:32.120 --> 00:03:40.880
+Robert Andersen: just build issues, and… okay, that's a lot of that. Getting this to work on 5 different platforms has…
+
+29
+00:03:41.230 --> 00:03:44.319
+Robert Andersen: Every time I install any sort of
+
+30
+00:03:44.450 --> 00:03:47.630
+Robert Andersen: major feature, I feel like it just breaks the build.
+
+31
+00:03:48.310 --> 00:03:50.830
+Robert Andersen: But, you know, that's how it goes.
+
+32
+00:03:52.180 --> 00:03:53.579
+Robert Andersen: Okay, so…
+
+33
+00:03:57.650 --> 00:04:01.430
+Robert Andersen: Yeah, a lot of this was just… Getting the…
+
+34
+00:04:01.990 --> 00:04:06.750
+Robert Andersen: or fixing bugs with the Sandbox app that we created.
+
+35
+00:04:06.880 --> 00:04:10.710
+Robert Andersen: And… Proving that we can get it to work.
+
+36
+00:04:11.420 --> 00:04:14.580
+Robert Andersen: on all 5 different platforms. Because…
+
+37
+00:04:15.130 --> 00:04:25.419
+Robert Andersen: I showed that it worked, but only on Windows, but then, when I went to go build all the other platforms, you know, we had to update things. So anyway, we got all that, we got past the entire
+
+38
+00:04:25.870 --> 00:04:34.440
+Robert Andersen: sandbox app feature, and then got everything to build, and then we moved on to… Let's see…
+
+39
+00:04:34.890 --> 00:04:44.480
+Robert Andersen: Yeah, then we went on to fix how information… how the signatures work, so that has to do with the carry protocol.
+
+40
+00:04:45.230 --> 00:04:49.240
+Robert Andersen: And… What we were doing before…
+
+41
+00:04:49.470 --> 00:04:53.259
+Robert Andersen: Which is okay, is we were just manually using
+
+42
+00:04:53.910 --> 00:05:00.580
+Robert Andersen: Python and, Dart to write signatures and sign and do the cryptography.
+
+43
+00:05:00.710 --> 00:05:09.020
+Robert Andersen: for… what should be a carry protocol. So then, we spend a lot of time
+
+44
+00:05:11.360 --> 00:05:17.310
+Robert Andersen: setting up all of the different carry protocols, like AC, DC… And…
+
+45
+00:05:17.800 --> 00:05:28.330
+Robert Andersen: We previously set up an OOBI resolution process that didn't actually follow all of the carry protocol, not cryptographically speaking.
+
+46
+00:05:28.830 --> 00:05:31.079
+Robert Andersen: So, we just had to update that.
+
+47
+00:05:31.740 --> 00:05:38.790
+Robert Andersen: So it's actually validated, and it signs in a legit… Way that follows carry protocol.
+
+48
+00:05:38.970 --> 00:05:40.350
+Robert Andersen: And then we set up…
+
+49
+00:05:41.170 --> 00:05:50.880
+Robert Andersen: All of the endpoints for, yeah, the credential issuance, the ability to verify credentials, and to show credentials, and then…
+
+50
+00:05:51.290 --> 00:05:56.450
+Robert Andersen: To act as a witness and provide a witness receipt, and then…
+
+51
+00:05:59.920 --> 00:06:08.020
+Robert Andersen: Just carry, carry, carry. I stayed up till 3.30 in the morning working on carry… Features.
+
+52
+00:06:08.500 --> 00:06:10.209
+Robert Andersen: What was it, 2 nights ago?
+
+53
+00:06:10.440 --> 00:06:16.830
+Robert Andersen: And… yeah, there's a lot to it. I mean, that's like… an entire…
+
+54
+00:06:19.140 --> 00:06:21.960
+Robert Andersen: Oh, what is it? It's just… it's an entire…
+
+55
+00:06:22.590 --> 00:06:31.609
+Robert Andersen: life, in and of itself, is developing carry, which, of course, we don't have to develop, thank goodness, but we still have to implement it, and there's a lot…
+
+56
+00:06:32.350 --> 00:06:35.019
+Robert Andersen: But, in the end, I'm actually not…
+
+57
+00:06:35.800 --> 00:06:38.039
+Robert Andersen: you know, it's not something I have spent…
+
+58
+00:06:38.870 --> 00:06:44.150
+Robert Andersen: Weeks or months and months working on, thankfully, so it's not that bad, but…
+
+59
+00:06:44.720 --> 00:06:52.009
+Robert Andersen: But then again, with AI making things faster, then things just don't take quite as long. Anyway, that's what we've done.
+
+60
+00:06:52.190 --> 00:06:55.270
+Robert Andersen: Over the past… Two weeks?
+
+61
+00:06:55.560 --> 00:07:02.070
+Robert Andersen: And so, it actually is quite a bit. And, well, this is only what is currently on the…
+
+62
+00:07:03.730 --> 00:07:10.119
+Robert Andersen: memory architecture branch. So… oh, we actually set up all the memory, so now…
+
+63
+00:07:10.350 --> 00:07:14.789
+Robert Andersen: We have a proper database structure, and we use SQLite, and…
+
+64
+00:07:16.760 --> 00:07:22.030
+Robert Andersen: And then we set it up so that… We can properly…
+
+65
+00:07:22.310 --> 00:07:27.260
+Robert Andersen: So it has a simple architecture to backup And…
+
+66
+00:07:27.360 --> 00:07:44.729
+Robert Andersen: I haven't got into the recovery part, but… so we can back up the identity agent. So, we've been working on that, and have the actual database and everything set up. So, that is all working. Yeah, everything right here, these 42 commits, are all in the last 4 days.
+
+67
+00:07:45.880 --> 00:07:53.310
+Robert Andersen: So… I will merge everything from Memory architecture…
+
+68
+00:07:54.110 --> 00:07:57.720
+Robert Andersen: over to Maine today, and then Maine will be the main branch.
+
+69
+00:07:58.230 --> 00:08:02.480
+Robert Andersen: But then, I did already start working on Sprint 2,
+
+70
+00:08:02.810 --> 00:08:07.019
+Robert Andersen: So, I will continue this week to work on Sprint 2, and then
+
+71
+00:08:07.460 --> 00:08:10.630
+Robert Andersen: I'll be, adding more carry features.
+
+72
+00:08:11.010 --> 00:08:13.890
+Robert Andersen: And by features, I just mean functionalities.
+
+73
+00:08:14.020 --> 00:08:19.540
+Robert Andersen: And… And then I've got several other tasks, so…
+
+74
+00:08:19.910 --> 00:08:24.399
+Robert Andersen: That's the update for what's been going on with the Identity Bot project.
+
+75
+00:08:24.650 --> 00:08:25.900
+Robert Andersen: And…
+
+76
+00:08:30.600 --> 00:08:33.659
+Robert Andersen: That's all that I want to say for right now, so…
+
+77
+00:08:33.789 --> 00:08:37.219
+Robert Andersen: That's it for today's meeting, and until next week.
+

@@ -1,0 +1,1358 @@
+WEBVTT
+
+1
+00:00:53.790 --> 00:00:54.890
+Justin Florentine: Hey, Matt.
+
+2
+00:00:56.620 --> 00:00:58.129
+Matthew Whitehead (Kaleido): Hey, Justin, how you doing?
+
+3
+00:00:58.520 --> 00:00:59.720
+Justin Florentine: Alright.
+
+4
+00:02:10.419 --> 00:02:11.189
+Fabio Di Fabio: Hello.
+
+5
+00:02:12.250 --> 00:02:13.350
+Justin Florentine: Hello.
+
+6
+00:02:14.430 --> 00:02:15.240
+David Boswell (The Linux Foundation): Hello.
+
+7
+00:02:33.210 --> 00:02:36.220
+Justin Florentine: Give people a couple more minutes to trickle in.
+
+8
+00:03:35.770 --> 00:03:36.860
+Justin Florentine: Okay.
+
+9
+00:03:38.500 --> 00:03:57.530
+Justin Florentine: Alright, let's get started! Hello, everybody! Welcome to the May 12th episode of The Contributor Call. This is a meeting being held under the antitrust policy, which is available on our website. It is being recorded, transcribed, and machine summarized.
+
+10
+00:03:57.530 --> 00:04:02.319
+Justin Florentine: Please mute unless you're speaking, and if you have a question, use the raise hand feature.
+
+11
+00:04:03.790 --> 00:04:09.209
+Justin Florentine: For starters, we have a couple of items on the agenda today.
+
+12
+00:04:09.760 --> 00:04:17.340
+Justin Florentine: If anybody has anything they would like to add, now is your chance. I will post the link to the agenda issue in the chat.
+
+13
+00:04:17.570 --> 00:04:22.619
+Justin Florentine: And feel free to add to that if you haven't had a chance to already.
+
+14
+00:04:23.020 --> 00:04:40.129
+Justin Florentine: There's a couple of architectural things that we'll talk about, and then, some much larger process issues that we're gonna talk about, specifically the very large influx of PRs that we've been getting for, a number of reasons. It's not just AI stuff, although that's a big part of it.
+
+15
+00:04:40.420 --> 00:04:52.060
+Justin Florentine: And so we're going to talk about, you know, that situation, how we can reveal or release the bottleneck, and, what changes we may want to make, if any, to our contributing guidelines.
+
+16
+00:04:53.640 --> 00:04:57.269
+Justin Florentine: Alright, so,
+
+17
+00:04:57.490 --> 00:05:05.050
+Justin Florentine: Let's start from the top of the agenda. We have a bullet item here to talk about migrating to JSpecify.
+
+18
+00:05:05.230 --> 00:05:06.900
+Justin Florentine: Across Besu.
+
+19
+00:05:07.180 --> 00:05:14.719
+Justin Florentine: We did that in some places. This is a replacement of the JSR305 annotation for null checks.
+
+20
+00:05:14.780 --> 00:05:28.760
+Justin Florentine: That project is no longer being maintained, I believe, and it seems that the industry is moving towards JSpecify. So does anybody have any thoughts on doing that more broadly across Baesu?
+
+21
+00:05:28.770 --> 00:05:38.520
+Justin Florentine: You know, what immediately comes to mind is this is likely something that would be very, agent-friendly, to do a lot of this implementation for us.
+
+22
+00:05:39.440 --> 00:05:43.160
+Justin Florentine: Any other thoughts, questions, concerns?
+
+23
+00:05:47.420 --> 00:05:51.950
+Fabio Di Fabio: No, I just want to say that, I think it's worth doing.
+
+24
+00:05:52.320 --> 00:05:59.030
+Fabio Di Fabio: There is… A new contributor working on this, actually, module by module, and
+
+25
+00:06:00.030 --> 00:06:05.630
+Fabio Di Fabio: It will take time, but in the end, it will be a nice… Add.
+
+26
+00:06:07.230 --> 00:06:09.689
+Fabio Di Fabio: To be able to statically check.
+
+27
+00:06:10.550 --> 00:06:11.850
+Fabio Di Fabio: The code.
+
+28
+00:06:12.610 --> 00:06:13.420
+Justin Florentine: Yeah.
+
+29
+00:06:14.190 --> 00:06:15.980
+Justin Florentine: Great, I totally agree with that.
+
+30
+00:06:17.020 --> 00:06:20.299
+Justin Florentine: It's tech debt, you know? You just gotta modernize things.
+
+31
+00:06:21.030 --> 00:06:21.690
+Fabio Di Fabio: Yep.
+
+32
+00:06:24.290 --> 00:06:25.560
+Justin Florentine: Okay.
+
+33
+00:06:26.980 --> 00:06:29.490
+Justin Florentine: Cool, Java 25!
+
+34
+00:06:30.860 --> 00:06:37.050
+Justin Florentine: We have updated it, I believe in our… Build environment?
+
+35
+00:06:37.470 --> 00:06:40.200
+Justin Florentine: Bye.
+
+36
+00:06:40.200 --> 00:06:45.849
+Fabio Di Fabio: I can add, that we are already running on Java 25 in the Docker image.
+
+37
+00:06:46.030 --> 00:06:48.669
+Fabio Di Fabio: Yes. I already shipped Jello 25.
+
+38
+00:06:49.090 --> 00:07:00.049
+Fabio Di Fabio: This month, actually, the idea is to also require Java 25 for… building baseline.
+
+39
+00:07:00.480 --> 00:07:01.140
+Justin Florentine: Right.
+
+40
+00:07:01.850 --> 00:07:04.330
+Fabio Di Fabio: We should be… Close.
+
+41
+00:07:04.790 --> 00:07:10.180
+Fabio Di Fabio: Unless some minor issue with some dependencies, we should be there.
+
+42
+00:07:11.730 --> 00:07:15.050
+Fabio Di Fabio: I already know of someone compiling.
+
+43
+00:07:15.810 --> 00:07:25.489
+Fabio Di Fabio: with Java 25, and… So, I think it should be just a way to… trivially update the Grador.
+
+44
+00:07:26.990 --> 00:07:27.750
+Fabio Di Fabio: version.
+
+45
+00:07:28.500 --> 00:07:32.430
+Justin Florentine: Great. So, I think that's a way of saying this is coming.
+
+46
+00:07:32.590 --> 00:07:40.129
+Justin Florentine: be aware, and pretty soon you'll be able to use any new features in Java 25 that, that you like.
+
+47
+00:07:43.890 --> 00:07:45.060
+Justin Florentine: Cool, cool.
+
+48
+00:07:45.250 --> 00:07:49.239
+Justin Florentine: I'm gonna throw it over here to Matt for a second. You've got your hand up? Go ahead.
+
+49
+00:07:49.240 --> 00:07:57.709
+Matthew Whitehead (Kaleido): Yeah, thanks, thanks, Justin. Yeah, I just wanted to check, so are we at the point where we're still able to run with Java 21, with the 21 JRE?
+
+50
+00:08:02.020 --> 00:08:03.870
+Justin Florentine: So, yes.
+
+51
+00:08:03.870 --> 00:08:05.389
+Matthew Whitehead (Kaleido): Yeah. And is that plan to change?
+
+52
+00:08:05.390 --> 00:08:06.699
+Justin Florentine: They are right now.
+
+53
+00:08:06.700 --> 00:08:07.290
+Matthew Whitehead (Kaleido): Yep.
+
+54
+00:08:07.880 --> 00:08:18.990
+Justin Florentine: But I think, you know, if there are things that you don't want for backwards compatibility reasons, then that would be a good time to discuss it.
+
+55
+00:08:19.220 --> 00:08:23.619
+Matthew Whitehead (Kaleido): No, no, just, just wanted to check, check where we are, and yeah, that's fine, thanks.
+
+56
+00:08:24.150 --> 00:08:30.689
+Justin Florentine: Do you have, like, a… Any concerns there for us just, you know, requiring Java 25?
+
+57
+00:08:31.650 --> 00:08:35.919
+Matthew Whitehead (Kaleido): No? No, no, I don't think so, it's just,
+
+58
+00:08:36.390 --> 00:08:42.830
+Matthew Whitehead (Kaleido): Yeah, I guess, exploiting the latest features is, is gonna, I guess, bump that requirement up, I guess.
+
+59
+00:08:43.030 --> 00:08:45.390
+Matthew Whitehead (Kaleido): But yeah, no, I don't have any… I don't have any concerns.
+
+60
+00:08:46.680 --> 00:08:47.420
+Justin Florentine: Okay.
+
+61
+00:08:47.920 --> 00:08:55.070
+Justin Florentine: Great. Well, while you've got the floor, would you like to talk about, empty block period seconds? Taking the X off?
+
+62
+00:08:55.530 --> 00:09:12.209
+Matthew Whitehead (Kaleido): Yeah, sure, yeah, yeah, I just wanted to mention, I think… this partly came to mind because I think maybe I mentioned it in the last community call, as something that we might follow up and try and actually action to… to tidy up, one of the experimental options for, BFT networks?
+
+63
+00:09:12.580 --> 00:09:22.180
+Matthew Whitehead (Kaleido): So they, the, The X empty block period second, the experimental genesis option.
+
+64
+00:09:22.320 --> 00:09:29.529
+Matthew Whitehead (Kaleido): Got converted to empty block period seconds. I'm trying to think if that… I don't know if it's been in a release yet, I'd have to check.
+
+65
+00:09:29.750 --> 00:09:33.129
+Matthew Whitehead (Kaleido): Which release that, that PR made it into. But yeah, just,
+
+66
+00:09:33.540 --> 00:09:37.499
+Matthew Whitehead (Kaleido): Nice to tick that on or off, and kind of a bit of maturity around.
+
+67
+00:09:37.670 --> 00:09:44.620
+Matthew Whitehead (Kaleido): A feature we think's gonna help users kind of save some storage on… on quiet periods when they're not actually, putting transactions in blocks.
+
+68
+00:09:45.460 --> 00:09:46.330
+Justin Florentine: Cool.
+
+69
+00:09:47.690 --> 00:09:52.769
+Justin Florentine: Cool, yeah, so, I mean, typically we would release that with both feature flags, possible.
+
+70
+00:09:52.880 --> 00:09:58.970
+Justin Florentine: And then remove the one that's experimental after they had both been out. Just like deprecating anything, really.
+
+71
+00:09:58.970 --> 00:10:00.999
+Matthew Whitehead (Kaleido): Yeah, we have followed that pattern. I should have.
+
+72
+00:10:01.000 --> 00:10:01.430
+Justin Florentine: Okay.
+
+73
+00:10:01.660 --> 00:10:08.670
+Matthew Whitehead (Kaleido): Yeah, we… it's not a straight-out swap, it's just that now you can use the non-experimental flag and start migrating.
+
+74
+00:10:12.070 --> 00:10:13.160
+Justin Florentine: Okay.
+
+75
+00:10:14.640 --> 00:10:18.140
+Justin Florentine: We'll pause for a second here before we get on to the more meaty stuff.
+
+76
+00:10:24.890 --> 00:10:31.139
+Justin Florentine: So… You may have noticed, we have a very large number of open PRs.
+
+77
+00:10:31.530 --> 00:10:43.379
+Justin Florentine: Today, we did a triage exercise where we went through and tried to assign them to people, to take ownership for them, to make sure that these contributors are getting a prompt review.
+
+78
+00:10:44.350 --> 00:10:48.599
+Justin Florentine: It's tough, though. It requires a lot of work.
+
+79
+00:10:48.640 --> 00:11:06.460
+Justin Florentine: So I think, we kind of want to have an open discussion here, to hear any ideas from people on how to make this a little bit more sustainable. Because at this rate, it really is, we're going to end up doing more reviewing than we are, actual, actual development of code.
+
+80
+00:11:07.060 --> 00:11:13.499
+Justin Florentine: So… Am I alone in noticing this? Let's start there.
+
+81
+00:11:14.450 --> 00:11:20.119
+Justin Florentine: And does anybody else feel any particular way about this situation?
+
+82
+00:11:21.990 --> 00:11:24.260
+Justin Florentine: I wanna… I wanna talk a little bit about…
+
+83
+00:11:24.550 --> 00:11:28.990
+Justin Florentine: What we all perceive as the reality before we start prescribing solutions.
+
+84
+00:11:30.230 --> 00:11:32.870
+Justin Florentine: So, the floor is yours.
+
+85
+00:11:33.260 --> 00:11:37.360
+Fabio Di Fabio: For me, I feel the same.
+
+86
+00:11:38.580 --> 00:11:46.070
+Fabio Di Fabio: And, I'm actively, discussing this inside the team.
+
+87
+00:11:47.010 --> 00:11:57.540
+Fabio Di Fabio: Because, of course, we don't want to… Lose the possibility FAI.
+
+88
+00:11:58.000 --> 00:12:02.810
+Fabio Di Fabio: And new contributors using it, so that's perfectly fine, we are using it.
+
+89
+00:12:03.570 --> 00:12:09.319
+Fabio Di Fabio: The issue, as you said, that we are experiencing now is…
+
+90
+00:12:10.120 --> 00:12:13.130
+Fabio Di Fabio: How to manage the inflow.
+
+91
+00:12:14.190 --> 00:12:17.880
+Fabio Di Fabio: of the APRs, and how to,
+
+92
+00:12:18.850 --> 00:12:27.090
+Fabio Di Fabio: raise also the quality of the PR, so that it could happen that, actually.
+
+93
+00:12:27.290 --> 00:12:31.510
+Fabio Di Fabio: summer PR maybe are not so,
+
+94
+00:12:32.990 --> 00:12:49.050
+Fabio Di Fabio: are just simple fixes that maybe doesn't, occur on any real-world scenario. That are just maybe something that is related to scanning the source code and finding
+
+95
+00:12:49.250 --> 00:12:51.739
+Fabio Di Fabio: Some little, issues.
+
+96
+00:12:52.080 --> 00:13:01.760
+Fabio Di Fabio: there are also some kind of stuff that I see that as soon as you, open
+
+97
+00:13:02.180 --> 00:13:13.089
+Fabio Di Fabio: An issue there is… a PR for that issue, so it looks like something is actively trying to…
+
+98
+00:13:14.470 --> 00:13:17.550
+Fabio Di Fabio: To, to participate, to contribute.
+
+99
+00:13:17.690 --> 00:13:26.650
+Fabio Di Fabio: Looking at what is needed, so… And… also out to…
+
+100
+00:13:26.910 --> 00:13:35.840
+Fabio Di Fabio: So, I have a lot of questions, actually, open question. Sure. Not really, Solution at the moment.
+
+101
+00:13:36.850 --> 00:13:47.630
+Fabio Di Fabio: out towards, let's say, understand contributors that are
+
+102
+00:13:48.800 --> 00:13:51.349
+Fabio Di Fabio: Willing to stay for longer, and…
+
+103
+00:13:51.770 --> 00:13:56.690
+Fabio Di Fabio: Starting from little task 1 through… Moved to something bigger.
+
+104
+00:13:56.930 --> 00:14:02.959
+Fabio Di Fabio: And the… retain them, so it's…
+
+105
+00:14:03.100 --> 00:14:06.329
+Fabio Di Fabio: It's a very open question, and actually.
+
+106
+00:14:07.840 --> 00:14:17.280
+Fabio Di Fabio: I think we need to try, maybe, some… something, and see how this goes, and quickly adapt, because
+
+107
+00:14:17.740 --> 00:14:22.660
+Fabio Di Fabio: It's very, there are different projects,
+
+108
+00:14:24.120 --> 00:14:29.300
+Fabio Di Fabio: And they are taking many different approaches, from abandoning completely AI
+
+109
+00:14:29.400 --> 00:14:35.550
+Fabio Di Fabio: contribution to accept AI, with the disclosure to…
+
+110
+00:14:36.190 --> 00:14:42.199
+Fabio Di Fabio: embrace AI in every… so there are… real any,
+
+111
+00:14:42.560 --> 00:14:47.329
+Fabio Di Fabio: way to approach this, so we should find our way.
+
+112
+00:14:48.890 --> 00:14:55.620
+Fabio Di Fabio: I would like that who is, for example, Just for transparency.
+
+113
+00:14:56.230 --> 00:15:02.660
+Fabio Di Fabio: And for us to understand also, oh, how AI is used, and…
+
+114
+00:15:03.010 --> 00:15:10.139
+Fabio Di Fabio: Also, the quality, the… the result is to… Starting also
+
+115
+00:15:11.310 --> 00:15:14.710
+Fabio Di Fabio: Adding to the contribution rule.
+
+116
+00:15:14.880 --> 00:15:21.659
+Fabio Di Fabio: Something that says, okay, we are… fine, if you use AI.
+
+117
+00:15:22.180 --> 00:15:25.920
+Fabio Di Fabio: But you need to, disclose that.
+
+118
+00:15:26.230 --> 00:15:30.920
+Fabio Di Fabio: So we also have, A way to understand.
+
+119
+00:15:32.110 --> 00:15:33.950
+Fabio Di Fabio: this trend.
+
+120
+00:15:36.700 --> 00:15:37.880
+Justin Florentine: Okay.
+
+121
+00:15:38.330 --> 00:15:45.469
+Justin Florentine: I like your thought about how to detect long-term contributors as opposed to…
+
+122
+00:15:45.860 --> 00:15:52.840
+Justin Florentine: you know, not. I think that's an interesting one that we should maybe spend a little time thinking about.
+
+123
+00:15:54.880 --> 00:15:57.010
+Justin Florentine: Does anyone else have anything?
+
+124
+00:16:00.440 --> 00:16:05.460
+David Boswell (The Linux Foundation): Yeah, Justin, I had a… sorry, I didn't raise my hand, but I, I mean, I had just had a perspective to share.
+
+125
+00:16:06.680 --> 00:16:10.399
+David Boswell (The Linux Foundation): In here, I'll drop a link, and… into the…
+
+126
+00:16:10.530 --> 00:16:18.750
+David Boswell (The Linux Foundation): chat, too, just as a reference. I mean, one… one perspective could be, and this is maybe not relevant, I mean, maybe we're talking about, you know.
+
+127
+00:16:19.430 --> 00:16:20.680
+David Boswell (The Linux Foundation): Another thing…
+
+128
+00:16:21.000 --> 00:16:45.359
+David Boswell (The Linux Foundation): and it's not going to be relevant to the example I'm going to share, but just looking at other open source… other successful, large open source projects, you could view the shift towards doing more reviewing as a maintainer and doing less coding as a sign of success. For example, the link I shared was an interview with Linus about what he does as a kernel maintainer, and he basically says, the quote is, I don't do any coding anymore. I mean.
+
+129
+00:16:45.560 --> 00:17:00.220
+David Boswell (The Linux Foundation): that could… I think it's all just, like, what do we define as a metric of success? I mean, more reviews and less coding at the maintainer level could be framed or thought of as a positive thing if it's leading towards, you know.
+
+130
+00:17:00.320 --> 00:17:15.669
+David Boswell (The Linux Foundation): bringing other, you know, people into the community who are offering useful contributions. So, just giving that perspective outside of, you know, this project and referencing another project about, you know, what other maintainers, you know.
+
+131
+00:17:15.990 --> 00:17:17.389
+David Boswell (The Linux Foundation): Spend their time on.
+
+132
+00:17:19.060 --> 00:17:33.389
+Justin Florentine: That's great, thanks. It actually sounds like another issue that I had in discussion with somebody else. She was saying that maybe we want people to be contributing issues more than PRs.
+
+133
+00:17:34.200 --> 00:17:37.889
+Justin Florentine: Right? We actually want people to sit down and think about the problems
+
+134
+00:17:38.100 --> 00:17:43.860
+Justin Florentine: That we have, or suggest features, and be able to really, really define those problems.
+
+135
+00:17:44.090 --> 00:17:50.110
+Justin Florentine: Because if, you know, if generating the code is a commodity thing at some point.
+
+136
+00:17:50.180 --> 00:17:59.020
+Justin Florentine: Then, what we need our contributors to do is to think at a higher level about both architectural things that are wrong.
+
+137
+00:17:59.020 --> 00:18:10.659
+Justin Florentine: user interface things that are wrong, like, an AI is not going to tell you, like, oh, this would be a good change to your UI because of how I interact with this thing, right?
+
+138
+00:18:10.660 --> 00:18:19.329
+Justin Florentine: So I think, you know, that might be a rich vein of community input, that could…
+
+139
+00:18:19.520 --> 00:18:25.329
+Justin Florentine: still allow us to do the development and generation of the code.
+
+140
+00:18:25.500 --> 00:18:28.260
+Justin Florentine: As well. Luis, your hand is up, go ahead.
+
+141
+00:18:29.240 --> 00:18:44.920
+Luis Pinto | Besu: Hi there. Yeah, I also want to say that I think it depends on what place is your project at at a given time, because if it is a project that it doesn't change much architecturally,
+
+142
+00:18:45.070 --> 00:18:50.859
+Luis Pinto | Besu: Maybe that makes sense for doing more reviews than,
+
+143
+00:18:51.080 --> 00:18:57.100
+Luis Pinto | Besu: Then contributing code from the maintainers, so just having a look, and overseeing
+
+144
+00:18:57.200 --> 00:19:05.760
+Luis Pinto | Besu: That the architecture doesn't shift much, but if you're iterating fast, and your project is kind of…
+
+145
+00:19:05.850 --> 00:19:25.179
+Luis Pinto | Besu: still not in a good place architecturally, and you want to shift it, I think, like, decentralizing the architecting decisions, it's… it's not a good thing, in my opinion. Because everyone is kind of pushing for different architectures and not aligning the single path.
+
+146
+00:19:25.250 --> 00:19:32.770
+Luis Pinto | Besu: So I think it kind of depends on the maturity of the project, and…
+
+147
+00:19:32.880 --> 00:19:38.130
+Luis Pinto | Besu: Yeah, that way. So, but I also think that maintainers…
+
+148
+00:19:38.200 --> 00:19:43.719
+Luis Pinto | Besu: Won't take, like, the back seats all the time, because we need to…
+
+149
+00:19:43.760 --> 00:19:59.079
+Luis Pinto | Besu: be overseeing the architecture and making sure it doesn't drift, so we might need to make adjustments, and align so that things don't, get out of hand and don't get uncontrolled in that
+
+150
+00:19:59.640 --> 00:20:02.140
+Luis Pinto | Besu: place. So… yeah.
+
+151
+00:20:02.480 --> 00:20:04.150
+Luis Pinto | Besu: That's what I wanted to say.
+
+152
+00:20:04.150 --> 00:20:06.950
+Justin Florentine: Yeah, that's… that's… thank you for that. That's,
+
+153
+00:20:06.950 --> 00:20:30.260
+Justin Florentine: also kind of analogous to some of the other comments that we see on our agenda, suggesting that, you know, we have a long-term maintenance-type project. For instance, we've got contributors helping us doing the migration to JSpecify, right? Maybe that's not a great example, because there's not a ton of architectural work that needs to be done, but, you know, if we were to do some refactoring around the engine API,
+
+154
+00:20:30.260 --> 00:20:33.130
+Justin Florentine: We have developers who are kind of
+
+155
+00:20:33.130 --> 00:20:46.739
+Justin Florentine: serving in that architectural role and can provide that guidance. So yeah, so I mean, maybe one of those things that can help people do that is by pairing… once we've determined that a contributor has a long-term interest.
+
+156
+00:20:47.160 --> 00:20:55.989
+Justin Florentine: Perhaps pairing them with a relevant maintainer who can serve as their architecture guide, for the area that they want to pursue.
+
+157
+00:21:01.410 --> 00:21:17.500
+Justin Florentine: Does anybody have any thoughts or opinions on our DCO? Like, right now, we require everybody to sign off on every commit. Should they have to also include, what agent they used, if they used an agent?
+
+158
+00:21:17.770 --> 00:21:26.459
+Justin Florentine: Maybe the context size of the agent. I have seen some, suggestions. I think, I think it was actually the…
+
+159
+00:21:26.530 --> 00:21:35.749
+Justin Florentine: Linux kernel, I'm not sure who it was, actually, that was gonna require that… no, your DCO can only be signed by a human.
+
+160
+00:21:35.790 --> 00:21:46.640
+Justin Florentine: And agents should use a co-author, or an assisted-by tag, or something like that. Any thoughts on that, Matthew? And then David?
+
+161
+00:21:46.850 --> 00:21:54.860
+Matthew Whitehead (Kaleido): Yeah, we might have our hands up for the same reason, David. So the TAC has been spending some time thinking about this. Great.
+
+162
+00:21:55.080 --> 00:21:57.130
+Matthew Whitehead (Kaleido): Hmm, I… didn't…
+
+163
+00:21:57.320 --> 00:22:13.259
+Matthew Whitehead (Kaleido): I couldn't attend last week, but it was on the TSC call before that. I might pause there, just let David, he might have slightly more up-to-date information, than me, but there has been discussion at the kind of the TSC level. Yeah, David's just put it in the chat. I'll let you carry on, David.
+
+164
+00:22:13.570 --> 00:22:20.109
+David Boswell (The Linux Foundation): Yeah, sorry to interrupt, Matt, but yeah, I mean, just to build on what you were saying, we've heard from, you know.
+
+165
+00:22:20.250 --> 00:22:27.529
+David Boswell (The Linux Foundation): this conversation with the Bayer maintainers, as well as other maintainers over the last, you know, year or so, that there are questions around the DCO.
+
+166
+00:22:27.530 --> 00:22:45.969
+David Boswell (The Linux Foundation): We've been talking internally about, you know, providing better documentation around the Linux Foundation's policy here, and why, you know, our thoughts on this as a best practice. I did want to share that there is now a new document that's available. I put a link to it in the
+
+167
+00:22:45.970 --> 00:22:56.649
+David Boswell (The Linux Foundation): chat, so this might be a starting point. You know, what I've heard is that contributions to this documentation are welcome, so if we have suggestions around the policy.
+
+168
+00:22:56.650 --> 00:23:08.740
+David Boswell (The Linux Foundation): or thoughts on what we could do to make the policy easier for projects to implement. We can certainly, you know, review what's been written so far. The TAC could maybe take this up and, you know.
+
+169
+00:23:09.280 --> 00:23:14.270
+David Boswell (The Linux Foundation): suggest changes or alterations to it as well, so just wanted to flag, you know, we've…
+
+170
+00:23:14.790 --> 00:23:21.930
+David Boswell (The Linux Foundation): asked internally to provide better, you know, documentation around the policy, and that's available, so… I know…
+
+171
+00:23:22.610 --> 00:23:30.370
+David Boswell (The Linux Foundation): People might not have a chance to look at this quite yet, but maybe this is a good follow-up discussion about, hey, what are our thoughts on that documentation?
+
+172
+00:23:30.860 --> 00:23:38.420
+Justin Florentine: Yeah, I just did a quick scan. It doesn't look like it really addresses the role of agents in the DCO, so I assume that's something you're still discussing?
+
+173
+00:23:39.820 --> 00:23:48.890
+David Boswell (The Linux Foundation): Yeah, yeah, I mean, that's certainly evolving, for sure, for sure, and if that's our feedback, like, hey, we should really add that to it, you know, we can… we can have that discussion.
+
+174
+00:23:50.120 --> 00:23:58.490
+Matthew Whitehead (Kaleido): Yeah, I… I just posted the TAC PR, which is, kind of a proposed
+
+175
+00:23:58.870 --> 00:24:06.670
+Matthew Whitehead (Kaleido): TAC or LFDT-wide, set of guidelines. At the moment, half the discussion is, is it guidelines, or is it, is it,
+
+176
+00:24:07.280 --> 00:24:16.100
+Matthew Whitehead (Kaleido): kind of mandatory. I think, it might be valuable.
+
+177
+00:24:16.720 --> 00:24:18.170
+Matthew Whitehead (Kaleido): Or,
+
+178
+00:24:18.420 --> 00:24:27.510
+Matthew Whitehead (Kaleido): people on these calls, and I'll probably mention this on… on the Paladin call, and I'll get maybe Enrique to mention it on the Firefly call, to maybe actually look at this… this PR,
+
+179
+00:24:27.950 --> 00:24:34.850
+Matthew Whitehead (Kaleido): and had their own comments, because the TAC has been discussing it, I think…
+
+180
+00:24:34.880 --> 00:24:40.369
+Matthew Whitehead (Kaleido): it's the kind of thing that the TAC would most benefit from having
+
+181
+00:24:40.370 --> 00:24:57.080
+Matthew Whitehead (Kaleido): project maintainers actually add some thoughts to and have a read of to see what they think of what's in the proposal. I don't think it's that close to being, kind of, agreed upon yet. I think it'll have another few rounds of discussion, so now would be a great time to put thoughts in there. There is a mention of DCO,
+
+182
+00:24:57.580 --> 00:25:12.130
+Matthew Whitehead (Kaleido): And that, there can be project-specific guidelines, but I think a lot of projects will be looking to the TAC for those starting guidelines and whether they want to deviate from them. So, I think it would be worth having a look at that.
+
+183
+00:25:12.340 --> 00:25:14.570
+Matthew Whitehead (Kaleido): That I've put in the chat.
+
+184
+00:25:14.780 --> 00:25:21.379
+Justin Florentine: I see, yes, you do cite the kernel use of assisted by. Got it.
+
+185
+00:25:21.820 --> 00:25:22.810
+Justin Florentine: Cool.
+
+186
+00:25:22.810 --> 00:25:27.650
+Matthew Whitehead (Kaleido): if it's worth me posting that in the Besu Maintainer's channel, Justin?
+
+187
+00:25:27.930 --> 00:25:35.910
+Justin Florentine: Sure, can't hurt. I also posted it over here at Consensus on our Slack, but definitely throw that over there on the Discord.
+
+188
+00:25:35.910 --> 00:25:36.870
+Matthew Whitehead (Kaleido): Sure, I'll do that.
+
+189
+00:25:39.160 --> 00:25:43.200
+Justin Florentine: Good, so this PR is probably the right place to have that discussion. Fantastic.
+
+190
+00:25:53.430 --> 00:25:54.570
+Justin Florentine: Okay.
+
+191
+00:25:55.540 --> 00:26:04.029
+Justin Florentine: Well, the floor is now open for any other business. That's all we had on the agenda. I don't know if anybody else has anything that they would like to discuss?
+
+192
+00:26:06.310 --> 00:26:07.660
+Justin Florentine: David, go ahead.
+
+193
+00:26:09.400 --> 00:26:17.160
+David Boswell (The Linux Foundation): We don't necessarily have to cover it today if there aren't updates, but just to follow up, we had talked about a few things around removing the Hyperledger branding that we could check in on.
+
+194
+00:26:18.320 --> 00:26:25.749
+Justin Florentine: Right, so we currently are in the process of migrating the documentation as kind of our next step there.
+
+195
+00:26:25.750 --> 00:26:26.600
+David Boswell (The Linux Foundation): Okay.
+
+196
+00:26:26.600 --> 00:26:51.509
+Justin Florentine: And, we registered BasuETH.org, and we're in talks with our staff over here at Consensus for, moving the Docuosaurus work there, and doing the rebranding. So that's kind of the next step. There is a draft PR out that does some of that, but we need to work through, sort of, the operations and DevOps-y type, stuff around deploying the documentation there.
+
+197
+00:26:52.200 --> 00:26:56.070
+David Boswell (The Linux Foundation): Right, okay, okay, and I assume you've already reached out to Rye about that, or…
+
+198
+00:26:56.380 --> 00:27:08.219
+Justin Florentine: Maybe not. Yeah, once… yes, so he kind of knows that we're in a holding pattern right now, so we figure out, like, well, where's it gonna go? Okay, okay. And so, once we have that sorted out, he'll be… he'll be involved.
+
+199
+00:27:08.410 --> 00:27:14.890
+David Boswell (The Linux Foundation): Alright, great. I guess the other thing we had talked about… I think the next step on the Twitter handle was…
+
+200
+00:27:15.260 --> 00:27:20.860
+David Boswell (The Linux Foundation): there was gonna be a discussion with some social media people on the consensus side with some suggestions. Yes.
+
+201
+00:27:20.860 --> 00:27:25.710
+Justin Florentine: Yes, and we've also done that, and they essentially suggested.
+
+202
+00:27:26.070 --> 00:27:29.970
+Justin Florentine: To register, I believe it's BASO underscore ETH,
+
+203
+00:27:30.120 --> 00:27:39.490
+Justin Florentine: and do that, you know, somewhat fast swap, where you register that, grab the Hyperledger one in the background.
+
+204
+00:27:39.920 --> 00:27:43.720
+Justin Florentine: And then everything just gets ported over magically.
+
+205
+00:27:44.020 --> 00:27:49.569
+David Boswell (The Linux Foundation): And then… Keep the other one going periodically, just so we don't lose it.
+
+206
+00:27:49.780 --> 00:27:50.560
+Justin Florentine: Yep.
+
+207
+00:27:51.170 --> 00:27:51.610
+David Boswell (The Linux Foundation): Okay.
+
+208
+00:27:51.610 --> 00:27:53.749
+Justin Florentine: Yep, pretty Pretty much what we thought.
+
+209
+00:27:54.210 --> 00:27:54.920
+David Boswell (The Linux Foundation): Yeah.
+
+210
+00:27:55.510 --> 00:27:59.740
+David Boswell (The Linux Foundation): Okay, but Bezu ETH versus Bezu Project is the preference.
+
+211
+00:28:00.620 --> 00:28:05.090
+Justin Florentine: I think so, you know, we can, we can do.
+
+212
+00:28:05.090 --> 00:28:05.919
+David Boswell (The Linux Foundation): It does, it's…
+
+213
+00:28:05.920 --> 00:28:12.189
+Justin Florentine: More widely, if we want, but we know that one's available. It's just a matter of executing on it.
+
+214
+00:28:12.550 --> 00:28:21.029
+David Boswell (The Linux Foundation): Okay, is that something you want us to move ahead on, or there's further discussion, or to confirm the handle, or what do you think?
+
+215
+00:28:22.480 --> 00:28:27.299
+Justin Florentine: That's a good question. I don't know that we have to really do anything else.
+
+216
+00:28:28.420 --> 00:28:32.170
+Justin Florentine: I mean, if that's a thing you guys can just handle, that would be a big help.
+
+217
+00:28:32.850 --> 00:28:46.189
+David Boswell (The Linux Foundation): I don't want to speak on behalf of Ben, but I think, I mean, I think that was the offer when we talked before, and he suggested Bezu-project. I think, yeah, the plan was that he was gonna handle it, but I'll check with him. So Bezu underscore ETH is the preference.
+
+218
+00:28:46.190 --> 00:28:54.720
+Justin Florentine: Correct. We tried, BayesoETH, I think… Base2-ETH is not available, because I guess you can't have hyphens in handles, but you can have… Oh.
+
+219
+00:28:55.580 --> 00:28:59.100
+David Boswell (The Linux Foundation): kind of… okay. Let me check with him…
+
+220
+00:28:59.640 --> 00:29:05.720
+David Boswell (The Linux Foundation): And I'll let you know. But if… if he's willing… if he's able to go ahead, that… you're good with us going ahead?
+
+221
+00:29:05.990 --> 00:29:06.590
+Justin Florentine: Yes.
+
+222
+00:29:06.750 --> 00:29:08.960
+David Boswell (The Linux Foundation): Okay, great, great. I'll check with them and get back to you.
+
+223
+00:29:09.240 --> 00:29:11.190
+Justin Florentine: Awesome. Very helpful, thank you.
+
+224
+00:29:14.390 --> 00:29:16.379
+Justin Florentine: Matthew, the floor is yours.
+
+225
+00:29:16.940 --> 00:29:23.190
+Matthew Whitehead (Kaleido): Hey, thanks, Justin. Yeah, I just dropped another thing just on the agenda for posterity, really, but, just to mention…
+
+226
+00:29:23.670 --> 00:29:31.339
+Matthew Whitehead (Kaleido): Something I… I kind of obviously noted in, I think, the Fusaka, Fork introduced a new gas limit per transaction?
+
+227
+00:29:32.070 --> 00:29:40.279
+Matthew Whitehead (Kaleido): Might be around the 16 million mark, if I… if memory shows correct. And one thought that I just…
+
+228
+00:29:40.370 --> 00:29:52.850
+Matthew Whitehead (Kaleido): thought was worth raising in this group. I mentioned briefly on Discord, and no one seemed to have any big concerns about it, was, like, an enterprise-specific override for that.
+
+229
+00:29:53.400 --> 00:29:59.529
+Matthew Whitehead (Kaleido): I… I don't think it's a huge, kind of bit of… bit of work, or bit of code,
+
+230
+00:29:59.830 --> 00:30:11.979
+Matthew Whitehead (Kaleido): But I thought it worth mentioning as a possible enterprise-specific enhancement that we might look at contributing, or we might talk to others to see if they're interested in contributing.
+
+231
+00:30:13.130 --> 00:30:17.420
+Matthew Whitehead (Kaleido): We… we do see, some…
+
+232
+00:30:17.930 --> 00:30:32.440
+Matthew Whitehead (Kaleido): use cases where data is batched into single transactions, which can lead to quite large transactions. That may… that's probably less common a pattern on public mainnet.
+
+233
+00:30:33.930 --> 00:30:45.730
+Matthew Whitehead (Kaleido): And we've not actually hit the Forsaka limit in reality yet, but I think it might be a valuable enterprise-specific edition. So, just mentioning it as an FYI, if anyone thinks that's an awful idea.
+
+234
+00:30:45.730 --> 00:31:03.769
+Justin Florentine: No, I think that's a great idea, actually, and unfortunately, I think that limit that has been introduced is kind of an artifact of using the engine API, right? So, in the EVM itself, there isn't really a limit, it's kind of negotiable by the block builders every time they build it, but…
+
+235
+00:31:03.980 --> 00:31:17.509
+Justin Florentine: with mainnet and proof of stake, I think we have kind of a realistic limit on the consensus layer and how things get forced down. So, yes, I definitely think that we should build that, and…
+
+236
+00:31:18.010 --> 00:31:22.439
+Justin Florentine: I mean, the good news is, is, like, when, when, Glamsterdam ships.
+
+237
+00:31:22.550 --> 00:31:38.909
+Justin Florentine: Like, we're gonna have, you know, 700 megagas, like, on average use cases, because of all the parallelization and stuff like that. So this is gonna go through the roof, and so I think that's gonna be even more important to unlock that for enterprise users to tweak and to play with.
+
+238
+00:31:40.370 --> 00:31:52.900
+Matthew Whitehead (Kaleido): Yeah, yeah, I think… I think I agree. So, from your understanding, because I haven't actually tried hitting it, I just know that that limit was in there, you probably would hit this, even if you weren't coming over the engine API. I think the enforcement is…
+
+239
+00:31:52.900 --> 00:31:53.420
+Justin Florentine: Oh.
+
+240
+00:31:53.420 --> 00:31:54.070
+Matthew Whitehead (Kaleido): Levian?
+
+241
+00:31:54.090 --> 00:31:59.869
+Justin Florentine: Sorry, yeah, you're talking about the per transaction limit, not the block gas limit.
+
+242
+00:31:59.870 --> 00:32:00.780
+Matthew Whitehead (Kaleido): Yes.
+
+243
+00:32:00.780 --> 00:32:03.729
+Justin Florentine: I misspoke then. Okay.
+
+244
+00:32:05.290 --> 00:32:06.510
+Justin Florentine: Okay.
+
+245
+00:32:07.220 --> 00:32:11.049
+Justin Florentine: I think the reasoning still applies. I think we should… Yeah.
+
+246
+00:32:11.690 --> 00:32:12.880
+Justin Florentine: Hmm…
+
+247
+00:32:14.200 --> 00:32:16.649
+Matthew Whitehead (Kaleido): And, sorry, go for it, Fabio, you've got your hand up, and I know
+
+248
+00:32:17.370 --> 00:32:18.860
+Matthew Whitehead (Kaleido): Question in the chat as well.
+
+249
+00:32:20.160 --> 00:32:21.860
+Fabio Di Fabio: Now, I think,
+
+250
+00:32:24.980 --> 00:32:31.060
+Fabio Di Fabio: If not already configurable, this should be configurable, yes, so I agree.
+
+251
+00:32:31.320 --> 00:32:37.790
+Fabio Di Fabio: That could be… Different… Usage, different limits for this.
+
+252
+00:32:37.990 --> 00:32:38.440
+Matthew Whitehead (Kaleido): Hmm.
+
+253
+00:32:38.440 --> 00:32:41.800
+Fabio Di Fabio: So, should not be,
+
+254
+00:32:44.810 --> 00:32:52.270
+Fabio Di Fabio: Too hard, actually, to… So, because should not touch the EVM, should be something…
+
+255
+00:32:53.330 --> 00:32:53.960
+Matthew Whitehead (Kaleido): Yeah.
+
+256
+00:32:53.960 --> 00:32:57.969
+Justin Florentine: I think it should go on the protocol schedule, Fabio. What do you think about that?
+
+257
+00:32:58.870 --> 00:32:59.720
+Fabio Di Fabio: Mmm.
+
+258
+00:33:00.470 --> 00:33:06.370
+Fabio Di Fabio: Yeah, it should be there, or in any gas calculator, or something like that.
+
+259
+00:33:06.560 --> 00:33:17.840
+Fabio Di Fabio: map, probably, it's already there. What I don't remember is if it is already meant to be computable, so you can override or not.
+
+260
+00:33:18.840 --> 00:33:19.570
+Fabio Di Fabio: I don't remember.
+
+261
+00:33:19.570 --> 00:33:25.050
+Matthew Whitehead (Kaleido): I… I couldn't spot a way to overwrite it. It seemed pretty baked into…
+
+262
+00:33:25.290 --> 00:33:28.700
+Matthew Whitehead (Kaleido): The current protocol schedule, once you're on that fork.
+
+263
+00:33:28.700 --> 00:33:29.360
+Fabio Di Fabio: Okay.
+
+264
+00:33:29.360 --> 00:33:33.880
+Matthew Whitehead (Kaleido): Yeah, that's it. Louise, I think you've got your hand up, you might want to comment.
+
+265
+00:33:33.880 --> 00:33:34.350
+Luis Pinto | Besu: Yeah.
+
+266
+00:33:34.350 --> 00:33:43.450
+Fabio Di Fabio: I guess one final, sorry, one final thought. This is, just keep in mind that this is important for,
+
+267
+00:33:43.630 --> 00:33:52.190
+Fabio Di Fabio: Having a higher throughput to… to also make it possible to parallelize more transactions, so if…
+
+268
+00:33:52.620 --> 00:33:55.939
+Fabio Di Fabio: This is something that would benefit.
+
+269
+00:33:56.210 --> 00:34:01.100
+Fabio Di Fabio: you need to find the right read-off. Okay, thank you, Guru.
+
+270
+00:34:01.100 --> 00:34:01.700
+Matthew Whitehead (Kaleido): Yeah.
+
+271
+00:34:02.130 --> 00:34:17.799
+Luis Pinto | Besu: Yeah, yeah, I was also gonna say that, that was introduced to have more transaction parallelization to avoid transactions consuming too much state and filling up the block with state, so we can parallelize more.
+
+272
+00:34:18.030 --> 00:34:33.520
+Luis Pinto | Besu: I don't think it might… it makes sense to put it in the protocol schedule, because, Ethereum runs with that by default, maybe in an option, that can be set for the client, widely.
+
+273
+00:34:33.630 --> 00:34:36.359
+Luis Pinto | Besu: Might make more sense.
+
+274
+00:34:36.360 --> 00:34:37.080
+Matthew Whitehead (Kaleido): Yeah, the…
+
+275
+00:34:37.080 --> 00:34:38.000
+Luis Pinto | Besu: my impression?
+
+276
+00:34:38.239 --> 00:34:41.169
+Justin Florentine: It needs to be covered by consensus, though, right? Like…
+
+277
+00:34:41.319 --> 00:34:46.609
+Justin Florentine: Everybody needs to decide that they're gonna reject transactions over a certain limit at the same time.
+
+278
+00:34:46.989 --> 00:34:48.799
+Justin Florentine: So it does need to be coordinated.
+
+279
+00:34:48.800 --> 00:34:57.639
+Luis Pinto | Besu: But it is baked in the EVM, so the EVM will refuse to serve, block… process blocks over that size.
+
+280
+00:34:58.850 --> 00:35:00.970
+Luis Pinto | Besu: So it's not so much on consensus.
+
+281
+00:35:00.970 --> 00:35:11.630
+Matthew Whitehead (Kaleido): It's a… when I was looking at it, I was thinking of the ex… there's an existing, option for contract code limit, I think is the name of it, which…
+
+282
+00:35:11.760 --> 00:35:26.770
+Matthew Whitehead (Kaleido): is a code size limit, and similarly, like, just in that, that needs to be configured to be the same, or at least compatible numbers, on all of your QBFT nodes. I do think…
+
+283
+00:35:27.120 --> 00:35:37.669
+Matthew Whitehead (Kaleido): there's been a lot of… a related issue, and I'll try not to go down a rabbit hole here, but a related issue is the QBFT-specific transitions in the Genesis.
+
+284
+00:35:38.100 --> 00:35:47.289
+Matthew Whitehead (Kaleido): and the fact that they are separate to the EVM forks in the protocol schedule, but they are very closely related to the EVM forks,
+
+285
+00:35:47.660 --> 00:35:52.810
+Matthew Whitehead (Kaleido): So I think… I think there's probably a way that… in an ideal world, it would probably go into…
+
+286
+00:35:53.380 --> 00:36:01.790
+Matthew Whitehead (Kaleido): QBFT transitions, because that, by definition, is kind of agreed across all the validators.
+
+287
+00:36:02.700 --> 00:36:08.849
+Matthew Whitehead (Kaleido): In other respects, it's the kind of thing that probably you're either going to want to whack up to a huge number.
+
+288
+00:36:08.860 --> 00:36:23.429
+Matthew Whitehead (Kaleido): And effectively turn off the limit, I guess, or you're just going to leave it with the default. So, it's probably not something someone's likely to transition a lot, unlike you might want to change your block period seconds for QBFT.
+
+289
+00:36:23.540 --> 00:36:30.940
+Matthew Whitehead (Kaleido): I can't really see a huge motivation for wanting to transition this too much in QBFT.
+
+290
+00:36:31.120 --> 00:36:40.840
+Matthew Whitehead (Kaleido): But that is the neater way, it's the cleaner way to have it defined in the Genesis in that way, so I'm very open to ways people think this is best done.
+
+291
+00:36:41.900 --> 00:36:52.990
+Matthew Whitehead (Kaleido): contract… yeah, contract code limit was the one that sprung to mind, and that is not… I don't think that is transitionable. I think that is a… it's kind of a, a hard config… config limit.
+
+292
+00:36:56.130 --> 00:37:06.599
+Luis Pinto | Besu: I think there are some discussions to increase the limit, in, Glamsterdam. There might… there might be some changes to that, to 64 kilobytes.
+
+293
+00:37:06.600 --> 00:37:11.800
+Justin Florentine: No, I don't think we went all the way to 64, I think we went to 32…
+
+294
+00:37:11.800 --> 00:37:25.820
+Luis Pinto | Besu: Yeah, but there's some proposals, like, during the interrupt, some folks mentioned that 64 was safe, even, so I think we might hear some more on that. But yeah, at least some increase will happen.
+
+295
+00:37:26.280 --> 00:37:28.560
+Luis Pinto | Besu: Yeah.
+
+296
+00:37:28.820 --> 00:37:41.989
+Matthew Whitehead (Kaleido): Yeah, thank you for the… all the input. I don't think it needs, kind of, solving now, it's more, if there's some discussion on some PRs, then that's… this is a bit of context as to why. There might be others who are keen to, kind of, contribute some of that stuff,
+
+297
+00:37:43.940 --> 00:37:50.519
+Matthew Whitehead (Kaleido): while I'm on that topic, again, not to want to go down a rabbit hole, I've been pondering some other BFT transition
+
+298
+00:37:51.830 --> 00:37:58.959
+Matthew Whitehead (Kaleido): behaviors that we have today for the BFT transitions, which are in the Genesis file, Because they are…
+
+299
+00:37:59.610 --> 00:38:03.489
+Matthew Whitehead (Kaleido): They're a little awkward today with the fact that they…
+
+300
+00:38:04.360 --> 00:38:12.370
+Matthew Whitehead (Kaleido): define a transition with a thing called a block. And it's not specifically a number or a time. You have to know
+
+301
+00:38:12.790 --> 00:38:18.630
+Matthew Whitehead (Kaleido): What to put in there, based on what your defined protocol schedule is, and where you'll be.
+
+302
+00:38:18.840 --> 00:38:25.309
+Matthew Whitehead (Kaleido): you know, whether you'll be on a time-based fork when that transition applies and so on, so…
+
+303
+00:38:26.020 --> 00:38:34.279
+Matthew Whitehead (Kaleido): there is… we're noticing a little kind of… it's kind of easy to misconfigure some of the BFT transitions today with the switch to time-based.
+
+304
+00:38:34.520 --> 00:38:35.500
+Justin Florentine: Folks?
+
+305
+00:38:36.190 --> 00:38:40.909
+Matthew Whitehead (Kaleido): Unfortunately, I don't think it's an easy nut to crack, because…
+
+306
+00:38:41.270 --> 00:38:49.489
+Matthew Whitehead (Kaleido): Besu has to support existing Genesis, where someone might have been successfully putting timestamps in this block field.
+
+307
+00:38:49.900 --> 00:38:52.969
+Matthew Whitehead (Kaleido): In an ideal world, if someone…
+
+308
+00:38:53.240 --> 00:39:02.010
+Matthew Whitehead (Kaleido): In an ideal world, you'd have a block number and a block timestamp field, and if you set one, we know absolutely you mean a number, and if you set the other, we absolutely know you mean a timestamp.
+
+309
+00:39:02.470 --> 00:39:16.650
+Matthew Whitehead (Kaleido): But we can't just switch off support for block, because people will have Genesis files already with that in. So, it's just an area I've been giving some thought to around BFT transitions. Jason and I have spoken about it, and
+
+310
+00:39:17.380 --> 00:39:22.350
+Matthew Whitehead (Kaleido): Yeah, I just wanted to raise as a little area for where I think we could… we could see some…
+
+311
+00:39:22.690 --> 00:39:26.459
+Matthew Whitehead (Kaleido): UX improvements for the BFT space?
+
+312
+00:39:31.680 --> 00:39:33.929
+Matthew Whitehead (Kaleido): I think that's me down. Sorry, Justin.
+
+313
+00:39:34.410 --> 00:39:35.270
+Justin Florentine: Okay.
+
+314
+00:39:37.260 --> 00:39:37.980
+Justin Florentine: Hmm.
+
+315
+00:39:40.460 --> 00:39:41.350
+Justin Florentine: Okay.
+
+316
+00:39:48.230 --> 00:39:50.680
+Justin Florentine: I'm just trying to think of what the action here is.
+
+317
+00:39:50.680 --> 00:39:53.999
+Matthew Whitehead (Kaleido): Yeah, I don't… I don't think there's an action, particularly.
+
+318
+00:39:54.120 --> 00:39:58.569
+Matthew Whitehead (Kaleido): Yeah. Just sharing some… some of the… some of the enterprise-specific…
+
+319
+00:39:59.270 --> 00:40:08.799
+Matthew Whitehead (Kaleido): areas that… that we're… we think there could be some, like I say, some kind of UX improvement around reducing your chance of… like, you can easily misconfigure
+
+320
+00:40:09.020 --> 00:40:13.280
+Matthew Whitehead (Kaleido): A transition to, you know, you're just trying to change your block period seconds.
+
+321
+00:40:13.610 --> 00:40:20.139
+Matthew Whitehead (Kaleido): And you just stick a block number in, but you're on Shanghai time, or you're on Osaka time, and so the block number doesn't…
+
+322
+00:40:20.520 --> 00:40:24.799
+Matthew Whitehead (Kaleido): Work, and you can get yourself into some sticky situations, so,
+
+323
+00:40:25.230 --> 00:40:27.899
+Matthew Whitehead (Kaleido): it… again, I think it's an action.
+
+324
+00:40:28.180 --> 00:40:33.699
+Justin Florentine: Yeah, I think if maybe the action is… protocol schedule is a little dodgy in places.
+
+325
+00:40:34.420 --> 00:40:35.449
+Matthew Whitehead (Kaleido): For this one thing.
+
+326
+00:40:36.000 --> 00:40:45.269
+Matthew Whitehead (Kaleido): Yeah, yeah, I mean, it serves a really good purpose, and we've been putting some improvements in over the last year, when we've spotted little edge cases, like,
+
+327
+00:40:45.650 --> 00:40:52.479
+Matthew Whitehead (Kaleido): I think mining beneficiaries for BFT blocks needed a bit of fixing up, block rewards maybe.
+
+328
+00:40:54.220 --> 00:41:11.560
+Matthew Whitehead (Kaleido): I think there was a block period seconds PR I put in that Jason reviewed. So, it's been getting tighter, it's been getting just… we've been iterating on it, getting it tighter and tighter, so it's harder to configure it wrong, but I think there is still some areas left where hopefully we might continue to put some improvements in.
+
+329
+00:41:15.710 --> 00:41:24.009
+Matthew Whitehead (Kaleido): But like I say, I don't… I don't think there's any concrete action. I just wanted to share, you know, some of where we see some valuable, time spent.
+
+330
+00:41:24.190 --> 00:41:24.949
+Matthew Whitehead (Kaleido): In the future.
+
+331
+00:41:27.250 --> 00:41:28.180
+Justin Florentine: Okay.
+
+332
+00:41:30.640 --> 00:41:31.860
+Justin Florentine: Okay.
+
+333
+00:41:34.100 --> 00:41:40.560
+Justin Florentine: Cool. Well, the floor remains open. Does anybody have anything else they'd like to add?
+
+334
+00:41:47.760 --> 00:41:50.780
+Justin Florentine: Sounds like we're about ready to round things up, Don.
+
+335
+00:41:55.160 --> 00:41:56.420
+Justin Florentine: Alright.
+
+336
+00:41:57.480 --> 00:42:00.250
+Justin Florentine: Well, thank you, everyone, this has been a productive session.
+
+337
+00:42:00.750 --> 00:42:04.030
+Justin Florentine: Appreciate your time, and we'll see you on the internet.
+
+338
+00:42:05.700 --> 00:42:07.599
+Fabio Di Fabio: Thank you. Thanks, y'all.
+
+339
+00:42:07.790 --> 00:42:08.600
+Matthew Whitehead (Kaleido): Cheers.
+

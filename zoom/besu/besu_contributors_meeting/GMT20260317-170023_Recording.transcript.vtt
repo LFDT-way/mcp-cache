@@ -1,0 +1,758 @@
+WEBVTT
+
+1
+00:00:28.430 --> 00:00:29.530
+David Boswell (The Linux Foundation): Hey, Justin.
+
+2
+00:00:32.890 --> 00:00:34.149
+Justin Florentine: Hello, David.
+
+3
+00:00:34.730 --> 00:00:35.270
+David Boswell (The Linux Foundation): Shoop.
+
+4
+00:00:35.720 --> 00:00:36.830
+Justin Florentine: I'm alright.
+
+5
+00:00:40.650 --> 00:00:41.250
+David Boswell (The Linux Foundation): Good.
+
+6
+00:00:47.780 --> 00:00:53.830
+David Boswell (The Linux Foundation): Rye's been keeping me in the loop on the migration stuff, and I mean, knock on wood, but it seems like things have gone fairly smoothly.
+
+7
+00:00:53.830 --> 00:00:54.819
+Justin Florentine: Yes, they have.
+
+8
+00:00:55.030 --> 00:00:56.160
+David Boswell (The Linux Foundation): That's great, glad to hear.
+
+9
+00:00:56.160 --> 00:00:57.680
+Justin Florentine: I would agree with that.
+
+10
+00:00:57.680 --> 00:01:00.720
+David Boswell (The Linux Foundation): Nice, nice, nice. Better than the alternative.
+
+11
+00:01:01.110 --> 00:01:01.730
+Justin Florentine: Yep.
+
+12
+00:02:17.460 --> 00:02:22.399
+Justin Florentine: Alright, let's give folks a couple more minutes to trickle in. Could be lightly attended.
+
+13
+00:02:22.520 --> 00:02:24.429
+Justin Florentine: I don't have a huge agenda.
+
+14
+00:02:30.610 --> 00:02:33.229
+David Boswell (The Linux Foundation): I had one thing to add, but I can do it at the end.
+
+15
+00:02:34.520 --> 00:02:35.920
+Justin Florentine: Okay, great.
+
+16
+00:03:43.220 --> 00:03:46.239
+Justin Florentine: Okay, well, I guess we'll get started here.
+
+17
+00:03:46.990 --> 00:03:48.120
+Justin Florentine: Hi, everyone.
+
+18
+00:03:48.900 --> 00:03:55.019
+Justin Florentine: Welcome to the Basic Contributors Call for March. Today's March 17th.
+
+19
+00:03:55.190 --> 00:04:00.630
+Justin Florentine: Just a reminder, wait, where's my copy here?
+
+20
+00:04:00.940 --> 00:04:18.519
+Justin Florentine: Where did I put it? Yeah, housekeeping. Antitrust notes. We are under an antitrust policy, outlined at thelinuxfoundation.org slash antitrust dash policy. The meeting is being recorded, transcribed, machine summarized. Please mute unless speaking, and if you have questions, use the raise hand feature.
+
+21
+00:04:20.529 --> 00:04:31.899
+Justin Florentine: So… the only thing that I had to really go over, and I think most people here are already aware of it, is that we migrated to a new organization under GitHub.
+
+22
+00:04:31.900 --> 00:04:56.130
+Justin Florentine: So, the Besu repository, as well as Basu's Homebrew, Basu Native, Besu Stateless, and a number of other ancillary supportive repositories, have been transferred ownership to the BESU ETH organization. This doesn't change anything with regard to our relationship with the LFTT, this is really just sort of a…
+
+23
+00:04:56.290 --> 00:05:14.190
+Justin Florentine: You know, sharing of the duties for managing permissions, etc. So now we have a little bit more control over our repositories, and how things are managed, and a little bit less reliance on LFTT.
+
+24
+00:05:14.520 --> 00:05:27.290
+Justin Florentine: So that's done, it's an ongoing process. If you see anything that's weird, please bring it to my attention, or to Rai Jones' attention at LFTT, but things have gone smoothly, and, we're pretty happy with it.
+
+25
+00:05:30.020 --> 00:05:33.350
+Justin Florentine: And so if there's no other questions on that…
+
+26
+00:05:33.590 --> 00:05:39.629
+Justin Florentine: I'm happy to open the floor. David, you had something to cover. Matthew, do you have anything that you want to cover or add to the agenda last minute?
+
+27
+00:05:39.630 --> 00:05:50.049
+Matthew Whitehead (Kaleido): I guess nothing specifically agenda-wise, but maybe have to mention a couple of bits and pieces going on, or things that are of interest to us, or etc, etc.
+
+28
+00:05:50.920 --> 00:05:52.139
+Justin Florentine: The floor is yours, sir.
+
+29
+00:05:52.140 --> 00:05:55.719
+Matthew Whitehead (Kaleido): You'll be good now? Okay, and then I'll, yeah, I'll hand over to David.
+
+30
+00:05:55.910 --> 00:06:06.369
+Matthew Whitehead (Kaleido): Yeah, so, I guess we're paying kind of particular attention to some of the bits and pieces that have been going in recently, and we've been contributing a few things, so,
+
+31
+00:06:07.740 --> 00:06:17.180
+Matthew Whitehead (Kaleido): forks for QBFT is an area that we've been just, looking at in terms of maturity and, I guess, closing out.
+
+32
+00:06:17.560 --> 00:06:24.980
+Matthew Whitehead (Kaleido): some of the QBFT fork options that didn't get migrated over to time-based
+
+33
+00:06:25.440 --> 00:06:31.500
+Matthew Whitehead (Kaleido): fork, so Shanghai and beyond. So we put in some fixes
+
+34
+00:06:31.540 --> 00:06:46.160
+Matthew Whitehead (Kaleido): specifically for block period transitions, in… I think, maybe February. But actually doing that highlighted one of the other migrate… migration, options for QBFT, which is the validators.
+
+35
+00:06:46.390 --> 00:06:47.970
+Matthew Whitehead (Kaleido): Which, for some…
+
+36
+00:06:48.680 --> 00:06:58.949
+Matthew Whitehead (Kaleido): disaster recovery scenarios for some enterprise blockchains is a really useful option to have, to be able to fork your valid data set through your Genesis file across all your nodes.
+
+37
+00:06:59.600 --> 00:07:06.329
+Matthew Whitehead (Kaleido): And that also is still kind of based on the old block number, or block number only.
+
+38
+00:07:07.970 --> 00:07:21.569
+Matthew Whitehead (Kaleido): bulking, which needs… needs also a bit of work, which we're going to try and do. So that's… that's one area, and we're obviously… we've been doing some testing of QBFT in Cancun, and that has generally been fine, I think.
+
+39
+00:07:23.160 --> 00:07:34.670
+Matthew Whitehead (Kaleido): We have been following closely the fixes that went in for QBFT and Prague, which we did not contribute, but we're really grateful for… I think someone else in the community contributed that.
+
+40
+00:07:34.960 --> 00:07:45.070
+Matthew Whitehead (Kaleido): And we will probably start exercising those. And I guess, specifically, a real positive, which I mentioned on Discord, was that the BFT acceptance
+
+41
+00:07:45.070 --> 00:07:56.620
+Matthew Whitehead (Kaleido): test, which is kind of a soak test for an hour or so for BFT scenarios. Sally really kindly put that into a GitHub action, which makes it super simple to run that, to regression test a branch.
+
+42
+00:07:56.620 --> 00:08:17.810
+Matthew Whitehead (Kaleido): we will potentially, at some point, go back into that and add, like, a Cancun fork. It currently forks up to, like, Shanghai, going through a few… going Berlin, London, Shanghai, I think. So we might go back into that and add Cancun and maybe Prague to that test. It might make it a bit longer, but it's kind of really useful as a… as a kind of a basic regression test, so,
+
+43
+00:08:18.790 --> 00:08:28.669
+Matthew Whitehead (Kaleido): that's kind of focus areas for us, I guess, is worth… how, you know, how we'd describe that. And we're… we're currently doing some specific testing of 26.2.
+
+44
+00:08:29.680 --> 00:08:34.530
+Matthew Whitehead (Kaleido): As we look to roll that out, now it's been out a little while,
+
+45
+00:08:35.480 --> 00:08:44.339
+Matthew Whitehead (Kaleido): And yeah, I think that's kind of everything I wanted just to mention as kind of focus areas for us, I guess, at the moment, testing we're doing.
+
+46
+00:08:44.550 --> 00:08:58.629
+Matthew Whitehead (Kaleido): I was going to also just ask about ECC. I think, Justin, we spoke on Discord, and you mentioned some people from… some of the other maintainers might be going to ECC. I just thought to confirm that I'm going to be going, I don't know who… if you know others who might be.
+
+47
+00:08:59.280 --> 00:09:10.450
+Justin Florentine: Jeez, I don't remember off the top of my head, I think Amesian, Kareem may be going… Okay. Possibly Gary? I'm not sure, I won't be there myself.
+
+48
+00:09:10.890 --> 00:09:11.600
+Matthew Whitehead (Kaleido): Okay, yeah.
+
+49
+00:09:11.600 --> 00:09:16.100
+Justin Florentine: But I'm happy to spread the word that, that you'll be there and that they should look for you.
+
+50
+00:09:16.660 --> 00:09:26.589
+Matthew Whitehead (Kaleido): Yeah, great, yeah, I suspect I've got them on Telegram and Discord from meeting up at previous conferences, so yeah, if you mention in passing, and I'll reach out to them as well.
+
+51
+00:09:29.540 --> 00:09:30.860
+Justin Florentine: Awesome. Sounds good.
+
+52
+00:09:30.860 --> 00:09:32.579
+Matthew Whitehead (Kaleido): That's everything for me, yeah, thanks, Justin.
+
+53
+00:09:32.620 --> 00:09:34.299
+Justin Florentine: You got it.
+
+54
+00:09:34.500 --> 00:09:38.850
+Justin Florentine: So that's all I have. David, you said that you had something.
+
+55
+00:09:39.300 --> 00:09:40.559
+Justin Florentine: Do you like the floor?
+
+56
+00:09:40.560 --> 00:09:50.590
+David Boswell (The Linux Foundation): Yeah, it was… it was migration-related. I know that, you know, we've been moving… you just talked about moving off the, of the Hyperledger…
+
+57
+00:09:50.680 --> 00:10:06.790
+David Boswell (The Linux Foundation): you know, repos into its own, you know, new location. I was just curious, where else can we help you with any Hyperledger branding migration you want to do? I had noticed, for example, it looks like the doc site for Beisu is still bazoo.hyperledger.org, if I remember
+
+58
+00:10:06.890 --> 00:10:19.899
+David Boswell (The Linux Foundation): I mean, last I checked, it looks like that was that. Do we… do you want help moving off of any other Hyperledger-branded information? I think the Twitter account also has Hyperledger in the name. Is that kind of in scope, out of scope? What are your thoughts on…
+
+59
+00:10:20.180 --> 00:10:32.890
+Justin Florentine: So, great question, and that is something that we just, we just started thinking about now that we've got the organization moved. The next step is to do a more holistic, actual, you know, branding, rebranding type thing, right?
+
+60
+00:10:33.050 --> 00:10:38.470
+Justin Florentine: And, you know, I, I don't know. So yeah, if,
+
+61
+00:10:39.090 --> 00:10:52.309
+Justin Florentine: if… I think what we're looking for right now is to come up with a more holistic branding plan, and I'd love to see it cover everything from, you know, marketing, like you mentioned, the socials, which I totally hadn't even thought about,
+
+62
+00:10:52.440 --> 00:11:02.210
+Justin Florentine: to… all the way down to even the Java package structure, right? There's a… there's a… if you want to do a branding, and you want to do it thoroughly, and…
+
+63
+00:11:02.360 --> 00:11:07.589
+Justin Florentine: Completely. There's a lot to go into it and a lot to think about.
+
+64
+00:11:07.590 --> 00:11:08.650
+David Boswell (The Linux Foundation): For sure.
+
+65
+00:11:08.650 --> 00:11:11.000
+Justin Florentine: I think that, yeah, I think…
+
+66
+00:11:11.660 --> 00:11:30.080
+Justin Florentine: having something to start from, having a starting point, for us to look at and say, like, okay, here's… here's… this is a good start, and here's what will make some changes, would be super helpful. That's a large mass of the work there, that I don't have a ton of people clamoring to sign up for.
+
+67
+00:11:30.080 --> 00:11:32.220
+David Boswell (The Linux Foundation): Yeah.
+
+68
+00:11:32.370 --> 00:11:50.689
+David Boswell (The Linux Foundation): I mean, I'm myself not a branding expert. I mean, I mean, my… I was approaching this of just, like, hey, I saw a couple places where I still see us using Hyperledger, maybe let's just clean those up, but if it's… if you want to step back and make that part of a larger thing, I mean, I'm happy… we're happy to support, and I can ask internally if there's, you know.
+
+69
+00:11:51.140 --> 00:11:55.620
+David Boswell (The Linux Foundation): You know, people more familiar with branding who can help,
+
+70
+00:11:56.700 --> 00:11:59.119
+David Boswell (The Linux Foundation): But that's something that you're interested in, kind of a.
+
+71
+00:11:59.120 --> 00:11:59.750
+Justin Florentine: Yes.
+
+72
+00:11:59.750 --> 00:12:01.490
+David Boswell (The Linux Foundation): Holistic branding…
+
+73
+00:12:01.890 --> 00:12:10.030
+Justin Florentine: It is, yeah, and it's definitely something that we're all scared of, like, we're all fully expecting all kinds of weird stuff to go wrong and break,
+
+74
+00:12:10.150 --> 00:12:22.390
+Justin Florentine: not just with, you know… it has less to do with the socialism, more to do with, like, the code itself, right? Like, I really do think that changing the package structure makes sense, and we should do it
+
+75
+00:12:22.390 --> 00:12:31.580
+Justin Florentine: And there's… it's almost all risk with very little reward. So that's why I think… I think planning is super, super important there.
+
+76
+00:12:31.580 --> 00:12:41.649
+David Boswell (The Linux Foundation): Well, that was my thought, too. I mean, if it ain't broke, don't fix it. I mean, maybe you like to keep using the dock site as an example, and maybe it's fine to have it be at bazir.hyperledger.org, but I mean,
+
+77
+00:12:42.680 --> 00:12:48.440
+David Boswell (The Linux Foundation): But I guess that could be a part of an evaluation. Maybe the evaluation is, hey, let's just leave it as is, or something.
+
+78
+00:12:49.010 --> 00:12:50.480
+Justin Florentine: Yeah, I mean…
+
+79
+00:12:50.800 --> 00:12:59.889
+Justin Florentine: I would like it to look more professional. Like, to me, it's a matter of professionalism, and when we start talking to banks and institutions and things like that.
+
+80
+00:13:00.000 --> 00:13:04.050
+Justin Florentine: They may be aware of Hyperledger.
+
+81
+00:13:04.050 --> 00:13:06.789
+David Boswell (The Linux Foundation): Yeah, but it might, yeah, be confusing, too.
+
+82
+00:13:06.960 --> 00:13:09.340
+Justin Florentine: But it's… it just looks sloppy, you know?
+
+83
+00:13:09.340 --> 00:13:10.200
+David Boswell (The Linux Foundation): No, I mean, fair.
+
+84
+00:13:10.200 --> 00:13:14.669
+Justin Florentine: Even if it's not confusing, it just kind of looks, like, a little… a little sloppy.
+
+85
+00:13:14.670 --> 00:13:15.730
+David Boswell (The Linux Foundation): Okay. Yeah.
+
+86
+00:13:15.730 --> 00:13:24.230
+Justin Florentine: It's not ideal, it's suboptimal, obviously it's not a huge pressing thing, but it would definitely be a place where contributions would be welcome, David.
+
+87
+00:13:24.770 --> 00:13:29.419
+David Boswell (The Linux Foundation): Okay, let me talk internally… And we'll see what we can do about it.
+
+88
+00:13:31.080 --> 00:13:37.569
+David Boswell (The Linux Foundation): That'd be great. Like I said, I'm not a branding expert myself, I don't know, I don't know if Matthew, if anybody on the Kaleido side would maybe want to…
+
+89
+00:13:38.070 --> 00:13:44.019
+David Boswell (The Linux Foundation): be interested in this either, maybe we could have a little task force or something. Do you think there's interest on that end?
+
+90
+00:13:44.750 --> 00:13:48.380
+Matthew Whitehead (Kaleido): And just kind of give me a bit more context, branding around…
+
+91
+00:13:48.380 --> 00:13:53.400
+David Boswell (The Linux Foundation): Well, here, let me… sorry, let me pull… maybe I should have been sharing my screen while we were talking here, let me pull up a link.
+
+92
+00:13:56.910 --> 00:13:58.559
+David Boswell (The Linux Foundation): And here, let me share my screen.
+
+93
+00:14:03.910 --> 00:14:18.069
+David Boswell (The Linux Foundation): So, I mean, you know the history, Matthew. I mean, you… Yeah. The project used to be called Hyperledger Bay Zoo, and the LFTT used to be called Hyperledger, so there's a lot of stuff that's left over that still has Hyperledger in it. So, for example, my…
+
+94
+00:14:18.160 --> 00:14:30.170
+David Boswell (The Linux Foundation): I was thinking more on the doc side, on the Twitter side, so the doc sites here, you see at a Hyperledger-branded domain, the Twitter account, if I understand, is at HyperledgerBezu, if I remember correctly.
+
+95
+00:14:30.230 --> 00:14:38.450
+David Boswell (The Linux Foundation): and as Justin pointed out, there's Hyperledger in the code in places, so, like, I guess that's the… that was my question I had today, is like, now that we've migrated off.
+
+96
+00:14:38.540 --> 00:14:45.600
+David Boswell (The Linux Foundation): the GitHub repo, you don't have Hyperledger in the GitHub repo URL anymore, for example. Like, how much other Hyperledger cleanup
+
+97
+00:14:45.770 --> 00:14:47.629
+David Boswell (The Linux Foundation): Did we have interest in…
+
+98
+00:14:47.960 --> 00:15:06.799
+Matthew Whitehead (Kaleido): So… so we… we make quite a big point when we're talking about BESU in, like, presentations, and we're talking about it quite a lot in those kind of contexts. We're pretty… we're pretty tight now on not calling it Hyperledger BESU, on making it kind of… we tend to mention the… the LF…
+
+99
+00:15:06.910 --> 00:15:08.550
+Matthew Whitehead (Kaleido): decentralized trust.
+
+100
+00:15:08.650 --> 00:15:14.250
+Matthew Whitehead (Kaleido): kind of initially at the interim, and then either call it LFDT BESU, or call it just BESU.
+
+101
+00:15:14.910 --> 00:15:30.230
+Matthew Whitehead (Kaleido): kind of subsequent slides. It's a kind of a… it's one of those changes where the reason for the change, it makes total sense. Hyperledger BESU and Hyperledger Firefly and Hyperledger so on, they all rolled off the tongue a little better than an acronym, like LFDT BESU, LFDT Firefly…
+
+102
+00:15:30.230 --> 00:15:35.959
+David Boswell (The Linux Foundation): Yeah, and there's no intent, yeah, you don't… you certainly don't need to prefix it with LFDT, for sure.
+
+103
+00:15:35.960 --> 00:15:41.160
+Matthew Whitehead (Kaleido): I think, I think, I think what we tend to do is call it just Bessoo, generally now.
+
+104
+00:15:41.160 --> 00:15:41.679
+David Boswell (The Linux Foundation): And we'll mention.
+
+105
+00:15:41.680 --> 00:15:46.059
+Matthew Whitehead (Kaleido): LFDT Besu, kind of at the outset of Docs or Slack.
+
+106
+00:15:46.060 --> 00:15:46.579
+David Boswell (The Linux Foundation): Right, so…
+
+107
+00:15:46.580 --> 00:15:49.649
+Matthew Whitehead (Kaleido): what have you, just to be clear, but then we'll just call it BESU.
+
+108
+00:15:50.120 --> 00:15:55.549
+Matthew Whitehead (Kaleido): I think… I think that's… I think it's… it's better than more stuff
+
+109
+00:15:55.860 --> 00:16:02.969
+Matthew Whitehead (Kaleido): that has the Hyperledger name dropped, the better, because it becomes clearer and consistent everywhere a user looks.
+
+110
+00:16:02.970 --> 00:16:03.410
+David Boswell (The Linux Foundation): Yeah.
+
+111
+00:16:03.410 --> 00:16:05.670
+Matthew Whitehead (Kaleido): It's called TwitterWebsites.com.
+
+112
+00:16:05.670 --> 00:16:08.029
+David Boswell (The Linux Foundation): okay, so you agree.
+
+113
+00:16:08.030 --> 00:16:08.509
+Matthew Whitehead (Kaleido): Is my opinion.
+
+114
+00:16:08.510 --> 00:16:14.450
+David Boswell (The Linux Foundation): Sounds like… okay, so we're all on the… we're all agreed that dropping Hyperledger, where… is ideal.
+
+115
+00:16:15.250 --> 00:16:16.020
+Justin Florentine: Yep.
+
+116
+00:16:17.020 --> 00:16:21.729
+David Boswell (The Linux Foundation): Do you think there's anybody on your end, on Kaleido's end, who has some branding expertise, though?
+
+117
+00:16:22.410 --> 00:16:25.139
+David Boswell (The Linux Foundation): Matt, who might want to help us, kind of…
+
+118
+00:16:25.490 --> 00:16:27.720
+Matthew Whitehead (Kaleido): The mechanics of doing it.
+
+119
+00:16:28.380 --> 00:16:35.809
+David Boswell (The Linux Foundation): Well, I mean, Justin, what were you thinking? You were thinking more, like, kind of a… it sounded like maybe a marketing person gives some marketing advice, maybe, or…
+
+120
+00:16:35.810 --> 00:16:42.549
+Justin Florentine: Yeah, I think it's really more of the mechanics and the rollout, Matt. Like, we're not looking for a new brand. Basically, it's a good brand on its own.
+
+121
+00:16:42.550 --> 00:16:44.570
+David Boswell (The Linux Foundation): Okay, so it is more the mechanics.
+
+122
+00:16:44.570 --> 00:16:49.820
+Justin Florentine: It is the mechanics, it's the planning, the rollout, how to do this successful, what are all the things that we're not thinking of, etc, etc.
+
+123
+00:16:49.820 --> 00:16:50.380
+David Boswell (The Linux Foundation): -
+
+124
+00:16:50.550 --> 00:16:51.230
+David Boswell (The Linux Foundation): Alright.
+
+125
+00:16:51.760 --> 00:17:01.870
+Matthew Whitehead (Kaleido): Yeah, I mean, obviously we do have quite a big marketing team. Their specific view on BESU is going to be more limited, because they cover a huge amount. I think maybe…
+
+126
+00:17:02.000 --> 00:17:13.899
+Matthew Whitehead (Kaleido): if there's stuff… if there's specific stuff that you think we might have some… some insight on, maybe reach out to me that, like, for specific stuff. I think if I talk to them about more… the more general Bessie rebranding, they might…
+
+127
+00:17:14.190 --> 00:17:19.000
+Matthew Whitehead (Kaleido): Might struggle to kind of focus some useful feedback a little.
+
+128
+00:17:19.000 --> 00:17:28.309
+David Boswell (The Linux Foundation): Well, it sounds like we're more tactical than strategic. We know there's some places where there's still Hyperledger, we just need to come up with a plan for how to clean those up, it sounds like, maybe.
+
+129
+00:17:28.730 --> 00:17:35.029
+David Boswell (The Linux Foundation): we're not, like, to your point, Justin, we're not redoing the Bezu brand, we're just cleaning it up. Yeah, yeah, alright.
+
+130
+00:17:35.030 --> 00:17:36.769
+Justin Florentine: We just want to make it look consistent.
+
+131
+00:17:36.990 --> 00:17:44.979
+David Boswell (The Linux Foundation): Consistent, yeah, yeah, that's for sure. Well, let me, again, let me talk internally. We have a staff call tomorrow. I will, I'll follow up with you both.
+
+132
+00:17:48.240 --> 00:17:49.219
+Justin Florentine: That sounds awesome.
+
+133
+00:17:49.340 --> 00:17:50.299
+David Boswell (The Linux Foundation): Alright, great, great.
+
+134
+00:17:55.280 --> 00:17:56.290
+Justin Florentine: Cool.
+
+135
+00:17:57.710 --> 00:18:00.870
+Justin Florentine: Not bad. Jessica, go ahead. We've got plenty of time.
+
+136
+00:18:00.870 --> 00:18:15.479
+Jessica Gonzalez (The Linux Foundation): Hey, Justin, thank you so much for running this meeting. So, a few days ago, David shared this, blog post that your community worked on.
+
+137
+00:18:15.480 --> 00:18:34.490
+Jessica Gonzalez (The Linux Foundation): And I think it's really great, I really liked it, so I've been working with the Hiro community to do something similar. However, it's… as you probably are aware, like, there's several challenges on trying to incorporate everybody's maintainers' opinions, and trying to.
+
+138
+00:18:34.490 --> 00:18:42.289
+Jessica Gonzalez (The Linux Foundation): design, best way to work on this kind of, kind of projects,
+
+139
+00:18:42.290 --> 00:18:48.179
+Jessica Gonzalez (The Linux Foundation): Remotely, right? So I wanted to learn from your community, how do you usually…
+
+140
+00:18:48.180 --> 00:19:10.189
+Jessica Gonzalez (The Linux Foundation): work on tasks like this? Like, whenever you're writing a blog post, or whenever you want to gather information from maintainers, what do you guys usually do? Do you, schedule, like, a task force meeting, or, like, a regular meeting, or, like, do you do this in Discord? I kind of want to learn a little bit more.
+
+141
+00:19:10.190 --> 00:19:10.580
+Justin Florentine: Sure.
+
+142
+00:19:10.580 --> 00:19:11.610
+Jessica Gonzalez (The Linux Foundation): strategies.
+
+143
+00:19:11.870 --> 00:19:17.180
+Justin Florentine: Sure. So, you know, we can cheat a little bit because…
+
+144
+00:19:17.380 --> 00:19:22.209
+Justin Florentine: We really have to reach out to few people outside of consensus.
+
+145
+00:19:22.740 --> 00:19:35.710
+Justin Florentine: Right? So, it's really kind of bringing Matt in and any other known contributors to that domain. But honestly, I don't think there were any meetings around that. Might have been just, like, a couple of discussions.
+
+146
+00:19:35.710 --> 00:19:51.549
+Justin Florentine: Right. We see the need, somebody either volunteers or gets told that they're the champion for it, and they need to make it. And then it's just a matter of kind of writing the doc and collaborating with maybe 3 other people, 2 to 3 other people.
+
+147
+00:19:52.260 --> 00:20:00.569
+Justin Florentine: And iterating on the document that way. It's not… not… not super involved. It's mostly the matter of just, you know.
+
+148
+00:20:00.820 --> 00:20:15.699
+Justin Florentine: using the tool to write a collaborative document. And, maybe you want, like, an outsider's perspective once in a while, because sometimes when you take that approach, you can be a little too close to the subject matter, and you can forget to think about…
+
+149
+00:20:15.970 --> 00:20:21.440
+Justin Florentine: A broader audience that might not be that intimate with what you're showing?
+
+150
+00:20:21.440 --> 00:20:21.980
+Jessica Gonzalez (The Linux Foundation): Right.
+
+151
+00:20:21.980 --> 00:20:26.450
+Justin Florentine: But yeah, that's, that's, that's pretty much it as far as process.
+
+152
+00:20:26.750 --> 00:20:31.849
+Jessica Gonzalez (The Linux Foundation): Oh, gotcha. So it's basically, you share a doc around, and .
+
+153
+00:20:31.850 --> 00:20:32.320
+Justin Florentine: Yep.
+
+154
+00:20:32.320 --> 00:20:36.910
+Jessica Gonzalez (The Linux Foundation): Give permissions, editor or commenter permissions to people who…
+
+155
+00:20:36.910 --> 00:20:40.149
+Justin Florentine: I forget what we used, it was probably a Google Doc, I would imagine.
+
+156
+00:20:40.150 --> 00:20:40.970
+Jessica Gonzalez (The Linux Foundation): Gotcha.
+
+157
+00:20:41.110 --> 00:20:57.230
+Jessica Gonzalez (The Linux Foundation): Yeah, I'm trying to do the same at the moment. It's a little bit challenging because I want to include as many maintainers' opinions as possible, so we do have a higher community
+
+158
+00:20:57.230 --> 00:21:11.009
+Jessica Gonzalez (The Linux Foundation): community meeting that happens every second week, so, sometimes that is… becomes, like, the best way to reach out community members and try to work, hands-on on things like this.
+
+159
+00:21:11.010 --> 00:21:15.039
+Justin Florentine: How many… how many contributors would you… would you be aiming for? Like, what's your goal?
+
+160
+00:21:15.040 --> 00:21:22.730
+Jessica Gonzalez (The Linux Foundation): So… so in Cairo, we have close to 60 maintainers across all the organization.
+
+161
+00:21:22.730 --> 00:21:36.319
+Jessica Gonzalez (The Linux Foundation): I'm not intending by any means to reach out to all of them, but I would say at least have, like, maybe 10 people providing their opinion, because
+
+162
+00:21:36.320 --> 00:22:01.310
+Jessica Gonzalez (The Linux Foundation): The subprojects on HIRO can be a little bit, how do you call it? So, for example, when we were talking about our roadmap, our roadmap is not like the Hiero roadmap. It's like, okay, we… within HIRO, we have the SDKs, we have the specification, the, we have the tooling, we have the
+
+163
+00:22:01.310 --> 00:22:19.559
+Jessica Gonzalez (The Linux Foundation): CLI and the core components, right? And sometimes it seems like each one of them have a little bit of their own style of working on their roadmap, so it's very hard to consolidate everything into one, so I will…
+
+164
+00:22:19.560 --> 00:22:24.579
+Jessica Gonzalez (The Linux Foundation): Love to have the participation of at least one of these people in each area.
+
+165
+00:22:24.640 --> 00:22:28.430
+Jessica Gonzalez (The Linux Foundation): And right now, they… they,
+
+166
+00:22:28.550 --> 00:22:40.509
+Jessica Gonzalez (The Linux Foundation): I mean, I think the easiest way to reach out to them, which is not my favorite, is just by either email or Discord, and like, hey, can you review this doc and let me know what you think? I…
+
+167
+00:22:40.790 --> 00:22:54.709
+Jessica Gonzalez (The Linux Foundation): I wish I can have, like, a session or a collaboration where everybody's in the same meeting and going through the documentation and providing their opinions or making comments kind of live.
+
+168
+00:22:54.930 --> 00:23:04.629
+Jessica Gonzalez (The Linux Foundation): But it's… I understand the challenges of finding time, etc, so I wanted to learn from you guys, how do you guys usually do this?
+
+169
+00:23:05.970 --> 00:23:11.220
+Justin Florentine: Yeah, I mean, even… even with a small team that's somewhat co-located.
+
+170
+00:23:11.560 --> 00:23:15.469
+Justin Florentine: We, even then, we don't really do a ton of synchronous work.
+
+171
+00:23:15.530 --> 00:23:31.610
+Justin Florentine: Like, getting out together. It's just so much more efficient to, you know, maybe have a brief, just, discussion over Slack or any type of chat client, and then just jump right into the document, and then kick it back and forth. What do you think about this? What do you think about that, etc.
+
+172
+00:23:31.650 --> 00:23:47.219
+Justin Florentine: Yes. So really, the tooling does most of the work, I think. I do think that having one person on the hook for delivering it, having a champion who is also empowered to delegate, also helps a lot as well.
+
+173
+00:23:47.370 --> 00:24:07.249
+Justin Florentine: So I don't know who the primary author on the performance blog post would have been. I'm guessing it was probably Amazian. But, you know, the buck would kind of stop with him when it comes to collecting lots of input and deciding, like, alright, well, this is an important point we need to include, or that's just more noise.
+
+174
+00:24:07.590 --> 00:24:08.970
+Justin Florentine: And with…
+
+175
+00:24:09.310 --> 00:24:16.120
+Justin Florentine: with the number of contributors that you're talking about, I think that's probably the real risk that I would be… I would be worried about.
+
+176
+00:24:16.630 --> 00:24:25.359
+Jessica Gonzalez (The Linux Foundation): Yeah, and sometimes you get the situations where, I mean, I want to take everybody's opinion, but sometimes
+
+177
+00:24:25.470 --> 00:24:32.690
+Jessica Gonzalez (The Linux Foundation): that also, like, it can change the way people want to write a post like this, right? And it can…
+
+178
+00:24:33.090 --> 00:24:46.840
+Jessica Gonzalez (The Linux Foundation): lead to a lot of changes and delays on making a post available, and the one that I'm working on right now is similar to yours, like a reflection on 2025 and what's coming in 2026, which
+
+179
+00:24:46.940 --> 00:25:04.870
+Jessica Gonzalez (The Linux Foundation): to be posted in March is kind of late already, but I want to… I want to make sure I do both, like, try to get it out early, but at the same time, gather opinions from the maintainers as many as I can.
+
+180
+00:25:04.870 --> 00:25:10.599
+Jessica Gonzalez (The Linux Foundation): So, yeah, it's a little bit of a challenge, but yeah, I just wanted to have this chat with you guys and see.
+
+181
+00:25:10.880 --> 00:25:23.539
+Justin Florentine: Sure, so on the other hand, the benefit of having, like, a large group of people that want to contribute is that you can kind of compress that by giving them a deadline. Like, actually giving a lot of people short notice
+
+182
+00:25:23.550 --> 00:25:37.879
+Justin Florentine: We'll make sure that the people that actually care about it respond quickly. So that might work in your favor, like giving a deadline that says, hey, if you want to have input on this, you got, you know, 3 days a week, something short.
+
+183
+00:25:38.180 --> 00:25:42.880
+Justin Florentine: In order to give that back, and that'll help self-select a little bit.
+
+184
+00:25:42.880 --> 00:25:47.280
+Jessica Gonzalez (The Linux Foundation): Yeah, that's a good idea. Thank you, thank you for that. Yeah, thank you so much for taking my question.
+
+185
+00:25:47.460 --> 00:25:48.310
+Justin Florentine: Sure.
+
+186
+00:25:51.070 --> 00:25:53.770
+Justin Florentine: Cool. Anybody got anything else?
+
+187
+00:25:57.800 --> 00:25:59.000
+Justin Florentine: Alright then.
+
+188
+00:26:01.620 --> 00:26:04.029
+Justin Florentine: Thanks again, and see you next month!
+
+189
+00:26:04.220 --> 00:26:05.930
+Jessica Gonzalez (The Linux Foundation): Thank you, see you soon.
+

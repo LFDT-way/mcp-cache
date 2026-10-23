@@ -1,0 +1,242 @@
+WEBVTT
+
+1
+00:01:30.930 --> 00:01:32.040
+Alex: Hello, Aiwa.
+
+2
+00:01:33.280 --> 00:01:33.880
+Ivo Yankov: Boom.
+
+3
+00:03:30.270 --> 00:03:31.640
+Zhan Milenkov: Hello, everybody.
+
+4
+00:03:35.680 --> 00:03:36.680
+Alex: Hello, hello.
+
+5
+00:03:47.940 --> 00:03:51.819
+Zhan Milenkov: Do you guys want to go ahead and start the community hall?
+
+6
+00:03:57.840 --> 00:03:59.150
+Alex: Good idea, yeah.
+
+7
+00:04:03.210 --> 00:04:12.039
+Zhan Milenkov: Okay, so, from Solo's side, we've been working on trying to improve the performance.
+
+8
+00:04:12.440 --> 00:04:20.010
+Zhan Milenkov: The time it takes for the cold and warm start, by parallelizing some of the command's execution during one-shot.
+
+9
+00:04:20.750 --> 00:04:29.830
+Zhan Milenkov: And, Alex, I wanted to ask you about the issue, and I asked Jeffrey to join the call, so…
+
+10
+00:04:30.490 --> 00:04:33.169
+Zhan Milenkov: Can you describe a bit more?
+
+11
+00:04:33.280 --> 00:04:37.839
+Zhan Milenkov: About the Waco-built path fader you're experiencing?
+
+12
+00:04:37.840 --> 00:04:48.770
+Alex: Yes, I remember that conversation a week ago? So, what's happened is I took latest version 0.63, did a local build of consensus node.
+
+13
+00:04:48.990 --> 00:04:57.490
+Alex: Then, as always, do… Deploy with, deployed on, multi-node latitude.
+
+14
+00:04:57.630 --> 00:05:09.029
+Alex: And what I noticed, it was, like, infinitely waiting for TSS, because I enabled TSS, but at the same time, some remote config tell TSS is not enabled.
+
+15
+00:05:09.560 --> 00:05:24.810
+Alex: And, I was told by Jean that, yes, it's a bug, and local build is not working, because it's conflicting with some remote config. So, I was waiting for fix, and now I would love to clarify what's happening here. So, again, so, local build.
+
+16
+00:05:24.810 --> 00:05:29.600
+Alex: and TSS is enabled, RAP is enabled, try to deploy.
+
+17
+00:05:29.600 --> 00:05:45.109
+Alex: it's a no, because TSS is not enabled according to some remote config. I may be some behind the time, that new feature is Remote Config, and I was told that local build is not kind of supported, or something like that. Can you please clarify
+
+18
+00:05:45.190 --> 00:05:50.370
+Alex: if TSS work with local build.
+
+19
+00:05:51.560 --> 00:06:00.980
+Zhan Milenkov: Just one second, I'm happy you joined the call, so I can explain. So, what happens is, when you use the local build path.
+
+20
+00:06:01.290 --> 00:06:04.079
+Zhan Milenkov: We don't go in there and…
+
+21
+00:06:04.360 --> 00:06:16.980
+Zhan Milenkov: take the version you're using for the walk-o build path, we rely on you, that you will pass the Waco BuildPath, which can be any version, and then you will supply a release stack.
+
+22
+00:06:17.970 --> 00:06:21.079
+Alex: Yes, I do. Which is 7200, yes.
+
+23
+00:06:21.580 --> 00:06:29.859
+Zhan Milenkov: I, didn't see the release tag in the… Workflow you posted?
+
+24
+00:06:30.500 --> 00:06:47.110
+Alex: And maybe another bug in solo, because you're not printing exactly all parameters that was passed. I passed it, release7200, and it worked before, in previous versions. So my another request is, when I put anything into
+
+25
+00:06:47.160 --> 00:06:57.120
+Alex: into call of Solar, don't hide any, issues by default, like TSS, like wraps, it must be explicitly printed in a command line.
+
+26
+00:06:57.370 --> 00:07:12.559
+Zhan Milenkov: Yeah, I agree, we are not doing that because of an order issue about… that's technical, but how we are treating the default values. So, if you pass a value that is same as the default.
+
+27
+00:07:12.560 --> 00:07:18.900
+Zhan Milenkov: We don't know if it's passed by you, or if it's the default, so we are hiding those.
+
+28
+00:07:20.230 --> 00:07:35.769
+Zhan Milenkov: Yeah, that's going to be fixed in the future, but there are some current limitations that are causing us, because otherwise we would be printing off the flags and their default values if you pass them, which would be more confusing.
+
+29
+00:07:38.050 --> 00:07:45.750
+Alex: Okay, when you plan to release new tag, approximately? Like, 064… I assume.
+
+30
+00:07:45.750 --> 00:07:50.519
+Zhan Milenkov: It's a bit dependent on Jeffrey getting merged for his PR.
+
+31
+00:07:51.250 --> 00:08:04.080
+Alex: Okay, good. Because I see some fixes regarding TSS that kind of reminds my problem, and resemble the symptoms that I have. Okay, good, good, I will wait, I will wait.
+
+32
+00:08:04.240 --> 00:08:14.560
+Zhan Milenkov: Can you please send me a version of the workflow where you pass the release stack, so I can test with those? Because…
+
+33
+00:08:14.640 --> 00:08:25.759
+Zhan Milenkov: When I was testing it locally and passing the release stack manually, I was able to use the vocal build path and the reps and TSS feature.
+
+34
+00:08:27.590 --> 00:08:32.789
+Alex: Okay, sure, I'll do. Also, have you tried Maine?
+
+35
+00:08:33.120 --> 00:08:46.680
+Alex: Okay, it may be complicated, because mine needs additional fixes. Okay, it's a little bit of time, because mine is not working because of insufficient… insufficient balance problem. That's another trouble that happens. Okay, I'll prepare…
+
+36
+00:08:46.680 --> 00:08:53.839
+Jeffrey: Wait, wait, Alex. Alex, when you tell me, you mean the solo main, you mean the, consensus on the main?
+
+37
+00:08:55.120 --> 00:08:57.100
+Alex: Consensus, not main.
+
+38
+00:08:57.790 --> 00:09:02.900
+Alex: I use, fixed version 063, because I operate only with fixed version.
+
+39
+00:09:03.780 --> 00:09:10.550
+Zhan Milenkov: That was using the 72.0RC4, I think.
+
+40
+00:09:10.970 --> 00:09:13.690
+Jeffrey: For Maine, also, there are issues,
+
+41
+00:09:13.790 --> 00:09:31.650
+Jeffrey: it's hard to align, right? If you're testing with the latest, but we may test with, like, yesterday's latest commit, it's better just align with the which tag. Well, they have, like, a build tag, like, 779, 778, something like that. We need to align with which tag, so we can try to reproduce the same issue.
+
+42
+00:09:31.650 --> 00:09:38.569
+Jeffrey: Otherwise, their main branches keep moving, we just do not know which one we broke, or we make solo, or mixolo works, something like that.
+
+43
+00:09:39.000 --> 00:09:41.740
+Alex: So, solar is fixed, 063.
+
+44
+00:09:41.740 --> 00:09:50.509
+Jeffrey: Yeah, I mean, when you're testing with the consensus, it's better to let us know which commit number, which tag version you are using on the consensus domain.
+
+45
+00:09:50.510 --> 00:09:54.659
+Alex: I will use, build format, build-00.
+
+46
+00:09:54.660 --> 00:09:55.170
+Jeffrey: Yes.
+
+47
+00:09:55.560 --> 00:09:56.889
+Alex: Okay, I'll do it.
+
+48
+00:10:05.600 --> 00:10:09.000
+Zhan Milenkov: Do you have any other issues you've encountered with Solo?
+
+49
+00:10:09.950 --> 00:10:12.930
+Alex: This is, kind of, the main, main stuff.
+
+50
+00:10:13.130 --> 00:10:14.140
+Zhan Milenkov: No, I can't.
+
+51
+00:10:16.800 --> 00:10:26.930
+Zhan Milenkov: We are going to be rolling support for mirror nodes and block nodes working the integration soon.
+
+52
+00:10:31.550 --> 00:10:37.499
+Zhan Milenkov: And I know that Jeffrey is working on support for the new block note chart.
+
+53
+00:10:37.810 --> 00:10:43.700
+Zhan Milenkov: Which… He's working with the new plugin functionality.
+
+54
+00:10:43.700 --> 00:10:48.420
+Jeffrey: Yeah, I hope they can approve me today, or… yeah, tomorrow morning, something like…
+
+55
+00:10:50.080 --> 00:10:55.290
+Zhan Milenkov: Okay, maybe later I'll try to do some code reviews then.
+
+56
+00:11:02.530 --> 00:11:06.840
+Zhan Milenkov: Give that's everything, maybe we can end the meeting?
+
+57
+00:11:08.510 --> 00:11:09.810
+Jeffrey: Thank you.
+
+58
+00:11:09.810 --> 00:11:10.639
+Alex: Thank you.
+
+59
+00:11:11.210 --> 00:11:14.350
+Zhan Milenkov: Thanks, everybody. Thank you for coming. Bye-bye.
+
+60
+00:11:14.480 --> 00:11:15.120
+Alex: Bye.
+

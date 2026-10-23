@@ -1,0 +1,1790 @@
+WEBVTT
+
+1
+00:00:30.530 --> 00:00:31.830
+Robert Walworth: Nice, lovely.
+
+2
+00:00:33.710 --> 00:00:34.690
+Sophie Bulloch: Hi, Rob!
+
+3
+00:01:42.030 --> 00:01:49.289
+Robert Walworth: Let's give it a few more minutes, see if Hendrick's joining. I know he wanted to go over the key discussion again.
+
+4
+00:04:24.970 --> 00:04:40.009
+Robert Walworth: Alright, I've reached out to Hendrik, hopefully he responds soon and joins. I figured that's what this meeting was mostly gonna be about, was just gonna continue our key discussion from last week.
+
+5
+00:04:40.100 --> 00:04:46.410
+Robert Walworth: But yeah, it's almost 5 past the hour now, so we can go ahead and get started.
+
+6
+00:04:47.020 --> 00:04:54.310
+Robert Walworth: So basically, just, we had a couple updates on the…
+
+7
+00:04:54.850 --> 00:05:00.120
+Robert Walworth: JS and Rust platform work. It sounds like…
+
+8
+00:05:00.420 --> 00:05:09.460
+Robert Walworth: Roger was able to go through and, get the JavaScript SDK updated. Basically, he was just changing how publishing was gonna work.
+
+9
+00:05:09.680 --> 00:05:13.500
+Robert Walworth: I think he was gonna publish the Hyrote ledger first instead of Hashgraph.
+
+10
+00:05:13.760 --> 00:05:22.580
+Robert Walworth: Just in preparation for the full cutover in January. Sounded like he was able to get that going good, and then…
+
+11
+00:05:22.710 --> 00:05:29.019
+Robert Walworth: Rust, I believe they're putting off for another couple weeks.
+
+12
+00:05:29.610 --> 00:05:40.010
+Robert Walworth: Because they wanted to wait to get a nice clean slate with a new release, and it didn't seem like Rust was going to be publishing a release this
+
+13
+00:05:40.310 --> 00:05:42.160
+Robert Walworth: This sprint.
+
+14
+00:05:42.780 --> 00:05:46.210
+Robert Walworth: So we're just gonna kind of wait on that.
+
+15
+00:05:46.830 --> 00:05:50.950
+Robert Walworth: But no other real updates there.
+
+16
+00:05:52.300 --> 00:05:58.310
+Robert Walworth: the key discussion, Rohit, I see you joined, thanks for joining,
+
+17
+00:06:00.480 --> 00:06:12.030
+Robert Walworth: The… kind of the discussion we were having last week, about this was… basically, we're trying to come up with… or we're starting discussions on…
+
+18
+00:06:12.220 --> 00:06:18.919
+Robert Walworth: what a version 3 SDK would look like. And we had a good discussion on…
+
+19
+00:06:19.270 --> 00:06:27.460
+Robert Walworth: Keys, and how to… Basically make his,
+
+20
+00:06:27.560 --> 00:06:31.250
+Robert Walworth: in the SDKs, and basically is…
+
+21
+00:06:31.270 --> 00:06:48.139
+Robert Walworth: you know, what's… what's the best way… well, we wanted an easy way for users to… that basically don't know a lot about keys, to be able to just, you know, create a key and use it in the SDK, but then we also realized that
+
+22
+00:06:49.870 --> 00:07:04.680
+Robert Walworth: Creating keys and encoding keys can get pretty complicated pretty quickly, especially with just, like, understanding, you know, the different encodings and how different keys were structured.
+
+23
+00:07:05.110 --> 00:07:11.860
+Robert Walworth: So… we… Had a good discussion on, kind of, what…
+
+24
+00:07:12.130 --> 00:07:18.920
+Robert Walworth: we kind of wanted this to look like, and basically we just wanted to pick your brain, Rohit, a little bit on
+
+25
+00:07:19.080 --> 00:07:23.629
+Robert Walworth: Your thoughts, and kinda…
+
+26
+00:07:23.750 --> 00:07:38.759
+Robert Walworth: I don't want to say, like, future-proof us, but, we know that, more keys are going to be added to the network at some point, and basically, we want to come up with a way to…
+
+27
+00:07:39.850 --> 00:07:51.680
+Robert Walworth: when these new keys get added, basically allow us to, or whatever we come up with right now, to still be, usable.
+
+28
+00:07:51.910 --> 00:07:55.390
+Robert Walworth: So… give me one second, let me…
+
+29
+00:07:56.160 --> 00:08:04.250
+Robert Walworth: I can kind of explicitly, or more explicitly, describe it for you. Give me… give me one second here.
+
+30
+00:08:09.700 --> 00:08:17.640
+Robert Walworth: Sorry, just… I'm pulling some stuff up here, so… Get rid of that
+
+31
+00:08:21.780 --> 00:08:26.170
+Robert Walworth: So basically, kind of what we had originally come up with,
+
+32
+00:08:26.810 --> 00:08:31.049
+Robert Walworth: Basically two, sort of,
+
+33
+00:08:32.240 --> 00:08:34.669
+Robert Walworth: APIs that we want to expose.
+
+34
+00:08:35.039 --> 00:08:40.460
+Robert Walworth: So… They both kind of looked like this.
+
+35
+00:08:43.390 --> 00:08:47.880
+Robert Walworth: Key algorithm…
+
+36
+00:08:48.820 --> 00:08:57.799
+Robert Walworth: So we had two APIs that we were thinking about exposing first. So, the simple key create, which basically just takes
+
+37
+00:08:58.110 --> 00:09:09.910
+Robert Walworth: any, you know, string of bytes, like, DER encode, hex encoded, you know, whatever, and just base… it's basically like a,
+
+38
+00:09:10.320 --> 00:09:18.680
+Robert Walworth: just kind of, quote-unquote, try your best method. So, in here, we were thinking,
+
+39
+00:09:19.700 --> 00:09:22.540
+Robert Walworth: Basically, we would want…
+
+40
+00:09:22.770 --> 00:09:41.860
+Robert Walworth: this method to try and understand the encoding, whether that's HEX, DER, RAW, whatever. Basically, try its best to understand that that way, but then basically default back to, like, an ECDSA key. So, like, if it wasn't able to figure out the encoding.
+
+41
+00:09:43.340 --> 00:09:56.839
+Robert Walworth: or, basically… because we know that, like, if a key is, like, DER encoded, like, you're able to kind of figure out, like, the algorithm based on that. But if, for example, we just get, like, a…
+
+42
+00:09:57.010 --> 00:10:12.159
+Robert Walworth: a string of bytes, and they're not DER encoded anyway, or, you know, they're just rods. Like, we can't really figure out what the encoding of the key is that way. So basically, we would just do something like default, ECDSA.
+
+43
+00:10:12.480 --> 00:10:31.960
+Robert Walworth: And this is, again, this is kind of just the easy method, that we were thinking. But then in this one, this would, basically allow the user to input their string of bytes, but then also specify exactly how it's encoded and what's the algorithm
+
+44
+00:10:32.670 --> 00:10:37.619
+Robert Walworth: or the key algor… or the algorithm of that key is. So basically, this would look something like…
+
+45
+00:10:37.810 --> 00:10:42.750
+Robert Walworth: you know, OX, whatever, or it doesn't have to be OXing.
+
+46
+00:10:43.420 --> 00:10:49.929
+Robert Walworth: encode either, but, you know, then encoding could be DER, and then algorithm would be, like.
+
+47
+00:10:50.240 --> 00:10:54.000
+Robert Walworth: ECDSA, or something like that.
+
+48
+00:10:54.460 --> 00:10:58.580
+Robert Walworth: So this is kind of what we were thinking. I think,
+
+49
+00:10:59.010 --> 00:11:07.230
+Robert Walworth: again, Rohit, we kind of wanted to pick your brain, and you know, with all the different…
+
+50
+00:11:07.590 --> 00:11:15.770
+Robert Walworth: encodings that keys can have, you know, the algorithms, I think, I mean, we only have two right now, but we're not exactly sure how much more…
+
+51
+00:11:15.940 --> 00:11:19.629
+Robert Walworth: That's going to be down the line.
+
+52
+00:11:20.100 --> 00:11:25.100
+Robert Walworth: Basically, we kind of wanted to get your input on this, and see if, like.
+
+53
+00:11:25.480 --> 00:11:30.270
+Robert Walworth: If there are, like, any…
+
+54
+00:11:30.980 --> 00:11:43.189
+Robert Walworth: I guess, sort of ways to determine what keys are based on other encodings, or, we're basically just trying to figure out what the best way is to do this, and…
+
+55
+00:11:44.560 --> 00:11:52.240
+Robert Walworth: Yeah, just any… any insight that you may have, like, could… could be valuable on… on helping us out here.
+
+56
+00:11:52.920 --> 00:12:06.529
+Rohit Sinha: Okay, so just to clarify, S here is a key that's already been generated somewhere else, and the user is importing it. It's not entropy, right? It's an already encoded key that's coming from somewhere?
+
+57
+00:12:07.640 --> 00:12:14.330
+Robert Walworth: Yeah, yeah, so this would… this would just be, like, a hex-encoded key, yeah.
+
+58
+00:12:14.610 --> 00:12:21.809
+Rohit Sinha: So, yeah, unfortunately, okay, so, yeah, you're right, like, so…
+
+59
+00:12:23.400 --> 00:12:42.020
+Rohit Sinha: So there, there are ways to encode keys that have the metadata that you need. I think PKCS8 is a very popular encoding, which tells you what is the algorithm, what is the curve, whether it's a private key or a public key, basically all the information you need to, to get a precise,
+
+60
+00:12:42.190 --> 00:12:44.740
+Rohit Sinha: Key out of it.
+
+61
+00:12:45.480 --> 00:12:52.370
+Rohit Sinha: Now, if you… if it's not encoded in that, if it's just the, like, for example, the raw bytes of the key.
+
+62
+00:12:53.840 --> 00:13:03.839
+Rohit Sinha: So yeah, that could be during coded, but unfortunately, you wouldn't know, for example, if it's an ECDSA key versus an ET25519 key.
+
+63
+00:13:04.000 --> 00:13:08.930
+Rohit Sinha: Because they're both 32 byte… Keith, and…
+
+64
+00:13:09.690 --> 00:13:24.699
+Rohit Sinha: there's a huge overlap in terms of their private key set, so given a specific key, I wouldn't know which algorithm it's for. Now, if you think ECDSA is a reasonable default, sure, we can do that.
+
+65
+00:13:25.710 --> 00:13:27.139
+Rohit Sinha: But,
+
+66
+00:13:27.250 --> 00:13:37.990
+Rohit Sinha: you know, there could be problems, because if someone accidentally messes up and brings over a net 25519 key, and that
+
+67
+00:13:38.180 --> 00:13:40.330
+Rohit Sinha: defaults as an FTSA key.
+
+68
+00:13:40.600 --> 00:13:41.340
+Robert Walworth: Oh.
+
+69
+00:13:41.360 --> 00:13:50.810
+Rohit Sinha: I mean, it's not a huge security problem, in most cases, but it's, it's just, like, a software problem. Like, they wouldn't be able to make transactions.
+
+70
+00:13:52.170 --> 00:14:06.620
+Robert Walworth: I just want to clarify, so did… were you saying that DER encoded keys, they maybe don't have enough metadata in them to determine what the algorithm is for that key?
+
+71
+00:14:06.620 --> 00:14:08.529
+Rohit Sinha: So, DER by itself, I…
+
+72
+00:14:08.650 --> 00:14:22.299
+Rohit Sinha: So I might be wrong about some of these things, but from what I know, DER by itself is just a encoding format. It's a… yeah, I think it's basically a binary encoding.
+
+73
+00:14:22.690 --> 00:14:41.510
+Rohit Sinha: And… but before you do DER, there has to be some mechanism. So you either, DER encode raw bytes of the secret key, so the 32 bytes XDSA key, you can feed it to DER, and that's fine. In which case, you are relying on the application context to know that it's an XDSA key.
+
+74
+00:14:42.020 --> 00:14:47.160
+Rohit Sinha: But alternatively, you first encode using PKCS8,
+
+75
+00:14:48.330 --> 00:14:53.170
+Rohit Sinha: And what you get out of PKCS8, that, if you dir encode it.
+
+76
+00:14:53.360 --> 00:15:06.229
+Rohit Sinha: Then, you know, when you decode it, you know, oh, it's a PKCS8 string, and it has all the metadata, that it's, you know, it's XDA with SECB, curve, whatever, yeah.
+
+77
+00:15:06.490 --> 00:15:07.200
+Robert Walworth: Hmm.
+
+78
+00:15:07.830 --> 00:15:18.650
+Robert Walworth: So, okay, so I guess maybe my understanding before of DER encoding was… more or less, you kind of just have, you know, your raw
+
+79
+00:15:18.790 --> 00:15:21.379
+Robert Walworth: Key bites, and then you just…
+
+80
+00:15:21.700 --> 00:15:27.190
+Robert Walworth: Slap a couple more bites on the front or the back, that basically,
+
+81
+00:15:27.570 --> 00:15:34.229
+Robert Walworth: I don't know, kind of has that metadata, like, the curve information and all that, so is that… is that not…
+
+82
+00:15:34.230 --> 00:15:50.369
+Rohit Sinha: That's fine too, yeah. Yeah, you don't need to do a standard thing, because, if you know most of the time it's going to be, like, one of three things, yeah, maybe, yeah, maybe you can just, do a custom encoding yourself. PKCS8 is a pretty popular choice,
+
+83
+00:15:51.180 --> 00:16:01.439
+Rohit Sinha: Yeah, I mean, unless you're conscious about, like, sizes and all, like, you know, that's a pretty popular choice. Keith has a hand up, so, yeah.
+
+84
+00:16:02.390 --> 00:16:03.190
+Robert Walworth: Yeah, Keith.
+
+85
+00:16:04.060 --> 00:16:19.919
+Keith Kowal (Hedera Hashgraph LLC): Well, I think this is a big… when it's a good time to get specific, so, like, now I'm way out of my element here, but, like, as… from my memory, there are many different types of deer encodings, but we, our libraries, use deer encoding according to the
+
+86
+00:16:20.360 --> 00:16:30.489
+Keith Kowal (Hedera Hashgraph LLC): the ASN1 standard. I mean, I think we need to talk about not just Deere encodings, but also the standards in which the deer encodings are based upon. Am I right or wrong on that one, Rohit?
+
+87
+00:16:31.390 --> 00:16:40.539
+Rohit Sinha: You're right, so ASN1 is, yeah, actually, I'm not familiar with the other ones, because I almost always see ASN1,
+
+88
+00:16:41.980 --> 00:16:44.589
+Rohit Sinha: Yeah, I don't know what the connections are, yeah.
+
+89
+00:16:45.180 --> 00:16:52.059
+Keith Kowal (Hedera Hashgraph LLC): It's just to say, Rob, I think it's a complicated world, and I think that we first have to start inventorying our own
+
+90
+00:16:52.090 --> 00:17:05.830
+Keith Kowal (Hedera Hashgraph LLC): like, you know, we should be able to say, okay, well, our library, we use an ASN1 library. I mean, when you generate a key in their SDKs, that's what the output is. A deer-encoded key, according to ASN1.
+
+91
+00:17:05.990 --> 00:17:16.270
+Keith Kowal (Hedera Hashgraph LLC): We also do the… you know, in the portal, we have the… for ECDSA, we have hex-encoded… we call it hexencoded, but it's hex encoded with the 0x prefix.
+
+92
+00:17:16.510 --> 00:17:21.309
+Keith Kowal (Hedera Hashgraph LLC): Which I know is the same thing, but we put a 0x prefix on it.
+
+93
+00:17:21.660 --> 00:17:32.390
+Keith Kowal (Hedera Hashgraph LLC): I mean, I just think it would be a useful exercise to inventory. We could start by inventorying all the keys that we generate, and we support, and what standards they are based upon.
+
+94
+00:17:33.960 --> 00:17:37.169
+Robert Walworth: Yeah, no, that makes sense. I think it might be…
+
+95
+00:17:37.410 --> 00:17:55.710
+Robert Walworth: Yeah, I don't know for sure, yeah, just because I haven't, you know, kind of gone through, like, a… like, code sort of audit, I suppose, on exactly, like, how all the libraries that all our SDKs use, like, generate their keys.
+
+96
+00:17:55.920 --> 00:18:15.200
+Robert Walworth: But yeah, I think… I think that there might be some discrepancies there between SDKs, because again, I know we've had problems in the past where you can generate a key in one SDK, but then it's not recognized in another. So that… that very well could just be different, DER encodings.
+
+97
+00:18:16.450 --> 00:18:19.710
+Rohit Sinha: So, are you talking about interoperability with other wallets?
+
+98
+00:18:20.860 --> 00:18:29.789
+Robert Walworth: Or, not even necessarily other wallets, but, like, you can generate a key in, like, JavaScript, the JavaScript SDK, and then try and import it into, like, Java, and it doesn't recognize it.
+
+99
+00:18:31.480 --> 00:18:38.250
+Robert Walworth: So, I… I think… I think the… the… the deer encodings were different on those. Like, the…
+
+100
+00:18:38.480 --> 00:18:43.239
+Robert Walworth: Or, like, Etsy ones for, like, an example, like, OpenSSL would generate, like.
+
+101
+00:18:43.280 --> 00:19:02.129
+Robert Walworth: this huge, like, you know, string, or keystring, and I remember there was some tool online that… that I use as, like, you could, like, kind of parse it and see exactly, like, what was encoded in there, and, like, you could see, like, the curve information and everything, but then, like.
+
+102
+00:19:02.130 --> 00:19:10.949
+Robert Walworth: you can generate another key and another SDK and plug it in there as well, and it was, like, pretty much the same information, just kind of organized differently, like, in the bytes.
+
+103
+00:19:14.260 --> 00:19:19.449
+Robert Walworth: So I, I… it's tough because we're… we're kind of, like…
+
+104
+00:19:20.050 --> 00:19:38.870
+Robert Walworth: It… yes, it would be great to have them all, you know, be encoded the same way, and honestly, it's like, it's kind of needed if we want, you know, interoperability between the SDKs, but… or also kind of at the whim of just whatever crypto libraries are out there and available, in whatever way, like…
+
+105
+00:19:39.750 --> 00:20:01.129
+Keith Kowal (Hedera Hashgraph LLC): This is what I would say, Rob. I would say my recommendation is we inventory all of the keys that we use today, and then I think we would want to inventory all the keys that we want to support, and… because I don't think it's a long list. I think that, you know, basically, the main keys we want to support are keys coming from the outside in the EVN ecosystem, which are almost all
+
+106
+00:20:01.130 --> 00:20:11.290
+Keith Kowal (Hedera Hashgraph LLC): ECDSA keys with a hexencoder with a 0x prefix. I mean, I do actually think there's strong interoperability in the EVM ecosystem for key material.
+
+107
+00:20:11.420 --> 00:20:24.979
+Keith Kowal (Hedera Hashgraph LLC): And then… and then you would just put a line on it and just say, okay, well, and that's what we're gonna support? We're not gonna… because there's a gazillion other ways to encode these keys, we're not gonna support… like, that's it. We're not gonna support any of the other ones.
+
+108
+00:20:25.330 --> 00:20:31.540
+Keith Kowal (Hedera Hashgraph LLC): Because, you know, it's too… there's too many. I mean, that would be my, kind of, first pass.
+
+109
+00:20:33.290 --> 00:20:58.160
+Robert Walworth: Well, is that, like, formally decided? Like, Hendrik last week, gave me the impression that there were gonna be more keys that we would support down the line, like quantum keys or something else, which, I mean, may very well be a completely different discussion than the one we're having now, but, I mean, that's just, like, something I don't really know about, but I think the idea here was we were just trying to come up with something that we could use
+
+110
+00:20:58.160 --> 00:21:03.559
+Robert Walworth: now, But that would also be forward compatible with whatever… whatever we do.
+
+111
+00:21:03.570 --> 00:21:05.180
+Robert Walworth: Down the line.
+
+112
+00:21:06.910 --> 00:21:22.789
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I would argue that that'd be the… yes, maybe in the future we add a quantum-safe key, but then it's the same process. We inventory what keys we support, we inventory what keys are out there that we want to, like, what third-party keys other libraries create that we want to support.
+
+113
+00:21:22.790 --> 00:21:30.129
+Keith Kowal (Hedera Hashgraph LLC): And that would be, maybe, in that case, quantum libraries, third-party quantum libraries, and then we just say, okay, that's it, that's all we're going to support.
+
+114
+00:21:30.130 --> 00:21:45.620
+Robert Walworth: Yeah, yeah, no, it's 100%. Yeah, I mean, that's… that's stuff we can do, we can figure out, you know, under… underneath our API surface, but I think the… coming up with the API surface that, you know, we can…
+
+115
+00:21:45.780 --> 00:22:05.719
+Robert Walworth: allow quantum keys to be used, or, you know, whichever keys we may want to add, and still being able to pipe it through, you know, this API that we come up with. I think that's what we're just trying to come up with right now. Basically, making it forward compatible.
+
+116
+00:22:09.500 --> 00:22:16.150
+Keith Kowal (Hedera Hashgraph LLC): Rohit, I want to come back on something you said, because I thought that was super interesting. I didn't know there was overlap between
+
+117
+00:22:16.480 --> 00:22:23.659
+Keith Kowal (Hedera Hashgraph LLC): I didn't know that you could have the same private key for both ECDSA and ED25019, and that's… that's significant.
+
+118
+00:22:23.850 --> 00:22:31.700
+Keith Kowal (Hedera Hashgraph LLC): like, even… I would have thought that, like, our algorithms, because, you know, we get a private key and we generate the public key and all that stuff, I would have thought that those would have…
+
+119
+00:22:32.710 --> 00:22:39.980
+Keith Kowal (Hedera Hashgraph LLC): those would start breaking down. Is there really… there's that… is it? I just want to clarify, there is overlap between… you could have the same private key for both algorithms?
+
+120
+00:22:40.730 --> 00:22:48.510
+Rohit Sinha: Yes, but yeah, the public key has a lot less overlap, because,
+
+121
+00:22:48.640 --> 00:22:52.090
+Rohit Sinha: You map the private key to a public key, and…
+
+122
+00:22:53.680 --> 00:23:07.350
+Rohit Sinha: Yeah, typically from the public key, it's very unlikely that an elliptic curve point on, for ECDSA will overlap with the curve point for, you know, at 255, 19.
+
+123
+00:23:07.490 --> 00:23:11.670
+Rohit Sinha: But for the private key, yeah, there's a strong overlap.
+
+124
+00:23:12.590 --> 00:23:26.660
+Keith Kowal (Hedera Hashgraph LLC): So, I want to call the snippets of that, Rob. If that's true, then we cannot have a system where you can just input, like, you can put anything, and we'll identify it, and no, I think that means that we have to stick with our current model, where we say.
+
+125
+00:23:26.760 --> 00:23:33.860
+Keith Kowal (Hedera Hashgraph LLC): This is an ECDSA key, or this is an ED2519 key. We're… we are stuck in that paradigm.
+
+126
+00:23:37.780 --> 00:23:43.329
+Robert Walworth: Yes, yeah, the… well, yeah.
+
+127
+00:23:43.780 --> 00:24:01.829
+Robert Walworth: I think the… the idea last week, too, was that we thought that, we would be able to figure out the key algorithm based on the DER. Like, if we used… if a user used this function, for example, to just simple create with just the string.
+
+128
+00:24:01.950 --> 00:24:06.029
+Robert Walworth: The function will be able to determine if the
+
+129
+00:24:06.270 --> 00:24:22.880
+Robert Walworth: key is DER encoded or not, and if it is, then it would be able to figure out the algorithm based on that. So you have a… you could input, like, a DER-encoded, like, ED25519, or DER-encoded ECDSA,
+
+130
+00:24:22.880 --> 00:24:26.369
+Robert Walworth: It would be able to figure out the algorithm that way, but…
+
+131
+00:24:26.370 --> 00:24:31.739
+Robert Walworth: If it can't figure out what it is, then at that point, it would just try and…
+
+132
+00:24:32.190 --> 00:24:39.759
+Robert Walworth: parse it as an ECDSA key, and then, you know, if it can't parse it, then it just throws, throws an error.
+
+133
+00:24:40.060 --> 00:24:47.760
+Robert Walworth: I think that's kind of where we left it, and I think we wanted to make sure that that was also valid, Rohit.
+
+134
+00:24:47.760 --> 00:24:54.290
+Rohit Sinha: So that's true, except, as Keith mentioned, only if you use a format like ASN1.
+
+135
+00:24:54.370 --> 00:25:10.610
+Rohit Sinha: or something like PKCS8. I think AS… I think PKCS8 is probably the same… used as ASN1. I might be misremembering things. But yeah, that's… that's what's really telling us what the algorithm and the curve is.
+
+136
+00:25:10.860 --> 00:25:17.480
+Rohit Sinha: the ASN1, which, of course, that can be combined with the DER encoding mechanism.
+
+137
+00:25:17.830 --> 00:25:22.950
+Rohit Sinha: But the ASN1 format is what has all that information.
+
+138
+00:25:23.570 --> 00:25:24.540
+Robert Walworth: Okay.
+
+139
+00:25:24.990 --> 00:25:25.560
+Robert Walworth: Okay.
+
+140
+00:25:25.560 --> 00:25:33.660
+Rohit Sinha: And I'm pretty sure the SDKs, like, a lot of the popular SDKs, I would imagine they support that encoding.
+
+141
+00:25:34.090 --> 00:25:36.249
+Rohit Sinha: Because it's a very popular one, yeah.
+
+142
+00:25:37.710 --> 00:25:39.449
+Robert Walworth: Yeah, I mean, yeah.
+
+143
+00:25:39.670 --> 00:25:58.699
+Keith Kowal (Hedera Hashgraph LLC): Well, that's, you know, that's an interesting one, Rahul, because when, actually, when I went out there and looking for third-party tooling to do the… to support the same DER encoding that we use, I think we had this conversation a couple years ago, I actually did not find a lot of third-party tooling that could give me the same output that our SDK did.
+
+144
+00:25:58.740 --> 00:26:09.410
+Keith Kowal (Hedera Hashgraph LLC): I struggled. I mean, and actually, this is why I wanted to do, actually, more investigation, because I'm actually very curious what libraries our SDKs are using, because I could not find it out there.
+
+145
+00:26:09.730 --> 00:26:17.749
+Rohit Sinha: Yeah, that is surprising. So, for… okay, on the Java side, do we use something like Bonsie Castle? I mean, that would for sure have those encodings.
+
+146
+00:26:19.160 --> 00:26:21.890
+Robert Walworth: I believe it does, yes.
+
+147
+00:26:23.560 --> 00:26:24.200
+Rohit Sinha: Okay.
+
+148
+00:26:24.560 --> 00:26:32.900
+Rohit Sinha: So yeah, yeah, maybe, yeah, as Keith, you mentioned, it would be useful access to catalog what we're doing now, in terms of these library choices, and…
+
+149
+00:26:33.560 --> 00:26:37.820
+Rohit Sinha: Maybe migrate to ones that support the formats we want?
+
+150
+00:26:41.250 --> 00:26:49.300
+Keith Kowal (Hedera Hashgraph LLC): Yeah, my feeling at the time was, not only are we using a specific, deer encoding algorithm, but we also have some specific settings on.
+
+151
+00:26:57.940 --> 00:27:09.600
+Robert Walworth: So, so basically, we want libraries that have consistent ASN1 DER encoding,
+
+152
+00:27:10.000 --> 00:27:15.170
+Robert Walworth: It… it… sorry, is ASN1, PK, CS8, or are they different?
+
+153
+00:27:16.970 --> 00:27:25.580
+Rohit Sinha: Actually, I probably shouldn't say anything in this wrong, but either PKCS8 uses ASN1… it's basically ASN1,
+
+154
+00:27:26.850 --> 00:27:32.909
+Rohit Sinha: Okay. I think, I think forget about PKCSA. Yeah, I think ASN1 is… yeah, that, yeah, that's…
+
+155
+00:27:32.910 --> 00:27:33.590
+Robert Walworth: Okay.
+
+156
+00:27:33.590 --> 00:27:36.290
+Rohit Sinha: Sorry, I might have confused things.
+
+157
+00:27:36.510 --> 00:27:37.840
+Robert Walworth: Okay.
+
+158
+00:27:38.750 --> 00:27:54.490
+Keith Kowal (Hedera Hashgraph LLC): But it is to say, Rob, that just to say that something is dear encoding doesn't mean a lot. I mean, again, from my memory, you have to actually be a lot more specific about what it is you're talking about. I mean, like, this is just a terrible world where, like, there's just a lot of variability.
+
+159
+00:27:56.420 --> 00:28:10.590
+Robert Walworth: Yeah, I mean, it's probably just, like, my lack of knowledge of, you know, of key encodings and such. Yeah, in my mind, it's always been… like, I didn't know that there were different… well, I mean…
+
+160
+00:28:11.470 --> 00:28:25.689
+Robert Walworth: I guess having kind of gone through this at some point, where I noticed the DER encodings were different, there's obviously, you know, variation in that, but yeah, I think if we can find, like, consistency, or let's see, let's say…
+
+161
+00:28:25.960 --> 00:28:27.390
+Robert Walworth: Consistent.
+
+162
+00:28:27.780 --> 00:28:31.040
+Robert Walworth: AS1D, our encoding.
+
+163
+00:28:32.040 --> 00:28:42.820
+Robert Walworth: Yeah, I mean, then that's just, like, you know, our standard that we can have, as long as all the SDKs are doing the same thing.
+
+164
+00:28:42.960 --> 00:28:49.450
+Robert Walworth: Then we'll be able to parse them all how we want, and consistently amongst each other, right?
+
+165
+00:28:51.230 --> 00:29:11.939
+Keith Kowal (Hedera Hashgraph LLC): But I think my meta point here, Rob, is that I think we need to kind of narrow down what problem we're trying to solve, because our people… again, if you use one of these, like, cryptographic libraries, you could create keys with a thousand different variations, and I don't think we're saying we want to support every single variation of a key that a cryptographic library could generate.
+
+166
+00:29:12.060 --> 00:29:20.010
+Keith Kowal (Hedera Hashgraph LLC): I think, though, what… I mean, I think what I'm more… like, like a bouncy castle library, but I think what I'm… I think what we do want to say is, like, oh.
+
+167
+00:29:20.080 --> 00:29:34.999
+Keith Kowal (Hedera Hashgraph LLC): If my MetaMask generates a key, we can support that key. Okay, 1000% I support that. And then, like, if there's wallets out there that support, let's say, 825019 key generation, and there must be a couple, because, like, I think
+
+168
+00:29:35.000 --> 00:29:43.220
+Keith Kowal (Hedera Hashgraph LLC): You know, there's a few chains that support ED2519, that we would support the encoding from those popular wallets.
+
+169
+00:29:43.510 --> 00:29:48.089
+Robert Walworth: But I think, like, that's how you kind of have to limit the subset, because otherwise it's…
+
+170
+00:29:48.180 --> 00:29:49.600
+Keith Kowal (Hedera Hashgraph LLC): I mean, I think…
+
+171
+00:29:50.270 --> 00:30:00.319
+Keith Kowal (Hedera Hashgraph LLC): If it's just, like, we're gonna support every encoding in, whatever, Bouncy castle, then good luck. But if we say we want to support every encoding supported by MetaMask, okay, well, that's doable.
+
+172
+00:30:00.690 --> 00:30:08.449
+Robert Walworth: Yeah. Yeah, no, I 100% agree. Yeah, I think, again, it's like, even, like, the libraries we use, like, I don't think…
+
+173
+00:30:08.660 --> 00:30:09.670
+Robert Walworth: those…
+
+174
+00:30:10.010 --> 00:30:21.789
+Robert Walworth: support, you know, everything, and I… yeah, I agree, I don't think we want to support everything. I'm… I more so just want it, you know, want there to be consistency between…
+
+175
+00:30:22.120 --> 00:30:37.800
+Robert Walworth: SDKs and how they handle it. Like, you shouldn't be able to work with the same key in all SDKs, and all SDKs should, you know, behave the same. Which, I think, for the most part, they do. There might just be…
+
+176
+00:30:38.170 --> 00:30:43.710
+Robert Walworth: you know, maybe corner cases here and there.
+
+177
+00:30:44.520 --> 00:30:51.729
+Robert Walworth: But yeah, I think we could definitely do, like, an audit on this, I think, and…
+
+178
+00:30:52.450 --> 00:30:57.319
+Robert Walworth: And, yeah, make sure… make sure everything's how we want it to be.
+
+179
+00:31:03.420 --> 00:31:12.640
+Robert Walworth: Yeah, I guess maybe… maybe we would want to have maybe a… a more broad discussion on this, maybe, like, bring in,
+
+180
+00:31:12.890 --> 00:31:23.039
+Robert Walworth: Cine or… or whoever, and, you know, kind of more… more narrow down, the encodings that we want to support, and…
+
+181
+00:31:23.340 --> 00:31:25.430
+Robert Walworth: Come up with… with our plan there.
+
+182
+00:31:27.240 --> 00:31:45.139
+Keith Kowal (Hedera Hashgraph LLC): I'll just make one other quick comment, Rob, is that if at some point we do add… do something like add quantum keys, like, that is a major update to the entire network. So, you know, that would be a major, major hit, where we would be, you know, it would be 3 months of effort by the entire organization. So it's just to say, like, that…
+
+183
+00:31:45.180 --> 00:31:51.379
+Keith Kowal (Hedera Hashgraph LLC): It's not like that just occurs out of nowhere, that's, like, something that will be happening with a lot of announced warning and thought and effort.
+
+184
+00:31:51.690 --> 00:31:52.370
+Robert Walworth: Huh.
+
+185
+00:31:52.630 --> 00:31:58.559
+Robert Walworth: Yeah, no, I totally get that. Yeah, I think it's… it's more so, like, if… if we wanna…
+
+186
+00:31:58.650 --> 00:32:14.449
+Robert Walworth: add them, like, if we can try and design an API now that… where we can add those and, you know, it's not a complete breaking change, like, we won't need to do, like, a V4 or something, then, you know, we should still strive to do that if we can.
+
+187
+00:32:15.720 --> 00:32:23.319
+Robert Walworth: So, yeah, again, it's just design the APIs with that in mind.
+
+188
+00:32:24.430 --> 00:32:27.510
+Robert Walworth: Yeah, just make it as forward-compatible as we can.
+
+189
+00:32:27.670 --> 00:32:32.170
+Robert Walworth: Which I think, for… the most part, like, I think…
+
+190
+00:32:32.660 --> 00:32:49.529
+Robert Walworth: I think this right here is good, it's more so a question of how we just want to do this, because, I mean, with this, it's like, if we just have a couple enums here, like, then it's like, we just add value to the enum, and then, you know, process those enums under the hood, and, you know…
+
+191
+00:32:49.760 --> 00:32:53.010
+Robert Walworth: It's… it's… it's all good.
+
+192
+00:32:53.850 --> 00:33:00.099
+Robert Walworth: Yeah, it's just a matter of just kind of what we can do here, and if this is sufficient enough.
+
+193
+00:33:00.480 --> 00:33:10.139
+Robert Walworth: Because again, yeah, like, what we talked about last week, like, Hendrik made a good point, it's like… or… or… I forget if it was Hendrick, or maybe it was you, Keith, but it's like, yeah, we… we…
+
+194
+00:33:10.410 --> 00:33:17.490
+Robert Walworth: You know, we don't want our users to have to become cryptography experts to use keys, so…
+
+195
+00:33:17.690 --> 00:33:25.880
+Robert Walworth: We need to keep it simple, but also, allow the full breadth of our capability to be, you know, used.
+
+196
+00:33:28.160 --> 00:33:36.179
+Rohit Sinha: So I don't, I don't think post-quantum will present a huge, challenge. Well, the challenge with post-quantum would be…
+
+197
+00:33:36.380 --> 00:33:39.650
+Rohit Sinha: Finding, because, the…
+
+198
+00:33:40.020 --> 00:33:46.649
+Rohit Sinha: The number of libraries in that space are probably limited, so it's not as mature as the existing algorithms.
+
+199
+00:33:47.040 --> 00:33:55.359
+Rohit Sinha: So it… maybe some of them may not be exporting stuff out in ASN1 encoding, so maybe we'll have to, do something custom.
+
+200
+00:33:55.480 --> 00:34:04.800
+Rohit Sinha: For different languages. But as far as, like, the formatting goes, we can still, use, whatever choice we make here, ASN1,
+
+201
+00:34:05.300 --> 00:34:06.640
+Rohit Sinha: Pleasure, yeah.
+
+202
+00:34:08.520 --> 00:34:13.009
+Keith Kowal (Hedera Hashgraph LLC): And Rob, just, I want to come back and talk about the user story. So, like.
+
+203
+00:34:13.199 --> 00:34:29.089
+Keith Kowal (Hedera Hashgraph LLC): you know, the big change I think we're talking about… okay, so we're talking about one change where you'd be able to specify… today, again, maybe the baseline. Today, you can only specify the… if it's ETC or ET2519. So we're actually talking about one change where you can specify not only the encoding, but also the…
+
+204
+00:34:29.270 --> 00:34:43.180
+Keith Kowal (Hedera Hashgraph LLC): Of course, you can specify the key type and the encoding, but the other change we're talking about is, oh, well, you can input… if you input a deer encoded key, you don't need to specify what it is, and we'll just detect it and take action. And I think my counter to that is.
+
+205
+00:34:43.520 --> 00:34:49.600
+Keith Kowal (Hedera Hashgraph LLC): I could never create a deer encoded key outside of our SDKs that our SDKs would accept.
+
+206
+00:34:49.630 --> 00:35:06.219
+Keith Kowal (Hedera Hashgraph LLC): So, maybe other people can, but, like, that's my… it's just, like, I think, you know, if no one can create a deer-encoded key from outside to bring in, then it's kind of a useless story, because you can't even do the thing that we're saying that we want to build new functionality to do.
+
+207
+00:35:07.290 --> 00:35:18.459
+Robert Walworth: Well, yeah, I think that was the point of, kind of, our defaulting to whatever the most common use case is, which it sounds like it's ECDSA.
+
+208
+00:35:18.750 --> 00:35:30.970
+Robert Walworth: you know, to be able to… yeah, because you're probably right, like, a majority of users are just gonna have their just raw encoded ECDSA 0x encode or not, and plug it in there and expect it to just work, and…
+
+209
+00:35:31.080 --> 00:35:45.699
+Robert Walworth: you know, that's probably what it's gonna be, like, you know, 95% of the time. So, if that's what we should aim for with this, and I think that's kind of why defaulting to ECDSA was our decision there.
+
+210
+00:35:46.180 --> 00:36:02.189
+Robert Walworth: And… and maybe… maybe… maybe that's just what it should be. Like, maybe trying to do any special DER encoding processing here maybe is… is too much, and maybe we… we don't want to do that. Maybe we want to observe that for… for what we have down here.
+
+211
+00:36:03.060 --> 00:36:11.110
+Robert Walworth: But, yeah, at least, you know, how it is… how I see it in my mind, it's like, if… if we can do that,
+
+212
+00:36:11.260 --> 00:36:26.049
+Robert Walworth: you know, if we can try and figure out as much information from whatever's input here as we can, and then try and process it how we want to, but if not, then, you know, just do what 95% of the use case is gonna be, right?
+
+213
+00:36:27.020 --> 00:36:31.269
+Robert Walworth: Yeah, that's… that's my thought, at least, on that.
+
+214
+00:36:35.860 --> 00:36:40.790
+Robert Walworth: Okay, cool, so I think…
+
+215
+00:36:41.950 --> 00:36:49.090
+Robert Walworth: What we need to do now is… Look more closely at…
+
+216
+00:36:49.530 --> 00:37:02.899
+Robert Walworth: what SDK crypto… or the crypto libraries that SDKs are using, kind of do an audit on them, see what their encodings are, like, how they're doing it,
+
+217
+00:37:03.270 --> 00:37:04.630
+Robert Walworth: And…
+
+218
+00:37:05.980 --> 00:37:19.469
+Robert Walworth: basically just try and build some consistency there amongst themselves, but also, like… like you were saying, Keith, like, yeah, there's probably gonna be a lot of users just coming over using a MetaMask wallet, that are just gonna wanna…
+
+219
+00:37:19.870 --> 00:37:22.500
+Robert Walworth: Plug it into a function, have it work.
+
+220
+00:37:23.020 --> 00:37:27.370
+Robert Walworth: And we want to be able to make sure that we support that.
+
+221
+00:37:28.120 --> 00:37:30.400
+Robert Walworth: So, okay, I'll…
+
+222
+00:37:30.530 --> 00:37:42.489
+Robert Walworth: I'll work with Hendrik, and probably will be reaching out to you, Rohit, a little bit more, because I'm sure I'll be having more questions about,
+
+223
+00:37:42.890 --> 00:37:56.439
+Robert Walworth: everything. So, yeah, I'll take the action to look at this a little bit more, and maybe we can come back and discuss more either next week or in the coming weeks, at least.
+
+224
+00:37:58.870 --> 00:38:03.620
+Robert Walworth: Alright, cool. I think…
+
+225
+00:38:05.140 --> 00:38:19.189
+Robert Walworth: So Keith, I put down the sample code guide again here. I think you were going to send the link out to that. Did… were you able to get that out to,
+
+226
+00:38:19.340 --> 00:38:20.490
+Robert Walworth: Most people.
+
+227
+00:38:21.600 --> 00:38:29.020
+Keith Kowal (Hedera Hashgraph LLC): Oh, no, I apologize. I thought for this one, you had already posted it in the SDK Collaboration Hub. Is that true or not true?
+
+228
+00:38:29.780 --> 00:38:43.600
+Robert Walworth: Yes, I was going to do that, and I didn't, so I will look to do that as well. Okay, yeah, that'll work, yeah, so I can, I can, like, put something there, then I can just, well, probably won't be able to link.
+
+229
+00:38:43.600 --> 00:38:54.629
+Keith Kowal (Hedera Hashgraph LLC): Well, to be fair, it's a Google Sheets document that no one will be able to access, so maybe we gotta convert it into a Markdown, and then bring it in. So maybe I can work with you offline on that.
+
+230
+00:38:54.930 --> 00:39:00.859
+Robert Walworth: Okay. Yeah, I can come up with something and just, like, send it to you to review it, so…
+
+231
+00:39:02.600 --> 00:39:09.890
+Robert Walworth: Okay, cool. And then, sounds good there. Sophie, you wanted to… Talk about Hectoverfest?
+
+232
+00:39:12.740 --> 00:39:24.799
+Sophie Bulloch: Hi, yeah, that would be great. I've already had the opportunity to speak to a couple of you about my thoughts. This will just be probably adding on to that.
+
+233
+00:39:25.610 --> 00:39:30.860
+Sophie Bulloch: Weather… okay, one second. I made a presentation! .
+
+234
+00:39:30.860 --> 00:39:32.310
+Robert Walworth: Oh, do you want to share your screen?
+
+235
+00:39:32.790 --> 00:39:33.830
+Sophie Bulloch: Yes, please.
+
+236
+00:39:33.830 --> 00:39:34.390
+Robert Walworth: Fair.
+
+237
+00:39:35.360 --> 00:39:37.930
+Sophie Bulloch: Very proud of my presentation, because.
+
+238
+00:39:38.410 --> 00:39:39.920
+Robert Walworth: Love it.
+
+239
+00:39:39.920 --> 00:39:43.409
+Sophie Bulloch: Usually, usually I just took my way through these things,
+
+240
+00:39:44.350 --> 00:39:48.970
+Sophie Bulloch: Not particularly stylish, but I think it sort of does the job.
+
+241
+00:39:52.440 --> 00:39:58.759
+Sophie Bulloch: Okay, so I want to talk about Hacktoberfest, what happened in the Python SDK,
+
+242
+00:39:59.100 --> 00:40:02.500
+Sophie Bulloch: during Hacktoberfest, the lessons that we learned.
+
+243
+00:40:02.770 --> 00:40:05.900
+Sophie Bulloch: And our next steps, what's coming up next?
+
+244
+00:40:07.560 --> 00:40:10.380
+Sophie Bulloch: So…
+
+245
+00:40:12.210 --> 00:40:20.469
+Sophie Bulloch: basically, I will have the hypothesis that we are going to need to, work on some training and some automation, so I want to…
+
+246
+00:40:20.640 --> 00:40:27.160
+Sophie Bulloch: tell you a little bit about what I'm thinking, how we're going… how we can do that, and why we need it.
+
+247
+00:40:28.310 --> 00:40:34.070
+Sophie Bulloch: So, our Python SDK maintainer and committed team Is like so.
+
+248
+00:40:34.890 --> 00:40:40.390
+Sophie Bulloch: And, we are mostly volunteers working part-time.
+
+249
+00:40:41.060 --> 00:40:45.930
+Sophie Bulloch: or less on it, depends. In October 1st, we were able to step up.
+
+250
+00:40:46.740 --> 00:40:49.949
+Sophie Bulloch: But, yeah, this is the team so far. We've…
+
+251
+00:40:50.210 --> 00:40:53.029
+Sophie Bulloch: We've, been able to onboard Manage.
+
+252
+00:40:53.550 --> 00:40:59.690
+Sophie Bulloch: in… during Hacktoberfest, right… right towards the end, who had been making contributions before.
+
+253
+00:41:00.250 --> 00:41:09.239
+Sophie Bulloch: So, yeah, we're able to improve our reviewer process with that, but we are still a little bit low on maintainers and committers.
+
+254
+00:41:10.470 --> 00:41:15.500
+Sophie Bulloch: So, to give you, a… an overview of what happened during Hacktoberfest.
+
+255
+00:41:16.200 --> 00:41:21.320
+Sophie Bulloch: Our SDK activity increased by 660%,
+
+256
+00:41:21.720 --> 00:41:30.080
+Sophie Bulloch: we were going from an average of 5 commits per week… oh, thank you, yeah, it got some claps there that I see, to 38.
+
+257
+00:41:30.600 --> 00:41:35.629
+Sophie Bulloch: In a single week, and to be honest, it could have been more. I personally had a…
+
+258
+00:41:35.900 --> 00:41:42.210
+Sophie Bulloch: a, live event in the first week of October, so I was unable to really do too much then.
+
+259
+00:41:43.260 --> 00:41:48.600
+Sophie Bulloch: But overall, we ended up with 74 merged pull requests and 39 unique
+
+260
+00:41:49.370 --> 00:41:54.200
+Sophie Bulloch: authors. So, these were first, contributors.
+
+261
+00:41:54.300 --> 00:41:57.509
+Sophie Bulloch: You can see our two new releases in October.
+
+262
+00:41:57.630 --> 00:42:02.230
+Sophie Bulloch: We have quite a long list. I spoke with quite a few of these
+
+263
+00:42:02.530 --> 00:42:06.799
+Sophie Bulloch: In helping them with their PRs, and I learned more about who they were.
+
+264
+00:42:08.250 --> 00:42:11.689
+Sophie Bulloch: Wait, I'm skipping over because… yeah.
+
+265
+00:42:12.420 --> 00:42:16.090
+Sophie Bulloch: They're mostly computer science graduates or students.
+
+266
+00:42:17.290 --> 00:42:21.940
+Sophie Bulloch: And, so that means they already have Some developer experience.
+
+267
+00:42:22.120 --> 00:42:29.789
+Sophie Bulloch: And they are very motivated. They are lovely, really nice to speak to. They're so grateful for help, for the opportunity.
+
+268
+00:42:30.800 --> 00:42:34.870
+Sophie Bulloch: And yeah, they already know how to code.
+
+269
+00:42:35.750 --> 00:42:37.850
+Sophie Bulloch: So, that's who they are.
+
+270
+00:42:40.490 --> 00:42:44.170
+Sophie Bulloch: Okay, so I also want to talk about how we were able to get
+
+271
+00:42:44.390 --> 00:42:48.970
+Sophie Bulloch: these 39 new developers in, October.
+
+272
+00:42:49.140 --> 00:42:52.190
+Sophie Bulloch: And we've also been able to continue
+
+273
+00:42:52.790 --> 00:42:59.209
+Sophie Bulloch: attracting new developers in November, so I will talk about how this is being done.
+
+274
+00:43:00.000 --> 00:43:09.239
+Sophie Bulloch: So, firstly, in our tags, We have tags, I think are important is saying it's Python.
+
+275
+00:43:09.760 --> 00:43:20.500
+Sophie Bulloch: Because many people will look for good first issues for a certain language. One of the reasons why we attract lots of new developers is that I'm wanting to improve my Python knowledge.
+
+276
+00:43:21.580 --> 00:43:28.200
+Sophie Bulloch: From these tags, it's very easy to see that it's about distributed ledger technology, about blockchain technology.
+
+277
+00:43:28.770 --> 00:43:34.679
+Sophie Bulloch: And I also have some good first issue tags, and we had the Hacktoberfest tags.
+
+278
+00:43:36.320 --> 00:43:51.840
+Sophie Bulloch: And we were creating around 6… 6 to 7, 8 new issues per day. So this meant in people's queries for good first issues, we were on the first page quite often, so they were… they would get picked up, they would get seen.
+
+279
+00:43:52.130 --> 00:43:59.159
+Sophie Bulloch: Sorry, for them to actually… Okay, hang on. This is a,
+
+280
+00:43:59.920 --> 00:44:03.090
+Sophie Bulloch: This is showing you that we… we… we were…
+
+281
+00:44:03.420 --> 00:44:10.970
+Sophie Bulloch: on the first page for good first issues for a Python project, showing the importance of that Python tag.
+
+282
+00:44:12.350 --> 00:44:16.810
+Sophie Bulloch: That was when it was recently updated, we're not on that first page anymore.
+
+283
+00:44:19.630 --> 00:44:21.850
+Sophie Bulloch: And, as Hendrik has
+
+284
+00:44:22.450 --> 00:44:28.600
+Sophie Bulloch: Shown you in the past that we… we attracted these 39 new developers, also because of the excellent
+
+285
+00:44:28.730 --> 00:44:32.589
+Sophie Bulloch: documentation that has been provided for HIRO.
+
+286
+00:44:32.910 --> 00:44:36.990
+Sophie Bulloch: With the, problem, the solution, the implementation.
+
+287
+00:44:37.420 --> 00:44:40.500
+Sophie Bulloch: We did as best as we could, it wasn't perfect.
+
+288
+00:44:41.240 --> 00:44:46.649
+Sophie Bulloch: All the time, but that was still better than a lot of the other
+
+289
+00:44:47.030 --> 00:44:52.819
+Sophie Bulloch: good first issues documentation, so that was really instrumental in attracting the new developers.
+
+290
+00:44:53.320 --> 00:45:01.789
+Sophie Bulloch: And as you can see, a lot of them were able to create these good first issues, solve them, create the pull request, and actually get it merged.
+
+291
+00:45:04.130 --> 00:45:20.259
+Sophie Bulloch: We also gave really good feedback, so it was timely, it was informative, it was helpful. So here is an example that, we identified the issue. Hey, your commits are not verified, these are the key steps to do it, and here's the documentation to help you
+
+292
+00:45:20.570 --> 00:45:27.369
+Sophie Bulloch: To be able to fix that. So we created a lot, a lot of documentation to be able to link to.
+
+293
+00:45:31.420 --> 00:45:36.549
+Sophie Bulloch: Okay, so, yeah, sorry, apologies for the lack of visual,
+
+294
+00:45:37.840 --> 00:45:41.919
+Sophie Bulloch: the slides are not as nice as I would want them to be.
+
+295
+00:45:42.790 --> 00:45:49.159
+Sophie Bulloch: But, yeah, we learned that Hyro is really able to attract new developers.
+
+296
+00:45:49.660 --> 00:45:54.199
+Sophie Bulloch: There's way more developers than we can handle.
+
+297
+00:45:54.830 --> 00:45:59.809
+Sophie Bulloch: And they are skilled computer science students, or graduates.
+
+298
+00:46:00.900 --> 00:46:05.229
+Sophie Bulloch: They are curious, and they are hardworking, and they are, yeah.
+
+299
+00:46:05.820 --> 00:46:08.010
+Sophie Bulloch: Really grateful for the help.
+
+300
+00:46:09.350 --> 00:46:11.510
+Sophie Bulloch: And the documentation that we have.
+
+301
+00:46:12.210 --> 00:46:18.079
+Sophie Bulloch: Now we get into the stage where some of them are actually wanting to attempt some of the harder transactions.
+
+302
+00:46:18.300 --> 00:46:24.089
+Sophie Bulloch: And here is where I am needing some help from the broader Cairo community.
+
+303
+00:46:25.280 --> 00:46:30.360
+Sophie Bulloch: So, we need some kind of HIRO-specific training.
+
+304
+00:46:30.790 --> 00:46:39.669
+Sophie Bulloch: To be able to transition a lot of these new developers into feeling like they are confident crypto developers.
+
+305
+00:46:41.490 --> 00:46:46.410
+Sophie Bulloch: For example, there's a lot of higher-specific knowledge that developers have to acquire.
+
+306
+00:46:46.780 --> 00:46:51.849
+Sophie Bulloch: You need to know about the token module, the consensus module, transactions, accounts.
+
+307
+00:46:52.280 --> 00:46:54.460
+Sophie Bulloch: For example, if you're trying to create
+
+308
+00:46:54.610 --> 00:47:04.200
+Sophie Bulloch: an example script for Token Mint, you're going to be pulling in lots and lots of different, different modules, different files.
+
+309
+00:47:04.700 --> 00:47:07.790
+Sophie Bulloch: And you, you will need to understand them.
+
+310
+00:47:08.320 --> 00:47:17.089
+Sophie Bulloch: This was maybe more manageable when I joined the Python SDK, which was a mini Python SDK back last year when Nadine started it.
+
+311
+00:47:17.450 --> 00:47:27.690
+Sophie Bulloch: But now we have, I think we have, like, 40 different services and things, so now it's quite complicated to get started, but it's not necessarily
+
+312
+00:47:27.810 --> 00:47:31.700
+Sophie Bulloch: difficult. It's just maybe, like, a lack of understanding of how these
+
+313
+00:47:31.930 --> 00:47:36.640
+Sophie Bulloch: function together, and so on. We have extensive examples already.
+
+314
+00:47:37.350 --> 00:47:49.059
+Sophie Bulloch: But, I think it's a big time investment for somebody to parse through all of the files to really be able to understand them before just writing an example script.
+
+315
+00:47:51.390 --> 00:47:57.520
+Sophie Bulloch: This slide shows that We are still, we still have Activity 3X.
+
+316
+00:47:57.990 --> 00:48:07.559
+Sophie Bulloch: the prior to October activity, so many of these developers are not just here for Hacktoberfest, or maybe they were, but now they are,
+
+317
+00:48:07.820 --> 00:48:10.789
+Sophie Bulloch: They've had a positive experience, and they're sticking around.
+
+318
+00:48:11.070 --> 00:48:18.070
+Sophie Bulloch: It's also exam season, and we haven't been creating as many good first issues as before, we still have them.
+
+319
+00:48:19.410 --> 00:48:24.800
+Sophie Bulloch: So, activity has dropped slightly, but it's still 3 times what it was before.
+
+320
+00:48:28.870 --> 00:48:38.899
+Sophie Bulloch: This is showing you that we have 115 merged pull requests in the last month. That's between us two maintainers and one new commit in the last week or so.
+
+321
+00:48:39.300 --> 00:48:49.519
+Sophie Bulloch: So, what we found from this is basically it's not sustainable to be able to do… to be able to onboard all these new developers and all these pull requests. We were working all the time.
+
+322
+00:48:49.750 --> 00:48:59.270
+Sophie Bulloch: to be able to do this. So, for the last few minutes, I want to talk about some solutions that we are thinking about to be able to scale maintain in time, now that
+
+323
+00:48:59.400 --> 00:49:04.330
+Sophie Bulloch: The marketing side of it for developers isn't really a concern to us at the moment.
+
+324
+00:49:10.450 --> 00:49:16.020
+Sophie Bulloch: I'll go back to the training ideas. So here is a example of something that we could automate.
+
+325
+00:49:16.510 --> 00:49:19.610
+Sophie Bulloch: To be able to make, maintaining more scalable.
+
+326
+00:49:20.060 --> 00:49:25.569
+Sophie Bulloch: So, it's this little, robot that says, hey, Your commits aren't verified.
+
+327
+00:49:26.370 --> 00:49:30.539
+Sophie Bulloch: We need them to be verified, to be able to bunch your pull request.
+
+328
+00:49:31.090 --> 00:49:41.520
+Sophie Bulloch: And importantly, we have the links to all the documentation so that you are able to solve this issue yourself, and this would just arrive as soon as the person creates a pull request.
+
+329
+00:49:41.860 --> 00:49:46.140
+Sophie Bulloch: where any of the commits are not verified. So this bot…
+
+330
+00:49:46.330 --> 00:49:50.499
+Sophie Bulloch: Is, working, but it's not yet merged.
+
+331
+00:49:50.940 --> 00:49:57.550
+Sophie Bulloch: So that is one idea that we have. I found I was spending some weeks, 50% of my time.
+
+332
+00:49:58.470 --> 00:50:04.939
+Sophie Bulloch: On PR quality issues that were related to just the hiero workflow elements.
+
+333
+00:50:05.110 --> 00:50:08.079
+Sophie Bulloch: Like, the verification status and,
+
+334
+00:50:09.510 --> 00:50:13.130
+Sophie Bulloch: And, and, certain checks, signing and things like this.
+
+335
+00:50:15.060 --> 00:50:19.099
+Sophie Bulloch: This is another example, you could just have, like, a robot saying, hey.
+
+336
+00:50:19.560 --> 00:50:23.969
+Sophie Bulloch: Some of the unit tests, or the integration tests, or whatever, didn't work.
+
+337
+00:50:24.590 --> 00:50:27.349
+Sophie Bulloch: This one, is still in development.
+
+338
+00:50:27.490 --> 00:50:29.040
+Sophie Bulloch: It's,
+
+339
+00:50:29.670 --> 00:50:36.769
+Sophie Bulloch: These might end up being the same… the same scripts, but it's a little bit different for just introduction to what it could be.
+
+340
+00:50:38.340 --> 00:50:43.390
+Sophie Bulloch: We're thinking about having a way of running all of the examples all at once.
+
+341
+00:50:43.740 --> 00:50:49.570
+Sophie Bulloch: Because currently, we don't have a way of, checking all our examples' work.
+
+342
+00:50:49.800 --> 00:50:53.090
+Sophie Bulloch: We have relied on checking all of them manually.
+
+343
+00:50:53.580 --> 00:50:59.560
+Sophie Bulloch: And when there's updates to the SDK, obviously they are brittle, they can change, so this would be…
+
+344
+00:50:59.780 --> 00:51:05.339
+Sophie Bulloch: Some kind of workflow that would run through all the examples. That would mean somebody that creates a new example
+
+345
+00:51:05.570 --> 00:51:10.230
+Sophie Bulloch: That will automatically be checked for them, and then we have some robots saying, hey.
+
+346
+00:51:10.510 --> 00:51:13.440
+Sophie Bulloch: It failed the check, the example doesn't run.
+
+347
+00:51:14.300 --> 00:51:19.649
+Sophie Bulloch: So, we're thinking about automating a lot of these good first issues, process.
+
+348
+00:51:21.220 --> 00:51:24.390
+Sophie Bulloch: Another right… another problem that we had, another challenge that we had.
+
+349
+00:51:24.550 --> 00:51:31.089
+Sophie Bulloch: was, trying to think of enough good first issues. 116 good first issues to be able to
+
+350
+00:51:31.510 --> 00:51:34.170
+Sophie Bulloch: To be able to create quickly and easily.
+
+351
+00:51:34.280 --> 00:51:37.190
+Sophie Bulloch: So… Oh, there's a chat.
+
+352
+00:51:37.580 --> 00:51:44.579
+Sophie Bulloch: Does the… Is it TCK cover the Python SDK? Keith, I am not familiar with the TCK.
+
+353
+00:51:45.100 --> 00:51:47.929
+Sophie Bulloch: But I did hear about the TCK last week.
+
+354
+00:51:50.040 --> 00:52:02.049
+Robert Walworth: I do think that, someone worked on an SDK server for that, for Python, like, a while ago. I don't know the status of it now,
+
+355
+00:52:02.240 --> 00:52:08.970
+Robert Walworth: But I think the work was at least started on a branch at some point. I don't know if that got merged or not.
+
+356
+00:52:12.710 --> 00:52:21.679
+Sophie Bulloch: Yeah, I'd like to learn more about that. I think possibly some of these things could be part of the TCK, but I need to learn more about that, yeah.
+
+357
+00:52:21.900 --> 00:52:23.189
+Sophie Bulloch: Any other questions?
+
+358
+00:52:27.030 --> 00:52:30.790
+Keith Kowal (Hedera Hashgraph LLC): I have some safety, but why don't you finish, and then I'll raise my points.
+
+359
+00:52:32.370 --> 00:52:34.109
+Sophie Bulloch: Okay, thanks,
+
+360
+00:52:34.310 --> 00:52:43.259
+Sophie Bulloch: So, we had problems in finding enough good first issues, so I created a script that basically renames examples, puts them in the file structure of our SEC,
+
+361
+00:52:43.440 --> 00:52:54.110
+Sophie Bulloch: of our SRC, and then from that identifies what SRC files don't have matching examples, and we found quite a few. Some of them are actually design choices.
+
+362
+00:52:54.740 --> 00:53:02.330
+Sophie Bulloch: So, it's debatable whether we would actually want examples for things that are not user-facing, but could be SDK developer-facing.
+
+363
+00:53:02.920 --> 00:53:09.740
+Sophie Bulloch: So anyway, that's a really good, good first issue, is just adding examples. My personal view on it is, yeah, we should have loads of examples.
+
+364
+00:53:11.600 --> 00:53:20.699
+Sophie Bulloch: And then another thing is to pull the fields from the proto and match it with the fields that are in your
+
+365
+00:53:20.950 --> 00:53:24.639
+Sophie Bulloch: SRC files that you have actually created, the methods.
+
+366
+00:53:24.950 --> 00:53:35.750
+Sophie Bulloch: So, this is a script that will help us to figure out really quickly what's in all your transactions. So, for example, token dissociate here has set account ID
+
+367
+00:53:35.980 --> 00:53:40.470
+Sophie Bulloch: And add token ID, and then it says, from the proto, hey.
+
+368
+00:53:40.690 --> 00:53:43.590
+Sophie Bulloch: Should you have set token IDs?
+
+369
+00:53:43.850 --> 00:53:48.170
+Sophie Bulloch: And so that's a good… that's a good first issue that we created based on that, so…
+
+370
+00:53:48.400 --> 00:53:55.119
+Sophie Bulloch: This is… won't be able to be automatic, but it will be able to reduce the time spent on that quite a lot.
+
+371
+00:53:55.660 --> 00:53:59.500
+Sophie Bulloch: And then, I need help to train developers.
+
+372
+00:53:59.770 --> 00:54:02.260
+Sophie Bulloch: So, here are some ideas to do it.
+
+373
+00:54:04.130 --> 00:54:14.460
+Sophie Bulloch: We could have more webinars with, experts, such as protopuffs and serialization, the… the importance to Hairo.
+
+374
+00:54:15.300 --> 00:54:22.220
+Sophie Bulloch: We could do LFDT meetup events, they have 130,000 followers in lots and lots of different countries.
+
+375
+00:54:23.220 --> 00:54:37.920
+Sophie Bulloch: So, one idea I have is a HIRO meetup, for example, in London, where Python AI and DLT technology cross paths. So that would be extremely interesting, and informative to people to see how all these
+
+376
+00:54:38.070 --> 00:54:39.780
+Sophie Bulloch: Technologies could overlap.
+
+377
+00:54:40.350 --> 00:54:43.730
+Sophie Bulloch: I would also suggest some kind of, training course.
+
+378
+00:54:43.840 --> 00:54:56.450
+Sophie Bulloch: That would guide people on how to set up their Hodeira Portal account, create their M file, learn about the open source contribution workflows, for example, designing, this kind of thing.
+
+379
+00:54:56.970 --> 00:55:06.309
+Sophie Bulloch: The things I mentioned haven't really been too much of a problem, but the rest of it is more of a problem. How to understand the account module, the token module, all of these
+
+380
+00:55:06.580 --> 00:55:09.280
+Sophie Bulloch: Things, so that could be part of a cause.
+
+381
+00:55:11.170 --> 00:55:16.989
+Sophie Bulloch: we have lots of experts, so I envisage that might not be too hard to do, like, a rough
+
+382
+00:55:17.590 --> 00:55:21.830
+Sophie Bulloch: mock-up. That's the end of my presentation, so basically.
+
+383
+00:55:21.990 --> 00:55:26.820
+Sophie Bulloch: We've learned creating good first issues pulls in many new developers, and still does.
+
+384
+00:55:27.310 --> 00:55:33.909
+Sophie Bulloch: But we have problems scaling our maintainers, so our ideas are to automate workflows.
+
+385
+00:55:34.070 --> 00:55:36.419
+Sophie Bulloch: And we need, advanced training.
+
+386
+00:55:37.010 --> 00:55:38.520
+Sophie Bulloch: Thank you very much.
+
+387
+00:55:44.060 --> 00:55:51.970
+Keith Kowal (Hedera Hashgraph LLC): Thank you. Thank you, Sophie. That's amazing. Amazing progress and amazing, contributions. And so…
+
+388
+00:55:52.100 --> 00:56:11.999
+Keith Kowal (Hedera Hashgraph LLC): I think my questions are around the spirit of… I mean, Simi and I were talking about this last week, about in 2020. I mean, overall, we feel like the Python… I feel that the Python SDK is growing in importance, especially in the AI world. The Python SDK is becoming more and more important for the Adara ecosystem.
+
+389
+00:56:12.170 --> 00:56:26.489
+Keith Kowal (Hedera Hashgraph LLC): And therefore, I think the question was, how can we better support the Python SDK? And so my first question is, and we don't need to answer this now, but this was one of my homework assignments, was like, what are currently the deltas between
+
+390
+00:56:26.490 --> 00:56:40.460
+Keith Kowal (Hedera Hashgraph LLC): let's say one of our mainstream SDKs, like the JavaScript SDK versus the Python SDK, like, what functionality is maybe the Python SDK missing from one of our more officially supported SDKs, like the JavaScript SDK?
+
+391
+00:56:40.660 --> 00:56:43.880
+Keith Kowal (Hedera Hashgraph LLC): And then, what can we do to help close that gap?
+
+392
+00:56:44.220 --> 00:56:55.879
+Keith Kowal (Hedera Hashgraph LLC): And, you know, from your presentation, it sounds like, you know, we could look at doing things like more formally integrating the Python SDK into our TCK to give you more, kind of, reliable testing.
+
+393
+00:56:56.130 --> 00:57:07.450
+Keith Kowal (Hedera Hashgraph LLC): But, yeah, I would love to continue… you know, what other things can we do? And I think one of the things we thought about is, well, do we need to put more, let's say, Hashgraph resources on the Python SDK
+
+394
+00:57:07.500 --> 00:57:21.830
+Keith Kowal (Hedera Hashgraph LLC): I know that we did that previously to try to bring it up to speed quickly, but, like, do we need to long-term bring some more dedicated resources to the Python SDK? I wonder what your thoughts are on all of that, again, in the spirit of 2026 planning.
+
+395
+00:57:23.280 --> 00:57:33.310
+Sophie Bulloch: Okay, I think we need more help to automate more things, if that's through the TCK, if that's through Hashgraph, that would be ideal, so…
+
+396
+00:57:33.710 --> 00:57:51.550
+Sophie Bulloch: we need more automation to understand what we're missing in the SRC files, for example, so comparing the JavaScript and the Python one, I have looked at it, and I was actually trying to find a way of pulling the JavaScript transactions and comparing them. And,
+
+397
+00:57:51.640 --> 00:58:00.200
+Sophie Bulloch: Essentially, the JavaScript SDK just has more functionality in a given transaction, but we tend to have the same sort of transactions.
+
+398
+00:58:00.490 --> 00:58:06.119
+Sophie Bulloch: And, they do a little bit more of, like, the two protobufs and a couple more of the robustness checks.
+
+399
+00:58:07.060 --> 00:58:19.770
+Sophie Bulloch: In terms of AI functionality, I don't know how useful that would be. Maybe, you know, we are actually making quite good strides in the Python SDK to improve examples.
+
+400
+00:58:19.940 --> 00:58:30.169
+Sophie Bulloch: So that anyone using AI, or anyone, you know, building with AI will be able to see, like, a really solid structure on how to create all these different transactions.
+
+401
+00:58:36.200 --> 00:58:42.609
+Keith Kowal (Hedera Hashgraph LLC): I mean, I don't know, Rob, if you had any thoughts, but yeah, this was… this was a conversation we were having with Simi. It's like, yeah, how can we…
+
+402
+00:58:42.970 --> 00:58:54.369
+Keith Kowal (Hedera Hashgraph LLC): how can we support the Python SDK community to bring it, you know, bring it up on par, I guess, eventually with the JavaScript SDK, but then also just maybe supporting some of these issues that
+
+403
+00:58:54.720 --> 00:59:02.019
+Keith Kowal (Hedera Hashgraph LLC): Sophie's facing, like, you know, how to make it… how to… like she's saying, automation, things like that, how can we better support them?
+
+404
+00:59:03.100 --> 00:59:17.110
+Robert Walworth: Yeah, definitely. No, this is, this is very, very enlightening, very, very good to hear, in just how much attention the Python SDK is getting, as well as, you know, you taking notes of,
+
+405
+00:59:17.330 --> 00:59:34.909
+Robert Walworth: potential improvements and, you know, basically just, you know, scaling. Like, we're at… it seems like we're at the point now where it's… it's kind of off and running, and we got… we need to start scaling with it. So yeah, so I've… I've taken some notes down of, kind of, of…
+
+406
+00:59:34.980 --> 00:59:40.910
+Robert Walworth: Of this, and kind of what you have, you know, kind of brought to our attention.
+
+407
+00:59:41.040 --> 00:59:51.429
+Robert Walworth: And I think we can definitely work, Keith, you and I, maybe we can talk to Simi about this, and maybe, see if…
+
+408
+00:59:51.510 --> 01:00:06.839
+Robert Walworth: if we want to put a resource on this, whether that's, you know, another Hashgraph employee, or LamChain, or whoever, and then, yeah, I mean, it's like, also, like, the automation bots, I think, are fantastic, like, that's…
+
+409
+01:00:07.000 --> 01:00:12.139
+Robert Walworth: you know, that can be, like you said, used across Hairo.
+
+410
+01:00:12.270 --> 01:00:25.239
+Robert Walworth: the… yeah, obviously, help with any newcomer to any new repo, like, would be fantastic. So yeah, so thank you, thank you for the presentation, this was very enlightening.
+
+411
+01:00:25.350 --> 01:00:32.180
+Robert Walworth: And, yeah, maybe, I'll reach out to Hendrik with these as well, and
+
+412
+01:00:32.530 --> 01:00:40.980
+Robert Walworth: See if, maybe we can talk to Jessica and see what we can, get rolling here. Yeah, Angie.
+
+413
+01:00:45.350 --> 01:00:46.690
+Robert Walworth: Or Angelina.
+
+414
+01:00:55.930 --> 01:00:59.439
+Robert Walworth: We cannot hear you if you're talking, though you're unmuted.
+
+415
+01:00:59.850 --> 01:01:01.050
+Angelina Ceppaluni: Sure.
+
+416
+01:01:02.620 --> 01:01:03.970
+Robert Walworth: Oh, we heard that.
+
+417
+01:01:13.170 --> 01:01:15.530
+Robert Walworth: Are you still with us?
+
+418
+01:01:19.230 --> 01:01:27.330
+Sophie Bulloch: Angie, if you do have a question, send it over to me. We'll be happy to answer that through Discord. You have my Discord already.
+
+419
+01:01:29.080 --> 01:01:34.460
+Sophie Bulloch: Yeah, it looks like we might have some sound issues.
+
+420
+01:01:36.090 --> 01:01:36.900
+Sophie Bulloch: Keith?
+
+421
+01:01:36.900 --> 01:01:42.280
+Keith Kowal (Hedera Hashgraph LLC): Well, just while we're waiting for it to collect… so, I mean, that was a question to you, Sophie, is that, do you think…
+
+422
+01:01:42.450 --> 01:01:49.280
+Keith Kowal (Hedera Hashgraph LLC): I mean, let's just… I'm not saying we will or we won't, but let's just say we did offer a semi- or dedicated resource.
+
+423
+01:01:49.280 --> 01:01:52.519
+Angelina Ceppaluni: from Hashgraph to help with the Python SDK.
+
+424
+01:01:52.530 --> 01:01:55.120
+Keith Kowal (Hedera Hashgraph LLC): Would that be a good or bad thing?
+
+425
+01:01:57.020 --> 01:02:11.250
+Sophie Bulloch: Yeah, so I would want to create some kind of sustainable, way of scaling the Python SDK, and Hyro in general. So, yeah, if I could get a resource and they would be able to help, ident, like, automate things.
+
+426
+01:02:11.750 --> 01:02:18.839
+Sophie Bulloch: And help to identify gaps between the JavaScript and the Python SDK in an automatic way.
+
+427
+01:02:19.760 --> 01:02:27.980
+Sophie Bulloch: perhaps integrate with the TCK, that… I think that would be really useful, not just in the short term, but that will… that will continue to generate long-term benefits.
+
+428
+01:02:29.420 --> 01:02:45.160
+Keith Kowal (Hedera Hashgraph LLC): Okay. So, my other thought, and maybe, again, we can go back to Hendrik on this one, I think, you know, if we look across all the Hiero projects, the Python SDK is obviously the most successful, in that it's realizing the vision of HIRO, in that we're getting third-party contributors.
+
+429
+01:02:45.530 --> 01:02:46.070
+Angelina Ceppaluni: So…
+
+430
+01:02:46.070 --> 01:02:50.079
+Keith Kowal (Hedera Hashgraph LLC): I actually think that it would be great, Angie, if maybe we… you give this
+
+431
+01:02:50.300 --> 01:03:05.969
+Keith Kowal (Hedera Hashgraph LLC): we talked to Henrik about maybe giving this same presentation to the TSC, because also, I think at the same time, the issues you're facing are the same issues that we will increasingly face as we get more contributors. Issues around training and knowledge and resourcing.
+
+432
+01:03:06.020 --> 01:03:14.940
+Keith Kowal (Hedera Hashgraph LLC): So maybe this is something we can also bring to the TSC to get their thoughts and inputs, especially on the training side, because yeah, I think training's a big one. How do we deal with that?
+
+433
+01:03:15.000 --> 01:03:27.480
+Keith Kowal (Hedera Hashgraph LLC): how do we offer training to contributors? Because it's totally needed. And how do we do it in a scalable way, are all of my thoughts, which I don't have answers to, but maybe we bring them up.
+
+434
+01:03:30.570 --> 01:03:34.579
+Sophie Bulloch: Yeah, I'd be happy to talk with Hendrik about that as well, too.
+
+435
+01:03:35.870 --> 01:03:36.910
+Angelina Ceppaluni: Yeah.
+
+436
+01:03:37.090 --> 01:03:59.990
+Angelina Ceppaluni: I had a question regarding the PRs. I've noticed that in most of them, when they're submitted, they require maintainer approval in order to get through the rest of the workflows. Can we disable this so as to kind of speed up those integrations? That way we're not waiting for maintainers to approve those workflows, and we can see
+
+437
+01:04:00.060 --> 01:04:04.350
+Angelina Ceppaluni: Right then and there, kind of which checks are failing and which ones are passing.
+
+438
+01:04:05.440 --> 01:04:23.309
+Sophie Bulloch: Yeah, we do have, like, a… the maintainer has to click certain workflows, that's in part, because we require protection. But, if we do an automated workflow bot, we can create the underlying tests to pull, like, pull data in a more… in a safer way.
+
+439
+01:04:23.380 --> 01:04:25.880
+Sophie Bulloch: And maybe not all of them will be able to
+
+440
+01:04:25.980 --> 01:04:32.860
+Sophie Bulloch: be run automatically, but quite a few of them will be able to, like, so…
+
+441
+01:04:32.990 --> 01:04:43.090
+Sophie Bulloch: I think we could probably reduce that, and I understand we don't have a nice way of, asking maintainers for a review. Like, the review button seems to be quite hidden. No one uses that.
+
+442
+01:04:43.480 --> 01:04:52.940
+Sophie Bulloch: And, like, it's easy to assume that the maintainer will see changes and, like, know that a review is required.
+
+443
+01:04:53.390 --> 01:05:00.690
+Sophie Bulloch: So, yeah, I agree, we have to improve that. We can talk about that on the Python SDK call. I will… I'll write that down, Angie.
+
+444
+01:05:02.310 --> 01:05:06.659
+Sophie Bulloch: I'm really sorry, I have to go, because I have something else, but
+
+445
+01:05:07.080 --> 01:05:16.460
+Sophie Bulloch: Yeah, thank you so much. I'm happy that we were able to talk about this, and it looks like this will generate some more conversations. I appreciate all your help, sincerely. Thank you very much.
+
+446
+01:05:16.950 --> 01:05:27.359
+Robert Walworth: Yeah, thanks, Sophie. Yeah, we'll definitely keep talking about this going forward, so, yeah, we're 5 past the hour, so I'll let you guys go. Thanks for joining. We'll talk to you guys later. Bye.
+
+447
+01:05:27.660 --> 01:05:28.800
+Keith Kowal (Hedera Hashgraph LLC): Thank you.
+

@@ -1,0 +1,930 @@
+WEBVTT
+
+1
+00:03:50.100 --> 00:03:52.409
+Robert Walworth: I'm just seeing if anyone else is joining.
+
+2
+00:04:26.200 --> 00:04:27.390
+Robert Walworth: Hey, Angie.
+
+3
+00:04:35.020 --> 00:04:36.369
+Sophie Bulloch: Hi, sorry I'm late.
+
+4
+00:04:37.090 --> 00:04:37.870
+Robert Walworth: Hey, guys.
+
+5
+00:04:43.880 --> 00:04:49.669
+Sophie Bulloch: I was having a look at what safeguards we have in the Python SDK for…
+
+6
+00:04:50.670 --> 00:04:54.010
+Sophie Bulloch: spam users? We actually have…
+
+7
+00:04:54.170 --> 00:04:58.309
+Sophie Bulloch: a lot. I think it's gonna be… I think it's gonna be fine.
+
+8
+00:04:58.430 --> 00:05:01.860
+Sophie Bulloch: I think fixing it's gonna be pretty simple as well.
+
+9
+00:05:02.960 --> 00:05:07.809
+Sophie Bulloch: If you want, I can talk a little bit about that, but does anybody else have something that they want to talk about?
+
+10
+00:05:09.650 --> 00:05:14.550
+Robert Walworth: I kind of figured that'd be the main thing of conversation this morning, so…
+
+11
+00:05:17.010 --> 00:05:24.159
+Sophie Bulloch: Okay, I obviously don't have a presentation and things, but let me just show you, like, the codes.
+
+12
+00:05:24.470 --> 00:05:30.879
+Sophie Bulloch: So, Mona made this a while back, and I remember she spent, like, a lot of time on it, because…
+
+13
+00:05:31.170 --> 00:05:34.359
+Sophie Bulloch: Obviously, like, it auto-closes pull requests.
+
+14
+00:05:34.840 --> 00:05:40.199
+Sophie Bulloch: So we have, like, dry run mode and everything, where it would, like, simulate what it would close.
+
+15
+00:05:40.770 --> 00:05:44.359
+Sophie Bulloch: And things. But basically, we have a really good…
+
+16
+00:05:44.720 --> 00:05:50.299
+Sophie Bulloch: Workflow already here created and has been, like, battle-tested pretty nicely.
+
+17
+00:05:51.150 --> 00:05:57.159
+Sophie Bulloch: What this does… is… for the Python SDK,
+
+18
+00:05:57.680 --> 00:06:01.380
+Sophie Bulloch: If you create a pull request, but it doesn't link to an issue.
+
+19
+00:06:01.850 --> 00:06:06.869
+Sophie Bulloch: So, you know, like, you have to say, like, fixes… Issue number 100?
+
+20
+00:06:08.180 --> 00:06:13.329
+Sophie Bulloch: If it's not linked after a certain amount of time, it will close it.
+
+21
+00:06:13.930 --> 00:06:21.390
+Sophie Bulloch: And… If that… if you did link to something, because the spam user was actually linking to issues.
+
+22
+00:06:21.880 --> 00:06:26.990
+Sophie Bulloch: But if you link to the issue, but you're not actually assigned to that issue, it will close it as well.
+
+23
+00:06:27.730 --> 00:06:31.020
+Sophie Bulloch: So we actually have that logic already here.
+
+24
+00:06:31.270 --> 00:06:33.659
+Sophie Bulloch: kind of protecting the Python SDK.
+
+25
+00:06:35.330 --> 00:06:42.000
+Sophie Bulloch: The issue that we have… Is the trigger for this.
+
+26
+00:06:45.690 --> 00:06:51.450
+Sophie Bulloch: What's the trick for this guy? The trigger for this is just running, twice a week, because
+
+27
+00:06:51.740 --> 00:06:56.789
+Sophie Bulloch: Originally, we want… we, like, most users that don't link issues.
+
+28
+00:06:57.400 --> 00:07:16.320
+Sophie Bulloch: and are not assigned are… are just, like, new users, or they're not familiar with the workflow, they're just kind of perfecting it, so we wanted to give people, like, a grace period, and we sent them an initial comment saying, like, hey, your pull request has been linked, please link it. And then this is, like, the enforcer. This is like, okay, we haven't linked it, so now we're closing it.
+
+29
+00:07:16.770 --> 00:07:18.940
+Sophie Bulloch: This trigger was once every 3 days.
+
+30
+00:07:19.310 --> 00:07:25.579
+Sophie Bulloch: So, a major spam user could come in, cause chaos for 3 days, and we wouldn't close their pull request.
+
+31
+00:07:25.690 --> 00:07:28.869
+Sophie Bulloch: So I think all we need to do is change this trigger.
+
+32
+00:07:29.360 --> 00:07:32.139
+Sophie Bulloch: We could be as aggressive as we want.
+
+33
+00:07:32.900 --> 00:07:40.790
+Sophie Bulloch: I would say we could go down to, like, closing it once a day. This particular user kind of created 6…
+
+34
+00:07:41.510 --> 00:07:44.710
+Sophie Bulloch: 6 pull requests in one day.
+
+35
+00:07:45.000 --> 00:07:50.159
+Sophie Bulloch: I think it's fine taking it down to one per day, personally, but yeah, doing that is just gonna be…
+
+36
+00:07:50.380 --> 00:07:51.909
+Sophie Bulloch: Changing this crone.
+
+37
+00:07:53.000 --> 00:07:57.879
+Sophie Bulloch: Changing the days before close to be probably hours before close, 12.
+
+38
+00:07:58.180 --> 00:08:02.790
+Sophie Bulloch: And I think that's pretty easy, we already have this already done.
+
+39
+00:08:05.080 --> 00:08:15.810
+Sophie Bulloch: Obviously, we should treat users that are spam users differently, so we also have a logic that adds people to a spam list if their pull request
+
+40
+00:08:16.270 --> 00:08:22.799
+Sophie Bulloch: is marked as spam. This one was also created by… by Mona, and it's… it's… it's looking pretty good.
+
+41
+00:08:23.040 --> 00:08:35.279
+Sophie Bulloch: right now, our trigger is to do this once every month, so my proposal is to do this once every 30 minutes. It's just a Chrome job. I think it's gonna run very fast and everything.
+
+42
+00:08:36.049 --> 00:08:40.319
+Sophie Bulloch: That way, if we get a spam user, we identify them
+
+43
+00:08:41.159 --> 00:08:49.539
+Sophie Bulloch: Within 30 minutes, that then limits them to only being able to work on good first issues, and just one good first issue.
+
+44
+00:08:50.110 --> 00:08:59.180
+Sophie Bulloch: And, by the end of the day, any pull requests or anything that they have created will be automatically closed.
+
+45
+00:09:00.270 --> 00:09:03.999
+Sophie Bulloch: What I want to add to this is…
+
+46
+00:09:05.020 --> 00:09:12.029
+Sophie Bulloch: I'm gonna add, like, a spam label, so if you… if you actually create a pull request, you link it to an issue, but you weren't assigned to the issue.
+
+47
+00:09:12.290 --> 00:09:16.830
+Sophie Bulloch: So, that's… that's spam behavior, that's clearly spam behavior, so I want to add…
+
+48
+00:09:16.960 --> 00:09:18.979
+Sophie Bulloch: I want to, like, at the end of this.
+
+49
+00:09:19.330 --> 00:09:23.809
+Sophie Bulloch: Automatically add the spam label, because right now the spam label is done by a human.
+
+50
+00:09:24.480 --> 00:09:30.560
+Sophie Bulloch: So I guess it sounds maybe a little bit complicated, because we never talked about this before.
+
+51
+00:09:31.130 --> 00:09:40.349
+Sophie Bulloch: But, we have these cards in place already, they are working pretty nice, we just probably have to tighten it up. Some of the users are getting more sophisticated.
+
+52
+00:09:41.080 --> 00:09:44.010
+Sophie Bulloch: And we can report on how it's going with the…
+
+53
+00:09:44.360 --> 00:09:56.579
+Sophie Bulloch: with the Python SDK, you can also probably copy these over. This is actually probably one… a really good script that has been written, so I think this kind of thing can… it's quite short as well, using, like, the GraphQL.
+
+54
+00:09:58.300 --> 00:10:01.560
+Sophie Bulloch: So I think that could also be ported over, like, quite easily.
+
+55
+00:10:03.040 --> 00:10:11.320
+Sophie Bulloch: Yeah, so I think we'll be automating away most of these spam user issues very soon.
+
+56
+00:10:13.450 --> 00:10:16.060
+Sophie Bulloch: Don't know if anyone has any questions.
+
+57
+00:10:17.730 --> 00:10:24.340
+Robert Walworth: Yeah, the, the spam list.txt, like… does…
+
+58
+00:10:25.050 --> 00:10:33.399
+Robert Walworth: to update that, like, does the bot, like, open a PR, then to update that, and you just, like, go in and approve and merge?
+
+59
+00:10:35.310 --> 00:10:39.370
+Sophie Bulloch: Oh yeah, I think it opens up in…
+
+60
+00:10:39.650 --> 00:10:43.790
+Sophie Bulloch: issue, not a PR, because there was, like, a permission issue.
+
+61
+00:10:44.220 --> 00:10:44.980
+Sophie Bulloch: True.
+
+62
+00:10:45.500 --> 00:10:48.790
+Sophie Bulloch: That might take a little bit of human insight for a while.
+
+63
+00:10:51.550 --> 00:10:57.830
+Sophie Bulloch: Yeah, but I think… I think it takes a lot of work off, you know, your shoulders, like, when there's a spammy sheet, you'll… you'll…
+
+64
+00:10:58.260 --> 00:11:00.009
+Sophie Bulloch: Picking him up with things anyway.
+
+65
+00:11:01.210 --> 00:11:09.170
+Robert Walworth: Yeah, so I guess just from, like, a maintainer, like, reviewer… perspective. I guess, like… if…
+
+66
+00:11:10.500 --> 00:11:22.959
+Robert Walworth: I guess, what is the point of the spam label, then? Like, why not just, like, close the PR immediately? Like, if we mark something as spam.
+
+67
+00:11:24.030 --> 00:11:27.869
+Robert Walworth: why not just close it immediately?
+
+68
+00:11:28.200 --> 00:11:30.049
+Robert Walworth: Like, why, why leave it around?
+
+69
+00:11:31.270 --> 00:11:35.200
+Sophie Bulloch: Yeah, I think you can't close it immediately. This is just, like, let's say you're sleeping.
+
+70
+00:11:35.370 --> 00:11:39.080
+Sophie Bulloch: And somebody tears through 8 issues.
+
+71
+00:11:40.760 --> 00:11:48.449
+Sophie Bulloch: Or something, and just making sure that some of the mess is kind of contained.
+
+72
+00:11:50.090 --> 00:11:52.340
+Robert Walworth: I guess my thought is, like, if this…
+
+73
+00:11:52.470 --> 00:12:00.499
+Robert Walworth: This bot's already kind of running, you know, a couple jobs, like, every, you know, day or every couple days,
+
+74
+00:12:02.780 --> 00:12:07.590
+Robert Walworth: you know, it… it… I would think it'd be able to close it, like…
+
+75
+00:12:08.070 --> 00:12:11.549
+Robert Walworth: This, when it would go to apply the spam label, it could just, like…
+
+76
+00:12:11.820 --> 00:12:14.440
+Robert Walworth: Leave a comment, set, and close it.
+
+77
+00:12:15.590 --> 00:12:21.030
+Robert Walworth: I guess then that maybe begs the question of… what, like…
+
+78
+00:12:21.860 --> 00:12:26.180
+Robert Walworth: So I guess with this, like, someone maybe could accidentally get, like…
+
+79
+00:12:26.470 --> 00:12:35.229
+Robert Walworth: labeled as spam, like, you know, they submit, like, a PR, don't link an issue, but then, you know…
+
+80
+00:12:35.650 --> 00:12:39.450
+Robert Walworth: Go on vacation for a couple days, and… You know…
+
+81
+00:12:39.870 --> 00:12:44.920
+Robert Walworth: they get… they get labeled as spam. I guess I don't know exactly, like.
+
+82
+00:12:45.190 --> 00:12:48.550
+Robert Walworth: If it takes, you know, however many…
+
+83
+00:12:48.860 --> 00:12:53.010
+Robert Walworth: closed PRs to, you know, be marked as spam.
+
+84
+00:12:54.630 --> 00:13:06.890
+Robert Walworth: But in this example, if someone opens a PR, doesn't link an issue, and, you know, goes on vacation or whatever, then they could maybe get accidentally marked as spam. I guess, is there a path to…
+
+85
+00:13:07.060 --> 00:13:11.890
+Robert Walworth: I guess… unspam someone?
+
+86
+00:13:15.060 --> 00:13:19.800
+Robert Walworth: I mean, it probably wouldn't be a big use case, but it's maybe something we should think about, too.
+
+87
+00:13:20.180 --> 00:13:26.250
+Sophie Bulloch: Yeah, I think people don't always link issues, so we don't label them as spam if they don't link an issue.
+
+88
+00:13:26.590 --> 00:13:31.959
+Sophie Bulloch: We also remind people instantly, so as soon as you create the issue, you get reminded your issue isn't linked.
+
+89
+00:13:33.210 --> 00:13:38.450
+Sophie Bulloch: Can you, can you do it? So, like, they'll, they'll know immediately that…
+
+90
+00:13:39.150 --> 00:13:52.920
+Sophie Bulloch: that there's… there's a problem. So the… the linked issue thing isn't enough to be spam. It's more if you link an issue, but then you're not actually assigned to that issue, then that's… we would consider that, like, viable spam.
+
+91
+00:13:53.400 --> 00:14:02.860
+Sophie Bulloch: Because, yeah, because that's… that's clearly not part of the workflow. The workflow says, like, get assigned.
+
+92
+00:14:03.390 --> 00:14:08.250
+Sophie Bulloch: You know, wait for the assignment, and then… Then complete the work.
+
+93
+00:14:08.870 --> 00:14:19.750
+Sophie Bulloch: At least that's something that I've been quite strict on, too, just always request for you to be assigned first, and then… then you can do the pull request. I will lean on the side of, like, yeah, we should be quite strict on that.
+
+94
+00:14:20.130 --> 00:14:26.980
+Sophie Bulloch: The more people that we allow to do pull requests when they're not assigned, I think, like, the more people end up doing that.
+
+95
+00:14:28.320 --> 00:14:33.749
+Sophie Bulloch: But yeah, we don't actually label anyone as spam yet.
+
+96
+00:14:33.910 --> 00:14:36.109
+Sophie Bulloch: Because of that, so we don't need to…
+
+97
+00:14:36.710 --> 00:14:42.929
+Sophie Bulloch: consider these users as spam users. For now, it's totally up to the maintainer to label
+
+98
+00:14:43.630 --> 00:14:49.150
+Sophie Bulloch: A pull request as spam, and then the update spam list will… Apply that.
+
+99
+00:14:50.230 --> 00:14:51.680
+Sophie Bulloch: That maintainer's choice.
+
+100
+00:14:52.900 --> 00:14:56.890
+Robert Walworth: Yeah, I guess I… cause I've noticed some,
+
+101
+00:14:57.280 --> 00:15:04.530
+Robert Walworth: Yeah, overzealous contributors, maybe, that they maybe, like, go in and… go into an issue and say they want to get assigned.
+
+102
+00:15:05.150 --> 00:15:13.040
+Robert Walworth: And, you know, they're not, like, you know, in contention, like, with anyone to, like…
+
+103
+00:15:13.210 --> 00:15:18.860
+Robert Walworth: get assigned there, just a maintainer hasn't assigned them yet, or the bot hasn't.
+
+104
+00:15:18.970 --> 00:15:31.309
+Robert Walworth: And they still go ahead and, like, submit the PRs for those anyways. Like, you might maybe only do, like, you know, 2 or 3 good first issues. They comment that they want to get assigned, but then they just submit the PRs anyways.
+
+105
+00:15:31.410 --> 00:15:39.180
+Robert Walworth: I know that's obviously, you know, we want to make sure that they do get fully assigned before they work on an issue.
+
+106
+00:15:39.470 --> 00:15:47.700
+Robert Walworth: And I think it's important to, you know, let them… let them know that, let them know that that's how the workflow should be, but…
+
+107
+00:15:47.870 --> 00:15:57.819
+Robert Walworth: I feel like it… we don't want to… I don't know if I'd want to mark those as spam, necessarily. In that case…
+
+108
+00:15:57.870 --> 00:16:02.819
+Sophie Bulloch: Might be better to… Just remind them.
+
+109
+00:16:03.370 --> 00:16:06.939
+Sophie Bulloch: Was it this one? I can't remember.
+
+110
+00:16:07.430 --> 00:16:12.540
+Sophie Bulloch: Exactly, but yeah, we have a reminder when they don't have a linked issue.
+
+111
+00:16:12.640 --> 00:16:17.490
+Sophie Bulloch: Hey, you don't have a linked issue, we can, like, also just add a reminder, like, you're not assigned.
+
+112
+00:16:19.240 --> 00:16:21.080
+Robert Walworth: Yeah, no, yeah, for sure.
+
+113
+00:16:21.080 --> 00:16:21.880
+Sophie Bulloch: Just typing in.
+
+114
+00:16:21.880 --> 00:16:22.230
+Robert Walworth: having…
+
+115
+00:16:22.230 --> 00:16:23.240
+Sophie Bulloch: It's super annoying.
+
+116
+00:16:23.580 --> 00:16:37.750
+Robert Walworth: Right. Having the bot reminder is good, but then also, like, having in the bot, too, making sure that whatever issue they link, they're actually, like, assigned to, is important as well, and we can, like…
+
+117
+00:16:38.500 --> 00:16:42.150
+Robert Walworth: have the bot leave different comments on the PR, depending on…
+
+118
+00:16:42.660 --> 00:16:44.459
+Robert Walworth: You know, what the state is.
+
+119
+00:16:44.880 --> 00:16:45.610
+Sophie Bulloch: Okay
+
+120
+00:16:45.800 --> 00:16:54.229
+Sophie Bulloch: Yeah, this is also a nice script. I can definitely, like, change this so that it also picks up on users that are not assigned and tells them, like.
+
+121
+00:16:54.410 --> 00:16:55.569
+Sophie Bulloch: To get assigned.
+
+122
+00:16:56.350 --> 00:16:59.659
+Sophie Bulloch: Yeah, that's easy. I can agree on that.
+
+123
+00:16:59.790 --> 00:17:01.770
+Sophie Bulloch: Yeah, so hold back on the…
+
+124
+00:17:02.830 --> 00:17:08.250
+Sophie Bulloch: Automated spam labeling, and just do a reminder to get assigned.
+
+125
+00:17:11.270 --> 00:17:18.820
+Robert Walworth: Yeah, this was what I was gonna look to do in C++ next, was, like, this linking, and that's…
+
+126
+00:17:19.150 --> 00:17:23.280
+Robert Walworth: that's kind of what I was kind of thinking I would do,
+
+127
+00:17:24.730 --> 00:17:29.389
+Robert Walworth: Yeah, because, again, it's not only about linking an issue, but making sure they're actually assigned to it.
+
+128
+00:17:29.620 --> 00:17:36.479
+Robert Walworth: I think we can do that, I think there's, like, a edit trigger, too, so I think that happens…
+
+129
+00:17:36.690 --> 00:17:47.319
+Robert Walworth: When, like, an author, like, edits their description of a PR, which I believe, if you're not, like, if you don't have write permissions, that's the only way you can link an issue.
+
+130
+00:17:47.450 --> 00:17:53.170
+Robert Walworth: Is using, like, fixes or closes, and then the issue number.
+
+131
+00:17:53.340 --> 00:18:03.319
+Robert Walworth: So I know that there's, like, another way to, like, manually link, which this bot wouldn't be able to catch, but that's only for, like, people that have right permissions anyways, and…
+
+132
+00:18:03.880 --> 00:18:08.930
+Robert Walworth: I would hope that if someone has right permissions, they… they wouldn't,
+
+133
+00:18:09.070 --> 00:18:14.370
+Robert Walworth: they would… they would know how to… how to link properly, so I wouldn't think we'd have to worry about that, but…
+
+134
+00:18:14.600 --> 00:18:28.760
+Robert Walworth: Basically all this to say, I don't… I think we were able to do this, with just triggers, and I don't necessarily know if we even need to do, like, scheduled jobs. If we want to do scheduled jobs to,
+
+135
+00:18:29.310 --> 00:18:35.290
+Robert Walworth: maybe go… go through PRs, like, once a day or something,
+
+136
+00:18:35.650 --> 00:18:42.750
+Robert Walworth: I don't know, to… if we still wanna, you know, apply a spam label or something, we could do that.
+
+137
+00:18:44.360 --> 00:18:52.859
+Sophie Bulloch: Yeah, I'll, I'll send you the reminder bots that we have, and then, yeah, you know, if you can kind of re-architect them and stuff, that would be good as well.
+
+138
+00:18:53.670 --> 00:18:55.550
+Sophie Bulloch: Yeah, I, I think,
+
+139
+00:18:56.100 --> 00:19:06.139
+Sophie Bulloch: when you use pull request target, that's the one that gets downgraded in the permissions, and that's the one you shouldn't be using, like, pull request target. But we have a couple of…
+
+140
+00:19:06.540 --> 00:19:07.630
+Sophie Bulloch: things that…
+
+141
+00:19:10.780 --> 00:19:12.699
+Sophie Bulloch: That might need rethinking for that.
+
+142
+00:19:13.630 --> 00:19:23.699
+Sophie Bulloch: Yeah, I'll give you a link to that, but I really think, a lot of this could, like, if we need it, we could set it up really quickly. It's, mostly, like.
+
+143
+00:19:23.860 --> 00:19:29.309
+Sophie Bulloch: Already there, so you could refactor it pretty easily, or… Or, yeah, something like that.
+
+144
+00:19:30.520 --> 00:19:37.419
+Robert Walworth: Yeah, that'd be cool. Yeah, I haven't been able to spend as much time on this as I've wanted recently, I've just been getting pulled into other stuff,
+
+145
+00:19:37.740 --> 00:19:47.179
+Robert Walworth: But… yeah, there's… as I've kind of, like, been going through this, there's a lot of, like, different, kind of corner cases of, like, triggers and stuff that…
+
+146
+00:19:47.290 --> 00:19:49.269
+Robert Walworth: I feel like I've had to refactor, like…
+
+147
+00:19:50.230 --> 00:19:56.369
+Robert Walworth: two times already, to, like, make sure it actually all behaves how I want it to.
+
+148
+00:19:57.220 --> 00:20:04.540
+Robert Walworth: But… yeah, I think that the linking issue is something I've definitely noticed,
+
+149
+00:20:04.950 --> 00:20:09.120
+Robert Walworth: We should be a bit more strict on, so…
+
+150
+00:20:09.260 --> 00:20:16.770
+Robert Walworth: Yeah, I'll take a look at what… Python already has, and Start from there.
+
+151
+00:20:17.160 --> 00:20:17.740
+Sophie Bulloch: Yep.
+
+152
+00:20:17.910 --> 00:20:18.970
+Sophie Bulloch: Okay, great.
+
+153
+00:20:20.060 --> 00:20:27.129
+Sophie Bulloch: I think that will mostly… mostly solve things. I suppose with the JavaScript SDK, we've held back from…
+
+154
+00:20:27.380 --> 00:20:32.490
+Sophie Bulloch: Adding automations, like, while we set up, learn about the issues and things.
+
+155
+00:20:33.310 --> 00:20:39.210
+Sophie Bulloch: In the Python SDK, we've personally found some… some basic automations really helpful.
+
+156
+00:20:39.940 --> 00:20:42.680
+Sophie Bulloch: To support, like, maintainers and things.
+
+157
+00:20:43.300 --> 00:20:47.750
+Sophie Bulloch: I don't think we considered them… essential,
+
+158
+00:20:48.680 --> 00:20:50.410
+Sophie Bulloch: Which is why we haven't, like.
+
+159
+00:20:50.800 --> 00:20:54.230
+Sophie Bulloch: push them in any way. But, but…
+
+160
+00:20:54.860 --> 00:21:01.949
+Sophie Bulloch: Yeah, obviously dealing with the spam user was… was a little bit annoying, but we… yeah, we got there as a team in a couple hours, it wasn't too bad.
+
+161
+00:21:03.250 --> 00:21:04.020
+Sophie Bulloch: And…
+
+162
+00:21:05.750 --> 00:21:09.789
+Robert Walworth: Yeah, when it comes to, like, like, org-wide…
+
+163
+00:21:10.190 --> 00:21:18.890
+Robert Walworth: kind of management of spam users. I guess… I…
+
+164
+00:21:19.760 --> 00:21:24.160
+Robert Walworth: I'm kinda reluctant to do anything about that right now, because I think…
+
+165
+00:21:24.330 --> 00:21:30.070
+Robert Walworth: We should implement how we want to do it at the repo level first, and then…
+
+166
+00:21:30.550 --> 00:21:33.800
+Robert Walworth: Once we get it implemented, there.
+
+167
+00:21:33.970 --> 00:21:36.939
+Robert Walworth: We can then maybe think a little bit more.
+
+168
+00:21:37.050 --> 00:21:39.959
+Robert Walworth: org-wide. Like, I don't know how that would work, but, like…
+
+169
+00:21:40.600 --> 00:21:47.410
+Robert Walworth: scripts in, like, the… just, like, the Hero Ledger repo, or… or how we'd want to do that, or even just make, like, a…
+
+170
+00:21:48.220 --> 00:21:52.970
+Robert Walworth: I don't know, high-row scripts repo or something,
+
+171
+00:21:54.000 --> 00:21:58.259
+Robert Walworth: Yeah, but I think we could maybe push that down the line a bit.
+
+172
+00:21:59.130 --> 00:22:00.929
+Sophie Bulloch: Yeah, I would agree with you.
+
+173
+00:22:01.800 --> 00:22:07.090
+Sophie Bulloch: If you want to do it well, you might need to change permissions, like, by triage or write or something.
+
+174
+00:22:07.370 --> 00:22:17.820
+Sophie Bulloch: I think the simplest solution would be to add, like, a global spam list, and then… but if you're on the spam list, like, you have very limited permissions. But yeah, I…
+
+175
+00:22:18.190 --> 00:22:20.340
+Sophie Bulloch: I didn't really… I didn't really see…
+
+176
+00:22:21.430 --> 00:22:24.159
+Sophie Bulloch: Too much of a need for that either. Hi, Angie!
+
+177
+00:22:30.560 --> 00:22:38.450
+Sophie Bulloch: Venolin, I saw… so I've been trying to keep up with, like, the beginner issues and the good first issues that you've created, and I think…
+
+178
+00:22:38.990 --> 00:22:45.109
+Sophie Bulloch: I think in general, like, they've been looking really great, and the response from the…
+
+179
+00:22:45.370 --> 00:22:52.069
+Sophie Bulloch: developers and things, like, they seem quite interested. So, yeah, thanks for creating them, and also they're very helpful to
+
+180
+00:22:52.180 --> 00:22:54.269
+Sophie Bulloch: Help me to see, like.
+
+181
+00:22:55.170 --> 00:23:01.909
+Sophie Bulloch: what, kind of beginner or good first issues are relevant to the JavaScript SDK?
+
+182
+00:23:02.490 --> 00:23:05.340
+Sophie Bulloch: You know, we're trying to…
+
+183
+00:23:06.120 --> 00:23:16.199
+Sophie Bulloch: from an outsider, trying to kind of guess what is currently, like, important for JavaScript SDK, so having a little bit more of that guidance there really has really
+
+184
+00:23:16.840 --> 00:23:17.960
+Sophie Bulloch: That's really helped.
+
+185
+00:23:21.190 --> 00:23:24.339
+Venilin Vasilev: I'm glad to hear that. Thank you, as well.
+
+186
+00:23:24.780 --> 00:23:30.390
+Venilin Vasilev: Currently, investigating further, so we can have,
+
+187
+00:23:30.600 --> 00:23:39.149
+Venilin Vasilev: Like, more diversity, we, to have, like, more contributor-friendly intermediate issues.
+
+188
+00:23:40.310 --> 00:23:43.649
+Venilin Vasilev: Because currently our intermediate tissues are…
+
+189
+00:23:43.940 --> 00:23:49.060
+Venilin Vasilev: Like, advanced issues, so yeah, might need to work that more.
+
+190
+00:23:56.350 --> 00:24:14.360
+Sophie Bulloch: Yeah, definitely. I mean, it's been a process for us. We didn't start with beginner issues. For example, I think beginner issues were the thing we added last. We had good first issues, and then we had intermediate issues, and there was nothing in between. And it's just always been, like, a learning process that, oh, actually.
+
+191
+00:24:14.730 --> 00:24:28.050
+Sophie Bulloch: some of the intermediate issues are actually beginner issues, some of the other intermediate issues are advanced issues and things. Yeah, yeah, it's like a work in progress, but it's good, it's been really helping us to understand, like, the developer process a lot more.
+
+192
+00:24:28.980 --> 00:24:37.980
+Sophie Bulloch: I noticed that you… when you were creating the issues, the issue template was slightly different from the default issue template.
+
+193
+00:24:39.350 --> 00:24:50.700
+Sophie Bulloch: I assume you're using, like, a tool or something to help you with that, but would you like us to edit the default template so it's more aligned to the ones that you have now? I noticed, for example, like.
+
+194
+00:24:51.200 --> 00:24:57.020
+Sophie Bulloch: Some of the titles are slightly different, and some of the calls to actions are slightly different, so I'm happy to do that.
+
+195
+00:24:57.390 --> 00:25:00.449
+Sophie Bulloch: Just wanted to learn more about your thinking.
+
+196
+00:25:00.670 --> 00:25:05.190
+Sophie Bulloch: I guess it's just easier to create, like, a blank issue and just copy in, like, the…
+
+197
+00:25:06.110 --> 00:25:15.939
+Sophie Bulloch: the content for a new issue instead of using, like, the manual way, with the template. I just wanted to hear about how you're creating the issues at the moment.
+
+198
+00:25:18.470 --> 00:25:29.969
+Venilin Vasilev: So, basically, I have constructed a direct template that I paste to, that I paste to a black tissue, and this is probably where the…
+
+199
+00:25:30.460 --> 00:25:33.300
+Venilin Vasilev: The slight difference comes from, so…
+
+200
+00:25:33.640 --> 00:25:40.869
+Venilin Vasilev: I would probably need to see what are the differences and align my tool to make sure they're consistent, but…
+
+201
+00:25:41.130 --> 00:25:43.410
+Venilin Vasilev: In the meantime, yes, you can…
+
+202
+00:25:43.570 --> 00:25:46.110
+Venilin Vasilev: You can rework them to match the template.
+
+203
+00:25:47.780 --> 00:25:53.330
+Venilin Vasilev: But I'll see where it differs, so I can, like, align my tool.
+
+204
+00:25:54.400 --> 00:25:56.509
+Venilin Vasilev: Make sure they're consistent.
+
+205
+00:25:57.180 --> 00:26:00.199
+Sophie Bulloch: Okay, I can take a look at the issues that you created.
+
+206
+00:26:00.450 --> 00:26:08.039
+Sophie Bulloch: Compare it with the template, and then create a pull request with, like, changes towards your template.
+
+207
+00:26:08.350 --> 00:26:09.130
+Sophie Bulloch: Yep.
+
+208
+00:26:19.830 --> 00:26:22.780
+Sophie Bulloch: Okay, anyone have anything else they want to discuss today?
+
+209
+00:26:24.980 --> 00:26:38.799
+Robert Walworth: Not really a discussion, but, I had a quick thing that I kind of noticed, so I know we had kind of been discussing the past week, two weeks, about how we can make and get more impactful, like…
+
+210
+00:26:39.080 --> 00:26:43.060
+Robert Walworth: good first issues, beginner issues, so on and so forth.
+
+211
+00:26:43.190 --> 00:26:48.629
+Robert Walworth: I just wanted to say, like, so I've, in the Swift SDK, I've started,
+
+212
+00:26:49.470 --> 00:27:07.540
+Robert Walworth: making pretty good, like, good first issues… I think I just had them as good first issues, but they could be tagged as beginner issues, too, I suppose, of just keeping our, because I don't think they're caught by Dependabot, necessarily. Keeping our, like…
+
+213
+00:27:07.630 --> 00:27:14.679
+Robert Walworth: Consensus node version, mirror node version, solo version… of,
+
+214
+00:27:14.960 --> 00:27:28.290
+Robert Walworth: our… like, the… through the high-row solo action that we use in CI, keeping those up to date so that they change, like, pretty quickly, like, we usually get, like, a new release of…
+
+215
+00:27:28.450 --> 00:27:41.869
+Robert Walworth: one of those, like, every, like, week or so. And they're just very simple, like, good first issues, and they're very impactful, because they keep our repos up to date, and making sure that we're testing with the most…
+
+216
+00:27:42.090 --> 00:27:43.400
+Robert Walworth: Recent stuff.
+
+217
+00:27:43.810 --> 00:27:47.789
+Robert Walworth: So yeah, I just, I just wanted to,
+
+218
+00:27:47.970 --> 00:27:53.909
+Robert Walworth: kind of bring that to people's attention, that those could be pretty good, good first issues.
+
+219
+00:27:54.060 --> 00:28:01.359
+Robert Walworth: If… good first issues, if we want to provide the exact steps and good beginner issues, if… We…
+
+220
+00:28:01.650 --> 00:28:12.410
+Robert Walworth: wanted to give more, autonomy to the developers to figure it out. But, yeah, I just… I just wanted to, wanted to say that, and say those are… those have been pretty good,
+
+221
+00:28:12.680 --> 00:28:15.180
+Robert Walworth: good versus issues for… for Swift, at least.
+
+222
+00:28:17.340 --> 00:28:22.230
+Sophie Bulloch: Yeah, I think maybe that's, like, a conversation for maybe next time, where we can talk about,
+
+223
+00:28:22.490 --> 00:28:25.940
+Sophie Bulloch: You know, should good fuss issues be 100% guided?
+
+224
+00:28:27.300 --> 00:28:36.339
+Sophie Bulloch: now, now I think we have, like, the templates quite well made and everything, so, like, mastering the workflow shouldn't be too hard now.
+
+225
+00:28:36.560 --> 00:28:45.070
+Sophie Bulloch: So, like, maybe… maybe there is, like, a scope of having, like, a little bit of a middle ground where there's, like, some guidance to it, and then that way the beginner issues can be…
+
+226
+00:28:45.380 --> 00:28:49.190
+Sophie Bulloch: A little bit more involved.
+
+227
+00:28:50.480 --> 00:28:56.369
+Robert Walworth: Yeah, or maybe just requiring less good first issues, before we can move on to beginner.
+
+228
+00:28:58.840 --> 00:29:00.350
+Sophie Bulloch: Yeah, yeah, also.
+
+229
+00:29:04.230 --> 00:29:08.339
+Sophie Bulloch: Okay, great. So, shall we close the meeting for today?
+
+230
+00:29:11.140 --> 00:29:14.150
+Robert Walworth: Yeah, I think I'm good. Thanks, everyone.
+
+231
+00:29:14.390 --> 00:29:16.310
+Sophie Bulloch: Okay, thanks everyone. See you next time.
+
+232
+00:29:17.340 --> 00:29:17.970
+Robert Walworth: Bye.
+

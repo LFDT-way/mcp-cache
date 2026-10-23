@@ -1,0 +1,722 @@
+WEBVTT
+
+1
+00:04:35.930 --> 00:04:40.810
+Justin Florentine (Besu): Finally, all right.
+
+2
+00:04:40.810 --> 00:04:44.225
+Justin Florentine (Besu): Hello! How's it going, hey?
+
+3
+00:04:45.560 --> 00:04:48.920
+Justin Florentine (Besu): Sorry about that. It's always something, man. It's always something.
+
+4
+00:04:49.260 --> 00:04:54.980
+Meldsun [[unknown]]: Yeah, no problem. So I guess Matilda has the same problem last week. No, the the week before last week.
+
+5
+00:04:55.460 --> 00:04:56.260
+Justin Florentine (Besu): Oh!
+
+6
+00:04:56.790 --> 00:05:01.459
+Meldsun [[unknown]]: No one has access except me, but I don't know why, but anyway.
+
+7
+00:05:03.090 --> 00:05:11.029
+Justin Florentine (Besu): I'll have to talk to Rye about it. I think it has to do with the fact that my Linux Foundation address is different than the one on the invite.
+
+8
+00:05:11.030 --> 00:05:12.600
+Meldsun [[unknown]]: Maybe yeah.
+
+9
+00:05:15.568 --> 00:05:19.729
+Justin Florentine (Besu): Let me ping, Matilda, see if she will be joining us.
+
+10
+00:05:19.730 --> 00:05:21.536
+Meldsun [[unknown]]: Okay, that's see.
+
+11
+00:06:12.780 --> 00:06:19.372
+Justin Florentine (Besu): Alright. So I was just gonna kind of try and catch up. I wasn't here for the last meeting.
+
+12
+00:06:20.100 --> 00:06:20.860
+Meldsun [[unknown]]: Okay.
+
+13
+00:06:21.610 --> 00:06:35.979
+Justin Florentine (Besu): I think. Matilda has made a bunch of progress for the history expiry stuff. I know that's a little tangential to what you're working on for the portal client.
+
+14
+00:06:36.250 --> 00:06:36.790
+Meldsun [[unknown]]: Okay.
+
+15
+00:06:37.350 --> 00:06:47.840
+Justin Florentine (Besu): Gary might be joining us. He might have some more input. Excuse me of the on the Plugin architecture. How to do that
+
+16
+00:06:49.790 --> 00:06:51.460
+Justin Florentine (Besu): But for starters.
+
+17
+00:06:51.670 --> 00:06:54.990
+Justin Florentine (Besu): Do you want to just go over kind of where you're at right now?
+
+18
+00:06:55.890 --> 00:07:12.890
+Meldsun [[unknown]]: Okay, so right now, we are like decoupling certain functionality that we were. We were having attached to Jason Rpc. Endpoints as we were originally having this idea of having standalone. So we are almost done with that. So BA-, basically.
+
+19
+00:07:13.510 --> 00:07:23.200
+Meldsun [[unknown]]: the the shard that will be imported under a will be will allow us to call the same method that we are right now calling
+
+20
+00:07:23.700 --> 00:07:25.810
+Meldsun [[unknown]]: through a Json Rpc. Endpoint. But
+
+21
+00:07:25.970 --> 00:07:30.829
+Meldsun [[unknown]]: but now they will now be able to recall as an Api.
+
+22
+00:07:31.540 --> 00:07:40.129
+Justin Florentine (Besu): Cool. So is, that is, that just like a different namespace, or a different path prefix, or something like that, and then a plugin to implement it, and then delegate it off to Samba.
+
+23
+00:07:40.550 --> 00:08:06.039
+Meldsun [[unknown]]: Yeah, actually, internally, inside Samba Library. We will have, for example, a get content method, that and that method would be able to be called by calling the Get content, or would be internally be called inside Samba Library in the Json Rpc. Endpoint. And actually the library could be used inside a plugin with the Json Rpc. Server.
+
+24
+00:08:06.370 --> 00:08:10.549
+Meldsun [[unknown]]: Stop it off, I'd say I would say.
+
+25
+00:08:12.370 --> 00:08:16.140
+Meldsun [[unknown]]: I don't know if I don't know if I make myself clear, because
+
+26
+00:08:16.700 --> 00:08:18.180
+Meldsun [[unknown]]: if not, I can explain it again.
+
+27
+00:08:21.972 --> 00:08:25.103
+Justin Florentine (Besu): Yeah, I'm not quite sure.
+
+28
+00:08:26.100 --> 00:08:38.339
+Meldsun [[unknown]]: Okay, let me let me explain again. So originally, what we have was a Samba as a standalone solution that was having a PC server, you see. So all the functionality.
+
+29
+00:08:38.340 --> 00:08:40.840
+Justin Florentine (Besu): It had its own Json, Rpc. Server.
+
+30
+00:08:40.840 --> 00:08:41.490
+Meldsun [[unknown]]: Yeah.
+
+31
+00:08:41.809 --> 00:08:42.559
+Justin Florentine (Besu): Got it.
+
+32
+00:08:42.980 --> 00:08:50.080
+Meldsun [[unknown]]: So all the functionality was coded in a certain way that was attached to that. So what we actually do internally was
+
+33
+00:08:50.600 --> 00:09:04.080
+Meldsun [[unknown]]: like creating an interface with the All the Json Rpc. Endpoint bus. But as an Api. So right now, internally, in somebody you could call the that Json, Rpc. Through.
+
+34
+00:09:04.250 --> 00:09:08.079
+Meldsun [[unknown]]: Sorry you can call the behavior. We were calling
+
+35
+00:09:08.370 --> 00:09:15.780
+Meldsun [[unknown]]: on the Json, Rpc. Just by calling this Api, and at the same time you can call the Api if you use Sambass library.
+
+36
+00:09:16.890 --> 00:09:18.310
+Justin Florentine (Besu): I see. Okay.
+
+37
+00:09:18.480 --> 00:09:27.789
+Meldsun [[unknown]]: So that was a refactor. We are almost done so. It was migrating all that functionality in a separate classes, so it could be reused in multiple places.
+
+38
+00:09:28.480 --> 00:09:29.120
+Justin Florentine (Besu): Okay.
+
+39
+00:09:29.700 --> 00:09:37.230
+Meldsun [[unknown]]: And we need to call a Json. Rpc. Inside Samba Plugin. It will just be calling that
+
+40
+00:09:37.550 --> 00:09:40.970
+Meldsun [[unknown]]: history. Api, that's the name we name it.
+
+41
+00:09:42.230 --> 00:09:51.809
+Meldsun [[unknown]]: and if you needed to call it from another place, that is not a Json, Rpc. That will be exported by the Samba Plugin, you can call it just by calling the history Api.
+
+42
+00:09:53.120 --> 00:09:54.390
+Justin Florentine (Besu): Okay. Cool.
+
+43
+00:09:55.150 --> 00:09:56.599
+Meldsun [[unknown]]: So we are on that.
+
+44
+00:09:56.840 --> 00:10:09.469
+Meldsun [[unknown]]: What else? So we are also. Once we have the the instances up and running, we will start like having our 1st Samba running and see how that behaves. I guess that will be. We will start doing that
+
+45
+00:10:10.290 --> 00:10:14.260
+Meldsun [[unknown]]: next week. Maybe that depends on when the servers are up.
+
+46
+00:10:14.480 --> 00:10:18.440
+Meldsun [[unknown]]: Warreza, interrupt me if you have any doubts, but let me
+
+47
+00:10:19.020 --> 00:10:33.679
+Meldsun [[unknown]]: continue with certain things. We are a bit behind with certain inside functionality that we hope to finish the next coming weeks. And this is something related with the certain updates that the protocol has gone through
+
+48
+00:10:34.050 --> 00:10:36.469
+Meldsun [[unknown]]: in this last couple of weeks.
+
+49
+00:10:36.850 --> 00:10:45.349
+Meldsun [[unknown]]: Anyway, we are still compliance with the hype test. But yeah, we need certain things to polish inside the the node or the library.
+
+50
+00:10:46.050 --> 00:10:55.760
+Meldsun [[unknown]]: And I have certain problems running Samba inside docker inside, inside, Basil, inside, docker.
+
+51
+00:10:56.250 --> 00:10:59.460
+Justin Florentine (Besu): Oh, yeah, you had this that Udp problem, didn't you?
+
+52
+00:10:59.460 --> 00:11:14.750
+Meldsun [[unknown]]: Yeah, I need to double check something that someone commented on discord. I didn't have time, but I could run it. I could run the plugin inside besu running in
+
+53
+00:11:15.510 --> 00:11:16.720
+Meldsun [[unknown]]: without docker.
+
+54
+00:11:16.980 --> 00:11:25.430
+Meldsun [[unknown]]: So I think that it's just something I'm not configuring correct inside Docker. So that's something we'll get into.
+
+55
+00:11:25.560 --> 00:11:34.439
+Meldsun [[unknown]]: It's not so it's important, but not necessary right now, super relevant. But yeah, that's something we want to port to finish.
+
+56
+00:11:34.850 --> 00:11:37.449
+Meldsun [[unknown]]: And once that we.
+
+57
+00:11:38.340 --> 00:12:05.779
+Meldsun [[unknown]]: we will start like seeing how Samba behaves when we start like putting content inside. That's something we haven't test deeply. So our main tests are against hype. So we need to start to see how this that behaves, and I think that that will be our main. We will be working in parallel finishing these upgrades, keep polishing Samba inside, and then
+
+58
+00:12:06.270 --> 00:12:12.049
+Meldsun [[unknown]]: having this instance running, and see how that behaves, and at the same time
+
+59
+00:12:12.470 --> 00:12:14.800
+Meldsun [[unknown]]: see what, see how we sync
+
+60
+00:12:15.360 --> 00:12:26.300
+Meldsun [[unknown]]: besu, and see how, when when the pipeline will be called, and doing certain polishing around Samba to, I don't know, move forward to the next stage. So at least that's
+
+61
+00:12:26.410 --> 00:12:27.949
+Meldsun [[unknown]]: the viewer shop.
+
+62
+00:12:30.110 --> 00:12:35.495
+Justin Florentine (Besu): So when you say hive test, is that a separate portal specific suite?
+
+63
+00:12:36.210 --> 00:12:38.839
+Justin Florentine (Besu): that runs in hive. Okay, cool.
+
+64
+00:12:38.840 --> 00:12:40.810
+Meldsun [[unknown]]: And there's a link we have.
+
+65
+00:12:41.170 --> 00:12:42.589
+Meldsun [[unknown]]: Let me share the link.
+
+66
+00:12:43.650 --> 00:12:51.170
+Meldsun [[unknown]]: There's a domain called Port Portal had experimental where we have Samba being
+
+67
+00:12:52.320 --> 00:12:56.770
+Meldsun [[unknown]]: run it there. I will share in this chat, so that
+
+68
+00:12:56.920 --> 00:13:04.300
+Meldsun [[unknown]]: at least right now that's the metric we follow to see if things are are good. So and.
+
+69
+00:13:05.200 --> 00:13:06.790
+Justin Florentine (Besu): I see, I see.
+
+70
+00:13:06.790 --> 00:13:10.830
+Meldsun [[unknown]]: So that takes the last image
+
+71
+00:13:11.150 --> 00:13:16.850
+Meldsun [[unknown]]: of Samba that we have deployed and run the test that we usually run locally.
+
+72
+00:13:17.250 --> 00:13:28.609
+Meldsun [[unknown]]: and I guess the ones that are failing right now there are, because we are not. There's another node that is not working properly. But I have to double check that, because that's something I also see on the other notes.
+
+73
+00:13:30.850 --> 00:13:32.440
+Justin Florentine (Besu): Cool.
+
+74
+00:13:32.600 --> 00:13:38.600
+Meldsun [[unknown]]: Hmm, yeah. Let me check another thing. Some notes I have.
+
+75
+00:13:38.990 --> 00:13:39.879
+Meldsun [[unknown]]: Give me a minute.
+
+76
+00:13:40.120 --> 00:13:44.549
+Justin Florentine (Besu): There's a lot of clients passing most of the state tests. That's pretty cool.
+
+77
+00:13:45.090 --> 00:13:51.480
+Meldsun [[unknown]]: Okay, yeah, that's something. Also, we should talk about, or maybe later, how things may be seen
+
+78
+00:13:52.660 --> 00:13:55.590
+Meldsun [[unknown]]: after history. And that May
+
+79
+00:13:56.550 --> 00:14:03.870
+Meldsun [[unknown]]: would be that would help us a lot for for us in terms of our understanding. The next roadmap on from our side, you see.
+
+80
+00:14:03.870 --> 00:14:15.139
+Justin Florentine (Besu): That is a good question, Meld. I don't have an opinion yet on it, but we should. We should talk to the rest of the team
+
+81
+00:14:15.940 --> 00:14:20.859
+Justin Florentine (Besu): potentially, maybe talking to the Teku team, too, because if they really
+
+82
+00:14:21.430 --> 00:14:29.260
+Justin Florentine (Besu): want any of the beacon related history, that's another option as well.
+
+83
+00:14:32.800 --> 00:14:36.049
+Meldsun [[unknown]]: Yeah. So maybe that I should
+
+84
+00:14:36.340 --> 00:14:44.030
+Meldsun [[unknown]]: start talking with someone from Tech as you mentioned. Maybe you can point me who to talk to, or maybe I should just mention in a specific channel.
+
+85
+00:14:46.272 --> 00:14:58.550
+Justin Florentine (Besu): So Teku is a consensus product, not a hyper ledger. I'm sorry. Not a lft thing, so that would be in a separate discord. There's a consensus specific discord where those folks are.
+
+86
+00:14:58.720 --> 00:14:59.400
+Justin Florentine (Besu): Okay.
+
+87
+00:15:01.160 --> 00:15:04.619
+Justin Florentine (Besu): I can say it might be, I don't even know if I'm on that server anymore.
+
+88
+00:15:04.620 --> 00:15:23.050
+Meldsun [[unknown]]: Yeah, I'm I'm there. So I have. Yeah, I would. So yeah, I think that that's an interesting conversation to have, because it would help us align our roadmap and see how much we should invest on the next coming month. Our idea, originally to keep on
+
+89
+00:15:23.290 --> 00:15:29.219
+Meldsun [[unknown]]: building Samba and the other subnetworks, actually the beacon and state.
+
+90
+00:15:29.730 --> 00:15:34.479
+Meldsun [[unknown]]: But yeah, I think that as time goes by we should work more in line with Teku.
+
+91
+00:15:34.880 --> 00:15:35.730
+Meldsun [[unknown]]: Also.
+
+92
+00:15:36.610 --> 00:15:37.480
+Justin Florentine (Besu): Okay.
+
+93
+00:15:37.780 --> 00:15:38.530
+Meldsun [[unknown]]: Yeah.
+
+94
+00:15:38.880 --> 00:15:43.510
+Meldsun [[unknown]]: And another thing to mention, there were certain endpoints that we need
+
+95
+00:15:43.660 --> 00:15:52.779
+Meldsun [[unknown]]: in order to be compliant with the specs that need certain changes inside the Discovery Library that I guess it's also owned by consensus.
+
+96
+00:15:52.880 --> 00:16:01.889
+Meldsun [[unknown]]: There was a Pr. That I opened a couple of months ago, and Matilda took ownership on that. So she was working on that. So we have already been exchanging certain messages around
+
+97
+00:16:02.360 --> 00:16:08.000
+Meldsun [[unknown]]: and certain things around that, and she mentioned that
+
+98
+00:16:08.420 --> 00:16:10.579
+Meldsun [[unknown]]: some of them are finished, and will be
+
+99
+00:16:11.380 --> 00:16:18.139
+Meldsun [[unknown]]: and merge it soon, so that give us a green light to then implement it on. Sam.
+
+100
+00:16:18.710 --> 00:16:20.540
+Justin Florentine (Besu): Is this just to be 5 stuff?
+
+101
+00:16:21.810 --> 00:16:23.429
+Justin Florentine (Besu): Okay? Got it?
+
+102
+00:16:23.430 --> 00:16:25.430
+Meldsun [[unknown]]: So that's another thing to mention.
+
+103
+00:16:25.960 --> 00:16:31.619
+Justin Florentine (Besu): Yeah, we and we might. I guess we might pull that into at some point, because I don't think we have
+
+104
+00:16:31.800 --> 00:16:34.080
+Justin Florentine (Besu): D 5 implemented in basic.
+
+105
+00:16:34.080 --> 00:16:38.210
+Meldsun [[unknown]]: No, no, no! I have checked that. We use as reference.
+
+106
+00:16:38.440 --> 00:16:41.970
+Meldsun [[unknown]]: Take a lot to see how that library were was used.
+
+107
+00:16:41.970 --> 00:16:42.550
+Justin Florentine (Besu): Makes sense.
+
+108
+00:16:44.480 --> 00:16:51.440
+Meldsun [[unknown]]: Okay, then, for the next coming
+
+109
+00:16:52.220 --> 00:17:02.460
+Meldsun [[unknown]]: weeks. Yeah, polishing to just to sum up polishing certain things inside the node and other certain functionality that we need.
+
+110
+00:17:02.630 --> 00:17:07.040
+Meldsun [[unknown]]: We are a bit behind in terms of the latest updates on the protocol
+
+111
+00:17:07.200 --> 00:17:12.550
+Meldsun [[unknown]]: and then understanding how how Besu and Samba works.
+
+112
+00:17:12.880 --> 00:17:24.279
+Meldsun [[unknown]]: And yeah, maybe defining a clearer roadmap in terms of the next sub networks, and actually the the roadmap to fully integrate with Sam. But I don't know what you have in mind in terms of when the
+
+113
+00:17:24.560 --> 00:17:32.310
+Meldsun [[unknown]]: when somebody will be called, who will take that? Who will make? Who will be making those changes and all that? Yeah.
+
+114
+00:17:33.000 --> 00:17:37.580
+Justin Florentine (Besu): Yeah, I think it's gonna be Gary. But I'm not sure yet.
+
+115
+00:17:37.580 --> 00:17:38.310
+Meldsun [[unknown]]: Okay.
+
+116
+00:17:39.340 --> 00:17:47.119
+Meldsun [[unknown]]: We aren't still blocked by that, because we have the things I mentioned. So
+
+117
+00:17:47.390 --> 00:17:53.770
+Meldsun [[unknown]]: I think that all we have mentioned may took us, maybe 2 weeks more, or maybe in the next
+
+118
+00:17:54.100 --> 00:17:58.240
+Meldsun [[unknown]]: call we might be talking about next steps in terms of integration.
+
+119
+00:17:58.670 --> 00:17:59.900
+Meldsun [[unknown]]: Maybe it's earlier.
+
+120
+00:18:00.190 --> 00:18:05.429
+Meldsun [[unknown]]: Maybe not. But that will depends on things, how things go in the next coming. 2 weeks.
+
+121
+00:18:05.970 --> 00:18:10.440
+Justin Florentine (Besu): Yeah, next 2 weeks are gonna be mostly pector related stuff. So for us.
+
+122
+00:18:11.787 --> 00:18:17.229
+Justin Florentine (Besu): we don't really. In theory, we don't have anything to do other than wait. But that's not usually how things go. So
+
+123
+00:18:22.450 --> 00:18:28.590
+Meldsun [[unknown]]: Another thing to mention is that I might have some certain doubts in terms of
+
+124
+00:18:29.490 --> 00:18:33.379
+Meldsun [[unknown]]: good practice I should follow for developing the Plugin.
+
+125
+00:18:33.570 --> 00:18:37.209
+Meldsun [[unknown]]: So that's something that may come next week or the next.
+
+126
+00:18:37.210 --> 00:18:37.860
+Justin Florentine (Besu): Okay.
+
+127
+00:18:38.530 --> 00:18:45.760
+Meldsun [[unknown]]: And the size of the shar. I don't know if there are certain constraints there, the libraries we'll be using, and all that.
+
+128
+00:18:47.620 --> 00:19:04.246
+Justin Florentine (Besu): Right? Right? So they'll yeah. So that's the thing we probably need to take a product design. Look at right? We need to look at it and say, All right. So when this thing is, when Samba is integrated into, how does the user configure it? And
+
+129
+00:19:04.980 --> 00:19:08.039
+Justin Florentine (Besu): what should we encourage them to do? You know.
+
+130
+00:19:08.630 --> 00:19:17.470
+Meldsun [[unknown]]: Okay, yeah, I like that. Yeah. Because today, Samba, the configuration that has Samba today is not difficult to add. It's super simple to add configurations. But
+
+131
+00:19:17.750 --> 00:19:29.660
+Meldsun [[unknown]]: we have the basic ones that they need to have the the only, the the one we need just to to have the the hard test running, you see. So maybe there are things related. Okay, should we?
+
+132
+00:19:29.850 --> 00:19:37.250
+Meldsun [[unknown]]: Yeah, what happened if it's restarted? Should we look for the same database or not? Should we use, for example, one that I have? Is
+
+133
+00:19:37.640 --> 00:19:56.199
+Meldsun [[unknown]]: we internally, we use Roxdb database, and I know that they're supplying for Rocksdb inside. So one question I would raise, or maybe ask for some help is, why should I use the ones used as applying? And why not?
+
+134
+00:19:56.320 --> 00:20:00.719
+Meldsun [[unknown]]: I just have my inside some music.
+
+135
+00:20:01.030 --> 00:20:09.499
+Meldsun [[unknown]]: If we need to move forward with the one being used as a plane, we will have to do certain refactories inside.
+
+136
+00:20:11.360 --> 00:20:15.373
+Justin Florentine (Besu): Yeah, I understand. I understand what you're asking. Yeah,
+
+137
+00:20:16.410 --> 00:20:23.060
+Justin Florentine (Besu): yeah. So what's like, what is an actual compelling case for running this inside of baseu. How is Baseu going to use it?
+
+138
+00:20:25.020 --> 00:20:32.180
+Justin Florentine (Besu): I'm hoping that it serves as kind of like a pseudo Archive node.
+
+139
+00:20:32.879 --> 00:20:36.231
+Justin Florentine (Besu): If you're running bay, Sue, and you've dropped
+
+140
+00:20:37.220 --> 00:20:42.910
+Justin Florentine (Besu): Well, you will have dropped all of the block history, and somebody requests it.
+
+141
+00:20:43.120 --> 00:20:49.320
+Justin Florentine (Besu): It would be nice to be able to say I don't have it, but I can get it for you from the portal network.
+
+142
+00:20:49.730 --> 00:20:53.113
+Justin Florentine (Besu): I don't know that that's a good idea yet.
+
+143
+00:20:53.490 --> 00:20:54.600
+Meldsun [[unknown]]: Okay. Yeah.
+
+144
+00:20:55.190 --> 00:21:10.419
+Justin Florentine (Besu): You know, I think it would be cool, but I don't know if that's a great idea. I think I could confuse the network when the response times are very different, just based on what block you're asking for, and you have no way of knowing that. So
+
+145
+00:21:11.600 --> 00:21:13.299
+Justin Florentine (Besu): you bring up a good point.
+
+146
+00:21:15.760 --> 00:21:17.910
+Meldsun [[unknown]]: Okay, so I might, we might
+
+147
+00:21:19.000 --> 00:21:21.670
+Meldsun [[unknown]]: get into how other clients will be using.
+
+148
+00:21:21.870 --> 00:21:29.570
+Meldsun [[unknown]]: Understand that maybe we can also get some certain insight information in a way to replicate here.
+
+149
+00:21:32.720 --> 00:21:37.120
+Justin Florentine (Besu): Okay, just write that down.
+
+150
+00:21:45.280 --> 00:21:46.170
+Justin Florentine (Besu): Thank you.
+
+151
+00:21:47.134 --> 00:21:59.580
+Justin Florentine (Besu): Right? Because if we can't come up with a use case, then maybe what we actually want to do is kind of do something clever with the packaging.
+
+152
+00:22:00.250 --> 00:22:06.139
+Justin Florentine (Besu): and you have. Maybe you have a docker compose, or maybe
+
+153
+00:22:06.470 --> 00:22:10.599
+Justin Florentine (Besu): a big uber jar that runs Baysu, Teku Samba
+
+154
+00:22:11.136 --> 00:22:14.390
+Justin Florentine (Besu): something like that like that could be. And
+
+155
+00:22:14.830 --> 00:22:22.253
+Justin Florentine (Besu): other plan. If we can't really find a compelling reason to to integrate it with the plugins.
+
+156
+00:22:24.290 --> 00:22:25.300
+Justin Florentine (Besu): okay, so.
+
+157
+00:22:25.450 --> 00:22:28.460
+Meldsun [[unknown]]: Exploring other type of deliverables.
+
+158
+00:22:28.800 --> 00:22:40.590
+Justin Florentine (Besu): Yeah, yeah. Yeah. Cause cause if we can't actually find a good use case for the plugin, then you're right. Any refactoring that we do to Samba would be a waste.
+
+159
+00:22:43.370 --> 00:22:45.009
+Meldsun [[unknown]]: Okay, so let's get it.
+
+160
+00:22:45.010 --> 00:22:55.259
+Justin Florentine (Besu): I need to figure out how to validate potential my, my potential use case here. I'm not a very good product owner. I'm just kind of doing this
+
+161
+00:22:55.490 --> 00:23:02.570
+Justin Florentine (Besu): because we don't really have a product owner. But I will try to try to figure that out.
+
+162
+00:23:02.780 --> 00:23:07.250
+Meldsun [[unknown]]: Yeah, we can also take some lead on that to see, understand? Use cases.
+
+163
+00:23:07.810 --> 00:23:11.979
+Justin Florentine (Besu): And okay, I'm writing down that also.
+
+164
+00:23:14.250 --> 00:23:14.670
+Justin Florentine (Besu): Okay.
+
+165
+00:23:15.480 --> 00:23:22.699
+Meldsun [[unknown]]: Then other things that come come to my mind is, if there are certain security, things that we should take care of
+
+166
+00:23:23.840 --> 00:23:31.740
+Meldsun [[unknown]]: in terms of if we run if somebody is running as a plugin, so maybe there's something there that we should follow in terms of or not.
+
+167
+00:23:34.100 --> 00:23:35.990
+Justin Florentine (Besu): Yeah, okay.
+
+168
+00:23:41.820 --> 00:23:50.710
+Meldsun [[unknown]]: Today the deliverable of Samba as a plan is being done as a okay, we are using Samba
+
+169
+00:23:50.950 --> 00:23:53.569
+Meldsun [[unknown]]: as a fat share. And I'm importing that
+
+170
+00:23:55.430 --> 00:23:59.330
+Meldsun [[unknown]]: inside the Samba Plugin, and then generating another char.
+
+171
+00:23:59.860 --> 00:24:01.210
+Justin Florentine (Besu): Samba library.
+
+172
+00:24:01.550 --> 00:24:05.579
+Meldsun [[unknown]]: And you see that inside base. I don't know if that's the best practice. So.
+
+173
+00:24:06.280 --> 00:24:10.429
+Meldsun [[unknown]]: but actually, that's how it's working right now. We we could, we could change that.
+
+174
+00:24:11.950 --> 00:24:15.849
+Justin Florentine (Besu): Okay? Yeah, I don't really have an opinion yet.
+
+175
+00:24:24.020 --> 00:24:26.050
+Meldsun [[unknown]]: I think that that's all from my side.
+
+176
+00:24:26.710 --> 00:24:27.570
+Justin Florentine (Besu): Okay.
+
+177
+00:24:29.093 --> 00:24:36.180
+Justin Florentine (Besu): Alright. Let me talk to some folks and get get back to you before our next meeting.
+
+178
+00:24:36.530 --> 00:24:37.450
+Meldsun [[unknown]]: Yeah, sure.
+
+179
+00:24:38.110 --> 00:24:40.849
+Justin Florentine (Besu): Thanks, Mel. Appreciate it. Have a good weekend.
+
+180
+00:24:40.850 --> 00:24:41.990
+Meldsun [[unknown]]: Bye, bye, you too.
+

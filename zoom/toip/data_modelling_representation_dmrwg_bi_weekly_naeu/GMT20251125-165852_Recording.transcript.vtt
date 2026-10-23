@@ -1,0 +1,1490 @@
+WEBVTT
+
+1
+00:00:22.140 --> 00:00:25.510
+Steven Milstein (Collab.Ventures): So, this is Neil Thompson, this is November 25th.
+
+2
+00:00:25.510 --> 00:00:30.170
+Neil Thomson (QueryVision): 2025, going to talk today about
+
+3
+00:00:30.840 --> 00:00:36.229
+Neil Thomson (QueryVision): What do new ZKPs and batch-issued credentials add to data privacy?
+
+4
+00:00:37.120 --> 00:00:45.829
+Neil Thomson (QueryVision): The inspiration for this was, some comments in various work groups a couple of weeks ago that Drummond brought back from his recent travels.
+
+5
+00:00:46.030 --> 00:00:52.880
+Neil Thomson (QueryVision): that both credentials and EcoPs are seen as solutions to the EU digital wallet requirements on linkability.
+
+6
+00:00:54.690 --> 00:01:01.880
+Neil Thomson (QueryVision): However, there's some flaws in that. One of the key ones is that it… it pre…
+
+7
+00:01:02.240 --> 00:01:04.629
+Neil Thomson (QueryVision): And I'll get to those in a second.
+
+8
+00:01:06.410 --> 00:01:17.299
+Neil Thomson (QueryVision): But one of the issues is, I'd say it's probably the major one, is that what a lot of people are looking for in terms of interacting with the eye is a personalized solution.
+
+9
+00:01:18.330 --> 00:01:21.430
+Neil Thomson (QueryVision): Right, certainly the hospitality and travel,
+
+10
+00:01:21.860 --> 00:01:30.660
+Neil Thomson (QueryVision): requirements in terms of what airlines and hotels want to do. They want to know you pretty intimately. The question then is.
+
+11
+00:01:30.810 --> 00:01:37.849
+Neil Thomson (QueryVision): How do you give access to a service organization or a supply chain of service organizations?
+
+12
+00:01:38.190 --> 00:01:40.510
+Neil Thomson (QueryVision): In a manner that,
+
+13
+00:01:41.340 --> 00:01:46.229
+Neil Thomson (QueryVision): Doesn't let that information be, abused in any way, shape, or form.
+
+14
+00:01:46.650 --> 00:01:55.079
+Neil Thomson (QueryVision): And my conclusion is, you can't get… limited disclosure, or selective disclosure.
+
+15
+00:01:55.350 --> 00:02:02.280
+Neil Thomson (QueryVision): May work on a point-by-point basis on fairly autonomous needs, like you're buying a drink in a bar.
+
+16
+00:02:02.840 --> 00:02:04.640
+Neil Thomson (QueryVision): Or you're at an ATM?
+
+17
+00:02:05.100 --> 00:02:07.980
+Neil Thomson (QueryVision): Or you're proving you can pay in a store.
+
+18
+00:02:08.650 --> 00:02:15.570
+Neil Thomson (QueryVision): All of which you don't even need to hand across your credit card, you let the credit card agent handle that for you, and I…
+
+19
+00:02:16.270 --> 00:02:20.449
+Neil Thomson (QueryVision): You trigger it and say, pay that merchant, so the only interchange is between
+
+20
+00:02:20.600 --> 00:02:23.270
+Neil Thomson (QueryVision): Your wallet and the merchant to pay the merchant.
+
+21
+00:02:24.190 --> 00:02:30.290
+Neil Thomson (QueryVision): So, it works fine in anonymous. In fact, Carly gave me a,
+
+22
+00:02:31.240 --> 00:02:35.720
+Neil Thomson (QueryVision): the thing, looking at ZKPs, she's doing her bite-sized truss.
+
+23
+00:02:36.080 --> 00:02:42.529
+Neil Thomson (QueryVision): And comes up with a, you know, exactly the same old, same old, which is Alice walks into a bar.
+
+24
+00:02:43.750 --> 00:02:51.380
+Neil Thomson (QueryVision): and wants to prove that, she's of an age, and a ZKP can do that for you, but a ZKP
+
+25
+00:02:51.560 --> 00:02:57.390
+Neil Thomson (QueryVision): Is largely bound, in my understanding, from a mathematically… a mathematical series.
+
+26
+00:02:57.500 --> 00:03:01.880
+Neil Thomson (QueryVision): It can't prove that, you were in Belgium last Thursday.
+
+27
+00:03:02.550 --> 00:03:06.240
+Neil Thomson (QueryVision): Because it's not a mathematical proof. It's, it's a…
+
+28
+00:03:06.460 --> 00:03:11.369
+Neil Thomson (QueryVision): It's a historical reading of the data and answering the question, were you in Belgium last week, yes or no?
+
+29
+00:03:13.820 --> 00:03:23.099
+Neil Thomson (QueryVision): So, that's… and then my understanding is the batch-issued credentials was an attempt to get around, when you do need to exchange a credential.
+
+30
+00:03:23.410 --> 00:03:30.820
+Neil Thomson (QueryVision): And not necessarily do, disclosure, limited… limited selective disclosure on it.
+
+31
+00:03:31.490 --> 00:03:39.699
+Neil Thomson (QueryVision): You're still gonna be, perhaps identifying it, because if you're gonna prove that you're gonna own… that you own and hold the credential.
+
+32
+00:03:39.810 --> 00:03:44.130
+Neil Thomson (QueryVision): Then you're going to be exchanging, at least public keys.
+
+33
+00:03:44.900 --> 00:03:46.449
+Neil Thomson (QueryVision): In terms of…
+
+34
+00:03:46.620 --> 00:03:59.980
+Neil Thomson (QueryVision): Verifiability of your verifiable credential, and if you store that information of the public key, and you don't rotate your keys every second, then you are potentially identifiable across different transactions using the same credential, which is a fair statement.
+
+35
+00:04:00.850 --> 00:04:05.739
+Neil Thomson (QueryVision): To which the answer was, well, we'll give you, we'll manufacture, you know.
+
+36
+00:04:05.990 --> 00:04:14.120
+Neil Thomson (QueryVision): A bucket load, like, thousands of copies of your passport, or your driver's license, or whatever you use as a frequent credential.
+
+37
+00:04:14.430 --> 00:04:23.390
+Neil Thomson (QueryVision): And it's a one-time use, so it limits the traceability, but that only works if it's in the case we talked about here, which is…
+
+38
+00:04:23.580 --> 00:04:25.349
+Neil Thomson (QueryVision): A simplistic case where
+
+39
+00:04:25.690 --> 00:04:33.719
+Neil Thomson (QueryVision): you don't need to know my identity, but you need to have some information about me that is provable.
+
+40
+00:04:34.890 --> 00:04:39.760
+Neil Thomson (QueryVision): So, the same problem arises, the… and one of the objections
+
+41
+00:04:40.040 --> 00:04:42.210
+Neil Thomson (QueryVision): That came up, which was a classic one.
+
+42
+00:04:42.410 --> 00:04:44.300
+Neil Thomson (QueryVision): is,
+
+43
+00:04:47.370 --> 00:04:56.240
+Neil Thomson (QueryVision): Why not… digital credentials can have the same problem, and sometimes an even bigger one. A physical identifier is only glanced at, but a digital one can be copied or stored perfectly.
+
+44
+00:04:56.510 --> 00:05:02.459
+Neil Thomson (QueryVision): Why not use a third-party service? Just let someone check Alice's ID and send a yes or no answer.
+
+45
+00:05:02.880 --> 00:05:13.380
+Neil Thomson (QueryVision): But that creates a new problem. The service learns everything about Alice it could from that credential. Not necessarily everything about Alice, but certainly everything about that particular license.
+
+46
+00:05:13.920 --> 00:05:18.280
+Neil Thomson (QueryVision): Or passport, and could track her behavior every time she orders a drink.
+
+47
+00:05:19.780 --> 00:05:20.590
+Neil Thomson (QueryVision): Okay.
+
+48
+00:05:20.860 --> 00:05:23.099
+Neil Thomson (QueryVision): But, you know, if you were going…
+
+49
+00:05:23.810 --> 00:05:31.429
+Neil Thomson (QueryVision): That's true, but that's only on a very limited circumstance where only some fairly simplistic information is about which
+
+50
+00:05:32.070 --> 00:05:35.730
+Neil Thomson (QueryVision): No personal information is needed to deliver the service.
+
+51
+00:05:36.930 --> 00:05:40.089
+Neil Thomson (QueryVision): So, it'd be like going in and asking for
+
+52
+00:05:40.500 --> 00:05:45.090
+Neil Thomson (QueryVision): Just trying to think here. Some sort of, medical procedure.
+
+53
+00:05:45.590 --> 00:05:51.819
+Neil Thomson (QueryVision): even, you know, you go to a foreign clinic saying, I'm… I'm feeling ill, and,
+
+54
+00:05:52.290 --> 00:06:01.879
+Neil Thomson (QueryVision): There's various medicines available to it, but what medicine would be recommended to you may be dependent on something in your medical history.
+
+55
+00:06:02.090 --> 00:06:05.450
+Neil Thomson (QueryVision): You may have an allergy or something else.
+
+56
+00:06:05.600 --> 00:06:15.150
+Neil Thomson (QueryVision): So, in which case, you're still stuck, I don't care how you do it. You're going to have to hand over more than anonymous information of a yes-no answer.
+
+57
+00:06:15.260 --> 00:06:21.480
+Neil Thomson (QueryVision): In order to, do that. And of course, the more information you have to disclose.
+
+58
+00:06:21.900 --> 00:06:28.539
+Neil Thomson (QueryVision): Such as, you know, medical condition, they're gonna say, okay, your health, Your size, your weight.
+
+59
+00:06:29.050 --> 00:06:31.790
+Neil Thomson (QueryVision): Your medical history, what you've had in the last 6 months.
+
+60
+00:06:32.030 --> 00:06:38.479
+Neil Thomson (QueryVision): Your nationality, you know, what's your… what's your ethnic background? Because in some cases, medical treatments.
+
+61
+00:06:38.640 --> 00:06:42.790
+Neil Thomson (QueryVision): Will tend to be skewed, depending on your genetic history.
+
+62
+00:06:43.100 --> 00:06:47.419
+Neil Thomson (QueryVision): So the second you get any sort of personalization, we're back to…
+
+63
+00:06:48.310 --> 00:06:53.999
+Neil Thomson (QueryVision): auditing. We're back to, you know, Scott, Scott's admonition that
+
+64
+00:06:54.110 --> 00:07:00.250
+Neil Thomson (QueryVision): You know, it's only with, you know, vetting of the mechanisms, and you and I have talked about this, certainly.
+
+65
+00:07:00.360 --> 00:07:06.860
+Neil Thomson (QueryVision): Is that unless you have some track record of what was accessed and what was done with the information in terms of logging.
+
+66
+00:07:07.460 --> 00:07:10.220
+Neil Thomson (QueryVision): Then, you know, any services
+
+67
+00:07:10.740 --> 00:07:16.910
+Neil Thomson (QueryVision): You know, it's not controllable sort of a human auditor examining your process, certifying your…
+
+68
+00:07:17.090 --> 00:07:21.190
+Neil Thomson (QueryVision): Your code base and locking it down to a given code hash.
+
+69
+00:07:21.460 --> 00:07:29.860
+Neil Thomson (QueryVision): as to what it's going to do with it, that you have no means of even detecting that an organization is abusing your information. And certainly.
+
+70
+00:07:30.180 --> 00:07:37.780
+Neil Thomson (QueryVision): The one thing I've learned in the hospitality and travel industry is the Expedias and Booking.coms of this world are absolutely convinced
+
+71
+00:07:38.120 --> 00:07:45.079
+Neil Thomson (QueryVision): They're getting additional personal information about you, even though if you did not disclose it, and they learned it through other parties, or…
+
+72
+00:07:45.230 --> 00:07:47.589
+Neil Thomson (QueryVision): By guessing at, your…
+
+73
+00:07:47.840 --> 00:07:58.099
+Neil Thomson (QueryVision): preferences through your behavior in terms of what you look at before booking a trip, etc, etc. We see that as essential to their profitability and their ability to
+
+74
+00:07:59.040 --> 00:08:01.310
+Neil Thomson (QueryVision): what's the word I'm looking for?
+
+75
+00:08:01.840 --> 00:08:10.330
+Neil Thomson (QueryVision): You know, conversion of marketing and advertising dollars into additional additional, customers.
+
+76
+00:08:11.130 --> 00:08:16.820
+Neil Thomson (QueryVision): So, it's not clear to me that there is a simple solution to that.
+
+77
+00:08:17.210 --> 00:08:22.910
+Neil Thomson (QueryVision): And now this, this is, this is an EIDAS wallet.
+
+78
+00:08:24.550 --> 00:08:25.489
+Neil Thomson (QueryVision): So it's not that it's.
+
+79
+00:08:25.490 --> 00:08:31.789
+Steven Milstein (Collab.Ventures): Yeah, but I think the only thing, you know, keeping things within reason, that
+
+80
+00:08:32.500 --> 00:08:38.579
+Steven Milstein (Collab.Ventures): They're gonna have copies of the… whatever date it is, so whether you go scuba diving or skiing, whatever, the…
+
+81
+00:08:39.090 --> 00:08:44.159
+Steven Milstein (Collab.Ventures): Only advantage anybody has is that that data becomes stale at one point.
+
+82
+00:08:44.630 --> 00:08:47.920
+Steven Milstein (Collab.Ventures): So, if I went scuba diving 25 years ago.
+
+83
+00:08:48.810 --> 00:08:55.010
+Steven Milstein (Collab.Ventures): that information is kind of stale. Doesn't mean I'm gonna go scuba diving next week, or next vacation I go on.
+
+84
+00:08:55.250 --> 00:09:01.659
+Steven Milstein (Collab.Ventures): So that's the only thing… saving grace, right? Because you can't stop anybody from copying it.
+
+85
+00:09:01.870 --> 00:09:09.200
+Steven Milstein (Collab.Ventures): It's just how relevant that information becomes less and less viable or useful Every day that goes by.
+
+86
+00:09:10.880 --> 00:09:14.419
+Neil Thomson (QueryVision): Yeah, and certainly, absolutely agree, and…
+
+87
+00:09:14.420 --> 00:09:24.039
+Steven Milstein (Collab.Ventures): Medical, of course, right? But at that point, do you really care if the guy you operate under you knows all your personal information? I think I'm okay with that.
+
+88
+00:09:24.650 --> 00:09:40.499
+Neil Thomson (QueryVision): Well, there's one other thing that, you know, in looking at this that was fairly clear, is if you're looking at wheelchair accessibility and, let's call it altitude-related issues in terms of, you know, somebody needs supplemental oxygen.
+
+89
+00:09:40.560 --> 00:09:45.219
+Neil Thomson (QueryVision): A factory tool, you know, not a tank, but something that can concentrate the air.
+
+90
+00:09:45.550 --> 00:09:49.460
+Neil Thomson (QueryVision): on, on aircraft, Or for, for travel,
+
+91
+00:09:49.910 --> 00:09:57.869
+Neil Thomson (QueryVision): Typically, it's only aircraft. If you have trouble with altitude, then, you know, you going on a vacation to, visit,
+
+92
+00:09:59.120 --> 00:10:01.869
+Neil Thomson (QueryVision): what's the place down in Peru? .
+
+93
+00:10:02.610 --> 00:10:03.690
+Steven Milstein (Collab.Ventures): Machu Picchu?
+
+94
+00:10:03.970 --> 00:10:09.709
+Neil Thomson (QueryVision): Machu Picchu, yeah. So people going to Machu Picchu that suddenly discover… and there's a very high pass to get there.
+
+95
+00:10:09.820 --> 00:10:17.849
+Neil Thomson (QueryVision): It's higher than Machu Picchu. If you can't make it over the pass, you need to go home. I got a friend of mine,
+
+96
+00:10:18.000 --> 00:10:20.629
+Neil Thomson (QueryVision): His wife, contracted that.
+
+97
+00:10:21.260 --> 00:10:29.510
+Neil Thomson (QueryVision): So, but part of the question you can do there in terms of limiting it, you can change, you know, what is the medical underlying condition.
+
+98
+00:10:29.690 --> 00:10:31.169
+Neil Thomson (QueryVision): From, what do you need?
+
+99
+00:10:31.450 --> 00:10:37.189
+Neil Thomson (QueryVision): I need a wheelchair does not say I've got, you know, spinal degradation or something else.
+
+100
+00:10:37.350 --> 00:10:46.449
+Neil Thomson (QueryVision): That may be the case, or it may be, you know, I need a wheelchair because I'm recovering from a hip operation. I don't really have anything wrong with me.
+
+101
+00:10:47.130 --> 00:10:52.759
+Neil Thomson (QueryVision): So, so you can… Put information in place that says.
+
+102
+00:10:52.940 --> 00:11:00.049
+Neil Thomson (QueryVision): we're not gonna, you know, don't… don't… you don't need to share the causes. What you need is something that goes in and looks at forward travel.
+
+103
+00:11:00.340 --> 00:11:04.390
+Neil Thomson (QueryVision): you know, in Tamashu Picchu, let's have some…
+
+104
+00:11:04.510 --> 00:11:10.820
+Neil Thomson (QueryVision): agent sit in a sandbox and say, okay, based on my… you allowing me very temporary,
+
+105
+00:11:11.270 --> 00:11:15.899
+Neil Thomson (QueryVision): Permission to read your entire medical profile,
+
+106
+00:11:16.080 --> 00:11:23.839
+Neil Thomson (QueryVision): You could even go to a doctor and hand it… hand it to them. That's another possibility. It's not you, it's a doctor doing that.
+
+107
+00:11:24.260 --> 00:11:29.700
+Neil Thomson (QueryVision): Certainly there's precedent for that, because the,
+
+108
+00:11:29.980 --> 00:11:35.059
+Neil Thomson (QueryVision): There's a phrase for it in the airline industry, fitness for travel.
+
+109
+00:11:35.420 --> 00:11:52.580
+Neil Thomson (QueryVision): Right, so if you've got issues, they've got, you know, a two-page or 4-page PDF form that you… a doctor has spots to write in all the potential concerns about a patient, or a client of theirs, as to whether they're suitable for travel, right?
+
+110
+00:11:52.950 --> 00:11:54.419
+Neil Thomson (QueryVision): So,
+
+111
+00:11:54.520 --> 00:12:05.939
+Neil Thomson (QueryVision): Now, in that case, the doctor is actually putting the conditions on the page, and it's being handed to the airline who assesses it, but there's no reason why you can't say, okay, needs wheelchair assist to get on the plane.
+
+112
+00:12:06.190 --> 00:12:12.540
+Neil Thomson (QueryVision): Needs, access to power for a, Oxygen concentrator, etc, etc.
+
+113
+00:12:12.680 --> 00:12:19.440
+Neil Thomson (QueryVision): I could say the same thing for, you know, what are the requirements you… what are the needs that come out of your condition, not the conditions themselves.
+
+114
+00:12:19.740 --> 00:12:20.830
+Steven Milstein (Collab.Ventures): Right. Because…
+
+115
+00:12:20.860 --> 00:12:28.440
+Neil Thomson (QueryVision): There's quite a difference. So there are some mechanisms in there, So, so that's…
+
+116
+00:12:28.630 --> 00:12:35.450
+Neil Thomson (QueryVision): You know, but not sharing personal information, like I said, the teeth needs to be in the governance.
+
+117
+00:12:36.170 --> 00:12:39.440
+Neil Thomson (QueryVision): In auditing, and ultimately reputation.
+
+118
+00:12:40.110 --> 00:12:49.900
+Neil Thomson (QueryVision): And credentialing of services, because that's certainly one of the things that the people who know the supply chain in the hospitality and travel industry tell me.
+
+119
+00:12:50.150 --> 00:12:58.089
+Neil Thomson (QueryVision): is that one of the problems you have is outside some of the bigger players, like the Bookings and the Expedias, the major airlines, major hotel chains.
+
+120
+00:12:59.550 --> 00:13:07.140
+Neil Thomson (QueryVision): you know, it gets really thin really quickly in terms of verifiable credentials of any kind. Forget about, you know, electronic ones.
+
+121
+00:13:07.380 --> 00:13:16.609
+Neil Thomson (QueryVision): You know, I get some hotel, and as somebody pointed out, and I may have said this before, I've been told that for a given hotel property, meaning a site.
+
+122
+00:13:16.870 --> 00:13:21.040
+Neil Thomson (QueryVision): There may be as many as 6 different organizations involved.
+
+123
+00:13:21.390 --> 00:13:27.420
+Neil Thomson (QueryVision): From the organization that owns the land, to the organization that built the hotel.
+
+124
+00:13:27.650 --> 00:13:34.609
+Neil Thomson (QueryVision): To the organization that's managing the hotel, to the organization that's managing the customer services at the hotel.
+
+125
+00:13:35.060 --> 00:13:42.649
+Neil Thomson (QueryVision): So, in terms of who are you dealing with as a viable entity, in terms of a financial transaction, like giving them a deposit.
+
+126
+00:13:42.830 --> 00:13:52.139
+Neil Thomson (QueryVision): For, a hotel stay, that gets really kind of thin very quickly. Now.
+
+127
+00:13:53.110 --> 00:14:00.670
+Neil Thomson (QueryVision): What's reasonable for that is that, you know, if somebody's got, you know, an issued organizational thing from within a country.
+
+128
+00:14:00.890 --> 00:14:06.530
+Neil Thomson (QueryVision): Then you're probably… In good shape, and that's the principle behind trust registries, right?
+
+129
+00:14:06.640 --> 00:14:14.179
+Neil Thomson (QueryVision): So I can prove that, and that trail, you know, it's like, we're talking here on Trust Over IP about,
+
+130
+00:14:14.620 --> 00:14:15.780
+Neil Thomson (QueryVision): Trespass.
+
+131
+00:14:16.130 --> 00:14:17.880
+Neil Thomson (QueryVision): Right So…
+
+132
+00:14:18.370 --> 00:14:28.640
+Neil Thomson (QueryVision): Trustpath is, something that, you know, Glyph, as you and I have talked about before, Glyph is certainly an example of an explicit path that you can trace from
+
+133
+00:14:29.220 --> 00:14:33.860
+Neil Thomson (QueryVision): Joe Blow, who says, hey, I'm the purchasing agent for Company X, back up through
+
+134
+00:14:34.010 --> 00:14:47.709
+Neil Thomson (QueryVision): the corporation or sub-corporation through the chain up through the life, so that's… that's a way of verifying that, you know, you're illegitimate. And that's something that is sort of lacking. And what I've also learned from talking with,
+
+135
+00:14:48.460 --> 00:14:50.069
+Neil Thomson (QueryVision): John… John Phillips?
+
+136
+00:14:50.220 --> 00:14:51.609
+Neil Thomson (QueryVision): From Australia?
+
+137
+00:14:51.880 --> 00:14:57.770
+Neil Thomson (QueryVision): He's on the UN… UN Fact… Yeah, true. And, you know…
+
+138
+00:14:57.950 --> 00:15:00.250
+Neil Thomson (QueryVision): As he says, the biggest single issue is
+
+139
+00:15:00.390 --> 00:15:16.069
+Neil Thomson (QueryVision): you can ask for every organization and every nation-state to, you know, follow ecosystem rules of… and have registered entities, you know, somebody who's the equivalent of, you know, the Better Business Bureau or the local…
+
+140
+00:15:16.180 --> 00:15:20.250
+Neil Thomson (QueryVision): I can't recall what typically it is here in Canada.
+
+141
+00:15:21.900 --> 00:15:30.040
+Neil Thomson (QueryVision): You know, you've got, you know, you're a registered business, you're registering either provincially or incorporated… provincially or federally, typically.
+
+142
+00:15:30.160 --> 00:15:35.739
+Neil Thomson (QueryVision): And then acts as a registrar. So, in many countries, there may not be an official registrar, or a credible one.
+
+143
+00:15:36.300 --> 00:15:53.280
+Neil Thomson (QueryVision): But the reality check is that trade happens worldwide, basically based on pieces of PDF paper, faxed and emailed, where somebody is, you know, possibly by reputation, vouched for somebody who's a shipper or a receiver of products.
+
+144
+00:15:53.610 --> 00:15:58.300
+Neil Thomson (QueryVision): So, you know, it's all a little tenuous, by this point.
+
+145
+00:15:59.340 --> 00:16:04.720
+Neil Thomson (QueryVision): So that's… Basically, you know, just to remark upon,
+
+146
+00:16:05.370 --> 00:16:10.780
+Neil Thomson (QueryVision): I guess a general comment that people are still… have a hammer to which everything looks like an ale.
+
+147
+00:16:11.110 --> 00:16:19.789
+Neil Thomson (QueryVision): I've got, you know, cryptographic technology, and I'm gonna tackle every problem as being something that's technically solvable.
+
+148
+00:16:20.440 --> 00:16:25.450
+Neil Thomson (QueryVision): And, my understanding is that the pushback on
+
+149
+00:16:25.940 --> 00:16:29.500
+Neil Thomson (QueryVision): both said KPs, and there's a lot of money being thrown at it.
+
+150
+00:16:30.090 --> 00:16:39.040
+Neil Thomson (QueryVision): renewed, levels of money being thrown at ZKPs to do the more… Complex kind of zero-knowledge proofs.
+
+151
+00:16:39.540 --> 00:16:43.599
+Neil Thomson (QueryVision): But the price of that is also, execution time.
+
+152
+00:16:44.030 --> 00:16:47.939
+Neil Thomson (QueryVision): So that means your cost of each transaction or each proof goes up.
+
+153
+00:16:48.310 --> 00:16:51.209
+Neil Thomson (QueryVision): And of course, the same thing applies to,
+
+154
+00:16:51.830 --> 00:16:58.890
+Neil Thomson (QueryVision): and Drummond said it, he said the concern of the industry is they have a technical solution in terms of batch… batch-issued credentials, but…
+
+155
+00:17:00.670 --> 00:17:08.809
+Neil Thomson (QueryVision): Number one, your wallet better be pretty, pretty sizable. And number two, the cost of generating, you know, thousands of credentials.
+
+156
+00:17:08.819 --> 00:17:10.619
+Steven Milstein (Collab.Ventures): What is the batch credentials?
+
+157
+00:17:10.980 --> 00:17:14.430
+Neil Thomson (QueryVision): Well, basically, it's take a verifiable credential.
+
+158
+00:17:14.990 --> 00:17:20.270
+Neil Thomson (QueryVision): And using one-time signatures that are backed by, you know, the ultimate private key.
+
+159
+00:17:20.400 --> 00:17:28.870
+Neil Thomson (QueryVision): Is generate a whole series of one-offs that can be provable as being, shall we say, an official copy.
+
+160
+00:17:29.650 --> 00:17:34.020
+Steven Milstein (Collab.Ventures): Oh, that's the thing you said before, so here's a thousand copies, the one-time use, my password.
+
+161
+00:17:34.020 --> 00:17:44.979
+Neil Thomson (QueryVision): Yeah, one-time use that… and it's back to, you know, Sam Smith has always said, look, they're not making it impossible to trace you on that, they're just making it much more expensive.
+
+162
+00:17:45.270 --> 00:17:45.960
+Neil Thomson (QueryVision): Right.
+
+163
+00:17:46.110 --> 00:17:48.610
+Neil Thomson (QueryVision): So if, you know…
+
+164
+00:17:48.610 --> 00:17:51.880
+Steven Milstein (Collab.Ventures): I could have generating a thousand of these if you only need one at a time?
+
+165
+00:17:53.160 --> 00:17:54.970
+Neil Thomson (QueryVision): Because you…
+
+166
+00:17:54.970 --> 00:18:04.459
+Steven Milstein (Collab.Ventures): like, you know, two-factor authentication, right? It's a one-time password. When you need it, you generate it, and you send it. What would be the point of creating a thousand of them?
+
+167
+00:18:05.330 --> 00:18:11.650
+Neil Thomson (QueryVision): Well, it's the sense that, you know, you've got to reply with, you know, some, like, a public key.
+
+168
+00:18:12.040 --> 00:18:30.810
+Neil Thomson (QueryVision): to verify that you own, in fact, you own the credential, so something has to get registered. It's just that if you're looking across multiple transactions and use a new one for each transaction, then you're… you can't be linked based on that use of that particular credential. So, if every time you have to, let's say every time you…
+
+169
+00:18:31.040 --> 00:18:35.790
+Neil Thomson (QueryVision): Walked into a bar or a restaurant, you had to, prove your age.
+
+170
+00:18:36.630 --> 00:18:41.520
+Neil Thomson (QueryVision): Or prove… the same thing could apply to proving you have a payment card.
+
+171
+00:18:42.130 --> 00:18:48.970
+Neil Thomson (QueryVision): If the credential associated with a credit card is… you can be tracked on… on… on your credit card use, everywhere it pings up.
+
+172
+00:18:49.170 --> 00:18:53.630
+Neil Thomson (QueryVision): Then, if somebody has access, or people agree to share, Transaction record.
+
+173
+00:18:53.630 --> 00:18:55.850
+Steven Milstein (Collab.Ventures): So, I want to generate the one-off.
+
+174
+00:18:56.040 --> 00:18:59.009
+Steven Milstein (Collab.Ventures): on demand. Why do you have to create a batch of them?
+
+175
+00:18:59.170 --> 00:19:01.409
+Neil Thomson (QueryVision): Because then it's not issued yet.
+
+176
+00:19:03.880 --> 00:19:10.259
+Neil Thomson (QueryVision): It's not… it doesn't have an issuer. You're now generating it yourself, which means, okay, now… so, that's my understanding.
+
+177
+00:19:10.420 --> 00:19:12.950
+Neil Thomson (QueryVision): Is that it still needs to have
+
+178
+00:19:13.080 --> 00:19:23.990
+Neil Thomson (QueryVision): Ultimately backed up through the trust path, that the issuer is using something that it's got this hidden backroom key that it can be traced to as being the actual issuer, whereas if you're doing it.
+
+179
+00:19:24.320 --> 00:19:26.639
+Neil Thomson (QueryVision): Short of it… Right.
+
+180
+00:19:27.190 --> 00:19:44.230
+Steven Milstein (Collab.Ventures): I mean, if you think about when you get medication or a prescription from your doctor, and you're able to refill it X number of times, right? I don't go to the doctor every time I need to fill the bottle, I only need to go when I've, you know, I hit my max, or whatever, my expiration date.
+
+181
+00:19:44.500 --> 00:19:45.330
+Steven Milstein (Collab.Ventures): So…
+
+182
+00:19:47.320 --> 00:19:57.550
+Steven Milstein (Collab.Ventures): the way, like, Batch sounds, like, they're gonna give me, like, a thousand bottles of medication for me to use when I need, as opposed to just go fill it up when you need it. So, why couldn't you cry.
+
+183
+00:19:57.550 --> 00:19:58.000
+Neil Thomson (QueryVision): Yeah.
+
+184
+00:19:58.000 --> 00:20:03.709
+Steven Milstein (Collab.Ventures): assure that the one I generated is exactly the same thing that was generated by the issuer.
+
+185
+00:20:03.870 --> 00:20:06.479
+Steven Milstein (Collab.Ventures): That doesn't seem like a hard problem to solve.
+
+186
+00:20:07.230 --> 00:20:19.930
+Neil Thomson (QueryVision): Well, for whatever reason, this is the path they took, right? You know, there are always ways to familiariate that, and your level of confidence depends on who's asking the question, or who's putting the criteria.
+
+187
+00:20:20.230 --> 00:20:24.550
+Neil Thomson (QueryVision): can go up and down, and there's many different ways to do it, right?
+
+188
+00:20:24.650 --> 00:20:44.409
+Neil Thomson (QueryVision): you know, it's… so there's lots of solutions out there. It's just the remark that, you know, looking at linkability in a very narrow window and on very specialized circumstances, that's going to help you. Does not solve the general problem of overall data privacy. That's, I think, the main point that I take away from it.
+
+189
+00:20:44.790 --> 00:20:54.950
+Neil Thomson (QueryVision): Is that, you know, you're not going to get personal services without sharing that information, and if it's been shared, even… even if it's, like.
+
+190
+00:20:55.190 --> 00:20:59.550
+Neil Thomson (QueryVision): I don't know how to thank our Kurt Strummond for giving the term to a micro-sharing.
+
+191
+00:21:00.290 --> 00:21:11.009
+Neil Thomson (QueryVision): Even if you're doing extremely tightly bound selective disclosure through microsharing, with the right to come back and ask for it later as a token that you would issue.
+
+192
+00:21:11.290 --> 00:21:14.870
+Neil Thomson (QueryVision): You still have, you know, the cumulative
+
+193
+00:21:15.030 --> 00:21:22.009
+Neil Thomson (QueryVision): Effect problem of over many transactions, that people, you know, sit there and collect it, and then decide to share it.
+
+194
+00:21:22.500 --> 00:21:27.169
+Neil Thomson (QueryVision): Then, you know, and there's nothing absolutely stopping people from sharing data.
+
+195
+00:21:27.290 --> 00:21:35.110
+Neil Thomson (QueryVision): Short of, somehow colorizing the information, but… You know, once the data's Once the data's been shared.
+
+196
+00:21:35.350 --> 00:21:38.670
+Neil Thomson (QueryVision): You can't really control the processing of that information.
+
+197
+00:21:39.100 --> 00:21:52.479
+Neil Thomson (QueryVision): And reporting of it. You know, there's no absolute guarantee if someone's really determined to do so, you need that in the clear to actually use it. Otherwise, the alternative is to make it so difficult to process that the costs go up and people say.
+
+198
+00:21:53.000 --> 00:21:58.360
+Neil Thomson (QueryVision): We're not going to use that technique, because we can't afford the cycles like ZKP.
+
+199
+00:22:02.300 --> 00:22:03.060
+Neil Thomson (QueryVision): So…
+
+200
+00:22:04.550 --> 00:22:11.280
+Steven Milstein (Collab.Ventures): Well, I don't know the travel industry like you do now, but my suspicion is that…
+
+201
+00:22:11.660 --> 00:22:16.379
+Steven Milstein (Collab.Ventures): Personal information is a lot more valuable to them than it is to me.
+
+202
+00:22:16.630 --> 00:22:24.169
+Steven Milstein (Collab.Ventures): So, if they want to know, can they send me on a scuba diving trip, that has more dollar value for them than if I just
+
+203
+00:22:24.470 --> 00:22:26.740
+Steven Milstein (Collab.Ventures): See a list of services in the area.
+
+204
+00:22:27.100 --> 00:22:39.409
+Steven Milstein (Collab.Ventures): like, I don't see a big benefit about them saying, hey, do you want to go scuba diving? I think I would know that they're, you know, that that area has scuba diving, whether it's through them or not, and I just think it sounds like…
+
+205
+00:22:40.070 --> 00:22:45.619
+Steven Milstein (Collab.Ventures): the data capture is much more beneficial to them than it is for me. I don't…
+
+206
+00:22:46.160 --> 00:22:57.009
+Steven Milstein (Collab.Ventures): I can't imagine… I mean, I'm not talking about, you know, the John Jordans, you know, traveling on Air Canada situation, that's completely different, but whether I like shellfish or not…
+
+207
+00:22:57.480 --> 00:23:02.689
+Steven Milstein (Collab.Ventures): Aside from allergies, it just seems to be… there's a lot more…
+
+208
+00:23:02.970 --> 00:23:08.730
+Steven Milstein (Collab.Ventures): benefit, like, ROI on that data for the industry than it is for the traveler.
+
+209
+00:23:10.430 --> 00:23:13.990
+Neil Thomson (QueryVision): Yeah, very much so. But again… Jerry Harris.
+
+210
+00:23:13.990 --> 00:23:14.909
+Steven Milstein (Collab.Ventures): wall at all.
+
+211
+00:23:15.820 --> 00:23:16.510
+Neil Thomson (QueryVision): Sir?
+
+212
+00:23:16.510 --> 00:23:19.320
+Steven Milstein (Collab.Ventures): I don't… I don't really think it serves me that well.
+
+213
+00:23:19.930 --> 00:23:21.530
+Steven Milstein (Collab.Ventures): I mean… I mean, if I'm willing…
+
+214
+00:23:21.940 --> 00:23:25.960
+Steven Milstein (Collab.Ventures): But I'm obviously going on a skate trip. I mean, I didn't choose to go to a beach.
+
+215
+00:23:26.890 --> 00:23:28.060
+Steven Milstein (Collab.Ventures): So…
+
+216
+00:23:28.060 --> 00:23:38.270
+Neil Thomson (QueryVision): I think it's really the… if I understand the base purpose behind the linkability question, is that nobody can say, okay.
+
+217
+00:23:38.430 --> 00:23:44.429
+Neil Thomson (QueryVision): We've now watched you, and we've watched everywhere you spent money, or everywhere you had to show, you know, certain information.
+
+218
+00:23:44.540 --> 00:24:01.460
+Neil Thomson (QueryVision): Or, you know, we saw you traveled, you know, through this country, or whatever else. The linkability thing is, you know, which is also the reason there's been so much of a pushback on the MDL driving license, because it has a feature baked into it to call home every time your license is presented.
+
+219
+00:24:01.740 --> 00:24:05.999
+Neil Thomson (QueryVision): It goes back to the government, or some agency.
+
+220
+00:24:06.360 --> 00:24:12.100
+Neil Thomson (QueryVision): So that… I would agree. In fact, if anything,
+
+221
+00:24:12.340 --> 00:24:22.939
+Neil Thomson (QueryVision): the sort of information that I'm hearing about, like, altitude-related tricks, or… actually, if you think about it, scuba divers going, you know, is also…
+
+222
+00:24:23.400 --> 00:24:24.839
+Steven Milstein (Collab.Ventures): Opposite altitude.
+
+223
+00:24:24.840 --> 00:24:31.570
+Neil Thomson (QueryVision): It's a risk, but it also involves the limitations about scuba diving are also about your ability to breathe, you know. Right.
+
+224
+00:24:31.800 --> 00:24:41.729
+Neil Thomson (QueryVision): And your fitness and everything else. So, you know, something that's, you know, directly related to your, let's call it aerobic capabilities.
+
+225
+00:24:42.020 --> 00:24:43.400
+Steven Milstein (Collab.Ventures): In general, fitness.
+
+226
+00:24:43.470 --> 00:24:48.729
+Neil Thomson (QueryVision): Like I said, I, you know, a few months ago, did questions of saying, what are…
+
+227
+00:24:48.880 --> 00:25:05.910
+Neil Thomson (QueryVision): what's the kind of information that, you know, a ski resort, you know, particularly a custom ski resort, is looking for, you know, that caters to, you know, specialized needs? So something like the bugaboos out in BC, where you're, you know, you're doing a helicopter skiing, right? You better be pretty supremely fit to do that.
+
+228
+00:25:06.030 --> 00:25:13.800
+Neil Thomson (QueryVision): Or scuba diving, right? It's okay. So, I need to know that you're certified fit,
+
+229
+00:25:14.120 --> 00:25:19.139
+Neil Thomson (QueryVision): So, you know, some of these scuba divers are saying, okay, I want to see
+
+230
+00:25:19.410 --> 00:25:25.959
+Neil Thomson (QueryVision): I want you to contact a fitness professional who's got credentials, and have him do, you know, this test.
+
+231
+00:25:26.120 --> 00:25:34.840
+Neil Thomson (QueryVision): Right? And see what your heart rate is, what's your recovery time, whether you can even do the fitness test, yes or no, because it ain't, you know, it's been…
+
+232
+00:25:35.350 --> 00:25:38.849
+Neil Thomson (QueryVision): More than 25 years since I last, what, scuba diving.
+
+233
+00:25:40.270 --> 00:25:49.190
+Neil Thomson (QueryVision): But yeah, they… when I went, you didn't have to have an Allie or Paddy cart, which the two, at least in North America.
+
+234
+00:25:49.410 --> 00:25:51.540
+Neil Thomson (QueryVision): certification groups.
+
+235
+00:25:51.710 --> 00:25:55.840
+Neil Thomson (QueryVision): But you had to show you were fit, and they put you through some pretty grueling
+
+236
+00:25:56.160 --> 00:25:59.630
+Neil Thomson (QueryVision): swim and other tests, before they let you go anywhere near Ireland.
+
+237
+00:25:59.770 --> 00:26:10.900
+Neil Thomson (QueryVision): a tank. Because, you know, the downsides are really, really horrendous if they've got a… especially if they had a group of, like, 6 or 7 people, all of whom were kind of questionable.
+
+238
+00:26:11.150 --> 00:26:15.249
+Neil Thomson (QueryVision): You know, one or two gets in trouble, man, you're… as a truer operator, you're…
+
+239
+00:26:15.480 --> 00:26:17.530
+Neil Thomson (QueryVision): Really bad shape for that.
+
+240
+00:26:17.950 --> 00:26:33.039
+Neil Thomson (QueryVision): So I understand that, you know… and to your point, having current, very current information on certain aspects, you know, and certainly certain medical conditions, it'd be reasonable to flag that, okay, have you… can you hand me a doctor's note saying.
+
+241
+00:26:33.140 --> 00:26:38.190
+Neil Thomson (QueryVision): You're… you're in good shape for the next 2 months to… to fly, or… Or do whatever.
+
+242
+00:26:38.510 --> 00:26:42.380
+Neil Thomson (QueryVision): Makes a lot of sense without revealing what the underlying problem is.
+
+243
+00:26:43.480 --> 00:26:44.240
+Neil Thomson (QueryVision): So…
+
+244
+00:26:47.700 --> 00:26:52.219
+Neil Thomson (QueryVision): Just says, credentials are going to get used for a whole bunch of things, including, you know.
+
+245
+00:26:52.810 --> 00:26:59.260
+Neil Thomson (QueryVision): somebody… in other words, I would say, you know, doctors and lawyers all getting, as part of their
+
+246
+00:26:59.820 --> 00:27:02.289
+Neil Thomson (QueryVision): Certification has, you know,
+
+247
+00:27:02.450 --> 00:27:10.370
+Neil Thomson (QueryVision): practice… a lawyer who can practice in a given jurisdiction, or the same thing for physicians, is they get a credential, they can
+
+248
+00:27:10.570 --> 00:27:13.200
+Neil Thomson (QueryVision): I'll say, okay, I'm gonna sign notes with that.
+
+249
+00:27:13.460 --> 00:27:16.140
+Neil Thomson (QueryVision): So that can go straight through, and then…
+
+250
+00:27:17.410 --> 00:27:26.509
+Neil Thomson (QueryVision): then, you know, it would streamline a lot of questions, because as I said, going through John Jordan's thing, it took him 2 full months.
+
+251
+00:27:27.110 --> 00:27:28.729
+Neil Thomson (QueryVision): To get a go-ahead.
+
+252
+00:27:28.910 --> 00:27:31.620
+Neil Thomson (QueryVision): For him to travel by air.
+
+253
+00:27:31.840 --> 00:27:32.620
+Neil Thomson (QueryVision): So…
+
+254
+00:27:33.440 --> 00:27:50.050
+Neil Thomson (QueryVision): That's a lot of cost for the airline and for, you know, the time for the person traveling. So if that stuff was available, ding, ding, you know, and now it's on the record, and, you know, you could even say, okay, your credential for that expires yearly, you have to have a new note. That can happen in the background.
+
+255
+00:27:50.690 --> 00:27:55.730
+Neil Thomson (QueryVision): So… In other words, privacy is…
+
+256
+00:27:55.870 --> 00:27:58.870
+Neil Thomson (QueryVision): No, there's no… there's no simple technical hack.
+
+257
+00:27:59.500 --> 00:28:03.729
+Neil Thomson (QueryVision): If I had to put in a single phrase, that would be it.
+
+258
+00:28:04.170 --> 00:28:06.169
+Neil Thomson (QueryVision): There's no technical solution for it.
+
+259
+00:28:07.670 --> 00:28:10.870
+Neil Thomson (QueryVision): Especially if it's an unscrupulous vendor who's looking.
+
+260
+00:28:10.870 --> 00:28:18.929
+Steven Milstein (Collab.Ventures): Right, like you said, it has to do with the governance, it has to do with auditability, it has to do with relationships and reputation. And those are all soft.
+
+261
+00:28:19.780 --> 00:28:26.509
+Steven Milstein (Collab.Ventures): Right? I mean, as long as you survive an audit, there's a… at least you get a reputation, but it's as good as the auditor.
+
+262
+00:28:27.870 --> 00:28:37.780
+Neil Thomson (QueryVision): Yeah, the only thing you could… you could, you know, if you've got a lot of sources backing the reputation who themselves graded on their reputability, then…
+
+263
+00:28:38.210 --> 00:28:43.479
+Neil Thomson (QueryVision): That's, well, it's like having Consumer Reports, rank your television high enough.
+
+264
+00:28:43.480 --> 00:28:52.099
+Steven Milstein (Collab.Ventures): that you see on TV, the ads like Trust Advisor, or stuff like that, you know, Trustpilot, that's basically what it's gonna come down to, whether you believe it or not.
+
+265
+00:28:53.130 --> 00:28:58.690
+Steven Milstein (Collab.Ventures): But there's no… I agree, there's no technical solution to privacy, because it's just not possible.
+
+266
+00:28:59.800 --> 00:29:01.169
+Neil Thomson (QueryVision): Not in the… not…
+
+267
+00:29:01.170 --> 00:29:08.179
+Steven Milstein (Collab.Ventures): It's like the person said, it's a lot easier to copy a digital, you know, copy of something than it is a physical one.
+
+268
+00:29:08.330 --> 00:29:14.800
+Steven Milstein (Collab.Ventures): You don't see the border security agents taking scans with their phone of your, passport.
+
+269
+00:29:16.240 --> 00:29:17.149
+Steven Milstein (Collab.Ventures): Well, they do anyway.
+
+270
+00:29:17.150 --> 00:29:18.140
+Neil Thomson (QueryVision): No.
+
+271
+00:29:18.350 --> 00:29:22.690
+Neil Thomson (QueryVision): Yeah, well, that's just it. It's, it's, it's sort of, like, certainly…
+
+272
+00:29:22.810 --> 00:29:32.470
+Neil Thomson (QueryVision): Certainly, anything I've seen and heard says that, you know, something on your smartphone where you, you know, they watch you confirm that it's you on the
+
+273
+00:29:32.940 --> 00:29:39.770
+Neil Thomson (QueryVision): With your own phone, saying, yep, this is the owner of the phone, and then you show going through the process, and then you say, here's the certificate, they go.
+
+274
+00:29:40.130 --> 00:29:45.310
+Neil Thomson (QueryVision): Boom. It reduces their costs, it speeds up, you know,
+
+275
+00:29:45.470 --> 00:29:52.129
+Neil Thomson (QueryVision): boarding planes and everything else, they're all gung-ho for it. It's proliferating for, you know, certainly for the upper
+
+276
+00:29:52.410 --> 00:29:53.870
+Neil Thomson (QueryVision): Upper price range travel.
+
+277
+00:29:56.540 --> 00:29:58.470
+Neil Thomson (QueryVision): That doesn't mean the plane's not gonna be late.
+
+278
+00:29:59.890 --> 00:30:00.440
+Neil Thomson (QueryVision): Yep.
+
+279
+00:30:00.940 --> 00:30:02.169
+Steven Milstein (Collab.Ventures): It's a different problem.
+
+280
+00:30:04.280 --> 00:30:10.110
+Neil Thomson (QueryVision): Okay, well, that's all I have for this week, was just to touch on that, you know, in terms of,
+
+281
+00:30:10.430 --> 00:30:13.039
+Neil Thomson (QueryVision): You know, so selective disclosure does something for you.
+
+282
+00:30:13.810 --> 00:30:18.399
+Neil Thomson (QueryVision): In other words, you're not necessarily inadvertently,
+
+283
+00:30:18.840 --> 00:30:23.960
+Neil Thomson (QueryVision): Handing across the whole information, but if you look at historically over time.
+
+284
+00:30:24.970 --> 00:30:31.970
+Neil Thomson (QueryVision): You know, you've got the competition of people need to know that you're up-to-date information, so them holding it is not a good thing.
+
+285
+00:30:32.240 --> 00:30:39.970
+Neil Thomson (QueryVision): And, you know, one of the things that the project is doing is talking to insurers like Chubb, etc, as to
+
+286
+00:30:40.690 --> 00:30:47.330
+Neil Thomson (QueryVision): What do they consider the risks to be in terms of the impact of sharing personal data on?
+
+287
+00:30:48.480 --> 00:30:54.080
+Neil Thomson (QueryVision): On cyber insurance costs, and basically the answer is, if you have
+
+288
+00:30:54.230 --> 00:31:01.200
+Neil Thomson (QueryVision): You know, very… if you have very careless personal data management as a company, your cyber costs are going to double.
+
+289
+00:31:02.190 --> 00:31:13.639
+Neil Thomson (QueryVision): And… and just out of that small portion, so… so the risk is… is… that says several things to me. One is the insurance industry puts a very high,
+
+290
+00:31:14.770 --> 00:31:15.890
+Neil Thomson (QueryVision): impact.
+
+291
+00:31:16.040 --> 00:31:26.309
+Neil Thomson (QueryVision): on personal data as the stuff that is going to be come after by… by someone. It's, you know, once they, you know, stolen the identity, they can say.
+
+292
+00:31:26.690 --> 00:31:30.679
+Neil Thomson (QueryVision): You know, enough of the information to convince someone else they're you.
+
+293
+00:31:31.310 --> 00:31:34.969
+Neil Thomson (QueryVision): The other thing is, of course, payment cards.
+
+294
+00:31:35.470 --> 00:31:40.410
+Neil Thomson (QueryVision): But my understanding from some conversations, by…
+
+295
+00:31:40.660 --> 00:31:43.850
+Neil Thomson (QueryVision): Visa Europe and other organizations say.
+
+296
+00:31:44.080 --> 00:31:51.110
+Neil Thomson (QueryVision): You know, they're going to work… their approach is that the merchant never sees Anything.
+
+297
+00:31:51.810 --> 00:31:59.639
+Neil Thomson (QueryVision): The, you know, instead of hand… like, it went from, you're handing over your credit card, zinc, zinc, they've got your number, and your expiry date.
+
+298
+00:31:59.760 --> 00:32:05.090
+Neil Thomson (QueryVision): And then with most recent stuff, where you're doing a tap, it's doing a one-time code.
+
+299
+00:32:05.340 --> 00:32:07.420
+Neil Thomson (QueryVision): Which says, yes, this is authorized.
+
+300
+00:32:07.620 --> 00:32:14.739
+Neil Thomson (QueryVision): Based on, you know, in other words, the app on the phone saying, handing over something that is, you know, I've got a… I've got a key.
+
+301
+00:32:15.150 --> 00:32:18.510
+Neil Thomson (QueryVision): that the app has got from, say, Visa.
+
+302
+00:32:18.690 --> 00:32:20.120
+Steven Milstein (Collab.Ventures): or MasterCard.
+
+303
+00:32:20.120 --> 00:32:23.949
+Neil Thomson (QueryVision): Let's say, the merchant, all their terminal gets is.
+
+304
+00:32:24.130 --> 00:32:29.080
+Neil Thomson (QueryVision): Is the, is that one-time code to say, yes, you're going to get paid. Right.
+
+305
+00:32:29.080 --> 00:32:29.640
+Steven Milstein (Collab.Ventures): Hmm.
+
+306
+00:32:29.820 --> 00:32:34.699
+Neil Thomson (QueryVision): But you're still, in many cases, you still have a lot of people saying, we want to have your credit card on file.
+
+307
+00:32:35.210 --> 00:32:41.180
+Neil Thomson (QueryVision): Well, they're going, well, we're no longer gonna do that. You're gonna have… your app is gonna do all the work.
+
+308
+00:32:41.450 --> 00:32:43.879
+Neil Thomson (QueryVision): And they're never gonna know what your credit card is.
+
+309
+00:32:44.390 --> 00:32:51.649
+Neil Thomson (QueryVision): They can come and ask for verification or do a mini transaction to make sure it's valid, like a one-sentence thing, but…
+
+310
+00:32:52.030 --> 00:32:58.600
+Neil Thomson (QueryVision): Holding someone's payment card on file is just gonna become a thing of the past because of the…
+
+311
+00:32:59.100 --> 00:33:00.650
+Neil Thomson (QueryVision): Honeypot factor.
+
+312
+00:33:00.960 --> 00:33:01.710
+Neil Thomson (QueryVision): Right.
+
+313
+00:33:01.900 --> 00:33:04.860
+Neil Thomson (QueryVision): So one of the things people have commented on is Spain.
+
+314
+00:33:04.960 --> 00:33:12.489
+Neil Thomson (QueryVision): Ask for an insane amount of information. They want to hold your passport, you know, passport, your personal name.
+
+315
+00:33:13.270 --> 00:33:18.060
+Neil Thomson (QueryVision): Who you work for, and everything else, and so, it's just…
+
+316
+00:33:18.310 --> 00:33:22.900
+Neil Thomson (QueryVision): created a huge potential of the Spanish,
+
+317
+00:33:23.030 --> 00:33:33.689
+Neil Thomson (QueryVision): you know, if someone ever breaches the Spanish servers, they're gonna know, you know, insane amounts of level of detail. And the hotels have to report that information, including all your passport information and everything else.
+
+318
+00:33:33.800 --> 00:33:39.780
+Neil Thomson (QueryVision): To the, to the local government, which is… kind of cringe-worthy.
+
+319
+00:33:39.890 --> 00:33:42.010
+Neil Thomson (QueryVision): But that's where it is right now.
+
+320
+00:33:44.740 --> 00:33:47.499
+Steven Milstein (Collab.Ventures): Cool, what's your next milestone?
+
+321
+00:33:48.580 --> 00:33:53.959
+Neil Thomson (QueryVision): It's really getting the… On this project, or the…
+
+322
+00:33:54.970 --> 00:33:55.790
+Steven Milstein (Collab.Ventures): this.
+
+323
+00:33:57.060 --> 00:34:03.600
+Neil Thomson (QueryVision): I don't really… at this point, I'm not quite sure what to cover off, because data is…
+
+324
+00:34:03.760 --> 00:34:06.930
+Neil Thomson (QueryVision): Not a hot topic in trust over AP,
+
+325
+00:34:07.370 --> 00:34:13.299
+Neil Thomson (QueryVision): you know, it's hot over on DIF because of the project we're working on for the hospitality and travel, but…
+
+326
+00:34:13.449 --> 00:34:21.290
+Neil Thomson (QueryVision): I, yeah, so there's a large part of how does data fit into that world, so we're certainly talking about it here in terms of data privacy.
+
+327
+00:34:21.520 --> 00:34:29.170
+Neil Thomson (QueryVision): But I'm not really clear what additional topics are of interest. Have you got any, that you might suggest?
+
+328
+00:34:29.179 --> 00:34:33.479
+Steven Milstein (Collab.Ventures): No, I'm talking about from the hospitality, from DIP's point of view, I'm not talking about trust over IP.
+
+329
+00:34:35.210 --> 00:34:41.110
+Neil Thomson (QueryVision): Well, the travel profile is I've got it up and working, so I'm about to do first major check-in.
+
+330
+00:34:41.449 --> 00:34:46.630
+Neil Thomson (QueryVision): Of… of a completely working system. But without all the…
+
+331
+00:34:46.820 --> 00:34:49.030
+Neil Thomson (QueryVision): Preferences and whatever else filled in.
+
+332
+00:34:49.150 --> 00:34:54.559
+Neil Thomson (QueryVision): Because, you know, I've run through and tripped across mugs with even some basic stuff.
+
+333
+00:34:56.260 --> 00:35:06.579
+Neil Thomson (QueryVision): So it's to get it out there and get more people cranked on it, so we can start cranking out the actual content, get out for proof of concept early in the first quarter of next year.
+
+334
+00:35:07.320 --> 00:35:11.109
+Neil Thomson (QueryVision): So, it's been a lot more complicated than I expected.
+
+335
+00:35:11.460 --> 00:35:13.890
+Steven Milstein (Collab.Ventures): Right. Like I said, GitHub is.
+
+336
+00:35:14.310 --> 00:35:19.990
+Neil Thomson (QueryVision): GitHub so overwhelmingly dictates how you do software development.
+
+337
+00:35:20.340 --> 00:35:27.540
+Neil Thomson (QueryVision): In terms of how you think about it, how you organize it on disk, what your cycle is, what order you do things in.
+
+338
+00:35:29.120 --> 00:35:36.680
+Neil Thomson (QueryVision): And yeah, there's lots of automation out there, but you're available, but you've got to customize it and get it working.
+
+339
+00:35:38.130 --> 00:35:41.370
+Neil Thomson (QueryVision): And, make lots of snapshots in case something goes wrong.
+
+340
+00:35:42.810 --> 00:35:45.569
+Neil Thomson (QueryVision): So that learning curve has been substantial.
+
+341
+00:35:46.010 --> 00:35:46.760
+Steven Milstein (Collab.Ventures): Yeah.
+
+342
+00:35:47.490 --> 00:35:50.770
+Neil Thomson (QueryVision): And so there's a lot of moving parts in there.
+
+343
+00:35:52.280 --> 00:35:57.979
+Neil Thomson (QueryVision): That, you know, the rest of the… anybody who's been in software the last 15
+
+344
+00:35:58.350 --> 00:36:02.739
+Neil Thomson (QueryVision): 15 years as a… someone who's got co-deliverables on their plate.
+
+345
+00:36:03.810 --> 00:36:08.840
+Neil Thomson (QueryVision): They've so internally committed to it, it's, it's,
+
+346
+00:36:09.240 --> 00:36:20.439
+Neil Thomson (QueryVision): You know, in other words, it's just taken for granted that you've been spending your entire career on this stuff, so you should know everything there is to know about it, which gets doubly complicated when you're creating
+
+347
+00:36:20.720 --> 00:36:23.880
+Neil Thomson (QueryVision): a GitHub repository without… Assisting.
+
+348
+00:36:23.880 --> 00:36:26.290
+Steven Milstein (Collab.Ventures): Yeah, well, that's pretty good at helping out.
+
+349
+00:36:26.670 --> 00:36:27.719
+Steven Milstein (Collab.Ventures): I'll tell you that.
+
+350
+00:36:27.720 --> 00:36:31.980
+Neil Thomson (QueryVision): No, that… I would say yes. If it hadn't been for that, I'd still be floundering.
+
+351
+00:36:32.380 --> 00:36:32.990
+Steven Milstein (Collab.Ventures): Right.
+
+352
+00:36:32.990 --> 00:36:33.390
+Neil Thomson (QueryVision): So.
+
+353
+00:36:33.390 --> 00:36:34.180
+Steven Milstein (Collab.Ventures): Yeah. At this point.
+
+354
+00:36:34.180 --> 00:36:35.559
+Neil Thomson (QueryVision): I mean, it says, here…
+
+355
+00:36:36.710 --> 00:36:44.329
+Neil Thomson (QueryVision): Here's the standard way to do it, and based on your requirements that you're giving me, I'll fix it, and have a look at it, and go.
+
+356
+00:36:44.470 --> 00:36:51.430
+Neil Thomson (QueryVision): Okay, I get it, but that's not really what I meant, so… but at least it's good at that kind of iteration kind of stuff, so…
+
+357
+00:36:51.590 --> 00:36:52.080
+Steven Milstein (Collab.Ventures): Yup.
+
+358
+00:36:52.080 --> 00:36:54.209
+Neil Thomson (QueryVision): It… it was like having…
+
+359
+00:36:54.510 --> 00:37:02.140
+Neil Thomson (QueryVision): Someone who doesn't have the domain expertise, or the creativity expertise, but understands the technology and how to get it to do stuff.
+
+360
+00:37:02.870 --> 00:37:10.359
+Steven Milstein (Collab.Ventures): Right. It's like having a geek next to you who can answer very specific questions. Doesn't know what you're doing, but they can answer those questions.
+
+361
+00:37:10.650 --> 00:37:11.170
+Steven Milstein (Collab.Ventures): Yeah?
+
+362
+00:37:11.170 --> 00:37:11.700
+Neil Thomson (QueryVision): I joke.
+
+363
+00:37:11.700 --> 00:37:14.939
+Steven Milstein (Collab.Ventures): I think it's been very helpful in that… in that area, too.
+
+364
+00:37:16.030 --> 00:37:19.449
+Neil Thomson (QueryVision): Yeah, so the skill is in knowing the right questions to ask.
+
+365
+00:37:20.580 --> 00:37:23.190
+Steven Milstein (Collab.Ventures): Yes. Yeah, that's right.
+
+366
+00:37:24.860 --> 00:37:25.650
+Neil Thomson (QueryVision): Alright.
+
+367
+00:37:25.650 --> 00:37:26.670
+Steven Milstein (Collab.Ventures): Very good.
+
+368
+00:37:26.670 --> 00:37:32.030
+Neil Thomson (QueryVision): bet, and we'll see what it comes up with in terms of recording on this one.
+
+369
+00:37:32.900 --> 00:37:35.570
+Steven Milstein (Collab.Ventures): Alright, thanks, Neil. Good luck.
+
+370
+00:37:36.220 --> 00:37:36.860
+Neil Thomson (QueryVision): Yep.
+
+371
+00:37:37.120 --> 00:37:37.590
+Steven Milstein (Collab.Ventures): Okay.
+
+372
+00:37:37.590 --> 00:37:38.200
+Neil Thomson (QueryVision): Fox it.
+

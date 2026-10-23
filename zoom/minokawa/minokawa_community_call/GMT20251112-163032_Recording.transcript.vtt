@@ -1,0 +1,1734 @@
+WEBVTT
+
+1
+00:00:01.790 --> 00:00:03.629
+Iskander: This meeting is being recorded.
+
+2
+00:01:35.870 --> 00:01:37.120
+Kevin Millikin: Hello?
+
+3
+00:01:42.630 --> 00:01:45.110
+Kevin Millikin: Trying to remember how to see all the participants.
+
+4
+00:01:46.660 --> 00:01:48.470
+Kevin Millikin: Looks like maybe we're waiting for Joe.
+
+5
+00:02:07.610 --> 00:02:08.860
+Hector (MNF): Hey, guys.
+
+6
+00:02:09.780 --> 00:02:20.329
+Hector (MNF): I have a quick question before we start, if you don't mind. If I want to log a bug, or an issue I'm facing, what's the best place for you guys to… to push it?
+
+7
+00:02:21.340 --> 00:02:26.530
+Kevin Millikin: Do you have access to, the…
+
+8
+00:02:26.600 --> 00:02:30.880
+Hector (MNF): internal repository that's named Compact-Export.
+
+9
+00:02:31.650 --> 00:02:33.170
+Hector (MNF): Yes, I do.
+
+10
+00:02:33.170 --> 00:02:48.620
+Kevin Millikin: Yeah, so if you file it there, I think that's the best way to file a GitHub bug. The other thing you can do is, in the Slack channel, the topic languages, or maybe it's just called languages, Slack channel, you can just post in there as well.
+
+11
+00:02:48.720 --> 00:03:06.319
+Kevin Millikin: There's not… there's not a great answer right now for, how to… how to do that, and the answer in the future is that when we, hand over the… the repository to the Linux Foundation, that will be an open source repository that is the place, but right now, that doesn't exist.
+
+12
+00:03:07.020 --> 00:03:11.409
+Hector (MNF): Whatever is, you know, easier for you guys. You prefer the topic language?
+
+13
+00:03:11.810 --> 00:03:22.150
+Kevin Millikin: Honestly, putting it in Slack is great, because we see it. The thing you want to avoid is putting it somewhere where we won't see it, because that doesn't… that's not helpful.
+
+14
+00:03:22.620 --> 00:03:27.280
+Hector (MNF): Okay, great, perfect. I will then drop the commentary. Thank you.
+
+15
+00:03:32.390 --> 00:03:40.480
+Kevin Millikin: Okay, I think that my, the meeting, agenda is on the screen. Is that true?
+
+16
+00:03:41.650 --> 00:03:42.880
+Kevin Millikin: Okay, great.
+
+17
+00:03:43.460 --> 00:03:47.410
+Kevin Millikin: And so you can see that the,
+
+18
+00:03:48.000 --> 00:03:51.130
+Kevin Millikin: agenda for November 12th has nothing.
+
+19
+00:03:53.440 --> 00:03:56.829
+Kevin Millikin: So, does anyone want to, add things to the agenda now?
+
+20
+00:04:01.670 --> 00:04:03.180
+Kent Dybvig: I,
+
+21
+00:04:05.260 --> 00:04:09.870
+Kent Dybvig: It might be useful to talk about the lease authority thing, or that might be a separate meeting.
+
+22
+00:04:12.670 --> 00:04:20.220
+Kevin Millikin: Yeah, we could certainly do that. Maybe, maybe we can just go through those… the issues? Do you think that's a good way to do it, Kent?
+
+23
+00:04:21.610 --> 00:04:25.020
+Kent Dybvig: I think we should do that at some point, and
+
+24
+00:04:25.910 --> 00:04:31.479
+Kent Dybvig: I don't think there's anything, deep there that we can't… Oh, I love it.
+
+25
+00:04:32.020 --> 00:04:34.270
+Kent Dybvig: I can't cover quick… pretty quickly.
+
+26
+00:04:36.080 --> 00:04:36.890
+Kevin Millikin: Okay, let…
+
+27
+00:04:37.460 --> 00:04:45.130
+Kevin Millikin: if I… am I sharing… I don't… I can't actually see my… my screen share. I don't know if there's a good way to do that.
+
+28
+00:04:46.630 --> 00:04:50.209
+Kevin Millikin: If I open a new tab, did you see my new tab?
+
+29
+00:04:50.210 --> 00:04:50.740
+Kent Dybvig: Yes.
+
+30
+00:04:50.740 --> 00:04:51.680
+Andrey Venuto: Yes.
+
+31
+00:04:51.680 --> 00:04:52.540
+Kevin Millikin: Okay, great.
+
+32
+00:05:05.620 --> 00:05:11.339
+Kevin Millikin: So… Now you're seeing the compact compiler audit findings?
+
+33
+00:05:12.370 --> 00:05:13.030
+Kent Dybvig: Yes.
+
+34
+00:05:13.230 --> 00:05:14.240
+Kevin Millikin: Excellent.
+
+35
+00:05:20.880 --> 00:05:23.840
+Kevin Millikin: So there were issues and suggestions.
+
+36
+00:05:25.300 --> 00:05:32.639
+Kevin Millikin: The first issue… Javascript property names with special behavior are unescaped.
+
+37
+00:05:34.380 --> 00:05:43.349
+Kevin Millikin: So this issue, just to summarize, is that things like, underscore, underscore, proto, underscore, underscore.
+
+38
+00:05:43.610 --> 00:05:49.219
+Kevin Millikin: have special magic meaning if you put them in a JavaScript object.
+
+39
+00:05:49.640 --> 00:05:59.300
+Kevin Millikin: And because we create structs, or we create JavaScript objects, in a generated code, and we don't… we don't mingle those names in any way.
+
+40
+00:05:59.410 --> 00:06:01.990
+Kevin Millikin: You could potentially craft a…
+
+41
+00:06:02.280 --> 00:06:06.080
+Kevin Millikin: Compact program that uses a magic…
+
+42
+00:06:07.230 --> 00:06:09.890
+Kevin Millikin: JavaScript name, and does a weird thing.
+
+43
+00:06:16.040 --> 00:06:16.970
+Kevin Millikin: Kent.
+
+44
+00:06:18.250 --> 00:06:25.840
+Kent Dybvig: I have a basic JavaScript question. If we… if we just put double quotes around every Name…
+
+45
+00:06:26.000 --> 00:06:34.999
+Kent Dybvig: Is that going to be backward compatible? In other words, will people still be able to reference the object with the unquoted name, or will that force them to use the code name?
+
+46
+00:06:36.330 --> 00:06:37.099
+Kevin Millikin: I don't know.
+
+47
+00:06:41.090 --> 00:06:47.009
+Kevin Millikin: Joe might… Joe might know off the top of his head, but he doesn't seem like he's here.
+
+48
+00:06:47.830 --> 00:07:00.370
+Kent Dybvig: Yeah. So yeah, that would be a simple solution, true. But there's a broader issue here, which is we still haven't reserved a bunch of keywords, and the other question is whether we should reserve
+
+49
+00:07:00.670 --> 00:07:08.670
+Kent Dybvig: things that are magical in VelvaScript. Like, if we can come up with a whole list, like underscore, underscore proto, or if we're better off
+
+50
+00:07:08.820 --> 00:07:12.670
+Kent Dybvig: I mean, if the double quote solution works, we should use it anyway.
+
+51
+00:07:13.830 --> 00:07:18.619
+Kent Dybvig: To protect against the future… future additions.
+
+52
+00:07:21.260 --> 00:07:24.029
+Kent Dybvig: Or ones that we simply don't…
+
+53
+00:07:24.130 --> 00:07:26.830
+Kent Dybvig: Aren't aware of, the community isn't necessarily aware of.
+
+54
+00:07:27.520 --> 00:07:31.419
+Kent Dybvig: But we also still need to get those keywords removed.
+
+55
+00:07:52.860 --> 00:08:00.920
+Kent Dybvig: So, I believe they suggested that double quotes would solve the problem for underscore underscore proto underscore underscore.
+
+56
+00:08:03.660 --> 00:08:07.230
+Kevin Millikin: Yeah, I don't actually know. That's a… that's a very easy way to mangle them.
+
+57
+00:08:07.730 --> 00:08:08.790
+Kevin Millikin: We can.
+
+58
+00:08:08.790 --> 00:08:11.810
+Kent Dybvig: Paul says, we recommend escaping any identifiers.
+
+59
+00:08:12.010 --> 00:08:17.209
+Kent Dybvig: Okay, I thought they… I thought they recommended double quotes. Maybe they did that in the… in the…
+
+60
+00:08:18.090 --> 00:08:19.550
+Kent Dybvig: In the discussion.
+
+61
+00:08:19.890 --> 00:08:21.370
+Kevin Millikin: Right. I think one way to…
+
+62
+00:08:21.370 --> 00:08:21.980
+Kent Dybvig: So…
+
+63
+00:08:22.170 --> 00:08:26.259
+Kevin Millikin: One way to escape them is to precede them with a dollar sign.
+
+64
+00:08:27.020 --> 00:08:27.700
+Kent Dybvig: Okay.
+
+65
+00:08:27.920 --> 00:08:37.360
+Kevin Millikin: Or… or append a dollar sign. Okay. Because none of them… so dollar… dollar is valid in identifier names, and none of them have… have dollar.
+
+66
+00:08:37.620 --> 00:08:38.510
+Kevin Millikin: As far as I know.
+
+67
+00:08:38.510 --> 00:08:45.349
+Kent Dybvig: Yeah, I don't wanna… but that's… dollar sign's also valid in… in compact, so that just gets us into a…
+
+68
+00:08:47.780 --> 00:08:50.210
+Kent Dybvig: You know, what do we do with the ones that already have dollar signs?
+
+69
+00:08:50.600 --> 00:08:52.880
+Kevin Millikin: Then we add… then we have two.
+
+70
+00:08:53.010 --> 00:08:55.399
+Kevin Millikin: I know.
+
+71
+00:08:55.580 --> 00:08:56.750
+Kevin Millikin: It's,
+
+72
+00:08:57.540 --> 00:09:05.079
+Kevin Millikin: It's… it's valid in identifiers, and then there's a guideline that you should not use it, because it's sort of reserved for code generators.
+
+73
+00:09:06.310 --> 00:09:06.970
+Kent Dybvig: I see.
+
+74
+00:09:06.970 --> 00:09:13.639
+Kevin Millikin: That's just a guideline. That's just a guideline. People could, or you could generate code that you feed to another code generator.
+
+75
+00:09:13.980 --> 00:09:15.000
+Kent Dybvig: Exactly.
+
+76
+00:09:15.400 --> 00:09:16.000
+Kevin Millikin: Hmm.
+
+77
+00:09:16.640 --> 00:09:17.340
+Kent Dybvig: Yeah.
+
+78
+00:09:17.660 --> 00:09:24.220
+Kevin Millikin: Yeah, I think there are very easy ways to mangle the names, and we could come up with one. I don't know if the quotes escaped them or not.
+
+79
+00:09:24.760 --> 00:09:26.760
+Kent Dybvig: I suggest we assign this one to Joe.
+
+80
+00:09:36.410 --> 00:09:37.010
+Kevin Millikin: Nope.
+
+81
+00:09:42.000 --> 00:09:46.910
+Kevin Millikin: Issue B, crashing in hoist local variables,
+
+82
+00:09:48.100 --> 00:09:56.679
+Kevin Millikin: So Kent was… this was assigned to Kent, and he has a long comment that says that it can't actually happen because we know what the input to the… to the pass is.
+
+83
+00:09:58.890 --> 00:10:07.240
+Kevin Millikin: So we could… so the, potentially, if you had a local variable that wasn't in a block, and you tried to hoist it, it would… it would crash.
+
+84
+00:10:07.510 --> 00:10:14.629
+Kevin Millikin: But everything is a block at this point. Everything is coming from a block in the input language, and so you know that.
+
+85
+00:10:15.020 --> 00:10:26.430
+Kevin Millikin: So, Kent does comment that it might make sense to have an assert. Conceivably, we could have an earlier pass that does… that creates some malformed IR.
+
+86
+00:10:26.920 --> 00:10:30.719
+Kevin Millikin: That we didn't expect, and then this would
+
+87
+00:10:30.860 --> 00:10:44.179
+Kevin Millikin: potentially crash, and so you could very… you could very easily have a developer who builds some earlier pass that doesn't understand about a requirement of a later pass. We should catch it. Or we structure the IR to actually forbid… forbid that.
+
+88
+00:10:45.240 --> 00:10:48.030
+Kent Dybvig: action doing that right now. Okay, yeah.
+
+89
+00:10:48.030 --> 00:10:50.160
+Kevin Millikin: So this is a sign to Ken, he's gonna fix it.
+
+90
+00:10:53.640 --> 00:11:01.939
+Kent Dybvig: I don't know… I don't know if, at some point, what feedback we're going to be giving them, or how important it is to correct
+
+91
+00:11:02.670 --> 00:11:06.770
+Kent Dybvig: misconceptions,
+
+92
+00:11:07.660 --> 00:11:25.040
+Kent Dybvig: As far as their final report, and what the final report means to us as a company. But if there's an impression that we actually have a crash and we don't, it probably… it could behoove us to make sure they understand that, no, it actually wasn't a crash. It couldn't crash.
+
+93
+00:11:25.300 --> 00:11:27.070
+Kevin Millikin: Yep. And.
+
+94
+00:11:27.420 --> 00:11:32.620
+Kent Dybvig: And so the final report doesn't say, hey, you know, we found these crash… this crash area, but they fixed it.
+
+95
+00:11:34.230 --> 00:11:34.810
+Kevin Millikin: Yeah.
+
+96
+00:11:35.370 --> 00:11:41.630
+Kevin Millikin: Yeah, I'll make… I'll make sure we communicate that pretty clearly. The… the,
+
+97
+00:11:44.660 --> 00:11:49.989
+Kevin Millikin: I do think it… I do think that it was a… it's a… it's a good finding that tells us that we have a.
+
+98
+00:11:49.990 --> 00:11:50.609
+Kent Dybvig: No, I…
+
+99
+00:11:50.610 --> 00:11:53.899
+Kevin Millikin: We have a latent bug that, in the future, could…
+
+100
+00:11:54.270 --> 00:11:57.940
+Kevin Millikin: Could rear up, and we should make sure that we're more defensive.
+
+101
+00:11:58.530 --> 00:12:07.010
+Kent Dybvig: I would say all the interactions, and there were a lot. I mean, I spent a lot of time on interacting with them. I would say all the interactions were valuable, even the ones that didn't
+
+102
+00:12:07.220 --> 00:12:10.570
+Kent Dybvig: Bear any fruit, because it forced me to go look at the code more, and…
+
+103
+00:12:10.840 --> 00:12:21.769
+Kent Dybvig: And actually, you know, every time I look at the code, I spot something else, so I found a couple other things that were independent of what they found that weren't… there weren't problems, but they were things that I thought could be cleaner.
+
+104
+00:12:22.080 --> 00:12:27.399
+Kent Dybvig: clearer, and so I… I think it was all valuable. I think this is definitely valuable.
+
+105
+00:12:27.540 --> 00:12:29.680
+Kent Dybvig: I want to communicate that, too.
+
+106
+00:12:30.440 --> 00:12:44.700
+Kevin Millikin: Yeah, I thought so too. Even where they were sort of misunderstanding the… how things worked, it was useful to know that a very careful reader of the code who was paid to try to understand it was not understanding it.
+
+107
+00:12:45.080 --> 00:12:45.660
+Kent Dybvig: Right.
+
+108
+00:12:47.860 --> 00:12:55.209
+Kent Dybvig: Yeah, and I think they had a lot of trouble at the outset with learning curve, and I feel like they really accelerated quickly.
+
+109
+00:12:55.440 --> 00:12:58.320
+Kent Dybvig: Which is both a testament to their…
+
+110
+00:12:58.590 --> 00:13:02.299
+Kent Dybvig: To their skill, and also to the fact that,
+
+111
+00:13:02.450 --> 00:13:10.840
+Kent Dybvig: I mean, this really does have a bit of a learning curve, but once you get there, it's really clear. A lot of the code is really clear.
+
+112
+00:13:11.220 --> 00:13:11.560
+Kevin Millikin: Yep.
+
+113
+00:13:11.560 --> 00:13:13.339
+Kent Dybvig: the way the Nanopath structures it.
+
+114
+00:13:14.890 --> 00:13:15.500
+Kevin Millikin: Yep.
+
+115
+00:13:15.830 --> 00:13:28.109
+Kevin Millikin: Yeah, an interesting observation is they originally thought that they were going to be able to split up all the compiler passes and have individual people audit individual compiler passes, and then they realized that they needed to understand,
+
+116
+00:13:28.330 --> 00:13:30.760
+Kevin Millikin: How… what the interaction between the passes were.
+
+117
+00:13:31.360 --> 00:13:31.950
+Kent Dybvig: Yeah.
+
+118
+00:13:32.140 --> 00:13:40.580
+Kevin Millikin: So they focused… they focused, mostly on a few, front-ended analysis passes. They admittedly didn't get to, a lot of the…
+
+119
+00:13:40.580 --> 00:13:42.199
+Kent Dybvig: That was… Yeah, that was obvious.
+
+120
+00:13:42.200 --> 00:13:44.079
+Kevin Millikin: A lot of the other passes, so one interesting.
+
+121
+00:13:44.080 --> 00:13:44.530
+Kent Dybvig: possible.
+
+122
+00:13:44.530 --> 00:13:45.090
+Kevin Millikin: Perfect.
+
+123
+00:13:45.990 --> 00:13:50.740
+Kevin Millikin: One interesting thing is they said they didn't find any issues with the print ZKIR pass.
+
+124
+00:13:51.230 --> 00:13:58.000
+Kevin Millikin: Which tells me that they didn't look very closely, because that one is, I know of issues in that past.
+
+125
+00:13:58.000 --> 00:14:00.369
+Kent Dybvig: Yeah, well, I think that,
+
+126
+00:14:01.920 --> 00:14:08.059
+Kent Dybvig: Yeah, we may want to request that they do a more thorough audit of the remainder of the compiler at some point, but…
+
+127
+00:14:08.370 --> 00:14:13.440
+Kevin Millikin: They actually proposed that they… that they should do that as follow-on work, and I think that that would be valuable.
+
+128
+00:14:13.970 --> 00:14:16.010
+Kevin Millikin: Yep.
+
+129
+00:14:16.470 --> 00:14:26.650
+Kevin Millikin: This is now suggestion number one. The refactor large multi-pass files into single-purpose modules.
+
+130
+00:14:28.890 --> 00:14:30.590
+Kent Dybvig: So, I've actually…
+
+131
+00:14:30.700 --> 00:14:37.960
+Kent Dybvig: been leaning towards that direction myself. At some point, we… we had all the passes in one file, we broke them up into separate
+
+132
+00:14:38.440 --> 00:14:46.660
+Kent Dybvig: groups of passes. It's been really useful during the development… during the rapid-fire development process to have everything in the same file.
+
+133
+00:14:46.930 --> 00:14:59.689
+Kent Dybvig: Because global searches and replaces work much better when everything's in the same file. I have tools that will combine files, do a global search replace, store the files. They're never quite convenient, and they sometimes crap out.
+
+134
+00:14:59.940 --> 00:15:01.030
+Kent Dybvig: So…
+
+135
+00:15:01.090 --> 00:15:09.610
+Kent Dybvig: It's been very useful to be able to just go quickly through a whole file full of passes when you're making universal changes.
+
+136
+00:15:09.610 --> 00:15:22.810
+Kent Dybvig: But I think we're getting to a point now where the… where I'm… I'm having more… there are more times when I find that I'm searching for something, and I find it in the wrong path, and I get annoyed that I'm looking at the wrong path.
+
+137
+00:15:22.940 --> 00:15:27.950
+Kent Dybvig: And so I think it is time to split these up into individual passes.
+
+138
+00:15:28.460 --> 00:15:29.860
+Kevin Millikin: Yeah, does anyone disagree?
+
+139
+00:15:31.360 --> 00:15:33.500
+Kevin Millikin: I agree, I agree completely. I'm…
+
+140
+00:15:33.500 --> 00:15:48.949
+Kent Dybvig: I would do… I would do it today, except, we have this… these big outstanding PRs, especially the… the proposal contracts, and I… I don't want to… it never works, to split them separately and then try to merge.
+
+141
+00:15:49.470 --> 00:15:57.170
+Kent Dybvig: It really confuses everything, so I feel like we have to get to a point where we're a relatively quiet place.
+
+142
+00:15:57.890 --> 00:16:01.240
+Kent Dybvig: maybe January 1st, you know? Yes.
+
+143
+00:16:01.240 --> 00:16:03.440
+Kevin Millikin: Pencil something in the calendar.
+
+144
+00:16:03.840 --> 00:16:11.700
+Kevin Millikin: that we're going to do this, yeah, announced that we're going to do it, and if you don't have your changes merged.
+
+145
+00:16:11.850 --> 00:16:16.669
+Kevin Millikin: you'll suffer. I… yeah, I agree that we should do this.
+
+146
+00:16:16.800 --> 00:16:22.589
+Kevin Millikin: We will… when we get more developers making more changes in more parts of the compiler, we'll have more,
+
+147
+00:16:22.930 --> 00:16:32.889
+Kevin Millikin: Cases of different… of conflicts, because you're changing things, in the same file, and it will start… it'll start to get awkward.
+
+148
+00:16:33.180 --> 00:16:33.760
+Kevin Millikin: So…
+
+149
+00:16:33.760 --> 00:16:42.369
+Kent Dybvig: Yeah, and then also, when you're compiling, the compiler doesn't always go in the order you think it would. You know, it goes through…
+
+150
+00:16:42.650 --> 00:16:51.469
+Kent Dybvig: it runs different parts over the whole file, and maybe not in the… maybe not even in left-to-right order. Like, that's the scheme compiler, so…
+
+151
+00:16:51.570 --> 00:16:55.049
+Kent Dybvig: Sometimes you'll want to be fixing things front to back.
+
+152
+00:16:55.320 --> 00:16:59.969
+Kent Dybvig: And if they're set up in separate files, that'll be easier.
+
+153
+00:17:02.490 --> 00:17:14.539
+Kevin Millikin: Yeah, I don't know if we would ever have one pass per file, because some… conceivably there's, like, an analysis pass that computes something, and then there's something that immediately after consumes it, and we would want to see those together.
+
+154
+00:17:17.650 --> 00:17:18.480
+Kent Dybvig: Yeah.
+
+155
+00:17:18.619 --> 00:17:27.990
+Kent Dybvig: Possibly. I'd be inclined just to put them all in separate files as a first trial, and then if we find that's awkward, we can…
+
+156
+00:17:27.990 --> 00:17:28.400
+Kevin Millikin: That's amazing.
+
+157
+00:17:28.780 --> 00:17:30.439
+Kevin Millikin: That's an easy rule to follow, for sure.
+
+158
+00:17:30.770 --> 00:17:31.180
+Kent Dybvig: Yeah.
+
+159
+00:17:31.870 --> 00:17:36.480
+Kevin Millikin: Okay, so we agree with that suggestion. Break up large, stateful passes.
+
+160
+00:17:37.620 --> 00:17:46.910
+Kevin Millikin: This is separate. The compiler's use of Nanopass is a strong architectural choice that promotes modularity, verifiability, and readability.
+
+161
+00:17:48.210 --> 00:17:52.170
+Kevin Millikin: Several passes have evolved into large, stateful transformations.
+
+162
+00:17:52.330 --> 00:17:55.909
+Kevin Millikin: That diverge from Nanopass's ideal of many small, well-scoped passes.
+
+163
+00:17:57.320 --> 00:18:06.399
+Kent Dybvig: Alright, so this particular example is a bad one, because these things are inherently interrelated. You cannot split these up in separate passes.
+
+164
+00:18:07.610 --> 00:18:10.919
+Kent Dybvig: There's a pass like this in every compiler.
+
+165
+00:18:11.400 --> 00:18:19.129
+Kent Dybvig: That has any substantial, type inference or, you know, syntactic scoping issue, and…
+
+166
+00:18:19.780 --> 00:18:31.580
+Kent Dybvig: It's inherent. Print TypeScript could probably be broken up. That's a better example. It could probably be broken up into separate things more easily, but in the end, it's still got to generate code.
+
+167
+00:18:32.120 --> 00:18:35.030
+Kent Dybvig: you know, one TypeScript.
+
+168
+00:18:35.350 --> 00:18:42.030
+Kent Dybvig: definition file and one JavaScript file. So it could be split into helpers that help create both.
+
+169
+00:18:42.150 --> 00:18:45.070
+Kent Dybvig: As a separate… in a separate module.
+
+170
+00:18:45.320 --> 00:18:51.370
+Kent Dybvig: Outside of both, the one that generates the definition file and the JavaScript file.
+
+171
+00:18:52.100 --> 00:19:00.170
+Kent Dybvig: And then you could split each of those up into different parts of the… of the, of the…
+
+172
+00:19:00.540 --> 00:19:04.410
+Kent Dybvig: compact program that's being rendered as a JavaScript program.
+
+173
+00:19:09.080 --> 00:19:13.160
+Kent Dybvig: And that is a… that is a really pretty nasty pass.
+
+174
+00:19:13.310 --> 00:19:16.549
+Kent Dybvig: To understand.
+
+175
+00:19:18.430 --> 00:19:23.749
+Kevin Millikin: I think, in general, we do agree that where we have complicated passes that can be split, we should.
+
+176
+00:19:24.560 --> 00:19:25.250
+Kent Dybvig: Yes.
+
+177
+00:19:25.250 --> 00:19:32.440
+Kevin Millikin: This example isn't one. Another thing to observe, I split the print ZKIR pass into two passes.
+
+178
+00:19:33.750 --> 00:19:43.439
+Kevin Millikin: It's a pretty complicated one, but the… the first pass is just as complicated as the original printZKIR, and the second pass is.
+
+179
+00:19:44.080 --> 00:19:44.630
+Kent Dybvig: Very well.
+
+180
+00:19:44.630 --> 00:19:56.429
+Kevin Millikin: It's just printing, yeah. So… so I think in a lot of cases where you think that there's a big pass that's doing a lot of work, if you think about splitting it up, you'll end up with one pass that does… still does all of that heavy lifting, and another one that doesn't do much.
+
+181
+00:19:58.600 --> 00:20:05.000
+Kent Dybvig: Yeah, I do… I just feel like… I feel like with Print TypeScript, it may be… it may be still one type, one pass, but it might be…
+
+182
+00:20:05.380 --> 00:20:08.859
+Kent Dybvig: It might be modularized better somehow, but we'll see.
+
+183
+00:20:10.000 --> 00:20:14.029
+Kent Dybvig: I think it could be definitely revisited, but not until we're merged again.
+
+184
+00:20:14.580 --> 00:20:16.070
+Kevin Millikin: Yeah, one thing that might…
+
+185
+00:20:16.200 --> 00:20:23.940
+Kevin Millikin: help print TypeScript is separating out, sort of, some abstraction of what is the runtime API.
+
+186
+00:20:24.150 --> 00:20:30.360
+Kevin Millikin: And also potentially having a better abstracted impact assembler.
+
+187
+00:20:31.810 --> 00:20:34.170
+Kent Dybvig: Yeah, for sure, especially if we… if we're…
+
+188
+00:20:34.810 --> 00:20:37.939
+Kent Dybvig: We also have the goal, separately, of…
+
+189
+00:20:38.360 --> 00:20:41.769
+Kent Dybvig: Getting the impact code generated once,
+
+190
+00:20:42.360 --> 00:20:44.749
+Kent Dybvig: Which is not the case presently.
+
+191
+00:20:49.310 --> 00:20:50.010
+Kevin Millikin: Okay.
+
+192
+00:20:50.880 --> 00:20:54.440
+Kevin Millikin: I'll put a comment in that one, but I'm just gonna leave it open for now.
+
+193
+00:20:54.630 --> 00:20:59.299
+Kevin Millikin: Improve the compact language specification, yes.
+
+194
+00:21:00.360 --> 00:21:09.249
+Kevin Millikin: Absolutely. We need to do this. And I think that we need to make a real push to actually get this done.
+
+195
+00:21:09.360 --> 00:21:20.030
+Kevin Millikin: And I think that means probably generating Jira tickets for all of the language features that we've shipped, and that are not reflected in the language reference.
+
+196
+00:21:20.260 --> 00:21:23.949
+Kevin Millikin: Assigning authors and writing… writing sections of the reference.
+
+197
+00:21:24.410 --> 00:21:27.450
+Kevin Millikin: And have… have us spend…
+
+198
+00:21:28.980 --> 00:21:32.039
+Kevin Millikin: 20% of our time doing this until it's done.
+
+199
+00:21:32.400 --> 00:21:35.990
+Kevin Millikin: Because we're way behind, and we're not getting… we're not getting less behind.
+
+200
+00:21:36.660 --> 00:21:41.090
+Kent Dybvig: Or we all just meet in Hawaii and go do it for a week, just, you know, one big push.
+
+201
+00:21:41.680 --> 00:21:42.330
+Kevin Millikin: Yep.
+
+202
+00:21:42.440 --> 00:21:45.629
+Kevin Millikin: It might not be Hawaii, it might be Raleigh.
+
+203
+00:21:45.910 --> 00:21:46.990
+Kent Dybvig: Oh, okay.
+
+204
+00:21:48.420 --> 00:21:53.060
+Kevin Millikin: The thing about… the thing about meeting in Raleigh is we can loop Jonathan Sobel into doing it, and…
+
+205
+00:21:53.910 --> 00:21:55.949
+Kent Dybvig: Yeah, it's on, I see, yeah.
+
+206
+00:21:58.140 --> 00:22:07.380
+Kevin Millikin: Yes, absolutely agree. I absolutely agree with this. This is spot on, and it's good to have a third party tell us this, because we know that it's… we know that we need to do it.
+
+207
+00:22:08.520 --> 00:22:14.860
+Kevin Millikin: So now… so now when we… so now when we do spend time doing this, we can point to the audit… audit finding that this is necessary.
+
+208
+00:22:18.640 --> 00:22:20.660
+Kevin Millikin: Improved code comments.
+
+209
+00:22:28.980 --> 00:22:31.909
+Kevin Millikin: I think we probably can.
+
+210
+00:22:32.560 --> 00:22:36.300
+Kevin Millikin: I don't think we're going to take an… I don't think we're going to make an effort to,
+
+211
+00:22:36.860 --> 00:22:46.069
+Kevin Millikin: go over the code that we have and add comments to it. That's pointless. I do think that as we make changes, if we find something that's puzzling, we can
+
+212
+00:22:46.300 --> 00:22:48.270
+Kevin Millikin: Clarify it in the comments.
+
+213
+00:22:48.850 --> 00:22:56.539
+Kevin Millikin: And I do think that we will have, as we bring more developers on, we'll have an evolving standard of the level of commenting that we
+
+214
+00:22:56.730 --> 00:22:58.090
+Kevin Millikin: That we want.
+
+215
+00:23:02.190 --> 00:23:11.799
+Kevin Millikin: Kent's code… Kent's code is very sparsely commented, because the code speaks for itself. It says exactly what it does. And the comments is superfluous. If you look at my code, I'm…
+
+216
+00:23:12.000 --> 00:23:27.079
+Kevin Millikin: I'm typically adding more comments. I saw Joe… a code review from Joe, where he was suggesting a higher level of commenting, so I think that there's a shared culture of how much commenting we expect in code that will… that will… that will change.
+
+217
+00:23:31.720 --> 00:23:39.450
+Kent Dybvig: Yeah, I mean, there's a tension here between… I know you can maybe use editing tools for this, but there's a tension between
+
+218
+00:23:39.660 --> 00:23:46.500
+Kent Dybvig: Being… Having clear code and having… having…
+
+219
+00:23:48.320 --> 00:23:56.120
+Kent Dybvig: Well, good documentation, because, you know, having lines of documentation strewn in between lines of code tends to be distracting.
+
+220
+00:23:56.840 --> 00:24:01.179
+Kent Dybvig: And, unfortunately, those codes, those comments aren't checked.
+
+221
+00:24:01.710 --> 00:24:07.119
+Kent Dybvig: By the compiler, so they are often… Incorrect and misleading.
+
+222
+00:24:07.990 --> 00:24:13.629
+Kent Dybvig: So, we have to be super careful with this, that it… that it doesn't end up becoming a burden rather than a…
+
+223
+00:24:13.730 --> 00:24:17.310
+Kent Dybvig: you know, actually, it's a burden to write, I don't care about that.
+
+224
+00:24:17.320 --> 00:24:34.040
+Kent Dybvig: I'm talking about the burden to look at. We have to make sure that it actually still allows the code to flow, and that we are very conscientious about keeping comments up to date, and not leaving in old things that are no longer relevant, because they can be super misleading. I was just… yeah.
+
+225
+00:24:34.540 --> 00:24:37.089
+Kevin Millikin: difficult to catch and review. It's…
+
+226
+00:24:37.190 --> 00:24:47.330
+Kevin Millikin: It's frequently the case that you have a comment at a definition, and where you… what you really want to see is the comment at the uses, which you don't… which you don't see.
+
+227
+00:24:47.450 --> 00:24:51.210
+Kevin Millikin: And… Yeah, it's a…
+
+228
+00:24:53.280 --> 00:24:53.870
+Kent Dybvig: Yeah.
+
+229
+00:24:56.850 --> 00:25:03.200
+Kevin Millikin: So I think that, yeah, this is probably, like, good feedback, that they didn't find that the code was well enough commented.
+
+230
+00:25:04.620 --> 00:25:06.759
+Kevin Millikin: We'll… we'll try to do better.
+
+231
+00:25:07.350 --> 00:25:12.030
+Kent Dybvig: Yeah, I think that, yeah, we should… we should definitely take it on a… on a…
+
+232
+00:25:12.150 --> 00:25:20.510
+Kent Dybvig: as a… solve it in one of two ways, either by adding comments inside the code, or by improving compiler to MD.
+
+233
+00:25:21.100 --> 00:25:26.769
+Kevin Millikin: Yes, yeah, I think that the external documentation, needs to be really good.
+
+234
+00:25:26.960 --> 00:25:37.900
+Kevin Millikin: And… and it's… it is… it is quite good, but it needs to be even better, especially, in the sense of, like, how you navigate and basic, basic concepts.
+
+235
+00:25:38.380 --> 00:25:39.100
+Kent Dybvig: Yes.
+
+236
+00:25:39.280 --> 00:25:39.790
+Kevin Millikin: Yep.
+
+237
+00:25:39.790 --> 00:25:41.100
+Kent Dybvig: Yeah. Okay.
+
+238
+00:25:48.430 --> 00:25:51.270
+Kevin Millikin: Adopt graph representation for complex passes.
+
+239
+00:25:56.480 --> 00:25:59.440
+Kent Dybvig: We have a graph representation, they just don't see it.
+
+240
+00:25:59.780 --> 00:26:00.160
+Kevin Millikin: Yeah.
+
+241
+00:26:01.220 --> 00:26:05.710
+Kent Dybvig: I don't know… I don't know how to respond to this one, because,
+
+242
+00:26:05.850 --> 00:26:08.530
+Kent Dybvig: I feel like the passes are written the way they should be written.
+
+243
+00:26:09.090 --> 00:26:10.270
+Kevin Millikin: Yeah. And…
+
+244
+00:26:12.260 --> 00:26:14.249
+Kent Dybvig: This one I ate… this one I ate…
+
+245
+00:26:15.280 --> 00:26:21.040
+Kent Dybvig: you know, we could say something, we'll take this under advisement, but I… but I don't think that…
+
+246
+00:26:22.570 --> 00:26:26.050
+Kent Dybvig: You know, for example, they might be looking at… they might look at,
+
+247
+00:26:26.210 --> 00:26:34.050
+Kent Dybvig: the Witness Protection Program, well, that's an abstract interpreter. It really wouldn't work as a graph program.
+
+248
+00:26:35.000 --> 00:26:40.590
+Kent Dybvig: And… So, setting things up as graph problems.
+
+249
+00:26:42.250 --> 00:26:49.609
+Kent Dybvig: creates a… a… I mean, some of the passes in Chase Game are set up as very explicitly as graph.
+
+250
+00:26:50.140 --> 00:27:00.899
+Kent Dybvig: reduction problems. And they're… that's the right way to do them in those cases, but it's not always the right way, because if you have to process the bodies of things,
+
+251
+00:27:01.270 --> 00:27:03.990
+Kent Dybvig: You know, you can't just create a call graph, for example.
+
+252
+00:27:04.720 --> 00:27:16.950
+Kent Dybvig: you have to know where you're calling… from where in a function you're calling another function. It may make a difference. Sometimes it doesn't, but when it does, you have to… you have to make sure that that's explicit.
+
+253
+00:27:17.620 --> 00:27:29.560
+Kent Dybvig: And then, you know, there's substantial processing of a body inside each one of the functions, then you end up with a two-pass graph algorithm, one where you have to compute the information, and a separate one where you have to update the graph.
+
+254
+00:27:29.700 --> 00:27:39.070
+Kent Dybvig: And if updating the graph changes the information, then you have to run these two passes in tandem, and it gets to be a mass relevant benefit, so…
+
+255
+00:27:39.600 --> 00:27:44.520
+Kent Dybvig: I feel like we have these structured the way I want them structured, yeah.
+
+256
+00:27:45.440 --> 00:27:55.830
+Kevin Millikin: Yeah, the suggestion was that the pass that catches recursive circuits, that they… after reading it, they recognized that it could be written by building a graph.
+
+257
+00:27:56.020 --> 00:27:59.140
+Kevin Millikin: And then checking if the graph was acyclic.
+
+258
+00:27:59.550 --> 00:28:09.390
+Kevin Millikin: As two passes, and it's true. And we could use an off-the-shelf graph checker library for the second pass, and that's true, but…
+
+259
+00:28:11.200 --> 00:28:15.349
+Kent Dybvig: You know what? The thing is, you won't get as good an error message out of that, I guarantee you.
+
+260
+00:28:15.350 --> 00:28:22.519
+Kevin Millikin: Well, that's the thing. Well, that's part… that's part of it, right, is that when it fails, you need to actually catch the error and try to understand what
+
+261
+00:28:22.860 --> 00:28:24.110
+Kevin Millikin: Failed.
+
+262
+00:28:24.470 --> 00:28:25.080
+Kent Dybvig: Yeah.
+
+263
+00:28:25.310 --> 00:28:34.710
+Kevin Millikin: Yeah, I agree with that. I think that this problem is solved by having really clear documentation about that pass that says it is making sure that the call graph is acyclic.
+
+264
+00:28:35.030 --> 00:28:35.700
+Kent Dybvig: Yeah.
+
+265
+00:28:35.700 --> 00:28:43.160
+Kevin Millikin: That's what it's doing. It doesn't do it by building the graph and checking it, it does it on the fly, and that's how.
+
+266
+00:28:43.160 --> 00:28:50.879
+Kent Dybvig: But the thing is, it does actually build a graph, as it's… yeah, it doesn't… it's an online algorithm rather than an offline algorithm, and there's nothing wrong with that.
+
+267
+00:28:51.140 --> 00:28:51.970
+Kevin Millikin: Yep. No.
+
+268
+00:28:51.970 --> 00:28:54.789
+Kent Dybvig: We should say that in the code, yeah. It's an online algorithm.
+
+269
+00:28:55.870 --> 00:29:08.049
+Kevin Millikin: I had… I used to give a canned talk that was in defense of ad hoc compiler passes, because lots of times someone dismisses something as saying, well, that's a really ad hoc solution, but ad hoc means fit for purpose, so it's…
+
+270
+00:29:08.050 --> 00:29:09.420
+Kent Dybvig: It's actually.
+
+271
+00:29:09.420 --> 00:29:12.030
+Kevin Millikin: Really great to have an ad hoc compiler pass like this.
+
+272
+00:29:12.150 --> 00:29:13.500
+Kevin Millikin: Does exactly what it's…
+
+273
+00:29:18.120 --> 00:29:22.030
+Kevin Millikin: Document language extensions. Document the macros.
+
+274
+00:29:24.490 --> 00:29:26.650
+Kent Dybvig: Yeah, I find this one a little bit funny.
+
+275
+00:29:27.130 --> 00:29:31.839
+Kent Dybvig: they didn't ask for us to document the helper functions.
+
+276
+00:29:33.970 --> 00:29:38.059
+Kent Dybvig: I think that… This is maybe,
+
+277
+00:29:40.510 --> 00:29:45.209
+Kent Dybvig: You know, lack of familiarity with syntactic abstraction.
+
+278
+00:29:46.740 --> 00:29:53.170
+Kevin Millikin: Yeah. I think that the documentation in this case would be saying exactly what the code says.
+
+279
+00:29:53.350 --> 00:30:04.999
+Kevin Millikin: I don't… like, you'd say that if you see this, you expand into this, and if you see this, you expand into this, and that is exactly what the code says. So what… so this is probably better addressed by…
+
+280
+00:30:05.110 --> 00:30:08.560
+Kevin Millikin: Pointing to something online, or
+
+281
+00:30:08.670 --> 00:30:15.260
+Kevin Millikin: Writing something ourself that tells developers who are not used to syntactic abstraction scheme how to read these macros.
+
+282
+00:30:16.260 --> 00:30:16.910
+Kent Dybvig: Yeah.
+
+283
+00:30:17.510 --> 00:30:24.600
+Kent Dybvig: And there may be a few instances, like, the ones for the… for Ledger, where…
+
+284
+00:30:25.150 --> 00:30:27.219
+Kent Dybvig: They're more substantial macros.
+
+285
+00:30:27.880 --> 00:30:34.080
+Kent Dybvig: And reading the… They might need a roadmap to read the… the Transformate Fund.
+
+286
+00:30:34.260 --> 00:30:36.980
+Kent Dybvig: Yep. And those… so we could… we could certainly…
+
+287
+00:30:37.290 --> 00:30:41.189
+Kent Dybvig: Do both those things, what you're suggesting, plus also add some
+
+288
+00:30:41.420 --> 00:30:44.209
+Kent Dybvig: Some documentation for some of the more complicated ones.
+
+289
+00:30:44.540 --> 00:30:45.090
+Kevin Millikin: Yep.
+
+290
+00:30:45.720 --> 00:30:50.110
+Kevin Millikin: Yeah, I do feel like this is exactly the kind of comment that says the same thing that the code says.
+
+291
+00:30:52.350 --> 00:30:57.600
+Kent Dybvig: I mean, you could also justify why something's a macro in a couple of cases, like source ERF,
+
+292
+00:30:58.060 --> 00:31:02.620
+Kent Dybvig: maybe seems like it could be a function, and we can explain why it's not. Maybe a couple other places.
+
+293
+00:31:02.760 --> 00:31:09.639
+Kent Dybvig: As I actually think… I actually think you should use a help function instead of a macro if you can, when you can, but…
+
+294
+00:31:11.560 --> 00:31:12.240
+Kent Dybvig: Yep.
+
+295
+00:31:15.090 --> 00:31:15.990
+Kevin Millikin: Okay.
+
+296
+00:31:17.250 --> 00:31:25.340
+Kevin Millikin: And… the last suggestion is eliminate productions earlier in the IR sequence to reduce dead code.
+
+297
+00:31:26.460 --> 00:31:30.489
+Kevin Millikin: And I think this is good. They observed that there's places where we have
+
+298
+00:31:30.860 --> 00:31:37.890
+Kevin Millikin: IR forms that are propagated through several passes, even potentially processed by several passes, and then they're just ignored.
+
+299
+00:31:38.360 --> 00:31:46.430
+Kevin Millikin: I think the… the case they pointed out was due to, us just not cleaning up after a change. Like, we made a change that…
+
+300
+00:31:46.810 --> 00:31:53.630
+Kevin Millikin: Moved the processing of something earlier in the pipeline, and we just didn't do all of the code cleanups that we could have done as a consequence of that.
+
+301
+00:31:54.410 --> 00:31:59.009
+Kevin Millikin: But I think we should take a close look and just make sure that we really do.
+
+302
+00:32:00.980 --> 00:32:08.580
+Kent Dybvig: Yeah, and I… I think also, yeah, this is… we already… we already have a story to eliminate some entire…
+
+303
+00:32:09.430 --> 00:32:14.499
+Kent Dybvig: Circuits, the ones that aren't relevant, earlier in the compiler, book.
+
+304
+00:32:14.670 --> 00:32:18.730
+Kent Dybvig: We have to be conscious on… in both cases that we aren't…
+
+305
+00:32:21.010 --> 00:32:28.130
+Kent Dybvig: that we aren't doing so at the expense of not catching some errors that we would like to catch. So we'll just have to make sure of that.
+
+306
+00:32:29.000 --> 00:32:37.250
+Kent Dybvig: So, for example, the… The loop indices aren't reduced to constants necessarily until Fairly late.
+
+307
+00:32:37.720 --> 00:32:39.980
+Kent Dybvig: And we don't want to drop any actual
+
+308
+00:32:40.540 --> 00:32:43.810
+Kent Dybvig: Any, any loops before that?
+
+309
+00:32:44.060 --> 00:32:49.659
+Kent Dybvig: anything that has loops, like circuits, circuit bodies, but we… that doesn't apply to some of the things they're mentioning.
+
+310
+00:32:50.130 --> 00:32:57.800
+Kevin Millikin: Yeah. No, in general, that second point, though, about catching errors, we might actually want to move some error
+
+311
+00:32:58.420 --> 00:33:08.940
+Kevin Millikin: some error-catching code earlier. It is confusing to users when they have an obvious error in a circuit that they didn't call.
+
+312
+00:33:09.070 --> 00:33:16.119
+Kevin Millikin: That… a pure circuit that they didn't call, with an obvious error, that they conclude that that's actually… that actually works.
+
+313
+00:33:16.390 --> 00:33:23.059
+Kevin Millikin: And they get farther along in the development process when they find out that there's something wrong, and they misdiagnose what's actually happening.
+
+314
+00:33:26.240 --> 00:33:32.070
+Kent Dybvig: Well, I need to see an example of that, because I think right now,
+
+315
+00:33:32.490 --> 00:33:34.830
+Kent Dybvig: There are cases, like, you have a module.
+
+316
+00:33:35.140 --> 00:33:39.019
+Kent Dybvig: If it's a pure circuit that actually gets… for which we actually generate
+
+317
+00:33:39.450 --> 00:33:47.109
+Kent Dybvig: TypeScript code, I'm not sure that can happen. If it's a pure circuit that's just simply never used anywhere, it's in a module.
+
+318
+00:33:47.440 --> 00:33:54.710
+Kent Dybvig: Maybe it's a… it's particularly a module with type parameters, and nobody bothers to import the module, then…
+
+319
+00:33:55.230 --> 00:33:58.460
+Kent Dybvig: there won't be anything we can do about that. And…
+
+320
+00:33:59.490 --> 00:34:12.679
+Kevin Millikin: No, it's not that. They wonder if they can do a thing, so they create a circuit called foo, and they forget to export it, and they try to do the thing, and they… without call… they don't call foo, they try to do the thing, and they say, oh yeah, this works.
+
+321
+00:34:13.230 --> 00:34:13.989
+Kent Dybvig: I see.
+
+322
+00:34:14.210 --> 00:34:15.199
+Kevin Millikin: Was it compiled?
+
+323
+00:34:15.790 --> 00:34:27.420
+Kevin Millikin: And so then they're like, cool, my thing works, and then they start trying to use it, and they find out that it doesn't work, and they identify that the call to Foo… there's something wrong with the call to Foo, not the body of foo.
+
+324
+00:34:29.520 --> 00:34:34.260
+Kevin Millikin: So it was a… it was a pure circuit that was never called. We didn't generate TypeScript code for it.
+
+325
+00:34:37.139 --> 00:34:42.330
+Kevin Millikin: And we just have to explain… we just have to explain that the compiler doesn't necessarily signal all errors.
+
+326
+00:34:43.000 --> 00:34:43.690
+Kent Dybvig: Yeah.
+
+327
+00:34:45.210 --> 00:34:51.389
+Kent Dybvig: Yeah, I mean, we can work harder about keeping some of those things around. There's some things, like I said, we can't… we can't handle, like.
+
+328
+00:34:51.600 --> 00:34:56.890
+Kent Dybvig: You know, if you have type parameters, and you never, never call it, never supply any type parameters, we can't just…
+
+329
+00:34:57.360 --> 00:35:05.420
+Kent Dybvig: We can't just fictionalize some and say, yeah, you got an error, because you put a field in there. Oh, but we put the field in there, oops.
+
+330
+00:35:06.570 --> 00:35:07.280
+Kevin Millikin: Yep.
+
+331
+00:35:07.830 --> 00:35:15.180
+Kevin Millikin: No, that… yeah, that's clear. I mean, sometimes you have to do the work to catch the error, and there's no other place to do the work than the place that we do the work.
+
+332
+00:35:18.430 --> 00:35:18.990
+Kent Dybvig: Yeah.
+
+333
+00:35:19.150 --> 00:35:27.420
+Kent Dybvig: But that is a separate issue from what they're raising here, but it's… we can certainly do our own audit for whether we're producing all the errors we could.
+
+334
+00:35:32.760 --> 00:35:38.440
+Kevin Millikin: Yeah, but this… yeah, this particular… this particular thing, is…
+
+335
+00:35:39.790 --> 00:35:42.730
+Kevin Millikin: There's several passes where we propagate this.
+
+336
+00:35:42.880 --> 00:35:45.480
+Kevin Millikin: IR forms that we don't need.
+
+337
+00:35:46.230 --> 00:35:59.560
+Kevin Millikin: And it's because a downstream pass was changed to handle them in a different… to not handle… a downstream pass was changed, so it didn't need to handle them, and the upstream passes were not modified to take advantage of that.
+
+338
+00:36:00.120 --> 00:36:06.290
+Kent Dybvig: So, in some cases, there was an explicit decision to keep things around, because we don't know what our backend's gonna be.
+
+339
+00:36:06.800 --> 00:36:11.130
+Kent Dybvig: Necessarily, and we don't know that some backend won't need this stuff, so…
+
+340
+00:36:11.430 --> 00:36:12.020
+Kevin Millikin: Yeah.
+
+341
+00:36:12.020 --> 00:36:15.150
+Kent Dybvig: We have to look… think carefully about that, too.
+
+342
+00:36:15.450 --> 00:36:22.370
+Kevin Millikin: Yes. Yeah, and that… and then if we discover that, we document that we are intentionally Keeping this, because…
+
+343
+00:36:24.170 --> 00:36:25.510
+Kevin Millikin: Yeah, that's a good point, too.
+
+344
+00:36:30.790 --> 00:36:34.520
+Kevin Millikin: So, that's the last of the tickets about the,
+
+345
+00:36:35.700 --> 00:36:47.170
+Kevin Millikin: about the audit results. I'll put… I'll go through the ones that I kept open as tabs, and add some short comment about what we discussed here, so we can… we can remember,
+
+346
+00:36:48.390 --> 00:36:50.090
+Kevin Millikin: For the most part.
+
+347
+00:36:50.090 --> 00:36:54.809
+Kent Dybvig: I see Joe's here. We can tell him we… we can tell him we assigned him that one.
+
+348
+00:36:55.170 --> 00:36:56.609
+Kevin Millikin: Yeah, we assigned you an issue.
+
+349
+00:36:57.830 --> 00:37:11.670
+Kevin Millikin: So that one of the audit findings is that, we don't escape or mangle names, names, and so you could have a name like Underbar, Underbar, Proto, Underbar, underbar.
+
+350
+00:37:11.880 --> 00:37:16.750
+Kevin Millikin: that could potentially get put into a JavaScript object.
+
+351
+00:37:17.240 --> 00:37:20.899
+Kevin Millikin: And… and potentially lead to some exploit.
+
+352
+00:37:21.600 --> 00:37:26.049
+Kevin Millikin: And so the suggestion was we should escape or mangle those names in some way.
+
+353
+00:37:26.900 --> 00:37:32.960
+Kevin Millikin: Kent's question was if you just, put those property names, in quotes.
+
+354
+00:37:34.080 --> 00:37:37.180
+Kevin Millikin: Does that have the effect of escaping them or not?
+
+355
+00:37:42.940 --> 00:37:47.609
+Joseph Denman: Yeah, good question. Off the top of my head, I don't know.
+
+356
+00:37:48.000 --> 00:37:52.089
+Kevin Millikin: I don't either. I don't either. I don't think it does. I don't think it does, because you can compute
+
+357
+00:37:52.300 --> 00:37:54.419
+Kevin Millikin: property names, and… Yeah.
+
+358
+00:37:54.420 --> 00:37:54.880
+Joseph Denman: Oh, no.
+
+359
+00:37:55.710 --> 00:38:01.289
+Kevin Millikin: You can index objects as if they're arrays based on strings, and it's.
+
+360
+00:38:02.980 --> 00:38:13.709
+Kent Dybvig: On the other hand, I think if we know that's that, instead of escaping, we might… we might just disallow them. We already disallow self, because there's nothing we could… there was nothing reasonable we could do with it.
+
+361
+00:38:14.520 --> 00:38:19.889
+Kevin Millikin: Right. If we're, that just requires us to have some confidence that we can enumerate them all.
+
+362
+00:38:20.050 --> 00:38:21.070
+Kevin Millikin: But if we do, then…
+
+363
+00:38:21.070 --> 00:38:25.320
+Kent Dybvig: But… But if… if we can't enumerate them all, then… then the…
+
+364
+00:38:25.530 --> 00:38:28.370
+Kent Dybvig: what are we gonna do about escaping anyway? I mean…
+
+365
+00:38:28.830 --> 00:38:39.979
+Kent Dybvig: At least we… we'd have to at least be able to enumerate the shape of the ones that are… that are special, but if somebody just… something like… if there's something else like self we don't know about, there's nothing we're going to be able to do about that.
+
+366
+00:38:45.750 --> 00:38:49.980
+Joseph Denman: If we could implement some sort of mapping Like, I…
+
+367
+00:38:51.730 --> 00:38:55.759
+Joseph Denman: So we could… I don't know, it seems like… seems like we could…
+
+368
+00:38:56.050 --> 00:39:08.659
+Joseph Denman: In the, you know, kind of safest way, like, use completely random strings, for variable identifiers, like hashes or something like that, because the chances that it actually corresponds to a meaningful
+
+369
+00:39:09.060 --> 00:39:25.480
+Joseph Denman: value is pretty small. The question would be how we map, like, the name, the original names to those hashes, say, because we want to preserve… like, we can't… we can't give people a contract interface that has only hash names.
+
+370
+00:39:26.050 --> 00:39:26.590
+Kevin Millikin: No.
+
+371
+00:39:26.590 --> 00:39:27.170
+Joseph Denman: So…
+
+372
+00:39:27.470 --> 00:39:28.750
+Kent Dybvig: No, and we can't…
+
+373
+00:39:28.860 --> 00:39:33.620
+Kent Dybvig: I don't want anyone… I don't want to make their life overly difficult, having to call some query
+
+374
+00:39:33.930 --> 00:39:39.520
+Kent Dybvig: Oh, to get the… the name, could compute the name, and also it's inefficient, too, so…
+
+375
+00:39:39.830 --> 00:39:50.450
+Kevin Millikin: It's a nice… it's a nice property that the JavaScript code… that you can read the JavaScript code, and connect it to the compact source, like.
+
+376
+00:39:51.550 --> 00:39:59.089
+Joseph Denman: Yeah, I guess what I was gonna say is, if we could implement some sort of, I don't know, like, safe mapping,
+
+377
+00:39:59.290 --> 00:40:07.070
+Joseph Denman: From hash names to the actual variables, and then from the variables to the hash names, maybe we might actually be able to expose those.
+
+378
+00:40:07.310 --> 00:40:10.940
+Joseph Denman: Like, without modifying the surface names, and…
+
+379
+00:40:10.940 --> 00:40:12.480
+Kevin Millikin: It doesn't.
+
+380
+00:40:12.780 --> 00:40:14.040
+Joseph Denman: But I don't feel like…
+
+381
+00:40:14.050 --> 00:40:21.379
+Kevin Millikin: It does feel like that's going to be a lot less efficient, though. The JS engine actually is pretty good at optimizing named,
+
+382
+00:40:22.710 --> 00:40:23.870
+Kevin Millikin: Property lookup.
+
+383
+00:40:24.760 --> 00:40:30.920
+Kevin Millikin: And if we have any kind of mapping intervening, I think that that probably defeats that.
+
+384
+00:40:32.040 --> 00:40:34.419
+Kent Dybvig: Or we're computing, or computing something.
+
+385
+00:40:37.760 --> 00:40:43.439
+Kevin Millikin: I think that… I think that it… what we should do is enumerate them.
+
+386
+00:40:43.700 --> 00:40:45.310
+Kevin Millikin: And make them reserved.
+
+387
+00:40:49.370 --> 00:40:55.160
+Joseph Denman: Okay, yeah, I mean, that does introduce a sort of long-term maintenance cost as well, like…
+
+388
+00:40:56.790 --> 00:41:02.990
+Kent Dybvig: If all the ones… if all the ones… if we can enumerate the ones that… that are…
+
+389
+00:41:03.280 --> 00:41:05.960
+Kent Dybvig: Straightforward, like, self, that are kind of weird.
+
+390
+00:41:06.180 --> 00:41:18.379
+Kent Dybvig: And all the key JavaScript keywords and TypeScript keywords, we can enumerate those and make them reserved. That's what… that's the first step. And then if it turns out that all the rest of them have this form where they're underscore, underscore something.
+
+391
+00:41:20.480 --> 00:41:27.799
+Kent Dybvig: We could just routinely say anything that starts with an underscore, underscore in the output starts with a dollar sign.
+
+392
+00:41:28.100 --> 00:41:31.069
+Kent Dybvig: Anything that starts with a dollar sign starts with two dollar signs.
+
+393
+00:41:33.460 --> 00:41:33.870
+Kevin Millikin: Yeah.
+
+394
+00:41:34.290 --> 00:41:42.299
+Kent Dybvig: So we have a predictable Mangling… well, escaping, not mangling, but in a predictable escaping for
+
+395
+00:41:42.890 --> 00:41:46.080
+Kent Dybvig: For the ones that aren't, sort of, plain identifiers.
+
+396
+00:41:48.010 --> 00:41:50.690
+Kevin Millikin: My impression is that modern JavaScript doesn't
+
+397
+00:41:50.830 --> 00:41:56.389
+Kevin Millikin: Doesn't tend to use these magic identifier names that have some reflective,
+
+398
+00:41:57.460 --> 00:42:10.340
+Kevin Millikin: purpose in the language, it's just… they're, like, they're legacy things that are still there, because they have… so I think it's not… I think it's less likely that there will be new ones that arise in some new version of JavaScript.
+
+399
+00:42:10.980 --> 00:42:14.600
+Kent Dybvig: Okay, well then a number at AIM is definitely the right solution.
+
+400
+00:42:18.100 --> 00:42:20.489
+Kevin Millikin: Anyway, it is… it's assigned to you, Joe.
+
+401
+00:42:21.030 --> 00:42:30.149
+Kevin Millikin: And it… and we could… we could certainly have more discussion about it, but, there… we need… we should have some solution, or… that… that does not allow exploiting.
+
+402
+00:42:30.260 --> 00:42:31.200
+Kevin Millikin: Magic.
+
+403
+00:42:31.680 --> 00:42:33.370
+Kevin Millikin: Identifier names.
+
+404
+00:42:36.190 --> 00:42:40.880
+Kevin Millikin: Okay, is there anything else we should talk about? Anything else to add to the agenda?
+
+405
+00:42:48.390 --> 00:42:58.099
+Kevin Millikin: Okay? I'll just mention that I am going to, start the release process for the 0.27.0 release.
+
+406
+00:42:58.380 --> 00:43:02.709
+Kevin Millikin: Probably today, this evening when I get out of meetings.
+
+407
+00:43:03.090 --> 00:43:09.879
+Kevin Millikin: And, so I'll… I'll follow the… the playbook that, Parisa has developed.
+
+408
+00:43:10.110 --> 00:43:12.980
+Kevin Millikin: and see if I can do it myself,
+
+409
+00:43:13.540 --> 00:43:30.470
+Kevin Millikin: if I need clarification on anything, I'll get it and improve the documentation. And I think the plan is that we'll get somebody external to the team to follow the playbook and make the next release after that. Maybe Zyn, our release manager, will do that for us.
+
+410
+00:43:31.620 --> 00:43:36.470
+Kevin Millikin: It should become more and more of a push-button, Process.
+
+411
+00:43:37.000 --> 00:43:41.840
+Kevin Millikin: I am aware that this is the first release we've made from the new… from the Compact Export Repository.
+
+412
+00:43:42.180 --> 00:43:46.040
+Kevin Millikin: And that we did change the name of the release branch from
+
+413
+00:43:46.760 --> 00:43:55.700
+Kevin Millikin: testnet to releases slash testnet, so that… but we didn't update the GitHub actions, so they probably need to be updated in a fairly obvious way.
+
+414
+00:43:57.260 --> 00:43:58.140
+Kevin Millikin: Kent?
+
+415
+00:43:59.380 --> 00:44:07.250
+Kent Dybvig: So, just, just to be clear, so this is gonna be taking what's in Maine currently, so no more, no more 0.27…
+
+416
+00:44:07.880 --> 00:44:09.429
+Kent Dybvig: features.
+
+417
+00:44:09.630 --> 00:44:15.340
+Kent Dybvig: We have some in the, you know, in the… in the pipeline.
+
+418
+00:44:15.530 --> 00:44:16.710
+Kevin Millikin: Yeah, there's things that…
+
+419
+00:44:16.710 --> 00:44:18.620
+Kent Dybvig: We'll just relabel M028.
+
+420
+00:44:18.950 --> 00:44:19.550
+Kevin Millikin: Nope.
+
+421
+00:44:19.770 --> 00:44:27.250
+Kevin Millikin: Yeah, so things that haven't landed on main yet will become features in the next release. If there's anything that needs to go out in this release,
+
+422
+00:44:27.600 --> 00:44:32.639
+Kevin Millikin: let me know, because I haven't… I haven't started anything, so if I need to wait a… if I need to wait a few days.
+
+423
+00:44:33.120 --> 00:44:40.529
+Kevin Millikin: To get something that's… that needs to go out and is… is basically ready, we can do that. But otherwise, I'll just do it today.
+
+424
+00:44:42.160 --> 00:44:43.930
+Kent Dybvig: I'm not aware of anything critical.
+
+425
+00:44:44.130 --> 00:44:48.029
+Kevin Millikin: Yeah, so it will be… it will be branching off of Maine.
+
+426
+00:44:48.570 --> 00:44:52.449
+Kevin Millikin: To make… to make you release everything that makes… makes it in that branch.
+
+427
+00:44:52.560 --> 00:44:53.480
+Kevin Millikin: Gets released.
+
+428
+00:44:55.920 --> 00:44:56.850
+Kevin Millikin: Okay?
+
+429
+00:44:57.400 --> 00:44:59.190
+Kevin Millikin: Cool. Anything else?
+
+430
+00:45:04.310 --> 00:45:06.990
+Kevin Millikin: Alright, we can have 15 minutes back.
+
+431
+00:45:07.560 --> 00:45:09.110
+Kevin Millikin: Happy hacking, everybody!
+
+432
+00:45:10.980 --> 00:45:11.810
+Kent Dybvig: Thank you.
+
+433
+00:45:14.100 --> 00:45:14.880
+Thomas Kerber: Thanks.
+

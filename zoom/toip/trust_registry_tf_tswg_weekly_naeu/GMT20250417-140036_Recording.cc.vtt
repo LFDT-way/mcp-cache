@@ -1,0 +1,719 @@
+WEBVTT
+
+00:19:07.000 --> 00:19:20.000
+Think need to probably need to get closed so we can get those closed at some point. So… Fabrice, which one do you want to lead with? 16 or 15?
+
+00:19:20.000 --> 00:19:31.000
+I think that there is one that is talking about generalizing the methods. I think it's the 116.
+
+00:19:31.000 --> 00:19:32.000
+All right. Yep.
+
+00:19:32.000 --> 00:19:51.000
+In the comments, I was asking why do we need three different queries where we could use a single authorization query and use the vocabulary to to not to have so much method.
+
+00:19:51.000 --> 00:20:02.000
+Yeah, so this is a really good question. There's a couple of things to think about. One is on the API spec itself.
+
+00:20:02.000 --> 00:20:03.000
+No rush. No rush.
+
+00:20:03.000 --> 00:20:08.000
+I'll get to you in a second. I'll answer quickly the… One is on the API spec itself and one is on the spec as a whole.
+
+00:20:08.000 --> 00:20:22.000
+And the needs for them. The main difference between the three types of queries is the implied relationship between the entities within a recognition statement versus an authorization statement.
+
+00:20:22.000 --> 00:20:30.000
+Now, on the API spec itself. There was initially, there is ways to bind it into a single API call.
+
+00:20:30.000 --> 00:20:47.000
+The problem was, at least, or at least the feedback we got from some folks was it might be more difficult for adoption if it's all together in one API call, as in It was cleaner and easier to understand if you separate out the types of queries into four versus a single one.
+
+00:20:47.000 --> 00:21:02.000
+Most of these fundamentally are fundamentally You know, authority queries, which are basically triples in terms of like structure. And so in theory, almost every single thing could be constructed as a triple. But Drummond, go ahead and add on to that.
+
+00:21:02.000 --> 00:21:13.000
+You know, I didn't, oh, I guess it automatically puts your hand down if you don't say anything.
+
+00:21:13.000 --> 00:21:14.000
+Yeah.
+
+00:21:14.000 --> 00:21:22.000
+All I was going to say was, as you know, and or I've asked you the same question Especially after drafting the section and, you know, sort of getting all this, you know.
+
+00:21:22.000 --> 00:21:31.000
+Fully documented in the SPAC. And when I was drafting the query vocabulary proposals.
+
+00:21:31.000 --> 00:21:36.000
+It really struck me. It's like, yeah, all of these have the same structure. That's the whole point.
+
+00:21:36.000 --> 00:21:43.000
+So it just, and now you see, the thing is, I always have to discount this. I'm not a developer. I don't.
+
+00:21:43.000 --> 00:22:05.000
+You know, create or write against APIs. So that's why I always just hold back and let let the developers decide about that. But I'm just was saying, Fabrice, I had the same reaction. It felt like, yeah, they're all The assertion will always tell you what type of query it is because that's the point of vocabulary.
+
+00:22:05.000 --> 00:22:23.000
+Maybe the last thing I'll say is if we come to clear decisions about vocabulary then it then that might put more… credibility and just being able to simplify the spec. And that's all I can add to that. I'm done.
+
+00:22:23.000 --> 00:22:32.000
+Real quick, just to make sure we're clear here, we're talking about, Fabrice, question for you. Are you… referring to the binding or the core.
+
+00:22:32.000 --> 00:22:49.000
+And this is very important because I want to make sure before I continue on to that, I'm clear on is it the core as in We have four types of queries described in the spec, which are describing relationships. So you have a recognition query, which is a pure relationship.
+
+00:22:49.000 --> 00:22:55.000
+We have an authorization query, which is different. And then you have a delegation query, which is a hierarchical relationship.
+
+00:22:55.000 --> 00:22:59.000
+Are you talking about that or are you talking about specifically the OpenAPI spec?
+
+00:22:59.000 --> 00:23:00.000
+First of all. Okay.
+
+00:23:00.000 --> 00:23:09.000
+I'm just talking about the API. I mean, for me it's for me it looks easier to understand.
+
+00:23:09.000 --> 00:23:37.000
+If everything is in the vocabulary and as you will see in the other issue the 117 I have good arguments as well for that because In the simplified vision that we have from trust registry is just is for example issuer A a valid issuer for credentialed schema B, for example, in the ecosystem C.
+
+00:23:37.000 --> 00:23:44.000
+But you might have other parameter to take into account.
+
+00:23:44.000 --> 00:23:45.000
+Yep.
+
+00:23:45.000 --> 00:23:58.000
+Such as, for example, in which country the issuer is authorized to, if the issuer is authorized to issue a credential of this from this ecosystem in this country, for example.
+
+00:23:58.000 --> 00:24:09.000
+So everything finally is tied to the assertion, so that's why for me it it's important to focus on the vocabulary
+
+00:24:09.000 --> 00:24:19.000
+Okay, so understood. Here's my feedback on this is maybe what we need is a process I'll be honest with you. I understand your point about the single query.
+
+00:24:19.000 --> 00:24:24.000
+The feedback I got was there was some opinions about keeping them separate.
+
+00:24:24.000 --> 00:24:43.000
+What I think we can do is have a process I don't have a good answer. This is more art than science at this point in terms of how you design the API query So maybe what we can do is build a process up that allows us to finalize a query
+
+00:24:43.000 --> 00:24:58.000
+Sort of spec. On the API front where it's We'll make a call to action and ask folks to weigh in on their choices so I will add in clarity here.
+
+00:24:58.000 --> 00:25:01.000
+On the possibilities. Yeah.
+
+00:25:01.000 --> 00:25:31.000
+Maybe I think, and that's… before taking a decision, I think that's what should be done is we should work on what drummond prepared the vocabulary documents Because I think that exploring the vocabulary Maybe we will then be able to take a
+
+00:25:33.000 --> 00:25:34.000
+No.
+
+00:25:34.000 --> 00:25:39.000
+A better decision because at the moment it's for me it's a little bit early We need to work on this vocabulary document to see how to accommodate all the cases possible And for the vocabulary to be extensible.
+
+00:25:39.000 --> 00:25:42.000
+Got it. That's fair. Drummond?
+
+00:25:42.000 --> 00:25:47.000
+All I'm saying is plus one to what everything Febre said. I think it does make sense.
+
+00:25:47.000 --> 00:26:06.000
+Do vocabulary first and then then revisit um Any question about, you know, the API space and that keep in mind, the other thing I'll just put forward is I really think, I mean, I personally would love for us to add
+
+00:26:06.000 --> 00:26:23.000
+The TRQP binding as another uh milestone or not another another I figured, no, we could put in, I don't know if there's an issue on it. I have talked to Wenjing about it. He feels, well, I've talked to you about it, Andrew. He feels like it's a
+
+00:26:23.000 --> 00:26:48.000
+It would not take very long at all. I don't know if that's something we want to put in scope for the public review v2 but but it would… I think it would add… a great perspective on this question of the HCP binding, because if the same vocabulary obviously has to work with a trqp binding.
+
+00:26:48.000 --> 00:26:57.000
+It'll probably make it even clearer, oh, you can do all this with one you know, basically set of messages.
+
+00:26:57.000 --> 00:27:06.000
+Yeah, but rather than just add another binding, I would specifically say add a TSP binding.
+
+00:27:06.000 --> 00:27:26.000
+Yeah. And the nice thing I can I can, we can bring that to the, even though the TSP task force is focused on tsp One of the things we're doing now is talking about trust tasks in order to sort of exercise
+
+00:27:26.000 --> 00:27:35.000
+And check things with the TSP design. So we can probably get folks on that task force to weigh in and help us with this.
+
+00:27:35.000 --> 00:27:44.000
+Okay. I'm going to… add it and we'll have to have conversations because I know some people have thoughts around this.
+
+00:27:44.000 --> 00:27:47.000
+I will leave it at that. But it's a good point.
+
+00:27:47.000 --> 00:27:56.000
+Okay, so let's move on to vocabulary. So what we've done is we've held off 1.16.
+
+00:27:56.000 --> 00:28:03.000
+In lieu of 115 and getting that further along so Fabrice, do you want to talk about 115?
+
+00:28:03.000 --> 00:28:29.000
+No, I think it's related to what we just mentioned. So maybe you can even close this uh this issue because for for the payments It's exactly the same program that's with the example I was giving with the country In some cases, for example, yeah, of course, the IPI could could answer that a payment is required
+
+00:28:29.000 --> 00:28:49.000
+But that doesn't remove the principle of being able to specify more criteria when evaluating the assertion. So I think that's Maybe we could keep that on hold or close the issue because we had the other one that we just commented.
+
+00:28:49.000 --> 00:28:58.000
+And work on the vocabulary. I think that's definitely the vocabulary is what we need to focus on at the moment. So you can you can close or comments.
+
+00:28:58.000 --> 00:29:04.000
+Okay. I'm not going to close it because I actually think this is valuable and we should use it as reference for later.
+
+00:29:04.000 --> 00:29:05.000
+Okay.
+
+00:29:05.000 --> 00:29:12.000
+But what I will do is we should add in another issue. It's important. Getting these issues logged in help us move these forward.
+
+00:29:12.000 --> 00:29:14.000
+Can't you do a cross-reference to that from the from Okay.
+
+00:29:14.000 --> 00:29:21.000
+I did. I did. I did. But it sounds like what we need is a vocabulary improvement issues specifically.
+
+00:29:21.000 --> 00:29:34.000
+Oh, yeah. If we haven't done that yet, right, because we've already we've done the posting and now we need the vocabulary Yeah, okay, that looks good.
+
+00:29:34.000 --> 00:29:46.000
+So question for folks. Let's see, like we had a bullet what are Let me just put this here.
+
+00:29:46.000 --> 00:29:57.000
+Drummond, I've looked at this document. I know you've spent a lot of time on this and obviously we've worked on this but What is the… When we talk about improvements.
+
+00:29:57.000 --> 00:30:02.000
+Where are the areas that we need to give some attention to? What is it?
+
+00:30:02.000 --> 00:30:13.000
+What is the process to getting this to a finalized state? Because if this is where the focus needs to be, we need to evaluate the process itself to get to Everybody says we're good with this.
+
+00:30:13.000 --> 00:30:20.000
+So… Where do you feel it's at today versus where it needs to go to get more wide sort of approval? Go ahead, Roman.
+
+00:30:20.000 --> 00:30:30.000
+Sure. One of the suggestions I think this came up, I think it might have been Febreze who was suggesting it in our session, IW is.
+
+00:30:30.000 --> 00:30:53.000
+I… it does currently we don't have um in these sections, in these four tight, you know, suggestions, I was focused on Essentially, what are the verbs And then how would you describe scope? So my number one suggestion is And maybe we do it in this document or we create a Google Doc, whatever is easier.
+
+00:30:53.000 --> 00:31:00.000
+We need examples, right? Like Fabriza said, hey, I need to be able to describe the following.
+
+00:31:00.000 --> 00:31:17.000
+And the more examples we have, and this is This is great. Scott, this is the kind of thing that because you and Mathieu and the governance-driven trust registries One of the things I'm anticipating, we've been anticipating for a long time is that
+
+00:31:17.000 --> 00:31:26.000
+The queries that will be supported, the authority statements will be supported by a particular ecosystem.
+
+00:31:26.000 --> 00:31:33.000
+And the vocabulary they will use is going to go into their ecosystem governance framework.
+
+00:31:33.000 --> 00:31:58.000
+They're literally going to say, you know, in our ecosystem And it won't necessarily be every query will be the you know the algorithms, the structure they're following, right? Because they could say okay we're And to the extent that we can simplify and standardize. Well, here's how you can do certain types of queries, right? Issuer authorization queries, verification authorization queries. That's what I was after is saying.
+
+00:31:58.000 --> 00:32:13.000
+Okay, these feel like the basic patterns But what we need is we need examples and we need, I mean, the best thing would be anyone working on, you know, real actual governance frameworks for ecosystems.
+
+00:32:13.000 --> 00:32:32.000
+Can go, all right, here's what i need And then we can see, well, do we have the vocabulary to support that or not? And Febreze's examples, things he's working on is a perfect, perfect, perfect example. So that's That's the main thing. I think it applies.
+
+00:32:32.000 --> 00:32:40.000
+In all four areas, right? Especially when it comes to description. I think there we could I'll say one more thing.
+
+00:32:40.000 --> 00:32:57.000
+When it comes to the description or metadata where is the the The pattern I'm anticipating is that i'm anticipating is that the vocabulary will actually name a name a profile or a description, you know, I call it a profile, a set of
+
+00:32:57.000 --> 00:33:16.000
+A metadata that you need, right? You're describing the registry, you're describing the ecosystem, you're describing whatever In which case it simplifies it because then the vocabulary is just a reference to that profile. Let's just think of it as the schema of the information that you're after, just like
+
+00:33:16.000 --> 00:33:22.000
+You're referencing the schema of a credential or the schema of a presentation request.
+
+00:33:22.000 --> 00:33:43.000
+And if we go that route, then it actually extends over to part of our vocabulary can be publishing a handful of those those description schemas and uh over to Scott who's got that um very um
+
+00:33:43.000 --> 00:33:44.000
+Yeah, because it's tan, you know, that's the thing. With my Arizona tan. So there you go.
+
+00:33:44.000 --> 00:33:49.000
+The hand that you can barely see against his background.
+
+00:33:49.000 --> 00:33:50.000
+That's it.
+
+00:33:50.000 --> 00:33:59.000
+So one of the things that I am doing with the c2ba is… We are posting not only the trust lists.
+
+00:33:59.000 --> 00:34:04.000
+But we also should be posting the schema for the trust list.
+
+00:34:04.000 --> 00:34:17.000
+In addition to posting the schema for the trust list, we're also adding a companion guide Or at least a companion that says some of the details of the metadata.
+
+00:34:17.000 --> 00:34:21.000
+So I do think that that should be generally accepted practice.
+
+00:34:21.000 --> 00:34:45.000
+Especially if You're inviting outsiders that may not have the depth and want. They just want to access the Trust registry. So we should support that and provide whatever is necessary for folks that want to do those types of activities.
+
+00:34:45.000 --> 00:34:54.000
+So I'm trying to figure out how to figure out how to say this succinctly.
+
+00:34:54.000 --> 00:35:02.000
+Cgba Trust List, Companion Guide succinctly support is it support C2B compatible with C2P.
+
+00:35:02.000 --> 00:35:29.000
+Well, what we need to be able to do is from a trust registry standard standpoint we should be advocating that there is that there is a schema. Not only is the trust registry available But the schema should be available.
+
+00:35:29.000 --> 00:35:52.000
+In a way that can invite clarity on how to access it. In addition to because you've got the protocol you also need to know, okay, what is the ecosystem What's the metadata of their trust registry using the protocol?
+
+00:35:52.000 --> 00:36:07.000
+Real quick, and I see Drummond has a sense. To me, this is a really good point, Scott. This is part of refining in my head the description query um query Because we have a description query which has, it's kind of open-ended right now.
+
+00:36:07.000 --> 00:36:10.000
+Drummi, go ahead.
+
+00:36:10.000 --> 00:36:17.000
+I was going to say exactly that. I was going to go one step further and say.
+
+00:36:17.000 --> 00:36:32.000
+It's just an idea. C2pa is both real enough And I hope rich enough. It's a very call it, you know, mass market use case.
+
+00:36:32.000 --> 00:36:37.000
+And we've got Scott here who is right on top of it.
+
+00:36:37.000 --> 00:36:50.000
+We might even want to go as far as thinking about an appendix that uses, that hasn't, you know, a set of examples about C2PA, right?
+
+00:36:50.000 --> 00:36:58.000
+Now, it also could just be a separate document. Scott Scott essentially, Scott and the CTPA folks have to produce that anyway.
+
+00:36:58.000 --> 00:37:04.000
+But it's just really meaty, very real. Scott's right in the middle of it.
+
+00:37:04.000 --> 00:37:18.000
+And so I'm suggesting not only do we, you know, do we do that? Work with Scott to see what is all the vocabulary that they are planning And then, so it's a great task.
+
+00:37:18.000 --> 00:37:26.000
+But then it also might be a really good example, enough so that it could be potentially an appendix on the spec.
+
+00:37:26.000 --> 00:37:27.000
+Oh, wait.
+
+00:37:27.000 --> 00:37:38.000
+Yeah, so let's talk a little bit specifically about that. So the C2PA is coming out with two releases of its conformance program.
+
+00:37:38.000 --> 00:37:42.000
+One is going to be too early. It's happening within a month.
+
+00:37:42.000 --> 00:37:50.000
+And uh but And that will come out with whatever they have come up with because they have two trust registries.
+
+00:37:50.000 --> 00:38:03.000
+What I like to see is that this becomes the work we're doing here becomes mature enough that between the interim release and the initial release with teeth.
+
+00:38:03.000 --> 00:38:14.000
+We can present And I can bring you in, present this to the C2PA and adopt it.
+
+00:38:14.000 --> 00:38:18.000
+Sorry, what date was that? Around?
+
+00:38:18.000 --> 00:38:27.000
+So… I would say that i would say that It's between let's say June 4th.
+
+00:38:27.000 --> 00:38:28.000
+Okay.
+
+00:38:28.000 --> 00:38:39.000
+Because we're having this big meeting. And probably roll that out. So after, I'd say after June and before the end of the year Let's just say that.
+
+00:38:39.000 --> 00:38:51.000
+Well, a little bit of variance here, but that works. I mean, it's good. So these timelines really do help make us move forward correctly Quickly. Okay.
+
+00:38:51.000 --> 00:38:56.000
+I'm going to leave this as this, but I feel like this issue needs refinement.
+
+00:38:56.000 --> 00:39:04.000
+So we can work on it. But right now we have examples as the immediate action item, which we can make a sub issue for.
+
+00:39:04.000 --> 00:39:10.000
+For vocabulary. I've also added in another issue.
+
+00:39:10.000 --> 00:39:21.000
+Or starting at an issue, which is delegation. Is currently not really supported in the API spec and it's not It was noted as needs improvement.
+
+00:39:21.000 --> 00:39:31.000
+This just needs work. So I'm going to add this as well to the updated release.
+
+00:39:31.000 --> 00:39:36.000
+Enhancements. Cool.
+
+00:39:36.000 --> 00:39:42.000
+We start off with five issues now we're… slowly bubbling back up.
+
+00:39:42.000 --> 00:40:03.000
+Okay, this one right here. Is another issue, which I had some great feedback actually from Encore, which is So right now When you query your trust registry, one of the things that we think would be really helpful is, or I think at least would be really helpful, which is what we support is some
+
+00:40:03.000 --> 00:40:13.000
+Integrity proof around the response being controlled by the controller of the registry. So this would prevent, for example, men in the middle attacks and a number of other security things.
+
+00:40:13.000 --> 00:40:22.000
+The current construction is very bad in that it's just a JWS field where it's supposed to be a sign artifact of the response.
+
+00:40:22.000 --> 00:40:27.000
+And I think we can improve it. So the proposal here.
+
+00:40:27.000 --> 00:40:32.000
+Is an optional query parameter. Proof equals true.
+
+00:40:32.000 --> 00:40:41.000
+If you do that, you get a signed response versus if you do not do that, you would get a non-signed response. And it's up to the registry to either support it or not support it.
+
+00:40:41.000 --> 00:40:45.000
+You basically get higher levels of assurance if you support it.
+
+00:40:45.000 --> 00:40:55.000
+From a verifier perspective. So this right here needs to move over before I make these adjustments and updates to the spec.
+
+00:40:55.000 --> 00:41:01.000
+Anybody, and I hear Fabrice added in the requirement for optionality, which I think will be fine.
+
+00:41:01.000 --> 00:41:07.000
+Is there anything else? People want to add on to this and then I will submit a PR pretty soon.
+
+00:41:07.000 --> 00:41:12.000
+Modifying the spec to handle this case. Oops.
+
+00:41:12.000 --> 00:41:20.000
+Is this making sense? People understand why we need the proof in the first place.
+
+00:41:20.000 --> 00:41:24.000
+I hate to be dense, but I also got, I just got a uh And a brief interrupt.
+
+00:41:24.000 --> 00:41:28.000
+Yep.
+
+00:41:28.000 --> 00:41:35.000
+Should we turn a VC like response for signing guarantees.
+
+00:41:35.000 --> 00:41:44.000
+Uh the the The reason you need it, Drummond, is because you want to make sure that the responses are controlled by the controller of the trust registry.
+
+00:41:44.000 --> 00:41:45.000
+Oh, okay.
+
+00:41:45.000 --> 00:41:51.000
+So this is an optional parameter. We have it already. It's just, it's not well designed.
+
+00:41:51.000 --> 00:41:57.000
+So it's a it's a sign. You're basically saying signed responses, right?
+
+00:41:57.000 --> 00:41:58.000
+Yes. Signed responses.
+
+00:41:58.000 --> 00:42:10.000
+Okay. Just feedback on a pure semantic basis the name of this the name of issue does not I can read that and it's like.
+
+00:42:10.000 --> 00:42:11.000
+Yep.
+
+00:42:11.000 --> 00:42:19.000
+A lot more complex You know, do we need side responses or side responses? Yeah. Okay. That's good. Thank you.
+
+00:42:19.000 --> 00:42:23.000
+All right. Okay. Yeah. Now that makes sense. Yes.
+
+00:42:23.000 --> 00:42:37.000
+The only other issue, and I'll have to look at this, is it does mess up the swagger spec a little bit because it makes it look a lot more ugly because you're basically saying in this case, this is the response I want. In this other case, this is a response I want, right? Given a proof equals true, this is how I want to wrap the response.
+
+00:42:37.000 --> 00:42:52.000
+Given a proof equals false, I want to do it without this signing stuff. So that was a main reason why I think I tried to do the JWS field, but I think it's just not adequate. So we're going to have to put language around that and um
+
+00:42:52.000 --> 00:43:00.000
+I will put something in there. Okay.
+
+00:43:00.000 --> 00:43:11.000
+Finally, we have one more issue. That… kind of came up over feedback around status codes. So we can tackle this async.
+
+00:43:11.000 --> 00:43:26.000
+Um… But I think the idea was that… Just trying to remind myself here.
+
+00:43:26.000 --> 00:43:43.000
+These status codes need some work. Out of curiosity, does anybody want to… weighing into this, I'll send you the link. This feels like an issue that is better tackled async
+
+00:43:43.000 --> 00:43:54.000
+But yeah, that's another issue that's going to be on this milestone. So we'll have to address that. And I expected this. The errors were pretty rudimentary at the beginning. And I think this is really good feedback.
+
+00:43:54.000 --> 00:43:57.000
+So I'm not going to weigh into this too much though.
+
+00:43:57.000 --> 00:44:00.000
+If you guys get this is an issue, please weigh in.
+
+00:44:00.000 --> 00:44:10.000
+Otherwise, we'll get a PR in pretty soon. So we have a couple of things. We have vocabulary, delegation, and let me just pull up the milestone here.
+
+00:44:10.000 --> 00:44:17.000
+Oops.
+
+00:44:17.000 --> 00:44:32.000
+Vocabulary, delegation, and the signing and API responses. Is anybody willing to move forward and send a PR on any of these topics to sort of move these issues forward.
+
+00:44:32.000 --> 00:44:35.000
+What would be good is to start to get some motion on some of these issues.
+
+00:44:35.000 --> 00:44:43.000
+And I'm happy to, I'll tackle the signing piece to start off with. So I'll sign this myself.
+
+00:44:43.000 --> 00:44:54.000
+Drummond or Febreze? Do either of you feel comfortable doing some work on the vocabulary and vocabulary and potentially getting something in by next week.
+
+00:44:54.000 --> 00:45:19.000
+Yes, definitely. I think it's important to advance on that. So yes, I will put, today I will put some examples and I will I will start to to to read what has been read what's the existing documents It will be nice, Dormand, if we could have some examples of a full assertion
+
+00:45:19.000 --> 00:45:37.000
+So that will make the document more valuable. And yes, I will put some examples and then start to think about how we could represent what we need in our context. So yes.
+
+00:45:37.000 --> 00:45:38.000
+I think we can do that for next week program.
+
+00:45:38.000 --> 00:45:44.000
+Okay. All right. I'm going to tag you.
+
+00:45:44.000 --> 00:45:45.000
+As well.
+
+00:45:45.000 --> 00:45:52.000
+By the way, I will not be able to join next Thursday because I will be on holiday and in a place with no connectivity.
+
+00:45:52.000 --> 00:45:59.000
+But anyway, I will do my best to connect, but I think I will not be able.
+
+00:45:59.000 --> 00:46:00.000
+Okay, no problem. And enjoy your holidays. That's totally Fine. Drummond, go ahead.
+
+00:46:00.000 --> 00:46:05.000
+Just…
+
+00:46:05.000 --> 00:46:30.000
+Yeah, I'm happy to work on this. I really… liked it. I volunteer because i i love the concreteness of the CTPA example too work with Scott and and uh i mean scott if you have vocabulary if you're working on those documents, I'd be happy to work with you, schedule a session and just
+
+00:46:30.000 --> 00:46:46.000
+See, you know, see. See how, basically see how well the vocabulary is working, what we're missing uh it would be An example that, because I'm fresh enough to it, I don't know exactly what they're after, but I know how, you know.
+
+00:46:46.000 --> 00:46:48.000
+Right.
+
+00:46:48.000 --> 00:47:04.000
+We would need to so so it'd be just a working session try and see how well I could translate what you need and learn what kinds of things that I haven't been anticipating.
+
+00:47:04.000 --> 00:47:05.000
+If Scott's…
+
+00:47:05.000 --> 00:47:19.000
+Well, if I can respond, we're far off. Okay, so whatever they're doing and whatever we've created to date was generated without any thought.
+
+00:47:19.000 --> 00:47:23.000
+Of what we're doing in this call. Okay.
+
+00:47:23.000 --> 00:47:30.000
+However. I do believe that the next iteration of that.
+
+00:47:30.000 --> 00:47:52.000
+Can be transformed into what we need. I don't think we're so far off, but it's it's like… you know we're you know here we're talking in English and at the ctpa we're talking japanese So we need to, you know, we'll need some kind of translation and some kind of
+
+00:47:52.000 --> 00:48:04.000
+Discussion, but I'm not prepared to bring anyone in until we've passed getting this interim release out.
+
+00:48:04.000 --> 00:48:05.000
+Totally. So, yeah.
+
+00:48:05.000 --> 00:48:16.000
+And then there'll be a time where they're kind of forward thinking of trying to make this thing actually you know scale And all that kind of thing.
+
+00:48:16.000 --> 00:48:30.000
+So I totally understand that's cool. What I'm saying is in the English Japanese stage knowing that we're going to need to do the translation, I'm basically saying, okay, I'm coming from the English side saying.
+
+00:48:30.000 --> 00:48:38.000
+Scott, can you explain the Japanese to me? Can you be the translator And I'll write down what I'm writing.
+
+00:48:38.000 --> 00:48:47.000
+And go, okay, what of those things would reflect on, you know, vocabulary suggestions.
+
+00:48:47.000 --> 00:48:48.000
+So you don't…
+
+00:48:48.000 --> 00:48:54.000
+Right. Well, I won't have to do that. I hope. What I hope is when we get the interim release out.
+
+00:48:54.000 --> 00:49:03.000
+That will include the documents describing the schema, the metadata, and the companion guide.
+
+00:49:03.000 --> 00:49:04.000
+Oh, got it. Got it. Okay.
+
+00:49:04.000 --> 00:49:16.000
+So you should have all the information that you need to come back and say, oh, we'd like a meeting. This is how we think we You need to do it in order to conform with generally accepted emerging standards.
+
+00:49:16.000 --> 00:49:23.000
+Okay, so you're working on those things and we should wait until you have those done and then we can consume those.
+
+00:49:23.000 --> 00:49:40.000
+Yeah, so we're right. In the next month, I'm still Depending on what happens in the next, you know, after 10 minutes, I have another meeting. We're trying to finalize all the initial documentation.
+
+00:49:40.000 --> 00:49:41.000
+Got it.
+
+00:49:41.000 --> 00:49:47.000
+That's needed to support the interim release. Which will include a lot of public documents, including the description of our trust lists, which really have to be public And they know that.
+
+00:49:47.000 --> 00:49:57.000
+Right, right. Okay. So that actually maybe brings up a question, Andor. I know we just have 10 minutes left.
+
+00:49:57.000 --> 00:50:22.000
+Of getting a rough sense of the milestone we want for public review I can certainly toss out that it would be potentially the next major thing that I would say we might or forum we might want to be aiming for is the global digital collaborative the first two days of July.
+
+00:50:22.000 --> 00:50:28.000
+And Scott, you're talking about something that would become public sometime in May. Is that right?
+
+00:50:28.000 --> 00:50:38.000
+Yeah, I hope so. I hope so. It's been, you know, it's been a challenge, but we're close.
+
+00:50:38.000 --> 00:50:40.000
+Yes.
+
+00:50:40.000 --> 00:50:57.000
+Yeah, because I mean, even if if it's okay to share anything just so we can have the input about vocabulary before it's fully published, whatever we need, we're not going to do anything with it other than look at it and go, all right, what impact will that have on
+
+00:50:57.000 --> 00:51:19.000
+Our vocabulary improvements. But in any case, I'm just tossing out, does anyone else have a suggestion for this Next public review draft are we aiming at You know, a month from now for, you know, end of June, September, what are folks thinking?
+
+00:51:19.000 --> 00:51:29.000
+I will say just adding in here, I think it'd be great to anchor into GDC. I like I like it when we have… tight enough dates to force motion.
+
+00:51:29.000 --> 00:51:38.000
+So that would be good. And I think if you look at what we're incorporating here, it's doable within that time period.
+
+00:51:38.000 --> 00:51:45.000
+As long as we don't get locked on a particular issue. You know, we have vocabulary updates, some delegation updates, API spec improvements.
+
+00:51:45.000 --> 00:51:48.000
+These are all solvable in the next two months. It is ambitious.
+
+00:51:48.000 --> 00:51:53.000
+I don't think we should hold ourselves. If it turns out something's taking us longer.
+
+00:51:53.000 --> 00:52:06.000
+Than we expected, then we might have to push. I'm fine anchoring in on 2GDC as the anchor for getting this done just to keep it moving quickly.
+
+00:52:06.000 --> 00:52:16.000
+And that's also a few months of feedback. So I put it in, but we can always readdress the timelines if we get stuck in some issue.
+
+00:52:16.000 --> 00:52:20.000
+How does that sound? Sound okay?
+
+00:52:20.000 --> 00:52:24.000
+Yeah, it does sound good to me. I feel like a reasonable time.
+
+00:52:24.000 --> 00:52:27.000
+To push for those.
+
+00:52:27.000 --> 00:52:40.000
+Cool. Awesome. Awesome. I think we have everything we need. So next week… Hopefully we have at least one PR to review. We have a whole bunch of stuff to do. Seven new issues.
+
+00:52:40.000 --> 00:52:53.000
+If you know folks that haven't looked, if you know folks that would be able to get feedback on the spec that haven't done so yet or haven't looked at it, please let them know. And I think that's it. So thank you very much, guys.
+
+00:52:53.000 --> 00:53:00.000
+This was awesome because we have now work to do that is going to move us over and forward.
+
+00:53:00.000 --> 00:53:09.000
+Thank you for participating. Anybody want to close out with any final thoughts before we we um We end the meeting.
+
+00:53:09.000 --> 00:53:10.000
+Yep. Yes.
+
+00:53:10.000 --> 00:53:24.000
+I have a question about the APAC calls. At a high level, what is the intent? Is it the intent to sort of rehash the content from this is it Is it going to be two different threads? I'm just curious
+
+00:53:24.000 --> 00:53:28.000
+I'm more just curious how this happens for other projects, too.
+
+00:53:28.000 --> 00:53:29.000
+What's the intent?
+
+00:53:29.000 --> 00:53:39.000
+Yeah, this is a great question. So my hope would be that this first APAC call is to sort of refine the intent.
+
+00:53:39.000 --> 00:53:47.000
+Initially, it was to be inclusive of APAC because we're starting to get into points where it'd be nice to get APEC on these conversations to be able to help.
+
+00:53:47.000 --> 00:54:02.000
+But I think the hope is… that the lead of the APAC call, whoever that is, will be able to help refine the goals of APAC and if it's supposed to be a complimentary to this one or if it's supposed to kind of go into different angles.
+
+00:54:02.000 --> 00:54:08.000
+They have a whole different set of requirements than we do on the NA side. Drummond, go ahead.
+
+00:54:08.000 --> 00:54:15.000
+I'm just amplifying on it based on my experience uh and john it's a really good question.
+
+00:54:15.000 --> 00:54:35.000
+Some organizations try and basically review the same agenda and you know and and call it really synchronize what happens on the calls What I've found is that it works because they generally tend to fall, you know, obviously one falls before the other and and
+
+00:54:35.000 --> 00:54:46.000
+The way we end up doing is North America, Europe calls tend to come first if they're held on the same day. And that's what we're talking about doing here.
+
+00:54:46.000 --> 00:54:58.000
+Then what helps is you do look at in the second call, you summarize the discussion in the first call But you don't constrain it to just that because as Andor said.
+
+00:54:58.000 --> 00:55:08.000
+They will have separate. The one thing that I think will be really great though is they will post issues. There might be separate issues. It might be things that are just, you know.
+
+00:55:08.000 --> 00:55:28.000
+Obviously, they're looking at the UN Global Trust Registry work. And then what happens is we end out discussing or we the North America, Europe folks get exposed to what that thinking is and vice versa. You don't have to all be on the same call. It does always help.
+
+00:55:28.000 --> 00:55:33.000
+To have at least one or two folks that are able to attend both calls.
+
+00:55:33.000 --> 00:55:39.000
+I will try and do that as much as I can because I'm in Pacific time zone. It's pretty convenient.
+
+00:55:39.000 --> 00:55:49.000
+But we shouldn't force it to be exactly the same. If they want to have a call on a completely different topic, as long as it's documented and if it's an issue.
+
+00:55:49.000 --> 00:56:01.000
+They fully write it up. So that you get the benefit of basically a larger group if you don't have all synchronous discussion.
+
+00:56:01.000 --> 00:56:19.000
+Yeah, that makes sense. So I guess… the proper habits is just sort of review the docs if you're not going to make both meetings just there's there'll be some sort of summary about what happened in that call, vice versa.
+
+00:56:19.000 --> 00:56:21.000
+So that's the idea, right?
+
+00:56:21.000 --> 00:56:37.000
+Absolutely. And I think what it does is it reinforces the the need to use GitHub, use the issues, use the discussions uh to make sure that whatever you are discussing is exposed to the whole group.
+
+00:56:37.000 --> 00:56:42.000
+Yeah.
+
+00:56:42.000 --> 00:56:48.000
+As Andor's been doing. Very well, thanks.
+
+00:56:48.000 --> 00:56:59.000
+Cool. This is awesome, guys. Great questions. And thank you. Every time we see, I see you guys, it makes me very happy. So thank you very much guys for joining in.
+
+00:56:59.000 --> 00:57:09.000
+Appreciate all the input, all the questions, and we will see you next week, except for Breeze, I hope we don't see you because I hope you're enjoying yourself without internet.
+
+00:57:09.000 --> 00:57:10.000
+Take care, guys. Bye, guys.
+
+00:57:10.000 --> 00:57:40.000
+Go for it. Thanks much. You bet. Bye all.
+

@@ -1,0 +1,1098 @@
+WEBVTT
+
+1
+00:07:17.160 --> 00:07:19.770
+Parv Mittal: Hi everyone, let's start this meeting.
+
+2
+00:07:21.510 --> 00:07:24.090
+Parv Mittal: Today's, July 22.
+
+3
+00:07:24.250 --> 00:07:28.459
+Parv Mittal: And, welcome to the Wiki Dev called for GitMesh.
+
+4
+00:07:29.930 --> 00:07:41.380
+Parv Mittal: Coming on to the Code of Conduct, these slides do not contain any commercial advertisements. All the tools, products, books, materials are generic, and you have to consider those as examples.
+
+5
+00:07:42.470 --> 00:07:46.120
+Parv Mittal: We held our, weekly Dev Calls on every Wednesday.
+
+6
+00:07:46.440 --> 00:07:49.119
+Parv Mittal: And you can check out privacy policies.
+
+7
+00:07:49.460 --> 00:07:54.869
+Parv Mittal: Terms of use, antitrust policy code of conduct, and the official repository from here.
+
+8
+00:07:56.350 --> 00:08:01.280
+Parv Mittal: For today's agenda, I'll share you what I've done in the last week.
+
+9
+00:08:01.690 --> 00:08:08.260
+Parv Mittal: And, There is a little change in the pivot strategy, I'll explain that.
+
+10
+00:08:13.260 --> 00:08:17.450
+Parv Mittal: Let me show you… He is.
+
+11
+00:08:19.070 --> 00:08:19.880
+Parv Mittal: Nope.
+
+12
+00:08:22.870 --> 00:08:30.310
+Parv Mittal: So, in the last week, I was, working on the pivot.
+
+13
+00:08:30.510 --> 00:08:35.330
+Parv Mittal: There you go.
+
+14
+00:08:37.630 --> 00:08:50.779
+Parv Mittal: If you go here, and yeah, I have uploaded the pivot plan on the GitMesh app itself, so that all the contributors will be able to read it, and will be able to work accordingly with it.
+
+15
+00:08:54.190 --> 00:09:00.820
+Parv Mittal: So, the pivot is different from what we have discussed in the last meet.
+
+16
+00:09:01.080 --> 00:09:04.130
+Parv Mittal: In the last meet,
+
+17
+00:09:05.090 --> 00:09:12.370
+Parv Mittal: The pivot, was, something, related to…
+
+18
+00:09:12.530 --> 00:09:16.210
+Parv Mittal: like a GitHub, action, like, Core Revit.
+
+19
+00:09:16.390 --> 00:09:19.999
+Parv Mittal: Type of thing, but, we have, changed that.
+
+20
+00:09:20.440 --> 00:09:25.330
+Parv Mittal: So, now we will make a, NPM package kind of thing.
+
+21
+00:09:26.770 --> 00:09:30.190
+Parv Mittal: So what will this NBM package do?
+
+22
+00:09:31.160 --> 00:09:34.529
+Parv Mittal: You might have worked with AI agents, right?
+
+23
+00:09:35.430 --> 00:09:42.300
+Parv Mittal: And, AI agents require some files, like agents.md, cloud.md.
+
+24
+00:09:42.560 --> 00:09:48.110
+Parv Mittal: And, maybe some folders like, .cursor.codex.
+
+25
+00:09:48.410 --> 00:09:51.229
+Parv Mittal: And, many more stuff like that.
+
+26
+00:09:51.330 --> 00:09:59.089
+Parv Mittal: And, because, there are so many agents for coding, there are different,
+
+27
+00:09:59.880 --> 00:10:03.079
+Parv Mittal: documents for, AI agents.
+
+28
+00:10:03.790 --> 00:10:10.540
+Parv Mittal: like, Claude.md is different, and agents.md is different, and so on.
+
+29
+00:10:11.350 --> 00:10:14.130
+Parv Mittal: So, what we will focus on is…
+
+30
+00:10:14.870 --> 00:10:19.810
+Parv Mittal: We will, we will help the meat,
+
+31
+00:10:19.950 --> 00:10:23.500
+Parv Mittal: Projects to manage those, documents.
+
+32
+00:10:25.670 --> 00:10:31.510
+Parv Mittal: So, it will be a single CLI tool, and optionally a GitHub action.
+
+33
+00:10:31.780 --> 00:10:39.900
+Parv Mittal: there will be no server or login and nothing else. Only a single command to install through NPX.
+
+34
+00:10:40.410 --> 00:10:47.209
+Parv Mittal: And, single commands, like, NPS script finish doctor, and stuff like that.
+
+35
+00:10:48.800 --> 00:10:52.230
+Parv Mittal: Why this, approach? Because,
+
+36
+00:10:52.470 --> 00:11:03.220
+Parv Mittal: Having a CLI tool directly downloadable through NPM packages, it, will make the setup very clean, and
+
+37
+00:11:04.310 --> 00:11:08.160
+Parv Mittal: It, the user will not have to…
+
+38
+00:11:08.430 --> 00:11:14.190
+Parv Mittal: install anything else. He will need to run just one command, and
+
+39
+00:11:14.390 --> 00:11:16.549
+Parv Mittal: I will be able to work with GitMesh?
+
+40
+00:11:16.770 --> 00:11:28.259
+Parv Mittal: earlier in GitMesh, the user might need to start a complete server, create a project on that GitMesh server, and create agents, then…
+
+41
+00:11:29.020 --> 00:11:35.350
+Parv Mittal: check the heartbeat. It is a too complex process and, harder to adapt as an early project.
+
+42
+00:11:35.750 --> 00:11:40.550
+Parv Mittal: So, we decided to… Go with this flow.
+
+43
+00:11:41.170 --> 00:11:50.979
+Parv Mittal: Where there will be a single CLI and optionally a GitHub action. Not optionally, a GitHub action. I'll explain what, both of these do.
+
+44
+00:11:55.270 --> 00:12:07.939
+Parv Mittal: So I have done some research through agent. The research results. I'm easier if you want to read it, you can read it from here. You will get a good idea.
+
+45
+00:12:08.190 --> 00:12:16.800
+Parv Mittal: Of, like, what is currently there in the market, and, why, we particularly chose this idea.
+
+46
+00:12:20.030 --> 00:12:24.060
+Parv Mittal: So, cloud.md has Claude rules.
+
+47
+00:12:24.350 --> 00:12:35.110
+Parv Mittal: And Codex, has, agents.md. Now Codex has, nested agents.md, like, maybe multiple agents.md in a…
+
+48
+00:12:35.350 --> 00:12:41.770
+Parv Mittal: project. Each folder might have their own agents.m, so managing them is a real issue.
+
+49
+00:12:42.490 --> 00:12:46.350
+Parv Mittal: Similarly, cursor has dot cursor rules.
+
+50
+00:12:46.860 --> 00:12:55.259
+Parv Mittal: And, GitHub… .github instruction, and much more. There are rules in other stuff as well.
+
+51
+00:12:57.950 --> 00:13:07.410
+Parv Mittal: So, I'll explain you the… Pivot strategy. First layer, vice layer.
+
+52
+00:13:08.550 --> 00:13:10.819
+Parv Mittal: So, GitMesh doctor.
+
+53
+00:13:11.660 --> 00:13:16.369
+Parv Mittal: This will be the first command, and the first feature we'll be working on.
+
+54
+00:13:17.430 --> 00:13:24.369
+Parv Mittal: What it will do… When someone installs GitMesh through NPX,
+
+55
+00:13:24.510 --> 00:13:27.959
+Parv Mittal: They will first run this GitMesh doctor command.
+
+56
+00:13:28.450 --> 00:13:36.990
+Parv Mittal: It will browse all your projects, and it will find the instruction files in your project.
+
+57
+00:13:37.190 --> 00:13:40.530
+Parv Mittal: Agents.md, cloud.md, and other stuff.
+
+58
+00:13:40.850 --> 00:13:44.989
+Parv Mittal: And, it will… Then identify the risk.
+
+59
+00:13:45.110 --> 00:13:53.300
+Parv Mittal: like, what, has been… Shifted from the…
+
+60
+00:13:53.810 --> 00:13:57.639
+Parv Mittal: Like, what's risky, and
+
+61
+00:13:58.170 --> 00:14:02.110
+Parv Mittal: Like, what is different in different files?
+
+62
+00:14:02.530 --> 00:14:07.210
+Parv Mittal: Like, if agents.mdnclot.md.Y14 lines.
+
+63
+00:14:07.470 --> 00:14:10.810
+Parv Mittal: The GitMesh doctor will report it.
+
+64
+00:14:12.060 --> 00:14:15.480
+Parv Mittal: And, the second command.
+
+65
+00:14:15.800 --> 00:14:21.460
+Parv Mittal: is GitMesh apply, or GitMeshit? We'll choose the GitMesh Apply.
+
+66
+00:14:23.010 --> 00:14:25.869
+Parv Mittal: So… Or what it will do…
+
+67
+00:14:26.170 --> 00:14:31.699
+Parv Mittal: It will, create a single source of truth in a repo.
+
+68
+00:14:32.390 --> 00:14:37.709
+Parv Mittal: It will be agents.md plus one YAML file.
+
+69
+00:14:38.520 --> 00:14:40.649
+Parv Mittal: As you can read it from here.
+
+70
+00:14:40.820 --> 00:14:50.880
+Parv Mittal: instruction will live in agents.md, and everything else that agents.md does not cover will live in a YAML file.
+
+71
+00:14:52.100 --> 00:14:59.260
+Parv Mittal: Now, you might be thinking that, agents.md is already here, there, and,
+
+72
+00:15:00.800 --> 00:15:10.110
+Parv Mittal: like, the main goal of Agents.md was, this, actually, that, people do not need to keep, different files.
+
+73
+00:15:10.280 --> 00:15:12.689
+Parv Mittal: for, different AI agents.
+
+74
+00:15:13.070 --> 00:15:19.330
+Parv Mittal: But the thing is that, No one… Or at least clot code.
+
+75
+00:15:19.480 --> 00:15:23.030
+Parv Mittal: does not support agents or timely completely.
+
+76
+00:15:24.580 --> 00:15:36.780
+Parv Mittal: Like, this is the Rapo for Cloud Code, and on the issues… If you…
+
+77
+00:15:37.720 --> 00:15:44.389
+Parv Mittal: sort the issues by most reaction. The first issue with the most number of reaction is this.
+
+78
+00:15:45.540 --> 00:15:47.900
+Parv Mittal: Supportagents.md.
+
+79
+00:15:49.240 --> 00:15:55.779
+Parv Mittal: And, it's, open from August 2025. This means that,
+
+80
+00:15:56.030 --> 00:16:04.760
+Parv Mittal: Claude still does not support agents.md. It creates its own, Claude.md file.
+
+81
+00:16:06.140 --> 00:16:07.540
+Parv Mittal: And,
+
+82
+00:16:08.150 --> 00:16:18.109
+Parv Mittal: you can see the number of actions. It is the highest, reacted issue on the cloud code, and it is not resolved yet.
+
+83
+00:16:19.040 --> 00:16:21.560
+Parv Mittal: So, we think that,
+
+84
+00:16:21.660 --> 00:16:29.630
+Parv Mittal: People might actually use, this, tool that we are going to pivot in.
+
+85
+00:16:30.690 --> 00:16:39.899
+Parv Mittal: By this… Cloud… because, Cloud.md does not natively support agents.md and other tools.
+
+86
+00:16:40.020 --> 00:16:44.869
+Parv Mittal: I, as I showed earlier, Use their own documents.
+
+87
+00:16:47.180 --> 00:16:51.249
+Parv Mittal: So, there might be some conflict between documents.
+
+88
+00:16:51.630 --> 00:16:57.849
+Parv Mittal: And, We are not just checking the conflict.
+
+89
+00:16:58.440 --> 00:17:04.659
+Parv Mittal: I'll explain the entire plan, and you'll know how we are doing this.
+
+90
+00:17:07.040 --> 00:17:08.980
+Parv Mittal: So, GitMesh Supply.
+
+91
+00:17:09.430 --> 00:17:18.359
+Parv Mittal: It will… create single source of root, agents.md and GitMesh workspace.yaml. That's it.
+
+92
+00:17:19.150 --> 00:17:23.080
+Parv Mittal: Then GitMesh check. It is, the CI check.
+
+93
+00:17:24.530 --> 00:17:31.599
+Parv Mittal: So, it will be a GitHub action that will report if anything is wrong, like,
+
+94
+00:17:32.160 --> 00:17:38.570
+Parv Mittal: If, anything, if the PR does not follow.
+
+95
+00:17:38.820 --> 00:17:42.930
+Parv Mittal: What is written in the agents.md and .yaml file.
+
+96
+00:17:44.370 --> 00:17:46.900
+Parv Mittal: And then the GitMesh policy.
+
+97
+00:17:47.420 --> 00:17:50.209
+Parv Mittal: This is, like, the most important feature.
+
+98
+00:17:50.520 --> 00:17:59.540
+Parv Mittal: So, what Agents.md and what these files do, they describe the rules, but they do not enforce them.
+
+99
+00:18:01.210 --> 00:18:08.410
+Parv Mittal: So, GitMesh policy will act as an enforcement layer For those rules.
+
+100
+00:18:09.880 --> 00:18:12.330
+Parv Mittal: So, it can,
+
+101
+00:18:13.150 --> 00:18:22.039
+Parv Mittal: Either, like, it will check your code, and it will check what the agent has done.
+
+102
+00:18:22.150 --> 00:18:26.319
+Parv Mittal: And according to it, It will apply the policy.
+
+103
+00:18:26.720 --> 00:18:32.429
+Parv Mittal: So, like, there might be some rules, like, do not read ENV files, or,
+
+104
+00:18:32.900 --> 00:18:39.519
+Parv Mittal: Ask, before, implementing some descriptive commands and just stuff like that.
+
+105
+00:18:40.380 --> 00:18:49.540
+Parv Mittal: So… GitMesh, will translate them into, own enforcement mechanism.
+
+106
+00:18:50.770 --> 00:18:57.069
+Parv Mittal: And, it will work from agent to agent, like, Claude, have rules, and oaks.
+
+107
+00:18:57.180 --> 00:19:06.959
+Parv Mittal: Codex, has sandbox and approval settings. Our Codex is famous for sandbox and… Cursed as, hoax.
+
+108
+00:19:07.420 --> 00:19:11.759
+Parv Mittal: And, many other tools work and behave differently.
+
+109
+00:19:12.500 --> 00:19:14.750
+Parv Mittal: So, it will manage all of them.
+
+110
+00:19:15.430 --> 00:19:18.499
+Parv Mittal: And lastly, this is the final feature.
+
+111
+00:19:19.900 --> 00:19:24.729
+Parv Mittal: We do not need to work on this, now, and
+
+112
+00:19:25.910 --> 00:19:32.420
+Parv Mittal: It is, like, a snapshot and, auditing feature of GitMesh received.
+
+113
+00:19:37.480 --> 00:19:45.149
+Parv Mittal: And this is some architecture. You can understand the architecture from here.
+
+114
+00:19:48.260 --> 00:19:52.740
+Parv Mittal: And the… now comes the implementation roadmap.
+
+115
+00:19:53.220 --> 00:19:58.030
+Parv Mittal: So, you'll need to work according to this implementation roadmap.
+
+116
+00:19:58.460 --> 00:20:03.179
+Parv Mittal: There might be some things that, you might,
+
+117
+00:20:03.550 --> 00:20:06.730
+Parv Mittal: Who want to work, not…
+
+118
+00:20:07.060 --> 00:20:09.649
+Parv Mittal: Completely according to it, but,
+
+119
+00:20:09.890 --> 00:20:12.949
+Parv Mittal: Most purely according to it, like,
+
+120
+00:20:13.120 --> 00:20:16.430
+Parv Mittal: I have, done this foundation part.
+
+121
+00:20:16.710 --> 00:20:22.199
+Parv Mittal: And, I have created the pull requests for these, three.
+
+122
+00:20:22.630 --> 00:20:26.679
+Parv Mittal: And, I'll create the pull request for these also.
+
+123
+00:20:26.960 --> 00:20:32.330
+Parv Mittal: Before that, I'll need to publish the package on, NPM.
+
+124
+00:20:32.990 --> 00:20:37.010
+Parv Mittal: And, create some issues on the Zappo.
+
+125
+00:20:37.250 --> 00:20:43.950
+Parv Mittal: So that, you can start working on it. The issues will be simple, it will be, issues…
+
+126
+00:20:44.300 --> 00:20:47.359
+Parv Mittal: For, one part, or a single issue.
+
+127
+00:20:48.300 --> 00:20:54.079
+Parv Mittal: Creating an issue is important so that, we'll know who is working on it.
+
+128
+00:20:54.230 --> 00:20:58.950
+Parv Mittal: And, or will be able to contribute efficiently.
+
+129
+00:20:59.520 --> 00:21:05.070
+Parv Mittal: So, like, the part one, you can see that it has 19, task.
+
+130
+00:21:05.290 --> 00:21:12.290
+Parv Mittal: Each task is a pull request on its own, and, each task is,
+
+131
+00:21:12.900 --> 00:21:15.950
+Parv Mittal: As, atomic as it can be.
+
+132
+00:21:17.300 --> 00:21:21.640
+Parv Mittal: And, there will be more parts.
+
+133
+00:21:21.810 --> 00:21:29.370
+Parv Mittal: Gitmesh init, migrate… GitMesh supply, get my share, GitMesh Policy, and
+
+134
+00:21:29.970 --> 00:21:34.229
+Parv Mittal: Yeah, as you can see, I have created a lot of tasks, and
+
+135
+00:21:34.590 --> 00:21:39.080
+Parv Mittal: It is what we'll be focusing on throughout the mentorship.
+
+136
+00:21:39.520 --> 00:21:45.170
+Parv Mittal: We'll work on these, sequentially, while,
+
+137
+00:21:46.150 --> 00:21:58.209
+Parv Mittal: Like, one contributor can work on task 1, another contributor can work on task 2, and then, we'll move sequentially and complete these tasks one by one.
+
+138
+00:22:00.970 --> 00:22:07.980
+Parv Mittal: That's all about this GitMesh policy. And this, document,
+
+139
+00:22:08.300 --> 00:22:15.159
+Parv Mittal: also has a lot of steps, and I'll… I'll suggest that you read this document.
+
+140
+00:22:15.860 --> 00:22:24.460
+Parv Mittal: And, one more benefit of this document is that, you will be explain… able to explain what you want to do.
+
+141
+00:22:24.630 --> 00:22:29.000
+Parv Mittal: To your reagents, whichever reagent you want to work on.
+
+142
+00:22:30.710 --> 00:22:35.310
+Parv Mittal: So, that's about, pivot strategy.
+
+143
+00:22:35.710 --> 00:22:41.599
+Parv Mittal: Do you have any review? How did a delivery strategy sound to you?
+
+144
+00:22:48.190 --> 00:22:51.310
+Anurag Gupta: Yes, Parvat looks fine, good.
+
+145
+00:22:53.040 --> 00:22:59.190
+Parv Mittal: Okay. I want to actually hear your feedback on this pivoted strategy, like,
+
+146
+00:22:59.700 --> 00:23:08.229
+Parv Mittal: I myself do not know now that, it… will it work, or will it not work? But, since we have a CLI tool.
+
+147
+00:23:08.500 --> 00:23:10.510
+Parv Mittal: Boom.
+
+148
+00:23:10.690 --> 00:23:15.010
+Parv Mittal: We will be able to add, more features in the future.
+
+149
+00:23:15.350 --> 00:23:26.279
+Parv Mittal: Like, if you, might want, add a, code review feature, which we will not, implement, but,
+
+150
+00:23:26.490 --> 00:23:32.809
+Parv Mittal: Suppose if we want to implement a code review feature, we will just,
+
+151
+00:23:33.020 --> 00:23:43.820
+Parv Mittal: We'll just include another command, GitMesh code review, and, ship it as a feature. So, in the future, if we…
+
+152
+00:23:43.940 --> 00:23:46.169
+Parv Mittal: Want to make anything else?
+
+153
+00:23:46.610 --> 00:23:50.569
+Parv Mittal: We'll be able to do it very efficiently with the CLI tool.
+
+154
+00:23:51.010 --> 00:23:52.010
+Anurag Gupta: Yes.
+
+155
+00:23:52.570 --> 00:23:53.320
+Parv Mittal: Yep.
+
+156
+00:23:53.930 --> 00:23:56.280
+Anurag Gupta: Hmm, also we end every week.
+
+157
+00:23:56.460 --> 00:24:03.579
+Anurag Gupta: Can have the feature, like, cost or the token limits, we can easily track that.
+
+158
+00:24:04.150 --> 00:24:13.679
+Anurag Gupta: I mean, these small, small features we can include in the CLI tools, slash tokens, slash, like, slash post, as such.
+
+159
+00:24:14.670 --> 00:24:16.940
+Parv Mittal: Yeah, like,
+
+160
+00:24:17.410 --> 00:24:28.999
+Parv Mittal: I got your idea, like, we'll be able to implement any features, but, not exactly the slash token, because many people are already doing that.
+
+161
+00:24:29.370 --> 00:24:39.589
+Parv Mittal: But, yeah, right, that in the future, if we want to include anything else, we'll be able to include it directly in the CLI tool.
+
+162
+00:24:41.350 --> 00:24:42.480
+Parv Mittal: And,
+
+163
+00:24:42.920 --> 00:24:51.119
+Parv Mittal: One more thing, one more benefit of CLI tool is, we'll not, need to fetch directly from the GitHub.
+
+164
+00:24:51.390 --> 00:25:04.890
+Parv Mittal: Earlier what GitMesh used to do. It, used to fetch, the entire code from GitHub and, work on it, which, is, not very efficient, because
+
+165
+00:25:05.480 --> 00:25:13.199
+Parv Mittal: Fetching the code is the easy task, but working on it on a web browser is a difficult one.
+
+166
+00:25:13.530 --> 00:25:21.790
+Parv Mittal: You'll have to index the code on the web browser, you'll have to understand the code on the web browser, and
+
+167
+00:25:22.000 --> 00:25:26.380
+Parv Mittal: You'll have to run the sandbox on the web browser.
+
+168
+00:25:26.670 --> 00:25:29.730
+Parv Mittal: Which, is not very efficient.
+
+169
+00:25:29.860 --> 00:25:33.070
+Parv Mittal: If we include a PLI tool.
+
+170
+00:25:33.200 --> 00:25:36.550
+Parv Mittal: There is no need to fetch it from GitHub.
+
+171
+00:25:36.780 --> 00:25:39.769
+Parv Mittal: And, there is,
+
+172
+00:25:39.950 --> 00:25:48.470
+Parv Mittal: The sandboxing will be easy, and the current plan does not require sandboxing, but if we want to include it in the future.
+
+173
+00:25:48.910 --> 00:25:52.160
+Parv Mittal: Then it will be, easy.
+
+174
+00:25:54.460 --> 00:26:02.950
+Parv Mittal: And, I'll create the issue soon.
+
+175
+00:26:03.580 --> 00:26:07.390
+Parv Mittal: I was just working on the issues, and
+
+176
+00:26:07.670 --> 00:26:11.089
+Parv Mittal: Oh, one more PR, my one more PRI will be coming.
+
+177
+00:26:11.830 --> 00:26:15.700
+Parv Mittal: Which will complete this foundation step.
+
+178
+00:26:16.410 --> 00:26:18.919
+Parv Mittal: This complete formation step.
+
+179
+00:26:19.600 --> 00:26:27.410
+Parv Mittal: So you will be able to work from, here. I get my doctor part.
+
+180
+00:26:27.600 --> 00:26:35.190
+Parv Mittal: I'll create some issue, maybe, like, up to 1.7 or 1.8, and you'll be able to work on it.
+
+181
+00:26:35.350 --> 00:26:38.060
+Parv Mittal: And, like…
+
+182
+00:26:38.770 --> 00:26:45.450
+Parv Mittal: Before working on an issue, just tag me on GitHub, and I'll assign the issue to you.
+
+183
+00:26:49.440 --> 00:26:59.460
+Parv Mittal: I'm… Anything else you want to ask? Or, do you have any suggestions regarding this?
+
+184
+00:27:03.050 --> 00:27:15.250
+Aniket Chawardol: Does this pivot mean that We are, focusing out of… Agent Workflow… Terms of the income.
+
+185
+00:27:15.560 --> 00:27:21.900
+Aniket Chawardol: Dryage agents, and spawning, deleting, adding rules, all kind of…
+
+186
+00:27:22.050 --> 00:27:29.160
+Aniket Chawardol: A feature that existed, and focus on centralizing context for
+
+187
+00:27:29.730 --> 00:27:33.009
+Aniket Chawardol: Every other agent that that team might be using.
+
+188
+00:27:34.290 --> 00:27:35.939
+Aniket Chawardol: Does it mean that…
+
+189
+00:27:37.560 --> 00:27:42.029
+Parv Mittal: We might not be working on the Agent side directly, like,
+
+190
+00:27:42.490 --> 00:27:52.069
+Parv Mittal: like, context management. We will not be working on that area, because, that's a part of, the agent harness, and,
+
+191
+00:27:52.270 --> 00:27:59.210
+Parv Mittal: There's, it will require implementing it to the current rules, like,
+
+192
+00:27:59.430 --> 00:28:07.979
+Parv Mittal: codecs, or anything else. It might be a layer on top of these agents, or anything else.
+
+193
+00:28:08.140 --> 00:28:11.340
+Parv Mittal: The current favorite idea is the mass intro.
+
+194
+00:28:11.790 --> 00:28:15.050
+Parv Mittal: It will just analyze your report.
+
+195
+00:28:15.550 --> 00:28:26.789
+Parv Mittal: And, it will check if you have agents.md files, cloud.md files, and any other rule sets that are usually in a report.
+
+196
+00:28:27.190 --> 00:28:33.989
+Parv Mittal: And, it will analyze them, it will find ambiguity in them, it will enforce them.
+
+197
+00:28:35.180 --> 00:28:43.700
+Parv Mittal: And… but, there will be… This will all be different from the AI agents.
+
+198
+00:28:44.350 --> 00:28:54.519
+Parv Mittal: Not, directly, not exactly, but, will not be working on the AI agent harness and, stuff like contact management.
+
+199
+00:28:55.020 --> 00:28:58.960
+Parv Mittal: Or, rules… It's reflected.
+
+200
+00:28:59.270 --> 00:29:02.979
+Parv Mittal: One more thing that we might do…
+
+201
+00:29:03.210 --> 00:29:09.440
+Parv Mittal: policy enforcement, like, GitMesh, Policy commands.
+
+202
+00:29:09.670 --> 00:29:16.320
+Parv Mittal: Already is designed to… May, already is designed to work on it.
+
+203
+00:29:16.950 --> 00:29:22.490
+Parv Mittal: And the current GitMesh is also based on the policy enforcement.
+
+204
+00:29:22.830 --> 00:29:25.579
+Parv Mittal: Like, the current GitMesh idea was?
+
+205
+00:29:26.450 --> 00:29:32.319
+Parv Mittal: To have the policy enforcement layer as the YAML files.
+
+206
+00:29:33.440 --> 00:29:38.539
+Parv Mittal: It, is… Somewhat similar to that idea.
+
+207
+00:29:38.780 --> 00:29:43.729
+Parv Mittal: But, instead of doing the policy enforcement on a web browser.
+
+208
+00:29:44.140 --> 00:29:45.990
+Parv Mittal: We'll do it in a CLI tool.
+
+209
+00:29:47.750 --> 00:29:55.139
+Parv Mittal: And, We'll need to see, like, how we are going to implement it.
+
+210
+00:29:55.310 --> 00:29:59.589
+Parv Mittal: While I might have, written this plan here.
+
+211
+00:30:00.420 --> 00:30:04.750
+Parv Mittal: Will it still lead to…
+
+212
+00:30:04.910 --> 00:30:08.349
+Parv Mittal: We should not delete this plane completely.
+
+213
+00:30:09.720 --> 00:30:14.780
+Parv Mittal: And, we'll see along the way, like, how we will work on this.
+
+214
+00:30:22.010 --> 00:30:25.070
+RONIT RAJ: Kind of current pivot looks promising.
+
+215
+00:30:25.450 --> 00:30:29.509
+RONIT RAJ: And yeah, we will start working on the issues and all.
+
+216
+00:30:29.720 --> 00:30:39.129
+RONIT RAJ: In the meantime, I'm probably approaching people regarding what are their needs, and yeah, to incorporate those.
+
+217
+00:30:39.250 --> 00:30:40.050
+RONIT RAJ: True.
+
+218
+00:30:40.330 --> 00:30:42.580
+RONIT RAJ: This is good weather. Bye.
+
+219
+00:30:43.470 --> 00:30:44.160
+Parv Mittal: Yeah.
+
+220
+00:30:44.480 --> 00:30:50.169
+Parv Mittal: One more thing, while I have done this, research, this is,
+
+221
+00:30:50.580 --> 00:30:57.550
+Parv Mittal: mostly the AI-generated research. And, of course, AI will be able to research
+
+222
+00:30:57.740 --> 00:31:01.300
+Parv Mittal: watch more faster than me, that's why I use this.
+
+223
+00:31:01.630 --> 00:31:06.080
+Parv Mittal: But, it is possible that, it might have left something.
+
+224
+00:31:06.230 --> 00:31:09.600
+Parv Mittal: Or, it might not have used
+
+225
+00:31:09.700 --> 00:31:12.560
+Parv Mittal: Something that might be beneficial for us.
+
+226
+00:31:13.700 --> 00:31:19.729
+Parv Mittal: So, while this, research says that, this plan is good, and,
+
+227
+00:31:20.190 --> 00:31:23.880
+Parv Mittal: Nobody else is actually working on this plan.
+
+228
+00:31:24.280 --> 00:31:30.040
+Parv Mittal: But, we'll need feedback from, actual users.
+
+229
+00:31:31.080 --> 00:31:38.160
+Parv Mittal: To know what, they exactly want, because, While this pivot looks promising.
+
+230
+00:31:38.430 --> 00:31:44.340
+Parv Mittal: We do not know yet, if, people will really want to adopt this.
+
+231
+00:31:44.910 --> 00:31:51.180
+Parv Mittal: And for that, feedback… And, reaching out to people is really important.
+
+232
+00:31:51.800 --> 00:31:56.229
+Parv Mittal: So, I'll suggest, to all of you.
+
+233
+00:31:56.550 --> 00:32:00.650
+Parv Mittal: Ronit and I will be definitely working on it, and
+
+234
+00:32:01.190 --> 00:32:03.879
+Parv Mittal: So, as, Aniket and Anurag.
+
+235
+00:32:04.020 --> 00:32:11.289
+Parv Mittal: To reach out to people on LinkedIn, on GitHub, maybe to maintainers of open source projects.
+
+236
+00:32:11.430 --> 00:32:16.070
+Parv Mittal: Or maybe product managers, not a tech lead.
+
+237
+00:32:17.070 --> 00:32:24.750
+Parv Mittal: You can reach out to those people and, start asking, Firm question, like,
+
+238
+00:32:25.170 --> 00:32:27.939
+Parv Mittal: What, problems are they facing?
+
+239
+00:32:28.250 --> 00:32:34.559
+Parv Mittal: Or, maybe try to explain the GitMesh idea to them, and, ask their feedback on it.
+
+240
+00:32:35.060 --> 00:32:39.319
+Parv Mittal: Because, that way, we'll be able to promote GitMesh.
+
+241
+00:32:39.580 --> 00:32:40.680
+Parv Mittal: Firstly.
+
+242
+00:32:40.810 --> 00:32:48.739
+Parv Mittal: And, Then, we'll be able to… work on, GitMesh.
+
+243
+00:32:48.930 --> 00:32:51.480
+Parv Mittal: From a customer perspective.
+
+244
+00:32:52.000 --> 00:32:58.500
+Parv Mittal: Like, if anybody wants that feature, or anybody do not want that feature before implementing it.
+
+245
+00:32:59.140 --> 00:33:05.750
+Parv Mittal: We should have a feedback on it. And, it will increase the chances of adoption, and
+
+246
+00:33:06.530 --> 00:33:10.100
+Parv Mittal: Actual users, so, working on it.
+
+247
+00:33:14.440 --> 00:33:19.319
+Parv Mittal: So… I'll create the issues.
+
+248
+00:33:20.120 --> 00:33:25.729
+Parv Mittal: I think, we can end this meeting here if you do not want to ask anything.
+
+249
+00:33:37.710 --> 00:33:42.959
+Parv Mittal: Okay, so… We can end this meeting here.
+
+250
+00:33:43.290 --> 00:33:47.170
+Parv Mittal: I'll give you updates on GitHub.
+
+251
+00:33:47.580 --> 00:33:50.620
+Parv Mittal: I will create two issues, and
+
+252
+00:33:51.190 --> 00:34:02.980
+Parv Mittal: then maybe I'll ask, to one of you to work on this issue, or maybe you can ask to work on that issue.
+
+253
+00:34:03.750 --> 00:34:08.330
+Parv Mittal: anything will be fine, and I'll assign you
+
+254
+00:34:09.130 --> 00:34:12.049
+Parv Mittal: To each issue before working on it.
+
+255
+00:34:13.659 --> 00:34:14.639
+Parv Mittal: Boom.
+
+256
+00:34:14.860 --> 00:34:16.889
+Parv Mittal: Let's start working on this.
+
+257
+00:34:17.159 --> 00:34:22.030
+Parv Mittal: The roadmap of, this…
+
+258
+00:34:23.320 --> 00:34:27.129
+Parv Mittal: I think there was some roadmap written here.
+
+259
+00:34:27.429 --> 00:34:32.400
+Parv Mittal: It is a 10-16 week roadmap, but,
+
+260
+00:34:33.440 --> 00:34:37.350
+Parv Mittal: I don't think that it will require that much time.
+
+261
+00:34:38.639 --> 00:34:46.709
+Parv Mittal: So, we'll… we should, be on this, lower limit, like, 10 to 12 weeks.
+
+262
+00:34:47.580 --> 00:34:50.420
+Parv Mittal: To complete this, the entire project.
+
+263
+00:34:50.590 --> 00:34:57.049
+Parv Mittal: But, it will depend on… especially on the user feedback.
+
+264
+00:34:57.230 --> 00:35:03.719
+Parv Mittal: Especially if we are talking to other users for the feedback. It will depend on it.
+
+265
+00:35:09.270 --> 00:35:10.110
+Parv Mittal: Cool.
+
+266
+00:35:10.980 --> 00:35:14.580
+Parv Mittal: If you do not have any question, we can end this video.
+
+267
+00:35:19.920 --> 00:35:21.180
+Anurag Gupta: Okay, thanks.
+
+268
+00:35:21.540 --> 00:35:22.730
+RONIT RAJ: find someone.
+
+269
+00:35:23.140 --> 00:35:26.570
+Anurag Gupta: Okay, fine. Thank you, Parv. Bye. Bye, RONIT.
+
+270
+00:35:28.250 --> 00:35:29.899
+RONIT RAJ: Thank you, everyone, for joining.
+
+271
+00:35:30.680 --> 00:35:31.540
+Parv Mittal: Yes.
+
+272
+00:35:31.540 --> 00:35:33.220
+Anurag Gupta: Okay, bye, babe.
+
+273
+00:35:34.730 --> 00:35:38.169
+Parv Mittal: Likewise, thank you everyone for joining this meet. Bye-bye.
+
+274
+00:35:38.540 --> 00:35:40.130
+RONIT RAJ: Okay, bye-bye.
+

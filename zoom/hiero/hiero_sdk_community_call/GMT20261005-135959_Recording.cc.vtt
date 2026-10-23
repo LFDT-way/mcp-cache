@@ -1,0 +1,1049 @@
+WEBVTT
+
+00:08:24.000 --> 00:08:33.000
+So, let's say, this is a PR that is, implementing endpoint for the
+
+00:08:33.000 --> 00:08:37.000
+For the TCK, that is, for the get info method. But
+
+00:08:37.000 --> 00:08:43.000
+We can, like, check the CI, so…
+
+00:08:43.000 --> 00:08:46.000
+What it does, it
+
+00:08:46.000 --> 00:08:59.000
+Like, runs the unit test. So, if we need to, like, verify that, if the implementation is correct, and it is, like, compatible with the, the TCK, we need to, like.
+
+00:08:59.000 --> 00:09:16.000
+clone the branch, and then run it locally against the TCK to find, hey, if that is working. That's like kind of additional work that a reviewer needs to do. So this, basically, the action,
+
+00:09:16.000 --> 00:09:30.000
+solved that by running, the entire test suit in the CI
+
+00:09:30.000 --> 00:09:36.000
+Um, okay, Mustafa, did you get that? Because it had the similar question.
+
+00:09:36.000 --> 00:09:37.000
+And I think I hijacked it.
+
+00:09:37.000 --> 00:09:42.000
+Additional on that, uh…
+
+00:09:42.000 --> 00:09:51.000
+It's like, for example, when you are reviewing a code in like, for example, implementing a method, just an RPC method.
+
+00:09:51.000 --> 00:09:55.000
+You have to, like, if I'm, for example, if I'm a maintainer in Python, so.
+
+00:09:55.000 --> 00:10:01.000
+I have to clone the full branch of that person who has implemented that method.
+
+00:10:01.000 --> 00:10:06.000
+Then I have to run the.
+
+00:10:06.000 --> 00:10:12.000
+The test suite against that. So it means that.
+
+00:10:12.000 --> 00:10:14.000
+I have to also start the solo.
+
+00:10:14.000 --> 00:10:16.000
+On my local machine and
+
+00:10:16.000 --> 00:10:19.000
+At some time some machines do not what.
+
+00:10:19.000 --> 00:10:24.000
+Doing like some some of the maintainers don't have that capability, so…
+
+00:10:24.000 --> 00:10:28.000
+What we decided, uh, we decided that…
+
+00:10:28.000 --> 00:10:35.000
+That can bring all that burden into the CI so that the maintainer can see that.
+
+00:10:35.000 --> 00:10:41.000
+This method which has been implemented, it has all the test cases.
+
+00:10:41.000 --> 00:10:44.000
+passing in the CI. So that.
+
+00:10:44.000 --> 00:10:48.000
+So that simplifies the review.
+
+00:10:48.000 --> 00:10:51.000
+On that specific PR which is made.
+
+00:10:51.000 --> 00:10:54.000
+And also it has it can also.
+
+00:10:54.000 --> 00:11:00.000
+Uh, have like a full, a full test suite run and see whether that.
+
+00:11:00.000 --> 00:11:10.000
+Current test suite is matching with the SDK implementation.
+
+00:11:10.000 --> 00:11:15.000
+Okay, uh, Evao, you have a question?
+
+00:11:15.000 --> 00:11:19.000
+So, is this t-shirt should be
+
+00:11:19.000 --> 00:11:24.000
+in different repo, or we should implement it in
+
+00:11:24.000 --> 00:11:29.000
+SDK or some of the SDK repos.
+
+00:11:29.000 --> 00:11:30.000
+What is the point?
+
+00:11:30.000 --> 00:11:31.000
+Uh, uh… yeah.
+
+00:11:31.000 --> 00:11:37.000
+Well, that was an open question, Avalo. What do you think?
+
+00:11:37.000 --> 00:11:42.000
+In my opinion, I think it's better to be in the rep of
+
+00:11:42.000 --> 00:11:47.000
+Every SDK because we have, different use cases
+
+00:11:47.000 --> 00:11:52.000
+What I mean, different bulknotes versions we can test and
+
+00:11:52.000 --> 00:11:55.000
+They should run
+
+00:11:55.000 --> 00:12:05.000
+In the same way, they should behave in the same way. So I think we should talk about more
+
+00:12:05.000 --> 00:12:06.000
+Yes, Daniel.
+
+00:12:06.000 --> 00:12:09.000
+No, first, first finish.
+
+00:12:09.000 --> 00:12:25.000
+Okay. So… so we need to think good about this, because if you create new repo, this could bring more job and more maintenance of different repos
+
+00:12:25.000 --> 00:12:33.000
+Uh, so, uh, about that, uh, we also thought about it, but.
+
+00:12:33.000 --> 00:12:39.000
+It's better to just import an action than you just implement in the repo.
+
+00:12:39.000 --> 00:12:42.000
+Because as you see, the solo action.
+
+00:12:42.000 --> 00:12:48.000
+You just input that action, then you do the sub, like you do the rest of the implementation.
+
+00:12:48.000 --> 00:12:51.000
+On the… on that same repo, cause.
+
+00:12:51.000 --> 00:12:59.000
+We we had all the implementation, we went through all the implementations from other SDKs.
+
+00:12:59.000 --> 00:13:02.000
+And we.
+
+00:13:02.000 --> 00:13:04.000
+With this, because each…
+
+00:13:04.000 --> 00:13:07.000
+SDK has a Docker file.
+
+00:13:07.000 --> 00:13:09.000
+Uh, has a docker file for the.
+
+00:13:09.000 --> 00:13:14.000
+firing up digestion or if you suffer. That's all what the… the action requires.
+
+00:13:14.000 --> 00:13:20.000
+Then after that, you can add on the because we.
+
+00:13:20.000 --> 00:13:24.000
+If you go into the details of the documentation, you can see.
+
+00:13:24.000 --> 00:13:29.000
+how you can have, for example, the C++, what? C++.
+
+00:13:29.000 --> 00:13:34.000
+SDK. It has different build system what and what, so we're all.
+
+00:13:34.000 --> 00:13:39.000
+All that can be configured in one repo and all these versions, what and what.
+
+00:13:39.000 --> 00:13:47.000
+So that when I'm into like when CI is implemented in one SDK.
+
+00:13:47.000 --> 00:13:52.000
+So we just update the action that.
+
+00:13:52.000 --> 00:13:55.000
+This has been changing here, we just update here, so.
+
+00:13:55.000 --> 00:14:02.000
+When this is being reviewed and it is fine, then it just eases the work of creating the CI.
+
+00:14:02.000 --> 00:14:04.000
+As you see, that's what action.
+
+00:14:04.000 --> 00:14:10.000
+Yeah, I completely understand that, but in my head,
+
+00:14:10.000 --> 00:14:22.000
+I see one major broker. For example, for some reason, you mess up something in… or the maintainer of the repo mess up something in his
+
+00:14:22.000 --> 00:14:38.000
+His CI that we use it. And, this will be out of our control of the SDK control. And we related on this repo to fix the action. We wait
+
+00:14:38.000 --> 00:14:46.000
+The result and imagine we need to release after one day or two days, and this
+
+00:14:46.000 --> 00:14:57.000
+Say I book the repos, and not only one repo, it will block all of the SDK
+
+00:14:57.000 --> 00:15:09.000
+In my head, I don't know what scenario can happen, because, you know, programming is very dynamic, but in my head, this can be a bulker in the future.
+
+00:15:09.000 --> 00:15:21.000
+Yeah, I agree with Ivo.
+
+00:15:21.000 --> 00:15:23.000
+Mustafa…
+
+00:15:23.000 --> 00:15:26.000
+Uh, you had similar questions.
+
+00:15:26.000 --> 00:15:28.000
+Yeah, I have uh
+
+00:15:28.000 --> 00:15:34.000
+Several points. First of all, I like this idea.
+
+00:15:34.000 --> 00:15:36.000
+Like the idea.
+
+00:15:36.000 --> 00:15:40.000
+The implementation we can think about it, like…
+
+00:15:40.000 --> 00:15:44.000
+And for this to be running,
+
+00:15:44.000 --> 00:15:54.000
+I think we should put some logic behind it, like to check if the given PR have any changes.
+
+00:15:54.000 --> 00:15:56.000
+In the Teach Cake.
+
+00:15:56.000 --> 00:15:58.000
+This is the first one.
+
+00:15:58.000 --> 00:16:09.000
+The second one, I don't think we need another repo because every other repo is additional job and additional point of error.
+
+00:16:09.000 --> 00:16:19.000
+In best, if you want to be separate from the SDKs, we can put it in our current.
+
+00:16:19.000 --> 00:16:26.000
+I think it was something like SDK actions or something like that, where our saw version and stuff like that is implemented.
+
+00:16:26.000 --> 00:16:32.000
+It should be there if you want it to be in different place than that case, not another repo.
+
+00:16:32.000 --> 00:16:34.000
+Oh.
+
+00:16:34.000 --> 00:16:35.000
+And yes,
+
+00:16:35.000 --> 00:16:38.000
+This is key points.
+
+00:16:38.000 --> 00:16:42.000
+To think about.
+
+00:16:42.000 --> 00:16:46.000
+And the third stuff is that.
+
+00:16:46.000 --> 00:16:51.000
+In every SDK, when the CI start, we already run SO.
+
+00:16:51.000 --> 00:16:55.000
+So I wouldn't want to have another instance of
+
+00:16:55.000 --> 00:17:08.000
+So the payment only for one workflow. So this is also a point where we need to think how to use already running so not
+
+00:17:08.000 --> 00:17:12.000
+Creating a new instance and yeah.
+
+00:17:12.000 --> 00:17:18.000
+But overall, I like the idea.
+
+00:17:18.000 --> 00:17:21.000
+I guess my question is…
+
+00:17:21.000 --> 00:17:23.000
+So…
+
+00:17:23.000 --> 00:17:29.000
+I just want to go back up to the user flow. So this…
+
+00:17:29.000 --> 00:17:35.000
+feature, this functionality is to test, like, you know, a contributor is adding new features, but
+
+00:17:35.000 --> 00:17:38.000
+Isn't there… maybe this has already been brought up, but like
+
+00:17:38.000 --> 00:17:42.000
+The problem is, like, new features need to be added to the TCK,
+
+00:17:42.000 --> 00:17:47.000
+And they're not gonna, you know, you're not gonna be able to tell… like, you know, let's just take.
+
+00:17:47.000 --> 00:17:53.000
+new feature like the new mirror node, a mirror node account balance query.
+
+00:17:53.000 --> 00:17:57.000
+I mean, that's a feature which we need to add to all the SDKs.
+
+00:17:57.000 --> 00:18:00.000
+And you could add it to the SDK, but the…
+
+00:18:00.000 --> 00:18:08.000
+The TCK, like this GitHub action TCK is not going to be able to test that functionality, because that functionality is not yet been added to the.
+
+00:18:08.000 --> 00:18:11.000
+TCK.
+
+00:18:11.000 --> 00:18:14.000
+Any, any thoughts on that one?
+
+00:18:14.000 --> 00:18:24.000
+Uh, yeah, like, now to test any new feature with TSK, we have several steps. The first step is to add test
+
+00:18:24.000 --> 00:18:35.000
+scenarios in TKRepo itself like this is the scenarios. The second step is implement an endpoint in every SDK that we want to test.
+
+00:18:35.000 --> 00:18:38.000
+So this care rep, we can call it.
+
+00:18:38.000 --> 00:18:42.000
+And the proposal that we now discuss,
+
+00:18:42.000 --> 00:18:47.000
+Eventually, we will look at the new PR and if it sees
+
+00:18:47.000 --> 00:18:52.000
+TCK changes or new TCK endpoints in SDK itself.
+
+00:18:52.000 --> 00:18:55.000
+Trigger some action to…
+
+00:18:55.000 --> 00:19:00.000
+really ruin it because now like the guy said,
+
+00:19:00.000 --> 00:19:05.000
+You need to check it locally because you can.
+
+00:19:05.000 --> 00:19:09.000
+implement and put the TCK endpoint.
+
+00:19:09.000 --> 00:19:14.000
+But we don't check it on CR, like…
+
+00:19:14.000 --> 00:19:18.000
+You need to run a job from T C.
+
+00:19:18.000 --> 00:19:22.000
+We will need to check it vocally.
+
+00:19:22.000 --> 00:19:27.000
+Yeah, I'm sorry to hear that.
+
+00:19:27.000 --> 00:19:37.000
+Excuse me?
+
+00:19:37.000 --> 00:19:38.000
+I didn't get that neither.
+
+00:19:38.000 --> 00:19:46.000
+So is this functionality that would have to be added to the… to the…
+
+00:19:46.000 --> 00:19:47.000
+To what you're building, Daniel?
+
+00:19:47.000 --> 00:19:49.000
+No, I was just saying that absolutely.
+
+00:19:49.000 --> 00:19:58.000
+Like, what are like what I wanted to say that I absolutely agree with what he said and.
+
+00:19:58.000 --> 00:20:02.000
+would, for example, as you said, adding a new functionality, uh…
+
+00:20:02.000 --> 00:20:07.000
+It's doesn't mean that when you add a new functionality to the SDK,
+
+00:20:07.000 --> 00:20:10.000
+You have added it to the TSCK, so.
+
+00:20:10.000 --> 00:20:12.000
+You have to add a method.
+
+00:20:12.000 --> 00:20:17.000
+To support that. So, while adding the method, then it means that you have to.
+
+00:20:17.000 --> 00:20:24.000
+Test like when you add the method, it means that that method also should be.
+
+00:20:24.000 --> 00:20:26.000
+Inside that, the…
+
+00:20:26.000 --> 00:20:30.000
+TCK repo. So, it means that
+
+00:20:30.000 --> 00:20:33.000
+We only add the…
+
+00:20:33.000 --> 00:20:37.000
+Functionalities in the JSON ARFPC server, which are…
+
+00:20:37.000 --> 00:20:42.000
+Existing in the, in the Tysical repair because that's the way, that's the only way.
+
+00:20:42.000 --> 00:20:45.000
+how you can check for the compatibility.
+
+00:20:45.000 --> 00:20:54.000
+Because the aspects are being defined in the what in the TCQI report. So,
+
+00:20:54.000 --> 00:21:00.000
+There was also a question that I've had, is that a few times that you've mentioned the JSON RPC relay.
+
+00:21:00.000 --> 00:21:03.000
+Is that just for the EVM testing, or…?
+
+00:21:03.000 --> 00:21:07.000
+It's not for the happy testing, right?
+
+00:21:07.000 --> 00:21:13.000
+It's not adjacent RRPC really, no, it's a JSON RPC sub.
+
+00:21:13.000 --> 00:21:17.000
+Just a JSON RPC relay. Oh, okay, okay, just a JSON RPC. Okay, alright, thank you.
+
+00:21:17.000 --> 00:21:20.000
+So…
+
+00:21:20.000 --> 00:21:25.000
+So where do we go from here? Can I just sort of back to the…
+
+00:21:25.000 --> 00:21:39.000
+Like, what, what are the, what are the changes or additions we would need to make this product useful in your mind?
+
+00:21:39.000 --> 00:21:40.000
+I… sorry.
+
+00:21:40.000 --> 00:21:46.000
+Like I said, I don't think it should be a new repo. We need to…
+
+00:21:46.000 --> 00:21:55.000
+Think a way that we will reuse or put it somewhere in our existing repos.
+
+00:21:55.000 --> 00:21:57.000
+I don't think, uh…
+
+00:21:57.000 --> 00:22:04.000
+such a workflow need to be in separate repo.
+
+00:22:04.000 --> 00:22:12.000
+So maybe we would just have a new folder in the existing repos with this in it.
+
+00:22:12.000 --> 00:22:19.000
+Or we can implement it on TCK repo. I'm not sure. We didn't discuss it yet.
+
+00:22:19.000 --> 00:22:20.000
+But
+
+00:22:20.000 --> 00:22:27.000
+Yeah, this is the other idea, like we can create a new action in TSK repo itself.
+
+00:22:27.000 --> 00:22:30.000
+Here we can give, uh…
+
+00:22:30.000 --> 00:22:39.000
+K version, TCK branch and for target we can give SDK branch or SDK version.
+
+00:22:39.000 --> 00:22:42.000
+It is much cleaner.
+
+00:22:42.000 --> 00:22:52.000
+And I think it should be much faster.
+
+00:22:52.000 --> 00:22:56.000
+Okay. And then what about…
+
+00:22:56.000 --> 00:23:03.000
+You know, we had talked about maybe change we could do with the product as it exists or is there more?
+
+00:23:03.000 --> 00:23:10.000
+Changes we would need to the product before we do that.
+
+00:23:10.000 --> 00:23:21.000
+I think we should be able to do it with the current stuff. We need to look at it.
+
+00:23:21.000 --> 00:23:26.000
+Okay.
+
+00:23:26.000 --> 00:23:35.000
+So what I'm hearing from this conversation is that we do see value in this product as being able to support
+
+00:23:35.000 --> 00:23:39.000
+developers, as they add new features and to do testing to make sure
+
+00:23:39.000 --> 00:23:42.000
+PRs or, um…
+
+00:23:42.000 --> 00:23:47.000
+are good, and that a feature is ready before they merge in. And I guess…
+
+00:23:47.000 --> 00:23:52.000
+I, you know, so basically, the user flow, it would be that
+
+00:23:52.000 --> 00:23:59.000
+a… somebody adds a new feature or updates an existing feature to the… to an SDK,
+
+00:23:59.000 --> 00:24:06.000
+within that repo, they run this GitHub action to make sure that everything's gonna pass on the TCK.
+
+00:24:06.000 --> 00:24:10.000
+And then maybe if everything looks good, they approve the PR,
+
+00:24:10.000 --> 00:24:14.000
+Like, these checks would happen in our CI pipeline.
+
+00:24:14.000 --> 00:24:22.000
+Uh, with the TCK, and presumably would more easily… like, we would have less TCK failures.
+
+00:24:22.000 --> 00:24:27.000
+Uh, after a PR is approved or.
+
+00:24:27.000 --> 00:24:29.000
+And.
+
+00:24:29.000 --> 00:24:33.000
+And then, you know, so basically this would just be kind of a check before…
+
+00:24:33.000 --> 00:24:35.000
+before people.
+
+00:24:35.000 --> 00:24:39.000
+submit a PR. Is that the kind of the thought?
+
+00:24:39.000 --> 00:24:43.000
+Yeah, like…
+
+00:24:43.000 --> 00:24:50.000
+people already doing that where I saw anyone who implement this endpoint.
+
+00:24:50.000 --> 00:24:56.000
+This is additional step where if somebody forgot to run it locally or test it, it is
+
+00:24:56.000 --> 00:25:04.000
+kind of additional security.
+
+00:25:04.000 --> 00:25:12.000
+So, like, today, you guys as SQ developers, how do you do that today without a GitHub action like this?
+
+00:25:12.000 --> 00:25:16.000
+But I think most of the people.
+
+00:25:16.000 --> 00:25:20.000
+Run vocally their branch with the changes on the SDK.
+
+00:25:20.000 --> 00:25:22.000
+Oh.
+
+00:25:22.000 --> 00:25:31.000
+And after that, runs locally also the TSK test. So they verify that everything in passing, nothing is broken, and so on.
+
+00:25:31.000 --> 00:25:37.000
+So, so in your mind, what is the benefit that this GitHub Action TCK
+
+00:25:37.000 --> 00:25:44.000
+Is it just that you can actually run the actual TCK more easily against your local branch?
+
+00:25:44.000 --> 00:25:47.000
+Yeah, and also…
+
+00:25:47.000 --> 00:25:52.000
+If we figure out how to integrate it on the…
+
+00:25:52.000 --> 00:25:54.000
+PRCI pipeline.
+
+00:25:54.000 --> 00:25:59.000
+It would be automated and we will skip one additional step.
+
+00:25:59.000 --> 00:26:02.000
+Yeah, faster development.
+
+00:26:02.000 --> 00:26:12.000
+So I can give example in JS repo, we have task file where you must run it
+
+00:26:12.000 --> 00:26:20.000
+One of the steps that, check the code is correct, and if there are no failures
+
+00:26:20.000 --> 00:26:31.000
+You can push the branch, open the new PR
+
+00:26:31.000 --> 00:26:48.000
+Okay. Now, I just want to go back. Can you share your proposal again, Daniel? I just want to make sure like the proposal captures that kind of motivation for the purpose of or the value that we see in this project.
+
+00:26:48.000 --> 00:26:56.000
+Proposal currently have that?
+
+00:26:56.000 --> 00:27:11.000
+Manish Kudusha.
+
+00:27:11.000 --> 00:27:13.000
+Is it visible
+
+00:27:13.000 --> 00:27:22.000
+Yeah. So yeah, I think maybe this proposal would benefit from like a motivation section, like.
+
+00:27:22.000 --> 00:27:26.000
+if it doesn't have it, I don't… I'm not seeing it, about, like…
+
+00:27:26.000 --> 00:27:32.000
+who would use this, why they would use it, why it benefits… overall benefits, um.
+
+00:27:32.000 --> 00:27:40.000
+the SDKs, I think that might be a very useful section to add, if possible.
+
+00:27:40.000 --> 00:27:47.000
+Yeah, strongly agree. I think we are going to add that.
+
+00:27:47.000 --> 00:27:55.000
+Because I think when we, we're all on the same page about why we're doing this, then how we do it makes much more start.
+
+00:27:55.000 --> 00:27:57.000
+You know, we can start it.
+
+00:27:57.000 --> 00:28:05.000
+makes it easier to have that conversation.
+
+00:28:05.000 --> 00:28:08.000
+Okay.
+
+00:28:08.000 --> 00:28:09.000
+Okay.
+
+00:28:09.000 --> 00:28:14.000
+Okay, we're going to add that. We're going to add that.
+
+00:28:14.000 --> 00:28:19.000
+Okay, so, um, yeah, maybe you can add that section. Um, I think that
+
+00:28:19.000 --> 00:28:23.000
+I think we'll continue the conversation, uh.
+
+00:28:23.000 --> 00:28:27.000
+On the Hashgraph line SDK team just to talk about.
+
+00:28:27.000 --> 00:28:34.000
+how we would potentially integrate this. I think maybe our team… the team could take some more time to review this. We can think more about it.
+
+00:28:34.000 --> 00:28:38.000
+And think about how we want to integrate this.
+
+00:28:38.000 --> 00:28:40.000
+Uh, into the SDKs.
+
+00:28:40.000 --> 00:28:46.000
+Um, any other action items or anything anyone will call out?
+
+00:28:46.000 --> 00:28:50.000
+And just, just one thing on addition.
+
+00:28:50.000 --> 00:28:55.000
+Like, ah, staff say that it is easy on the on that.
+
+00:28:55.000 --> 00:28:58.000
+On the local, but…
+
+00:28:58.000 --> 00:29:00.000
+Most of the maintainers, like…
+
+00:29:00.000 --> 00:29:04.000
+Some machines that they would want to review, but they are not able.
+
+00:29:04.000 --> 00:29:11.000
+So that's that's a point.
+
+00:29:11.000 --> 00:29:12.000
+Yeah.
+
+00:29:12.000 --> 00:29:14.000
+You mean because their computers are not good enough?
+
+00:29:14.000 --> 00:29:15.000
+Yeah.
+
+00:29:15.000 --> 00:29:21.000
+Yeah, because now, you see now solo. Solo, you need, uh, telelov GP and above, so to fire only that, so.
+
+00:29:21.000 --> 00:29:23.000
+I think…
+
+00:29:23.000 --> 00:29:24.000
+To some business.
+
+00:29:24.000 --> 00:29:27.000
+Okay, that would be a great point to add in as well, yeah.
+
+00:29:27.000 --> 00:29:33.000
+If some maintainers, it may be, or some committers would want to review it, maybe.
+
+00:29:33.000 --> 00:29:38.000
+Abloka for them, but if there is a CI to run it, when there is no any.
+
+00:29:38.000 --> 00:29:44.000
+Additional tasks because we, we as male, for example, male country, I do that I, ah.
+
+00:29:44.000 --> 00:29:47.000
+Do the local review at and what.
+
+00:29:47.000 --> 00:29:49.000
+But you may find that.
+
+00:29:49.000 --> 00:29:56.000
+Some maintainers don't have that. They are not able to do that.
+
+00:29:56.000 --> 00:30:02.000
+Okay, I think that's a great point.
+
+00:30:02.000 --> 00:30:09.000
+All right, any other points or questions on this topic? And again, thank you, Daniel.
+
+00:30:09.000 --> 00:30:20.000
+Uh, and team for bringing this. This is a great project.
+
+00:30:20.000 --> 00:30:21.000
+Nice work, guys.
+
+00:30:21.000 --> 00:30:22.000
+Okay, um, just… I think as…
+
+00:30:22.000 --> 00:30:32.000
+As one more update, just give me one sec.
+
+00:30:32.000 --> 00:30:37.000
+Just, uh, opening up a document, um…
+
+00:30:37.000 --> 00:30:43.000
+Okay, on other topics, um…
+
+00:30:43.000 --> 00:30:49.000
+So again, for those of you new joining, uh, this is the SDK Collaboration Hub on Hairo.
+
+00:30:49.000 --> 00:30:53.000
+And this is where we put in most of our design work.
+
+00:30:53.000 --> 00:30:57.000
+So there was a design proposal that's, uh…
+
+00:30:57.000 --> 00:31:00.000
+called the HTTP transport layer.
+
+00:31:00.000 --> 00:31:02.000
+Um, and so this has been.
+
+00:31:02.000 --> 00:31:06.000
+You know, there's still some discussion around this, and if anyone has comments, uh, please.
+
+00:31:06.000 --> 00:31:09.000
+uh, let us know, but.
+
+00:31:09.000 --> 00:31:15.000
+I think on 3 of the SDKs so far, we have implemented the mirror node account balance query.
+
+00:31:15.000 --> 00:31:17.000
+Based on this new architecture.
+
+00:31:17.000 --> 00:31:26.000
+to improve the performance or the reliability of HTTP requests. That's when the SDK is talking to the mirror node specifically.
+
+00:31:26.000 --> 00:31:30.000
+So, I think we've had… yeah, so we are implementing the…
+
+00:31:30.000 --> 00:31:34.000
+The mirror node account balance query based on this.
+
+00:31:34.000 --> 00:31:43.000
+I think we've made a decision so far we're not gonna go… there's other, you know, there was existing mirror node queries in the SDKs. A good one would be like.
+
+00:31:43.000 --> 00:31:48.000
+Uh, pricing, the gas pricing and stuff like that.
+
+00:31:48.000 --> 00:31:59.000
+So far, we've decided we're not going to go back and retroactively redo those yet, although I guess any of the SDKs could make a decision to do that if they wanted to go back and
+
+00:31:59.000 --> 00:32:05.000
+Retroactively update all of the mirror node HTTP frameworks.
+
+00:32:05.000 --> 00:32:09.000
+But for now, we're just using this for the MirNote account bounce query.
+
+00:32:09.000 --> 00:32:13.000
+Um, so yeah, if anyone has comments on this, please.
+
+00:32:13.000 --> 00:32:18.000
+you know, please leave your comments about the architecture, and then I think I already had some tickets
+
+00:32:18.000 --> 00:32:21.000
+Oh, I think I have tickets in all the repos for
+
+00:32:21.000 --> 00:32:25.000
+deprecating account balance query, but I'll probably create new ones about…
+
+00:32:25.000 --> 00:32:31.000
+Um, just, uh, supporting the MirrorNode account balance query.
+
+00:32:31.000 --> 00:32:35.000
+Because, um, if you look at, uh, at least on the Hedera network, if you look at our documentation.
+
+00:32:35.000 --> 00:32:39.000
+This is what we're reckoning people to move to.
+
+00:32:39.000 --> 00:32:48.000
+Any questions or comments on this one?
+
+00:32:48.000 --> 00:32:54.000
+Okay, um, the last thing is, uh, the new work coming is
+
+00:32:54.000 --> 00:33:02.000
+So for those of you who have maybe, I'm just going to go to hipster.hedera.com.
+
+00:33:02.000 --> 00:33:07.000
+And I'm gonna go to a new hip called HIP1535.
+
+00:33:07.000 --> 00:33:10.000
+This is the… a new protocol that
+
+00:33:10.000 --> 00:33:15.000
+Um, is being pushed through by the Hashcraft team called Clipper.
+
+00:33:15.000 --> 00:33:18.000
+This is a cross-protocol ledger for Hairo.
+
+00:33:18.000 --> 00:33:26.000
+Um, so this is being kind of fast-tracked. I think we're looking to do the initial release in December of Clipper on the
+
+00:33:26.000 --> 00:33:28.000
+On the Hiro networks.
+
+00:33:28.000 --> 00:33:31.000
+And this will need SDK support.
+
+00:33:31.000 --> 00:33:44.000
+Um, it will need SDK support around things like what we call, like, creating channels, updating channels, maintaining channels, creating endpoints, maintaining endpoints, and also
+
+00:33:44.000 --> 00:33:47.000
+submitting messages and bundling messages.
+
+00:33:47.000 --> 00:33:51.000
+So there's quite a bit of SDK work for this new Clipper feature.
+
+00:33:51.000 --> 00:33:53.000
+I'm currently working on a…
+
+00:33:53.000 --> 00:33:58.000
+SDK design proposal for that work.
+
+00:33:58.000 --> 00:34:00.000
+Um, I think there's…
+
+00:34:00.000 --> 00:34:03.000
+Yeah, maybe 10 new APIs.
+
+00:34:03.000 --> 00:34:05.000
+So, I, um…
+
+00:34:05.000 --> 00:34:13.000
+I'm putting that together and I should release that probably this week on the SDK Collaboration Hub for the start, the initial review.
+
+00:34:13.000 --> 00:34:16.000
+So, yeah, that's something that… if we look at…
+
+00:34:16.000 --> 00:34:20.000
+Work that's coming up for the SDKs, that's certainly a…
+
+00:34:20.000 --> 00:34:23.000
+Sorry, a big one.
+
+00:34:23.000 --> 00:34:25.000
+Any comments or questions on
+
+00:34:25.000 --> 00:34:30.000
+Clipper. If you're interested, what I'd say is start by reading the hip.
+
+00:34:30.000 --> 00:34:35.000
+HIP1535. That'll give you the good starting point and help you understand the.
+
+00:34:35.000 --> 00:34:46.000
+the SDK proposal, uh, better when it comes.
+
+00:34:46.000 --> 00:34:57.000
+Okay. Did anyone else have any topics or questions for this call?
+
+00:34:57.000 --> 00:34:59.000
+Yeah, I have one.
+
+00:34:59.000 --> 00:35:02.000
+Yeah, please go ahead.
+
+00:35:02.000 --> 00:35:06.000
+Yeah, so, Ali, I had a topic in the TSC
+
+00:35:06.000 --> 00:35:10.000
+For becoming a junior commuter to the
+
+00:35:10.000 --> 00:35:12.000
+To the JavaScript SDK
+
+00:35:12.000 --> 00:35:16.000
+And, I would like to know if it is,
+
+00:35:16.000 --> 00:35:18.000
+It is possible
+
+00:35:18.000 --> 00:35:23.000
+If it is not, then I would like to know, is it a skill issue? Is it
+
+00:35:23.000 --> 00:35:26.000
+Situitary issue, do I need to provide some
+
+00:35:26.000 --> 00:35:31.000
+Kind of information further, so
+
+00:35:31.000 --> 00:35:35.000
+That was my topic, and it hasn't been resolved for
+
+00:35:35.000 --> 00:35:36.000
+Sometime.
+
+00:35:36.000 --> 00:35:49.000
+Yeah, uh, yeah, I apologize on that, Jesse. I don't see any issue with that. Um, why don't… I'll talk to Hendrick, and we should get a vote going. I mean, I think we do need a vote. I thought that there'd already been a vote called for that, but
+
+00:35:49.000 --> 00:35:56.000
+then maybe not. So, let me talk to Hendrick, and let's try to get a vote going this week to make you a junior committer.
+
+00:35:56.000 --> 00:35:58.000
+Uh, did anyone from the
+
+00:35:58.000 --> 00:36:04.000
+Jalen from the JavaScript team, any comments or questions on that? Or
+
+00:36:04.000 --> 00:36:07.000
+Concerns?
+
+00:36:07.000 --> 00:36:10.000
+I'm okay with that.
+
+00:36:10.000 --> 00:36:16.000
+Yeah, okay, so let's get that vote going this week, Jesse, and we'll, we'll, um,
+
+00:36:16.000 --> 00:36:22.000
+get the approvals you need and get you in as a junior committer. Thank you so much for wanting to do that.
+
+00:36:22.000 --> 00:36:26.000
+Thank you.
+
+00:36:26.000 --> 00:36:36.000
+Okay. Any other comments or questions?
+
+00:36:36.000 --> 00:36:39.000
+Awesome. Well, um…
+
+00:36:39.000 --> 00:36:46.000
+Thank you, everyone, for your time this week. I really appreciate it, and uh, yeah, let's continue to follow up on this great proposal on the.
+
+00:36:46.000 --> 00:36:54.000
+GitHub actions for the SDK… for the TCK, and also, uh, we can probably, in next week's meeting, we'll start reviewing the Clipper
+
+00:36:54.000 --> 00:36:58.000
+SDK proposal.
+
+00:36:58.000 --> 00:37:01.000
+Yep, Daniel.
+
+00:37:01.000 --> 00:37:08.000
+Uh, is there any news on 1195?
+
+00:37:08.000 --> 00:37:13.000
+Is that the 1195 Hyrule hooks?
+
+00:37:13.000 --> 00:37:16.000
+Yeah.
+
+00:37:16.000 --> 00:37:18.000
+Yeah, so, um, I think
+
+00:37:18.000 --> 00:37:23.000
+there continues to be no, uh, update on that.
+
+00:37:23.000 --> 00:37:25.000
+is, I would say, probably…
+
+00:37:25.000 --> 00:37:30.000
+very much stalled, and that we're keeping it behind a feature flag.
+
+00:37:30.000 --> 00:37:33.000
+Um, and I still think will be refactored.
+
+00:37:33.000 --> 00:37:35.000
+So, um, I still would say that
+
+00:37:35.000 --> 00:37:44.000
+I would not spend time working on HIP 1195 right now. Like I said, there's a lot of work coming for Clipper that is going to be very important across the SDKs.
+
+00:37:44.000 --> 00:37:49.000
+If I was to focus on anything, it would be on the new Clipper work and also on the…
+
+00:37:49.000 --> 00:37:54.000
+Uh, we do need to get the mirror node account balance query support into all the SDKs.
+
+00:37:54.000 --> 00:38:06.000
+Um, so that's another area of work that we… I would say is probably higher focus.
+
+00:38:06.000 --> 00:38:11.000
+Does that answer your question, Dana?
+
+00:38:11.000 --> 00:38:13.000
+Yeah, perfectly fine, perfect, fine.
+
+00:38:13.000 --> 00:38:16.000
+Awesome. Alright.
+
+00:38:16.000 --> 00:38:17.000
+Team, thank you again. Thank you so much for your time, and we'll talk to you at the next Community Call.
+
+00:38:17.000 --> 00:38:21.000
+Yeah, good point.
+
+00:38:21.000 --> 00:38:23.000
+Thank you, bye bye.
+
+00:38:23.000 --> 00:38:25.000
+Bye-bye.
+
+00:38:25.000 --> 00:38:38.000
+Bye
+

@@ -1,0 +1,1196 @@
+WEBVTT
+
+00:06:35.000 --> 00:06:41.000
+The action that we use had some kind of problem, so we tried to communicate with.
+
+00:06:41.000 --> 00:06:55.000
+Our DevOps team, and uh… And with this all, guys, and I think we fixed it. So now our test won't be so fakie.
+
+00:06:55.000 --> 00:07:01.000
+Uh, we also, uh… merged the hierarchs.
+
+00:07:01.000 --> 00:07:06.000
+in almost not not almost actually always the case, I think.
+
+00:07:06.000 --> 00:07:12.000
+Um… I'm not sure about Python. Do we have them? No, we don't have them in Python.
+
+00:07:12.000 --> 00:07:24.000
+But I think all other SDKs have them. Uh, what else? Njs, we managed to refactor the executable.
+
+00:07:24.000 --> 00:07:31.000
+There was this function execute that is used in every transaction.
+
+00:07:31.000 --> 00:07:50.000
+It was, uh… Basically unreadable, and Vanderland did some great work there to make it… More easy for maintenance, and… Yeah, I think basically all SDKs will work on the same stuff. Oh, and by the way, Mario did an amazing job.
+
+00:07:50.000 --> 00:07:59.000
+He created a swag boot. Um… which basically runs the Tsk tests.
+
+00:07:59.000 --> 00:08:07.000
+And checks if they pass on all SDKs. And if they when and the results are sent to him.
+
+00:08:07.000 --> 00:08:21.000
+in a swag channel. So… this makes our release process of the consent note smoother. And because in in the past we had issues where.
+
+00:08:21.000 --> 00:08:31.000
+One of the TKs don't work and the execution team can't the consensus node team can't release.
+
+00:08:31.000 --> 00:08:40.000
+So… yeah, I think… That's pretty much from our side.
+
+00:08:40.000 --> 00:08:50.000
+Yeah. In the Go SDK, uh, there was a problem with the Lambda hooks, so I made the release.
+
+00:08:50.000 --> 00:08:57.000
+This morning, with point one that fixes them. So I think everything is fine now.
+
+00:08:57.000 --> 00:09:08.000
+Yeah, I think the Python SDK… Had an issue with the hooks because we renamed, like, in the first versions of the hooks.
+
+00:09:08.000 --> 00:09:30.000
+The… This is the Go SDK, not the Go SDK. Yeah. Um… At first, while the transaction was… Then we renamed it to hook store, right? And I guess some of the changes weren't applied in the Go SDK, but now everything's fixed in a…
+
+00:09:30.000 --> 00:09:39.000
+In a batch version. And, yeah, as far as I know, without… Any breaking changes?
+
+00:09:39.000 --> 00:09:50.000
+By the way, we had an issue with… Uh, we had… A user tell us that we have a security issue, which we fixed.
+
+00:09:50.000 --> 00:10:03.000
+And but… We had this problem where one of the… one of our users was affected by this fix.
+
+00:10:03.000 --> 00:10:07.000
+Uh-huh, he basically told us that this is a break and change, and we asked him how it is a breaking change.
+
+00:10:07.000 --> 00:10:15.000
+And we still haven't received… Any feedback from him one week later?
+
+00:10:15.000 --> 00:10:31.000
+He basically told us, what are you doing? Why are you doing this? You don't have tests, and stuff like this. Van did a great job responding to him calmly and with examples. And after that, he hasn't mentioned anything.
+
+00:10:31.000 --> 00:10:42.000
+So, we don't think this is a breaking change for now, and I think it's not a breaking change for any time. And yeah, that's pretty much it.
+
+00:10:42.000 --> 00:10:55.000
+from the SDK team, if anyone has any questions.
+
+00:10:55.000 --> 00:11:03.000
+Maybe we can go through the I know the top goes through the cooperation hub.
+
+00:11:03.000 --> 00:11:16.000
+and we discuss the the Prs there. I will share my screen.
+
+00:11:16.000 --> 00:11:25.000
+Hmm… Oh, yeah, yes, Kate.
+
+00:11:25.000 --> 00:11:31.000
+Yeah, can you tell me more about this breaking change?
+
+00:11:31.000 --> 00:11:38.000
+Ah, so… like, a month or two ago.
+
+00:11:38.000 --> 00:11:48.000
+We had an user of. from the bug bounty program, he found a security issue.
+
+00:11:48.000 --> 00:11:54.000
+Which basically make… make it so a malicious user.
+
+00:11:54.000 --> 00:12:02.000
+could send you a transaction. Which you can send… which you can sign.
+
+00:12:02.000 --> 00:12:11.000
+Uh, in a way that you don't know. You signed it, as far as I know, and we fixed this issue.
+
+00:12:11.000 --> 00:12:20.000
+Uh, but now one of the guys… Uh, from SendX, I think was the dub.
+
+00:12:20.000 --> 00:12:32.000
+Told us that… He had a breaking change. We don't… we asked him, hey, what is the braking change? Tell us the example. Where is this the braking change?
+
+00:12:32.000 --> 00:12:49.000
+What happened? Because right now we basically, uh… When a user tries to pass this malicious transaction, we tell it to the end user, hey, this is… there is a problem with this transaction.
+
+00:12:49.000 --> 00:12:58.000
+And that's pretty much it. We made the test, we made the… we made the integration test, we made unit tests, all our previous tests work as expected.
+
+00:12:58.000 --> 00:13:01.000
+So we don't think this is a breaking change.
+
+00:13:01.000 --> 00:13:21.000
+We haven't changed anything, like… There's no new method, there is no new, uh… The return type, we don't have new parameters, nothing like that. It's just, uh… It just throws an error if there is a malicious transaction.
+
+00:13:21.000 --> 00:13:30.000
+And yeah, we asked him, how could… how do we reproduce it? One week later there is no… The response from the user.
+
+00:13:30.000 --> 00:13:37.000
+But… yeah, I think this is an issue that was reported in every SDK.
+
+00:13:37.000 --> 00:13:45.000
+from the bug bounty program.
+
+00:13:45.000 --> 00:13:55.000
+And… yeah. I will share my screen for the collaboration hub.
+
+00:13:55.000 --> 00:14:01.000
+Um… Share with this window.
+
+00:14:01.000 --> 00:14:12.000
+and yeah.
+
+00:14:12.000 --> 00:14:21.000
+By the way, we're working on a… on this PR in the Rust SDK.
+
+00:14:21.000 --> 00:14:31.000
+But I guess I will wait for Sophie to finish this, and we'll see if we can incorporate it in the Rust SDK.
+
+00:14:31.000 --> 00:14:38.000
+Basically, she made… A lot of markdowns which are related to the good first tissues?
+
+00:14:38.000 --> 00:14:57.000
+As far as I know, uh… We talked about it… Like, Friday… Friday evening… And I guess I will review it these days. Maybe you everyone else can review it also because it's important.
+
+00:14:57.000 --> 00:15:05.000
+Uh… is there anything new? Maybe Rob can give more information for this when he comes.
+
+00:15:05.000 --> 00:15:09.000
+I think he said that he will be late for 10 minutes.
+
+00:15:09.000 --> 00:15:18.000
+And everything else is old.
+
+00:15:18.000 --> 00:15:22.000
+We have started to work on this right? 1081 does it?
+
+00:15:22.000 --> 00:15:38.000
+Do we start to work on this, right? No, I think we just read the okay so it was 11:37. Yeah. Okay. 11:37 yeah.
+
+00:15:38.000 --> 00:16:08.000
+Uh, well, yeah, that's… pretty much for… This, I will wait for Rob to explain, to give us more information for this PR.
+
+00:16:08.000 --> 00:16:09.000
+Hey guys, sorry I'm late.
+
+00:16:09.000 --> 00:16:12.000
+No, he's here. So, yeah.
+
+00:16:12.000 --> 00:16:18.000
+Yeah, no problem. I was just talking about you, about this. We're just going through the collaboration hub.
+
+00:16:18.000 --> 00:16:27.000
+And I saw that you have created a new PR about… Uh, V3 transactions.
+
+00:16:27.000 --> 00:16:28.000
+Uh…
+
+00:16:28.000 --> 00:16:35.000
+I have I will basically give you a quick summary of what happened in this.
+
+00:16:35.000 --> 00:16:49.000
+In this event, in this talk, we run through what the SDKs were working on for the past week. And we're now going to the collaboration hub.
+
+00:16:49.000 --> 00:16:56.000
+And yeah, I was just about to ask you if you can give more information for these V3 transactions.
+
+00:16:56.000 --> 00:16:58.000
+Yeah, sure. Um…
+
+00:16:58.000 --> 00:17:00.000
+Let me…
+
+00:17:00.000 --> 00:17:04.000
+I'm gonna share my screen here. Yeah, so this one I just put up, uh…
+
+00:17:04.000 --> 00:17:09.000
+a couple days ago. Um, this is one of…
+
+00:17:09.000 --> 00:17:14.000
+Uh, kind of several discussions that have spawned from this initial, uh,
+
+00:17:14.000 --> 00:17:19.000
+Uh, new request hierarchy that I put up about a month ago.
+
+00:17:19.000 --> 00:17:25.000
+Hendrik and I found that going through this, there were a lot of things that we needed to…
+
+00:17:25.000 --> 00:17:28.000
+flesh out and discuss a little bit more.
+
+00:17:28.000 --> 00:17:31.000
+Um, so this was one of them. Um…
+
+00:17:31.000 --> 00:17:33.000
+Basically, this…
+
+00:17:33.000 --> 00:17:36.000
+kind of goes through and…
+
+00:17:36.000 --> 00:17:42.000
+Um, attempts to, uh… well, the design is basically trying to, um,
+
+00:17:42.000 --> 00:17:51.000
+increase the developer experience, or make the developer experience a little bit better, um, when it comes to receipts and records and, uh, transaction responses.
+
+00:17:51.000 --> 00:17:56.000
+Um, and we've gotten feedback that…
+
+00:17:56.000 --> 00:17:59.000
+Uh, the… the way that the V2, um…
+
+00:17:59.000 --> 00:18:07.000
+receipts and records work at the moment are not the most intuitive.
+
+00:18:07.000 --> 00:18:09.000
+So, for example, like, you, you know, you…
+
+00:18:09.000 --> 00:18:17.000
+create an account, right? And then you get the receipt back, and in that receipt, you still have access to
+
+00:18:17.000 --> 00:18:19.000
+Basically, all the…
+
+00:18:19.000 --> 00:18:27.000
+fields in that transaction receipt, um, which there are several. Um, I actually might have a…
+
+00:18:27.000 --> 00:18:31.000
+lists them in here, um…
+
+00:18:31.000 --> 00:18:37.000
+But yeah, the transaction receipt has, you know, several fields in it that
+
+00:18:37.000 --> 00:18:40.000
+don't actually pertain to…
+
+00:18:40.000 --> 00:18:43.000
+an account create, for example.
+
+00:18:43.000 --> 00:18:48.000
+Um, so here's a little chart of that here. So basically, if you were doing an account create,
+
+00:18:48.000 --> 00:18:50.000
+You have access to all these fields here.
+
+00:18:50.000 --> 00:18:57.000
+that won't have any data, like, they're just gonna be… they're just gonna be null, right?
+
+00:18:57.000 --> 00:19:03.000
+Um, the only one you really care about is, you know, the account ID. You want the ID of the account you created.
+
+00:19:03.000 --> 00:19:05.000
+Um, so basically this was, um…
+
+00:19:05.000 --> 00:19:12.000
+kind of an idea that spawned off that, basically making it so that you are only presented with the data.
+
+00:19:12.000 --> 00:19:15.000
+That is pertinent to…
+
+00:19:15.000 --> 00:19:20.000
+whatever transaction that you submitted.
+
+00:19:20.000 --> 00:19:23.000
+And the initial kind of thought…
+
+00:19:23.000 --> 00:19:26.000
+They're, um, through this, uh…
+
+00:19:26.000 --> 00:19:28.000
+Well,
+
+00:19:28.000 --> 00:19:30.000
+we initially, uh…
+
+00:19:30.000 --> 00:19:36.000
+typed out the different receipts and records, so basically you'd have something like a, uh…
+
+00:19:36.000 --> 00:19:40.000
+like an account create receipt, for example.
+
+00:19:40.000 --> 00:19:43.000
+Let me see if I can… if I can find that here.
+
+00:19:43.000 --> 00:19:47.000
+Basically, the account create receipt is basically just, like, uh…
+
+00:19:47.000 --> 00:19:52.000
+derive class of just, like, the normal transaction receipt, except you're only…
+
+00:19:52.000 --> 00:19:54.000
+presented with the…
+
+00:19:54.000 --> 00:19:57.000
+account ID field in that.
+
+00:19:57.000 --> 00:20:02.000
+Um, you're not gonna be presented with, like, file ID or contract ID, because those are not going to be relevant to whatever
+
+00:20:02.000 --> 00:20:04.000
+whatever, um…
+
+00:20:04.000 --> 00:20:08.000
+Uh, to the, uh…
+
+00:20:08.000 --> 00:20:11.000
+transaction you submitted.
+
+00:20:11.000 --> 00:20:18.000
+So yeah, so this was just kind of like a working, um, kind of idea that we had, and Hendrik and I had discussed.
+
+00:20:18.000 --> 00:20:22.000
+We did find some concerns with this.
+
+00:20:22.000 --> 00:20:26.000
+So, yeah, so initially we wanted to type out the receipts and the records.
+
+00:20:26.000 --> 00:20:33.000
+But the problem with that, um, is, uh, forward compatibility. So, for example, one of the issues I found…
+
+00:20:33.000 --> 00:20:37.000
+was, for example, like, HIP1313.
+
+00:20:37.000 --> 00:20:40.000
+So, in… in that, a…
+
+00:20:40.000 --> 00:20:43.000
+field in the transaction record was presented,
+
+00:20:43.000 --> 00:20:47.000
+That, um, shows what…
+
+00:20:47.000 --> 00:20:52.000
+pricing multiplier, the high-volume transaction was submitted at.
+
+00:20:52.000 --> 00:20:53.000
+Um, so the high-volume…
+
+00:20:53.000 --> 00:21:02.000
+transaction is only available right now for, I believe it was 14 of the transactions on the network.
+
+00:21:02.000 --> 00:21:06.000
+So that would mean that we would need 14 different types…
+
+00:21:06.000 --> 00:21:09.000
+typed records, um…
+
+00:21:09.000 --> 00:21:15.000
+to… for basically each, you know, transaction that that's, you know, enabled for.
+
+00:21:15.000 --> 00:21:18.000
+The problem with that is the…
+
+00:21:18.000 --> 00:21:22.000
+the non-typed records, so you would, like…
+
+00:21:22.000 --> 00:21:27.000
+let's say it… high-volume entity creation wasn't enabled for, I don't know,
+
+00:21:27.000 --> 00:21:29.000
+Like, contract create, for example.
+
+00:21:29.000 --> 00:21:35.000
+Um, uh, but if later down the line, um, it was enabled…
+
+00:21:35.000 --> 00:21:38.000
+The contract create, initially,
+
+00:21:38.000 --> 00:21:40.000
+would have to use a generic…
+
+00:21:40.000 --> 00:21:42.000
+just transaction record…
+
+00:21:42.000 --> 00:21:44.000
+um, response object.
+
+00:21:44.000 --> 00:21:50.000
+the… and if it was enabled for contract create later down the line,
+
+00:21:50.000 --> 00:21:54.000
+We would then need to create a contract create
+
+00:21:54.000 --> 00:22:00.000
+transaction record, um, which would then change the, uh,
+
+00:22:00.000 --> 00:22:06.000
+class signature of contract create, and they would just be an ugly breaking change, and it would… it would just not be good.
+
+00:22:06.000 --> 00:22:08.000
+Um, so…
+
+00:22:08.000 --> 00:22:11.000
+this… kind of…
+
+00:22:11.000 --> 00:22:17.000
+tries its best to kind of deal with that, like, with the type of receipts, um…
+
+00:22:17.000 --> 00:22:21.000
+I think there will… I put some initial explanation down here.
+
+00:22:21.000 --> 00:22:24.000
+Um, so type receipts, just kind of looking back at what…
+
+00:22:24.000 --> 00:22:31.000
+Uh, changes have happened with transaction receipt, just in the, you know, since the network's been alive for…
+
+00:22:31.000 --> 00:22:33.000
+In the past, I don't know, 8, 7, 8 years.
+
+00:22:33.000 --> 00:22:38.000
+Um, it seems pretty forward compatible. There is, like, still this…
+
+00:22:38.000 --> 00:22:42.000
+risk. It's a very small risk, um…
+
+00:22:42.000 --> 00:22:46.000
+of, you know, potentially adding a field to the transaction receipt that…
+
+00:22:46.000 --> 00:22:56.000
+is needed for a transaction that already exists. So, like, let's say, for example, like, for some reason, we wanted to add some…
+
+00:22:56.000 --> 00:23:04.000
+Some field in a transaction receipt for a crypto transfer. Like, I don't know what that field would be, but, you know, just for sake of example, let's say that
+
+00:23:04.000 --> 00:23:09.000
+They decide they want to add a field to a transaction receipt for crypto transfer.
+
+00:23:09.000 --> 00:23:11.000
+Um, that would be a breaking change.
+
+00:23:11.000 --> 00:23:16.000
+That would require a breaking change for the reasons I just submitted. We would have to change the…
+
+00:23:16.000 --> 00:23:20.000
+Uh, class signature of crypto transfer to account for that.
+
+00:23:20.000 --> 00:23:22.000
+that new transaction record.
+
+00:23:22.000 --> 00:23:28.000
+Um, however, looking back, just through everything that's been added to transaction receipt,
+
+00:23:28.000 --> 00:23:33.000
+this has never occurred. This hasn't happened in…
+
+00:23:33.000 --> 00:23:37.000
+For as long as the network has been alive.
+
+00:23:37.000 --> 00:23:42.000
+Um, so again, still a small risk there, but, um, I think that maybe…
+
+00:23:42.000 --> 00:23:50.000
+can warrant a little bit of discussion on if that risk is worth it. And, you know, weighing that risk versus the, uh…
+
+00:23:50.000 --> 00:23:53.000
+you know, better developer experience this may offer.
+
+00:23:53.000 --> 00:23:57.000
+Um, so I typed out receipts there, but we did not type out records.
+
+00:23:57.000 --> 00:24:00.000
+Um, just because records, uh…
+
+00:24:00.000 --> 00:24:05.000
+don't evolve in the same way that receipts do.
+
+00:24:05.000 --> 00:24:09.000
+We have… we've had several, um…
+
+00:24:09.000 --> 00:24:12.000
+fields added to transaction records that, you know, have
+
+00:24:12.000 --> 00:24:16.000
+have been added after the initial transaction.
+
+00:24:16.000 --> 00:24:22.000
+Uh, that that field is for was already implemented, um, so the risk of breaking changes there goes up.
+
+00:24:22.000 --> 00:24:24.000
+Uh, way more. Um…
+
+00:24:24.000 --> 00:24:27.000
+So we left those not typed.
+
+00:24:27.000 --> 00:24:33.000
+Um, and then I had this idea for aliases, uh, to kinda…
+
+00:24:33.000 --> 00:24:36.000
+help out with the developer experience there, I'm…
+
+00:24:36.000 --> 00:24:43.000
+still kind of unsure on this. I think, uh, I think DM may have left a comment on that, actually, for, uh…
+
+00:24:43.000 --> 00:24:48.000
+Um, to maybe start a little bit more discussion on that.
+
+00:24:48.000 --> 00:24:52.000
+But yeah, I mean, that's a small thing that we can talk through as well.
+
+00:24:52.000 --> 00:24:56.000
+Are there any kind of questions on that? I know it was kind of…
+
+00:24:56.000 --> 00:25:02.000
+convoluted, maybe? Uh, I try my best to explain it, but, um, does everyone kind of get what…
+
+00:25:02.000 --> 00:25:03.000
+what we're trying to do here.
+
+00:25:03.000 --> 00:25:16.000
+Okay, thank you.
+
+00:25:16.000 --> 00:25:18.000
+Alright. Yeah, so again, so this is just one of…
+
+00:25:18.000 --> 00:25:21.000
+Well, uh…
+
+00:25:21.000 --> 00:25:22.000
+I'll ask my favorite question.
+
+00:25:22.000 --> 00:25:24.000
+Go ahead.
+
+00:25:24.000 --> 00:25:30.000
+What problem are we trying to solve for this new receipt? Transaction record architecture?
+
+00:25:30.000 --> 00:25:36.000
+Uh, better developer experience. So, basically, a user will not be offered fields that…
+
+00:25:36.000 --> 00:25:39.000
+mean nothing to them. They will only be offered fields that…
+
+00:25:39.000 --> 00:25:47.000
+actually have, um, pertinent data for wherever the transaction they receive.
+
+00:25:47.000 --> 00:25:48.000
+their TriMet transaction they see in.
+
+00:25:48.000 --> 00:25:50.000
+But is that…
+
+00:25:50.000 --> 00:25:54.000
+isn't… isn't it another possibility that users are…
+
+00:25:54.000 --> 00:25:59.000
+you know, across all different Hedera transactions, the users are expecting a consistent
+
+00:25:59.000 --> 00:26:03.000
+transaction output.
+
+00:26:03.000 --> 00:26:04.000
+Well, I don't…
+
+00:26:04.000 --> 00:26:09.000
+whether or not fields are null or fields are filled.
+
+00:26:09.000 --> 00:26:23.000
+Yeah, I mean, I think the thought behind this was, like, they shouldn't even be offered fields that… they're pretty much guaranteed always going to be null, or not have any pertinent data. So, like, why would you want to see the contract ID if you're trying to create a
+
+00:26:23.000 --> 00:26:31.000
+an account, for example. Like, that shouldn't even be offered as an option. Like, that was… that was the thought.
+
+00:26:31.000 --> 00:26:34.000
+But this, I mean…
+
+00:26:34.000 --> 00:26:41.000
+I mean, our network still produces… I mean, it'll still be in the mirror node. What you're talking about is that the SDK is applying, sort of,
+
+00:26:41.000 --> 00:26:47.000
+filtering mechanism on top of mirror node data, would that be accurate?
+
+00:26:47.000 --> 00:26:53.000
+Um… transaction receipt, I don't think we actually use the mirror node. Um, we just query directly from the consensus node.
+
+00:26:53.000 --> 00:26:59.000
+Okay, so in that case, the contest node produces all this information, you're just filtering it, and in the case of
+
+00:26:59.000 --> 00:27:08.000
+let's say a transaction record, the mirror node has all that information, you're just filtering it.
+
+00:27:08.000 --> 00:27:09.000
+Yes.
+
+00:27:09.000 --> 00:27:22.000
+So, if I went to the Miranode APIs, I would see one form of data. If I went to the… if I got… looked at a response purely from the SDK, I would see another form of data.
+
+00:27:22.000 --> 00:27:26.000
+I mean, it's like, the filtering's gonna happen…
+
+00:27:26.000 --> 00:27:34.000
+somewhere, right? Like, you know, whether a user is getting it from the mirror node, or the SDK does it when they're getting it from the consensus node.
+
+00:27:34.000 --> 00:27:36.000
+Right? Like, you're always just gonna have…
+
+00:27:36.000 --> 00:27:38.000
+Why would it happen from the…
+
+00:27:38.000 --> 00:27:49.000
+Why would it happen from the mirror node? Because, I mean, the mirror node represents all of those null fields, like, use your example, contract ID, but it's not a contract. There's no reason to no contract ID.
+
+00:27:49.000 --> 00:27:54.000
+But that's what I see on the mirror node today on the APIs, when I hit them.
+
+00:27:54.000 --> 00:27:56.000
+Well, the user's just gonna get the data that they want.
+
+00:27:56.000 --> 00:27:59.000
+Right? Like, it's…
+
+00:27:59.000 --> 00:28:01.000
+they're just gonna grab, like, what they want.
+
+00:28:01.000 --> 00:28:09.000
+I think, like, from this, like, the… it's better from, like, a developer standpoint, it's like, for example, like, if you're in, like, an IDE, you know,
+
+00:28:09.000 --> 00:28:19.000
+Like, you know, you get a… you get a certain, like, account create receipt, for example, like, you're only gonna have the account ID available, like, you're not gonna…
+
+00:28:19.000 --> 00:28:25.000
+see anything for contract ID or whatever.
+
+00:28:25.000 --> 00:28:33.000
+Okay, I'll just… I'll just make that point, like, I don't… I think what we don't want is that I go to the SDK, I see one form of the data,
+
+00:28:33.000 --> 00:28:41.000
+I go to the hash scan, I see another form of the data, I go to the Hedera API, the Hashkin API, as I see, or the MirrorNode APIs, I see.
+
+00:28:41.000 --> 00:28:49.000
+like, we don't want inconsistency in the data that's returned across different systems.
+
+00:28:49.000 --> 00:28:52.000
+Yeah, I mean, the data will…
+
+00:28:52.000 --> 00:28:55.000
+only be quote-unquote inconsistent in that…
+
+00:28:55.000 --> 00:28:58.000
+Like, you're not gonna see anything that isn't pertinent to you.
+
+00:28:58.000 --> 00:29:01.000
+Like, it's… it's… you're… you're…
+
+00:29:01.000 --> 00:29:06.000
+The data you're going to be presented with is the only data that will actually matter.
+
+00:29:06.000 --> 00:29:13.000
+To you. That's basically it.
+
+00:29:13.000 --> 00:29:18.000
+Okay, but it's gonna be inconsistent, right? Like, you're gonna see a different data
+
+00:29:18.000 --> 00:29:21.000
+You're going to see the non-null fields.
+
+00:29:21.000 --> 00:29:27.000
+from the SDK, and you will see the null fields from the MirrorNode API. I just think that that's not…
+
+00:29:27.000 --> 00:29:33.000
+That needs thought, because that's not as nice as you make it sound.
+
+00:29:33.000 --> 00:29:36.000
+I mean, yeah, it's gonna be inconsistent, but, uh…
+
+00:29:36.000 --> 00:29:39.000
+I don't think anyone's gonna care.
+
+00:29:39.000 --> 00:29:46.000
+Like, why would a developer care if they're like, oh, I can't see these fields that don't matter to me?
+
+00:29:46.000 --> 00:29:54.000
+Because they have a… in their own tooling, they have tooling that… that expects to see all the different fields.
+
+00:29:54.000 --> 00:29:58.000
+parses all the different fields, handles all the different fields, whether they're null or not, because they…
+
+00:29:58.000 --> 00:30:01.000
+They work over a range of transactions on the Hedera, so they don't have
+
+00:30:01.000 --> 00:30:12.000
+custom… like, they have one way of parsing data from Hedera. They don't have many different ways of parsing data from Hedera.
+
+00:30:12.000 --> 00:30:18.000
+Well, yeah, I mean, like, they're… basically this kind of consolidates that more into just, like, you know, if…
+
+00:30:18.000 --> 00:30:22.000
+for these different parts of data, you're gonna have just different…
+
+00:30:22.000 --> 00:30:24.000
+types that…
+
+00:30:24.000 --> 00:30:28.000
+We'll present the data in a more clean way, I think.
+
+00:30:28.000 --> 00:30:35.000
+Maybe, um, Keith, if you wanted to go in on this PR, and maybe make some comments, and…
+
+00:30:35.000 --> 00:30:39.000
+address any concerns you have, um…
+
+00:30:39.000 --> 00:30:46.000
+Maybe… maybe that would be a better spot to have this discussion.
+
+00:30:46.000 --> 00:30:50.000
+Well, I guess the… maybe the higher level thing we could tell us about is, like,
+
+00:30:50.000 --> 00:30:55.000
+I still don't understand… is this a POC? If it's a POC, then I don't care. If this is something you guys are intending to implement,
+
+00:30:55.000 --> 00:30:59.000
+then I start caring a lot.
+
+00:30:59.000 --> 00:31:02.000
+Well, it's… it's a POC that, if…
+
+00:31:02.000 --> 00:31:07.000
+approved of, well, we will be implementing it, yeah.
+
+00:31:07.000 --> 00:31:22.000
+Like, that's been the plan all along.
+
+00:31:22.000 --> 00:31:25.000
+Yeah, and like, a lot of these, like, for example, like, the… I know I've…
+
+00:31:25.000 --> 00:31:32.000
+I've talked about this one for a while, like, we had, like, discussions coming out of this one. Um, I think the previous one…
+
+00:31:32.000 --> 00:31:39.000
+that we had come out of that, so it was this idea of, like, transaction builder,
+
+00:31:39.000 --> 00:31:41.000
+It's basically kind of like a, uh, a…
+
+00:31:41.000 --> 00:31:46.000
+a new, more concise way to build transactions, and um…
+
+00:31:46.000 --> 00:31:51.000
+you know, kind of address the, uh…
+
+00:31:51.000 --> 00:32:00.000
+Um, the different feedback we've heard about freeze, and, um, you know, incorporating the HIP745 flows.
+
+00:32:00.000 --> 00:32:10.000
+even this, for example, like, you know, Hendrik and I have been talking about it, and a couple of these ended up being, like, yeah, maybe we just need to…
+
+00:32:10.000 --> 00:32:15.000
+you know, put in some code and just see… see how it works, see how it feels.
+
+00:32:15.000 --> 00:32:21.000
+So, this is… none of this is, like, set in stone. Like, this is, like, something that…
+
+00:32:21.000 --> 00:32:27.000
+Uh, like you said, Keith, like a POC, like, we're building it, we're trying things to see how they work, how they feel.
+
+00:32:27.000 --> 00:32:34.000
+Um… so, a lot of these are just, you know, ideas and things that we think
+
+00:32:34.000 --> 00:32:38.000
+could improve developer experience, so we are very open to…
+
+00:32:38.000 --> 00:32:41.000
+to feedback, and um…
+
+00:32:41.000 --> 00:32:45.000
+you know, different… different viewpoints and potential use cases, so…
+
+00:32:45.000 --> 00:32:48.000
+Um, yeah, that's, that's maybe kind of…
+
+00:32:48.000 --> 00:32:53.000
+why I said, um, if you had any concerns, you could put them in here, just so that we could have them…
+
+00:32:53.000 --> 00:32:57.000
+written down somewhere and in the open, so that we can reference them later.
+
+00:32:57.000 --> 00:33:02.000
+I know we have, like, discussions and meetings can get…
+
+00:33:02.000 --> 00:33:04.000
+lost, um, but, um…
+
+00:33:04.000 --> 00:33:16.000
+Yeah, thank having it down on a PR, for example, would be better.
+
+00:33:16.000 --> 00:33:19.000
+Um, alrighty, um, did… did we get through…
+
+00:33:19.000 --> 00:33:27.000
+all the SDK updates.
+
+00:33:27.000 --> 00:33:29.000
+Think so? Okay.
+
+00:33:29.000 --> 00:33:30.000
+Okay, sounds good.
+
+00:33:30.000 --> 00:33:31.000
+I think so. Oops, sorry.
+
+00:33:31.000 --> 00:33:35.000
+Um… is Sophie on the call?
+
+00:33:35.000 --> 00:33:42.000
+By the way, there is this comment in the channel about.
+
+00:33:42.000 --> 00:33:51.000
+About hierogooks. Uh, basically, a user was trying to create a dApp.
+
+00:33:51.000 --> 00:33:52.000
+with the SDK, uh, not just with the SDK, but with the whole… Direct system. As far as I see, he doesn't have any issues with the SDK.
+
+00:33:52.000 --> 00:34:01.000
+Okay. Alright, we can move on, but yeah, thank you.
+
+00:34:01.000 --> 00:34:16.000
+Here's some comments about the documentation. But as far as I know, he has no issues with the… So, yeah, just wanted to give an update on that, too. So far, we don't have any… problems with that.
+
+00:34:16.000 --> 00:34:17.000
+Was this in the Discord channel?
+
+00:34:17.000 --> 00:34:22.000
+Can you, uh, send me that?
+
+00:34:22.000 --> 00:34:23.000
+Can you forward me that comment, please?
+
+00:34:23.000 --> 00:34:25.000
+Yeah.
+
+00:34:25.000 --> 00:34:32.000
+Yeah. Give me a second.
+
+00:34:32.000 --> 00:34:33.000
+Sorry, this was in the Discord, you said?
+
+00:34:33.000 --> 00:34:34.000
+Uh…
+
+00:34:34.000 --> 00:34:39.000
+No, not Discord is work. There is this guy.
+
+00:34:39.000 --> 00:34:46.000
+Where was it? He basically told us that he created an end-to-end DARP.
+
+00:34:46.000 --> 00:34:55.000
+Oh yeah, I've been trying to build an end-to-end demo for heap 11295.
+
+00:34:55.000 --> 00:34:56.000
+Oh, okay, yeah.
+
+00:34:56.000 --> 00:34:58.000
+I will send you… it's Kiram Bachai.
+
+00:34:58.000 --> 00:34:59.000
+I was… Rob, do you want it, or do I just send it to Kit?
+
+00:34:59.000 --> 00:35:01.000
+Cheer.
+
+00:35:01.000 --> 00:35:11.000
+Yeah, essentially, Kieran's one of our… it's a Hashgraph DA, so I can follow.
+
+00:35:11.000 --> 00:35:12.000
+He was using, uh… JS.
+
+00:35:12.000 --> 00:35:13.000
+Okay.
+
+00:35:13.000 --> 00:35:14.000
+Or… something else?
+
+00:35:14.000 --> 00:35:22.000
+Yeah, he was using the JSSK. I saw that he had some comments about.
+
+00:35:22.000 --> 00:35:36.000
+The mirror node stuff and the documentation stuff. I don't see him having any issues with the Jazz SDK.
+
+00:35:36.000 --> 00:35:37.000
+Okay.
+
+00:35:37.000 --> 00:35:39.000
+Yeah.
+
+00:35:39.000 --> 00:35:53.000
+But I would guess it's the same, because we basically follow the same pattern. Each SDK has the same setter, getter, ad hook, remove hook, stuff like this. So basically, it should be the same for each SDK.
+
+00:35:53.000 --> 00:35:57.000
+Yeah. Okay, sounds good. Yeah, maybe, um…
+
+00:35:57.000 --> 00:36:00.000
+Keith, if you follow up with Kieran, he has any issues.
+
+00:36:00.000 --> 00:36:03.000
+Um, using the SDK, you can just let us know.
+
+00:36:03.000 --> 00:36:12.000
+We can look at it.
+
+00:36:12.000 --> 00:36:15.000
+Alright.
+
+00:36:15.000 --> 00:36:22.000
+March, looks like Sophie's not on the call. I know she opened this a couple weeks ago.
+
+00:36:22.000 --> 00:36:24.000
+I was looking to…
+
+00:36:24.000 --> 00:36:27.000
+kind of centralize our…
+
+00:36:27.000 --> 00:36:32.000
+Issue, progression initiative, docs, um…
+
+00:36:32.000 --> 00:36:36.000
+I see there's new comments. Okay, I'll look at these, uh, afterwards, but…
+
+00:36:36.000 --> 00:36:39.000
+Um, I actually still need to talk with her.
+
+00:36:39.000 --> 00:36:40.000
+Go ahead.
+
+00:36:40.000 --> 00:36:53.000
+One quick comment. We might have to change some of the stuff about the the good first issues, because we keep seeing the same problem with the good first issues. Our users basically.
+
+00:36:53.000 --> 00:37:06.000
+fix the issue, and then they don't run task build, task lint. They don't build the SDKs, they don't check for linter errors and it's in each SDK, it happens.
+
+00:37:06.000 --> 00:37:23.000
+Like, always the same thing. So I guess we might have to change our documentation to… To make it so when they pass the issue to AI, the AI will also use task build and task lint.
+
+00:37:23.000 --> 00:37:24.000
+Yeah, I've noticed that, um…
+
+00:37:24.000 --> 00:37:26.000
+And whatever the alternatives are in each SDK.
+
+00:37:26.000 --> 00:37:28.000
+a bit too, where…
+
+00:37:28.000 --> 00:37:31.000
+PRs are open, and they're like…
+
+00:37:31.000 --> 00:37:34.000
+build compilation errors, like…
+
+00:37:34.000 --> 00:37:35.000
+You know, they don't even try to…
+
+00:37:35.000 --> 00:37:45.000
+Yeah, exactly. And then I… Yeah, I told them, hey, your bill doesn't doesn't doesn't pass. Can you please fix it?
+
+00:37:45.000 --> 00:37:56.000
+Sometimes they tell me, hey, I fixed it, then I run task build, it doesn't… it's not fixed, or it's, uh, it's that they keep the PR open, and they never come back.
+
+00:37:56.000 --> 00:37:59.000
+Yeah.
+
+00:37:59.000 --> 00:38:01.000
+Yeah, I think for, uh…
+
+00:38:01.000 --> 00:38:05.000
+Something like that, so I've, like, been using labels to, uh…
+
+00:38:05.000 --> 00:38:09.000
+Actually… labels don't really help there, because…
+
+00:38:09.000 --> 00:38:12.000
+They change every time a commit is pushed up. Um…
+
+00:38:12.000 --> 00:38:14.000
+Yeah, I think, like…
+
+00:38:14.000 --> 00:38:19.000
+Yeah, that's… that's tough, because it's, um…
+
+00:38:19.000 --> 00:38:26.000
+I think something I'm probably gonna start doing is just, like, doing a quick initial look-through of just, like…
+
+00:38:26.000 --> 00:38:29.000
+You know, making sure that no, like…
+
+00:38:29.000 --> 00:38:38.000
+security vulnerabilities or whatever, like, anything security-related is, like, in there, then just, like, let the workflows run immediately, because then, like, then we'll know…
+
+00:38:38.000 --> 00:38:43.000
+quicker, like, if the bill doesn't work, or if there's, like, a linting error, or something.
+
+00:38:43.000 --> 00:38:46.000
+Um… yeah, ideally, we would…
+
+00:38:46.000 --> 00:38:50.000
+be able to know that as soon as possible, then can just…
+
+00:38:50.000 --> 00:39:00.000
+leave a review and just say, like, hey, like, the bill doesn't work, fix it.
+
+00:39:00.000 --> 00:39:05.000
+Um, so you, you mentioned, so, updating documentation, um,
+
+00:39:05.000 --> 00:39:10.000
+for, like, AI, so is that, like, uh…
+
+00:39:10.000 --> 00:39:16.000
+You have, like, documentation, like, in… like, the contributing documentation, like, in… in the SDK?
+
+00:39:16.000 --> 00:39:18.000
+repo itself.
+
+00:39:18.000 --> 00:39:25.000
+So do you remember that when you create an issue, you have a template.
+
+00:39:25.000 --> 00:39:26.000
+Uh, template.
+
+00:39:26.000 --> 00:39:33.000
+And one of the template was… was, um… basically a checkmark what they should do before they push the commit.
+
+00:39:33.000 --> 00:39:34.000
+Yeah.
+
+00:39:34.000 --> 00:39:39.000
+So, basically, we might add that one of the steps.
+
+00:39:39.000 --> 00:39:47.000
+In order for us to approve it and merge it is that their task built command works as expected.
+
+00:39:47.000 --> 00:39:56.000
+And another issue that I found was very often they are formatting changes that are not expected.
+
+00:39:56.000 --> 00:40:12.000
+New line, new wines, new spaces, new indentations, stuff like this, which should not be in the PR. We might also add this that this PR should not, uh… Should not change the formatting of any files.
+
+00:40:12.000 --> 00:40:17.000
+that are not needed.
+
+00:40:17.000 --> 00:40:18.000
+Basically, uh… No.
+
+00:40:18.000 --> 00:40:22.000
+Yeah, no, I… I think that's smart, yeah, because if you have it, like, right in the template, then…
+
+00:40:22.000 --> 00:40:25.000
+Yeah, if, like, an AI does it, then… it'll just be another…
+
+00:40:25.000 --> 00:40:26.000
+their checklist thing.
+
+00:40:26.000 --> 00:40:47.000
+Yeah. I bet, like, almost all of them basically face the issue and just pushed the changes, so we can just reduce our work by basically adding it to the issue that they need to to make the CI pass and to not make any formatting issues.
+
+00:40:47.000 --> 00:40:48.000
+Mm-hmm.
+
+00:40:48.000 --> 00:40:50.000
+Yeah.
+
+00:40:50.000 --> 00:40:53.000
+Yeah, I think that makes sense.
+
+00:40:53.000 --> 00:40:56.000
+Let me try to do that in C++ as well, um…
+
+00:40:56.000 --> 00:41:02.000
+They're like, for something like this, it probably wouldn't work well here, since this is, like…
+
+00:41:02.000 --> 00:41:08.000
+non-SDK-specific, but yeah, something in the templates.
+
+00:41:08.000 --> 00:41:17.000
+And each SDK would probably be good.
+
+00:41:17.000 --> 00:41:20.000
+Alright, um…
+
+00:41:20.000 --> 00:41:23.000
+Is Hendrik on the call? He's not.
+
+00:41:23.000 --> 00:41:29.000
+I think he's been talking with this guy about…
+
+00:41:29.000 --> 00:41:32.000
+I think he has a Rust implementation of this, I think.
+
+00:41:32.000 --> 00:41:36.000
+We're just waiting for him to fix some signatures there.
+
+00:41:36.000 --> 00:41:41.000
+block node…
+
+00:41:41.000 --> 00:41:44.000
+I think we're still waiting…
+
+00:41:44.000 --> 00:41:50.000
+For Nana to take a look through this, I'll go ahead and ping him today about that.
+
+00:41:50.000 --> 00:41:52.000
+Let me hopefully get this…
+
+00:41:52.000 --> 00:41:54.000
+get this merged sooner rather than later.
+
+00:41:54.000 --> 00:41:57.000
+I think, uh…
+
+00:41:57.000 --> 00:41:59.000
+I'll have to recheck when they want…
+
+00:41:59.000 --> 00:42:03.000
+a block node implementation ready to go, um…
+
+00:42:03.000 --> 00:42:05.000
+I think last I heard was, like…
+
+00:42:05.000 --> 00:42:08.000
+mid to late May, uh…
+
+00:42:08.000 --> 00:42:16.000
+So I think we still got a little time on that, but this might… still might take a while to implement, so…
+
+00:42:16.000 --> 00:42:22.000
+Um, and then I took over this from Hendrick, I haven't looked at it, and… yeah, I need to talk with Sophie about…
+
+00:42:22.000 --> 00:42:25.000
+merging that with her PR, so…
+
+00:42:25.000 --> 00:42:30.000
+Alright, um… did anyone else have any topics?
+
+00:42:30.000 --> 00:42:44.000
+pertinent to… pertinent to SDKs they wanted to bring up.
+
+00:42:44.000 --> 00:42:46.000
+Alrighty, I think we're good.
+
+00:42:46.000 --> 00:42:48.000
+Thanks, everyone, for joining.
+
+00:42:48.000 --> 00:42:49.000
+See you later. Bye.
+
+00:42:49.000 --> 00:42:52.000
+Sounds good.
+
+00:42:52.000 --> 00:43:15.000
+Bye.
+
+00:43:15.000 --> 00:43:24.000
+By Kazakhistors. For, uh, transcription.
+
+00:43:24.000 --> 00:43:32.000
+I'm working on mirror.
+
+00:43:32.000 --> 00:43:41.000
+to my host, Kotuzles.
+
+00:43:41.000 --> 00:43:45.000
+book. Code recording is on the recording at us.
+
+00:43:45.000 --> 00:43:49.000
+Hey, we'll catch with, uh, with YouTube.
+
+00:43:49.000 --> 00:43:53.000
+Yeah, extra.
+
+00:43:53.000 --> 00:44:02.000
+Good, I would
+

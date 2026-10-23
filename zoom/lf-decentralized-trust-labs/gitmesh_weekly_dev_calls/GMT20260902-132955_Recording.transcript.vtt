@@ -1,0 +1,1030 @@
+WEBVTT
+
+1
+00:04:09.910 --> 00:04:13.480
+Parv Mittal: Hello everyone, welcome to another Weekly Dev Call for GitMesh.
+
+2
+00:04:13.690 --> 00:04:18.459
+Parv Mittal: Today is, again, September 2026, and let's get started.
+
+3
+00:04:19.740 --> 00:04:29.979
+Parv Mittal: Coming to the Code of Conduct, these slides do not contain any commercial advertisements. All the tools, products, books, materials are generic, and you have to consider those as examples.
+
+4
+00:04:30.830 --> 00:04:45.139
+Parv Mittal: We held our, weekly Dev Calls on every Wednesday, and you can join us from this link. And you can read our privacy policy, terms of use, and trust policy code of conduct, and a link to the official representative from here.
+
+5
+00:04:46.710 --> 00:04:56.760
+Parv Mittal: For the today's agenda, we'll discuss what, we have worked on, for the, from the last week, and there will be some technical and code discussion.
+
+6
+00:04:58.230 --> 00:05:00.369
+Parv Mittal: So, let's get started.
+
+7
+00:05:01.140 --> 00:05:02.130
+Parv Mittal: Hmm.
+
+8
+00:05:05.300 --> 00:05:09.510
+Parv Mittal: Coming to the work, that we have done last week, and…
+
+9
+00:05:10.010 --> 00:05:19.710
+Parv Mittal: Since Anurag was, not there in the last week, I'll, also explain what we have done, from last to last week in brief.
+
+10
+00:05:20.850 --> 00:05:25.220
+Parv Mittal: So… If I feel…
+
+11
+00:05:25.910 --> 00:05:30.920
+Parv Mittal: All the commits have been done by pull request, so we can see it from here.
+
+12
+00:05:31.540 --> 00:05:32.420
+Parv Mittal: Cool.
+
+13
+00:05:33.560 --> 00:05:39.759
+Parv Mittal: The mostly the work, from last two weeks was, T1.5.
+
+14
+00:05:40.370 --> 00:05:42.790
+Parv Mittal: to T1.12.
+
+15
+00:05:44.620 --> 00:05:52.370
+Parv Mittal: I've been, like, merging 1, 2, 2 pull requests, and 1 to 2 days.
+
+16
+00:05:52.500 --> 00:05:58.389
+Parv Mittal: And I've been working on the task, like the first, GitMesh doctor.
+
+17
+00:05:58.490 --> 00:06:02.430
+Parv Mittal: And, up to T1.12 have been completed.
+
+18
+00:06:03.450 --> 00:06:04.430
+Parv Mittal: So…
+
+19
+00:06:04.840 --> 00:06:21.709
+Parv Mittal: Before we go on, let's, get a brief about the code, because we'll need to understand, the project structure. I think the project structure is not, it's still very clear, and we should be able to understand it, to be able to work
+
+20
+00:06:21.950 --> 00:06:26.710
+Parv Mittal: on it, For the next, task.
+
+21
+00:06:27.970 --> 00:06:35.460
+Parv Mittal: Go… Bugit mesh structure.
+
+22
+00:06:36.460 --> 00:06:54.789
+Parv Mittal: There is, CLI. There, there are many folders, like Playbook, Public, Releases, scripts, Server UI, these are all, like, legacy code, and, not used in GitMesh anymore. So, you'll need, you'll not need to worry about these packages.
+
+23
+00:06:55.080 --> 00:06:56.789
+Parv Mittal: on these packages.
+
+24
+00:06:56.930 --> 00:07:02.060
+Parv Mittal: And most of the code is in this package, the lib package.
+
+25
+00:07:02.290 --> 00:07:15.500
+Parv Mittal: And the docs are, here in this package. These are the legacy docs, and, docs are, these two contain some legacy docs too, but, these also contain updated docs as well.
+
+26
+00:07:15.740 --> 00:07:20.810
+Parv Mittal: And, these are the… this contains the code for the CLI.
+
+27
+00:07:22.720 --> 00:07:30.329
+Parv Mittal: So, the main two packages, two folders that you will be working with are lib and CLN.
+
+28
+00:07:30.980 --> 00:07:33.889
+Parv Mittal: And, eventually the talk folder as well.
+
+29
+00:07:35.930 --> 00:07:50.270
+Parv Mittal: So… if I open the live folder, there are only these two folders that are, useful to us for after the pivot of the GitMesh.
+
+30
+00:07:50.510 --> 00:07:53.500
+Parv Mittal: The workspace adapters and workspace core.
+
+31
+00:07:54.790 --> 00:08:06.160
+Parv Mittal: So, workspace adapter contains the adapters that we have worked on from T… 1.12t1.7.
+
+32
+00:08:07.050 --> 00:08:10.329
+Parv Mittal: I'll show you what those were.
+
+33
+00:08:13.820 --> 00:08:18.119
+Parv Mittal: So T1.1 was Claude Code Adapter.
+
+34
+00:08:18.250 --> 00:08:20.620
+Parv Mittal: T1.2…
+
+35
+00:08:22.150 --> 00:08:36.309
+Parv Mittal: was, codecs adapter, and T1.3 was cursor, T1.4 was Copilot, and anti-gravity, and some other detectors, open code, agents.md.
+
+36
+00:08:36.409 --> 00:08:38.880
+Parv Mittal: And, some third-party managers.
+
+37
+00:08:39.720 --> 00:08:44.570
+Parv Mittal: So… All the code of this, have been written here.
+
+38
+00:08:44.860 --> 00:08:57.789
+Parv Mittal: There are two main, folders here, source and fixtures. I'll explain to you what fixtures are. Fixtures are, like, fake repositories, that we can run our, detectors on them.
+
+39
+00:08:58.800 --> 00:09:07.850
+Parv Mittal: So, like, here are the fixtures, or we also call them golden fixtures in pivot.amd.
+
+40
+00:09:08.060 --> 00:09:12.999
+Parv Mittal: Because, they are useful for creating tests.
+
+41
+00:09:13.870 --> 00:09:25.089
+Parv Mittal: So, like, if I open a fixture for, suppose, Claude Code, You'll see there contains… Multiple, subfolders.
+
+42
+00:09:25.540 --> 00:09:30.019
+Parv Mittal: Every fixture contains these two, full surface and no artifacts.
+
+43
+00:09:30.140 --> 00:09:35.220
+Parv Mittal: And, additionally, few more folders, depending on the type of detector.
+
+44
+00:09:35.940 --> 00:09:52.049
+Parv Mittal: The full surface, is used to detect, everything that a detector can detect, and, no artifacts is just opposite of that. The RPO contains no artifact of the cloud code, and it should, return an empty output.
+
+45
+00:09:52.460 --> 00:09:58.850
+Parv Mittal: And, the other things is scoped and managed users scoped not requested. These are, like,
+
+46
+00:09:59.030 --> 00:10:16.200
+Parv Mittal: What cloud code, is allowed to read and, what should, it should not read. These are things like that, and, these differ from folders to folders. Like, for integrity, there are managed for plugin bundles and, for codecs.
+
+47
+00:10:17.030 --> 00:10:21.250
+Parv Mittal: There are codecs moment and, user and managed, so, like.
+
+48
+00:10:21.680 --> 00:10:27.700
+Parv Mittal: You might, you can understand them, but they are not very urgently required.
+
+49
+00:10:28.460 --> 00:10:33.669
+Parv Mittal: Every subfolder contains an expected and input report.
+
+50
+00:10:34.380 --> 00:10:38.479
+Parv Mittal: And additionally, it may contain some other things, depending on the folder type.
+
+51
+00:10:39.120 --> 00:10:44.160
+Parv Mittal: But, the expected input repo are in every folder.
+
+52
+00:10:45.060 --> 00:10:48.440
+Parv Mittal: The input repo contains, like, the things
+
+53
+00:10:48.710 --> 00:10:56.550
+Parv Mittal: that are there, like cloud.md, ages.md, and other things, and expected contains only a single file, detected.json.
+
+54
+00:10:56.980 --> 00:10:59.990
+Parv Mittal: So, while we run our,
+
+55
+00:11:00.270 --> 00:11:03.260
+Parv Mittal: Detector on these, fixtures.
+
+56
+00:11:03.540 --> 00:11:09.270
+Parv Mittal: We should get an output something like this. Like, it was able to detect this…
+
+57
+00:11:09.690 --> 00:11:21.369
+Parv Mittal: plot, like, in marketplace.json, it was able to detect, clot roofs, it was, able to detect MCB.json, it was able to detect plot.empt and other things.
+
+58
+00:11:23.860 --> 00:11:25.240
+Parv Mittal: So…
+
+59
+00:11:25.400 --> 00:11:35.410
+Parv Mittal: This is, like, the basic of fixtures, and source contains, like, simply the source code of these, detectors.
+
+60
+00:11:35.810 --> 00:11:39.460
+Parv Mittal: If, like, I talk about the cloud code again.
+
+61
+00:11:39.900 --> 00:11:43.179
+Parv Mittal: Then there are 3 main files in each,
+
+62
+00:11:43.390 --> 00:11:47.410
+Parv Mittal: detected. There are… I don't think there are exceptions to this rule.
+
+63
+00:11:48.850 --> 00:12:00.309
+Parv Mittal: Every folder contains, three files. DetectTest, detect.ts, and index.ts. DetectTest contains the test for, our, fixtures.
+
+64
+00:12:00.880 --> 00:12:10.079
+Parv Mittal: And index.tx is a simple file, which, like, which registers what type of fixtures are there.
+
+65
+00:12:10.400 --> 00:12:13.490
+Parv Mittal: And the main logic is written in the detect.ts.
+
+66
+00:12:14.350 --> 00:12:23.730
+Parv Mittal: Most of the adapters are, like, are just, rejects code.
+
+67
+00:12:24.130 --> 00:12:28.349
+Parv Mittal: And, like, there are, separate rules, like.
+
+68
+00:12:29.540 --> 00:12:33.130
+Parv Mittal: Like, flawed code artifact kind…
+
+69
+00:12:33.250 --> 00:12:38.690
+Parv Mittal: We have, given type to each kind of, detected artifacts.
+
+70
+00:12:38.910 --> 00:12:46.839
+Parv Mittal: And, This is the code to detect, the artifacts and disreflect it.
+
+71
+00:12:49.120 --> 00:12:54.920
+Parv Mittal: This will arrive from, Adapter to adapter.
+
+72
+00:12:55.430 --> 00:13:04.430
+Parv Mittal: So, the work of, T1.1 to 1.7 is, written in… Workspace.
+
+73
+00:13:04.800 --> 00:13:10.690
+Parv Mittal: And the WorkSyscore contains the part after that, T1.7.
+
+74
+00:13:10.970 --> 00:13:24.250
+Parv Mittal: Or, T1. Sorry, T1.8, or T1.8 was about the normalizer, I'll show you the… source here.
+
+75
+00:13:24.420 --> 00:13:37.880
+Parv Mittal: Huh. So there are 3 main parts currently. Normalizer, risk, and drift. Normalizer was T1.8, and drift was T1.9. And, risk contains,
+
+76
+00:13:38.110 --> 00:13:43.720
+Parv Mittal: the code, from T1.10 to 1.12.
+
+77
+00:13:45.360 --> 00:13:52.400
+Parv Mittal: If I talk about the normalizer, the work of the normalizer is,
+
+78
+00:13:52.750 --> 00:14:01.059
+Parv Mittal: like, I'll explain you through an example here. The workspace core also contains fixtures for drift and risk.
+
+79
+00:14:02.670 --> 00:14:07.170
+Parv Mittal: For, like… This is the input ripple.
+
+80
+00:14:08.180 --> 00:14:11.239
+Parv Mittal: So, the normalizer, will check.
+
+81
+00:14:11.730 --> 00:14:19.990
+Parv Mittal: I'll explain you the drifter and normalizer simultaneously. So, the work of the normalizer is to…
+
+82
+00:14:20.180 --> 00:14:25.150
+Parv Mittal: Like, multiple file can contain same instruction and different clone thing.
+
+83
+00:14:25.290 --> 00:14:36.380
+Parv Mittal: Like, suppose in Cloud.md, we have used, bullet points and, in agents.md, we have, written without bullet points.
+
+84
+00:14:36.710 --> 00:14:45.399
+Parv Mittal: So, it should be counted as a similar thing, not a different thing. So, the work of the normalizer is, to, like.
+
+85
+00:14:45.660 --> 00:14:51.530
+Parv Mittal: normalize those files into a single format. What it does is, it,
+
+86
+00:14:51.880 --> 00:15:02.620
+Parv Mittal: It, removes the front matter, any, like, formatting, any HTML comments, and, other stuff. And, they are grouped.
+
+87
+00:15:02.730 --> 00:15:06.690
+Parv Mittal: Grouped into, like, blocks.
+
+88
+00:15:06.910 --> 00:15:11.389
+Parv Mittal: There are logs such as headings, paragraphs, code fences, and list.
+
+89
+00:15:12.060 --> 00:15:17.009
+Parv Mittal: And, each block will get a hash, SHA256.
+
+90
+00:15:17.300 --> 00:15:27.489
+Parv Mittal: So it will be easier, to, like, to, know, to compare multiple files just by looking at their hashes.
+
+91
+00:15:28.200 --> 00:15:33.780
+Parv Mittal: And, the work of the drifter, or, the drifter, is,
+
+92
+00:15:35.350 --> 00:15:42.040
+Parv Mittal: To compute the changes, to compute the differences in two files.
+
+93
+00:15:43.390 --> 00:15:53.719
+Parv Mittal: And not two files, the entire repository, but it will do it in pair by pair. So, it will be per pair, difference.
+
+94
+00:15:54.350 --> 00:16:01.349
+Parv Mittal: And it will, like, show things like, only in A, and only in B.
+
+95
+00:16:01.620 --> 00:16:07.670
+Parv Mittal: to… To show what, is different in these files.
+
+96
+00:16:08.650 --> 00:16:14.089
+Parv Mittal: There are some rules for the drift differ, like, there are SIM links.
+
+97
+00:16:14.470 --> 00:16:21.649
+Parv Mittal: As you can see here, plot code is a SIM link which is pointing to agents.md.
+
+98
+00:16:23.160 --> 00:16:35.389
+Parv Mittal: So, cloud.md and agents.md should be counted as one file. And, the drifter should count them as one file, and, should not, return any
+
+99
+00:16:35.740 --> 00:16:37.750
+Parv Mittal: Drift in these files.
+
+100
+00:16:38.430 --> 00:16:45.740
+Parv Mittal: And, if I show you the… Agent.md.
+
+101
+00:16:45.970 --> 00:16:48.940
+Parv Mittal: These contain 3 rules, mainly.
+
+102
+00:16:49.630 --> 00:16:53.199
+Parv Mittal: This container, project headline and this, and this.
+
+103
+00:16:53.390 --> 00:17:06.289
+Parv Mittal: And if I talk about Gemini.md, it also contains a project rule, it contains a project rule, it contains a usepm for install, it contains a use.pm for install, it contains
+
+104
+00:17:07.069 --> 00:17:13.990
+Parv Mittal: Agents.MD contains these two rules, but Jamin and I.MD do not contain these rules, and it contains this extra.
+
+105
+00:17:14.550 --> 00:17:19.660
+Parv Mittal: So… It will flag out, these things.
+
+106
+00:17:21.329 --> 00:17:22.319
+Parv Mittal: Make this.
+
+107
+00:17:23.770 --> 00:17:25.280
+Parv Mittal: Only in A.
+
+108
+00:17:25.480 --> 00:17:31.819
+Parv Mittal: Agents.md contain this, only in V, Gemini.md contain this.
+
+109
+00:17:32.090 --> 00:17:33.860
+Parv Mittal: It will flag out this.
+
+110
+00:17:33.960 --> 00:17:36.700
+Parv Mittal: And, if we compare this…
+
+111
+00:17:39.680 --> 00:17:44.940
+Parv Mittal: agents.md and claud.md, it will flag them assembling groups.
+
+112
+00:17:45.240 --> 00:17:47.119
+Parv Mittal: And it will not compare them.
+
+113
+00:17:48.860 --> 00:17:57.200
+Parv Mittal: So, that was about the normalizer in Drifter, and from T.10 onwards, there are rule engines.
+
+114
+00:17:58.560 --> 00:18:00.830
+Parv Mittal: If I, like…
+
+115
+00:18:04.960 --> 00:18:24.209
+Parv Mittal: rules and risk engines. So, I have written, like, 4 rules here. GM001 to GM004. I'll explain, what each rule is about. Each rule contains, its, test.ts and, its, TS file.
+
+116
+00:18:24.980 --> 00:18:30.249
+Parv Mittal: And, like… RISC 30S, register those rules.
+
+117
+00:18:30.400 --> 00:18:42.460
+Parv Mittal: It contains, the structure and, artifact of those rules, and… sorry, rules.ts register the rules, and the structure is, contained in this list.ts.
+
+118
+00:18:44.840 --> 00:18:57.879
+Parv Mittal: So, talking about, GM001, it is about, detecting any secrets that are, written or committed into your project.
+
+119
+00:18:58.110 --> 00:19:07.820
+Parv Mittal: So, it is similar to, like, how GitHub warns you when, you commit, when you commit, something.
+
+120
+00:19:08.780 --> 00:19:13.530
+Parv Mittal: But, like, we are also…
+
+121
+00:19:13.530 --> 00:19:14.400
+Anurag Gupta: Davis.
+
+122
+00:19:14.890 --> 00:19:16.809
+Parv Mittal: Yeah, environment variables.
+
+123
+00:19:17.090 --> 00:19:23.680
+Parv Mittal: So, like, there are some examples of these environment variables. The main rule is, like,
+
+124
+00:19:23.790 --> 00:19:26.639
+Parv Mittal: Something that is, looking random.
+
+125
+00:19:26.820 --> 00:19:29.909
+Parv Mittal: Or, like this.
+
+126
+00:19:30.460 --> 00:19:37.210
+Parv Mittal: it will be counted as an environment variable. It is, counted as an error.
+
+127
+00:19:37.560 --> 00:19:47.120
+Parv Mittal: You can see there, like, it contains a lookStrandom variable, and, something that, starts with the export, or,
+
+128
+00:19:48.650 --> 00:19:50.219
+Parv Mittal: like…
+
+129
+00:19:51.380 --> 00:20:02.949
+Parv Mittal: It will just radically true an error, because, there can be false positives in this, type of rule, but, we should not have a false negative in this type of rule.
+
+130
+00:20:03.600 --> 00:20:07.440
+Parv Mittal: And, if I talk about the next rule…
+
+131
+00:20:08.960 --> 00:20:18.800
+Parv Mittal: The next rule is, GM002. It contains, Rule that,
+
+132
+00:20:19.000 --> 00:20:23.039
+Parv Mittal: What your raw agent is, allowed to read.
+
+133
+00:20:23.420 --> 00:20:29.849
+Parv Mittal: So… It checks that, your agent should not be able to read,
+
+134
+00:20:30.360 --> 00:20:39.239
+Parv Mittal: the ENV file, and it will throw a warning if it feels like, if, your agent is reading your ENV file.
+
+135
+00:20:39.650 --> 00:20:47.160
+Parv Mittal: So… Nowadays, agents do have rules, you can set rules.
+
+136
+00:20:47.270 --> 00:20:54.620
+Parv Mittal: Permissions for the agent that, what files they should not read, and what files they should read. Like,
+
+137
+00:20:55.260 --> 00:21:02.539
+Parv Mittal: OpenCore… open code denies the to-read .env file by default, but, some agents do not.
+
+138
+00:21:02.900 --> 00:21:05.460
+Parv Mittal: And, you can override it anytime.
+
+139
+00:21:05.770 --> 00:21:06.740
+Parv Mittal: So…
+
+140
+00:21:07.240 --> 00:21:19.139
+Parv Mittal: like, it will flag one thing. Nothing is stopping this agent from reading .env. So, it will throw a warning to the user to, like,
+
+141
+00:21:19.650 --> 00:21:25.359
+Parv Mittal: Add, this file to permissions.deni, and…
+
+142
+00:21:26.070 --> 00:21:29.339
+Parv Mittal: It will be a warning, not a fixed error.
+
+143
+00:21:30.980 --> 00:21:34.830
+Parv Mittal: NGM003.ts.
+
+144
+00:21:35.720 --> 00:21:41.840
+Parv Mittal: It is like, you can say the opposite of GN002.
+
+145
+00:21:42.390 --> 00:21:49.610
+Parv Mittal: like… There are, in some agents, there are modes.
+
+146
+00:21:50.040 --> 00:21:58.339
+Parv Mittal: Like, for cloud code, there can be a mode, to… you can, like, overwrite the policies of these agents.
+
+147
+00:21:58.610 --> 00:22:02.890
+Parv Mittal: And, if there is some, policy.
+
+148
+00:22:03.390 --> 00:22:05.629
+Parv Mittal: Or, like, bypass permissions.
+
+149
+00:22:05.900 --> 00:22:17.229
+Parv Mittal: It will flag, that, the agent is set to bypass formation. It will bypass, everything, and it will work on its own. It will flag this issue.
+
+150
+00:22:17.750 --> 00:22:23.750
+Parv Mittal: It is a type of error, it is not a warning, because, like.
+
+151
+00:22:24.110 --> 00:22:34.889
+Parv Mittal: It is not good… not a good idea to, like, allow your agents to be able to read anything, to do anything, without any permission prompts.
+
+152
+00:22:35.420 --> 00:22:45.490
+Parv Mittal: So, like, Cloud Code has a default mode, you know, which you can set it to the bypass permissions, and it will not ask you anything.
+
+153
+00:22:45.940 --> 00:22:49.130
+Parv Mittal: Like, before running a command.
+
+154
+00:22:49.460 --> 00:22:53.110
+Parv Mittal: So, it should not be the…
+
+155
+00:22:53.210 --> 00:22:57.639
+Parv Mittal: And, like, Codex has a sandbox mode, like…
+
+156
+00:22:58.070 --> 00:23:06.940
+Parv Mittal: You can switch off the sandbox, and it will run every command on your machine directly, so it should not be there.
+
+157
+00:23:08.520 --> 00:23:16.920
+Parv Mittal: And, GM004… This is about,
+
+158
+00:23:17.890 --> 00:23:25.119
+Parv Mittal: Like, this still runs code, but, it pins nothing, what code it, ran.
+
+159
+00:23:25.680 --> 00:23:32.710
+Parv Mittal: So… It is also related to the permissions of the agents that,
+
+160
+00:23:32.860 --> 00:23:41.509
+Parv Mittal: What, agent, what, skill the agent used. There should be a worsening and,
+
+161
+00:23:41.840 --> 00:23:45.809
+Parv Mittal: There should be a record of, every skill.
+
+162
+00:23:45.930 --> 00:23:48.870
+Parv Mittal: Like, if I take an example, the…
+
+163
+00:23:49.020 --> 00:23:52.860
+Parv Mittal: Like, there is a skill like, deploy.
+
+164
+00:23:53.760 --> 00:23:56.249
+Parv Mittal: So, it will throw a warning.
+
+165
+00:23:56.670 --> 00:24:02.809
+Parv Mittal: The deploy skill runs a script, but nothing records which version you approved.
+
+166
+00:24:03.620 --> 00:24:11.930
+Parv Mittal: So… Like, you have to keep a record of this. It will show earnings for that.
+
+167
+00:24:12.170 --> 00:24:19.439
+Parv Mittal: So… You must be thinking, like, why some rules are warnings, and why some rules are errors.
+
+168
+00:24:19.560 --> 00:24:25.259
+Parv Mittal: So it is, like, if something is, urgent to fix, like,
+
+169
+00:24:25.620 --> 00:24:40.110
+Parv Mittal: the bypass permission thing and the environment variable thing, it should be flagged immediately, and, it can be solved immediately. But the things, related to, like, this,
+
+170
+00:24:42.070 --> 00:24:49.819
+Parv Mittal: This, GM004, or, versioning and, like, keeping records.
+
+171
+00:24:50.080 --> 00:24:55.350
+Parv Mittal: These, cannot be solved, immediately, or, like.
+
+172
+00:24:55.850 --> 00:25:04.030
+Parv Mittal: They might be intentional, or, like, the user might not want to solve that immediately, so it will throw warning for them.
+
+173
+00:25:05.110 --> 00:25:09.869
+Parv Mittal: So, that was all the work, we have done in the last week.
+
+174
+00:25:11.010 --> 00:25:16.509
+Parv Mittal: There are, also fixtures for, drift and, for this.
+
+175
+00:25:18.610 --> 00:25:22.859
+Parv Mittal: So these are for, like, testing purpose only.
+
+176
+00:25:23.500 --> 00:25:34.049
+Parv Mittal: The main reason our pull request was so bloated with code was these fixtures, but these are necessary part of these rules.
+
+177
+00:25:35.680 --> 00:25:38.769
+Parv Mittal: So, in this week.
+
+178
+00:25:39.400 --> 00:25:46.949
+Parv Mittal: We'll be working on, we'll… we will target to finish the GitMesh Doctor part.
+
+179
+00:25:47.950 --> 00:25:50.140
+Parv Mittal: So, let me open this.
+
+180
+00:25:51.350 --> 00:25:52.730
+Parv Mittal: pivot.imd.
+
+181
+00:25:53.750 --> 00:26:00.880
+Parv Mittal: I think… It contains up to T1.19.
+
+182
+00:26:01.310 --> 00:26:07.789
+Parv Mittal: So, let's focus on, completing to T1.19 this week.
+
+183
+00:26:08.090 --> 00:26:18.870
+Parv Mittal: So that we can proceed with the other tasks. There are lots of tasks before it can be production ready, so we'll need to speed up a bit.
+
+184
+00:26:20.400 --> 00:26:24.620
+Parv Mittal: And who are the current…
+
+185
+00:26:24.910 --> 00:26:27.439
+Parv Mittal: For the just upcoming task.
+
+186
+00:26:27.550 --> 00:26:31.719
+Parv Mittal: We'll need to complete GM001-2001.
+
+187
+00:26:32.250 --> 00:26:37.780
+Parv Mittal: So, like, each PR will have, 2 to 3 rules each.
+
+188
+00:26:38.120 --> 00:26:41.410
+Parv Mittal: We'll work on 2-3 rules each, and
+
+189
+00:26:42.150 --> 00:26:46.369
+Parv Mittal: Our goal is to complete, these rules.
+
+190
+00:26:46.570 --> 00:26:49.320
+Parv Mittal: up to T1.15.
+
+191
+00:26:50.680 --> 00:26:53.280
+Parv Mittal: You can read, like,
+
+192
+00:26:53.390 --> 00:26:56.970
+Parv Mittal: What, other rules are there from you?
+
+193
+00:26:57.130 --> 00:27:04.970
+Parv Mittal: Everything is, written in pivot.md, and, so if you want to work on, the new code.
+
+194
+00:27:05.270 --> 00:27:08.480
+Parv Mittal: Just, open an issue first.
+
+195
+00:27:08.800 --> 00:27:13.860
+Parv Mittal: So, I can know that, you are working on something.
+
+196
+00:27:14.480 --> 00:27:26.539
+Parv Mittal: So, if you, like, want to work on, say, T1.13, just open the issue before you start working on it, and I'll assign the issue to you, and
+
+197
+00:27:26.980 --> 00:27:33.640
+Parv Mittal: try to, like, open a PR within 1 to 2 days after I assign you to issue.
+
+198
+00:27:34.150 --> 00:27:39.940
+Parv Mittal: Because, otherwise, it will take a lot of time to complete these things.
+
+199
+00:27:40.970 --> 00:27:41.760
+Parv Mittal: Boom.
+
+200
+00:27:42.290 --> 00:27:50.529
+Parv Mittal: I hope, you now understand the GitMesh architecture now, and how things are actually working. And,
+
+201
+00:27:50.680 --> 00:27:55.039
+Parv Mittal: I think it is a little more clear, to…
+
+202
+00:27:55.150 --> 00:27:59.209
+Parv Mittal: It will be a little more clear to write the code and,
+
+203
+00:27:59.960 --> 00:28:02.409
+Parv Mittal: It will be easier to write the code now.
+
+204
+00:28:03.210 --> 00:28:07.219
+Parv Mittal: So, if you have any questions, please let me know.
+
+205
+00:28:12.750 --> 00:28:17.270
+Anurag Gupta: Okay, I have… Just…
+
+206
+00:28:32.350 --> 00:28:41.060
+Parv Mittal: Okay, so, by the way, Anurag, how is your, college going on? I think you were there a few days or a few weeks ago.
+
+207
+00:28:41.520 --> 00:28:45.069
+Anurag Gupta: No, the exams are, over and…
+
+208
+00:28:45.590 --> 00:28:49.749
+Anurag Gupta: It is, fine, now I can also work on the GitMesh.
+
+209
+00:28:50.180 --> 00:28:50.850
+Parv Mittal: Hmm.
+
+210
+00:28:50.850 --> 00:28:57.640
+Anurag Gupta: freely, there is no problem. Now I can manage, both the things. The exams are over.
+
+211
+00:28:58.860 --> 00:29:00.170
+Parv Mittal: Okay, that's straight.
+
+212
+00:29:00.490 --> 00:29:04.000
+Parv Mittal: I'm not forcing you to, like,
+
+213
+00:29:04.200 --> 00:29:06.980
+Parv Mittal: Work very frequently, but,
+
+214
+00:29:07.160 --> 00:29:10.090
+Parv Mittal: Yeah, we'll need to speed up a little bit.
+
+215
+00:29:10.880 --> 00:29:16.789
+Anurag Gupta: I understand the… Until we have not done… it is around…
+
+216
+00:29:17.440 --> 00:29:23.099
+Anurag Gupta: We did 3 months, and, we have not seized any… Single target also.
+
+217
+00:29:24.040 --> 00:29:24.770
+Parv Mittal: Hmm.
+
+218
+00:29:25.520 --> 00:29:31.250
+Parv Mittal: Yeah, like, the most routed time, we were thinking about a pivot plan.
+
+219
+00:29:31.250 --> 00:29:31.630
+Anurag Gupta: Oh, yeah.
+
+220
+00:29:31.630 --> 00:29:37.690
+Parv Mittal: Most of the time was wasted in that. But, since now the plan is,
+
+221
+00:29:37.690 --> 00:29:37.905
+Anurag Gupta: Oh.
+
+222
+00:29:38.120 --> 00:29:40.880
+Parv Mittal: There, we should be speeding up.
+
+223
+00:29:41.370 --> 00:29:43.049
+Anurag Gupta: Yeah, I understand.
+
+224
+00:29:46.700 --> 00:29:47.630
+Parv Mittal: Okay,
+
+225
+00:29:47.770 --> 00:29:51.179
+Parv Mittal: Any other questions, or any other doubts?
+
+226
+00:29:52.420 --> 00:29:55.980
+Anurag Gupta: No, not any major doubts, I am also just…
+
+227
+00:29:56.280 --> 00:29:59.579
+Anurag Gupta: Taking a brief of the code waste that you have.
+
+228
+00:29:59.680 --> 00:30:03.049
+Anurag Gupta: Tell me, just a second, Abuan.
+
+229
+00:30:03.470 --> 00:30:08.310
+Anurag Gupta: So, if I… anything… found confusing, so I can ask to just…
+
+230
+00:30:10.450 --> 00:30:11.120
+Parv Mittal: Yeah.
+
+231
+00:30:13.760 --> 00:30:21.260
+Parv Mittal: And, Just, if you want to start, something, just open an issue first.
+
+232
+00:30:21.800 --> 00:30:33.400
+Parv Mittal: I'll assign it to you. Before that, you should not start working on a task, because it is possible that I might, myself be working on some tasks.
+
+233
+00:30:33.780 --> 00:30:37.289
+Parv Mittal: So it is recommended, Diet, that you open the issue first.
+
+234
+00:30:37.920 --> 00:30:38.819
+Anurag Gupta: Okay, okay.
+
+235
+00:30:41.670 --> 00:30:46.439
+Parv Mittal: Okay, so otherwise we can end this meeting here.
+
+236
+00:30:46.910 --> 00:30:47.610
+Anurag Gupta: Yes.
+
+237
+00:30:47.710 --> 00:30:51.129
+Anurag Gupta: Okay, I'll be balanced, absolutely.
+
+238
+00:30:51.520 --> 00:30:53.810
+Parv Mittal: Okay, so see you next week.
+
+239
+00:30:54.160 --> 00:30:57.369
+Parv Mittal: We'll be here, next weekend.
+
+240
+00:30:57.550 --> 00:31:00.630
+Parv Mittal: We'll be sharing the work updates out this week.
+
+241
+00:31:01.290 --> 00:31:02.610
+Anurag Gupta: Yeah, yeah, okay.
+
+242
+00:31:03.280 --> 00:31:05.449
+Parv Mittal: Thank you for joining. Bye-bye.
+
+243
+00:31:05.660 --> 00:31:06.560
+Anurag Gupta: Bye-bye.
+
+244
+00:31:11.270 --> 00:31:12.340
+Anurag Gupta: Ta-da!
+
+245
+00:31:13.090 --> 00:31:16.409
+Anurag Gupta: No… Randy.
+
+246
+00:31:16.920 --> 00:31:21.180
+Anurag Gupta: Again… involve this.
+
+247
+00:31:21.790 --> 00:31:22.660
+Anurag Gupta: Alright.
+
+248
+00:31:37.560 --> 00:31:38.590
+Anurag Gupta: Ross.
+
+249
+00:31:40.810 --> 00:31:41.900
+Anurag Gupta: Whoa.
+
+250
+00:31:42.560 --> 00:31:43.330
+Anurag Gupta: Yes.
+
+251
+00:31:44.050 --> 00:31:45.040
+Anurag Gupta: Hold on.
+
+252
+00:31:46.240 --> 00:31:47.949
+Anurag Gupta: I'm bothering you.
+
+253
+00:31:49.850 --> 00:31:51.089
+Anurag Gupta: Lord knows.
+
+254
+00:31:51.940 --> 00:31:53.370
+Anurag Gupta: Oh my goodness.
+
+255
+00:32:13.260 --> 00:32:15.150
+Anurag Gupta: Who knows?
+
+256
+00:32:18.850 --> 00:32:19.800
+Anurag Gupta: Okay.
+
+257
+00:32:23.240 --> 00:32:24.850
+Anurag Gupta: And,
+

@@ -1,0 +1,690 @@
+WEBVTT
+
+1
+00:00:11.310 --> 00:00:12.340
+Sean Bohan (The Linux Foundation): You're good to go.
+
+2
+00:00:12.500 --> 00:00:13.390
+Sarvesh Naidu: Awesome.
+
+3
+00:00:13.630 --> 00:00:19.670
+Sarvesh Naidu: Alright, so, first of all, thank you for joining this call. I really appreciate it.
+
+4
+00:00:19.800 --> 00:00:27.619
+Sarvesh Naidu: I… Mukul, I wanted to kind of give you a little more background about Teotas,
+
+5
+00:00:28.290 --> 00:00:32.349
+Sarvesh Naidu: Initiative that we have, unless you have complete information of what it is.
+
+6
+00:00:33.600 --> 00:00:43.629
+Mukul: Yeah, sure. I definitely would like to learn more, because I had a bunch of questions to you. I was going to write to you about them, but yeah, we can discuss them later.
+
+7
+00:00:43.920 --> 00:00:55.389
+Sarvesh Naidu: Sure, sure. So basically, the OTAS initiative came from our internal work that we do today. We are a, platform,
+
+8
+00:00:55.620 --> 00:00:58.529
+Sarvesh Naidu: Implementation, team.
+
+9
+00:00:58.650 --> 00:01:06.400
+Sarvesh Naidu: in Open Assets, where we, you know, kind of… Enable issuers to,
+
+10
+00:01:07.500 --> 00:01:16.509
+Sarvesh Naidu: to, you know, deploy or to tokenize their real-world assets, right? So that could be anything from, your,
+
+11
+00:01:17.220 --> 00:01:24.420
+Sarvesh Naidu: stocks, bonds, stablecoins, or whatever that is, right? What we saw was there was a lot of…
+
+12
+00:01:24.780 --> 00:01:29.160
+Sarvesh Naidu: Tightly coupled, information.
+
+13
+00:01:29.300 --> 00:01:32.510
+Sarvesh Naidu: across… These chains that we use.
+
+14
+00:01:33.460 --> 00:01:45.680
+Sarvesh Naidu: What we identified were four different, pillars, which we, you know, which we felt had a lot of potential of becoming
+
+15
+00:01:45.850 --> 00:01:53.060
+Sarvesh Naidu: Of becoming independent, and can we use as specs, right? So,
+
+16
+00:01:53.220 --> 00:02:10.729
+Sarvesh Naidu: on a high level, we have the identity, mechanism, we have your compliance, you have account… asset metadata, and then eventually your settlement layer, right? So, since we work with
+
+17
+00:02:10.810 --> 00:02:17.150
+Sarvesh Naidu: various, companies, may it be the New York Stock Exchange, or whichever, for that matter.
+
+18
+00:02:17.390 --> 00:02:26.770
+Sarvesh Naidu: We have to have a settlement layer as well, where we would be eventually working with DTCC and all that stuff, right? So…
+
+19
+00:02:27.070 --> 00:02:38.450
+Sarvesh Naidu: what we identified was everybody, may it be JPMC, may it be Goldman Sachs, may it be your HSBC. They had their own, blockchain to do these things.
+
+20
+00:02:38.600 --> 00:02:48.920
+Sarvesh Naidu: and their own way of managing the identity, the asset metadata, the, you know, your compliance, as well as your settlements. Everything is managed
+
+21
+00:02:49.840 --> 00:02:53.109
+Sarvesh Naidu: Within their own ecosystem.
+
+22
+00:02:53.620 --> 00:03:08.539
+Sarvesh Naidu: Right? But this is great if we just had one bank or two banks, right? But when you have multinational banks running across, where you have multiple branches, and then you have, you know.
+
+23
+00:03:08.920 --> 00:03:18.539
+Sarvesh Naidu: Goldman Sachs trying to transfer something from their bank to another one, that's where everything breaks.
+
+24
+00:03:18.920 --> 00:03:21.910
+Sarvesh Naidu: Why? Because there is no interoperability.
+
+25
+00:03:22.180 --> 00:03:34.900
+Sarvesh Naidu: There is no security, there is no compliance that can manage it, like, which is a separate layer, right? So what OTAS is saying, that, hey, you have your own implementations the way you do.
+
+26
+00:03:35.330 --> 00:03:46.810
+Sarvesh Naidu: But when you're talking to everybody else, follow a spec, follow a specification, which will allow you to communicate
+
+27
+00:03:46.980 --> 00:03:51.150
+Sarvesh Naidu: without… with a single language.
+
+28
+00:03:51.670 --> 00:03:56.719
+Sarvesh Naidu: Right? So, what OTAS is thinking is a specification layer.
+
+29
+00:03:57.000 --> 00:04:09.900
+Sarvesh Naidu: Right? It's not enforcing anyone to build their own implementations, right? We are not into implementations, we are into specifications, a little… a layer higher, more of interfaces.
+
+30
+00:04:11.370 --> 00:04:13.550
+Sarvesh Naidu: Does that give you clarity of what we are trying to do?
+
+31
+00:04:14.620 --> 00:04:15.830
+Mukul: Yes, sure.
+
+32
+00:04:15.830 --> 00:04:29.950
+Sarvesh Naidu: Awesome, awesome. So, that said, what I want us to, or what I would expect from, you is, let's get the GitHub repo set up in that way.
+
+33
+00:04:30.490 --> 00:04:34.389
+Sarvesh Naidu: That we have, 4 specific…
+
+34
+00:04:34.540 --> 00:04:42.180
+Sarvesh Naidu: Pillars. So we will have identity, we'll have the asset metadata, we'll have compliance, and then we'll have the settlement.
+
+35
+00:04:42.390 --> 00:04:47.299
+Sarvesh Naidu: Right? We can create separate projects within our OTAS,
+
+36
+00:04:47.560 --> 00:05:07.340
+Sarvesh Naidu: Correct? And then OTAS, and then OTAS is just a big umbrella around these things, right? And then we have our own contributors contributing to that, we can have a list, we maintain it just like a repo, but, you can manage it there as well, right? You'd be able to do that, number one. Number two,
+
+37
+00:05:07.990 --> 00:05:15.480
+Sarvesh Naidu: What part of these four pillars you seem to be the most interested in?
+
+38
+00:05:19.010 --> 00:05:30.199
+Mukul: I think I know quite a bit about settlement part of this. I'd be interested to know how they are doing these days in identity part, because we are also dealing with,
+
+39
+00:05:30.600 --> 00:05:44.720
+Mukul: basically financial firms and so on, so that must be a bit construed, I'd say, but we, we should be thorough, in this, right? Agreed. Especially with identity and stuff.
+
+40
+00:05:44.800 --> 00:05:57.650
+Mukul: In blockchain, essentially, it is not a well-marketed identity part, so we should be more thorough with that. And I haven't seen any good standard where identities are marked properly, so…
+
+41
+00:05:58.300 --> 00:06:15.269
+Mukul: We should be looking into that more, more in depth. Settlement part is something which is fundamental, right? For any, token interaction to have, settlement… tokens exist, so settlement has to be there, so, which is, that is more clear part.
+
+42
+00:06:15.370 --> 00:06:28.049
+Mukul: Other parts we need to delve, deeper into. And, again, you said we, should we have four different repositories for those things? Yes. Just, okay, four repositories, okay.
+
+43
+00:06:28.050 --> 00:06:32.650
+Sarvesh Naidu: Yeah, we could create separate repos within our OTAS repo, right? I mean, as sub-projects.
+
+44
+00:06:32.650 --> 00:06:33.679
+Mukul: Export anymore.
+
+45
+00:06:33.810 --> 00:06:35.049
+Sarvesh Naidu: And then what I was thinking…
+
+46
+00:06:35.050 --> 00:06:38.099
+Mukul: We have our organization, and we can have, submit reports for this.
+
+47
+00:06:38.100 --> 00:06:38.990
+Sarvesh Naidu: Exactly, that's how it works.
+
+48
+00:06:38.990 --> 00:06:42.540
+Mukul: basically have separate repos for different sample projects, or…
+
+49
+00:06:42.540 --> 00:06:42.900
+Sarvesh Naidu: Yes.
+
+50
+00:06:42.900 --> 00:06:43.329
+Mukul: Thanks for one.
+
+51
+00:06:43.330 --> 00:06:59.839
+Sarvesh Naidu: So everything can have their own thing. So, you know, you build everything, so it's self-sufficient. If tomorrow, I mean, if someone wants to use OTAS, it doesn't mean that they have to use all the four pillars. They could ideally just pick one of them, and they could use these specs.
+
+52
+00:06:59.960 --> 00:07:07.899
+Sarvesh Naidu: across both the systems, and then see how they will be able to use it, right?
+
+53
+00:07:07.900 --> 00:07:18.219
+Mukul: Right, and by the way, do we have… have we thought about what language do we… programming language for this? Like, DAML, or, like, Move, or Solidity, or Rust, and so on?
+
+54
+00:07:18.220 --> 00:07:27.440
+Sarvesh Naidu: So, again, I mean, it doesn't really matter, because we have people from SUI who write mostly in Move.
+
+55
+00:07:27.630 --> 00:07:32.190
+Sarvesh Naidu: Most of the other EVMs, they will use Solidity. So.
+
+56
+00:07:32.190 --> 00:07:32.750
+Mukul: Right.
+
+57
+00:07:33.190 --> 00:07:34.980
+Sarvesh Naidu: It's a very…
+
+58
+00:07:34.980 --> 00:07:35.340
+Mukul: Great.
+
+59
+00:07:35.340 --> 00:07:40.549
+Sarvesh Naidu: it's… it's not that we are… we want to be agnostic, right? We want to give them both.
+
+60
+00:07:40.680 --> 00:07:52.739
+Sarvesh Naidu: We have the specs. If I have a move, then I can make it into a EVM thing also, right? Smart contract. So I don't have a problem with any language as such. It… we can identify, we can write it in anything.
+
+61
+00:07:53.850 --> 00:07:54.390
+Mukul: Very cool.
+
+62
+00:07:54.510 --> 00:08:13.209
+Mukul: Yeah, that's the part I have questions about in general, because in general, when we create standards, they are in specific language, or they… they have some constraints, right? When we… when we are thinking about multiple chains, or even multiple different infrastructure layers, or different…
+
+63
+00:08:13.440 --> 00:08:23.600
+Mukul: different assets, different asset standards all together, and we are trying to standardize them in some way, so, I'm just, that's a very good question. I have a question mark about that.
+
+64
+00:08:23.630 --> 00:08:24.859
+Sarvesh Naidu: No, and that's a very good.
+
+65
+00:08:24.860 --> 00:08:26.970
+Mukul: I'm sure that is possible, but I haven't.
+
+66
+00:08:26.970 --> 00:08:31.590
+Sarvesh Naidu: what… yeah, and what we can do is, and this is a very good question, why? Because, I mean.
+
+67
+00:08:31.900 --> 00:08:37.029
+Sarvesh Naidu: when I was using Go, and I'm just gonna give an example, when I was using Go.
+
+68
+00:08:38.900 --> 00:08:47.650
+Sarvesh Naidu: I could compile it into Solidity… I mean, it's not Solidity, I could compile it for Mac, I could compile it for Windows, I could compile it for…
+
+69
+00:08:47.650 --> 00:08:49.679
+Mukul: Red bytecode. A bytec.
+
+70
+00:08:49.680 --> 00:08:53.539
+Sarvesh Naidu: Correct? Yeah. And I could use it without any issues.
+
+71
+00:08:55.410 --> 00:08:59.659
+Sarvesh Naidu: Obviously, we cannot go to that extent of writing compilers. That's not what we are trying to do.
+
+72
+00:08:59.660 --> 00:09:04.059
+Mukul: I have a compiler design experience in solid AP, I don't know much about.
+
+73
+00:09:04.060 --> 00:09:05.740
+Sarvesh Naidu: This is okay, because I…
+
+74
+00:09:05.740 --> 00:09:09.490
+Mukul: good move and rest, but I don't have compiler design experience in any of them.
+
+75
+00:09:09.710 --> 00:09:15.560
+Sarvesh Naidu: Okay, which is, which is still okay. I think, initial, initial,
+
+76
+00:09:15.850 --> 00:09:20.019
+Sarvesh Naidu: Thing that we want to do is set up the structure, number one.
+
+77
+00:09:20.020 --> 00:09:20.550
+Mukul: Erints.
+
+78
+00:09:20.930 --> 00:09:33.400
+Sarvesh Naidu: see what's available out there within Git itself. Because Git is like a… it's an ocean of knowledge, right? With so many projects being done, you don't know if people have already done this somewhere else.
+
+79
+00:09:34.010 --> 00:09:50.249
+Sarvesh Naidu: Right? So, identifying all these resources, putting it in some kind of a form where people can say, hey, these are the various resources that we have looked at, these are the… these are closed, but these are not exactly what it is. And then create some kind of a white paper for whatever we are trying to do.
+
+80
+00:09:50.250 --> 00:09:56.939
+Sarvesh Naidu: Right? That's very important. As an artifact, we need to first identify What is our deliverable?
+
+81
+00:09:57.100 --> 00:10:09.299
+Sarvesh Naidu: Right? Getting all the resources together, creating the project structure, getting all our contributors on track. I know a few people didn't join today. I was expecting,
+
+82
+00:10:09.720 --> 00:10:19.670
+Sarvesh Naidu: the SUI team to join. So they are, from the Meiston lab, so they are pretty much doing this, work today, right? So they'd be able to give us more.
+
+83
+00:10:19.670 --> 00:10:31.539
+Sarvesh Naidu: in-depth understanding of how we could have gone about what language and whatnot, right? As an open-source community, we cannot tie ourselves to a language, right?
+
+84
+00:10:31.580 --> 00:10:41.489
+Sarvesh Naidu: Or else, then I'm, like, I cannot use your library, and so on and so forth. So, I want to kind of… that's how I look at it, right? We could always start with one.
+
+85
+00:10:41.730 --> 00:10:51.490
+Sarvesh Naidu: Maybe later on, you know, we can always move to another one, or the Mysten team can work with us and start building it in parallel for the move also.
+
+86
+00:10:52.070 --> 00:10:58.329
+Sarvesh Naidu: Right? So tomorrow, if there is… there are two teams working on move, then there is a specification for that as well.
+
+87
+00:10:59.020 --> 00:10:59.860
+Sarvesh Naidu: If that makes sense.
+
+88
+00:11:00.490 --> 00:11:01.300
+Mukul: Yes.
+
+89
+00:11:01.570 --> 00:11:02.410
+Sarvesh Naidu: Right? Sure.
+
+90
+00:11:02.600 --> 00:11:16.209
+Sarvesh Naidu: Cool. So I think we have a few, action items, Mukun. What I would suggest is, I don't know, I think maybe I'll have to talk to Sean to see how you can,
+
+91
+00:11:16.590 --> 00:11:20.790
+Sarvesh Naidu: start contributing towards our kit org that we have.
+
+92
+00:11:20.980 --> 00:11:25.989
+Sarvesh Naidu: and start creating these things. But before that, maybe,
+
+93
+00:11:26.710 --> 00:11:38.030
+Sarvesh Naidu: just identify the structure, if you could, and then send me an email, maybe, you know, because… or you could create it, and then I can review it, and whatever, however it works.
+
+94
+00:11:38.300 --> 00:11:39.679
+Sarvesh Naidu: Right? We could do that.
+
+95
+00:11:39.680 --> 00:11:40.310
+Mukul: That's true.
+
+96
+00:11:41.130 --> 00:11:46.869
+Mukul: If I… if I could, I'll make a GitHub repo, private repo, and I'll.
+
+97
+00:11:46.870 --> 00:11:47.190
+Sarvesh Naidu: Perfect.
+
+98
+00:11:47.190 --> 00:11:48.149
+Mukul: Nadio get up.
+
+99
+00:11:48.340 --> 00:11:49.229
+Sarvesh Naidu: Yeah, yeah, yeah.
+
+100
+00:11:49.350 --> 00:11:51.430
+Sarvesh Naidu: Sean, is that alright?
+
+101
+00:11:52.300 --> 00:11:54.209
+Sean Bohan (The Linux Foundation): Yeah, sure.
+
+102
+00:11:54.560 --> 00:12:01.340
+Sean Bohan (The Linux Foundation): McCool, do you have, in chat, can you give me your, GitHub handle? And, I can see about having you added as,
+
+103
+00:12:02.570 --> 00:12:04.280
+Sean Bohan (The Linux Foundation): Yeah.
+
+104
+00:12:04.460 --> 00:12:10.210
+Sean Bohan (The Linux Foundation): Sorbash is the maintainer on the repo, so you can start… start getting involved, yeah, sure.
+
+105
+00:12:10.400 --> 00:12:11.040
+Sarvesh Naidu: Awesome.
+
+106
+00:12:13.000 --> 00:12:13.550
+Mukul: pandemic.
+
+107
+00:12:14.000 --> 00:12:15.030
+Sean Bohan (The Linux Foundation): No worries.
+
+108
+00:12:16.980 --> 00:12:18.000
+Sean Bohan (The Linux Foundation): Alright, awesome.
+
+109
+00:12:18.370 --> 00:12:19.379
+Sean Bohan (The Linux Foundation): Let me get going on that.
+
+110
+00:12:28.200 --> 00:12:28.900
+Sean Bohan (The Linux Foundation): Girls.
+
+111
+00:12:35.350 --> 00:12:37.709
+Sarvesh Naidu: Awesome. Alright, I think…
+
+112
+00:12:38.720 --> 00:12:47.730
+Sarvesh Naidu: for today, I think I have these questions, I mean, these things. Do we, Mukul, I'll open it for questions.
+
+113
+00:12:48.120 --> 00:12:53.179
+Sarvesh Naidu: As such, do you have anything to discuss?
+
+114
+00:12:53.570 --> 00:12:54.829
+Sarvesh Naidu: Any questions that you have?
+
+115
+00:12:55.960 --> 00:13:13.019
+Mukul: Right. Yeah, I wanted to ask, can you share all the resources we have right now about this? So, initially, I'll go through everything, I'll try to understand things which I don't know about yet, or have… so I can basically have a good foundation to go with.
+
+116
+00:13:13.200 --> 00:13:20.320
+Mukul: About… I know you work with, technology and finance, and intersection of it for quite some time, so…
+
+117
+00:13:20.360 --> 00:13:35.040
+Mukul: You might know a lot more about these, fundamental, like, institutions, financial institutions, and so on. So, I'd like to know more about them, and if you have some resources, or… Sure, I mean…
+
+118
+00:13:35.480 --> 00:13:41.589
+Mukul: We at OTAS have some resources. I'd like to basically grasp them and go through them as soon as…
+
+119
+00:13:41.900 --> 00:13:43.829
+Mukul: We are starting this.
+
+120
+00:13:43.830 --> 00:13:50.239
+Sarvesh Naidu: No, totally, I'll find what we have, but most of the things are still available on the OTAS,
+
+121
+00:13:50.310 --> 00:14:14.850
+Sarvesh Naidu: pages itself. As we go, we'll be adding more resources to the OTAS. The reason why I'm saying I want to push everything on OTAS is because I want it to be like a wiki itself, right? I want it to kind of carry all that information, and, you know, just like how Sean sends the YouTube recordings and all those things. Everything in one place helps people to, you know, kind of navigate through there itself, rather than
+
+122
+00:14:14.850 --> 00:14:18.590
+Sarvesh Naidu: separate documents. So, if I find anything that is useful.
+
+123
+00:14:18.610 --> 00:14:22.780
+Sarvesh Naidu: I will let you know, and then we can add it to the Git repo itself.
+
+124
+00:14:23.330 --> 00:14:26.540
+Mukul: Right, we can… he can document inside the search. Exactly.
+
+125
+00:14:26.540 --> 00:14:41.959
+Sarvesh Naidu: Exactly. As we go, and then we can keep adding new things and keep it going. I think next week, what I'm gonna do is I'm gonna make this a little more… I know the community, we will send out that email, but I want to kind of
+
+126
+00:14:42.290 --> 00:14:57.439
+Sarvesh Naidu: call a few people on, to contribute. There is, someone from Red, from, I think, from the ETH Alliance team, and then the Meiston group, as well as, I think Chainlink wanted to join,
+
+127
+00:14:58.400 --> 00:15:11.430
+Sarvesh Naidu: and a few other members who would be able to, kind of contribute towards our initiative, right? Ralph was one of them who was very much interested in, or has done a lot of work in identity.
+
+128
+00:15:12.660 --> 00:15:13.210
+Mukul: Nope.
+
+129
+00:15:13.210 --> 00:15:28.549
+Sarvesh Naidu: So he was… he wanted to kind of… I mean, we had asked him if he could, help us with… with the identity portion of it, but I don't know if he got or he was available today, so next week, most probably… next,
+
+130
+00:15:28.830 --> 00:15:30.360
+Sarvesh Naidu: call, I'll make sure that we.
+
+131
+00:15:30.360 --> 00:15:35.819
+Mukul: And by the way, by identity, do we mean, a standardized KYC method, or…
+
+132
+00:15:35.820 --> 00:15:36.630
+Sarvesh Naidu: That's your compliance.
+
+133
+00:15:36.630 --> 00:15:37.350
+Mukul: Meaning something.
+
+134
+00:15:37.350 --> 00:15:40.769
+Sarvesh Naidu: EYC would be more about compliance, correct?
+
+135
+00:15:41.520 --> 00:15:52.480
+Mukul: Okay, so by identity, we mean identity of the users, or roles, roles in the platform, or identity of assets or organizations?
+
+136
+00:15:52.480 --> 00:15:56.609
+Sarvesh Naidu: It's like your IAM today, right? You have your AWS IAM, your identity.
+
+137
+00:15:56.610 --> 00:15:57.060
+Mukul: Yeah, that's fair.
+
+138
+00:15:57.060 --> 00:16:05.469
+Sarvesh Naidu: management, right? So, something on those lines, like your role mappings and everything that can be managed in a way where it is more
+
+139
+00:16:05.520 --> 00:16:22.390
+Sarvesh Naidu: agnostic of chains, and sits in a separate layer where, you know, other teams can talk without being dependent on being inside the system, right? We'll have to think of how we want to draw that out, but that's how I'm looking at it.
+
+140
+00:16:23.440 --> 00:16:30.770
+Mukul: And we also want to be flexible with them, because we can just basically use the best solution available, and some people are not using it, so…
+
+141
+00:16:30.770 --> 00:16:37.760
+Sarvesh Naidu: Yeah, yeah, that's where your metadata information will be very important, for the simple reason that that's what's going to identify how.
+
+142
+00:16:37.760 --> 00:16:38.210
+Mukul: -
+
+143
+00:16:38.210 --> 00:16:39.690
+Sarvesh Naidu: Data flows…
+
+144
+00:16:39.850 --> 00:16:46.379
+Sarvesh Naidu: And what is PII, what isn't, and everything that needs to be managed in the chain, and off-chain, and so on and so forth.
+
+145
+00:16:47.000 --> 00:17:01.709
+Mukul: Yeah, because I would think something like ZK would be ideal implementation for identity, right? But everyone might not be interested in it, or some people may have some objections towards… objection towards it, so…
+
+146
+00:17:01.890 --> 00:17:06.060
+Mukul: Yeah, we also want to be flexible in that regard, right?
+
+147
+00:17:06.060 --> 00:17:06.710
+Sarvesh Naidu: I agree.
+
+148
+00:17:07.000 --> 00:17:07.770
+Mukul: Yeah.
+
+149
+00:17:08.530 --> 00:17:21.899
+Sarvesh Naidu: That's pretty cool. Yeah, so I think these are very good, options that we have. We should always put those in our, calls, and see what people think, so that when we start building the libraries, or whatever that is, right?
+
+150
+00:17:22.210 --> 00:17:27.079
+Sarvesh Naidu: Even before we get to… the build. I think…
+
+151
+00:17:27.440 --> 00:17:32.510
+Sarvesh Naidu: Having a white paper on how it would work, Would be super helpful.
+
+152
+00:17:33.740 --> 00:17:34.360
+Mukul: Right.
+
+153
+00:17:34.360 --> 00:17:40.689
+Sarvesh Naidu: Right? On… once we have that, once we feel, hey, you know what, this is in good shape.
+
+154
+00:17:40.840 --> 00:17:48.520
+Sarvesh Naidu: we start doing a POC for that. Because without having a very good understanding of how it is going to look.
+
+155
+00:17:48.750 --> 00:17:55.290
+Sarvesh Naidu: If we build something, it's not ever going to stick, right? Because people would want to see the white papers first.
+
+156
+00:17:56.350 --> 00:17:56.760
+Mukul: There's.
+
+157
+00:17:56.760 --> 00:18:12.779
+Sarvesh Naidu: So I would… I would always start with step zero, in this case being the white papers, do our resource… I mean, research, come up with our research, put those in… on pen and paper, put that on GitHub, see what the community has to say, get some traction on that.
+
+158
+00:18:12.860 --> 00:18:23.220
+Sarvesh Naidu: Mukul, I know you mentioned that you also have… you pretty much know a few people across the ETH world, as well as some other places, right?
+
+159
+00:18:23.430 --> 00:18:43.380
+Sarvesh Naidu: I would suggest, start spreading the word about OTAS for the simple reason, the more you do that, the more the community grows, and the more contributors we have, and that's how we will be able to make a difference. So, I'd suggest you try that out, yeah?
+
+160
+00:18:45.020 --> 00:18:49.959
+Sarvesh Naidu: Cool, cool. Awesome. Isabella, do you have any questions?
+
+161
+00:18:51.740 --> 00:18:52.970
+Isabela: No, thank you.
+
+162
+00:18:53.600 --> 00:18:54.390
+Sarvesh Naidu: Awesome.
+
+163
+00:18:55.040 --> 00:19:03.020
+Sarvesh Naidu: Alright, I think… We are… Almost done, actually.
+
+164
+00:19:03.850 --> 00:19:06.340
+Sarvesh Naidu: Yeah, we're at time.
+
+165
+00:19:06.340 --> 00:19:06.670
+Sean Bohan (The Linux Foundation): Also.
+
+166
+00:19:06.670 --> 00:19:07.390
+Sarvesh Naidu: So…
+
+167
+00:19:07.390 --> 00:19:12.399
+Sean Bohan (The Linux Foundation): So two things are gonna happen. This call's gonna end, the recording is gonna get processed.
+
+168
+00:19:12.780 --> 00:19:26.889
+Sean Bohan (The Linux Foundation): I'm gonna post in Discord two links, one to link to the recording with the transcript and any links that were shared, that's like an LF thing, but also it's gonna go to YouTube, we have a YouTube playlist already set up for Otas, it's ready to go.
+
+169
+00:19:27.030 --> 00:19:41.159
+Sean Bohan (The Linux Foundation): Someday in the future, that'll automagically end up in YouTube. Not today, it takes me about 90 seconds to do it, but it's good to go. And McCool, yeah, alright, you saw my note on the chat, you're added as a maintainer to OTAS as of right now. So, good to go.
+
+170
+00:19:41.660 --> 00:19:49.600
+Sarvesh Naidu: Awesome, awesome. This was great, so nice having you guys over, thank you so much for your time. Till next time, thank you.
+
+171
+00:19:49.600 --> 00:19:51.539
+Sean Bohan (The Linux Foundation): Definitely. Thank you, Sorvesh. Thanks, everybody.
+
+172
+00:19:51.540 --> 00:19:52.230
+Sarvesh Naidu: Bye now.
+

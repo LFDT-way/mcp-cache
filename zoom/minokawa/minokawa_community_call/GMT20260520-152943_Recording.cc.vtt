@@ -1,0 +1,1499 @@
+WEBVTT
+
+00:30:00.000 --> 00:30:01.000
+suspic
+
+00:30:01.000 --> 00:30:05.000
+is that especially for types that exceed the field
+
+00:30:05.000 --> 00:30:07.000
+bounds
+
+00:30:07.000 --> 00:30:14.000
+They're likely to see relatively infrequent use and we're likely to have to convert to them relatively infrequently.
+
+00:30:14.000 --> 00:30:20.000
+It just feels like a case where we would rather not break
+
+00:30:20.000 --> 00:30:32.000
+Efficient stuff that exists for their benefit
+
+00:30:32.000 --> 00:30:35.000
+And you're mute
+
+00:30:35.000 --> 00:30:38.000
+The problem isn't with…
+
+00:30:38.000 --> 00:30:46.000
+the expense at that point, and the problem is, you know, if we're going to have two different representations, the problem is with compiler complexity.
+
+00:30:46.000 --> 00:30:52.000
+And that's the same whether it happens all the time or hardly ever.
+
+00:30:52.000 --> 00:30:53.000
+That's hardly ever, isn't never.
+
+00:30:53.000 --> 00:30:55.000
+I think that's fair
+
+00:30:55.000 --> 00:30:58.000
+Hey, I guess
+
+00:30:58.000 --> 00:31:06.000
+Yeah, it's not obvious that we need that extra compiler complexity, because on the one hand, on the JavaScript side
+
+00:31:06.000 --> 00:31:07.000
+It's all biggins.
+
+00:31:07.000 --> 00:31:12.000
+This is not an issue, because both of them are JavaScript vegans. And on the ZKR side
+
+00:31:12.000 --> 00:31:20.000
+We are now defining the rules, so this can be a ZKIR internal complexity
+
+00:31:20.000 --> 00:31:24.000
+Possibly.
+
+00:31:24.000 --> 00:31:26.000
+The problem is we won't know
+
+00:31:26.000 --> 00:31:34.000
+we'll have the same issue with Kevin has… that Kevin mentioned, uh, with having to do these conversions on high-order procedures if we ever add them.
+
+00:31:34.000 --> 00:31:37.000
+Maybe we won't, or maybe that'll be after we're gone.
+
+00:31:37.000 --> 00:31:38.000
+Somebody else is working on the project, but…
+
+00:31:38.000 --> 00:31:41.000
+I'll just…
+
+00:31:41.000 --> 00:31:44.000
+It's actually not a problem now.
+
+00:31:44.000 --> 00:31:50.000
+Uh, to be on… to be clear, it difficult now, because these can be done
+
+00:31:50.000 --> 00:31:55.000
+Uh, on the flattened version of representation, after, you know, where we
+
+00:31:55.000 --> 00:31:58.000
+where we've already taken all the vectors and turned them into…
+
+00:31:58.000 --> 00:32:01.000
+just, um…
+
+00:32:01.000 --> 00:32:03.000
+scalar values.
+
+00:32:03.000 --> 00:32:09.000
+And… and so it's just… at that level, it's just a conversion of scalar values. Doesn't involve
+
+00:32:09.000 --> 00:32:12.000
+creating a new vector, per se.
+
+00:32:12.000 --> 00:32:15.000
+Um…
+
+00:32:15.000 --> 00:32:17.000
+So, it's a little bit…
+
+00:32:17.000 --> 00:32:19.000
+Well, I'm just guessing.
+
+00:32:19.000 --> 00:32:21.000
+I'm a little insecure about that claim, but…
+
+00:32:21.000 --> 00:32:23.000
+Uh, at any rate,
+
+00:32:23.000 --> 00:32:30.000
+uh… I don't think it's likely that big of a deal, as long as we continue to flattening vectors and structs.
+
+00:32:30.000 --> 00:32:33.000
+But I may be wrong.
+
+00:32:33.000 --> 00:32:35.000
+And, um…
+
+00:32:35.000 --> 00:32:38.000
+That's also depending on implementation.
+
+00:32:38.000 --> 00:32:45.000
+And I don't like to make decisions based on that. Now, I would like… I would like to find out for sure if the crypto team
+
+00:32:45.000 --> 00:32:51.000
+from the crypto team, if it's expensive to use ambiguance to support small integers.
+
+00:32:51.000 --> 00:32:56.000
+And if so, if there is a way for them to support them more cheaply.
+
+00:32:56.000 --> 00:33:01.000
+Uh, as the same… as the… with the same representation.
+
+00:33:01.000 --> 00:33:06.000
+you know, if they've made some assumption in the implementation that they're going to be large, and therefore we're going to
+
+00:33:06.000 --> 00:33:19.000
+use some… I think it's optimized for large ones. Maybe they can optimize it for small ones instead.
+
+00:33:19.000 --> 00:33:25.000
+Yeah, um, before I close off this conversation, I don't know if we're gonna make any more progress. I just wanted to say,
+
+00:33:25.000 --> 00:33:35.000
+the day that we have something like high-order functions is probably really close, because if we have a cross-contract calls when we programming against an interface, we sort of have that already.
+
+00:33:35.000 --> 00:33:37.000
+Where we potentially have to wrap
+
+00:33:37.000 --> 00:33:40.000
+circuits from another contract in order to invoke them.
+
+00:33:40.000 --> 00:33:48.000
+And, um, the… what I'm leery of is that we break the current position of field in the integer.
+
+00:33:48.000 --> 00:33:56.000
+subtype hierarchy, or some implementation reason, like the one that I suggested, that I actually feel pretty good, strong about, but if we break that, and then we end up with that
+
+00:33:56.000 --> 00:34:00.000
+overhead anyway for big ints, then maybe we didn't need to do that, and it was…
+
+00:34:00.000 --> 00:34:02.000
+the wrong decision at this time, so…
+
+00:34:02.000 --> 00:34:07.000
+That's one of the things I'm really concerned about.
+
+00:34:07.000 --> 00:34:10.000
+It sounded like there were enough other reasons though
+
+00:34:10.000 --> 00:34:16.000
+Just kind of semantic clarity
+
+00:34:16.000 --> 00:34:18.000
+Yes, but for Samantha clarity, we get…
+
+00:34:18.000 --> 00:34:21.000
+less convenience, and that's…
+
+00:34:21.000 --> 00:34:23.000
+you know, every constant.
+
+00:34:23.000 --> 00:34:27.000
+every arithmetic operation, you know,
+
+00:34:27.000 --> 00:34:29.000
+might have to… we might have to go add casts.
+
+00:34:29.000 --> 00:34:32.000
+When we're using them, because constants…
+
+00:34:32.000 --> 00:34:36.000
+get passed around, you know, constants do occur in programs, and…
+
+00:34:36.000 --> 00:34:37.000
+Yeah, the literals… literals…
+
+00:34:37.000 --> 00:34:40.000
+Alright, now, they don't necessarily have to be cast.
+
+00:34:40.000 --> 00:34:44.000
+Literals are awkward.
+
+00:34:44.000 --> 00:34:49.000
+And if you should want to use a loop iterand as a
+
+00:34:49.000 --> 00:34:52.000
+field value, for some reason, you'll have to cast that, too.
+
+00:34:52.000 --> 00:35:02.000
+That seems unlikely, although, I mean, Kevin came up with such an example, but I think it's fairly construct… that one's rather conscribed.
+
+00:35:02.000 --> 00:35:06.000
+All right, should we table this without a decision, or do you want to try to…
+
+00:35:06.000 --> 00:35:11.000
+Yep. Um, I… let's table without a decision.
+
+00:35:11.000 --> 00:35:12.000
+Okay.
+
+00:35:12.000 --> 00:35:20.000
+Um, keep in mind that this might be a… this might be a big breaking change that's coming, and so we want to be deliberate about that.
+
+00:35:20.000 --> 00:35:27.000
+Okay, uh, moving on to backward-compatibility. Kent, do you want to take over?
+
+00:35:27.000 --> 00:35:29.000
+Yeah, so I started, uh…
+
+00:35:29.000 --> 00:35:34.000
+working on a proposal for backward compatibility, and I kind of got stuck. Uh, I got stuck
+
+00:35:34.000 --> 00:35:38.000
+really, really, really early. I mean, I have an idea what I wanted to do.
+
+00:35:38.000 --> 00:35:45.000
+Um, which is relatively straightforward, which is add a version number to modules and a version number to imports, and…
+
+00:35:45.000 --> 00:35:47.000
+And to have a…
+
+00:35:47.000 --> 00:35:55.000
+a separate syntax for saying which lecture you want to use, basically which parser you want to use.
+
+00:35:55.000 --> 00:36:00.000
+That would be stuck at the beginning of your file. It gets a little bit weird, but it's all doable.
+
+00:36:00.000 --> 00:36:04.000
+Um, it means the lecture basically has to call the parser.
+
+00:36:04.000 --> 00:36:07.000
+Recursively to, of course, the version numbers in the…
+
+00:36:07.000 --> 00:36:11.000
+And that, before it can proceed with parsing the rest of the file.
+
+00:36:11.000 --> 00:36:15.000
+It's all doable. I had an idea about this.
+
+00:36:15.000 --> 00:36:18.000
+And I started thinking about, um…
+
+00:36:18.000 --> 00:36:21.000
+Multiple versions of modules.
+
+00:36:21.000 --> 00:36:27.000
+Um, can you have multiple… we definitely would want to have multiple versions of the standard library in a program.
+
+00:36:27.000 --> 00:36:32.000
+Because you might have some parts of the program that wanted to use the old… that you didn't want to convert,
+
+00:36:32.000 --> 00:36:36.000
+and want to use the base standard library for the major version.
+
+00:36:36.000 --> 00:36:43.000
+And, uh, there may be other parts that you don't, but our standard library doesn't have any ledger fields, so there's no shared state.
+
+00:36:43.000 --> 00:36:49.000
+somebody else might have two versions of the library, and they might both define a ledger field, and you get into
+
+00:36:49.000 --> 00:36:51.000
+the Windows DLL hell.
+
+00:36:51.000 --> 00:36:58.000
+And I wouldn't want to allow it for standard libraries and not allow it for…
+
+00:36:58.000 --> 00:37:02.000
+or other modules that you could have two versions.
+
+00:37:02.000 --> 00:37:07.000
+So, we'd have to make recommendations, documentation, warnings, uh, whatever.
+
+00:37:07.000 --> 00:37:14.000
+We could disallow it if there's any ledger fields in either one of them, and, you know, you can have two versions if there's
+
+00:37:14.000 --> 00:37:17.000
+any ledger fields. That could be a constraint.
+
+00:37:17.000 --> 00:37:22.000
+Um, all that is doable. We can come up with something that's…
+
+00:37:22.000 --> 00:37:26.000
+seems sensible and makes sense, but then I started thinking about what backward compatibility is.
+
+00:37:26.000 --> 00:37:28.000
+And I don't really understand
+
+00:37:28.000 --> 00:37:33.000
+what backward compatibility is. We want to maintain backward compatibility.
+
+00:37:33.000 --> 00:37:38.000
+in the real… in a real sense, backward compatibility should mean that if I… if a program runs
+
+00:37:38.000 --> 00:37:46.000
+apparently correctly today, it'll still run… that same program will run apparently correctly tomorrow.
+
+00:37:46.000 --> 00:37:50.000
+And that means even if we have a bug,
+
+00:37:50.000 --> 00:37:53.000
+that the program inadvertently or inadvertently
+
+00:37:53.000 --> 00:37:55.000
+was counting on.
+
+00:37:55.000 --> 00:38:00.000
+that we should… that we are breaking backward compatibility when we fix the bug.
+
+00:38:00.000 --> 00:38:02.000
+Now, if the bug is a program that
+
+00:38:02.000 --> 00:38:04.000
+didn't work, now works, that's…
+
+00:38:04.000 --> 00:38:09.000
+forward compatible. But if it's a program that
+
+00:38:09.000 --> 00:38:15.000
+that did work now doesn't work because we've added an extra check that was missing, or…
+
+00:38:15.000 --> 00:38:23.000
+Because we, um, change the behavior from the wrong behavior, minus was plus, and plus was minus, and we've swapped them back to what they should be.
+
+00:38:23.000 --> 00:38:28.000
+then that's a breaking change, even though we might consider that to be a bug fix.
+
+00:38:28.000 --> 00:38:31.000
+And then there's the… then there's the second
+
+00:38:31.000 --> 00:38:34.000
+uh… thing in the sem fur.
+
+00:38:34.000 --> 00:38:39.000
+Right? There's the major, there's the sub-major, there's the major-minor, and there's the bug fix.
+
+00:38:39.000 --> 00:38:42.000
+For the minor release, you're allowed to add new functionality, but
+
+00:38:42.000 --> 00:38:48.000
+Again, that functionality can't conflict with anything there, so if you add a new standard library entry,
+
+00:38:48.000 --> 00:38:51.000
+it conflicts with something
+
+00:38:51.000 --> 00:38:53.000
+If it conflicts with something in…
+
+00:38:53.000 --> 00:38:56.000
+that you already had in scope.
+
+00:38:56.000 --> 00:39:02.000
+Right, you define… you had your own definition in it as a new name. Do we consider that to be backward compatibility?
+
+00:39:02.000 --> 00:39:06.000
+Uh, do we consider that adding a new
+
+00:39:06.000 --> 00:39:10.000
+feature to a standard library to be a forward-compatible change.
+
+00:39:10.000 --> 00:39:13.000
+I can make an argument both ways. I can say…
+
+00:39:13.000 --> 00:39:21.000
+No, it's not a backward compatible change, because it might take a program that previously worked and now doesn't work because there's a name conflict.
+
+00:39:21.000 --> 00:39:29.000
+Or I could say, well, if you write your program right the first time, and you didn't use just blind import,
+
+00:39:29.000 --> 00:39:34.000
+From the standard library, but you imported only the things you needed.
+
+00:39:34.000 --> 00:39:42.000
+then us adding a new entry point doesn't hurt you, because you didn't import it, and it's not going to conflict with anything you're using.
+
+00:39:42.000 --> 00:39:46.000
+So, I'm trying to decide if that…
+
+00:39:46.000 --> 00:39:50.000
+is a breaking change, or not a breaking change, where we're going to land on that.
+
+00:39:50.000 --> 00:39:53.000
+Thomas?
+
+00:39:53.000 --> 00:39:56.000
+Yeah.
+
+00:39:56.000 --> 00:40:03.000
+My experience with Semver has been that if you follow it
+
+00:40:03.000 --> 00:40:05.000
+Strictly
+
+00:40:05.000 --> 00:40:10.000
+It is not very helpful because everything ends up being breaking change in some way
+
+00:40:10.000 --> 00:40:16.000
+And that there's… you have to find the right nuance
+
+00:40:16.000 --> 00:40:25.000
+Yeah, this discussion essentially is the right one to have because you need to define braking in such a way that you can still do things
+
+00:40:25.000 --> 00:40:29.000
+Without everything ending up being considered breaking
+
+00:40:29.000 --> 00:40:38.000
+I think on like the the other side is, I've used plenty of languages that ostensibly follow Semver
+
+00:40:38.000 --> 00:40:44.000
+And are definitively not following it strictly, and are definitively introducing
+
+00:40:44.000 --> 00:40:46.000
+changes that are to some extent breaking
+
+00:40:46.000 --> 00:40:49.000
+I also think we have
+
+00:40:49.000 --> 00:40:53.000
+Additional challenge, which is also a mitigating factor
+
+00:40:53.000 --> 00:40:56.000
+Namely that
+
+00:40:56.000 --> 00:41:01.000
+In a sense, any semantic change whatsoever is breaking
+
+00:41:01.000 --> 00:41:06.000
+Because if the circuits change for your contract, then
+
+00:41:06.000 --> 00:41:09.000
+You
+
+00:41:09.000 --> 00:41:13.000
+can't use that new version if you've already deployed the previous one.
+
+00:41:13.000 --> 00:41:29.000
+And what… what that means is we're kind of already locked into because obviously we are going to change compiler outputs. We will have to. We're kind of already locked into if you want to use a particular contract on chain, you need to use
+
+00:41:29.000 --> 00:41:35.000
+a specific version of compiler to use that.
+
+00:41:35.000 --> 00:41:40.000
+Which to my mind means there's actually more flexibility for
+
+00:41:40.000 --> 00:41:44.000
+What kind of changes are allowed between compiler versions
+
+00:41:44.000 --> 00:41:48.000
+So I… I would err on the side of
+
+00:41:48.000 --> 00:41:53.000
+Not looking too closely on what is breaking, then
+
+00:41:53.000 --> 00:41:57.000
+them focusing on it
+
+00:41:57.000 --> 00:42:02.000
+Yeah, two things. First of all
+
+00:42:02.000 --> 00:42:11.000
+It's sometimes useful to remember that semver, I think has kind of created thinking about libraries, and it's a little different to think about languages.
+
+00:42:11.000 --> 00:42:24.000
+And that some of the stuff Thomas brought up fits that. And the other thing I was going to mention sort of along with Kent's extreme examples of some of the things is having worked at SAS
+
+00:42:24.000 --> 00:42:27.000
+They ran into this kind of thing all the time.
+
+00:42:27.000 --> 00:42:35.000
+And it was because it would be the we're going to fix this bug, and it would turn out that someone was relying on that bug
+
+00:42:35.000 --> 00:42:45.000
+And how do you actually… how strict do you keep it? What do you… what do you decide? And it really was a… it depends on the case-by-case basis
+
+00:42:45.000 --> 00:43:02.000
+And so there were cases at Sas that they would say, oh, it turns out that the government of France has written code so that its entire national economy depends on this bug. We're going to add a flag that says, run this new version, but preserve that bug behavior
+
+00:43:02.000 --> 00:43:14.000
+So that we don't bring down the nation of France when we release our new version. And they would just kind of do these sorts of surveys. I don't remember if it's France, but that was actually true for some country in real life.
+
+00:43:14.000 --> 00:43:29.000
+And so they would kind of get a sense when they had these questions of how many people care, and they would reach out there and reach out to the community, and sometimes they would be convinced that no one cared, and they would go ahead and make the change, and it turned out it was a big deal, and they'd quick-release a patch
+
+00:43:29.000 --> 00:43:44.000
+to preserve the bug behavior.
+
+00:43:44.000 --> 00:43:48.000
+I think that preserving, um…
+
+00:43:48.000 --> 00:43:52.000
+Backward compatibility is more about source…
+
+00:43:52.000 --> 00:43:55.000
+Not having to edit your source than it is about…
+
+00:43:55.000 --> 00:43:59.000
+being able to, you know, getting the same binary out.
+
+00:43:59.000 --> 00:44:08.000
+in languages.
+
+00:44:08.000 --> 00:44:14.000
+Yeah, but I think like one of the very common exceptions I've seen is
+
+00:44:14.000 --> 00:44:16.000
+I don't think any
+
+00:44:16.000 --> 00:44:20.000
+language I have used considers adding new
+
+00:44:20.000 --> 00:44:23.000
+names or
+
+00:44:23.000 --> 00:44:31.000
+Sorry, I adding new functions to a standard library or adding new modules, or this kind of thing but breaking change
+
+00:44:31.000 --> 00:44:35.000
+Some languages, it's not an issue, because there isn't actually
+
+00:44:35.000 --> 00:44:40.000
+a conflict, right? Like, in C, you don't…
+
+00:44:40.000 --> 00:44:41.000
+Yes
+
+00:44:41.000 --> 00:44:42.000
+you won't resolve to the standard library one if you have a local definition.
+
+00:44:42.000 --> 00:44:48.000
+And so the standard library adds something, and it can't conflict with yours, uh, in general.
+
+00:44:48.000 --> 00:44:55.000
+That is true. But for languages where it can cause a conflict
+
+00:44:55.000 --> 00:44:57.000
+It's usually just an accepted risk
+
+00:44:57.000 --> 00:45:00.000
+Yeah. And I will say that, um,
+
+00:45:00.000 --> 00:45:07.000
+I made a decision early on in Shea Schemes development around year 15 or so, that backward compatibility was not…
+
+00:45:07.000 --> 00:45:10.000
+uh… was not an aspiration.
+
+00:45:10.000 --> 00:45:13.000
+At all, because…
+
+00:45:13.000 --> 00:45:15.000
+Uh, as I think I wrote in one of…
+
+00:45:15.000 --> 00:45:21.000
+in the history of Shea Scheme paper that I think I wrote, you know,
+
+00:45:21.000 --> 00:45:27.000
+It doesn't make sense in a system whose lifetime is measured in decades.
+
+00:45:27.000 --> 00:45:29.000
+it really hampers you from
+
+00:45:29.000 --> 00:45:37.000
+from, you know, you really can't have a better language 20 years from now if you're having to maintain full compatibility with
+
+00:45:37.000 --> 00:45:40.000
+With everything you could do 20 years ago.
+
+00:45:40.000 --> 00:45:49.000
+languages improve, language technology ideas come… come, and old things fall away, and that should be, and…
+
+00:45:49.000 --> 00:45:52.000
+And if you are a slave backward compatibility, you…
+
+00:45:52.000 --> 00:45:56.000
+your language will necessarily die after… after…
+
+00:45:56.000 --> 00:45:59.000
+a relatively short period of time relative to
+
+00:45:59.000 --> 00:46:01.000
+chase schema, which is what…
+
+00:46:01.000 --> 00:46:03.000
+40…
+
+00:46:03.000 --> 00:46:06.000
+some years now.
+
+00:46:06.000 --> 00:46:21.000
+Yeah, I'll agree with your assertion that source compatibility is the win. The one system, here's another anecdote. The one system I rely on this kind of annotation, the what version on I'm on all the time is Lily Pond. I write music
+
+00:46:21.000 --> 00:46:36.000
+And Lily Pond I can put at the top, this is for this version of Lily Pond and it's so convenient when they release new versions with slightly different syntax to just be able to build my old files and know that it will, at least from moderately recent ones, it will just do the right thing
+
+00:46:36.000 --> 00:46:56.000
+It will go, oh, that was for this prior version, that means you interpret this this way. And I also know that it doesn't work back arbitrarily far to like version 1.0 or something, but it's really nice, like, when a new version comes out with some little change, not to have to go edit my code right away
+
+00:46:56.000 --> 00:47:01.000
+Just thinking out loud
+
+00:47:01.000 --> 00:47:09.000
+Two examples of that come to mind, one which I don't think worked well. So that one is Python
+
+00:47:09.000 --> 00:47:16.000
+Where they tried to support backwards compatibility for a long time and then make one big braking change
+
+00:47:16.000 --> 00:47:17.000
+And
+
+00:47:17.000 --> 00:47:24.000
+As a result, they kind of got the worst of both worlds, where they had a lot of packages that
+
+00:47:24.000 --> 00:47:28.000
+Because of the backwards compatibility, did
+
+00:47:28.000 --> 00:47:35.000
+regularly need to update, and therefore didn't update when it was actually required.
+
+00:47:35.000 --> 00:47:40.000
+And I think the the other one is the Rusty ecosystem
+
+00:47:40.000 --> 00:47:41.000
+Which
+
+00:47:41.000 --> 00:47:46.000
+is kind of dealing with backwards compatibility
+
+00:47:46.000 --> 00:47:53.000
+Shifting it, and I think that's a bit closer to what Jonathan was saying, that it's kind of more on
+
+00:47:53.000 --> 00:47:55.000
+Source level
+
+00:47:55.000 --> 00:47:58.000
+In that you can specify as part of the
+
+00:47:58.000 --> 00:48:01.000
+package
+
+00:48:01.000 --> 00:48:07.000
+containing. You can say, oh, I'm targeting this language version. And the neat thing about that
+
+00:48:07.000 --> 00:48:14.000
+I'm talking about additions in Rust in case you want to look into it. The neat thing about that is that
+
+00:48:14.000 --> 00:48:24.000
+You can interoperate between them, so it's a source-level thing, but they all share the same backend. So
+
+00:48:24.000 --> 00:48:32.000
+I don't know how feasible that is for our case. I don't know if it even makes sense before something like contract to contract goals
+
+00:48:32.000 --> 00:48:47.000
+But I found that to be a neat solution for making changes to an otherwise stable language
+
+00:48:47.000 --> 00:48:57.000
+Yeah, which makes me want to also mention, um, another form of a backward compatibility and forward compatibility as well, actually.
+
+00:48:57.000 --> 00:49:00.000
+Uh, which is, um…
+
+00:49:00.000 --> 00:49:07.000
+called binary compatibility, especially in the Java ecosystem, where…
+
+00:49:07.000 --> 00:49:11.000
+the artifacts are published, compiled.
+
+00:49:11.000 --> 00:49:17.000
+already, and in that case, it is very important to ensure that
+
+00:49:17.000 --> 00:49:28.000
+someone linking against published artifacts will be able to link against newer version of them, as long as that new version is claimed to be compatible.
+
+00:49:28.000 --> 00:49:32.000
+Which means that, roughly speaking, the ABI should be the same.
+
+00:49:32.000 --> 00:49:35.000
+And in this context,
+
+00:49:35.000 --> 00:49:40.000
+Um, it is particularly important because of the…
+
+00:49:40.000 --> 00:49:43.000
+ZKER, and how it interacts, uh,
+
+00:49:43.000 --> 00:49:51.000
+And how it relates to the verifier and prover keys.
+
+00:49:51.000 --> 00:49:54.000
+Yeah, so just to
+
+00:49:54.000 --> 00:50:00.000
+answer or to to give some perspective on them
+
+00:50:00.000 --> 00:50:10.000
+At the moment, the plan, and I don't know if we have committed to that, if we have not, I should commit to it. But the plan is to
+
+00:50:10.000 --> 00:50:18.000
+to preserve that kind of binary compatibility. So in particular, the ZKR format has a version field
+
+00:50:18.000 --> 00:50:25.000
+And I'm looking to guarantee that the same source file will always produce the same output
+
+00:50:25.000 --> 00:50:30.000
+By utilizing that version field. So if you
+
+00:50:30.000 --> 00:50:39.000
+target ZKR version 2.0, you will always generate the same prover verifier keys
+
+00:50:39.000 --> 00:50:46.000
+And yeah, that's something that I would like to support going forward and that does come with quite a bit
+
+00:50:46.000 --> 00:50:57.000
+additional effort on the ZKR side. But I see that as a requirement to actually be able to interact with old contracts, because we're not going, you know, this is essentially the
+
+00:50:57.000 --> 00:51:11.000
+the binaries that have been deployed, and we're not going to get to rewrite those.
+
+00:51:11.000 --> 00:51:14.000
+Okay. Any last… oh, go ahead, Kenneth.
+
+00:51:14.000 --> 00:51:21.000
+That was… I had a quick question for us. Just to be clear, you mean the same ZKIR source file, not the same compact source file?
+
+00:51:21.000 --> 00:51:22.000
+Yes, the same ZKR source code.
+
+00:51:22.000 --> 00:51:24.000
+Yep. Yes, good, yeah.
+
+00:51:24.000 --> 00:51:27.000
+Thank you.
+
+00:51:27.000 --> 00:51:32.000
+though in the context of contract-to-contract calls, and uh…
+
+00:51:32.000 --> 00:51:35.000
+what is eventually being…
+
+00:51:35.000 --> 00:51:41.000
+being delivered, especially for the more dynamic use cases.
+
+00:51:41.000 --> 00:51:43.000
+Um, the question how…
+
+00:51:43.000 --> 00:51:47.000
+different, uh, compact source, uh, source files.
+
+00:51:47.000 --> 00:52:04.000
+end up being different ZKR, uh, might be… might be relevant.
+
+00:52:04.000 --> 00:52:08.000
+And one interesting clinic case there is
+
+00:52:08.000 --> 00:52:10.000
+You could have one
+
+00:52:10.000 --> 00:52:19.000
+Contract compiled with one version of compact interacting with another contract compiled by a different version of compact.
+
+00:52:19.000 --> 00:52:28.000
+Could even be using different CKRs not necessarily sharing any of the same versions
+
+00:52:28.000 --> 00:52:35.000
+But they might still be speaking the same interface.
+
+00:52:35.000 --> 00:52:37.000
+Does that mean that
+
+00:52:37.000 --> 00:52:42.000
+If and when we have a ZKIR interpreter that we use
+
+00:52:42.000 --> 00:52:46.000
+On the client side
+
+00:52:46.000 --> 00:52:54.000
+That it needs to be able to effectively render the different versions of ZKR with each with its own semantics
+
+00:52:54.000 --> 00:52:59.000
+Yep, just like the provers currently need to do
+
+00:52:59.000 --> 00:53:00.000
+Okay.
+
+00:53:00.000 --> 00:53:01.000
+Yeah, exactly, yes.
+
+00:53:01.000 --> 00:53:20.000
+that we may end up fragmenting it that you know you have to load this as a module or something. But right now it'll be a monolith
+
+00:53:20.000 --> 00:53:23.000
+Okay, and the last comments?
+
+00:53:23.000 --> 00:53:28.000
+on Parkforce compatibility.
+
+00:53:28.000 --> 00:53:36.000
+Okay. Moving on to… what counts as contract types?
+
+00:53:36.000 --> 00:53:52.000
+I'll say why I worded this question this way. It's because there was much conversation about contract interfaces and references to contracts, and I stepped away from the keyboard to kind of think about it for a minute and realized that they were different assumptions behind it. And I think
+
+00:53:52.000 --> 00:53:56.000
+The important thing is to
+
+00:53:56.000 --> 00:54:11.000
+Figure out where we are on some of those shared assumptions and a whole lot will go easier. And I started to suspect that some people in the conversation thought that if I define a contract, then it automatically, if I define contract A
+
+00:54:11.000 --> 00:54:20.000
+Then there is a type A for it, as well as perhaps also certain interfaces I could define and maybe it satisfies interface
+
+00:54:20.000 --> 00:54:36.000
+X interface Y. But I started to suspect that Kent might think otherwise, which is also a reasonable position that says that the only things that are contract types are explicitly defined interfaces. The other things are, yes, they are some contracts, but you don't get to use them as types
+
+00:54:36.000 --> 00:54:43.000
+Anything you want to use as a contract, you must say, here is a contract interface type, and therefore I can use it as a type.
+
+00:54:43.000 --> 00:54:50.000
+And so first, Kent, am I representing your position correctly there?
+
+00:54:50.000 --> 00:54:52.000
+Basically, I view…
+
+00:54:52.000 --> 00:54:56.000
+contracts as separate programs, not as separate classes.
+
+00:54:56.000 --> 00:55:00.000
+Or anything like that. They are separate programs.
+
+00:55:00.000 --> 00:55:04.000
+developed by different developers. We don't necessarily have the source code.
+
+00:55:04.000 --> 00:55:08.000
+Uh, in all worlds. Um…
+
+00:55:08.000 --> 00:55:11.000
+It's, uh…
+
+00:55:11.000 --> 00:55:17.000
+Yeah, so I… and there… as Kevin pointed out, it's always possible to generate
+
+00:55:17.000 --> 00:55:21.000
+a trivial interface from
+
+00:55:21.000 --> 00:55:24.000
+a program that you have in your hands.
+
+00:55:24.000 --> 00:55:30.000
+If you want to use one that happens to list all of your exported circuits,
+
+00:55:30.000 --> 00:55:38.000
+Um, and has the same name, you can… you can generate one of those, or you can generate one, trim it down, rename it, and use that.
+
+00:55:38.000 --> 00:55:41.000
+So, it's a minor inconvenience at worst.
+
+00:55:41.000 --> 00:55:46.000
+uh… not to allow that.
+
+00:55:46.000 --> 00:56:01.000
+All right, I guess the argument in favor of that perspective is that since we were talking earlier about the UN field stuff, the kind of what's happenstance and what's not, there is a sense in which if I treat my entire contract as its interface
+
+00:56:01.000 --> 00:56:12.000
+And write a consumer that says it depends on all of it, well then we're right back at that backward forward compatibility question. Whereas if I said, no, I really depend on these three
+
+00:56:12.000 --> 00:56:25.000
+circuits in it, then I should say so.
+
+00:56:25.000 --> 00:56:27.000
+Kevin, did you have something to add to that?
+
+00:56:27.000 --> 00:56:30.000
+Yeah, I was just gonna say that my… what… what I…
+
+00:56:30.000 --> 00:56:33.000
+my mental model is very close to what Kent described.
+
+00:56:33.000 --> 00:56:41.000
+That, um, interfaces are distinct… if we had contract declarations, the interfaces would be distinct from contracts, and that the…
+
+00:56:41.000 --> 00:56:44.000
+contract declaration would implicitly define an interface.
+
+00:56:44.000 --> 00:56:53.000
+They might say it has the same name as the contract, but they would be distinct things.
+
+00:56:53.000 --> 00:57:01.000
+Okay, for everyone on the call, why this is relevant is because within this quarter
+
+00:57:01.000 --> 00:57:14.000
+It may be a stretch to deliver full contract interfaces with multiple implementations, etc, etc. But we do need to do cross contract calls, which means we have to have contract types
+
+00:57:14.000 --> 00:57:32.000
+And so I had proposed that the only contract type for now is literally the type that you get when you define the contract. And it simply is that one and we don't have to deal with any of the others syntax around it. And it's simple. And if outer calls enter, then when you define enter, you get the type
+
+00:57:32.000 --> 00:57:39.000
+contract type enter, and I can just use it without having to restate the all of the circuits in it
+
+00:57:39.000 --> 00:57:54.000
+As soon as you have something in which you restate the circuits, either you're saying it's automatically wrong if they aren't identical, or you are actually suddenly supporting interfaces and you've quickly step off to a space where it's hard to rein in
+
+00:57:54.000 --> 00:57:59.000
+The complexity to something that is deliverable this quarter without
+
+00:57:59.000 --> 00:58:07.000
+Doing things that you would really hope not to do later, like you things that are stop gaps
+
+00:58:07.000 --> 00:58:15.000
+And so we're not going to resolve all of that on this call, but
+
+00:58:15.000 --> 00:58:18.000
+It was helpful to, in a spoken setting
+
+00:58:18.000 --> 00:58:26.000
+figure out the the perspectives on that. The other people on the call have thoughts on whether interfaces
+
+00:58:26.000 --> 00:58:30.000
+should always be explicit
+
+00:58:30.000 --> 00:58:38.000
+Or whether you would expect implicit type for every contract that covers every circuit in it
+
+00:58:38.000 --> 00:58:42.000
+So, are you proposing that we won't have
+
+00:58:42.000 --> 00:58:45.000
+declarations of contracts instead.
+
+00:58:45.000 --> 00:58:49.000
+a type of a contract is whatever circuits
+
+00:58:49.000 --> 00:58:51.000
+It exports.
+
+00:58:51.000 --> 00:58:53.000
+That
+
+00:58:53.000 --> 00:59:01.000
+I had been assuming, without thinking as hard as was perhaps necessary, that if I define a contract A
+
+00:59:01.000 --> 00:59:05.000
+Just, you know, I define contract. It's an A.compact
+
+00:59:05.000 --> 00:59:19.000
+that somewhere else, I can refer to contracts of type A. Once we have, I can refer to contract addresses, I can say, here is this other contract A, and I want to make it a cross-contract call to things of type A, and so on
+
+00:59:19.000 --> 00:59:36.000
+But a different perspective is
+
+00:59:36.000 --> 00:59:37.000
+Right.
+
+00:59:37.000 --> 00:59:39.000
+If that type is automatically everything A was, it's very unlikely that the consumer actually needed everything about A. It's not going to call every public circuit, it's not… and so it should say, no, I actually depend on this subset of A. It's this interface
+
+00:59:39.000 --> 00:59:49.000
+that I need to A, and then you could say, the only types that you get to treat as contract types are explicit interfaces like that
+
+00:59:49.000 --> 00:59:56.000
+And then you don't need these implicit type things, there will be these implicit interface… I mean, these explicit interfaces only
+
+00:59:56.000 --> 01:00:02.000
+If that's what we do, then we need to find a way to do it
+
+01:00:02.000 --> 01:00:10.000
+In a way we can deliver this quarter, which crosses lots of parts of the system is the problem.
+
+01:00:10.000 --> 01:00:18.000
+Yeah, I think in the chat my position on this is, hopefully pretty clear, but
+
+01:00:18.000 --> 01:00:21.000
+It would
+
+01:00:21.000 --> 01:00:36.000
+I know… I understand in principle the use of contract interfaces as, you know, like, typically you would think that it's useful for library developers. But I'm curious what everyone
+
+01:00:36.000 --> 01:00:39.000
+Like, if anyone else actually
+
+01:00:39.000 --> 01:00:40.000
+Has any
+
+01:00:40.000 --> 01:00:46.000
+it's hard to imagine cases where a contract would want to take just a random
+
+01:00:46.000 --> 01:01:02.000
+contract, let's say, as an argument satisfying an interface and call those circuits without knowing what they actually are. I don't. I mean that just kind of intuitively, at least in a system where you know we have to be very
+
+01:01:02.000 --> 01:01:08.000
+nuanced about what's being proven and what's not proven, and what assumptions we're making
+
+01:01:08.000 --> 01:01:24.000
+I no immediate use cases come to mind, but that's just me. So I was curious if anybody else can think of any cases where a circuit accepts a contract, and what we know about that contract is only what circuits it provides without
+
+01:01:24.000 --> 01:01:32.000
+I mean, at the very minimum there, there's a level of trust there, right? On the sort of contracts you're accepting.
+
+01:01:32.000 --> 01:01:36.000
+Isn't that the sort of ERC 20 shape and
+
+01:01:36.000 --> 01:01:37.000
+Ethereum
+
+01:01:37.000 --> 01:01:38.000
+It is.
+
+01:01:38.000 --> 01:01:43.000
+So is that are those interfaces, those are just interfaces for tokens. Okay
+
+01:01:43.000 --> 01:01:44.000
+Okay, cool. Well, there you go.
+
+01:01:44.000 --> 01:01:49.000
+Yeah, that's the… that's the… that's the idea of the token standards in Ethereum, and the kind of…
+
+01:01:49.000 --> 01:01:56.000
+a lot of work that he opens the pound team does, or at least the direction they're headed.
+
+01:01:56.000 --> 01:01:58.000
+That's…
+
+01:01:58.000 --> 01:02:00.000
+Eventually,
+
+01:02:00.000 --> 01:02:04.000
+are kind of well-defined interfaces should emerge.
+
+01:02:04.000 --> 01:02:10.000
+And, uh, contract interoperability based only on those interfaces.
+
+01:02:10.000 --> 01:02:12.000
+Uh, should, uh…
+
+01:02:12.000 --> 01:02:15.000
+should be defined.
+
+01:02:15.000 --> 01:02:22.000
+So all of the assumptions on safety and stuff like that, I guess are assumed by the caller.
+
+01:02:22.000 --> 01:02:23.000
+Um…
+
+01:02:23.000 --> 01:02:24.000
+The contract
+
+01:02:24.000 --> 01:02:30.000
+to an extent, yes, and also… but also on the exact, uh…
+
+01:02:30.000 --> 01:02:36.000
+mechanics or tools provided to verify certain things.
+
+01:02:36.000 --> 01:02:37.000
+Yeah.
+
+01:02:37.000 --> 01:02:45.000
+But another case that it is not very immediate, but possible as well,
+
+01:02:45.000 --> 01:02:48.000
+Uh, is, uh…
+
+01:02:48.000 --> 01:02:52.000
+Possibly related to, uh…
+
+01:02:52.000 --> 01:02:55.000
+Um… okay, uh…
+
+01:02:55.000 --> 01:02:59.000
+Things like, let's say, custom spend logic or something.
+
+01:02:59.000 --> 01:03:05.000
+Where one way might be something along the lines that
+
+01:03:05.000 --> 01:03:11.000
+Um, there is provided contract address, there is provided operation name,
+
+01:03:11.000 --> 01:03:15.000
+And, uh, that the public output must, uh…
+
+01:03:15.000 --> 01:03:20.000
+evaluate to something trophy, or… or just true.
+
+01:03:20.000 --> 01:03:23.000
+something along those lines, and in such case,
+
+01:03:23.000 --> 01:03:26.000
+Um… eat…
+
+01:03:26.000 --> 01:03:36.000
+there is very little assumptions about what exactly happens there.
+
+01:03:36.000 --> 01:03:44.000
+Yeah, I think my wires got crossed on that question. So sorry, that was an obvious one, but Kent, you have your hand up
+
+01:03:44.000 --> 01:03:48.000
+You're muted.
+
+01:03:48.000 --> 01:03:50.000
+Thanks. I just wanted to point out that
+
+01:03:50.000 --> 01:03:53.000
+I… that these issues are…
+
+01:03:53.000 --> 01:03:57.000
+the issue of what is a type, and whether we support
+
+01:03:57.000 --> 01:03:59.000
+fully dynamic, uh…
+
+01:03:59.000 --> 01:04:02.000
+selection are independent.
+
+01:04:02.000 --> 01:04:08.000
+Um, in fact, what we have right now implemented in the front end of the compiler is only
+
+01:04:08.000 --> 01:04:12.000
+the only types, the only interfaces are the… are the contract types.
+
+01:04:12.000 --> 01:04:16.000
+And we also insist that the source code be present
+
+01:04:16.000 --> 01:04:21.000
+Uh, in a directory parallel to the directory of the calling contract.
+
+01:04:21.000 --> 01:04:26.000
+Oh, this is completely independent. How far we go down the dynamic thing.
+
+01:04:26.000 --> 01:04:28.000
+uh… is…
+
+01:04:28.000 --> 01:04:34.000
+independent of whether we require this. Now, if we're gonna… if the only mechanism for us
+
+01:04:34.000 --> 01:04:42.000
+to… to connect to another contract is because its code is sitting there, then obviously we're tied to the static.
+
+01:04:42.000 --> 01:04:49.000
+But if we allow both, we're not tied to the static. If we allow both the… both explicit
+
+01:04:49.000 --> 01:04:51.000
+declaration, and… oh,
+
+01:04:51.000 --> 01:04:54.000
+maybe, uh, maybe by files…
+
+01:04:54.000 --> 01:04:56.000
+half a reference.
+
+01:04:56.000 --> 01:05:02.000
+to a contract, and that's the… that's the source file source, or maybe the object…
+
+01:05:02.000 --> 01:05:04.000
+directory for the, uh…
+
+01:05:04.000 --> 01:05:07.000
+compiled a contract. Um…
+
+01:05:07.000 --> 01:05:11.000
+That doesn't preclude us, either one of the… that wouldn't preclude us from going where
+
+01:05:11.000 --> 01:05:19.000
+Of course, the dynamic, so… as far as what is a type is concerned, I think that's one discussion. As far as how dynamic we get is another.
+
+01:05:19.000 --> 01:05:22.000
+And I think the only reason to go more dynamic this quarter
+
+01:05:22.000 --> 01:05:25.000
+The reason not to go dynamic this quarter
+
+01:05:25.000 --> 01:05:30.000
+is obvious, right? We keep things more simple.
+
+01:05:30.000 --> 01:05:36.000
+Um, the reason to go more dynamic this quarter is we're not entirely sure what the use cases are, and whether
+
+01:05:36.000 --> 01:05:41.000
+whether the fully static case will do it. And I want to point out here, for those who aren't aware,
+
+01:05:41.000 --> 01:05:44.000
+That we aren't simply required to
+
+01:05:44.000 --> 01:05:47.000
+to hit the statement of work, but we are required
+
+01:05:47.000 --> 01:05:51.000
+by shielded management to enable partners.
+
+01:05:51.000 --> 01:05:57.000
+Um, and so we have to be conscious of what our partners need. If our partners need something a little more dynamic,
+
+01:05:57.000 --> 01:05:59.000
+I would hate that we have decided
+
+01:05:59.000 --> 01:06:02.000
+to go with something that's too static for them.
+
+01:06:02.000 --> 01:06:06.000
+Uh, if we can learn that they don't need something more dynamic, then…
+
+01:06:06.000 --> 01:06:11.000
+you know, we stick with something more static.
+
+01:06:11.000 --> 01:06:15.000
+I'm going to disagree with you that it's that the two are orthogonal
+
+01:06:15.000 --> 01:06:25.000
+They really aren't fully because if we have interfaces and we expect to have different implementations available
+
+01:06:25.000 --> 01:06:26.000
+Which are
+
+01:06:26.000 --> 01:06:29.000
+But there you just said, and we expect to have different implementations available.
+
+01:06:29.000 --> 01:06:33.000
+We don't have… we don't have to allow that. We can still require
+
+01:06:33.000 --> 01:06:42.000
+We can break fire, for example, that the types that the generated code for a contract as an explicit import
+
+01:06:42.000 --> 01:06:48.000
+of something, so it's static at the, you know, it's not… there's only one implementation of it.
+
+01:06:48.000 --> 01:06:53.000
+Okay.
+
+01:06:53.000 --> 01:07:00.000
+So the idea along that path would be present it and you could be very clear to the public about it
+
+01:07:00.000 --> 01:07:01.000
+Yes, this is my tube, by the way, yeah.
+
+01:07:01.000 --> 01:07:03.000
+You could say we are introducing interfaces
+
+01:07:03.000 --> 01:07:15.000
+We are introducing interfaces. We're going to call them interfaces. We do not support everything you might imagine interfaces do yet. Right now, the implementations all have to be known statically
+
+01:07:15.000 --> 01:07:16.000
+And
+
+01:07:16.000 --> 01:07:24.000
+And, yes. Yeah, and so we could go… I identified in a different context, uh, three levels. One, the source code is sitting right there,
+
+01:07:24.000 --> 01:07:28.000
+And you can look at it at compile time, the compiler does.
+
+01:07:28.000 --> 01:07:31.000
+Two, just the… the…
+
+01:07:31.000 --> 01:07:33.000
+generated TypeScript code.
+
+01:07:33.000 --> 01:07:41.000
+actually imports something, but it didn't have to be sitting there when you compiled the calling contract. It could be only there when you're deploying it.
+
+01:07:41.000 --> 01:07:45.000
+And three, that the DAP provides
+
+01:07:45.000 --> 01:07:47.000
+Uh, the imp… the depth…
+
+01:07:47.000 --> 01:07:50.000
+imports both and provides
+
+01:07:50.000 --> 01:07:54.000
+a link from one to the other, from the callee to the caller.
+
+01:07:54.000 --> 01:07:56.000
+Um, we can…
+
+01:07:56.000 --> 01:08:01.000
+we can go with two, and we haven't really introduced a lot of, uh,
+
+01:08:01.000 --> 01:08:09.000
+We haven't introduced this problem of having multiple implementations.
+
+01:08:09.000 --> 01:08:17.000
+Um, out of curiosity, do we know which partners we are supposed to enable this quarter, or is that…
+
+01:08:17.000 --> 01:08:20.000
+No.
+
+01:08:20.000 --> 01:08:21.000
+Yeah, that is
+
+01:08:21.000 --> 01:08:29.000
+Not really. We've talked about the crucial use cases. We've talked about the crucial use cases being the DEX or Uniswap style DEX
+
+01:08:29.000 --> 01:08:44.000
+And we do know what some of those shapes are and we have open Zeppelins code for it and we know that Bob has been building his set of examples and there's a particular case of identity management and registration in his examples that
+
+01:08:44.000 --> 01:08:51.000
+are reasonable and seem like things that people would want to do that are blocked by lack of
+
+01:08:51.000 --> 01:08:53.000
+Cross-contract calls
+
+01:08:53.000 --> 01:08:54.000
+And so
+
+01:08:54.000 --> 01:08:55.000
+And the Midnight Foundation… oh, sorry.
+
+01:08:55.000 --> 01:08:58.000
+Just those are some concrete examples
+
+01:08:58.000 --> 01:08:59.000
+Yes.
+
+01:08:59.000 --> 01:09:00.000
+That we'd like to enable
+
+01:09:00.000 --> 01:09:05.000
+And during a meeting last Thursday, the Midnight Foundation asked if
+
+01:09:05.000 --> 01:09:07.000
+we would like some examples.
+
+01:09:07.000 --> 01:09:09.000
+from partners.
+
+01:09:09.000 --> 01:09:16.000
+And Mike said, yes, absolutely, please give them to us. He didn't give them a time deadline, unfortunately.
+
+01:09:16.000 --> 01:09:18.000
+I'm going to try to get that
+
+01:09:18.000 --> 01:09:26.000
+I'm trying to… I'm gonna try to get a… get that set tomorrow during the… the corresponding call tomorrow.
+
+01:09:26.000 --> 01:09:27.000
+Okay
+
+01:09:27.000 --> 01:09:28.000
+Great.
+
+01:09:28.000 --> 01:09:30.000
+Yeah, I would just
+
+01:09:30.000 --> 01:09:39.000
+Okay, well, I mean, it sounds like there's a resolution. But the reason my hand was raised is, I don't think that this discussion can proceed any further without
+
+01:09:39.000 --> 01:09:41.000
+you know, someone
+
+01:09:41.000 --> 01:09:51.000
+us having like you know a make or break example of what they expect for cross contract calls, because that's you know we don't know a level of generality they need
+
+01:09:51.000 --> 01:09:52.000
+So
+
+01:09:52.000 --> 01:09:55.000
+So let me… let me ask… let me ask this, um…
+
+01:09:55.000 --> 01:09:57.000
+If we go with…
+
+01:09:57.000 --> 01:10:06.000
+my option 2. In other words, the compiler doesn't go looking for the contract at compile time, but we do generate code
+
+01:10:06.000 --> 01:10:08.000
+for an import for it.
+
+01:10:08.000 --> 01:10:10.000
+So that we keep ourselves clean,
+
+01:10:10.000 --> 01:10:17.000
+an innocent of the existence of that other contract in the compiler doesn
+
+01:10:17.000 --> 01:10:20.000
+maybe smoother upgrade path later.
+
+01:10:20.000 --> 01:10:25.000
+Um, if we go with that implementation,
+
+01:10:25.000 --> 01:10:31.000
+And we later discover that we need that extra bit of dynamicism, and no more.
+
+01:10:31.000 --> 01:10:33.000
+Um, that…
+
+01:10:33.000 --> 01:10:35.000
+we get by the DAP providing
+
+01:10:35.000 --> 01:10:40.000
+uh… the subordinate contracts
+
+01:10:40.000 --> 01:10:43.000
+at… at runtime.
+
+01:10:43.000 --> 01:10:50.000
+how big of a change is that going to be? Is that… is it possible that… basically, one way of looking at it is,
+
+01:10:50.000 --> 01:10:52.000
+is one on the path to the other.
+
+01:10:52.000 --> 01:10:58.000
+is the simpler one on the path to the other one? Are they completely different paths, and we're shooting ourselves in the foot by not…
+
+01:10:58.000 --> 01:11:01.000
+going with the simpler path.
+
+01:11:01.000 --> 01:11:04.000
+Or not going with the more complicated path first.
+
+01:11:04.000 --> 01:11:09.000
+I think it's possible to do it in a way
+
+01:11:09.000 --> 01:11:12.000
+That the simpler one is on the path to the more complex one.
+
+01:11:12.000 --> 01:11:13.000
+I agree.
+
+01:11:13.000 --> 01:11:17.000
+Well, I think… I think we should definitely do that then, because that gets us…
+
+01:11:17.000 --> 01:11:20.000
+testing a lot faster.
+
+01:11:20.000 --> 01:11:21.000
+And… and we…
+
+01:11:21.000 --> 01:11:24.000
+That's… that's my opinion. I really want to think of this as what we do first, not what we do ever.
+
+01:11:24.000 --> 01:11:28.000
+Right, and then we can tell people, this is where we got.
+
+01:11:28.000 --> 01:11:32.000
+And they can, you know, if we… and if we can't get any farther in Q2, at least we have
+
+01:11:32.000 --> 01:11:39.000
+We can give them maybe an estimate. Okay, but 2 weeks into Q3, we'll have it, you know, and that may be good enough.
+
+01:11:39.000 --> 01:11:40.000
+Yeah
+
+01:11:40.000 --> 01:11:48.000
+Yeah, I'll say, okay, well, you enabled, uh, 90% of the use cases. You didn't get all of them, but we're not gonna do a hard fork until the end of July, so really, you've got a little grace period, go ahead, go do it.
+
+01:11:48.000 --> 01:11:53.000
+That would be… that's really ideal. I want to have something shipped and working and testable.
+
+01:11:53.000 --> 01:11:55.000
+Yeah.
+
+01:11:55.000 --> 01:11:59.000
+Okay.
+
+01:11:59.000 --> 01:12:08.000
+Then let's go with that for now. There's still the quest, and there's a couple of little syntax things we can work those out on Slack then. This has been helpful
+
+01:12:08.000 --> 01:12:11.000
+Mm-hmm. Yeah.
+
+01:12:11.000 --> 01:12:12.000
+Okay.
+
+01:12:12.000 --> 01:12:18.000
+Okay. Uh, sorry I went over, folks. Um…
+
+01:12:18.000 --> 01:12:20.000
+That's good.
+
+01:12:20.000 --> 01:12:21.000
+Thank you.
+
+01:12:21.000 --> 01:12:22.000
+Yeah, alright. Have a good day.
+
+01:12:22.000 --> 01:12:23.000
+You're up
+
+01:12:23.000 --> 01:12:24.000
+Thanks, everyone.
+
+01:12:24.000 --> 01:12:32.000
+Bye!
+

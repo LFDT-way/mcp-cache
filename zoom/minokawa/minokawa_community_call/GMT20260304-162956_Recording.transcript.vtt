@@ -1,0 +1,226 @@
+WEBVTT
+
+1
+00:00:44.290 --> 00:00:45.360
+Andrzej Kopeć: Hello.
+
+2
+00:01:53.500 --> 00:01:56.349
+Kevin Millikin (Shielded Technologies): I'm waiting our traditional tour minutes.
+
+3
+00:01:56.460 --> 00:02:01.559
+Kevin Millikin (Shielded Technologies): Both Thomas and Kent, have said that they're unable to attend today.
+
+4
+00:03:13.690 --> 00:03:16.889
+Kevin Millikin (Shielded Technologies): Okay, I'm gonna get started.
+
+5
+00:03:17.240 --> 00:03:32.449
+Kevin Millikin (Shielded Technologies): both Kent and Thomas said that they would not be able to attend today, so we have a smaller group. I personally have a bit of a head cold, so I don't feel like talking a lot, and I don't have many agenda items.
+
+6
+00:03:32.660 --> 00:03:38.339
+Kevin Millikin (Shielded Technologies): So, I'll just… I do have one quick announcement, which is that the,
+
+7
+00:03:38.590 --> 00:03:49.329
+Kevin Millikin (Shielded Technologies): the upcoming release that is going to be Compact 0.30. It's very likely what we'll call Compact 1.0 when we release it. We're just not committing to that.
+
+8
+00:03:49.510 --> 00:03:57.049
+Kevin Millikin (Shielded Technologies): too strongly, because we've been burned before by telling people release numbers that haven't been… have been true.
+
+9
+00:03:58.300 --> 00:04:13.539
+Kevin Millikin (Shielded Technologies): The, the, branch date was, scheduled for this, for today. We've actually moved that into next Monday, so we're branching for this on Monday, and then the release date is expected to be March 13th.
+
+10
+00:04:13.770 --> 00:04:29.210
+Kevin Millikin (Shielded Technologies): And the extra time is coming here because of external reasons. There is a midnight blockchain update to the pre-prod environment, which is slated right now for that March 13th date, and so we're just tracking that date.
+
+11
+00:04:29.210 --> 00:04:33.869
+Kevin Millikin (Shielded Technologies): This is a release of the toolchain that won't work on the existing preview or pre-prod.
+
+12
+00:04:33.870 --> 00:04:40.060
+Kevin Millikin (Shielded Technologies): environments, so there's no reason for us to jump the gun and release it before those are available to people.
+
+13
+00:04:40.950 --> 00:04:56.470
+Kevin Millikin (Shielded Technologies): For us, it gives us a chance to put more features into Compact 1.0. So that… so you can see that, the dates have changed, on this. This is… this is our release train, which is one of the project boards that's available on our… on our project repository.
+
+14
+00:04:57.020 --> 00:05:12.130
+Kevin Millikin (Shielded Technologies): We also punted a couple of issues, from release 30 to release 31 that definitely won't make it into 0.30. One is adding support for the SecP256K1 point.
+
+15
+00:05:12.550 --> 00:05:17.810
+Kevin Millikin (Shielded Technologies): And the other is just switching over to the new ZKIR v3 backend by default.
+
+16
+00:05:18.290 --> 00:05:20.920
+Kevin Millikin (Shielded Technologies): So we're not going to be doing either of those.
+
+17
+00:05:21.650 --> 00:05:41.080
+Kevin Millikin (Shielded Technologies): It was… we have a lot of bugs in the existing things we're shipping, and so we felt like we really just needed to stabilize and fix those, rather than piling more features on top of a bit of a shaky foundation. And specifically when I went in to implement PsychP256K1, I found other issues that we needed to fix first.
+
+18
+00:05:42.400 --> 00:05:50.279
+Kevin Millikin (Shielded Technologies): So that's the status of that. Is there any comment or any other announcements that anyone wants to make?
+
+19
+00:05:55.420 --> 00:05:58.009
+Kevin Millikin (Shielded Technologies): Looks like a no… oh, oh, Emil, go ahead.
+
+20
+00:05:59.390 --> 00:06:11.660
+⟣ €₥ℵ∪ℓ: How will pushing back the ZKR V3 backend affect the… Incoming crypto primitives.
+
+21
+00:06:11.900 --> 00:06:15.439
+⟣ €₥ℵ∪ℓ: I think that will be available in 0.30.
+
+22
+00:06:15.980 --> 00:06:27.309
+Kevin Millikin (Shielded Technologies): That's a good question. So the… so we've developed the backend. It's behind a feature flag. It actually shipped in 0.28, we just didn't tell people about it.
+
+23
+00:06:27.870 --> 00:06:37.730
+Kevin Millikin (Shielded Technologies): So there is a feature flag, dash dash featured dash zkir-v3, that you can pass to the compiler. It tells it to emit zkirv3.
+
+24
+00:06:39.420 --> 00:06:44.829
+Kevin Millikin (Shielded Technologies): We have not announced ZKIRV3 as a stable
+
+25
+00:06:45.140 --> 00:06:54.259
+Kevin Millikin (Shielded Technologies): format that follows SEMVR, so we've made numerous changes to the format without bumping the version number, because we're developing it as a work-in-progress
+
+26
+00:06:55.520 --> 00:07:04.039
+Kevin Millikin (Shielded Technologies): because it's behind an experimental feature, people who use it will expect their things to break. That's the nature of it.
+
+27
+00:07:04.510 --> 00:07:16.140
+Kevin Millikin (Shielded Technologies): So that… so that's number one, is it will be in the compiler behind the feature flag. Number two is that you need a proof server that understands CKIRV3 to… to use it.
+
+28
+00:07:16.250 --> 00:07:20.669
+Kevin Millikin (Shielded Technologies): And we have not yet made a release of that… of a proof server like that.
+
+29
+00:07:20.790 --> 00:07:33.270
+Kevin Millikin (Shielded Technologies): We've… we've talked about doing that in conjunction with this release. It's not clear at this point whether we need to, because the features that are going in are also available in the V2 backend.
+
+30
+00:07:34.480 --> 00:07:44.920
+Kevin Millikin (Shielded Technologies): So the… so the SECP256K1 foreign curve was the first feature that needed to have A different,
+
+31
+00:07:45.030 --> 00:07:47.819
+Kevin Millikin (Shielded Technologies): ZKIR backend and a different proof server.
+
+32
+00:07:49.450 --> 00:07:57.780
+Kevin Millikin (Shielded Technologies): So I think… so it's a good question, it's a little bit unclear. Those features will be there. Most of the new features are actually available in the V2 backend.
+
+33
+00:07:58.180 --> 00:08:01.889
+Kevin Millikin (Shielded Technologies): I think I would have to go through them and verify if that's true or not.
+
+34
+00:08:05.210 --> 00:08:09.319
+⟣ €₥ℵ∪ℓ: Yeah, if you guys, or if someone could,
+
+35
+00:08:10.240 --> 00:08:21.049
+⟣ €₥ℵ∪ℓ: provide some more clarity on, like, what exactly, for the crypto primitive specifically, would be available in the V2 backend that would make our work,
+
+36
+00:08:21.700 --> 00:08:23.000
+⟣ €₥ℵ∪ℓ: A lot easier.
+
+37
+00:08:24.190 --> 00:08:27.159
+Kevin Millikin (Shielded Technologies): Yes, we'll find a way to clearly indicate that.
+
+38
+00:08:30.810 --> 00:08:31.940
+Kevin Millikin (Shielded Technologies): Thanks for that.
+
+39
+00:08:32.659 --> 00:08:35.530
+Kevin Millikin (Shielded Technologies): Is there anything else to say?
+
+40
+00:08:35.700 --> 00:08:40.840
+Andrey Venuto: Yeah, we can add those primitives as a ticket, and…
+
+41
+00:08:41.100 --> 00:08:49.100
+Andrey Venuto: when they're gonna be exposing compact to be, like, clear. So, this primitive exposing compact in this specific release, so that way they can
+
+42
+00:08:50.050 --> 00:08:51.229
+Andrey Venuto: See the information.
+
+43
+00:08:51.740 --> 00:09:09.450
+Kevin Millikin (Shielded Technologies): Yeah, in any case, it will be very, very clear from the release notes. So we will announce these as new features in the release notes, and the ones that do not work with the ZKIR v2 backend will specifically say that you need to pass this flag.
+
+44
+00:09:09.450 --> 00:09:12.530
+Kevin Millikin (Shielded Technologies): And you need to build this proof server from this…
+
+45
+00:09:12.530 --> 00:09:21.469
+Kevin Millikin (Shielded Technologies): from this tag in the ledger… in the ledger repository, or use this official release of the proof server, whichever we… however we go.
+
+46
+00:09:29.350 --> 00:09:30.570
+Kevin Millikin (Shielded Technologies): Is there anything else?
+
+47
+00:09:33.300 --> 00:09:37.440
+Kevin Millikin (Shielded Technologies): Does anyone want to add anything to the agenda for us to talk about?
+
+48
+00:09:44.200 --> 00:09:51.729
+Kevin Millikin (Shielded Technologies): Sounds like no. I'm personally pretty excited about this release. I see us fixing lots of bugs that are real issues that people are having.
+
+49
+00:09:51.880 --> 00:10:08.079
+Kevin Millikin (Shielded Technologies): And I'm also really excited about the health of the project, because people are finally finding these issues. A lot of them have been latent for, like, half a year, and… and the fact that nobody's found them just indicates that nobody's seriously using the language we've built, and that's changed. So that's actually really great.
+
+50
+00:10:08.690 --> 00:10:09.990
+Kevin Millikin (Shielded Technologies): Well,
+
+51
+00:10:13.060 --> 00:10:14.030
+Kevin Millikin (Shielded Technologies): Excellent.
+
+52
+00:10:16.390 --> 00:10:21.469
+Kevin Millikin (Shielded Technologies): If there's nothing else to say, then we'll give ourselves all this time back.
+
+53
+00:10:22.050 --> 00:10:25.899
+Kevin Millikin (Shielded Technologies): And… move on to happy hacking, as they… as they say.
+
+54
+00:10:26.170 --> 00:10:27.370
+Andrey Venuto: Thanks, everybody.
+
+55
+00:10:27.870 --> 00:10:28.420
+Andrey Venuto: Bye.
+
+56
+00:10:28.780 --> 00:10:29.460
+⟣ €₥ℵ∪ℓ: Alright, guys.
+

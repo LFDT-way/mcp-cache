@@ -1,0 +1,2014 @@
+WEBVTT
+
+1
+00:01:49.780 --> 00:01:50.979
+Ivan Asenov: Hi, guys.
+
+2
+00:01:53.460 --> 00:01:54.220
+Mario: Whoa.
+
+3
+00:01:54.980 --> 00:01:55.780
+Priyanshu Yadav: Hello,
+
+4
+00:02:00.320 --> 00:02:02.400
+Priyanshu Yadav: Hi, Rob. Hi, everyone.
+
+5
+00:04:02.040 --> 00:04:10.290
+Robert Walworth: Alright, we could probably go ahead and get started. Hendrik messaged me, said it's gonna be a little late, I know this is his item here,
+
+6
+00:04:11.540 --> 00:04:16.129
+Robert Walworth: Yeah, we can go ahead and at least get started with the, the SDK updates, I think.
+
+7
+00:04:18.810 --> 00:04:30.779
+Robert Walworth: So, from my side, I've been mostly working on the C++ SDK this past week, getting the automation bots, going. I have…
+
+8
+00:04:31.020 --> 00:04:34.570
+Robert Walworth: As of right now, I have NA…
+
+9
+00:04:34.700 --> 00:04:43.429
+Robert Walworth: an assign bot, which will basically auto-assign, contributors to issues. All they have to do is go in and comment slash assign.
+
+10
+00:04:43.770 --> 00:04:52.099
+Robert Walworth: The bot will assign them, and obviously making sure that, the issue is actually ready, for… to be taken.
+
+11
+00:04:52.250 --> 00:04:58.699
+Robert Walworth: And, I've also added logic in there to… Basically, track the amount of…
+
+12
+00:04:59.220 --> 00:05:05.739
+Robert Walworth: Good first issues, beginner issues, so on and so forth, to make sure that new contributors aren't taking…
+
+13
+00:05:07.610 --> 00:05:09.499
+Robert Walworth: Issues that are too difficult.
+
+14
+00:05:09.780 --> 00:05:11.050
+Robert Walworth: For them.
+
+15
+00:05:12.000 --> 00:05:20.599
+Robert Walworth: So, I think the limits I have right now are a new contributor needs two good first issues before they can take on a beginner.
+
+16
+00:05:20.760 --> 00:05:26.350
+Robert Walworth: They need 3 beginner before they can take on an intermediate, and 3 intermediate before they can take on an advance.
+
+17
+00:05:28.130 --> 00:05:35.530
+Robert Walworth: So I think that's where we're… we're gonna start with for now, and then, you know, depending on,
+
+18
+00:05:36.210 --> 00:05:39.340
+Robert Walworth: Any contributors that, you know, keep…
+
+19
+00:05:39.560 --> 00:05:47.770
+Robert Walworth: taking issues and, working… working their way up. You know, we can maybe modify those numbers, down the line.
+
+20
+00:05:48.570 --> 00:05:50.859
+Robert Walworth: But that's where… that's where we're starting with now.
+
+21
+00:05:51.290 --> 00:06:02.860
+Robert Walworth: So we have that, we have, I've been working on a, a bot to check, DCO and GPG signatures on every commit.
+
+22
+00:06:03.140 --> 00:06:08.530
+Robert Walworth: So I know we have these checks already, In the,
+
+23
+00:06:09.790 --> 00:06:22.419
+Robert Walworth: in the area on the PRs where it, you know, it shows all the checks, but, I believe the Python SDK found that having a comment from a bot that actually
+
+24
+00:06:23.600 --> 00:06:29.419
+Robert Walworth: You know, clearly says what the issue is, and is able to link to signing guides.
+
+25
+00:06:29.640 --> 00:06:35.569
+Robert Walworth: Makes it a bit more obvious for new contributors what the issues are and what they need to work on.
+
+26
+00:06:36.160 --> 00:06:43.570
+Robert Walworth: So I've been, implementing that. I started out…
+
+27
+00:06:44.060 --> 00:06:50.779
+Robert Walworth: doing it mostly just on, opening… or they, they, it runs when a PR is opened.
+
+28
+00:06:50.930 --> 00:06:56.829
+Robert Walworth: But currently, I'm working to refactor that to make sure it's on every commit.
+
+29
+00:06:57.140 --> 00:07:00.919
+Robert Walworth: So then we can, we can continue to get that, that feedback.
+
+30
+00:07:02.050 --> 00:07:21.340
+Robert Walworth: But that's primarily where we're at now. I still have several different, workflows I want to implement. Want to do… get the labels more involved. I think those, those have been very helpful, and, feedback from the Python SDK as well has… has,
+
+31
+00:07:21.820 --> 00:07:23.799
+Robert Walworth: Shown that they've been helpful.
+
+32
+00:07:24.250 --> 00:07:25.360
+Robert Walworth: So I wanna…
+
+33
+00:07:25.970 --> 00:07:33.159
+Robert Walworth: Yeah, the next steps are to kind of work with those and, really develop a good… a good system here that will
+
+34
+00:07:33.700 --> 00:07:38.919
+Robert Walworth: Help alleviate some of the, Maintainer, workload.
+
+35
+00:07:43.250 --> 00:07:47.799
+Robert Walworth: So that's it for C++. Any other SDKs want to give an update?
+
+36
+00:07:48.630 --> 00:07:55.649
+Ivan Asenov: Yeah, so we don't have that many updates, for this time.
+
+37
+00:07:55.900 --> 00:08:04.450
+Ivan Asenov: Pretty much what happened is that we… we got provided an RC tag from the consensus node.
+
+38
+00:08:04.600 --> 00:08:06.740
+Ivan Asenov: And that contains the hooks.
+
+39
+00:08:07.090 --> 00:08:13.560
+Ivan Asenov: And we went ahead and tested, if all our tests are passing.
+
+40
+00:08:13.730 --> 00:08:23.330
+Ivan Asenov: We had… Some changes that needed to be done regarding the pricing of some of the transactions, but…
+
+41
+00:08:23.510 --> 00:08:27.679
+Ivan Asenov: Aside from that, everything seems alright.
+
+42
+00:08:27.920 --> 00:08:33.320
+Ivan Asenov: So we needed to bump the max transaction fee in some of the tests.
+
+43
+00:08:33.820 --> 00:08:39.429
+Ivan Asenov: And we released a new version, a new beta version in the Java SDK.
+
+44
+00:08:39.740 --> 00:08:48.949
+Ivan Asenov: We decided to hold on to releasing it in other SDKs until we have a stable TAC
+
+45
+00:08:49.340 --> 00:08:57.679
+Ivan Asenov: with that, because, as we've already seen, the consensus Note team might
+
+46
+00:08:58.160 --> 00:09:08.310
+Ivan Asenov: actually decide to change something in these APIs, and we don't want to release a stable version, or… actually.
+
+47
+00:09:08.390 --> 00:09:25.790
+Ivan Asenov: beta version as well, using these APIs, so we… we only released the Java, because it's a blocker for the… for the MirrorNode team. But we will hold on to it a little bit longer for… for other SDKs since,
+
+48
+00:09:26.170 --> 00:09:29.000
+Ivan Asenov: Since it's not a blocker for anybody.
+
+49
+00:09:29.130 --> 00:09:33.620
+Ivan Asenov: And, yeah, that's pretty much on the hooks.
+
+50
+00:09:34.240 --> 00:09:36.240
+Ivan Asenov: Part, aside from that.
+
+51
+00:09:36.370 --> 00:09:41.670
+Ivan Asenov: I believe in… JS SDK, we have,
+
+52
+00:09:41.900 --> 00:09:44.920
+Ivan Asenov: We have one issue regarding,
+
+53
+00:09:45.490 --> 00:09:52.599
+Ivan Asenov: Windows setup. I believe someone, someone from the new contributors,
+
+54
+00:09:53.120 --> 00:09:57.850
+Ivan Asenov: Faced issues with that, and we already have opened a fix.
+
+55
+00:09:58.310 --> 00:10:04.909
+Ivan Asenov: And aside from that, we've been working on TCK, which is not that, not that interesting.
+
+56
+00:10:05.980 --> 00:10:11.309
+Ivan Asenov: And, yeah, that's pretty much it, I guess.
+
+57
+00:10:14.530 --> 00:10:20.640
+Robert Walworth: Yeah, so for the, for the Windows setup for JavaScript,
+
+58
+00:10:20.810 --> 00:10:27.570
+Robert Walworth: Is that the, because, Angie, you were… you were the one kind of trying to get that set up right, and running into the… running the issue.
+
+59
+00:10:28.350 --> 00:10:48.060
+Angelina Ceppaluni: Yes, I am actually working on it as of this very moment, and it is not working yet. I'm still getting the same errors, so I have decided to forego Git Bash, and I am now trying in Ubuntu, so I will let you know if
+
+60
+00:10:48.160 --> 00:10:54.590
+Angelina Ceppaluni: the PR does… correct the build issues. If not, I'll just make a note.
+
+61
+00:10:55.190 --> 00:11:02.299
+Ivan Asenov: You tried using the… The branch from the PR, right?
+
+62
+00:11:02.770 --> 00:11:15.510
+Angelina Ceppaluni: Yep, Venolin sent me the link for the PR this morning, so I went ahead and I've cloned it. I tried to run it in Git Bash,
+
+63
+00:11:15.710 --> 00:11:23.199
+Angelina Ceppaluni: that… it failed dramatically. It was just not good. So, at that point, I…
+
+64
+00:11:23.200 --> 00:11:23.919
+Ivan Asenov: It's unfortunate.
+
+65
+00:11:23.920 --> 00:11:26.810
+Angelina Ceppaluni: and… Yeah.
+
+66
+00:11:26.810 --> 00:11:32.699
+Ivan Asenov: Maybe you can, you can work with him, tomorrow to maybe,
+
+67
+00:11:32.890 --> 00:11:39.200
+Ivan Asenov: Show him exactly what is going on, and help him actually fix it.
+
+68
+00:11:39.950 --> 00:11:40.620
+Ivan Asenov: If that's okay.
+
+69
+00:11:40.620 --> 00:11:41.350
+Angelina Ceppaluni: Yeah.
+
+70
+00:11:41.480 --> 00:11:59.549
+Angelina Ceppaluni: Yeah, we have a meeting, I believe, Wednesday, trying to remember time zones, 10 a.m. Eastern Standard Time, so I believe that's 3 p.m, UTC time. So, if anyone is interested in joining that call, Sophie, I know you had said you had build issues on Mac.
+
+71
+00:11:59.770 --> 00:12:11.730
+Angelina Ceppaluni: So we are actually discovering for the JS SDK, there are build issues across almost every system. I had somebody reach out to me saying they are not able to build it in WSL as well.
+
+72
+00:12:11.970 --> 00:12:17.010
+Angelina Ceppaluni: So for that, the… we were kind of thinking to…
+
+73
+00:12:17.120 --> 00:12:33.089
+Angelina Ceppaluni: get a bit more of the team involved in that meeting to kind of go over what errors are specifically encountered, and what are people able to kind of resolve on their own. So, if anyone is interested in that, just let me know, and I'll send the link for that.
+
+74
+00:12:33.420 --> 00:12:36.149
+Sophie Bulloch: When is the info… when is the meeting, Angie?
+
+75
+00:12:36.520 --> 00:12:46.300
+Angelina Ceppaluni: It's, 10 a.m. EST time on Wednesday, so I believe that is 3 o'clock, UTT time… UTC time for you.
+
+76
+00:12:49.570 --> 00:13:09.360
+Angelina Ceppaluni: But if the… I am actively working on it, it is… it's actually running at this very moment, so I'm just waiting for the computer to, either yell at me or congratulate us all that it has been fixed, so I will keep an update, for that for everybody as soon as I know.
+
+77
+00:13:11.510 --> 00:13:20.159
+Ivan Asenov: Alright. Yeah, just, message Valene. Do you have a Slack, or where can we communicate?
+
+78
+00:13:20.420 --> 00:13:20.950
+Ivan Asenov: In this.
+
+79
+00:13:22.010 --> 00:13:35.509
+Angelina Ceppaluni: Yeah, we don't have Slack. I don't believe me or Sophie do. I'm not sure about Sophie, but as far as I know, I believe Slack is more internal, and that's not something I have access to.
+
+80
+00:13:35.520 --> 00:13:43.159
+Ivan Asenov: I guess you can also ping him in GitHub to figure out where you can have a call, or…
+
+81
+00:13:43.530 --> 00:13:48.300
+Ivan Asenov: Just to, communicate there, I guess, would be the easiest.
+
+82
+00:13:48.950 --> 00:14:05.820
+Angelina Ceppaluni: Yeah, I've mostly been communicating with him through Discord, so that seems to be working okay. I also noticed, seems to work very well for the JavaScript Discord channel, so I figured I would just keep every
+
+83
+00:14:05.840 --> 00:14:18.739
+Angelina Ceppaluni: update central to that channel, so anything new, I'll post it there, and then for the PR, I'll post a note of whether or not it did or didn't work. I'm crossing my fingers, though, and really hoping that this does work.
+
+84
+00:14:23.050 --> 00:14:27.829
+Robert Walworth: Yeah, I think, I'd like to sit in on that meeting. I don't know if I'll have much to contribute, but,
+
+85
+00:14:28.240 --> 00:14:30.559
+Robert Walworth: At least be able to listen, so…
+
+86
+00:14:31.270 --> 00:14:50.769
+Angelina Ceppaluni: Yeah, happy to. I can, just ping me to remind me, that way I don't forget to send anybody the link. As of right now, I think it's just me and him, but I do believe that I… I think there was one other person that added me either yesterday to be part of that meeting, or the day before.
+
+87
+00:14:51.600 --> 00:14:59.480
+Angelina Ceppaluni: So, if you can, just ping me after this and let me know, I'll go ahead and create the meeting invite, and I'll send it out now, that way everybody's got it.
+
+88
+00:15:00.880 --> 00:15:02.250
+Robert Walworth: Yeah, sounds good
+
+89
+00:15:05.780 --> 00:15:11.790
+Robert Walworth: Alright, so that was for JavaScript and Java. Our…
+
+90
+00:15:12.090 --> 00:15:18.160
+Robert Walworth: Rust and Go pretty much kind of on the same, same wavelength.
+
+91
+00:15:18.600 --> 00:15:25.800
+Ivan Asenov: Yeah… Forego… Yeah, pretty much fixing the test for the hooks.
+
+92
+00:15:26.170 --> 00:15:33.560
+Ivan Asenov: And… Yeah, I also had, I was off, last week because I was sick, but…
+
+93
+00:15:33.750 --> 00:15:44.269
+Ivan Asenov: There… we have some user that's reporting an issue, and he stated that he will open a fix, but that was, like, last… last week.
+
+94
+00:15:44.540 --> 00:15:48.920
+Ivan Asenov: And I'll probably… Follow up on that.
+
+95
+00:15:49.560 --> 00:15:54.570
+Ivan Asenov: And I might actually fix it myself, because we don't have anything with…
+
+96
+00:15:54.880 --> 00:15:58.140
+Ivan Asenov: higher priority than that at this point, I guess.
+
+97
+00:15:58.260 --> 00:16:05.350
+Ivan Asenov: And yeah, we also did some TCK work there in Go. It's pretty much the same in all SDKs.
+
+98
+00:16:07.070 --> 00:16:11.399
+Ivan Asenov: For, actually for Rust, I believe, if I was finishing the…
+
+99
+00:16:11.530 --> 00:16:16.900
+Ivan Asenov: this sympathies, today or… or on Friday.
+
+100
+00:16:17.060 --> 00:16:21.950
+Ivan Asenov: Because they were kind of on hold up until now.
+
+101
+00:16:28.300 --> 00:16:30.209
+Robert Walworth: Cool. Yeah, sounds good.
+
+102
+00:16:34.870 --> 00:16:38.699
+Robert Walworth: Oh, I was about to say something, but I lost my train of thought. Oh,
+
+103
+00:16:39.040 --> 00:16:44.250
+Robert Walworth: I want to go back real quick to, beta releases. I, is Keith on this call?
+
+104
+00:16:44.980 --> 00:16:49.500
+Robert Walworth: He's not. So I know Keith has brought up before,
+
+105
+00:16:50.070 --> 00:17:01.140
+Robert Walworth: Well, he mentioned wanting a beta release for the hooks, because, you know, it's a big feature, it's on PreviewNet, like, people want to…
+
+106
+00:17:01.280 --> 00:17:05.859
+Robert Walworth: You know, be able to… be able to test on… on there.
+
+107
+00:17:05.880 --> 00:17:25.000
+Robert Walworth: And… yeah, again, it's just, it's such a, such a big issue, or a big, big feature, so people want to get testing done as much as possible. I know, you know, at least the JS SDK has done beta releases in the past. It sounds like, you know, Java has done one as well.
+
+108
+00:17:26.119 --> 00:17:29.409
+Robert Walworth: I guess I kind of wanted to get a better,
+
+109
+00:17:29.650 --> 00:17:41.220
+Robert Walworth: I guess, understanding of, I guess, people… people's opinions on… on beta releases. Are we, in general, fine with them? Do we want to,
+
+110
+00:17:41.700 --> 00:17:43.750
+Robert Walworth: I guess… like…
+
+111
+00:17:44.150 --> 00:17:55.389
+Robert Walworth: I guess I'm coming… I personally am not a huge fan of them, or if, like, if we did do a beta release, like, you know, at least,
+
+112
+00:17:56.320 --> 00:18:05.519
+Robert Walworth: Make it known that, you know, this is a release, but it's still subject to change, just because it's like a, you know, obviously not a fully fleshed-out feature yet.
+
+113
+00:18:05.760 --> 00:18:12.400
+Robert Walworth: But I wanted to hear a bit more about, opinions on… on beta releases, and…
+
+114
+00:18:12.520 --> 00:18:22.370
+Robert Walworth: Like, I guess, do we only want to do them for, you know, specifically asked for features, or,
+
+115
+00:18:22.690 --> 00:18:26.319
+Robert Walworth: I guess, do we have any kind of thoughts or opinions on that?
+
+116
+00:18:29.750 --> 00:18:32.669
+Georgi Stoykov: So, yeah, it's… I guess it's,
+
+117
+00:18:32.840 --> 00:18:45.129
+Georgi Stoykov: only a matter of somebody wanting a specific thing we should, publish beforehand, because I don't see any other use case for us publishing a beta release.
+
+118
+00:18:45.540 --> 00:18:48.990
+Georgi Stoykov: We… if we have a feature, let's say, in…
+
+119
+00:18:49.140 --> 00:19:01.029
+Georgi Stoykov: It's not complete. At some point, and the network is not adapted, we wouldn't be able to release it with a stable version, so…
+
+120
+00:19:01.260 --> 00:19:11.960
+Georgi Stoykov: I guess the times we've published beta versions were only to suit some clients' demands. No other case comes to my mind.
+
+121
+00:19:12.470 --> 00:19:25.540
+Ivan Asenov: Actually, I have something to say about this point. The last couple of months, we've seen a lot of, situations where we are in a dependency whoop with other,
+
+122
+00:19:25.980 --> 00:19:32.610
+Ivan Asenov: Other projects, for example, the SDK depends on the consensus notes.
+
+123
+00:19:33.100 --> 00:19:44.679
+Ivan Asenov: That's the default dependency, but, they've changed the way they release stuff, is that they need approval from
+
+124
+00:19:44.830 --> 00:19:46.579
+Ivan Asenov: every other,
+
+125
+00:19:46.770 --> 00:19:55.829
+Ivan Asenov: project in the system, which is SDKs, MirrorNote, and so on. And the mirror node uses the SDK, so it depends on the SDK to…
+
+126
+00:19:55.970 --> 00:20:04.750
+Ivan Asenov: To test… to test its stuff, to have its, integration tests, so we have a dependency group where
+
+127
+00:20:05.100 --> 00:20:11.250
+Ivan Asenov: In order to break out of that, we need to do a better release in the Java SDK.
+
+128
+00:20:11.270 --> 00:20:28.569
+Ivan Asenov: So that we unblock the mirror node, so that it unblocks the consensus node, so that it unblocks us to do an actual normal release. So that's a use case that has happened to us, and probably will continue to happen to us quite often in the future.
+
+129
+00:20:31.080 --> 00:20:35.419
+Robert Walworth: Yeah, I guess maybe something I'm worried about is,
+
+130
+00:20:35.550 --> 00:20:43.610
+Robert Walworth: Yeah, obviously, the… yeah, the dependency loop isn't great, but, like, the…
+
+131
+00:20:44.070 --> 00:20:51.100
+Robert Walworth: I wouldn't want to get into a sort of situation or, I guess.
+
+132
+00:20:51.300 --> 00:20:54.550
+Robert Walworth: I guess, kind of recurring problem where…
+
+133
+00:20:54.990 --> 00:21:01.070
+Robert Walworth: You know, people come to us for beta releases for, like, every hip.
+
+134
+00:21:01.420 --> 00:21:13.599
+Robert Walworth: Send, you know, like, for example, like, if we had to do a beta release now of, like, you know, or if we had done a beta release before of Hooks, and then, like, for example, maybe if they wanted a beta release of…
+
+135
+00:21:13.770 --> 00:21:28.650
+Robert Walworth: you know, 1313 or simple fees or something, like, then we could start managing different beta releases that we wouldn't want to merge into Mania, because they're not complete. So maybe it's…
+
+136
+00:21:30.810 --> 00:21:42.800
+Robert Walworth: you know, maybe we should… I feel like we should either, you know, come up with a strategy of either, you know, pushing back on some of these, or maybe we have to start doing, like,
+
+137
+00:21:43.160 --> 00:21:54.179
+Robert Walworth: like, release branches or… or something. So then, you know, we can just have features living on a branch, and then when it's finalized, we can finally merge it back in, and it doesn't have to…
+
+138
+00:21:54.420 --> 00:22:00.500
+Robert Walworth: You know, delay any of the releases of any other features or anything.
+
+139
+00:22:00.640 --> 00:22:05.130
+Robert Walworth: I mean, again, we haven't really run into this yet, but I'm just kind of thinking forward of…
+
+140
+00:22:06.970 --> 00:22:10.490
+Robert Walworth: again, like, what I'm worried about is just…
+
+141
+00:22:10.630 --> 00:22:20.359
+Robert Walworth: People wanting beta releases for, like, different features, like, all the time, and it would just become more for us to manage, and could be difficult.
+
+142
+00:22:24.680 --> 00:22:39.919
+Ivan Asenov: For me, I see two, ways out of this. The first is to change how the consensus notes, do their releases. That was changed last year, and we've done some communication,
+
+143
+00:22:40.070 --> 00:22:47.940
+Ivan Asenov: 2… To prove a point that it may cause these dependency whoops.
+
+144
+00:22:48.090 --> 00:22:58.030
+Ivan Asenov: But I guess, the release team, or whoever is, responsible for that process, just
+
+145
+00:22:58.310 --> 00:23:00.299
+Ivan Asenov: It doesn't seem to…
+
+146
+00:23:00.540 --> 00:23:16.950
+Ivan Asenov: acknowledge that, and the other way out of this is to, to do release branches and stuff, which is something that the DevOps team and release engineering should, should probably set up and do, because that's something that they need to approve and do.
+
+147
+00:23:17.060 --> 00:23:30.650
+Ivan Asenov: But I remember some statements from Nathan, way back, that… they… Specifically and, intentionally.
+
+148
+00:23:31.010 --> 00:23:35.240
+Ivan Asenov: move out of this pattern. So yeah.
+
+149
+00:23:38.500 --> 00:23:44.869
+Robert Walworth: Nathan said that they didn't want SDKs to do this release pattern, or are they just talked about…
+
+150
+00:23:45.690 --> 00:24:05.550
+Ivan Asenov: I believe they wanted to remove it… remove that release branch pattern for… for all of the projects and to release from main, which I guess is not the case right now in the consensus node, but that was… that was definitely the case in the SZ case, because
+
+151
+00:24:06.280 --> 00:24:21.180
+Ivan Asenov: A little bit before I joined the project, maybe George can say something about that. It used to be with release branches, but then it was changed to releasing from main, was it?
+
+152
+00:24:22.350 --> 00:24:25.309
+Georgi Stoykov: Yeah, I think we had, like.
+
+153
+00:24:25.930 --> 00:24:38.080
+Georgi Stoykov: I think we had… Rob, correct me if I'm wrong, we even had, like, a develop branch, or stuff like that. I don't know if C++ ever had such, but dealer SDKs at least had some.
+
+154
+00:24:38.750 --> 00:24:48.870
+Georgi Stoykov: the flow was totally different there, but I can't actually remember why we changed that. Maybe because, at that point,
+
+155
+00:24:49.130 --> 00:24:52.709
+Georgi Stoykov: Development was going on with,
+
+156
+00:24:53.010 --> 00:24:56.870
+Georgi Stoykov: I guess, fewer parties, or something like that, but…
+
+157
+00:24:57.080 --> 00:24:59.809
+Georgi Stoykov: I won't… I don't remember why we moved on.
+
+158
+00:25:00.570 --> 00:25:08.040
+Ivan Asenov: Yeah, back then, skips were pretty linear and straightforward. Right now, that's not the case.
+
+159
+00:25:08.040 --> 00:25:08.420
+Georgi Stoykov: That's all.
+
+160
+00:25:08.420 --> 00:25:11.490
+Ivan Asenov: Technology is different, so maybe it's…
+
+161
+00:25:11.740 --> 00:25:19.859
+Ivan Asenov: It's not the best way to do things nowadays, but it requires some approvals from third parties, and…
+
+162
+00:25:20.710 --> 00:25:23.020
+Ivan Asenov: some additional setup, I guess.
+
+163
+00:25:24.160 --> 00:25:30.579
+Georgi Stoykov: An interesting thing about back then was that maybe we removed the need for
+
+164
+00:25:30.780 --> 00:25:35.429
+Georgi Stoykov: release branches because of the following thing.
+
+165
+00:25:35.800 --> 00:25:43.809
+Georgi Stoykov: We actually, when we had to implement HIPS, they were… I guess, for a time.
+
+166
+00:25:43.880 --> 00:25:55.879
+Georgi Stoykov: implemented in the consens node, so the SDK did that after the consens node had all its releases and stuff like that.
+
+167
+00:25:55.910 --> 00:26:13.889
+Georgi Stoykov: So, we decided not to have release branches, but as you're seeing right now, the case is totally different, because you have HIP, which is in development from the consensus node, let's say. Somebody is depending on another somebody, and
+
+168
+00:26:14.110 --> 00:26:20.220
+Georgi Stoykov: Yeah, maybe such cases arise when we need to go back to…
+
+169
+00:26:20.330 --> 00:26:25.210
+Georgi Stoykov: release branches. But, yeah, at that point.
+
+170
+00:26:25.360 --> 00:26:37.109
+Georgi Stoykov: I think that the hips weren't being developed, in the same time in the SDK and the consensus node, and mirror node. The SDK, as it should be.
+
+171
+00:26:37.220 --> 00:26:39.749
+Georgi Stoykov: Had to develop the feature last.
+
+172
+00:26:40.060 --> 00:26:41.410
+Georgi Stoykov: from those teams.
+
+173
+00:26:44.940 --> 00:26:55.769
+Robert Walworth: Yeah, I'm not 100% sure kind of why we've deviated from that. Like, yeah, because I feel like this problem is only really…
+
+174
+00:26:56.150 --> 00:26:58.389
+Robert Walworth: Came up in the past, you know…
+
+175
+00:26:58.800 --> 00:27:16.689
+Robert Walworth: couple months to a year. Yeah, before, like, the development was pretty… pretty linear. Yeah, again, like, in an ideal situation, yeah, it's like, Consensus Node does… does all their testing and is good to go. They do a release, and then we can… we can build on top of that. But…
+
+176
+00:27:17.020 --> 00:27:18.620
+Robert Walworth: Yeah, in…
+
+177
+00:27:19.740 --> 00:27:29.930
+Robert Walworth: in terms of, like, you know, they're doing, like, alpha builds and RC builds now, and, yeah, want us to test against that, but obviously we don't want to…
+
+178
+00:27:30.390 --> 00:27:35.890
+Robert Walworth: you know, run those versions, in our… in our CI.
+
+179
+00:27:36.550 --> 00:27:44.880
+Robert Walworth: So, yeah, I'm just trying to think of the best way to kind of handle these situations, going forward.
+
+180
+00:27:45.150 --> 00:27:51.010
+Robert Walworth: Yeah, the main thing, like, again, was just with beta releases, like, it…
+
+181
+00:27:51.970 --> 00:28:04.160
+Robert Walworth: like, I guess they're fine as long as we can say, like, you know, this is still subject to approval, like, in release notes, or, not approval, subject to change.
+
+182
+00:28:04.490 --> 00:28:09.519
+Robert Walworth: You just make that real clear, like, in the release notes.
+
+183
+00:28:11.480 --> 00:28:19.639
+Robert Walworth: Yeah, either that, or yeah, we just have to put these features on a separate branch and just leave that until it's done.
+
+184
+00:28:21.070 --> 00:28:33.410
+Georgi Stoykov: By the way, I just came up with another argument against better releases. Maybe it's a far-fetch, or, like, a really low chance to happen, but…
+
+185
+00:28:33.520 --> 00:28:37.900
+Georgi Stoykov: We have to keep in mind that when we publish a beta release.
+
+186
+00:28:38.210 --> 00:28:56.700
+Georgi Stoykov: we are not only publishing it for the party, which is the mirror node. And, like, if you have some random dude on the internet who's following and, let's say, downloading beta versions and sees that a feature is broken.
+
+187
+00:28:56.780 --> 00:29:07.419
+Georgi Stoykov: He could potentially, try to think of, some exploits with some unprepared versions of the software, so…
+
+188
+00:29:07.710 --> 00:29:13.520
+Georgi Stoykov: I don't know, there's a lot of arguments against doing those just in demand for
+
+189
+00:29:13.520 --> 00:29:32.540
+Georgi Stoykov: unblocking somebody, but it's… I think the whole, let's say, flow is kind of broken, so maybe that's what we should aim to fix, the whole pipeline of us delivering in the different projects, and no problems would come after that.
+
+190
+00:29:34.640 --> 00:29:42.790
+Robert Walworth: Yeah, maybe we need to, kind of coordinate with… with Keith a bit more, and maybe,
+
+191
+00:29:43.180 --> 00:29:47.179
+Robert Walworth: Yeah, either… either us or him or both can…
+
+192
+00:29:48.600 --> 00:30:07.000
+Robert Walworth: you know, kind of pushback on these things, because it's, you know, it is a delicate balance, right? It's like, we don't want to, like, block people, we want people, like, you know, to continue their development, but, yeah, there's, yeah, I mean, that's a good reason in itself not to… not to do beta releases, on top of just, like, the,
+
+193
+00:30:07.080 --> 00:30:14.650
+Robert Walworth: additional tracking and everything we need to do. But also, that's another part of this, too, is,
+
+194
+00:30:14.760 --> 00:30:17.420
+Robert Walworth: You know, it… It… it…
+
+195
+00:30:17.580 --> 00:30:29.180
+Robert Walworth: It could and should be, in my opinion, up to… up to the maintainers of those repos, if they want to do a paid release or not.
+
+196
+00:30:29.300 --> 00:30:44.769
+Robert Walworth: So, I mean, we, yeah, we, I mean, we can… we just sit here and talk about, you know, reasons we should or shouldn't do, but, and it's good to share those opinions, but, ultimately, in my, in my head, it, it should just be what the maintainers think.
+
+197
+00:30:45.280 --> 00:30:49.780
+Robert Walworth: Or it should be their decision, ultimately.
+
+198
+00:30:50.260 --> 00:31:07.499
+Robert Walworth: Because, yeah, I think with the beta releases we've done so far, we've really only done them for one, maybe two SDKs. I don't think anyone's ever really asked for a C++ or Rust beta release before, so maybe it's not as pertinent to them, but
+
+199
+00:31:08.070 --> 00:31:13.619
+Robert Walworth: Yeah. It's still good to share those thoughts, I think, though.
+
+200
+00:31:16.860 --> 00:31:20.299
+Robert Walworth: Yeah, I guess any other last kind of thoughts on that?
+
+201
+00:31:24.170 --> 00:31:29.230
+Sophie Bulloch: I put a couple questions in the chat, so I'm not very informed about this.
+
+202
+00:31:30.220 --> 00:31:36.410
+Sophie Bulloch: Pre-re- pre-release… thing, and just made me want to talk about our experience with, like, the…
+
+203
+00:31:36.860 --> 00:31:43.500
+Sophie Bulloch: Python SDK kind of being a little bit external to…
+
+204
+00:31:43.920 --> 00:31:47.780
+Sophie Bulloch: you know, how… how things are maybe working in the other SDKs?
+
+205
+00:31:48.920 --> 00:31:52.430
+Sophie Bulloch: So what happens is, like, over the…
+
+206
+00:31:53.130 --> 00:31:57.229
+Sophie Bulloch: Christmas period, we did a lot of changes, and we haven't done a new release.
+
+207
+00:31:57.900 --> 00:32:01.500
+Sophie Bulloch: So, we're on release 0.1.10.
+
+208
+00:32:01.690 --> 00:32:04.060
+Sophie Bulloch: And since then, like, we've changed.
+
+209
+00:32:04.170 --> 00:32:12.940
+Sophie Bulloch: Node handling, queries, yeah, there's a whole bunch of things. And we were not able to do, like, a release fast enough.
+
+210
+00:32:13.510 --> 00:32:22.430
+Sophie Bulloch: and the GitHub… release thing doesn't let us release things retroactively, at least I haven't figured out how.
+
+211
+00:32:22.990 --> 00:32:27.720
+Sophie Bulloch: So, in my opinion, like, we're stuck with, like, a really big release.
+
+212
+00:32:28.420 --> 00:32:31.420
+Sophie Bulloch: And we just have to go ahead with a really big release.
+
+213
+00:32:32.200 --> 00:32:39.500
+Sophie Bulloch: So one of the things that we're thinking of, and Rob, you had some ideas with this, is, like, to use AI and things to help us review it and things.
+
+214
+00:32:39.930 --> 00:32:46.240
+Sophie Bulloch: You know, like, I… I'm not really familiar with what pre-releases
+
+215
+00:32:47.070 --> 00:32:50.939
+Sophie Bulloch: are exactly meant to do. It seems here it's more, like, hip-focused.
+
+216
+00:32:51.190 --> 00:32:59.270
+Sophie Bulloch: But I can certainly think that it would be useful to us. I mean, we've… all our tests passed, all our unit tests, integration tests, we've tried our best to…
+
+217
+00:32:59.510 --> 00:33:05.220
+Sophie Bulloch: To check everything, and so on, but the radius is still pretty big, and…
+
+218
+00:33:05.650 --> 00:33:13.549
+Sophie Bulloch: You know, just having, like, a layer of… this is open for community feedback before we kind of give it, like, a seal of approval would…
+
+219
+00:33:13.700 --> 00:33:26.189
+Sophie Bulloch: would be useful, like, in my perspective. I… I… but as I said, I assume that's not, like, how releases should be done, right? Ideally, you're, like, 100% confident this is… this is ready, this is going to not cause any issues and things.
+
+220
+00:33:29.270 --> 00:33:38.210
+Sophie Bulloch: Yeah, so I… I would be open to using the pre-releases things, and I think a couple people here on the chat have mentioned in the past
+
+221
+00:33:38.830 --> 00:33:40.649
+Sophie Bulloch: Oh, that they have left.
+
+222
+00:33:40.810 --> 00:33:47.079
+Sophie Bulloch: How working on branches and merging two branches and things like that could help us, like, avoid
+
+223
+00:33:47.670 --> 00:33:52.769
+Sophie Bulloch: this issue in the future, so I guess we don't know too much about, like, the best practices.
+
+224
+00:33:54.760 --> 00:34:00.379
+Sophie Bulloch: And we want to improve, like, the… the efficiency and the, like.
+
+225
+00:34:00.600 --> 00:34:06.199
+Sophie Bulloch: How well-tested, like, the releases are and things like that, and just making sure everything goes as smoothly as possible.
+
+226
+00:34:07.250 --> 00:34:09.319
+Sophie Bulloch: The second question I had is, like.
+
+227
+00:34:10.790 --> 00:34:14.010
+Sophie Bulloch: for pre-releases being done for HIPS.
+
+228
+00:34:14.520 --> 00:34:22.339
+Sophie Bulloch: I guess that's, like, how it's been done traditionally, because it's, like, Hashgraph.
+
+229
+00:34:22.659 --> 00:34:24.580
+Sophie Bulloch: based originally?
+
+230
+00:34:24.790 --> 00:34:34.120
+Sophie Bulloch: But in the future, I don't know, or at least I want to discuss the idea of, like, how much weight does one particular party have into…
+
+231
+00:34:34.650 --> 00:34:41.320
+Sophie Bulloch: Negotiating a pre-release, especially if the pre-releases are more experimental, like hit-based.
+
+232
+00:34:41.820 --> 00:34:49.120
+Sophie Bulloch: maybe those are slightly riskier, and it's possible they could cause, like, more issues. So those are just two questions that I had.
+
+233
+00:34:53.850 --> 00:34:57.480
+Robert Walworth: Yeah, so I think,
+
+234
+00:34:57.710 --> 00:35:05.399
+Robert Walworth: at least to address your… your second question, so I think this… this goes back to, you know, what I was saying about,
+
+235
+00:35:05.650 --> 00:35:14.420
+Robert Walworth: the maintainers, and ultimately, you know, it's… it's their repo. They're gonna do releases how they want.
+
+236
+00:35:15.910 --> 00:35:31.289
+Robert Walworth: So, again, in my opinion, it should be, you know, kind of however they want to do it. I completely forgot about pre-releases, actually. I didn't even, like, remember that was a thing, GitHub.
+
+237
+00:35:31.510 --> 00:35:36.069
+Robert Walworth: Offered, so… Yeah, I think…
+
+238
+00:35:36.190 --> 00:35:44.810
+Robert Walworth: That would be a good way to, you know, to signal to users that, you know, this…
+
+239
+00:35:46.740 --> 00:35:59.110
+Robert Walworth: It's not like a release, but it could be used in a way, just, you know, just kind of re… exemplify that, you know, the things in this release are still subject to change.
+
+240
+00:35:59.410 --> 00:36:10.400
+Robert Walworth: If… if we wanna, do it that way. I… I can't really think of another reason to do a pre-release.
+
+241
+00:36:11.310 --> 00:36:13.320
+Robert Walworth: I think…
+
+242
+00:36:13.640 --> 00:36:22.409
+Robert Walworth: Other SDKs have done those in the past, I don't remember exactly why, but I think pre-release and beta release kind of fall into the same bucket for me.
+
+243
+00:36:24.660 --> 00:36:28.300
+Robert Walworth: Were, were there any different, different opinions on that?
+
+244
+00:36:31.820 --> 00:36:40.450
+Ivan Asenov: Yeah, I guess, we've had some cases where one user, or Kabilo, for example, in JavaScript, wants something.
+
+245
+00:36:40.740 --> 00:36:45.499
+Ivan Asenov: Which, which is an additional feature, or something like that, which…
+
+246
+00:36:45.790 --> 00:37:04.220
+Ivan Asenov: Because of reasons we cannot be 100% sure that it works for their case, because SDKs are a library that has a bunch of different configuration, etc, etc. I'll give an example. Let's say user says.
+
+247
+00:37:04.220 --> 00:37:10.260
+Ivan Asenov: I cannot do, like, 1,000 queries per second.
+
+248
+00:37:10.470 --> 00:37:17.370
+Ivan Asenov: using my configuration. And you're like, alright, I can simulate that to some extent.
+
+249
+00:37:17.590 --> 00:37:33.349
+Ivan Asenov: using your configuration, but the only way to really be 100% sure that the fix works, or the change that you've done works, is to give them a version of the SDK that has this configuration.
+
+250
+00:37:34.850 --> 00:37:35.990
+Ivan Asenov: For example.
+
+251
+00:37:36.130 --> 00:37:40.699
+Ivan Asenov: And you just do a better release with that, and… or pre-release.
+
+252
+00:37:41.140 --> 00:37:48.610
+Ivan Asenov: And… Kev… Specific communication, like…
+
+253
+00:37:49.820 --> 00:37:57.540
+Ivan Asenov: Ask for feedback, and stuff like that. But these are quite rare cases.
+
+254
+00:38:00.880 --> 00:38:08.599
+Robert Walworth: Yeah, I think in the sense of, like, yeah, like, of a major ecosystem player, like Cabila,
+
+255
+00:38:08.930 --> 00:38:10.770
+Robert Walworth: He, you know, would…
+
+256
+00:38:10.920 --> 00:38:16.550
+Robert Walworth: would be a good reason to do a pre-release. I don't think we want to do one for, you know.
+
+257
+00:38:17.050 --> 00:38:27.850
+Robert Walworth: one… one random person that we don't really know about, or what they're doing in the ecosystem, if they want a pre-release.
+
+258
+00:38:28.700 --> 00:38:31.849
+Robert Walworth: Obviously, you know, we want to try and help…
+
+259
+00:38:32.170 --> 00:38:36.430
+Robert Walworth: You know, whoever, to be able to build on us, but…
+
+260
+00:38:37.350 --> 00:38:40.649
+Robert Walworth: You know, coming back to your point,
+
+261
+00:38:41.060 --> 00:38:44.429
+Robert Walworth: Sophie about how much weight we want to put into one party.
+
+262
+00:38:45.060 --> 00:38:47.560
+Robert Walworth: To do something like that.
+
+263
+00:38:48.020 --> 00:38:55.149
+Robert Walworth: Again, to me, it just comes down to whether the maintainers see it as worthwhile or not.
+
+264
+00:39:01.980 --> 00:39:07.910
+Robert Walworth: We, answer both your questions on that, Sophie? I think you had…
+
+265
+00:39:08.330 --> 00:39:10.889
+Robert Walworth: You had two, right? I don't know if we answered both.
+
+266
+00:39:15.670 --> 00:39:19.049
+Sophie Bulloch: Yeah, I, I mean, I'm a little bit…
+
+267
+00:39:19.420 --> 00:39:25.520
+Sophie Bulloch: we're still trying to figure out if the next… I think we're not going to do 0.1, 0.11.
+
+268
+00:39:25.720 --> 00:39:27.760
+Sophie Bulloch: I think it will have to be a zero point.
+
+269
+00:39:28.000 --> 00:39:28.890
+Sophie Bulloch: 2?
+
+270
+00:39:29.310 --> 00:39:31.179
+Sophie Bulloch: We're still trying to figure out…
+
+271
+00:39:31.470 --> 00:39:38.050
+Sophie Bulloch: All our tests passed, as mentioned, but we're still trying to, like, break in and see and things, so,
+
+272
+00:39:38.700 --> 00:39:47.359
+Sophie Bulloch: Yeah, I would, like, say it's just, like, for us, that's, like, a major, major release bump. We changed, like, quite a few things.
+
+273
+00:39:47.650 --> 00:39:52.780
+Sophie Bulloch: So I would agree with, like, I think it was Ivan who said, like, I can only really think of, like, really…
+
+274
+00:39:53.230 --> 00:40:04.170
+Sophie Bulloch: really, small amounts of cases where some kind of a pre-release would be possibly… desirable, but,
+
+275
+00:40:04.440 --> 00:40:09.200
+Sophie Bulloch: Yeah, we haven't really… we haven't even actually got started in the HIP process.
+
+276
+00:40:09.590 --> 00:40:17.450
+Sophie Bulloch: At all, or maybe Angie is just kind of helping to… yeah, Angie's helping to drive that forward right now, but I think this is gonna be, like, our first
+
+277
+00:40:17.720 --> 00:40:21.360
+Sophie Bulloch: Hey, when we… We're still working on building
+
+278
+00:40:21.960 --> 00:40:28.110
+Sophie Bulloch: Our relationships with our users, and learning what they… what they want,
+
+279
+00:40:28.620 --> 00:40:37.209
+Sophie Bulloch: Yeah, so we don't really have a use case right now of, like, doing pre-releases for… 4 new hips.
+
+280
+00:40:40.920 --> 00:40:47.349
+Robert Walworth: Yeah, I think, angie's been working on something to track those hip…
+
+281
+00:40:48.040 --> 00:40:52.169
+Robert Walworth: Those hit progress… the hit progress for each SDK, right?
+
+282
+00:40:53.430 --> 00:40:58.520
+Angelina Ceppaluni: I can share the link for it if anyone's interested.
+
+283
+00:40:58.660 --> 00:41:00.790
+Robert Walworth: Do you just want to show it here really quick?
+
+284
+00:41:01.200 --> 00:41:05.800
+Angelina Ceppaluni: Oh yeah, I can, I can screen share. Just give me one second.
+
+285
+00:41:12.060 --> 00:41:13.679
+Angelina Ceppaluni: To me, that one.
+
+286
+00:41:18.120 --> 00:41:21.950
+Angelina Ceppaluni: Okay… Hmm, are you guys able to see?
+
+287
+00:41:23.060 --> 00:41:23.720
+Robert Walworth: Yep.
+
+288
+00:41:23.720 --> 00:41:24.270
+Sophie Bulloch: Yes.
+
+289
+00:41:24.270 --> 00:41:24.930
+Angelina Ceppaluni: Awesome.
+
+290
+00:41:25.520 --> 00:41:39.640
+Angelina Ceppaluni: Alright, so this is just… it's kind of like a… I'm gonna call it, like, a rough outline, but basically this goes over what HIPS are and are not implemented into each of the
+
+291
+00:41:39.960 --> 00:41:47.589
+Angelina Ceppaluni: SDKs, so for… as of now, we just are starting with Python, so we went through…
+
+292
+00:41:47.750 --> 00:42:01.370
+Angelina Ceppaluni: And try to figure out, based on issues of what people have created, what HIPs are and are not present, within an SDK. So, for… I wanna say…
+
+293
+00:42:02.680 --> 00:42:07.370
+Angelina Ceppaluni: There used to be… For here.
+
+294
+00:42:07.480 --> 00:42:10.919
+Angelina Ceppaluni: I'd probably say… oh, thanks, Georgie.
+
+295
+00:42:12.920 --> 00:42:22.019
+Angelina Ceppaluni: We can expand this to include the other SDKs, however, in order to do so, I will need to go through, each
+
+296
+00:42:22.050 --> 00:42:34.510
+Angelina Ceppaluni: SCK to figure out what specifically is and is not implemented. I am thinking of also reaching out to some of the maintainers, as locating some of these is…
+
+297
+00:42:35.130 --> 00:42:48.329
+Angelina Ceppaluni: a bit tedious, in the sense that not every issue is labeled in the same way. So, in one sense, you have an issue that is designed to implement a HIP, but in that issue, it's not very…
+
+298
+00:42:48.330 --> 00:42:57.420
+Angelina Ceppaluni: descriptive of what… what HIP is that? I'm from Java yesterday, I had been reading over a few, And…
+
+299
+00:42:57.910 --> 00:43:16.890
+Angelina Ceppaluni: the… the information is present. They… they do link the design doc file, but at first glance, to somebody unknowing of any HIP knowledge, they're looking at this from the perspective of, what is this? What HIP is this? Where… where's the information? What am I looking at? And so.
+
+300
+00:43:16.890 --> 00:43:33.929
+Angelina Ceppaluni: for that, I kind of wanted to help mitigate that process, especially for those who are a bit more interested in hips. I kind of wanted to see if I could go in and create, like, a more comprehensive and detailed outline where it says, okay, here we are, here is each hip.
+
+301
+00:43:34.000 --> 00:43:36.290
+Angelina Ceppaluni: By, you know.
+
+302
+00:43:36.870 --> 00:43:49.620
+Angelina Ceppaluni: whatever SDK they're working on. So for Java, it's implemented… Java has done a very great job of just implementing a good majority. Okay, so this is actually…
+
+303
+00:43:49.880 --> 00:44:02.439
+Angelina Ceppaluni: The first one I was showing was not the one that I wanted everyone to see. That was an old version. I do apologize. Did not realize that. So this is actually a more updated version. So the idea here…
+
+304
+00:44:02.690 --> 00:44:18.189
+Angelina Ceppaluni: is that we want to go in and try to figure out where are they at in this process. What are they doing? So, if you go through the assignees… Rob and I are still working on this. The issue we are running into is that
+
+305
+00:44:18.190 --> 00:44:37.929
+Angelina Ceppaluni: This is done by SDK, so in a sense, when you're looking at this, another person would come in and look at this and think, oh wow, you know, Gustav is working on the HIP implementation for Python, C++, Java, JavaScript, Swift, like, that's not true. Obviously, that person doesn't, you know, do
+
+306
+00:44:38.170 --> 00:44:48.759
+Angelina Ceppaluni: all of those things. So that is one of the little kinds of, I should say, kinks we are working out. And then, so for some of them, like, for example, here.
+
+307
+00:44:48.870 --> 00:45:05.070
+Angelina Ceppaluni: when I'm looking through, the title of this does not tell me what HIP it was implementing, so I ended up having to go in and make a separate field where it says, okay, this is actually HIP 1195. You can go through, you can see what pull requests
+
+308
+00:45:05.070 --> 00:45:16.159
+Angelina Ceppaluni: have been submitted to complete this issue. Where are they at in terms of, are all the sub-issues completed or not? If they are, that's super-duper. So, for Python, I'm…
+
+309
+00:45:16.350 --> 00:45:23.960
+Angelina Ceppaluni: you can go in and set it, you have the option to determine whether it's in progress. So, for HIP 1261,
+
+310
+00:45:24.280 --> 00:45:38.069
+Angelina Ceppaluni: This one is one of those things that, for Python, we could label as an in-progress, because we have an issue, it's there, it's assigned to somebody, and it's just… that work has not been produced yet, so that would be…
+
+311
+00:45:38.400 --> 00:45:55.920
+Angelina Ceppaluni: an in-progress issue. However, if we look at Java, Java is doing a wonderful job of implementing these HIPS. Thank you, Java team. They are who I feel should be the baseline for the rest of the HIP implementations to come.
+
+312
+00:45:56.490 --> 00:45:59.170
+Angelina Ceppaluni: So, as of now, I…
+
+313
+00:45:59.730 --> 00:46:05.819
+Angelina Ceppaluni: I want to expand this to include the additional SDKs, like, we're missing Rust, we're missing Go, and…
+
+314
+00:46:06.090 --> 00:46:09.719
+Angelina Ceppaluni: I believe I… we're missing one more, I have to double check.
+
+315
+00:46:09.830 --> 00:46:28.849
+Angelina Ceppaluni: But that is kind of where I'm at. So, eventually, what I would like to do is expand this a bit more to include the hips from the SDK Collaboration Hub file, as well as the hips that have been resolved already in the past that maybe we
+
+316
+00:46:29.190 --> 00:46:35.470
+Angelina Ceppaluni: as a team are just not aware of. If there are hips that you know, buy your SDKs.
+
+317
+00:46:35.570 --> 00:46:44.620
+Angelina Ceppaluni: Please let me know, if they are implemented. Feel free to add them here to this. I'll share this with anybody who is interested.
+
+318
+00:46:44.620 --> 00:47:00.940
+Angelina Ceppaluni: But please do feel free to come in and add a hip here, let us know if it's implemented in your SDK. If not, that's not a problem, it just gives me a baseline to go off of, which is really helpful, because I can kind of go ahead and get a list together.
+
+319
+00:47:00.940 --> 00:47:07.350
+Angelina Ceppaluni: of what HIPs still need to be implemented throughout the SDKs. So, Python is one of those ones
+
+320
+00:47:07.870 --> 00:47:10.759
+Angelina Ceppaluni: Aware they're… we're a little…
+
+321
+00:47:11.110 --> 00:47:27.679
+Angelina Ceppaluni: short in the hip progress. That's nothing on anyone's end. It's just… it is what it is. There are just not many people that have, like, the hip knowledge. Maybe they're just a little hesitant. Maybe they have the knowledge, but they don't necessarily know how to go about it the correct way.
+
+322
+00:47:27.680 --> 00:47:43.819
+Angelina Ceppaluni: So this is kind of one of those things where I would eventually like to link it to maybe a future HIP implementation template across the SDKs, where the user can go in, and when they're making a HIP
+
+323
+00:47:43.890 --> 00:47:44.950
+Angelina Ceppaluni: issue…
+
+324
+00:47:45.220 --> 00:47:57.240
+Angelina Ceppaluni: for example, if they're making a HIP issue for the Python SDK, eventually, I'm thinking we would probably want to create some sort of HIP template where, okay, what HIP are you implementing?
+
+325
+00:47:57.240 --> 00:48:06.479
+Angelina Ceppaluni: And then they go on, they'll put in the design doc, the description, and all of that, and then at the end of it, there will be a link to our Discord channels asking for help.
+
+326
+00:48:06.480 --> 00:48:13.800
+Angelina Ceppaluni: And then a link to this, letting them know, hey, here's where we're at in the process, can you help us along?
+
+327
+00:48:14.690 --> 00:48:20.649
+Angelina Ceppaluni: So, just… it's a brief overview. Eventually, this list will become pretty extensive,
+
+328
+00:48:20.860 --> 00:48:32.060
+Angelina Ceppaluni: as of right now, it is, unfortunately, just a little short. I've been, working with the JavaScript SDK, mostly trying to correct the errors for setup, but…
+
+329
+00:48:32.400 --> 00:48:48.800
+Angelina Ceppaluni: I did kind of want to present this to everybody, just so that everyone's aware, and they are able to use it, should they have that HIP knowledge off the top of your heads. If not, and if you have a slight idea of, hey, I think this is implemented, but I'm not sure.
+
+330
+00:48:48.810 --> 00:48:58.289
+Angelina Ceppaluni: That's perfectly fine, at least that just gives me a basis of knowing somebody wants to put it in here, and just saying, hey, it's not here, but we want to add it. Yeah, Rob?
+
+331
+00:48:59.930 --> 00:49:12.839
+Robert Walworth: Yeah, this is great. I think having one spot to, like, track hip progress, is really good. I think maybe something we could add in addition to this…
+
+332
+00:49:13.060 --> 00:49:19.949
+Robert Walworth: would be to create, basically, like, a, like an epic in the SDK hub.
+
+333
+00:49:20.160 --> 00:49:28.969
+Robert Walworth: Which, I think, potentially, as you were talking about having, like, a good, like, description of, you know, the hip, what it does.
+
+334
+00:49:29.150 --> 00:49:35.550
+Robert Walworth: All that. I think… If we have an issue… in the SDK Hub.
+
+335
+00:49:35.830 --> 00:49:39.859
+Robert Walworth: That issue could hold all that description
+
+336
+00:49:40.060 --> 00:49:49.600
+Robert Walworth: link to the design docs. We're already doing the design docs in the SDK Hub anyways. So you could link it, it's right there. We could put a link into the actual hip.
+
+337
+00:49:49.880 --> 00:49:54.369
+Robert Walworth: But then also from there, we can track the progress
+
+338
+00:49:54.900 --> 00:50:02.270
+Robert Walworth: or we can actually link the issues in each SDK to that issue.
+
+339
+00:50:02.670 --> 00:50:18.859
+Robert Walworth: So then we can… we can get a better idea of… I mean, I… so I think it should work in, like, addition to this, because I think this, like, does a really good… like, you're able to just see everything from here, you know, in a really, like, laid… well laid out way.
+
+340
+00:50:19.360 --> 00:50:25.829
+Robert Walworth: But I think having… having the actual issues in GitHub, linking to all the SDK issues.
+
+341
+00:50:26.050 --> 00:50:35.080
+Robert Walworth: will help, you know, better, I guess, navigate GitHub in that sense of, like, alright, like, I want to see exactly how…
+
+342
+00:50:35.220 --> 00:50:48.480
+Robert Walworth: how far along the Go SDK is, for example. They can just go into that Epic, it's linked to the Go issue, they can just click on it, and then boom, they're there. They can see from there, like, who's assigned to that issue,
+
+343
+00:50:48.610 --> 00:50:51.610
+Robert Walworth: You know, and anything else they want from there.
+
+344
+00:50:51.810 --> 00:51:03.560
+Robert Walworth: So again, I think… I think something like that, like, could be… could be good in… in addition to this, but again, I think this… having this laid out like this, is a really good way to just see how…
+
+345
+00:51:03.840 --> 00:51:06.029
+Robert Walworth: How the progress is at a quick glance.
+
+346
+00:51:06.440 --> 00:51:09.269
+Robert Walworth: Yes, does anyone have any thoughts on that?
+
+347
+00:51:11.500 --> 00:51:13.310
+Sophie Bulloch: Yeah, I just wanna say this is awesome.
+
+348
+00:51:15.560 --> 00:51:20.339
+Angelina Ceppaluni: Thank you, thank you. I think you can help us have more clarity with, like.
+
+349
+00:51:20.710 --> 00:51:23.220
+Sophie Bulloch: How we can smooth the HIP process?
+
+350
+00:51:24.690 --> 00:51:34.879
+Angelina Ceppaluni: Yes, so eventually what I will do is set up something to where it links to this, and then… but before it, it'll kind of be…
+
+351
+00:51:34.950 --> 00:51:51.729
+Angelina Ceppaluni: it may kind of be a separate page where it'll go over what hips are, how do you test them, so on and so forth, and then towards the end, it'll… it could be a small link where it says, if you're looking to see HIP progress, click here, you'll be able to see
+
+352
+00:51:51.880 --> 00:52:04.189
+Angelina Ceppaluni: where the HIP process is at, for each SDK. I like the idea of Epic, Rob. I'm not sure how to do that, so I just may need some time.
+
+353
+00:52:04.390 --> 00:52:11.479
+Angelina Ceppaluni: But I do like that idea of having, like, a quick-click kind of way to see the progress of this.
+
+354
+00:52:12.590 --> 00:52:14.469
+Angelina Ceppaluni: But I'm…
+
+355
+00:52:14.890 --> 00:52:29.710
+Angelina Ceppaluni: Ultimately, what I'm hoping, will be to have this used throughout meetings like the TSC meeting, where, when they turn more towards… apologies, I have lawn equipment, I don't know if anyone can hear that.
+
+356
+00:52:30.110 --> 00:52:30.900
+Angelina Ceppaluni: But…
+
+357
+00:52:31.150 --> 00:52:48.760
+Angelina Ceppaluni: Eventually, I would like some of the meetings to also use it as kind of, like, a way to track where they're at in the HIP approval process, so possibly expanding this layout to include the HIP progress in terms of no SDKs, nothing like that, it's just
+
+358
+00:52:48.820 --> 00:52:59.050
+Angelina Ceppaluni: Is this HIP pending? Is it waiting for approval? Is it waiting for a vote? Something like that. I would like to incorporate that into this view as well.
+
+359
+00:52:59.350 --> 00:53:01.430
+Angelina Ceppaluni: That way, it'll be a very…
+
+360
+00:53:01.780 --> 00:53:10.799
+Angelina Ceppaluni: It'll be a comprehensive overview saying how, what, where, and it will also include the processes of where, what, and when.
+
+361
+00:53:11.000 --> 00:53:12.930
+Angelina Ceppaluni: So, I hope that makes sense.
+
+362
+00:53:14.860 --> 00:53:19.550
+Sophie Bulloch: Yeah, definitely, I think, one of the reasons why I haven't really…
+
+363
+00:53:20.110 --> 00:53:27.680
+Sophie Bulloch: push forward with the hips and the Python SDK is… is because I, you know, I've never done one before, I've never, like.
+
+364
+00:53:27.990 --> 00:53:37.670
+Sophie Bulloch: been trained in this area, I could maybe figure some out and things, but, yeah, having some kind of template for, like, the hip description, but also having…
+
+365
+00:53:38.130 --> 00:53:52.520
+Sophie Bulloch: like, guidelines on, like, the rough things to create in the hip, because I think the hip is mostly, like, okay, we're going to add this functionality to this, and it's going to work like that, but for, like, a new person working on a hip.
+
+366
+00:53:52.640 --> 00:53:58.819
+Sophie Bulloch: You need to be really clear, like, okay, I need to add integration tests, and they need to do this, and unit tests.
+
+367
+00:54:00.730 --> 00:54:05.219
+Sophie Bulloch: And what do you mention about, like, having, like, sort of…
+
+368
+00:54:05.400 --> 00:54:17.879
+Sophie Bulloch: references to other HIPs, and just have, like, a bank or something, where you can see this is how a HIP was implemented in the Python SDK previously, or the JavaScript SDK,
+
+369
+00:54:18.100 --> 00:54:22.709
+Sophie Bulloch: Whatever would be really, really useful. I think this would be such a good complement to the…
+
+370
+00:54:23.090 --> 00:54:28.749
+Sophie Bulloch: the TSC calls. The TSQL does a really good job at, like, approving the hips and discussing the hips.
+
+371
+00:54:28.890 --> 00:54:32.589
+Sophie Bulloch: And it will just kind of, like, help to provide, like, another layer where…
+
+372
+00:54:32.740 --> 00:54:39.400
+Sophie Bulloch: you know, we can gain skills and confidence, and maybe one day this can help us also propose new hips and things as well.
+
+373
+00:54:39.560 --> 00:54:41.999
+Sophie Bulloch: Now that we are more familiar with, like, how they work.
+
+374
+00:54:44.180 --> 00:54:59.909
+Angelina Ceppaluni: Definitely. I was also taking a look, towards their 2026 goals, and I'm trying… I was trying to figure out a way to help us achieve that, so I think by having this… the hip layout, having the…
+
+375
+00:55:03.200 --> 00:55:27.589
+Angelina Ceppaluni: what's the… what's the word I'm looking for? Like, having the knowledge… sorry, I'm losing my words… having the knowledge, having that information. Eventually, what I would also like to do is maybe develop, like, a HIP team throughout each of the SDKs, where that team goes in, and they do the HIP implementation, and they're… they're the ones tracking it, keeping a note of it, making sure that new HIPs are implemented as they're coming in, and stuff like that.
+
+376
+00:55:27.940 --> 00:55:44.970
+Angelina Ceppaluni: But I also wanted to use this towards our goals of engagement and participation and training, for sure. Eventually, I would like to develop this into a comprehensive training guide that not only includes what we're seeing here, but also includes information, what are HIPS,
+
+377
+00:55:44.970 --> 00:55:53.040
+Angelina Ceppaluni: How do you get started? How do you implement them? Here's an example of this HIP being implemented in Java, for example.
+
+378
+00:55:53.040 --> 00:56:12.830
+Angelina Ceppaluni: So that was kind of like… it was kind of like two birds with one stone. I'm hoping that with the HIP implementation, with the guidance and the knowledge with this board, we'll start to see some more community engagement in the terms of where we have people wanting to work on HIPS, wanting to expand the HIP knowledge for Python.
+
+379
+00:56:13.120 --> 00:56:30.949
+Angelina Ceppaluni: And even for other SDKs, Python, I just know we're… we're a little bit behind in that, and again, nobody's fault, it's just there isn't… there's no knowledge there saying, how do you do this? What do you do with this? How do I test this? How do I build this? How do I implement this? And so, just a lot of…
+
+380
+00:56:30.950 --> 00:56:36.799
+Angelina Ceppaluni: a lot of how questions, a lot of what and where questions. So my goal was kind of…
+
+381
+00:56:36.800 --> 00:56:45.659
+Angelina Ceppaluni: Trying to take on those first two goals of the 2026, increase that participation and engagement, and include some training as well.
+
+382
+00:56:46.060 --> 00:56:52.780
+Angelina Ceppaluni: Probably a bit of an overachievement, but still looking to get there nonetheless. Yeah, Rob, go ahead.
+
+383
+00:56:54.580 --> 00:57:09.669
+Robert Walworth: Yeah, so I guess I just want maybe a little bit more clarity. So the… so when a new contributor comes to… or, well, I guess they wouldn't necessarily be a new contributor if they're implementing a HIP,
+
+384
+00:57:09.750 --> 00:57:22.810
+Robert Walworth: Well, first of all, I think HIPS automatically are pretty much gonna be intermediate level or higher, since it involves new APIs, new features, generally, new APIs, new features.
+
+385
+00:57:22.900 --> 00:57:30.009
+Robert Walworth: implementing unit integration tests, running with Solo, all that stuff, writing examples, so on and so forth.
+
+386
+00:57:30.840 --> 00:57:36.820
+Robert Walworth: It… so you're… you're talking about, you know, information…
+
+387
+00:57:37.190 --> 00:57:44.190
+Robert Walworth: Regarding implementing the HIP, linking to design docs, linking to the HIP itself.
+
+388
+00:57:44.610 --> 00:57:56.499
+Robert Walworth: what, so that would all be… just be included in the issue, correct? So the issue is gonna describe, you know, the design.
+
+389
+00:57:56.770 --> 00:57:58.490
+Robert Walworth: Or, er, again, at least…
+
+390
+00:57:59.000 --> 00:58:06.699
+Robert Walworth: Link to the design, link to the hip, provide a description of what kind of needs to be done, but also at the intermediate level.
+
+391
+00:58:07.210 --> 00:58:18.449
+Robert Walworth: There, there is, you know, some sort of freedom given to the contributors and how they, they want to implement it. I mean, we, like, we can enforce, like.
+
+392
+00:58:18.490 --> 00:58:30.999
+Robert Walworth: these are the APIs that we have decided on. You must conform to this, but anything else besides that is kind of up to your purview.
+
+393
+00:58:31.150 --> 00:58:37.510
+Robert Walworth: So I guess, giving those links to the HIPS and the design doc in the issue.
+
+394
+00:58:37.680 --> 00:58:53.279
+Robert Walworth: and even to the HIP board as well, just to see progress on other SDK HIP implementations. What more information do you think a contributor would need on top of that?
+
+395
+00:58:55.070 --> 00:58:55.990
+Angelina Ceppaluni: show…
+
+396
+00:58:56.510 --> 00:59:13.529
+Angelina Ceppaluni: In all honesty, I'm still learning about HIPS. I'm not exactly entirely sure what the whole implementation and design process would look like. Ideally, when we're talking about contributors, and we're talking about having them work on HIPS and things like that.
+
+397
+00:59:14.470 --> 00:59:20.980
+Angelina Ceppaluni: I was thinking… Sorry, I'm reading messages.
+
+398
+00:59:21.290 --> 00:59:22.630
+Angelina Ceppaluni: It's always more like…
+
+399
+00:59:22.630 --> 00:59:29.800
+Robert Walworth: I guess, real quick, so I think, kind of, maybe what you're referring to more is on, like, the design side, like.
+
+400
+00:59:29.970 --> 00:59:46.350
+Robert Walworth: reading the hip, understanding what the hip is… is doing, implementing, and coming up with the design for that. So by the time, at least the way that I kind of see this flow going is by the time that…
+
+401
+00:59:46.490 --> 01:00:00.349
+Robert Walworth: an issue is created in an SDK to implement a HIP. I'll see you, Mario, thanks for joining. Thanks! By the time an issue is, created in an SDK to implement that HIP.
+
+402
+01:00:00.680 --> 01:00:10.880
+Robert Walworth: the design is pretty much already decided upon. That's, you know, that's what we do in the SDK Hub. That's, you know, where…
+
+403
+01:00:11.010 --> 01:00:14.640
+Robert Walworth: We come up with the design doc and figure out the best way to…
+
+404
+01:00:15.040 --> 01:00:21.389
+Robert Walworth: to implement it, or at least in the public-facing way, like, define the public APIs.
+
+405
+01:00:22.160 --> 01:00:25.369
+Robert Walworth: And, you know, what they're doing.
+
+406
+01:00:26.790 --> 01:00:40.219
+Robert Walworth: So maybe… I see what you're saying. So, like, the, you know, wanted to learn more about, you know, the hip process in general, and kind of how, you know, we translate those hips from…
+
+407
+01:00:40.860 --> 01:00:49.289
+Robert Walworth: from HIP to SDK implementation. I think that's primarily done through the SDK Hub.
+
+408
+01:00:49.540 --> 01:01:04.869
+Robert Walworth: So maybe we can focus a bit more on that side there. Maybe because the designs that we've done have been pretty ad hoc. Like, we don't necessarily create issues for those in SDK hubs, which is maybe something we need to start doing.
+
+409
+01:01:05.050 --> 01:01:07.969
+Robert Walworth: Create an issue to come up with a design.
+
+410
+01:01:08.110 --> 01:01:17.730
+Robert Walworth: And then, obviously, the PR for that issue would be the design itself, but maybe in those issues is where we can expand a bit more on…
+
+411
+01:01:18.150 --> 01:01:31.649
+Robert Walworth: you know, the HIP process, because I… again, this is just my opinion, so I'm open to, you know, different interpretations, but by the time that the issue is created in an SDK, the design is already decided upon, so it should just be…
+
+412
+01:01:31.760 --> 01:01:41.810
+Robert Walworth: you know, any contributor can come along, read the issue, and they know what to do. And, you know, they have their links to the design doc and HIP.
+
+413
+01:01:42.130 --> 01:01:49.019
+Robert Walworth: Am I, am I kind of understanding what you're saying right? And,
+
+414
+01:01:49.670 --> 01:01:52.860
+Robert Walworth: I guess, guys, do you understand what I'm saying?
+
+415
+01:01:53.100 --> 01:02:11.560
+Angelina Ceppaluni: I think so. So, I'll backtrack a minute. I don't… my goal isn't to, take away the work that the SDK Hub is doing, in the sense of the design docs that they're creating and the implementations going forth. My drive, my path is
+
+416
+01:02:11.560 --> 01:02:18.599
+Angelina Ceppaluni: after all of that. So, after the HIP is said and done, for… I'll just use 1261 as an example.
+
+417
+01:02:18.600 --> 01:02:33.360
+Angelina Ceppaluni: So, after 1261 is implemented, a new contributor comes in, they are seeing a node in the Python SDK somewhere, maybe in an issue that they're claiming. We'll call it an advanced issue. And this issue is saying, okay.
+
+418
+01:02:33.380 --> 01:02:48.979
+Angelina Ceppaluni: We have approval for HIP 1261, we want to implement it into this SDK, and so for this, this would be obviously labeled as an advanced issue. This would be for somebody who's done a good bit in the SDK, they've made some good issues, some good contributions, they've done some intermediate work.
+
+419
+01:02:49.190 --> 01:02:50.970
+Angelina Ceppaluni: So, my thinking…
+
+420
+01:02:51.270 --> 01:03:10.329
+Angelina Ceppaluni: if we wanted… I should preface this by saying if, for example, we wanted to have newer contributors working on HIPS, that's fine. I think that we would need to kind of maybe lighten the load in that scope, where it's just something very minimal that they are, like, correcting or… Yeah.
+
+421
+01:03:10.550 --> 01:03:34.149
+Angelina Ceppaluni: Very… something… yeah, something small, just to kind of get them familiar with the HIP code, with the HIP in general. So, for example, maybe there's… maybe there's a typo in one of the hip tests, or maybe there's, like, a small test that they could include to fix the hips. Like, for one of the issues, there's an issue here where it says, implement testing for
+
+422
+01:03:34.150 --> 01:03:34.810
+Angelina Ceppaluni: hip.
+
+423
+01:03:34.810 --> 01:03:47.099
+Angelina Ceppaluni: 1261, and in the issue description, it says you're not implementing 1261, you're just adding a test. So, that is kind of the direction I wanted to follow. It's…
+
+424
+01:03:47.260 --> 01:03:58.090
+Angelina Ceppaluni: It's after the SDK hub, after everything is all said and done, and we have the votes, the HIP's approved, and we want it to be present in the SDKs, my thinking is that
+
+425
+01:03:58.410 --> 01:04:05.900
+Angelina Ceppaluni: I'm approaching this from an advanced contributor standpoint, just because, in my mind, I'm thinking that with HIP knowledge.
+
+426
+01:04:06.170 --> 01:04:25.330
+Angelina Ceppaluni: kind of want to have an advanced understanding, in the sense maybe you haven't implemented one fully on your own, but you can at least say, okay, I know what these are, I know what this hip is, I understand it a good bit, maybe I can… maybe I can work on this issue. Bye, Sophie. Thank you. And,
+
+427
+01:04:25.600 --> 01:04:26.540
+Angelina Ceppaluni: Yeah.
+
+428
+01:04:26.920 --> 01:04:49.069
+Angelina Ceppaluni: They're… they are pretty elite, they're pretty advanced, so as of right now, the scope for what we have would just be for our advanced users, in the sense that they've done the work for the SDKs, they know what the code looks like, they've made some good, valuable contributions, so I'm approaching this as an advanced issue, where that issue template will include
+
+429
+01:04:49.410 --> 01:05:02.939
+Angelina Ceppaluni: the links to the design doc, it'll include links to the SDK Collaboration Hub, it will include the links to Discord channel, and basically, more or less, just include any necessary information that that person would need to get started with the issue.
+
+430
+01:05:02.940 --> 01:05:09.910
+Angelina Ceppaluni: If we're talking about it from a beginner perspective, which is eventually the path that I would like to go down to kind of
+
+431
+01:05:09.910 --> 01:05:19.759
+Angelina Ceppaluni: you know, pull… pull in some new contributors, pull in some people who are maybe interested about it. They don't necessarily know what it is, but they think it could be interesting, something more…
+
+432
+01:05:20.290 --> 01:05:27.310
+Angelina Ceppaluni: blockchain-related. I wanted to approach this in the sense where I want to meet the community goals.
+
+433
+01:05:27.310 --> 01:05:45.830
+Angelina Ceppaluni: And I don't want to limit contributors just because they don't have the knowledge. That's why I also had a proposal of trying to implement HIP guidance, where it says, okay, here's what a HIP is, here's what they do, here's a link if you're interested in seeing the progression, so on and so forth.
+
+434
+01:05:45.830 --> 01:05:50.150
+Angelina Ceppaluni: That way, Not only are we getting those
+
+435
+01:05:50.200 --> 01:05:55.889
+Angelina Ceppaluni: Advanced people, but we're also keeping the beginners, because if the beginners are able to do things.
+
+436
+01:05:55.930 --> 01:06:14.150
+Angelina Ceppaluni: like, small… small issues just related to the hip, eventually they'll be coming to a point where it's like, okay, hey, I want to do something more advanced with a hip, but, you know, I want to write a test, or I want to implement it, or, like, work on the design doc, and stuff like that. So, if I'm…
+
+437
+01:06:14.320 --> 01:06:21.060
+Angelina Ceppaluni: making a long story short, I'm approaching this, with an advanced contributor mindset.
+
+438
+01:06:21.210 --> 01:06:22.570
+Angelina Ceppaluni: when…
+
+439
+01:06:22.780 --> 01:06:30.999
+Angelina Ceppaluni: that's fulfilled in the sense, when I come to a point, or when the team has come to a point where we're happy with that, eventually I would like to shift it to…
+
+440
+01:06:31.000 --> 01:06:44.560
+Angelina Ceppaluni: making issues geared towards hips that are not so advanced or elite, but are manageable in the sense that, okay, hey, a new contributor can do this, or a beginner contributor, intermediate, so on and so forth. Does that…
+
+441
+01:06:44.640 --> 01:06:49.570
+Angelina Ceppaluni: I hope that answers your question, I didn't mean to run on forever, I apologize.
+
+442
+01:06:49.840 --> 01:06:56.270
+Robert Walworth: I think we could… we could continue this conversation for a while, and, you know, it's… Yeah, so.
+
+443
+01:06:56.270 --> 01:06:56.600
+Angelina Ceppaluni: See ya.
+
+444
+01:06:56.600 --> 01:07:11.480
+Robert Walworth: Yeah, I think… I think in general, I understand, like, what you're trying to do. You're trying to make hips just, in general, more accessible to everyone. Like, some… we can find some ways to…
+
+445
+01:07:11.680 --> 01:07:19.359
+Robert Walworth: even get beginner-level contributors to contribute to a HIP in some way.
+
+446
+01:07:19.600 --> 01:07:26.949
+Robert Walworth: I guess my… a couple things I'd wanna, you know, talk through a bit more, and maybe we can push this to the next call,
+
+447
+01:07:27.100 --> 01:07:31.630
+Robert Walworth: Is, in my opinion, a…
+
+448
+01:07:31.780 --> 01:07:42.830
+Robert Walworth: a HIP implementation, a full HIP implementation, includes the, obviously the, you know, the…
+
+449
+01:07:42.970 --> 01:07:52.779
+Robert Walworth: implementing the APIs, but in addition to that, the full unit and integration test suite that goes along with that HIP.
+
+450
+01:07:53.240 --> 01:07:55.360
+Robert Walworth: And examples.
+
+451
+01:07:55.520 --> 01:08:00.350
+Robert Walworth: I don't think we want to merge something.
+
+452
+01:08:00.900 --> 01:08:04.639
+Robert Walworth: a hip, especially one that offers new features.
+
+453
+01:08:04.870 --> 01:08:07.919
+Robert Walworth: Without having it fully tested first.
+
+454
+01:08:09.580 --> 01:08:18.499
+Robert Walworth: I think I'm of the opinion that the… all the tests should be a part of the same PR that the implementation is in, so…
+
+455
+01:08:19.410 --> 01:08:32.310
+Robert Walworth: with that kind of mindset, I think it could be a bit challenging to find ways to make hips more accessible. I mean, I'm sure there's ways, like,
+
+456
+01:08:32.600 --> 01:08:43.409
+Robert Walworth: you know, we could add more tests, like, after the fact, but, yeah, I would wanna, I would wanna think through that a little bit more, and talk through it a little bit more, because,
+
+457
+01:08:43.960 --> 01:08:49.250
+Robert Walworth: Again, also coming from an advanced contributor mindset,
+
+458
+01:08:49.899 --> 01:09:08.410
+Robert Walworth: having… the advanced level is already, like, you are fully comfortable doing, like, major, like, architecting, like, in this SDK. Like, if we want to add another, like, you know, elite level or something above that, great.
+
+459
+01:09:08.880 --> 01:09:17.720
+Robert Walworth: And maybe, again, that's something we can talk about a little bit more, but then if we add another level, then we'll have to, I guess…
+
+460
+01:09:18.390 --> 01:09:24.850
+Robert Walworth: in a way, redo our other levels as well. I mean, not like a full redo, but, you know,
+
+461
+01:09:25.180 --> 01:09:34.440
+Robert Walworth: kind of re-talk about where everything else would go, because in my mind, Advance has always been, like, you know.
+
+462
+01:09:34.689 --> 01:09:43.299
+Robert Walworth: You could rewrite this… well, maybe not rewrite this whole thing, but, like, you know, your understanding of it is, you know, tip-top.
+
+463
+01:09:43.470 --> 01:09:51.189
+Robert Walworth: But, yeah… Yeah, I guess, do you kind of understand where I'm coming from there?
+
+464
+01:09:52.510 --> 01:10:06.360
+Angelina Ceppaluni: Yeah, if I understand correctly, it seems it's… you're looking for everything to be more comprehensive when it comes to the HIP implementation, so not only implementing it, but the tests that go alongside with it, is that correct?
+
+465
+01:10:06.750 --> 01:10:20.260
+Robert Walworth: Yeah, I also think, like, yeah, just, I mean, you could just think about, like, a smaller feature, too. It's like, you know, you want to make sure that feature works before, even if it's just, like, you know, one API, like, you want to make sure it works.
+
+466
+01:10:20.470 --> 01:10:28.160
+Robert Walworth: So it's like, you would write a test for it right then and there while you're implementing it, so I don't think hips should, you know.
+
+467
+01:10:28.390 --> 01:10:31.830
+Robert Walworth: Be any different, even if they are, you know, large.
+
+468
+01:10:33.580 --> 01:10:47.240
+Robert Walworth: But, yeah, I do want to make them more accessible. I think I'm with you on that. I would just want to… yeah, we would need to think of…
+
+469
+01:10:48.070 --> 01:10:50.510
+Robert Walworth: Other ways how,
+
+470
+01:10:51.060 --> 01:10:57.309
+Robert Walworth: Or… maybe, I mean, because, like, not all hips are, like, really big. Like, 1313 is really just, like…
+
+471
+01:10:57.580 --> 01:11:01.499
+Robert Walworth: adding… adding one API to the transaction class?
+
+472
+01:11:01.600 --> 01:11:09.919
+Robert Walworth: and writing, like, a test or two. Like, that itself could probably be a beginner issue. It's just adding one API and adding, like, three tests.
+
+473
+01:11:11.020 --> 01:11:27.380
+Robert Walworth: So, in that way, it also kind of depends on what the hip is, too. Like, 1261 is, like, a pretty big hip, so that's just… just based on its size, purely, like, that's gonna be, like, intermediate or advanced. And then hooks is, like, even bigger than that. So,
+
+474
+01:11:27.820 --> 01:11:31.479
+Robert Walworth: Yeah, yeah, I, I… we can…
+
+475
+01:11:31.630 --> 01:11:37.229
+Robert Walworth: make hips accessible. I think it will… it will depend on… on the hip.
+
+476
+01:11:37.380 --> 01:11:40.210
+Robert Walworth: Though, yeah, that…
+
+477
+01:11:40.210 --> 01:11:41.020
+Angelina Ceppaluni: Yeah.
+
+478
+01:11:41.020 --> 01:11:41.869
+Robert Walworth: My thought.
+
+479
+01:11:42.700 --> 01:11:56.169
+Angelina Ceppaluni: Yeah, my example was just, something I had seen the other day. I think it was something I may or may not be working on at this point, everything just blends together. But one of the…
+
+480
+01:11:56.270 --> 01:12:06.169
+Angelina Ceppaluni: the issues was to just, necessarily implement the tests for one of the hips. I can't remember off the top of my head which one it was, but that was
+
+481
+01:12:06.170 --> 01:12:16.669
+Angelina Ceppaluni: where I had gotten the idea from, and kind of separating it out. Now, I do, of course, understand that this isn't going to be doable for every hip, in the sense that they're
+
+482
+01:12:16.840 --> 01:12:32.879
+Angelina Ceppaluni: some of them are going to be a bit more involved and just require the tests to be submitted in that implementation PR. My thinking is just for, like, other HIPS in general, would this be possible? How could I make this as…
+
+483
+01:12:33.500 --> 01:12:41.480
+Angelina Ceppaluni: friendly, and as… welcoming as I could possibly make it without… The feeling of…
+
+484
+01:12:41.760 --> 01:13:01.570
+Angelina Ceppaluni: thinking, oh, this is way too advanced for me, maybe this is something I shouldn't be doing. So that was kind of my approach. I kind of just wanted to create it in a more welcoming and open environment, and by giving the knowledge of what's here, what isn't here, what are hips, how do we do them.
+
+485
+01:13:01.760 --> 01:13:10.759
+Angelina Ceppaluni: and stuff like that was kind of the… it was kind of the general notion I wanted to go in, and I also had wanted to kind of…
+
+486
+01:13:11.340 --> 01:13:30.360
+Angelina Ceppaluni: use this as a way to help community members. The… one of our other calls was to… from our community members, when we were talking about goals, some of them had wanted to see more blockchain DLT work. So, my thinking is, like, well, great, we can… we can totally do this. We have HIPS, we can implement… awesome, awesome.
+
+487
+01:13:30.360 --> 01:13:39.859
+Angelina Ceppaluni: But when I was going through, and I kind of started seeing, okay, hang on, wait a minute, some of my community members, they're not as advanced as some of the other ones that I
+
+488
+01:13:39.860 --> 01:13:40.790
+Angelina Ceppaluni: Talk to.
+
+489
+01:13:40.790 --> 01:13:55.750
+Angelina Ceppaluni: So, for them, I was kind of approaching this with their kind of mindset, in the sense of, okay, what do I need to know to work on this, or what do I not know? What… where can I learn this information? How do I know what's here? How do I know what the
+
+490
+01:13:56.040 --> 01:14:00.550
+Angelina Ceppaluni: they're even talking about, so to speak. So that was just kind of…
+
+491
+01:14:01.050 --> 01:14:07.260
+Angelina Ceppaluni: my, I guess, standpoint and point of view, in the sense of how can we make it a less…
+
+492
+01:14:08.000 --> 01:14:24.730
+Angelina Ceppaluni: not, for lack of a better word, daunting task in a more open and welcoming, friendly environment. I did like Sophie's idea of possibly doing a hip call. I think this would be a good idea to get maintainer input as well, in the sense that, do they feel
+
+493
+01:14:25.040 --> 01:14:29.039
+Angelina Ceppaluni: for one hip, that it should all be implemented together, or…
+
+494
+01:14:29.400 --> 01:14:45.700
+Angelina Ceppaluni: could we possibly take another hip and kind of, like, section it out to make some small issues for those new and beginner contributors, so on and so forth? But that was just… that was something that was a little, I should say, further down the line, because I…
+
+495
+01:14:45.850 --> 01:15:02.049
+Angelina Ceppaluni: My focus, again, was just more on the advanced users who are here, and they want more advanced work, but they don't necessarily maybe know what to do or where to start, so this was me kind of giving them the foundation that they need to get started and
+
+496
+01:15:02.080 --> 01:15:08.999
+Angelina Ceppaluni: Also, so they could see that, hey, we are working on these goals, we're working on trying to implement what it is you want to see.
+
+497
+01:15:09.240 --> 01:15:17.790
+Angelina Ceppaluni: So… but I know we are a little over, I'm not sure if we should attend the next meeting or not,
+
+498
+01:15:17.960 --> 01:15:21.410
+Angelina Ceppaluni: But yeah, that was just kind of my thought process there.
+
+499
+01:15:21.760 --> 01:15:31.619
+Robert Walworth: Yeah, no, I get… yeah, again, we… maybe we can, talk a little bit more about this next Monday. I did want to go to that mentorship meeting, though, just to… Yeah.
+
+500
+01:15:31.870 --> 01:15:38.999
+Robert Walworth: Yeah, yeah, thanks for… thanks for bringing this up. Yeah, I'll put it on the agenda for next week. We can continue talking about it a little bit more.
+
+501
+01:15:39.590 --> 01:15:41.080
+Angelina Ceppaluni: Okay, thank you.
+
+502
+01:15:41.460 --> 01:15:42.699
+Robert Walworth: See, Angie Byte.
+
+503
+01:15:43.110 --> 01:15:43.690
+Angelina Ceppaluni: Bye!
+

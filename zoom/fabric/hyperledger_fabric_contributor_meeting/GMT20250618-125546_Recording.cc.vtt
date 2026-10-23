@@ -1,0 +1,455 @@
+WEBVTT
+
+00:06:26.000 --> 00:06:31.000
+Uh, can I ask a question, Jim Mason? Just, um, I know, Angelo, I see you on the call.
+
+00:06:31.000 --> 00:06:55.000
+Um, looking for any more updates on… Um, both Fabric X and Fabric, from a direction perspective, to see if there's… I know, if I understand it right, Angelo, Fabric X is a branch off of fabric, but the two are not going to be tied together in the future, am I right on that?
+
+00:06:55.000 --> 00:07:04.000
+It's also an overloaded term, but I would say, as I said last time.
+
+00:07:04.000 --> 00:07:08.000
+Fabric and fabric access share most of the protobaths. Really most of the broad buffs. There are changes in the computation block, stuff like that.
+
+00:07:08.000 --> 00:07:27.000
+Right, so, yeah, pardon me. So what I'm looking at is I'm trying to understand, because the argument would be, as you say, if the protocol is there, that means to me there's what I call common interfaces, and that Fabric X is implementing some of those differently, which is fine to me, in the sense that
+
+00:07:27.000 --> 00:07:43.000
+That is a, um, I'll call it reasonable approach to have different capability, maybe even different behavior in some levels, but to your point, you're at least having common behavior, uh, in some areas, I'll say, going forward, then.
+
+00:07:43.000 --> 00:08:07.000
+I can give also an example in the… I'm sure even Iago can even speak about this, because he is the… He invented… they created Dharma, the new ordering services, so in our distinction of roles between different ideas. There are what we call batchers, or the co-ordering service, and, uh.
+
+00:08:07.000 --> 00:08:21.000
+Uh, then the assemblers. So, this all makes a clear distinction, so it's a departure from the previous BFT configuration that we, that we had before, so now we have to.
+
+00:08:21.000 --> 00:08:25.000
+Differentiate between these different nodes, and in certain times, we have to contact, uh.
+
+00:08:25.000 --> 00:08:35.000
+A client, for example, has to go to the bachelor, and instead a committer has to go to the assembler. So, we need to be able to differentiate this in the configuration block.
+
+00:08:35.000 --> 00:08:50.000
+That's, uh, it's… it's similar to the changes that happen when we switched the… when we allowed the smart BFT in Fabric, we had to to change the configuration block and stuff like that. I'm sure Jaugov can say even more.
+
+00:08:50.000 --> 00:08:55.000
+Actually, actually, Angelo, a client purchased the router, not the battery.
+
+00:08:55.000 --> 00:09:01.000
+Oh, sorry for the, yeah, right terminology, you see, uh, Jago is up to speed with that.
+
+00:09:01.000 --> 00:09:07.000
+Perfect. Uh, so these are some of the… some of the changes. For example.
+
+00:09:07.000 --> 00:09:12.000
+Okay, thanks. Oh, sorry, and then one last thing. In theory.
+
+00:09:12.000 --> 00:09:19.000
+For all of… for whatever the goals are with Fabric X, One of the goals, I'm guessing.
+
+00:09:19.000 --> 00:09:25.000
+Is the potential to have higher throughput on transactions at some point.
+
+00:09:25.000 --> 00:09:27.000
+Does that make sense?
+
+00:09:27.000 --> 00:09:33.000
+Wire companies? I mean, you can read the paper. It's already there, right?
+
+00:09:33.000 --> 00:09:34.000
+Yep, okay.
+
+00:09:34.000 --> 00:09:55.000
+Yeah, that's correct, Jim. Of course, with the caveat, not all type of transactions will see a massive acceleration, for sure, for UTXO-like transaction, where each state It's consumed once. Uh, there we will… there we can reach the maximum level of parallelization.
+
+00:09:55.000 --> 00:10:02.000
+But if you have an application where the keys are updated multiple times, and the transactions have many dependencies.
+
+00:10:02.000 --> 00:10:17.000
+Of course, this will have a hit on the overall performance. Still better than what you can get with Fabric overall, but not the peak performance that you would be able to get from pure UTXO.
+
+00:10:17.000 --> 00:10:21.000
+By the way, Angelo, when are you going to release the code?
+
+00:10:21.000 --> 00:10:35.000
+If, to the best of my knowledge, it should be by the end of the month, it should happen, uh, it should happening this far. We release attack preview, if I… I'm not wrong with the terminology, yeah.
+
+00:10:35.000 --> 00:10:42.000
+Let me ask you a question. Are you familiar with Project Hamilton that was done by, I think it was the Federal Reserve and MIT?
+
+00:10:42.000 --> 00:10:43.000
+Yeah.
+
+00:10:43.000 --> 00:10:59.000
+Yeah, so, alright, I know that, and when I was at DTCC, we did something called lithium, which looked at first Hamilton, and then It was a digital dollar project with a digital dollar project, DTCC, and Federal Reserve also.
+
+00:10:59.000 --> 00:11:13.000
+Um, as a follow-on to Hamilton. And the thing we found when we looked at Hamilton is it was UTXO, they had done some pretty cool things to try to um… scale performance, which they did, um, nicely. Uh, that was good.
+
+00:11:13.000 --> 00:11:32.000
+In their little benchmarks for what they did. Um, what we found, to your point, was that UTXO was fine for, as you said, simple transactions and simple locking mechanisms, like hash time lock, were appropriate. But when we were trying to do, like, a DVP, delivery versus payment settlement transaction.
+
+00:11:32.000 --> 00:11:42.000
+Dtcc, that, to your point, the complexity of that didn't fit UTXO as defined, if that makes sense.
+
+00:11:42.000 --> 00:11:45.000
+I would need to see the details of the transaction. To the best of my…
+
+00:11:45.000 --> 00:11:59.000
+Right, but we built… right, so what we did is we designed our own transaction manager that um, provided um… I'll quote a different set of capabilities than what Hamilton had, I'll say that.
+
+00:11:59.000 --> 00:12:00.000
+Yeah.
+
+00:12:00.000 --> 00:12:12.000
+Um, so anyway, to your point, I think you're right, or at least I'm… my assumption is you're right, that the world can be divided into something as simple as UTXO, and simple things like hash timelock, when it's a very trivial transaction.
+
+00:12:12.000 --> 00:12:24.000
+And if it's more complex from a governance perspective, as you said, with multiple dependencies, including compliance, then maybe it doesn't fit that model, and you have to have a different model to manage, um.
+
+00:12:24.000 --> 00:12:33.000
+The transaction, if you will. And so, as a result, one of the things we looked at was separating the concept of commit versus finalization, formally.
+
+00:12:33.000 --> 00:12:38.000
+In a, um, life cycle for a transaction. Do you know what I mean?
+
+00:12:38.000 --> 00:12:52.000
+So, which I don't think Fabric does that, um, but on the database side, I've done that in the past, where you say, okay, we have enough information now, not only do we agree the transaction's valid, there's consensus there.
+
+00:12:52.000 --> 00:13:19.000
+But more importantly, we have captured enough information, um, on the transaction that if there's a failure of any kind, we can guarantee that this transaction is automatically recoverable without outside intervention, if you will, in the event of any kind of failure. So at that point, we're saying that's a commit boundary, kind of like on a database, different than a finalization boundary conceptually in a blockchain, where you say, oh, are all the nodes current now?
+
+00:13:19.000 --> 00:13:24.000
+On state, you know, for that last transaction or that last block, which is a completely different concept.
+
+00:13:24.000 --> 00:13:28.000
+So we were separating those, if that made sense.
+
+00:13:28.000 --> 00:13:53.000
+Yeah, it makes sense. Also, let me clarify a point that I might have missed. So the difference with Hamilton is that Fabrikex as fabric can handle read-bright sets, which is a generalization of the UTXO. So, you can, uh, um, you can also have, you can also update keys, like, you would have, uh, you would, you would do in a database, so…
+
+00:13:53.000 --> 00:14:00.000
+Essentially, you represent the state update. Of your world state. So this remains in, uh, um.
+
+00:14:00.000 --> 00:14:15.000
+In FabricX, which means that if you read Red set is representing a UTXO, so meaning that it's spending each key only once, then you get the maximum performance possible, because you almost… you don't have any Uh, dependency. A dependency on the other side represents a conflict, therefore it should be stopped.
+
+00:14:15.000 --> 00:14:19.000
+Right.
+
+00:14:19.000 --> 00:14:39.000
+But if your application is more complex, you need to update the same case multiple times, you can still do that with Fabric as well, and that is why we didn't experience any issue in running atomic DVP, but again, it depends on the protocol that you are, uh, that you are using for the, for the DVPN, at which kind of privacy you need.
+
+00:14:39.000 --> 00:14:44.000
+This is, again, the two things, fabric access for two things at the same time.
+
+00:14:44.000 --> 00:14:45.000
+Performance and privacy.
+
+00:14:45.000 --> 00:14:53.000
+Yeah, which is actually great. I'll argue that's great. So the fact that you have two… kind of like with the regular fabric, where you say we have different consensus methods.
+
+00:14:53.000 --> 00:15:10.000
+Anytime you give me, I'll call it two different capabilities, it means probably I'm supporting a broader set of use cases under one environment, which is pretty good.
+
+00:15:10.000 --> 00:15:11.000
+Yeah, thanks for the updates, though.
+
+00:15:11.000 --> 00:15:19.000
+Absolutely.
+
+00:15:19.000 --> 00:15:25.000
+Oh, is that… well, since it's quiet. One more question on FabricX.
+
+00:15:25.000 --> 00:15:41.000
+Moving away from, in a sense, who's involved in Building Fabric X. Um… Do we have, I'll call it… Um, what kind of interest, I'll say, at a community level is there so far in FabricX?
+
+00:15:41.000 --> 00:15:57.000
+Outside of what I call, you know, the, um… contributor teams, if you will, that are working on it. Do we know who's looking at it. To me, it might be interesting, because to your point, if you looked at what I call the simple transactions, um.
+
+00:15:57.000 --> 00:16:13.000
+They probably will scale pretty well, is the guess. Um… And at the same time, in the same environment, I would have the ability to support the kind of transactions that we were looking at at DTCC.
+
+00:16:13.000 --> 00:16:19.000
+So, in theory, um, something that, in a sense, has dual capability.
+
+00:16:19.000 --> 00:16:32.000
+And is permission-based, might, um… apply to a broad range of, I'll say, standard blockchain use cases.
+
+00:16:32.000 --> 00:16:44.000
+Good… good question, we don't know yet. Theresa, I don't know, uh, yet. Maybe we will know better, we will have more information as we release the first tech preview, and then we see also people will have… we'll have the code in their hands.
+
+00:16:44.000 --> 00:17:03.000
+And see… At the same time, I don't know if you agree, Jim, it seems to me also these are a bit… this is my personal opinion. It's a bit niche now, this, uh, this, uh… a very high-performance version of Fabric, because it requires also more, um, more performant hardware, and the deployment is a…
+
+00:17:03.000 --> 00:17:12.000
+It's, uh, it's different. I don't know, it would be interesting to see if it would reach a large scale, uh.
+
+00:17:12.000 --> 00:17:15.000
+The large-scale audience, or stuff like that.
+
+00:17:15.000 --> 00:17:19.000
+Angela, why do you think it requires more performance hardware?
+
+00:17:19.000 --> 00:17:31.000
+More hardware, sorry, not performant hardware, again, definitely commodity, sorry, the… I didn't say it correctly. Certainly, commodity hardware is… it's fine, but you need more, more nodes.
+
+00:17:31.000 --> 00:17:34.000
+More CPUs in place, more, uh, more nodes.
+
+00:17:34.000 --> 00:17:35.000
+Well.
+
+00:17:35.000 --> 00:17:45.000
+Well, I would not say that, because there is no reason that you cannot locate several For RSS on the same host, right? Uh, in the end of the day.
+
+00:17:45.000 --> 00:17:51.000
+And those, uh, like, the way that your nodes are run today anyway, like, in real cloud systems.
+
+00:17:51.000 --> 00:17:55.000
+There are also very co-located, right? If you run, like, nodes in Kubernetes.
+
+00:17:55.000 --> 00:18:10.000
+You will have several, uh, pods, even, in the city, that might be in the same physical cost? What is the difference between that and having Several, like, processes, right, in the same hub. There's no difference.
+
+00:18:10.000 --> 00:18:22.000
+No, fair, but now our committee is not a monolith anymore, so at least the committer will require more… definitely more processes, if you want, if I have to follow your metaphor.
+
+00:18:22.000 --> 00:18:23.000
+Oh, okay.
+
+00:18:23.000 --> 00:18:31.000
+That needs to communicate. And the more processes, the better in, uh, in this case that are processing in parallel requests, right? It's the principle of MapReduce.
+
+00:18:31.000 --> 00:18:39.000
+If you have more nodes that can do the mapping, then you can scale better.
+
+00:18:39.000 --> 00:18:55.000
+Yeah, so that's where the argument comes in on strategies. Um… Tim makes something scale better, which is why we were looking at the idea of separating commitment and finalization as two completely different points, and having built applications that were distributed before.
+
+00:18:55.000 --> 00:19:06.000
+Um, we did… forgetting blockchain, we did that with database, and it worked fine. And it actually was quite useful. So we could say, okay, here comes a transaction, it's a good transaction.
+
+00:19:06.000 --> 00:19:21.000
+Transaction is not on the network yet complete, but at this point, we actually can acknowledge back to those that submitted the transaction. Transaction is solid, and it will, in a sense, wind up on the network finalized, for sure.
+
+00:19:21.000 --> 00:19:26.000
+And then the finalization task took longer, obviously. And so, in your world.
+
+00:19:26.000 --> 00:19:38.000
+With this new architecture, it sounds like the finalization piece of that could be longer. There's nothing preset, of course, on the number of nodes. You can define that any way you want, depending upon what your network needs.
+
+00:19:38.000 --> 00:19:50.000
+Um, and much like The original fabric what was better, um, about that architecture was the idea is you could decide who or how many for a given application.
+
+00:19:50.000 --> 00:20:08.000
+How many… who has to participate in consensus, if you will, to validate a transaction? And separately, um, we do have a bunch of nodes and say, okay, this is the network, and that's where we've got a finalize or distribute the transaction to. But that concept of separating commit versus finalization
+
+00:20:08.000 --> 00:20:17.000
+Seems like a fairly core thing. Um, to… improve performance, just like we did with distributed database.
+
+00:20:17.000 --> 00:20:35.000
+Definitely. For sure, especially the execution, on the execution side of the business logic, right? That's… There is a price, it's always a trade-off, right? You have to pay a price in these cases. If you have an application that will generate a lot of… many conflicts.
+
+00:20:35.000 --> 00:20:58.000
+Uh, then many transactions will, uh, will fail. That's, uh… So if a pro… if a… an application, it's, uh… by design, very sequential, this will not help, right? The fabric model will not help any much. You need to sequentialize anyway, in some way, either before or after, but you need to sequentialize, because that's the nature of the application.
+
+00:20:58.000 --> 00:21:06.000
+Utxo is not… is the case, the opposite, it's on the other, uh, the opposite side of the spectrum, so it's, uh, fully parallelizable.
+
+00:21:06.000 --> 00:21:11.000
+So, you're right, but I think… The nice part of this, potentially, I guess.
+
+00:21:11.000 --> 00:21:29.000
+Is it has different capabilities for different use cases. At a high level. So… Unlike a lot of other platforms that have one architecture only, um, my only thing would be looking and saying, okay, um, sometimes, a lot of times, I'll say in the real world.
+
+00:21:29.000 --> 00:21:54.000
+We do have transactions that Um, don't… have a dependency on being serialized into a specific block. What matters is Um, that's an update issue, not a transaction dependency issue. And so there's a difference between those. And so, if it's… if I look at the… what I call the business logic, or the transaction dependency side of it, if the transactions are actually fully independent.
+
+00:21:54.000 --> 00:22:09.000
+Then that gives me a lot more flexibility on how I distribute the transactions, and uh… using my example of commit versus finalization, have lots of room to do some pretty powerful things, performance-wise, across the network, for sure.
+
+00:22:09.000 --> 00:22:10.000
+Yeah, that's a good point.
+
+00:22:10.000 --> 00:22:18.000
+Especially when… last thing, especially when most applications today, I'll say, and this is an overstatement.
+
+00:22:18.000 --> 00:22:24.000
+Are being engineered for what I call the concept of promises. So I submit a transaction.
+
+00:22:24.000 --> 00:22:38.000
+It is committed, for sure. It's gonna happen, but yet it's not finalized, but in a sense, we have, I'll call it, smarter applications on the other end consuming this stuff, whether it be reports, queries, whatever, um, that say, hey.
+
+00:22:38.000 --> 00:22:43.000
+There are transactions here that are in process, not yet finalized. That's it. And so…
+
+00:22:43.000 --> 00:22:56.000
+Yeah, you're right, if I understand correctly, you mean there are a business process can span multiple ledgers transactions, so that's, uh, different, and this can run over many transactions.
+
+00:22:56.000 --> 00:22:57.000
+Fair, absolutely.
+
+00:22:57.000 --> 00:23:07.000
+That's right. So it depends upon what your business application is, you're right. And the requirements of that, just like your implementation of UTXO is a simple model and a more complex model.
+
+00:23:07.000 --> 00:23:18.000
+Business applications have that same, uh, call it range, and it sounds like that the architecture… would be what I call at least more accommodative.
+
+00:23:18.000 --> 00:23:24.000
+Of that need for range, if you will, from simple to complex.
+
+00:23:24.000 --> 00:23:26.000
+Yeah, yeah.
+
+00:23:26.000 --> 00:23:52.000
+Which is actually a big deal. Um, oh, and then the other… the only other thing, I think, is the permissioning models, um, and arguing about how… In the case of identity, how many different types of identity systems can plug into this thing? You know, we have the membership services piece, and I'm not sure how that changed, not having read the white paper on FabricX, but the concept of that, I'll call it interface.
+
+00:23:52.000 --> 00:24:08.000
+And then saying, okay, we've got lots of different services for that. Again, looking at I'll go to Flexible Architecture to plug different memory… uh, sorry, different identity, uh, interfaces into it. Most of them coming through something like SSI, in my case, with OIDC, um.
+
+00:24:08.000 --> 00:24:23.000
+Connectivity, if you will. Things like that. Um… open up a door… a big door, I'll say, to an existing application set, for what it's worth.
+
+00:24:23.000 --> 00:24:41.000
+Interesting. There's an interesting requirements indeed. From my point of view, I look at it from a different perspective. I look at the identity With the prospect… with the, um, with respect to the… how… how can I connect the… an identity to a token.
+
+00:24:41.000 --> 00:24:49.000
+Uh, so that, uh, that token is owned by, uh, by, by that identity.
+
+00:24:49.000 --> 00:24:56.000
+Uh, so…
+
+00:24:56.000 --> 00:24:57.000
+Oh, so privacy is… so, right, the three requirements of security, confidentiality, and privacy are just a given.
+
+00:24:57.000 --> 00:25:00.000
+And here, the problems are usually more related to But the ability of crypto technology, because again, we are interested in privacy Uh, so the term has…
+
+00:25:00.000 --> 00:25:18.000
+Done. We're not going to argue that. That's just a 100% guaranteed. But back to the token idea, the one thing we found when we were looking at the settlement, and why Hamilton sort of didn't… uh, wasn't… broad enough in its architecture was they had the simple idea of
+
+00:25:18.000 --> 00:25:28.000
+Um, ownership of a token. What was missing was the concept of control as a separate attribute from ownership.
+
+00:25:28.000 --> 00:25:29.000
+Yep.
+
+00:25:29.000 --> 00:25:52.000
+So, yes, a token might be owned by me, but you are coordinating the transaction in this case. You, actually, as a different party, are controlling the transaction, not the owner. So the owner, in a sense, for a given transaction, might transfer control to, uh, call it the controlling entity for the transaction, which happens all the time in the financial world.
+
+00:25:52.000 --> 00:25:58.000
+And so, it's different than ownership. Ownership does transfer, like, in delivery versus payment at a different point.
+
+00:25:58.000 --> 00:26:05.000
+And so, therefore, separating those two, just like separating commit and finalization were huge improvements over Hamilton.
+
+00:26:05.000 --> 00:26:07.000
+I'll say that.
+
+00:26:07.000 --> 00:26:14.000
+Yeah, the… no, it's an interesting distinction between ownership and control.
+
+00:26:14.000 --> 00:26:15.000
+Yes.
+
+00:26:15.000 --> 00:26:23.000
+I would say more also the… I guess the owner still retain full control, even if it's delegating control to a third party.
+
+00:26:23.000 --> 00:26:33.000
+I would say that even in this case, I mean, the different… even if you want to apply this, you want to go for a distinction between ownership and control.
+
+00:26:33.000 --> 00:26:39.000
+He's still about, uh, identity, identity management in the… and permission.
+
+00:26:39.000 --> 00:26:45.000
+Permissioning these identities in the, uh, with the respiratory, uh, to a token.
+
+00:26:45.000 --> 00:26:57.000
+You can even do a level in indirection. So, for example, you can assign the ownership of a token to a smart contract, and then the smart contract applies the rules.
+
+00:26:57.000 --> 00:27:07.000
+Uh, to decide, oh, okay, this token, it's true that it's owned by this entity, but it's also, uh, but this other entity can perform certain operations, no matter what.
+
+00:27:07.000 --> 00:27:12.000
+How do you do this? And zero knowledge can be more complex, but, uh, yeah, interesting.
+
+00:27:12.000 --> 00:27:28.000
+Yep. Yeah. So, anyway, the idea… anyway, those are some of the things, but you're right. Potentially, it opens the door for the more complex transaction architectures we looked at, and then the only thing is the concept of separating finalization from
+
+00:27:28.000 --> 00:27:36.000
+Commit, um, which would certainly allow phenomenal scale for applications that can support that separation. Not all can.
+
+00:27:36.000 --> 00:27:38.000
+Yep.
+
+00:27:38.000 --> 00:27:43.000
+But that's why having a lot of flexibility in the architecture matters a lot.
+
+00:27:43.000 --> 00:27:50.000
+And why it would differentiate significantly from I'll call it the existing blockchains that are out there, period.
+
+00:27:50.000 --> 00:27:56.000
+Um, and I, again, you have interfaces for, I'll call it, every internal service.
+
+00:27:56.000 --> 00:28:11.000
+What that means is, in theory, I could assemble different implementers for each of those interfaces, you know, whether it be, you know, permissions, identity, whatever I want it to be, membership, all of those things.
+
+00:28:11.000 --> 00:28:16.000
+Um, if they're interfaces. Then the fabric X model.
+
+00:28:16.000 --> 00:28:24.000
+Could ultimately, um, be what I call very flexible from an architecture viewpoint.
+
+00:28:24.000 --> 00:28:35.000
+Let's… the future will tell. We will say sometimes flexibility comes also with, uh, great complexity, and then that's another pain point.
+
+00:28:35.000 --> 00:28:50.000
+Uh, it can. You're right. So the argument is, how do you simplify it? And I would argue… I'm not architecting this, so I have no knowledge on it, but I will say in other systems I've been in, surprisingly.
+
+00:28:50.000 --> 00:28:56.000
+Um… improving, um… I'll call it flexibility.
+
+00:28:56.000 --> 00:29:08.000
+Architecturally, actually also improved performance. I can say that. So I can remember some of the things we did. I'll call it a more modular architecture.
+
+00:29:08.000 --> 00:29:13.000
+With interfaces, as an example, you would think, like, oh, it's got to be slower. It wasn't, it was faster. You know, much like my concept of separating commit versus finalization.
+
+00:29:13.000 --> 00:29:18.000
+Yeah.
+
+00:29:18.000 --> 00:29:31.000
+Uh, as an architecture writer, I mean, say, oh, you know, it sounds like it's more work. Well, wait a second. Um, you know, when I actually look at distributed data systems we've built, um, they're far faster than blockchain is, for sure.
+
+00:29:31.000 --> 00:29:41.000
+Absolutely. And so the releasing some of those constraints And adding flexibility sometimes makes the thing, in a sense, more applicable.
+
+00:29:41.000 --> 00:29:42.000
+Yeah, yeah, yeah.
+
+00:29:42.000 --> 00:29:55.000
+For sure. Do a broader range of use cases, but you're right, that's not something, obviously, forgetting today, some… those kind of considerations are long-term architectural planning things. They're not something that happens in a meeting or two.
+
+00:29:55.000 --> 00:29:57.000
+Yeah, definitely.
+
+00:29:57.000 --> 00:30:08.000
+I think that's why releases evolve, I'll say.
+
+00:30:08.000 --> 00:30:11.000
+Cool.
+
+00:30:11.000 --> 00:30:30.000
+Right? It was an interesting discussion. Uh, is there anyone else that wants to raise any points, or… Ask any questions?
+
+00:30:30.000 --> 00:30:36.000
+In that case, I think we can end the scope. So, thank you, uh, everyone.
+
+00:30:36.000 --> 00:30:41.000
+Yes, Angelo, that is correct. So, uh, thank you everyone, and, uh, see you in, uh, next month.
+
+00:30:41.000 --> 00:30:53.000
+Thank you, by
+

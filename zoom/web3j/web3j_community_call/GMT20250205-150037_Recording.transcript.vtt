@@ -1,0 +1,870 @@
+WEBVTT
+
+1
+00:02:26.000 --> 00:02:27.600
+Nischal Sharma (Web3 Labs): Hey! Hi! Hi! Julius!
+
+2
+00:02:29.870 --> 00:02:30.769
+Julius Lauterbach (Julius278): Hi Sean!
+
+3
+00:02:32.243 --> 00:02:35.549
+Nischal Sharma (Web3 Labs): Let's wait for George and others to join.
+
+4
+00:02:35.730 --> 00:02:36.500
+Julius Lauterbach (Julius278): Yeah, sure.
+
+5
+00:04:02.370 --> 00:04:05.100
+Nischal Sharma (Web3 Labs): No worries, no worries. I just started the recording.
+
+6
+00:04:05.100 --> 00:04:06.860
+George Tebrean: Oh, okay, great, thank you.
+
+7
+00:04:07.890 --> 00:04:11.289
+George Tebrean: One second. Let me find the agenda for today.
+
+8
+00:04:54.130 --> 00:04:57.759
+George Tebrean: Oh, okay, so I'm sharing the screen just in a bit.
+
+9
+00:05:06.040 --> 00:05:11.230
+George Tebrean: Give me one second where it is not the song.
+
+10
+00:05:13.090 --> 00:05:14.400
+George Tebrean: Okay, this one.
+
+11
+00:05:17.020 --> 00:05:18.270
+Nischal Sharma (Web3 Labs): Oh, yeah, it's visible.
+
+12
+00:05:22.280 --> 00:05:27.530
+George Tebrean: Okay, so we don't have too many topics on today's agenda.
+
+13
+00:05:28.561 --> 00:05:35.460
+George Tebrean: The 1st one is the dynamic as provider initial. I did a review on it
+
+14
+00:05:35.700 --> 00:05:44.479
+George Tebrean: on Monday, and I let in there some comments. I don't. I don't know if you had the chance to look over it.
+
+15
+00:05:44.910 --> 00:05:51.030
+Nischal Sharma (Web3 Labs): Yeah. I checked the comments, but didn't get time to work on them.
+
+16
+00:05:51.350 --> 00:05:54.479
+Nischal Sharma (Web3 Labs): So maybe yeah, tomorrow I would start going on it.
+
+17
+00:05:55.620 --> 00:05:56.000
+George Tebrean: Okay.
+
+18
+00:05:56.000 --> 00:06:22.350
+Nischal Sharma (Web3 Labs): Context on dynamic gas provider. So basically, right now in Web 3 J, we just have 2, 1 default gas provider. And there is static gas provider. So in default, we have like predefined values. And then in static, we can give the values. So in dynamic gas provider, what we are doing. We are calculating the gas fees and gas limit based on the transaction and the current block transaction gas
+
+19
+00:06:22.580 --> 00:06:24.369
+Nischal Sharma (Web3 Labs): block block. Guess? Yeah.
+
+20
+00:06:24.880 --> 00:06:32.829
+Nischal Sharma (Web3 Labs): So it yeah. If anyone wants to review that Pr. Or feel free, if any comments or feedback.
+
+21
+00:06:33.050 --> 00:06:37.900
+Nischal Sharma (Web3 Labs): I think this should be helpful for yeah, Webtg users.
+
+22
+00:06:39.197 --> 00:06:45.072
+George Tebrean: Yeah, this will be really really nice to have it in ypj, in order to
+
+23
+00:06:45.800 --> 00:06:55.359
+George Tebrean: have a better interaction with the gas provider, because so so far, we used the the legacy model.
+
+24
+00:06:55.510 --> 00:07:08.870
+George Tebrean: But now, with all these things in here, like being able to switch, and also to be able to have, like a better gas gas estimation as there is in the other
+
+25
+00:07:09.600 --> 00:07:12.759
+George Tebrean: web 3 development tools to be really nice.
+
+26
+00:07:15.350 --> 00:07:29.270
+George Tebrean: And anyway, like from my side. There are only some code, specific things to solve in terms of to be like a bit closer to the clean code principles. But that's it. It look looks good.
+
+27
+00:07:31.590 --> 00:07:33.030
+Nischal Sharma (Web3 Labs): Thank you. Thank you.
+
+28
+00:07:33.776 --> 00:07:41.520
+Julius Lauterbach (Julius278): Just a small question here. Is it also possible to define a let's say, Max,
+
+29
+00:07:42.880 --> 00:07:44.140
+Julius Lauterbach (Julius278): amount of gas.
+
+30
+00:07:45.740 --> 00:07:49.858
+Julius Lauterbach (Julius278): It's also possible, like it's a dynamic. But
+
+31
+00:07:50.480 --> 00:07:53.599
+Julius Lauterbach (Julius278): can can you define a an upper end.
+
+32
+00:07:55.440 --> 00:08:00.420
+Nischal Sharma (Web3 Labs): Oh, sure, I think we can add some. Yeah, we can.
+
+33
+00:08:00.420 --> 00:08:02.200
+George Tebrean: Can do some tricks
+
+34
+00:08:03.761 --> 00:08:13.059
+George Tebrean: so far, I mean, from what I look from what I found so far, I think I think we have the minimum and the limit for this, but that's it. For initial.
+
+35
+00:08:13.852 --> 00:08:22.417
+Nischal Sharma (Web3 Labs): No. So basically this, if we don't mention anything, then we have a default value. And then if we if we use the
+
+36
+00:08:23.290 --> 00:08:44.829
+Nischal Sharma (Web3 Labs): If we use the dynamic gas provider like. If you give the transaction, then it will call the estimate gas. And based on that, we basically set the gas limit. But yeah, if I think we can add a upper gas limit also. So when we estimate, and if it's greater than upper gas limit, then it will fail. The transaction, I guess.
+
+37
+00:08:45.000 --> 00:08:46.530
+Nischal Sharma (Web3 Labs): can do something like that.
+
+38
+00:08:48.190 --> 00:08:48.810
+George Tebrean: Okay.
+
+39
+00:08:48.810 --> 00:08:50.800
+Nischal Sharma (Web3 Labs): Does it make sense? Oh, yeah.
+
+40
+00:08:51.570 --> 00:08:56.299
+George Tebrean: I mean Yulius, did that sound good for you?
+
+41
+00:08:56.300 --> 00:08:57.530
+Julius Lauterbach (Julius278): Yeah. Sounds good. Yeah.
+
+42
+00:08:57.530 --> 00:08:58.123
+Julius Lauterbach (Julius278): All right.
+
+43
+00:09:00.270 --> 00:09:06.489
+George Tebrean: Cool. Okay, I think that's all for this topic.
+
+44
+00:09:08.030 --> 00:09:18.519
+George Tebrean: Going further, we I. As I return, I start to look again into the open Api issue. I don't. I think I presented it before
+
+45
+00:09:19.810 --> 00:09:21.020
+George Tebrean: second.
+
+46
+00:09:29.188 --> 00:09:31.260
+George Tebrean: open it. This one
+
+47
+00:09:33.033 --> 00:09:42.790
+George Tebrean: yeah, pretty much what the what this consists in is us build in. It's a building library that it's able to
+
+48
+00:09:42.920 --> 00:10:08.769
+George Tebrean: spun up in the back end swagger server, and that swagger will expose the endpoint specific to of the smart contracts like, for example, you, you can have post for methods, or get for other methods that which is querying the smart contract on the network, and so on. And for some reason, even if last time, I took a look at it in December
+
+49
+00:10:09.380 --> 00:10:25.899
+George Tebrean: there were some tweaks in there which we did, and also we improve. We migrate the gradle and did some other changes in order to bring it up to date. For some reason it's still not working, and I know that this work in the beginning, like
+
+50
+00:10:26.200 --> 00:10:53.070
+George Tebrean: 2 and a half years ago, but since then nobody look at it and test it, and we discovered like last year that this no is no longer working. So I'm trying to find the way out to see what what exactly happened with the open Api server from swagger, and for what is? For which reason is not working as expected. So yeah, I'm hoping to the end of this week to have an answer.
+
+51
+00:10:57.920 --> 00:11:04.200
+George Tebrean: And yeah, that's pretty much regarding this.
+
+52
+00:11:07.114 --> 00:11:10.499
+George Tebrean: Do we have anyone from here?
+
+53
+00:11:12.890 --> 00:11:14.220
+Nischal Sharma (Web3 Labs): Oh, no!
+
+54
+00:11:15.260 --> 00:11:16.090
+Nischal Sharma (Web3 Labs): Join!
+
+55
+00:11:17.300 --> 00:11:21.310
+George Tebrean: Okay, but from what I see, let me look within, though.
+
+56
+00:11:25.500 --> 00:11:28.037
+George Tebrean: and this was mentioned in this
+
+57
+00:11:29.180 --> 00:11:31.599
+George Tebrean: poor request, and this was merged.
+
+58
+00:11:34.890 --> 00:11:41.049
+Nischal Sharma (Web3 Labs): Okay, I think this is regarding that Npm dependencies to resolve Npm dependencies.
+
+59
+00:11:41.290 --> 00:11:43.200
+George Tebrean: Yeah, this is what was.
+
+60
+00:11:43.200 --> 00:11:45.089
+Nischal Sharma (Web3 Labs): Then we can, I think, close this
+
+61
+00:11:47.080 --> 00:11:48.630
+George Tebrean: Okay.
+
+62
+00:11:48.790 --> 00:11:50.389
+George Tebrean: But with.
+
+63
+00:12:05.620 --> 00:12:07.890
+George Tebrean: let's see it perfect.
+
+64
+00:12:13.730 --> 00:12:14.840
+George Tebrean: 8.
+
+65
+00:12:20.640 --> 00:12:23.389
+Nischal Sharma (Web3 Labs): If we can copy the link also, it should work.
+
+66
+00:12:25.110 --> 00:12:27.489
+George Tebrean: Yeah, but it worked. Now it it found it.
+
+67
+00:12:31.080 --> 00:12:32.230
+George Tebrean: Okay
+
+68
+00:12:38.340 --> 00:12:42.430
+George Tebrean: to hmm.
+
+69
+00:13:01.980 --> 00:13:03.970
+George Tebrean: sweet. Okay.
+
+70
+00:13:10.120 --> 00:13:14.630
+George Tebrean: good. And then we have this transaction exception.
+
+71
+00:13:17.650 --> 00:13:26.049
+George Tebrean: Okay? And this I mean, I found it on the last meeting note was it added by you, Julius.
+
+72
+00:13:26.910 --> 00:13:29.110
+George Tebrean: or it was mentioned somewhere.
+
+73
+00:13:29.110 --> 00:13:34.607
+Julius Lauterbach (Julius278): Yeah. Only commented there that I was facing the yeah. Pretty same problem.
+
+74
+00:13:37.180 --> 00:13:44.088
+Julius Lauterbach (Julius278): That it worked together with cradle, but not with Maven. I guess
+
+75
+00:13:45.180 --> 00:13:48.579
+Julius Lauterbach (Julius278): it was like well end of December, where 5.
+
+76
+00:13:48.580 --> 00:13:49.290
+George Tebrean: Okay.
+
+77
+00:13:49.690 --> 00:13:54.997
+Julius Lauterbach (Julius278): Saw that it works, and together with cradle, but not with
+
+78
+00:13:56.300 --> 00:13:59.000
+George Tebrean: Oh, okay, I don't even okay
+
+79
+00:13:59.000 --> 00:14:04.540
+George Tebrean: about this one relating the web. J unit tests. And okay.
+
+80
+00:14:04.540 --> 00:14:09.480
+Julius Lauterbach (Julius278): Yeah, yeah, it it has some issues with me even, but not sure. Why.
+
+81
+00:14:10.030 --> 00:14:16.220
+George Tebrean: Maybe it has to do with the the difference between gradle and may be Plugin.
+
+82
+00:14:17.190 --> 00:14:18.630
+Julius Lauterbach (Julius278): Probably, yeah.
+
+83
+00:14:19.270 --> 00:14:25.159
+George Tebrean: Okay, let me. I will look into this after I solve the open Api. I will add it on the list.
+
+84
+00:14:28.730 --> 00:14:36.970
+Julius Lauterbach (Julius278): Would be nice if this is also possible with them even, which would help.
+
+85
+00:14:37.690 --> 00:14:40.910
+George Tebrean: I know that a lot of enterprises are using maven.
+
+86
+00:14:40.910 --> 00:14:42.150
+Julius Lauterbach (Julius278): Yeah, yeah.
+
+87
+00:14:42.150 --> 00:14:47.660
+George Tebrean: And for some reason I don't know why they are not migrating to Gradle, because it's
+
+88
+00:14:48.300 --> 00:14:52.069
+George Tebrean: to use, and it's a lot less code. But anyway.
+
+89
+00:15:05.800 --> 00:15:10.179
+Julius Lauterbach (Julius278): It's not that easy to remove something where you used to.
+
+90
+00:15:10.922 --> 00:15:12.067
+George Tebrean: For sure.
+
+91
+00:15:22.550 --> 00:15:27.480
+George Tebrean: Okay, so this, this was the discussions
+
+92
+00:15:29.430 --> 00:15:35.590
+George Tebrean: regarding the regarding the topics that we head for today.
+
+93
+00:15:36.590 --> 00:15:39.900
+Nischal Sharma (Web3 Labs): So there was one more issue faced by the Angelina.
+
+94
+00:15:39.900 --> 00:15:49.860
+George Tebrean: Okay. I was about to ask if you have any other questions or topic to be raised, and also, like I've seen some something in on the discord.
+
+95
+00:15:50.710 --> 00:16:12.920
+Angelina Ceppaluni: Yes, I went ahead and followed the Hello World Project, and then some of the demo projects. I cannot get them to run in android studio. It seems to be an issue with Gradle. I went in and I tried to change the the Jdk version it was using. That was the original issue. I fixed that issue.
+
+96
+00:16:12.980 --> 00:16:28.879
+Angelina Ceppaluni: but now I cannot get it. To sync up with gradle. It does produce an event log in the form of a txt file, and when I go through it it has issues with Kotlin and regards to Maven and all.
+
+97
+00:16:29.670 --> 00:16:30.549
+George Tebrean: Kinds of other.
+
+98
+00:16:30.860 --> 00:16:31.495
+Angelina Ceppaluni: Things.
+
+99
+00:16:32.660 --> 00:16:33.330
+George Tebrean: Good luck with that.
+
+100
+00:16:33.330 --> 00:16:41.509
+Angelina Ceppaluni: So I wasn't sure if anybody had any recommendations any fixes, if it maybe was just a versioning issue.
+
+101
+00:16:41.510 --> 00:16:43.524
+George Tebrean: Which version are you using for.
+
+102
+00:16:46.500 --> 00:16:53.000
+Angelina Ceppaluni: Believe it was 1 point something 2.
+
+103
+00:16:53.000 --> 00:16:56.309
+George Tebrean: Because we also release some modules for android
+
+104
+00:16:56.640 --> 00:17:20.270
+George Tebrean: that should like, and those are android dependencies. So that should fix some of the issues, because I know that in the past we lost the support for Android. But with the mentorship that took place last year we tried to cover this and to be able to import again work to J in android studio.
+
+105
+00:17:20.829 --> 00:17:24.199
+Angelina Ceppaluni: It's 1.6 point 2.
+
+106
+00:17:25.140 --> 00:17:28.330
+George Tebrean: The O, 3. J, version that's right.
+
+107
+00:17:28.339 --> 00:17:28.779
+Angelina Ceppaluni: Sean.
+
+108
+00:17:28.780 --> 00:17:32.169
+Nischal Sharma (Web3 Labs): Cli version of 1.6 point 3.
+
+109
+00:17:32.170 --> 00:17:33.399
+George Tebrean: Oh, okay, this is.
+
+110
+00:17:33.400 --> 00:17:35.810
+Nischal Sharma (Web3 Labs): Using the latest web 3 JI guess.
+
+111
+00:17:36.760 --> 00:17:48.070
+Nischal Sharma (Web3 Labs): Oh, by the way, like I had a chance to look into that log, so I guess the issue is regarding the windows and web 3 J. So if I'm not wrong, you're using windows right, Angelina.
+
+112
+00:17:48.720 --> 00:17:57.599
+Angelina Ceppaluni: Yeah, I have a windows machine, but the project doesn't run through the windows system. If that makes sense, it's running through ubuntu.
+
+113
+00:17:58.190 --> 00:18:01.140
+Nischal Sharma (Web3 Labs): Yeah. Wsl, right? So, oh.
+
+114
+00:18:01.510 --> 00:18:08.030
+Nischal Sharma (Web3 Labs): when you are trying to run that project, is it running on windows? Or Wsl.
+
+115
+00:18:09.673 --> 00:18:14.259
+Angelina Ceppaluni: Believe it's running on Wsl. Or trying to.
+
+116
+00:18:15.040 --> 00:18:25.580
+Nischal Sharma (Web3 Labs): Yeah, because I think I saw somewhere like Wsl. Module failed to load something in the logs. So if you can like share your screen. I think maybe we can debug that.
+
+117
+00:18:30.920 --> 00:18:35.520
+Nischal Sharma (Web3 Labs): By the way, Uris, you have also used it right in the windows.
+
+118
+00:18:35.700 --> 00:18:36.819
+Nischal Sharma (Web3 Labs): Web 3 J.
+
+119
+00:18:41.250 --> 00:18:48.529
+Julius Lauterbach (Julius278): Oh, I was mute. Yeah, and it didn't work, but it worked with Wsl.
+
+120
+00:18:50.039 --> 00:18:55.230
+Nischal Sharma (Web3 Labs): And what if, like, we are using Android studio in or like windows.
+
+121
+00:18:55.230 --> 00:19:02.429
+Julius Lauterbach (Julius278): But oh, but not in Android studio. I was just using web 3 j. Not the the Android version.
+
+122
+00:19:04.270 --> 00:19:05.170
+Nischal Sharma (Web3 Labs): Okay.
+
+123
+00:19:08.550 --> 00:19:14.979
+Julius Lauterbach (Julius278): But yeah, as I said, on Wsl, it worked on windows. It didn't really.
+
+124
+00:19:18.640 --> 00:19:26.149
+George Tebrean: Okay. And okay. Now, I see in here in the console that is running on Wsl.
+
+125
+00:19:26.320 --> 00:19:54.189
+Angelina Ceppaluni: And that's all it says. That is, it doesn't go anywhere. It doesn't go any further. It won't even give me anything to debug. So I tried it again, cause I was I wasn't doing this at home. I was doing this at a store, so I did it again when I got home. It's the same thing. It'll go as if it's gonna do it, and then in about 40 seconds it'll give you an error. It doesn't present me an error message. It only just says, view logs for details.
+
+126
+00:19:55.780 --> 00:19:57.939
+Angelina Ceppaluni: That's more or less all I.
+
+127
+00:19:57.940 --> 00:19:58.430
+George Tebrean: There's.
+
+128
+00:19:58.430 --> 00:19:59.270
+Angelina Ceppaluni: See.
+
+129
+00:20:01.707 --> 00:20:10.039
+Nischal Sharma (Web3 Labs): Is it possible? If you like, open the terminal and run ws, and then through the terminal, we can run the project.
+
+130
+00:20:17.820 --> 00:20:19.630
+Angelina Ceppaluni: And then again running through.
+
+131
+00:20:19.630 --> 00:20:27.279
+Nischal Sharma (Web3 Labs): Yeah. So if you can open the terminal and run Wsl, and then we can, you know, create a project and run that
+
+132
+00:20:27.490 --> 00:20:34.140
+Nischal Sharma (Web3 Labs): just to try like if it's a Android studio and Wsl version or issue, or something else
+
+133
+00:20:38.410 --> 00:20:39.080
+Nischal Sharma (Web3 Labs): it's
+
+134
+00:20:46.050 --> 00:20:46.580
+Nischal Sharma (Web3 Labs): but does.
+
+135
+00:20:46.580 --> 00:20:48.510
+Nischal Sharma (Web3 Labs): It makes sense, George.
+
+136
+00:20:50.790 --> 00:20:52.989
+Angelina Ceppaluni: Let me see something.
+
+137
+00:21:48.570 --> 00:21:49.045
+Angelina Ceppaluni: Okay?
+
+138
+00:21:51.570 --> 00:21:56.009
+Angelina Ceppaluni: Sorry. I'm multitasking. It takes me a second. I apologize.
+
+139
+00:22:00.030 --> 00:22:01.050
+Angelina Ceppaluni: Channels.
+
+140
+00:22:01.500 --> 00:22:06.779
+Angelina Ceppaluni: Yeah, okay, you said, run it through here or run it through Powershell.
+
+141
+00:22:07.500 --> 00:22:09.470
+Nischal Sharma (Web3 Labs): Or to bowers, bowers.
+
+142
+00:22:09.470 --> 00:22:10.930
+Angelina Ceppaluni: Powershell, yeah.
+
+143
+00:22:11.510 --> 00:22:12.260
+Angelina Ceppaluni: Got it?
+
+144
+00:22:19.507 --> 00:22:23.970
+Angelina Ceppaluni: Okay? Oh, okay, okay. I see it.
+
+145
+00:22:25.840 --> 00:22:30.160
+Nischal Sharma (Web3 Labs): By the way, we are like, only able to see your android studio.
+
+146
+00:22:31.220 --> 00:22:39.790
+Angelina Ceppaluni: It's not. That's what I was trying to get it new. I not zoom illiterate.
+
+147
+00:22:43.010 --> 00:22:44.980
+Angelina Ceppaluni: Okay, does that work.
+
+148
+00:22:45.520 --> 00:22:47.440
+Nischal Sharma (Web3 Labs): Oh, yeah. Yeah.
+
+149
+00:22:47.440 --> 00:22:48.250
+Angelina Ceppaluni: Perfect.
+
+150
+00:22:52.890 --> 00:22:53.840
+Angelina Ceppaluni: Okay.
+
+151
+00:22:54.540 --> 00:23:00.110
+Nischal Sharma (Web3 Labs): Here, like, if you can create a new project or Hello world through Webtigli.
+
+152
+00:23:02.666 --> 00:23:11.490
+Angelina Ceppaluni: My try, but it doesn't usually like I can't remember the command.
+
+153
+00:23:11.880 --> 00:23:14.739
+Nischal Sharma (Web3 Labs): Yeah, that's it, I guess, on new. I think it should work.
+
+154
+00:23:16.130 --> 00:23:18.140
+Angelina Ceppaluni: Oh, I can just do it as new.
+
+155
+00:23:18.560 --> 00:23:20.179
+Angelina Ceppaluni: Yeah, this should work.
+
+156
+00:26:31.500 --> 00:26:34.020
+George Tebrean: Takes longer than usual.
+
+157
+00:26:35.230 --> 00:26:36.210
+Nischal Sharma (Web3 Labs): Yeah.
+
+158
+00:26:37.630 --> 00:26:44.049
+Angelina Ceppaluni: Yes, that's why I ended up having to run it through the other one. It does do it. It's just.
+
+159
+00:26:44.050 --> 00:26:44.410
+Nischal Sharma (Web3 Labs): I mean.
+
+160
+00:26:44.410 --> 00:26:49.220
+Angelina Ceppaluni: Going to take a really long time it, but it will do it after a while.
+
+161
+00:26:49.950 --> 00:26:51.780
+Nischal Sharma (Web3 Labs): It's okay.
+
+162
+00:27:01.580 --> 00:27:17.919
+Angelina Ceppaluni: if it doesn't work in Android studio again. That's okay. I was able to get it to work in visual studio code, too. So if I do need to use Vs code for the time being, that's fine. I just wasn't sure if I could get it to at least run in Android studio, or at least try.
+
+163
+00:27:19.680 --> 00:27:22.410
+Nischal Sharma (Web3 Labs): Oh, it was working on visual studio.
+
+164
+00:27:22.790 --> 00:27:37.359
+Angelina Ceppaluni: Yes, it works on perfectly fine and visual studio code. I have it up right here. I can show you. I went so far as to copy some of the methods as well, so I was able to do that. It's just an Android studio. It won't run.
+
+165
+00:27:38.540 --> 00:27:39.810
+Nischal Sharma (Web3 Labs): Oh, okay.
+
+166
+00:27:46.450 --> 00:27:56.439
+Nischal Sharma (Web3 Labs): I you can raise a issue in Web 3 J. Or apple. I think it's something related to that Id. And
+
+167
+00:27:57.280 --> 00:28:09.080
+Nischal Sharma (Web3 Labs): oh, windows, because I think shashank. So we have an intern Ishan sorry Shashank. So he was able to run in Android studio, and he was using Mac.
+
+168
+00:28:10.410 --> 00:28:18.760
+Nischal Sharma (Web3 Labs): but we haven't used it. Tested it on windows. So might be some issue with windows and android studio. I guess.
+
+169
+00:28:21.910 --> 00:28:32.993
+Angelina Ceppaluni: Yeah, I can. I can raise one. But yes, it does work fine in visual studio code. No issues there. Just android studio seems to have the issue with Gradle.
+
+170
+00:28:34.690 --> 00:28:35.270
+Nischal Sharma (Web3 Labs): Okay.
+
+171
+00:28:37.926 --> 00:28:44.220
+Angelina Ceppaluni: Last thing I wanted to mention just wanted to make sure. I think I have the correct link pasted. No, I don't.
+
+172
+00:28:44.330 --> 00:28:48.249
+Angelina Ceppaluni: of course, not always copy and paste too many things.
+
+173
+00:28:50.280 --> 00:28:51.360
+Angelina Ceppaluni: But
+
+174
+00:28:52.590 --> 00:29:04.149
+Angelina Ceppaluni: it was for the type decoder issue for this one. I had seen it still open. I just wanted to make sure everything was okay, and that you weren't waiting for me to do anything else.
+
+175
+00:29:04.890 --> 00:29:08.749
+Nischal Sharma (Web3 Labs): Oh, yeah. So I think one second.
+
+176
+00:29:10.160 --> 00:29:18.030
+Angelina Ceppaluni: I posted the results in there. Just wanted to make sure you didn't need anything else, or and I didn't want to forget about it or anything.
+
+177
+00:29:21.270 --> 00:29:29.469
+Nischal Sharma (Web3 Labs): I think this should be fine, or do we need any screenshot or anything like nothing? Right? Or I'm not sure, George, or if this works fine.
+
+178
+00:29:30.300 --> 00:29:44.659
+Angelina Ceppaluni: I can put in a screenshot the I guess, their latest version, their most recent versions for corrected, the compatibility issues with Java. But I can post a screenshot of something saying that, or, if needed.
+
+179
+00:29:45.560 --> 00:29:49.410
+George Tebrean: No, it would be nice to have their screenshot, and you can like
+
+180
+00:29:49.590 --> 00:29:52.970
+George Tebrean: directly at the screenshot in the closing comment.
+
+181
+00:29:53.650 --> 00:30:00.859
+George Tebrean: and mentioned that everything is fine, and here is the proof, and that's it, and thanks a lot for the investigation.
+
+182
+00:30:01.500 --> 00:30:03.569
+Angelina Ceppaluni: Yeah, of course, I'll add that screenshot.
+
+183
+00:30:18.710 --> 00:30:26.850
+George Tebrean: Okay, if that's it. Yeah, regarding this issue, it's a bit that's strange.
+
+184
+00:30:27.040 --> 00:30:34.150
+George Tebrean: And also it's hard for us to test it, because both me and Michelle we are working on Mac.
+
+185
+00:30:34.980 --> 00:31:03.449
+George Tebrean: and it seems that it works fine because I was when I released the new web, 2 J. Android libraries. Obviously I use the android studio in order to do the build and everything on, and it went well. I will also try to see how it will behave if I will create a new Webg project with the Cli and see what it will give me if I add it to the Android studio.
+
+186
+00:31:08.930 --> 00:31:09.860
+George Tebrean: Yeah.
+
+187
+00:31:09.860 --> 00:31:10.610
+Angelina Ceppaluni: Not a problem.
+
+188
+00:31:11.170 --> 00:31:12.620
+Nischal Sharma (Web3 Labs): Yeah, make sense.
+
+189
+00:31:13.890 --> 00:31:21.199
+Nischal Sharma (Web3 Labs): And also, I think, I will try if I can have a windows machine so I can test it out. My cell phones.
+
+190
+00:31:23.950 --> 00:31:29.750
+Angelina Ceppaluni: I found a I actually tried to test it on my
+
+191
+00:31:31.240 --> 00:31:40.860
+Angelina Ceppaluni: What's it called? It's like a virtual. I can't remember the name for it. They like a virtual operating system. It's called Mac and Cloud. They provide apple
+
+192
+00:31:41.670 --> 00:31:50.200
+Angelina Ceppaluni: many versions of like an apple computer that you can use and run on a windows computer. I tried running it through there
+
+193
+00:31:50.650 --> 00:32:04.829
+Angelina Ceppaluni: wouldn't go, would not do it. I found that very interesting, too. But if we need to. Run a windows machine. I'm happy to find the same alternative that I have for Ios.
+
+194
+00:32:05.150 --> 00:32:07.470
+Angelina Ceppaluni: They work really well, super fast.
+
+195
+00:32:09.220 --> 00:32:18.199
+Angelina Ceppaluni: Just make sure you use a stable Internet connection sometimes, if you're out, it tends to take a while on their servers. But if you're at home works perfectly fine.
+
+196
+00:32:23.360 --> 00:32:24.990
+George Tebrean: Okay, that's good to know.
+
+197
+00:32:28.910 --> 00:32:54.845
+Angelina Ceppaluni: Yeah, if you're if anyone is interested in it. You don't have to. It's just something that I found running a windows machine and needing an apple operating system as well. It was the kind of like the perfect alternative. I posted a link for it in case anybody's interested in it. I I use not the basic one, the next one up, so that I have developer permissions. And I have security privileges.
+
+198
+00:32:55.490 --> 00:33:01.800
+Angelina Ceppaluni: So if any ios testing needs to be done, I can do it through there as well on the windows. Machine.
+
+199
+00:33:06.760 --> 00:33:09.399
+Nischal Sharma (Web3 Labs): Well, thanks thanks for yeah. Letting us know.
+
+200
+00:33:09.940 --> 00:33:10.730
+Angelina Ceppaluni: Yeah, of course.
+
+201
+00:33:10.730 --> 00:33:15.619
+George Tebrean: I also use, like in the past, something similar. I think it was from Hertz.
+
+202
+00:33:16.770 --> 00:33:23.089
+George Tebrean: but that one was really expensive, and also it. It worked kind of slow.
+
+203
+00:33:23.610 --> 00:33:25.450
+George Tebrean: Okay, I will take a look into this.
+
+204
+00:33:31.900 --> 00:33:37.640
+George Tebrean: Okay, is there anything else that you guys would like to talk about?
+
+205
+00:33:39.290 --> 00:33:43.030
+Angelina Ceppaluni: I'm all good on my end. Thank you, everybody, for the assistance.
+
+206
+00:33:45.300 --> 00:33:46.290
+George Tebrean: No problem.
+
+207
+00:33:48.000 --> 00:33:49.879
+Nischal Sharma (Web3 Labs): Oh, yeah, nothing from a side.
+
+208
+00:33:54.570 --> 00:33:55.530
+George Tebrean: Okay.
+
+209
+00:33:58.570 --> 00:34:03.151
+George Tebrean: so thanks. Anyone, thanks. Thanks everyone for joining and
+
+210
+00:34:03.820 --> 00:34:11.609
+George Tebrean: bringing your issues. And yeah, we'll try to cover those and let you guys know on discord.
+
+211
+00:34:14.000 --> 00:34:15.340
+Nischal Sharma (Web3 Labs): Thank you. Thank you, everyone.
+
+212
+00:34:15.730 --> 00:34:16.310
+Nischal Sharma (Web3 Labs): Bye-bye.
+
+213
+00:34:16.310 --> 00:34:17.100
+Angelina Ceppaluni: Thank you. Thank you.
+
+214
+00:34:17.100 --> 00:34:17.420
+Julius Lauterbach (Julius278): Bye-bye.
+
+215
+00:34:17.719 --> 00:34:18.229
+George Tebrean: There you go!
+
+216
+00:34:18.230 --> 00:34:19.119
+Angelina Ceppaluni: Have a good weekend.
+
+217
+00:34:19.120 --> 00:34:20.340
+George Tebrean: You too, bye.
+

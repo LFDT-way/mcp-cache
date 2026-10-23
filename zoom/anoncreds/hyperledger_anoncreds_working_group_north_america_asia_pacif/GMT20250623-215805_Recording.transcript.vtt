@@ -1,0 +1,1402 @@
+WEBVTT
+
+1
+00:00:13.400 --> 00:00:24.120
+Stephen Curran: All right. Welcome to the June 23, rd 2025, and on credits working group meeting, I've got a update on the non creds, one revocation improvements that we're
+
+2
+00:00:25.556 --> 00:00:39.469
+Stephen Curran: experimenting with making. So we're gonna I'm gonna go over that issue and then we'll have open discussion, although we'll probably invert those 2 topics and have open discussion first, st and go to the presentation after
+
+3
+00:00:41.280 --> 00:00:49.349
+Stephen Curran: we are recording, and we'll post a recording a reminder. This is a Linux foundation, Europe meeting or no, it's a Linux Foundation meeting.
+
+4
+00:00:49.470 --> 00:00:59.180
+Stephen Curran: So the Linux Foundation antitrust policy is in effect, it is also an Lfd meeting. So the code of conduct is in effect.
+
+5
+00:01:00.436 --> 00:01:04.040
+Stephen Curran: so, as I say, I'm gonna talk about
+
+6
+00:01:04.230 --> 00:01:09.279
+Stephen Curran: the the progress being made that in particular, Andrew Whitehead is making on the
+
+7
+00:01:10.690 --> 00:01:15.100
+Stephen Curran: revocation approach. And but
+
+8
+00:01:15.735 --> 00:01:21.530
+Stephen Curran: for those that are here any other topics that we should talk about 1st before we do that.
+
+9
+00:01:23.520 --> 00:01:37.790
+Mark Moir: Yes, sure. Why don't I give a little bit of an update on what we progress we've been making, and just very interested to hear about revocation improvements, and I'll say, Why.
+
+10
+00:01:38.411 --> 00:01:42.099
+Mark Moir: so, as you know, we've been working on.
+
+11
+00:01:42.100 --> 00:01:51.220
+Stephen Curran: One second just for those that might be listening. This that's mark from oracle labs, New Zealand, speaking.
+
+12
+00:01:52.720 --> 00:01:54.730
+Mark Moir: Yes, speaking from New Zealand.
+
+13
+00:01:56.630 --> 00:02:13.509
+Mark Moir: yes. So we have. Yeah, I'll I'll give a little bit of background that everyone that's actually here in the meeting already knows but we've been working on an abstraction for decoupling verifiable credential formats, such as a non creds.
+
+14
+00:02:13.650 --> 00:02:18.650
+Mark Moir: v. 1 is one example that Steve will talk about.
+
+15
+00:02:19.490 --> 00:02:26.930
+Mark Moir: the W. 3 C. Verifiable credentials. Data model is another. There are others.
+
+16
+00:02:27.410 --> 00:02:37.489
+Mark Moir: and we have been working on abstraction to separate those credential formats from underlying 0 knowledge, proof, cryptography, libraries that
+
+17
+00:02:38.150 --> 00:02:45.069
+Mark Moir: support privacy, and for us, very importantly, accountability, preserving features.
+
+18
+00:02:45.440 --> 00:03:09.620
+Mark Moir: And the reason that we want to do that is that we see most existing projects, kind of pick a format, pick a cryptography library, and integrate them in together, and they don't sort of come apart nicely and and swap swap around, which means, for example, if one project dies, it takes down the other part of the project with it, and we've seen that happen.
+
+19
+00:03:11.430 --> 00:03:33.400
+Mark Moir: so we, our work until a few months ago, was mostly focused on designing and implementing that abstraction. We have implemented it over 2 cryptography libraries, one of which is the Noncreds version, 2 library, which supports a bunch more advanced privacy and accountability features than
+
+20
+00:03:33.400 --> 00:03:41.869
+Mark Moir: than the Noncreds v. 1 does, and the other one is called Doc Network Crypto, which similarly supports a bunch of more advanced features.
+
+21
+00:03:43.413 --> 00:03:56.269
+Mark Moir: We've got some some slides available that we have given at Iiw a few times the most recent one, just a couple of months ago in April.
+
+22
+00:03:57.007 --> 00:04:04.350
+Mark Moir: And I guess we can get a link to those slides into the notes. Possibly later on.
+
+23
+00:04:05.840 --> 00:04:21.320
+Mark Moir: since the last couple of months we have been working for the 1st time on targeting a credential format to our abstraction to really, you know, kick the tires and and make sure that it works.
+
+24
+00:04:21.680 --> 00:04:37.109
+Mark Moir: and the format that we have chosen to do initially for a couple of reasons. One is because of our collaboration with this group, and the other is with collaboration within an oracle product group. The oracle blockchain product.
+
+25
+00:04:38.486 --> 00:04:46.400
+Mark Moir: They are working on a self sovereign edition. I think I've got that name right. But don't quote me on it of their platform.
+
+26
+00:04:46.520 --> 00:05:03.130
+Mark Moir: and there is public information about this available now, too, in a blog post by Adrian Ross, and they want to use a noncreds. v. 1 credential format, but they would very much like to have lighter weight signature schemes, such as bbs.
+
+27
+00:05:03.530 --> 00:05:20.919
+Mark Moir: so the the hope that we have is that we can enable that by targeting a non creds. v. 1. To our abstraction, and then instantiating our abstraction underneath by different cryptography, libraries such as the ones that I mentioned before.
+
+28
+00:05:20.920 --> 00:05:21.320
+Stephen Curran: Yeah.
+
+29
+00:05:21.320 --> 00:05:25.579
+Mark Moir: And we have. We've got an outstanding intern working with us.
+
+30
+00:05:26.106 --> 00:05:30.619
+Mark Moir: I think he's maybe coming up to about halfway through his internship.
+
+31
+00:05:31.130 --> 00:05:43.033
+Stephen Curran: And what we have achieved with him. Harold and I actually went to Burlington, Massachusetts, and sat sat with him and slowed him down for a couple of weeks.
+
+32
+00:05:43.700 --> 00:05:43.970
+Mark Moir: Yeah.
+
+33
+00:05:45.152 --> 00:05:55.399
+Mark Moir: so we could come up to speed, which was extremely valuable to be able to sit together because we all work in different time zones, and have limited sort of synchronous overlap each day, but
+
+34
+00:05:55.570 --> 00:05:58.509
+Mark Moir: spending a couple of weeks together was extremely valuable.
+
+35
+00:05:58.630 --> 00:06:07.780
+Mark Moir: and where we have got to is, we have successfully
+
+36
+00:06:08.621 --> 00:06:18.670
+Mark Moir: run. The anon creds flow test that is in the Credo repository over our abstraction.
+
+37
+00:06:18.820 --> 00:06:24.369
+Mark Moir: But it's the non revocation version. We have not implemented revocation yet.
+
+38
+00:06:24.804 --> 00:06:43.045
+Mark Moir: We've got a whole bunch of to do's, and we just had a meeting an hour ago in which I had forgotten how many to do's I left in my long work day on Friday. So it was a little deflating, but a bunch of to do's to do. But we're really pretty confident that we will be
+
+39
+00:06:43.960 --> 00:06:45.920
+Mark Moir: that will have.
+
+40
+00:06:49.230 --> 00:06:55.569
+Mark Moir: We would be able to create a pull request against the Anoncreds, v. 1 rust library
+
+41
+00:06:55.890 --> 00:07:04.699
+Mark Moir: that would enable compiling it. That does. It's just internal at this stage, right? But it it enables compiling it with a Vcp feature
+
+42
+00:07:04.850 --> 00:07:13.999
+Mark Moir: which we can then instantiate those other libraries. And so we have already done that we've done selective disclosure. And we've done predicates.
+
+43
+00:07:14.455 --> 00:07:19.149
+Mark Moir: And we've run that over both of those 2 cryptography libraries that I mentioned.
+
+44
+00:07:19.520 --> 00:07:29.810
+Mark Moir: So while there's a bunch of cleanup, and and to do's to do, we've we've got those features working which is quite an exciting milestone for us, because.
+
+45
+00:07:29.810 --> 00:07:30.200
+Stephen Curran: What happened?
+
+46
+00:07:30.580 --> 00:07:40.720
+Mark Moir: A long time on developing this abstraction and and fantasizing about being able to target credential formats to it. But now we've actually done one which feels pretty good.
+
+47
+00:07:41.311 --> 00:07:46.239
+Stephen Curran: Sorry, quick. Question the Pr. Did you say it was for the Noncreds? Rs.
+
+48
+00:07:47.530 --> 00:07:54.419
+Mark Moir: Yes, that's correct, and there isn't a Pr yet, and we will actually have to get permission to contribute to that repo. The same.
+
+49
+00:07:54.420 --> 00:07:54.750
+Stephen Curran: Okay.
+
+50
+00:07:54.750 --> 00:08:00.800
+Mark Moir: Did for B 2 but assuming we can do that, we think we'll have a relatively
+
+51
+00:08:03.080 --> 00:08:26.639
+Mark Moir: I don't want to call it small but relatively clean pull request that enables the same, the same interface. So people will just be able to link against our library instead of the existing library and get those features, over whichever underlying Cryptography library, which means they can use the A/C. 2 C. Library.
+
+52
+00:08:26.960 --> 00:08:34.659
+Mark Moir: Beyond that we would love to think about enabling more features, such as verifiable encryption.
+
+53
+00:08:34.669 --> 00:08:35.489
+Stephen Curran: Yeah, yeah.
+
+54
+00:08:35.790 --> 00:08:55.620
+Mark Moir: But that's that's future work that we we're certainly not in a position to commit to or really think about at the moment. But but that's the sort of thing that would be enabled, and a lot of what we've been learning over the last few weeks in order to get to where we have is about how you know presentation requests
+
+55
+00:08:56.030 --> 00:09:14.790
+Mark Moir: in v. 1 work, and what their meaning is, and what their restrictions are, and all of that stuff. So now I think with our work it would be possible for us or someone else to extend, to use these other features that are already there in our abstraction and already implemented over these other libraries. So I think it's quite a
+
+56
+00:09:15.350 --> 00:09:20.549
+Mark Moir: good possibility to to extend the functionality in in some significant ways.
+
+57
+00:09:23.820 --> 00:09:26.330
+Mark Moir: Yes. Now about revocation.
+
+58
+00:09:26.831 --> 00:09:36.129
+Mark Moir: Very interesting that you're going to talk about improvements to revocation, because for us we have not at this point worked out how we can
+
+59
+00:09:37.980 --> 00:09:51.720
+Mark Moir: disentangle. The a non, the sorry. The Chemnis, Lysansky, a signature. Integration with the tails. File revocation approach.
+
+60
+00:09:52.455 --> 00:10:00.930
+Mark Moir: And so we're hoping to be able to have a look at that and sort of tease those apart so that we can continue with the same revocation
+
+61
+00:10:01.550 --> 00:10:07.190
+Mark Moir: interface, so that, for example, the Credo test with revocation would work.
+
+62
+00:10:07.190 --> 00:10:07.650
+Stephen Curran: Yeah.
+
+63
+00:10:07.650 --> 00:10:14.060
+Mark Moir: But but weaning ourselves off of the anon cred sales signatures, library.
+
+64
+00:10:14.570 --> 00:10:15.520
+Mark Moir: So
+
+65
+00:10:15.995 --> 00:10:30.485
+Mark Moir: we just have not looked into that yet. That does appear to have at least some technical challenge to it. And we're just gonna have to see if if we can do that. But it's also kind of a question in our minds. And and
+
+66
+00:10:32.100 --> 00:10:37.350
+Mark Moir: yeah, it's a question in our minds, how much sense does it make to overcome
+
+67
+00:10:37.520 --> 00:10:55.389
+Mark Moir: technical challenges in order to support legacy mechanisms when we've got perhaps more scalable ones already implemented by our abstraction, and we hear that there are potential changes to revocation coming down the
+
+68
+00:10:55.620 --> 00:10:56.750
+Mark Moir: down the line.
+
+69
+00:10:56.910 --> 00:10:57.830
+Mark Moir: So
+
+70
+00:10:59.348 --> 00:11:13.740
+Mark Moir: that's kind of where we're up to. We're we're getting a lot of other work to do. Now that's unrelated to this. So it's we're sort of having to think. Now, what's what's the
+
+71
+00:11:14.371 --> 00:11:26.890
+Mark Moir: what's the way we can contribute what we've got? And where do we sort of draw the line. But we're really interested to hear about the revocation stuff that you're going to talk about, because that certainly could affect our opinion about it.
+
+72
+00:11:27.190 --> 00:11:32.609
+Mark Moir: So that'll do for me unless there's any questions, or Harold wants to add anything.
+
+73
+00:11:33.020 --> 00:11:45.350
+Harold Carr: Yeah, there's a little piece, and that is before we went back East, Mark made a stop in Utah, and we met up with Mike Lauder, and went for.
+
+74
+00:11:45.350 --> 00:11:45.740
+Stephen Curran: Good.
+
+75
+00:11:45.740 --> 00:11:57.290
+Harold Carr: The 3 of us together near in in near the State Capitol, and that was a nice hike, and we had some nice technical conversations, and got to know each other better.
+
+76
+00:11:57.460 --> 00:12:10.949
+Harold Carr: And then we also the next day had a meeting a lunch meeting just met for lunch with Richard Esplin of Doc Network, and Brent Zundel.
+
+77
+00:12:11.210 --> 00:12:12.340
+Stephen Curran: Oh, excellent!
+
+78
+00:12:13.620 --> 00:12:19.509
+Mark Moir: Which was a that was Richard's idea to invite Brent along.
+
+79
+00:12:20.300 --> 00:12:31.410
+Mark Moir: and really a great fit for us just starting to ramp up our work on the non creds. v, 1, because he played a central role in in developing that. Right? So
+
+80
+00:12:32.250 --> 00:12:38.050
+Mark Moir: yeah, so very pleasant lunch. It was very nice to get to know those guys a bit better. And yeah, quite helpful.
+
+81
+00:12:40.100 --> 00:12:40.780
+Stephen Curran: That's awesome.
+
+82
+00:12:40.850 --> 00:12:43.950
+Mark Moir: Reminding me about that Harold.
+
+83
+00:12:47.520 --> 00:12:51.039
+Stephen Curran: Alright. Well, do you want me to jump into the.
+
+84
+00:12:52.140 --> 00:12:53.540
+Mark Moir: To a notification.
+
+85
+00:12:56.810 --> 00:13:03.679
+Stephen Curran: The good news, is it? The whole point of this is to minimize the changes we're gonna do.
+
+86
+00:13:04.865 --> 00:13:10.530
+Stephen Curran: So this is a part 2 presentation of some improvements we're looking at.
+
+87
+00:13:11.853 --> 00:13:18.930
+Stephen Curran: So I'll I'll put this link to this presentation. Actually, I can share it in the chat
+
+88
+00:13:19.110 --> 00:13:24.910
+Stephen Curran: case. You want to look at it, and then it's got links to the other pieces in it.
+
+89
+00:13:29.060 --> 00:13:37.659
+Stephen Curran: so so the idea we want is the 3 ideas sort of came together. From a couple of people.
+
+90
+00:13:39.810 --> 00:13:50.289
+Stephen Curran: that a the same tails file can be used for all the cumulators of a cred def. So all the reveredges, if you will, of a cred deaf.
+
+91
+00:13:51.460 --> 00:13:54.170
+Stephen Curran: so same schema same issuer
+
+92
+00:13:55.480 --> 00:13:59.669
+Stephen Curran: But all of the revocation registries can use the same tails file.
+
+93
+00:13:59.840 --> 00:14:09.749
+Stephen Curran: So there is a public key associated with that. But but the tails file can be the same versus having to create one every time you create a Rev.
+
+94
+00:14:10.050 --> 00:14:20.019
+Stephen Curran: Which is a significant improvement for the issuer. Much, much lighter weight to manage reveredges.
+
+95
+00:14:20.551 --> 00:14:30.669
+Stephen Curran: Doesn't change the cryptography or the processing in any way. It just means that every holder grabs the same file instead of grabbing the one specific to the
+
+96
+00:14:31.237 --> 00:14:40.199
+Stephen Curran: rev. Reg, that they're they are that their credential is in. So that's good. Same tails file for all the accumulators.
+
+97
+00:14:40.966 --> 00:14:46.939
+Stephen Curran: The second improvement is to, instead of having each
+
+98
+00:14:48.640 --> 00:14:56.139
+Stephen Curran: set of each accumulator, and associated bit string statuses
+
+99
+00:14:58.020 --> 00:15:03.500
+Stephen Curran: each in an independent file. Put them all together into a single file
+
+100
+00:15:03.700 --> 00:15:09.450
+Stephen Curran: that has a an array of all the accumulators, and an array of all the bit strings
+
+101
+00:15:09.600 --> 00:15:14.559
+Stephen Curran: and call that a a river edge entry. And so
+
+102
+00:15:14.700 --> 00:15:27.030
+Stephen Curran: the size goes up dramatically, and I'll talk about that. And then the 3rd idea was, the tails file. The size of the tails file is the current constraint on how big?
+
+103
+00:15:27.784 --> 00:15:31.869
+Stephen Curran: The number of credentials in an accumulator can be.
+
+104
+00:15:32.160 --> 00:15:41.229
+Stephen Curran: And there is a technique known, well known, available that allows the tails file size to be shrunk in half.
+
+105
+00:15:41.560 --> 00:15:42.510
+Stephen Curran: or
+
+106
+00:15:42.990 --> 00:16:08.129
+Stephen Curran: the capacity to be doubled in the same size, file and then the decompression is handled up, handled by the holder. So Andrew Whitehead at working with Bcgov has been working on these. He's got a combination of the 1st 2 into a redefinition of what a Rev. Reg. Is, and then experimenting with the performance of the tails, file issue
+
+107
+00:16:09.165 --> 00:16:12.849
+Stephen Curran: so the massive reveredge.
+
+108
+00:16:13.950 --> 00:16:14.570
+Stephen Curran: Yep.
+
+109
+00:16:14.910 --> 00:16:22.509
+Mark Moir: Is it common to have multiple accumulators for the same?
+
+110
+00:16:23.470 --> 00:16:24.520
+Mark Moir: Could this.
+
+111
+00:16:24.520 --> 00:16:26.090
+Stephen Curran: Yes, so.
+
+112
+00:16:26.090 --> 00:16:26.640
+Mark Moir: Okay.
+
+113
+00:16:26.640 --> 00:16:30.340
+Stephen Curran: Again. Because the tails file.
+
+114
+00:16:30.770 --> 00:16:35.160
+Stephen Curran: basically, a tails file contains element, an element.
+
+115
+00:16:35.650 --> 00:16:43.940
+Stephen Curran: a g 2 element, I believe. But anyway, an element for every credential in a Rev. Reg.
+
+116
+00:16:44.410 --> 00:16:51.009
+Stephen Curran: The Max size of a of a revocation registry is about 3,000 credentials.
+
+117
+00:16:51.830 --> 00:17:01.729
+Stephen Curran: so the accumulator, each accumulator can only include 3,000 credentials. Say
+
+118
+00:17:02.110 --> 00:17:14.980
+Stephen Curran: it's it's it's a parameter. But but generally the largest that is commonly used is 3,000, and it's not because of the accumulator size, because the tails file that the holder has to download
+
+119
+00:17:15.329 --> 00:17:21.900
+Stephen Curran: is at at 3,000 is 768 kB, which we think is
+
+120
+00:17:22.760 --> 00:17:27.040
+Stephen Curran: the biggest that a a
+
+121
+00:17:27.569 --> 00:17:30.890
+Stephen Curran: mobile wallet would be able to handle
+
+122
+00:17:31.070 --> 00:17:33.220
+Stephen Curran: in a in a good ux.
+
+123
+00:17:33.770 --> 00:17:36.060
+Mark Moir: Okay. So it's, it's more of a scalability.
+
+124
+00:17:36.060 --> 00:17:36.750
+Stephen Curran: Exactly.
+
+125
+00:17:36.750 --> 00:17:39.639
+Mark Moir: In a use case thing. I got you. Okay. Thanks.
+
+126
+00:17:39.640 --> 00:17:42.400
+Stephen Curran: Yup, yup, okay,
+
+127
+00:17:45.600 --> 00:17:51.190
+Stephen Curran: So the 1st idea is the massive red bridge, and that actually combines the
+
+128
+00:17:51.450 --> 00:17:59.830
+Stephen Curran: use of the same tails. File across all the river edges, and this idea of, instead of each
+
+129
+00:17:59.950 --> 00:18:10.599
+Stephen Curran: Rev. Reg being a single accumulator, we define a reveredge to be a set of acute of partitions
+
+130
+00:18:10.840 --> 00:18:20.500
+Stephen Curran: where each partition is each partition is essentially an accumulator in the Rev. Range.
+
+131
+00:18:20.800 --> 00:18:33.780
+Stephen Curran: So if you think of partitions as defaulting to one, that is the current scheme. So each today each reveredge has one partition in it. It has one accumulator and one array of bits.
+
+132
+00:18:34.460 --> 00:18:35.449
+Stephen Curran: and that
+
+133
+00:18:35.700 --> 00:18:54.369
+Stephen Curran: the size the Max cred num, which is an existing parameter, is constrained by how large you want your tails file to be. So with this new scheme. We have a single tails file. We still have our Max cred. Num. But we say that there can be more than one partition
+
+134
+00:18:54.630 --> 00:18:57.009
+Stephen Curran: in a a Rev. Reg.
+
+135
+00:18:57.520 --> 00:18:58.969
+Stephen Curran: And a
+
+136
+00:18:59.500 --> 00:19:11.809
+Stephen Curran: common number might be, say, 200, so that now a Rev. Reg. Instead of being limited to the 3 K. That is, in a single partition, we now have 600 k.
+
+137
+00:19:13.402 --> 00:19:16.710
+Stephen Curran: Because our we have 200 partitions.
+
+138
+00:19:17.220 --> 00:19:19.599
+Stephen Curran: and that's a pretty reasonable size.
+
+139
+00:19:20.240 --> 00:19:25.639
+Stephen Curran: So now every reveredge is 600 k.
+
+140
+00:19:28.040 --> 00:19:35.560
+Stephen Curran: When issuing a credential, as we have today, we have a Rev. Reg. Id.
+
+141
+00:19:36.190 --> 00:19:45.479
+Stephen Curran: and we continue to have that. But in this case we add a fragment at the end, indicating in which partition the credential resides.
+
+142
+00:19:45.640 --> 00:19:55.020
+Stephen Curran: So Rev. Reg. Id. Still the same as it was before. But now we have this hash 44 on it to indicate that it is in the 44th partition.
+
+143
+00:19:58.580 --> 00:20:18.999
+Stephen Curran: the id is the is this river edge. Id. Now this is the new definition of what river Edge Id looks like, and that gets put into the credential by the issuer and signed and then passed on. In the presentation to the holder by the verifier, so that the holder lets the verifier know. Hey? My credential is in
+
+144
+00:20:20.850 --> 00:20:23.049
+Stephen Curran: in partition 44.
+
+145
+00:20:24.810 --> 00:20:26.130
+Stephen Curran: The index
+
+146
+00:20:26.290 --> 00:20:41.540
+Stephen Curran: it to the Rev. Reg. Is given to the holder, but that is not shared with the verifier again, which is consistent with how it operates today. So the holder does not share with the verifier which index within the Rev. Reg. It is
+
+147
+00:20:44.260 --> 00:20:48.910
+Stephen Curran: the new index. So obviously in the old way. It was
+
+148
+00:20:49.170 --> 00:20:53.989
+Stephen Curran: limited to Max Credit, so it'd be a number between one and 3,000.
+
+149
+00:20:54.910 --> 00:21:00.249
+Stephen Curran: Now it would probably be a number between one and 600,000.
+
+150
+00:21:02.450 --> 00:21:03.920
+Stephen Curran: You know, whatever the
+
+151
+00:21:04.380 --> 00:21:15.390
+Stephen Curran: total size of the partition is, it still could be the index within the partition doesn't really matter. It's all calculatable, based on knowing the partition that the
+
+152
+00:21:15.600 --> 00:21:17.650
+Stephen Curran: that the credential resides in.
+
+153
+00:21:19.260 --> 00:21:21.180
+Stephen Curran: And then finally, yeah.
+
+154
+00:21:21.180 --> 00:21:25.899
+Mark Moir: Be private. If you're disclosing which partition you're in, that's
+
+155
+00:21:27.060 --> 00:21:32.269
+Mark Moir: I mean ideally, you had proven 0 knowledge that you know a partition. Yeah.
+
+156
+00:21:32.270 --> 00:21:42.340
+Stephen Curran: Yes, you are sharing. Yes, you're sharing with the verifier what partition you're in, which means you're sharing with the verifier a 1 in 3,000
+
+157
+00:21:43.860 --> 00:21:46.680
+Stephen Curran: number, which is less than ideal.
+
+158
+00:21:47.130 --> 00:21:47.790
+Mark Moir: Right.
+
+159
+00:21:52.110 --> 00:21:53.150
+Stephen Curran: And then.
+
+160
+00:21:53.290 --> 00:22:05.590
+Stephen Curran: so I'll come back to this and then talk about it. And I get to that later on about the the compare the comparison. So Rev. Reg. Entry, now so reveredge entry is the same concept we have now, which is the state
+
+161
+00:22:05.990 --> 00:22:14.540
+Stephen Curran: of the of a credential and the state of a revocation consists of a timestamp. So when
+
+162
+00:22:14.690 --> 00:22:19.120
+Stephen Curran: was this the State an accumulator.
+
+163
+00:22:19.840 --> 00:22:29.529
+Stephen Curran: and a the status of all of the credentials within that accumulator that contribute to that accumulator.
+
+164
+00:22:30.580 --> 00:22:34.990
+Stephen Curran: And so now we redefine rever edge entry to be
+
+165
+00:22:35.180 --> 00:22:42.040
+Stephen Curran: a compressed bit list of all credentials in the Rev. In other words, all 600 k.
+
+166
+00:22:42.620 --> 00:22:52.299
+Stephen Curran: Within the reveredge, plus an array of size partitions of accumulators. So we have an accumulator for every partition.
+
+167
+00:22:52.800 --> 00:22:57.759
+Stephen Curran: and we have our, and we have our timestamp, so that Timestamp continues along.
+
+168
+00:22:59.140 --> 00:23:02.199
+Stephen Curran: And again, if we, if we make
+
+169
+00:23:02.790 --> 00:23:13.499
+Stephen Curran: partition equal to one, we have the current situation, which is a river edge. The river edge entry is a list of the status of all the credentials.
+
+170
+00:23:13.710 --> 00:23:18.400
+Stephen Curran: plus an array size of one accumulator
+
+171
+00:23:18.590 --> 00:23:22.370
+Stephen Curran: and a timestamp. And so it's the same
+
+172
+00:23:22.530 --> 00:23:24.620
+Stephen Curran: as it, you know it's it.
+
+173
+00:23:24.840 --> 00:23:29.360
+Stephen Curran: It devolves to the same mechanism as we have today.
+
+174
+00:23:31.690 --> 00:23:33.140
+Stephen Curran: So the holder.
+
+175
+00:23:33.593 --> 00:23:41.599
+Stephen Curran: as it does today, retrieves the tails file, which is listed as a URL in the in the reveredge definition. So no change there.
+
+176
+00:23:42.900 --> 00:23:48.169
+Stephen Curran: When it needs to. It, retrieves the reveredge entry.
+
+177
+00:23:48.370 --> 00:23:57.669
+Stephen Curran: and records the timestamp for that so often that is done at presentation time, and it retrieves the latest. Now
+
+178
+00:23:58.080 --> 00:24:02.129
+Stephen Curran: by making each Rev. Reg. Entry
+
+179
+00:24:02.400 --> 00:24:10.579
+Stephen Curran: 600 k. Versus the previous 3,000 or 3 k.
+
+180
+00:24:10.850 --> 00:24:19.190
+Stephen Curran: By making it 600 k. Versus 3 k. The the issuer learns far less about the holder
+
+181
+00:24:19.450 --> 00:24:21.379
+Stephen Curran: if the holder retrieves it.
+
+182
+00:24:22.970 --> 00:24:27.520
+Stephen Curran: The issuer knows. Oh, it's 1 of 3,000, if
+
+183
+00:24:27.810 --> 00:24:35.260
+Stephen Curran: the issue, or if now, with it, with the population being 600,600 k.
+
+184
+00:24:35.530 --> 00:24:40.940
+Stephen Curran: The issuer learns a lot less about who is retrieving the file
+
+185
+00:24:44.310 --> 00:24:51.179
+Stephen Curran: at presentation time. The holder uses the partition from the red Reg to extract the bits
+
+186
+00:24:51.510 --> 00:24:52.850
+Stephen Curran: from the bit list.
+
+187
+00:24:52.950 --> 00:25:00.209
+Stephen Curran: Starting from bit partition times, Max, cred. Num. So it's starting from that point. The partition it is in
+
+188
+00:25:00.570 --> 00:25:02.769
+Stephen Curran: that hash 44
+
+189
+00:25:03.070 --> 00:25:18.050
+Stephen Curran: times the Max credit num, which is the number per partition. So now it knows where to start, and it extracts Max cred. Num bits from the bit string, and now it has the status of all of the credentials in its partition.
+
+190
+00:25:21.340 --> 00:25:25.309
+Stephen Curran: If the index it has is across the entire
+
+191
+00:25:25.440 --> 00:25:43.040
+Stephen Curran: reveredge. It calculates the index of its credential within the particular partition it's in, and then it uses that information, the bit array, the tails, files, contents, and the credential index to calculate the non revocation proof for the verifier.
+
+192
+00:25:43.260 --> 00:25:50.770
+Stephen Curran: This information is exactly what it uses today. This the anon credits. Rs. If you will.
+
+193
+00:25:50.950 --> 00:25:57.609
+Stephen Curran: Won't see any change, it'll get the same input parameters and will produce the same non revocation proof.
+
+194
+00:25:57.970 --> 00:26:03.250
+Stephen Curran: The only difference is that the
+
+195
+00:26:03.360 --> 00:26:11.400
+Stephen Curran: pre-processing that the holder is doing prior to hand handing it to the Anon Creds. Rs library is different.
+
+196
+00:26:11.720 --> 00:26:23.590
+Stephen Curran: So it the river edge entry is obviously much bigger has this huge 600 k. It's got to get it down to the partition size and then pass it to the anon creds library.
+
+197
+00:26:29.310 --> 00:26:37.090
+Stephen Curran: The proof includes the Rev. Reg. Id. That was signed by the issuer, so it include, but it now has that fragment in it.
+
+198
+00:26:38.132 --> 00:26:39.337
+Stephen Curran: And then
+
+199
+00:26:40.260 --> 00:26:50.530
+Stephen Curran: the timestamp of the river edge entry that was used for the presentation. So those pieces of information are are in the proof, and
+
+200
+00:26:50.780 --> 00:26:54.340
+Stephen Curran: as a result are available become available to the verifier
+
+201
+00:26:58.782 --> 00:27:01.980
+Stephen Curran: on the verifier side it retrieves.
+
+202
+00:27:02.520 --> 00:27:08.339
+Stephen Curran: if it needs to the Rev. Reg. Entry at the timestamp indicated by the holders proof.
+
+203
+00:27:09.870 --> 00:27:11.409
+Stephen Curran: It extracts
+
+204
+00:27:11.800 --> 00:27:25.480
+Stephen Curran: the accumulator from the array of accumulators that it needs. That's all that the verifier needs is that single accumulator that was used for the same partition the holder used.
+
+205
+00:27:25.730 --> 00:27:29.410
+Stephen Curran: and then it can verify the proof, that's all it needs to do
+
+206
+00:27:29.700 --> 00:27:33.710
+Stephen Curran: so again, it would retrieve the reveredge entry.
+
+207
+00:27:34.050 --> 00:27:39.970
+Stephen Curran: The holder. The issuer would not gain any knowledge because it's 1 in
+
+208
+00:27:40.230 --> 00:27:45.380
+Stephen Curran: the verifier could be interested in one in 600,000
+
+209
+00:27:46.251 --> 00:27:48.600
+Stephen Curran: and it can verify the proof
+
+210
+00:27:54.020 --> 00:28:03.530
+Stephen Curran: from a practical, since I did some chat gpt estimating on
+
+211
+00:28:04.425 --> 00:28:16.039
+Stephen Curran: various scenarios with the size of a compressed bit array, of, say, 600,000 bits.
+
+212
+00:28:18.175 --> 00:28:29.270
+Stephen Curran: Where 50,000 are actually being used, and of those 55,000 are revoked.
+
+213
+00:28:30.140 --> 00:28:31.629
+Stephen Curran: So you've got a
+
+214
+00:28:32.040 --> 00:28:40.579
+Stephen Curran: potential population side of 600,000. You've actually issued 50,000, and you've revoked 5,000 of them.
+
+215
+00:28:40.690 --> 00:28:45.240
+Stephen Curran: The compressed bid array size would be 4 to 8 K.
+
+216
+00:28:45.540 --> 00:28:52.040
+Stephen Curran: So pretty small, and then, even if
+
+217
+00:28:52.140 --> 00:28:59.110
+Stephen Curran: you know, the number of revoked goes high, you know a hundred 1,000 of the 60,000 are revoked.
+
+218
+00:28:59.580 --> 00:29:09.960
+Stephen Curran: The actual size of the compressed bit array remains small, and worst case is 75,000 Byte.
+
+219
+00:29:10.090 --> 00:29:13.659
+Stephen Curran: 75 kB is the worst case. So
+
+220
+00:29:14.440 --> 00:29:26.840
+Stephen Curran: we think that's a pretty reasonable thing for a holder or a verifier to have to download, obviously much smaller than, for example, the tails file, so each entry would be
+
+221
+00:29:27.530 --> 00:29:30.600
+Stephen Curran: on the order of, you know.
+
+222
+00:29:30.910 --> 00:29:33.590
+Stephen Curran: 10 k. Up to 80 k.
+
+223
+00:29:34.220 --> 00:29:41.269
+Stephen Curran: For a. For a population size, a Rev. Reg. Size of 600 K.
+
+224
+00:29:41.600 --> 00:29:44.789
+Stephen Curran: Bits, 600 K credentials.
+
+225
+00:29:50.560 --> 00:29:51.839
+Stephen Curran: So that's
+
+226
+00:29:52.060 --> 00:30:05.130
+Stephen Curran: the effort is implementing obviously the code for that. And defining how how each the holder and the verifier would recognize that the issuer is using this new format.
+
+227
+00:30:07.260 --> 00:30:15.009
+Stephen Curran: then ensuring that the handling code is deployed in the ecosystem for the holders and verifiers and then activate
+
+228
+00:30:15.835 --> 00:30:23.579
+Stephen Curran: activate the handling code in the issuer so that it starts using these massive revered entries.
+
+229
+00:30:26.200 --> 00:30:32.960
+Stephen Curran: So that's what we're working on is sort of defining how it will look.
+
+230
+00:30:33.750 --> 00:30:42.020
+Stephen Curran: minimizing the impact on the issuer, on the holder and verifier and then activating it out.
+
+231
+00:30:42.490 --> 00:30:48.647
+Stephen Curran: All of it. All of this code is already there and already doing all of this. It's just
+
+232
+00:30:50.540 --> 00:30:55.179
+Stephen Curran: abstracting it out a little more. So we can make it easier to.
+
+233
+00:30:56.200 --> 00:31:00.000
+Stephen Curran: So we can deploy this this capability.
+
+234
+00:31:03.260 --> 00:31:05.419
+Stephen Curran: and then I'll get to the next part.
+
+235
+00:31:05.883 --> 00:31:16.819
+Stephen Curran: Didn't know how much there would be of discussion or questions about that, but the next part would be compressing tails file, and there's some fun things there. I'll get to that. Any questions or comments.
+
+236
+00:31:17.140 --> 00:31:21.747
+Mark Moir: Yeah. Will you go back 2 slides so I can see if I can remember what question I had.
+
+237
+00:31:24.270 --> 00:31:25.790
+Mark Moir: Let's see.
+
+238
+00:31:33.135 --> 00:31:36.689
+Mark Moir: I'm sure. Will you go? One more slide back, please.
+
+239
+00:31:36.690 --> 00:31:37.549
+Stephen Curran: Oh, back!
+
+240
+00:31:40.400 --> 00:31:42.200
+Mark Moir: No! I've lost my question.
+
+241
+00:31:47.140 --> 00:31:49.109
+Mark Moir: Never mind. Why don't you carry on.
+
+242
+00:31:49.110 --> 00:31:50.469
+Stephen Curran: You'll get it, it'll come.
+
+243
+00:31:50.470 --> 00:32:06.090
+Mark Moir: I'm sure I'm gonna see this again, because this will. Oh, I do know one question that I had in mind. So these changes that you're talking about are all in the anon Creds. Rs rust library.
+
+244
+00:32:06.610 --> 00:32:13.890
+Stephen Curran: No as I say, I think the vast majority of these will be in the
+
+245
+00:32:14.000 --> 00:32:18.119
+Stephen Curran: preparing of input to the Anon Creds. Rs library.
+
+246
+00:32:19.410 --> 00:32:21.390
+Stephen Curran: So, for example.
+
+247
+00:32:21.590 --> 00:32:29.389
+Stephen Curran: when we implemented the Anon Creds and on creds, Rs is like the 3rd implementation of this Cl signatures.
+
+248
+00:32:30.810 --> 00:32:35.250
+Stephen Curran: When we did an on Creds. Rs, the prior version
+
+249
+00:32:35.970 --> 00:32:46.740
+Stephen Curran: Indie Indie stores the the bit array as deltas, and so you collect up all of the entries, and that tells you all of the
+
+250
+00:32:48.270 --> 00:32:53.140
+Stephen Curran: credentials that have been revoked or unrevoked, and then you calculate a state.
+
+251
+00:32:53.310 --> 00:32:57.650
+Stephen Curran: and then you pass that in so now
+
+252
+00:32:58.344 --> 00:33:11.739
+Stephen Curran: when we did a noncreds. Rs, we got rid of the concept of deltas. And so now, if you're using Indie, you have to convert the deltas into a bit array, and then pass that in. Whereas, for instance, unchecked.
+
+253
+00:33:11.880 --> 00:33:13.979
+Stephen Curran: they just store the bit array.
+
+254
+00:33:14.220 --> 00:33:17.580
+Stephen Curran: So we're doing the same sort of thing, which is
+
+255
+00:33:18.400 --> 00:33:28.440
+Stephen Curran: the manipulation happens before you pass it into an on credits. Rs, and then in our credits, Rs is unchanged. That's that's likely. What we're gonna do.
+
+256
+00:33:28.980 --> 00:33:32.099
+Mark Moir: So where? Where are those changes? Are they in a non cred seal signature?
+
+257
+00:33:32.100 --> 00:33:37.540
+Stephen Curran: So they would be in things like Acapi, or did web vh.
+
+258
+00:33:38.280 --> 00:33:40.499
+Stephen Curran: or things like that, or Indie?
+
+259
+00:33:41.140 --> 00:33:48.050
+Stephen Curran: Okay? And they would all be you'd still be using a non cred cl signatures. Just
+
+260
+00:33:48.050 --> 00:33:57.629
+Stephen Curran: so. So the idea is, the cryptography is not really changing in any way. It's just you're manipulating how you're storing things. And then
+
+261
+00:33:59.010 --> 00:34:05.519
+Stephen Curran: taking that storage representation and altering it so that it's what a non credits Rs expects.
+
+262
+00:34:07.850 --> 00:34:08.630
+Mark Moir: Okay.
+
+263
+00:34:10.420 --> 00:34:15.590
+Mark Moir: Alright. Cool. Thank you. Yeah.
+
+264
+00:34:15.850 --> 00:34:16.360
+Mark Moir: Carry on.
+
+265
+00:34:18.560 --> 00:34:25.070
+Stephen Curran: So compressing. Tails, files, tails, files, as I mentioned, are a list of elements. They're.
+
+266
+00:34:25.260 --> 00:34:28.570
+Stephen Curran: as I understand it. G. 2 points on the curve
+
+267
+00:34:28.770 --> 00:34:32.361
+Stephen Curran: something like that. And currently
+
+268
+00:34:33.480 --> 00:34:39.179
+Stephen Curran: or or there is a known technique that is, that is fairly well known, but wasn't
+
+269
+00:34:39.610 --> 00:34:44.210
+Stephen Curran: implemented when I guess when an on credits was 1st created.
+
+270
+00:34:44.650 --> 00:35:04.699
+Stephen Curran: And and it turns out those elements can be compressed by 50% in that you calculate and store the compressed value, and then you retrieve that compressed value and and it and decompress it to calculate the actual element that you need, the the actual value that the the
+
+271
+00:35:05.796 --> 00:35:10.510
+Stephen Curran: witness calculation, is expected.
+
+272
+00:35:11.870 --> 00:35:21.949
+Stephen Curran: So so as I say, that's a 50% reduction. So you can on receipt.
+
+273
+00:35:22.760 --> 00:35:27.350
+Stephen Curran: decompress the entire file. But then it has to be stored full size.
+
+274
+00:35:27.500 --> 00:35:36.835
+Stephen Curran: or you can decompress it on use, so that as you generate a presentation, and you need an element because the
+
+275
+00:35:37.400 --> 00:35:47.230
+Stephen Curran: The the credential it represents is revoked, then you decompress it only when needed, and so.
+
+276
+00:35:48.630 --> 00:35:51.389
+Stephen Curran: being able to compress, it is desirable.
+
+277
+00:35:51.560 --> 00:35:55.200
+Stephen Curran: because, as Mark, as you pointed out.
+
+278
+00:35:57.350 --> 00:36:05.700
+Stephen Curran: Even, I mean, it's not a great increase. It's only a doubling, but at least the
+
+279
+00:36:06.580 --> 00:36:23.740
+Stephen Curran: heard privacy increases from, say, 3,000. We have right now to 6,000 without increasing the file size larger than it is. The current. As I say, the current recommended is 3 K. Credentials capacity which Cal, which
+
+280
+00:36:24.190 --> 00:36:36.740
+Stephen Curran: implies a 768 kB tails file, and so obviously going up much larger than that takes this over a megabyte, which for a
+
+281
+00:36:37.656 --> 00:36:50.009
+Stephen Curran: our understanding right now of what is an acceptable user experience, is, you know, 768 is getting to the Kilobytes is getting to the
+
+282
+00:36:50.730 --> 00:36:56.729
+Stephen Curran: acceptable, and you know, towards the end of what's acceptable.
+
+283
+00:36:57.400 --> 00:37:04.170
+Stephen Curran: you know there's time to retrieve it. There is the the use of bandwidth.
+
+284
+00:37:04.530 --> 00:37:14.699
+Stephen Curran: and then there's the storage you've got to have for it. And and so you don't. You know, if you've got a 768 kB file per credential. You have.
+
+285
+00:37:15.182 --> 00:37:32.109
+Stephen Curran: You know, that's getting large, and if you go to, you know a Meg and a half for every one of them. Now you're starting to use people's monthly bandwidth allotments and you're using up capacity on their on their heart on their mobile phone, and so on. So that's where the limit comes from.
+
+286
+00:37:33.747 --> 00:37:38.790
+Stephen Curran: So at least we can make the verifier still knows you're within that
+
+287
+00:37:39.410 --> 00:37:45.210
+Stephen Curran: size, whatever the maximum is, but at least making it 6,000 would be better than 3.
+
+288
+00:37:45.870 --> 00:37:50.290
+Stephen Curran: So it's not the end of the what's that?
+
+289
+00:37:50.560 --> 00:37:52.270
+Mark Moir: I just remembered my question.
+
+290
+00:37:52.270 --> 00:37:52.910
+Stephen Curran: Good.
+
+291
+00:37:55.330 --> 00:38:18.249
+Mark Moir: I haven't looked at revocation at all. We've just been saying to do everywhere we see it, so I don't know a lot of the stuff. But when a presentation request we, you know, we've learned about how the presentation request can has this kind of query language. So it sort of specifies more generally what a what a holder can present right
+
+292
+00:38:18.940 --> 00:38:32.079
+Mark Moir: this true as well with revocation. So, for example, can the can the presentation request say you've got to prove that you were not revoked at some point in the last month, or is it always got to be the latest one.
+
+293
+00:38:33.359 --> 00:38:38.919
+Stephen Curran: So that's been a a tricky thing. So
+
+294
+00:38:39.440 --> 00:38:42.879
+Stephen Curran: the language has a to and a from
+
+295
+00:38:44.560 --> 00:38:46.410
+Stephen Curran: no, a from, and a 2
+
+296
+00:38:46.540 --> 00:38:52.952
+Stephen Curran: that's that's a better way of putting it. Yeah, you can put a date range in to say,
+
+297
+00:38:54.010 --> 00:39:00.060
+Stephen Curran: it has to be within the from and the to
+
+298
+00:39:00.440 --> 00:39:07.759
+Stephen Curran: range that I provide you often a and and the typical way it's implemented
+
+299
+00:39:08.294 --> 00:39:12.200
+Stephen Curran: has been that the from and the 2 are the same value, and they are now.
+
+300
+00:39:12.350 --> 00:39:18.419
+Stephen Curran: And so that means that you have to provide it. We are pushing hard to say.
+
+301
+00:39:19.695 --> 00:39:26.749
+Stephen Curran: It would be way better if verifiers were more lenient and would provide more space for that.
+
+302
+00:39:28.290 --> 00:39:32.970
+Stephen Curran: so would would allow it to be from within the last 2 weeks.
+
+303
+00:39:33.500 --> 00:39:41.300
+Stephen Curran: That would mean that the presentation time the
+
+304
+00:39:42.910 --> 00:39:54.750
+Stephen Curran: the holder would not have to download a new file, but would have it already on hand. A reveredge entry would already have it on hand, and therefore wouldn't need to go retrieve it at the time of presentation.
+
+305
+00:39:55.290 --> 00:39:56.980
+Mark Moir: Right? Depends a lot.
+
+306
+00:39:57.720 --> 00:40:01.500
+Stephen Curran: The from, and the 2 are- are there. Sorry. Go ahead.
+
+307
+00:40:01.850 --> 00:40:07.790
+Mark Moir: I was just saying, depends on the use case, because in some use cases, if it's revoked, we need to stop
+
+308
+00:40:07.900 --> 00:40:14.990
+Mark Moir: authorizing whatever it is right away. Right? In other cases, it's like, okay, there can be a little little latency. Okay? Alright.
+
+309
+00:40:16.040 --> 00:40:29.200
+Stephen Curran: And and our expectation is a an issuer would provide in its governance documents. Here's our revocation met our our timing. So, for instance, we only do it once a day.
+
+310
+00:40:30.090 --> 00:40:32.090
+Stephen Curran: or something like that.
+
+311
+00:40:35.220 --> 00:40:43.437
+Stephen Curran: Okay, yeah. So there's where we are with compressing tails, files. What Andrews found is, though, that
+
+312
+00:40:44.420 --> 00:41:04.099
+Stephen Curran: decompression on use, which is really what you want. As you calculate, the witness you decompress only the elements that you need to use. But he's finding with the current library, which is the Amcl library. I think it's much slower to decompress on use.
+
+313
+00:41:04.280 --> 00:41:07.377
+Stephen Curran: and and as a result that makes
+
+314
+00:41:08.140 --> 00:41:16.580
+Stephen Curran: generating the the presentation significantly longer, like it's a 30 x increase, which is quite surprising.
+
+315
+00:41:19.400 --> 00:41:20.550
+Stephen Curran: So
+
+316
+00:41:21.010 --> 00:41:32.039
+Stephen Curran: current status of that is, he's looking at improving the library that is used for the calculation. So he had been looking at doing that in the past, and and so is looking at that again.
+
+317
+00:41:33.310 --> 00:41:39.059
+Stephen Curran: and seeing if he could just actually change the cryptography to
+
+318
+00:41:39.590 --> 00:42:03.079
+Stephen Curran: to be better. And Andrew is a smart guy, so that that's a possibility. Another is to decompress on receipt. So you download tails file, and then you immediately decompress it off. You know, offline. So you're not affecting the user experience. But then you have to store it uncompressed, so that 768 kilobits you downloaded now becomes double that
+
+319
+00:42:03.822 --> 00:42:05.510
+Stephen Curran: when you store it.
+
+320
+00:42:05.820 --> 00:42:11.000
+Stephen Curran: and then the last is we just don't make the change. So we're not quite sure where we're gonna go with that
+
+321
+00:42:12.990 --> 00:42:15.790
+Stephen Curran: Still investigating, that was it.
+
+322
+00:42:15.790 --> 00:42:18.599
+Mark Moir: Seems like the path of least resistance.
+
+323
+00:42:18.850 --> 00:42:19.760
+Stephen Curran: What's that?
+
+324
+00:42:20.000 --> 00:42:22.359
+Mark Moir: The second option seems the path of least resistance.
+
+325
+00:42:22.360 --> 00:42:28.459
+Stephen Curran: Yeah, it definitely. Yeah. That one's a that one's an easy one. Again, just that
+
+326
+00:42:28.968 --> 00:42:35.540
+Stephen Curran: caveat of the size of it when you expand it. But yeah, that is, seems to be the easiest way to go.
+
+327
+00:42:35.970 --> 00:42:36.590
+Mark Moir: No.
+
+328
+00:42:38.010 --> 00:42:38.650
+Stephen Curran: Cool.
+
+329
+00:42:40.640 --> 00:42:41.319
+Stephen Curran: So
+
+330
+00:42:42.630 --> 00:42:53.850
+Stephen Curran: Andrew is actively working on this and expect to have something available shortly. Our plan is to, as I say, sort of try to embed that 1st change
+
+331
+00:42:54.731 --> 00:43:03.789
+Stephen Curran: into. You know the the massive Rev. Reg. Is probably to embed it, and did Webvh, and then show how other
+
+332
+00:43:04.758 --> 00:43:07.350
+Stephen Curran: other libraries could use that
+
+333
+00:43:08.355 --> 00:43:15.589
+Stephen Curran: so to try to limit the the impact of it. But make it easily available.
+
+334
+00:43:16.391 --> 00:43:21.540
+Stephen Curran: So we'll see how it goes. And then, as I say, with the tails file, that's to be determined.
+
+335
+00:43:29.370 --> 00:43:32.319
+Stephen Curran: And if that's it, that's all I got.
+
+336
+00:43:33.570 --> 00:43:34.843
+Mark Moir: Alright! Thanks.
+
+337
+00:43:35.690 --> 00:43:41.559
+Mark Moir: I think I would have understood in a lot more detail if I had already
+
+338
+00:43:42.840 --> 00:43:51.780
+Mark Moir: done what I hope to be able to do soon, which is to go and figure out how we're going to deal with the existing revocation, and and
+
+339
+00:43:51.940 --> 00:43:53.920
+Mark Moir: whether we're going to be able to.
+
+340
+00:43:53.920 --> 00:43:54.290
+Stephen Curran: Yeah.
+
+341
+00:43:54.290 --> 00:43:57.960
+Mark Moir: But the at a high level. I think I got the idea.
+
+342
+00:43:58.370 --> 00:43:58.970
+Stephen Curran: Good.
+
+343
+00:43:59.650 --> 00:44:00.560
+Mark Moir: Thank you.
+
+344
+00:44:00.880 --> 00:44:01.830
+Stephen Curran: All right.
+
+345
+00:44:02.120 --> 00:44:03.280
+Harold Carr: Yeah, really, nice.
+
+346
+00:44:03.920 --> 00:44:05.560
+Stephen Curran: Good. Well, have a good day.
+
+347
+00:44:06.050 --> 00:44:06.580
+Stephen Curran: We'll talk.
+
+348
+00:44:06.580 --> 00:44:06.979
+Mark Moir: I ain'.
+
+349
+00:44:07.630 --> 00:44:09.260
+Stephen Curran: Take care!
+
+350
+00:44:09.260 --> 00:44:10.370
+Harold Carr: Okay. Bye-bye.
+

@@ -1,0 +1,2454 @@
+WEBVTT
+
+1
+00:00:22.040 --> 00:00:24.350
+Parisa Ataei: Hey, John Nelson. How's it going?
+
+2
+00:00:25.680 --> 00:00:26.610
+Jonathan Sobel: Right.
+
+3
+00:00:27.740 --> 00:00:29.070
+Jonathan Sobel: Printing something.
+
+4
+00:00:30.550 --> 00:00:34.050
+Jonathan Sobel: Pretty completely different from last time.
+
+5
+00:00:36.280 --> 00:00:38.860
+Parisa Ataei: Okay. Can you see my screen?
+
+6
+00:00:39.210 --> 00:00:40.090
+Jonathan Sobel: Yeah, I can see it.
+
+7
+00:00:43.680 --> 00:00:51.709
+Parisa Ataei: We are maximized as… Oh my… Oh yeah.
+
+8
+00:00:54.650 --> 00:00:57.200
+Parisa Ataei: Next month, okay.
+
+9
+00:01:03.530 --> 00:01:07.650
+Parisa Ataei: How has it been working on composable, well, contract-to-contract calls?
+
+10
+00:01:07.860 --> 00:01:11.490
+Jonathan Sobel: Let's see, are you in the contract calls?
+
+11
+00:01:12.340 --> 00:01:13.010
+Parisa Ataei: Meeting?
+
+12
+00:01:13.010 --> 00:01:13.950
+Jonathan Sobel: nation…
+
+13
+00:01:14.970 --> 00:01:21.929
+Jonathan Sobel: well, there's one thread with 39 replies in it so far, so, it's.
+
+14
+00:01:24.460 --> 00:01:42.609
+Parisa Ataei: Yeah. I volunteered myself for events so that I won't be pulled into that. Ken told me that I'm probably going to be responsible for the compiler parts of it, but to my understanding, it's also we're going back to the implementation that we had, and I implemented the majority of that, so…
+
+15
+00:01:44.030 --> 00:01:47.329
+Jonathan Sobel: Yeah, and I can… I can dive in and help with some of that, too, now.
+
+16
+00:01:47.430 --> 00:01:48.400
+Parisa Ataei: Yeah.
+
+17
+00:01:48.400 --> 00:01:56.799
+Jonathan Sobel: But, yeah, we'll see. We probably need to talk… we probably need to have that on the agenda a little bit today, because I think some of it will be quicker if we talk about it.
+
+18
+00:01:57.320 --> 00:02:02.279
+Jonathan Sobel: In particular, it's… the conversation is not composable, it's really the,
+
+19
+00:02:03.460 --> 00:02:05.220
+Jonathan Sobel: What is the topic to list?
+
+20
+00:02:06.070 --> 00:02:07.380
+Jonathan Sobel: contracts.
+
+21
+00:02:08.699 --> 00:02:10.700
+Jonathan Sobel: What counts as a contract type?
+
+22
+00:02:13.610 --> 00:02:15.040
+Jonathan Sobel: And how do you name one?
+
+23
+00:02:16.090 --> 00:02:23.310
+Jonathan Sobel: I think is the crux of the question. We'll see, kind of, but it's, the,
+
+24
+00:02:24.290 --> 00:02:25.349
+Jonathan Sobel: There comes Kevin.
+
+25
+00:02:27.050 --> 00:02:27.599
+Jonathan Sobel: Hey, K.
+
+26
+00:02:27.600 --> 00:02:29.360
+Parisa Ataei: Hi, I'm sorry. Hey, Kevin.
+
+27
+00:02:29.930 --> 00:02:30.940
+Kevin Millikin: Hello!
+
+28
+00:02:33.440 --> 00:02:34.270
+Parisa Ataei: Alright.
+
+29
+00:02:44.530 --> 00:02:54.780
+Jonathan Sobel: Kevin, I'm waiting to see what Kent says to my question, because I'm coming to suspect that perhaps Kent thinks only declared interfaces are contract types.
+
+30
+00:02:57.580 --> 00:02:58.330
+Kevin Millikin: Perhaps.
+
+31
+00:02:58.690 --> 00:02:59.520
+Jonathan Sobel: I will say.
+
+32
+00:03:03.610 --> 00:03:05.439
+Parisa Ataei: Hey, Thomas. Hey, Galen?
+
+33
+00:03:06.950 --> 00:03:09.889
+Parisa Ataei: I'm not good with names, trying to remember names.
+
+34
+00:03:11.070 --> 00:03:20.500
+Parisa Ataei: I also always have to remind myself, like, I mix up Kevin and Kent, like, I don't know why. It's not like I mix… I don't mix up the person, but…
+
+35
+00:03:21.130 --> 00:03:27.279
+Parisa Ataei: as I'm saying it, it just goes the same, and then in the middle, I'm like, oh, no, this is not the person I'm talking to.
+
+36
+00:03:28.740 --> 00:03:36.339
+Kevin Millikin: I sat next to somebody for about two and a half hours at one of our off-site meetups, at dinner.
+
+37
+00:03:36.780 --> 00:03:40.370
+Kevin Millikin: And he thought for the entire time that I was Jonathan Sobel.
+
+38
+00:03:40.500 --> 00:03:43.780
+Kevin Millikin: And only realized the next day that I wasn't.
+
+39
+00:03:47.090 --> 00:03:49.189
+Jonathan Sobel: I hope you represented me well.
+
+40
+00:03:57.980 --> 00:04:00.690
+Parisa Ataei: Alright, I'm gonna…
+
+41
+00:04:00.860 --> 00:04:08.909
+Parisa Ataei: Let's see, before we start, does anyone have anything that they have not had a chance to put on the agenda?
+
+42
+00:04:09.180 --> 00:04:11.160
+Parisa Ataei: That was a hard question to ask.
+
+43
+00:04:12.060 --> 00:04:24.920
+Kevin Millikin: I want to give a report on, what we're considering doing with numeric subtyping in Compact for foreign field types and for big unsigned integers.
+
+44
+00:04:35.830 --> 00:04:39.090
+Parisa Ataei: Big Ends, and what else was it?
+
+45
+00:04:40.410 --> 00:04:41.960
+Kevin Millikin: Foreign… foreign fields.
+
+46
+00:04:41.960 --> 00:04:42.550
+Parisa Ataei: Wow.
+
+47
+00:04:44.010 --> 00:04:45.220
+Parisa Ataei: Thank you.
+
+48
+00:04:48.780 --> 00:04:56.170
+Parisa Ataei: Hello, Kemp and Joe, do you guys have anything that you haven't had a chance to put on the agenda?
+
+49
+00:04:56.920 --> 00:05:03.669
+Kent Dybvig: Oh, yeah. I mentioned the backward compatibility, but I didn't put it on the agenda because I didn't see it.
+
+50
+00:05:04.230 --> 00:05:05.180
+Kent Dybvig: Available.
+
+51
+00:05:14.070 --> 00:05:15.120
+Kent Dybvig: I think…
+
+52
+00:05:15.270 --> 00:05:21.589
+Kent Dybvig: If we discuss the… what counts as a contract type, we aren't gonna get to the items after it.
+
+53
+00:05:21.840 --> 00:05:23.630
+Kent Dybvig: I would like to talk about.
+
+54
+00:05:25.110 --> 00:05:28.430
+Kent Dybvig: So I would like to put that 4th… 5th, rather, yeah.
+
+55
+00:05:30.420 --> 00:05:32.559
+Parisa Ataei: Alright, anything else?
+
+56
+00:05:36.630 --> 00:05:37.630
+Parisa Ataei: Oh, perfect.
+
+57
+00:05:39.470 --> 00:05:44.270
+Parisa Ataei: All right, COIP1 voting,
+
+58
+00:05:45.030 --> 00:05:53.000
+Parisa Ataei: Do we want to do this online? Do we… here, do I have the creep? Do you have it somewhere?
+
+59
+00:05:55.530 --> 00:05:57.149
+Parisa Ataei: Oh, there's a cope.
+
+60
+00:06:00.430 --> 00:06:03.560
+Parisa Ataei: Okay.
+
+61
+00:06:10.250 --> 00:06:11.299
+Parisa Ataei: Oh, jeez.
+
+62
+00:06:13.460 --> 00:06:14.600
+Parisa Ataei: Alright.
+
+63
+00:06:17.970 --> 00:06:21.969
+Jonathan Sobel: Where do the… where do the improvement proposals live in the repo?
+
+64
+00:06:22.640 --> 00:06:23.510
+Kevin Millikin: In the repo.
+
+65
+00:06:24.370 --> 00:06:26.730
+Kevin Millikin: There's a COIP subdirectory.
+
+66
+00:06:32.350 --> 00:06:38.440
+Parisa Ataei: Yep, there's a codes, grid means 01,
+
+67
+00:06:40.760 --> 00:06:43.379
+Parisa Ataei: Anything, Kevin, that you want to point out?
+
+68
+00:06:44.010 --> 00:06:47.100
+Kevin Millikin: So, there are, comments in the PR.
+
+69
+00:06:47.390 --> 00:07:04.499
+Kevin Millikin: which I have not… this stalled a little bit. I haven't… I haven't incorporated, feedback from reviewers. I don't feel like anything is, actually, wrong in the COIP. I feel like there's just clarifying questions about maybe we need to be more explicit about things.
+
+70
+00:07:04.690 --> 00:07:14.990
+Kevin Millikin: So I think that we could actually just merge this if we all kind of agree that we have a sense of how things should be run, which is a little bit loosey-goosey way to do it, but it gets us unstuck.
+
+71
+00:07:15.190 --> 00:07:23.790
+Kevin Millikin: The alternative is that somebody, it could be me, or it could be anybody, goes in and resolves all of these comments now at this time.
+
+72
+00:07:28.480 --> 00:07:29.000
+Parisa Ataei: that realistic.
+
+73
+00:07:29.000 --> 00:07:33.350
+Kevin Millikin: That realistically has another cycle before we get this approved.
+
+74
+00:07:34.900 --> 00:07:45.200
+Parisa Ataei: Right. So, who's in favor of doing… of merging this, trying it out for probably a couple of cycles, and then…
+
+75
+00:07:45.470 --> 00:07:51.800
+Parisa Ataei: Improving it as we go, instead of const… Giving this another week.
+
+76
+00:07:53.310 --> 00:07:55.690
+Parisa Ataei: I should have asked who's not in favor.
+
+77
+00:07:56.110 --> 00:07:56.850
+Kevin Millikin: Aye.
+
+78
+00:07:58.930 --> 00:08:00.509
+Parisa Ataei: I second that motion.
+
+79
+00:08:01.270 --> 00:08:05.219
+Parisa Ataei: Any objections? Let me put it that way.
+
+80
+00:08:10.400 --> 00:08:15.150
+Parisa Ataei: Going once, going twice, and okay.
+
+81
+00:08:16.500 --> 00:08:20.329
+Parisa Ataei: I'll give this, make sure that it can be merged.
+
+82
+00:08:23.700 --> 00:08:28.760
+Jonathan Sobel: Are the comments that are there now, they have not been fully addressed?
+
+83
+00:08:29.310 --> 00:08:40.590
+Kevin Millikin: They have not been fully addressed. A lot of them are just, one of the reviewers found something unclear, and it was clear in my head, so it does indicate that there's a problem with the document.
+
+84
+00:08:41.730 --> 00:08:44.560
+Jonathan Sobel: And so is the idea that it would be…
+
+85
+00:08:45.170 --> 00:08:48.850
+Jonathan Sobel: there would be an additional pull request to improve COIP1.
+
+86
+00:08:49.240 --> 00:08:57.680
+Kevin Millikin: I hope so. We could appeal to the comments in this PR as, commentary, as clarifying, clarifying.
+
+87
+00:08:59.810 --> 00:09:00.570
+Jonathan Sobel: Okay.
+
+88
+00:09:06.980 --> 00:09:10.659
+Kevin Millikin: And we have a quorum, because the only UTSC member not here is Bob.
+
+89
+00:09:12.440 --> 00:09:13.509
+Kevin Millikin: Four of us are here.
+
+90
+00:09:17.250 --> 00:09:25.920
+Jonathan Sobel: Yeah, I know that we ran into this problem with, over the midnight architecture proposals and ADRs.
+
+91
+00:09:26.070 --> 00:09:39.050
+Jonathan Sobel: Of where it would sit off in a pull request, which means it wouldn't be in the main repo, and there would be all this activity on it, but unless you went to each individual PR, you didn't see the activity.
+
+92
+00:09:39.250 --> 00:09:50.549
+Jonathan Sobel: And so, I think, in hindsight, it would have been better to merge things in sooner, and then do new pull requests for updates, so that everyone could see all the activity right there clearly in Maine.
+
+93
+00:09:56.820 --> 00:10:05.260
+Parisa Ataei: Alright, I gotta wait for this to get through, and… Kevin, do you mind if I just, update this?
+
+94
+00:10:06.060 --> 00:10:07.290
+Kevin Millikin: I think it should be fine.
+
+95
+00:10:08.990 --> 00:10:10.600
+Kevin Millikin: Do I anticipate any conflicts?
+
+96
+00:10:13.370 --> 00:10:16.390
+Parisa Ataei: Okay, this is this.
+
+97
+00:10:16.790 --> 00:10:23.370
+Parisa Ataei: I don't know if we want to discuss the log expression quite since,
+
+98
+00:10:24.000 --> 00:10:28.420
+Parisa Ataei: Oi. Since Dominic isn't here,
+
+99
+00:10:33.910 --> 00:10:35.169
+Parisa Ataei: We might wait for it.
+
+100
+00:10:35.170 --> 00:10:38.349
+Kevin Millikin: We might invite him to give a presentation next week.
+
+101
+00:10:38.500 --> 00:10:44.789
+Kevin Millikin: We might give the TSC members, who are also the COIP editors, homework to actually read that in the next week.
+
+102
+00:10:45.690 --> 00:10:48.679
+Kevin Millikin: With a gentle reminder on Monday, maybe.
+
+103
+00:10:48.910 --> 00:10:57.039
+Kevin Millikin: And I think we can, if… if you're familiar with that document, Parisa, I think we could actually vote to just number it.
+
+104
+00:11:00.010 --> 00:11:00.560
+Parisa Ataei: Sure.
+
+105
+00:11:00.560 --> 00:11:05.159
+Kevin Millikin: It doesn't mean accepting, it just means that it gets a number, we can…
+
+106
+00:11:05.280 --> 00:11:10.329
+Kevin Millikin: we can merge it into the repository and work on it with PRs to the repository.
+
+107
+00:11:10.540 --> 00:11:12.939
+Kevin Millikin: Rather than a single long-running PR.
+
+108
+00:11:14.680 --> 00:11:16.649
+Kevin Millikin: And we have a… we have a number to talk about.
+
+109
+00:11:34.990 --> 00:11:36.379
+Parisa Ataei: Oh, great.
+
+110
+00:11:38.390 --> 00:11:40.530
+Kevin Millikin: And move that we number this quip tube.
+
+111
+00:11:41.700 --> 00:11:42.800
+Parisa Ataei: Yes.
+
+112
+00:11:42.930 --> 00:11:48.630
+Parisa Ataei: I have it here. I'll ask…
+
+113
+00:11:50.590 --> 00:11:58.659
+Parisa Ataei: That would go in with the PR, right? So in the same PR that Dominic has, I can ask him to change the name to Dominic.
+
+114
+00:11:58.680 --> 00:12:04.050
+Kevin Millikin: The intention would be that, somebody merges this from the…
+
+115
+00:12:04.280 --> 00:12:08.730
+Kevin Millikin: from the TSC, because we have commit rights, it would be you, I think.
+
+116
+00:12:08.910 --> 00:12:16.570
+Kevin Millikin: You would update it so that it's numbered correctly, and you would update the COIP index to indicate that this is a draft COIP.
+
+117
+00:12:16.970 --> 00:12:17.980
+Parisa Ataei: Right.
+
+118
+00:12:20.920 --> 00:12:25.749
+Parisa Ataei: And it says draft… Great. And then, do we discuss it
+
+119
+00:12:26.020 --> 00:12:29.359
+Parisa Ataei: Before merging it in, or is that after merging it in?
+
+120
+00:12:29.880 --> 00:12:34.799
+Kevin Millikin: No, we can go ahead and merge the repository, it just allows people to work on it in the repository.
+
+121
+00:12:35.200 --> 00:12:52.299
+Kevin Millikin: It's really… I mean, it's sort of the same. It's isomorphic if… are they sending pull requests to this pull request, or are they merging commits to this pull request, or are they just working in the repository? But it doesn't hurt us to have draft COIPs in the repository.
+
+122
+00:12:53.230 --> 00:12:53.850
+Parisa Ataei: True.
+
+123
+00:12:54.680 --> 00:12:55.740
+Parisa Ataei: Okay.
+
+124
+00:12:55.960 --> 00:13:03.049
+Parisa Ataei: I'm moving on to… I'm sorry, Jesus. To report on numerate subtyping.
+
+125
+00:13:03.510 --> 00:13:12.569
+Kevin Millikin: Yep. So, this is a story that leads to a kind of a big breaking change that we might make in the next release.
+
+126
+00:13:13.230 --> 00:13:23.770
+Kevin Millikin: We are adding a, a new type to Compact. It's called JubJub Scalar, and it's the type of the, of the scalar field of the JubJub curve.
+
+127
+00:13:23.880 --> 00:13:41.259
+Kevin Millikin: The… we have a eCMAL function for a jump-jump curve, and we have an ECMAL generator function. They take a field-type argument, and this isn't really correct, because, not all field values would… would technically be things you should pass there.
+
+128
+00:13:41.620 --> 00:13:46.880
+Kevin Millikin: The JubJub field is a different field with a smaller modulus than the native field.
+
+129
+00:13:48.150 --> 00:13:57.450
+Kevin Millikin: So, so we… so the suggestion was, let's add an explicit job dubbscaler type, and let's implement the subtyping rules for… for that.
+
+130
+00:13:58.800 --> 00:14:08.680
+Kevin Millikin: The status quo is that we have, right now, field, and we have a whole hierarchy of Uint types, subtype, a subtype hierarchy, and we have field at the top.
+
+131
+00:14:09.510 --> 00:14:11.969
+Kevin Millikin: And where does JubJub Scalar fit?
+
+132
+00:14:12.180 --> 00:14:19.300
+Kevin Millikin: So, answer number one is that there is a JubJub field modulus, and it fits at that point in the hierarchy.
+
+133
+00:14:19.850 --> 00:14:29.169
+Kevin Millikin: So all the UINCH types that are smaller, where the upper bound is smaller than that field modulus are subtypes, and all the ones that are larger are supertypes.
+
+134
+00:14:30.240 --> 00:14:35.470
+Kevin Millikin: This is not horrible, from a technical standpoint.
+
+135
+00:14:35.650 --> 00:14:53.329
+Kevin Millikin: it leads to a kind of interesting question, which is that the least upper bounds of pairs of numeric types no longer exist, because the least upper bound of JubJubScaler and the Uint type that has exactly that maximum value of the field modulus.
+
+136
+00:14:53.850 --> 00:15:00.969
+Kevin Millikin: is, or 1 minus the field modulus. They're, mutual subtypes, but they're not the same type.
+
+137
+00:15:02.560 --> 00:15:09.030
+Kevin Millikin: And this is kind of minor, actually, I think. You could resolve this by just saying, by…
+
+138
+00:15:09.250 --> 00:15:16.409
+Kevin Millikin: We declare that when you get a lease upper bound, that you get these two… these two types.
+
+139
+00:15:16.600 --> 00:15:21.069
+Kevin Millikin: The… the result is one or the other of them that we prefer.
+
+140
+00:15:22.730 --> 00:15:26.890
+Kevin Millikin: However, the crypto team does not like this idea.
+
+141
+00:15:27.070 --> 00:15:36.610
+Kevin Millikin: it offends their intuition, and I think we should listen to that, to them about that. And then they've also pointed out that not every…
+
+142
+00:15:36.810 --> 00:15:42.139
+Kevin Millikin: Foreign field type that we will add is a, integer modulo sum.
+
+143
+00:15:42.260 --> 00:15:43.450
+Kevin Millikin: Field modulus.
+
+144
+00:15:44.490 --> 00:15:49.859
+Kevin Millikin: Sweet. So, this doesn't tell us what we would do with those kinds of exotic foreign fields.
+
+145
+00:15:50.220 --> 00:16:07.779
+Kevin Millikin: The second idea that we had was that the… we could look at a type like JubJubScaler or the native field type as having infinitely many values. Any integer value is a member of that type. And they're just kind of canonicalized as performing the modular reduction.
+
+146
+00:16:08.680 --> 00:16:25.370
+Kevin Millikin: So then, JubJubScaler in that world would be another top type of the, of the unsigned integer hierarchy. It would be different from the field type. We'd have the same problem with least upper bounds that we would resolve by preferring one or the other.
+
+147
+00:16:26.520 --> 00:16:36.629
+Kevin Millikin: This has a kind of unfortunate consequence. We would have… we would have implicit upcasts from unsigned integer types to JubJubScaler.
+
+148
+00:16:37.430 --> 00:16:56.140
+Kevin Millikin: Some of those upcasts would require code at runtime to perform the modular reduction, and this is something that we desperately don't want to take into the language from… in my viewpoint, because it has, it has knock-on consequences. So one of them is that we have vector subtyping.
+
+149
+00:16:56.510 --> 00:17:02.649
+Kevin Millikin: Which means if I pass a vector of an unsigned integer type where I expect a vector of JubJubScaler.
+
+150
+00:17:02.960 --> 00:17:07.330
+Kevin Millikin: I potentially have to convert all of the elements of the vector.
+
+151
+00:17:07.609 --> 00:17:10.369
+Kevin Millikin: And that can be expensive, and I'll have to do that in circuit as well.
+
+152
+00:17:11.349 --> 00:17:23.019
+Kevin Millikin: And then if we ever introduce, higher order circuits or witnesses, we have a similar problem. If I have a… we'll have the obvious subtyping for arrow types.
+
+153
+00:17:23.180 --> 00:17:26.820
+Kevin Millikin: If I pass a subtype of a… of a…
+
+154
+00:17:27.710 --> 00:17:38.710
+Kevin Millikin: first-class circuit or witness, as a super… as a value of a supertype, I have to wrap that value to convert the inputs when I invoke it, and to convert… convert the output when I get it.
+
+155
+00:17:39.340 --> 00:17:52.419
+Kevin Millikin: And this is also to be avoided, because what experience has taught us is that you'll end up with long chains of wrapped functions that are all doing conversions. And you can't… you can't really eliminate them statically.
+
+156
+00:17:52.620 --> 00:17:55.330
+Kevin Millikin: So, we should avoid that, I think.
+
+157
+00:17:56.150 --> 00:18:10.220
+Kevin Millikin: So the… so that's kind of an awkward one. I think you could avoid this. You could say that you actually represent the job-jub scalars as non-canonic representations, and you just have to canonicalize them when you perform arithmetic or equality comparisons.
+
+158
+00:18:10.350 --> 00:18:14.299
+Kevin Millikin: It just shifts the burden from the cat-type cats to somewhere else.
+
+159
+00:18:15.380 --> 00:18:26.479
+Kevin Millikin: The third thing that we thought of, and this is what I've implemented, is that JubJubScaler is unrelated by subtyping to all of the unsigned integer types and to field.
+
+160
+00:18:27.420 --> 00:18:30.559
+Kevin Millikin: And then if we do that, we should do it for field as well.
+
+161
+00:18:31.070 --> 00:18:39.690
+Kevin Millikin: And that is a major breaking change. So the new… so the change would be that, field is no longer a supertype of all of the unsigned integer types.
+
+162
+00:18:41.650 --> 00:18:58.579
+Kevin Millikin: And this is actually pretty good, because we have the idea that when we add big ints, we want them to just seamlessly be part of the unsigned integer type hierarchy. And so field would be slotted right in the middle of that, and we have exactly the same problem with field, then, that we have with JubJubScaler now.
+
+163
+00:19:00.000 --> 00:19:02.440
+Kevin Millikin: So… split, so…
+
+164
+00:19:02.960 --> 00:19:15.180
+Kevin Millikin: the TLDR, splitting field out from unsigned integer, it's no longer a supertype of all the unsigned integer types. Consequence of this is that you have to add explicit casts to field in lots of places.
+
+165
+00:19:18.650 --> 00:19:19.749
+Kevin Millikin: Go ahead, Jonathan.
+
+166
+00:19:19.750 --> 00:19:27.559
+Jonathan Sobel: I was just gonna say that when I very, very, very first learned Compact and was working on the first tutorial and everything.
+
+167
+00:19:27.670 --> 00:19:32.360
+Jonathan Sobel: I found it really confusing that people could treat field as an integer type.
+
+168
+00:19:33.600 --> 00:19:46.260
+Jonathan Sobel: Because it seemed to me that it was this special… I went and I asked people, what is field? People ask people treating it as a number. Oh, it represents this thing, and they described something to me that sounded like an opaque thing.
+
+169
+00:19:46.650 --> 00:19:52.369
+Jonathan Sobel: And so, it has actually always felt weird to me that it is part of the kind of implicit integer hierarchy.
+
+170
+00:19:52.470 --> 00:19:54.600
+Jonathan Sobel: Just as a newcomer to it.
+
+171
+00:19:55.530 --> 00:20:00.519
+Jonathan Sobel: That feels like an accident of implementation, not an expected part of the semantics.
+
+172
+00:20:01.850 --> 00:20:13.520
+Kevin Millikin: Yeah, Cass said… Cass used exactly the same terminology when I was describing the situation to him, that it was an accident of the representation rather than something deliberate. I…
+
+173
+00:20:13.520 --> 00:20:23.549
+Kevin Millikin: I think I… I think I believe that as well. I have been spending a day and a half, almost two days now, updating all of our tests to add field casts.
+
+174
+00:20:23.940 --> 00:20:29.350
+Kevin Millikin: Or to change field type to some big Uint type, just so that they type check.
+
+175
+00:20:29.700 --> 00:20:45.669
+Kevin Millikin: And that's really an awkward change to make to existing code. Our test is probably the largest chunk of compact code that anyone in the world has, so it's… I'm acutely feeling the pain. I do think, though, that if I were writing that code in the first place, it would be fine.
+
+176
+00:20:45.700 --> 00:20:55.949
+Kevin Millikin: And in some ways beneficial. Our recommendation has always been, like, you should steer clear of field arithmetic. There's a big hazard that you have unintended wraparound.
+
+177
+00:20:56.430 --> 00:21:06.129
+Kevin Millikin: And writing this explicitly makes it clear. It's a little bit more syntactically heavyweight. You need to be a little bit more deliberate about when you're converting, and I don't feel like that's bad.
+
+178
+00:21:12.500 --> 00:21:13.700
+Kevin Millikin: Go ahead, Kent.
+
+179
+00:21:16.700 --> 00:21:24.630
+Kent Dybvig: So, I'm not gonna argue against that. I will say that this was very intentional, it wasn't an accident of the implementation.
+
+180
+00:21:25.000 --> 00:21:32.160
+Kent Dybvig: it was… I think that the,
+
+181
+00:21:33.370 --> 00:21:38.670
+Kent Dybvig: The point in the space where well, first of all.
+
+182
+00:21:39.580 --> 00:21:43.769
+Kent Dybvig: Field only participates as an integer, as a supertype.
+
+183
+00:21:44.620 --> 00:21:45.470
+Kent Dybvig: of…
+
+184
+00:21:45.660 --> 00:21:54.249
+Kent Dybvig: At least certain unsigned integers, those that are smaller than the maximum field value, or no greater than the maximum field value.
+
+185
+00:21:54.620 --> 00:22:09.470
+Kent Dybvig: We could generalize it, as Kevin has said, so that… I don't know if… actually, you had mentioned this explicitly. We could generalize it so that all UN types are subtype of field, and it just… there's a wrapping semantics, I think he did mention that.
+
+186
+00:22:09.790 --> 00:22:15.839
+Kent Dybvig: When… when you have a UINT that's bigger, and you cast it, and it's cast implicitly.
+
+187
+00:22:16.420 --> 00:22:26.069
+Kent Dybvig: What I'm hearing Though… maybe from Jonathan is that he's surprised that there's actually arithmetic on fields.
+
+188
+00:22:26.350 --> 00:22:27.460
+Kent Dybvig: At all.
+
+189
+00:22:30.740 --> 00:22:37.719
+Jonathan Sobel: It's not that there's arithmetic, it's that I can kind of… I would expect to have to think of it as a special kind of arithmetic.
+
+190
+00:22:38.420 --> 00:22:39.199
+Jonathan Sobel: And it sounds like.
+
+191
+00:22:39.200 --> 00:22:39.810
+Kent Dybvig: Yes.
+
+192
+00:22:39.810 --> 00:22:49.210
+Jonathan Sobel: team also says, in general, as we have other kinds of foreign fields, they will each have their own special notions of arithmetic, and I can't assume they'll be, like, an arithmetic.
+
+193
+00:22:50.330 --> 00:22:52.539
+Kent Dybvig: Yes, but you… the point is that…
+
+194
+00:22:53.470 --> 00:22:57.839
+Kent Dybvig: Still, the case is that it would make sense.
+
+195
+00:22:58.000 --> 00:23:17.720
+Kent Dybvig: Kevin's mentioned some downsides, implementationally, at least, but it would make sense for all UNs to be a subtype of field, because UNs behave normally and nicely, and they always have exactly the value you think they're going to have, and they can be cast to a field. What wouldn't make sense is any kind of implicit
+
+196
+00:23:17.720 --> 00:23:21.299
+Kent Dybvig: Cast from a field type.
+
+197
+00:23:21.350 --> 00:23:22.590
+Kent Dybvig: Till you went.
+
+198
+00:23:22.670 --> 00:23:34.629
+Kent Dybvig: Because you basically have something that was created by not Uint's arithmetic passed to something which is a Uint. That would be the one that would bug me. But I'm fine requiring that
+
+199
+00:23:34.780 --> 00:23:38.479
+Kent Dybvig: But it's just saying that they're not related by type, subtyping at all.
+
+200
+00:23:38.660 --> 00:23:47.560
+Kent Dybvig: I just wanted to… to give a little bit different perspective that would… if we… if we went with a little bit different perspective, it'd be less pain for people now, and…
+
+201
+00:23:50.010 --> 00:23:50.690
+Kent Dybvig: But…
+
+202
+00:23:50.930 --> 00:23:57.370
+Kent Dybvig: not… not something that the crypto people are favoring. I think Thomas wasn't favoring that either, I don't know if he's on the call.
+
+203
+00:24:01.840 --> 00:24:05.770
+Thomas Kerber: I am Nicole. Sorry, what was I not favoring? And there's that part.
+
+204
+00:24:06.330 --> 00:24:13.869
+Kent Dybvig: I think you were also in favor of, at this point, of having field and UNT be not related by subtyping.
+
+205
+00:24:20.620 --> 00:24:34.629
+Kevin Millikin: Yeah, what Thomas actually communicated in one of our conversations somewhere was that he very strongly believed that the Uint hierarchy should just be seamless. There should be no crossover from big Uint as a different type.
+
+206
+00:24:35.910 --> 00:24:50.700
+Kevin Millikin: If we take a really simple, naive semantic model of what a type is, it's a set of values, and that kind of justifies what we have now, but when we start adding big UINs, they'll be represented differently, and they won't be the same… they won't be the same values in a way.
+
+207
+00:24:51.010 --> 00:24:57.090
+Kevin Millikin: I mean, I was just going to say that, the… probably the initial version of JumpJobscaler will not support arithmetic.
+
+208
+00:24:57.210 --> 00:25:02.970
+Kevin Millikin: Because, the crypto team doesn't really see a use for it for now.
+
+209
+00:25:03.080 --> 00:25:16.469
+Kevin Millikin: Adding it later would be a non-breaking change, and it's awkward to emulate in ZKIR, so I think it will actually just be a static error for you to do addition or multiplication or negation on those job-job scalers.
+
+210
+00:25:16.780 --> 00:25:22.540
+Kevin Millikin: Which is a little bit weird, but, it's… It's where we're coming down.
+
+211
+00:25:22.710 --> 00:25:29.749
+Kevin Millikin: And I… and then the last thing is I do think that we probably want to investigate whether we can provide automatic updating of people's code.
+
+212
+00:25:30.150 --> 00:25:40.130
+Kevin Millikin: It's a little bit tricky, because sometimes the fix is to just add a as field cast, and sometimes the fix is to use a big view in type, and I don't know exactly how we… how we can decide that.
+
+213
+00:25:40.560 --> 00:25:43.799
+Kevin Millikin: Anyway, that's me out for now. Go ahead, Thomas.
+
+214
+00:25:44.770 --> 00:25:49.750
+Thomas Kerber: Yeah, I just wanted to add some color to that, which is…
+
+215
+00:25:50.410 --> 00:25:55.269
+Thomas Kerber: I think what is sort of more accidental or historically ad hoc
+
+216
+00:25:55.760 --> 00:25:59.909
+Thomas Kerber: is more the fact that our UN types are limited at all.
+
+217
+00:26:00.490 --> 00:26:07.229
+Thomas Kerber: And I think, in many ways, field… like, in my view, the field type is just the native word size.
+
+218
+00:26:07.750 --> 00:26:12.670
+Thomas Kerber: And for practical reasons, we have limited UNs to that size.
+
+219
+00:26:13.010 --> 00:26:14.910
+Thomas Kerber: But that's something that is…
+
+220
+00:26:15.520 --> 00:26:20.720
+Thomas Kerber: And then for practical reasons from that, we got our subtype. So we said, okay, because…
+
+221
+00:26:20.860 --> 00:26:27.440
+Thomas Kerber: we are limited to this domain, therefore we… we can reasonably say that MEU enters a subtype field.
+
+222
+00:26:27.970 --> 00:26:33.450
+Thomas Kerber: but, as… those practical limits
+
+223
+00:26:33.700 --> 00:26:38.879
+Thomas Kerber: Well, as we're working to remove those practical limits, those just don't apply anymore.
+
+224
+00:26:39.260 --> 00:26:47.160
+Thomas Kerber: And… I think also, I think, like, very historically, field was the only type we had, initially.
+
+225
+00:26:47.300 --> 00:26:54.510
+Thomas Kerber: So it's a situation of… we never really wanted people to use it for a few tick. It was just a…
+
+226
+00:26:55.260 --> 00:27:01.960
+Thomas Kerber: Yeah, thing from convenience, and from it being the native word, and it being the thing that is
+
+227
+00:27:02.310 --> 00:27:04.919
+Thomas Kerber: At… on the ZK side, the…
+
+228
+00:27:05.490 --> 00:27:08.880
+Thomas Kerber: The natural opera, operand.
+
+229
+00:27:13.120 --> 00:27:15.140
+Kent Dybvig: I was just gonna say, we have…
+
+230
+00:27:15.340 --> 00:27:19.190
+Kent Dybvig: So we have good technical… or we have good, sort of…
+
+231
+00:27:19.710 --> 00:27:25.090
+Kent Dybvig: Philosophical reasons for not allowing it to be And the same hierarchy.
+
+232
+00:27:25.210 --> 00:27:31.519
+Kent Dybvig: We have some good… Kevin's raised a good implementation reason, which is the… the conversion issue.
+
+233
+00:27:31.730 --> 00:27:42.509
+Kent Dybvig: We also have a conversion issue coming when we add big UN support if we continue to represent small integers as field values instead of representing all integers as big UNs.
+
+234
+00:27:42.760 --> 00:27:50.960
+Kent Dybvig: So, we need to decide if it's too expensive to use big UNs, even for small initials, and if it's not, then use them.
+
+235
+00:27:51.500 --> 00:28:00.509
+Kent Dybvig: If it is too expensive, we're going to be right back in the implementation issue Kevin mentioned, where we're going to have to, probably in all operations involving
+
+236
+00:28:00.750 --> 00:28:10.110
+Kent Dybvig: integer values, or at least biguent values, bigoint types. We're going to have to accept both kinds of values.
+
+237
+00:28:11.380 --> 00:28:13.800
+Kent Dybvig: Or we're gonna have to do extra casts.
+
+238
+00:28:14.760 --> 00:28:15.860
+Kent Dybvig: conversions.
+
+239
+00:28:21.280 --> 00:28:25.670
+Kevin Millikin: Yeah, that's… that's a good… that's actually a great point. We might have to swallow that anyway.
+
+240
+00:28:25.680 --> 00:28:44.279
+Kevin Millikin: I, what Thomas said reminded me of, we actually had, historically, a larger maximum unsigned integer type, and we reduced it when we changed the underlying proof system, and at the time, I wondered, do we really have to do this, or could we emulate bigger units by pairs of field values?
+
+241
+00:28:44.330 --> 00:28:57.889
+Kevin Millikin: Because I felt like we were asking developers to make a big… to swallow a big breaking change that they didn't necessarily have to do. So maybe we should have just actually solved this problem back then, a year ago, whenever it was.
+
+242
+00:28:58.670 --> 00:28:59.759
+Kevin Millikin: Go ahead, Thomas.
+
+243
+00:29:01.170 --> 00:29:11.280
+Thomas Kerber: Yeah, like, to address the… Or, my gut instinct on… Conversions to big UNs.
+
+244
+00:29:11.540 --> 00:29:19.120
+Thomas Kerber: is that… we probably do still want to represent small UN Swiss fields, just because…
+
+245
+00:29:19.550 --> 00:29:22.849
+Thomas Kerber: Again, it's the native word, it's likely…
+
+246
+00:29:23.150 --> 00:29:29.129
+Thomas Kerber: far more efficient. I don't even know if the low-level things, the crypto team.
+
+247
+00:29:29.340 --> 00:29:32.479
+Thomas Kerber: Have work well for small integers.
+
+248
+00:29:32.700 --> 00:29:38.560
+Thomas Kerber: But… I'm not sure that conversions are…
+
+249
+00:29:39.350 --> 00:29:42.489
+Thomas Kerber: That large of a problem, because…
+
+250
+00:29:42.830 --> 00:29:47.190
+Thomas Kerber: I'm not sure how often we actually will be converting between types and practice.
+
+251
+00:29:47.610 --> 00:29:52.740
+Thomas Kerber: Especially because most of our operations are…
+
+252
+00:29:55.230 --> 00:30:04.940
+Thomas Kerber: Well, I guess, yeah, the… I'm not sure, I guess is what I'm trying to say. But my suspicion is that, especially for types that exceed the field
+
+253
+00:30:05.230 --> 00:30:06.350
+Thomas Kerber: bounds.
+
+254
+00:30:06.580 --> 00:30:12.990
+Thomas Kerber: They're likely to see relatively infrequent use, and we're likely to have to convert to them relatively infrequently.
+
+255
+00:30:14.020 --> 00:30:19.959
+Thomas Kerber: it just feels like a case where we would rather not break the…
+
+256
+00:30:20.460 --> 00:30:23.969
+Thomas Kerber: Efficient stuff that exists for their benefit.
+
+257
+00:30:32.190 --> 00:30:33.369
+Thomas Kerber: And you mute.
+
+258
+00:30:36.020 --> 00:30:37.810
+Kent Dybvig: The problem isn't with…
+
+259
+00:30:38.450 --> 00:30:46.369
+Kent Dybvig: The expense at that point, then the problem is, you know, if we're going to have two different representations, the problem is with compiler complexity.
+
+260
+00:30:46.750 --> 00:30:51.210
+Kent Dybvig: And that's the same whether it happens all the time or hardly ever.
+
+261
+00:30:52.550 --> 00:30:53.959
+Kent Dybvig: This hardly ever isn't there.
+
+262
+00:30:54.900 --> 00:30:56.560
+Thomas Kerber: I… I guess…
+
+263
+00:30:57.850 --> 00:31:05.249
+Thomas Kerber: Yeah, it's not obvious that we need that extra compiler complexity, because on the one hand, on the JavaScript side.
+
+264
+00:31:05.440 --> 00:31:07.260
+Thomas Kerber: This is not an issue.
+
+265
+00:31:07.260 --> 00:31:07.860
+Kent Dybvig: It's all big ones.
+
+266
+00:31:07.860 --> 00:31:09.730
+Thomas Kerber: our JavaScript backends.
+
+267
+00:31:09.880 --> 00:31:17.650
+Thomas Kerber: And on the ZKR side, we are now defining the rules, so this can be a ZKIR internal complexity.
+
+268
+00:31:21.050 --> 00:31:22.230
+Kent Dybvig: Possibly.
+
+269
+00:31:24.550 --> 00:31:37.949
+Kent Dybvig: The problem is we won't know… we'll have the same issue that Kevin has… that Kevin mentioned, with having to do these conversions on high-order procedures if we ever add them. Maybe we won't, or maybe that'll be after we're gone.
+
+270
+00:31:38.250 --> 00:31:40.510
+Kent Dybvig: Somebody else is working on the project, but…
+
+271
+00:31:42.240 --> 00:31:50.059
+Kent Dybvig: It's actually not a problem now, to be clear. It's not difficult now, because these can be done
+
+272
+00:31:50.370 --> 00:32:01.059
+Kent Dybvig: On the flattened version of representation after, you know, where we… where we've already taken all the vectors and turned them into just,
+
+273
+00:32:01.860 --> 00:32:03.270
+Kent Dybvig: scalar values.
+
+274
+00:32:03.800 --> 00:32:12.529
+Kent Dybvig: And… and so it's just… at that level, it's just a conversion of scalar values. Doesn't involve creating a new vector, per se.
+
+275
+00:32:13.140 --> 00:32:18.820
+Kent Dybvig: So, it's a little bit… Well, I'm just guessing.
+
+276
+00:32:19.380 --> 00:32:24.929
+Kent Dybvig: I'm a little insecure about that claim, but… At any rate,
+
+277
+00:32:25.170 --> 00:32:30.440
+Kent Dybvig: I don't think it's likely that big of a deal, as long as we continue to flattening vectors and structs.
+
+278
+00:32:30.600 --> 00:32:32.760
+Kent Dybvig: But… I may be wrong.
+
+279
+00:32:33.420 --> 00:32:38.169
+Kent Dybvig: And, that's also depending on implementation.
+
+280
+00:32:38.370 --> 00:32:45.080
+Kent Dybvig: And I don't like to make decisions based on that. Now, I would like… I would like to find out for sure if the crypto team
+
+281
+00:32:45.500 --> 00:32:51.400
+Kent Dybvig: From the crypto team, if it's expensive to use big events to support small integers.
+
+282
+00:32:52.240 --> 00:32:56.389
+Kent Dybvig: And if so, if there is a way for them to support them more cheaply.
+
+283
+00:32:57.100 --> 00:33:00.779
+Kent Dybvig: As the same… as the… with the same representation.
+
+284
+00:33:01.500 --> 00:33:08.359
+Kent Dybvig: You know, if they've made some assumption in the implementation that they're gonna be large, and therefore we're going to use some
+
+285
+00:33:08.900 --> 00:33:13.719
+Kent Dybvig: And it's optimized for large ones, maybe they can optimize it for small ones instead.
+
+286
+00:33:19.750 --> 00:33:35.309
+Kevin Millikin: Before I close off this conversation, I don't know if we're going to make any more progress. I just wanted to say the day that we have something like high-order functions is probably really close, because if we have cross-contract calls and we're programming against an interface, we sort of have that already.
+
+287
+00:33:35.590 --> 00:33:37.409
+Kevin Millikin: Where we potentially have to wrap
+
+288
+00:33:37.550 --> 00:33:40.230
+Kevin Millikin: Circuits from another contract in order to invoke them.
+
+289
+00:33:41.050 --> 00:34:00.629
+Kevin Millikin: And, the… what I'm leery of is that we break the current position of field in the integer subtype hierarchy for some implementation reason, like the one that I suggested, that I actually feel pretty good, strong about, but if we break that, and then we end up with that overhead anyway for big ints, then maybe we didn't need to do that, and it was…
+
+290
+00:34:00.630 --> 00:34:02.739
+Kevin Millikin: The wrong decision at this time, so…
+
+291
+00:34:02.740 --> 00:34:05.069
+Kevin Millikin: That's one of the things I'm really concerned about.
+
+292
+00:34:07.110 --> 00:34:09.980
+Jonathan Sobel: It sounded like there were enough other reasons, though.
+
+293
+00:34:10.370 --> 00:34:12.419
+Jonathan Sobel: Just kind of semantic clarity.
+
+294
+00:34:16.830 --> 00:34:18.889
+Kent Dybvig: Yes, but for semantic clarity, we get…
+
+295
+00:34:19.280 --> 00:34:22.089
+Kent Dybvig: Less convenience, and that's, you know.
+
+296
+00:34:22.210 --> 00:34:26.599
+Kent Dybvig: Every constant, every arithmetic operation, you know.
+
+297
+00:34:27.310 --> 00:34:32.280
+Kent Dybvig: might have to… we might have to go add casts when we're using them, because constants…
+
+298
+00:34:32.659 --> 00:34:36.509
+Kent Dybvig: get passed around. You know, constants do occur in programs, and…
+
+299
+00:34:36.880 --> 00:34:37.619
+Kevin Millikin: Yeah, the literal…
+
+300
+00:34:37.620 --> 00:34:39.860
+Kent Dybvig: Yeah, they don't necessarily have to be cast.
+
+301
+00:34:41.300 --> 00:34:42.420
+Kevin Millikin: Literals are awkward.
+
+302
+00:34:44.870 --> 00:34:48.810
+Kent Dybvig: And if you should want to use a loop iterand as a…
+
+303
+00:34:49.810 --> 00:34:52.650
+Kent Dybvig: Field value, for some reason, you'll have to cast that, too.
+
+304
+00:34:52.909 --> 00:34:59.819
+Kent Dybvig: That seems unlikely, although, I mean, Kevin came up with such an example, but I think it's really cons… that one's really conscribed.
+
+305
+00:35:02.870 --> 00:35:07.390
+Kent Dybvig: Alright, shall we… Table this without a decision, or do you want to try to…
+
+306
+00:35:07.740 --> 00:35:10.490
+Kevin Millikin: I… let's table it without a decision.
+
+307
+00:35:10.710 --> 00:35:16.299
+Kevin Millikin: Keep in mind that this might be a… this might be a big breaking change that's coming, and so we want to be deliberate about that.
+
+308
+00:35:21.040 --> 00:35:27.110
+Parisa Ataei: Okay, moving on to backward compatibility. Kent, do you want to take over?
+
+309
+00:35:27.790 --> 00:35:38.359
+Kent Dybvig: Yeah, so I started, working on a proposal for backward compatibility, and I kind of got stuck. I got stuck really, really, really early. I mean, I have an idea what I wanted to do.
+
+310
+00:35:38.490 --> 00:35:45.420
+Kent Dybvig: Which is relatively straightforward, which is add a version number to modules and a version number to imports, and…
+
+311
+00:35:45.590 --> 00:35:49.410
+Kent Dybvig: And to have a…
+
+312
+00:35:49.850 --> 00:36:07.949
+Kent Dybvig: a separate syntax for saying which lecture you want to use, basically, which parser you want to use. That would be stuck at the beginning of your file. It gets a little bit weird, but it's all doable. It means the lecture basically has to call the parser recursively to parse the version numbers in the
+
+313
+00:36:08.190 --> 00:36:18.109
+Kent Dybvig: in that before it can proceed with parsing the rest of the file. It's all doable. I had an idea about this. And I started thinking about,
+
+314
+00:36:18.480 --> 00:36:20.580
+Kent Dybvig: Multiple versions of modules.
+
+315
+00:36:21.600 --> 00:36:32.309
+Kent Dybvig: Can you have multiple… we definitely would want to have multiple versions of the standard library in a program, because you might have some parts of the program that wanted to use the old… that you didn't want to convert.
+
+316
+00:36:32.480 --> 00:36:36.759
+Kent Dybvig: And want to use the base standard library for the major version.
+
+317
+00:36:37.030 --> 00:36:51.749
+Kent Dybvig: And, there may be other parts that you don't, but our standard library doesn't have any ledger fields, so there's no shared state. Somebody else might have two versions of the library, and they might both define a ledger field, and you get into the Windows DLL hell.
+
+318
+00:36:52.230 --> 00:36:58.439
+Kent Dybvig: And I wouldn't want to allow it for standard libraries, and not allow it for…
+
+319
+00:36:58.930 --> 00:37:17.720
+Kent Dybvig: or other modules, that you could have two versions. So we'd have to make recommendations, documentation, warnings, whatever. We could just disallow it if there's any ledger fields in either one of them, and, you know, you can't have two versions if there's any ledger fields. That could be a constraint.
+
+320
+00:37:18.150 --> 00:37:28.780
+Kent Dybvig: All that is doable, we can come up with something that seems sensible and makes sense, but then I started thinking about what backward compatibility is, and I don't really understand
+
+321
+00:37:28.920 --> 00:37:33.039
+Kent Dybvig: what backward compatibility is. We don't… we want to maintain backward compatibility.
+
+322
+00:37:33.420 --> 00:37:38.730
+Kent Dybvig: in… in the real… in a real sense, backward compatibility should mean that if I… if a program runs
+
+323
+00:37:39.210 --> 00:37:45.689
+Kent Dybvig: apparently correctly today, it'll still run… that same program will run apparently correctly tomorrow.
+
+324
+00:37:46.570 --> 00:37:49.829
+Kent Dybvig: And that means even if we have a bug.
+
+325
+00:37:50.730 --> 00:37:55.300
+Kent Dybvig: That the program inadvertently or inadvertently was counting on.
+
+326
+00:37:55.880 --> 00:37:59.879
+Kent Dybvig: That we should… that we are breaking backward compatibility when we fix the bug.
+
+327
+00:38:00.350 --> 00:38:09.099
+Kent Dybvig: Now, if the bug is a program that didn't work now works, that's forward compatible. But if it's a program that
+
+328
+00:38:09.690 --> 00:38:23.200
+Kent Dybvig: That did work now doesn't work because we've added an extra check that was missing, or because we, changed the behavior from the wrong behavior, minus was plus, and plus was minus, and we've swapped them back to what they should be.
+
+329
+00:38:23.810 --> 00:38:28.439
+Kent Dybvig: Then… that's a breaking change, even though we might consider that to be a bug fix.
+
+330
+00:38:28.860 --> 00:38:39.219
+Kent Dybvig: And then there's the… then there's the second, thing in the semver, right? There's the major, there's the sub-major, there's the major-minor, and there's the bug fix.
+
+331
+00:38:39.400 --> 00:38:53.520
+Kent Dybvig: For the minor release, you're allowed to add new functionality, but again, that functionality can't conflict with anything there. So if you add a new standard library entry, it conflicts with something… if it conflicts with something in…
+
+332
+00:38:53.870 --> 00:39:02.510
+Kent Dybvig: that you already had in scope, right? You defined… you had your own definition in it as a new name. Do we consider that to be backward compatibility?
+
+333
+00:39:02.900 --> 00:39:05.970
+Kent Dybvig: Did we consider that adding a new
+
+334
+00:39:06.660 --> 00:39:13.420
+Kent Dybvig: feature to a standard library to be a forward-compatible change. I can make an argument both ways. I can say.
+
+335
+00:39:13.630 --> 00:39:20.680
+Kent Dybvig: No, it's not a backward compatible change, because it might take a program that previously worked and now doesn't work because there's a name conflict.
+
+336
+00:39:22.010 --> 00:39:29.399
+Kent Dybvig: Or I could say, well, if you write your program right the first time, and you didn't use just blind import.
+
+337
+00:39:29.660 --> 00:39:33.660
+Kent Dybvig: From the standard library, but you imported only the things you needed.
+
+338
+00:39:34.650 --> 00:39:35.600
+Kent Dybvig: Then…
+
+339
+00:39:35.900 --> 00:39:41.679
+Kent Dybvig: Us adding a new entry point doesn't hurt you, because you didn't import it, and it's not going to conflict with anything you're using.
+
+340
+00:39:42.700 --> 00:39:43.660
+Kent Dybvig: So…
+
+341
+00:39:44.050 --> 00:39:51.879
+Kent Dybvig: I'm trying to decide if that is a breaking change, or not a breaking change, or we're gonna land on that. Thomas?
+
+342
+00:39:53.550 --> 00:39:54.350
+Thomas Kerber: Yeah.
+
+343
+00:39:54.790 --> 00:40:04.250
+Thomas Kerber: My experience with Semver has been that, if you follow it Strictly.
+
+344
+00:40:04.930 --> 00:40:09.790
+Thomas Kerber: It is not very helpful, because everything ends up being breaking change in some way.
+
+345
+00:40:09.980 --> 00:40:14.660
+Thomas Kerber: And that there's… you have to find the right nuance of…
+
+346
+00:40:16.550 --> 00:40:25.189
+Thomas Kerber: Yeah, this discussion essentially is the right one to have, because you need to define braking in such a way that you can still do things
+
+347
+00:40:25.360 --> 00:40:28.930
+Thomas Kerber: Without everything ending up being considered breaking.
+
+348
+00:40:29.510 --> 00:40:37.599
+Thomas Kerber: I think on… the other side is I've used plenty of languages that ostensibly follow Senver.
+
+349
+00:40:37.970 --> 00:40:43.500
+Thomas Kerber: And are definitively not following it strictly, and are definitively introducing
+
+350
+00:40:43.740 --> 00:40:45.870
+Thomas Kerber: Changes that are, to some extent, breaking.
+
+351
+00:40:46.300 --> 00:40:48.360
+Thomas Kerber: I also think we… we have a…
+
+352
+00:40:49.480 --> 00:40:55.520
+Thomas Kerber: Additional challenge, which is also a mitigating factor, namely that…
+
+353
+00:40:55.810 --> 00:41:00.779
+Thomas Kerber: In a sense, any semantic change whatsoever is breaking.
+
+354
+00:41:01.060 --> 00:41:08.410
+Thomas Kerber: Because if the circuits change for your contract, then… You…
+
+355
+00:41:08.700 --> 00:41:13.070
+Thomas Kerber: Can't use that new version, if you've already deployed the previous one.
+
+356
+00:41:13.440 --> 00:41:28.690
+Thomas Kerber: And what… what that means is we're kind of already locked into… because obviously we are going to change compiler outputs, we will have to. We're kind of already locked into, if you want to use a particular contract on-chain, you need to use
+
+357
+00:41:29.290 --> 00:41:32.640
+Thomas Kerber: A specific version of the compiler to use that.
+
+358
+00:41:33.330 --> 00:41:39.609
+Thomas Kerber: Which, to my mind, means there's actually more flexibility for
+
+359
+00:41:39.720 --> 00:41:43.640
+Thomas Kerber: What kind of changes are allowed between compiler versions.
+
+360
+00:41:43.950 --> 00:41:47.599
+Thomas Kerber: So I… I would err on the side of…
+
+361
+00:41:48.640 --> 00:41:54.989
+Thomas Kerber: Not looking too closely on what is breaking, then, I'm focusing on it.
+
+362
+00:41:57.890 --> 00:42:02.160
+Jonathan Sobel: Yeah, I'll, two things. First of all.
+
+363
+00:42:02.530 --> 00:42:11.019
+Jonathan Sobel: it's sometimes useful to remember that SemVar, I think has kind of created thinking about libraries, and it's a little different to think about languages.
+
+364
+00:42:11.640 --> 00:42:24.110
+Jonathan Sobel: And some of the stuff Thomas brought up fits that. And the other thing I was going to mention, sort of along with Kent's extreme examples of some of the things, is, having worked at SAS,
+
+365
+00:42:24.320 --> 00:42:26.839
+Jonathan Sobel: They ran into this kind of thing all the time.
+
+366
+00:42:27.140 --> 00:42:34.819
+Jonathan Sobel: And it was because it would be that, we're going to fix this bug, and it would turn out that someone was relying on that bug.
+
+367
+00:42:35.200 --> 00:42:44.419
+Jonathan Sobel: And how do you actually… how strict do you keep it? What do you… what do you decide? And it really was a, it depends on the case-by-case basis.
+
+368
+00:42:44.690 --> 00:42:51.260
+Jonathan Sobel: And so there were cases at SAS that they would say, oh, it turns out that the government of France
+
+369
+00:42:51.270 --> 00:43:04.569
+Jonathan Sobel: has written code so that its entire national economy depends on this bug. We're gonna add a flag that says, run this new version, but preserve that bug behavior so that we don't bring down the nation of France when we…
+
+370
+00:43:04.570 --> 00:43:13.930
+Jonathan Sobel: release our new version. And they would just kind of do these sorts of surveys. I don't remember if it's France, but I'm… that was actually true for some country in real life.
+
+371
+00:43:14.100 --> 00:43:31.159
+Jonathan Sobel: And so they would kind of get a sense, when they had these questions, of how many people care, and they would reach out there and reach out to the community, and sometimes they would be convinced that no one cared, and they would go ahead and make the change, and it turned out it was a big deal, and they'd quick release a patch to preserve the bug behavior.
+
+372
+00:43:44.460 --> 00:43:51.319
+Kent Dybvig: I think that preserving, backward compatibility is more about source…
+
+373
+00:43:52.500 --> 00:43:55.670
+Kent Dybvig: Not having to edit your source than it is about
+
+374
+00:43:55.820 --> 00:44:01.590
+Kent Dybvig: Being able to, you know, getting the same binary out in languages.
+
+375
+00:44:08.740 --> 00:44:16.320
+Thomas Kerber: Yeah, but I think, like, one of the very common exceptions I've seen is I don't think any,
+
+376
+00:44:16.710 --> 00:44:23.810
+Thomas Kerber: language I have used considers adding new names, or… Sorry, I…
+
+377
+00:44:23.960 --> 00:44:30.260
+Thomas Kerber: Adding new functions to a standard library, or adding new modules, or this kind of thing, but breaking change.
+
+378
+00:44:32.100 --> 00:44:35.259
+Kent Dybvig: Some languages, it's not an issue, because there isn't actually
+
+379
+00:44:35.420 --> 00:44:40.250
+Kent Dybvig: a conflict, right? Like, in C, you don't… you won't resolve to the standard level.
+
+380
+00:44:40.250 --> 00:44:40.570
+Thomas Kerber: Exactly.
+
+381
+00:44:40.570 --> 00:44:42.370
+Kent Dybvig: If you have a local definition.
+
+382
+00:44:42.600 --> 00:44:49.799
+Kent Dybvig: And so the standard library adds something, and it can't conflict with yours, in general.
+
+383
+00:44:49.800 --> 00:44:54.170
+Thomas Kerber: That is true. But for languages where it can cause a conflict.
+
+384
+00:44:55.040 --> 00:44:57.580
+Thomas Kerber: It's usually just an accepted risk.
+
+385
+00:44:58.140 --> 00:45:02.320
+Kent Dybvig: Yeah, and I will say that, I made a decision
+
+386
+00:45:02.530 --> 00:45:08.819
+Kent Dybvig: early on in Chase Games development, around year 15 or so, the backward compatibility was not,
+
+387
+00:45:09.280 --> 00:45:13.090
+Kent Dybvig: Was not an aspiration at all, because…
+
+388
+00:45:13.360 --> 00:45:21.099
+Kent Dybvig: as I think I wrote in one of… one of… in the History of Shays Scheme paper, that I… I think I wrote, you know.
+
+389
+00:45:21.460 --> 00:45:25.900
+Kent Dybvig: It doesn't make sense in a system whose lifetime is measured in decades.
+
+390
+00:45:26.500 --> 00:45:27.170
+Kent Dybvig: It…
+
+391
+00:45:27.660 --> 00:45:39.879
+Kent Dybvig: It really hampers you from, you know… you really can't have a better language 20 years from now if you're… if you're having to maintain full compatibility with everything you could do 20 years ago.
+
+392
+00:45:40.680 --> 00:45:59.159
+Kent Dybvig: Languages improve, language technology, ideas come, and old things fall away, and that's as it should be. And if you are a slave to backward compatibility, your language will necessarily die after a relatively short period of time relative to
+
+393
+00:45:59.460 --> 00:46:05.550
+Kent Dybvig: Chase schema, which is, what, 40… some years now.
+
+394
+00:46:06.830 --> 00:46:20.919
+Jonathan Sobel: Yeah, I'll agree with your assertion that this was… that source compatibility is the win. I mean, the one system… here's another anecdote, the one system I rely on this kind of annotation, what version on… I'm on, all the time is Lilypond. I write music.
+
+395
+00:46:21.490 --> 00:46:40.830
+Jonathan Sobel: And Lilypond, I can put at the top, this is for this version of Lilypond. And it's so convenient when they release new versions with slightly different syntax, to just be able to build my old files and know that it will, at least from moderately recent ones, it will just do the right thing. It will go, oh, that was for this prior version, that means you interpret this this way.
+
+396
+00:46:40.830 --> 00:46:46.470
+Jonathan Sobel: And I also know that I don't… it doesn't work back arbitrarily far to, like, version 1.0 or something.
+
+397
+00:46:46.490 --> 00:46:52.330
+Jonathan Sobel: But it's really nice, right, when a new version comes out with some little change, not to have to go edit my code right away.
+
+398
+00:46:56.410 --> 00:46:59.470
+Thomas Kerber: Just, just thinking out loud,
+
+399
+00:47:01.050 --> 00:47:08.629
+Thomas Kerber: two examples of, like, that would come to mind, one which I don't think worked well, so that one is, Python.
+
+400
+00:47:09.020 --> 00:47:15.790
+Thomas Kerber: Where they tried to support backwards compatibility for a long time, and then make one big braking change.
+
+401
+00:47:16.140 --> 00:47:17.010
+Thomas Kerber: And…
+
+402
+00:47:17.440 --> 00:47:23.560
+Thomas Kerber: As a result, they kind of got the worst of both worlds, where they had a lot of packages that
+
+403
+00:47:24.260 --> 00:47:27.450
+Thomas Kerber: Because of the backwards compatibility, did not
+
+404
+00:47:27.910 --> 00:47:31.540
+Thomas Kerber: Regularly need to update, and therefore didn't update.
+
+405
+00:47:31.680 --> 00:47:33.960
+Thomas Kerber: When it was actually required.
+
+406
+00:47:34.920 --> 00:47:39.260
+Thomas Kerber: And I think the other one is the Rust ecosystem.
+
+407
+00:47:39.820 --> 00:47:45.170
+Thomas Kerber: Which… Is kind of dealing with backwards compatibility by
+
+408
+00:47:45.870 --> 00:47:52.259
+Thomas Kerber: shifting it, and I think that's a bit closer to what Jonathan was saying, that it's kind of more on the…
+
+409
+00:47:52.940 --> 00:47:55.070
+Thomas Kerber: source level.
+
+410
+00:47:55.500 --> 00:48:00.400
+Thomas Kerber: In that you can specify as part of the… package,
+
+411
+00:48:00.930 --> 00:48:06.790
+Thomas Kerber: containing. You can say, oh, I'm targeting this language version. And the neat thing about that
+
+412
+00:48:07.340 --> 00:48:14.129
+Thomas Kerber: I'm talking about additions in Rust in case you want to look into it. The neat thing about that is that
+
+413
+00:48:14.470 --> 00:48:21.869
+Thomas Kerber: you can interoperate between them. So it's… it's a source-level thing, but they all share the same backend, so…
+
+414
+00:48:24.690 --> 00:48:32.169
+Thomas Kerber: I don't know how feasible that is for our case. I don't know if it even makes sense before something like contract-to-contract calls.
+
+415
+00:48:32.340 --> 00:48:39.540
+Thomas Kerber: But I found that to be a neat solution for, making changes to an otherwise stable language.
+
+416
+00:48:47.910 --> 00:48:58.289
+Andrzej Kopeć: Yeah, which makes me want to also mention, another form of a backward compatibility, and forward compatibility as well, actually.
+
+417
+00:48:58.700 --> 00:49:11.849
+Andrzej Kopeć: Which is, called binary compatibility, especially in the Java ecosystem, where… The artifacts are published, compiled.
+
+418
+00:49:11.970 --> 00:49:29.629
+Andrzej Kopeć: Already, and in that case, it is very important to ensure that someone linking against published artifacts will be able to link against the newer version of them, as long as that new version is claimed to be compatible.
+
+419
+00:49:29.630 --> 00:49:33.139
+Andrzej Kopeć: Which means that, roughly speaking, the ABI should be the same.
+
+420
+00:49:33.300 --> 00:49:34.130
+Andrzej Kopeć: And…
+
+421
+00:49:34.540 --> 00:49:48.850
+Andrzej Kopeć: In this context, it is particularly important because of the ZKR and how it interacts and how it relates to the verifier and prover keys.
+
+422
+00:49:51.880 --> 00:49:55.290
+Thomas Kerber: Yeah, so, just to… Answered.
+
+423
+00:49:55.400 --> 00:49:58.929
+Thomas Kerber: Or to give some perspective on that.
+
+424
+00:50:00.320 --> 00:50:09.349
+Thomas Kerber: at the moment, the plan, and I don't know if we have committed to that. If we have not, I should commit to it. But the plan is to
+
+425
+00:50:10.120 --> 00:50:17.480
+Thomas Kerber: to preserve that kind of binary compatibility. So, in particular, the ZKR format has a version field.
+
+426
+00:50:17.730 --> 00:50:24.969
+Thomas Kerber: And I'm looking to guarantee that the same source file will always produce the same output.
+
+427
+00:50:25.110 --> 00:50:27.790
+Thomas Kerber: By utilizing that version field.
+
+428
+00:50:27.920 --> 00:50:36.290
+Thomas Kerber: So you will… if you… target CKR version 2.0, you will always generate the same prover verifier keys.
+
+429
+00:50:39.480 --> 00:50:45.339
+Thomas Kerber: And yeah, that's something that I would like to support going forward, and that does come with quite a bit of…
+
+430
+00:50:45.520 --> 00:50:56.680
+Thomas Kerber: additional effort on the ZKR side, but I see that as a requirement to actually be able to interact with old contracts, because we're not going… you know, this is essentially the…
+
+431
+00:50:57.090 --> 00:51:00.589
+Thomas Kerber: The binaries that have been deployed, and we're not going to get to rewrite those.
+
+432
+00:51:11.440 --> 00:51:14.899
+Parisa Ataei: Okay. Any last… oh, go ahead, Kenneth.
+
+433
+00:51:14.900 --> 00:51:20.270
+Kevin Millikin: I had a quick question for Charles. Just to be clear, you mean the same ZKIR source file, not the same Compact source file?
+
+434
+00:51:20.890 --> 00:51:22.910
+Thomas Kerber: Yes, the same as EKR, so it's called.
+
+435
+00:51:22.910 --> 00:51:25.290
+Kevin Millikin: Yes, good, yeah. Thank you.
+
+436
+00:51:28.030 --> 00:51:41.650
+Andrzej Kopeć: Though, in the context of contract-to-contract calls, and what is eventually being delivered, especially for the more dynamic use cases.
+
+437
+00:51:41.850 --> 00:51:52.149
+Andrzej Kopeć: The question how different, compact source, source files end up being different ZKR, might be, might be relevant.
+
+438
+00:52:04.640 --> 00:52:09.630
+Thomas Kerber: And one interesting clinical case there is You could have one…
+
+439
+00:52:10.630 --> 00:52:18.059
+Thomas Kerber: contract compiled with one version of Compact interacting with another contract compiled by a different version of Compact.
+
+440
+00:52:19.140 --> 00:52:25.820
+Thomas Kerber: could even be using different CKRs, like, yeah, they're not necessarily sharing any of the same versions.
+
+441
+00:52:26.410 --> 00:52:31.159
+Thomas Kerber: But they might still be speaking the same interface.
+
+442
+00:52:35.150 --> 00:52:45.079
+Jonathan Sobel: Does that mean that… If and when we have a ZKIR interpreter that we use, On the client side.
+
+443
+00:52:46.220 --> 00:52:53.299
+Jonathan Sobel: that it needs to be able to effectively render the different versions of ZKR, each with its own semantics?
+
+444
+00:52:54.460 --> 00:52:58.880
+Thomas Kerber: Yep, just like, the provers currently already need to do.
+
+445
+00:52:59.030 --> 00:52:59.680
+Thomas Kerber: Okay.
+
+446
+00:52:59.680 --> 00:53:00.430
+Kevin Millikin: Exactly, exactly.
+
+447
+00:53:00.430 --> 00:53:07.599
+Thomas Kerber: We may end up fragmenting it that, you know, you have to load this as a module or something, but right now it'll be a M1F.
+
+448
+00:53:20.630 --> 00:53:23.640
+Parisa Ataei: Okay, any last comments?
+
+449
+00:53:24.080 --> 00:53:26.420
+Parisa Ataei: And backwards compatibility.
+
+450
+00:53:29.100 --> 00:53:30.090
+Parisa Ataei: Okay.
+
+451
+00:53:30.360 --> 00:53:35.740
+Parisa Ataei: Moving on to… what counts as contract types.
+
+452
+00:53:36.290 --> 00:53:54.629
+Jonathan Sobel: I'll say why I worded this question this way. It's because there was much conversation about contract interfaces and references to contracts, and I stepped away from the keyboard to kind of think about it for a minute and realized that there were different assumptions behind it. And I think the important thing is to…
+
+453
+00:53:56.130 --> 00:54:10.480
+Jonathan Sobel: figure out where we are and some of those shared assumptions, and a whole lot will go easier. And I started to suspect that, some people in the conversation thought that if I define a contract, then it automatically… if I define contract A,
+
+454
+00:54:10.730 --> 00:54:20.230
+Jonathan Sobel: then there is a type A for it, as well as perhaps also certain interfaces I could define, and maybe it satisfies interface
+
+455
+00:54:20.660 --> 00:54:22.299
+Jonathan Sobel: X interface Y.
+
+456
+00:54:22.430 --> 00:54:32.900
+Jonathan Sobel: But I started to suspect that Kent might think otherwise, which is also a reasonable position, that says that the only things that are contract types are explicitly defined interfaces. The other things are…
+
+457
+00:54:32.900 --> 00:54:42.670
+Jonathan Sobel: Yes, they are some contracts, but you don't get to use them as types. Anything you want to use as a contract, you must say, here is a contract interface type, and therefore I can use it as a type.
+
+458
+00:54:42.950 --> 00:54:48.960
+Jonathan Sobel: And so first, Kent, am I representing your position correctly there?
+
+459
+00:54:50.960 --> 00:54:56.880
+Kent Dybvig: Basically, I view… Contracts as separate programs, not as separate classes.
+
+460
+00:54:57.130 --> 00:55:00.119
+Kent Dybvig: Or anything like that. They are separate programs.
+
+461
+00:55:00.360 --> 00:55:04.700
+Kent Dybvig: developed by different developers. We don't necessarily have the source code.
+
+462
+00:55:04.850 --> 00:55:07.830
+Kent Dybvig: In… in all worlds.
+
+463
+00:55:09.110 --> 00:55:17.769
+Kent Dybvig: it's… Yeah, so I… and there, as Kevin pointed out, it's always possible to generate
+
+464
+00:55:18.050 --> 00:55:24.780
+Kent Dybvig: A trivial interface from a program that you have in your hands.
+
+465
+00:55:24.940 --> 00:55:31.380
+Kent Dybvig: If you want to use one that happens to list all of your exported circuits,
+
+466
+00:55:31.600 --> 00:55:44.790
+Kent Dybvig: and has the same name, you can… you can generate one of those, or you can generate one, trim it down, rename it, and use that. So, it's a minor inconvenience at worst, not to allow that.
+
+467
+00:55:46.760 --> 00:56:00.820
+Jonathan Sobel: Right, I guess the… and an argument in favor of that perspective is that since we were talking earlier about the UNT and field stuff, the kind of… what's happenstance and what's not, there is a sense in which if I treat my entire contract as its interface.
+
+468
+00:56:01.360 --> 00:56:08.430
+Jonathan Sobel: and write a consumer that says it depends on all of it, well, then we just… we're right back at that backward-forward compatibility question.
+
+469
+00:56:08.530 --> 00:56:14.430
+Jonathan Sobel: Whereas if I said, no, I really depend on these 3 circuits in it, then I should say so.
+
+470
+00:56:25.650 --> 00:56:27.449
+Jonathan Sobel: Kevin, did you have something to add to that?
+
+471
+00:56:27.450 --> 00:56:44.950
+Kevin Millikin: Yeah, I was just gonna say that my… what… what I… my mental model is very close to what… what Kent described, that interfaces are distinct… if we had contract declarations, that interfaces would be distinct from contracts, and that the contract declaration would implicitly define an interface.
+
+472
+00:56:45.120 --> 00:56:49.219
+Kevin Millikin: It might say it has the same name as the contract, but they would be distinct things.
+
+473
+00:56:53.300 --> 00:57:00.719
+Jonathan Sobel: Okay, for everyone on the call, why this is relevant is because within this quarter.
+
+474
+00:57:00.940 --> 00:57:13.379
+Jonathan Sobel: It may be a stretch to deliver full contract interfaces with multiple implementations, et cetera, et cetera. But we do need to do cross-contract calls, which means we have to have contract types.
+
+475
+00:57:14.150 --> 00:57:17.540
+Jonathan Sobel: And so, I had proposed
+
+476
+00:57:17.590 --> 00:57:34.430
+Jonathan Sobel: that the only contract type for now is literally the type that you get when you define the contract, and it simply is that one, and we don't have to deal with any of the other syntax around it, and it's simple, and if I… if outer calls inner, then when you define enter, you get the type… contract type, enter, and you can just use it.
+
+477
+00:57:34.680 --> 00:57:38.909
+Jonathan Sobel: Without having to restate the… all of the circuits in it.
+
+478
+00:57:39.150 --> 00:57:53.439
+Jonathan Sobel: As soon as you have something in which you restate the circuits, either you're saying it's automatically wrong if they aren't identical, or you are actually suddenly supporting interfaces, and you've quickly step off to a space where it's hard to rein in
+
+479
+00:57:53.850 --> 00:58:00.030
+Jonathan Sobel: The complexity to something that is deliverable this quarter without
+
+480
+00:58:00.190 --> 00:58:06.839
+Jonathan Sobel: doing things that you would really hope not to do later. Like, you… things that are stopgaps.
+
+481
+00:58:07.030 --> 00:58:13.580
+Jonathan Sobel: And so, I don't… we're not gonna resolve all of that on this call, but,
+
+482
+00:58:14.950 --> 00:58:18.040
+Jonathan Sobel: It was helpful to… in a spoken setting.
+
+483
+00:58:18.430 --> 00:58:25.710
+Jonathan Sobel: figure out the perspectives on that. Do other people on the call have thoughts on whether interfaces
+
+484
+00:58:26.100 --> 00:58:29.060
+Jonathan Sobel: Should always be explicit.
+
+485
+00:58:29.840 --> 00:58:36.780
+Jonathan Sobel: Or whether you would expect an implicit type for every contract that covers every circuit in it.
+
+486
+00:58:38.920 --> 00:58:51.100
+Parisa Ataei: So, are you proposing that we won't have declarations of contracts? Instead, a type of a contract is whatever circuits it exports?
+
+487
+00:58:51.830 --> 00:58:52.500
+Jonathan Sobel: that…
+
+488
+00:58:53.220 --> 00:59:00.990
+Jonathan Sobel: I had been assuming, without thinking as hard as was perhaps necessary, that if I define a contract A,
+
+489
+00:59:01.460 --> 00:59:04.429
+Jonathan Sobel: Just, you know, I defined contract. It's an A.compact.
+
+490
+00:59:04.640 --> 00:59:20.079
+Jonathan Sobel: that somewhere else, I can refer to contracts of type A. I can… if I want… once we have… I can refer to contract addresses, I can say, here is this other contract A, and I want to make a cross-contract call to things of type A, and so on.
+
+491
+00:59:20.230 --> 00:59:22.830
+Jonathan Sobel: But a different perspective is…
+
+492
+00:59:23.110 --> 00:59:37.190
+Jonathan Sobel: if that type is automatically everything A was, it's very unlikely that the consumer actually needed everything about A. It's not going to call every public circuit, it's not… and so it should say, no, I actually depend on this subset of A.
+
+493
+00:59:37.510 --> 00:59:55.649
+Jonathan Sobel: this interface that I need to A, and then you could say the only types that you get to treat as contract types are explicit interfaces like that. And then you don't need these implicit type things. There will be these implicit inter… I mean, these explicit interfaces only.
+
+494
+00:59:55.950 --> 01:00:00.979
+Jonathan Sobel: If that's what we do, then we need to find a way to do it
+
+495
+01:00:01.840 --> 01:00:07.800
+Jonathan Sobel: In a way we can deliver this quarter. Which crosses lots of parts of the system, is the problem.
+
+496
+01:00:09.170 --> 01:00:09.830
+Parisa Ataei: Total?
+
+497
+01:00:10.650 --> 01:00:18.040
+Joseph Denman: Yeah, I think in the chat my position on this is hopefully, hopefully pretty clear, but,
+
+498
+01:00:18.210 --> 01:00:19.849
+Joseph Denman: It would…
+
+499
+01:00:21.340 --> 01:00:35.720
+Joseph Denman: I know… I understand in principle the use of contract interfaces, as, you know, like, typically you would think that it's useful for library developers, but I'm curious what everyone
+
+500
+01:00:35.900 --> 01:00:39.830
+Joseph Denman: Like, if anyone else actually… Has any…
+
+501
+01:00:40.200 --> 01:00:46.110
+Joseph Denman: It's hard to imagine cases where a contract would want to take just a random
+
+502
+01:00:46.430 --> 01:01:02.699
+Joseph Denman: contract, let's say, as an argument, satisfying an interface, and call those circuits without knowing what they actually are. I don't… I mean, that just kind of intuitively, at least in a system where, you know, we have to be very
+
+503
+01:01:02.700 --> 01:01:07.599
+Joseph Denman: Nuanced about what's being proven and what's not proven, and what assumptions we're making.
+
+504
+01:01:08.590 --> 01:01:21.869
+Joseph Denman: I… no immediate use cases come to mind, but that's just me, so I was curious if anybody else could think of any cases where a circuit accepts a contract, and what we know about that contract is only
+
+505
+01:01:21.870 --> 01:01:31.460
+Joseph Denman: what circuits it provides without… I mean, at the very minimum, there's a level of trust there, right, on the sort of contracts you're accepting.
+
+506
+01:01:31.990 --> 01:01:36.830
+Jonathan Sobel: Isn't that the sort of ERC20 shape? And… Ethereum?
+
+507
+01:01:37.290 --> 01:01:38.439
+Andrzej Kopeć: So, it says…
+
+508
+01:01:38.440 --> 01:01:42.380
+Joseph Denman: Are those interfaces? Those are just interfaces for tokens, okay.
+
+509
+01:01:42.750 --> 01:01:43.680
+Joseph Denman: Okay, cool.
+
+510
+01:01:44.040 --> 01:01:49.760
+Andrzej Kopeć: Yeah, that's the… that's the… that's the idea of the token standards in Ethereum, and the kind of…
+
+511
+01:01:49.960 --> 01:01:58.550
+Andrzej Kopeć: a lot of work that the Open Zappelling team does, or at least the direction they're headed, that…
+
+512
+01:01:59.360 --> 01:02:14.610
+Andrzej Kopeć: Eventually, kind of well-defined interfaces should emerge, and, contract interoperability based only on those interfaces, should, should be defined.
+
+513
+01:02:15.390 --> 01:02:22.810
+Joseph Denman: So all of the… all of the assumptions on safety and stuff like that, I guess, are assumed by the caller.
+
+514
+01:02:23.940 --> 01:02:24.720
+Joseph Denman: the contract.
+
+515
+01:02:25.560 --> 01:02:35.799
+Andrzej Kopeć: To an extent, yes, and also… but also on the exact mechanics or tools provided to verify certain things.
+
+516
+01:02:36.190 --> 01:02:36.820
+Joseph Denman: Yeah.
+
+517
+01:02:38.150 --> 01:02:48.619
+Andrzej Kopeć: But another case that it is not very immediate, but possible as well, is,
+
+518
+01:02:49.100 --> 01:02:56.260
+Andrzej Kopeć: Possibly related to, Okay,
+
+519
+01:02:56.580 --> 01:03:06.019
+Andrzej Kopeć: things like, let's say, custom spend logic or something, where one way might be something along the lines that
+
+520
+01:03:06.550 --> 01:03:16.069
+Andrzej Kopeć: There is provided contract address, there is provided operation name, and that the public output must
+
+521
+01:03:16.380 --> 01:03:20.639
+Andrzej Kopeć: Evaluate to something truthy, or… or just true.
+
+522
+01:03:21.270 --> 01:03:26.800
+Andrzej Kopeć: something along those lines, and in such case, eat…
+
+523
+01:03:27.220 --> 01:03:31.139
+Andrzej Kopeć: There is very little assumptions about what exactly happens there.
+
+524
+01:03:35.680 --> 01:03:42.359
+Joseph Denman: Yeah, I think my wires got crossed on my question, so sorry, that was an obvious one, but Kent, you have your hand up.
+
+525
+01:03:44.770 --> 01:03:45.800
+Parisa Ataei: You're muted.
+
+526
+01:03:48.590 --> 01:03:50.729
+Kent Dybvig: Thanks. I just wanted to point out that
+
+527
+01:03:50.940 --> 01:03:57.289
+Kent Dybvig: I… that these issues are… the issue of what is a type, and whether we support
+
+528
+01:03:57.830 --> 01:04:01.090
+Kent Dybvig: Fully dynamic, selection.
+
+529
+01:04:01.210 --> 01:04:02.769
+Kent Dybvig: are independent.
+
+530
+01:04:02.870 --> 01:04:16.980
+Kent Dybvig: In fact, what we have right now implemented in the front end of the compiler is only… the only types, the only interfaces are the… are the contract types, and we also insist that the source code be present
+
+531
+01:04:16.990 --> 01:04:27.300
+Kent Dybvig: in a directory parallel to the directory of the calling contract. So it's completely independent. How far we go down the dynamic thing,
+
+532
+01:04:27.920 --> 01:04:41.759
+Kent Dybvig: is independent of whether we require this. Now, if we're gonna… if the only mechanism for us to… to connect to another contract is because its code is sitting there, then obviously we're tied to the static.
+
+533
+01:04:42.910 --> 01:04:56.640
+Kent Dybvig: But if we allow both, we're not tied to the static. If we allow both, both, explicit declaration and, oh, maybe, maybe by file's half a reference.
+
+534
+01:04:56.760 --> 01:05:06.280
+Kent Dybvig: To a contract, and that's the… that's the source file source, or maybe the object directory for the compiled contract.
+
+535
+01:05:06.590 --> 01:05:13.059
+Kent Dybvig: That doesn't preclude us. Either one of the… that wouldn't preclude us from going more towards the dynamic, so…
+
+536
+01:05:13.190 --> 01:05:22.599
+Kent Dybvig: As far as what is a type is concerned, I think that's one discussion. As far as how dynamic we get is another, and I think the only reason to go more dynamic this quarter
+
+537
+01:05:23.090 --> 01:05:30.410
+Kent Dybvig: The reason not to go dynamic this quarter is obvious, right? We keep things more simple.
+
+538
+01:05:30.690 --> 01:05:44.399
+Kent Dybvig: The reason to go more dynamic this quarter is we're not entirely sure what the use cases are, and whether… whether the fully static case will do it. And I want to point out here, for those who aren't aware, that we aren't simply required to
+
+539
+01:05:44.550 --> 01:05:51.189
+Kent Dybvig: to hit the statement of work, but we are required by shielded management to enable partners.
+
+540
+01:05:51.830 --> 01:06:02.420
+Kent Dybvig: And so we have to be conscious of what our partners need. If our partners need something a little more dynamic, I would hate that we have decided to go with something that's too static for them.
+
+541
+01:06:02.600 --> 01:06:08.889
+Kent Dybvig: If we can learn that they don't need something more dynamic, then, yeah, we stick with something more static.
+
+542
+01:06:11.520 --> 01:06:15.209
+Jonathan Sobel: I'm gonna disagree with you that it's… that the two are orthogonal.
+
+543
+01:06:15.430 --> 01:06:26.040
+Jonathan Sobel: They really aren't fully… Because if we have interfaces, and we expect to have different implementations available, which are…
+
+544
+01:06:26.040 --> 01:06:29.979
+Kent Dybvig: But there, you just said, and we expect to have different implementations available.
+
+545
+01:06:30.230 --> 01:06:33.730
+Kent Dybvig: We don't have… we don't have to allow that. We can still require
+
+546
+01:06:34.250 --> 01:06:41.810
+Kent Dybvig: We can require, for example, that the types… that the generated code for a contract as an explicit import
+
+547
+01:06:42.570 --> 01:06:48.019
+Kent Dybvig: Of something, so it's static at the… you know, it's not… there's only one implementation of it.
+
+548
+01:06:48.570 --> 01:06:49.180
+Jonathan Sobel: Okay.
+
+549
+01:06:53.080 --> 01:07:00.000
+Jonathan Sobel: So the idea along that path would be present it, and you could be very clear to the public about it.
+
+550
+01:07:00.170 --> 01:07:01.190
+Jonathan Sobel: You could say we are…
+
+551
+01:07:01.190 --> 01:07:03.030
+Kent Dybvig: This is my tube, by the way, yeah.
+
+552
+01:07:03.500 --> 01:07:14.400
+Jonathan Sobel: We are introducing interfaces, we're going to call them interfaces, we do not support everything you might imagine interfaces do yet. Right now, the implementations all have to be known statically.
+
+553
+01:07:15.810 --> 01:07:24.479
+Kent Dybvig: And, yes, yeah, and so we could go… I identified in a different context, three levels. One, the source code is sitting right there.
+
+554
+01:07:24.920 --> 01:07:28.899
+Kent Dybvig: And you can look at it at compile time, the compiler does.
+
+555
+01:07:29.010 --> 01:07:29.930
+Kent Dybvig: 2?
+
+556
+01:07:30.150 --> 01:07:33.869
+Kent Dybvig: just the… the generated PypeScript code.
+
+557
+01:07:34.100 --> 01:07:42.019
+Kent Dybvig: actually imports something, but it didn't have to be sitting there when you compiled the calling contract. It could be only there when you're deploying it.
+
+558
+01:07:42.230 --> 01:07:45.860
+Kent Dybvig: And three, that the DAP provides
+
+559
+01:07:46.130 --> 01:07:50.090
+Kent Dybvig: The DAP imports both and provides
+
+560
+01:07:50.300 --> 01:07:54.219
+Kent Dybvig: A link from one to the other, from the callee to the caller.
+
+561
+01:07:54.640 --> 01:07:56.900
+Kent Dybvig: We can…
+
+562
+01:07:57.140 --> 01:08:05.699
+Kent Dybvig: We can go with two, and we haven't really introduced a lot of, we haven't introduced this problem of having multiple implementations.
+
+563
+01:08:10.370 --> 01:08:17.439
+Parisa Ataei: Out of curiosity, do we know which partners we are supposed to enable this quarter, or is that…
+
+564
+01:08:17.729 --> 01:08:18.499
+Kent Dybvig: Nope.
+
+565
+01:08:18.739 --> 01:08:19.279
+Kent Dybvig: Not…
+
+566
+01:08:19.279 --> 01:08:20.769
+Jonathan Sobel: Really, we've talked about.
+
+567
+01:08:20.770 --> 01:08:21.680
+Joseph Denman: That is good.
+
+568
+01:08:21.689 --> 01:08:28.359
+Jonathan Sobel: We talked about the crucial use cases being the DEX, sort of Uniswap-style decks.
+
+569
+01:08:28.979 --> 01:08:33.329
+Jonathan Sobel: And we do know what some of those shapes are, and we have opened Zeppelin's code for it.
+
+570
+01:08:33.449 --> 01:08:50.779
+Jonathan Sobel: And we know that Bob has been building his set of examples, and there's a particular case of identity management and registration in his examples, that are reasonable and seem like things that people would want to do that are blocked by, lack of
+
+571
+01:08:50.919 --> 01:08:52.269
+Jonathan Sobel: Cross-contract calls.
+
+572
+01:08:52.709 --> 01:08:53.339
+Jonathan Sobel: And so…
+
+573
+01:08:53.340 --> 01:08:55.179
+Kent Dybvig: And the Midnight Foundation… oh, sorry.
+
+574
+01:08:55.790 --> 01:08:58.839
+Jonathan Sobel: Just those are some concrete examples.
+
+575
+01:08:59.120 --> 01:09:00.270
+Jonathan Sobel: We'd like to know.
+
+576
+01:09:01.209 --> 01:09:07.499
+Kent Dybvig: And during a meeting last Thursday, the Midnight Foundation asked if We would like some examples.
+
+577
+01:09:07.779 --> 01:09:09.179
+Kent Dybvig: from partners.
+
+578
+01:09:09.539 --> 01:09:18.069
+Kent Dybvig: And Mike said, yes, absolutely, please give them to us. He didn't give them a time deadline, unfortunately. I'm going to try to get that
+
+579
+01:09:18.599 --> 01:09:25.119
+Kent Dybvig: I'm trying… I'm gonna try to get it… get that set tomorrow during the corresponding call tomorrow.
+
+580
+01:09:27.810 --> 01:09:29.290
+Joseph Denman: Yeah, I would just…
+
+581
+01:09:29.740 --> 01:09:38.600
+Joseph Denman: Okay, well, I mean, it sounds like there's a resolution, but the reason my hand was raised is I don't think that this discussion can proceed any further without
+
+582
+01:09:38.859 --> 01:09:41.050
+Joseph Denman: You know, someone…
+
+583
+01:09:41.390 --> 01:09:51.200
+Joseph Denman: Us having, like, you know, a make-or-break example of what they expect for cross-contract calls, because that's, you know, we don't know what level of generality they need.
+
+584
+01:09:51.300 --> 01:09:52.050
+Joseph Denman: So…
+
+585
+01:09:52.050 --> 01:09:57.760
+Kent Dybvig: So let me… let me ask, let me ask this, if we go with…
+
+586
+01:09:58.210 --> 01:10:05.709
+Kent Dybvig: my option 2. In other words, the compiler doesn't go looking for the contract at compile time, but we do generate code
+
+587
+01:10:06.330 --> 01:10:10.559
+Kent Dybvig: For an import for it. So that we keep ourselves clean.
+
+588
+01:10:10.760 --> 01:10:20.860
+Kent Dybvig: And innocent of the existence of that other contract in the compiler doesn't accidentally build any dependencies on it, so that we have a maybe smoother upgrade path later.
+
+589
+01:10:21.200 --> 01:10:24.220
+Kent Dybvig: If we go with that implementation.
+
+590
+01:10:25.390 --> 01:10:31.380
+Kent Dybvig: And we later discover that we need that extra bit of dynamicism, and no more.
+
+591
+01:10:31.880 --> 01:10:41.430
+Kent Dybvig: That we get by the DAP providing, The, subordinate contracts bet.
+
+592
+01:10:42.190 --> 01:10:43.510
+Kent Dybvig: at runtime.
+
+593
+01:10:43.900 --> 01:11:00.860
+Kent Dybvig: how big of a change is that going to be? Is that… is it possible that… basically, one way of looking at it is, is one on the path to the other? Is the simpler one on the path to the… to the other one? Are they completely different paths, and we're shooting ourselves in the foot by not going with the simpler path?
+
+594
+01:11:01.350 --> 01:11:04.419
+Kent Dybvig: Or not going with the more complicated path first.
+
+595
+01:11:05.090 --> 01:11:08.279
+Jonathan Sobel: I think it's possible to do it in a way
+
+596
+01:11:08.480 --> 01:11:12.359
+Jonathan Sobel: That the simpler one is on the path to the more complex one.
+
+597
+01:11:12.660 --> 01:11:13.360
+Joseph Denman: I agree.
+
+598
+01:11:13.360 --> 01:11:19.779
+Kent Dybvig: Well, I think… I think we should definitely do that then, because that gets us testing a lot faster.
+
+599
+01:11:20.000 --> 01:11:20.879
+Jonathan Sobel: That's… that's my…
+
+600
+01:11:20.880 --> 01:11:21.480
+Kent Dybvig: And…
+
+601
+01:11:21.480 --> 01:11:25.220
+Jonathan Sobel: We really want to think of this as what we do first, not what we do ever.
+
+602
+01:11:25.550 --> 01:11:38.959
+Kent Dybvig: Right, and then we can tell people, this is where we got. And they can, you know, if we… and we can't get any farther in Q2, at least we have… we can give them maybe an estimate. Okay, but 2 weeks into Q3, we'll have it, you know, and that may be good enough.
+
+603
+01:11:39.230 --> 01:11:48.170
+Kent Dybvig: Yeah, we'll say, okay, well, you enabled 90% of the use cases, you didn't get all of them, but we're not gonna do a hard fork until the end of July, so really, you've got a little grace period, go ahead, go do it.
+
+604
+01:11:48.720 --> 01:11:55.980
+Jonathan Sobel: That would be… that's really ideal. I want to have something shipped, and working, and… Okay.
+
+605
+01:11:59.630 --> 01:12:09.429
+Jonathan Sobel: then… then let's go with that for now. There's still the quest… and… and there's a couple of little syntax things, we can work those out on Slack, then.
+
+606
+01:12:09.430 --> 01:12:10.020
+Kent Dybvig: Yeah.
+
+607
+01:12:11.350 --> 01:12:11.960
+Parisa Ataei: Okay.
+
+608
+01:12:11.960 --> 01:12:12.390
+Kent Dybvig: Okay.
+
+609
+01:12:12.390 --> 01:12:16.000
+Parisa Ataei: Sorry I went over, folks.
+
+610
+01:12:18.870 --> 01:12:19.430
+Kent Dybvig: That's good.
+
+611
+01:12:19.890 --> 01:12:20.350
+Joseph Denman: Thank you.
+
+612
+01:12:20.840 --> 01:12:23.590
+Parisa Ataei: Yeah, alright. Thanks, everyone. Bye.
+
+613
+01:12:23.590 --> 01:12:24.120
+Kent Dybvig: Bye.
+

@@ -1,0 +1,1118 @@
+WEBVTT
+
+1
+00:01:22.670 --> 00:01:24.090
+John Phillips (Sezoo): G'day, Neil!
+
+2
+00:01:24.690 --> 00:01:25.760
+Neil Thomson (QueryVision): G'day!
+
+3
+00:01:25.830 --> 00:01:39.439
+John Phillips (Sezoo): You kind of… you kind of look like a Fujicam X webcam today. Always when I'm switched off. I… unless I… I kind of… that's the… whatever. I've thought every now and then about editing that, that image that the…
+
+4
+00:01:39.580 --> 00:01:47.299
+John Phillips (Sezoo): that the software displays to be something else, but there are better things in life to solve than that. I actually have to hack the XE.
+
+5
+00:01:47.520 --> 00:01:55.770
+John Phillips (Sezoo): To actually do that. I have to reverse engineer out there, and it's like, oh god, no. I've got other things I'm trying to sort out. How you doing? You good?
+
+6
+00:01:56.880 --> 00:02:00.519
+Neil Thomson (QueryVision): Yep, no, I'm, I'm up to my eyeballs in this.
+
+7
+00:02:00.680 --> 00:02:08.680
+Neil Thomson (QueryVision): Data… Traveler Data Profile, which is getting into some very interesting spaces around
+
+8
+00:02:09.229 --> 00:02:20.660
+Neil Thomson (QueryVision): What does a digital personal profile mean? What does it look like? How do you manage it? How do you… and there's some fairly complex scenarios,
+
+9
+00:02:20.900 --> 00:02:25.060
+Neil Thomson (QueryVision): That don't really map into your classic
+
+10
+00:02:25.210 --> 00:02:36.490
+Neil Thomson (QueryVision): query response SQL kind of thinking. You know, I've got a data… you know, I've got… I've got my on-disk storage, which is one thing. Then I've got my… let's call it my,
+
+11
+00:02:36.830 --> 00:02:52.479
+Neil Thomson (QueryVision): let's call it my queryable metadata. In other words, what do I hand to somebody which is a logical model of the structure that you can, you know, do a SQL against? Or whatever language you want… query mechanism you want to use.
+
+12
+00:02:52.580 --> 00:02:57.679
+Neil Thomson (QueryVision): So what does that, you know, if you're looking at, you know, something that
+
+13
+00:02:57.960 --> 00:03:07.879
+Neil Thomson (QueryVision): But what does that logical model look like, right, for something which has got complexity to it? And one of the interesting ones is for things that are non-relational.
+
+14
+00:03:08.500 --> 00:03:12.550
+Neil Thomson (QueryVision): Which is what I'll call a food, drink, and ingredients graph.
+
+15
+00:03:13.380 --> 00:03:21.670
+Neil Thomson (QueryVision): So it's looking at a categorized list of all the major food groups, and all the subgroups, and down to items.
+
+16
+00:03:21.760 --> 00:03:38.259
+Neil Thomson (QueryVision): that you would specify as foods, I, you know, food preferences, I like this, I don't like that, or I like this whole category, and I'm not gonna, you know, I'll let that be the default for, you know, I like all ice cream, I'm not gonna get into flavors, or I like all meats, or I like all this, or I'm prohibited from all meats.
+
+17
+00:03:38.560 --> 00:03:42.850
+Neil Thomson (QueryVision): Right. So, so it's something where you can check and whatever else.
+
+18
+00:03:43.210 --> 00:03:56.540
+Neil Thomson (QueryVision): And, you know, you can have things where this is prohibited, but that's not, etc, etc. So how do you query that? What's the metadata interface for that, so that somebody on the other end that's a restaurant saying, okay, I need a catalog.
+
+19
+00:03:57.020 --> 00:04:01.079
+Neil Thomson (QueryVision): of all your likes and dislikes, so I can look at, you know, look at my…
+
+20
+00:04:01.380 --> 00:04:03.760
+Neil Thomson (QueryVision): First, I can tell you whether, you know.
+
+21
+00:04:04.350 --> 00:04:10.759
+Neil Thomson (QueryVision): You know, if you're a vegan, and we're a meat… a meat-centric restaurant, you know, that should quickly pop up the note.
+
+22
+00:04:11.000 --> 00:04:13.200
+Neil Thomson (QueryVision): We're probably not for you.
+
+23
+00:04:14.610 --> 00:04:20.800
+Neil Thomson (QueryVision): And then also, what's the… what's the question, you guys? Are you going to hand them the full food profile?
+
+24
+00:04:21.860 --> 00:04:35.179
+Neil Thomson (QueryVision): Because who knows, you know, what they have on the menu, because, you know, you're just talking to a restaurant, and, you know, you may not… you haven't seen their menu yet, so… and you may not even know, you know, what they specialize in, you know, whether a kosher kitchen and you're…
+
+25
+00:04:35.180 --> 00:04:47.829
+Neil Thomson (QueryVision): Diet's Kitchen… your diet's kosher, or halal, or whatever else. So… so the data doesn't look like your standard, you know, querying a graph is usually a simple thing, but if the graph has semantics about it.
+
+26
+00:04:48.330 --> 00:04:55.450
+Neil Thomson (QueryVision): That it's not straight data, so that there's a set of sub-data that goes with each item in the chain, then.
+
+27
+00:04:56.440 --> 00:04:57.020
+John Phillips (Sezoo): There's a,
+
+28
+00:04:58.170 --> 00:05:10.199
+John Phillips (Sezoo): there's a line of reasoning, or a way of thinking about things that Joe and I often fall back on, but like many things, it actually isn't in itself an answer, it's just a way of describing an answer.
+
+29
+00:05:10.200 --> 00:05:16.770
+Neil Thomson (QueryVision): We're asking a question. So, the word that popped into mind as you were describing the challenges you're looking at was ontology.
+
+30
+00:05:16.820 --> 00:05:19.720
+John Phillips (Sezoo): You're creating an ontology, but the reality is that
+
+31
+00:05:19.980 --> 00:05:24.100
+John Phillips (Sezoo): There's always an ontology, there just isn't always a good ontology.
+
+32
+00:05:24.260 --> 00:05:39.119
+John Phillips (Sezoo): Right, so even in any designs of how things relate to each other and how data sort of fits with other parts of data and so on, that's inevitably an ontology, whether it declares one or not. It's described the meaning of a set of things.
+
+33
+00:05:39.150 --> 00:05:44.990
+John Phillips (Sezoo): And, the unfortunate thing with ontologies, I think, is that
+
+34
+00:05:45.430 --> 00:05:49.799
+John Phillips (Sezoo): And, except for the most trivial of instances, there's no one right answer.
+
+35
+00:05:50.350 --> 00:05:54.660
+John Phillips (Sezoo): Right, so the answer to your questions, I don't think there is a singular right answer.
+
+36
+00:05:54.930 --> 00:05:58.470
+John Phillips (Sezoo): But there might be answers that are more useful than others.
+
+37
+00:05:58.760 --> 00:06:11.359
+John Phillips (Sezoo): And it sort of struck me that if you're building a… if you're building this from a… not from a theoretical, abstract point of view, but from a product point of view, you'd actually just make some decisions. What's the…
+
+38
+00:06:11.530 --> 00:06:26.839
+John Phillips (Sezoo): most valuable qualities I could include for both service providers and service users around travel that will satisfy the most, or develop the most benefit
+
+39
+00:06:26.840 --> 00:06:32.560
+John Phillips (Sezoo): With minimum cost. And gradually add to that. Now, that doesn't mean you've got the right
+
+40
+00:06:32.670 --> 00:06:41.559
+John Phillips (Sezoo): the right in the sense of academically correct interpretation of all things inside the model. You've just got something that's useful and it works.
+
+41
+00:06:43.000 --> 00:06:52.530
+Neil Thomson (QueryVision): Yeah, and we're sort of discovering a whole bunch of things. Sort of like, if you look at dining as a category, so I'm traveling, I'm dining, which is different from somebody doing food buying.
+
+42
+00:06:53.020 --> 00:07:05.239
+Neil Thomson (QueryVision): you know, suppliers, you know, if I'm a restaurant chef, you know, my preferences are more geared to, okay, I'm building a menu, and I want to know what, you know, I'm going to pick my suppliers based on
+
+43
+00:07:05.340 --> 00:07:15.149
+Neil Thomson (QueryVision): all sorts of criteria, and then I'm going to have a shopping list for ingredients, which is different from somebody who's dining. So it turns out there's at least 3 different ways of looking at dining.
+
+44
+00:07:15.380 --> 00:07:21.809
+Neil Thomson (QueryVision): Actually, four. One is the kind of restaurant, the kind of seating, is it outdoor-indoor? So that's about the dining room.
+
+45
+00:07:22.020 --> 00:07:25.229
+Neil Thomson (QueryVision): There's, about the restaurant.
+
+46
+00:07:25.590 --> 00:07:40.790
+Neil Thomson (QueryVision): you know, what rules does it need to follow? How does it process the… you know, who do they buy from? How does the food buyer process it? Or the food producer produce it? How is that treated when it gets in there? So, which is key for things like kosher, etc.
+
+47
+00:07:40.900 --> 00:07:48.889
+Neil Thomson (QueryVision): So, so you've got restaurant management aspect, you've got, foods, food, drink, and ingredients, so essentially an ingredient list.
+
+48
+00:07:48.990 --> 00:08:04.960
+Neil Thomson (QueryVision): Right. Here are all the foods I individually like or dislike, or this whole category I can't eat. Then you've got diet, which is what you can and what you can't eat. Like, in some cases, what you must not eat, and what you must eat within diet windows.
+
+49
+00:08:05.060 --> 00:08:25.049
+Neil Thomson (QueryVision): date and time wings, right? Yeah. And that can be, you know, and there's all sorts of variations on that one. And then I got cuisines, because most people, if you look at what they're doing, if they're looking at dining, the first thing to say, I feel like German tonight, or I feel like, you know, Kansas City barbecue, or I'm looking for, you know, South Korean,
+
+50
+00:08:25.310 --> 00:08:27.370
+Neil Thomson (QueryVision): Seoul Seafood.
+
+51
+00:08:28.470 --> 00:08:32.770
+Neil Thomson (QueryVision): You know? So all of those things, and they all overlap a little bit.
+
+52
+00:08:33.240 --> 00:08:42.400
+John Phillips (Sezoo): Or more than that. I go to this idea, that any… I'm gonna make… I'll make it sound provocative. Any answer you think of is going to be wrong.
+
+53
+00:08:42.950 --> 00:08:56.019
+John Phillips (Sezoo): It's going to be wrong. There is not a right answer. So stop it. Just stop it. Even the very simple question that says… let's take the UK, because I know that space a bit better. Okay, I feel like eating, British food tonight. Now, what the…
+
+54
+00:08:56.020 --> 00:09:04.479
+John Phillips (Sezoo): does that mean, right? What does British food mean? Now, in old comedic, historic terms, it might mean fish and chips.
+
+55
+00:09:04.480 --> 00:09:06.579
+John Phillips (Sezoo): Or, roast beef.
+
+56
+00:09:06.830 --> 00:09:09.979
+John Phillips (Sezoo): Or, or whatever. But in current terms.
+
+57
+00:09:10.070 --> 00:09:23.910
+John Phillips (Sezoo): British cuisine means Michelin five-star restaurants, and the world's largest variety of foods possibly imaginable in London, you know, that British cuisine does not equal mushy peas, right? So it's like…
+
+58
+00:09:23.910 --> 00:09:33.219
+John Phillips (Sezoo): one person's idea about what something means is not the same as somebody else's idea about what something means. And therefore, this whole idea of
+
+59
+00:09:33.290 --> 00:09:37.009
+John Phillips (Sezoo): of categorization and so on, I find, is fraught.
+
+60
+00:09:37.410 --> 00:09:38.900
+John Phillips (Sezoo): And I would… I would…
+
+61
+00:09:39.000 --> 00:09:53.380
+John Phillips (Sezoo): I don't know, recommend that the minimal amount of categorization is done, except for that that is factual. Now, if you're allergic to peanuts, you need to know whether it has peanuts in it, not whether it's German or French, or… I don't give a damn.
+
+62
+00:09:53.380 --> 00:09:54.020
+Neil Thomson (QueryVision): Mom.
+
+63
+00:09:54.340 --> 00:09:54.839
+John Phillips (Sezoo): Does it have.
+
+64
+00:09:54.840 --> 00:10:02.309
+Neil Thomson (QueryVision): Yeah, you're absolutely… you're absolutely right. In fact, the, you know, looking at the broadcast, so there's all sorts of things with a sort of, like, graph model.
+
+65
+00:10:02.730 --> 00:10:17.840
+Neil Thomson (QueryVision): comes in, which is interesting. So you've got, you know, experiences. So, you know, I'm looking for, you know, attractions. Like, we had the attraction pass that ran for a little while. So, you know, attractions meaning, you know, tickets to a concert, a ball game, or…
+
+66
+00:10:17.970 --> 00:10:33.860
+Neil Thomson (QueryVision): Or something else. So there's a whole category and subcategory in there, in terms of different kinds of attractions, whatever else. So this kind of category, subcategory, where I may make, may say, I got a high-level preference, or know I get really picky.
+
+67
+00:10:34.270 --> 00:10:44.969
+Neil Thomson (QueryVision): Like, it turns out there's about… if you look at combinations of equipment, terrain, and other factors, you've got about 20 different versions of skiing.
+
+68
+00:10:45.600 --> 00:10:52.809
+Neil Thomson (QueryVision): You've got… you've got alpine. You've got… you've got downhill, you've got cross-country, you've got.
+
+69
+00:10:53.130 --> 00:10:54.590
+John Phillips (Sezoo): There's a… there's a…
+
+70
+00:10:54.630 --> 00:11:07.880
+John Phillips (Sezoo): And there's something else to bear in mind for both of us, which is that, so there was… years ago, there used to be a, a joke, about, unions negotiating with, their employers.
+
+71
+00:11:07.900 --> 00:11:13.359
+John Phillips (Sezoo): And the joke went along the lines of a shouting union representative.
+
+72
+00:11:13.370 --> 00:11:32.909
+John Phillips (Sezoo): making all these demands of the management team and what they needed to, deliver for the union to stop striking. And at the end of this long, long monologue of all these claims, by the way, it's Billy Connolly, and you can probably find the sketch, he then, he then, declares that, and you better stay awake, because all our demands will be changing tomorrow.
+
+73
+00:11:33.470 --> 00:11:35.760
+John Phillips (Sezoo): So, so the…
+
+74
+00:11:35.760 --> 00:11:38.110
+Neil Thomson (QueryVision): The idea that… I know that very well.
+
+75
+00:11:38.110 --> 00:11:50.329
+John Phillips (Sezoo): Yeah, so the idea that there's a fixed… you know, I've previously said I don't think there's even a right answer to any of these questions. And secondly, I'm going to say, even if there was one, it will change dynamically.
+
+76
+00:11:50.720 --> 00:11:52.160
+John Phillips (Sezoo): So… Oh, yeah.
+
+77
+00:11:52.340 --> 00:12:09.359
+John Phillips (Sezoo): So… so then you go to… the answers to that has to be flexibility. It has to be kind of both user and supplier choice. I declare these things to be attractions. You may not find them attractive. That's your decision, and that's okay. But these are what I call attractions, and here's how I've described them.
+
+78
+00:12:09.360 --> 00:12:13.809
+John Phillips (Sezoo): You may not find that description to be matching your way you would describe it, but that's…
+
+79
+00:12:13.840 --> 00:12:16.679
+John Phillips (Sezoo): Just the world, and the way it is, right?
+
+80
+00:12:16.680 --> 00:12:25.859
+Neil Thomson (QueryVision): Yeah, and you're absolutely right. I mean, part of this is going out in the world and saying, okay, we've looked at some of this stuff, and we've got a… what looks to be
+
+81
+00:12:25.860 --> 00:12:37.720
+Neil Thomson (QueryVision): In some cases, we've found some patterns, though, that, oh, if you recognize looking at food as ingredient versus cuisines versus diets, you're going to see, okay, there are… and I understand how, you know, it goes from the general to the specific.
+
+82
+00:12:37.720 --> 00:12:42.070
+Neil Thomson (QueryVision): Et cetera, et cetera. But it is just… it's an arbitrary choice.
+
+83
+00:12:42.160 --> 00:12:50.360
+Neil Thomson (QueryVision): And we found that the model for that that works the most flexible is a graph, not a series of collections, right?
+
+84
+00:12:50.500 --> 00:12:56.650
+Neil Thomson (QueryVision): So, that's… it's more a discovery thing for this, and… but it, there's a question of…
+
+85
+00:12:57.190 --> 00:13:16.559
+Neil Thomson (QueryVision): well, what's your presentation model? And part of the presentation model is, does the party who asked the question have enough information? If I give you a minimal description of the things you selected, like the cuisines, you're like, well, wait a minute, we don't do that. So, we sort of have to fill in the whole graph to say, we're down here somewhere in the middle.
+
+86
+00:13:16.560 --> 00:13:23.309
+Neil Thomson (QueryVision): Do we fall under your higher level selections? So, if I don't know, as a restaurant.
+
+87
+00:13:23.320 --> 00:13:31.119
+Neil Thomson (QueryVision): You know, you said Korean. Okay, well, we're South Korean. Do you actually have South Koreanism? Yeah, yeah, go ahead.
+
+88
+00:13:31.150 --> 00:13:37.430
+Neil Thomson (QueryVision): North and South Korean are really different, apparently. Like, one has food and the other one doesn't, but that's…
+
+89
+00:13:37.430 --> 00:13:57.099
+John Phillips (Sezoo): A little like that, yes. Yes. Very much like that, really. They are quite different. So, yeah, you know, so I go back to this idea that having… having realized that it's all very difficult and complicated, you then sort of back off and say, well, is there a problem we can solve that will deliver some value?
+
+90
+00:13:57.260 --> 00:14:11.149
+John Phillips (Sezoo): And… and not make this… this… so it's a bit like when… when Joe and I were working, on that, guardianship stuff, and we, you know, everyone started that project wanting to solve the problem, you realize after a while you can't actually solve the problem.
+
+91
+00:14:11.420 --> 00:14:17.630
+John Phillips (Sezoo): You kind of best describe the problem, maybe you can describe the problem, but even then.
+
+92
+00:14:17.680 --> 00:14:34.130
+John Phillips (Sezoo): Your description of the problem only makes sense within your description of the problem. In other words, you describe the terms you mean by guardianship and by carer and by dependent to mean what they mean with inside your space. You're not declaring these to be universally understood concepts.
+
+93
+00:14:34.470 --> 00:14:36.980
+John Phillips (Sezoo): That's the kind of, I guess the…
+
+94
+00:14:37.140 --> 00:14:44.769
+John Phillips (Sezoo): it feels like it's a… it's a… it's a capitulation, or it's humbleness, or it's just reality. You kinda can't…
+
+95
+00:14:44.980 --> 00:14:49.369
+John Phillips (Sezoo): Assert that this has meaning for everybody, and it's the same meaning.
+
+96
+00:14:49.620 --> 00:14:51.140
+John Phillips (Sezoo): So…
+
+97
+00:14:51.260 --> 00:14:59.269
+John Phillips (Sezoo): you know, you just have to live with what we're living with. Where are you doing this work, Neil? Is it in one of the Trust over IP working groups?
+
+98
+00:14:59.730 --> 00:15:05.920
+Neil Thomson (QueryVision): No, it's a DIF working group. It's the hospitality and Travel Working Group, so I'm the technical geek on this one.
+
+99
+00:15:06.190 --> 00:15:15.859
+John Phillips (Sezoo): There's a… there's… I don't know, and I'm sure you've already looked at it, but there's that… one of the large-scale pilots running in, Europe on the IDAS sort of wallet space, one of the four.
+
+100
+00:15:16.520 --> 00:15:18.050
+John Phillips (Sezoo): is looking at the traveler.
+
+101
+00:15:18.510 --> 00:15:19.660
+Neil Thomson (QueryVision): Oh, everybody's…
+
+102
+00:15:20.060 --> 00:15:25.280
+John Phillips (Sezoo): Yeah, but they, I mean, they've been looking at it for a few years, and they've got, tens of millions of euros being spent on it.
+
+103
+00:15:25.320 --> 00:15:41.730
+John Phillips (Sezoo): So… so that's, you know, it's… it's not… don't… don't dismiss it, right? I think, though, that the… the area they're looking at from a traveler point of view is very much more prosaic about, do you have the right to travel? Do you have a ticket? That sort of thing.
+
+104
+00:15:41.730 --> 00:15:42.450
+Neil Thomson (QueryVision): Yeah, it…
+
+105
+00:15:42.760 --> 00:15:53.200
+John Phillips (Sezoo): not anything more sort of qualitative about the quality of your travel, and the reason, and the… how do we make it as nice as possible?
+
+106
+00:15:53.870 --> 00:16:09.920
+Neil Thomson (QueryVision): Yeah, the most I can say that, what I've seen about travel that is consistent, and you're right, it's probably the number one use case for digital wallets, is about seamless travel. So that's all about, as you said, it's all about the passports, the boarding passes, the visas, the…
+
+107
+00:16:09.920 --> 00:16:20.759
+Neil Thomson (QueryVision): You know, all the things that, you know, from the time you're sitting at home, and you've got… you've got a ticket, which is… a ticket is an entitlement.
+
+108
+00:16:21.480 --> 00:16:28.319
+Neil Thomson (QueryVision): But you gotta check in, get boarding pass, and you gotta… in some cases, you don't get the boarding pass unless you've held up
+
+109
+00:16:28.660 --> 00:16:43.209
+Neil Thomson (QueryVision): your physical passport today to the camera, or in future you're going to give a VC. So how do you make that all seamless, that ties into your phone, so that when you show up, and they go, yes, this is me, and my phone has my information, so that when I wave
+
+110
+00:16:43.240 --> 00:16:55.620
+Neil Thomson (QueryVision): wave it through, you know, I maybe tap to say, this is me, which is a trigger that the Wi-Fi comes and talks to you and does DITCOM to pull back your credentials, and everybody goes, yes, you can walk through, right?
+
+111
+00:16:55.840 --> 00:17:01.819
+Neil Thomson (QueryVision): So, so yeah, that's very much it, and we're just saying, okay, so that's really nice, so how do we… can we tackle this problem?
+
+112
+00:17:02.820 --> 00:17:05.260
+Neil Thomson (QueryVision): Is there a model that,
+
+113
+00:17:05.589 --> 00:17:09.779
+Neil Thomson (QueryVision): Is rich enough and unambiguous enough
+
+114
+00:17:09.930 --> 00:17:14.490
+Neil Thomson (QueryVision): That, we can float that out there and see if it fits as a…
+
+115
+00:17:14.680 --> 00:17:27.140
+Neil Thomson (QueryVision): workable enough solution as a starting point, because that's about… because I can guarantee you the number of people are going to descend upon this and argue 16 ways from Sunday. I think you and I had a discussion about
+
+116
+00:17:27.410 --> 00:17:34.190
+Neil Thomson (QueryVision): Is there a single standard for names that works across all the possible combinations in the world?
+
+117
+00:17:34.580 --> 00:17:47.320
+John Phillips (Sezoo): WIPO are… there's many ways to answer that, even that simple question, isn't there? There are examples of things that are currently done, like de facto.
+
+118
+00:17:47.500 --> 00:17:52.240
+John Phillips (Sezoo): So, de facto, there are… there is a passport standard that many countries of the world
+
+119
+00:17:52.630 --> 00:17:59.300
+John Phillips (Sezoo): form to, and that they provide a passport that meets that standard. But that doesn't mean that the names of their nation
+
+120
+00:17:59.470 --> 00:18:17.300
+John Phillips (Sezoo): citizens are, in a sense, compliant with this standard. It just means that when they're published into a passport, they are published in the format that it meets. But there's that classic thing about, if you don't like any of the… if you don't like the standard, then just wait a while, there'll be several others to choose from. There's, you know, there's more than one standard.
+
+121
+00:18:18.110 --> 00:18:20.220
+John Phillips (Sezoo): Which means it's not a standard.
+
+122
+00:18:20.220 --> 00:18:20.820
+Neil Thomson (QueryVision): Yes.
+
+123
+00:18:21.330 --> 00:18:33.559
+Neil Thomson (QueryVision): No, there's a whole bunch of them. Anyway, we've got a draft one that some of my travel, hospitality, and travel… like, I'm new to the industry, right? So I've got people who've been in it for their whole careers ago.
+
+124
+00:18:34.000 --> 00:18:34.510
+John Phillips (Sezoo): Yeah, that's probably…
+
+125
+00:18:34.510 --> 00:18:35.980
+Neil Thomson (QueryVision): Probably enough to start with.
+
+126
+00:18:36.200 --> 00:18:45.349
+John Phillips (Sezoo): EUD Wallet's consortium, which is one of those large-scale pilot consortiums with a few hundred million dollars behind them, has concluded its
+
+127
+00:18:45.540 --> 00:18:47.870
+John Phillips (Sezoo): work, it seems, so I've just shared a link on the.
+
+128
+00:18:47.870 --> 00:18:48.660
+Neil Thomson (QueryVision): Alright.
+
+129
+00:18:48.660 --> 00:18:52.670
+John Phillips (Sezoo): to the wallet consortium, and it has all of the… Ugh.
+
+130
+00:18:52.930 --> 00:19:01.209
+John Phillips (Sezoo): outcomes, I suppose, deliverables that they've produced, and I'm pretty sure there'll be a GitHub repo behind all this that has all of the data and so on.
+
+131
+00:19:01.210 --> 00:19:01.890
+Neil Thomson (QueryVision): No doubt.
+
+132
+00:19:02.450 --> 00:19:10.200
+John Phillips (Sezoo): But it, it, you know, basically concluded a solution for 27 nation-state countries' travel.
+
+133
+00:19:10.350 --> 00:19:12.100
+John Phillips (Sezoo): Across.
+
+134
+00:19:14.630 --> 00:19:23.329
+John Phillips (Sezoo): Anyway, the other stuff, the only other thing I'm doing, of course, is today, it seems to pile on the days. Thursday and Friday is a,
+
+135
+00:19:23.610 --> 00:19:25.700
+John Phillips (Sezoo): UNHC facts.
+
+136
+00:19:25.960 --> 00:19:43.820
+John Phillips (Sezoo): Global Trust Registry meeting days for me, so the next few hours I've got one that's European-friendly, and then another one tomorrow morning, which is sort of more US-friendly. And there's a whole bunch of things that have to be done with that work, but one of them is to bring in a question about the governance framework,
+
+137
+00:19:43.970 --> 00:19:53.830
+John Phillips (Sezoo): that's applicable to this initiative, and how might the Trust over IP governance metamodel have something of value to add to the thinking? So that's something I need to bring into the…
+
+138
+00:19:54.120 --> 00:20:05.909
+John Phillips (Sezoo): the melting pot of all the stuff that needs to be done, and I'll do that probably… I'll probably be doing that over the next couple of weeks, actually, because this week, we're going to be talking about some other things, which are also important.
+
+139
+00:20:06.370 --> 00:20:06.940
+John Phillips (Sezoo): But that's what…
+
+140
+00:20:06.940 --> 00:20:07.980
+Neil Thomson (QueryVision): Anything that…
+
+141
+00:20:08.390 --> 00:20:14.380
+Neil Thomson (QueryVision): Is there… so anything new that you guys have tripped across that, you know, are going to be relevant on this recording for others?
+
+142
+00:20:15.120 --> 00:20:22.949
+John Phillips (Sezoo): In terms… in terms… well, I guess we should be focused really on governance, right? So, the… the…
+
+143
+00:20:23.780 --> 00:20:32.499
+John Phillips (Sezoo): the state of play, or the state of thinking, I suppose, rather than that, for governance is quite interesting when you're working on a UN project.
+
+144
+00:20:32.500 --> 00:20:44.919
+John Phillips (Sezoo): Right? So the UN has a certain, you know, it has its own governance. The UN as an organization governs, is governed, by the nation-state members, and by a bunch of rules, and by a bunch of, sort of, frameworks that exist already, and
+
+145
+00:20:44.930 --> 00:20:48.939
+John Phillips (Sezoo): agencies within that framework, like UNCFACT,
+
+146
+00:20:49.410 --> 00:20:59.860
+John Phillips (Sezoo): have an inherited kind of framework in which they can work, and work they do. Now, what we're actually doing is like a bootstrap program. We're writing a recommendation for a thing that doesn't exist.
+
+147
+00:20:59.980 --> 00:21:08.810
+John Phillips (Sezoo): We were writing a recommendation, for a… what we're now calling a, Global Registrar Information Directory, a grid.
+
+148
+00:21:09.520 --> 00:21:27.729
+John Phillips (Sezoo): And that recommendation will be along the lines that there should exist a curated nation-state maintained directory of registrars, those registrars being the nation-states registrars of note for supply chain elements.
+
+149
+00:21:27.730 --> 00:21:44.020
+John Phillips (Sezoo): that entity that doesn't yet exist should be governed by the United Nations, because it has that sort of global pan… nation-state view, and it will then need its own governance, so it'll need to be governed.
+
+150
+00:21:44.170 --> 00:21:52.930
+John Phillips (Sezoo): It is interested in the governance of the registrars, but it has no authority to say how they should run.
+
+151
+00:21:53.540 --> 00:22:02.079
+John Phillips (Sezoo): In other words, you can't tell the nation-state what to do. You can only kind of make recommendations or make observations about how things are done. So the governance…
+
+152
+00:22:02.220 --> 00:22:06.269
+John Phillips (Sezoo): model for what we're working on for UNCFAT is,
+
+153
+00:22:07.240 --> 00:22:20.070
+John Phillips (Sezoo): interesting, and I suspect… not unique, because there are other UN agencies that have something similar to this, a bit like AKO and its PKD thing. But it's, it's certainly interesting.
+
+154
+00:22:21.900 --> 00:22:24.219
+Neil Thomson (QueryVision): Yeah, because, I mean, there's also the,
+
+155
+00:22:24.830 --> 00:22:27.280
+Neil Thomson (QueryVision): Work that's going on with the trust graph.
+
+156
+00:22:27.790 --> 00:22:51.619
+Neil Thomson (QueryVision): that's kicked off in the last couple of weeks, and they're running into the same problem, right? And I said, okay, to start with, you're going to need a strawman logical model of all the actors and all the kinds of interactions before you can, you know, look at what are you building a trust graph of, right? And immediately thought of exactly the problem you're dealing with, saying, who are the entities? And the one thing that's different about
+
+157
+00:22:52.130 --> 00:22:59.439
+Neil Thomson (QueryVision): the UN's approach is, in some nation-states, you're really only just going to have people. You're not going to have the technology that's part.
+
+158
+00:22:59.440 --> 00:23:07.010
+John Phillips (Sezoo): What you actually… you're actually right. What you actually have is the legal recognition that this is a country.
+
+159
+00:23:07.320 --> 00:23:21.899
+John Phillips (Sezoo): Firstly, you know, in a sense, the legal recognition this is a country comes from the UN. The UN is the thing that recognizes countries, and then the country itself has its own legal framework, which might recognize a body that, registers things like companies.
+
+160
+00:23:22.070 --> 00:23:37.490
+John Phillips (Sezoo): Right? So those… what you're… what you find is that the kind of governance and legal infrastructure are very, very closely related, or entwined, right? You can't really write governance in the absence or ignorance of the legal infrastructure.
+
+161
+00:23:39.000 --> 00:23:46.209
+John Phillips (Sezoo): And anyway, that's sort of one of the… so a lot of our governance work, you'll see in the… and it's publicly available, all the stuff, is…
+
+162
+00:23:46.800 --> 00:23:59.840
+John Phillips (Sezoo): Currently, very heavily loaded with legalese, with lots of legal terms, and my aim in that existing body of work is to synthesize and simplify it so that there's a kind of recommendation
+
+163
+00:23:59.840 --> 00:24:07.430
+John Phillips (Sezoo): And all this existing detailed work becomes a supporting instrument, a thing that says how you might actually do it if you could… if you do it.
+
+164
+00:24:07.430 --> 00:24:13.349
+John Phillips (Sezoo): Our first effort is to get this thing, to be supported as a recommendation that it should exist.
+
+165
+00:24:13.350 --> 00:24:21.849
+John Phillips (Sezoo): then there's going to be work to actually make it exist, having got the support that it should exist. It is really bootstrapping.
+
+166
+00:24:22.620 --> 00:24:37.110
+Neil Thomson (QueryVision): Yeah, so to play that back, it sounds like you've had to say, look, for us to do this, here is the legal infrastructure you would expect to underpin this stuff, and obviously looking at some examples of things that are out there, saying, okay, so what can you rely on, and what is…
+
+167
+00:24:37.110 --> 00:24:48.659
+John Phillips (Sezoo): It's like that. So what's happening is that there's a, so the co-lead, my co-lead, I'm a lead, I'm a co-lead, and so is Alina Nikogales. She's a lawyer, and has a very,
+
+168
+00:24:48.810 --> 00:25:00.340
+John Phillips (Sezoo): detailed lawyer's eye on things, so that I might, as a non-lawyer, make rather simplistic observations about law. That's unfortunately very likely.
+
+169
+00:25:00.590 --> 00:25:08.559
+John Phillips (Sezoo): one of the things I would say is that, this directory will only include, in the first instance.
+
+170
+00:25:08.770 --> 00:25:20.529
+John Phillips (Sezoo): those registrars that are authoritative registrars of nation-state countries. What is an authoritative registrar of a nation-state country? Well, you can maybe take it in reverse.
+
+171
+00:25:20.530 --> 00:25:29.229
+John Phillips (Sezoo): Are you a nation-state? Are you recognized by the UN as a country? Now, the next question is, do you register things to do with supply chains, and where's the law
+
+172
+00:25:29.230 --> 00:25:30.539
+John Phillips (Sezoo): In your nation state.
+
+173
+00:25:30.540 --> 00:25:31.190
+Neil Thomson (QueryVision): Saint.
+
+174
+00:25:31.190 --> 00:25:33.460
+John Phillips (Sezoo): that says this. Now, we're not going to change your law.
+
+175
+00:25:33.570 --> 00:25:38.719
+John Phillips (Sezoo): We're not defining the requirements of your law, right? We just need to know a law exists.
+
+176
+00:25:38.850 --> 00:25:58.589
+John Phillips (Sezoo): that says you register companies, and describes how you register and stuff, so we can point to it, if you like. We don't change it, we point to it. So, what's interesting is that in our own writing, we don't need to write whole new bunches of law, in my opinion, yet we've written lots of legal clauses. And for me, it's like, oh no, I only need to know that they have a law.
+
+177
+00:25:59.100 --> 00:26:10.660
+John Phillips (Sezoo): And not necessarily what the law says. But Alina's gone one level lower. No, we do need to understand some of the things that their law says.
+
+178
+00:26:10.780 --> 00:26:15.759
+John Phillips (Sezoo): Because it's important that it has certain qualities that make it trustworthy.
+
+179
+00:26:16.250 --> 00:26:26.899
+John Phillips (Sezoo): So we're in this sort of tension between, saying too much and saying too little about… about what's necessary to be eligible to be in this directory, for example.
+
+180
+00:26:27.340 --> 00:26:28.430
+John Phillips (Sezoo): And that goes…
+
+181
+00:26:28.580 --> 00:26:35.330
+John Phillips (Sezoo): follows through, if you like, into the governance processes for this… this entity that doesn't exist? How might it be governed?
+
+182
+00:26:37.890 --> 00:26:42.700
+Neil Thomson (QueryVision): That sounds very much like something that needs to be part of the trust graphs,
+
+183
+00:26:43.090 --> 00:26:44.289
+Neil Thomson (QueryVision): Shall we say May?
+
+184
+00:26:44.290 --> 00:26:47.929
+John Phillips (Sezoo): That's true. Yeah, I'm sure we're not…
+
+185
+00:26:48.670 --> 00:26:57.469
+John Phillips (Sezoo): solving a new problem, right? I'm sure this… this idea, this challenge of these pieces is… is familiar to many, and others have already got through it.
+
+186
+00:26:57.770 --> 00:27:04.399
+John Phillips (Sezoo): So… so yes, I'm pretty sure it's similar to some of the things that the Trust Graph group are thinking of.
+
+187
+00:27:04.740 --> 00:27:06.589
+John Phillips (Sezoo): Yeah, it's… it's…
+
+188
+00:27:06.900 --> 00:27:16.090
+John Phillips (Sezoo): it doesn't stop being interesting. What we do need to… we need to sort of get a wiggle on to actually get something. We will need to have something by the end of this calendar year.
+
+189
+00:27:16.090 --> 00:27:26.940
+John Phillips (Sezoo): more or less mature enough to be reviewed during the second… during the beginning of next… the first half of next year, such that there's a chance of getting it approved at plenary in July of 2026.
+
+190
+00:27:28.850 --> 00:27:37.410
+John Phillips (Sezoo): So, it's, it's, you know, in a sense, whilst it feels like it goes very slowly, the race is on. We're racing at a very slow speed.
+
+191
+00:27:37.700 --> 00:27:38.410
+John Phillips (Sezoo): It's fine.
+
+192
+00:27:39.270 --> 00:27:45.559
+Neil Thomson (QueryVision): Well, it's… it's more about, you can swim quickly, but you're towing 3 railboats.
+
+193
+00:27:46.150 --> 00:27:55.349
+John Phillips (Sezoo): Something like that, yeah, yeah. Velocity made good or something, whatever used to be the phrase in nautical terms, yeah. You're going very quickly, but the sea you're in is actually moving as well.
+
+194
+00:27:55.940 --> 00:28:00.520
+John Phillips (Sezoo): And therefore, your absolute movement is not quite as fast as you think.
+
+195
+00:28:00.520 --> 00:28:05.139
+Neil Thomson (QueryVision): And as anybody who's swarmed in open water, and you're getting a little bit of chop.
+
+196
+00:28:05.730 --> 00:28:10.670
+John Phillips (Sezoo): Yeah, a few slaps in the face for a few waves as well, yeah. Just unnecessary, but yeah, it comes with a.
+
+197
+00:28:10.670 --> 00:28:11.060
+Neil Thomson (QueryVision): Exactly.
+
+198
+00:28:11.060 --> 00:28:23.290
+John Phillips (Sezoo): All right, I should, get on and do some stuff. Great to chat with you again. Good luck with the stuff with diff. Do you have a, link to… is it a repo or whatever that they're working in? Is there some sort of link to that, that.
+
+199
+00:28:23.290 --> 00:28:41.559
+Neil Thomson (QueryVision): Well, I… I will… I will make a… let's put it this way. I'm… I'm building a… I'm building the Git for this project on my own. I haven't, you know, I did not grow up with Git. I know version control systems, but it's been 15 years since I set anything up from scratch. So one of the things that's coming out in terms of the kinds of data models is what do they have to look like?
+
+200
+00:28:41.950 --> 00:28:59.880
+Neil Thomson (QueryVision): So, and part of it is structuring it so that there can be teams that can come in and take up a segment of this on their own, and have their own, you know, piece as a whole, as opposed to, you know, it's just, okay, it's logically how the project was. Well, okay, if you do it wrong, you've got people reaching through each other's
+
+201
+00:29:00.040 --> 00:29:01.939
+Neil Thomson (QueryVision): Shall we say, control space?
+
+202
+00:29:02.220 --> 00:29:17.550
+Neil Thomson (QueryVision): And you've got people fighting over the same thing. So, I've got something working on that, so… I've got it in a temporary. It's on GitHub, and diff's GitHub. I have it in a temporary space, just because I may have to burn it down and restart it.
+
+203
+00:29:17.550 --> 00:29:37.400
+John Phillips (Sezoo): I'm feeling your pain, Neil. I'm doing the same thing with, the UN has its UN ICC, which probably stands for some sort of computing center, must be the CC at the end. The UN, we both know what the I is, I don't know, infrastructure? But the UNICC is an environment that uses GitLab.
+
+204
+00:29:38.340 --> 00:29:55.459
+John Phillips (Sezoo): So not GitHub, but GitLab. Very, you know, it's a Git-based environment, but it's GitLab, not GitHub. And, I'm having to create a kind of, a site for all this work, that is able to present itself as web pages as well, so I'm using DocuSource to do this.
+
+205
+00:29:55.550 --> 00:30:05.289
+John Phillips (Sezoo): And I'm having to, learn all the ins and outs of using DocuSource on GitLab, even when I… what I really want to focus on is, what does the document actually need to say?
+
+206
+00:30:05.390 --> 00:30:13.150
+John Phillips (Sezoo): Not… not faffing around with… with build processes and CICD things on running on GitLab, but there you go.
+
+207
+00:30:13.970 --> 00:30:26.200
+Neil Thomson (QueryVision): Yes, lots of fun. And I'm using ChatGPT, which has been quite good, but, you know, it's just like, okay, here's how you do it. And the problem is, is every answer is at least 10% wrong.
+
+208
+00:30:26.880 --> 00:30:44.259
+John Phillips (Sezoo): There was a very interesting, oh gosh, I think this was The Economist, I was reading it earlier this morning. No, it wasn't, it was an email I got from a company called Rourke, which implied that it was expected that AI would make pro-coders, in particular, more productive.
+
+209
+00:30:44.910 --> 00:30:49.020
+John Phillips (Sezoo): And in fact, coders that use AI believe it makes them more productive.
+
+210
+00:30:49.350 --> 00:31:03.430
+John Phillips (Sezoo): However, in tests, it seems that it takes them longer because they're working with AI, because of all this detail that comes up, and all these other things, and whatever, they actually become slower rather than faster at producing code.
+
+211
+00:31:03.690 --> 00:31:05.729
+John Phillips (Sezoo): And it's an interesting…
+
+212
+00:31:06.630 --> 00:31:11.059
+Neil Thomson (QueryVision): Well, in my case, where I found it useful is coming in cold into saying.
+
+213
+00:31:11.060 --> 00:31:29.880
+John Phillips (Sezoo): Asking the question. I do the same. I ask this question, and it comes up with an AI response about how you might answer this question, and then you kind of dig around to find out other answers to the question. But, it's… it's… it's good for me, but if you ask it to develop, codes, there's a… let's see if I've got it here…
+
+214
+00:31:30.520 --> 00:31:31.680
+John Phillips (Sezoo): What is this?
+
+215
+00:31:32.070 --> 00:31:38.020
+John Phillips (Sezoo): thing called. The, the particular feed I get is, is mostly around,
+
+216
+00:31:38.130 --> 00:31:43.960
+John Phillips (Sezoo): AI in general, seems to be what it talks to a great deal, and it has this whole, very…
+
+217
+00:31:44.170 --> 00:31:51.030
+John Phillips (Sezoo): well-written, article on… The productivity gains that were expected. Rocco's Basilisk.
+
+218
+00:31:51.520 --> 00:31:55.750
+John Phillips (Sezoo): Male at B-hole This is… I'll share my screen.
+
+219
+00:31:56.210 --> 00:31:57.989
+Neil Thomson (QueryVision): I was gonna say, post it in the chat.
+
+220
+00:31:58.380 --> 00:32:03.779
+John Phillips (Sezoo): Well, let me see if I can… can I actually go to it? Read online, okay, cool. Read online.
+
+221
+00:32:04.020 --> 00:32:11.590
+John Phillips (Sezoo): If I go to read online, I should then go to the web page… And if I…
+
+222
+00:32:14.670 --> 00:32:17.570
+John Phillips (Sezoo): I go here… What happens?
+
+223
+00:32:18.630 --> 00:32:24.459
+John Phillips (Sezoo): Okay, this is the… I'll put it on this chat now. This is the source of my,
+
+224
+00:32:26.000 --> 00:32:28.370
+John Phillips (Sezoo): emails, and,
+
+225
+00:32:32.450 --> 00:32:36.620
+John Phillips (Sezoo): And some of it's got things that are relevant to this conversation, like, is global AI governable?
+
+226
+00:32:38.460 --> 00:32:55.999
+Neil Thomson (QueryVision): Well, one of the classic ones, one of the classic things is all the people in hospitality, travel industry, particularly those who know nothing about this stuff, in terms of systems, they say, well, why are you building a schema? We'll just let AI figure it out. So I went, and the three of us asked different,
+
+227
+00:32:56.000 --> 00:33:03.800
+Neil Thomson (QueryVision): different bots, saying, okay, what do you think of the idea of you guys just figuring out, you know, how to transfer information about personal trophy fall? And they all said.
+
+228
+00:33:03.800 --> 00:33:17.550
+Neil Thomson (QueryVision): That's a really bad idea! Because every one of us and every version of us will interpret that differently, so if you give us a structured schema with good definition, then we have a fighting chance of exchanging information when we understand the semi.
+
+229
+00:33:17.790 --> 00:33:28.599
+John Phillips (Sezoo): So I was on, I agree with you, and I was on, the Trust Over IP Steering Committee meeting earlier this morning, my time, morning, and, there's this discussion
+
+230
+00:33:28.740 --> 00:33:35.640
+John Phillips (Sezoo): rightfully, about the positive news coming out of Utah with the state's endorsed digital identity approach.
+
+231
+00:33:35.830 --> 00:33:42.060
+John Phillips (Sezoo): And I've, a couple of weeks ago, ran a deep research AI,
+
+232
+00:33:42.250 --> 00:33:46.199
+John Phillips (Sezoo): little exercise, looking at how Utah's SEGI
+
+233
+00:33:46.420 --> 00:34:04.499
+John Phillips (Sezoo): contrasts with the EU's digital wallet and the UK's Brits card. So the UK is suffering from a slow train wreck of a reception to the idea of digital identity, and it's painful to watch. It's like slow motion in Deadpool 2 or something, you know? Bodies are being…
+
+234
+00:34:04.500 --> 00:34:07.450
+John Phillips (Sezoo): torn apart, and it's not pretty. And…
+
+235
+00:34:07.450 --> 00:34:25.210
+John Phillips (Sezoo): the EU, I think, is heading into treacle and becoming a kind of mayor, right? But the Utah SETI thing seems to have got immediate positive response from a number of people who would otherwise, you'd expect, be suspicious of government interventions and ideas and identity. Now.
+
+236
+00:34:25.210 --> 00:34:34.449
+John Phillips (Sezoo): Why so? So you ask AI. Now, what AI comes up with is a very credible, plausible, and well-written analysis of these three systems.
+
+237
+00:34:34.620 --> 00:34:42.159
+John Phillips (Sezoo): What you have to remind yourself of, I had to remind myself of, is that AI doesn't know what it's writing about.
+
+238
+00:34:42.530 --> 00:34:53.730
+John Phillips (Sezoo): AI finds material, and kind of joins this material together, and the more material it finds about one thing, and the less about another, then the more the one thing it finds a lot about becomes important.
+
+239
+00:34:53.830 --> 00:35:09.070
+John Phillips (Sezoo): And therefore, if lots of people have written positive things about the Utah SETI, and lots of people have written negative things about the UK's BRIC card, then the Utah SETI is a good idea, and brick cards is a bad idea. AI hasn't thought about this.
+
+240
+00:35:09.180 --> 00:35:27.500
+John Phillips (Sezoo): It hasn't actually reasoned it. There is no reasoning involved in this summation that it provides as the deep research report. It hasn't qualitatively compared the two ideologies and the technologies. What it's done is looked at web posts and documents and other things that have
+
+241
+00:35:27.500 --> 00:35:36.380
+John Phillips (Sezoo): theoretically done this, but again, there's no check, if you like, of the credibility by AI of the statement. So back to your idea about schemas.
+
+242
+00:35:36.590 --> 00:35:41.340
+John Phillips (Sezoo): If you ask AI to come up with a schema, it would come up with one based on what anybody else has done.
+
+243
+00:35:41.730 --> 00:35:45.429
+John Phillips (Sezoo): And it wouldn't reason, if you like, about the best.
+
+244
+00:35:47.790 --> 00:36:05.889
+Neil Thomson (QueryVision): Yeah, it's interesting. One of the things that, there's a lot of people I've run into in SSI in North America, particularly going at IAW, which is next week, but not a lot of Canadians are going. We usually head down there, but the U.S. is a little scurry right now.
+
+245
+00:36:05.980 --> 00:36:24.569
+Neil Thomson (QueryVision): And yeah, they're definitely a microcosm, very much a single, single, shall we say… I mean, they're… they're Mormons, right? So, a lot of Mormons in the SI industry that show up at IOW, and they have a… so that you're looking at a monoculture.
+
+246
+00:36:25.780 --> 00:36:37.460
+Neil Thomson (QueryVision): So, a lot of the discussions I've heard from the SSI people there, who, you know, are some of the very, you know, quite a few prominent people who are in there, is that has been sold into that society.
+
+247
+00:36:37.460 --> 00:36:53.040
+Neil Thomson (QueryVision): And considerations and questions and answers about that have gone on fairly extensively. So it's been, you know, in other words, what was rolled out was run through socially, which is not a lot of people in this case, but one that has a lot of
+
+248
+00:36:53.340 --> 00:37:00.119
+Neil Thomson (QueryVision): shall we say, paths into the community and back, so that everybody gets to hear about it loud and clear.
+
+249
+00:37:00.120 --> 00:37:10.239
+John Phillips (Sezoo): Yeah, it's, I think you're right, there's a, we've advised, we've suggested to the Australian government that one of the lessons to learn from Utah is
+
+250
+00:37:10.480 --> 00:37:14.179
+John Phillips (Sezoo): Notwithstanding the technology approaches or wherever else, it's communication.
+
+251
+00:37:14.300 --> 00:37:26.750
+John Phillips (Sezoo): is considering and finding a way to communicate what you want to achieve in ways that don't misinform people, but also don't unnecessarily get them offside. So in the UK, people have unnecessarily got offside.
+
+252
+00:37:26.750 --> 00:37:41.859
+John Phillips (Sezoo): in using a soccer analogy, they're behaving badly in all sorts of ways for all sorts of historic reasons that aren't necessarily much to do with the initiative. The initiative itself is being badly presented, and has been anchored to a supposition that it
+
+253
+00:37:41.860 --> 00:37:51.720
+John Phillips (Sezoo): is ugly, and so on. So it's a mess, right? And so communication is key, and yes, it's… you can see how in some places it's easier to communicate the ideas than others.
+
+254
+00:37:51.800 --> 00:38:03.589
+John Phillips (Sezoo): But it's, yeah, it's still… it's an interesting phenomena. There is something about City that disturbs me, not… that may be too strong for the recording, but the… the,
+
+255
+00:38:04.400 --> 00:38:07.879
+John Phillips (Sezoo): state-endorsed digital identity. One of the
+
+256
+00:38:08.130 --> 00:38:19.019
+John Phillips (Sezoo): founding anchors of thinking is that the state doesn't declare or decide your identity. You do. Your family do. They name you as a child. That's a wonderfully romantic and nice and warm and true.
+
+257
+00:38:19.260 --> 00:38:22.469
+John Phillips (Sezoo): statement to make, right? However.
+
+258
+00:38:23.540 --> 00:38:39.320
+John Phillips (Sezoo): one of the things that I find interesting is that when we use this word endorse, it means we recognize and we kind of accept, if you like. And the technical reality is, having done that recognition and acceptance, they created a unique identifier.
+
+259
+00:38:39.430 --> 00:38:52.110
+John Phillips (Sezoo): for this so-endorsed person. Behind the scenes, they have to. There has to be a way of saying, this person is different to this other person, whatever they've called themselves. We accept their name. So this idea of that…
+
+260
+00:38:52.220 --> 00:38:59.069
+John Phillips (Sezoo): the state has nothing to say about your entities, is actually a false representation of what's actually happening, has to happen in the system.
+
+261
+00:38:59.160 --> 00:39:12.370
+John Phillips (Sezoo): Because if you apply for state, benefits, if you apply for a state recognition or something, the state needs to find, needs to find that your identifier is unique, and you, and yes, your name is decided by your family.
+
+262
+00:39:12.750 --> 00:39:15.680
+John Phillips (Sezoo): But that's not the thing that's being looked at right now.
+
+263
+00:39:16.910 --> 00:39:18.740
+John Phillips (Sezoo): it… so I think there's a bit of…
+
+264
+00:39:19.630 --> 00:39:24.620
+John Phillips (Sezoo): There's a bit of, economic… being economic with the truth.
+
+265
+00:39:24.910 --> 00:39:27.449
+John Phillips (Sezoo): in… in the representation of SETI?
+
+266
+00:39:28.170 --> 00:39:31.499
+John Phillips (Sezoo): But… so, so be it.
+
+267
+00:39:33.490 --> 00:39:42.089
+Neil Thomson (QueryVision): Yeah, no, you get… I've certainly seen the same kind of arguments here in Canada, right? And in some cases, you know, there are… in many cases.
+
+268
+00:39:42.350 --> 00:39:48.799
+Neil Thomson (QueryVision): Some of the provinces have very good credibility, and the federal government do, but the second you raise the digital identity, all the…
+
+269
+00:39:49.000 --> 00:39:59.829
+Neil Thomson (QueryVision): conspiracy theorists who lean heavily on what they hear from the U.S, immediately take over, and what was supposed to be delivered in 2021 has just disappeared off the radar.
+
+270
+00:40:00.220 --> 00:40:00.980
+Neil Thomson (QueryVision): Yep.
+
+271
+00:40:00.980 --> 00:40:08.170
+John Phillips (Sezoo): Yeah. Complicated times, complicated times. So, anyway, so that's it for me. Good luck with everything you're doing. Good to see you again, Neil.
+
+272
+00:40:08.380 --> 00:40:11.049
+John Phillips (Sezoo): And, I'll see you on another call another time.
+
+273
+00:40:11.840 --> 00:40:14.099
+Neil Thomson (QueryVision): Alright, so again in two weeks?
+
+274
+00:40:14.580 --> 00:40:32.220
+John Phillips (Sezoo): Yeah, we'll leave it in the calendar, right? And it is the busy day, but actually, that's not necessarily a bad thing. Today, I had meetings in my time zone, starting from 8am in the morning, going until now, 1 o'clock in the afternoon. And none of them are, the earning client stuff. It's like, for goodness sake, 5 hours of…
+
+275
+00:40:32.220 --> 00:40:38.360
+Neil Thomson (QueryVision): Okay, so now that we've officially flipped over to Discord, I would just suggest, you know, post an.
+
+276
+00:40:38.360 --> 00:40:45.799
+John Phillips (Sezoo): Unless there's a real kind of urgency about… an interest about sharing something. I think you're right. I think you're right.
+
+277
+00:40:46.470 --> 00:40:47.020
+John Phillips (Sezoo): Oh, sorry.
+
+278
+00:40:47.020 --> 00:40:48.699
+Neil Thomson (QueryVision): Sounds like a plan. Good to chat.
+
+279
+00:40:48.900 --> 00:40:50.820
+John Phillips (Sezoo): Thanks, Neil. Cheers, mate. See ya. Bye.
+

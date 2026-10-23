@@ -1,0 +1,810 @@
+WEBVTT
+
+1
+00:00:11.400 --> 00:00:36.960
+Tracy Kuhrt: All right. Welcome everybody to the May 29th Lf. Decentralized Trust Technical Advisory Council Meeting. As I think everybody is aware, there are 2 things that we have to be that we have to abide by on the call. The 1st is our antitrust policy. So we just need to be aware of and not participate in any activities that are prohibit under any of the antitrust and competition laws across the world.
+
+2
+00:00:37.150 --> 00:00:50.540
+Tracy Kuhrt: The second thing that we have to abide by is our code code of conduct which is linked in the agenda while everybody is welcome here, we do need to be respectful of others. Their opinions and ideas, and
+
+3
+00:00:50.660 --> 00:00:52.390
+Tracy Kuhrt: we should get along just fine
+
+4
+00:00:52.590 --> 00:00:56.880
+Tracy Kuhrt: for announcements. Today we have a few announcements.
+
+5
+00:00:56.990 --> 00:01:16.580
+Tracy Kuhrt: The 1st is the Lf. Decentralized Trust Dev Weekly developer Newsletter that goes out each Friday. If you do have anything that you would like to include in that newsletter, please do leave a comment, or on the Wiki page that is linked here in the agenda.
+
+6
+00:01:16.850 --> 00:01:29.300
+Tracy Kuhrt: Our second announcement is that we have a Lfdt. Webinar with oracle on self-sovereign identity and hyper Ledger fabric, Vdr. With owf Credo agents and
+
+7
+00:01:29.400 --> 00:01:43.580
+Tracy Kuhrt: privacy preserving and on credits verifiable credentials. If you are interested in joining on June 4th the Webinar, there is a registration link that is in our agenda. Please do register at that link.
+
+8
+00:01:44.100 --> 00:01:52.070
+Tracy Kuhrt: And then we did have a couple of pull requests. Come in one on the Tac repo structure guidelines
+
+9
+00:01:52.537 --> 00:02:05.049
+Tracy Kuhrt: and then the other one is on the change log requirements. So if you haven't had a chance to look at either of those pull requests. Yet. Please do have a look at those pull requests
+
+10
+00:02:05.160 --> 00:02:22.019
+Tracy Kuhrt: and provide your feedback and comments. And hopefully, we can get enough enough people commenting, approving on Github, so that we don't have to have the discussion here. But if we do have to have the discussion here, we will do that in a future meeting.
+
+11
+00:02:22.650 --> 00:02:26.089
+Tracy Kuhrt: Any other announcements that anybody has or would like to make today.
+
+12
+00:02:38.780 --> 00:03:05.650
+Tracy Kuhrt: Okay, if there are none, then for reports, we have the Lochness Annual report, which we will add to the June 5th meeting, potentially getting to it on June 5, th if not, then on June 12, th depending on how things go with the other annual reports that we have scheduled. Then we've got a number of quarterly reports. When I had put this together last week we hadn't had
+
+13
+00:03:05.650 --> 00:03:28.450
+Tracy Kuhrt: all of the approvals. I haven't checked today to see if we've got all the approvals, but if we do, then we can get those merged as a reminder. We do require that over 50% of the Tac members have reviewed the Quarterly reports, and that we don't have any comments outstanding on those quarterly reports before we can merge them.
+
+14
+00:03:28.847 --> 00:03:51.469
+Tracy Kuhrt: And ideally, you know, we get everybody to review those, but if we haven't got everybody to review them, but we beat the other criteria in 2 weeks. Then we can get those merged into Github. So please do have a look at those. Are there any questions on any of the reports that anybody has that would like to bring up on the call today.
+
+15
+00:03:59.070 --> 00:04:16.569
+Tracy Kuhrt: Okay? And we do have a few overdue reports. I don't see Aruna on the call, but I think he's out for the next couple of weeks. So I'll probably reach out directly on discord and see if we could get an update on those different reports that are overdue.
+
+16
+00:04:18.630 --> 00:04:23.549
+Tracy Kuhrt: Okay? So then, I think right now, we're up to our agenda
+
+17
+00:04:24.020 --> 00:04:38.739
+Tracy Kuhrt: so we have invited Jory to discuss Jdf. And community specifications with us as we have talked about in our past meetings. It's very possible that we will soon be seeing some
+
+18
+00:04:38.740 --> 00:05:03.240
+Tracy Kuhrt: projects coming in that are specifically Jdf community specifications. And so part of this discussion today is really just to get a baseline understanding of what that is. And then the second thing that we kind of like to take from this meeting is for us in the future to update things like our lifecycle documents that are currently focused only on code projects
+
+19
+00:05:03.320 --> 00:05:21.589
+Tracy Kuhrt: and other governance documents that we have that would need some updates based on what we learn here today. So with that, Jory, I'm going to hand it to you and welcome to the the call. And we're looking forward to learning more about the Jdf and community specifications.
+
+20
+00:05:25.220 --> 00:05:47.439
+Jory Burson (The Linux Foundation): Sorry. First.st Thanks so much for having me. It really delights me. Anytime I can come talk to an open source community about opportunities related to specifications and standardization activity. I hope this is more of a dialogue. Because, you know, I never know exactly what
+
+21
+00:05:47.907 --> 00:05:59.594
+Jory Burson (The Linux Foundation): prior experience or perspectives. You all might have maybe you have been active in you know itf or some other industry consortia
+
+22
+00:06:00.530 --> 00:06:11.219
+Jory Burson (The Linux Foundation): I think I may share some overlapping network connections with some of you from like ethereum, or you know, other other industry consortia like that.
+
+23
+00:06:11.220 --> 00:06:28.080
+Jory Burson (The Linux Foundation): So everybody's got their own sort of perspective that they're bringing to the table. And so I'm going to try and level this correctly and just try and keep this about standards and community specification
+
+24
+00:06:28.160 --> 00:06:47.079
+Jory Burson (The Linux Foundation): opportunities or sort of approaches, I should say, at the Linux Foundation and the Joint Development Foundation. So the Jdf. One of the 1st things that I like to share just to help kind of ground everybody, because people will get somewhat
+
+25
+00:06:47.490 --> 00:07:16.979
+Jory Burson (The Linux Foundation): wound up if you, depending on certain audiences around the word standards. Is it a capital S. Standard versus a lowercase? S. Standard? Long time ago, my friend Dan Burnett said, a standard is just a real fancy way of saying agreement. And I just thought that was such a nice way of summarizing, really what we're trying to do when we create a standard, we're trying to get increasingly more
+
+26
+00:07:17.060 --> 00:07:46.235
+Jory Burson (The Linux Foundation): sets of stakeholders companies, people to agree that a certain approach is the the way we want to do something. And so, you know. I think of it just as layers and levels of agreement that we are moving through as we broaden the the coalition, if you will, around a specification. So maybe that starts as a community specification or a community standard where we say, Hey, we're all gonna
+
+27
+00:07:46.840 --> 00:07:59.130
+Jory Burson (The Linux Foundation): abide by. You know, this this pattern, or this practice, because we think it provides better benefits to us, and that's great. You probably deal with these all the time
+
+28
+00:07:59.130 --> 00:08:23.679
+Jory Burson (The Linux Foundation): as you kind of move up that ladder. Maybe that community standard develops into something that the market has really adopted. And then beyond that, maybe it's something that an industry group that you work with, for you know payments, or AV or media, or whatever it might be.
+
+29
+00:08:23.680 --> 00:08:28.440
+Jory Burson (The Linux Foundation): and that industry has a consortia of some kind.
+
+30
+00:08:28.440 --> 00:08:51.420
+Jory Burson (The Linux Foundation): and they adopt it as a standard, and then maybe, perhaps, that consortia says, well, this is broader applicability beyond our industry, and, in fact, may benefit other industries or may benefit other industries and other geographies. And so we want to move our specification to a national body like Ansi or den
+
+31
+00:08:51.805 --> 00:09:07.999
+Jory Burson (The Linux Foundation): or perhaps it's something that is being a harmonized standard would be something that is requested by specifically the European Government. And that's what we're seeing with the Cyber Resilience Act as a request for harmonized standard for security, for example. So
+
+32
+00:09:08.000 --> 00:09:17.238
+Jory Burson (The Linux Foundation): it all of this is about reaching that agreement. And it can be very, very hard and very challenging and political. But
+
+33
+00:09:17.730 --> 00:09:28.022
+Jory Burson (The Linux Foundation): we'll start simple, right? Specs are in my mind. It's easy to describe them. To to be more like recipe documents.
+
+34
+00:09:28.710 --> 00:09:30.860
+Jory Burson (The Linux Foundation): it's not the cake.
+
+35
+00:09:30.870 --> 00:09:55.790
+Jory Burson (The Linux Foundation): but rather the material that will tell you how to make the cake. It should give you some fair clarity around what would be required to make the cake versus just a suggestion. It should give you information about other specifications that might be necessary, either because they have been incorporated
+
+36
+00:09:55.790 --> 00:10:08.240
+Jory Burson (The Linux Foundation): reference, or because they are part of part of a dependency for your specification. But it should give you that that set of requirements to build your own cake
+
+37
+00:10:08.350 --> 00:10:10.340
+Jory Burson (The Linux Foundation): and typically
+
+38
+00:10:10.840 --> 00:10:21.899
+Jory Burson (The Linux Foundation): good specifications. Well, frankly, a good specification is one that that people are implementing but it should also make that implementation easier, like by having clear definitions.
+
+39
+00:10:21.900 --> 00:10:44.350
+Jory Burson (The Linux Foundation): by keeping the language free of unnecessary jargon by including notes. And particularly, this is where you know in software projects, using source code examples and things like that in your Notes section is really helpful to add clarity to what you may mean
+
+40
+00:10:44.350 --> 00:11:08.409
+Jory Burson (The Linux Foundation): in your specification. And then, of course, information about the status of that spec whether it's a working draft or an editor's draft. If you're publishing those publicly and licensing information as well, how, if I have a copy of this document. What am I free to do with it? I'm free to share it with other people. Do I have a restricted license
+
+41
+00:11:08.410 --> 00:11:22.380
+Jory Burson (The Linux Foundation): to share this document, and where can I go? Find out about any essential patents that may be? Lice may be necessary for the implementation of the of the spec.
+
+42
+00:11:24.601 --> 00:11:29.798
+Jory Burson (The Linux Foundation): So those are some. Just the quick highlight of what? What is a spec?
+
+43
+00:11:30.520 --> 00:11:43.209
+Jory Burson (The Linux Foundation): One question. Open source communities often have is like what benefits they might have in developing a specification or developing a standard. And what, of course, might you need to be able to do that?
+
+44
+00:11:43.210 --> 00:12:05.639
+Jory Burson (The Linux Foundation): We've published a couple of reports on the state of open standards with Lf research and some, and those certainly highlight a lot of the benefits of participating in standards, activities for companies and also for technology projects as well. But it gets you access to potentially new markets.
+
+45
+00:12:05.640 --> 00:12:29.389
+Jory Burson (The Linux Foundation): not just for a new technology, but also possibly markets that might be harder for you to reach. Perhaps you need to formalize what you're doing in a standard in order to be able to offer that product in a certain geography, or to a certain set of users like financial customers. For example.
+
+46
+00:12:29.390 --> 00:12:45.769
+Jory Burson (The Linux Foundation): there may be other benefits that you are looking to drive like interoperability between products or security benefits or other kinds of compliance needs that you. You can drive with standardization
+
+47
+00:12:45.770 --> 00:12:50.489
+Jory Burson (The Linux Foundation): specs. The development of a spec or standard also helps signal that
+
+48
+00:12:50.490 --> 00:13:13.459
+Jory Burson (The Linux Foundation): the technology is mature and it's ready for kind of the big time if you will or it. It could also signal that that technology is something that we should all be sharing and building upon, because the real, like the real market benefit, is the competition that each each company will
+
+49
+00:13:13.868 --> 00:13:22.849
+Jory Burson (The Linux Foundation): bring in building features or build building services around the around the specification to to their customer base.
+
+50
+00:13:23.220 --> 00:13:34.810
+Jory Burson (The Linux Foundation): So lots of benefits of standards. And you know, and that's in addition to, of course, how much better it makes our our a good standard can make our lives as as developers.
+
+51
+00:13:35.310 --> 00:13:53.719
+Jory Burson (The Linux Foundation): What do you need? For a good spec. You need implementations. You need a great spec, a well written specification document. And you need a process that is audible, auditable. Excuse me, and documented for
+
+52
+00:13:53.720 --> 00:14:17.660
+Jory Burson (The Linux Foundation): recording how the group that has come together to make Ipr commitments does, in fact, make those decisions and how we're recording those Ipr commitments. And so that's that is a little different from our open source communities in some cases where, by making a contribution to an open source project with an open source license.
+
+53
+00:14:17.660 --> 00:14:42.079
+Jory Burson (The Linux Foundation): We're agreeing to that license, and that is scoped to our own contribution on a standard we might have to be. Look, we might have to be getting license grants for more than just a source code contribution. We're also looking for commitments to any underlying patent. There might also be some consideration for
+
+54
+00:14:42.080 --> 00:14:52.250
+Jory Burson (The Linux Foundation): for for members or or contributors to that standard in terms of the use of any conformance mark for for
+
+55
+00:14:52.250 --> 00:15:00.840
+Jory Burson (The Linux Foundation): the spec itself to say that you're compliant. So but beyond that.
+
+56
+00:15:01.660 --> 00:15:30.939
+Jory Burson (The Linux Foundation): one of the more important things we want people and open source projects to be thinking about is what what problem they want to solve with standardization. What? What's the vision for this? Because I think in some cases project communities can get really excited about standardizing their technology, but maybe not ready to think about the reality. For example, of maintaining an Iso spec. And Tracy, I see your hand is up.
+
+57
+00:15:31.890 --> 00:15:53.300
+Tracy Kuhrt: Yeah. So from the Linux Foundation, does it provide to any Gdf projects existing kind of decision making processes, or each of the individual kind of projects that are Jdf. Would come up with their own sort of decision, making process.
+
+58
+00:15:54.110 --> 00:16:06.888
+Jory Burson (The Linux Foundation): Excellent question. So we do provide the boilerplate for how a spec is developed. Now, within a given project community, there's room to
+
+59
+00:16:07.380 --> 00:16:35.657
+Jory Burson (The Linux Foundation): Adapt right? This. This is where I think Jdf has a little bit of a edge on some more established, or I shouldn't say established because we're 10 plus years old at this point, but some, some, maybe older organizations. Our processes allow for some room, because, you know, Project A's community is not the exact same as Project B's community, and and trying to apply
+
+60
+00:16:36.080 --> 00:16:40.220
+Jory Burson (The Linux Foundation): the same set of processes. For
+
+61
+00:16:40.870 --> 00:17:04.660
+Jory Burson (The Linux Foundation): you know, every every technology that we have is a little bit, a little bit of a losing game. What instead is that we we do is we provide these these process, a basic decision making process that meets the Ansi essential requirements for due process. And that's the United States's national organizing body for
+
+62
+00:17:04.660 --> 00:17:18.150
+Jory Burson (The Linux Foundation): for standards development. They have set a set of 10 requirements that any American national standard should meet, and our processes are designed to meet those requirements.
+
+63
+00:17:18.150 --> 00:17:26.440
+Jory Burson (The Linux Foundation): So you could take your your project, and eventually, if you, if you wanted, be Ansi accredited.
+
+64
+00:17:26.780 --> 00:17:35.940
+Jory Burson (The Linux Foundation): which may, may bestow different benefits. Depending again on your goals, we do provide that. But we I want to be clear that we're not
+
+65
+00:17:36.410 --> 00:17:38.155
+Jory Burson (The Linux Foundation): we. We don't
+
+66
+00:17:39.900 --> 00:17:56.829
+Jory Burson (The Linux Foundation): require all the time that that project A must work like Project B. If there is some where there's some room for you to modify what you need to do just the way any open source governance process might have some have some wiggle room for adaptation. We provide that.
+
+67
+00:17:59.325 --> 00:18:00.475
+Jory Burson (The Linux Foundation): There's yeah.
+
+68
+00:18:01.820 --> 00:18:27.629
+Jory Burson (The Linux Foundation): And I think that falls well, that's a great question to kind of lead into this philosophy, which is that we think of standardization more as a scale of activity and not a binary right? Not everything that starts out as a specification is gonna become a standard. And that's like, super. Okay, we have hundreds of specification projects.
+
+69
+00:18:27.630 --> 00:18:37.779
+Jory Burson (The Linux Foundation): And we have 6 specs that have actually become iso standard. So it's a pretty good ratio, and it's it's
+
+70
+00:18:37.780 --> 00:19:01.790
+Jory Burson (The Linux Foundation): probably tracks right, because not everything is going to want to be an Iso standard and not everything will be able to be an Iso standard. So most of our projects kind of start off on this community spec end of the scale. And I think that's Tracy. What you were introducing. At 1st we think that for
+
+71
+00:19:01.790 --> 00:19:06.080
+Jory Burson (The Linux Foundation): most of our umbrella projects like the Lfd.
+
+72
+00:19:06.080 --> 00:19:28.310
+Jory Burson (The Linux Foundation): You might want to encourage the projects that you accept as attack if they are specifications, or if they have a specification component to consider adding this community specification license as an option that they can take when they come form with you. This is very lightweight.
+
+73
+00:19:28.310 --> 00:19:43.270
+Jory Burson (The Linux Foundation): It matches what a lot of our open source projects are already doing in terms of how they take contributions on Github, some of the decision making patterns that they have already probably developed as open source projects.
+
+74
+00:19:43.270 --> 00:19:50.339
+Jory Burson (The Linux Foundation): but it adds a layer of coverage for the specification license itself
+
+75
+00:19:50.340 --> 00:20:13.399
+Jory Burson (The Linux Foundation): and keeps it easy and friction free in terms of of contributions from, you know the public right. There's no membership agreement that you have to sign to make a contribution to a Csl project. It looks and feels a lot like an open source project. But it does have those policies for
+
+76
+00:20:13.400 --> 00:20:23.850
+Jory Burson (The Linux Foundation): a patent license policy and basic policy for the essential requirements
+
+77
+00:20:24.740 --> 00:20:39.879
+Jory Burson (The Linux Foundation): moving kind of up the scale. If you're pro. If if the project coming in says, you know, this is great. We like the ease of use of the community spec license. But we need to kind of develop more of a brand around the specification because
+
+78
+00:20:39.880 --> 00:21:04.530
+Jory Burson (The Linux Foundation): we are, maybe we're going to do a formal conformance program or a certification program of some kind. Maybe we need to shape this up a little bit, so that it is more adaptable by an industry consortia or by a national body. We have the Jdf
+
+79
+00:21:04.530 --> 00:21:10.040
+Jory Burson (The Linux Foundation): Development Foundation model, which is.
+
+80
+00:21:10.180 --> 00:21:36.989
+Jory Burson (The Linux Foundation): we've got about 36 37 series that are set up this way and some of our projects. And now actually, Dt has this partnership with with trust over IP, but we have a handful of Linux Foundation projects that have set up Jdf. What we call sister entities which give their their their specification projects. More of that
+
+81
+00:21:37.120 --> 00:21:57.829
+Jory Burson (The Linux Foundation): kind of custom branded feel with more traditional development processes. Now, this is where, if you have prior experience working in a consortia, or at like an I triple E, or something like that. This is gonna look and feel a little bit more like that. There's more process around it. We have a membership agreement.
+
+82
+00:21:57.830 --> 00:22:15.000
+Jory Burson (The Linux Foundation): There is a few different options related to which patent licensing policies members might want to take. And you know, this is also the format that looks a little bit more similar. So if this group wants to
+
+83
+00:22:15.000 --> 00:22:24.269
+Jory Burson (The Linux Foundation): establish mous or liaison relationships with other standards, organizations. It's easy for them to do that as a Jdf.
+
+84
+00:22:24.500 --> 00:22:36.729
+Jory Burson (The Linux Foundation): And again, anyone contribute can contribute. The the friction that gets added at this layer is that those contributors do need to sign a membership agreement that binds them to the IP policies.
+
+85
+00:22:37.020 --> 00:22:38.499
+Jory Burson (The Linux Foundation): And then, of course,
+
+86
+00:22:39.160 --> 00:23:07.600
+Jory Burson (The Linux Foundation): if you want to take your project kind of up a layer from there. There are a handful of international standards, bodies that we work with regularly. There's a lot more that we work with less frequently. But this is where we would help the project with an mou or a liaison agreement, or perhaps work through shared members on working groups. At the.
+
+87
+00:23:08.060 --> 00:23:27.610
+Jory Burson (The Linux Foundation): for example, Jtc. Level at Iso to help advance the work further. Jdf itself is also what is called a path submitter that stands for publicly available specification. That is a fairly drawn out process
+
+88
+00:23:27.610 --> 00:23:42.699
+Jory Burson (The Linux Foundation): that we went through so that we could advance specifications from a Jdf project into the Iso Iec, Jtc. One for balloting as an Iso standard, and, as I mentioned previously, we have 6 of those.
+
+89
+00:23:43.318 --> 00:24:10.440
+Jory Burson (The Linux Foundation): So it's a scale. And I want you to think about when the projects are coming in, you know, where do they ultimately feel like they want to fit on that scale? For you know a a period of time. We can always move them up the scale. And you know, in some cases, too, we can move them back down the scale. But it's it's helpful for the projects to have an idea of the scale and what their end game might be.
+
+90
+00:24:14.200 --> 00:24:22.800
+Jory Burson (The Linux Foundation): so yeah, so we have. As I was saying, couple of standards modes at the Lf. That community spec license mode, which
+
+91
+00:24:22.960 --> 00:24:43.770
+Jory Burson (The Linux Foundation): is certainly the thing I'd love for you all to spend time thinking about 1st and foremost, because it's very github driven. It's gonna feel like collaborating on an open source project for most of your projects. It's really applicable for projects that are doing like you know.
+
+92
+00:24:43.960 --> 00:24:45.580
+Jory Burson (The Linux Foundation): code first, st
+
+93
+00:24:45.960 --> 00:25:09.579
+Jory Burson (The Linux Foundation): spec development. Or maybe there's something that they're they're doing an implementation. And the spec side by side. It works similarly to open source project in the sense that upon making a contribution into the the project repository. You are binding yourself you're making commitment to the license.
+
+94
+00:25:09.580 --> 00:25:32.810
+Jory Burson (The Linux Foundation): and that's the same pattern here. You're joining the working group and thus kind of agreeing to the terms of the community spec license upon making that contribution so, and you can use similar governance patterns for your open source prod. As to your open source project for Csl project. There's just some slight language differences.
+
+95
+00:25:33.091 --> 00:25:42.679
+Jory Burson (The Linux Foundation): And we're we're considering a a new release of the Csl. Later in the year. So if you do adopt this and you have feedback on the Csl, I would absolutely welcome it.
+
+96
+00:25:43.130 --> 00:26:11.010
+Jory Burson (The Linux Foundation): And then of and then, of course, the traditional mode would be like trust over IP. And I saw, I think, whinging on the call so you can certainly get a firsthand experience from from him. But the Jdf. Traditional mode gives more of that traditional feel. If you have again contributed to technical committees at other Sdos, if there is some portion of the work that you need to kind of like.
+
+97
+00:26:11.010 --> 00:26:20.590
+Jory Burson (The Linux Foundation): bake among members before you publish, you can do that if you want to have other choices for. Yeah, the the
+
+98
+00:26:20.590 --> 00:26:46.870
+Jory Burson (The Linux Foundation): patent licensing commitments. We've got 4 that we work with a lot. The most popular is the W. 3 C. Royalty, free licensing model. That is probably one that many of you are familiar with. But we also use the open web foundation patent licensing. And then what we call international mode
+
+99
+00:26:47.836 --> 00:27:08.820
+Jory Burson (The Linux Foundation): and then reasonable and non discriminatory, or or ran licensing and this is just again something that gives up some process and brand and some kind of organization that makes it easy for you easier for your organization to collaborate with other
+
+100
+00:27:09.080 --> 00:27:13.450
+Jory Burson (The Linux Foundation): standards, development organizations or industry groups.
+
+101
+00:27:15.817 --> 00:27:27.512
+Jory Burson (The Linux Foundation): You can see the community spec license@communityspec.dev. So we do keep that license up on github and we're trying to kind of
+
+102
+00:27:28.070 --> 00:27:48.299
+Jory Burson (The Linux Foundation): develop it in in similar to open source. So dog fooding this a little bit but again, because the specs do have a different licensing model than open source. We we want to to ensure that implementers have
+
+103
+00:27:48.300 --> 00:28:06.499
+Jory Burson (The Linux Foundation): clarity around the not just any source code that they might be pulling and using. But also, if there are essential claims that might be covered by a patent, that the the
+
+104
+00:28:07.010 --> 00:28:12.769
+Jory Burson (The Linux Foundation): implementer has the ability to to use those on a royalty free basis.
+
+105
+00:28:12.770 --> 00:28:37.449
+Jory Burson (The Linux Foundation): And that's not just for your contribution, but also for any contributions that have been made by others that reflect that read on your IP. So that's a piece of the puzzle that sometimes projects will get a little bit wrong when they slap, for example, like an mit license, or an Apache license
+
+106
+00:28:37.450 --> 00:28:38.730
+Jory Burson (The Linux Foundation): on a spec.
+
+107
+00:28:38.850 --> 00:29:02.729
+Jory Burson (The Linux Foundation): So this is just giving them that extra protection and so community spec was designed to address that issue and to give them to give you easy to use templates that you can clone or fork in, and then and and to to adapt those as you need so long as we kind of continue to meet the terms of the of the license.
+
+108
+00:29:03.638 --> 00:29:16.050
+Jory Burson (The Linux Foundation): We've got a lot of projects on this. Now that this is something that's grown quite a lot. And you know I I hope you'll check it out and and let us know what questions you have.
+
+109
+00:29:17.919 --> 00:29:21.751
+Jory Burson (The Linux Foundation): And then again, for the traditional mode
+
+110
+00:29:22.900 --> 00:29:42.056
+Jory Burson (The Linux Foundation): which you are probably learning a lot more about. With your friends at trust over. IP. This is more of a a formal separate standards. Body, we actually set up a separate legal series for this for the traditional mode projects and we give it
+
+111
+00:29:42.620 --> 00:30:04.559
+Jory Burson (The Linux Foundation): There. There are several sets of boilerplate agreements, including membership agreement. The boilerplate policies, patent policies, boilerplate feedback agreement for you to take input, if you know. Similarly, again, if you're familiar with W. 3 C. Maybe you're you're familiar with invited experts.
+
+112
+00:30:05.025 --> 00:30:10.504
+Jory Burson (The Linux Foundation): We have a non member feedback agreement. If you need to take contributions from
+
+113
+00:30:11.030 --> 00:30:28.959
+Jory Burson (The Linux Foundation): Individuals are are persons who cannot join or organizations that cannot join as a member. And we can set up liaison agreements and mous for collaborating with other organizations or potentially incorporating their specifications. By reference.
+
+114
+00:30:29.924 --> 00:30:36.630
+Jory Burson (The Linux Foundation): and all of this is designed to just help the project move quickly, because we don't want you spending your time on
+
+115
+00:30:37.630 --> 00:30:41.029
+Jory Burson (The Linux Foundation): on bureaucracy. Nobody wants to spend their time on bureaucracy.
+
+116
+00:30:44.040 --> 00:30:46.248
+Jory Burson (The Linux Foundation): We've been doing this for
+
+117
+00:30:46.740 --> 00:30:52.410
+Jory Burson (The Linux Foundation): 10 years. In 2015 the Jdf. Was formed outside of the Lf.
+
+118
+00:30:52.410 --> 00:31:17.389
+Jory Burson (The Linux Foundation): In 2019 Jdf. Became part of the Lf. Family companies join projects that are hosted by the Jdf. They don't join the Jdf itself. They are effectively their own Sdo. In a box. So when you join a series, your contribution, a Jdf. Project series, your contribution is scoped to that
+
+119
+00:31:17.390 --> 00:31:19.310
+Jory Burson (The Linux Foundation): Jdf. Project series and not.
+
+120
+00:31:19.310 --> 00:31:44.250
+Jory Burson (The Linux Foundation): you know. You know anything else. We are a pas submitter, which again, means we can bring our projects through to Iso, and in collaboration with our mentor at Iso. We. They help us circulate our and ballot our our spec and we've got 6 of those that have gone through that process.
+
+121
+00:31:45.980 --> 00:32:10.670
+Jory Burson (The Linux Foundation): and typically, the the structure of a Jdf project is such that there, there's a steering committee, and that's usually formed by people who join or companies that join as steering committee members. But you can also craft that to run elections just similar to any elected governing board. If you wanted to have.
+
+122
+00:32:10.670 --> 00:32:18.670
+Jory Burson (The Linux Foundation): you know. Compose your steering committee by by vote of different membership classes. You can do that.
+
+123
+00:32:19.200 --> 00:32:28.449
+Jory Burson (The Linux Foundation): Then there are working groups, and the working groups are the individual collections of
+
+124
+00:32:28.490 --> 00:32:40.289
+Jory Burson (The Linux Foundation): projects that are actually going to work on a single on a deliverable. So a working group will develop a draft and then collaborate on that per the process defined in the
+
+125
+00:32:40.290 --> 00:33:00.949
+Jory Burson (The Linux Foundation): working group. Charter and then, when they have a working group approved deliverable, the steering committee would approve it as a final for example, trust over IP specification and then from there the steering committee would take the decision to advance the work further.
+
+126
+00:33:03.395 --> 00:33:14.079
+Jory Burson (The Linux Foundation): And then just some quick highlights from some of the standards you may know about from our our projects. The
+
+127
+00:33:14.390 --> 00:33:20.447
+Jory Burson (The Linux Foundation): Aom AV one video Codec is is certainly our oldest. This is a very
+
+128
+00:33:21.180 --> 00:33:28.794
+Jory Burson (The Linux Foundation): widely, widely, widely, widely implemented royalty, free compression codec,
+
+129
+00:33:30.359 --> 00:33:53.270
+Jory Burson (The Linux Foundation): it's been around for a long time, and it's in your phone. Open chain is, was our 1st Isis spec. It was the 1st one we took through the process. And this is about open source supply chain management. It's been implemented by a lot of the leading
+
+130
+00:33:53.810 --> 00:34:19.419
+Jory Burson (The Linux Foundation): manufacturers and tech companies. Lots of global adoption. But that was our 1st to go through. And it's a it's a it's a process. Oriented specification. 3 MF, is our most recent file or spec to become an Iso standard. So this is slightly out of date. It has been published on the Iso website as of this month.
+
+131
+00:34:19.789 --> 00:34:26.900
+Jory Burson (The Linux Foundation): So we're really proud to share that. That's our 6.th And we're gonna do a press release about that actually, later this month.
+
+132
+00:34:27.933 --> 00:34:47.740
+Jory Burson (The Linux Foundation): The open container initiative. If you are also active in the cloud native space. Oci is actually a community spec, so they use the open web foundation policy. And they they are very much an open source community.
+
+133
+00:34:47.820 --> 00:35:05.209
+Jory Burson (The Linux Foundation): But they've got this coverage for the spec work as well. And it's it's it's it works really well for this, for this group. It's a small, small community of experts. And they they're just doing a great job. And they've been doing it for a while. Spdx.
+
+134
+00:35:05.560 --> 00:35:30.169
+Jory Burson (The Linux Foundation): Another project you all have likely heard of was one of our 1st few iso specs. This actually one where we're they've they've released a 3 dot O, now, and we'll be maintaining that spec we're sending in an update to the specification. And Iso this summer. And then our content credentials is a new
+
+135
+00:35:30.290 --> 00:35:53.705
+Jory Burson (The Linux Foundation): well, I should say it's it feels new to me, because every every day is a new day. But we've actually had this for a couple of years. This is this moves very quickly, due to industry, support for for the Providence. For tracking Providence. And this is going through the traditional path for through Iso, which is through a Tc
+
+136
+00:35:54.770 --> 00:35:59.999
+Jory Burson (The Linux Foundation): under Iso. They're not utilizing pass, but this will be validated and will be an Iso standard.
+
+137
+00:36:00.900 --> 00:36:12.989
+Jory Burson (The Linux Foundation): So wanted to share those highlights. I'm at 1040, and I want to give time for questions. I don't think I have. I think everything else is sort of
+
+138
+00:36:13.710 --> 00:36:18.259
+Jory Burson (The Linux Foundation): Yeah, kind of duplicative. So I'll pause. Yes, Tracy.
+
+139
+00:36:19.420 --> 00:36:24.470
+Tracy Kuhrt: Yeah, so community community specifications
+
+140
+00:36:24.710 --> 00:36:27.040
+Tracy Kuhrt: would we expect there to be
+
+141
+00:36:27.180 --> 00:36:34.769
+Tracy Kuhrt: in a community specification project more than one specification being developed or only a single specification being developed.
+
+142
+00:36:35.460 --> 00:36:55.820
+Jory Burson (The Linux Foundation): That's a great question. We would typically just expect, you know, one. One spec it's it. The the license itself is scoped to the repo. So in each repo where a spec is being developed, we would want to see the license present.
+
+143
+00:36:57.570 --> 00:37:00.700
+Jory Burson (The Linux Foundation): So I suppose if you were doing 2 specs, one repo
+
+144
+00:37:01.660 --> 00:37:04.470
+Jory Burson (The Linux Foundation): that why, which I haven't seen. But yeah.
+
+145
+00:37:04.700 --> 00:37:22.289
+Tracy Kuhrt: Yeah. So I'm just thinking about the sorts of ways that we accept projects into the Lftt, and you know whether they would become a community specification project or they'd become a Gdf project, and how? How we would distinguish, I think up front
+
+146
+00:37:22.698 --> 00:37:37.049
+Tracy Kuhrt: maybe we don't know, because it's on that scale. Maybe we start them as a community specification when they start to to get bigger or developing multiple specifications. That's when we start to consider it being a Jdf.
+
+147
+00:37:37.550 --> 00:37:46.306
+Jory Burson (The Linux Foundation): Yeah, I I really encourage simplicity and and starting, starting, you know, small, because
+
+148
+00:37:47.030 --> 00:37:56.890
+Jory Burson (The Linux Foundation): the the project group may not know that they want to take on the overhead of the of the bigger
+
+149
+00:37:57.570 --> 00:38:20.730
+Jory Burson (The Linux Foundation): of of the of the Sdo in a box, if you will. So I think I think Csl is gonna be the thing that I always say, well, let's try this first.st and if we find, or in discovery that it doesn't suit your needs. Then then maybe maybe the more formal option is for you. And I see, Char. Am I saying that? Nice? Right? Excuse me.
+
+150
+00:38:20.730 --> 00:38:30.700
+Char Howland (Indicio): Yes, yes, thank you. So you mentioned a process oriented spec. Can you talk about what what that means, and what is that opposed to.
+
+151
+00:38:31.700 --> 00:38:49.645
+Jory Burson (The Linux Foundation): Yeah, so open chain is like a business process specification. So rather than describing, you know, a algorithmic you know technology, it's more
+
+152
+00:38:50.370 --> 00:39:02.157
+Jory Burson (The Linux Foundation): what the business shall have in terms of managing its supply chain. Like, for example, it it shall have like requirements for
+
+153
+00:39:03.110 --> 00:39:23.679
+Jory Burson (The Linux Foundation): approving open source licenses and think things of that sort. So it's more. The implementers of the open chain specification aren't developers. They're procurement specialists. They are legal teams, compliance teams and that kind of thing.
+
+154
+00:39:24.230 --> 00:39:25.910
+Char Howland (Indicio): Okay, interesting. Thank you.
+
+155
+00:39:25.910 --> 00:39:26.550
+Jory Burson (The Linux Foundation): Yep.
+
+156
+00:39:33.290 --> 00:39:35.150
+Jory Burson (The Linux Foundation): Other questions.
+
+157
+00:39:38.110 --> 00:39:39.560
+Jory Burson (The Linux Foundation): Just Tracy.
+
+158
+00:39:39.560 --> 00:39:58.359
+Tracy Kuhrt: Yeah. So I'm thinking about our lifecycle documentation, which basically right now, we have an incubation phase, and we have a graduated phase. And then, obviously an archived sort of phase. Looking at the community specification dot dev
+
+159
+00:40:00.140 --> 00:40:06.990
+Tracy Kuhrt: github page, I see. Like the specification development process, would you?
+
+160
+00:40:08.100 --> 00:40:13.300
+Tracy Kuhrt: I don't. I don't know if the development process is like a
+
+161
+00:40:13.790 --> 00:40:25.850
+Tracy Kuhrt: lifecycle process, or it's more just the way in which you typically develop specifications similar to the way that you might say you develop software right in that. It has
+
+162
+00:40:25.850 --> 00:40:50.000
+Tracy Kuhrt: a requirements gathering phase. It has a, you know, design phase. It has a implementation phase, a testing phase, that sort of thing. Right? Would you? Would you say that the specification development process of pre draft draft working group approval, so on, so forth, is more similar to kind of that software development lifecycle versus our project lifecycle.
+
+163
+00:40:50.540 --> 00:41:04.009
+Tracy Kuhrt: just trying to figure out how we, how we distinguish like what differences we would expect from a project that is a community specification versus a project that is a code type project.
+
+164
+00:41:04.010 --> 00:41:28.459
+Jory Burson (The Linux Foundation): Yeah, great question. Yeah. So so I absolutely would. Agree that the specification development process that we describe is is scoped to what are those phases. And again, we're talking about, you know, agreement on ideas that may be coming into the specification we have, you know, Tracy is making a contribution
+
+165
+00:41:28.460 --> 00:41:40.890
+Jory Burson (The Linux Foundation): to the specification. Do we all agree that that's a great contribution that meets the goals of the spec, and is, you know, aligned with the solution. Okay, cool, we accept that. It becomes part of the draft.
+
+166
+00:41:41.290 --> 00:42:00.909
+Jory Burson (The Linux Foundation): The working group kind of continues to build upon that draft through additional contributions. We get to a point where we agree that we have met all of the the the goals for the features that we want in the specification. And so now it's a working group.
+
+167
+00:42:00.910 --> 00:42:26.360
+Jory Burson (The Linux Foundation): approved Draft, and then we're ready to advance it to our steering committee because we want it to be a You know, an Xyz spec and potentially be advanced. So it becomes a final spec. So it really is more akin to that software development process than it is in the case of your lifecycle document, where you're saying, Okay, this you know, this project is
+
+168
+00:42:26.380 --> 00:42:51.009
+Jory Burson (The Linux Foundation): incubating because we are still determining whether it is a you know a good fit for our group, or whether we are bringing enough of the right stakeholders to the table, or you know whether this idea has has legs or not versus something that's graduated, because it's meeting all of your requirements that you've set forth, for example, to have
+
+169
+00:42:51.140 --> 00:43:11.369
+Jory Burson (The Linux Foundation): certain policies in place. So I I think a Csl project could fit pretty well with your lifecycle process. But you'll have to kind of consider what what the differences might be in terms of like policies that apply to a code project versus policies that apply to a spec project.
+
+170
+00:43:14.850 --> 00:43:19.280
+Jory Burson (The Linux Foundation): And wen jing! Great! I was hoping you might chime in with input from trust over IP.
+
+171
+00:43:20.090 --> 00:43:38.243
+Wenjing Chu (Futurewei Technologies, Inc.): Hi, Jerry! Yes, I I would share one comment, and then also have a question for you, Jerry. So one of the comment maybe relate to what Tracy was talking about. Like in in trust of IP. We have a few specifications, I think, may
+
+172
+00:43:38.830 --> 00:43:43.919
+Wenjing Chu (Futurewei Technologies, Inc.): probably want to go to the pass route it to become iso standards.
+
+173
+00:43:43.930 --> 00:44:04.209
+Wenjing Chu (Futurewei Technologies, Inc.): And one of the reason for that is really consideration. You know. I think, Joe, you mentioned about the vision or your ambition. What your spec who will be using those spec if you you envision that is going to be very widely used. For many.
+
+174
+00:44:04.210 --> 00:44:28.330
+Wenjing Chu (Futurewei Technologies, Inc.): you know people, including people in different countries, maybe adopting this standard in some way, and that would require, I think, a lot of trust to that standard, and going through these more formalized process, and also to, you know, for for Iso adoption, for example, would it be a good
+
+175
+00:44:28.330 --> 00:44:55.600
+Wenjing Chu (Futurewei Technologies, Inc.): pass? And there are several protocol specification in trust of IP are on the way to go in there. Not every thing I think in trust of IP are on that path, but one example that I've been working with is that the trust spanning protocol which defines a communication protocol for security.
+
+176
+00:44:55.600 --> 00:45:08.850
+Wenjing Chu (Futurewei Technologies, Inc.): and can be used in widely different scenarios and industries. And so that might be a good example of going to the more formalized standardization.
+
+177
+00:45:09.271 --> 00:45:38.349
+Wenjing Chu (Futurewei Technologies, Inc.): The other would be like a carry, which is also a very strongly. Security oriented specification. So the question I have for you probably a lot of people ask before. But now it's getting closer Jerry is. How do we initiate the Iso pass process? And what do we need to get get it going? When we feel we are close to already for that.
+
+178
+00:45:38.350 --> 00:45:46.845
+Jory Burson (The Linux Foundation): Yeah, that's a great question. And it's like, that's a kind of jumping, jumping to to a topic.
+
+179
+00:45:47.610 --> 00:46:16.199
+Jory Burson (The Linux Foundation): that is a little bit more advanced right? So one of the things that we'll do first.st And we did. I think we did this. We we had an initial chat with Carrie. Maybe like even a year ago, is because the Joint Development foundation is the Pas submitting organization. We would have an initial chat with the project group and just look over the the work right? Because we need to make sure
+
+180
+00:46:16.200 --> 00:46:33.740
+Jory Burson (The Linux Foundation): if we're advancing specifications for international balloting, that it meets some expectations for that for the Jtc. We want everybody to look good. We want you to be successful. We want to have some, you know, clear sense of
+
+181
+00:46:33.740 --> 00:46:56.590
+Jory Burson (The Linux Foundation): what our colleagues on the Jtc. Would have to say about this. We want to know, you know, are there potential gotchas, or concerns that some of the national bodies might have. So then, that's highly dependent, of course, too, on like, you know, what is the technology and what's being developed among other Iso working groups.
+
+182
+00:46:56.590 --> 00:47:10.409
+Jory Burson (The Linux Foundation): So we have that conversation we look at like, you know, the Jdf looks at the process that has been followed, you know, are we able to help. This is where this is where we start to do some diligence and make sure that.
+
+183
+00:47:10.740 --> 00:47:35.210
+Jory Burson (The Linux Foundation): You know we we have a chain of provenance for IP commitments that we've got, you know, signed membership agreements from everybody who made contributions just that hygiene stuff. We look at the specification document itself and see if there's any work that needs to be done. And a lot of times there is to start to shape that spec document into. If it's going to Iso into a format that looks like
+
+184
+00:47:35.210 --> 00:47:59.500
+Jory Burson (The Linux Foundation): the iso format. There's several webinars that we've actually done on this process for those who might be considering it, but it tells you a little bit in the webinars. We go into some detail about like what transposition of your spec looks like, how long the process takes from the time that we have
+
+185
+00:47:59.630 --> 00:48:17.360
+Jory Burson (The Linux Foundation): kind of agreed that the spec is ready to go to final ballot, how long that can take, and then 2. What to expect going forward because the specifications need to be maintained or deprecated.
+
+186
+00:48:17.360 --> 00:48:39.899
+Jory Burson (The Linux Foundation): So that that puts some, you know, commitments on the project in the future, and that's something else to bear in mind. So we do have some resources that can help a project sort of evaluate that. It's not easy, and it does usually incur some costs, because we want to work with an editor to make sure that your docs are.
+
+187
+00:48:39.900 --> 00:48:48.179
+Wenjing Chu (Futurewei Technologies, Inc.): Are in the right formats. Plural? You know, that are that are gonna be expected by the Iso secretariat.
+
+188
+00:48:51.450 --> 00:48:52.659
+Wenjing Chu (Futurewei Technologies, Inc.): Great. Thank you.
+
+189
+00:48:53.010 --> 00:48:54.510
+Jory Burson (The Linux Foundation): Yeah. Thanks.
+
+190
+00:48:57.820 --> 00:49:00.269
+Tracy Kuhrt: Any more questions for Jory.
+
+191
+00:49:08.460 --> 00:49:21.130
+Jory Burson (The Linux Foundation): Well, I'm really glad to meet everybody. I will be glad to leave you my email address if you think of questions later. And then, of course, obviously, Daniel knows how to reach me.
+
+192
+00:49:23.030 --> 00:49:26.640
+Jory Burson (The Linux Foundation): But thank you for having us.
+
+193
+00:49:26.640 --> 00:49:52.239
+Tracy Kuhrt: Well, thank you, Joy, for presenting to us. It would be great if we could get a copy of the Slides, of course, in a read-only format. That's fine, you know. I think we can definitely refer back to them as we have discussions about what sort of changes we need to make to our governance to start accepting, and, you know, supporting Csl projects as they come in.
+
+194
+00:49:52.330 --> 00:50:13.110
+Tracy Kuhrt: And then eventually, as they become Gdf. Projects within the Lftt, I don't think we're necessarily doing a great job of supporting trust over IP just yet from a technical advisor. Console type of role. But you know I'm I'm sure, as we figure this out, we'll
+
+195
+00:50:13.110 --> 00:50:24.726
+Tracy Kuhrt: we'll definitely be you know, having some more questions and potentially reaching back out to you. So appreciate your time and and you know, maybe look forward to hearing from us again in the future.
+
+196
+00:50:25.640 --> 00:50:28.810
+Jory Burson (The Linux Foundation): Alright! Well, nice meeting! Everyone have a wonderful rest of your day.
+
+197
+00:50:29.460 --> 00:50:46.920
+Tracy Kuhrt: All right. Great, thank you. And for the Tac. Members given that we've only got 5 min left. I think we're going to hold off on the rest of the agenda, which is the basic annual report and the credible annual report we will get to those next week, unless again.
+
+198
+00:50:47.020 --> 00:51:10.350
+Tracy Kuhrt: something pops up and takes some precedence over those. But I'm hoping we can get to those and and close those out. I think we're just about finished with the annual reports, and that implies that the next thing that we'll be doing is obviously working on things like updating our governance documents for these sorts of projects that might come in.
+
+199
+00:51:10.350 --> 00:51:19.129
+Tracy Kuhrt: And yeah, definitely going back and checking out the goals that we had set out at the beginning of the year to see what other things that we're
+
+200
+00:51:19.130 --> 00:51:40.770
+Tracy Kuhrt: we wanted to accomplish and make sure that we're accomplishing those. I know. The life cycle is definitely something that's on the list. And definitely this Csl community specifications. Jdf type projects are also on the list. So I think there were a few other ones that we had. And we'll definitely start to get to those as we move forward throughout the rest of the year.
+
+201
+00:51:41.366 --> 00:51:45.660
+Tracy Kuhrt: But yeah, anything else that anybody would like to bring up before we close today.
+
+202
+00:51:53.790 --> 00:51:59.359
+Tracy Kuhrt: Okay? If not, then we will talk to you all again next week. Have a great week.
+

@@ -1,0 +1,1606 @@
+WEBVTT
+
+1
+00:00:38.230 --> 00:00:39.280
+Sophie Bulloch: Hi Roy!
+
+2
+00:00:40.570 --> 00:00:42.160
+Ry Jones (The Linux Foundation): Hello! Hello! How are you doing
+
+3
+00:00:42.640 --> 00:01:06.069
+Hendrik Ebbers: Presentation about the okay. It's it's okay for Rob, that is great. So let's start with the presentation regarding the SDK, Tck, and and once we're done with that, we we can switch and talk about in general, about SDK, topics. About some things Rob and I and others work on
+
+4
+00:01:06.490 --> 00:01:07.640
+Jessica Gonzalez (The Linux Foundation): Okay, perfect.
+
+5
+00:01:07.640 --> 00:01:11.390
+Jessica Gonzalez (The Linux Foundation): Okay? Then, Rob, you can take the floor. Now.
+
+6
+00:01:12.280 --> 00:01:19.919
+Rob Walworth: Perfect. Alright! Let me go ahead and share my screen. Here, you guys, see my screen
+
+7
+00:01:19.920 --> 00:01:20.630
+Jessica Gonzalez (The Linux Foundation): Yes.
+
+8
+00:01:21.370 --> 00:01:22.125
+Rob Walworth: Alrighty.
+
+9
+00:01:23.950 --> 00:01:32.920
+Rob Walworth: let me move things out of the way here. Okay, alright cool, hey? Everyone for those who don't know me. I'm Rob. I've been working on the
+
+10
+00:01:33.210 --> 00:01:39.580
+Rob Walworth: SDK team at Hashgraph for a little over 2 years now. I wrote the
+
+11
+00:01:39.640 --> 00:01:56.820
+Rob Walworth: c plus plus SDK. I've been working on the Tck here for maybe a little over half a year now, and I'm going to be taking over the swift SDK, actually coming up here soon. But yeah. So the for
+
+12
+00:01:56.820 --> 00:02:14.809
+Rob Walworth: those who don't know what the tck is. I'm gonna provide a little context about what it is, what we're developing it for what its use cases are, what it's meant to help achieve. In the context of
+
+13
+00:02:15.060 --> 00:02:17.559
+Rob Walworth: the Sdks and hiro in general
+
+14
+00:02:18.720 --> 00:02:31.057
+Rob Walworth: and kind of where we're at in the in the development process. So far. So I'm I'm gonna kinda just go through this and keep talking. If anyone has any questions at any point.
+
+15
+00:02:31.770 --> 00:02:58.033
+Rob Walworth: you know, feel free to interrupt. I'll try to remember to stop and ask for questions at certain points. But yeah, I'll just dive right in here. So the Tck, it stands for technology compatibility. Kit, it's basically a collection of tests that we want to use to verify a correct hiro implementation.
+
+16
+00:02:58.800 --> 00:03:08.039
+Rob Walworth: in regards to the Sdks as well as consensus node and mirror node implementations as well. It's basically a
+
+17
+00:03:08.170 --> 00:03:11.229
+Rob Walworth: a suite of tests used to
+
+18
+00:03:11.510 --> 00:03:15.555
+Rob Walworth: make sure the the whole system is is working properly.
+
+19
+00:03:16.230 --> 00:03:20.209
+Rob Walworth: and we. It's but it's a
+
+20
+00:03:20.320 --> 00:03:32.740
+Rob Walworth: test driver in. It's basically an executable that has a collection of tests on it that via a Json Rpc. Message it sends to
+
+21
+00:03:33.367 --> 00:03:38.372
+Rob Walworth: an SDK implementation which we just call like an SDK server.
+
+22
+00:03:39.450 --> 00:03:44.459
+Rob Walworth: The SDK server takes this Json, Rpc. Request.
+
+23
+00:03:44.570 --> 00:03:53.230
+Rob Walworth: takes the parameters in it, constructs a Protobuff message which then gets sent to a high road network.
+
+24
+00:03:53.530 --> 00:03:57.730
+Rob Walworth: Let me go in here, and I can show you kind of a high level diagram of
+
+25
+00:03:57.940 --> 00:04:00.219
+Rob Walworth: how everything works.
+
+26
+00:04:04.260 --> 00:04:06.219
+Rob Walworth: You guys see this fine
+
+27
+00:04:07.350 --> 00:04:08.300
+Jessica Gonzalez (The Linux Foundation): Yes.
+
+28
+00:04:08.610 --> 00:04:09.310
+Rob Walworth: Okay.
+
+29
+00:04:09.530 --> 00:04:14.710
+Rob Walworth: so yeah, so the tck is right here. So this is where all the tests are stored. This is where
+
+30
+00:04:14.850 --> 00:04:26.300
+Rob Walworth: our initial tests. Json, Rpc. Requests are sent out and I'll go over kind of the structure of Json, Rpc. In A in a sec.
+
+31
+00:04:26.460 --> 00:04:30.190
+Rob Walworth: But yeah, so we run this Tck. Here
+
+32
+00:04:30.590 --> 00:04:44.750
+Rob Walworth: it gets sent out to our Json Rpc. Servers here on the SDK. Side. So you notice here that for each SDK that we have, we have a separate Json, Rpc server instantiation.
+
+33
+00:04:44.990 --> 00:04:49.530
+Rob Walworth: And that's basically just because the we need different instantiations to
+
+34
+00:04:49.640 --> 00:04:59.399
+Rob Walworth: basically test each each individual. SDK, that we want to test. So we're going to need one in Javascript. We're gonna need one in Java, go so on and so forth
+
+35
+00:04:59.990 --> 00:05:07.479
+Rob Walworth: for for any SDK that wants to use the Tck to to kind of verify its compliance.
+
+36
+00:05:07.730 --> 00:05:30.649
+Rob Walworth: So these Json, Rpc. Servers they take in the Json. Rpc. Request coming from Tck, based on whatever you know method is in is in the request, and whatever parameters are in the request, it goes ahead and and packs it into the protobuff that is then sent to the network over here.
+
+37
+00:05:30.900 --> 00:05:38.759
+Rob Walworth: So we send our request to the consensus node consensus node processes. It reaches consensus, applies it to state.
+
+38
+00:05:39.050 --> 00:06:02.140
+Rob Walworth: and then within that, you know, as the consensus node does within a couple seconds. That state is then sent to mirror node as well, and the state is fully applied to the network. The Tck will then go ahead and perform its own queries to consensus node mirror, node, to make sure that it had the desired effect on the network.
+
+39
+00:06:02.536 --> 00:06:10.460
+Rob Walworth: So, for example, if we had a test that was just basic, you know, transfer some H bar between accounts.
+
+40
+00:06:10.780 --> 00:06:28.460
+Rob Walworth: it would go through here. Json, Rpc. Would see that it would construct the correct Protobuf, send the Protobuf to the consensus node consensus node reaches consensus and applies it to state the Tck when it receives its
+
+41
+00:06:28.760 --> 00:06:42.630
+Rob Walworth: response back from a Json. Rpc server, basically saying, You know, the transaction went through fine, you know, here's the here's the status. The Tck will then go ahead, and directly query the consensus node and mirror node itself
+
+42
+00:06:42.860 --> 00:06:53.740
+Rob Walworth: to make sure that you know, for our transfer example, that the the amount transferred is debited from the sender account, and it is credited to the receiver account.
+
+43
+00:06:54.913 --> 00:07:01.990
+Rob Walworth: And it it again, it it does that separately from the Json Rpc.
+
+44
+00:07:02.190 --> 00:07:03.360
+Rob Walworth: Server itself?
+
+45
+00:07:04.000 --> 00:07:09.670
+Rob Walworth: Are there any any questions on kind of the the high level structure here?
+
+46
+00:07:13.930 --> 00:07:15.010
+Rob Walworth: Alright cool.
+
+47
+00:07:17.310 --> 00:07:21.790
+Rob Walworth: So for the Json, Rpc. Itself.
+
+48
+00:07:22.010 --> 00:07:45.699
+Rob Walworth: Let me kind of go through how we document that. So all our test specifications are in our our docs folder here. So we go on docs, test specifications, and we divide them up by by service. So for the crypto service here we have, you know, account, create account, delete all that good stuff. You know we have token service here as well. We're still finishing this up.
+
+49
+00:07:45.700 --> 00:07:56.836
+Rob Walworth: I think there's still a few more that we have to implement here. But again, like, you know, when we get to consensus service or smart contract service, you know, we'll those will be added here as well.
+
+50
+00:07:57.430 --> 00:08:02.910
+Rob Walworth: and we actually have, instead of going through each markdown. Here, we actually have a
+
+51
+00:08:03.080 --> 00:08:08.670
+Rob Walworth: a community member actually contributed a a website here that actually kind of
+
+52
+00:08:10.090 --> 00:08:16.629
+Rob Walworth: It provides a better sort of viewing interface to kind of our docs here. So this is actually really nice.
+
+53
+00:08:16.970 --> 00:08:19.958
+Rob Walworth: But yeah, let me let me just kind of go through.
+
+54
+00:08:20.820 --> 00:08:28.610
+Rob Walworth: kind of what these test specification files look like is because these test specification files, you know, they they contain information about
+
+55
+00:08:28.820 --> 00:08:34.639
+Rob Walworth: the Json Rpc method that we want to implement to test
+
+56
+00:08:34.909 --> 00:09:00.879
+Rob Walworth: and have implemented on on the SDK side as well as each of the describing each test. And basically what is testing parameters are? So we have a description of basically what this test specification is. Gonna test, this looks like it needs to be updated. We have a kind of a description of the design, basically just saying, you know.
+
+57
+00:09:01.546 --> 00:09:09.390
+Rob Walworth: for each property in our transaction. You know these are the values we're looking to test. This is how you know how
+
+58
+00:09:09.490 --> 00:09:27.019
+Rob Walworth: we're going to determine that the correct state was applied. You know, via, you know, account, info query or account, balance, query and and mirror. No queries. All that. We have a couple of helpful links here links to the protobufs links to our doc site
+
+59
+00:09:27.320 --> 00:09:29.809
+Rob Walworth: mirror, node response codes all that good stuff.
+
+60
+00:09:30.389 --> 00:09:40.690
+Rob Walworth: So this is where the Json Rpc. Api is actually documented. So we describe our our method name here for our account, create tests.
+
+61
+00:09:40.910 --> 00:09:43.390
+Rob Walworth: And then all of our input parameters.
+
+62
+00:09:43.850 --> 00:10:04.259
+Rob Walworth: So these these will generally be pretty pretty one to one with what is in the protobufs. There may be some differences just based on how? How? Maybe the the sdks implement the protobuf. So like, for example, actually, let me go to transfer transaction here.
+
+63
+00:10:05.570 --> 00:10:07.707
+Rob Walworth: So transfer transaction
+
+64
+00:10:08.910 --> 00:10:23.699
+Rob Walworth: and actually uses a different Json object to basically, I guess package the transfer information a little bit better. So if we go ahead and click on that.
+
+65
+00:10:24.358 --> 00:10:31.531
+Rob Walworth: This is just kind of like a a helper document here describing these object definitions. So,
+
+66
+00:10:32.150 --> 00:10:40.235
+Rob Walworth: we're trying to do a transfer. We have different parameters here that, based on what we're trying to transfer
+
+67
+00:10:41.140 --> 00:10:45.440
+Rob Walworth: the the the data will be a little different.
+
+68
+00:10:48.660 --> 00:10:53.769
+Rob Walworth: But yeah, Gen. Generally they'll they'll be pretty. They'll be pretty straightforward, and one to one
+
+69
+00:10:56.880 --> 00:11:00.090
+Rob Walworth: Yep. So we have our parameters here. We have the type of
+
+70
+00:11:00.210 --> 00:11:06.889
+Rob Walworth: what they're going to be in the in the Jsonrc. Requests we have, if they're required or optional
+
+71
+00:11:07.536 --> 00:11:16.700
+Rob Walworth: and then any other description or notes that may be helpful. It's important to note here as well, because I know this. This might be kind of confusing the
+
+72
+00:11:16.890 --> 00:11:33.620
+Rob Walworth: so for create an account. If you're just trying to create an account with sdks, you know a key is required. It will say, if you try to submit a create account, protobuf without a key, it will respond with an error. It'll say it can't create the account. However, here
+
+73
+00:11:33.960 --> 00:11:38.909
+Rob Walworth: we're saying it's optional because we want to test that case, we want to be able to
+
+74
+00:11:39.230 --> 00:11:45.169
+Rob Walworth: try. We want to see what the network does when we try to submit a
+
+75
+00:11:45.490 --> 00:11:55.147
+Rob Walworth: a create and create account without a key. So we're putting it as optional here in the Json. Rpc, because we actually, I think,
+
+76
+00:11:55.690 --> 00:12:08.530
+Rob Walworth: we haven't. We have a test here that basically said it tries to create an account without a key. And you'll see that there's there's no input here. So this required and optional here is just in the context of Json, Rpc, it's not in the
+
+77
+00:12:09.600 --> 00:12:15.857
+Rob Walworth: It's this. It's it's not saying, you know. Oh, you can try and create an account without a key with,
+
+78
+00:12:16.390 --> 00:12:21.450
+Rob Walworth: you know, directly the network like that's that's not what's saying, just in the context of testing here.
+
+79
+00:12:23.470 --> 00:12:33.920
+Rob Walworth: so yeah, those are our input parameters. And then we have our output parameters here. This is what the Json Rpc server will respond back to the tck upon
+
+80
+00:12:34.380 --> 00:12:41.200
+Rob Walworth: reaching consensus. So you know you get the account Id, of your create account as well as the status.
+
+81
+00:12:42.620 --> 00:13:00.339
+Rob Walworth: and then we have all of our tests here. So account create is pretty simple. We just for each of our properties that we have, we go ahead and create or have different tests that we wanna validate so a lot of this here for for Key is just creating account with various key types.
+
+82
+00:13:01.120 --> 00:13:03.639
+Rob Walworth: you know, creating without a key and invalid key.
+
+83
+00:13:03.930 --> 00:13:09.269
+Rob Walworth: And then we have a couple examples here as as what the Json looks like.
+
+84
+00:13:10.770 --> 00:13:16.732
+Rob Walworth: And we just go ahead and go through all all of our parameters here.
+
+85
+00:13:17.430 --> 00:13:27.900
+Rob Walworth: basically, you know, kind of same thing. Just test the various bounds that we want to test. Describes what exactly the
+
+86
+00:13:28.030 --> 00:13:31.410
+Rob Walworth: Tck will be sending in its parameters here.
+
+87
+00:13:32.120 --> 00:13:34.950
+Rob Walworth: as well as the expected response.
+
+88
+00:13:37.760 --> 00:13:40.050
+Rob Walworth: Are there any questions on that
+
+89
+00:13:48.230 --> 00:13:55.778
+Rob Walworth: cool so actually running and using the tck
+
+90
+00:13:57.590 --> 00:14:00.660
+Rob Walworth: we have instructions in our readme here.
+
+91
+00:14:02.140 --> 00:14:23.100
+Rob Walworth: you know, we currently have, some example configurations in our repo here. These, these instructions are actually not correct. So we actually just realized that in the Pr, so we, we will need to fix those here. But I can actually just kind of go ahead and open up what
+
+92
+00:14:23.690 --> 00:14:38.847
+Rob Walworth: kind of what a our environment file will look like. Well, actually, let me get to that in a second. I'm kind of getting ahead of myself. So actually running the tck, you know, we when you're doing just testing locally
+
+93
+00:14:39.540 --> 00:14:47.210
+Rob Walworth: you know, we we mostly use local node as our network instantiation, then.
+
+94
+00:14:47.460 --> 00:14:54.660
+Rob Walworth: So we use that we have our Json Rpc. Server that we need to start, and then we can also.
+
+95
+00:14:54.810 --> 00:15:07.869
+Rob Walworth: And then we also need the tck to run as well. So there's some instructions here about getting the tck up and running. You know, cloning and installing here all that good stuff.
+
+96
+00:15:10.858 --> 00:15:14.799
+Rob Walworth: we use open Api to
+
+97
+00:15:15.380 --> 00:15:21.699
+Rob Walworth: help with help create some models for us in our in our mirror. Node api. We I can describe that more in a second.
+
+98
+00:15:23.310 --> 00:15:29.050
+Rob Walworth: we also use docker as well. Actually, let me let me get to that in a second let me go ahead and just kind of
+
+99
+00:15:29.150 --> 00:15:34.620
+Rob Walworth: run this here and just kind of show you what it looks like. So and
+
+100
+00:15:34.740 --> 00:15:39.829
+Rob Walworth: getting the local node up and running right now, I think first, st what I'm gonna do is
+
+101
+00:15:40.220 --> 00:15:44.029
+Rob Walworth: use the C plus plus SDK server here.
+
+102
+00:15:46.380 --> 00:15:52.520
+Rob Walworth: And I can kind of show you what we currently have implemented here.
+
+103
+00:15:55.810 --> 00:16:05.372
+Rob Walworth: So these are currently all the all the Json, Rpc methods we have implemented at the moment. So, yeah, mostly again, just you know,
+
+104
+00:16:05.910 --> 00:16:08.659
+Rob Walworth: account service and token service.
+
+105
+00:16:10.740 --> 00:16:14.260
+Rob Walworth: Methods implemented. So we currently have that running
+
+106
+00:16:15.630 --> 00:16:19.269
+Rob Walworth: just waiting for the local node to go ahead and start up.
+
+107
+00:16:19.680 --> 00:16:28.050
+Rob Walworth: Might take a second here, and then go ahead and
+
+108
+00:16:28.930 --> 00:16:32.000
+Rob Walworth: just keep waiting for this. It might take a second.
+
+109
+00:16:35.200 --> 00:16:45.310
+Rob Walworth: Alright, there we go. So now we have our local node running. We have our SDK server running, and we can go ahead and run the tests here.
+
+110
+00:16:46.260 --> 00:16:53.390
+Rob Walworth: so we'll go through each of the tests, and it'll give you a give you a nice little green checkmark if it runs through properly.
+
+111
+00:16:55.180 --> 00:17:01.661
+Rob Walworth: and if there's any errors it'll it'll display in red. And I don't think there will be any errors, but
+
+112
+00:17:02.150 --> 00:17:05.710
+Rob Walworth: it'll it'll kind of give some error description about
+
+113
+00:17:06.060 --> 00:17:09.750
+Rob Walworth: what exactly happened, whether it was a
+
+114
+00:17:09.950 --> 00:17:21.985
+Rob Walworth: we got a response code that wasn't expected, or there was some internal error of some sort, but looks like everything ran through there. You can see on the SDK server side. Here's all the
+
+115
+00:17:22.640 --> 00:17:26.849
+Rob Walworth: you know. We've seen the Json Rpc. Requests and our responses coming back.
+
+116
+00:17:28.770 --> 00:17:33.919
+Rob Walworth: Yeah, that's basically how it's run. Let me go ahead. And actually to kind of show you
+
+117
+00:17:35.310 --> 00:17:44.169
+Rob Walworth: you know how how we can use it with different sdks as well. Let me open the the swift server here. And I can show you.
+
+118
+00:17:44.580 --> 00:17:53.422
+Rob Walworth: You know, basically, how all like, if you want to test a different SDK, all you need to do is just run that sdks specific
+
+119
+00:17:54.340 --> 00:17:57.749
+Rob Walworth: tck server, and it should run the same way. So now.
+
+120
+00:17:58.330 --> 00:18:04.439
+Rob Walworth: So we have c plus plus turned off. We have the swift turned on our local node is still running.
+
+121
+00:18:04.780 --> 00:18:08.269
+Rob Walworth: Let me go ahead and run the account create test again.
+
+122
+00:18:08.650 --> 00:18:15.559
+Rob Walworth: And now those same tests are being run, except instead of going through the C plus plus SDK, they're now going through the swift SDK,
+
+123
+00:18:15.820 --> 00:18:19.350
+Rob Walworth: and yep, you can see the request coming across here.
+
+124
+00:18:24.200 --> 00:18:25.100
+Rob Walworth: -Oh.
+
+125
+00:18:25.760 --> 00:18:35.177
+Rob Walworth: there are errors. I don't know why that is all right. So are there any questions on running t running the tck,
+
+126
+00:18:37.550 --> 00:18:45.449
+Rob Walworth: I think. There, yeah, they're like, I said, there are instructions here on how to how to run the test here. So it should all be here.
+
+127
+00:18:47.010 --> 00:18:57.450
+Rob Walworth: but yeah, basically basically all that's needed. If you're looking to test an SDK instantiation is, you basically just need
+
+128
+00:18:57.940 --> 00:19:00.359
+Rob Walworth: something in the middle to
+
+129
+00:19:00.580 --> 00:19:11.359
+Rob Walworth: take your Json, Rpc. Request and convert it into into the protobuff that is sent directly to the network, and you should be off and running.
+
+130
+00:19:12.910 --> 00:19:14.100
+Rob Walworth: Yeah, Jessica.
+
+131
+00:19:14.760 --> 00:19:28.620
+Jessica Gonzalez (The Linux Foundation): So for people going through this tutorial. And if they face any issues what would be the best way for them to reach out or whom to reach out in case they face any issues
+
+132
+00:19:30.474 --> 00:19:37.295
+Rob Walworth: Yeah. So I think a good way to start would maybe be seeing if
+
+133
+00:19:38.690 --> 00:19:48.532
+Rob Walworth: maybe posting in the hiro SDK tck discord channel. Just to maybe verify that. You know you have your setup correct?
+
+134
+00:19:50.910 --> 00:20:11.379
+Rob Walworth: and it's it's you. Basically yeah, just have, like your setup correct. And and if there's any issue after that, then you can head to the SDK tck repo itself. You can just go ahead and create an issue. Describing. You know what it is you're seeing. And we could take a look at it
+
+135
+00:20:13.830 --> 00:20:14.560
+Jessica Gonzalez (The Linux Foundation): Thank you.
+
+136
+00:20:17.972 --> 00:20:19.868
+Rob Walworth: I will say,
+
+137
+00:20:21.740 --> 00:20:28.839
+Rob Walworth: we also have our docker. We have some docker images that have our tck in it.
+
+138
+00:20:29.376 --> 00:20:32.290
+Rob Walworth: let me go ahead and this
+
+139
+00:20:34.050 --> 00:20:42.679
+Rob Walworth: show that here this might be a bit easier for people to to use kind of out of the box, so they don't have to deal with
+
+140
+00:20:43.030 --> 00:20:58.240
+Rob Walworth: cloning tck, building it, running it well, I mean, it's land to run it, but it's easier to to pull a docker image here that has a tck just good to go as opposed to kind of going through.
+
+141
+00:20:59.640 --> 00:21:01.790
+Rob Walworth: you know the whole, the whole git
+
+142
+00:21:01.910 --> 00:21:10.200
+Rob Walworth: clone process and and build. So we have our instructions here. This is our image that you can go ahead and pull
+
+143
+00:21:12.950 --> 00:21:16.670
+Rob Walworth: and then we have our our run instructions here.
+
+144
+00:21:16.830 --> 00:21:22.670
+Rob Walworth: So go ahead and change port here to 8, 5, 5, 4, because that's our default.
+
+145
+00:21:24.070 --> 00:21:27.239
+Rob Walworth: We are running our account create tests.
+
+146
+00:21:27.670 --> 00:21:30.100
+Rob Walworth: We are still.
+
+147
+00:21:30.510 --> 00:21:33.180
+Rob Walworth: We are running our server.
+
+148
+00:21:34.020 --> 00:21:36.030
+Rob Walworth: Local node is still running.
+
+149
+00:21:36.600 --> 00:21:40.590
+Rob Walworth: Now we can go ahead and run our Tck test through Docker here.
+
+150
+00:21:46.990 --> 00:21:51.229
+Rob Walworth: and, as you can see, they're they're working the exact same way. So
+
+151
+00:21:55.240 --> 00:21:57.700
+Rob Walworth: any other things to go through?
+
+152
+00:22:00.260 --> 00:22:01.780
+Rob Walworth: Oh, yeah. So
+
+153
+00:22:02.160 --> 00:22:13.590
+Rob Walworth: our normal default test setup is local node. That's generally what we recommend, just because it's a bit quicker. You can run it against testnet if you wanted.
+
+154
+00:22:14.320 --> 00:22:15.829
+Rob Walworth: and then go ahead and
+
+155
+00:22:16.240 --> 00:22:25.469
+Rob Walworth: show that as well, that just requires a little bit of a different configuration in our in your environment file.
+
+156
+00:22:26.260 --> 00:22:31.509
+Rob Walworth: Let me go ahead and comment this stuff out for the local node.
+
+157
+00:22:34.280 --> 00:22:38.266
+Rob Walworth: Go ahead and put that in for testnet.
+
+158
+00:22:42.480 --> 00:22:53.230
+Rob Walworth: our server is running okay, and then
+
+159
+00:22:53.380 --> 00:23:01.939
+Rob Walworth: go ahead and run a test. And now they're running against testnet. You'll notice they they do take a little bit a little bit longer. But
+
+160
+00:23:02.350 --> 00:23:07.190
+Rob Walworth: yeah, we are now using testnet as opposed to to local node.
+
+161
+00:23:09.100 --> 00:23:13.049
+Hendrik Ebbers: Is there a brand to support solo in future?
+
+162
+00:23:13.480 --> 00:23:22.160
+Rob Walworth: Yes, yes, we will be supporting solo in the future yeah, I think, we actually are working on that at the moment
+
+163
+00:23:27.440 --> 00:23:44.089
+Georgi Stoykov: Yeah. By the way, I can say a few words about this since now we're gonna begin the work which is related to solo github action integrating to our SDK requirements
+
+164
+00:23:44.657 --> 00:23:55.800
+Georgi Stoykov: at that point, when the action is up and running for our needs, we can integrate that into the solo pro into the Tck project, as well
+
+165
+00:24:01.140 --> 00:24:03.270
+Rob Walworth: yeah, that'd be that'd be awesome.
+
+166
+00:24:03.680 --> 00:24:04.797
+Hendrik Ebbers: Oh, that was
+
+167
+00:24:05.280 --> 00:24:16.850
+Hendrik Ebbers: Rob, if I can just interrupt you a question from from somebody in the chat about what what solo is? Do you want to answer it? Should, I say, like 3 sentence about it?
+
+168
+00:24:18.401 --> 00:24:21.298
+Rob Walworth: You could probably give a more in depth, description.
+
+169
+00:24:21.620 --> 00:24:31.909
+Hendrik Ebbers: Okay, no problem. So solo is a new touring coming from from Hedera, which is currently still
+
+170
+00:24:32.200 --> 00:24:38.519
+Hendrik Ebbers: at the Hedera org. But we plan to transfer it to Hiro in future.
+
+171
+00:24:38.950 --> 00:24:44.930
+Hendrik Ebbers: and that is a project that gets you set up a full highway based network
+
+172
+00:24:45.630 --> 00:25:04.510
+Hendrik Ebbers: that you can then use for things like, here's a Tck to run your Tck tests against it. You can use it when creating applications to to test your application against it, and you can even use it to manage and and maintain.
+
+173
+00:25:04.850 --> 00:25:05.700
+Hendrik Ebbers: you know.
+
+174
+00:25:06.260 --> 00:25:16.110
+Hendrik Ebbers: productive networks. It's a Ci based tool that supports things like kubernetes and and kind, and so on.
+
+175
+00:25:16.600 --> 00:25:32.069
+Hendrik Ebbers: and what we already have at the Hiro project now is, and I'm happy to share the link in a second. A Github action, that is, that is based on on solo, and
+
+176
+00:25:32.220 --> 00:25:49.470
+Hendrik Ebbers: that sets up a full hiro-based network in in a Github action process, so that you can use that for an application for an SDK, and so on to write automatic integration tests against that.
+
+177
+00:25:49.670 --> 00:25:53.110
+Hendrik Ebbers: I hope, Louis, that this answers your question
+
+178
+00:25:59.050 --> 00:26:00.049
+Louis Fourie: Yes, thank you.
+
+179
+00:26:04.590 --> 00:26:23.910
+Rob Walworth: Yeah. So I guess, for Tca. The the last thing I'll mention here is contributions. So we're we're always looking for people to come help contribute? We have, several issues here, open in the repo, basically for all of our different
+
+180
+00:26:26.272 --> 00:26:29.367
+Rob Walworth: different Apis, that we want to test
+
+181
+00:26:30.250 --> 00:26:35.959
+Rob Walworth: So if anyone wants to come, contribute, or come, just kind of kind of mess around
+
+182
+00:26:36.482 --> 00:26:49.537
+Rob Walworth: you know, feel free to feel free to come in here. Take an issue. Our current kind of process is that we we want to get the tests documented first.st We want to get them.
+
+183
+00:26:50.454 --> 00:27:08.975
+Rob Walworth: get get all our tests in our markdown file. Kind of like what we're we were showing over here. Get these tests looking good and approved. And then, once these are approved you can go ahead and actually start implementing them on the Tck side as well as the SDK server side as well.
+
+184
+00:27:10.010 --> 00:27:17.011
+Rob Walworth: But yeah, if if anyone is interested in coming and helping out, you know that'd be greatly appreciated.
+
+185
+00:27:18.390 --> 00:27:22.327
+Rob Walworth: are there any questions on on anything?
+
+186
+00:27:23.200 --> 00:27:29.209
+Hendrik Ebbers: Yeah, I I have a question, can you go back to to the issues? What you just shown?
+
+187
+00:27:29.380 --> 00:27:33.055
+Hendrik Ebbers: Because so so my, my question is
+
+188
+00:27:33.900 --> 00:27:46.560
+Hendrik Ebbers: So the the titles looks look already good, and my assumption is when going to. I don't know, like totem, pause, transaction as an example, and write tests
+
+189
+00:27:46.700 --> 00:27:53.910
+Hendrik Ebbers: for that. So so my assumption is that once you did it for one like for this.
+
+190
+00:27:54.160 --> 00:27:55.820
+Hendrik Ebbers: a total pause
+
+191
+00:27:56.040 --> 00:28:03.819
+Hendrik Ebbers: transaction. You have a very good understanding and and knowledge how to do it like for the next transaction, right
+
+192
+00:28:06.015 --> 00:28:11.539
+Rob Walworth: Yeah, you you mean like, for like on the on the Tck side or the
+
+193
+00:28:11.540 --> 00:28:12.180
+Hendrik Ebbers: Yes.
+
+194
+00:28:12.440 --> 00:28:12.930
+Rob Walworth: Okay.
+
+195
+00:28:12.930 --> 00:28:14.938
+Hendrik Ebbers: Post. Let's say I post
+
+196
+00:28:15.340 --> 00:28:26.690
+Rob Walworth: Yeah, yeah, I'd say it's it's it's pretty straightforward on. I'd say it's even even more straightforward on the SDK side, because SDK, side is.
+
+197
+00:28:26.830 --> 00:28:50.000
+Rob Walworth: basically, you're just kind of following the same process of you know the adding a Json Rpc method, and then going through and basically just figuring out how how you want to convert that Json, Rpc. To Protobuff and and send it on the Tck side. You know you could have a different. A different variety of of tests. And
+
+198
+00:28:50.260 --> 00:29:13.257
+Rob Walworth: you know some tests will be more complicated than others like, for example, like account create is is pretty simple. But if you're trying to test something like transferring, transferring a token from one account to another, then it's like, well, you gotta create 2 accounts. Gotta create a token. You got to associate the token to the account. You gotta and then you can. You can go ahead and transfer the token there.
+
+199
+00:29:13.880 --> 00:29:25.331
+Rob Walworth: But yeah, generally, I guess you know, really quick. I can actually just go ahead and show you some of the code, at least kind of give some context and into what it looks like.
+
+200
+00:29:32.450 --> 00:29:38.294
+Rob Walworth: So yeah. So we use the Mocha testing framework here. So we kind of have
+
+201
+00:29:38.860 --> 00:29:44.519
+Rob Walworth: our test divided by properties here and then
+
+202
+00:29:44.720 --> 00:30:11.388
+Rob Walworth: each of our each of our tests for each of the properties is is kind of wrapped up in its own thing here. So you see, creating a valid token or a valid sorry not token. Ed. 2, 5, 5, 1 9. Public key. We 1st generate that key. Go ahead and create the account, and then, you know, verify the account was created here. But if we were to do something like let's go to fee schedule. Update.
+
+203
+00:30:14.880 --> 00:30:21.980
+Rob Walworth: This will probably be a bit more complicated maybe.
+
+204
+00:30:25.020 --> 00:30:30.469
+Rob Walworth: Now these are all errors. Hold on. Let me finally find a better one here.
+
+205
+00:30:30.910 --> 00:30:40.480
+Rob Walworth: Actually, maybe, Alex, we have a Pr open for transfer transaction right now, these ones, this one is kinda
+
+206
+00:30:41.180 --> 00:30:42.309
+Rob Walworth: kind of big
+
+207
+00:30:48.390 --> 00:30:50.910
+Rob Walworth: as you can see it's almost 17,000
+
+208
+00:30:50.910 --> 00:30:52.680
+Hendrik Ebbers: Yeah, yeah, that is that is huge
+
+209
+00:30:52.680 --> 00:30:55.063
+Rob Walworth: It's a big one, but
+
+210
+00:30:55.950 --> 00:31:12.350
+Hendrik Ebbers: Yeah, maybe it cannot even be shown here. But anyway, so so my question was like, so let's let's ignore those complex tests. But let's say, like for each and every transaction, there will be an easy test. Right so. And
+
+211
+00:31:14.250 --> 00:31:28.749
+Hendrik Ebbers: I think what would be great if we can maybe do a session and record it about. Okay, look, we have the spec here for a test, which is a small test. It's, you know, not like
+
+212
+00:31:29.875 --> 00:31:36.999
+Hendrik Ebbers: send a token to another account or something like that, we, a small and basic test.
+
+213
+00:31:37.320 --> 00:32:00.210
+Hendrik Ebbers: And what we could maybe do is create a session about okay. And how is this one implemented? Because my assumption is that this will help a lot of people to be able to create new tests, and then maybe within an SDK creates a connection to it.
+
+214
+00:32:02.130 --> 00:32:25.319
+Rob Walworth: Yeah, yeah, absolutely. Yeah. The yeah. Like, I said, like the process is kinda right now, like we come up with the specs first, st and then, you know, go ahead and implement them. Once. Those are. But yeah, I think even even a little could be a 5 10 min video, just, you know, going through like, alright, we have this test in the spec. Here's how we go through and implement it. And then
+
+215
+00:32:25.320 --> 00:32:26.830
+Hendrik Ebbers: Yeah, yeah, that's
+
+216
+00:32:27.380 --> 00:32:50.240
+Hendrik Ebbers: that. That's my idea. I think creating the spec is is more complex. Right? So that is more for for internal people so happy to ask a community on on that one, too. But but I think, as a good 1st issue, as a getting started, it's quite way more easy to do. An implementation often test
+
+217
+00:32:50.760 --> 00:33:01.739
+Hendrik Ebbers: all the tests we already have now and and all that. And if we got a video for that, I think that would be really great, and would help people to to create it.
+
+218
+00:33:03.100 --> 00:33:09.330
+Rob Walworth: Yeah, yeah, I agree. Let me let me write that down so I don't forget it.
+
+219
+00:33:12.700 --> 00:33:16.265
+Jessica Gonzalez (The Linux Foundation): Is this something that you guys want to schedule for next
+
+220
+00:33:16.830 --> 00:33:19.449
+Jessica Gonzalez (The Linux Foundation): next meeting, or later down the line
+
+221
+00:33:20.120 --> 00:33:21.769
+Hendrik Ebbers: Oh, that's up, too! Well.
+
+222
+00:33:22.970 --> 00:33:26.249
+Rob Walworth: Yeah, I could. I could do it next meeting. It's that. Yeah, that'd be fine.
+
+223
+00:33:26.250 --> 00:33:28.029
+Jessica Gonzalez (The Linux Foundation): Okay, okay, I'm gonna put it in the agenda
+
+224
+00:33:28.030 --> 00:33:29.440
+Hendrik Ebbers: Great. Yeah.
+
+225
+00:33:31.680 --> 00:33:42.239
+Hendrik Ebbers: And this one can then even be, you know, like extracted and and put to Youtube, something like that, or add to to our video list. That is great. I like it. Yeah.
+
+226
+00:33:43.690 --> 00:33:46.720
+Rob Walworth: Yeah, yeah, I like it, too. That sounds like a good idea.
+
+227
+00:33:50.889 --> 00:33:53.199
+Rob Walworth: That's that's kind of all I had
+
+228
+00:33:53.850 --> 00:33:58.439
+Rob Walworth: any any last questions from anyone. Look at the chat here, if there's anything
+
+229
+00:34:05.730 --> 00:34:11.099
+Rob Walworth: alrighty. Well, thanks everyone. Looking forward to seeing your contributions
+
+230
+00:34:11.480 --> 00:34:20.539
+Jessica Gonzalez (The Linux Foundation): Thank you so much, Rob. This is really helpful, and I put you on the agenda for April. Is it? April 7? th The next meeting.
+
+231
+00:34:21.673 --> 00:34:26.106
+Jessica Gonzalez (The Linux Foundation): Yeah, I think so. But so just as a
+
+232
+00:34:28.179 --> 00:34:48.125
+Jessica Gonzalez (The Linux Foundation): as a reminder. If you look at the invite the calendar, invite, there's a link to the minutes, and anything that is planned for the agendas. And if you have any questions, or you wanna add anything to the agendas, feel free to edit this
+
+233
+00:34:48.929 --> 00:34:59.150
+Jessica Gonzalez (The Linux Foundation): this document, and it we we can. We can totally plan for that. And if you don't have access to the document, or you don't have permissions to edit it. Just let me know, and I can help out
+
+234
+00:35:00.780 --> 00:35:07.297
+Jessica Gonzalez (The Linux Foundation): alright. With that, said Hendrick. I noticed that you were away. But are you back
+
+235
+00:35:07.660 --> 00:35:13.080
+Hendrik Ebbers: I'm back. I just had a phone call. So I just to to let you know but I'm back now. Yeah.
+
+236
+00:35:13.080 --> 00:35:14.329
+Jessica Gonzalez (The Linux Foundation): Okay. Good. Good.
+
+237
+00:35:14.330 --> 00:35:14.830
+Hendrik Ebbers: Okay.
+
+238
+00:35:14.830 --> 00:35:18.870
+Jessica Gonzalez (The Linux Foundation): So shall we jump in into your discussion
+
+239
+00:35:20.511 --> 00:35:32.719
+Hendrik Ebbers: I'm fine to do it. Maybe we check if there are any other topics, any any other questions from somebody, maybe not even like with all this Tck knowledge
+
+240
+00:35:32.980 --> 00:35:36.489
+Hendrik Ebbers: in in mind. Otherwise I'm happy to continue
+
+241
+00:35:38.060 --> 00:35:46.490
+Jessica Gonzalez (The Linux Foundation): Any questions, any comments, or anything that you want to specifically see on next 2 weeks demonstration.
+
+242
+00:35:51.420 --> 00:35:52.380
+Jessica Gonzalez (The Linux Foundation): All right.
+
+243
+00:35:52.520 --> 00:35:58.110
+Jessica Gonzalez (The Linux Foundation): Well, if you have any comments later feel free to put it in the chat, and yep, go ahead, Hendrick.
+
+244
+00:35:58.410 --> 00:36:03.150
+Hendrik Ebbers: And then let me share my screen. So I have some
+
+245
+00:36:03.440 --> 00:36:24.610
+Hendrik Ebbers: organization and informal points regarding the work on the sdks, especially since I would like to to bring some of those points to the tsc. Tomorrow or next week. So in the
+
+246
+00:36:25.180 --> 00:36:28.229
+Hendrik Ebbers: previous meeting, and and in some
+
+247
+00:36:28.830 --> 00:36:38.681
+Hendrik Ebbers: discussions I had with several of yeah of you who are here in the meeting. We discussed about
+
+248
+00:36:39.500 --> 00:36:53.179
+Hendrik Ebbers: how to, you know, make the work for for sdks more easy how to create best practices and workflows for all the sdks and and how to store all that information. And
+
+249
+00:36:53.590 --> 00:37:06.879
+Hendrik Ebbers: last meeting. So 2 weeks ago, we said, Okay, best best to do so is having an an repository that contains all those information. And we created
+
+250
+00:37:07.060 --> 00:37:16.139
+Hendrik Ebbers: 2 weeks ago, then in in this meeting a Github discussion regarding finding a good name of that
+
+251
+00:37:16.710 --> 00:37:26.530
+Hendrik Ebbers: repository, and and what should be in that repository? And and when scrolling down, we had a lot of ideas, a lot of
+
+252
+00:37:26.600 --> 00:37:50.510
+Hendrik Ebbers: discussion going on with names. 1st of all. Thank you so much for all that, especially people from from the community who who contributed to it. That is really really great. And and my wish for today would be to get get this meeting
+
+253
+00:37:51.650 --> 00:38:03.030
+Hendrik Ebbers: to a point where we say, yes, that is what we want as a name, and we will move that forward to the technical steering committee to get that repository created
+
+254
+00:38:04.390 --> 00:38:12.310
+Hendrik Ebbers: at the end, with all the discussion going on. I think we had
+
+255
+00:38:12.510 --> 00:38:30.260
+Hendrik Ebbers: 2, maybe with contributor on collaboration, maybe at the end 3 where we said, Oh, yeah, that makes sense or can make sense with this SDK collaboration. Docs, SDK, collaboration hub.
+
+256
+00:38:30.410 --> 00:38:44.509
+Hendrik Ebbers: SDK contributor docs. We could do an SDK contributor hub for sure, too, maybe. What describes it. The best is SDK proposal and contributor Docs or Hub, but
+
+257
+00:38:45.160 --> 00:39:02.630
+Hendrik Ebbers: I and and some others agrees on. As you can see, I wrote this, that this is a very wrong name for repository, right? And with all that. Are there any any other voices here in the
+
+258
+00:39:05.650 --> 00:39:14.249
+Hendrik Ebbers: in this call regarding naming of that repository? Or should we just go to to find, make a decision on it?
+
+259
+00:39:18.580 --> 00:39:22.399
+Jessica Gonzalez (The Linux Foundation): I want a boat for the SDK collaboration hub. I like that
+
+260
+00:39:23.010 --> 00:39:24.539
+Hendrik Ebbers: Me, too. Yeah.
+
+261
+00:39:24.540 --> 00:39:25.660
+Simi Hunjan: I like that one, too.
+
+262
+00:39:26.630 --> 00:39:32.149
+Hendrik Ebbers: So I I think what we can do is we just do a vote
+
+263
+00:39:35.030 --> 00:39:44.880
+Jessica Gonzalez (The Linux Foundation): All right. So can you raise your hand if you agree on SDK, collaboration, Docs
+
+264
+00:39:45.480 --> 00:39:49.521
+Hendrik Ebbers: And you can. I would say you can agree on more than one right
+
+265
+00:39:49.810 --> 00:39:50.740
+Jessica Gonzalez (The Linux Foundation): You can agree on more than one
+
+266
+00:39:50.740 --> 00:39:58.440
+Hendrik Ebbers: Yeah, yeah, if if you like that name and say, Oh, yeah, that is the name that would make sense. Give it a thumbs up
+
+267
+00:39:59.460 --> 00:40:04.859
+Sophie Bulloch: And Drake before the vote. Would it be possible you could just quickly confirm what the scope of the
+
+268
+00:40:05.860 --> 00:40:07.209
+Sophie Bulloch: file will contain?
+
+269
+00:40:07.610 --> 00:40:09.778
+Hendrik Ebbers: Makes sense. Thank you.
+
+270
+00:40:10.320 --> 00:40:11.400
+Jessica Gonzalez (The Linux Foundation): Sorry. I noticed something
+
+271
+00:40:12.390 --> 00:40:34.870
+Hendrik Ebbers: I've seen a lot of thumbs up already. But, Sofia, you're totally right. So I mean, it's not a flag. It's a repository right? And the idea of this repository is that we have a good place where we can store information and and with information. It's mostly about documentation
+
+272
+00:40:35.120 --> 00:40:47.470
+Hendrik Ebbers: that is interesting for all sdks. What that can be that can be so so Rob worked on a template regarding
+
+273
+00:40:47.930 --> 00:40:55.350
+Hendrik Ebbers: new things that need to be implemented by any SDK like when a new functionality comes to
+
+274
+00:40:55.570 --> 00:41:21.209
+Hendrik Ebbers: to the hierarch consensus node, creating an a document based on that template that describes what need to be done by the Sdks, and then have like rings for all the different sdks for issues in them. So that we have a central place showing. Yeah, that is, what need to be implemented for all those things? Then we have
+
+275
+00:41:22.110 --> 00:41:36.314
+Hendrik Ebbers: general documentation about how to contribute? We. We have documentation about how should an SDK in best practice use the protobuff
+
+276
+00:41:37.790 --> 00:41:52.781
+Hendrik Ebbers: information to create code out out of the protobuf files to work with the, you know, communication layer of the consensus node we have. I wanted to show that as the second part, once we've
+
+277
+00:41:54.704 --> 00:42:07.450
+Hendrik Ebbers: found a name, but but I can do it now I think it makes sense. And Rob and I, for example, we created a document, and it's currently super hidden because we do not have that repository.
+
+278
+00:42:07.540 --> 00:42:25.649
+Hendrik Ebbers: And sadly, we still don't have a block all that will come, but but for now this document is here, which is named SDK Workflows, where Rob and I already start to write down best practices how to handle protobuf
+
+279
+00:42:25.650 --> 00:42:54.639
+Hendrik Ebbers: information regarding solo node roku node. Then how to name things getting away from from Hedera, more to using Hiro in the names. Then what is about refactoring code? Other things that we need to change with sdks, especially those sdks coming from from hedera. So what do we want to change in the sdks to be more generic for Hiro based approach?
+
+280
+00:42:55.431 --> 00:43:01.500
+Hendrik Ebbers: So all those are good examples of content of
+
+281
+00:43:02.190 --> 00:43:11.620
+Hendrik Ebbers: that repository. For sure it will list like all the different sdks, the the Tc, the Tck for sdks.
+
+282
+00:43:11.780 --> 00:43:13.053
+Hendrik Ebbers: all that.
+
+283
+00:43:15.140 --> 00:43:31.039
+Hendrik Ebbers: yeah, I don't want to do a hard definition of what is inside. Because I think this repo will grow, and over time we will find out what makes sense and what works quite well in that repo. Does does that make sense?
+
+284
+00:43:39.920 --> 00:43:43.420
+Hendrik Ebbers: No answer is taken as Yes for me.
+
+285
+00:43:43.420 --> 00:43:44.492
+Jessica Gonzalez (The Linux Foundation): Is a good answer.
+
+286
+00:43:45.450 --> 00:43:48.210
+Hendrik Ebbers: So let me just
+
+287
+00:43:48.900 --> 00:44:00.988
+Jessica Gonzalez (The Linux Foundation): The boat for the vote. Please use the raise hand feature so that it stays longer because the thumbs up only stays there for a little bit. So
+
+288
+00:44:01.420 --> 00:44:04.550
+Hendrik Ebbers: And just all right you want
+
+289
+00:44:05.080 --> 00:44:05.730
+Jessica Gonzalez (The Linux Foundation): One of them
+
+290
+00:44:05.730 --> 00:44:08.179
+Hendrik Ebbers: If if you give me a second
+
+291
+00:44:08.700 --> 00:44:14.080
+Hendrik Ebbers: Jessica, I can prepare already all possible names
+
+292
+00:44:14.230 --> 00:44:14.900
+Jessica Gonzalez (The Linux Foundation): Okay.
+
+293
+00:44:15.210 --> 00:44:25.009
+Hendrik Ebbers: So then people see what would be possible. And yeah, and now, if you want, you can start at the top on at the top
+
+294
+00:44:25.010 --> 00:44:36.150
+Jessica Gonzalez (The Linux Foundation): All right. Thank you. Hendrik. Okay, remember. Use your raise hand, Emoji. So who wants to vote for SDK collaboration? Docs.
+
+295
+00:44:39.400 --> 00:44:46.300
+Jessica Gonzalez (The Linux Foundation): we have 1, 2, 3, we have 3, 4.
+
+296
+00:44:49.020 --> 00:44:52.709
+Jessica Gonzalez (The Linux Foundation): Alright, we have 4 in the 1st one, Hendrick
+
+297
+00:44:53.560 --> 00:44:54.380
+Hendrik Ebbers: Thank you.
+
+298
+00:44:58.690 --> 00:44:59.020
+Jessica Gonzalez (The Linux Foundation): Goodbye.
+
+299
+00:44:59.020 --> 00:45:00.030
+Jessica Gonzalez (The Linux Foundation): Yeah. The
+
+300
+00:45:00.030 --> 00:45:07.619
+Jessica Gonzalez (The Linux Foundation): yeah. Just use the raise hand so that it's it stays there for a little bit longer. Okay, next
+
+301
+00:45:08.150 --> 00:45:10.960
+Jessica Gonzalez (The Linux Foundation): who wants to vote for the SDK collaboration hub
+
+302
+00:45:14.810 --> 00:45:16.910
+Hendrik Ebbers: I see. 4, 5.
+
+303
+00:45:21.800 --> 00:45:22.300
+Hendrik Ebbers: Bye.
+
+304
+00:45:24.450 --> 00:45:27.190
+Jessica Gonzalez (The Linux Foundation): SDK contributor, Doc.
+
+305
+00:45:31.230 --> 00:45:32.490
+Hendrik Ebbers: I see one
+
+306
+00:45:32.490 --> 00:45:32.890
+Jessica Gonzalez (The Linux Foundation): 2,
+
+307
+00:45:32.890 --> 00:45:33.640
+Hendrik Ebbers: 2,
+
+308
+00:45:33.810 --> 00:45:34.470
+Jessica Gonzalez (The Linux Foundation): 3,
+
+309
+00:45:34.470 --> 00:45:35.270
+Hendrik Ebbers: 3,
+
+310
+00:45:36.730 --> 00:45:37.410
+Jessica Gonzalez (The Linux Foundation): 3,
+
+311
+00:45:38.030 --> 00:45:38.760
+Hendrik Ebbers: Sweet.
+
+312
+00:45:38.760 --> 00:45:40.263
+Jessica Gonzalez (The Linux Foundation): Hendrik, have you voted
+
+313
+00:45:40.839 --> 00:45:42.439
+Hendrik Ebbers: Will work on the next one, that is.
+
+314
+00:45:42.440 --> 00:45:43.430
+Jessica Gonzalez (The Linux Foundation): Okay. Okay.
+
+315
+00:45:43.430 --> 00:45:44.960
+Hendrik Ebbers: To half of my favorite
+
+316
+00:45:45.550 --> 00:45:50.749
+Jessica Gonzalez (The Linux Foundation): Oh, yeah, I noticed that. What? Okay? I'm gonna vote twice. I'm sorry. SDK contributor hub
+
+317
+00:45:55.450 --> 00:45:58.710
+Hendrik Ebbers: 4, 4 on it. Okay.
+
+318
+00:46:01.600 --> 00:46:09.576
+Jessica Gonzalez (The Linux Foundation): And 2 more SDK proposal and contributor docs. Just remember that it's gonna be longer to work with.
+
+319
+00:46:14.260 --> 00:46:18.190
+Jessica Gonzalez (The Linux Foundation): Oh, Sarah and SDK proposal and contributor Hub.
+
+320
+00:46:22.640 --> 00:46:23.420
+Hendrik Ebbers: Okay.
+
+321
+00:46:23.420 --> 00:46:24.240
+Hendrik Ebbers: Okay.
+
+322
+00:46:24.240 --> 00:46:25.630
+Hendrik Ebbers: Oh, look, flirt.
+
+323
+00:46:25.630 --> 00:46:26.800
+Jessica Gonzalez (The Linux Foundation): You're on the 1st 2. No.
+
+324
+00:46:26.800 --> 00:46:30.570
+Hendrik Ebbers: We have a second round
+
+325
+00:46:31.180 --> 00:46:31.850
+Jessica Gonzalez (The Linux Foundation): Yes.
+
+326
+00:46:32.000 --> 00:46:33.630
+Hendrik Ebbers: For those 2.
+
+327
+00:46:33.800 --> 00:46:38.299
+Hendrik Ebbers: So now it's only those 2, and you're only allowed to vote on. One
+
+328
+00:46:41.670 --> 00:46:42.720
+Hendrik Ebbers: makes sense right?
+
+329
+00:46:42.720 --> 00:46:50.370
+Jessica Gonzalez (The Linux Foundation): Yeah, it makes sense. So please only vote on one of them. Sdk, collaboration docs.
+
+330
+00:46:53.810 --> 00:47:01.020
+Jessica Gonzalez (The Linux Foundation): we have 3 and SDK collaboration hub.
+
+331
+00:47:05.000 --> 00:47:09.610
+Hendrik Ebbers: 4, 5. Good. I was like, Oh, no, it's 3 again.
+
+332
+00:47:09.790 --> 00:47:09.970
+Hendrik Ebbers: But
+
+333
+00:47:09.970 --> 00:47:19.299
+Hendrik Ebbers: oh, yeah, 6. Okay, that's good. So that is great. So the repo will be named SDK. Collaboration hub.
+
+334
+00:47:22.390 --> 00:47:24.909
+Hendrik Ebbers: Can I do like? I don't know how to do a
+
+335
+00:47:25.070 --> 00:47:29.890
+Hendrik Ebbers: yay emoji. Yeah, that one that Roger did. I wanted to edit, but no idea how to do it.
+
+336
+00:47:30.240 --> 00:47:46.989
+Hendrik Ebbers: So collaboration. Hub, I I hope, you guys, that we do this like with you, and really trying to be that open to to even discuss those points with you, if you say like, Oh, yeah, that is
+
+337
+00:47:48.170 --> 00:47:55.009
+Hendrik Ebbers: thought, was it? Just just do it. We're we're fine, too. I think we still need to find you know what is the best
+
+338
+00:47:55.180 --> 00:48:02.909
+Hendrik Ebbers: to to discuss in this communities in in general, and what we should just do like in in the background, asynchronously.
+
+339
+00:48:03.350 --> 00:48:08.609
+Hendrik Ebbers: But but I like to do such discussions here here in the meeting.
+
+340
+00:48:08.800 --> 00:48:19.279
+Hendrik Ebbers: and I see 2 hands up from Simi and Ruth. Are those still voting hands up, or is it like, Hey, I want to say, Okay, good. Was still voting hands up.
+
+341
+00:48:20.210 --> 00:48:27.410
+Hendrik Ebbers: Good. So with that, can I? Can I close this one? I don't know
+
+342
+00:48:27.890 --> 00:48:31.669
+Jessica Gonzalez (The Linux Foundation): Yeah, you can probably close that just with the we have the result. And
+
+343
+00:48:33.030 --> 00:48:33.790
+Rob Walworth: Maybe
+
+344
+00:48:33.790 --> 00:48:34.819
+Hendrik Ebbers: Oh, yeah, cool.
+
+345
+00:48:34.820 --> 00:48:39.400
+Rob Walworth: Is it until it's like fully voted on or approved by the Ts committee.
+
+346
+00:48:40.210 --> 00:48:48.849
+Hendrik Ebbers: I I closed it. So we we have a voting which is really nice. And and with that in mind
+
+347
+00:48:48.850 --> 00:48:53.763
+Jessica Gonzalez (The Linux Foundation): Put that in the schedule for the Tsc. Tomorrow. Hendrick.
+
+348
+00:48:54.210 --> 00:49:17.104
+Hendrik Ebbers: Yeah, yeah, I will. I will. Put it. I mean, I cannot put it on the agenda anymore, because the agenda has been. It's only a possibility, Friday, to put something on it. But we have any other business, and that will be like, Hey, we propose it. Can we just vote, and we will vote, and I don't think anybody will have a problem with that. So that that will be easy.
+
+349
+00:49:18.540 --> 00:49:28.950
+Hendrik Ebbers: So the other thing I would like to show is, and we already had a short
+
+350
+00:49:29.050 --> 00:49:32.620
+Hendrik Ebbers: info about that, Rob. Where's your oh, here we go.
+
+351
+00:49:33.630 --> 00:49:47.950
+Hendrik Ebbers: so so as said, what Rob did is he created this temperate about how should all the SDK
+
+352
+00:49:50.008 --> 00:50:02.752
+Hendrik Ebbers: committers, maintainers, contributors, are informed about news in the Hyro ecosystem that makes sense to be implemented in
+
+353
+00:50:04.330 --> 00:50:15.770
+Hendrik Ebbers: an SDK, and we have a pull request at the moment I can. Oh, let me just go to the conversation, and then I can share the pull request with you. It's this one
+
+354
+00:50:17.840 --> 00:50:33.200
+Hendrik Ebbers: so if if you are working on the sdks, plan to work on the sdks your feedback on on that is we welcome. Is it understandable? Does it make sense?
+
+355
+00:50:35.050 --> 00:50:36.759
+Hendrik Ebbers: So that is
+
+356
+00:50:38.020 --> 00:50:44.500
+Hendrik Ebbers: how it currently looks like? I think what is missing here, but I think I added it as a
+
+357
+00:50:44.960 --> 00:51:06.850
+Hendrik Ebbers: command already is like a sample of the issues of all the SDK repos that should be created, so that we have an issue for each and any SDK repo for for such and document that it gets implemented. But it even already includes test brands for the tck, and so on, which is really quite nice.
+
+358
+00:51:08.104 --> 00:51:19.789
+Hendrik Ebbers: So that will be something that will definitely become part of the SDK repository then, and then the other
+
+359
+00:51:20.595 --> 00:51:25.754
+Hendrik Ebbers: initial artifact that that we have is is this document
+
+360
+00:51:27.080 --> 00:51:34.830
+Hendrik Ebbers: next to that, we currently have a github discussion going on about
+
+361
+00:51:36.440 --> 00:51:48.350
+Hendrik Ebbers: backward compatibility and breaking changes, which, again, is very important for the for the Sdks. Because we are currently at this point where we
+
+362
+00:51:48.510 --> 00:52:06.450
+Hendrik Ebbers: want to refactor those sdks coming from from hedera to a more generic approach. And what we definitely don't want to do is break users right? So with with that in mind, we need to find
+
+363
+00:52:07.095 --> 00:52:19.399
+Hendrik Ebbers: good patterns and and a good architecture that we can extend the sdks makes them more open, but do not break anybody else.
+
+364
+00:52:19.820 --> 00:52:29.620
+Hendrik Ebbers: And the last thing I I would like to mention, and we haven't written that down so far because that was like
+
+365
+00:52:30.585 --> 00:52:33.159
+Hendrik Ebbers: still in discussion is about
+
+366
+00:52:35.220 --> 00:53:00.720
+Hendrik Ebbers: about publishing the SDK. So during releases, and we currently publish to to Npmjs, we publish to Maven Central. We plan, or we publish to Pypi with a new python. SDK, we plan to publish, to create for our rust SDK, as far as I know, for go and
+
+367
+00:53:01.520 --> 00:53:19.989
+Hendrik Ebbers: swift and and C plus plus. There are just no repositories where we can publish to, but we will continue and and even publish with create 2 more repositories. And one thing we find out is that
+
+368
+00:53:20.390 --> 00:53:42.410
+Hendrik Ebbers: what we want to do is when we publish to to those repositories we want to move from the Hedera namespace to the Hiro namespace. Right? So in future, at Maven Central there will be the group, id arc dot hiro instead of com hedera for the Java SDK as an example.
+
+369
+00:53:43.170 --> 00:53:58.539
+Hendrik Ebbers: This don't mean that we directly change all packages of all the classes of the SDK. But the coordinates of the artifact. How you can download it changes. 1 point. Here is
+
+370
+00:53:58.620 --> 00:54:23.080
+Hendrik Ebbers: what is special is the Javascript SDK, because when we change the edit, the coordinate of the Javascript, SDK at Npmjs from hashgraph slash SDK to highway slash. SDK. This will mean that automatically. All imports in typescript in
+
+371
+00:54:23.390 --> 00:54:30.094
+Hendrik Ebbers: or I don't know like samples in all applications that are using the
+
+372
+00:54:31.380 --> 00:54:45.929
+Hendrik Ebbers: javascript SDK will get broken, because when going to Npmjs and searching for hash craft, slash SDK
+
+373
+00:54:46.627 --> 00:54:56.290
+Hendrik Ebbers: as you can see it's already named Hiro SDK, because we oops we currently publishing under
+
+374
+00:54:57.000 --> 00:55:05.789
+Hendrik Ebbers: this coordinate the the Hiro SDK, because when you import
+
+375
+00:55:06.090 --> 00:55:12.569
+Hendrik Ebbers: like in your Javascript code something from the hierar. SDK, you
+
+376
+00:55:13.230 --> 00:55:18.365
+Hendrik Ebbers: do it like this. And and this is the name of the Npmjs
+
+377
+00:55:18.890 --> 00:55:23.130
+Hendrik Ebbers: artifact. So our plan is, and
+
+378
+00:55:23.660 --> 00:55:39.039
+Hendrik Ebbers: I don't know if if Roger has some more information about yes, it's really we do able, or maybe it will become a problem. But but our plan is to like for a period of maybe half a year.
+
+379
+00:55:39.180 --> 00:55:53.450
+Hendrik Ebbers: publish all the releases, chooses old coordinate hash, graph, slash, SDK plus. Choose a new coordinate which will be hiro slash SDK, which gives
+
+380
+00:55:53.550 --> 00:56:15.189
+Hendrik Ebbers: people who use the sdks more time to to change it, to not break anything and give our marketing people the people who create the the documentation, who create examples and so on some time to even update all those to to highway SDK,
+
+381
+00:56:16.730 --> 00:56:34.960
+Hendrik Ebbers: we said, we cannot do that for each and everyone for Javascript. We will be able to do that for Java. We still check it. That's my last information. I don't know if Roger has more concrete information about that.
+
+382
+00:56:35.420 --> 00:56:49.220
+Hendrik Ebbers: but the idea is, if possible, publish it under both namespaces, for now for a given period of time, and then stop with with the old namespace to publish it.
+
+383
+00:56:51.314 --> 00:56:55.120
+Hendrik Ebbers: Any questions or comments on that
+
+384
+00:56:56.130 --> 00:57:00.933
+Roger Barker: I'll just. I'll just say real quick. This is Roger. I'm putting together a design document. Today.
+
+385
+00:57:01.440 --> 00:57:07.390
+Roger Barker: I'm hoping to have reviewed by some of the experts on on this side before the Tsc. Meeting tomorrow.
+
+386
+00:57:07.690 --> 00:57:08.350
+Roger Barker: So
+
+387
+00:57:09.020 --> 00:57:12.270
+Hendrik Ebbers: Perfect that that sounds great. Thank you very much.
+
+388
+00:57:13.730 --> 00:57:19.539
+Hendrik Ebbers: Okay, good. So yeah. As you see, we're we're working on on making that happen.
+
+389
+00:57:20.545 --> 00:57:32.889
+Hendrik Ebbers: Any any other questions? Information wishes what we should do in upcoming. SDK, community meetings.
+
+390
+00:57:38.830 --> 00:58:01.600
+Hendrik Ebbers: Okay? If if not, I have one last short information. So if you are already on the Afd discord, which is a discord that we use for our general communication public communication, you will see that the
+
+391
+00:58:01.820 --> 00:58:29.480
+Hendrik Ebbers: python SDK. Is currently trying to set up meetings, especially for the python SDK to work together on the SDK to sync the work and so on. And if you are interested in in the python, SDK, you should have a look at that and and get in contact with those people. I'm seeing Sophie here. I'm seeing Angelina here. So the people who are driving that are here in in the meeting.
+
+392
+00:58:29.630 --> 00:58:33.238
+Hendrik Ebbers: If you are not in the
+
+393
+00:58:34.220 --> 00:58:50.470
+Hendrik Ebbers: Ox Foundation decentralized trust discord you should definitely join. I'm sending the link here, and if you would like to contribute to another SDK than the python SDK like the Java SDK, or whatever, and
+
+394
+00:58:50.740 --> 00:59:04.729
+Hendrik Ebbers: I, I assume people are happy to set up meetings to come together with you, even for specific sdks, and and help you contribute on it. So if you're interested in that, just ping me and I will forward it.
+
+395
+00:59:05.395 --> 00:59:08.584
+Hendrik Ebbers: Was that. Yeah, we're already over time.
+
+396
+00:59:09.150 --> 00:59:29.410
+Hendrik Ebbers: I hope you like those meetings feedback is more than welcome, positive and negative, and with that I hope to see you tomorrow in the Tsc. Meeting, because, as any of our meetings that is public and open to or in the next community meeting. Yeah, thank you.
+
+397
+00:59:29.410 --> 00:59:31.330
+Jessica Gonzalez (The Linux Foundation): Thank you, Hendrik. Thank you, Rob.
+
+398
+00:59:31.620 --> 00:59:32.630
+Sophie Bulloch: Thank you.
+
+399
+00:59:32.810 --> 00:59:34.230
+Rob Walworth: Thanks. Everyone. See ya
+
+400
+00:59:34.230 --> 00:59:34.920
+Jessica Gonzalez (The Linux Foundation): Bye.
+
+401
+00:59:34.920 --> 00:59:36.090
+Hendrik Ebbers: Yeah, bye.
+

@@ -1,0 +1,762 @@
+WEBVTT
+
+1
+00:00:32.250 --> 00:00:34.279
+Tim Nunamaker: If you're watching the recording, we'll just give…
+
+2
+00:00:34.590 --> 00:00:36.259
+Tim Nunamaker: Folks, a moment or two to join.
+
+3
+00:00:36.510 --> 00:00:37.710
+Tim Nunamaker: And then I'll get started.
+
+4
+00:01:58.410 --> 00:02:02.359
+Tim Nunamaker: Alright, let me just adjust my screen.
+
+5
+00:02:04.270 --> 00:02:05.900
+Tim Nunamaker: You can see this properly.
+
+6
+00:02:06.600 --> 00:02:12.059
+Tim Nunamaker: So today… Today is a little bit different than past sessions.
+
+7
+00:02:12.380 --> 00:02:14.360
+Tim Nunamaker: Hey, Tonhan. Good to see you.
+
+8
+00:02:14.360 --> 00:02:15.090
+TonChanh Le: Hey, Tim.
+
+9
+00:02:16.940 --> 00:02:25.400
+Tim Nunamaker: Just getting started. Yeah, so in the past, these sessions have really been about the PDPP open standard.
+
+10
+00:02:25.550 --> 00:02:32.030
+Tim Nunamaker: Whereas today is going to be more of a practical introduction to data connectors that exist within the PDP Connect Lab.
+
+11
+00:02:32.490 --> 00:02:39.309
+Tim Nunamaker: And this is tailored for builders, but really anybody that's interested in
+
+12
+00:02:40.220 --> 00:02:43.420
+Tim Nunamaker: Working with data connectors, or using data connectors.
+
+13
+00:02:44.190 --> 00:02:48.409
+Tim Nunamaker: is… is… may learn something interesting here, and I can…
+
+14
+00:02:48.540 --> 00:02:56.129
+Tim Nunamaker: also point you in the right direction, for where to play around with this. I'll hopefully get to show Data Connect a little bit, which is an app that you can use.
+
+15
+00:02:56.290 --> 00:02:58.290
+Tim Nunamaker: With data connectors.
+
+16
+00:03:00.140 --> 00:03:04.809
+Tim Nunamaker: So, if you want to just jump right in, go ahead and…
+
+17
+00:03:05.050 --> 00:03:11.059
+Tim Nunamaker: head to the PDP Connect GitHub repo. There are 3 different repositories here.
+
+18
+00:03:11.300 --> 00:03:13.179
+Tim Nunamaker: And just to summarize what they are…
+
+19
+00:03:13.570 --> 00:03:18.930
+Tim Nunamaker: the PDPP standard and website live within the PDPP repo.
+
+20
+00:03:19.380 --> 00:03:28.480
+Tim Nunamaker: And then we have Data Connect, which is an application that can run either on a desktop or on a server as a sort of personal server for your data.
+
+21
+00:03:28.650 --> 00:03:33.440
+Tim Nunamaker: And we have data connectors, which define
+
+22
+00:03:33.790 --> 00:03:40.799
+Tim Nunamaker: They implement a runtime which allows them to connect to upstream data sources,
+
+23
+00:03:41.030 --> 00:03:46.890
+Tim Nunamaker: Think email, social media, really anything where you could connect personal data.
+
+24
+00:03:47.170 --> 00:03:53.539
+Tim Nunamaker: There's… Maybe 50 to 60 data connectors in there right now, and it's growing very fast.
+
+25
+00:03:54.740 --> 00:03:58.200
+Tim Nunamaker: And those data connectors can actually be used within Data Connect.
+
+26
+00:03:59.690 --> 00:04:04.190
+Tim Nunamaker: Just a few call-outs of what might be interesting within these repos.
+
+27
+00:04:04.390 --> 00:04:11.069
+Tim Nunamaker: They all have some contributor notes if you want to submit pull requests, or issues, or feature requests.
+
+28
+00:04:11.720 --> 00:04:14.090
+Tim Nunamaker: In the Data Connectors repo.
+
+29
+00:04:14.290 --> 00:04:27.090
+Tim Nunamaker: There's… you'll see at the top level, there's a directory called connectors, and you'll… it'll be pretty obvious that there are a bunch of different platforms where you can see how data connectors to those platforms have been created by the community.
+
+30
+00:04:27.920 --> 00:04:30.389
+Tim Nunamaker: And then within that same data connectors repo.
+
+31
+00:04:30.520 --> 00:04:45.739
+Tim Nunamaker: There's a package called Polyfill Connectors, which, it's a little bit awkwardly named a historical artifact, but that's really just shared tools for data connectors. There are many patterns that appear across different data connectors.
+
+32
+00:04:45.880 --> 00:04:49.770
+Tim Nunamaker: Or their implementations, and so having some way to share
+
+33
+00:04:49.910 --> 00:04:56.399
+Tim Nunamaker: Some of that logic and those techniques, is useful, and there is a package for that.
+
+34
+00:04:56.800 --> 00:04:59.680
+Tim Nunamaker: And then the collection profile is probably
+
+35
+00:04:59.960 --> 00:05:03.220
+Tim Nunamaker: One of the most important things in the Data Connectors repo.
+
+36
+00:05:03.480 --> 00:05:07.100
+Tim Nunamaker: And this is, like, a companion specification to PDPP.
+
+37
+00:05:07.260 --> 00:05:20.809
+Tim Nunamaker: that defines a protocol. So PDPP defines how do you consent to data, and how do you grant access to data with APIs. The collection profile for data connectors is
+
+38
+00:05:21.130 --> 00:05:40.789
+Tim Nunamaker: maybe I have a server, I want to get some data into it, but I need some standard way of going out and collecting data from data sources that are not under my direct control. The collection profile, I'll explain kind of how it works. That's a separate protocol for a standard way to collect data.
+
+39
+00:05:44.690 --> 00:05:53.079
+Tim Nunamaker: All data connectors implement the collection profile, and the key piece of a data connector
+
+40
+00:05:53.310 --> 00:05:58.980
+Tim Nunamaker: That makes it compatible with PDPP and with the collection profile.
+
+41
+00:05:59.110 --> 00:06:03.760
+Tim Nunamaker: is… it's manifest. And so this manifest is…
+
+42
+00:06:03.910 --> 00:06:13.840
+Tim Nunamaker: basically an extension of the source declaration in the PDPP standard, and so this is where you're going to see what is the shape of the data.
+
+43
+00:06:14.360 --> 00:06:18.289
+Tim Nunamaker: What is the identifier for this, connector?
+
+44
+00:06:18.470 --> 00:06:21.420
+Tim Nunamaker: And what version is it on?
+
+45
+00:06:21.560 --> 00:06:28.900
+Tim Nunamaker: You'll also see… For this piece of code that implements data collection for this data source.
+
+46
+00:06:29.060 --> 00:06:42.180
+Tim Nunamaker: what exactly is required, from the runtime that it's executing within. So if it needs to access the internet, things like that, it can declare, sort of runtime requirements.
+
+47
+00:06:42.280 --> 00:06:49.329
+Tim Nunamaker: And it may also have requirements about keeping a human in the loop, or reaching out to some
+
+48
+00:06:49.740 --> 00:06:54.889
+Tim Nunamaker: External agent to fulfill some kinds of interactions.
+
+49
+00:06:55.430 --> 00:07:08.380
+Tim Nunamaker: And then finally, to make data connectors really useful within user-facing applications, they're able to provide metadata for things like branding and helpful information for users.
+
+50
+00:07:08.590 --> 00:07:09.680
+Tim Nunamaker: in UIs.
+
+51
+00:07:12.170 --> 00:07:13.749
+Tim Nunamaker: Take care, and thanks for joining.
+
+52
+00:07:14.000 --> 00:07:17.160
+Tim Nunamaker: Okay, so this is basically…
+
+53
+00:07:17.300 --> 00:07:19.810
+Tim Nunamaker: The life cycle of a data connector.
+
+54
+00:07:20.330 --> 00:07:26.200
+Tim Nunamaker: And you can think of a data connector as running this Stateful Execution protocol.
+
+55
+00:07:26.480 --> 00:07:33.000
+Tim Nunamaker: At a very basic level, all a data connector is doing is collecting data, and that's this big green circle.
+
+56
+00:07:33.550 --> 00:07:36.129
+Tim Nunamaker: So we need to start that process.
+
+57
+00:07:36.260 --> 00:07:43.219
+Tim Nunamaker: with some initialization, then we need to end it, then we can admit that we are done collecting data. And then…
+
+58
+00:07:43.350 --> 00:07:52.999
+Tim Nunamaker: in between, or during this process, we may need to bring a human in the loop, or we may need to request some information. So, for example, if
+
+59
+00:07:53.330 --> 00:07:57.160
+Tim Nunamaker: I have credentials that I don't want to provide directly
+
+60
+00:07:57.310 --> 00:08:03.149
+Tim Nunamaker: To the runtime, or to the data connector, and save those on disk, or something like that.
+
+61
+00:08:03.420 --> 00:08:18.229
+Tim Nunamaker: They can be requested during the collection process. Maybe the runtime will mediate that by notifying the user, hey, this data connector needs a passkey, or some kind of manual approval or interaction.
+
+62
+00:08:18.440 --> 00:08:26.530
+Tim Nunamaker: Or maybe the human delegates that to some other process that they have, but there's… A handoff.
+
+63
+00:08:26.790 --> 00:08:30.619
+Tim Nunamaker: over… Like, an interaction, which can be scripted.
+
+64
+00:08:31.020 --> 00:08:35.949
+Tim Nunamaker: And then if that interaction is fulfilled, then the data connector can go back to collecting data.
+
+65
+00:08:36.299 --> 00:08:40.659
+Tim Nunamaker: Of course, data connectors can fail, and then there are different kinds of
+
+66
+00:08:41.090 --> 00:08:45.600
+Tim Nunamaker: Like, error codes and information that can be emitted throughout the process.
+
+67
+00:08:46.070 --> 00:09:02.949
+Tim Nunamaker: And I also don't want to undersell the initialization piece of this. The runtime has an important job of making sure that the data connector actually has what it needs. It validates that the data connector has a PDP-conformant manifest, and
+
+68
+00:09:03.050 --> 00:09:08.260
+Tim Nunamaker: That the, sort of, state of the world perhaps there's…
+
+69
+00:09:08.740 --> 00:09:12.319
+Tim Nunamaker: A database that the data is going into that
+
+70
+00:09:12.560 --> 00:09:17.610
+Tim Nunamaker: Basically, everything is set up for the data connector to start at the right point and have the right information.
+
+71
+00:09:20.020 --> 00:09:23.810
+Tim Nunamaker: So, the… a data connector can actually support
+
+72
+00:09:24.650 --> 00:09:27.390
+Tim Nunamaker: Like, let's say, many different streams.
+
+73
+00:09:27.760 --> 00:09:33.809
+Tim Nunamaker: But could be requested to only collect one of them, or collect a subset of them.
+
+74
+00:09:33.950 --> 00:09:44.780
+Tim Nunamaker: It could also be requested to collect some time range of data. And so, if you have an API key to some data source, then you could say, I'm only going to make API requests
+
+75
+00:09:44.910 --> 00:09:53.639
+Tim Nunamaker: with this filter, this time range filter, or for these specific, resources in the API.
+
+76
+00:09:53.890 --> 00:09:58.440
+Tim Nunamaker: And so, the data connect… data connectors can generally be
+
+77
+00:10:00.710 --> 00:10:04.899
+Tim Nunamaker: Efficient based on the request, or what they're being asked to collect.
+
+78
+00:10:07.300 --> 00:10:15.890
+Tim Nunamaker: There's a lot on this slide. I think the important thing here is that the runtime is really connecting a bunch of different pieces together.
+
+79
+00:10:17.230 --> 00:10:26.830
+Tim Nunamaker: If there's a human who needs to be a part of the collection process, the runtime is able to mediate those interactions through the collection profile standard.
+
+80
+00:10:26.960 --> 00:10:40.990
+Tim Nunamaker: the manifest is sort of the contract that makes the data connector compatible with PDPP, and says everything else that needs to happen, during the collection process that the runtime
+
+81
+00:10:41.550 --> 00:10:44.610
+Tim Nunamaker: we'll need to facilitate.
+
+82
+00:10:45.310 --> 00:10:56.550
+Tim Nunamaker: the runtime will connect to what is the resource server where the data is stored, so the data connector will be emitting records, and those records are going to be in the PDPP
+
+83
+00:10:56.690 --> 00:11:11.750
+Tim Nunamaker: record model format, and you can read that on the PDPP core spec, but those records need some place to go, and the whole point of this is to collect the data so it would be collected into our PDPP-compatible or conformant resource server.
+
+84
+00:11:14.260 --> 00:11:24.090
+Tim Nunamaker: yeah, I think that's probably the key points here. And then maybe something worth mentioning, without getting all the way into all of these details, is that
+
+85
+00:11:24.390 --> 00:11:26.849
+Tim Nunamaker: As records are being emitted.
+
+86
+00:11:27.660 --> 00:11:36.579
+Tim Nunamaker: There's actually some non-trivial logic that may need to happen before we can get all the way to this green checkmark, where the data connector can say.
+
+87
+00:11:37.040 --> 00:11:42.940
+Tim Nunamaker: I'm, like, the data that I'm sending you is fully verified to be
+
+88
+00:11:43.210 --> 00:11:48.690
+Tim Nunamaker: Everything that you asked for up to this point in time with these streams.
+
+89
+00:11:48.920 --> 00:11:57.189
+Tim Nunamaker: So, for example, I may actually need to… let's say I'm paging over data in an API, and I want to understand
+
+90
+00:11:57.400 --> 00:12:00.429
+Tim Nunamaker: How many total records are there? How much…
+
+91
+00:12:00.600 --> 00:12:06.109
+Tim Nunamaker: coverage have I accumulated? How many of them have I… Collected.
+
+92
+00:12:06.230 --> 00:12:10.559
+Tim Nunamaker: To understand that you may need to go through some large batch of them.
+
+93
+00:12:10.770 --> 00:12:14.959
+Tim Nunamaker: And then sort of checkpoint all of those together, so that you can express
+
+94
+00:12:15.300 --> 00:12:27.910
+Tim Nunamaker: here's how many records there are, here's how many I'm committing, and I'm giving you… this is the data connector saying this… I'm giving you a confident decision that this data
+
+95
+00:12:28.050 --> 00:12:31.300
+Tim Nunamaker: It has been collected, and we don't need to come back and revisit it.
+
+96
+00:12:31.790 --> 00:12:35.629
+Tim Nunamaker: There are some exceptions to that in some cases.
+
+97
+00:12:37.040 --> 00:12:55.710
+Tim Nunamaker: you may collect… you may discover data as a data connector, but not be able to fully read it. And so there are markers that you can include to say, hey, I found a record for this stream, but there was some detail that I wasn't able to collect, and so there's a gap here.
+
+98
+00:12:55.990 --> 00:13:06.499
+Tim Nunamaker: And maybe in the future, maybe that API was just flaky that day, or there was some image that didn't load or something. And in the future, that could be collected again on another run.
+
+99
+00:13:06.710 --> 00:13:11.479
+Tim Nunamaker: But maybe it will never be collected. The important thing is that the…
+
+100
+00:13:11.700 --> 00:13:18.770
+Tim Nunamaker: Sort of truth of what has been collected is accurate and written to the resource server correctly.
+
+101
+00:13:21.890 --> 00:13:27.809
+Tim Nunamaker: So, I'm… Happy to try doing a quick demo here.
+
+102
+00:13:28.400 --> 00:13:33.420
+Tim Nunamaker: And this is, like, a mock service. We can imagine a very simple
+
+103
+00:13:33.670 --> 00:13:52.640
+Tim Nunamaker: let's say financial service or application, where users can go in and record transactions that they've made, maybe with their bank account or something like that. And we want to build a data connector for the service, which has an API, so we can access our transactions over the API.
+
+104
+00:13:53.000 --> 00:14:03.640
+Tim Nunamaker: And… Let's see… I'm just gonna switch to… my local Data Connect window.
+
+105
+00:14:03.800 --> 00:14:06.000
+Tim Nunamaker: So give me one second, please.
+
+106
+00:14:12.430 --> 00:14:21.309
+Tim Nunamaker: Okay, so… This is Data Connect. This is, the third… the other repo in the PDP Connect.
+
+107
+00:14:21.750 --> 00:14:23.940
+Tim Nunamaker: GitHub organization.
+
+108
+00:14:24.100 --> 00:14:27.189
+Tim Nunamaker: And this isn't a brand new, empty…
+
+109
+00:14:27.350 --> 00:14:30.229
+Tim Nunamaker: instance of Data Connect, it doesn't have any data in it.
+
+110
+00:14:30.380 --> 00:14:38.250
+Tim Nunamaker: But I want to build a data connector for this, Financial product, maybe.
+
+111
+00:14:38.390 --> 00:14:40.759
+Tim Nunamaker: I'm a user who wants to access my data.
+
+112
+00:14:40.990 --> 00:14:56.199
+Tim Nunamaker: And to do that, I'm going to build a data connector locally and connect it in here. So before I show you, maybe the source code for this, I'm just going to demo how I could use Data Connect as a part of that, development process.
+
+113
+00:14:56.730 --> 00:14:59.879
+Tim Nunamaker: So… what I would want to do…
+
+114
+00:14:59.990 --> 00:15:19.729
+Tim Nunamaker: is tests my data connector, and to do that, I would normally come in here and add my data connector as a data source, but it hasn't been published to the data connector's repo, and so it's not in that catalog. I can't use it that way yet. What I can do is I can go into Settings for Data Connect.
+
+115
+00:15:19.850 --> 00:15:22.810
+Tim Nunamaker: Enable this developer setting.
+
+116
+00:15:22.990 --> 00:15:25.510
+Tim Nunamaker: And then go back to…
+
+117
+00:15:26.090 --> 00:15:34.020
+Tim Nunamaker: the sources that I'm adding into my personal data server, and now I can add a local path.
+
+118
+00:15:34.160 --> 00:15:40.639
+Tim Nunamaker: And… If you give me one second, I'm going to… I need to find that,
+
+119
+00:15:40.850 --> 00:15:42.969
+Tim Nunamaker: Directory where my code is.
+
+120
+00:15:44.450 --> 00:15:45.240
+Tim Nunamaker: Okay.
+
+121
+00:15:46.720 --> 00:15:50.819
+Tim Nunamaker: So let's say I've been working on my data connector, it lives in this directory.
+
+122
+00:15:51.710 --> 00:15:54.990
+Tim Nunamaker: And I want to add… a local source.
+
+123
+00:15:55.480 --> 00:16:07.549
+Tim Nunamaker: Now this is available from my computer. I can just click Use Local to… maybe this one was actually already published, and I want to switch to my local version to make some improvements.
+
+124
+00:16:07.670 --> 00:16:15.950
+Tim Nunamaker: I'll click on Use Local, and now Workspace, or sorry, Workshop Ledger here is a data source where I can connect to my account.
+
+125
+00:16:16.390 --> 00:16:27.560
+Tim Nunamaker: And so, I'm going to click Add Account, and normally I would go get my API key from this, you know, upstream service. In this case, we can just use
+
+126
+00:16:28.600 --> 00:16:31.419
+Tim Nunamaker: Workshop demo key.
+
+127
+00:16:33.200 --> 00:16:35.400
+Tim Nunamaker: And connect to this data source.
+
+128
+00:16:36.040 --> 00:16:40.160
+Tim Nunamaker: And so what I've done, is, within Data Connect.
+
+129
+00:16:40.590 --> 00:16:44.100
+Tim Nunamaker: There is a runtime for data connectors.
+
+130
+00:16:44.270 --> 00:16:48.849
+Tim Nunamaker: And based on the code of my data connector, Data Connect has
+
+131
+00:16:49.300 --> 00:16:57.589
+Tim Nunamaker: Created the right, sort of runtime, has provided the right runtime information to the data connector and initialized it.
+
+132
+00:16:57.740 --> 00:16:58.890
+Tim Nunamaker: And it…
+
+133
+00:16:59.030 --> 00:17:17.130
+Tim Nunamaker: was able to use my API key, and this is… this is not a consumer-friendly UI at the moment. Data Connect is under construction, and it's pretty early, but we can kind of see the state machine at work here. So, the run, for this data connector succeeded.
+
+134
+00:17:17.349 --> 00:17:28.629
+Tim Nunamaker: And we can kind of see that it started, it transitioned to in progress, it succeeded, and it was emitting, transactions. So this is the stream that
+
+135
+00:17:28.880 --> 00:17:36.569
+Tim Nunamaker: DataConnect requested the data connector to collect data for, and it was able to collect 5 transactions.
+
+136
+00:17:36.830 --> 00:17:40.140
+Tim Nunamaker: And under Explore, I can actually
+
+137
+00:17:40.390 --> 00:17:42.790
+Tim Nunamaker: I think there's a way I can just see all of them.
+
+138
+00:17:44.020 --> 00:17:49.080
+Tim Nunamaker: We have all of our transactions here, and at this point, I could…
+
+139
+00:17:49.770 --> 00:17:54.720
+Tim Nunamaker: Basically, just the useData Connect's PDPP API to access this data.
+
+140
+00:17:54.850 --> 00:17:58.679
+Tim Nunamaker: So, I've built a data connector that can
+
+141
+00:17:59.140 --> 00:18:16.790
+Tim Nunamaker: now be used to serve my data to some client application of my choice. And just so you know, in Data Connect, you can click on Connect Apps, and it gives you a little bit of information about using Data Connect's MPC server, and you can also go in and create,
+
+142
+00:18:17.510 --> 00:18:22.020
+Tim Nunamaker: API tokens if you just want to access your own data over the REST API.
+
+143
+00:18:22.310 --> 00:18:27.860
+Tim Nunamaker: So, I think that was fairly smooth, and now I'll just show you
+
+144
+00:18:28.300 --> 00:18:31.189
+Tim Nunamaker: What the actual code for that data connector looks like.
+
+145
+00:18:31.730 --> 00:18:35.170
+Tim Nunamaker: If you give me a second to share my screen…
+
+146
+00:18:46.210 --> 00:18:48.390
+Tim Nunamaker: Okay, hopefully you guys can read that.
+
+147
+00:18:52.740 --> 00:19:01.069
+Tim Nunamaker: So… The most important file, like I mentioned, is going to be The manifest, which defines
+
+148
+00:19:01.590 --> 00:19:03.239
+Tim Nunamaker: What is the data source?
+
+149
+00:19:04.120 --> 00:19:06.609
+Tim Nunamaker: What is the version of this data connector?
+
+150
+00:19:07.260 --> 00:19:13.610
+Tim Nunamaker: what requirements does it have from the runtime, which in our case was Data Connect?
+
+151
+00:19:14.420 --> 00:19:19.210
+Tim Nunamaker: Some setup information, like… what credentials…
+
+152
+00:19:19.900 --> 00:19:28.029
+Tim Nunamaker: can be sort of statically provided up front by the user. Alternatively, credentials can be requested as input.
+
+153
+00:19:28.440 --> 00:19:29.640
+Tim Nunamaker: And…
+
+154
+00:19:29.910 --> 00:19:37.509
+Tim Nunamaker: For the most part, it's just that sort of decoration plus the shape of the data, and these are PDPP
+
+155
+00:19:37.850 --> 00:19:45.210
+Tim Nunamaker: Conformance streams. So, this is the contract that the code must fulfill, and…
+
+156
+00:19:45.470 --> 00:19:54.510
+Tim Nunamaker: the code… I won't really get into the code. This is really just a mock API using that API key to go and read the data, but…
+
+157
+00:19:54.650 --> 00:20:02.430
+Tim Nunamaker: I think there are tons of examples in the Data Connectors repo where you can look through the code and see how they work and how to build one.
+
+158
+00:20:02.620 --> 00:20:07.509
+Tim Nunamaker: But, yeah, just by providing the manifest, and…
+
+159
+00:20:07.760 --> 00:20:12.189
+Tim Nunamaker: providing, like, the entry point for the code, Data Connect can do the rest.
+
+160
+00:20:14.980 --> 00:20:23.949
+Tim Nunamaker: Yeah, I think at this point, I'm just gonna pause and open this up to some questions before I go through a few more slides. Are there any questions about
+
+161
+00:20:24.610 --> 00:20:27.770
+Tim Nunamaker: Sort of the build loop.
+
+162
+00:20:27.940 --> 00:20:30.079
+Tim Nunamaker: And using Data Connect for testing.
+
+163
+00:20:37.630 --> 00:20:42.740
+Tim Nunamaker: No, okay. Let's keep going. I'm gonna switch my screen share back.
+
+164
+00:20:52.730 --> 00:20:55.040
+Tim Nunamaker: Now I just need to find that window, okay.
+
+165
+00:21:00.390 --> 00:21:07.359
+Tim Nunamaker: So, yeah, the basic loop is… You create the manifest.
+
+166
+00:21:07.660 --> 00:21:16.009
+Tim Nunamaker: you create the collection code and the schema, and there's also a parser that I didn't show you. But you can find examples of that in data connectors.
+
+167
+00:21:16.450 --> 00:21:21.329
+Tim Nunamaker: Ideally, you want to do some testing, and one way to test is actually
+
+168
+00:21:21.450 --> 00:21:26.049
+Tim Nunamaker: to just run the connector, let's say, with your API key or with your credentials.
+
+169
+00:21:26.160 --> 00:21:35.420
+Tim Nunamaker: That can be a little bit slow. The Data Connectors repo has some tools that are also under construction, but they work. They're basically
+
+170
+00:21:35.430 --> 00:21:49.640
+Tim Nunamaker: some scripts or a little CLI that you can use to record, the collection process once, and then it captures and stores fixtures so that you can edge your code and sort of replay it over those fixtures.
+
+171
+00:21:50.380 --> 00:22:03.950
+Tim Nunamaker: Basically to use the data connector's repo to ship your data connector, just open a pull request, and there's a whole build process which will put it out into the catalog once the maintainers approve it.
+
+172
+00:22:04.140 --> 00:22:17.379
+Tim Nunamaker: And data connectors currently are marked as having… as being in one of three tiers, either in development, which means they won't normally show, and product surfaces that filter those out.
+
+173
+00:22:17.750 --> 00:22:21.070
+Tim Nunamaker: Some connectors can be marked as preview, which means
+
+174
+00:22:21.180 --> 00:22:30.849
+Tim Nunamaker: They're ready for users, but they're kind of experimental. And then supported ones are more mature, and generally would have a major version of 1.0 or higher.
+
+175
+00:22:34.360 --> 00:22:40.349
+Tim Nunamaker: Yeah, I think something that I maybe touched on but didn't talk a lot about is how
+
+176
+00:22:40.490 --> 00:22:43.719
+Tim Nunamaker: The collection profile is not opinionated about
+
+177
+00:22:43.920 --> 00:22:50.000
+Tim Nunamaker: this needs to run on a server with Node.js, or this needs to run on a server at all, really.
+
+178
+00:22:50.270 --> 00:22:56.350
+Tim Nunamaker: It could be possible to build data connectors that only execute on a mobile device.
+
+179
+00:22:56.490 --> 00:22:59.910
+Tim Nunamaker: Or that execute with no network access.
+
+180
+00:23:00.100 --> 00:23:06.220
+Tim Nunamaker: And… That's kind of between the data connector and the runtime to work out.
+
+181
+00:23:07.000 --> 00:23:10.120
+Tim Nunamaker: yeah.
+
+182
+00:23:10.410 --> 00:23:23.589
+Tim Nunamaker: So, actually, the Data Connectors repo has some support built in for publishing mobile-friendly versions of data connectors, which are web-based. And if you look for the page shim
+
+183
+00:23:23.970 --> 00:23:26.470
+Tim Nunamaker: interface in the Data Connectors repo.
+
+184
+00:23:26.660 --> 00:23:34.870
+Tim Nunamaker: You'll see that anything that implements the page shim can be consumed in a mobile context without needing
+
+185
+00:23:35.080 --> 00:23:36.710
+Tim Nunamaker: Like, a full-on server.
+
+186
+00:23:37.260 --> 00:23:43.269
+Tim Nunamaker: So that's basically it, I'm just gonna stop here. Let me know if you guys have any questions.
+
+187
+00:23:53.280 --> 00:24:05.119
+Tim Nunamaker: Right on. All right, thanks for joining, and you can reach us in Discord, as usual, or just open issues and pull requests in GitHub. We're happy to work with the community on
+
+188
+00:24:05.220 --> 00:24:15.639
+Tim Nunamaker: Data collector… data connectors in particular, I think, are a great place for people to jump in with PDPP and experiment with their own data and understand, like, how the whole system works.
+
+189
+00:24:16.550 --> 00:24:17.700
+Tim Nunamaker: Alright, thanks, everyone.
+
+190
+00:24:17.880 --> 00:24:18.720
+Tim Nunamaker: Take care.
+

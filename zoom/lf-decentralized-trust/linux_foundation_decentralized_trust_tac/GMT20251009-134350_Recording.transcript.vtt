@@ -1,0 +1,1398 @@
+WEBVTT
+
+1
+00:00:35.230 --> 00:00:46.650
+Tracy Kuhrt: Okay, welcome everybody to the LF Decentralized Trust Technical Advisory Council meeting. As you are all aware, there are two things that we have to abide by on the call.
+
+2
+00:00:46.650 --> 00:00:57.329
+Tracy Kuhrt: The first is our antitrust policy, so we need to be aware of and not participate in any activities that are prohibited under any of the antitrust and competition laws across the world.
+
+3
+00:00:57.330 --> 00:01:06.680
+Tracy Kuhrt: The second thing that we have to abide by is our code of conduct. While everybody is welcome here, we just need to be aware of and not participate in
+
+4
+00:01:06.680 --> 00:01:24.340
+Tracy Kuhrt: Oh, sorry, my brain went off to the antitrust policy. We just need to be respectful of others on the call and their opinions and ideas, and we should get along fine. And then for those of you who would like to see the full text of the Code of Conduct, it is linked here in the agenda.
+
+5
+00:01:25.090 --> 00:01:39.000
+Tracy Kuhrt: For announcements today, we have the standard LF Decentralized Trust Dev Weekly Developer Newsletter that goes out each Friday. If you do have anything that you would like to include in that newsletter, please do leave a,
+
+6
+00:01:39.000 --> 00:01:47.640
+Tracy Kuhrt: Comment here at the link that is in the agenda for, the next upcoming newsletter.
+
+7
+00:01:47.760 --> 00:02:00.130
+Tracy Kuhrt: The second announcement that we have is just a reminder, the, nomination period for the 2026 TAC term begins October 14th, which I believe is next Monday.
+
+8
+00:02:00.130 --> 00:02:15.189
+Tracy Kuhrt: If you are interested in nominating yourself for the TAC, we do have a site that will allow you to determine if you're eligible. That site normally gets updated immediately before the nomination period begins, so
+
+9
+00:02:15.190 --> 00:02:27.350
+Tracy Kuhrt: If you were to go to it today, you may not be eligible, even though you are eligible, because it may not have yet been updated, just for your reference. And then, of course, if you are eligible,
+
+10
+00:02:27.790 --> 00:02:34.640
+Tracy Kuhrt: There is a mechanism, with GitHub issues that you can file your nomination statement.
+
+11
+00:02:35.140 --> 00:02:46.149
+Tracy Kuhrt: The last announcement, official announcement that we have here is that on Wednesday, 11-12, at 8 p.m, or I'm sorry, 8 a.m. Pacific time.
+
+12
+00:02:46.150 --> 00:02:55.770
+Tracy Kuhrt: There is a workshop, cross-network Interop with Hyperledger Cacti, and there is a link here in the agenda for you to register for that.
+
+13
+00:02:55.770 --> 00:03:01.629
+Tracy Kuhrt: for that workshop. And Sean, just to be clear, 11-12 is November 12th?
+
+14
+00:03:01.840 --> 00:03:07.779
+Sean Bohan (The Linux Foundation): I'll, I'll fix that, yeah, November 12th at, 8 a.m. PT, 5 p.m. CET.
+
+15
+00:03:07.780 --> 00:03:09.040
+Tracy Kuhrt: Alright, great, no problem.
+
+16
+00:03:09.040 --> 00:03:09.730
+Sean Bohan (The Linux Foundation): Thanks, Tracy.
+
+17
+00:03:09.730 --> 00:03:22.819
+Tracy Kuhrt: Yeah, it's just, I read that, and I was like, I think that's what you mean, but since you've been living in Europe for a while, I wanted to make sure. So, yeah, any other announcements that anybody has or would like to make today?
+
+18
+00:03:33.400 --> 00:03:42.150
+Tracy Kuhrt: Okay, there are no other announcements that anybody has. There are quarterly reports for people to review.
+
+19
+00:03:42.160 --> 00:03:59.689
+Tracy Kuhrt: I think one of these actually had 5 reviewers as of yesterday. We need 6 as a reminder, before we can actually merge anything in. And then the second piece is that we need to not have any comments on any that are not yet resolved.
+
+20
+00:03:59.690 --> 00:04:06.420
+Tracy Kuhrt: So, just FYI, I think some of these other ones are actually waiting on the…
+
+21
+00:04:06.480 --> 00:04:15.570
+Tracy Kuhrt: maintainers, or the submitters of those project reports, to do some updates before we can actually get those merged into place.
+
+22
+00:04:16.899 --> 00:04:29.560
+Tracy Kuhrt: So, yeah, I think that's it for the submitted quarterly reports. Is there any questions on the submitted quarterly reports that we need to bring up here in the TAC?
+
+23
+00:04:40.780 --> 00:05:00.680
+Tracy Kuhrt: Okay, I think the only report that I saw that had a question for the TAC, and Hart, you somewhat addressed it in the PR comments, was Baesu, who wanted to know, if we have any specific guidelines for how AI should be used in projects, which we don't.
+
+24
+00:05:00.680 --> 00:05:04.469
+Tracy Kuhrt: and a lot of, a lot of the projects, I guess, within…
+
+25
+00:05:04.470 --> 00:05:10.460
+Tracy Kuhrt: the LF in general are just documenting what it is that they're doing, but at some point, if
+
+26
+00:05:10.460 --> 00:05:17.879
+Tracy Kuhrt: we feel that's something that we should discuss here. Happy to bring that on to a future call. Yeah, heart…
+
+27
+00:05:18.510 --> 00:05:23.410
+Hart Montgomery: So I'll just say, since this seems to be a topic of interest.
+
+28
+00:05:23.530 --> 00:05:31.209
+Hart Montgomery: There's not a consensus at the LF at what the policy should be, and lots of projects are doing lots of different things.
+
+29
+00:05:31.480 --> 00:05:39.570
+Hart Montgomery: We would encourage projects… it's not a requirement at this point, but we would encourage projects to ask people to document
+
+30
+00:05:39.930 --> 00:05:42.660
+Hart Montgomery: Sort of when and how they're using AI.
+
+31
+00:05:46.080 --> 00:05:54.659
+Hart Montgomery: Does that make sense? So, sort of just ask your, ask your contributors to, like, note if or when they've used AI.
+
+32
+00:05:57.060 --> 00:05:59.379
+Tracy Kuhrt: Yep, makes sense.
+
+33
+00:05:59.820 --> 00:06:16.430
+Tracy Kuhrt: And then I… I would assume that's… that's probably something that should be added to the contributing guide as well, just to make sure that it's official, this is kind of how we're handling AI within our particular project, you know, Project X, whatever that may be.
+
+34
+00:06:17.970 --> 00:06:18.890
+Tracy Kuhrt: Diane?
+
+35
+00:06:20.520 --> 00:06:37.279
+Diane Mueller (Hedera Hashgraph LLC): Good. I'm not on mute, good. So, a lot of projects that I've been noticing lately, too, are also using AI to create test harnesses. So maybe if they could also comment if they're starting to do that, as well, to, you know.
+
+36
+00:06:37.690 --> 00:06:43.679
+Diane Mueller (Hedera Hashgraph LLC): extend, exponentially the testing edge cases. So, that's it.
+
+37
+00:06:44.840 --> 00:06:46.240
+Tracy Kuhrt: Alright, thanks, Shen.
+
+38
+00:06:51.660 --> 00:07:04.069
+Tracy Kuhrt: Okay, so if there's no other questions on the submitted quarterly reports, we do have a number of overdue reports. The one that we should probably talk about is
+
+39
+00:07:04.360 --> 00:07:20.429
+Tracy Kuhrt: Hyperledger Bevel, so it's been 2 months since they've submitted a quarterly report. I did reach out to them on… when I created the agenda to, you know, just let them know and find out, you know, hey, are you…
+
+40
+00:07:20.430 --> 00:07:36.470
+Tracy Kuhrt: going to be submitting one soon, or should we be considering whether we move the project to a dormant or an end-of-life type stage? And the response came back from one of the maintainers that the project should be moved to dormant.
+
+41
+00:07:36.510 --> 00:07:57.549
+Tracy Kuhrt: So, before we move projects between lifecycle stages, that's something for us to discuss, at the TAC and take a vote on, if that is something that we would like to do. So, wanted to bring that to the attention of folks on the call and see if there's any specific discussion, that people might have on that.
+
+42
+00:08:13.260 --> 00:08:16.600
+Tracy Kuhrt: Alright, if there's no discussion,
+
+43
+00:08:17.470 --> 00:08:23.340
+Tracy Kuhrt: then I guess I will make a motion to move Bevel to dormant stage. Could we have a second?
+
+44
+00:08:24.890 --> 00:08:26.059
+Arun S M: I second.
+
+45
+00:08:26.750 --> 00:08:28.270
+Tracy Kuhrt: Alright, thanks, Arun.
+
+46
+00:08:29.980 --> 00:08:33.359
+Tracy Kuhrt: And Rod, did you want us to, help us vote?
+
+47
+00:08:33.360 --> 00:08:39.150
+Ry Jones (The Linux Foundation): Yeah, yeah. In the, the matter of, moving Bevel to a dormant status,
+
+48
+00:08:39.480 --> 00:08:43.679
+Ry Jones (The Linux Foundation): All the voting members of the TAC who approve, please say aye.
+
+49
+00:08:45.160 --> 00:08:45.480
+Tracy Kuhrt: Right?
+
+50
+00:08:45.480 --> 00:08:46.020
+Char Howland (Indicio): Thank you.
+
+51
+00:08:46.770 --> 00:08:47.520
+Diane Mueller (Hedera Hashgraph LLC): Aye.
+
+52
+00:08:48.180 --> 00:08:51.070
+Ry Jones (The Linux Foundation): All of those who abstain, please say abstain.
+
+53
+00:08:53.830 --> 00:08:56.830
+Ry Jones (The Linux Foundation): All of those not in favor, please say nay.
+
+54
+00:08:59.480 --> 00:09:02.219
+Ry Jones (The Linux Foundation): The, motion passes on a voice vote.
+
+55
+00:09:02.610 --> 00:09:07.159
+Tracy Kuhrt: Alright, thanks, Troy. So we'll get that one moved to dormant. Obviously.
+
+56
+00:09:07.540 --> 00:09:30.280
+Tracy Kuhrt: there is a way to bring that project back if, for some reason, the maintainers do find the time to do that, that's always possible. So, this is not a, this is never the end of a project when we do vote to, to move projects to either dormant or end of life. This is just a, more really of a notification to folks that, hey,
+
+57
+00:09:30.280 --> 00:09:50.299
+Tracy Kuhrt: we need more maintainers or more people to step in here. I know that that has been… that was reported early on, with Bevel, that they did need some help, and so, this is probably not anything new to anybody, but just, FYI that it's not… it's not, anything that,
+
+58
+00:09:50.920 --> 00:09:56.230
+Tracy Kuhrt: It should be of major concern. This is normal… normal life cycle for projects.
+
+59
+00:09:58.140 --> 00:10:01.090
+Tracy Kuhrt: Okay, for,
+
+60
+00:10:01.510 --> 00:10:16.880
+Tracy Kuhrt: The other thing in the overdue reports, Hyperledger Cacti, Rama, you did ask for an extension until next week to, provide that to us. That is fine. I appreciate you reaching out and just letting us know that you've had some,
+
+61
+00:10:17.000 --> 00:10:24.599
+Tracy Kuhrt: Scheduling difficulties with getting it done, and so, not a problem for you to… to have another week if you need it.
+
+62
+00:10:27.110 --> 00:10:34.459
+Tracy Kuhrt: All right, upcoming reports, we do have the Identists and Web3J, report that are due today.
+
+63
+00:10:34.580 --> 00:10:39.439
+Tracy Kuhrt: And then the Hyperledger Indy and Hyperledger non-creds are due next week.
+
+64
+00:10:39.700 --> 00:10:44.350
+Tracy Kuhrt: So that should cover reports, at least the…
+
+65
+00:10:44.400 --> 00:11:01.660
+Tracy Kuhrt: main section of the reports, because we do have a discussion item today that is, the Trust Over IP annual report discussion. So, Diane and Rama, you were responsible for this one, and I know you've done some really good work in taking a look at what's been done.
+
+66
+00:11:01.680 --> 00:11:21.310
+Tracy Kuhrt: I did invite the Trust Over IP folks in their general channel to this. I do not see anybody on the call specifically related to Trust Over IP, but I'm happy for us to have the discussion here so that we can find out how things are going and what you've discovered there.
+
+67
+00:11:22.060 --> 00:11:36.870
+Diane Mueller (Hedera Hashgraph LLC): All right. And I did get about 30 minutes in prior to this meeting with, Rama to, review this, and I apologize, folks, I've been camping until late last night, so I just posted, and I put it in the
+
+68
+00:11:36.890 --> 00:11:48.889
+Diane Mueller (Hedera Hashgraph LLC): the chat, the, report, and if I can share my screen, I will do that, and share entire screen, share, and…
+
+69
+00:11:51.470 --> 00:12:15.710
+Diane Mueller (Hedera Hashgraph LLC): This is actually both an annual and a quarterly report review, so… and so I tried to break it down, into two parts, because there were a lot of documents to look at, but it was actually quite interesting. And in my comment, I've put in a whole bunch of links to other things, because I'm not sure everybody, was gonna want to parse through all of the
+
+70
+00:12:15.990 --> 00:12:21.950
+Diane Mueller (Hedera Hashgraph LLC): the attachments, and other links, to this. And so,
+
+71
+00:12:22.680 --> 00:12:41.450
+Diane Mueller (Hedera Hashgraph LLC): And it was very interesting, and I learned a lot about it. And I know we had some… Wen Cheng was on a call about 4 weeks ago, a TAC call, and there was some discussion about developing a new template specifically for,
+
+72
+00:12:42.560 --> 00:13:00.580
+Diane Mueller (Hedera Hashgraph LLC): for standards initiatives under the LFDT, and I definitely think that's a thing that we should do. But in this case in point, taking them as is, I think is a fine thing to do. They supplied us with a ton of reference documentation.
+
+73
+00:13:00.580 --> 00:13:06.340
+Diane Mueller (Hedera Hashgraph LLC): Some of which I went through, and a lot of us, I… I kind of…
+
+74
+00:13:06.750 --> 00:13:23.240
+Diane Mueller (Hedera Hashgraph LLC): scanned. I'm not sure Rama did as deep of a dive, but he also read through some of it, and I encourage you all to do so as well. And so I broke it into, strengths and areas to watch, and then a little bit about,
+
+75
+00:13:24.330 --> 00:13:32.420
+Diane Mueller (Hedera Hashgraph LLC): an overall assessment, but then I… in the annual report, I've put in a section, about future reports, too, that I'll…
+
+76
+00:13:32.570 --> 00:13:37.609
+Diane Mueller (Hedera Hashgraph LLC): And it is a pretty, diverse, organizationally,
+
+77
+00:13:37.610 --> 00:13:43.020
+Diane Mueller (Hedera Hashgraph LLC): initiative, and there's lots of standard, members. They have a membership model.
+
+78
+00:13:43.020 --> 00:13:57.730
+Diane Mueller (Hedera Hashgraph LLC): As opposed to using GitHub for contributors or, maintainers, kind of thing, for tracking the participation in the project. And so that's pretty impressive, and they continue to grow that.
+
+79
+00:13:57.750 --> 00:14:14.399
+Diane Mueller (Hedera Hashgraph LLC): There's a lot of deliverables, as I mentioned. I list them in here, and I encourage you to do some of it. There's a lot… the newcomer stuff is very good, and this is the data from their annual report, so this is last year's work.
+
+80
+00:14:15.160 --> 00:14:20.719
+Diane Mueller (Hedera Hashgraph LLC): the… some of the areas to watch, I think are, I…
+
+81
+00:14:20.720 --> 00:14:38.130
+Diane Mueller (Hedera Hashgraph LLC): because I love metrics, and maybe not all of you do as much as I do, but I think, a few more, sections by the… a by the numbers section in the report, would have been helpful to really understand who's, got pilots, any…
+
+82
+00:14:38.530 --> 00:14:49.040
+Diane Mueller (Hedera Hashgraph LLC): potential POCs, where other organizations are leveraging this work, would be very helpful to, the visibility of it.
+
+83
+00:14:49.190 --> 00:14:52.370
+Diane Mueller (Hedera Hashgraph LLC): They have a lot of,
+
+84
+00:14:52.860 --> 00:14:59.670
+Diane Mueller (Hedera Hashgraph LLC): outputs that are still in public review or sort of implementers' drafts.
+
+85
+00:14:59.750 --> 00:15:12.480
+Diane Mueller (Hedera Hashgraph LLC): So, a clear paths would be… with some target dates would be helpful. And a little task force hygiene. If you go through some of the slide decks, there are some, you know.
+
+86
+00:15:12.530 --> 00:15:20.620
+Diane Mueller (Hedera Hashgraph LLC): Very short topics from the task force, but some explicit, outcomes and…
+
+87
+00:15:21.360 --> 00:15:31.710
+Diane Mueller (Hedera Hashgraph LLC): And different, transitions would be… would make the… make it easier, and probably avoid the perception, like, as I say here, of… of fragmentation.
+
+88
+00:15:31.850 --> 00:15:51.510
+Diane Mueller (Hedera Hashgraph LLC): But my overall assessment is that the project is, got strong foundational work. There's a steady flow of people in the working groups working. They've got, and I've encountered them in lots of different ecosystem alignments as well, so, that would be, really
+
+89
+00:15:51.720 --> 00:16:02.130
+Diane Mueller (Hedera Hashgraph LLC): the thing that, the thing that would help is getting some adoption and spec maturity signals to make it a little bit more obvious. And I know LFX doesn't really
+
+90
+00:16:02.130 --> 00:16:22.249
+Diane Mueller (Hedera Hashgraph LLC): cover this stuff, so I think there's some work to be done on both our parts to make that happen. And, you know, they seem to have good governance practices, lots of participation, so their community health is pretty good. And, I think we should, you know, and I think we do consider them strategically important.
+
+91
+00:16:22.250 --> 00:16:26.470
+Diane Mueller (Hedera Hashgraph LLC): To the LF and to our projects, so, I think…
+
+92
+00:16:26.470 --> 00:16:33.069
+Diane Mueller (Hedera Hashgraph LLC): I'm totally happy to approve their annual report as is, but…
+
+93
+00:16:33.130 --> 00:16:35.829
+Diane Mueller (Hedera Hashgraph LLC): One of, you know, one of the things that's…
+
+94
+00:16:35.930 --> 00:16:40.409
+Diane Mueller (Hedera Hashgraph LLC): Since we are mostly project people here on this call.
+
+95
+00:16:40.660 --> 00:16:47.390
+Diane Mueller (Hedera Hashgraph LLC): Tracking and using member foundation membership, as your…
+
+96
+00:16:47.940 --> 00:17:11.999
+Diane Mueller (Hedera Hashgraph LLC): as your metric isn't always a good show of participation. It's maybe a good show of business development skills on the part of the community leaders, but not always participatory. So I would like to see more of the work that's being done, and the white papers that are being developed may be to be moved into.
+
+97
+00:17:12.020 --> 00:17:22.129
+Diane Mueller (Hedera Hashgraph LLC): GitHub, and having the comments and things like that put on there, as opposed to mailing lists and other places. Because if you go in… excuse me…
+
+98
+00:17:22.130 --> 00:17:39.030
+Diane Mueller (Hedera Hashgraph LLC): And look at, LFX right now, it says, three contributors are doing 50% of all the contributions, and depending on which date range you use, it can be even worse. So it, you know, the optics aren't great, but, also.
+
+99
+00:17:39.060 --> 00:17:39.900
+Diane Mueller (Hedera Hashgraph LLC): It's…
+
+100
+00:17:39.960 --> 00:17:49.400
+Diane Mueller (Hedera Hashgraph LLC): my belief that, that GitHub is even more open than Google mailing lists and other things like that, which you have to,
+
+101
+00:17:50.160 --> 00:18:02.649
+Diane Mueller (Hedera Hashgraph LLC): join in order to view this stuff, or it's just a… GitHub will make things a little bit more open and transparent, and maybe grow the contributors in there. So, if you were…
+
+102
+00:18:02.770 --> 00:18:06.690
+Diane Mueller (Hedera Hashgraph LLC): looking at it from an LFDT project kind of person.
+
+103
+00:18:06.980 --> 00:18:20.100
+Diane Mueller (Hedera Hashgraph LLC): perspective, that's… that can be worrisome, and I think we've flagged that before. However, it's not atypical for a standards project to not use GitHub, and…
+
+104
+00:18:20.900 --> 00:18:37.169
+Diane Mueller (Hedera Hashgraph LLC): it's kind of expected, that the writers of things and the people who actually do stuff in GitHub are there, and I've been in a number of other standards projects where it hasn't been in GitHub. So, you know, that may be the path that they decide to choose.
+
+105
+00:18:37.170 --> 00:18:41.209
+Diane Mueller (Hedera Hashgraph LLC): But I would strongly suggest using a little bit more GitHub,
+
+106
+00:18:41.640 --> 00:18:47.390
+Diane Mueller (Hedera Hashgraph LLC): And there's a thing in metricing World called the bus factor,
+
+107
+00:18:47.700 --> 00:19:06.249
+Diane Mueller (Hedera Hashgraph LLC): That it's, you know, just a few folks are really contributing, so if someone key to the project leaves, it could harm the project significantly, or moves on to another, project, and loses, attention and focus on this one.
+
+108
+00:19:06.290 --> 00:19:08.839
+Diane Mueller (Hedera Hashgraph LLC): That could be a problem.
+
+109
+00:19:09.700 --> 00:19:16.029
+Diane Mueller (Hedera Hashgraph LLC): Yeah, and again, governance could… might be outweighing coding and influence,
+
+110
+00:19:16.790 --> 00:19:24.709
+Diane Mueller (Hedera Hashgraph LLC): Some of these are pretty basic. Opportunities for onboarding, And growing capacity.
+
+111
+00:19:24.900 --> 00:19:42.819
+Diane Mueller (Hedera Hashgraph LLC): it's a hard thing to get up to speed on, especially with all the documents you have to review, though they have done a pretty good job of creating newcomer information. And the other thing, again, I am a bit of a metrics person, attribution, hygiene,
+
+112
+00:19:42.820 --> 00:19:53.399
+Diane Mueller (Hedera Hashgraph LLC): to the organizations and who's, who's actually contributing to the documents, would help. So maybe some how to get credit, on the reports.
+
+113
+00:19:53.400 --> 00:19:59.819
+Diane Mueller (Hedera Hashgraph LLC): And so, that's the annual report, and there's a little bit more here.
+
+114
+00:20:00.780 --> 00:20:20.259
+Diane Mueller (Hedera Hashgraph LLC): then… and as they moved on in the quarterly report, a lot of things around the… the working groups, remained, the core ones remained pretty active. There just seems to be, some good expansion into the AI and the TrustCraft working group, so that was great.
+
+115
+00:20:20.690 --> 00:20:36.089
+Diane Mueller (Hedera Hashgraph LLC): you know, there's… I think there's… you can read through this at your own leisure. Again, evidence of adoption would be really helpful, figuring out what the spec maturity levels are, and again,
+
+116
+00:20:37.470 --> 00:20:40.229
+Diane Mueller (Hedera Hashgraph LLC): You know, whether they… they get,
+
+117
+00:20:40.430 --> 00:20:53.330
+Diane Mueller (Hedera Hashgraph LLC): the new, working groups, and I… and a way to check the working group participation, would be great. But overall, I think both of these reports are completely,
+
+118
+00:20:53.330 --> 00:21:03.710
+Diane Mueller (Hedera Hashgraph LLC): showing that the group is doing good work and, expanding, and they've got enough, to… for us to approve this. So I'm gonna pause.
+
+119
+00:21:04.370 --> 00:21:21.490
+Diane Mueller (Hedera Hashgraph LLC): Why is it a 2024 report, is the question you have there, Hendrik, because it's very overdue, and the annual report was for the period prior to, when it was submitted, so it's always the prior year, I believe, is the way I looked at it.
+
+120
+00:21:22.280 --> 00:21:23.710
+Tracy Kuhrt: Yeah, it gets quicker.
+
+121
+00:21:23.710 --> 00:21:47.859
+Tracy Kuhrt: I think we had this question before, it's supposed to be the Q1… the 2025 Q1, or I think we say 2025 annual review, which obviously looks back, and then also forward. So it looks back at 2024 as to what were the accomplishments, and then the, the looking forward is what sort of goals do you have for 2025, so…
+
+122
+00:21:47.860 --> 00:21:57.729
+Tracy Kuhrt: If it is named 2024, I think we do ask for people to change that, in the title. But, you know, obviously that's,
+
+123
+00:21:57.950 --> 00:22:01.060
+Diane Mueller (Hedera Hashgraph LLC): That's minor, and we can obviously get that fixed.
+
+124
+00:22:01.350 --> 00:22:05.930
+Hendrik Ebbers (Hedera Hashgraph LLC): Makes sense. I assume I asked the same earlier this year for another one, yeah, yeah.
+
+125
+00:22:05.930 --> 00:22:09.949
+Tracy Kuhrt: Yeah, I remember, I think it was JC that we had that with.
+
+126
+00:22:10.590 --> 00:22:16.300
+Diane Mueller (Hedera Hashgraph LLC): Yeah, it's, yeah, it's all fun and games. Yeah, so I think we're,
+
+127
+00:22:17.250 --> 00:22:35.569
+Diane Mueller (Hedera Hashgraph LLC): Yeah, we're… it's… it was long overdue, and it's long over… it took us a couple of weeks extra to… to get the review, so I… I thank them for bearing with our patience with our process as Rama went out on vacation. Rama, do you want to add anything to that? I think I saw a comment at the bottom,
+
+128
+00:22:35.820 --> 00:22:36.600
+Diane Mueller (Hedera Hashgraph LLC): Here.
+
+129
+00:22:36.600 --> 00:22:43.560
+Ramakrishna V: Yeah, I'm just echoing what you said, Diane. As you said earlier, I didn't do as,
+
+130
+00:22:43.610 --> 00:22:56.089
+Ramakrishna V: deep or wide of an assessment as you did. I mean, I think you looked at a lot of documents. I looked at some of them, and I just got an impression of how the project has been
+
+131
+00:22:56.090 --> 00:23:04.220
+Ramakrishna V: been going. So, yeah, I mean, since new project, I, and the… there's a lot of activity, people are…
+
+132
+00:23:04.350 --> 00:23:14.440
+Ramakrishna V: talking on the Discord channels, I see a lot of GitHub PRs on the various repos. So, yeah, my assessment is keep it as an incubating project, which is, like.
+
+133
+00:23:14.440 --> 00:23:25.529
+Ramakrishna V: the one decision we are supposed to do, supposed to make as a TSC. And, other than that, yeah, I, I echo your,
+
+134
+00:23:25.580 --> 00:23:39.580
+Ramakrishna V: what you said about encouraging the project's maintenance to use GitHub. One suggestion I made here, rather inspired by my own experiences, you can have documents be maintained in GitHub
+
+135
+00:23:39.580 --> 00:23:47.730
+Ramakrishna V: repositories, past, 3 or 4 years, I've been involved in an IT working group on writing, standards.
+
+136
+00:23:47.820 --> 00:23:58.129
+Ramakrishna V: draft specifications, and, initially we were just, pushing, manually pushing drafts to, to ITF,
+
+137
+00:23:58.130 --> 00:24:09.039
+Ramakrishna V: more recently, we've been using GitHub, and there's tooling there whereby we just make updates to Markdown files, and they get, automatically published via GitHub Actions.
+
+138
+00:24:09.040 --> 00:24:20.609
+Ramakrishna V: So, there are things people can do. One thing I didn't add here, I probably should, is, again, looking at the, at the GitHub repository, or the GitHub organization, there are lots of,
+
+139
+00:24:20.640 --> 00:24:39.330
+Ramakrishna V: repositories, and it can be a bit hard to navigate. I think this is a point I've made in… when I've assessed, other, projects before, which is that, have some kind of good organization, some navigational aids, which is very useful. There are some projects which
+
+140
+00:24:39.330 --> 00:24:49.339
+Ramakrishna V: I've noticed have a… where you know where to start, and the starting page tells you how to branch off to particular
+
+141
+00:24:49.830 --> 00:25:05.900
+Ramakrishna V: aspects of the project that you might be interested in exploring further. So, I think having something like that would be… would be useful, some… a better organization. And, another separate conversation about how we should be, requiring
+
+142
+00:25:05.920 --> 00:25:24.489
+Ramakrishna V: annual reviews from standards projects as opposed to code projects, but again, it would be useful to have one place where we can see who are the project's maintainers, or in this case, I suppose, contributors or members. Like, in the core projects, we ask
+
+143
+00:25:24.550 --> 00:25:27.990
+Ramakrishna V: The maintainers to have a maintenance.md file,
+
+144
+00:25:28.080 --> 00:25:47.299
+Ramakrishna V: security. Which is probably not relevant here at this time, and but we have a contributing guidelines. I'm sure there are contributing guidelines for, DOIP, which would be different from contributing guidelines for, say, fabric or cacti, but, I think it should… it'll be good to have one somewhere.
+
+145
+00:25:47.300 --> 00:25:57.029
+Ramakrishna V: Which is easy to get to. So, yeah, some bit more structure will be useful there. And, sorry, I'll update my comment to reflect these, later. And…
+
+146
+00:25:57.040 --> 00:25:59.949
+Ramakrishna V: I just wanted to inquire from the maintainers whether
+
+147
+00:26:00.100 --> 00:26:02.989
+Ramakrishna V: If the… if there are code…
+
+148
+00:26:03.080 --> 00:26:18.769
+Ramakrishna V: spin-off, like, if some draft specifications get implemented as proof of concept, do they anticipate maintaining them under LFDT, or is it going to be somewhere else? Like, I know this is supposed to be a standards project, but
+
+149
+00:26:18.780 --> 00:26:23.340
+Ramakrishna V: will code spin-offs also be part of LFDT or no? Just wanted to ask that.
+
+150
+00:26:28.940 --> 00:26:43.840
+Tracy Kuhrt: So Rama, I've seen some code spin-offs already that exist in a sister project to LF Decentralized Trust, specifically the Open Wallet Foundation. So they have been separate, complete separate projects,
+
+151
+00:26:43.860 --> 00:26:59.220
+Tracy Kuhrt: You know, if you will, in our terminology, code projects. So, you know, I would expect that to be the case for future sorts of projects coming from their standards as well, that would be reference implementations or things like that.
+
+152
+00:26:59.220 --> 00:27:11.710
+Tracy Kuhrt: I can't remember if we have any that are labs at this point from Trust Over IP, but I do know of the one that is in the Open Wallet Foundation.
+
+153
+00:27:13.140 --> 00:27:16.640
+Ramakrishna V: Yeah, I saw Diane had made note of that as well.
+
+154
+00:27:21.280 --> 00:27:26.039
+Tracy Kuhrt: Any comments or questions on the Trust Server IP?
+
+155
+00:27:26.260 --> 00:27:27.560
+Tracy Kuhrt: Our port.
+
+156
+00:27:28.560 --> 00:27:39.810
+Tracy Kuhrt: Just a reminder for the annual reports, we do have a vote, on the TAC call here, so if you do have any questions, now would be a good time to ask them.
+
+157
+00:27:39.970 --> 00:27:41.090
+Tracy Kuhrt: Matthew?
+
+158
+00:27:42.310 --> 00:27:47.289
+Matthew Whitehead (Kaleido): Thanks, Tracy. Yeah, thanks, for the detailed review, Diane and Aaron.
+
+159
+00:27:48.280 --> 00:28:05.349
+Matthew Whitehead (Kaleido): I… I guess my question's just around… I… so this is an incubating project. I assume the implication is that this is going to stay incubating, and I just partly wondered around the spec-based projects, what graduation to, like, a graduated status would look like. So it's more of a general…
+
+160
+00:28:05.350 --> 00:28:09.430
+Matthew Whitehead (Kaleido): question around whether or not Trust over IP is planning to stay incubating.
+
+161
+00:28:10.600 --> 00:28:15.079
+Matthew Whitehead (Kaleido): In the longer term, from what you have understood from the project.
+
+162
+00:28:17.610 --> 00:28:25.170
+Diane Mueller (Hedera Hashgraph LLC): So, I… maybe Hart or, Daniela can also weigh in with a little background, but,
+
+163
+00:28:25.330 --> 00:28:35.400
+Diane Mueller (Hedera Hashgraph LLC): for me, I think what we're waiting is for some of the specifications, the maturity of those to come to fruition.
+
+164
+00:28:36.000 --> 00:28:37.750
+Diane Mueller (Hedera Hashgraph LLC): I think that would make it…
+
+165
+00:28:38.010 --> 00:28:42.870
+Diane Mueller (Hedera Hashgraph LLC): A little bit more out of incubating and into, graduation.
+
+166
+00:28:43.320 --> 00:28:53.439
+Diane Mueller (Hedera Hashgraph LLC): But, I… as… as I don't actually know what we have for governance in place, I would defer to… to Hart, maybe.
+
+167
+00:28:53.580 --> 00:28:54.170
+Diane Mueller (Hedera Hashgraph LLC): What you were thinking.
+
+168
+00:28:54.170 --> 00:28:56.250
+Tracy Kuhrt: Well, I'll just,
+
+169
+00:28:56.250 --> 00:29:02.719
+Tracy Kuhrt: remind… yeah, I'll remind everybody that one of the things that we did have on our goals for this year
+
+170
+00:29:02.720 --> 00:29:19.660
+Tracy Kuhrt: was to put together some sort of task force that would discuss just this topic, which is, you know, what sort of changes do we need to make to the project lifecycle to support other types of projects coming into LFD Centralized Trust that are more than just code?
+
+171
+00:29:19.740 --> 00:29:23.949
+Tracy Kuhrt: Now, as a reminder, we do have,
+
+172
+00:29:24.150 --> 00:29:41.520
+Tracy Kuhrt: We do have a non-CREDS, which is a specification, although there is also code associated with that, and so we've always treated it more as a code project than a standards project. But it is a combined code standards project, and so, you know, the…
+
+173
+00:29:41.740 --> 00:30:00.140
+Tracy Kuhrt: in general, I think people have probably more looked at the code than they have at the standard, although the way that an on-creds works is, you know, they work on the code to help them develop the standard, and vice versa. A trust over IP is different in the case that it is just standards,
+
+174
+00:30:00.500 --> 00:30:12.140
+Tracy Kuhrt: And the code projects are elsewhere, be them in another LF project or, you know, as some form of project within
+
+175
+00:30:12.420 --> 00:30:20.250
+Tracy Kuhrt: LFDT, whether that be a lab or, kind of the top-level type project. So…
+
+176
+00:30:20.280 --> 00:30:36.360
+Tracy Kuhrt: I don't know that we have an answer to what those differences are, but that's definitely something that we thought we should work on this year, and we just have not yet gotten to that. I think maybe this might help us in some ways, this kind of…
+
+177
+00:30:36.360 --> 00:30:45.360
+Tracy Kuhrt: being able to review this and see kind of what comes in, and I, you know, I appreciate the sorts of suggestions that have been made here with the
+
+178
+00:30:45.360 --> 00:30:55.480
+Tracy Kuhrt: the review as far as some of the things that maybe we should look at. You know, maybe part of this should be looking at,
+
+179
+00:30:56.580 --> 00:30:58.780
+Tracy Kuhrt: You know, whether or not
+
+180
+00:30:58.780 --> 00:31:23.549
+Tracy Kuhrt: a project has, some sort of governance for the different sorts of stages that a project… I'm sorry, that a standard is in, right? So, that process of moving from a draft, to, kind of a published standard would be a good sort of thing to have. Maybe that's even something that the TAC might provide initial sorts of guidelines around, right? I think there's a lot of work
+
+181
+00:31:24.040 --> 00:31:37.810
+Tracy Kuhrt: that is still left to be done when it comes to integrating full standards projects into LFD Centralized Trust and the governance specifically that we have within LFD Centralized Trust.
+
+182
+00:31:37.810 --> 00:31:44.060
+Tracy Kuhrt: You know, this is… this is obviously something that it would be great to, as…
+
+183
+00:31:44.660 --> 00:31:57.189
+Tracy Kuhrt: as is mentioned here, right, I think in the chat, get more collaboration between us and the technical steering committee for Trust Over IP, as well as any potential future sorts of
+
+184
+00:31:59.790 --> 00:32:21.609
+Tracy Kuhrt: folks that might want to be contributing their standards projects to LFT Central's Trust to help really define this sort of information that we're looking for, that we have questions about. You know, what does it mean to be graduated when it comes to a standards-only project, and other sorts of things that I think are important. You know.
+
+185
+00:32:21.610 --> 00:32:29.939
+Tracy Kuhrt: Diane, you mentioned the… You know, should our templates be different for annual reviews and,
+
+186
+00:32:30.240 --> 00:32:49.849
+Tracy Kuhrt: and quarterly reviews for standards projects, I did put together this week just a, you know, something that was generic that I think could satisfy both. I shared that link in the chat a bit earlier, I think, Diane, when you were going through the initial comments. So, you know, this… these are all
+
+187
+00:32:50.540 --> 00:33:05.770
+Tracy Kuhrt: task that I think we and the rest of the larger community, especially the standards community, should be having conversations about and putting together some, some different recommendations about the way that we handle these sorts of things.
+
+188
+00:33:06.610 --> 00:33:07.470
+Tracy Kuhrt: Rama?
+
+189
+00:33:09.160 --> 00:33:12.459
+Ramakrishna V: Yeah, I echo what you and Diane said about
+
+190
+00:33:12.760 --> 00:33:17.560
+Ramakrishna V: Criteria for graduation being, published…
+
+191
+00:33:17.900 --> 00:33:27.209
+Ramakrishna V: standard, or at least a reference specification that has also been implemented and shown that it can work. So, just as inspiration from
+
+192
+00:33:27.270 --> 00:33:37.980
+Ramakrishna V: the IDF, there, whenever we propose a draft, before it's… and when people are considering whether or not it should advance to an RFC specification.
+
+193
+00:33:37.980 --> 00:33:46.529
+Ramakrishna V: They want to see an actual implementation, which is why we have implementations of those specifications already within
+
+194
+00:33:46.530 --> 00:33:58.220
+Ramakrishna V: cacti, and that is, it's necessary. They don't actually even advance a draft until, for conservation until they see a working implementation.
+
+195
+00:33:58.220 --> 00:34:03.990
+Ramakrishna V: So, we could apply a similar standard here. I mean, if a specification,
+
+196
+00:34:04.050 --> 00:34:15.419
+Ramakrishna V: gets converted into gold, and that is something that we could consider as a criterion for graduation. And if it also gets used in a product, that is icing on cake.
+
+197
+00:34:17.199 --> 00:34:22.199
+Tracy Kuhrt: Yeah, I think, you know, another thing, I was involved in a standards project
+
+198
+00:34:22.249 --> 00:34:41.169
+Tracy Kuhrt: a while back, not for long, so I'm not an expert in any way, shape, or form, but I think the other piece of, you know, being a well-established sort of standards organization is one that, really, you know, has these periods of
+
+199
+00:34:41.449 --> 00:34:44.959
+Tracy Kuhrt: Requests for comments, if you will.
+
+200
+00:34:44.959 --> 00:35:04.669
+Tracy Kuhrt: Right? Where people are given a certain amount of time to provide comments, and then those comments are addressed, and then there's additional time, right? There's this whole sort of life cycle that goes around standards, projects that, you know, for probably a lot of us as people who've only been involved in developing code.
+
+201
+00:35:04.669 --> 00:35:07.579
+Tracy Kuhrt: You know, may not be…
+
+202
+00:35:08.669 --> 00:35:33.589
+Tracy Kuhrt: standard, not to use that word, but may not be typical in our world, if you will. And so, these are all things that I think people who are involved in the standards projects, can provide us some good insights into the sorts of things that, you know, would make something incubated versus graduated in the context of, you know, the sorts of things that we're looking for for a graduated project.
+
+203
+00:35:33.589 --> 00:35:47.749
+Tracy Kuhrt: projects, which is maturity and diversity and that sort of thing. So, you know, I think there's some similarities, but there's obviously a lot of differences, and if you recall, we did have that presentation by Jory.
+
+204
+00:35:47.749 --> 00:35:58.029
+Tracy Kuhrt: months back, right, where we talked about the different types of standards projects, and I think there was some really good information in that deck for us to pull from as well.
+
+205
+00:35:58.029 --> 00:36:07.359
+Tracy Kuhrt: As we, continue, kind of, this process of understanding what it means to have different types of projects within LFD Centralized Trust.
+
+206
+00:36:16.600 --> 00:36:28.360
+Matthew Whitehead (Kaleido): Yeah, thank you. Thanks, everyone, for the comments. Yeah, I think I… this… this particular project feels like a good example of one that we can use as a reference for how we evolve the project
+
+207
+00:36:28.360 --> 00:36:36.819
+Matthew Whitehead (Kaleido): kind of categories. It's clearly very active, very well used, and quite how the TAC wants that to…
+
+208
+00:36:37.210 --> 00:36:42.900
+Matthew Whitehead (Kaleido): kind of exist as a project in the LFDT. I think this is a good project to kind of base some of those discussions on.
+
+209
+00:36:47.110 --> 00:36:54.339
+Tracy Kuhrt: Yeah, I… I do think we also have to, at some point, within the TAC, have a general discussion about
+
+210
+00:36:55.080 --> 00:37:02.180
+Tracy Kuhrt: are… are projects that are consisting of multiple projects?
+
+211
+00:37:02.490 --> 00:37:11.070
+Tracy Kuhrt: Right, and the windows they… Project that has multiple projects become graduated.
+
+212
+00:37:11.180 --> 00:37:25.310
+Tracy Kuhrt: Is it when all of their multiple projects are in a graduated-type stage? Is it when the majority of them are? Like, we don't really have any sort of way of handling those things yet, either. We've…
+
+213
+00:37:25.400 --> 00:37:32.699
+Tracy Kuhrt: You know, talked about it, but we haven't really, had a… had a further sort of conversation around.
+
+214
+00:37:33.090 --> 00:37:43.039
+Tracy Kuhrt: documenting any of our thoughts that we might have, so I think there's a whole lot of, sort of, discussion that we need to be having in how we're handling
+
+215
+00:37:43.090 --> 00:37:53.320
+Tracy Kuhrt: things today versus how we handled them when we were Hyperledger, right? A lot of our governors came over from Hyperledger, but we haven't really expanded that thinking
+
+216
+00:37:53.320 --> 00:38:09.479
+Tracy Kuhrt: Necessarily, or if we have, it hasn't been written down in our governance documents. So, I think there's still a lot of work for us to be doing, in, you know, really helping others, as well as ourselves, understand what these different criterias are.
+
+217
+00:38:09.620 --> 00:38:11.010
+Tracy Kuhrt: Heart.
+
+218
+00:38:11.400 --> 00:38:14.220
+Hart Montgomery: So yeah, one quick thing on this.
+
+219
+00:38:14.490 --> 00:38:25.600
+Hart Montgomery: you know, you mentioned judging, projects based on their, sort of, best or worst.
+
+220
+00:38:25.900 --> 00:38:36.990
+Hart Montgomery: sub-project. I don't think it's a good idea to… to judge it based on, sort of, the worst, or the lowest, or the least ready sub-project.
+
+221
+00:38:37.110 --> 00:38:40.510
+Hart Montgomery: You know, lots of projects are going to, sort of.
+
+222
+00:38:40.650 --> 00:38:44.189
+Hart Montgomery: You know, bring in new stuff, or start new stuff.
+
+223
+00:38:44.350 --> 00:38:46.740
+Hart Montgomery: They may have experimental branches.
+
+224
+00:38:46.920 --> 00:38:49.860
+Hart Montgomery: You know, they may have experimental plugins.
+
+225
+00:38:50.100 --> 00:38:56.469
+Hart Montgomery: And, you know, I think this is a healthy part of development as these things come along and develop.
+
+226
+00:38:57.860 --> 00:39:11.159
+Hart Montgomery: you know, I would actually consider a project that has some sort of pristine codebase, and also some stuff that's less pristine, but moving more pristine, to be healthier than a project that only has sort of a pristine codebase.
+
+227
+00:39:11.520 --> 00:39:16.629
+Hart Montgomery: Because this sort of indicates, you know, growth and advancement.
+
+228
+00:39:18.250 --> 00:39:36.699
+Hart Montgomery: So, I would suggest making sure that we don't, sort of, judge projects based on, like, you know, every repo possible being pristine. We could have… we could tag pro… you know, we could ask projects to tag repos or forks or whatever, you know, as…
+
+229
+00:39:37.290 --> 00:39:40.609
+Hart Montgomery: As production or non-production, and judge them on that.
+
+230
+00:39:40.870 --> 00:39:47.019
+Hart Montgomery: But I think healthy projects will have some, you know, not production-ready parts of their codebase.
+
+231
+00:39:48.160 --> 00:39:53.520
+Tracy Kuhrt: Yeah, I'm with you, Hart. I… I think I use, the…
+
+232
+00:39:54.300 --> 00:40:07.460
+Tracy Kuhrt: my phrasing from earlier as more of a way to get people to think about these sorts of things. I'm very much of the opinion that maybe we shouldn't be judging projects as a whole, and having these kind of…
+
+233
+00:40:08.150 --> 00:40:19.340
+Tracy Kuhrt: Incubation and graduated sorts of life cycles, but actually, looking at each of the individual pieces of work, rather than the whole of the work.
+
+234
+00:40:19.420 --> 00:40:33.529
+Tracy Kuhrt: And, you know, obviously, I also agree that, you know, the whole of the work that has some experimental and some that's mature, is also more healthy, right? And so I think…
+
+235
+00:40:33.530 --> 00:40:45.759
+Tracy Kuhrt: I think a lot of what all of this boils down to when we talk about project lifecycle is, how do we determine what's healthy and what's not healthy? I think we pretty much understand
+
+236
+00:40:45.780 --> 00:40:50.019
+Tracy Kuhrt: When things are not healthy, but I think we struggle with, really.
+
+237
+00:40:50.170 --> 00:40:54.470
+Tracy Kuhrt: Those that are maybe partially healthy.
+
+238
+00:40:54.470 --> 00:41:12.510
+Tracy Kuhrt: and understanding how to judge those, if you will, to use the word judge. I don't like that word, per se. But, you know, just to have some sort of thought about it. I really think it's more in line to help people understand the health of projects, rather than,
+
+239
+00:41:12.540 --> 00:41:21.979
+Tracy Kuhrt: you know, the judgment of those projects, right? Such that people can make a decision whether they want to participate, contribute.
+
+240
+00:41:22.020 --> 00:41:29.550
+Tracy Kuhrt: use that particular, source base. So, I think there's a lot for us to do,
+
+241
+00:41:29.550 --> 00:41:46.999
+Tracy Kuhrt: I think at one point, I actually advocated getting rid of the whole project lifecycle, in, like, a previous TAC term, and I did get some major pushback on that, so we still have a project life cycle, but I'm still of the opinion that, you know, maybe there's a better way to do this that we haven't yet discovered.
+
+242
+00:41:49.360 --> 00:42:04.629
+Tracy Kuhrt: But these are definitely action items for us for future TAC calls to try and figure that out, as well as future task forces to help put together some suggestions for the TAC to consider.
+
+243
+00:42:10.110 --> 00:42:14.499
+Tracy Kuhrt: All right, any other concerns about the trust over IP?
+
+244
+00:42:14.850 --> 00:42:25.549
+Tracy Kuhrt: Report, the annual report before we kind of have a vote to approve it and get it put in, to the source base.
+
+245
+00:42:33.480 --> 00:42:50.970
+Diane Mueller (Hedera Hashgraph LLC): I just would say that Daniela put a number of comments in the chat, so if you can check that, and I think a lot of the things you're referencing there, the deliverers, I did reference in the annual and quarterly report, they do have a tremendous amount of output, so, you know, I'm
+
+246
+00:42:50.970 --> 00:42:55.130
+Diane Mueller (Hedera Hashgraph LLC): Totally happy to make a motion to… to approve these reports.
+
+247
+00:42:57.060 --> 00:42:59.220
+Tracy Kuhrt: Alright, thanks, Diane, for the motion.
+
+248
+00:43:00.930 --> 00:43:02.170
+Tracy Kuhrt: Do we have a second?
+
+249
+00:43:06.870 --> 00:43:08.350
+Matthew Whitehead (Kaleido): Yeah, I'm happy to second it.
+
+250
+00:43:09.920 --> 00:43:10.650
+Tracy Kuhrt: Alright.
+
+251
+00:43:10.650 --> 00:43:11.799
+Ry Jones (The Linux Foundation): Quick point of order.
+
+252
+00:43:12.590 --> 00:43:15.399
+Tracy Kuhrt: Diane said approve the reports.
+
+253
+00:43:16.030 --> 00:43:17.539
+Ry Jones (The Linux Foundation): And that's fine.
+
+254
+00:43:17.710 --> 00:43:23.809
+Ry Jones (The Linux Foundation): I just want to make sure that everyone… are we approving both reports, or just the annual report? I would prefer to just approve both reports, but…
+
+255
+00:43:24.810 --> 00:43:31.360
+Tracy Kuhrt: I think since… I think that since they're together in the PR, we… I think that's why the…
+
+256
+00:43:31.800 --> 00:43:50.990
+Tracy Kuhrt: approval of both reports, more than anything. Typically, you're correct, Ryan, that we would only, approve the annual review, and then the quarterly reviews would be gone through the other process, which is the GitHub, approvals, but yeah, I think since we're talking about
+
+257
+00:43:50.990 --> 00:43:56.240
+Tracy Kuhrt: kind of… approval here. It has to be at the entire PR. Rama?
+
+258
+00:43:57.900 --> 00:44:12.090
+Ramakrishna V: Yeah, I just wanted to, clarify, in several previous, annual reviews, or annual reports, before we accepted the PR, we have, appended the assessments to the submitted file.
+
+259
+00:44:12.640 --> 00:44:20.769
+Ramakrishna V: and several others, we have not. So, is there a standardized way of doing this? Because otherwise, the assessment will remain in the… in the PR thread.
+
+260
+00:44:21.300 --> 00:44:39.590
+Tracy Kuhrt: Yeah, I think it's ideal that we do add them. It helps us in the future if we have to come back and look at what sort of comments and notes we had. It's sometimes hard to find them in the PR, because the searching isn't necessarily what we would expect. It's much easier to just go to the report and see them there.
+
+261
+00:44:39.590 --> 00:44:42.000
+Tracy Kuhrt: So, yeah, I would be…
+
+262
+00:44:42.550 --> 00:45:01.479
+Tracy Kuhrt: I would be open to approving the reports here, as has been motioned, and then, before we actually check them in, if they do get approved, to have the modification to those PRs before we actually commit the PR.
+
+263
+00:45:02.420 --> 00:45:10.010
+Ry Jones (The Linux Foundation): I think it might be better from a process flow to submit a PR after the merge to get.
+
+264
+00:45:10.010 --> 00:45:10.729
+Tracy Kuhrt: Makes sense.
+
+265
+00:45:10.730 --> 00:45:11.360
+Ry Jones (The Linux Foundation): You know.
+
+266
+00:45:12.140 --> 00:45:13.270
+Ry Jones (The Linux Foundation): Just so we capture it.
+
+267
+00:45:13.270 --> 00:45:21.520
+Tracy Kuhrt: Yeah, merge the PR as it exists now, and then create a PR that has the additions onto it.
+
+268
+00:45:22.200 --> 00:45:22.890
+Ry Jones (The Linux Foundation): Yeah.
+
+269
+00:45:23.060 --> 00:45:23.780
+Tracy Kuhrt: Okay.
+
+270
+00:45:24.440 --> 00:45:28.759
+Diane Mueller (Hedera Hashgraph LLC): Rama, can I… Rama, can I ask you to do that after this is done?
+
+271
+00:45:30.170 --> 00:45:30.719
+Diane Mueller (Hedera Hashgraph LLC): Thank you.
+
+272
+00:45:30.720 --> 00:45:31.730
+Ramakrishna V: Sure.
+
+273
+00:45:33.150 --> 00:45:41.630
+Tracy Kuhrt: All right. So we do have the motion and the second, standing, with a bit of discussion in there. Are we ready for the vote?
+
+274
+00:45:42.330 --> 00:45:47.720
+Ry Jones (The Linux Foundation): Yeah. So, Marcus, in the matter before the attack, how do you vote?
+
+275
+00:45:48.900 --> 00:45:50.220
+Marcus Brandenburger (IBM Research Zurich): Approve?
+
+276
+00:45:50.220 --> 00:45:54.100
+Ry Jones (The Linux Foundation): Hendrik Char.
+
+277
+00:45:54.880 --> 00:45:55.580
+Char Howland (Indicio): Approve.
+
+278
+00:45:55.580 --> 00:45:56.360
+Ry Jones (The Linux Foundation): Tracy.
+
+279
+00:45:56.770 --> 00:45:57.610
+Tracy Kuhrt: Yay.
+
+280
+00:45:58.160 --> 00:45:59.240
+Ry Jones (The Linux Foundation): Enrique.
+
+281
+00:45:59.610 --> 00:46:00.150
+Matthew Whitehead (Kaleido): A.
+
+282
+00:46:00.560 --> 00:46:01.470
+Ry Jones (The Linux Foundation): Diane.
+
+283
+00:46:01.870 --> 00:46:03.740
+Ry Jones (The Linux Foundation): Yay! Rama.
+
+284
+00:46:04.500 --> 00:46:05.330
+Ramakrishna V: Yay.
+
+285
+00:46:05.330 --> 00:46:06.010
+Ry Jones (The Linux Foundation): A run.
+
+286
+00:46:06.200 --> 00:46:06.880
+Arun S M: Yes.
+
+287
+00:46:07.240 --> 00:46:08.000
+Ry Jones (The Linux Foundation): Matthew.
+
+288
+00:46:09.330 --> 00:46:10.030
+Matthew Whitehead (Kaleido): Yes.
+
+289
+00:46:10.610 --> 00:46:16.980
+Ry Jones (The Linux Foundation): Peter and Wen Jing are not on the call, so the motion passes.
+
+290
+00:46:17.730 --> 00:46:18.480
+Ry Jones (The Linux Foundation): Thank you.
+
+291
+00:46:18.770 --> 00:46:20.119
+Tracy Kuhrt: Alright, thank you.
+
+292
+00:46:20.390 --> 00:46:39.840
+Tracy Kuhrt: All right, so we do have one other topic that has been… that is officially on our agenda. Matthew, I believe that you were the one who brought this up. It is really a sneak preview of the, the idea that we're going to bring a proposal to the TAC on the Paladin Lab.
+
+293
+00:46:40.000 --> 00:46:44.810
+Matthew Whitehead (Kaleido): To bring that project into incubation. So did you want to talk to us about that, Matthew?
+
+294
+00:46:44.960 --> 00:47:02.569
+Matthew Whitehead (Kaleido): Yeah, thank you, Tracy. Yeah, I thought it useful to mention this, ahead of possibly next week, having a proposal PR to be… to be voted on by the TAC. I will just briefly share screen,
+
+295
+00:47:02.590 --> 00:47:05.799
+Matthew Whitehead (Kaleido): just to add a bit of context, can you see that screen with the Paladin webpage?
+
+296
+00:47:05.800 --> 00:47:07.049
+Tracy Kuhrt: We can… yes.
+
+297
+00:47:07.050 --> 00:47:21.499
+Matthew Whitehead (Kaleido): So, I guess just for a bit of, of background, so, so, there is an LFDT lab called Paladin, which became a lab, I think, late 2024.
+
+298
+00:47:22.530 --> 00:47:39.090
+Matthew Whitehead (Kaleido): And has been kind of actively worked on, on for the whole time since. There is a related project, which is, was actually, yeah, prior to the, the LFDT switchover, which is under the Hyperledger Labs.
+
+299
+00:47:39.500 --> 00:47:41.689
+Matthew Whitehead (Kaleido): at the moment, called Zeto.
+
+300
+00:47:42.160 --> 00:47:52.319
+Matthew Whitehead (Kaleido): Which is, closely related to Ballion, so it's a, it's a standalone project, for offering UTXO-based, zero-knowledge proofs.
+
+301
+00:47:52.360 --> 00:48:04.719
+Matthew Whitehead (Kaleido): And, it is implemented as a plugin to Paladin, so Paladin has a very pluggable framework.
+
+302
+00:48:04.920 --> 00:48:17.160
+Matthew Whitehead (Kaleido): And it provides a number of different privacy domains, which can be implemented by third parties, and CETO is one such privacy domain.
+
+303
+00:48:17.510 --> 00:48:24.959
+Matthew Whitehead (Kaleido): So… The, the proposal that we're intending to put before the TAC in an upcoming call
+
+304
+00:48:25.940 --> 00:48:42.549
+Matthew Whitehead (Kaleido): is to look at graduating the Paladin Lab to incubating, so… so leaving labs and becoming an incubating project. But not only that, to, to bring Paladin and Zito
+
+305
+00:48:43.170 --> 00:48:51.850
+Matthew Whitehead (Kaleido): under the same LFDT incubating project, and have Zito leaving lab status as well.
+
+306
+00:48:51.850 --> 00:49:07.409
+Matthew Whitehead (Kaleido): we can go into specific kind of reasons around some of that thinking next week, but Zeto and Paladin are used very closely together, even though Zeto has kind of use cases and merit in its own right, that they are used so, so closely together.
+
+307
+00:49:07.450 --> 00:49:22.020
+Matthew Whitehead (Kaleido): That we think possibly keeping them as separate repositories, code repositories, but managing them and doing governance and community discussion about them under a single project banner would probably be the best way forward.
+
+308
+00:49:22.270 --> 00:49:37.219
+Matthew Whitehead (Kaleido): So I wanted just to… to… to highlight that ahead of possibly, like I say, possibly having, a proposal ready for next week. And I think just as part of that discussion.
+
+309
+00:49:37.590 --> 00:49:40.229
+Matthew Whitehead (Kaleido): Just looking at,
+
+310
+00:49:40.490 --> 00:49:48.590
+Matthew Whitehead (Kaleido): the, the template that we need to use to do that as well, just for a bit of, kind of admin checking. So…
+
+311
+00:49:48.860 --> 00:50:02.309
+Matthew Whitehead (Kaleido): I'm not sure if the full proposal template is used for labs that are proposing to move to incubating. The original lab was proposed, as you can see on screen here.
+
+312
+00:50:02.560 --> 00:50:25.520
+Matthew Whitehead (Kaleido): with some detail about it, but obviously, it was a much shorter proposal than a project proposal, which, for which the LFDT has this template here. So, just a bit of guidance would be useful on whether or not we should effectively write it as if it's a new project, or how to handle it as it's an existing lab. So…
+
+313
+00:50:25.520 --> 00:50:30.200
+Matthew Whitehead (Kaleido): Any questions or comments on either of those, are very welcome now.
+
+314
+00:50:31.400 --> 00:50:47.250
+Tracy Kuhrt: Yeah, so in the past, Matthew, we have had labs that have become projects, and they have completed the entire template. You know, obviously there's a lot of information that already exists in your previous proposals that can be basically copy-pasted directly into these sections.
+
+315
+00:50:47.250 --> 00:50:55.610
+Tracy Kuhrt: But yeah, it is intended that, each project that is proposed would have their own separate proposal.
+
+316
+00:50:55.950 --> 00:51:11.960
+Tracy Kuhrt: in the project proposals repo, so that we can keep track of those proposals. The same way that we keep track of proposals if people want to move from incubated to graduated, those also become then proposals in the project proposals repo.
+
+317
+00:51:11.960 --> 00:51:26.770
+Matthew Whitehead (Kaleido): Yeah, no, that makes sense. I'd certainly plan to have a standalone proposal for it. It was… it was really, how closely to follow the template here, but I think it makes sense just to use this template unless there's… there's, yeah, any reason not to, but, yeah, thanks, Tracy.
+
+318
+00:51:26.770 --> 00:51:27.400
+Tracy Kuhrt: Yeah.
+
+319
+00:51:30.540 --> 00:51:41.410
+Matthew Whitehead (Kaleido): So yeah, there may not be an awful lot of discussion or questions this week, but if people want to take a look at Paladin ahead of next week, they're very welcome to, and…
+
+320
+00:51:41.640 --> 00:51:43.299
+Matthew Whitehead (Kaleido): I have…
+
+321
+00:51:43.340 --> 00:52:00.289
+Matthew Whitehead (Kaleido): suggested some of the lead Paladin maintainers from Kaleido, that they join next week's call as part of, bringing that proposal forward, and perhaps answering questions that the TAC has. So, yeah, our aim would be to aim for next week,
+
+322
+00:52:00.290 --> 00:52:04.410
+Matthew Whitehead (Kaleido): Pending the ability to get the proposal, ready for them.
+
+323
+00:52:06.580 --> 00:52:17.390
+Matthew Whitehead (Kaleido): I guess one other thing, I know this, just because I was here with Man, we're chatting about this, I don't know if we have, LFX Insights set up for labs yet, I didn't see that set up.
+
+324
+00:52:17.390 --> 00:52:30.059
+Matthew Whitehead (Kaleido): I'm like Diane, I like to see metrics of, like, especially since it's a lab, we could maybe look at contributions and commits and niches and stuff, and that's, like, a good metric in an incubation, proposal.
+
+325
+00:52:31.940 --> 00:52:41.669
+Matthew Whitehead (Kaleido): Yeah, I did have a little look at what the GitHub Insights give you, and it gives you some, but yeah, not all of the open scorecard and FX Insights and things.
+
+326
+00:52:41.840 --> 00:52:50.440
+Matthew Whitehead (Kaleido): I don't know if we can wire that up, further. I know Hyperledger Labs is in there, but I didn't see the actual LFT labs in LFX instance. Just an FYI.
+
+327
+00:52:54.140 --> 00:52:58.820
+Tracy Kuhrt: And I was just gonna add, Matthew, I think, obviously, the sooner the proposal comes in.
+
+328
+00:52:58.840 --> 00:53:14.960
+Tracy Kuhrt: The better, to give people a chance to review and dig in before the discussion. I think it's easier when people have that, you know, chance to kind of get their thoughts in place. So, if you were to, say, submit it next Wednesday, I'd probably say let's hold off until the following.
+
+329
+00:53:14.960 --> 00:53:18.849
+Tracy Kuhrt: TAC count, you know, if you're submitting it, you know.
+
+330
+00:53:18.850 --> 00:53:36.929
+Tracy Kuhrt: tomorrow, or even Monday, I might say, okay, that's probably enough time, but yeah. Obviously, be aware that if you do submit it, even, say, Monday, right, that people may want an extra week just to get their head completely around it, even after the discussion.
+
+331
+00:53:36.930 --> 00:53:40.240
+Tracy Kuhrt: So, you know, just be aware that people are…
+
+332
+00:53:40.370 --> 00:53:43.159
+Tracy Kuhrt: May need that time, and that's okay.
+
+333
+00:53:43.160 --> 00:53:46.529
+Matthew Whitehead (Kaleido): Yeah, of course, yeah, yeah, totally makes sense.
+
+334
+00:53:47.660 --> 00:53:51.950
+Matthew Whitehead (Kaleido): Okay, I think that's all I had for now. Thank you for adding it to the agenda.
+
+335
+00:53:52.190 --> 00:54:06.920
+Tracy Kuhrt: Okay, yeah, no worries. And then, just as I mentioned, I did create a couple threads on Discord, one around the project reviews and the kind of template updates. Feel free to update that Google Doc.
+
+336
+00:54:06.970 --> 00:54:19.709
+Tracy Kuhrt: And then I also created a thread on what do we do for late project updates? Is there some sort of timeline that we want to give before we consider moving a project towards dormant?
+
+337
+00:54:19.710 --> 00:54:34.709
+Tracy Kuhrt: Or even archived, as the case may be. So, we kind of did see that a little bit with Bevel, right? That 2 months was about the right time for Bevel to come back and say, yeah, I think we're ready to go to dormant, because there was a,
+
+338
+00:54:35.000 --> 00:54:37.000
+Tracy Kuhrt: you know, a message in Discord.
+
+339
+00:54:37.000 --> 00:54:56.759
+Tracy Kuhrt: shortly after the report was due by Arun, and then I brought one up just, you know, as I mentioned earlier this week when I put together the agenda, and that two months seemed to be the right period, but I'm happy for the discussion about late project updates and whether or not we want to make that more official in our governance.
+
+340
+00:54:56.760 --> 00:54:58.389
+Tracy Kuhrt: Do,
+
+341
+00:54:58.390 --> 00:55:21.079
+Tracy Kuhrt: in Discord for us to have a discussion around, and eventually we'll bring it up for discussion, official discussion in a TAC call, but, just, yeah, FYI, those two threads are out there for us to have some… some back and forth offline, and not in a TAC call, so feel free to… to add your thoughts, to either the Google Doc, the thread.
+
+342
+00:55:21.080 --> 00:55:23.979
+Tracy Kuhrt: Or, the other thread, as the case may be.
+
+343
+00:55:26.230 --> 00:55:32.339
+Tracy Kuhrt: Any other things that people want to bring up in the last 4 minutes that we should talk about quickly?
+
+344
+00:55:33.530 --> 00:55:34.860
+Tracy Kuhrt: Or be aware of.
+
+345
+00:55:43.820 --> 00:56:02.469
+Tracy Kuhrt: Okay, sounds like that. So, with that, we'll go ahead and close out today's meeting. We will either be looking at an incubation proposal next week, or potentially we'll be taking a look at those two threads, depending on how things go. So, with that, I'll close the meeting and talk to you all again next week.
+
+346
+00:56:05.300 --> 00:56:06.709
+Marcus Brandenburger (IBM Research Zurich): Thank you, boy.
+
+347
+00:56:07.020 --> 00:56:07.690
+Sean Bohan (The Linux Foundation): Thanks, Tracy.
+
+348
+00:56:07.690 --> 00:56:08.060
+Hendrik Ebbers (Hedera Hashgraph LLC): But…
+
+349
+00:56:08.060 --> 00:56:08.600
+Sean Bohan (The Linux Foundation): Dude.
+

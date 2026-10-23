@@ -1,0 +1,2114 @@
+WEBVTT
+
+1
+00:01:52.850 --> 00:01:54.090
+Robert Walworth: Hey, everyone.
+
+2
+00:02:00.150 --> 00:02:01.200
+Priyanshu Yadav: And…
+
+3
+00:02:26.070 --> 00:02:26.820
+Hendrik Ebbers (Hedera Hashgraph LLC): 8…
+
+4
+00:04:00.670 --> 00:04:03.130
+Robert Walworth: Alright, we'll probably go ahead and get started.
+
+5
+00:04:03.270 --> 00:04:10.640
+Robert Walworth: I just had a couple topics about V3 today.
+
+6
+00:04:10.960 --> 00:04:20.310
+Robert Walworth: I know past couple weeks, we've been talking about good first issues, and kind of what we want to do with that. I don't know if…
+
+7
+00:04:20.430 --> 00:04:25.219
+Robert Walworth: sophie or Hendrick, you guys had any more,
+
+8
+00:04:25.980 --> 00:04:28.849
+Robert Walworth: Things you want to talk about related to that?
+
+9
+00:04:30.490 --> 00:04:32.449
+Sophie Bulloch: I do, but maybe at the end.
+
+10
+00:04:34.710 --> 00:04:48.959
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, that is… that is what… what I would like to prefer. So, I've already seen what Zofi has prepared. I… I think it's good to… to share, but on… on the other hand,
+
+11
+00:04:50.150 --> 00:04:52.210
+Hendrik Ebbers (Hedera Hashgraph LLC): Those meetings are…
+
+12
+00:04:52.750 --> 00:05:07.680
+Hendrik Ebbers (Hedera Hashgraph LLC): normally the focus is on proposals, on technical content, and that, and we now already use several of them for good first issues, what I like, and as said, I like to have it today, too.
+
+13
+00:05:07.680 --> 00:05:13.639
+Hendrik Ebbers (Hedera Hashgraph LLC): But maybe we can do it as kind of time-boxed, and try to move
+
+14
+00:05:13.870 --> 00:05:19.870
+Hendrik Ebbers (Hedera Hashgraph LLC): forward the vSuite topics today, and…
+
+15
+00:05:19.980 --> 00:05:24.459
+Hendrik Ebbers (Hedera Hashgraph LLC): Because I think that is a high need, we need to get progress on.
+
+16
+00:05:24.570 --> 00:05:25.530
+Hendrik Ebbers (Hedera Hashgraph LLC): And in…
+
+17
+00:05:25.990 --> 00:05:29.349
+Sophie Bulloch: I agree, I don't want the presentation to take over like it did last time.
+
+18
+00:05:29.580 --> 00:05:34.420
+Sophie Bulloch: But it is something that I'm spending a little time on, so, yeah, I would…
+
+19
+00:05:34.420 --> 00:05:38.900
+Hendrik Ebbers (Hedera Hashgraph LLC): What, what, what do you resume? Like, last 15 minutes, or.
+
+20
+00:05:38.900 --> 00:05:40.609
+Sophie Bulloch: Oh, yeah, yeah, like, yeah.
+
+21
+00:05:40.610 --> 00:05:51.339
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, cool. Okay, so then let's do it like that, that we say the last 15 minutes are reserved for the good first issue topic.
+
+22
+00:05:52.140 --> 00:05:55.130
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, that makes sense.
+
+23
+00:05:55.880 --> 00:05:56.999
+Robert Walworth: Yeah, that sounds good.
+
+24
+00:05:58.070 --> 00:06:00.340
+Robert Walworth: Yeah, sorry, I…
+
+25
+00:06:00.480 --> 00:06:07.640
+Robert Walworth: I usually end up just making this wiki page on the Friday before, so I will try to be better about making it sooner.
+
+26
+00:06:07.640 --> 00:06:07.990
+Hendrik Ebbers (Hedera Hashgraph LLC): I feel bad.
+
+27
+00:06:08.370 --> 00:06:11.490
+Robert Walworth: People can go in and add their topics,
+
+28
+00:06:12.280 --> 00:06:17.719
+Robert Walworth: In a more timely manner, so… Yeah, okay, sounds good. So…
+
+29
+00:06:17.920 --> 00:06:28.050
+Robert Walworth: The three topics I had today were, we want to talk about, MirrorNode, REST API support,
+
+30
+00:06:28.250 --> 00:06:31.690
+Robert Walworth: Now, this one is…
+
+31
+00:06:31.940 --> 00:06:42.710
+Robert Walworth: we've talked about this a little bit recently, just because of the HIP 1261 that we've been working with the MirrorNode team.
+
+32
+00:06:42.840 --> 00:06:57.120
+Robert Walworth: the kind of issue we had with that was trying to figure out if we were able to do… do that using a, JRPC, or a gRPC API, or a REST API.
+
+33
+00:06:57.270 --> 00:07:12.859
+Robert Walworth: And we ultimately ended up going with REST because we wanted this to be able to be used in a browser environment, and browsers aren't able to, with the JavaScript SDK, use gRPC, without a gRPC web proxy.
+
+34
+00:07:12.860 --> 00:07:23.939
+Robert Walworth: So that's something that the team decided they didn't want to, ultimately support, so we ended up going with the REST API. But then, we also,
+
+35
+00:07:24.160 --> 00:07:40.669
+Robert Walworth: Then there was also a discussion if this was something that should even be supported in the SDK, just because, the MirrorNode REST API supports OpenAPI, and, to my understanding, there are customers that can…
+
+36
+00:07:40.820 --> 00:07:55.910
+Robert Walworth: generate their own, I guess, API, sort of, or open API, I guess I don't know what the term would be, interface or usage. They basically just, like, generate their, the code, like, themselves.
+
+37
+00:07:56.030 --> 00:08:11.290
+Robert Walworth: So this was something I thought would be interesting to talk about for V3, if this was something that we wanted to support and, include in our… in the SDKs, or if this was something that…
+
+38
+00:08:11.800 --> 00:08:18.470
+Robert Walworth: We wanted to leave more for, you know, different users to, kind of do themselves.
+
+39
+00:08:18.890 --> 00:08:20.530
+Robert Walworth: Yeah, Hendrik.
+
+40
+00:08:21.540 --> 00:08:25.560
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, my point here is, right.
+
+41
+00:08:25.690 --> 00:08:38.170
+Hendrik Ebbers (Hedera Hashgraph LLC): In first place, I think it's great to, just provide an API that people can use. I know that, at least in the Java world, it is…
+
+42
+00:08:38.320 --> 00:08:44.000
+Hendrik Ebbers (Hedera Hashgraph LLC): Quite complicated to… provide an API,
+
+43
+00:08:44.159 --> 00:08:51.409
+Hendrik Ebbers (Hedera Hashgraph LLC): that all people can easily use in their environment, because in Java,
+
+44
+00:08:51.750 --> 00:09:02.839
+Hendrik Ebbers (Hedera Hashgraph LLC): things like Spring Boot have their own HTTP REST client APIs. Others, like Jakarta have it, then there is a plain,
+
+45
+00:09:03.270 --> 00:09:17.280
+Hendrik Ebbers (Hedera Hashgraph LLC): one, which is part of the OpenJDK, then there is the Apache HartTTP client, then there is OKHTTP, and when looking at OpenAPI and the… I think it's,
+
+46
+00:09:17.470 --> 00:09:29.060
+Hendrik Ebbers (Hedera Hashgraph LLC): is it from Swagger? I think it's from Swagger, this tooling to create code out of an OpenAPI spec. For Java, you have so many different,
+
+47
+00:09:29.330 --> 00:09:39.470
+Hendrik Ebbers (Hedera Hashgraph LLC): classifications, like, hey, use it based on this dependency, use it based on that dependency, that my gut feeling is, for Java, you can just do it wrong.
+
+48
+00:09:42.550 --> 00:09:59.909
+Hendrik Ebbers (Hedera Hashgraph LLC): On the other hand, I see a lot of other rivalries where REST is the only way to communicate with the server infrastructure. They just do exactly that and provide one
+
+49
+00:10:00.040 --> 00:10:15.599
+Hendrik Ebbers (Hedera Hashgraph LLC): preferred way to use it, which then maybe add some HTTP dependencies that a project without that would not have. So I'm, you know, I'm somewhere in the middle, I like the idea to provide it.
+
+50
+00:10:15.760 --> 00:10:22.529
+Hendrik Ebbers (Hedera Hashgraph LLC): But I see, that this can end in new dependencies and things like that.
+
+51
+00:10:22.700 --> 00:10:29.619
+Hendrik Ebbers (Hedera Hashgraph LLC): Where I asked myself, is it worth that against people can easily create it on their own?
+
+52
+00:10:31.980 --> 00:10:35.989
+Robert Walworth: Yeah, I guess it would… would there be a way to,
+
+53
+00:10:36.750 --> 00:10:45.809
+Robert Walworth: I guess in this job example, like, for people to maybe, like, choose, like, what dependency they use, like, if they're already using, like, a certain…
+
+54
+00:10:46.130 --> 00:10:52.129
+Robert Walworth: library for… to do, like, REST API, queries, like…
+
+55
+00:10:52.670 --> 00:10:59.869
+Robert Walworth: would there be a way for them to choose, like, oh, like, you know, SDK could use this one, this one, or that one, like,
+
+56
+00:11:00.510 --> 00:11:06.049
+Robert Walworth: And then have it choose, like, based on that? Like, would that be possible?
+
+57
+00:11:06.050 --> 00:11:16.399
+Hendrik Ebbers (Hedera Hashgraph LLC): Yes, that is… it's not a UI, right? So, it's, what Swagger provides for code generation based on REST endpoints.
+
+58
+00:11:16.570 --> 00:11:20.990
+Hendrik Ebbers (Hedera Hashgraph LLC): If, a CII.
+
+59
+00:11:21.600 --> 00:11:25.930
+Hendrik Ebbers (Hedera Hashgraph LLC): So it's called Swagger CodeGen, I think that is the…
+
+60
+00:11:26.500 --> 00:11:30.630
+Hendrik Ebbers (Hedera Hashgraph LLC): Things that most people use to create something like that.
+
+61
+00:11:30.770 --> 00:11:34.340
+Hendrik Ebbers (Hedera Hashgraph LLC): And, that is not an…
+
+62
+00:11:36.510 --> 00:11:45.129
+Hendrik Ebbers (Hedera Hashgraph LLC): an editor or something that is a CI, and… With that,
+
+63
+00:11:46.580 --> 00:11:49.080
+Hendrik Ebbers (Hedera Hashgraph LLC): It makes it a little bit more…
+
+64
+00:11:49.370 --> 00:11:57.539
+Hendrik Ebbers (Hedera Hashgraph LLC): complex, because you need to go, I'm just searching for it, into the documentation and see, like, oh, what are the…
+
+65
+00:11:57.630 --> 00:12:16.499
+Hendrik Ebbers (Hedera Hashgraph LLC): current, different, and I know… do not know how they call it, like, configurations or patterns that are supported, and which one do I want to use? Because for Java, it's even a difference if you say, I want to have it on Android, or I want to have it on a
+
+66
+00:12:16.940 --> 00:12:18.690
+Hendrik Ebbers (Hedera Hashgraph LLC): Java Core app, you know?
+
+67
+00:12:19.620 --> 00:12:20.110
+Robert Walworth: Hmm.
+
+68
+00:12:20.110 --> 00:12:22.839
+Hendrik Ebbers (Hedera Hashgraph LLC): Even there, you have… have a difference.
+
+69
+00:12:23.670 --> 00:12:28.829
+Hendrik Ebbers (Hedera Hashgraph LLC): I'm… give me a second, then… then I think I have…
+
+70
+00:12:29.630 --> 00:12:35.719
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh, here we go! How can I link to that? So, if you open…
+
+71
+00:12:38.850 --> 00:12:41.399
+Hendrik Ebbers (Hedera Hashgraph LLC): This link, I just sent you.
+
+72
+00:12:42.620 --> 00:12:52.419
+Hendrik Ebbers (Hedera Hashgraph LLC): and scroll down to supported languages and frameworks. Here we go. So here you see, like, oh yeah, there was Go, there was,
+
+73
+00:12:52.780 --> 00:13:06.579
+Hendrik Ebbers (Hedera Hashgraph LLC): I assume somewhere Java or whatever, and then you have server stops. And server stops, you see, like, oh, Spring has their own, Java Micronode has their own, Quotryn has their own.
+
+74
+00:13:06.580 --> 00:13:16.390
+Hendrik Ebbers (Hedera Hashgraph LLC): So I… maybe this is Java-specific, but when looking at those server stubs, there were several ones that would work for Java.
+
+75
+00:13:16.460 --> 00:13:24.819
+Hendrik Ebbers (Hedera Hashgraph LLC): I don't know how that is done in other languages, like in Python, in Go, in… you know?
+
+76
+00:13:24.820 --> 00:13:41.270
+Hendrik Ebbers (Hedera Hashgraph LLC): TypeScript… I assume for TypeScript, it's a big difference if you use, like, React, or if you use Angular, or if you use just the pre-aimed Fetch API, coming from JavaScript, as an example.
+
+77
+00:13:43.940 --> 00:13:45.189
+Robert Walworth: Yeah, so, like…
+
+78
+00:13:45.470 --> 00:13:47.919
+Hendrik Ebbers (Hedera Hashgraph LLC): We'd almost kind of want it to, like…
+
+79
+00:13:48.040 --> 00:13:53.249
+Robert Walworth: Dynamically generate something, like, based on what the user…
+
+80
+00:13:53.480 --> 00:13:56.800
+Robert Walworth: Would need it for, like, whatever their use case is.
+
+81
+00:13:56.980 --> 00:14:10.369
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I think there are two ways. So, one way is we just decide for each language that is the one we say is the one we support and we provide.
+
+82
+00:14:10.780 --> 00:14:16.610
+Hendrik Ebbers (Hedera Hashgraph LLC): which might work. Maybe in some languages, there is just one option, and therefore…
+
+83
+00:14:17.620 --> 00:14:21.179
+Hendrik Ebbers (Hedera Hashgraph LLC): In other languages, maybe you have 5, and…
+
+84
+00:14:21.320 --> 00:14:25.429
+Hendrik Ebbers (Hedera Hashgraph LLC): The problem is, if… if we couple…
+
+85
+00:14:25.740 --> 00:14:33.860
+Hendrik Ebbers (Hedera Hashgraph LLC): the client for Mira node and client for consensus node, as an example, together.
+
+86
+00:14:33.990 --> 00:14:37.180
+Hendrik Ebbers (Hedera Hashgraph LLC): as one SDK or as one library.
+
+87
+00:14:37.210 --> 00:14:56.869
+Hendrik Ebbers (Hedera Hashgraph LLC): and you say, yeah, this is useless for me because I need something that is based on, as an example, the Android HTTP client, so I cannot use the other Java stuff. Then you get dependencies that are useless for you, you know? So, which is…
+
+88
+00:14:57.020 --> 00:14:58.400
+Hendrik Ebbers (Hedera Hashgraph LLC): not good.
+
+89
+00:14:58.530 --> 00:15:01.390
+Hendrik Ebbers (Hedera Hashgraph LLC): I think here we need to do an analysis.
+
+90
+00:15:01.790 --> 00:15:07.229
+Hendrik Ebbers (Hedera Hashgraph LLC): What it looks like for the different languages, and what would make sense and whatnot.
+
+91
+00:15:07.450 --> 00:15:12.480
+Hendrik Ebbers (Hedera Hashgraph LLC): The other way we could do it is for each language.
+
+92
+00:15:12.830 --> 00:15:32.750
+Hendrik Ebbers (Hedera Hashgraph LLC): give a preferred way how you can do it, and create very good, teaching material about it. Like, video about, hey, how can you use, as an example, Swagger CoachGen to create, based on a given MirrorNode endpoint,
+
+93
+00:15:33.130 --> 00:15:45.010
+Hendrik Ebbers (Hedera Hashgraph LLC): something that is based on the Go server stub in Go, so that in your Go application, you can directly communicate with,
+
+94
+00:15:45.690 --> 00:15:47.549
+Hendrik Ebbers (Hedera Hashgraph LLC): With a mirror node server.
+
+95
+00:15:48.250 --> 00:15:53.769
+Hendrik Ebbers (Hedera Hashgraph LLC): I assume that could be a better way, at least for the start, because if we have that.
+
+96
+00:15:53.890 --> 00:15:56.929
+Hendrik Ebbers (Hedera Hashgraph LLC): Creating our own library is still possible.
+
+97
+00:15:57.320 --> 00:16:03.040
+Hendrik Ebbers (Hedera Hashgraph LLC): And it would help us with other points, like, for example, versioning.
+
+98
+00:16:03.120 --> 00:16:06.289
+Hendrik Ebbers (Hedera Hashgraph LLC): Because today, we do not have
+
+99
+00:16:06.370 --> 00:16:10.000
+Hendrik Ebbers (Hedera Hashgraph LLC): Or maybe… maybe I'm wrong, and we now have it.
+
+100
+00:16:10.070 --> 00:16:28.640
+Hendrik Ebbers (Hedera Hashgraph LLC): But we do not have, like, exact same versions for mirror node and for consensus node, right? It's more like, oh, that version on Consensus node uses that protobuf from… no, that version of Mirror Node uses that protobuf of consensus node, so it's compatible with that. If.
+
+101
+00:16:29.190 --> 00:16:44.220
+Hendrik Ebbers (Hedera Hashgraph LLC): you have your own network where you set up a consensus node and a mirror node, and we just have one SDK. Do we say that SDK is compatible with consensus node version X? Do we add a version for mirror node?
+
+102
+00:16:44.330 --> 00:16:49.129
+Hendrik Ebbers (Hedera Hashgraph LLC): All those questions come up if we include that in our code.
+
+103
+00:16:51.080 --> 00:16:54.760
+Hendrik Ebbers (Hedera Hashgraph LLC): make sense? Like, that those are things to discuss.
+
+104
+00:16:57.140 --> 00:17:08.759
+Robert Walworth: Yeah, I think I follow. So, you're basically saying that if we can use this kind of swagger code, Jen, to generate specific
+
+105
+00:17:08.910 --> 00:17:12.929
+Robert Walworth: code for specific, like, mirror node versions.
+
+106
+00:17:13.220 --> 00:17:17.110
+Robert Walworth: And be able to, like, kind of track it that way, is that what you're saying?
+
+107
+00:17:17.750 --> 00:17:22.920
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I mean, so what I'm saying is, since this too exists.
+
+108
+00:17:24.140 --> 00:17:36.599
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe it don't make sense to say, here, we provide our own API on top of MirrorNode, because you can just use this one to create it. Maybe what we do is
+
+109
+00:17:36.750 --> 00:17:42.450
+Hendrik Ebbers (Hedera Hashgraph LLC): Just wants this tool, and… provide even some, like, vanilla.
+
+110
+00:17:42.930 --> 00:17:45.850
+Hendrik Ebbers (Hedera Hashgraph LLC): Builds based on that tool.
+
+111
+00:17:46.450 --> 00:17:59.349
+Hendrik Ebbers (Hedera Hashgraph LLC): But we do not change them at all, right? This is anger-created ones, where we say, hey, look, this is based on this tool, you can use the tool, too, if you want to have some just do it like this, and this, and this.
+
+112
+00:18:01.080 --> 00:18:10.720
+Hendrik Ebbers (Hedera Hashgraph LLC): But this would, especially in the first step, it would be 100% separated from what we call SDKs today.
+
+113
+00:18:12.080 --> 00:18:25.210
+Robert Walworth: Okay, so we wouldn't necessarily provide, like, REST API, functionality in the SDK, but we would provide directions on how to do that,
+
+114
+00:18:25.210 --> 00:18:29.169
+Hendrik Ebbers (Hedera Hashgraph LLC): At the beginning, at the beginning. I mean, maybe we see…
+
+115
+00:18:29.650 --> 00:18:44.090
+Hendrik Ebbers (Hedera Hashgraph LLC): that nobody cares, and for everybody, it's okay if we use variant 7, whatever variant 7 is, you know? And then we can do it like that, but we are not at the point where we could decide that. So.
+
+116
+00:18:44.150 --> 00:18:53.099
+Hendrik Ebbers (Hedera Hashgraph LLC): What I'm seeing would make sense, so for now painting on your screen, if that is our current SDK, right?
+
+117
+00:18:53.350 --> 00:19:02.590
+Hendrik Ebbers (Hedera Hashgraph LLC): That is what we have today, and where we currently work on version 3. And parallel to that, we have a REST…
+
+118
+00:19:03.030 --> 00:19:03.940
+Hendrik Ebbers (Hedera Hashgraph LLC): Stop.
+
+119
+00:19:04.830 --> 00:19:10.000
+Hendrik Ebbers (Hedera Hashgraph LLC): And if you want both, we have this Nice…
+
+120
+00:19:10.940 --> 00:19:24.900
+Hendrik Ebbers (Hedera Hashgraph LLC): facade on top that we provide that includes everything and has just some minimalistic clue code, maybe that would be a solution. What I think is very important
+
+121
+00:19:24.900 --> 00:19:34.359
+Hendrik Ebbers (Hedera Hashgraph LLC): that this one do not depend now on any REST stuff, on any mirror node stuff, because what we have here is the
+
+122
+00:19:35.140 --> 00:19:39.059
+Hendrik Ebbers (Hedera Hashgraph LLC): consensus node SDK, and for the current
+
+123
+00:19:39.390 --> 00:19:44.940
+Hendrik Ebbers (Hedera Hashgraph LLC): state. I think it's a must to keep that separated, because
+
+124
+00:19:44.940 --> 00:20:04.689
+Hendrik Ebbers (Hedera Hashgraph LLC): We're now starting to discuss what do we want to do in version 3. What have we learned over the last years that we want to bring forward to create a solid SDK? But everything we learned is only about Consensus node. We have learned nothing about MirrorNode.
+
+125
+00:20:04.690 --> 00:20:07.170
+Hendrik Ebbers (Hedera Hashgraph LLC): So we need this split.
+
+126
+00:20:07.270 --> 00:20:22.560
+Hendrik Ebbers (Hedera Hashgraph LLC): and say, hey, we now move the consensus SDKs, where we're all working on, in a very, very solid state, and what we are doing here, oh, we now give it a try and start something. And maybe in 4 years, we see, yeah, that was not the right
+
+127
+00:20:22.560 --> 00:20:30.639
+Hendrik Ebbers (Hedera Hashgraph LLC): thing, everybody wants something else, and then we create something else, and maybe then, those two things are even, like.
+
+128
+00:20:30.910 --> 00:20:39.279
+Hendrik Ebbers (Hedera Hashgraph LLC): bundled together, or whatever. When we know this is enterprise-ready, we know what the people assume from,
+
+129
+00:20:39.530 --> 00:20:47.450
+Hendrik Ebbers (Hedera Hashgraph LLC): from a mirror node client. The other thing is, when it comes to mirror node clients,
+
+130
+00:20:47.940 --> 00:20:51.319
+Hendrik Ebbers (Hedera Hashgraph LLC): In theory, the mirror node can have
+
+131
+00:20:51.680 --> 00:21:05.890
+Hendrik Ebbers (Hedera Hashgraph LLC): gRPC endpoints. And another question I would like to ask is, can we talk with the mirror node people so that what they provide for REST is
+
+132
+00:21:06.230 --> 00:21:16.130
+Hendrik Ebbers (Hedera Hashgraph LLC): even provided for gRPC2, because then, executing now the JavaScript client, because that is always special.
+
+133
+00:21:16.440 --> 00:21:20.109
+Hendrik Ebbers (Hedera Hashgraph LLC): We could say, oh, we do not take care about West.
+
+134
+00:21:20.240 --> 00:21:29.490
+Hendrik Ebbers (Hedera Hashgraph LLC): But for the other SDKs, we provide, like we do it today for Consensus Node, gRPC-based
+
+135
+00:21:29.830 --> 00:21:33.650
+Hendrik Ebbers (Hedera Hashgraph LLC): connections and put an API layer on top of that.
+
+136
+00:21:37.820 --> 00:21:50.189
+Robert Walworth: Yeah. Yeah, so, the SDK today, currently, like, we do have some mirror node, usage. So, like…
+
+137
+00:21:52.050 --> 00:22:00.630
+Robert Walworth: So, like, we added recently, like, there are, like, some new, like, mirror node contracts, like, gas estimation queries,
+
+138
+00:22:00.670 --> 00:22:16.989
+Robert Walworth: you know, the simple fees will be added here soon. We use, like, the topic message, like, gRPC endpoint as well. And also, the, address book. So, the address book is pretty, like, integrated, like, in our… Yeah.
+
+139
+00:22:16.990 --> 00:22:17.450
+Hendrik Ebbers (Hedera Hashgraph LLC): Yep.
+
+140
+00:22:17.450 --> 00:22:34.070
+Robert Walworth: error execution, like, kind of pipeline. So, like, this is actually something we just did, so if we… now if the consensus node returns an invalid node account error, then we clear the address book, immediately and update our network, because…
+
+141
+00:22:34.170 --> 00:22:43.939
+Robert Walworth: invalid node accounts, like, something, like, got off. Like, there's a node account being used that isn't recognized in the client's network. So… I'm…
+
+142
+00:22:45.220 --> 00:22:55.479
+Robert Walworth: I'm kind of reluctant to want to divide, like, the mirror node and Consensus node SDKs into, like, two separate ones, just because…
+
+143
+00:22:55.620 --> 00:23:01.720
+Robert Walworth: We already have, like, consensus node depending on MirrorNode in that way.
+
+144
+00:23:03.360 --> 00:23:04.220
+Robert Walworth: That's.
+
+145
+00:23:04.990 --> 00:23:07.870
+Hendrik Ebbers (Hedera Hashgraph LLC): Is that GIPC-based, OS-based?
+
+146
+00:23:08.470 --> 00:23:11.559
+Robert Walworth: The mirror, or the address book…
+
+147
+00:23:12.060 --> 00:23:16.560
+Robert Walworth: I actually can't remember. Availo, do you know? Is that gRPC?
+
+148
+00:23:19.180 --> 00:23:20.750
+Ivaylo N: Oh, which one? Which query?
+
+149
+00:23:20.960 --> 00:23:23.509
+Robert Walworth: Mirror node. Or, address book.
+
+150
+00:23:23.510 --> 00:23:25.500
+Ivaylo N: There's book is a mirror not one, yeah.
+
+151
+00:23:26.390 --> 00:23:27.880
+Robert Walworth: Yeah, is that… is that GRPC.
+
+152
+00:23:27.880 --> 00:23:29.069
+Ivaylo N: Oh, 100%.
+
+153
+00:23:29.230 --> 00:23:33.049
+Ivaylo N: But the JS said, basically, all the SDKs.
+
+154
+00:23:33.610 --> 00:23:38.829
+Ivaylo N: use the gRPC one, but the JS one uses all… uses the REST API also.
+
+155
+00:23:38.830 --> 00:23:47.079
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, there's… yeah, sure, there's a specific one, but that's why I said it gets ignore the… for, like, an architecture point of view, the…
+
+156
+00:23:47.210 --> 00:24:03.719
+Hendrik Ebbers (Hedera Hashgraph LLC): the JavaScript one, because that is special based on limitations, but what I said, Rob, is not totally separate that. If we talk about, hey, this is gRPC, then I think it could make sense to move them more together.
+
+157
+00:24:03.930 --> 00:24:07.099
+Hendrik Ebbers (Hedera Hashgraph LLC): Then it could even be that the…
+
+158
+00:24:07.650 --> 00:24:14.480
+Hendrik Ebbers (Hedera Hashgraph LLC): Consensus node SDK depends on the mirror node SDK. If both use gRPC, that would be fine.
+
+159
+00:24:18.040 --> 00:24:21.080
+Hendrik Ebbers (Hedera Hashgraph LLC): I think it's more problematic when you have
+
+160
+00:24:21.180 --> 00:24:26.049
+Hendrik Ebbers (Hedera Hashgraph LLC): Different modules using different communication types, you know?
+
+161
+00:24:28.470 --> 00:24:29.290
+Robert Walworth: Yeah.
+
+162
+00:24:29.430 --> 00:24:30.440
+Robert Walworth: Yahoo.
+
+163
+00:24:31.020 --> 00:24:33.520
+Robert Walworth: We would want the…
+
+164
+00:24:34.070 --> 00:24:49.390
+Robert Walworth: Well, so what, could we, like, do something where it's, like, we provide, like, a default one, and then provide, you know, configuration options, or, like, build options for the users to, like, if they wanted to build something.
+
+165
+00:24:49.710 --> 00:24:51.550
+Robert Walworth: different…
+
+166
+00:24:51.860 --> 00:25:02.019
+Hendrik Ebbers (Hedera Hashgraph LLC): What I can… I was playing with that, the problem is that the public API is different, because from time to time, you have in the public API
+
+167
+00:25:02.490 --> 00:25:16.940
+Hendrik Ebbers (Hedera Hashgraph LLC): I mean, we could create a layer around it, and to hide all that, but if you just use one of those code generators, you have in the public API language, or as I call it here, server stub.
+
+168
+00:25:17.260 --> 00:25:19.210
+Hendrik Ebbers (Hedera Hashgraph LLC): dependent objects.
+
+169
+00:25:19.670 --> 00:25:20.659
+Hendrik Ebbers (Hedera Hashgraph LLC): You know?
+
+170
+00:25:20.700 --> 00:25:30.100
+Hendrik Ebbers (Hedera Hashgraph LLC): that… that are exposed. So, what you cannot do is just say, create one in any language you want.
+
+171
+00:25:30.110 --> 00:25:43.079
+Hendrik Ebbers (Hedera Hashgraph LLC): and just replace the one we have with it. That will not work. You need them like we do with the TCK or whatever kind of driver or middle part for each of that.
+
+172
+00:25:44.430 --> 00:25:53.630
+Hendrik Ebbers (Hedera Hashgraph LLC): Because the APIs are different than public APIs. That's… that… that's… I… I… I know what you think, and I tried that, it faked.
+
+173
+00:25:54.350 --> 00:25:55.390
+Robert Walworth: Okay.
+
+174
+00:25:55.560 --> 00:25:56.200
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+175
+00:25:58.760 --> 00:25:59.940
+Robert Walworth: Okay.
+
+176
+00:26:00.230 --> 00:26:02.230
+Robert Walworth: Well, would there…
+
+177
+00:26:03.600 --> 00:26:09.990
+Robert Walworth: could we, like, wrap it? Like, I know, like, the CodeGen provides its own API, but,
+
+178
+00:26:10.110 --> 00:26:22.510
+Robert Walworth: if we, like, put, like, a wrapper around it, we could, like, provide our own consistency, there. I mean, I… that's just adding another layer, which maybe we don't want to do. I'm just thinking through, like…
+
+179
+00:26:22.510 --> 00:26:36.259
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, that's… you know, you… I can totally understand what you're now thinking out is exactly what I thought all about, right? And my outcome was, maybe the best thing is if we concentrate on gRPC.
+
+180
+00:26:36.260 --> 00:26:37.020
+Robert Walworth: for now.
+
+181
+00:26:37.350 --> 00:26:45.529
+Hendrik Ebbers (Hedera Hashgraph LLC): Because if I have a method that is called, hey, mirror node, give me, I don't know, whatever.
+
+182
+00:26:45.790 --> 00:26:58.969
+Hendrik Ebbers (Hedera Hashgraph LLC): And we can do an implementation in gRPC where we have zero additional dependencies in any of the languages as we have now. For sure, it means two things.
+
+183
+00:26:59.090 --> 00:27:02.649
+Hendrik Ebbers (Hedera Hashgraph LLC): One thing is that the mirror node team need to…
+
+184
+00:27:02.960 --> 00:27:13.390
+Hendrik Ebbers (Hedera Hashgraph LLC): in, you know, spend work in their gRPC endpoints to have the same functionality they have for us in gRPC2.
+
+185
+00:27:13.740 --> 00:27:17.409
+Hendrik Ebbers (Hedera Hashgraph LLC): I would say that makes sense, if they have different…
+
+186
+00:27:17.560 --> 00:27:29.039
+Hendrik Ebbers (Hedera Hashgraph LLC): technologies to connect to the mirror node, from my point of view. There should be a common amount of… those are the functionalities that we provide with every endpoint.
+
+187
+00:27:29.430 --> 00:27:31.470
+Hendrik Ebbers (Hedera Hashgraph LLC): And,
+
+188
+00:27:31.970 --> 00:27:41.630
+Hendrik Ebbers (Hedera Hashgraph LLC): Then we can move forward with that, because in that, we have already knowledge and know how to provide that to the community.
+
+189
+00:27:43.850 --> 00:28:01.780
+Robert Walworth: Yeah, I have a… I have a feeling that the MirrorNode team probably wouldn't want to go through all their endpoints and provide gRPC and REST. Yeah, I think we kind of went through that with 1261, where we were debating providing both for one.
+
+190
+00:28:01.970 --> 00:28:05.109
+Robert Walworth: they didn't seem very interested in that, so…
+
+191
+00:28:05.600 --> 00:28:06.240
+Ivaylo N: Yeah.
+
+192
+00:28:06.240 --> 00:28:12.510
+Robert Walworth: I'm thinking that if they're not interested in that, they're probably not going to want to do it for all of them, too.
+
+193
+00:28:12.510 --> 00:28:13.120
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+194
+00:28:13.820 --> 00:28:16.059
+Ivaylo N: I think Steven didn't want to do the…
+
+195
+00:28:17.470 --> 00:28:28.579
+Ivaylo N: I didn't want us to support both the GRPC one and the REST API one, so he decided that we will use just the REST API one. Although, actually, for the…
+
+196
+00:28:29.750 --> 00:28:36.889
+Ivaylo N: address book one. We have both, but yeah, in general, they don't want to support both the gRPC one and the REST API one.
+
+197
+00:28:37.360 --> 00:28:47.150
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah. Another thing is, we could, for now, say… all endpoints that the Consensus node.
+
+198
+00:28:47.320 --> 00:28:55.299
+Hendrik Ebbers (Hedera Hashgraph LLC): SDK, so the SDK that we have today, need must be provided at gRPC. For the West, we don't care.
+
+199
+00:28:55.490 --> 00:29:06.859
+Hendrik Ebbers (Hedera Hashgraph LLC): Because then, we're at a point where we could say, hey, consensus node, you can communicate with the mirror node for, you know, getting updates on the nodes if an…
+
+200
+00:29:06.980 --> 00:29:11.209
+Hendrik Ebbers (Hedera Hashgraph LLC): Connection fails, or whatever, but always use
+
+201
+00:29:11.780 --> 00:29:21.380
+Hendrik Ebbers (Hedera Hashgraph LLC): gRPC for that. So, moving forward, like we did it so far, and then, in parallel, we can say, hey, and here's a mirror node SDK,
+
+202
+00:29:21.620 --> 00:29:31.309
+Hendrik Ebbers (Hedera Hashgraph LLC): that is using REST, and that is, first off, our prototype, and is individual to the other one, so that, you know, we can
+
+203
+00:29:31.910 --> 00:29:34.020
+Hendrik Ebbers (Hedera Hashgraph LLC): have a kind of playground here.
+
+204
+00:29:40.460 --> 00:29:45.650
+Robert Walworth: Yeah. Yeah, maybe… Maybe that would make sense, to kind of, like.
+
+205
+00:29:46.160 --> 00:29:57.970
+Robert Walworth: kind of modularize the SDK a little bit more, and then, like, the main one we could provide would be, like, like, sound like… I think what you call it, like, this, like, kind of enterprise SDK.
+
+206
+00:29:57.970 --> 00:29:58.600
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+207
+00:29:58.770 --> 00:30:04.940
+Robert Walworth: I think it even comes more into play when we think about consensus.
+
+208
+00:30:04.940 --> 00:30:24.600
+Hendrik Ebbers (Hedera Hashgraph LLC): GlockNode, right? Because we have a third node where we do not have any client technology for. And what I know is MirrorNode just created something to get data from Consensus Node, right? To get data from, BlockNode.
+
+209
+00:30:24.700 --> 00:30:33.999
+Hendrik Ebbers (Hedera Hashgraph LLC): But what we need, in reality, is a block node SDK that the mirror node could use to access block node.
+
+210
+00:30:36.920 --> 00:30:47.789
+Hendrik Ebbers (Hedera Hashgraph LLC): And again, that is gRPC, so I assume that will be very similar to the Consensus Node SDK that we have today.
+
+211
+00:30:48.660 --> 00:30:57.089
+Hendrik Ebbers (Hedera Hashgraph LLC): Because it's fully gRPC, I think Gotta node has no RESP endpoint or anything here.
+
+212
+00:31:01.560 --> 00:31:05.289
+Robert Walworth: Yeah. Yeah, I… I don't know too much…
+
+213
+00:31:05.680 --> 00:31:08.609
+Robert Walworth: about what Block knows is gonna look like. I think…
+
+214
+00:31:08.870 --> 00:31:13.480
+Robert Walworth: I remember seeing, yeah, it was, like, gRPC, and then I think there were, like.
+
+215
+00:31:14.750 --> 00:31:19.589
+Robert Walworth: maybe 4 endpoints that they were looking at implementing.
+
+216
+00:31:20.740 --> 00:31:23.129
+Robert Walworth: Yeah, I don't know, I haven't…
+
+217
+00:31:23.480 --> 00:31:33.070
+Robert Walworth: heard too much about what… what exactly that's gonna be, though. But I guess, like, at that point, it's like, if… so if consensus Node, we're gonna be primarily… if we have gRPC…
+
+218
+00:31:33.330 --> 00:31:34.800
+Robert Walworth: connectivity…
+
+219
+00:31:35.090 --> 00:31:42.960
+Robert Walworth: On the backend there, if we're gonna support that for that, like, why… could we just kinda put the block node…
+
+220
+00:31:43.330 --> 00:31:48.569
+Robert Walworth: functionality in that one as well? Like, will we need a separate SDK just for Block Node itself?
+
+221
+00:31:50.110 --> 00:32:00.640
+Hendrik Ebbers (Hedera Hashgraph LLC): Again, what I… So… What is still not 100% clear to me is version ranging.
+
+222
+00:32:01.900 --> 00:32:10.620
+Hendrik Ebbers (Hedera Hashgraph LLC): So if we would say there is one version, and consensus node, black node, and mirror node have the exact same version.
+
+223
+00:32:10.800 --> 00:32:17.349
+Hendrik Ebbers (Hedera Hashgraph LLC): And we use them always together. Them, I would say, no, why? But…
+
+224
+00:32:18.230 --> 00:32:23.219
+Hendrik Ebbers (Hedera Hashgraph LLC): If we're in a way where we say, hey, this version of
+
+225
+00:32:23.640 --> 00:32:34.029
+Hendrik Ebbers (Hedera Hashgraph LLC): blog node works together with this range of consensus node versions, or whatever, then it might make sense to split it up.
+
+226
+00:32:34.440 --> 00:32:35.550
+Hendrik Ebbers (Hedera Hashgraph LLC): Because…
+
+227
+00:32:35.800 --> 00:32:46.640
+Hendrik Ebbers (Hedera Hashgraph LLC): then you maybe want to say, hey, I have, you know, I want this functionality very… which is very important for me, but,
+
+228
+00:32:46.870 --> 00:32:56.170
+Hendrik Ebbers (Hedera Hashgraph LLC): I cannot update the Consensus Node SDK based on any concerns or any compatibility issues.
+
+229
+00:32:56.390 --> 00:33:07.690
+Hendrik Ebbers (Hedera Hashgraph LLC): So I think that is… that is a point we need to discuss and more… more deeply, and… and get more knowledge about how
+
+230
+00:33:07.730 --> 00:33:18.789
+Hendrik Ebbers (Hedera Hashgraph LLC): Mirror Node, Consensus node, and Rock Node work together, and what the contract between them is regarding versions.
+
+231
+00:33:20.980 --> 00:33:23.499
+Hendrik Ebbers (Hedera Hashgraph LLC): And I think then we can answer that question.
+
+232
+00:33:23.910 --> 00:33:24.770
+Robert Walworth: Yeah.
+
+233
+00:33:28.320 --> 00:33:33.839
+Robert Walworth: Yeah, that's… that's totally fair. Yeah, their… their version numbers now are kind of all over the place.
+
+234
+00:33:34.170 --> 00:33:37.630
+Robert Walworth: I would…
+
+235
+00:33:38.110 --> 00:33:50.519
+Robert Walworth: I would think that maybe, like, you just need to do, like, a 1.0 release and keep everything coordinated, like, that would make it so easy. But, well, I would think, like, even whatever versions of block node…
+
+236
+00:33:51.070 --> 00:33:57.560
+Robert Walworth: work with whatever version of Content. I mean, that's all… they're all gonna be using the same protobufs, right? Like, it's gotta be…
+
+237
+00:33:57.810 --> 00:34:00.550
+Robert Walworth: There's gotta be some compatibility, like…
+
+238
+00:34:01.880 --> 00:34:07.830
+Robert Walworth: Yeah. Like, whatever is, like, live on, you know, testnet, mainnet,
+
+239
+00:34:09.150 --> 00:34:12.579
+Robert Walworth: like, they're using the same version of the Protobuff, so, like.
+
+240
+00:34:13.969 --> 00:34:20.220
+Robert Walworth: they'll… like, they would have to work with each other, right? Like, whatever versions they give us, like, that's…
+
+241
+00:34:20.550 --> 00:34:22.960
+Robert Walworth: Gotta be what works for them, too.
+
+242
+00:34:23.909 --> 00:34:38.129
+Hendrik Ebbers (Hedera Hashgraph LLC): In general, I agree. I already seen in the SDKs that kind of different versions have been used for the SDKs, and that's why I'm really a little bit picky here to…
+
+243
+00:34:38.479 --> 00:34:53.279
+Hendrik Ebbers (Hedera Hashgraph LLC): first of all, define, or is that correct the knowledge you like? I mean, look at our, key topic, right? How much we earned, by… by the information we get, and how different
+
+244
+00:34:53.279 --> 00:35:01.849
+Hendrik Ebbers (Hedera Hashgraph LLC): our idea on how an API for that looks like since one month ago, where we do not have that knowledge.
+
+245
+00:35:02.160 --> 00:35:02.700
+Robert Walworth: Yeah.
+
+246
+00:35:02.700 --> 00:35:06.689
+Hendrik Ebbers (Hedera Hashgraph LLC): And my wish is to get the same knowledge for…
+
+247
+00:35:07.520 --> 00:35:14.280
+Hendrik Ebbers (Hedera Hashgraph LLC): Mirror node, consensus node, product node, and what kind of contracts they have, how they work together, and so on.
+
+248
+00:35:16.170 --> 00:35:17.639
+Robert Walworth: Yeah, that makes sense.
+
+249
+00:35:18.300 --> 00:35:23.989
+Robert Walworth: Yeah, okay, so… maybe… let me make a note here to…
+
+250
+00:35:24.630 --> 00:35:39.400
+Hendrik Ebbers (Hedera Hashgraph LLC): I mean, what would be great is if we can get, like, somebody from Mira Node and somebody from Consensus Node here in this meeting, so that we can interview them and ask them questions. We could do it
+
+251
+00:35:40.410 --> 00:35:47.750
+Hendrik Ebbers (Hedera Hashgraph LLC): privately in Hashgraph, but I think it would be so good to do this in this meeting, you know?
+
+252
+00:35:50.070 --> 00:35:51.680
+Hendrik Ebbers (Hedera Hashgraph LLC): So that we can…
+
+253
+00:35:51.910 --> 00:35:58.160
+Hendrik Ebbers (Hedera Hashgraph LLC): Ask all those questions to decide what makes sense, what don't make sense, and so on.
+
+254
+00:36:05.540 --> 00:36:11.579
+Robert Walworth: Yeah, yeah, I think that'd be good. Let me see who I can talk to, maybe, to get them in next week.
+
+255
+00:36:12.720 --> 00:36:13.810
+Robert Walworth: Er…
+
+256
+00:36:14.040 --> 00:36:21.849
+Robert Walworth: Maybe not next week, maybe, like, after, like, the end of the year? Well, we'll see who's… who's still here and who's off.
+
+257
+00:36:24.150 --> 00:36:30.550
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I mean… I don't plan to work on Monday and Tuesday, but if…
+
+258
+00:36:30.680 --> 00:36:36.280
+Hendrik Ebbers (Hedera Hashgraph LLC): we have such a meeting, I assume I can do it on Monday.
+
+259
+00:36:36.820 --> 00:36:44.970
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, maybe you just ask if people… and otherwise, it will be recorded, right? So,
+
+260
+00:36:48.300 --> 00:36:52.119
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, but that should be a next step to…
+
+261
+00:36:52.470 --> 00:36:56.600
+Hendrik Ebbers (Hedera Hashgraph LLC): To get more information on… on those topics.
+
+262
+00:37:00.590 --> 00:37:07.570
+Robert Walworth: Okay, yeah, we can… I'll reach out, and then we can coordinate on what day.
+
+263
+00:37:08.720 --> 00:37:10.640
+Robert Walworth: We want people to join.
+
+264
+00:37:14.200 --> 00:37:15.220
+Robert Walworth: Okay.
+
+265
+00:37:17.250 --> 00:37:27.510
+Robert Walworth: Okay, so… Gonna try and get people to join the continued discussion on that. Protobufs, so maybe…
+
+266
+00:37:27.720 --> 00:37:38.829
+Robert Walworth: maybe this is something that we can ask in that meeting, too, and I know we just kind of mentioned it with block nodes and stuff, but I guess protobuffs for V3, like, I know…
+
+267
+00:37:39.030 --> 00:37:44.859
+Robert Walworth: I feel like the topic of having another, like, Protobuffs repo has been thrown around,
+
+268
+00:37:45.180 --> 00:38:02.259
+Robert Walworth: And I guess just wanted to talk about it a little bit more in-depth here. I know this is kind of what we had for the SDKs before, where, you know, you have your SDK repo, and then for each one, it would depend on,
+
+269
+00:38:02.670 --> 00:38:11.290
+Robert Walworth: er, well, each of those would have their own protobufs repo, which is basically where the generated protobuf code would live.
+
+270
+00:38:11.410 --> 00:38:15.900
+Robert Walworth: And then the SDK could just… depend on that.
+
+271
+00:38:16.110 --> 00:38:25.909
+Robert Walworth: I guess, my kind of thought with Protobuffs here is not necessarily to… to do that, but…
+
+272
+00:38:26.020 --> 00:38:33.500
+Robert Walworth: I think… If we were to have another Protobuffs repo that basically
+
+273
+00:38:33.950 --> 00:38:44.810
+Robert Walworth: pulled in, you know, the consensus node protobufs, mirror node protobufs, and then also, I know the SDKs have one of their own protobufs, that we use.
+
+274
+00:38:46.380 --> 00:38:55.520
+Robert Walworth: If we could have all that in one repo, and then the SDKs could just depend on and build their protobufs from that one repo.
+
+275
+00:38:56.400 --> 00:39:04.909
+Robert Walworth: I think that… that makes a lot of sense, because I think the… we could, like, have everything live there, the…
+
+276
+00:39:05.720 --> 00:39:13.200
+Robert Walworth: protobufs we don't need could be filtered out. The SDKs wouldn't be
+
+277
+00:39:13.620 --> 00:39:20.650
+Robert Walworth: wouldn't have to pull in the entire consensus node repo just to get access to those protobufs. If there's any sort of, like…
+
+278
+00:39:21.020 --> 00:39:33.799
+Robert Walworth: you know, manual, like, arranging the protobufs that need to be done, like, to… to make dependencies work, like, that could be done here in this repo.
+
+279
+00:39:35.130 --> 00:39:40.890
+Robert Walworth: Yeah, I guess that's kind of my thought. Hendrik, did you have any… yeah, go ahead.
+
+280
+00:39:40.890 --> 00:39:42.050
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I'm…
+
+281
+00:39:42.210 --> 00:39:50.480
+Hendrik Ebbers (Hedera Hashgraph LLC): mostly with you. I think the most important point is that we create guidelines in the SDK Hub about
+
+282
+00:39:50.550 --> 00:39:59.630
+Hendrik Ebbers (Hedera Hashgraph LLC): how an SDK gets the protobuf, and that is the same then for every SDK, plus the same about the version. So.
+
+283
+00:39:59.630 --> 00:40:11.560
+Hendrik Ebbers (Hedera Hashgraph LLC): What we definitely must is to say, like, hey, do not just, you know, check out the main branch and take what is there to create it, but
+
+284
+00:40:11.560 --> 00:40:20.340
+Hendrik Ebbers (Hedera Hashgraph LLC): When doing a release for the SDKs, we must depend on a tech For the protobufs.
+
+285
+00:40:21.350 --> 00:40:29.510
+Hendrik Ebbers (Hedera Hashgraph LLC): I think things like that must be specified, where, I still have… some…
+
+286
+00:40:29.840 --> 00:40:44.560
+Hendrik Ebbers (Hedera Hashgraph LLC): open questions is to decide, does it make sense to have a repo for the protobufs, for the SDK, like the SDK protobuf base, or does it make more sense to…
+
+287
+00:40:44.870 --> 00:40:50.870
+Hendrik Ebbers (Hedera Hashgraph LLC): You know, like, have a script that copies them out of the text of the…
+
+288
+00:40:51.220 --> 00:40:57.179
+Hendrik Ebbers (Hedera Hashgraph LLC): repost, like, the consensus node repo, and so on.
+
+289
+00:40:59.840 --> 00:41:09.320
+Hendrik Ebbers (Hedera Hashgraph LLC): it again goes to the contract between the notes. So, if we could say, hey, Today, we release…
+
+290
+00:41:10.070 --> 00:41:13.960
+Hendrik Ebbers (Hedera Hashgraph LLC): 108 of all server components happened.
+
+291
+00:41:14.320 --> 00:41:22.190
+Hendrik Ebbers (Hedera Hashgraph LLC): We could update this SDK protobuf-based repo, and tag it with
+
+292
+00:41:22.420 --> 00:41:37.989
+Hendrik Ebbers (Hedera Hashgraph LLC): attack, if the things from consensus node, from mirror node, and so on happen in different cycles, we would have a problem here, again. So that is something we need to figure out.
+
+293
+00:41:38.130 --> 00:41:46.749
+Hendrik Ebbers (Hedera Hashgraph LLC): What I like is to say, hey, we only want, then, the protobuf that we need.
+
+294
+00:41:47.180 --> 00:41:54.519
+Hendrik Ebbers (Hedera Hashgraph LLC): On the other hand, I ask myself.
+
+295
+00:41:55.260 --> 00:41:59.210
+Hendrik Ebbers (Hedera Hashgraph LLC): What kind of protobufs do exist that we don't need?
+
+296
+00:42:01.460 --> 00:42:08.159
+Hendrik Ebbers (Hedera Hashgraph LLC): If Consensus Node has protobufs that we don't need, means it has an endpoint.
+
+297
+00:42:08.430 --> 00:42:14.309
+Hendrik Ebbers (Hedera Hashgraph LLC): no SDK is targeting, and that sounds wrong to me. So, my assumption would be
+
+298
+00:42:14.480 --> 00:42:28.479
+Hendrik Ebbers (Hedera Hashgraph LLC): every protobuf that Consensus Node provides is needed by the SDK, and every protobuf that MirrorNode provides in future should be, used by us, too.
+
+299
+00:42:30.300 --> 00:42:44.030
+Robert Walworth: I think there are some folders in here, so, like, this is the main one that we pull, and as far as I know, pretty much the only ones we use are, like, services here, SDK, and Mirror.
+
+300
+00:42:44.290 --> 00:42:48.669
+Robert Walworth: platform, all these other ones, like, these are… these are internal.
+
+301
+00:42:48.670 --> 00:42:53.329
+Hendrik Ebbers (Hedera Hashgraph LLC): Internal, interesting. Yeah, okay, yeah, maybe, okay, okay, yeah. Yeah.
+
+302
+00:42:53.330 --> 00:42:59.910
+Robert Walworth: So, yeah, I'm not sure exactly how they're used internally, but yeah, we have no use for them.
+
+303
+00:43:00.090 --> 00:43:10.909
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, what I understand, and this makes sense, like, if I say each of these folders is a namespace, that we drop namespaces completely. I think what would be wrong
+
+304
+00:43:10.910 --> 00:43:26.450
+Hendrik Ebbers (Hedera Hashgraph LLC): is to mutate or delete individual files. But saying, like, here, oh, those are, like, modules which depend on each other, maybe, and are totally separated, just throw away some of those, that makes sense to me, yeah.
+
+305
+00:43:26.450 --> 00:43:27.230
+Robert Walworth: Yeah.
+
+306
+00:43:27.520 --> 00:43:28.130
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+307
+00:43:28.130 --> 00:43:29.550
+Robert Walworth: Yeah, I think those…
+
+308
+00:43:29.550 --> 00:43:30.140
+Hendrik Ebbers (Hedera Hashgraph LLC): Yep.
+
+309
+00:43:30.400 --> 00:43:34.350
+Robert Walworth: So I know, like, in the Protobuffs 2, like, they…
+
+310
+00:43:35.980 --> 00:43:43.949
+Robert Walworth: They reference them, like, with this same, like, folder structure, so it's still looking for services slash timestamp.proto here, so…
+
+311
+00:43:43.950 --> 00:43:45.979
+Hendrik Ebbers (Hedera Hashgraph LLC): We have dependencies kind of thing, right?
+
+312
+00:43:45.980 --> 00:43:46.650
+Robert Walworth: Right.
+
+313
+00:43:46.840 --> 00:43:47.890
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+314
+00:43:48.300 --> 00:43:56.980
+Robert Walworth: So it's like, we… yeah, we wouldn't be able to mutate too much. So I think, at least in the Swift SDK, there is…
+
+315
+00:43:57.100 --> 00:44:00.660
+Robert Walworth: A script used there to…
+
+316
+00:44:03.090 --> 00:44:10.719
+Robert Walworth: I couldn't tell you exactly off the top of my head. I think there is some, like, rearranging that it has to do, though, to, like, make those dependencies work.
+
+317
+00:44:11.120 --> 00:44:14.919
+Robert Walworth: I… yeah, I can't remember exactly…
+
+318
+00:44:14.920 --> 00:44:15.750
+Hendrik Ebbers (Hedera Hashgraph LLC): Yep, yep.
+
+319
+00:44:15.750 --> 00:44:35.690
+Robert Walworth: Oh, but… Basically, I would think that we want all this functionality, like, in this repo, like, yeah, if we need to write a script to do any of that, like, sure, like, we can put it there, but basically, I would just want the SDKs themselves to just be able to pull a tag off this repo, and then build and work.
+
+320
+00:44:36.110 --> 00:44:44.159
+Hendrik Ebbers (Hedera Hashgraph LLC): Do the, folders here have a readme.add or something, so that we know
+
+321
+00:44:44.260 --> 00:44:47.240
+Hendrik Ebbers (Hedera Hashgraph LLC): Waterfall… if you… no, no, if you go to…
+
+322
+00:44:49.140 --> 00:44:52.880
+Hendrik Ebbers (Hedera Hashgraph LLC): into SDK, because I don't have…
+
+323
+00:44:52.880 --> 00:44:56.359
+Robert Walworth: I think these are just… these just have the protofiles.
+
+324
+00:44:56.360 --> 00:45:01.840
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, okay, so I think what is needed then is,
+
+325
+00:45:02.270 --> 00:45:08.609
+Hendrik Ebbers (Hedera Hashgraph LLC): a documentation of the folders. I mean, the files internally have a very good documentation now.
+
+326
+00:45:08.770 --> 00:45:09.320
+Hendrik Ebbers (Hedera Hashgraph LLC): But…
+
+327
+00:45:09.840 --> 00:45:29.420
+Hendrik Ebbers (Hedera Hashgraph LLC): what are those folders? What is the use case of each of those folders? That is totally missing. So that is something we should try to move forward and get the different projects to work on that, because then, I totally agree, we know what we need, what we can delete, and so on.
+
+328
+00:45:31.540 --> 00:45:32.120
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+329
+00:45:32.940 --> 00:45:51.260
+Robert Walworth: Yeah, absolutely. Yeah, I guess, just kind of restating, like, the… the… kind of what I want is just to have something that all the SDKs can pull from, and it just… they're able to run their ProTalk and just build and work.
+
+330
+00:45:51.570 --> 00:46:04.320
+Robert Walworth: And I know there's… there's some manual work being done in… in each SDK right now to get those to work, but, yeah, so I think… would… well…
+
+331
+00:46:04.660 --> 00:46:11.350
+Robert Walworth: Back to the point you made about, you know, versioning, I guess…
+
+332
+00:46:12.360 --> 00:46:24.349
+Robert Walworth: would we… need to… I guess if we had this additional Protobuffs repo, would we… Need to match…
+
+333
+00:46:24.540 --> 00:46:30.610
+Robert Walworth: the versions… In any way. I guess one thing is, like…
+
+334
+00:46:30.710 --> 00:46:48.190
+Robert Walworth: if we, you know, we're going to need to keep track of, like, the services and the Mirror Node tags that we're pulling from. I guess it's like, would… what would stop us from… like, for example, like, if MirrorNode had a new tag, like, being able to… or just pulling that in.
+
+335
+00:46:48.410 --> 00:46:57.119
+Robert Walworth: to this Protobubs repo, and then just, like, tagging those versions together. Like, so each, like, tag in the Protobubs repo would, like.
+
+336
+00:46:57.710 --> 00:47:04.330
+Robert Walworth: basically just had, like, a services version and a mirror node version.
+
+337
+00:47:04.930 --> 00:47:14.600
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, yeah, maybe one question. The mirror folder that I'm seeing here, Is that…
+
+338
+00:47:15.060 --> 00:47:26.550
+Hendrik Ebbers (Hedera Hashgraph LLC): Defining how the mirror node can access the consensus node, or is that defining an endpoint of the mirror node?
+
+339
+00:47:27.300 --> 00:47:31.099
+Hendrik Ebbers (Hedera Hashgraph LLC): That is defining an endpoint of consensus node, right?
+
+340
+00:47:32.210 --> 00:47:37.710
+Robert Walworth: I believe this is MirrorNote. I'm not exactly sure…
+
+341
+00:47:37.970 --> 00:47:56.750
+Robert Walworth: if this… because I think MirrorNode has their own protobufs, but… but we, as far as I know, don't pull those in ourselves. I think we kind of just copy-paste those into the repos themselves, which, yeah, which that would be another problem solved.
+
+342
+00:47:56.750 --> 00:48:05.099
+Hendrik Ebbers (Hedera Hashgraph LLC): And I mean, I mean, maybe, let's say, like, in worst case, yeah, that works now and breaks tomorrow, you know? I cannot say it, right?
+
+343
+00:48:05.100 --> 00:48:05.490
+Robert Walworth: Right.
+
+344
+00:48:05.490 --> 00:48:23.110
+Hendrik Ebbers (Hedera Hashgraph LLC): So that is… that is why I asked those questions and say, hey, let's… let's really double-check it, because I'm currently checking. MirrorNode has their own protobuf, they look very, very similar to what I see here, and now I ask myself, what is the choose?
+
+345
+00:48:23.110 --> 00:48:28.599
+Hendrik Ebbers (Hedera Hashgraph LLC): Right? Because this mirror folder has been updated 10 months ago.
+
+346
+00:48:28.760 --> 00:48:33.020
+Hendrik Ebbers (Hedera Hashgraph LLC): The one in the mirror node repo has been updated 5 days ago.
+
+347
+00:48:33.990 --> 00:48:40.049
+Robert Walworth: Yeah. Yeah, that's what I was saying, I don't think this is… this is used here. Yeah.
+
+348
+00:48:40.050 --> 00:48:46.789
+Hendrik Ebbers (Hedera Hashgraph LLC): So we need to check that, and maybe if that is not used, maybe nobody knows today, and we should delete it.
+
+349
+00:48:48.680 --> 00:48:55.339
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, so that is… that is what I would like to do, to make all that clear before we move forward here.
+
+350
+00:48:56.660 --> 00:48:57.530
+Robert Walworth: Yeah.
+
+351
+00:49:04.330 --> 00:49:08.700
+Robert Walworth: Let me make a note of that, too. Figure out where provosts actually live, and where…
+
+352
+00:49:08.850 --> 00:49:10.789
+Robert Walworth: We should be pulling them from.
+
+353
+00:49:15.970 --> 00:49:26.530
+Robert Walworth: but yeah, so if we were to have to pull Protobuffs from multiple places, yeah, we basically…
+
+354
+00:49:27.450 --> 00:49:39.709
+Robert Walworth: in this repo have to pull in, yeah, consensus node and MirrorNode, and… there would be some rearranging that would have to be done, just to make sure that the file paths all… all match up, and…
+
+355
+00:49:39.920 --> 00:49:54.209
+Robert Walworth: Like, if we need to take, like, the mirror folder from MirrorNode, and then copy and paste it into, you know, wherever we would want to build these from, like, yeah, it would basically need to be, like, a…
+
+356
+00:49:54.430 --> 00:50:01.050
+Robert Walworth: Sort of like a… a pick and choose, just to make it all… make it all line up.
+
+357
+00:50:01.800 --> 00:50:02.859
+Hendrik Ebbers (Hedera Hashgraph LLC): Makes sense.
+
+358
+00:50:03.070 --> 00:50:04.120
+Robert Walworth: Yeah.
+
+359
+00:50:04.830 --> 00:50:06.209
+Ivaylo N: We can just flip them.
+
+360
+00:50:06.210 --> 00:50:12.300
+Hendrik Ebbers (Hedera Hashgraph LLC): We're way out of time for Sophie, what I'm just seeing. We…
+
+361
+00:50:12.300 --> 00:50:13.010
+Robert Walworth: Oh, yeah.
+
+362
+00:50:13.010 --> 00:50:15.349
+Hendrik Ebbers (Hedera Hashgraph LLC): They've said, hey, it's my time.
+
+363
+00:50:15.800 --> 00:50:20.460
+Robert Walworth: Yeah, sorry, I had to… did,
+
+364
+00:50:20.940 --> 00:50:27.779
+Robert Walworth: Did we want to, go through the first little bit, Sophie, or did you just… would you want to wait till next time?
+
+365
+00:50:28.390 --> 00:50:31.379
+Robert Walworth: I'm fine going a little over myself.
+
+366
+00:50:31.580 --> 00:50:32.520
+Hendrik Ebbers (Hedera Hashgraph LLC): Me too.
+
+367
+00:50:35.200 --> 00:50:38.249
+Sophie Bulloch: Is there anything else that you would like to discuss?
+
+368
+00:50:39.730 --> 00:50:44.790
+Hendrik Ebbers (Hedera Hashgraph LLC): We have the key topic here that could take hours, so…
+
+369
+00:50:44.790 --> 00:50:45.740
+Sophie Bulloch: Oh, no, yeah.
+
+370
+00:50:46.610 --> 00:51:03.239
+Robert Walworth: Yeah, I mean, with key, like, I think I… I still haven't been able to look into the crypto libraries like I wanted to, so I know, Andrik, you've… you've done some kind of modifications on that, so I guess it… if you wanted to go over that, we could, or…
+
+371
+00:51:03.370 --> 00:51:18.430
+Hendrik Ebbers (Hedera Hashgraph LLC): Well, I mean, yeah, we could… I mean, I'm fine to skip keys to next year. I think we've set it up a good base, and can continue it next year. So, Sophie, if you want to have the last 9 minutes, sorry that
+
+372
+00:51:18.750 --> 00:51:21.559
+Hendrik Ebbers (Hedera Hashgraph LLC): It's 6 minutes less than…
+
+373
+00:51:21.720 --> 00:51:26.749
+Sophie Bulloch: Go forward, otherwise I can talk about Keith. Up to you.
+
+374
+00:51:27.650 --> 00:51:37.299
+Sophie Bulloch: I really welcome the opportunity to talk about it. Maybe I will do it slightly back-to-front and everything, so that I get the key points.
+
+375
+00:51:37.940 --> 00:51:40.889
+Sophie Bulloch: Sure. Could I share my screen?
+
+376
+00:51:41.240 --> 00:51:42.290
+Robert Walworth: Absolutely.
+
+377
+00:51:43.540 --> 00:51:46.320
+Sophie Bulloch: Okay, right, so…
+
+378
+00:51:47.460 --> 00:51:59.399
+Sophie Bulloch: I've been working on good first issues a lot in the Python SDK, and have learned some wonderful lessons, and there's also lots of challenges that we've had to do while doing this.
+
+379
+00:51:59.780 --> 00:52:01.800
+Sophie Bulloch: And we've solved a lot of them.
+
+380
+00:52:02.240 --> 00:52:10.350
+Sophie Bulloch: But in Hairo, we have a… we… we have a lack of good first-issue candidates.
+
+381
+00:52:10.580 --> 00:52:15.069
+Sophie Bulloch: all good for us issues in the SDK, so quite a lot of them just have
+
+382
+00:52:15.210 --> 00:52:21.960
+Sophie Bulloch: zero… in terms of the SDKs, or just, like, four good first issues.
+
+383
+00:52:22.090 --> 00:52:26.519
+Sophie Bulloch: One good fussed issue, one good fuss issue.
+
+384
+00:52:27.520 --> 00:52:33.820
+Sophie Bulloch: this kind of thing. So, we have a real lack of engagement with good first issues.
+
+385
+00:52:35.580 --> 00:52:43.099
+Sophie Bulloch: Having experienced what a good first issue involves, it is easy to find it all overwhelming and everything.
+
+386
+00:52:43.290 --> 00:52:50.649
+Sophie Bulloch: What we have done is improved the templates, so it's easier to create a good first issue, it's more detailed.
+
+387
+00:52:50.890 --> 00:52:57.920
+Sophie Bulloch: But really what I would like to propose is the expansion of a good first issue committee.
+
+388
+00:52:58.570 --> 00:53:05.670
+Sophie Bulloch: With a workflow where they gain more ability to…
+
+389
+00:53:05.880 --> 00:53:22.810
+Sophie Bulloch: refine good first issues, maybe even create the good first issues, but that is quite a sensitive process, and it's going to require some… some thinking about how that will be done. So the goal is to offset as much time as possible from the maintainers.
+
+390
+00:53:23.430 --> 00:53:29.939
+Sophie Bulloch: To make sure that it's as easy as possible to do good first issues. And the second thing I'm going to propose is…
+
+391
+00:53:30.450 --> 00:53:38.480
+Sophie Bulloch: we have explicit opt-in from SDKs that want to do the good first issues, because they're not for everyone.
+
+392
+00:53:40.290 --> 00:53:47.969
+Sophie Bulloch: Okay, so, what I'm gonna propose is… Not that.
+
+393
+00:53:49.960 --> 00:53:50.660
+Sophie Bulloch: Yeah.
+
+394
+00:53:51.120 --> 00:53:57.599
+Sophie Bulloch: I'm going to propose four key steps. A good first issue committee is going to be a cross-SDK committee.
+
+395
+00:53:58.370 --> 00:54:06.989
+Sophie Bulloch: And what it will enable the committee to do is these four key steps. Obviously, this is all debatable.
+
+396
+00:54:07.590 --> 00:54:14.680
+Sophie Bulloch: So, the first key step is to be able to set up a good first issue. This is probably the most important one.
+
+397
+00:54:14.830 --> 00:54:34.179
+Sophie Bulloch: This is going to be a, do you want to offer good first issues in your SDK? We have a conversation with the maintainers, the committees, they can say yes, or they can say no, but if they do say yes, we then go, okay, we will help you to create the supporting documentation for that.
+
+398
+00:54:34.310 --> 00:54:39.609
+Sophie Bulloch: So we will help to make sure the template in your SDK for a good first issue candidate
+
+399
+00:54:39.730 --> 00:54:49.009
+Sophie Bulloch: is excellent. We will make sure that you have clear requirements of what you consider a good first issue.
+
+400
+00:54:51.250 --> 00:54:52.260
+Sophie Bulloch: And…
+
+401
+00:54:52.600 --> 00:55:10.789
+Sophie Bulloch: That will then enable the Good First Issue Committee to create issues, good first issue candidates, subject to your specific requirements. If you say, I only want two good first issues every month, then we can make just two good first issues.
+
+402
+00:55:11.540 --> 00:55:30.409
+Sophie Bulloch: every month, so it doesn't have to be, like, all or nothing. It could just be, yeah, I'm kind of interested, but I don't have the capacity fully to take on so many new starters, I just want to do one a week, or something like that, and then the good first issue committee will help create these candidates based on what you require.
+
+403
+00:55:31.670 --> 00:55:40.139
+Sophie Bulloch: They will then also help with the assignment. So one of the issues that we have is… I created some good first issues. People were asking.
+
+404
+00:55:40.340 --> 00:55:48.840
+Sophie Bulloch: I want to be involved. Okay, I'm not going to be able to find it in… going quickly. I want to work on this good first issue candidate.
+
+405
+00:55:49.070 --> 00:55:53.499
+Sophie Bulloch: I had, 3 people over the last 2 days ask for that.
+
+406
+00:55:53.760 --> 00:56:13.039
+Sophie Bulloch: And assignment, in some cases, has not even occurred. In some cases, the pull request has happened and they haven't been reviewed, which is normal, but for a good first… for a new starter, when they're excited, when they feel a little bit nervous going into this whole new world, they want to feel the support that's important to them.
+
+407
+00:56:13.430 --> 00:56:17.939
+Sophie Bulloch: So the Good First Issue Committee would have triage responsibilities that
+
+408
+00:56:18.090 --> 00:56:23.199
+Sophie Bulloch: can assign people. Remember, we have this documentation that says very clearly
+
+409
+00:56:24.190 --> 00:56:27.819
+Sophie Bulloch: what is appropriate for the SDK, what the SDK wants.
+
+410
+00:56:28.320 --> 00:56:35.170
+Sophie Bulloch: We could even create workflows in the Python SDK. We are building a workflow that automatically assigns a mentor.
+
+411
+00:56:35.640 --> 00:56:44.469
+Sophie Bulloch: And that could be, for example, from the Good First Issue Committee, or if you want, that could be from a committee in the SDK itself.
+
+412
+00:56:44.980 --> 00:56:57.119
+Sophie Bulloch: And then they can also soft approve the issues. They have triage abilities they can approve, it doesn't count, but it serves as a soft check to be like, okay, we've worked with this new starter, we've mentored them.
+
+413
+00:56:57.400 --> 00:57:03.850
+Sophie Bulloch: They've gone over the finish line. We think that this is good, it resolves the issue brought up.
+
+414
+00:57:04.170 --> 00:57:08.159
+Sophie Bulloch: And now, the idea is this reduces the maintainer load.
+
+415
+00:57:08.840 --> 00:57:13.130
+Sophie Bulloch: And the Good First Issue Committee developed some really, really excellent skills.
+
+416
+00:57:13.290 --> 00:57:27.930
+Sophie Bulloch: at, creating good first issues and everything like that, so it definitely, in my opinion, can be rolled out cross-SDK, even though the code is different, because good first issues tend to be examples, tend to be things like this.
+
+417
+00:57:28.450 --> 00:57:29.160
+Sophie Bulloch: Yeah.
+
+418
+00:57:29.380 --> 00:57:32.600
+Sophie Bulloch: So that is kind of my proposal, that's all I have to talk about, really.
+
+419
+00:57:35.070 --> 00:57:36.020
+Sophie Bulloch: Hendrik.
+
+420
+00:57:37.790 --> 00:57:38.570
+Hendrik Ebbers (Hedera Hashgraph LLC): Hey!
+
+421
+00:57:38.890 --> 00:57:53.139
+Hendrik Ebbers (Hedera Hashgraph LLC): I already said to you earlier when I looked at it, I guided. Maybe, especially at the last slide, where you talked about the 95% of guest time.
+
+422
+00:57:53.290 --> 00:58:05.700
+Hendrik Ebbers (Hedera Hashgraph LLC): I would like to make it more key in this text that this do not, you know, solve 95% of the work of a maintainer, but only for the good first issue topic, right? And…
+
+423
+00:58:05.700 --> 00:58:14.870
+Hendrik Ebbers (Hedera Hashgraph LLC): The other thing is, I like this initiative. I think that goes absolutely in the right direction, and,
+
+424
+00:58:14.870 --> 00:58:28.149
+Hendrik Ebbers (Hedera Hashgraph LLC): For me, it's… it makes sense, and it's the right way to say, hey, here we have a group that take care about good first issue, that maybe move that for guidelines, for strategy, up to a next level.
+
+425
+00:58:28.390 --> 00:58:30.240
+Hendrik Ebbers (Hedera Hashgraph LLC): All that is great.
+
+426
+00:58:30.760 --> 00:58:42.229
+Hendrik Ebbers (Hedera Hashgraph LLC): I assume, you said it a little bit too easy for SDK maintainers, because in your pitch.
+
+427
+00:58:42.620 --> 00:58:53.890
+Hendrik Ebbers (Hedera Hashgraph LLC): it feels like, and you as an SDK maintainer, don't need to do anything at all anymore. And my wish would be, to say.
+
+428
+00:58:53.890 --> 00:59:06.750
+Hendrik Ebbers (Hedera Hashgraph LLC): yeah, we have this committee, and it would be great if somebody of you attends that committee, so that we have people from all the different SDKs, independent if you're a maintainer, or a committer, or whatever.
+
+429
+00:59:06.820 --> 00:59:24.809
+Hendrik Ebbers (Hedera Hashgraph LLC): In… in that committee, because, even if good first issues are mostly sampled, are mostly, here's the documentation missing, here's a test missing, you need to
+
+430
+00:59:25.230 --> 00:59:43.950
+Hendrik Ebbers (Hedera Hashgraph LLC): document the good first issues in a really good way, a good understanding of the language. And… and here, my wish would be to have, in the committee people who really know the programming language for those the committee is creating good first issues.
+
+431
+00:59:46.410 --> 00:59:59.559
+Sophie Bulloch: I don't view it as, there's little time that maintainers are investing in this. It's not too much, either. I think it's a nice middle ground. So most of the time for the maintainers will be invested in the initial setup.
+
+432
+00:59:59.890 --> 01:00:11.600
+Sophie Bulloch: Where we really learn, do you want a good first issue? What does that look like for you? How frequent can you support people doing these good first issues? What kind of time frame?
+
+433
+01:00:11.860 --> 01:00:15.109
+Sophie Bulloch: So it is kind of forming more of a connection.
+
+434
+01:00:15.350 --> 01:00:23.720
+Sophie Bulloch: with the… the community. What maybe I disagree with is they should be, part of the Good Fast Ishi Committee itself.
+
+435
+01:00:24.130 --> 01:00:30.320
+Sophie Bulloch: Because I view it… I view it as good first issue starters, like, they still need.
+
+436
+01:00:30.320 --> 01:00:31.000
+Hendrik Ebbers (Hedera Hashgraph LLC): What?
+
+437
+01:00:31.000 --> 01:00:34.699
+Sophie Bulloch: bit of support, and you really need to, like.
+
+438
+01:00:34.900 --> 01:00:41.250
+Sophie Bulloch: have hands-on help all the time across SDKs, maybe. So,
+
+439
+01:00:41.410 --> 01:00:54.239
+Sophie Bulloch: I'm not sure… I'm not sure if that's… that's the best way to do it, but the initial investment, I think, is good, and then, you know, towards the end, they always can… can engage with the good first issues as well, at any point.
+
+440
+01:00:54.490 --> 01:00:56.230
+Sophie Bulloch: And, and at the end as well, Rob.
+
+441
+01:00:57.370 --> 01:01:07.909
+Robert Walworth: Yeah, so I think, like, maintainers, like, the… the in-depth knowledge of a repo that, like, the maintainers have, like, it…
+
+442
+01:01:08.760 --> 01:01:22.480
+Robert Walworth: it can be helpful, but I think for, like, good first issues, like, the… I mean, good first issues are meant to be, like, pretty basic, and not too, like, in-depth, so…
+
+443
+01:01:22.480 --> 01:01:29.189
+Robert Walworth: I… I think, like, if we did have, like, a good first-issue, like, committee of some sort, like.
+
+444
+01:01:29.190 --> 01:01:35.369
+Robert Walworth: There… obviously, the people on the committee would need some
+
+445
+01:01:35.370 --> 01:01:49.349
+Robert Walworth: some knowledge of, like, what the… like, what… of each programming language. I don't really believe they would need too much, though. Like, if… if it was, like, something like…
+
+446
+01:01:49.450 --> 01:01:59.229
+Robert Walworth: like, just, like, doing, like, an example, coming up with an example, like, they're… that… I don't even know, like, well, they…
+
+447
+01:01:59.230 --> 01:02:02.520
+Sophie Bulloch: be coming up with an example. That's generally too hard.
+
+448
+01:02:02.860 --> 01:02:03.500
+Robert Walworth: Right.
+
+449
+01:02:03.500 --> 01:02:08.540
+Sophie Bulloch: It will just be like, in this example, Add one function.
+
+450
+01:02:08.840 --> 01:02:26.530
+Robert Walworth: Right, right, exactly. Yeah, so it's like, any… any kind of, like, advanced, I feel like, language-specific, like, topic, like, wouldn't… wouldn't necessarily apply in that case. So I… I think I… with that, I feel like I'd… I'd be comfortable, like.
+
+451
+01:02:26.740 --> 01:02:36.340
+Robert Walworth: you know, having non-maintainers, like, be a part of that group. But, like, yeah, like, a… obviously a cursory knowledge would be required, but nothing, like.
+
+452
+01:02:36.560 --> 01:02:38.340
+Robert Walworth: You know, like, crazy.
+
+453
+01:02:38.810 --> 01:02:41.280
+Hendrik Ebbers (Hedera Hashgraph LLC): But that is what I mean.
+
+454
+01:02:42.280 --> 01:02:47.860
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I'm not… and that's why I said, it don't need to be a maintainer, right? So…
+
+455
+01:02:48.000 --> 01:02:59.539
+Hendrik Ebbers (Hedera Hashgraph LLC): And I'm fine with having somebody, let's say, like, in the group, who says, oh, I can read Go, and I understand Go, and I have a…
+
+456
+01:02:59.740 --> 01:03:10.679
+Hendrik Ebbers (Hedera Hashgraph LLC): good understanding of Go, so I, for my point, have never written one line of Go code, and I cannot create a good first issue for Go.
+
+457
+01:03:11.180 --> 01:03:22.319
+Hendrik Ebbers (Hedera Hashgraph LLC): And with that, I cannot create a good first issue for the Go SDK, because there are so much differences between Go and Python.
+
+458
+01:03:22.540 --> 01:03:27.669
+Hendrik Ebbers (Hedera Hashgraph LLC): that a good first issue that is created in Python
+
+459
+01:03:28.100 --> 01:03:32.550
+Hendrik Ebbers (Hedera Hashgraph LLC): might not make much sense for Go.
+
+460
+01:03:32.710 --> 01:03:43.899
+Hendrik Ebbers (Hedera Hashgraph LLC): Especially when it comes to the samples and things like that, that part of the good first issue. Once we have a lot of them, and you can reference to others.
+
+461
+01:03:43.900 --> 01:03:54.829
+Hendrik Ebbers (Hedera Hashgraph LLC): I assume it's getting easier, but at the beginning, you… I'm very sure that you need somebody that has a good understanding of the programming language.
+
+462
+01:03:55.980 --> 01:04:01.249
+Sophie Bulloch: So, Angie and I, we spent a couple of hours making good first issues, which were, like.
+
+463
+01:04:01.370 --> 01:04:11.080
+Sophie Bulloch: add comments, like, explain it. This, this, you know, this file is just… has no explanation. Okay, that's great. Yeah, that everybody can do. I agree. Okay, okay.
+
+464
+01:04:11.080 --> 01:04:14.749
+Hendrik Ebbers (Hedera Hashgraph LLC): So, so I think there are so many good first issues that you can propose.
+
+465
+01:04:14.750 --> 01:04:21.530
+Sophie Bulloch: Based on the level of comfort that you have with the programming language, but I agree with you that you shouldn't be proposing things that you have no idea about.
+
+466
+01:04:21.530 --> 01:04:28.439
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, that… okay, yeah, that is… that is my… my fear, you know, where we should not end. Yeah.
+
+467
+01:04:30.670 --> 01:04:35.040
+Sophie Bulloch: Furthermore, remember we would have to discuss with the maintainers themselves to be
+
+468
+01:04:35.900 --> 01:04:38.699
+Sophie Bulloch: You know, what is an appropriate good first issue for you?
+
+469
+01:04:39.530 --> 01:04:42.599
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah. So we could always suggest, okay, we like…
+
+470
+01:04:42.600 --> 01:04:49.480
+Sophie Bulloch: good first issues that are adding comments and examples. Is that something that's correct from your point of view?
+
+471
+01:04:50.380 --> 01:04:53.750
+Sophie Bulloch: We, we will find something that, that we can't do.
+
+472
+01:04:57.950 --> 01:05:14.149
+Robert Walworth: Yeah. I kind of like that model, too, where it's just, like, we… the committee would just be to come up with, like, good first issue, like, proposals. Like, here's what we like, and then take that to the maintainers. It can literally take, like, 10-15 minutes, be like, here's what we came up with, like.
+
+473
+01:05:14.380 --> 01:05:19.480
+Robert Walworth: what do you think? And then, if they have any, like, edits or modifications, then it's like, we can make those.
+
+474
+01:05:21.410 --> 01:05:25.000
+Robert Walworth: There are any, further explanation that they have.
+
+475
+01:05:25.900 --> 01:05:27.330
+Robert Walworth: Or would want to provide.
+
+476
+01:05:27.780 --> 01:05:30.189
+Robert Walworth: Yeah, I like that, I think that makes sense.
+
+477
+01:05:31.960 --> 01:05:39.169
+Sophie Bulloch: I, I… the one thing that I'm not so sure about is, which SDK
+
+478
+01:05:39.620 --> 01:05:50.239
+Sophie Bulloch: is most likely to want good first issues, and then how can we contact them? So if we do want to move this forward, my opinion would be, okay, we can't just create good first issues in an SDK
+
+479
+01:05:50.340 --> 01:05:55.299
+Sophie Bulloch: And assume it will be taken up, and the permissions will change to triage, and things like this.
+
+480
+01:05:55.500 --> 01:05:58.429
+Sophie Bulloch: We need to kind of have these conversations with them as well, like.
+
+481
+01:05:58.670 --> 01:06:03.449
+Sophie Bulloch: Are there any SDKs that we are… That we already know.
+
+482
+01:06:03.560 --> 01:06:09.269
+Sophie Bulloch: Do you want to engage with the good first issues? As I mentioned, it could be, like, once a month.
+
+483
+01:06:12.700 --> 01:06:13.370
+Hendrik Ebbers (Hedera Hashgraph LLC): I mean…
+
+484
+01:06:13.910 --> 01:06:30.550
+Hendrik Ebbers (Hedera Hashgraph LLC): we can have a look at what people are interested in contribute, first of all. So I, for example, can say, I'm happy to create good first issues in the Java SDK, absolutely no problem with that.
+
+485
+01:06:32.650 --> 01:06:44.959
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe Rob is saying, yeah, I would like to contribute, and I can do the same for C++ and Swift, and you can do it for,
+
+486
+01:06:45.150 --> 01:06:58.419
+Hendrik Ebbers (Hedera Hashgraph LLC): Python, and maybe you take another one, and then we already have a very good start, so we don't need to start with 100% of all SDKs. Even if we start with 4 or 5 SDKs.
+
+487
+01:06:58.450 --> 01:07:09.749
+Hendrik Ebbers (Hedera Hashgraph LLC): and then in February, we see it's working, then we can onboard the other SDKs, as an example. So maybe we just start with the one we are comfortable with.
+
+488
+01:07:09.750 --> 01:07:19.960
+Sophie Bulloch: Yeah, so Angie and I, we created two good first issues for the JavaScript, Java, Go, and maybe another one, but the engagement
+
+489
+01:07:20.230 --> 01:07:24.690
+Sophie Bulloch: People have been wanting to work on it, but the engagement hasn't been good enough.
+
+490
+01:07:25.240 --> 01:07:29.850
+Sophie Bulloch: So, what I… what I would really need is to…
+
+491
+01:07:31.090 --> 01:07:41.070
+Sophie Bulloch: talk with the maintainers and, because we need to negotiate permission changes. Do you really want this good first issue committee? Do you want it to have charge responsibilities?
+
+492
+01:07:41.310 --> 01:07:58.719
+Sophie Bulloch: And it would be this and this and this, and then we have this expectation that, okay, you know, somebody said, I want to work on this issue. I immediately commented, I would love to assign you, but I can't CC this maintainer and things, so… And then another time, you were faster, Hendrik, I think, so…
+
+493
+01:07:59.980 --> 01:08:01.849
+Sophie Bulloch: That's, that's what,
+
+494
+01:08:02.920 --> 01:08:16.330
+Sophie Bulloch: like, if you are confident that the Go SDK, for example, wants to participate in that, I would break that down to, let's have a conversation, let's see what the triage role would involve for your SDK, and then
+
+495
+01:08:16.420 --> 01:08:27.190
+Sophie Bulloch: Because engagement is much more important for good first issues, rather than just creating them, getting people asking to be assigned, and then just never really being able to get anything approved or assigned to them.
+
+496
+01:08:27.720 --> 01:08:29.300
+Hendrik Ebbers (Hedera Hashgraph LLC): So,
+
+497
+01:08:29.630 --> 01:08:37.420
+Hendrik Ebbers (Hedera Hashgraph LLC): I'm just looking at the good first issue candidates that you created for the Java SDK, and they look good.
+
+498
+01:08:37.800 --> 01:08:49.399
+Hendrik Ebbers (Hedera Hashgraph LLC): I totally like that. I think that is a very good start. I'm happy to move them to good first issues now, if you want to.
+
+499
+01:08:49.609 --> 01:08:57.609
+Hendrik Ebbers (Hedera Hashgraph LLC): The other thing is, I'm just looking, as an example, just for the Java SDK, who's,
+
+500
+01:08:59.290 --> 01:09:00.560
+Hendrik Ebbers (Hedera Hashgraph LLC): maintain now.
+
+501
+01:09:03.140 --> 01:09:05.829
+Robert Walworth: That's, Emo and Bonco.
+
+502
+01:09:06.290 --> 01:09:11.499
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, and simi and two people, I don't know.
+
+503
+01:09:11.689 --> 01:09:15.269
+Hendrik Ebbers (Hedera Hashgraph LLC): So that's… maybe we should,
+
+504
+01:09:16.689 --> 01:09:19.569
+Hendrik Ebbers (Hedera Hashgraph LLC): I need to work on the middle of the Java SDK.
+
+505
+01:09:19.600 --> 01:09:33.860
+Robert Walworth: So my thought is, we could… I could reach out to the maintainers, today, and maybe we could kind of discuss this in the good first issue call tomorrow?
+
+506
+01:09:33.930 --> 01:09:41.150
+Robert Walworth: And I can do my best to get them to join, and then see if we can get buy-in from them.
+
+507
+01:09:41.370 --> 01:09:49.960
+Sophie Bulloch: Oh, fantastic, fantastic. Hopefully, we get the approval from the Python SDK good for the committee as well, so we can give them an example.
+
+508
+01:09:50.540 --> 01:09:57.520
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I… I said… I think I approved it, but I said I want another approval, right? Is there any…
+
+509
+01:09:58.070 --> 01:10:02.200
+Sophie Bulloch: Yeah, Nateen is working on it. I need to change the wording as well, so I think we'll need.
+
+510
+01:10:02.200 --> 01:10:11.070
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, okay. So, just ping me when… when you need a review again on it, I'm… I'm happy to…
+
+511
+01:10:11.250 --> 01:10:12.770
+Hendrik Ebbers (Hedera Hashgraph LLC): To move it forward.
+
+512
+01:10:13.100 --> 01:10:19.170
+Hendrik Ebbers (Hedera Hashgraph LLC): But I would say even without the,
+
+513
+01:10:20.080 --> 01:10:30.729
+Hendrik Ebbers (Hedera Hashgraph LLC): approval of that one, the meeting will make sense, and we have more than enough to show to people. So…
+
+514
+01:10:32.030 --> 01:10:42.040
+Hendrik Ebbers (Hedera Hashgraph LLC): yeah, let's try to invite for some SDKs. Rob, what… which one would you prefer? So, I would really like to take Java in it,
+
+515
+01:10:42.200 --> 01:10:47.380
+Hendrik Ebbers (Hedera Hashgraph LLC): Because I can help there, and I'm committed to… to help.
+
+516
+01:10:49.190 --> 01:10:49.620
+Robert Walworth: Yeah, good to go.
+
+517
+01:10:49.840 --> 01:10:53.000
+Hendrik Ebbers (Hedera Hashgraph LLC): Two more, say, yeah, let's work on those.
+
+518
+01:10:55.010 --> 01:11:05.310
+Robert Walworth: Yeah, I'm just gonna send a message to the whole team, and yeah, just… just cast a wide net, and see what we catch.
+
+519
+01:11:05.310 --> 01:11:06.230
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, okay, yeah.
+
+520
+01:11:06.230 --> 01:11:06.720
+Sophie Bulloch: Great, thank you.
+
+521
+01:11:07.730 --> 01:11:17.119
+Sophie Bulloch: Also, like, if anybody would want to share their contact details with me, like, that would also be appreciated, but, great! So I look forward to the meeting tomorrow.
+
+522
+01:11:17.900 --> 01:11:18.600
+Hendrik Ebbers (Hedera Hashgraph LLC): Cool.
+
+523
+01:11:19.220 --> 01:11:20.699
+Robert Walworth: Yeah, sounds good.
+
+524
+01:11:21.300 --> 01:11:22.100
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay.
+
+525
+01:11:22.680 --> 01:11:26.889
+Robert Walworth: Alright, yeah, give me a new one. I'll see you guys tomorrow.
+
+526
+01:11:27.400 --> 01:11:29.020
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, see you tomorrow!
+
+527
+01:11:29.020 --> 01:11:29.500
+Sophie Bulloch: Thank you.
+
+528
+01:11:29.870 --> 01:11:30.490
+Robert Walworth: Bye.
+

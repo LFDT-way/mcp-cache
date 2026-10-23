@@ -1,0 +1,1330 @@
+WEBVTT
+
+1
+00:04:22.240 --> 00:04:26.820
+Tim Nunamaker: Macie… Hi, Lisa Can you say?
+
+2
+00:04:26.820 --> 00:04:28.030
+Maciej: I don't think so.
+
+3
+00:04:33.670 --> 00:04:36.829
+Tim Nunamaker: Maybe we can just wait another minute and get started.
+
+4
+00:05:10.370 --> 00:05:20.300
+Tim Nunamaker: Alright, I'll just jump in. We'll have some time, maybe after I go through these slides, where we can chat a little bit about the material, or whatever else comes to mind.
+
+5
+00:05:20.410 --> 00:05:23.149
+Tim Nunamaker: Let me just throw my screen up here.
+
+6
+00:05:42.790 --> 00:05:44.139
+Tim Nunamaker: You guys see that okay?
+
+7
+00:05:46.580 --> 00:05:47.320
+Tim Nunamaker: Awesome.
+
+8
+00:05:47.570 --> 00:05:54.150
+Tim Nunamaker: Okay, so this is our third session going over PDPP and kind of introducing
+
+9
+00:05:54.350 --> 00:06:02.280
+Tim Nunamaker: the initial version. This is in advance of GDC, where we'll announce, V0.1.
+
+10
+00:06:02.680 --> 00:06:06.370
+Tim Nunamaker: And we're happy to have you guys here, and
+
+11
+00:06:06.890 --> 00:06:09.460
+Tim Nunamaker: Share some notes and get some feedback.
+
+12
+00:06:10.040 --> 00:06:16.879
+Tim Nunamaker: Today, we're talking about… Grants. Basically, how is consent to data?
+
+13
+00:06:17.030 --> 00:06:20.859
+Tim Nunamaker: Stored and used. And then how is the data served?
+
+14
+00:06:21.130 --> 00:06:26.519
+Tim Nunamaker: In the first session, we went over the architecture and overall introduction of PDPP.
+
+15
+00:06:26.800 --> 00:06:29.420
+Tim Nunamaker: And last week, we talked about
+
+16
+00:06:29.670 --> 00:06:33.989
+Tim Nunamaker: How does a client request access to data, and how is data modeled?
+
+17
+00:06:34.170 --> 00:06:40.560
+Tim Nunamaker: And those sessions are recorded and documented in the PDPP GitHub repo.
+
+18
+00:06:40.820 --> 00:06:42.270
+Tim Nunamaker: If you want to find that.
+
+19
+00:06:43.420 --> 00:06:45.490
+Tim Nunamaker: Next week, we will talk about
+
+20
+00:06:45.820 --> 00:06:50.259
+Tim Nunamaker: governance, and I think Art will be leading that session.
+
+21
+00:06:50.620 --> 00:06:54.949
+Tim Nunamaker: from the Bonnet Foundation, and we'll talk about some of the key open questions.
+
+22
+00:06:55.320 --> 00:06:57.810
+Tim Nunamaker: for the current state of PDPP.
+
+23
+00:06:59.150 --> 00:07:06.960
+Tim Nunamaker: Okay, so last week, basically the gist of the material was A client
+
+24
+00:07:08.210 --> 00:07:15.899
+Tim Nunamaker: would request access to data with a selection request. That selection request basically would be interpreted by
+
+25
+00:07:16.070 --> 00:07:20.260
+Tim Nunamaker: The server containing the user's data and authorizing it.
+
+26
+00:07:20.390 --> 00:07:24.330
+Tim Nunamaker: in the render a consent screen. So think of, like, OAuth.
+
+27
+00:07:24.450 --> 00:07:27.420
+Tim Nunamaker: Such and such application wants to access
+
+28
+00:07:28.100 --> 00:07:34.859
+Tim Nunamaker: This application… your account with this application, but there would be additional details about accessing the user's data.
+
+29
+00:07:35.270 --> 00:07:40.110
+Tim Nunamaker: And some of the key points there were that
+
+30
+00:07:40.700 --> 00:07:43.999
+Tim Nunamaker: Data could either be modeled as being mutable or immutable.
+
+31
+00:07:44.270 --> 00:07:49.330
+Tim Nunamaker: Emails in your inbox that are really old, they're probably not changing over time.
+
+32
+00:07:49.540 --> 00:07:53.000
+Tim Nunamaker: And so we can buy some optimizations that way.
+
+33
+00:07:53.860 --> 00:07:57.519
+Tim Nunamaker: We don't have any canonical data models, so…
+
+34
+00:07:57.720 --> 00:08:04.780
+Tim Nunamaker: Unlike some other standards, we basically try to meet the data where it is in the form that it exists, which
+
+35
+00:08:04.870 --> 00:08:18.310
+Tim Nunamaker: Comes with a benefit of being able to express the data in sort of its full form, and some trade-offs around, aggregating data across different data sources may require a little bit of additional effort to make them uniform.
+
+36
+00:08:18.880 --> 00:08:24.019
+Tim Nunamaker: And… We also took a pretty opinionated stance that
+
+37
+00:08:24.630 --> 00:08:32.510
+Tim Nunamaker: we want the UIs that are showing consent to have semantics for not just what the protocol can guarantee, but
+
+38
+00:08:32.740 --> 00:08:41.590
+Tim Nunamaker: Any sort of terms of service that the user wants to provide, to clients accessing their data, so that those commitments can be attributed.
+
+39
+00:08:42.860 --> 00:08:52.779
+Tim Nunamaker: Okay, so… Today, we're talking about, really, grants as, like, the key artifact of the entire PDPP standard.
+
+40
+00:08:52.950 --> 00:09:07.490
+Tim Nunamaker: A grant is fairly simple, conceptually. It's just a record of, at this time, this subject, a user, gave permission for a client to access this particular
+
+41
+00:09:07.640 --> 00:09:08.980
+Tim Nunamaker: Piece of their data.
+
+42
+00:09:09.150 --> 00:09:14.120
+Tim Nunamaker: And specifically, grants are scoped to specific data source.
+
+43
+00:09:14.250 --> 00:09:16.500
+Tim Nunamaker: So, if you want to…
+
+44
+00:09:16.680 --> 00:09:21.870
+Tim Nunamaker: Serve both email data and music listening data, you would need, you know, two different grants.
+
+45
+00:09:22.140 --> 00:09:31.809
+Tim Nunamaker: But that can be handled by the server. So the grant is meant to be fairly narrow, and it records why was access granted.
+
+46
+00:09:31.960 --> 00:09:41.309
+Tim Nunamaker: The terms of access. Is it one-time access? Is it continuous access? Is there a time frame for the access? And then…
+
+47
+00:09:42.050 --> 00:09:52.100
+Tim Nunamaker: There's detail about specifically what data can be accessed, and that's based on the data model streams and the fields within those streams.
+
+48
+00:09:52.260 --> 00:09:59.230
+Tim Nunamaker: And… Within streams, we can also apply time constraints, so it could be something like
+
+49
+00:09:59.380 --> 00:10:05.550
+Tim Nunamaker: This is a grant for access to bank statements over the year 2025.
+
+50
+00:10:06.500 --> 00:10:14.549
+Tim Nunamaker: And this grant is versioned so that we can always refer back to
+
+51
+00:10:14.930 --> 00:10:18.910
+Tim Nunamaker: Like, which version of the protocol, and which version of…
+
+52
+00:10:19.020 --> 00:10:23.460
+Tim Nunamaker: The data source declaration the grant applies to.
+
+53
+00:10:26.000 --> 00:10:34.720
+Tim Nunamaker: So, over time, maybe the client changes its brand, and the logo changes, that's metadata that's stored in the grant.
+
+54
+00:10:34.940 --> 00:10:41.050
+Tim Nunamaker: The grant is meant to be immutable, it's a historical record, and…
+
+55
+00:10:41.160 --> 00:10:45.099
+Tim Nunamaker: So maybe there's some drift with how things change in the future, but…
+
+56
+00:10:45.250 --> 00:10:49.070
+Tim Nunamaker: We really want the grant to be immutable and also capture
+
+57
+00:10:49.400 --> 00:10:55.620
+Tim Nunamaker: Anything that's… anything that's dynamic, for example, a view that says.
+
+58
+00:10:55.840 --> 00:10:59.689
+Tim Nunamaker: I want to access the user's basic profile information.
+
+59
+00:11:00.150 --> 00:11:05.470
+Tim Nunamaker: If that dynamic Basic profile definition changes over time.
+
+60
+00:11:05.880 --> 00:11:15.009
+Tim Nunamaker: Actually, when the grant is created, it needs to be resolved into specific fields. And so, if the definition of basic profile changes in a future version, the grant
+
+61
+00:11:15.130 --> 00:11:18.849
+Tim Nunamaker: Still states exactly which fields it applied to.
+
+62
+00:11:19.460 --> 00:11:22.579
+Tim Nunamaker: The grant can actually change
+
+63
+00:11:23.190 --> 00:11:26.179
+Tim Nunamaker: In the sense that the user can narrow permissions.
+
+64
+00:11:26.410 --> 00:11:32.129
+Tim Nunamaker: So, we could say we're going to stop granting access to
+
+65
+00:11:32.620 --> 00:11:43.360
+Tim Nunamaker: specific fields in the grant can still be used to access the other fields without having to reissue a new grant, but it can't go the other direction. We can't say.
+
+66
+00:11:43.390 --> 00:11:53.360
+Tim Nunamaker: This data source has some new features with new data, and we're just going to assume that access should be granted to those new fields.
+
+67
+00:11:53.950 --> 00:11:56.929
+Tim Nunamaker: Maybe, maybe some new profile fields were added.
+
+68
+00:11:57.150 --> 00:11:58.919
+Tim Nunamaker: That would require a new grant.
+
+69
+00:12:02.370 --> 00:12:07.169
+Tim Nunamaker: When grants are revoked, so a user can revoke a grant.
+
+70
+00:12:07.320 --> 00:12:14.029
+Tim Nunamaker: Obviously, we can't go out into the clients and say, give us the data back, or prove that you've deleted the data.
+
+71
+00:12:14.360 --> 00:12:19.169
+Tim Nunamaker: So revoking, access really just cuts off future access.
+
+72
+00:12:19.530 --> 00:12:26.160
+Tim Nunamaker: However, grants do contain Some policies, like, what is the data retention policy?
+
+73
+00:12:26.330 --> 00:12:33.720
+Tim Nunamaker: That the client is committing to. And this is similar to how OAuth token revocation works, and…
+
+74
+00:12:33.910 --> 00:12:44.550
+Tim Nunamaker: I think the goal here is basically to just provide the scaffolding with which, sort of lawful enforcement can be applied if needed later on.
+
+75
+00:12:49.100 --> 00:12:52.890
+Tim Nunamaker: This is maybe just a little bit of a lesson in
+
+76
+00:12:53.120 --> 00:13:00.890
+Tim Nunamaker: OAuth, and a specific choice that we're making in relation to revoking access to data.
+
+77
+00:13:01.070 --> 00:13:09.060
+Tim Nunamaker: But I think it's worth mentioning that instead of using JWTs, where…
+
+78
+00:13:09.530 --> 00:13:19.700
+Tim Nunamaker: a token is signed and can be inspected, and the server could verify, like, okay, yes, I granted,
+
+79
+00:13:20.360 --> 00:13:24.900
+Tim Nunamaker: like, I signed this in the past, and it proves that access has been granted.
+
+80
+00:13:25.190 --> 00:13:34.549
+Tim Nunamaker: Therefore, I don't need to go look at anything in my database, I don't need to make another round trip, I'm just going to continue giving access. We chose not to do that because
+
+81
+00:13:34.820 --> 00:13:39.539
+Tim Nunamaker: Then the user can't revoke access and have that revocation
+
+82
+00:13:39.800 --> 00:13:52.899
+Tim Nunamaker: go into force immediately. So, introspection is required when a client requests access to data with their token, with their access token. That access token gets checked to see if it's still valid.
+
+83
+00:13:53.240 --> 00:14:05.530
+Tim Nunamaker: We allow a 60-second cache, but no more than that. So, if you revoke access, you have a guarantee that within 60 seconds, clients will not be permitted to fetch new data.
+
+84
+00:14:09.040 --> 00:14:12.490
+Tim Nunamaker: So now we can talk a little bit about…
+
+85
+00:14:13.020 --> 00:14:19.510
+Tim Nunamaker: The query language, like, how does a client actually ask for data that it's been granted access to?
+
+86
+00:14:20.050 --> 00:14:26.749
+Tim Nunamaker: And… The full detail of all this is in the stand… is in the spec, but it's basically…
+
+87
+00:14:27.110 --> 00:14:33.420
+Tim Nunamaker: Listing what streams the user has that you've been granted access to.
+
+88
+00:14:33.780 --> 00:14:35.969
+Tim Nunamaker: Getting metadata about those streams.
+
+89
+00:14:36.130 --> 00:14:38.729
+Tim Nunamaker: Listing records within a stream.
+
+90
+00:14:39.580 --> 00:14:42.379
+Tim Nunamaker: Or grabbing an individual record.
+
+91
+00:14:42.570 --> 00:14:46.340
+Tim Nunamaker: Or if a record has some kind of blob,
+
+92
+00:14:46.480 --> 00:14:58.330
+Tim Nunamaker: defined, like, an image or a video at some other URL, a way to go grab that as well. So that can be, like, an attachment from an email posted on another server.
+
+93
+00:14:58.490 --> 00:15:00.159
+Tim Nunamaker: Or on the same server.
+
+94
+00:15:00.780 --> 00:15:03.109
+Tim Nunamaker: And it's important to note that
+
+95
+00:15:04.020 --> 00:15:16.829
+Tim Nunamaker: Everything that the client sees when they query for things like, tell me what streams are available for the user. Those are always filtered down through what the grant allows.
+
+96
+00:15:17.270 --> 00:15:18.300
+Tim Nunamaker: And…
+
+97
+00:15:18.900 --> 00:15:24.579
+Tim Nunamaker: We actually don't have a way at this time for clients to just go look up what is all the data.
+
+98
+00:15:24.840 --> 00:15:33.600
+Tim Nunamaker: That a user has that they could potentially grant me access to. We may add some features in the future where users can sort of permit
+
+99
+00:15:33.700 --> 00:15:39.270
+Tim Nunamaker: additional metadata queries, But at the moment.
+
+100
+00:15:39.810 --> 00:15:51.539
+Tim Nunamaker: Basically, the only thing a client can do is ask the user, please give me access to your data, and the user will indicate which access should be granted. And at that point, the client can learn what data is available.
+
+101
+00:15:53.500 --> 00:15:57.399
+Tim Nunamaker: Within these endpoints, we have a few
+
+102
+00:15:58.400 --> 00:16:01.620
+Tim Nunamaker: I would say key parameters that show up a lot.
+
+103
+00:16:01.730 --> 00:16:06.879
+Tim Nunamaker: Because the… whole data model and the API.
+
+104
+00:16:07.010 --> 00:16:09.619
+Tim Nunamaker: It's sort of tailored towards syncing.
+
+105
+00:16:09.860 --> 00:16:14.800
+Tim Nunamaker: Think, like, Data that is continuously
+
+106
+00:16:14.960 --> 00:16:24.850
+Tim Nunamaker: fetched in the server, or generated in the server. And some client that wants to, on a regular basis, get the newest information, or the newest data, or the newest records.
+
+107
+00:16:25.170 --> 00:16:28.230
+Tim Nunamaker: Because that's how the data is sort of modeled.
+
+108
+00:16:28.360 --> 00:16:34.579
+Tim Nunamaker: Things like cursors are really important in how clients talk to the server, and…
+
+109
+00:16:34.730 --> 00:16:37.190
+Tim Nunamaker: I'll show some examples here in a second.
+
+110
+00:16:39.530 --> 00:16:45.860
+Tim Nunamaker: So… we're making a choice, at least for this version of PDPP,
+
+111
+00:16:46.460 --> 00:16:52.580
+Tim Nunamaker: The spec is fairly narrow in terms of the query API that we're supporting.
+
+112
+00:16:52.730 --> 00:16:59.650
+Tim Nunamaker: So you can imagine, in an ideal world, if you have access to some data, you can do
+
+113
+00:16:59.980 --> 00:17:03.599
+Tim Nunamaker: like, really rich queries. You can query for
+
+114
+00:17:03.860 --> 00:17:08.489
+Tim Nunamaker: Expansions through records into their relationships, like.
+
+115
+00:17:08.790 --> 00:17:12.800
+Tim Nunamaker: I want to find all of the friends of this person's friends.
+
+116
+00:17:13.069 --> 00:17:20.690
+Tim Nunamaker: And maybe another layer of friends, and just expanding down. Or you can imagine, really,
+
+117
+00:17:21.560 --> 00:17:32.810
+Tim Nunamaker: tight control over how records are sorted. I want this… I want to look up all of these contacts sorted by zip code, or even, like, the last four digits of the zip code.
+
+118
+00:17:33.070 --> 00:17:37.630
+Tim Nunamaker: We're just not supporting, sort of, arbitrarily rich queries in this version.
+
+119
+00:17:37.770 --> 00:17:43.880
+Tim Nunamaker: One thing that we think clients can do fairly effectively is
+
+120
+00:17:44.110 --> 00:17:57.029
+Tim Nunamaker: Do an initial query to get some data, or sort of sync the data from the stream that they have access to, and then do re-ranking or additional filtering, or additional sorting the way that they need to.
+
+121
+00:17:57.160 --> 00:18:00.660
+Tim Nunamaker: I think in the future, we will probably…
+
+122
+00:18:00.860 --> 00:18:04.790
+Tim Nunamaker: Create some new semantics that make things like expanding relationships.
+
+123
+00:18:06.640 --> 00:18:15.540
+Tim Nunamaker: Possible by sort of expressing more detail about those relationships within the manifests that the data source authors provide.
+
+124
+00:18:15.940 --> 00:18:20.480
+Tim Nunamaker: But I think that maybe is a little bit of a stretch at the moment.
+
+125
+00:18:21.510 --> 00:18:27.369
+Tim Nunamaker: And actually, that being said, there's nothing stopping clients from using
+
+126
+00:18:27.890 --> 00:18:33.280
+Tim Nunamaker: Supporting additional features. Sorry, nothing stopping servers from supporting additional features.
+
+127
+00:18:36.810 --> 00:18:42.439
+Tim Nunamaker: So one, maybe, key idea to help understand all of this is when
+
+128
+00:18:42.970 --> 00:18:47.839
+Tim Nunamaker: Access to data is fulfilled when a client requests access to data.
+
+129
+00:18:48.350 --> 00:18:55.360
+Tim Nunamaker: The way that the server fulfills that access is actually to go get the grant, and then
+
+130
+00:18:55.690 --> 00:19:02.149
+Tim Nunamaker: look at the data, grab the data, and filter it through that grant. So the grant is not just
+
+131
+00:19:02.300 --> 00:19:03.860
+Tim Nunamaker: Sort of metadata.
+
+132
+00:19:04.090 --> 00:19:12.199
+Tim Nunamaker: It's not just a historical record, it's actively used in the process for returning filtered access to data.
+
+133
+00:19:13.050 --> 00:19:19.970
+Tim Nunamaker: And yeah, there's probably not much more to say on grants.
+
+134
+00:19:20.190 --> 00:19:24.470
+Tim Nunamaker: We can talk about…
+
+135
+00:19:25.000 --> 00:19:32.449
+Tim Nunamaker: how continuous access works. So, let's say once a day or once a week, I have access to a user's
+
+136
+00:19:32.560 --> 00:19:39.240
+Tim Nunamaker: Listening history in their music app, or I guess in this case, conversations.
+
+137
+00:19:39.500 --> 00:19:40.670
+Tim Nunamaker: I can ask.
+
+138
+00:19:40.780 --> 00:19:45.430
+Tim Nunamaker: for all of the newest conversations since the last time I asked.
+
+139
+00:19:45.680 --> 00:19:47.360
+Tim Nunamaker: And how do I specify that?
+
+140
+00:19:47.540 --> 00:20:00.709
+Tim Nunamaker: I pass a cursor, which was given to me on my previous request. So this is a way where clients can efficiently sort of ingest the next set of records, across the stream.
+
+141
+00:20:03.270 --> 00:20:05.730
+Tim Nunamaker: And you'll also notice in this example.
+
+142
+00:20:05.930 --> 00:20:18.560
+Tim Nunamaker: The second record that was returned is a tombstone. It's basically an indication from the server that a record was deleted. So in the past, maybe as a client, I pulled in a particular conversation.
+
+143
+00:20:18.690 --> 00:20:26.170
+Tim Nunamaker: And now I'm seeing the user maybe deleted that conversation, or the server decided to delete that conversation for some reason.
+
+144
+00:20:30.190 --> 00:20:37.869
+Tim Nunamaker: Nothing too complicated here. If you request access for data that you don't have a grant for, you will get back a code basically saying.
+
+145
+00:20:38.010 --> 00:20:39.780
+Tim Nunamaker: That's not allowed.
+
+146
+00:20:43.120 --> 00:20:47.119
+Tim Nunamaker: So, I think this is an area in the standard where
+
+147
+00:20:47.300 --> 00:20:53.340
+Tim Nunamaker: Things may evolve, and we may come back to some of our decisions. There are some open questions.
+
+148
+00:20:53.730 --> 00:21:05.129
+Tim Nunamaker: Actually… really… tight filters and relationship expansion that we can't support for clients. We can support
+
+149
+00:21:05.500 --> 00:21:11.360
+Tim Nunamaker: if you own the data. If you are the user, and you're just accessing your own data with
+
+150
+00:21:11.690 --> 00:21:17.259
+Tim Nunamaker: an owner token. We can't support those things, and we do name them in the core spec.
+
+151
+00:21:17.520 --> 00:21:23.350
+Tim Nunamaker: So, there's a little bit of a mismatch between what the owner can do and what a client can do.
+
+152
+00:21:24.720 --> 00:21:30.830
+Tim Nunamaker: like I said, I think in the future, we will expand the sort of power that clients have for querying data.
+
+153
+00:21:31.950 --> 00:21:34.450
+Tim Nunamaker: Right now, we make a distinction between
+
+154
+00:21:34.900 --> 00:21:45.799
+Tim Nunamaker: One-shot access, where a grant can only be used once, versus continuous access, but we don't define other kinds of policies about access.
+
+155
+00:21:45.910 --> 00:21:48.800
+Tim Nunamaker: And… so we may refactor.
+
+156
+00:21:49.070 --> 00:21:57.310
+Tim Nunamaker: This a little bit to support other kinds of policies, or maybe extensions to the spec can support other kinds of policies.
+
+157
+00:21:57.650 --> 00:22:01.950
+Tim Nunamaker: or we may choose that single uses.
+
+158
+00:22:02.120 --> 00:22:08.520
+Tim Nunamaker: Sort of overspecified, and… Leave that up to… implementers.
+
+159
+00:22:09.740 --> 00:22:19.509
+Tim Nunamaker: When it comes to the process of discovering what data an individual has that can be accessed, we don't have
+
+160
+00:22:20.240 --> 00:22:24.309
+Tim Nunamaker: like, strong answers for that. The answer is really just…
+
+161
+00:22:24.560 --> 00:22:27.850
+Tim Nunamaker: The user tells them, at the time of consent.
+
+162
+00:22:28.070 --> 00:22:34.969
+Tim Nunamaker: So I think I mentioned this earlier, we may add some machinery to make that process a little bit smoother.
+
+163
+00:22:35.780 --> 00:22:44.190
+Tim Nunamaker: And… Yeah, retention policies.
+
+164
+00:22:45.030 --> 00:22:51.519
+Tim Nunamaker: And other kinds of policies, which the user is sort of asking the client to commit to as their terms.
+
+165
+00:22:51.720 --> 00:23:02.760
+Tim Nunamaker: Maybe could be generalized a little bit more, and we can sort of open up the space for other kinds of rules about how the data can be used and what should happen with that.
+
+166
+00:23:05.950 --> 00:23:09.760
+Tim Nunamaker: A few key decisions that we talked about today.
+
+167
+00:23:09.950 --> 00:23:13.270
+Tim Nunamaker: Are the grants are immutable, meaning that
+
+168
+00:23:13.840 --> 00:23:18.609
+Tim Nunamaker: You can always look back in history and see exactly what permission was granted.
+
+169
+00:23:18.950 --> 00:23:26.639
+Tim Nunamaker: And… How, tokens are enforced is that we use introspection to check
+
+170
+00:23:26.860 --> 00:23:30.859
+Tim Nunamaker: Sort of, at runtime, whether access is still allowed.
+
+171
+00:23:31.020 --> 00:23:37.229
+Tim Nunamaker: And our query API is meant to be fairly narrow and small.
+
+172
+00:23:37.360 --> 00:23:41.420
+Tim Nunamaker: At least in this version of the spec.
+
+173
+00:23:44.010 --> 00:23:50.389
+Tim Nunamaker: So, this is information we've shared in the past, but if you just drop on our website at PDPP.dev.
+
+174
+00:23:50.560 --> 00:24:03.600
+Tim Nunamaker: you'll be able to find all of the things, the Discord server, the GitHub. You can build a data connector and try to plug it into a personal server that's also hosted on the website.
+
+175
+00:24:03.730 --> 00:24:05.969
+Tim Nunamaker: That you can self-host and run yourself.
+
+176
+00:24:06.380 --> 00:24:07.500
+Tim Nunamaker: And…
+
+177
+00:24:07.750 --> 00:24:23.050
+Tim Nunamaker: yeah, some of the work still to do is to work out, conformance and building out test suites and making it easier for platforms to conform with the protocol. And then, obviously, this month is all about
+
+178
+00:24:23.490 --> 00:24:31.210
+Tim Nunamaker: Sort of dotting our… I's and crossing our T's as we get ready to announce this more publicly.
+
+179
+00:24:33.650 --> 00:24:36.379
+Tim Nunamaker: So I think at this point, I'll just…
+
+180
+00:24:37.120 --> 00:24:41.470
+Tim Nunamaker: Stop here and open it up for any questions or discussion.
+
+181
+00:24:41.950 --> 00:24:50.479
+Tim Nunamaker: And we can just… We can just hang on as long as there's stuff to talk about.
+
+182
+00:24:50.910 --> 00:24:52.620
+Tim Nunamaker: So, yeah, any questions?
+
+183
+00:24:54.200 --> 00:25:09.289
+Carman Nareau: Yeah, I'll pop in with them. Thanks, Tim, for this. I'm Carman with Mozilla.org. I'm curious if there is a concept of a sub-grant in this, like, where whoever received a grant can pass along a smaller piece of it to someone else, or does every grant always have to come straight from the original data owner?
+
+184
+00:25:11.030 --> 00:25:13.609
+Tim Nunamaker: I think that's a great question.
+
+185
+00:25:14.120 --> 00:25:25.070
+Tim Nunamaker: I think as written, the spec basically… Either discourages that, or… Or prohibits it.
+
+186
+00:25:25.520 --> 00:25:28.509
+Tim Nunamaker: I think we need a better answer for…
+
+187
+00:25:28.950 --> 00:25:34.870
+Tim Nunamaker: Either the enforceable or unenforceable policies that are expressed By the protocol.
+
+188
+00:25:35.140 --> 00:25:40.260
+Tim Nunamaker: I think it could be a nice feature… excuse me, feature if users
+
+189
+00:25:40.990 --> 00:25:44.669
+Tim Nunamaker: Want an application to be able to sort of arbitrarily
+
+190
+00:25:44.830 --> 00:25:50.689
+Tim Nunamaker: Propagate the access that they're granted in a way that the use… like, if the user trusts some application.
+
+191
+00:25:50.890 --> 00:25:52.799
+Tim Nunamaker: Weather data.
+
+192
+00:25:52.950 --> 00:25:58.119
+Tim Nunamaker: Yeah, I think that's a good question. I don't think it's a fully resolved question.
+
+193
+00:25:58.470 --> 00:26:03.100
+Tim Nunamaker: do you have any opinions about how that should work?
+
+194
+00:26:07.050 --> 00:26:18.760
+Carman Nareau: It's, it's, I ask it because it's something that I don't feel super resolved with, so I was mostly curious your take, if you've, if you've thought about it at all, or, or, yeah, I guess heard from folks how they think about it.
+
+195
+00:26:21.450 --> 00:26:24.790
+Tim Nunamaker: Yeah, I think this is probably something where we think
+
+196
+00:26:25.660 --> 00:26:29.549
+Tim Nunamaker: There's demand for it, or if the use cases are there.
+
+197
+00:26:30.030 --> 00:26:34.570
+Tim Nunamaker: we could… I think put some time into figuring out how to solve this.
+
+198
+00:26:34.720 --> 00:26:38.960
+Tim Nunamaker: I think in this version of the spec.
+
+199
+00:26:39.350 --> 00:26:45.770
+Tim Nunamaker: it hasn't really been a focus yet, but I'll definitely take that as an open question, and we can…
+
+200
+00:26:45.880 --> 00:26:48.300
+Tim Nunamaker: Trying to get some clarity on what makes the most sense.
+
+201
+00:26:48.810 --> 00:27:03.419
+Carman Nareau: Yeah, I appreciate that. And then maybe, like, some tenets I would consider is, like, they're more hunches than anything, but I imagine, like, subgrants would be narrower than the parent, right? You'd always show the full chain back to the original owner and die the moment the parent grant dies.
+
+202
+00:27:03.420 --> 00:27:09.580
+Carman Nareau: So you don't have this, like, partial survival zombie subgrant out there. But yeah, I appreciate you taking that as an action.
+
+203
+00:27:10.790 --> 00:27:12.790
+Tim Nunamaker: Yeah, absolutely. Lisa?
+
+204
+00:27:14.910 --> 00:27:25.840
+Lisa Dusseault (Data Transfer Initiative): Hi, I wanted to know if you're aware of the RAR metadata draft that is going in the… along in the IETF right now.
+
+205
+00:27:25.980 --> 00:27:30.390
+Lisa Dusseault (Data Transfer Initiative): Because there seems to be some overlap, and since you already use RAR,
+
+206
+00:27:31.320 --> 00:27:39.209
+Lisa Dusseault (Data Transfer Initiative): I mean, RAR is a RFC, and this is a draft, but Zahavi is, well embedded in the OAuth working group, and
+
+207
+00:27:39.390 --> 00:27:41.880
+Lisa Dusseault (Data Transfer Initiative): Has a lot of collaborators.
+
+208
+00:27:43.490 --> 00:27:50.680
+Tim Nunamaker: Oh, I haven't seen that. Is there, like, a… Two-second summary of, what
+
+209
+00:27:51.590 --> 00:27:54.099
+Tim Nunamaker: What about that resonates for you?
+
+210
+00:27:54.100 --> 00:27:58.620
+Lisa Dusseault (Data Transfer Initiative): Well, I think… What, what resonates?
+
+211
+00:27:58.830 --> 00:28:04.470
+Lisa Dusseault (Data Transfer Initiative): I… Don't know that any of this will be useful for personal data access.
+
+212
+00:28:05.360 --> 00:28:12.899
+Lisa Dusseault (Data Transfer Initiative): So, I wouldn't say it resonates with me, but I just wanted to offer, if it was useful, some…
+
+213
+00:28:14.220 --> 00:28:26.149
+Lisa Dusseault (Data Transfer Initiative): exist… you use a lot of tools that already exist to reduce the amount of work you have to do in PDPP, and this is another piece that would reduce the amount of work you have to do.
+
+214
+00:28:27.490 --> 00:28:28.710
+Tim Nunamaker: That sounds great.
+
+215
+00:28:28.710 --> 00:28:31.500
+Lisa Dusseault (Data Transfer Initiative): Yeah, it's always great.
+
+216
+00:28:31.960 --> 00:28:49.070
+Lisa Dusseault (Data Transfer Initiative): Another one is… another, obscure bit of standard stuff that is in RFC is WebDav's report and sync token. This is a lot like cursor, I mean, basically it's a cursor, and allows for synchronizing large collections.
+
+217
+00:28:51.120 --> 00:28:52.250
+Tim Nunamaker: Nice, okay.
+
+218
+00:28:52.640 --> 00:28:56.520
+Tim Nunamaker: I'll take that, too, as a note. I think…
+
+219
+00:28:57.070 --> 00:29:02.690
+Tim Nunamaker: Yeah, there are a bunch of, like, cursor-based… protocols out there. We actually.
+
+220
+00:29:02.690 --> 00:29:10.110
+Lisa Dusseault (Data Transfer Initiative): There are a lot. I was making a list of them the other day, like… Starting with… with…
+
+221
+00:29:10.240 --> 00:29:19.809
+Lisa Dusseault (Data Transfer Initiative): rsync, SOAP, Beep, XMPP, Jingle, JMAP, MCP, FTP, Activity, Pub, BitTorrent, GraphQL, Atlas, Atom, AtomPub.
+
+222
+00:29:20.130 --> 00:29:21.970
+Lisa Dusseault (Data Transfer Initiative): Solid and web dev.
+
+223
+00:29:23.080 --> 00:29:23.670
+Lisa Dusseault (Data Transfer Initiative): Wow.
+
+224
+00:29:23.880 --> 00:29:25.750
+Lisa Dusseault (Data Transfer Initiative): Yeah, yeah, yeah, yeah, yeah.
+
+225
+00:29:26.490 --> 00:29:31.219
+Lisa Dusseault (Data Transfer Initiative): This has been a… this is a class of problem that has been tackled
+
+226
+00:29:31.500 --> 00:29:50.810
+Lisa Dusseault (Data Transfer Initiative): Many times. Not all of them are as relevant in different situations. Like, the Sync and Resume is not as great fit for ActivityPub, but depending on what use case you have, you can make sync work while using ActivityPub's published stuff, if publishing is more the model.
+
+227
+00:29:50.810 --> 00:29:52.440
+Lisa Dusseault (Data Transfer Initiative): But,
+
+228
+00:29:53.130 --> 00:30:10.750
+Lisa Dusseault (Data Transfer Initiative): We've been trying to get companies with personal data to support the standards that already exist for years, and they prefer to keep it in-house and custom, so that's my biggest. You know, I would love to say lots of this stuff resonates with me, but
+
+229
+00:30:12.510 --> 00:30:19.819
+Lisa Dusseault (Data Transfer Initiative): I don't know how to get any of them to implement a standard for filters and grant scopes and…
+
+230
+00:30:21.170 --> 00:30:26.269
+Lisa Dusseault (Data Transfer Initiative): expirations and… All of that. Pagination, even.
+
+231
+00:30:27.270 --> 00:30:27.970
+Tim Nunamaker: Yeah.
+
+232
+00:30:28.280 --> 00:30:32.910
+Tim Nunamaker: I think we started with this… sort of data connector
+
+233
+00:30:33.910 --> 00:30:37.200
+Tim Nunamaker: Deployment option as a way for us
+
+234
+00:30:37.310 --> 00:30:40.679
+Tim Nunamaker: to sort of build out an implementation of PDPP.
+
+235
+00:30:40.860 --> 00:30:43.479
+Tim Nunamaker: Without having to wait for other platforms.
+
+236
+00:30:43.640 --> 00:30:54.240
+Tim Nunamaker: And in some ways, it seems a little bit… Like, you're cobbling together this… This, like.
+
+237
+00:30:54.380 --> 00:31:07.089
+Tim Nunamaker: client around an API that may not properly support all of the machinery that the client needs. Yeah. But we've… I think we've been able to get pretty far, surprisingly.
+
+238
+00:31:07.310 --> 00:31:14.870
+Tim Nunamaker: Across a bunch of different platforms, APIs, and… I think…
+
+239
+00:31:15.180 --> 00:31:18.120
+Tim Nunamaker: Maybe the eventual answer to this is.
+
+240
+00:31:18.940 --> 00:31:21.119
+Tim Nunamaker: Sort of along the lines of MCP.
+
+241
+00:31:21.300 --> 00:31:28.080
+Tim Nunamaker: Like, maybe the way to get people to implement something like this is not to change their existing system.
+
+242
+00:31:28.180 --> 00:31:32.410
+Tim Nunamaker: But to ship something that can sit on top of it, and maybe it's a little bit…
+
+243
+00:31:32.650 --> 00:31:38.580
+Tim Nunamaker: Clunky, but if it fulfills the spec, or if it can conform to the standard.
+
+244
+00:31:38.760 --> 00:31:45.089
+Tim Nunamaker: then… But even if it doesn't conform 100%, maybe there's some optional features that
+
+245
+00:31:45.520 --> 00:31:50.320
+Tim Nunamaker: are just not supported. Like, the basic… Get the data out.
+
+246
+00:31:50.750 --> 00:31:51.940
+Tim Nunamaker: like, feature.
+
+247
+00:31:52.100 --> 00:31:54.380
+Tim Nunamaker: I think that's…
+
+248
+00:31:54.730 --> 00:32:02.060
+Tim Nunamaker: that's where I'm putting some of my… my optimism and hope in that direction. Like, there's some kind of bridge to what exists today, but…
+
+249
+00:32:02.270 --> 00:32:03.730
+Tim Nunamaker: Yeah, I would love to hear it.
+
+250
+00:32:03.940 --> 00:32:10.839
+Tim Nunamaker: Any other thoughts you have about, how to get these guys to move, in this direction?
+
+251
+00:32:11.290 --> 00:32:11.830
+Lisa Dusseault (Data Transfer Initiative): Yep.
+
+252
+00:32:15.550 --> 00:32:16.250
+Tim Nunamaker: Hmm.
+
+253
+00:32:18.730 --> 00:32:21.650
+Tim Nunamaker: Yeah, and I think along those lines,
+
+254
+00:32:23.210 --> 00:32:27.920
+Tim Nunamaker: There are a number of different ways that you can imagine accessing data.
+
+255
+00:32:28.150 --> 00:32:32.369
+Tim Nunamaker: We're talking here about… Syncing data periodically.
+
+256
+00:32:34.040 --> 00:32:44.339
+Tim Nunamaker: if you look at something like a PDPA export, like a Google takeout style, just export everything. We haven't put a lot of focus on stuff like that because
+
+257
+00:32:44.650 --> 00:32:48.749
+Tim Nunamaker: If all the data is in the server, an export shouldn't be that hard to build.
+
+258
+00:32:48.990 --> 00:32:53.349
+Tim Nunamaker: Versus a real-time query API, so we started with the harder thing.
+
+259
+00:32:53.640 --> 00:32:57.760
+Tim Nunamaker: But… There may be other… Hmm…
+
+260
+00:32:58.230 --> 00:33:05.510
+Tim Nunamaker: Access paths or use cases where we can… Maybe define, like.
+
+261
+00:33:06.260 --> 00:33:14.590
+Tim Nunamaker: more specifically, here's how it works, and here's why it… here's how it can work well. Maybe, like, additional APIs that we don't have in the spec right now.
+
+262
+00:33:15.110 --> 00:33:18.600
+Tim Nunamaker: Yeah.
+
+263
+00:33:21.180 --> 00:33:23.680
+Tim Nunamaker: Any other questions or comments?
+
+264
+00:33:27.440 --> 00:33:27.990
+Carman Nareau: Yeah, cool.
+
+265
+00:33:28.690 --> 00:33:30.089
+Maciej: Yeah, go on, Carman.
+
+266
+00:33:30.230 --> 00:33:31.539
+Carman Nareau: Go ahead, I've gone.
+
+267
+00:33:32.360 --> 00:33:34.789
+Maciej: Okay, I've got a question,
+
+268
+00:33:35.100 --> 00:33:41.190
+Maciej: do you… do you think, Tim, or maybe you thought about, like, how much protocol should be opinionated about
+
+269
+00:33:41.310 --> 00:33:50.909
+Maciej: approving grants and building features related to grant approvals. I'm thinking about things like Delegating approval of grants.
+
+270
+00:33:51.190 --> 00:33:56.010
+Maciej: you know, for example, to AI Agent, or something like that.
+
+271
+00:33:56.160 --> 00:34:14.039
+Maciej: Right? Basically, assuming that I will not be always available to approve a grant, I would like to have maybe automation in an auditable way set up that I can… and maybe a few automations, and I would be, you know, and maybe set some policies about, you know, what kind of data should be approved, and so on.
+
+272
+00:34:15.159 --> 00:34:18.089
+Tim Nunamaker: Yeah, great question.
+
+273
+00:34:18.399 --> 00:34:21.749
+Tim Nunamaker: I think… A few weeks ago.
+
+274
+00:34:22.779 --> 00:34:30.029
+Tim Nunamaker: the way that the spec was written was more tightly coupled to OAuth as an authorization protocol.
+
+275
+00:34:30.199 --> 00:34:33.229
+Tim Nunamaker: And we actually realized we could…
+
+276
+00:34:33.379 --> 00:34:44.639
+Tim Nunamaker: refactor that a little bit, and make it more flexible. And so, in the future, we could potentially support something like, GNAP, GNAP.
+
+277
+00:34:44.789 --> 00:34:46.079
+Tim Nunamaker: And I think…
+
+278
+00:34:46.209 --> 00:34:58.029
+Tim Nunamaker: There's nothing really about PDPP that says you can't implement an authorization protocol that makes use of an AI agent, or some other undefined mechanism.
+
+279
+00:34:58.339 --> 00:35:01.919
+Tim Nunamaker: I think it could be a really interesting
+
+280
+00:35:02.119 --> 00:35:04.489
+Tim Nunamaker: avenue to explore, and I think…
+
+281
+00:35:05.359 --> 00:35:08.139
+Tim Nunamaker: with AI agents getting more sophisticated.
+
+282
+00:35:08.349 --> 00:35:11.149
+Tim Nunamaker: And users potentially delegating more and more.
+
+283
+00:35:11.439 --> 00:35:17.219
+Tim Nunamaker: And… and potentially establishing a lot of trust. Like, if you have…
+
+284
+00:35:17.479 --> 00:35:24.589
+Tim Nunamaker: Maybe some lower-stakes data, and you don't want to always have to be in the loop to approve requests, but you also don't want to just
+
+285
+00:35:24.999 --> 00:35:28.019
+Tim Nunamaker: Automatically click a button. Maybe some agent can help.
+
+286
+00:35:28.189 --> 00:35:35.339
+Tim Nunamaker: mediate that process. Yeah, I think we want there to be ways for… Implementers to support that.
+
+287
+00:35:35.649 --> 00:35:45.929
+Tim Nunamaker: Given that like, PDPP is really just about the language of data portability, We're not intending to…
+
+288
+00:35:46.649 --> 00:35:49.369
+Tim Nunamaker: Prevent, use cases like that.
+
+289
+00:35:52.290 --> 00:35:53.200
+Maciej: Cool, thank you.
+
+290
+00:35:59.200 --> 00:36:00.830
+Tim Nunamaker: Cool, any other questions?
+
+291
+00:36:03.670 --> 00:36:19.660
+Carman Nareau: Yeah, I was just, kind of noodling, like, from a policy perspective, what happens if the, whatever, the thing I've given permission to changes legal ownership? You know, does my… do I have to… does that,
+
+292
+00:36:20.060 --> 00:36:26.840
+Carman Nareau: prompt me to revoke my access, because it's a new relationship with a new, kind of, company or corporate structure.
+
+293
+00:36:27.250 --> 00:36:36.809
+Carman Nareau: you know, I think it could be interesting to have clients have to sort of report that type of ownership, like there was a security issue, but just something to… I'm curious if you've thought about at all.
+
+294
+00:36:37.390 --> 00:36:40.470
+Tim Nunamaker: Hmm. Do you think you could give me a specific example?
+
+295
+00:36:41.530 --> 00:36:50.720
+Carman Nareau: Yeah, sure. So, you know, if I'm giving access… or sorry, if I'm, giving permission
+
+296
+00:36:51.030 --> 00:37:08.000
+Carman Nareau: for something to… yeah, sorry, if I'm giving read permission to a certain set of information, or to a client for a certain set of information, I'm probably making a certain assumption about the relationship I have with that company, right? So maybe… let's just take Spotify. I'm giving Spotify read access.
+
+297
+00:37:08.080 --> 00:37:13.639
+Carman Nareau: If Spotify were to, like, change legal structures or get absorbed into something else, like.
+
+298
+00:37:14.000 --> 00:37:20.030
+Carman Nareau: I would want the option to know that, to be able to revoke, because it would be a different…
+
+299
+00:37:20.270 --> 00:37:23.719
+Carman Nareau: like, it's a different company now. Does that make sense?
+
+300
+00:37:24.640 --> 00:37:25.180
+Tim Nunamaker: Yeah.
+
+301
+00:37:25.510 --> 00:37:26.670
+Tim Nunamaker: So it's basically, like.
+
+302
+00:37:26.670 --> 00:37:32.719
+Carman Nareau: It's a little bit terms of service or privacy policy, like, adjacent, but I guess, like, within the structure.
+
+303
+00:37:34.780 --> 00:37:41.040
+Tim Nunamaker: Yeah, I think… I mean, I think this is a really interesting question. It's like, If a user has
+
+304
+00:37:41.520 --> 00:37:47.069
+Tim Nunamaker: specific terms that they want to be attached to their data. How can those be expressed in…
+
+305
+00:37:47.190 --> 00:37:55.160
+Tim Nunamaker: to the extent possible, enforced by the protocol. Obviously, there are some limits there, but…
+
+306
+00:37:57.930 --> 00:38:03.120
+Tim Nunamaker: I think I'll have to think some more about that. Right now, it wouldn't be hard to extend
+
+307
+00:38:03.330 --> 00:38:10.300
+Tim Nunamaker: The standard to allow for Sort of user-specified terms. And then maybe…
+
+308
+00:38:10.520 --> 00:38:17.580
+Tim Nunamaker: The authorization server could have some templates or some recipes for, like, these are things that our users typically
+
+309
+00:38:18.100 --> 00:38:22.280
+Tim Nunamaker: Want to request, or maybe that could just be…
+
+310
+00:38:22.570 --> 00:38:27.520
+Tim Nunamaker: some other RFC that kind of lays out
+
+311
+00:38:27.870 --> 00:38:30.030
+Tim Nunamaker: What… what those common things are.
+
+312
+00:38:30.350 --> 00:38:36.790
+Tim Nunamaker: Yeah, I think that's a good question. I think there's probably a gap.
+
+313
+00:38:37.150 --> 00:38:40.569
+Tim Nunamaker: When it comes to… fully addressing
+
+314
+00:38:40.710 --> 00:38:45.890
+Tim Nunamaker: Like, what all the different things that the user could want when it comes to granting access to their data.
+
+315
+00:38:46.400 --> 00:38:48.510
+Tim Nunamaker: So, yeah, I'll take a look at that for sure.
+
+316
+00:38:48.750 --> 00:39:01.719
+Carman Nareau: Yeah, and I appreciate that being zoomed out, because it could include also stuff like the client outsources the data processing to, like, a third party that was, like, previously undisclosed, or any… any list of… of things, so, yeah, thanks.
+
+317
+00:39:03.180 --> 00:39:04.710
+Tim Nunamaker: Yeah, Lisa?
+
+318
+00:39:05.940 --> 00:39:17.660
+Lisa Dusseault (Data Transfer Initiative): Yeah, the, this is mostly in response to Carman. The, the… are you aware of the ISO standard for my terms? This would cover the bulk of user data
+
+319
+00:39:17.660 --> 00:39:28.000
+Lisa Dusseault (Data Transfer Initiative): hosting by the direct, like, first party, rather than third-party access, the first-party holding of bulk data, which users currently have no control over the terms of.
+
+320
+00:39:28.470 --> 00:39:31.089
+Lisa Dusseault (Data Transfer Initiative): So that covers a large surface area.
+
+321
+00:39:31.780 --> 00:39:33.620
+Carman Nareau: Oh, cool, and you said it's called My Terms?
+
+322
+00:39:33.620 --> 00:39:34.860
+Lisa Dusseault (Data Transfer Initiative): It's called My Terms, yep.
+
+323
+00:39:34.860 --> 00:39:35.410
+Carman Nareau: Okay.
+
+324
+00:39:43.360 --> 00:39:44.999
+Tim Nunamaker: Alright, any other questions?
+
+325
+00:39:52.610 --> 00:39:55.519
+Tim Nunamaker: I think we can wrap up this session,
+
+326
+00:39:56.580 --> 00:40:03.929
+Tim Nunamaker: Yeah, just a reminder, Art will be leading the next one next week. I think the time will be a little bit later in the day. He's in Australia.
+
+327
+00:40:04.190 --> 00:40:08.029
+Tim Nunamaker: But he'll definitely have less…
+
+328
+00:40:08.280 --> 00:40:16.860
+Tim Nunamaker: material on the technical side, and more on the governance and policy side, which I think could be really interesting. So, hope to see you all there.
+
+329
+00:40:17.010 --> 00:40:20.859
+Tim Nunamaker: Thank you for joining, thanks for all the great questions and feedback.
+
+330
+00:40:21.080 --> 00:40:25.560
+Tim Nunamaker: And I don't know who's gonna be in JC, but if you're there, we should definitely…
+
+331
+00:40:25.670 --> 00:40:30.909
+Tim Nunamaker: sync up, and… yeah, I'm excited. So thanks, everyone.
+
+332
+00:40:33.460 --> 00:40:35.120
+Maciej: Thank you, Tim. Thank you, everyone.
+

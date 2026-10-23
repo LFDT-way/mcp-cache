@@ -1,0 +1,2014 @@
+WEBVTT
+
+1
+00:02:52.660 --> 00:02:53.740
+Keith Kowal (Hedera Hashgraph LLC): Good morning, everyone.
+
+2
+00:02:55.790 --> 00:02:56.480
+Mustafa Uzun: Hello.
+
+3
+00:02:56.970 --> 00:02:57.820
+Angelina Ceppaluni: Ayes!
+
+4
+00:03:02.180 --> 00:03:05.279
+Keith Kowal (Hedera Hashgraph LLC): We'll just give it one more minute, see if anyone else joins.
+
+5
+00:04:01.120 --> 00:04:07.359
+Keith Kowal (Hedera Hashgraph LLC): Okay, let's get started. Welcome, everyone, to the SDK community call.
+
+6
+00:04:11.210 --> 00:04:23.459
+Keith Kowal (Hedera Hashgraph LLC): You know, as we all know, for all these community calls, please be respectful to each other, and yeah, I will open it up. Is there any agenda topics that anyone wanted to raise for today's call?
+
+7
+00:04:38.370 --> 00:04:54.309
+Keith Kowal (Hedera Hashgraph LLC): Okay, I see comments here. So in the chat, it says, Sophia said, TCK integrations in the SDKs, and the TCK data structures, and HIP implementations in the SDKs. Okay, great. Yeah, let's talk about all that.
+
+8
+00:04:54.530 --> 00:05:00.740
+Keith Kowal (Hedera Hashgraph LLC): Maybe I can just start with a product overview, for the SDKs.
+
+9
+00:05:01.230 --> 00:05:03.269
+Keith Kowal (Hedera Hashgraph LLC): So, I think, the most…
+
+10
+00:05:03.390 --> 00:05:14.359
+Keith Kowal (Hedera Hashgraph LLC): Important, new requirements coming up for the SDKs is the account balance query deprecations. I think we talked about this in last week's meeting.
+
+11
+00:05:14.480 --> 00:05:17.520
+Keith Kowal (Hedera Hashgraph LLC): But, so,
+
+12
+00:05:17.980 --> 00:05:27.080
+Keith Kowal (Hedera Hashgraph LLC): maybe I'll just… I'll pull up the design proposal, or… and in the SDK Collaboration Hub, we'll find the design proposal for that.
+
+13
+00:05:27.080 --> 00:05:45.989
+Keith Kowal (Hedera Hashgraph LLC): In that, you'll find that there's a couple of initiatives. One is that some SDKs have this ping functionality, and that currently uses the account balance query function. So if we're deprecating that, obviously that has to be changed, and there's a proposal in the SDK proposal to change it to a different
+
+14
+00:05:45.990 --> 00:05:51.329
+Keith Kowal (Hedera Hashgraph LLC): Like a null value, so basically what will happen is it will return a…
+
+15
+00:05:51.350 --> 00:05:55.709
+Keith Kowal (Hedera Hashgraph LLC): If you get a return… if you see any response, you know that the node is active.
+
+16
+00:05:55.760 --> 00:06:14.570
+Keith Kowal (Hedera Hashgraph LLC): Maybe I should back up and explain what the ping functionality is. The SDKs have this ability to ping different nodes to make sure that the nodes are healthy before you submit a transaction to them. So basically, you're just looking to see if a node is alive or is a node dead, and that's what the ping functionality is.
+
+17
+00:06:14.640 --> 00:06:19.660
+Keith Kowal (Hedera Hashgraph LLC): I think also I would say that not all SDKs have implemented that ping functionality, so…
+
+18
+00:06:20.030 --> 00:06:21.900
+Keith Kowal (Hedera Hashgraph LLC): Something else, maybe, to think about.
+
+19
+00:06:22.080 --> 00:06:40.670
+Keith Kowal (Hedera Hashgraph LLC): So, yeah, there's the ping functionality, and then there's just the account balance query deprecation itself, so that means that when a user, in the… we're still in the timeline of September. When a user tries to submit an account balance query, they just came back a response that, you know, this kind of transaction is no longer supported.
+
+20
+00:06:41.220 --> 00:06:46.709
+Keith Kowal (Hedera Hashgraph LLC): And then, in the Collaboration Hub, there's an entirely separate
+
+21
+00:06:46.800 --> 00:07:04.290
+Keith Kowal (Hedera Hashgraph LLC): SDK proposal around setting up a new mirror node, request. So basically, you can get the account balance query from the mirror node. So that would be a new query that we're adding to the SDKs, with new functionality.
+
+22
+00:07:04.380 --> 00:07:10.650
+Keith Kowal (Hedera Hashgraph LLC): So I still think we're looking for comments and questions on both HIP proposals, and maybe I'll just…
+
+23
+00:07:11.820 --> 00:07:17.150
+Keith Kowal (Hedera Hashgraph LLC): I'm trying to type and do anything, solicitational…
+
+24
+00:07:20.700 --> 00:07:21.750
+Keith Kowal (Hedera Hashgraph LLC): Pretty cool.
+
+25
+00:07:23.650 --> 00:07:25.360
+Keith Kowal (Hedera Hashgraph LLC): Let's share my screen.
+
+26
+00:07:35.580 --> 00:07:39.779
+Keith Kowal (Hedera Hashgraph LLC): Okay, so if you see my screen, if you go to the SDK Collaboration Hub.
+
+27
+00:07:39.960 --> 00:07:42.209
+Keith Kowal (Hedera Hashgraph LLC): Then you go into Proposals.
+
+28
+00:07:42.650 --> 00:07:57.659
+Keith Kowal (Hedera Hashgraph LLC): You'll find the two proposals here. One is the account balance query deprecation, which is here. As I said, it's broken into two stages. Stage one is just to replace the ping functionality. Stage two is to deprecate the query itself.
+
+29
+00:07:58.340 --> 00:08:03.039
+Keith Kowal (Hedera Hashgraph LLC): And then the other, SDK proposal, as I mentioned, is the…
+
+30
+00:08:05.860 --> 00:08:12.180
+Keith Kowal (Hedera Hashgraph LLC): Here we go. Account balance query mirror node integration. This is about adding a new query called…
+
+31
+00:08:12.410 --> 00:08:17.230
+Keith Kowal (Hedera Hashgraph LLC): Mirror node account balance query, And…
+
+32
+00:08:17.820 --> 00:08:29.729
+Keith Kowal (Hedera Hashgraph LLC): Yeah. Now, if there's any comments or questions, actually we had this discussion in our last meeting. I did set up discussion topics for both of these in the, SDK Collaboration Hub discussions.
+
+33
+00:08:29.730 --> 00:08:40.520
+Keith Kowal (Hedera Hashgraph LLC): So, if you have any questions or comments for either of these SDK proposals, please leave them here, and this is where we'll have the interactive discussions about
+
+34
+00:08:40.809 --> 00:08:45.160
+Keith Kowal (Hedera Hashgraph LLC): you know, changes, updates, modifications to these SDK proposals.
+
+35
+00:08:45.950 --> 00:08:56.520
+Keith Kowal (Hedera Hashgraph LLC): Again, just to… these are important because we are actually deprecating network-wide. This account balance query is being deprecated. In fact, if you go to…
+
+36
+00:08:56.700 --> 00:08:59.700
+Keith Kowal (Hedera Hashgraph LLC): Just type in account balance query.
+
+37
+00:09:05.160 --> 00:09:10.720
+Keith Kowal (Hedera Hashgraph LLC): Hi, Dara… Deprecation, you're gonna see the public announcement around this.
+
+38
+00:09:11.850 --> 00:09:12.540
+Keith Kowal (Hedera Hashgraph LLC): Oh…
+
+39
+00:09:12.800 --> 00:09:26.429
+Keith Kowal (Hedera Hashgraph LLC): there's a blog post. In that blog post, you'll just find all the more details, including the deprecation timeline, and as seen, we're planning to fully deprecate this functionality in September. It's actually been a gradual process. Each month.
+
+40
+00:09:26.630 --> 00:09:40.730
+Keith Kowal (Hedera Hashgraph LLC): We roughly, we've been, declining the throttle on that query to make it… some people, like, they start noticing it's getting harder and harder to use, and then by September, it will be fully deprecated. And then we provide the
+
+41
+00:09:40.730 --> 00:09:48.020
+Keith Kowal (Hedera Hashgraph LLC): the alternative for people to use, which is the Mirror Node REST API, free, MirrorNode REST API to check account balances.
+
+42
+00:09:48.710 --> 00:09:59.390
+Keith Kowal (Hedera Hashgraph LLC): So again, just because this is the most important piece of work, at least from my perspective right now for the SDKs, I wanted to throw it open into any questions or comments on this piece of work.
+
+43
+00:10:06.090 --> 00:10:13.929
+Sophie Bulloch: So we follow the… The, proposal document, and… That… that's it?
+
+44
+00:10:16.420 --> 00:10:16.980
+Sophie Bulloch: Oh, dude.
+
+45
+00:10:16.980 --> 00:10:17.990
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I mean.
+
+46
+00:10:18.370 --> 00:10:19.570
+Sophie Bulloch: other things.
+
+47
+00:10:21.590 --> 00:10:25.710
+Keith Kowal (Hedera Hashgraph LLC): Yeah, can you explain what you mean by supplement with other things?
+
+48
+00:10:26.880 --> 00:10:30.519
+Sophie Bulloch: So, how… how do we deprecate it in a way that suits the…
+
+49
+00:10:31.130 --> 00:10:39.810
+Sophie Bulloch: requirements, do we follow this… this document? Or do we have to supplement that with any other… Information.
+
+50
+00:10:40.480 --> 00:10:42.909
+Sophie Bulloch: Do we read the blog post as well, or something?
+
+51
+00:10:44.760 --> 00:10:58.570
+Keith Kowal (Hedera Hashgraph LLC): I would think that everything you need is here in the account balance query. There's the new APIs, there is the… let's say, okay, for stage 1, there's the information about how to replen it.
+
+52
+00:10:58.570 --> 00:11:05.370
+Keith Kowal (Hedera Hashgraph LLC): And then for Stage 2, there is the information about, like, you know, for example, what error code to return.
+
+53
+00:11:05.370 --> 00:11:16.160
+Keith Kowal (Hedera Hashgraph LLC): Things like that. So, I would think that all the information, needed is here, and hopefully across the SDKs, we have a consistent, implementation, which is why we have
+
+54
+00:11:16.160 --> 00:11:26.119
+Keith Kowal (Hedera Hashgraph LLC): these documents in the SDK Collaboration Hub. And, you know, if you disagree, or if you think that we should change certain things, that's why we have the discussions, to have an interactive
+
+55
+00:11:26.150 --> 00:11:36.509
+Keith Kowal (Hedera Hashgraph LLC): To have interactive discussions around these CSDK proposals, but I think the idea would be that once we all agree to the proposal, then this is what we would implement across all SDKs.
+
+56
+00:11:37.010 --> 00:11:39.419
+Sophie Bulloch: Okay, sure. If there's an issue, we'll just…
+
+57
+00:11:39.950 --> 00:11:43.349
+Sophie Bulloch: like, an add-on to that, but great!
+
+58
+00:11:43.350 --> 00:11:43.980
+Keith Kowal (Hedera Hashgraph LLC): Yep.
+
+59
+00:11:43.980 --> 00:11:47.960
+Sophie Bulloch: I've created the issue in the Python, so someone should get started on that.
+
+60
+00:11:49.250 --> 00:11:50.260
+Keith Kowal (Hedera Hashgraph LLC): Perfect, awesome.
+
+61
+00:11:51.590 --> 00:11:53.920
+Keith Kowal (Hedera Hashgraph LLC): Any other questions or concerns?
+
+62
+00:12:00.040 --> 00:12:02.970
+Keith Kowal (Hedera Hashgraph LLC): Okay, that was my,
+
+63
+00:12:03.100 --> 00:12:20.280
+Keith Kowal (Hedera Hashgraph LLC): my big, topic, I would also just say that, we are also going to be making this change, yeah, this is the most urgent change we'll be making in the, Go, JavaScript, Java SDKs. There are some downstream dependencies, this change, in that,
+
+64
+00:12:20.280 --> 00:12:23.419
+Keith Kowal (Hedera Hashgraph LLC): You know, we have a lot of tests and things like this to rely on this.
+
+65
+00:12:23.420 --> 00:12:26.920
+Keith Kowal (Hedera Hashgraph LLC): Also, there's some reliance on the solo on this.
+
+66
+00:12:26.920 --> 00:12:32.170
+Keith Kowal (Hedera Hashgraph LLC): I would say that, you know, if we just talk about the consensus node,
+
+67
+00:12:32.480 --> 00:12:35.140
+Keith Kowal (Hedera Hashgraph LLC): Just for… so people know,
+
+68
+00:12:35.410 --> 00:12:48.060
+Keith Kowal (Hedera Hashgraph LLC): So, in September, the throttle will go to zero. That just means, like, any request you make around account balance query that goes to the consensus node, it will just return, like, a transaction not supported. And then.
+
+69
+00:12:48.060 --> 00:13:05.780
+Keith Kowal (Hedera Hashgraph LLC): probably in… this was a discussion we were having last week, probably in November or something, they will remove the code from that, consensus code completely. That just means we have to do… puts more urgency on the SDK changes because, any tests they have will start failing at that point.
+
+70
+00:13:05.980 --> 00:13:09.710
+Keith Kowal (Hedera Hashgraph LLC): So yeah, that's just a little bit of background.
+
+71
+00:13:10.160 --> 00:13:22.379
+Keith Kowal (Hedera Hashgraph LLC): So maybe, with that, we can move to Sophie, to your agenda items. So, first of all, you had, TCK integration and SDK. What would you like to talk about for that?
+
+72
+00:13:23.620 --> 00:13:32.560
+Sophie Bulloch: Yeah, okay, so, I just started looking at the TCK, code?
+
+73
+00:13:32.680 --> 00:13:40.070
+Sophie Bulloch: very recently, so I created some issues, I apologize if I'm not yet an expert. Would appreciate any guidance.
+
+74
+00:13:40.670 --> 00:13:54.110
+Sophie Bulloch: But, yeah, I just had some questions with things. So… Okay, I…
+
+75
+00:14:04.460 --> 00:14:08.550
+Keith Kowal (Hedera Hashgraph LLC): Actually, just… Which is just, sorry, just so we just before that you begin.
+
+76
+00:14:08.670 --> 00:14:14.430
+Keith Kowal (Hedera Hashgraph LLC): Who do we have on from, mustafa, are you going to be able to answer the questions on the TCK?
+
+77
+00:14:15.150 --> 00:14:18.320
+Mustafa Uzun: Yeah, I think I can answer the questions.
+
+78
+00:14:19.050 --> 00:14:23.989
+Keith Kowal (Hedera Hashgraph LLC): Sorry, sorry to interrupt, Sophie, I just want to make sure we had the right expertise on the call. So, okay, please go ahead, Sophie.
+
+79
+00:14:25.150 --> 00:14:30.369
+Sophie Bulloch: So I'm just trying to understand what these… what these do. I understand this is like a… like a flag.
+
+80
+00:14:30.920 --> 00:14:32.310
+Sophie Bulloch: yes.
+
+81
+00:14:33.190 --> 00:14:35.599
+Sophie Bulloch: A test has been created.
+
+82
+00:14:36.290 --> 00:14:40.619
+Sophie Bulloch: For schedule create transaction, or no, it hasn't been created?
+
+83
+00:14:41.440 --> 00:14:44.629
+Sophie Bulloch: Can I confirm that's… that's what this means?
+
+84
+00:14:44.630 --> 00:14:49.280
+Mustafa Uzun: Yeah, actually, this is a table, you need to switch the view, like…
+
+85
+00:14:49.860 --> 00:14:50.270
+Sophie Bulloch: Yeah.
+
+86
+00:14:51.620 --> 00:14:52.390
+Mustafa Uzun: Yeah.
+
+87
+00:14:52.620 --> 00:14:58.429
+Mustafa Uzun: And at the end of each scenario, if you scroll to the right, you will see
+
+88
+00:14:58.830 --> 00:15:00.390
+Mustafa Uzun: Yes or no, yeah.
+
+89
+00:15:01.760 --> 00:15:08.960
+Sophie Bulloch: So… This is… this is manually… Manually, like, Yes, no flagged?
+
+90
+00:15:09.510 --> 00:15:16.419
+Mustafa Uzun: Yeah, I think this is for the TCK, which scenarios are implemented for the TCK itself.
+
+91
+00:15:17.170 --> 00:15:21.010
+Sophie Bulloch: Okay, so there's… let's say there's a new transaction account.
+
+92
+00:15:21.700 --> 00:15:25.230
+Sophie Bulloch: you know, account… whatever. Account create.
+
+93
+00:15:25.420 --> 00:15:28.269
+Sophie Bulloch: And then you create the TCK test, and then you…
+
+94
+00:15:28.520 --> 00:15:31.380
+Sophie Bulloch: You then flag it, yes, manually.
+
+95
+00:15:31.740 --> 00:15:32.089
+Mustafa Uzun: Is there…
+
+96
+00:15:32.090 --> 00:15:38.340
+Sophie Bulloch: Is there any way to instead interpret the flag through the tests themselves?
+
+97
+00:15:40.180 --> 00:15:45.130
+Mustafa Uzun: The idea is that…
+
+98
+00:15:46.080 --> 00:15:51.359
+Mustafa Uzun: This is the first layer, like, the first thing is you need to have the test
+
+99
+00:15:51.630 --> 00:15:53.699
+Mustafa Uzun: on the TDK rep itself.
+
+100
+00:15:54.110 --> 00:16:00.050
+Mustafa Uzun: But, after that… each, SDK have to implement
+
+101
+00:16:00.570 --> 00:16:07.659
+Mustafa Uzun: given endpoint, so the TDK test, can,
+
+102
+00:16:08.240 --> 00:16:13.790
+Mustafa Uzun: code this SDK, and then, this operation to go to the consensus node.
+
+103
+00:16:13.980 --> 00:16:19.790
+Mustafa Uzun: And after that, the SDK returns to the TDK, and TSKs validate the given scenario.
+
+104
+00:16:20.180 --> 00:16:29.219
+Mustafa Uzun: So, it is more complex than just dynamic, so this is the easiest. So, this is only showing if the TDK have this scenario implemented.
+
+105
+00:16:30.620 --> 00:16:34.370
+Sophie Bulloch: Is that, like, what you run here? Which is, like, the…
+
+106
+00:16:35.000 --> 00:16:37.980
+Sophie Bulloch: you, like, run the Java scripts
+
+107
+00:16:38.670 --> 00:16:45.190
+Sophie Bulloch: TCK tests, does that tell you whether the JavaScript integrated correctly?
+
+108
+00:16:45.480 --> 00:16:50.150
+Mustafa Uzun: Oh… So, on TDK, their workforce.
+
+109
+00:16:50.580 --> 00:16:58.050
+Mustafa Uzun: And… if given SDK doesn't have the given endpoint.
+
+110
+00:16:58.350 --> 00:17:02.479
+Mustafa Uzun: It just skips it. And if it have it, then run it.
+
+111
+00:17:02.800 --> 00:17:10.319
+Mustafa Uzun: So, for that reason, I'm telling that these… those tables that you showed are actually only for the…
+
+112
+00:17:10.530 --> 00:17:12.359
+Mustafa Uzun: TCK part of the story.
+
+113
+00:17:15.000 --> 00:17:22.910
+Mustafa Uzun: Just for the implementation itself, we need to check the workforce on the TCK workforce.
+
+114
+00:17:24.780 --> 00:17:28.519
+Sophie Bulloch: In… In the SDKs?
+
+115
+00:17:29.460 --> 00:17:30.470
+Mustafa Uzun: Oh…
+
+116
+00:17:31.120 --> 00:17:33.219
+Sophie Bulloch: Or where… where are those workflows?
+
+117
+00:17:33.470 --> 00:17:40.980
+Mustafa Uzun: On the TSK rep itself. Like, there's an Actions, tab on GitHub.
+
+118
+00:17:41.860 --> 00:17:44.950
+Mustafa Uzun: And… you can see the runs.
+
+119
+00:17:45.860 --> 00:17:46.859
+Mustafa Uzun: Maybe I can…
+
+120
+00:17:46.860 --> 00:17:54.300
+Sophie Bulloch: Okay, yeah, because, so some context is Angie and I, we were… Doing some data analytics.
+
+121
+00:17:54.660 --> 00:17:58.020
+Sophie Bulloch: Angie was doing some data analytics for this specifically, and
+
+122
+00:17:58.330 --> 00:18:02.739
+Sophie Bulloch: one of the things that you brought up, Keith, in the TSA meeting a couple weeks back.
+
+123
+00:18:03.290 --> 00:18:08.960
+Sophie Bulloch: Is… are we able to infer HIP completion status?
+
+124
+00:18:09.400 --> 00:18:14.770
+Sophie Bulloch: by running the TCK tests,
+
+125
+00:18:15.060 --> 00:18:19.910
+Sophie Bulloch: For things at our hips, and seeing if they… they complete.
+
+126
+00:18:20.250 --> 00:18:25.319
+Sophie Bulloch: So… As part of that, I wanted to understand
+
+127
+00:18:25.660 --> 00:18:29.970
+Sophie Bulloch: what already exists in the TCK, so that we don't duplicate?
+
+128
+00:18:30.660 --> 00:18:41.260
+Sophie Bulloch: And what kind of data structures would enable some kind of SDK-based tracking, whether you do…
+
+129
+00:18:41.420 --> 00:18:43.169
+Sophie Bulloch: Sort of any of that.
+
+130
+00:18:43.310 --> 00:18:46.799
+Sophie Bulloch: At the moment, so I'm trying to work my way through
+
+131
+00:18:47.350 --> 00:18:51.340
+Sophie Bulloch: the repo, but I've, you know, there's a lot of content here, I've just sort of…
+
+132
+00:18:52.960 --> 00:18:53.350
+Mustafa Uzun: I'm here.
+
+133
+00:18:54.680 --> 00:18:57.180
+Sophie Bulloch: Make my way through it.
+
+134
+00:18:57.520 --> 00:19:05.090
+Mustafa Uzun: So, most of the… Operations should be there, like…
+
+135
+00:19:05.380 --> 00:19:08.910
+Mustafa Uzun: 80 or even 90% of the operation should be there.
+
+136
+00:19:09.190 --> 00:19:12.610
+Mustafa Uzun: On the TCK side, on SDK side…
+
+137
+00:19:13.230 --> 00:19:18.710
+Mustafa Uzun: I think JS, Java, and Go also have the implementations.
+
+138
+00:19:19.720 --> 00:19:24.730
+Mustafa Uzun: So maybe… if you want, on Python's side, you can start…
+
+139
+00:19:25.590 --> 00:19:35.929
+Mustafa Uzun: implementing the endpoint, so TCK can be configured to work also with the Oh… Python SDK?
+
+140
+00:19:36.690 --> 00:19:40.639
+Mustafa Uzun: But yeah, the idea, the main idea of TSK is…
+
+141
+00:19:41.080 --> 00:19:44.209
+Mustafa Uzun: Verifying, like you said, the hips.
+
+142
+00:19:44.320 --> 00:19:46.530
+Mustafa Uzun: But also, when you have
+
+143
+00:19:46.750 --> 00:19:56.580
+Mustafa Uzun: scenarios on the TCK side, you can verify that each of the SDKs have the same behavior under given scenario.
+
+144
+00:19:57.000 --> 00:20:03.060
+Mustafa Uzun: And also, with this case, we can catch if there is a regression
+
+145
+00:20:03.180 --> 00:20:10.800
+Mustafa Uzun: On the network side, even, because this is a multi-level testing, so, yeah, it is very cool.
+
+146
+00:20:12.300 --> 00:20:21.020
+Sophie Bulloch: So, when you say you run it against, like, the JavaScript and, you know, it's integrated and things, are you catching, like, 100%?
+
+147
+00:20:21.400 --> 00:20:24.290
+Sophie Bulloch: Of their services? Like, do you… do you fail the run?
+
+148
+00:20:25.340 --> 00:20:28.949
+Sophie Bulloch: you know, if… if you're, like, less… if the JavaScript is…
+
+149
+00:20:29.240 --> 00:20:34.459
+Sophie Bulloch: Unless an AT… do you record the data, like, the… the implementations themselves by…
+
+150
+00:20:36.510 --> 00:20:37.190
+Mustafa Uzun: I function.
+
+151
+00:20:37.190 --> 00:20:39.790
+Sophie Bulloch: Or you… you just kind of…
+
+152
+00:20:39.920 --> 00:20:47.750
+Mustafa Uzun: Yeah, like, the… on TSK part, we have scenarios and assertions for these scenarios.
+
+153
+00:20:48.020 --> 00:20:51.540
+Mustafa Uzun: So, if we have regression on SDK level.
+
+154
+00:20:51.750 --> 00:20:57.580
+Mustafa Uzun: Or even network level, we will totally catch it, because the… Waterfall, we will fail.
+
+155
+00:20:57.850 --> 00:21:03.739
+Mustafa Uzun: Also, consensus, A rep also are running TSK tests, so…
+
+156
+00:21:03.890 --> 00:21:12.529
+Mustafa Uzun: It is not only on the TSK repo itself, but other repos also run TCK tests to verify if they have regression or not.
+
+157
+00:21:14.520 --> 00:21:15.270
+Sophie Bulloch: Okay.
+
+158
+00:21:16.150 --> 00:21:19.669
+Sophie Bulloch: Yeah, I noticed this is only implemented for…
+
+159
+00:21:19.870 --> 00:21:29.360
+Sophie Bulloch: these SDKs, so I think the C++, maybe it's not fully implemented, but Go, Java, and JavaScript,
+
+160
+00:21:29.360 --> 00:21:32.620
+Mustafa Uzun: Yeah, I think… Go Java, and JavaScript.
+
+161
+00:21:33.240 --> 00:21:41.189
+Mustafa Uzun: are with the most of the implementation for C++. Like you said, maybe it is a little behind.
+
+162
+00:21:42.080 --> 00:21:43.000
+Mustafa Uzun: So, yeah.
+
+163
+00:21:45.040 --> 00:21:46.480
+Sophie Bulloch: And then so…
+
+164
+00:21:46.940 --> 00:21:55.550
+Sophie Bulloch: I created some issues to, like, add the Python, as you mentioned, but also, like, would there be a use case to add, like, Swift, and…
+
+165
+00:21:56.420 --> 00:21:58.230
+Sophie Bulloch: Rust, or…
+
+166
+00:22:00.630 --> 00:22:04.139
+Mustafa Uzun: Yeah, I think, we should be able to do that.
+
+167
+00:22:06.680 --> 00:22:14.620
+Sophie Bulloch: Okay, and I can't remember where… Where is the file where…
+
+168
+00:22:17.630 --> 00:22:18.830
+Sophie Bulloch: So this…
+
+169
+00:22:24.810 --> 00:22:29.980
+Sophie Bulloch: I can't remember where you guys document the different types of… Services.
+
+170
+00:22:33.130 --> 00:22:38.499
+Sophie Bulloch: Okay, I might maybe have to go… go with that, but I was just wondering if there's, like, an easy way to…
+
+171
+00:22:38.960 --> 00:22:41.060
+Sophie Bulloch: Describe if something's a hip.
+
+172
+00:22:42.180 --> 00:22:46.180
+Sophie Bulloch: So I know the TCK provides, like, lots of different services and things.
+
+173
+00:22:47.500 --> 00:22:50.859
+Sophie Bulloch: Can we add to, like, a JSON file for…
+
+174
+00:22:51.840 --> 00:22:55.350
+Sophie Bulloch: Recording that this has hit 1001.
+
+175
+00:22:56.260 --> 00:23:04.439
+Sophie Bulloch: for example, and recording which SDKs have passed the relevant tests for that service.
+
+176
+00:23:05.020 --> 00:23:08.530
+Mustafa Uzun: Yeah, I think, for example.
+
+177
+00:23:09.440 --> 00:23:12.970
+Mustafa Uzun: For every new heap, the test scenarios.
+
+178
+00:23:13.470 --> 00:23:20.050
+Mustafa Uzun: We will just, create the test under the name of the given heap.
+
+179
+00:23:20.340 --> 00:23:22.889
+Mustafa Uzun: So, when you reopen, for example.
+
+180
+00:23:23.320 --> 00:23:32.920
+Mustafa Uzun: sheep 1313, I don't know.js, like, where's the .ts TypeScript? And there would be the tests, so yeah.
+
+181
+00:23:38.380 --> 00:23:42.749
+Sophie Bulloch: Okay, yeah, I mean, that kind of thing would be really useful to…
+
+182
+00:23:43.730 --> 00:23:47.619
+Sophie Bulloch: to Andrew, no, like, in terms of gaining visibility with how…
+
+183
+00:23:48.390 --> 00:23:50.880
+Sophie Bulloch: How the implementation of things are going.
+
+184
+00:23:51.070 --> 00:23:57.889
+Sophie Bulloch: Keith, I thought it was a great idea that you had to, like, run the TCK tests to just get a sense of
+
+185
+00:24:00.320 --> 00:24:03.040
+Sophie Bulloch: What was being implemented?
+
+186
+00:24:03.330 --> 00:24:09.519
+Sophie Bulloch: Yeah, so that was a really good thing. Angie, Angie has made a pull request,
+
+187
+00:24:09.790 --> 00:24:14.249
+Sophie Bulloch: Making the first steps to… Start tracking hips?
+
+188
+00:24:15.390 --> 00:24:20.730
+Sophie Bulloch: But I think we still have some questions to… and things to resolve, like, if…
+
+189
+00:24:22.350 --> 00:24:29.780
+Sophie Bulloch: If we should just run the test directly, how much of the front matter you guys are okay changing?
+
+190
+00:24:29.950 --> 00:24:35.929
+Sophie Bulloch: And stuff like that, and I would appreciate maybe just, someone having a look through these little issues that I've…
+
+191
+00:24:36.410 --> 00:24:42.279
+Sophie Bulloch: just created, I think, from the sounds of it, maybe this first one isn't quite right, but,
+
+192
+00:24:43.650 --> 00:24:48.769
+Sophie Bulloch: Yeah, that would… I think this one was causing a little bit of confusion for me for a while.
+
+193
+00:24:49.190 --> 00:24:54.929
+Sophie Bulloch: So I would appreciate if you have time to… Maybe check that out?
+
+194
+00:24:55.540 --> 00:25:00.709
+Sophie Bulloch: I also found that there's quite a few good first issues and stuff in this repo that could be possible.
+
+195
+00:25:01.140 --> 00:25:05.549
+Sophie Bulloch: For example, there's quite a lot of Hashgraph references inside the TCK code.
+
+196
+00:25:06.320 --> 00:25:09.329
+Sophie Bulloch: You know, you could have a good fuss issue while somebody
+
+197
+00:25:10.600 --> 00:25:14.620
+Sophie Bulloch: changes the reference to Hiero, or whatever,
+
+198
+00:25:15.540 --> 00:25:18.449
+Sophie Bulloch: So I just wanted to let you know that there's…
+
+199
+00:25:18.610 --> 00:25:24.220
+Sophie Bulloch: There's quite a few things that could open this repo to the rest of the community.
+
+200
+00:25:24.540 --> 00:25:27.440
+Sophie Bulloch: If that was… desirable.
+
+201
+00:25:28.330 --> 00:25:35.210
+Mustafa Uzun: I'm actually dropping a link, which is to… Hip 1, and hip 1…
+
+202
+00:25:35.370 --> 00:25:39.770
+Mustafa Uzun: Derry described each field and the whole idea of the hip, so…
+
+203
+00:25:39.980 --> 00:25:43.560
+Mustafa Uzun: You can maybe also look on that if you don't know about it.
+
+204
+00:25:46.730 --> 00:25:50.079
+Sophie Bulloch: Thanks, yeah, I have seen this, I just wasn't sure how…
+
+205
+00:25:50.530 --> 00:26:00.669
+Sophie Bulloch: up-to-date this was, because HIP1 was created in 2021, but if you're confirming that that… that's the… that's the… that's the reference, then I… yeah, I will take a look at that thing.
+
+206
+00:26:02.320 --> 00:26:07.639
+Keith Kowal (Hedera Hashgraph LLC): So, I just wanted to call out one… a couple other things, just… So,
+
+207
+00:26:07.930 --> 00:26:26.589
+Keith Kowal (Hedera Hashgraph LLC): Now, I… yeah, I really… thank you, Angie, for your… for your input. I'll definitely take a look at that. You know, this… this is not… this… this idea has come up before, so if you go to just the main Hiero project, and you go under projects, you will find a board called HIP…
+
+208
+00:26:26.670 --> 00:26:31.109
+Keith Kowal (Hedera Hashgraph LLC): Cross SDK tracking. This was actually created by, Diane.
+
+209
+00:26:31.160 --> 00:26:44.100
+Keith Kowal (Hedera Hashgraph LLC): And the idea of this, I think it was… I mean, I think it's kind of similar to what Angie is saying. Basically, it tries to track HIP progress across the SDKs.
+
+210
+00:26:44.100 --> 00:26:53.279
+Keith Kowal (Hedera Hashgraph LLC): like, we created an epic at this level, and then we kind of tracked all of the work across all of the different SDK repos for that.
+
+211
+00:26:53.360 --> 00:26:56.190
+Keith Kowal (Hedera Hashgraph LLC): Oh, and I see… yeah.
+
+212
+00:26:56.420 --> 00:26:58.250
+Keith Kowal (Hedera Hashgraph LLC): as… so…
+
+213
+00:26:58.580 --> 00:27:08.420
+Keith Kowal (Hedera Hashgraph LLC): Now, like, maybe this was a good or bad way to do it, but this was our attempt to attract HIP status across all of the different SDKs.
+
+214
+00:27:08.900 --> 00:27:11.390
+Keith Kowal (Hedera Hashgraph LLC): In one single place.
+
+215
+00:27:12.300 --> 00:27:31.909
+Angelina Ceppaluni: So this was the board that I had originally created. I shared this with Michael Garber and was still waiting his input. He had explained that he wanted to try to get this board a bit more automated, seeing as how it's going to exponentially grow and require even more manual intervention.
+
+216
+00:27:31.910 --> 00:27:54.290
+Angelina Ceppaluni: At the moment, that board is completely manual. Everything that's been added, everything that's been documented has all done… has been done manually by me, as we don't necessarily have a good, kind of accurate way to deduce what is and what is not implemented in the HIPS, so I ended up having to go through
+
+217
+00:27:54.290 --> 00:27:58.209
+Angelina Ceppaluni: comb through every PR with a mention of the word hip.
+
+218
+00:27:58.210 --> 00:28:04.119
+Angelina Ceppaluni: The hip number, things like that, just to kind of get this forward as accurate as possible.
+
+219
+00:28:04.120 --> 00:28:26.499
+Angelina Ceppaluni: So ideally, I would like to integrate this into the PR that I've also shared, just to kind of give a bit more of an overview, and then I know in the analytics repo on the dashboard, we have something that is a visual representation of this, where it goes into not just the SDKs, but it'll go into consensus and MIR,
+
+220
+00:28:26.500 --> 00:28:36.699
+Angelina Ceppaluni: And all of that, and give about an accurate estimate of the number of PRs that have been opened in regards to whatever HIP is being focused on.
+
+221
+00:28:37.800 --> 00:28:53.830
+Keith Kowal (Hedera Hashgraph LLC): Oh, okay, so that's why I'm saying. You created this one, Angie. Okay, because there was one… there was another board that Dion created, which was very similar to this, and I'm just… I'm searching for it, and I just… I can't… I think I need to go back through my… see where that is. There was a board that… yeah, go ahead.
+
+222
+00:28:54.370 --> 00:29:15.920
+Angelina Ceppaluni: Oh, sorry, if there is a board, that would be great. I had tried to find one as well, I could not. The only board that I had ever seen so far was the one that I believe Hendrick uses, where it does go in and it gives you the status of each one versus having to see it on pips.hedera.com.
+
+223
+00:29:16.290 --> 00:29:21.080
+Angelina Ceppaluni: I think that's number 36 of his project boards, I believe?
+
+224
+00:29:23.170 --> 00:29:35.000
+Keith Kowal (Hedera Hashgraph LLC): Okay, let me just… because, yeah, Diane had created a board that basically showed the status of all HIPS across all SDKs, but I just don't see it now, but let me… let me go search my email to see if I can find it, and then I can share that.
+
+225
+00:29:37.910 --> 00:29:50.869
+Keith Kowal (Hedera Hashgraph LLC): Yeah, okay. But, I mean, otherwise, I think it's a great initiative, so if you have something that you need us to, or me to review, and Angie or Sophia, just, like, a PR request… is your PR something that you want review on right now?
+
+226
+00:29:51.650 --> 00:30:08.270
+Angelina Ceppaluni: Well, please, if you have any feedback, I did also try to share it with Michael Garber. I have not been able to get ahold of him, so if you are able to, I would love the input from both of you. I know he was also interested in seeing more of the HIP process unfold as well.
+
+227
+00:30:08.930 --> 00:30:11.589
+Keith Kowal (Hedera Hashgraph LLC): Okay, and where would I find your PR, NG?
+
+228
+00:30:12.200 --> 00:30:15.849
+Angelina Ceppaluni: Hold on one second, I can share a link to it.
+
+229
+00:30:18.070 --> 00:30:20.449
+Keith Kowal (Hedera Hashgraph LLC): Is it in the Hiero Ledger, or…
+
+230
+00:30:20.450 --> 00:30:21.140
+Angelina Ceppaluni: Yep.
+
+231
+00:30:21.840 --> 00:30:27.820
+Angelina Ceppaluni: Or it should be actually in the TCK repository for the first PR.
+
+232
+00:30:29.090 --> 00:30:30.030
+Keith Kowal (Hedera Hashgraph LLC): Oh, okay.
+
+233
+00:30:45.360 --> 00:30:48.909
+Keith Kowal (Hedera Hashgraph LLC): This one here… this one here? Add hip tracking.
+
+234
+00:30:49.190 --> 00:30:50.810
+Angelina Ceppaluni: Yep, that's the one.
+
+235
+00:30:51.820 --> 00:30:55.250
+Keith Kowal (Hedera Hashgraph LLC): Okay. Okay, I'll take a look at this. I…
+
+236
+00:30:58.610 --> 00:30:59.420
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+237
+00:31:00.020 --> 00:31:00.730
+Keith Kowal (Hedera Hashgraph LLC): Cool.
+
+238
+00:31:01.340 --> 00:31:06.149
+Keith Kowal (Hedera Hashgraph LLC): And I'll link this for all of the team to take a look at. Okay, that's perfect.
+
+239
+00:31:06.150 --> 00:31:07.030
+Angelina Ceppaluni: Thank you.
+
+240
+00:31:09.690 --> 00:31:16.880
+Keith Kowal (Hedera Hashgraph LLC): Now, did you have an… so, Sophia… But…
+
+241
+00:31:16.880 --> 00:31:21.139
+Sophie Bulloch: Yeah, so I… I… I think that the things can…
+
+242
+00:31:21.310 --> 00:31:25.350
+Sophie Bulloch: it can be done faster, so I think… Haji.
+
+243
+00:31:25.690 --> 00:31:33.630
+Sophie Bulloch: She's created a really good PR, given the existing data structures and the existing, like, formats with how things are documented.
+
+244
+00:31:33.870 --> 00:31:40.280
+Sophie Bulloch: But if there's scoped to change, like, the data structures, as mentioned, like, being able to add, like,
+
+245
+00:31:41.780 --> 00:31:46.670
+Sophie Bulloch: The tests, run the tests themselves, and based on the tests, like, look to see…
+
+246
+00:31:47.930 --> 00:31:52.090
+Sophie Bulloch: if there's any scope with that, like, I think things can become more efficient.
+
+247
+00:31:52.920 --> 00:31:58.919
+Sophie Bulloch: But that… that would… that would add, like, more changes and stuff, so that maybe we could talk about that.
+
+248
+00:31:59.440 --> 00:32:00.990
+Sophie Bulloch: Later as an option.
+
+249
+00:32:03.120 --> 00:32:03.840
+Keith Kowal (Hedera Hashgraph LLC): Yeah.
+
+250
+00:32:04.090 --> 00:32:04.690
+Sophie Bulloch: I think…
+
+251
+00:32:04.690 --> 00:32:05.380
+Keith Kowal (Hedera Hashgraph LLC): I'll just…
+
+252
+00:32:05.730 --> 00:32:06.260
+Sophie Bulloch: Yep.
+
+253
+00:32:07.100 --> 00:32:16.639
+Keith Kowal (Hedera Hashgraph LLC): I was gonna say, I… I mean, I'll just tell you what I do these days, Sophie, to tell this stuff, is that often, if I have this question in our new world.
+
+254
+00:32:16.640 --> 00:32:39.609
+Keith Kowal (Hedera Hashgraph LLC): I'll… you know, to me, the SDK of reference is usually the Java JavaScript SDK, so I will go in and ask AI to say, hey, for this feature supported by the JavaScript SDK, let's just say, like, account balance query, just as an example. I'll say, please look at the Java SDK, and then please tell me… look across all the other SDKs and tell me which feature
+
+255
+00:32:39.610 --> 00:32:55.679
+Keith Kowal (Hedera Hashgraph LLC): this is also implemented in. And then, like, I'll get back an immediate report that says, oh, well, account balance query is supported in the JavaScript and the Java SDK, but it's not supported in the Swift SDK, or maybe it's implemented in the Go SDK, but it's missing these features.
+
+256
+00:32:55.680 --> 00:33:00.099
+Keith Kowal (Hedera Hashgraph LLC): So I just wonder… that's become actually really easy and simple to do.
+
+257
+00:33:00.100 --> 00:33:07.229
+Keith Kowal (Hedera Hashgraph LLC): So I wondered if that's something that also can support, Like, documentation or analysis.
+
+258
+00:33:07.450 --> 00:33:10.950
+Keith Kowal (Hedera Hashgraph LLC): Because that's just… that's just the way I… I do it quite regularly now.
+
+259
+00:33:11.460 --> 00:33:17.190
+Sophie Bulloch: Yeah, we don't have any budget, as far as I'm aware, for AI tokens.
+
+260
+00:33:17.450 --> 00:33:19.850
+Sophie Bulloch: So, the issue I would see with that is…
+
+261
+00:33:20.560 --> 00:33:29.719
+Sophie Bulloch: That would just tell you at a given point in time with… how, you know, the level of priority that they have, or the functionality that they have, would give you a good guess.
+
+262
+00:33:29.860 --> 00:33:36.239
+Sophie Bulloch: But that doesn't necessarily mean that next week it's the same, you know, they could revert something, or whatever.
+
+263
+00:33:36.480 --> 00:33:43.970
+Sophie Bulloch: So… I, yeah, like, if I'm allowed to create, like, a pull request, that changes…
+
+264
+00:33:44.260 --> 00:33:49.499
+Sophie Bulloch: a little bit of the data structures in the TCK, then I think we could just run
+
+265
+00:33:49.700 --> 00:33:53.659
+Sophie Bulloch: Some automated tasks on, like, a regular cadence.
+
+266
+00:33:54.180 --> 00:34:00.019
+Sophie Bulloch: And either present the results in the TCK repo, or…
+
+267
+00:34:00.160 --> 00:34:07.479
+Sophie Bulloch: present them elsewhere. But that… those small data structure changes, Might enable you to…
+
+268
+00:34:08.340 --> 00:34:14.029
+Sophie Bulloch: Get this… the same kind of insight without having to… call the AI.
+
+269
+00:34:14.360 --> 00:34:16.159
+Sophie Bulloch: Yourself manually.
+
+270
+00:34:17.100 --> 00:34:18.850
+Sophie Bulloch: And interpret the results.
+
+271
+00:34:20.380 --> 00:34:34.849
+Keith Kowal (Hedera Hashgraph LLC): But I actually… I just want to ask another question. As I understood it from your… your… when you presented at TSC, one of the reasons why your team wanted this functionality was because, you know, you're often being asked by team members, oh.
+
+272
+00:34:34.850 --> 00:34:47.639
+Keith Kowal (Hedera Hashgraph LLC): like, should we be working on this hip, or this hip, or that hip? Because, you know, we have… if you go to our hip board, we have, I think, literally, I don't know, tens or hundreds of hips that are approved, but not being worked on.
+
+273
+00:34:48.090 --> 00:34:49.989
+Keith Kowal (Hedera Hashgraph LLC): So my…
+
+274
+00:34:50.630 --> 00:34:56.199
+Keith Kowal (Hedera Hashgraph LLC): if… I don't know if I've gotten that challenge correct, but if I have that challenge correct.
+
+275
+00:34:56.340 --> 00:35:12.739
+Keith Kowal (Hedera Hashgraph LLC): to me that you would need even something more, because there would also have to be, and maybe this is where you guys were going, the insight of, well, what hips are being prioritized. And normally, like, hips always start in the consensus note. That's always, like, the starting place for all hips. Like, usually it's, like.
+
+276
+00:35:12.740 --> 00:35:28.380
+Keith Kowal (Hedera Hashgraph LLC): you implement the HIP in the consensus node first, and then when that's kind of getting almost finished, you implement it in the mirror node, and the… probably in the future, the block node, and if needed, or in the SDKs, because they're all downstream of the consensus node, so, like.
+
+277
+00:35:28.380 --> 00:35:35.589
+Keith Kowal (Hedera Hashgraph LLC): you have to understand that because this is no design first, and then you can implement in the other things. And so, you know, I think…
+
+278
+00:35:35.850 --> 00:35:48.309
+Keith Kowal (Hedera Hashgraph LLC): what I heard from your previous conversation is, like, the other piece of value is, is like, well, what HIPs are being prioritized for work in the consensus node? Because, again, the SDKs are downstream of that. Is that an accurate thing to say?
+
+279
+00:35:51.110 --> 00:35:54.640
+Sophie Bulloch: Yeah, we also have another issue raised in the…
+
+280
+00:35:54.830 --> 00:36:00.720
+Sophie Bulloch: Governance repo that we were hoping to discuss in the TSQL, which is…
+
+281
+00:36:01.020 --> 00:36:06.100
+Sophie Bulloch: Based on, I think, Steven's… Steven and she… she's idea.
+
+282
+00:36:06.430 --> 00:36:14.290
+Sophie Bulloch: About, having it… Implementation… status.md.
+
+283
+00:36:14.720 --> 00:36:19.190
+Sophie Bulloch: In the repos… That maybe can't do?
+
+284
+00:36:19.410 --> 00:36:24.370
+Sophie Bulloch: TCK-based tests, like, I don't know, maybe the consensus node or whatever?
+
+285
+00:36:25.040 --> 00:36:27.629
+Sophie Bulloch: Yeah, maybe it's the last issue?
+
+286
+00:36:29.520 --> 00:36:30.809
+Sophie Bulloch: 6, 7, 8.
+
+287
+00:36:32.450 --> 00:36:33.700
+Keith Kowal (Hedera Hashgraph LLC): And not this one. Okay.
+
+288
+00:36:33.700 --> 00:36:35.819
+Sophie Bulloch: Yeah, that… that's… that's me.
+
+289
+00:36:35.940 --> 00:36:37.470
+Keith Kowal (Hedera Hashgraph LLC): About 6, okay, yeah, okay.
+
+290
+00:36:39.430 --> 00:36:48.010
+Sophie Bulloch: Yeah, so… so that's something that we want to discuss as well, so this isn't necessarily just a…
+
+291
+00:36:48.810 --> 00:36:50.060
+Sophie Bulloch: TCK thing?
+
+292
+00:36:50.280 --> 00:36:56.050
+Sophie Bulloch: But I think I'm just trying to work towards manually maintaining
+
+293
+00:36:56.990 --> 00:37:03.689
+Sophie Bulloch: HIP implementation or service implementation across 41 repos, or whatever is…
+
+294
+00:37:03.800 --> 00:37:06.830
+Sophie Bulloch: Going to become an increasingly losing game.
+
+295
+00:37:07.120 --> 00:37:09.769
+Sophie Bulloch: So, what can we do today to…
+
+296
+00:37:10.310 --> 00:37:13.519
+Sophie Bulloch: Make that, more machine partable.
+
+297
+00:37:14.470 --> 00:37:16.789
+Sophie Bulloch: And I think there are…
+
+298
+00:37:17.840 --> 00:37:24.710
+Sophie Bulloch: Rough estimates that we can do and get reasonable results, but there's ways that we can make the data more accurate, so that's, like, a first step to…
+
+299
+00:37:25.100 --> 00:37:26.649
+Sophie Bulloch: Trying to do that.
+
+300
+00:37:28.540 --> 00:37:37.949
+Keith Kowal (Hedera Hashgraph LLC): Okay. Hey, I think, as I'm sure you're aware, we have this, hip tracker in the… now, but what the hip tracker does not show, I think, which is…
+
+301
+00:37:38.390 --> 00:37:48.670
+Keith Kowal (Hedera Hashgraph LLC): like, the status of implementation across the different products, like, Consensus Node, or MirrorNode, or SDKs. So… would…
+
+302
+00:37:49.610 --> 00:37:54.180
+Keith Kowal (Hedera Hashgraph LLC): And you know, and we've even struggled with the…
+
+303
+00:37:54.310 --> 00:38:03.789
+Keith Kowal (Hedera Hashgraph LLC): I'll just tell you, like, here you have tentative release date. You know, we've even struggled keeping that one updated, because often, like, things will slip and stuff.
+
+304
+00:38:03.820 --> 00:38:20.599
+Keith Kowal (Hedera Hashgraph LLC): So, yeah, I mean, I think that's a great topic of discussion for TSC. I'm just kind of giving you some insights here, is that, you know, often we are nervous about, like, saying, oh, well, we expect the feature to be ready in contention mode on this… on this release, because, you know, things often slip, and then people get upset and angry.
+
+305
+00:38:20.600 --> 00:38:22.670
+Keith Kowal (Hedera Hashgraph LLC): So…
+
+306
+00:38:22.670 --> 00:38:40.700
+Keith Kowal (Hedera Hashgraph LLC): like, this is the difference between, like, the TSC, like, approving HIPS, and then individual companies like Hashgraph implementing HIPS. Like, anyone can obviously implement a HIP, but then how do you communicate the progress, of that implementation is something that continues to be something that we should discuss, and I see that,
+
+307
+00:38:40.710 --> 00:38:44.070
+Keith Kowal (Hedera Hashgraph LLC): Even, please, Ivan. Even? Please,
+
+308
+00:38:44.290 --> 00:38:46.479
+Keith Kowal (Hedera Hashgraph LLC): Welcome, and then, what's your question?
+
+309
+00:38:47.660 --> 00:39:04.410
+Evan Thacker (Heirloom And Harvest): Yes, thank you for having me. So, I'm just kind of exploring solutions for us, and this is kind of just maybe even a really simple overview question or something. We're doing a digital twin e-commerce system.
+
+310
+00:39:04.720 --> 00:39:15.749
+Evan Thacker (Heirloom And Harvest): And so my… I've just kinda… we've been diving in and using, Fabric and Besu and IPFS with some Ethereum.
+
+311
+00:39:15.930 --> 00:39:33.979
+Evan Thacker (Heirloom And Harvest): I'm looking for stuff that speeds up transaction rates, it's, social commerce, so we have social, and so I'm really kind of looking and trying to figure out if there's documentation to hook this in for, like, social media governance, AI governance, or…
+
+312
+00:39:34.180 --> 00:39:43.549
+Evan Thacker (Heirloom And Harvest): digital twin assets, and I've been asking AI, and I'm sorry it's probably a stupid overview question, but I was just kind of curious.
+
+313
+00:39:45.050 --> 00:39:59.680
+Keith Kowal (Hedera Hashgraph LLC): Yeah, can I make a suggestion? I think we just have maybe a few more topics on the SDK topic, and then I'm happy to stick around and answer all of your questions about the Hedera network. Would you be okay just doing that, you and me doing that, towards the end of the call?
+
+314
+00:40:00.000 --> 00:40:02.450
+Evan Thacker (Heirloom And Harvest): Absolutely. Thank you, I appreciate it.
+
+315
+00:40:03.070 --> 00:40:04.210
+Keith Kowal (Hedera Hashgraph LLC): No problem. Cool.
+
+316
+00:40:04.750 --> 00:40:11.579
+Keith Kowal (Hedera Hashgraph LLC): Yeah, so, just to back to this, tracking topic, yeah, I think it's a great topic. I will ping,
+
+317
+00:40:11.650 --> 00:40:28.510
+Keith Kowal (Hedera Hashgraph LLC): I'll ping, you know, Hendrik and also Michael on this topic, and so we can come to the meeting more kind of prepared. But yeah, let's discuss it again, like, this more overall. Like I said, because I think the SDK is in isolation, if you're talking about
+
+318
+00:40:28.800 --> 00:40:34.160
+Keith Kowal (Hedera Hashgraph LLC): advanced tracking is… is… is limited, because, like I said, you first have to track
+
+319
+00:40:34.160 --> 00:40:55.479
+Keith Kowal (Hedera Hashgraph LLC): you know, normally the cadence is consensus node, mirror node, and then SDKs, or mirror node and SDKs together. So it's about tracking status in the consensus node, which becomes really critical for a lot of these things. And also, how we publish the information about the design in the consensus node. I think we're not doing a great job of that. Because, you know.
+
+320
+00:40:55.480 --> 00:40:56.120
+Keith Kowal (Hedera Hashgraph LLC): like…
+
+321
+00:40:56.370 --> 00:41:18.690
+Keith Kowal (Hedera Hashgraph LLC): the leader is the… is the, the SDKs, in that we publish the designs here. Now, other SDKs, we're trying to also follow this pattern, but this would be my suggestion, Sophie and Angie, is that I think we need all SDKs following this kind of pattern, where they publish the design for the hip feature in their own repo.
+
+322
+00:41:18.740 --> 00:41:32.910
+Keith Kowal (Hedera Hashgraph LLC): And then also, like, we have someplace where we kind of track that implementation. This allows people to… because, you know, from the SDK side of things, you have to understand what that implementation looks like in the consensus node. That's very important.
+
+323
+00:41:34.380 --> 00:41:40.359
+Keith Kowal (Hedera Hashgraph LLC): So yeah, that's how I would think about it, for discussion in our next meeting this month, two cents.
+
+324
+00:41:41.580 --> 00:41:46.069
+Sophie Bulloch: Okay, yeah, that makes sense. It, like, translates to Python, or whatever, and have a framework.
+
+325
+00:41:48.390 --> 00:41:54.059
+Sophie Bulloch: Yeah, okay, yeah, I look forward to being on TSC then, and, talking about that.
+
+326
+00:41:55.310 --> 00:41:55.970
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+327
+00:41:55.970 --> 00:41:57.560
+Sophie Bulloch: Thanks, Oprah.
+
+328
+00:41:58.430 --> 00:42:06.659
+Keith Kowal (Hedera Hashgraph LLC): No problem. So maybe we can just do a quick roundtable of things people are working on for the SDKs. Maybe I can just start with the LimeChain team.
+
+329
+00:42:06.950 --> 00:42:11.250
+Keith Kowal (Hedera Hashgraph LLC): Mustafa, can you start with just what you're working on for the SDKs?
+
+330
+00:42:11.250 --> 00:42:16.549
+Mustafa Uzun: And, on JavaScript, Go, and Java…
+
+331
+00:42:16.860 --> 00:42:22.209
+Mustafa Uzun: We are focused on, deprecation of account balance query.
+
+332
+00:42:22.410 --> 00:42:31.350
+Mustafa Uzun: And for this repo, we have either merged the pink pinko Refactoring or autonomal PR.
+
+333
+00:42:31.850 --> 00:42:36.959
+Mustafa Uzun: And we are continuing with deprecation itself for account balance query, and…
+
+334
+00:42:37.270 --> 00:42:41.129
+Mustafa Uzun: Implementation of the mirror node compounds query.
+
+335
+00:42:41.500 --> 00:42:43.200
+Mustafa Uzun: And, yeah, this is our focus.
+
+336
+00:42:47.510 --> 00:42:48.120
+Keith Kowal (Hedera Hashgraph LLC): Cool.
+
+337
+00:42:49.200 --> 00:42:52.349
+Keith Kowal (Hedera Hashgraph LLC): Dosi? Any updates from your side?
+
+338
+00:42:53.620 --> 00:42:56.790
+Dosi Kolev: No, like, Mustafa said the same thing.
+
+339
+00:42:59.410 --> 00:43:00.070
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+340
+00:43:00.700 --> 00:43:04.820
+Keith Kowal (Hedera Hashgraph LLC): Any update on the Python side, Sophie or Angie, that you'd like to share?
+
+341
+00:43:07.460 --> 00:43:12.280
+Sophie Bulloch: We are continuing to complete a lot of TCK tests.
+
+342
+00:43:13.550 --> 00:43:24.140
+Sophie Bulloch: And then we are refactoring some of the chunked transaction logic, and some… we've got some serialization bugs that need to be fixed, so we've got a major
+
+343
+00:43:24.940 --> 00:43:34.550
+Sophie Bulloch: release 0.3.0 coming up at some point, which will be probably a quite a big, quite a big one. So…
+
+344
+00:43:36.380 --> 00:43:37.260
+Sophie Bulloch: Yeah.
+
+345
+00:43:39.710 --> 00:43:40.370
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+346
+00:43:40.710 --> 00:43:45.700
+Keith Kowal (Hedera Hashgraph LLC): Any, problems or blockers on the… just on the Python implementation side?
+
+347
+00:43:46.600 --> 00:43:48.250
+Sophie Bulloch: Not that I know. Andy, do you know?
+
+348
+00:43:53.350 --> 00:43:59.689
+Angelina Ceppaluni: No, none that I can see. We did have issues with the workflows, last
+
+349
+00:43:59.690 --> 00:44:13.430
+Angelina Ceppaluni: Friday, given that the GitHub, issue worldwide, but we've managed to get through those. It was just issues with our runners, but as far as I know, the runners are back up and running, and we've been able to continue.
+
+350
+00:44:15.850 --> 00:44:16.910
+Keith Kowal (Hedera Hashgraph LLC): Okay, great.
+
+351
+00:44:17.250 --> 00:44:23.339
+Keith Kowal (Hedera Hashgraph LLC): Anyone else have any, updates or questions around SDKs that we can answer or address?
+
+352
+00:44:31.280 --> 00:44:33.970
+Angelina Ceppaluni: My only question… oh, sorry.
+
+353
+00:44:34.400 --> 00:44:35.659
+Keith Kowal (Hedera Hashgraph LLC): No, no, no, please, please, go ahead.
+
+354
+00:44:36.360 --> 00:44:54.689
+Angelina Ceppaluni: It was for the, C++ SDK. Apologies, I have not had an opportunity to take a look back at this. I just wasn't sure, if Robert had been able to come back as a maintainer, or if, there's a new process for trying to find someone new to kind of take over it.
+
+355
+00:44:56.200 --> 00:45:11.370
+Keith Kowal (Hedera Hashgraph LLC): Yeah, great question. I did communicate to Robert after our TCK meeting, and he… he was immediately gonna jump on, like, approving those PR… the outstanding PRs. Now, I actually need to go check and see if that was done or not.
+
+356
+00:45:11.370 --> 00:45:17.960
+Keith Kowal (Hedera Hashgraph LLC): But yeah, he is still going to be acting as the maintainer. We have carved out some time for him every week to spend on that.
+
+357
+00:45:18.030 --> 00:45:23.259
+Keith Kowal (Hedera Hashgraph LLC): So, that's the status, but I should just go make sure it's, it's, it's happening.
+
+358
+00:45:24.690 --> 00:45:26.680
+Angelina Ceppaluni: Sounds good. Thank you.
+
+359
+00:45:32.420 --> 00:45:48.169
+Keith Kowal (Hedera Hashgraph LLC): Alright, well, if no one has any other topics, then, Evan, I'm happy to answer your questions about the Hedera network more generally. That means, like, any of the SDK people, you're welcome to stick around for this conversation, or you're welcome to, go back to your day and drop off.
+
+360
+00:45:48.280 --> 00:45:54.979
+Keith Kowal (Hedera Hashgraph LLC): But yeah, so what… What questions… so, Evan, maybe we, what questions can I answer for you?
+
+361
+00:45:56.340 --> 00:46:00.190
+Evan Thacker (Heirloom And Harvest): Yeah, thank you, thank you for… having me, so…
+
+362
+00:46:00.490 --> 00:46:09.800
+Evan Thacker (Heirloom And Harvest): I guess I'm kind of… I'm wondering if there's any… I've, of course, been using AI, I've been going through the documentation.
+
+363
+00:46:09.920 --> 00:46:17.360
+Evan Thacker (Heirloom And Harvest): I've looked over everything as well, but what I'm trying to figure out is…
+
+364
+00:46:18.710 --> 00:46:33.049
+Evan Thacker (Heirloom And Harvest): you need… my understanding is you need IPFS to hold the asset if you want to do a decentralized network, and then do Hedera, Hashgraph, and then that Scales. That's correct, right?
+
+365
+00:46:34.440 --> 00:46:36.250
+Keith Kowal (Hedera Hashgraph LLC): No, there's…
+
+366
+00:46:36.370 --> 00:46:44.499
+Keith Kowal (Hedera Hashgraph LLC): Maybe we'll just go back to… so, you know, Hedera itself is a decentralized ledger, an L1, so…
+
+367
+00:46:44.700 --> 00:46:46.799
+Keith Kowal (Hedera Hashgraph LLC): You know, it depends what you mean by…
+
+368
+00:46:47.220 --> 00:47:00.229
+Keith Kowal (Hedera Hashgraph LLC): certainly that you could implement a model where things are held on IPFS. Okay, let's just maybe back up. What is it that you want to create? What are the objects that you're looking to create and store?
+
+369
+00:47:00.790 --> 00:47:05.969
+Keith Kowal (Hedera Hashgraph LLC): Are they tokens? Are they messages? Are they… what are they? What's the data type?
+
+370
+00:47:08.200 --> 00:47:15.190
+Evan Thacker (Heirloom And Harvest): So, yeah, I'm coming through to you through my mixed reality headset. This isn't a really great 3D model.
+
+371
+00:47:15.320 --> 00:47:20.420
+Evan Thacker (Heirloom And Harvest): But we're using AI models to clone out things, from the real world.
+
+372
+00:47:20.690 --> 00:47:28.259
+Evan Thacker (Heirloom And Harvest): into e-com. And so the storage of those 3D digital twin model systems is one thing.
+
+373
+00:47:30.490 --> 00:47:37.890
+Keith Kowal (Hedera Hashgraph LLC): Okay, so these are quite big pieces of data that… and that's why you're talking about storing them on HCS? Oh, sorry, on IPFS?
+
+374
+00:47:38.230 --> 00:47:41.530
+Evan Thacker (Heirloom And Harvest): Yeah, I think it's still gonna be… I think…
+
+375
+00:47:42.130 --> 00:47:46.539
+Evan Thacker (Heirloom And Harvest): By the time you can press it down to a GBL format or a GBLF,
+
+376
+00:47:47.290 --> 00:47:56.160
+Evan Thacker (Heirloom And Harvest): It's somewhere between 5 and 30 megabytes, which isn't super big, but it's still, you know.
+
+377
+00:47:57.540 --> 00:48:01.330
+Keith Kowal (Hedera Hashgraph LLC): Yeah, that's big. For a blockchain, that's big.
+
+378
+00:48:01.460 --> 00:48:11.259
+Keith Kowal (Hedera Hashgraph LLC): So, so normally, most people, when they're implementing, something like… no, so it depends what your goal is,
+
+379
+00:48:12.200 --> 00:48:19.189
+Keith Kowal (Hedera Hashgraph LLC): Actually, I'm just gonna go to Hapscan. So, on Hedera, we have many different services and…
+
+380
+00:48:19.320 --> 00:48:28.099
+Keith Kowal (Hedera Hashgraph LLC): And those things include things like, smart contracts, or tokens, or,
+
+381
+00:48:28.270 --> 00:48:46.949
+Keith Kowal (Hedera Hashgraph LLC): many different services. I think the service that's probably most relevant to you is the service we have called… which is called Hedera Consensus Service, or HCS. So basically, what that allows you to do is a contract where you can create a topic, and then under that topic, you can have individual messages.
+
+382
+00:48:47.190 --> 00:48:51.650
+Keith Kowal (Hedera Hashgraph LLC): And then, so this typically, when people are building out stuff in IPFS… so…
+
+383
+00:48:51.850 --> 00:49:00.089
+Keith Kowal (Hedera Hashgraph LLC): you know, a fundamental question is, well, so you're storing these, sorry, I'm gonna butcher this, but you're storing your 3D,
+
+384
+00:49:00.880 --> 00:49:19.659
+Keith Kowal (Hedera Hashgraph LLC): images or your 3D assets on IPFS, and I'm guessing is that what you want is a source of immutability about the… either tracking about this data on IPFS, or immutability? Well, like, what's your… what would be your goal of pairing a blockchain with, your storage medium, IPFS?
+
+385
+00:49:22.250 --> 00:49:25.709
+Evan Thacker (Heirloom And Harvest): Yeah, sure, so right now, we are…
+
+386
+00:49:26.010 --> 00:49:35.350
+Evan Thacker (Heirloom And Harvest): We're actually storing our proofs of authenticity, so we have an AI provenance agent, which isn't really that new. Just scan an item.
+
+387
+00:49:35.350 --> 00:49:51.330
+Evan Thacker (Heirloom And Harvest): do a quick web search, it's an AI agent, link chain, link graph, linksmith kind of thing, Python, and then that relays and creates a certificate of authenticity, right now, and then along with that.
+
+388
+00:49:51.670 --> 00:50:01.439
+Evan Thacker (Heirloom And Harvest): Doing the storage pairing option with, 3D scanning. We've already got the certificate of authenticity, but, yeah, that's,
+
+389
+00:50:02.170 --> 00:50:13.380
+Keith Kowal (Hedera Hashgraph LLC): Yeah, that's what… that's what I assumed you were looking for. So basically what you can do is that, with Hedera Consensus Service, like I said, you have this construct of a topic, this is the topic, and then you can have
+
+390
+00:50:13.790 --> 00:50:26.049
+Keith Kowal (Hedera Hashgraph LLC): one, or you can have, like, a million messages underneath the topic. You know, the whole thing about HCS is that it's very cheap, like, each of these messages costs, eight hundredths of a cent.
+
+391
+00:50:26.050 --> 00:50:34.149
+Keith Kowal (Hedera Hashgraph LLC): But basically what's powerful about this, and I don't… this is quite unique to Hedera, I don't think any other blockchain has this functionality, is that this message
+
+392
+00:50:34.150 --> 00:50:41.560
+Keith Kowal (Hedera Hashgraph LLC): it can be a free-form payload up to 1024 bytes. So, typically for this kind of
+
+393
+00:50:41.700 --> 00:50:47.310
+Keith Kowal (Hedera Hashgraph LLC): content authenticity use case, and we do have some kind of POCs and stuff around that.
+
+394
+00:50:47.540 --> 00:51:05.610
+Keith Kowal (Hedera Hashgraph LLC): But something you could do is, like, you have your data, you store it on IPFS, you create the certificate of Authenticity, which it sounds like you already have a process for, and you can just store that certificate of authenticity
+
+395
+00:51:06.010 --> 00:51:19.130
+Keith Kowal (Hedera Hashgraph LLC): payload here, or maybe a hash of the payload. And then what this… what this enables is authenticity, that, you know, everyone can see, well, it was created this time, on this date, was the… and then…
+
+396
+00:51:19.250 --> 00:51:35.980
+Keith Kowal (Hedera Hashgraph LLC): I mean, I don't understand your model exactly, so let me explain to me maybe a similar model that we worked on. So let's say you're a photographer, and you're doing pictures, and you want to make sure that, if anyone steals your photo, you can prove that it's your photo, you created that date and time.
+
+397
+00:51:36.040 --> 00:51:40.390
+Keith Kowal (Hedera Hashgraph LLC): So one model you could do is that you… you take that photo.
+
+398
+00:51:40.390 --> 00:52:05.340
+Keith Kowal (Hedera Hashgraph LLC): the JPEG or whatever, you do a hash of it, and then also you can sign over that hash, and you can almost maybe just do a jot, like, like a jot with the payload, and then assigning the payload with your own signature, and then you just store that jot here as an HCS message. So if anyone in the future says, how do you know if you really created that photo.
+
+399
+00:52:05.340 --> 00:52:19.440
+Keith Kowal (Hedera Hashgraph LLC): you can go, well, anyone can just take that photo, recreate the hash of it, come here, compare the hashes, and see that it was authentic, and that it was created at… and signed at this date and this time.
+
+400
+00:52:19.640 --> 00:52:28.860
+Keith Kowal (Hedera Hashgraph LLC): So, there's been a lot of, like, use cases around that type of application. Does that sound like something that you're… am I in the right direction of what you're looking for?
+
+401
+00:52:29.330 --> 00:52:32.959
+Evan Thacker (Heirloom And Harvest): Yeah, yeah, that's very helpful, thank you.
+
+402
+00:52:33.230 --> 00:52:41.890
+Evan Thacker (Heirloom And Harvest): The one other thing I'm really curious about is we've been using, setting up an MCP server with,
+
+403
+00:52:42.090 --> 00:52:53.180
+Evan Thacker (Heirloom And Harvest): you know, LaneGraph, LingChain, etc, and then, having the AI agent call it over to the blockchain network. Is that something possible with Hedera?
+
+404
+00:52:54.460 --> 00:53:06.789
+Keith Kowal (Hedera Hashgraph LLC): So, Hedera ourselves did not offer a MCP server, but… well, actually, I should check on that. Maybe, maybe, maybe one of our teams does, but, but there is another company called Hgraph,
+
+405
+00:53:07.110 --> 00:53:08.520
+Keith Kowal (Hedera Hashgraph LLC): H draft.
+
+406
+00:53:08.730 --> 00:53:26.229
+Keith Kowal (Hedera Hashgraph LLC): And they have just offered… they offer an MC… so basically, Hgraph offers… so, maybe I just need to explain Hedera architecture a bit. You know, in Hedera, we have a consensus node, but then we also have what we call the mirror node. That's where it stores all the data. So all this data we're looking at here comes from a mirror node.
+
+407
+00:53:26.640 --> 00:53:37.710
+Keith Kowal (Hedera Hashgraph LLC): So AHGraph has also operated their own… they operate their own mirror node with an MCP server connected to it, and actually their mirror node operates a, GraphQL
+
+408
+00:53:37.770 --> 00:53:42.390
+Keith Kowal (Hedera Hashgraph LLC): layer. So basically, you can traverse data very quickly.
+
+409
+00:53:42.450 --> 00:53:57.220
+Keith Kowal (Hedera Hashgraph LLC): So, this would be one service where, if what you're asking for of an MPC server is, like, can I have a service that very easily traverses and looks up data, then, I think the answer is yes, maybe you could use the Hgraph
+
+410
+00:53:57.220 --> 00:54:06.939
+Keith Kowal (Hedera Hashgraph LLC): a server, but otherwise, like, all of this data is freely available, using Hedera APIs, so you can also get the data that way.
+
+411
+00:54:07.050 --> 00:54:11.730
+Keith Kowal (Hedera Hashgraph LLC): Is that what… is that what you're asking for? MCC server so you can look up data? Is that the purpose?
+
+412
+00:54:13.040 --> 00:54:19.440
+Evan Thacker (Heirloom And Harvest): Actually, it's to post data, so, like I said, we've been doing, like.
+
+413
+00:54:19.700 --> 00:54:37.820
+Evan Thacker (Heirloom And Harvest): fabric, right? So, post data and post the thing over to the private network. So, the AI agent works as… as opposed to the user posting the data, they just interact with the AI agent, and the AI agent automatically creates the certificate on the blockchain itself.
+
+414
+00:54:38.270 --> 00:54:41.710
+Evan Thacker (Heirloom And Harvest): That's… that's kind of the process we've been streamlining.
+
+415
+00:54:43.730 --> 00:54:49.089
+Keith Kowal (Hedera Hashgraph LLC): I mean… So, you know, this meeting is the SDK meeting,
+
+416
+00:54:49.090 --> 00:55:05.270
+Keith Kowal (Hedera Hashgraph LLC): obviously, as part of that, like, we have SDKs. Like, normally, when I want to do something like you're discussing, I will just go into my AI, I'll say, hey, AI, can you please, create an HCS topic, and maybe, you know, using, let's say, just say the Hedera JavaScript SDK.
+
+417
+00:55:05.270 --> 00:55:10.810
+Keith Kowal (Hedera Hashgraph LLC): So I'll say to AI, hey, please create a topic, and then please create, like.
+
+418
+00:55:10.810 --> 00:55:23.870
+Keith Kowal (Hedera Hashgraph LLC): 50 messages under that topic with these different payloads. So, I mean, I don't think we have a dedicated… well, okay, we do have something called AI Studio. I need to go look and see if they've added that capability.
+
+419
+00:55:23.960 --> 00:55:30.900
+Keith Kowal (Hedera Hashgraph LLC): So you can go look at Hedera AI Studio… But…
+
+420
+00:55:31.260 --> 00:55:41.310
+Keith Kowal (Hedera Hashgraph LLC): for me, and, you know, this… this was intended to have that kind of maybe more automated functionality, but I would just say, like, I,
+
+421
+00:55:41.850 --> 00:55:57.219
+Keith Kowal (Hedera Hashgraph LLC): you know, just using my own AI, that's usually a pretty simple process, is create these Hedera consensus service messages on Hedera, just using AI. It does it pretty easily. Also, I'll just say one thing, if you just want to understand, the functionality, just
+
+422
+00:55:58.230 --> 00:56:05.340
+Keith Kowal (Hedera Hashgraph LLC): better… I'll see… oh, we have something called the Hedera Portal, portal.hedera.com.
+
+423
+00:56:05.500 --> 00:56:14.259
+Keith Kowal (Hedera Hashgraph LLC): And, in that, there's a playground. So everything I'm talking about for Hederic and science-of-service messages, you would find here, HCS.
+
+424
+00:56:14.480 --> 00:56:34.429
+Keith Kowal (Hedera Hashgraph LLC): And in that, you can do what I was just talking about, like, create a topic, update a topic, submit a message, so yeah, we have these tools as well. If you as a developer want to play with them, but like I said, you can just tell AI to, like, read our docs, and then just do all of this, using our JavaScript SDK.
+
+425
+00:56:35.040 --> 00:56:42.330
+Keith Kowal (Hedera Hashgraph LLC): Does that help? And also, yeah, please check out, Hedera AI Studio, because it maybe even has something… maybe a layer above that might be useful for you.
+
+426
+00:56:43.400 --> 00:56:49.190
+Evan Thacker (Heirloom And Harvest): That's great, thank you. The other thing I've been looking at is…
+
+427
+00:56:49.360 --> 00:56:51.379
+Evan Thacker (Heirloom And Harvest): So, I've been going through and…
+
+428
+00:56:51.570 --> 00:57:03.980
+Evan Thacker (Heirloom And Harvest): like, linking over our AI with a D-Wave quantum computer. So, of course, with Fabric, I realized that I could go through and use the nesty,
+
+429
+00:57:04.010 --> 00:57:14.800
+Evan Thacker (Heirloom And Harvest): to basically build my own chain code to upgrade the algorithms to quantum resistance, and so that was something I was kind of curious about with Hedera as well.
+
+430
+00:57:15.060 --> 00:57:18.910
+Evan Thacker (Heirloom And Harvest): Or… and zero-knowledge proofs.
+
+431
+00:57:21.430 --> 00:57:28.650
+Keith Kowal (Hedera Hashgraph LLC): So, the nice thing about Hedera Consensus Service, as I mentioned, is that these messages are all,
+
+432
+00:57:28.790 --> 00:57:34.960
+Keith Kowal (Hedera Hashgraph LLC): they are all self-contained. So, basically, you know.
+
+433
+00:57:35.070 --> 00:57:41.360
+Keith Kowal (Hedera Hashgraph LLC): So this can be any payload you want. So this means that the payload could be something like a…
+
+434
+00:57:41.360 --> 00:57:56.080
+Keith Kowal (Hedera Hashgraph LLC): I don't know, something signed over by a quantum-resistant key. So basically, like, if we go into a post-quantum world, you don't need to support… you don't need to trust the network itself, or let's say… you can just trust the… this self-enclosed payload.
+
+435
+00:57:56.080 --> 00:58:07.249
+Keith Kowal (Hedera Hashgraph LLC): And that could be as their own knowledge proof, it could be a quantum-resistant signature. Like I said, the only limitation on this is that the payload can be… has to be under 1024 bytes.
+
+436
+00:58:07.250 --> 00:58:21.179
+Keith Kowal (Hedera Hashgraph LLC): I do… I don't know the quantum resistant scheme you're using, but that… often a problem with the quantum resistant schemes is that the signatures get very big, so I don't know if what you're looking to do would fit under 1,024 bytes.
+
+437
+00:58:21.350 --> 00:58:26.129
+Keith Kowal (Hedera Hashgraph LLC): But yeah, that's something to think about.
+
+438
+00:58:27.240 --> 00:58:32.000
+Evan Thacker (Heirloom And Harvest): That's great, thank you. Yeah, I mean, I was looking at the crystalline,
+
+439
+00:58:32.290 --> 00:58:41.989
+Evan Thacker (Heirloom And Harvest): butchering that, probably. I gotta look back through my notes, but… structure. But yeah, I mean, that's great, thank you. I was just wondering about that. Thank you.
+
+440
+00:58:43.650 --> 00:58:45.260
+Keith Kowal (Hedera Hashgraph LLC): So, Sophie, I saw you raise your hand.
+
+441
+00:58:46.330 --> 00:58:53.190
+Sophie Bulloch: Yeah, I… Correct me if I'm wrong, but I don't think right now the… Hiero Consensus repo.
+
+442
+00:58:54.140 --> 00:58:57.099
+Sophie Bulloch: Is written in a way where it's…
+
+443
+00:58:57.350 --> 00:58:59.320
+Sophie Bulloch: You could… you could just flip…
+
+444
+00:59:00.250 --> 00:59:05.520
+Sophie Bulloch: the different algorithms used, it's TSS-based as well.
+
+445
+00:59:05.920 --> 00:59:09.499
+Sophie Bulloch: Which… It's not fully.
+
+446
+00:59:10.010 --> 00:59:11.090
+Sophie Bulloch: Resistant?
+
+447
+00:59:11.210 --> 00:59:13.640
+Sophie Bulloch: Either, so I think there needs to be…
+
+448
+00:59:14.230 --> 00:59:20.510
+Sophie Bulloch: Some sort of short-term migration to just enable, like, a different…
+
+449
+00:59:20.850 --> 00:59:26.440
+Sophie Bulloch: A different switch there, and then maybe… Some of the signing methods.
+
+450
+00:59:28.010 --> 00:59:29.379
+Sophie Bulloch: May have to.
+
+451
+00:59:29.380 --> 00:59:29.859
+Keith Kowal (Hedera Hashgraph LLC): So, so…
+
+452
+00:59:29.860 --> 00:59:30.760
+Sophie Bulloch: In my view.
+
+453
+00:59:30.760 --> 00:59:34.960
+Keith Kowal (Hedera Hashgraph LLC): So we're talking… we're talking about quantum resistance, is that what you're referring to, Sophie?
+
+454
+00:59:36.310 --> 00:59:38.569
+Sophie Bulloch: Yeah, well, basically, right now, the…
+
+455
+00:59:38.980 --> 00:59:48.349
+Sophie Bulloch: the code is not as resistant as it could be. I think there needs to be some refactoring, to be able to do that, in the Hiero consensus mode.
+
+456
+00:59:49.650 --> 01:00:02.129
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I think the main change that we're looking to make for quantum resistance is adding a new account type that supports a new quantum resistant key. The problem is there's not been a lot of, you know, the…
+
+457
+01:00:02.130 --> 01:00:12.560
+Keith Kowal (Hedera Hashgraph LLC): the quantum keys are still kind of up in the air in terms of their technical design. I mean… I mean, not… they're not… they themselves are not in the air, but, like, which one will become mainstream is still kind of up in the air.
+
+458
+01:00:12.640 --> 01:00:14.590
+Keith Kowal (Hedera Hashgraph LLC): So,
+
+459
+01:00:14.860 --> 01:00:30.480
+Keith Kowal (Hedera Hashgraph LLC): And, you know, is it… so I think we're just waiting for things to solidify a little bit before we implement that kind of functionality. I would just say, like, no blockchain these days is quantum resistant, so… but I would say, like, as I said, under HCS, because you can submit your own payload.
+
+460
+01:00:30.480 --> 01:00:38.890
+Keith Kowal (Hedera Hashgraph LLC): You could submit your own signed pay… you could submit a payload signed by a quantum-resistant key. At least the payload itself is quantum-resistant.
+
+461
+01:00:38.900 --> 01:00:43.629
+Keith Kowal (Hedera Hashgraph LLC): But yeah, that's maybe the only thing I can add.
+
+462
+01:00:50.540 --> 01:00:52.900
+Keith Kowal (Hedera Hashgraph LLC): Can I answer any questions for you, Kevin?
+
+463
+01:00:53.990 --> 01:01:08.130
+Evan Thacker (Heirloom And Harvest): I don't think so. I mean, that was kind of the big ones, thank you. Yeah, that's just something I've been looking at. So, as far as how to… because right now we're using, D-Wave.
+
+464
+01:01:08.130 --> 01:01:17.399
+Evan Thacker (Heirloom And Harvest): for optimization problems, and then having that formatted in a Python kind of payload that the AI sends over to a quantum computer.
+
+465
+01:01:17.410 --> 01:01:21.030
+Evan Thacker (Heirloom And Harvest): And so, I mean, I thought, oh crap, if we're doing this…
+
+466
+01:01:21.060 --> 01:01:23.800
+Evan Thacker (Heirloom And Harvest): Is there a way to prove our…
+
+467
+01:01:23.830 --> 01:01:36.979
+Evan Thacker (Heirloom And Harvest): Certificate of Authenticity program. So, thank you so much for being so kind with your time and answering the questions, and this was great. I took notes and, put it all in my browser and everything, so thank you so much.
+
+468
+01:01:38.220 --> 01:01:47.709
+Keith Kowal (Hedera Hashgraph LLC): Cool. Actually, I did have one question. You mentioned a few times that you're looking to use fabric. Actually, I thought that was really… you know, I worked on fabric many years ago.
+
+469
+01:01:47.910 --> 01:01:48.680
+Keith Kowal (Hedera Hashgraph LLC): Hum.
+
+470
+01:01:48.800 --> 01:01:56.009
+Keith Kowal (Hedera Hashgraph LLC): But there is no… am I wrong? There's no operational fabric… you're looking at setting up your own fabric network, is that what it is?
+
+471
+01:01:58.700 --> 01:02:02.769
+Evan Thacker (Heirloom And Harvest): Yeah, so I've done this a few times. I've used,
+
+472
+01:02:03.010 --> 01:02:17.310
+Evan Thacker (Heirloom And Harvest): Kaleido and Filecoin, and kind of combined the networks, and then also, over our Google Cloud account, had our own fabric network, that kind of thing, and ran it that way.
+
+473
+01:02:18.860 --> 01:02:19.480
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+474
+01:02:20.090 --> 01:02:22.449
+Keith Kowal (Hedera Hashgraph LLC): Have you run a fabric network before?
+
+475
+01:02:23.610 --> 01:02:37.889
+Evan Thacker (Heirloom And Harvest): I have, actually. I've ran a fabric network and a Baesu network. I've done it locally, and I've done it on the cloud. I did it for a hackathon last November and combined it with our AI agent.
+
+476
+01:02:38.000 --> 01:02:43.200
+Evan Thacker (Heirloom And Harvest): And, NFC cards. They really didn't know what to make of it in the hackathon, but…
+
+477
+01:02:43.340 --> 01:02:47.260
+Evan Thacker (Heirloom And Harvest): It was cool to see it come together in about 48 hours.
+
+478
+01:02:48.820 --> 01:02:49.600
+Keith Kowal (Hedera Hashgraph LLC): Book. Okay.
+
+479
+01:02:50.410 --> 01:03:08.160
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I don't normally disparage any other network. I would say that, from my own experience, running a fabric network in production was very challenging. So, but yeah, definitely, whatever network you choose, that's great. Sophie, you had your hand up?
+
+480
+01:03:09.190 --> 01:03:12.560
+Sophie Bulloch: Yeah, even… I don't know if…
+
+481
+01:03:12.900 --> 01:03:18.900
+Sophie Bulloch: Your code is going to be closed-sourced or something, but if you are working on experiments.
+
+482
+01:03:19.360 --> 01:03:28.189
+Sophie Bulloch: As a way of, like, raising awareness and seeing what's available, seeing how the community responds and things.
+
+483
+01:03:28.300 --> 01:03:34.150
+Sophie Bulloch: There is a nice place, called Hiero Hackers, which is…
+
+484
+01:03:34.310 --> 01:03:38.559
+Sophie Bulloch: sort of part of Hiero, which allows you to create these
+
+485
+01:03:38.800 --> 01:03:43.430
+Sophie Bulloch: Fast prototypes, integrate, test things out.
+
+486
+01:03:44.460 --> 01:03:51.109
+Sophie Bulloch: And, yeah, there's some, AI agent stuff there as well, but it could just be, like, a…
+
+487
+01:03:51.690 --> 01:03:57.240
+Sophie Bulloch: You could set something up, and then you have something more, more,
+
+488
+01:03:57.530 --> 01:03:59.680
+Sophie Bulloch: Concrete to sort of discuss on the…
+
+489
+01:03:59.970 --> 01:04:03.440
+Sophie Bulloch: TSC. I've actually been working on the quantum
+
+490
+01:04:03.750 --> 01:04:10.379
+Sophie Bulloch: migration of the consensus node, which I will post here eventually, but it's only at, like, 99%
+
+491
+01:04:10.780 --> 01:04:14.450
+Sophie Bulloch: accuracy so far, so I need to work hard for that remaining 1%.
+
+492
+01:04:14.800 --> 01:04:21.030
+Sophie Bulloch: But yeah, this is… it's just, like, a good link if you want to… Create.
+
+493
+01:04:22.660 --> 01:04:28.489
+Sophie Bulloch: proof of concepts, or something like that, and it's visible to the Hiero community, and it's all open source.
+
+494
+01:04:28.900 --> 01:04:34.909
+Sophie Bulloch: So we're all there, we were looking at this, and there's some developers who are also happy to pick up issues.
+
+495
+01:04:35.850 --> 01:04:42.359
+Sophie Bulloch: Yeah, that will then sort of pull things into the Hiero ecosystem, if that's something that you want to try.
+
+496
+01:04:45.080 --> 01:04:46.430
+Evan Thacker (Heirloom And Harvest): Thank you so much.
+
+497
+01:04:46.430 --> 01:04:47.070
+Keith Kowal (Hedera Hashgraph LLC): What's up?
+
+498
+01:04:47.480 --> 01:04:55.429
+Keith Kowal (Hedera Hashgraph LLC): I'm, we're over the time, so I'm gonna have to drop, but please continue the conversation, guys. Yeah, thank you. Thank you so much. It was great to meet you, Evan.
+
+499
+01:04:57.250 --> 01:05:03.439
+Evan Thacker (Heirloom And Harvest): Great to meet you as well, and, thank you… thank you so much for taking the time to answer the questions.
+
+500
+01:05:03.710 --> 01:05:07.539
+Evan Thacker (Heirloom And Harvest): Both of you, I really appreciate you just taking time.
+
+501
+01:05:07.690 --> 01:05:12.830
+Evan Thacker (Heirloom And Harvest): Like I said, I'm just trying to figure it out, and thank you, thank you, everyone.
+
+502
+01:05:13.700 --> 01:05:15.540
+Keith Kowal (Hedera Hashgraph LLC): Cool. Thank you, guys. Thank you, everyone.
+
+503
+01:05:16.830 --> 01:05:17.649
+Sophie Bulloch: Thank you!
+

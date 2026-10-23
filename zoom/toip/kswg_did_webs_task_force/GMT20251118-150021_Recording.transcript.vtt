@@ -1,0 +1,1618 @@
+WEBVTT
+
+1
+00:00:38.490 --> 00:00:39.390
+Kent Bull: Most sound.
+
+2
+00:00:43.540 --> 00:00:44.520
+Samuel Smith: Hello?
+
+3
+00:00:45.870 --> 00:00:50.389
+Kent Bull: I am going to join the other link on my phone and make sure nobody's there.
+
+4
+00:00:50.790 --> 00:00:51.840
+Kent Bull: This confusion.
+
+5
+00:00:51.840 --> 00:00:54.760
+Samuel Smith: I may have gone… may have gone to the implementer's call.
+
+6
+00:00:55.090 --> 00:00:55.800
+Kent Bull: Yeah.
+
+7
+00:00:57.250 --> 00:00:58.820
+Kent Bull: Route the people over here.
+
+8
+00:01:08.030 --> 00:01:09.860
+Kent Bull: Recording in progress.
+
+9
+00:01:10.840 --> 00:01:14.580
+Kent Bull: Okay, nobody's over there. If they… if they're in, I'll send them over.
+
+10
+00:01:16.270 --> 00:01:18.130
+Kent Bull: Oh, Hank joined the other one.
+
+11
+00:01:20.350 --> 00:01:21.310
+Kent Bull: Hey, Hank.
+
+12
+00:01:22.560 --> 00:01:27.119
+Kent Bull: We're on the wrong link, we need to jump over, I'm here to route people to the Linux Foundation link.
+
+13
+00:01:27.710 --> 00:01:31.220
+Kent Bull: Okay. KCO there. Where's the name?
+
+14
+00:01:31.750 --> 00:01:36.769
+Kent Bull: Oh, it's, the link from last time. I'll put it in Discord as well.
+
+15
+00:01:36.770 --> 00:01:38.509
+Samuel Smith: It's the Did WebS meeting.
+
+16
+00:01:38.510 --> 00:01:49.319
+Kent Bull: I think I'll throw it in the chat, if you would like. Okay, I'll… yeah, it's the DIDWeb-S call, but it looks like it's a Linux Foundation meeting. Let me put it in the chat. Wow, great. Yeah.
+
+17
+00:01:50.210 --> 00:01:52.679
+Kent Bull: I can… I'm gonna drop it in the chat real quick.
+
+18
+00:01:56.560 --> 00:01:57.480
+Kent Bull: Smaller.
+
+19
+00:01:58.420 --> 00:01:59.839
+Carly Huitema (University of Guelph): Hello, Sam, and…
+
+20
+00:02:00.840 --> 00:02:01.480
+Kent Bull: Hey.
+
+21
+00:02:03.920 --> 00:02:07.279
+Kent Bull: I'm in two meetings right now, trying to route people over here from the other one.
+
+22
+00:02:09.009 --> 00:02:14.109
+Kent Bull: Paste… Okay, I'll do this for Discipline 2. Thank you.
+
+23
+00:02:44.050 --> 00:02:48.760
+Kent Bull: Alright, I guess we could get going, unless we want to wait another minute or two. Jonathan won't be here.
+
+24
+00:02:53.850 --> 00:02:55.020
+Kent Bull: Alright, so…
+
+25
+00:02:55.810 --> 00:03:01.960
+Kent Bull: The Web of Trust part? No, not the Web of Trust. I'm thinking W, because we had a who-is discussion.
+
+26
+00:03:02.570 --> 00:03:07.770
+Kent Bull: The DidWeb S part might be pretty short. I did reach out to Daniel Hardman to see if he had any
+
+27
+00:03:08.150 --> 00:03:13.370
+Kent Bull: any desire to take half of the meeting today. I haven't heard back from him yet. Maybe we'll see him, maybe we won't.
+
+28
+00:03:14.570 --> 00:03:33.769
+Kent Bull: up to all that we have for today, is there are a couple… there are three parts left to build into the Glyif implementation of the DIDWeb S Resolver. There's the delegation language, there's the also known as section with a did carry and a didwebDid by default, and then there's the who is.
+
+29
+00:03:35.130 --> 00:03:40.500
+Kent Bull: The Whois hasn't been built out yet. We just got a question yesterday. The reason why it's on my mind is that…
+
+30
+00:03:40.880 --> 00:03:46.379
+Kent Bull: Actually, not yesterday, but 5 days ago, we got a question from Otto. Let's see if I can actually pull his…
+
+31
+00:03:47.220 --> 00:03:53.029
+Kent Bull: His name is Otto Mora, and he's part of the DIF, Recommended DID Methods Working Group.
+
+32
+00:03:53.940 --> 00:04:03.350
+Kent Bull: He asked a good question. He said, is there, since the who is supports normatively, W3CVDCM compliance.
+
+33
+00:04:04.520 --> 00:04:06.280
+Kent Bull: Does that mean that…
+
+34
+00:04:07.120 --> 00:04:15.450
+Kent Bull: the… is that to go for everything else in W3… in the DIDWebSp, did method, and no, it doesn't. It's actually just for the who is section.
+
+35
+00:04:15.820 --> 00:04:18.009
+Kent Bull: And in the Whois, there's actually 3…
+
+36
+00:04:18.149 --> 00:04:21.800
+Kent Bull: three formats called out. There's the VCDM,
+
+37
+00:04:22.400 --> 00:04:26.410
+Kent Bull: compliance, there's the SDJOT, and there's…
+
+38
+00:04:26.960 --> 00:04:30.999
+Kent Bull: ACDC. And so, what we've probably said in the past is that
+
+39
+00:04:32.970 --> 00:04:41.939
+Kent Bull: we are good enough to just get by with the ACD… ACDC, yet we don't even have ACDC support of the WHOIS, so we'll probably build that out as a bare minimum.
+
+40
+00:04:42.530 --> 00:04:45.530
+Kent Bull: And as soon as Glyph finishes the…
+
+41
+00:04:45.920 --> 00:04:48.410
+Kent Bull: One-way transform, which are pretty close.
+
+42
+00:04:49.360 --> 00:04:55.280
+Kent Bull: We'll probably go back and add the Whois support for the W3CBCDM, if somebody wants to use it.
+
+43
+00:04:56.110 --> 00:05:00.369
+Kent Bull: Other than that, there's the delegation language you need to add, there's the…
+
+44
+00:05:02.060 --> 00:05:15.730
+Kent Bull: One other thing. There's the also known as… and then after those three… after I factor those three things in, I'll be doing a final spec review to determine if there's any… to just do a full reconciliation between the spec language and the implemented code.
+
+45
+00:05:15.990 --> 00:05:20.669
+Kent Bull: And then… That's pretty much it for the Did Webest resolver for now, the Python version of it.
+
+46
+00:05:23.140 --> 00:05:31.999
+Kent Bull: And I believe that's actually all that we have for today, unless… I guess there's a question we could ask about who is, if anybody else knows about the history behind the Whois feature.
+
+47
+00:05:37.870 --> 00:05:42.869
+Samuel Smith: Who as feature was requested by, Stephen Curran, that's why it's there.
+
+48
+00:05:42.870 --> 00:05:43.560
+Kent Bull: Right.
+
+49
+00:05:43.840 --> 00:05:46.359
+Kent Bull: So I did get blame, and it was…
+
+50
+00:05:46.670 --> 00:05:57.840
+Kent Bull: Steven Curran and Lance Bird that wrote the parts of the spec for WHOIS, and so I actually wanted to ask the question, should we take it out? Do we actually need or want that feature?
+
+51
+00:06:00.620 --> 00:06:04.429
+Samuel Smith: It's a discovery mechanism that isn't secure.
+
+52
+00:06:06.040 --> 00:06:12.259
+Samuel Smith: Since… I mean, if, is it…
+
+53
+00:06:12.560 --> 00:06:18.979
+Samuel Smith: I don't have a strong preference. Is the code already written to support it, or is it… is there additional work to support it?
+
+54
+00:06:19.150 --> 00:06:20.930
+Kent Bull: No code has been written yet.
+
+55
+00:06:21.410 --> 00:06:24.510
+Samuel Smith: Well, then I would take it out, because then that's less code to write.
+
+56
+00:06:25.090 --> 00:06:32.109
+Kent Bull: Yeah, and if we don't have a strict need or use case for it, I don't… I favor just leaving it out, and so taking…
+
+57
+00:06:32.110 --> 00:06:37.759
+Samuel Smith: We can always add it back in, we can always add it back in if somebody comes forward and says they need the feature.
+
+58
+00:06:38.170 --> 00:06:41.599
+Samuel Smith: But the UBI infrastructure provides…
+
+59
+00:06:42.360 --> 00:06:45.680
+Kent Bull: Provides a more secure mechanism for discovery.
+
+60
+00:06:45.900 --> 00:06:46.530
+Kent Bull: Yeah.
+
+61
+00:06:48.430 --> 00:06:50.809
+Samuel Smith: Anybody else have a… have a preference?
+
+62
+00:06:54.350 --> 00:06:55.460
+Carly Huitema (University of Guelph): You're muted, Hank.
+
+63
+00:06:59.190 --> 00:07:01.119
+Henk van Cann: You can better have me muted.
+
+64
+00:07:01.540 --> 00:07:02.390
+Henk van Cann: In general.
+
+65
+00:07:03.530 --> 00:07:10.630
+Henk van Cann: But what I wanted to say is that it's building bridges between their way of thinking back then.
+
+66
+00:07:10.730 --> 00:07:13.700
+Henk van Cann: With unsecure stuff.
+
+67
+00:07:13.870 --> 00:07:20.490
+Henk van Cann: And we could maybe make an informative section of it, and not a normative section in the specification.
+
+68
+00:07:20.710 --> 00:07:24.960
+Henk van Cann: Or put it in the annex, or cut it out, and
+
+69
+00:07:25.280 --> 00:07:27.510
+Henk van Cann: Store it somewhere for later use.
+
+70
+00:07:29.420 --> 00:07:31.220
+Henk van Cann: So these are the options we have.
+
+71
+00:07:35.030 --> 00:07:37.680
+Kent Bull: That's a good idea, putting it as informative.
+
+72
+00:07:37.680 --> 00:07:45.150
+Samuel Smith: Yeah, just make it informative, then if somebody wants it, it's defined, and it's interoperable for those people that want to support it, but it's not a mandatory…
+
+73
+00:07:45.730 --> 00:07:47.969
+Samuel Smith: A support thing, because it's not normative.
+
+74
+00:07:47.970 --> 00:07:48.285
+Kent Bull: Hmm…
+
+75
+00:07:48.930 --> 00:07:55.320
+Kent Bull: Okay, so the fact that it is currently normative is why Otto asked a question about it, because he
+
+76
+00:07:55.730 --> 00:08:00.489
+Kent Bull: he said, this is normative. Is this why… is this something that is real?
+
+77
+00:08:00.750 --> 00:08:02.430
+Kent Bull: Then I had to respond to it.
+
+78
+00:08:03.190 --> 00:08:08.639
+Samuel Smith: Yeah, so I would make it informative, and then it's not normative, and then if you don't support it, it's…
+
+79
+00:08:09.190 --> 00:08:14.290
+Samuel Smith: It, you know, it's odd, it's, it doesn't limit adoption.
+
+80
+00:08:14.480 --> 00:08:20.180
+Samuel Smith: I mean, it doesn't limit your ability to get it through the… the… process.
+
+81
+00:08:21.040 --> 00:08:24.810
+Kent Bull: I agree with that. As soon as… oh, so Kevin's joining, great, I guess.
+
+82
+00:08:25.030 --> 00:08:29.550
+Kent Bull: Do we make a motion, or do we just do it?
+
+83
+00:08:30.580 --> 00:08:31.200
+Kent Bull: Hey, Kevin.
+
+84
+00:08:31.200 --> 00:08:33.020
+Samuel Smith: I would… I would make a motion.
+
+85
+00:08:33.090 --> 00:08:36.610
+Kent Bull: Okay. Just so that… Make a motion here in just a moment.
+
+86
+00:08:36.970 --> 00:08:38.530
+Samuel Smith: But explain it to Kevin.
+
+87
+00:08:39.659 --> 00:08:40.459
+Kent Bull: Hey, Kevin.
+
+88
+00:08:40.460 --> 00:08:47.799
+Samuel Smith: since, it was a Golife person that was co-contributing to that feature.
+
+89
+00:08:49.070 --> 00:08:49.890
+Kent Bull: Sorry.
+
+90
+00:08:50.650 --> 00:08:51.800
+Kevin Griffin (Global Legal Entity Identifier Foundation): What's going on?
+
+91
+00:08:52.420 --> 00:08:55.899
+Kent Bull: So, yesterday, we got a question from Otto Mora.
+
+92
+00:08:56.130 --> 00:09:00.830
+Kent Bull: Well, I said yesterday. Yesterday is when I looked at it. We actually got the question 5 days ago.
+
+93
+00:09:00.940 --> 00:09:04.840
+Kent Bull: He asked… he's from the DIF Recommended DIDS Methods Working Group.
+
+94
+00:09:05.190 --> 00:09:07.999
+Kent Bull: And he asked a question about the Who Is section.
+
+95
+00:09:08.850 --> 00:09:09.170
+Kevin Griffin (Global Legal Entity Identifier Foundation): Correct.
+
+96
+00:09:09.170 --> 00:09:14.769
+Kent Bull: normative to support three different formats for the Whois.vp resource.
+
+97
+00:09:14.990 --> 00:09:23.449
+Kent Bull: And those formats include the W3CVDM… the VCDM compliance, the SDGOT, and ACDC.
+
+98
+00:09:24.400 --> 00:09:26.950
+Kent Bull: And he asked the question, he said.
+
+99
+00:09:27.460 --> 00:09:31.690
+Kent Bull: Is it… let me just… I'll just share my screen real quickly and pull up this question.
+
+100
+00:09:33.590 --> 00:09:35.499
+Kent Bull: So you can see his exact language.
+
+101
+00:09:36.730 --> 00:09:40.720
+Kent Bull: Let's do a share… That's the portion of screen.
+
+102
+00:09:41.570 --> 00:09:43.250
+Kent Bull: Alright, so here we are.
+
+103
+00:09:43.510 --> 00:09:46.590
+Kent Bull: Let me… How's the text size? Is that too small?
+
+104
+00:09:47.610 --> 00:09:48.740
+Kevin Griffin (Global Legal Entity Identifier Foundation): That's fine.
+
+105
+00:09:49.120 --> 00:09:50.640
+Kent Bull: I'll make this a little bit smaller.
+
+106
+00:09:50.760 --> 00:09:51.630
+Kent Bull: Smaller.
+
+107
+00:09:52.010 --> 00:09:54.940
+Kent Bull: Or bigger. All right. So he said…
+
+108
+00:09:55.250 --> 00:09:58.080
+Kent Bull: Perhaps inconsistent in the DID method definition.
+
+109
+00:09:58.970 --> 00:10:10.109
+Kent Bull: I gave him the tongue-in-cheek, we don't sign the credentials, and you shouldn't either, and I showed how we did the Did Web S. But he said, my understanding from the presentation was the ACDC credentials do not comply with the W3CV CDCDM,
+
+110
+00:10:10.350 --> 00:10:12.089
+Kent Bull: However, they can be transformed.
+
+111
+00:10:12.210 --> 00:10:15.510
+Kent Bull: Didcore does not mandate you use the W3CV CDM.
+
+112
+00:10:16.610 --> 00:10:22.350
+Kent Bull: However, in the DIDWeb-S specification, I see W3C VDM is required as normative.
+
+113
+00:10:22.860 --> 00:10:29.269
+Kent Bull: It should be clarified, did WebS credential verifiable presentations, do they comply with W3VC data model?
+
+114
+00:10:29.630 --> 00:10:30.510
+Kent Bull: or not.
+
+115
+00:10:31.100 --> 00:10:34.660
+Kent Bull: And it appears that the language says they are.
+
+116
+00:10:34.830 --> 00:10:40.409
+Kent Bull: And so I brought up the question, do we actually want… and it's specifically in the who is section.
+
+117
+00:10:41.450 --> 00:10:41.820
+Samuel Smith: Yeah.
+
+118
+00:10:41.820 --> 00:10:42.690
+Kent Bull: feature.
+
+119
+00:10:43.380 --> 00:10:47.260
+Kent Bull: Or can we just change it to be informative instead of normative?
+
+120
+00:10:49.630 --> 00:10:55.580
+Samuel Smith: If you recall, the Whois feature was, was requested by Stephen Curran.
+
+121
+00:10:56.460 --> 00:10:59.920
+Kevin Griffin (Global Legal Entity Identifier Foundation): Right. We had some long discussions about.
+
+122
+00:10:59.920 --> 00:11:04.460
+Samuel Smith: Whether we actually needed it or not, and he said that he needed it, so we…
+
+123
+00:11:04.970 --> 00:11:19.830
+Samuel Smith: we compromise and put the feature in, but it's complicating things because it requires that then you then bring in other data models to provide something that is extraneous to a DID dock.
+
+124
+00:11:20.350 --> 00:11:23.169
+Kevin Griffin (Global Legal Entity Identifier Foundation): In order to provide a whois feature.
+
+125
+00:11:23.530 --> 00:11:29.550
+Samuel Smith: And I don't believe that most other DID methods have a whois feature, that was just something.
+
+126
+00:11:29.550 --> 00:11:29.940
+Kevin Griffin (Global Legal Entity Identifier Foundation): Right.
+
+127
+00:11:29.940 --> 00:11:36.499
+Samuel Smith: Steve Curran added, because he thought it would be useful to… did methods to have who is.
+
+128
+00:11:36.900 --> 00:11:41.260
+Samuel Smith: So I think we should… so my proposal was that we remove it.
+
+129
+00:11:41.400 --> 00:11:47.280
+Samuel Smith: Hank countered and said that we could make it informative so that it's not normative.
+
+130
+00:11:47.560 --> 00:11:57.710
+Samuel Smith: And so I'm fine with either of those. And so the question is, what, you know, what should we do going forward? I don't think we want it to be normative.
+
+131
+00:11:58.260 --> 00:11:59.069
+Samuel Smith: Let me delete it.
+
+132
+00:11:59.070 --> 00:12:01.210
+Kevin Griffin (Global Legal Entity Identifier Foundation): You want it to be normative either.
+
+133
+00:12:01.210 --> 00:12:11.419
+Samuel Smith: delete it entirely, or put it in an informative section, or an annex, and say, you know, optionally, I wouldn't even make, you know, and just say, if
+
+134
+00:12:11.520 --> 00:12:17.600
+Samuel Smith: You know, put it in an annex and just say,
+
+135
+00:12:18.080 --> 00:12:22.930
+Samuel Smith: You could… you know, this is a… this is, an experimental feature.
+
+136
+00:12:23.030 --> 00:12:26.330
+Samuel Smith: or experimental…
+
+137
+00:12:26.940 --> 00:12:32.399
+Samuel Smith: Thing or something. Because we have write-up on how to do it, but we haven't implemented it, so…
+
+138
+00:12:32.580 --> 00:12:36.500
+Samuel Smith: So, it's extra work to implement, so…
+
+139
+00:12:36.500 --> 00:12:45.230
+Kevin Griffin (Global Legal Entity Identifier Foundation): Why… do other DID methods talk about verifiable presentations? It seems like an odd thing to be in the DID spec.
+
+140
+00:12:45.500 --> 00:12:57.589
+Samuel Smith: Well, it is. Steven Kern, it was an innovation that Stephen Kern wanted to add. So he was… he was basically, at the time, looking at DIDWebS as the new DID method that he would.
+
+141
+00:12:57.590 --> 00:12:57.950
+Kevin Griffin (Global Legal Entity Identifier Foundation): is going.
+
+142
+00:12:57.950 --> 00:13:03.630
+Samuel Smith: use going forward for BCGov, and I think for some time, he felt like
+
+143
+00:13:03.710 --> 00:13:15.730
+Samuel Smith: that there should be a discovery mechanism that was who is, so he took the… he took the opportunity of building a new DID method called DIDWebS to introduce this new feature.
+
+144
+00:13:15.730 --> 00:13:24.299
+Samuel Smith: But it's not… it's not something that… that… you know, it's… it's… it was an innovation at the time. I don't know if WebVH has it, even.
+
+145
+00:13:24.300 --> 00:13:25.730
+Kent Bull: It does, I checked.
+
+146
+00:13:25.880 --> 00:13:38.800
+Samuel Smith: Oh, okay, so… so it did go into DidWebVH, but then they have to address the same issue about, and maybe what they did is that they just used SDJot, and they didn't… they don't use the…
+
+147
+00:13:39.780 --> 00:13:44.589
+Samuel Smith: W3C data model or something, or they changed the language.
+
+148
+00:13:48.250 --> 00:13:56.280
+Kent Bull: I may have incorrectly assumed that this… this number 2, where it says JSON Web Token, I… it sounds like… is this SDJOT, or is this just a.
+
+149
+00:13:56.280 --> 00:13:57.869
+Kevin Griffin (Global Legal Entity Identifier Foundation): Yeah, FT job is different.
+
+150
+00:13:57.870 --> 00:13:58.490
+Kent Bull: Okay.
+
+151
+00:13:58.490 --> 00:13:59.040
+Samuel Smith: Yeah.
+
+152
+00:13:59.760 --> 00:14:04.810
+Kevin Griffin (Global Legal Entity Identifier Foundation): I… yeah, I mean, I don't… I don't think it… we need it in this spec, but…
+
+153
+00:14:04.990 --> 00:14:06.220
+Kevin Griffin (Global Legal Entity Identifier Foundation): Yeah.
+
+154
+00:14:06.710 --> 00:14:07.520
+Kevin Griffin (Global Legal Entity Identifier Foundation): I…
+
+155
+00:14:08.220 --> 00:14:21.510
+Kevin Griffin (Global Legal Entity Identifier Foundation): I mean, I don't have a plan to implement who is, and I don't have a plan that we'll be using in the proof of concept that Glyph is involved in that we're building Ditto Best for. So, as far as I'm concerned, yeah, the…
+
+156
+00:14:22.500 --> 00:14:23.429
+Samuel Smith: And so I…
+
+157
+00:14:23.430 --> 00:14:27.469
+Kevin Griffin (Global Legal Entity Identifier Foundation): I wouldn't reference it, because I think it complicates the…
+
+158
+00:14:28.200 --> 00:14:39.050
+Kevin Griffin (Global Legal Entity Identifier Foundation): complicates the standard… well, the specification, and it complicates the implementation if it's not there, if we leave it in as, like, oh, you could do this, but we didn't actually implement it. I think that.
+
+159
+00:14:39.050 --> 00:14:39.770
+Samuel Smith: Yeah.
+
+160
+00:14:39.770 --> 00:14:51.840
+Kevin Griffin (Global Legal Entity Identifier Foundation): not a great, way to do it. And if it's in WebVH, then, you know, that could be, yeah, I agree with Carly, write it as a separate thing if you want to do it.
+
+161
+00:14:52.110 --> 00:15:06.580
+Kevin Griffin (Global Legal Entity Identifier Foundation): You know, that could be a reason that people want to use DIDWebVH versus DIDWS if they want that particular feature, so, you know, I don't see having the same feature across the two DID methods, especially when we don't have any intention of implementing it, so leaving it in would not be good for me.
+
+162
+00:15:06.870 --> 00:15:07.730
+Kevin Griffin (Global Legal Entity Identifier Foundation): That's it.
+
+163
+00:15:08.750 --> 00:15:17.670
+Samuel Smith: So I… so I would echo that. Let's… let's put the… the who-is stuff in a separate document, and put it in the repo.
+
+164
+00:15:18.070 --> 00:15:24.810
+Samuel Smith: Not as a spec, but as, you know, the implementation repo, or something, or…
+
+165
+00:15:24.810 --> 00:15:26.139
+Kent Bull: Yes, okay.
+
+166
+00:15:27.220 --> 00:15:30.349
+Kent Bull: I'll put it in Docs, or… well, not Docs, but I'll put it somewhere else.
+
+167
+00:15:30.750 --> 00:15:32.230
+Kent Bull: Besides the spec.
+
+168
+00:15:32.940 --> 00:15:33.630
+Samuel Smith: Yeah.
+
+169
+00:15:33.890 --> 00:15:36.420
+Henk van Cann: Yes, put it… don't put it in the specs.
+
+170
+00:15:36.420 --> 00:15:40.600
+Kent Bull: See, it's who is right here, we can move this entire document, and then we're good.
+
+171
+00:15:41.290 --> 00:15:46.990
+Samuel Smith: And then take it out of the spec. So, I move that we remove it from the spec.
+
+172
+00:15:47.500 --> 00:15:48.150
+Kent Bull: Second.
+
+173
+00:15:48.700 --> 00:15:49.910
+Henk van Cann: In the discussions.
+
+174
+00:15:53.570 --> 00:15:54.809
+Kent Bull: It's a little wicked.
+
+175
+00:15:55.030 --> 00:15:56.120
+Kent Bull: Any objections?
+
+176
+00:15:58.770 --> 00:15:59.880
+Kent Bull: Alright.
+
+177
+00:16:01.220 --> 00:16:10.249
+Kent Bull: Okay, we'll take this out. That's… that's easy enough. And then I can respond to Otto and let him know we just… we decided to take this out, we don't use it, it's not implemented, so…
+
+178
+00:16:10.530 --> 00:16:11.870
+Kent Bull: It's simple overall.
+
+179
+00:16:12.610 --> 00:16:21.530
+Henk van Cann: Are there any specific definitions related to who is in the definition list? That's something that you need to check, because they need to go out as well.
+
+180
+00:16:23.280 --> 00:16:26.540
+Kent Bull: Are there any specific definitions in here, you say?
+
+181
+00:16:26.540 --> 00:16:28.169
+Henk van Cann: In the glossary… in the grocery.
+
+182
+00:16:28.170 --> 00:16:35.020
+Kent Bull: I'll double check. You know, let me write myself a… I should be taking meeting minutes, I'm gonna grab a… so save that comma for just a second, I'm gonna make…
+
+183
+00:16:35.270 --> 00:16:39.030
+Kent Bull: I need to be a good chair here, so let me add some meeting minutes.
+
+184
+00:16:40.640 --> 00:16:43.200
+Kent Bull: We're gonna go ahead and duplicate this one.
+
+185
+00:16:45.970 --> 00:16:53.509
+Kent Bull: Okay, index meeting minutes, duplicate… And today is November 18th, so let's do this.
+
+186
+00:16:56.100 --> 00:17:01.140
+Kent Bull: It's gonna be… Hmm.
+
+187
+00:17:01.710 --> 00:17:09.599
+Kent Bull: Agenda today was that it was the… Where's… creation… well.
+
+188
+00:17:10.020 --> 00:17:11.130
+Kent Bull: other tasks.
+
+189
+00:17:13.210 --> 00:17:17.630
+Kent Bull: Alright, so we have some… Hank.
+
+190
+00:17:18.950 --> 00:17:20.000
+Kent Bull: Carly?
+
+191
+00:17:25.079 --> 00:17:26.920
+Kent Bull: Oh, I've got two of me, that's weird.
+
+192
+00:17:28.460 --> 00:17:30.590
+Kent Bull: I guess one's my personal, one's wired.
+
+193
+00:17:31.280 --> 00:17:36.929
+Kent Bull: life, I guess. Alright, so… Let's take notes, and today…
+
+194
+00:17:37.610 --> 00:17:39.100
+Samuel Smith: Your middle name is Sybil.
+
+195
+00:17:39.870 --> 00:17:41.070
+Kent Bull: Oh, yeah, true.
+
+196
+00:17:41.510 --> 00:17:43.730
+Kent Bull: I'll add that to my other two middle names.
+
+197
+00:17:44.920 --> 00:17:47.399
+Kent Bull: No joke there. I actually have too many names.
+
+198
+00:17:48.030 --> 00:17:55.420
+Kent Bull: Alright, so… Today, we move… to remove the PUIS,
+
+199
+00:17:55.860 --> 00:17:59.700
+Kent Bull: Section from the spec, section 12.
+
+200
+00:18:00.400 --> 00:18:06.000
+Kent Bull: Motion was seconded and passed. And then, Hank, you, you was, you mentioned…
+
+201
+00:18:06.000 --> 00:18:07.480
+Samuel Smith: very unanimously.
+
+202
+00:18:09.330 --> 00:18:09.950
+Kent Bull: Sweet.
+
+203
+00:18:09.950 --> 00:18:10.770
+Samuel Smith: There you go.
+
+204
+00:18:10.770 --> 00:18:11.530
+Kent Bull: Okay.
+
+205
+00:18:12.640 --> 00:18:15.740
+Kent Bull: Mentioned, and a number of action items down here.
+
+206
+00:18:17.750 --> 00:18:19.379
+Kent Bull: Hence to check.
+
+207
+00:18:20.250 --> 00:18:21.510
+Kent Bull: for any…
+
+208
+00:18:22.040 --> 00:18:27.040
+Carly Huitema (University of Guelph): Sorry, can you put me… just for official reasons, can you put me as abstain? Because I don't.
+
+209
+00:18:27.040 --> 00:18:27.440
+Kent Bull: Okay.
+
+210
+00:18:27.440 --> 00:18:30.839
+Carly Huitema (University of Guelph): I don't know enough to make a good…
+
+211
+00:18:30.840 --> 00:18:31.750
+Samuel Smith: Okay.
+
+212
+00:18:33.130 --> 00:18:33.700
+Kent Bull: Okay.
+
+213
+00:18:33.700 --> 00:18:37.630
+Carly Huitema (University of Guelph): I mean, it sounds like a good idea, but I'm just doing it because you say it.
+
+214
+00:18:37.630 --> 00:18:42.229
+Kent Bull: for… Or, yes, votes want to abstain.
+
+215
+00:18:43.240 --> 00:18:44.129
+Samuel Smith: There we go.
+
+216
+00:18:46.360 --> 00:18:48.330
+Kent Bull: Alright, okay.
+
+217
+00:18:48.990 --> 00:18:57.089
+Kent Bull: So, from a code perspective, The last two things that need to be… Implemented are the delegation language.
+
+218
+00:18:57.570 --> 00:19:02.530
+Kent Bull: And the… The defaults did carry and did web.
+
+219
+00:19:02.760 --> 00:19:04.829
+Kent Bull: DIDs in the also known as section.
+
+220
+00:19:05.090 --> 00:19:14.030
+Kent Bull: And then after that, the last sort of thing to double-check ourselves is the full reconciliation of the spec to the implementation. And so that's on my list.
+
+221
+00:19:14.390 --> 00:19:18.630
+Kent Bull: essentially, after I'm finished with those last two, I'll put those last two things in here, so…
+
+222
+00:19:18.800 --> 00:19:20.630
+Kent Bull: Last, coding tasks.
+
+223
+00:19:24.150 --> 00:19:29.249
+Kent Bull: Delegation… Implementation in the services section.
+
+224
+00:19:33.260 --> 00:19:44.490
+Kent Bull: And… it's the… Default did carry, and did web, and… Also known as Section.
+
+225
+00:19:45.130 --> 00:19:46.630
+Kent Bull: Wisdom. Okay.
+
+226
+00:19:50.920 --> 00:19:55.749
+Kent Bull: And to check for any definitions referencing the Whois section.
+
+227
+00:19:58.680 --> 00:20:04.530
+Kent Bull: And then Kent, to remove the… Whois.md from the spec?
+
+228
+00:20:06.200 --> 00:20:07.200
+Kent Bull: Okay.
+
+229
+00:20:08.390 --> 00:20:13.580
+Kent Bull: And to put it in a different… Folder, and then repo.
+
+230
+00:20:16.490 --> 00:20:19.109
+Kent Bull: I believe that covers everything for us today.
+
+231
+00:20:19.810 --> 00:20:37.419
+Henk van Cann: I have two small other things that I can also discuss with you, but we could have a look at the definitions that you reference to the Cary Suite glossary, to the main glossary, so you don't have to copy those definitions from that list.
+
+232
+00:20:37.740 --> 00:20:46.029
+Henk van Cann: And, it integrates it more into what Trust over IP is doing, so I suggest to go over.
+
+233
+00:20:46.310 --> 00:21:02.010
+Henk van Cann: the whole… all the definitions together, and then claim ownership of specific definitions, and point to definitions from others that you don't claim the ownership of. For example.
+
+234
+00:21:02.550 --> 00:21:10.610
+Henk van Cann: Pre-rotation, just as an example, is a definition that we have in the CaviSuite glossary, so you don't need to restate it
+
+235
+00:21:10.770 --> 00:21:16.680
+Henk van Cann: Explicitly as a, as a copied text in your,
+
+236
+00:21:17.020 --> 00:21:23.120
+Henk van Cann: did by mass specification. We just link to the… to the Carey Streetpluster.
+
+237
+00:21:23.460 --> 00:21:25.050
+Kent Bull: Okay, sounds good.
+
+238
+00:21:25.890 --> 00:21:28.670
+Henk van Cann: That's one, and the second one is the,
+
+239
+00:21:29.360 --> 00:21:33.800
+Henk van Cann: Currently, there's only a few informative sections colored.
+
+240
+00:21:33.910 --> 00:21:37.279
+Henk van Cann: with the option that we've built in to spec up T,
+
+241
+00:21:39.380 --> 00:21:44.070
+Henk van Cann: If you go to, to the specification, I can show you what I mean.
+
+242
+00:21:44.730 --> 00:21:45.849
+Henk van Cann: I suggest…
+
+243
+00:21:45.850 --> 00:21:47.040
+Kent Bull: Dude, I'll go there.
+
+244
+00:21:47.040 --> 00:21:51.560
+Henk van Cann: I had to go… yeah, to go over all the information… informative sections.
+
+245
+00:21:51.560 --> 00:21:53.860
+Kent Bull: And use that specific tag.
+
+246
+00:21:53.990 --> 00:21:56.240
+Henk van Cann: In the source to color them.
+
+247
+00:21:58.060 --> 00:21:58.790
+Kent Bull: you suggest.
+
+248
+00:21:58.790 --> 00:22:00.050
+Henk van Cann: It's a background color.
+
+249
+00:22:02.060 --> 00:22:05.149
+Kent Bull: Okay, so if we go to this… is it…
+
+250
+00:22:05.670 --> 00:22:09.830
+Henk van Cann: A bit lower down, yeah, it's in the end. Mostly in the end, yeah.
+
+251
+00:22:10.310 --> 00:22:18.499
+Henk van Cann: If you look for the word informative, you will find a few examples that I've built in, but because it's a content decision, I didn't want to make it.
+
+252
+00:22:18.710 --> 00:22:22.549
+Henk van Cann: It's something that the editor of the spec has to make.
+
+253
+00:22:23.120 --> 00:22:23.690
+Kent Bull: Go ahead.
+
+254
+00:22:24.940 --> 00:22:31.630
+Henk van Cann: So, what you will see is a… is a… is a… No, this is something else that's an iOS. I like that, yeah.
+
+255
+00:22:31.630 --> 00:22:32.079
+Kent Bull: Yes, go ahead.
+
+256
+00:22:32.080 --> 00:22:32.879
+Henk van Cann: There you go.
+
+257
+00:22:33.270 --> 00:22:36.989
+Henk van Cann: So these ones, for example, what I wanted to show is that
+
+258
+00:22:37.270 --> 00:22:44.229
+Henk van Cann: It was solved with the definition before, which is really very ugly, it's bad governance.
+
+259
+00:22:44.450 --> 00:22:53.069
+Henk van Cann: So, I stopped the informative section at the first paragraph, but most probably, the rest of the paragraph is also informative.
+
+260
+00:22:53.770 --> 00:22:59.140
+Henk van Cann: But that's a content decision. I didn't make that. I see. Yeah? So you can stretch them out.
+
+261
+00:22:59.830 --> 00:23:08.259
+Henk van Cann: In the source, you can simply place the end of the tag, just, just above the next paragraph.
+
+262
+00:23:08.380 --> 00:23:10.949
+Henk van Cann: And then it will color it totally gray.
+
+263
+00:23:12.370 --> 00:23:15.000
+Henk van Cann: And then it's clear that it's an informative section.
+
+264
+00:23:15.200 --> 00:23:19.479
+Kent Bull: Do we like that? Just having all the informative sections be in this gray highlight?
+
+265
+00:23:24.230 --> 00:23:28.209
+Henk van Cann: That's a matter of taste, by the way. You can also color it differently, or…
+
+266
+00:23:29.470 --> 00:23:41.700
+Kent Bull: I like the idea that all normative language is made to stand out by having the other non-normative language be in a different color, or a different highlight like this.
+
+267
+00:23:41.960 --> 00:23:43.859
+Kent Bull: I know it could be a little bit…
+
+268
+00:23:44.580 --> 00:23:54.350
+Kent Bull: in my mind, it does seem like that it could be a little bit much, just having so much gray in the document, but then again, it would really make it clear what's informative and what's not, which I like that.
+
+269
+00:24:00.220 --> 00:24:05.470
+Henk van Cann: It's a matter of taste, so just inform us how we do it, and we'll change the thing to that.
+
+270
+00:24:05.470 --> 00:24:19.360
+Kevin Griffin (Global Legal Entity Identifier Foundation): So, Ken, if you're gonna go down this path, you have to then be very certain that everything that isn't in an informative section is normative, and I think what you'll probably find is that you have more informative than you do normative.
+
+271
+00:24:19.830 --> 00:24:25.840
+Kevin Griffin (Global Legal Entity Identifier Foundation): But, yeah, I haven't read this… I haven't mean… I haven't read this back in a while, so…
+
+272
+00:24:26.270 --> 00:24:33.700
+Kevin Griffin (Global Legal Entity Identifier Foundation): But yeah, I would… if you're gonna make that distinction, then I think you'll end up with more informative than… than not.
+
+273
+00:24:33.980 --> 00:24:34.710
+Kent Bull: Okay.
+
+274
+00:24:36.330 --> 00:24:44.490
+Kent Bull: Which, if we have more informative than normative, that's an argument for maybe not making them all gray, in my opinion, because then it would make the…
+
+275
+00:24:44.980 --> 00:24:47.279
+Kent Bull: It would make the majority of the document gray.
+
+276
+00:24:47.930 --> 00:24:54.279
+Samuel Smith: No, that means that you should move the informative stuff to annexes, or not have so much informative stuff.
+
+277
+00:24:54.490 --> 00:24:55.810
+Kevin Griffin (Global Legal Entity Identifier Foundation): Sounds exactly right.
+
+278
+00:24:55.810 --> 00:24:57.829
+Kent Bull: Yep. That sounds… that sounds better.
+
+279
+00:24:58.550 --> 00:25:01.699
+Henk van Cann: It's a good motivation. And I also… Like, the tip.
+
+280
+00:25:01.700 --> 00:25:02.110
+Kent Bull: Sounds like…
+
+281
+00:25:02.110 --> 00:25:05.319
+Henk van Cann: the gray a bit softer, so if you want that…
+
+282
+00:25:05.540 --> 00:25:12.180
+Henk van Cann: We could take it a bit more down. It's not endlessly, but we can make it less gray.
+
+283
+00:25:14.360 --> 00:25:22.590
+Kent Bull: Seems like the tint is good to me. And it'll actually be good, like Sam mentioned, if we have too much gray, then that's a good signal to us to move it down to an annex.
+
+284
+00:25:23.000 --> 00:25:23.590
+Samuel Smith: Yep.
+
+285
+00:25:25.500 --> 00:25:34.140
+Samuel Smith: Okay, I like that idea. Because, yeah, you have long, lengthy annexes that are examples and, you know, informative information that
+
+286
+00:25:34.270 --> 00:25:37.609
+Samuel Smith: Somebody reading the spec doesn't care about unless they want to…
+
+287
+00:25:38.010 --> 00:25:42.140
+Samuel Smith: You know, understand it deeper, and then they know that it's informative.
+
+288
+00:25:42.530 --> 00:25:45.489
+Samuel Smith: Too much informative information makes it hard
+
+289
+00:25:45.770 --> 00:25:50.430
+Samuel Smith: For the… for an implementer to know what they're supposed to implement, as opposed to…
+
+290
+00:25:50.870 --> 00:25:54.790
+Samuel Smith: You know, what they could implement, or… That, so…
+
+291
+00:25:55.680 --> 00:26:03.069
+Henk van Cann: Yeah, the good thing about the tagging is that we now have a beginning and an end, a clear end of an informative section, which we did not have.
+
+292
+00:26:03.210 --> 00:26:17.389
+Henk van Cann: There was just a word, informative section, and then you had to guess where it ended. And now we're able to color them, and then it's exactly clear. And you could also use, like, one simple paragraph to be informative, instead of a whole block.
+
+293
+00:26:17.780 --> 00:26:26.950
+Samuel Smith: Yeah, it looks like in this whole section, there's one sentence that it's informative, and it's the last one. The rest of it, I mean, that is normative. The rest of it is informative.
+
+294
+00:26:27.400 --> 00:26:28.160
+Henk van Cann: All right.
+
+295
+00:26:28.750 --> 00:26:31.200
+Samuel Smith: That's the only normative part.
+
+296
+00:26:31.570 --> 00:26:33.129
+Samuel Smith: Right there. Okay.
+
+297
+00:26:33.680 --> 00:26:34.150
+Henk van Cann: I work around.
+
+298
+00:26:34.150 --> 00:26:40.300
+Samuel Smith: And the sentences shouldn't reference the paper 5 did attacks.
+
+299
+00:26:42.300 --> 00:26:50.409
+Samuel Smith: Well, I guess you could. You could say the… it should not be… it should not be vulnerable to the… to the 5-dit attacks.
+
+300
+00:26:51.320 --> 00:26:52.500
+Kent Bull: I see.
+
+301
+00:26:52.990 --> 00:26:53.989
+Samuel Smith: So on.
+
+302
+00:26:54.840 --> 00:27:01.320
+Samuel Smith: It should… it should… and then you've got it should not be accepted. Should… should that… that…
+
+303
+00:27:01.850 --> 00:27:08.010
+Samuel Smith: So, in, everywhere that you see should… must…
+
+304
+00:27:08.300 --> 00:27:14.159
+Samuel Smith: In May, they should be all caps, according to the trust over IP requirements.
+
+305
+00:27:15.910 --> 00:27:16.510
+Kent Bull: Okay.
+
+306
+00:27:18.050 --> 00:27:19.680
+Kent Bull: Make a task for me.
+
+307
+00:27:21.410 --> 00:27:24.230
+Samuel Smith: Cause… And then…
+
+308
+00:27:24.230 --> 00:27:26.140
+Henk van Cann: I'll support you with that, Kent.
+
+309
+00:27:26.470 --> 00:27:27.030
+Kent Bull: Okay.
+
+310
+00:27:33.870 --> 00:27:38.299
+Samuel Smith: So, it would be better to rewrite that normative section.
+
+311
+00:27:38.460 --> 00:27:40.689
+Kent Bull: Right. To… to name…
+
+312
+00:27:40.690 --> 00:27:50.419
+Samuel Smith: the five DIT attacks specifically, and then have a reference to the paper that's in the normative references, or the informative references.
+
+313
+00:27:52.350 --> 00:27:53.120
+Kent Bull: I see.
+
+314
+00:27:59.160 --> 00:28:03.239
+Kent Bull: Taking a note here. I'm actually gonna take these notes in the meeting notes, give me just a second here.
+
+315
+00:28:04.090 --> 00:28:04.890
+Kent Bull: No.
+
+316
+00:28:18.210 --> 00:28:19.120
+Kent Bull: Pass.
+
+317
+00:28:19.690 --> 00:28:20.550
+Kent Bull: not…
+
+318
+00:28:26.240 --> 00:28:28.099
+Kent Bull: Rest release section.
+
+319
+00:28:29.360 --> 00:28:32.040
+Kent Bull: Limited, and should be…
+
+320
+00:28:35.600 --> 00:28:38.440
+Kent Bull: Okay, and Hank said, suggests to…
+
+321
+00:28:42.230 --> 00:28:43.070
+Kent Bull: Oh my god.
+
+322
+00:28:43.640 --> 00:29:01.430
+Kent Bull: yearly… He's gray… sections… clearly identify… I'm gonna make a motion on this, to clearly identify formative… Sweet.
+
+323
+00:29:03.980 --> 00:29:07.790
+Kent Bull: Then… Discussion. Good to see you, Carly. Catch you later.
+
+324
+00:29:08.920 --> 00:29:10.010
+Carly Huitema (University of Guelph): Thanks, bye!
+
+325
+00:29:10.010 --> 00:29:11.909
+Kent Bull: Did I have a discussion?
+
+326
+00:29:12.190 --> 00:29:20.600
+Kent Bull: That if we have… Too much… And… Bridge.
+
+327
+00:29:23.760 --> 00:29:24.540
+Kent Bull: Right.
+
+328
+00:29:26.390 --> 00:29:30.790
+Kent Bull: Body, I'm gonna spec… Angler, it should.
+
+329
+00:29:32.030 --> 00:29:35.829
+Kent Bull: Okay, I'll put that on my to-do list.
+
+330
+00:29:36.330 --> 00:29:49.070
+Henk van Cann: Yeah, there's one other, Kent, we have to claim ownership of the definitions. So, specific definitions made for this specification, the DITWAS specification.
+
+331
+00:29:49.300 --> 00:29:56.259
+Henk van Cann: we claim ownership of them. So if they are used somewhere else, then,
+
+332
+00:29:56.390 --> 00:30:01.620
+Henk van Cann: The Did WebEx team, or the editors, will… will be the…
+
+333
+00:30:01.700 --> 00:30:04.499
+Kent Bull: The purses to go to, to go to.
+
+334
+00:30:05.010 --> 00:30:08.059
+Henk van Cann: Versus to change it, or to alter it.
+
+335
+00:30:09.010 --> 00:30:14.210
+Kent Bull: So, I'm gonna be… as I do the final spec review, I may as well go through and look at the… do this…
+
+336
+00:30:14.390 --> 00:30:21.389
+Kent Bull: gray highlighting, and then moving language to the annexes, that doesn't make sense. So, use the gray light highlighting to indicate…
+
+337
+00:30:23.620 --> 00:30:26.260
+Kent Bull: Versus normative language.
+
+338
+00:30:27.420 --> 00:30:32.800
+Kent Bull: And then… Moved to me.
+
+339
+00:30:33.680 --> 00:30:36.679
+Samuel Smith: Well, not move any, yeah, yeah, move…
+
+340
+00:30:37.270 --> 00:30:40.709
+Samuel Smith: Move excessively long, that's right, sorry.
+
+341
+00:30:41.360 --> 00:30:42.480
+Kent Bull: excuse me, X.
+
+342
+00:30:42.840 --> 00:30:47.209
+Kent Bull: Okay, yeah, it's probably… I can probably just say music, especially informative language.
+
+343
+00:30:47.590 --> 00:30:50.100
+Kent Bull: to… Next.
+
+344
+00:30:52.770 --> 00:30:57.439
+Kent Bull: from the… Body of this spec… okay.
+
+345
+00:30:58.850 --> 00:30:59.730
+Kent Bull: Alright.
+
+346
+00:31:02.870 --> 00:31:06.810
+Kent Bull: And I believe… is there anything else that anybody is aware of?
+
+347
+00:31:07.070 --> 00:31:13.510
+Kent Bull: Besides… so there's those two code changes, we're gonna change some… we're gonna claim definitions, we'll do… I'll do the review with you, Hank.
+
+348
+00:31:14.610 --> 00:31:17.789
+Kent Bull: And we'll reference the Cary Street Glossary where we can.
+
+349
+00:31:18.050 --> 00:31:22.460
+Kent Bull: I'm gonna add the delegation language, and also known as I've drafted the delegation language.
+
+350
+00:31:22.640 --> 00:31:24.990
+Kent Bull: Oh, and this, this also known as, is,
+
+351
+00:31:25.750 --> 00:31:32.349
+Kent Bull: Oh, it's… this is the code update line, yeah. So code… I'll be doing two code updates, one for the delegation.
+
+352
+00:31:33.290 --> 00:31:36.190
+Kent Bull: and the default, also known as DIDS.
+
+353
+00:31:37.220 --> 00:31:44.760
+Kent Bull: Then we're going to use gray highlighting to indicate informative versus normative language, and we're going to move excessively informative language from the body of the spec into an annex.
+
+354
+00:31:45.540 --> 00:31:51.830
+Henk van Cann: And the claim ownership of definitions is not a sub of the Whois section, it's a… it's a general…
+
+355
+00:31:52.180 --> 00:31:53.620
+Henk van Cann: Yep, it's a general one.
+
+356
+00:31:53.620 --> 00:31:58.849
+Kent Bull: We do it maybe of this one, review all definitions, and claim ownership, and where do we claim ownership?
+
+357
+00:32:00.140 --> 00:32:14.340
+Henk van Cann: That's a good one. That is what we do together, so you keep the death in your spec. You don't trap them. You will not transclude them from somewhere else. That's factually what you do.
+
+358
+00:32:14.590 --> 00:32:16.919
+Henk van Cann: when you claim them.
+
+359
+00:32:20.470 --> 00:32:34.419
+Henk van Cann: And then in the About of the repo, you can be a member, and I asked that to Kevin already in the mail, but maybe I should repeat it here, Kevin. In the About of the repo, you can add a topic.
+
+360
+00:32:34.420 --> 00:32:53.140
+Henk van Cann: That makes us a member of the ecosystem of glossaries and specs of Trust over IP. And we are building functionality that we then go and look for who has claimed which definition, and only show that, so we are not going to build a central
+
+361
+00:32:53.140 --> 00:33:05.950
+Henk van Cann: repository of terms. We are not going to do that. We are just, like a, like a, for example, a Bitcoin Explorer. We, we get all the information in and we show…
+
+362
+00:33:06.070 --> 00:33:11.189
+Henk van Cann: Who has claimed the… the… Certain terms and definitions.
+
+363
+00:33:11.190 --> 00:33:11.750
+Kent Bull: trash.
+
+364
+00:33:14.470 --> 00:33:20.270
+Kent Bull: Okay, so that's the… in the About section, we… we specify some… a link to…
+
+365
+00:33:20.270 --> 00:33:21.820
+Henk van Cann: Topic, a topic here.
+
+366
+00:33:23.570 --> 00:33:24.220
+Henk van Cann: topic.
+
+367
+00:33:25.260 --> 00:33:30.369
+Henk van Cann: And, let me see which one that is, please do that.
+
+368
+00:33:37.480 --> 00:33:39.699
+Henk van Cann: I'll throw it in the chat later, you can continue.
+
+369
+00:33:40.050 --> 00:33:41.320
+Kent Bull: Okay, sounds good.
+
+370
+00:33:44.590 --> 00:33:50.759
+Kent Bull: Okay, well, that is all that I had to bring today. Thank you for all the comments about the spec, the informative language.
+
+371
+00:33:51.260 --> 00:33:53.760
+Kent Bull: And… and the definitions…
+
+372
+00:33:54.760 --> 00:34:06.539
+Kent Bull: So the… there's those two coding tasks I'll be doing the next couple of days, and then as a… as a cleanup task, essentially, to make sure that I've got the full implementation in the Glyif DataWeb S
+
+373
+00:34:07.490 --> 00:34:09.230
+Kent Bull: repo.
+
+374
+00:34:09.770 --> 00:34:13.949
+Kent Bull: I'll be reading through the spec, and as I read through the spec, I will…
+
+375
+00:34:14.780 --> 00:34:22.720
+Kent Bull: I will make sure we've got informative language boundaries over informative language, and anything that seems excessively informative, I'll move it to an annex.
+
+376
+00:34:24.290 --> 00:34:31.249
+Kent Bull: And then Hank, you and I can get together about the… and by the way, I'll be removing the who is, and then Hank, you and I can get together about the definitions.
+
+377
+00:34:31.630 --> 00:34:37.769
+Henk van Cann: Yeah, yeah, so the tag is now in the chat, so that's the tag that you need to add to the topics.
+
+378
+00:34:38.300 --> 00:34:39.150
+Kent Bull: Okay.
+
+379
+00:34:41.389 --> 00:34:49.159
+Kent Bull: And, decentralized… Intune… Identity.
+
+380
+00:34:50.170 --> 00:34:53.290
+Kent Bull: So, in the About section, we specify that tag?
+
+381
+00:34:54.130 --> 00:34:59.420
+Henk van Cann: Yeah, and then people can find it. It's, it's, just listing.
+
+382
+00:34:59.560 --> 00:35:04.699
+Henk van Cann: A few, specs and glossaries that are intended to work together.
+
+383
+00:35:05.750 --> 00:35:06.590
+Kent Bull: Got it.
+
+384
+00:35:12.230 --> 00:35:13.140
+Kent Bull: Okay.
+
+385
+00:35:13.730 --> 00:35:23.039
+Kent Bull: Is there anything else from anybody else on the DidWeb S topic, or can we close this portion of the meeting? Oh, okay, I'll make a… I'll make a… there was a motion I was gonna make, okay.
+
+386
+00:35:23.870 --> 00:35:28.959
+Kent Bull: I move that we use the gray highlighting boxes to indicate informative language.
+
+387
+00:35:29.210 --> 00:35:31.009
+Kent Bull: Versus normative language.
+
+388
+00:35:33.750 --> 00:35:34.919
+Kent Bull: Do I have a second?
+
+389
+00:35:36.900 --> 00:35:37.730
+Samuel Smith: Second…
+
+390
+00:35:39.330 --> 00:35:41.189
+Kent Bull: Okay, any objections?
+
+391
+00:35:43.010 --> 00:35:46.070
+Kent Bull: Okay, the motion is passed unanimously, I'll mention that.
+
+392
+00:35:52.420 --> 00:35:54.300
+Kent Bull: I don't adding box to indicate.
+
+393
+00:36:00.570 --> 00:36:04.079
+Kent Bull: Motion was seconded and passed.
+
+394
+00:36:04.880 --> 00:36:05.810
+Kent Bull: Folks?
+
+395
+00:36:07.800 --> 00:36:09.929
+Kent Bull: One number left, barely.
+
+396
+00:36:11.170 --> 00:36:12.500
+Kent Bull: Okay.
+
+397
+00:36:13.480 --> 00:36:16.580
+Kent Bull: Sounds good to me. I don't know that we need to move to…
+
+398
+00:36:17.240 --> 00:36:21.979
+Kent Bull: moving excessively… have a motion to move excessively informative language to the annex, do we?
+
+399
+00:36:22.320 --> 00:36:23.050
+Samuel Smith: No.
+
+400
+00:36:23.050 --> 00:36:23.710
+Kent Bull: Okay.
+
+401
+00:36:24.640 --> 00:36:27.150
+Kent Bull: Alright, so with that in mind…
+
+402
+00:36:27.370 --> 00:36:40.240
+Kent Bull: We can now close this portion of the meeting, which is about Dig Web S, take all these action items, and as Daniel Hardman is not here to have the second part of the meeting on verifiable dossiers, or dossier.
+
+403
+00:36:40.430 --> 00:36:42.179
+Kent Bull: Then we'll end the meeting early.
+
+404
+00:36:43.200 --> 00:36:46.640
+Kent Bull: Everybody else back, 23 minutes. It's nice to see y'all.
+

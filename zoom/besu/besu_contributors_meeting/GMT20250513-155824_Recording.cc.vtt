@@ -1,0 +1,587 @@
+WEBVTT
+
+00:09:40.000 --> 00:09:57.000
+I guess Barna and I had some conversations internally on this um And I think there were more just technical questions around what needs to remain, not so much issues with us actually doing it Do you want us to come?
+
+00:09:57.000 --> 00:09:58.000
+Cool. Yeah, yeah, that's what we want to hear.
+
+00:09:58.000 --> 00:10:06.000
+Raise those now? Maybe, Barney, are you happy if I hand over to you?
+
+00:10:06.000 --> 00:10:36.000
+Yeah. For my changes the based on the testing syncing with mainnet was working fine but there was a comment on the on discord about support for dev network I think which actually mines blocks that that would be not working anymore after
+
+00:10:36.000 --> 00:10:44.000
+Proof of removal yeah so I don't know if anyone is using that feature.
+
+00:10:44.000 --> 00:10:47.000
+I'm sorry, could you restate what feature you're referring to again?
+
+00:10:47.000 --> 00:10:55.000
+I think Sally commented on dev network network equals dev option.
+
+00:10:55.000 --> 00:10:56.000
+Oh, yes, yes, yes.
+
+00:10:56.000 --> 00:11:01.000
+Yeah, that would be broken after this change, right?
+
+00:11:01.000 --> 00:11:03.000
+Yeah.
+
+00:11:03.000 --> 00:11:16.000
+I guess we were wondering justin if we were wondering Is that needed anymore? Is there any reason to keep I don't know much about the dev network. I assume that's a proof of work kind of development local development setup, is that it
+
+00:11:16.000 --> 00:11:22.000
+Yes, that's right. It's very old. Not often used.
+
+00:11:22.000 --> 00:11:23.000
+Yeah, and I guess, yeah.
+
+00:11:23.000 --> 00:11:24.000
+If at all.
+
+00:11:24.000 --> 00:11:43.000
+If I may interject there, I did see a guy in discord asking about a quick setup to just grant some transactions through the dev option was a good candidate but there was some kind of QBFT setup built in docker somewhere from
+
+00:11:43.000 --> 00:11:51.000
+Danielle, I think Daniel sent me there that Which also works by the way, anyway.
+
+00:11:51.000 --> 00:11:54.000
+Is an option.
+
+00:11:54.000 --> 00:12:04.000
+Yeah, my view would be we certainly want some easy ways for people who just want an Ethereum chain for local development to be able to do that quickly and easily.
+
+00:12:04.000 --> 00:12:15.000
+I guess whether or not the proof of work variant of that, which I think it sounds like is called dev needs to persist.
+
+00:12:15.000 --> 00:12:30.000
+That feels like that's an orthogonal discussion to what the dev network really ought to do to let you set it up quickly and easily to just stick some transactions into a chain.
+
+00:12:30.000 --> 00:12:35.000
+So should we be moving that network.
+
+00:12:35.000 --> 00:12:42.000
+Dev network to be using QBFT.
+
+00:12:42.000 --> 00:12:43.000
+Or removing it. That's my question.
+
+00:12:43.000 --> 00:12:49.000
+That's a good question.
+
+00:12:49.000 --> 00:13:00.000
+So maybe I'll try and help move that along by suggesting something and then See what rocks people throw at it.
+
+00:13:00.000 --> 00:13:11.000
+So I guess my thinking would be that proof of work is is long since gone from public Ethereum and from an enterprise point of view, we see no one interested in it.
+
+00:13:11.000 --> 00:13:26.000
+And so I wonder if we start with a fairly clean break of remove proof of work If it just so happens that the dev environment, I don't know how many people are using that, but if it just happens the easiest way to set up a note today is with dev and proof of work, then maybe we try and handle that.
+
+00:13:26.000 --> 00:13:34.000
+As a follow-on… to make sure Bessu is really convenient to run something locally.
+
+00:13:34.000 --> 00:13:40.000
+But we start by removing the function that we don't need in the code base anymore.
+
+00:13:40.000 --> 00:13:46.000
+And we treat kind of creating good development experience as a slightly kind of follow on thing.
+
+00:13:46.000 --> 00:13:52.000
+But there's just a stake in the ground for people to
+
+00:13:52.000 --> 00:13:58.000
+Also, some of our automated tests, like I was looking at RPC tests.
+
+00:13:58.000 --> 00:14:03.000
+They use proof of work still to kick things on.
+
+00:14:03.000 --> 00:14:04.000
+Yeah.
+
+00:14:04.000 --> 00:14:10.000
+Kicks and swords. And so who's removing proof of work they're going to have a good time I must say.
+
+00:14:10.000 --> 00:14:11.000
+So Banu has a very large PR out that actually addresses that.
+
+00:14:11.000 --> 00:14:12.000
+I've already
+
+00:14:12.000 --> 00:14:18.000
+Fun time. Who? Sorry?
+
+00:14:18.000 --> 00:14:19.000
+Ah, Banu. Cool.
+
+00:14:19.000 --> 00:14:25.000
+So Banu's got a big PR. There's two PRs that are in flight that are addressing the removal of proof of work, and that is covered.
+
+00:14:25.000 --> 00:14:35.000
+By Banuz, I believe. I do like the idea of just removing the dev network altogether and then directing people towards using Kurtosis.
+
+00:14:35.000 --> 00:14:42.000
+Or if we do see value in recreating something that's as convenient to use as the dev network.
+
+00:14:42.000 --> 00:15:00.000
+Perhaps we can do that. But we have very limited resources right now, so I don't know that I think that that's a primary feature that we want to use developer time on when we could maybe replace it with just some good documentation.
+
+00:15:00.000 --> 00:15:06.000
+Right. So if we could get even somebody from the community or, you know.
+
+00:15:06.000 --> 00:15:12.000
+Someone to write down, here's how to use Kurtosis as a developer. Here's how your developer workflow can start.
+
+00:15:12.000 --> 00:15:28.000
+And get people into it instead of just saying, oh, just start BESU in dev mode and run it in your ID. This would be probably a little bit more complicated, but also not a thing that we have to maintain or use developer time for.
+
+00:15:28.000 --> 00:15:29.000
+So.
+
+00:15:29.000 --> 00:15:42.000
+But I agree, but it has to be like a docker image to for easy setup because otherwise people If they are going to set up that themselves, they might not do it. There was a guy that was comparing, I think it was Anvil
+
+00:15:42.000 --> 00:15:50.000
+That you can do that. You can create a local dev setup and just get honored things.
+
+00:15:50.000 --> 00:15:57.000
+And yeah, so he was looking for the same thing in Vesu that you could have.
+
+00:15:57.000 --> 00:16:02.000
+Yeah, and I think kurtosis is the way to do that right now.
+
+00:16:02.000 --> 00:16:10.000
+Yeah.
+
+00:16:10.000 --> 00:16:23.000
+So does anybody want to not remove the dev network in light of that?
+
+00:16:23.000 --> 00:16:29.000
+Okay. Removing the dev network.
+
+00:16:29.000 --> 00:16:41.000
+What's next? Benny, did you have anything else other than that particular feature that showed up as a proof of work concern?
+
+00:16:41.000 --> 00:16:53.000
+As far as the QBFT test go modified the it is that use proof of work to QBFT and we added them as a new set of tests for now.
+
+00:16:53.000 --> 00:17:01.000
+So to make sure there won't be any regressions. Of the changes so they're running now Yeah.
+
+00:17:01.000 --> 00:17:02.000
+Cool.
+
+00:17:02.000 --> 00:17:06.000
+Thanks.
+
+00:17:06.000 --> 00:17:16.000
+Cool, cool, cool. All right. Next up
+
+00:17:16.000 --> 00:17:24.000
+Sunset phase. Matt, you had some things you wanted to talk about with regard to privacy. Would you like the floor?
+
+00:17:24.000 --> 00:17:31.000
+Thanks, yeah. It's just a kind of a, I guess, a reminder for everyone that There's a PR up.
+
+00:17:31.000 --> 00:17:41.000
+I think it's even a might be approved now and um will remove all support for private transactions and tester integration.
+
+00:17:41.000 --> 00:17:49.000
+That is due to go any moment. I think there was a suggestion from Sally that there was going to be one more release post the petrol release.
+
+00:17:49.000 --> 00:18:02.000
+And then, and then probably… main would be open up for these kind of bigger PRs. This is like a 400 file PR, mainly delete, but quite a lot of modifiers as well.
+
+00:18:02.000 --> 00:18:17.000
+So I guess it's a heads up that that's going to merge soon and we've outlined the testing we've done in the PR. So Sally's synced with main Successfully, we've been running it fine in enterprise setups But just awareness is quite a big PR.
+
+00:18:17.000 --> 00:18:38.000
+In terms of documentation, again, Sally was just asking about what the plan is for documentation I think at the moment we're now in a mode where we only have docs on the Bessu site for the latest release so So when privacy goes and when the docs removed for that, there won't be a hosted
+
+00:18:38.000 --> 00:18:44.000
+Version of the docs that talk about all the Tesla features, all the private transaction features.
+
+00:18:44.000 --> 00:19:02.000
+I think in Collider, we don't see that as a blocker for it going in and we are going to look at options for If we need to host that in the future, just checking the options available in the document in the wiki kind of work for hosting the docs.
+
+00:19:02.000 --> 00:19:08.000
+But we don't see the docs as being a blocker for this because We don't see many people using this now anyway.
+
+00:19:08.000 --> 00:19:26.000
+But yeah, so that was just a little recap of that hopefully going soon and obviously it'd be good to get that in soon because some of the other big PRs around archive, they need merging And the more, in a way, the more code we get out of the code base, the sooner the better
+
+00:19:26.000 --> 00:19:51.000
+Yeah, yeah, yeah, sure. So I… I think that's pretty awesome. All we would really want to do for the documentation is make sure that there's a tag somewhere that's like Current state, right? So if folks want to run an older version of Baisu that has privacy in it
+
+00:19:51.000 --> 00:19:52.000
+Yeah.
+
+00:19:52.000 --> 00:19:58.000
+They have the documentation that corresponds with it. The way that we're building it right now is a bit not friendly to having multiple revisions.
+
+00:19:58.000 --> 00:20:21.000
+And so I think what we would want to do is just give people a clear fork point where they could fork the documentation repository as of free privacy removal and then generate the documentation there.
+
+00:20:21.000 --> 00:20:22.000
+Yeah.
+
+00:20:22.000 --> 00:20:33.000
+Mm-hmm. Yeah, that's fine. I mean, in some respects, that could potentially be whatever the latest release of Bessu is as of Do you want me to… to kind of add something into the PR description just as a pointer for anyone who's looking for those in the future.
+
+00:20:33.000 --> 00:20:36.000
+I think that's a fine idea, yeah. Can't hurt.
+
+00:20:36.000 --> 00:20:44.000
+Yeah, I'll do that.
+
+00:20:44.000 --> 00:20:55.000
+Awesome. Awesome. What do folks think, so this is huge progress on our deprecation, right? Getting rid of proof of work, getting rid of privacy. Those are big, big steps and we should be proud of that.
+
+00:20:55.000 --> 00:21:02.000
+What do folks want to remove next?
+
+00:21:02.000 --> 00:21:03.000
+That's fascinating. Fasting cream roll is also in works.
+
+00:21:03.000 --> 00:21:10.000
+Go on.
+
+00:21:10.000 --> 00:21:12.000
+What was that video? I couldn't quite make that up. Yes.
+
+00:21:12.000 --> 00:21:23.000
+Yeah, fast sync remove. Yeah, that is also in works. I have a PR for that.
+
+00:21:23.000 --> 00:21:24.000
+Yeah, maybe, but I think maybe that can come after this.
+
+00:21:24.000 --> 00:21:31.000
+Got it?
+
+00:21:31.000 --> 00:21:34.000
+Great.
+
+00:21:34.000 --> 00:21:45.000
+I guess in some respects that will be one of the easy ones. There's no need for there's no kind of backwards compatibility support of you know the proof of work, I guess, has a bit of that.
+
+00:21:45.000 --> 00:21:57.000
+So fasting, I guess, Barnu is probably a lighter pr and an easier one.
+
+00:21:57.000 --> 00:22:13.000
+Awesome. So I'll reach out to other client teams just to get their, see where they're at as well. Not because there's any need to coordinate. This is totally fine, but I'm just curious. So we think that we could have fast sync out of there probably by the end of the summer.
+
+00:22:13.000 --> 00:22:14.000
+I think that's a reasonable suggestion.
+
+00:22:14.000 --> 00:22:24.000
+Yeah, yeah.
+
+00:22:24.000 --> 00:22:36.000
+Nice. Anyone else have any thoughts on sunsetting all the things?
+
+00:22:36.000 --> 00:22:45.000
+Good. Well, let's keep us busy for a bit. Banu, would you like some time to talk about modularity of QBFT?
+
+00:22:45.000 --> 00:22:46.000
+All right. Take it away, friend.
+
+00:22:46.000 --> 00:23:05.000
+Yeah. Sure. As of now, it's more like a heads up So I've started digging into it and I see that there are a lot of So the idea is to move BFT to a plugin. Right.
+
+00:23:05.000 --> 00:23:12.000
+So a lot of BFT classes currently inherit the core classes.
+
+00:23:12.000 --> 00:23:27.000
+So I'm trying to shift that into composition like add interfaces to plugin api wherever needed and update PFT classes.
+
+00:23:27.000 --> 00:23:33.000
+So that would extend the plugin API bit. Oh.
+
+00:23:33.000 --> 00:23:43.000
+Yeah, I… Just trying to do that without moving all the VFT to a plugin.
+
+00:23:43.000 --> 00:23:51.000
+In place. So we should be able to work with small changes at a time, a few classes at a time.
+
+00:23:51.000 --> 00:23:58.000
+So I'll share a PR soon on the contributors channel with like kind of a first example.
+
+00:23:58.000 --> 00:24:01.000
+And the pattern should be fine.
+
+00:24:01.000 --> 00:24:05.000
+And these are mostly like data structures What types of classes are they? Yeah. Okay.
+
+00:24:05.000 --> 00:24:11.000
+Yeah. Yeah. A bit of data.
+
+00:24:11.000 --> 00:24:17.000
+Api and probably updates to a few services.
+
+00:24:17.000 --> 00:24:29.000
+Great, great. Yes, thank you for that. Coupling is a real problem in the Bayou codebase, and this will help.
+
+00:24:29.000 --> 00:24:30.000
+Yeah, that's it for now.
+
+00:24:30.000 --> 00:24:38.000
+Okay, so everybody be on the lookout for that PR when Banyu posts it. Looking forward to that conversation. Anything else you want to add?
+
+00:24:38.000 --> 00:24:44.000
+No, that's for now.
+
+00:24:44.000 --> 00:24:56.000
+Okay, we are humming right along. Matt Whitehead, it's the Matt Whitehead Hour. Do you have anything you want to bring up with regard to the institutional backlog?
+
+00:24:56.000 --> 00:25:08.000
+I guess probably not a huge amount has moved it along from the previous call, we're still slightly in limbo. I think Maine is going to open up a little bit for some of these bigger PRs we have.
+
+00:25:08.000 --> 00:25:28.000
+Kicking around so kicking around so Well, yeah, I guess… I guess… One thing to mention that we ran a Bessu webinar about a week ago about a week ago Where we covered… a lot of the recent stuff, a lot of the upcoming stuff and the kind of future direction for enterprise
+
+00:25:28.000 --> 00:25:36.000
+Features in Bessu. So I think I'll put a link in one of the channels but just FYI for anyone on the call.
+
+00:25:36.000 --> 00:25:45.000
+The archive the archive There's one PR, again, I think it's more or less ready to measure that I think it'll be quite a big rebase before that goes in.
+
+00:25:45.000 --> 00:26:02.000
+And… the state proof version of that has been syncing with mainnet for the last probably a couple of months, it's up to about 7 million blocks at the moment, full sync archive with mainnet. And so that test is going well.
+
+00:26:02.000 --> 00:26:08.000
+There's more work to do there. But again, we're kind of on hold a little bit.
+
+00:26:08.000 --> 00:26:17.000
+For the fact that, you know, opening up the main code base after Petra has just taken a little while as You know, understandably.
+
+00:26:17.000 --> 00:26:22.000
+Maybe I might put Barnum on the spot a little bit.
+
+00:26:22.000 --> 00:26:34.000
+Something we didn't talk about internally but um He's been doing some work around history expiry and giving enterprise users a way if they want.
+
+00:26:34.000 --> 00:26:41.000
+Of having a similar sort of block expiry behavior to the way that Maintenance going to go?
+
+00:26:41.000 --> 00:26:58.000
+And… we think there's they're a valuable kind of valid architectures, topologies where that could make sense in an enterprise. Certainly they have the same issues around infinitely growing storage that the public mainnet has.
+
+00:26:58.000 --> 00:27:16.000
+Barney, anything to add just about where that Where that work got to and… if there was any other kind of discussion needed in this audience or not on the history expiring?
+
+00:27:16.000 --> 00:27:22.000
+Yeah, I was looking at
+
+00:27:22.000 --> 00:27:26.000
+More of storage usage.
+
+00:27:26.000 --> 00:27:35.000
+Using the pruning option. So that was not working as we would expect.
+
+00:27:35.000 --> 00:27:41.000
+Like to reclaim storage right after running like we're using the pruning option.
+
+00:27:41.000 --> 00:27:50.000
+So I added a couple of options. To kind of enforce that or make it more dynamic.
+
+00:27:50.000 --> 00:27:55.000
+That's in PR. Review.
+
+00:27:55.000 --> 00:28:01.000
+Thanks. Thanks, Bonnie. Yeah, so that area i think we we'd hope to, sorry, go on.
+
+00:28:01.000 --> 00:28:11.000
+Sorry, I saw another option that Simon added recently. So it would go along with that.
+
+00:28:11.000 --> 00:28:12.000
+All these options together should help with that.
+
+00:28:12.000 --> 00:28:26.000
+Okay. Yeah, so some of this was better options to say, I don't want this stuff. And a lot of the other stuff, I think, correct me if I'm wrong, Banu, was RoxDB configuration to say.
+
+00:28:26.000 --> 00:28:39.000
+You know, when I decided I want stuff, please. Give me the space back on the file system in a slightly more expedient way, or in some cases at all. I think some of the defaults of RoxDB didn't free up some of that at all.
+
+00:28:39.000 --> 00:28:44.000
+Is that reasonably accurate description?
+
+00:28:44.000 --> 00:28:45.000
+Yeah, Simon, we ran into that too on our side, yeah.
+
+00:28:45.000 --> 00:28:48.000
+Right, yes. To…
+
+00:28:48.000 --> 00:28:50.000
+I know exactly what you're talking about.
+
+00:28:50.000 --> 00:28:59.000
+When added the garbage collection option so that along with compaction period and the other one too.
+
+00:28:59.000 --> 00:29:06.000
+Setting being able to set interval between cleanups all this should.
+
+00:29:06.000 --> 00:29:10.000
+Make that reclaim faster.
+
+00:29:10.000 --> 00:29:14.000
+Great. Thank you, Bonu. Yeah, sorry for putting you on the spot on that one.
+
+00:29:14.000 --> 00:29:31.000
+Yeah, I mean, this is all generally just things where we we want Our experience with enterprise users is they quite like dials and knobs and buttons and switches that allow them to have pretty granular control around this node is going to work like this and this one's going to work like this and I can create a topology that's exactly how I like
+
+00:29:31.000 --> 00:29:46.000
+And I think this is an area where we're going to find people asking how should I decide how much storage to have where in my enterprise blockchain? And I think this is a really valuable area to give them some of that control.
+
+00:29:46.000 --> 00:29:54.000
+And to let them create some of those topologies. And then the last thing I'll mention…
+
+00:29:54.000 --> 00:30:00.000
+Is which has just slipped my mind and I had it a second ago.
+
+00:30:00.000 --> 00:30:25.000
+Which we'll come back to. Oh, QBFT validate appearing. And again, this is kind of about letting enterprise users create a topology they want um Barney's been looking at allowing you to configure a non-validator in QBFT to pass on to to pass on to
+
+00:30:25.000 --> 00:30:41.000
+Gossip. The QBFT comms from validators. So you can have two validators over here And two validators over here. And then in the middle, you could have a whole load of static peer connections to non-validators if you want to.
+
+00:30:41.000 --> 00:31:03.000
+And the validators will still be able to propose and approve new blocks And… Again, it just gives you some options around your topology. So specific case might be if you have a load of business partners who are running validators, but you don't want your validator to be at the edge of your network connected directly to the validator on the edge of their network, but you maybe want
+
+00:31:03.000 --> 00:31:10.000
+Some intermediate nodes or what have you. Then this just adds some flexibility.
+
+00:31:10.000 --> 00:31:19.000
+I think at least one of the other Ethereum clients offers Yeah, I think that pretty much rounds out some of the areas that we're looking at at the moment.
+
+00:31:19.000 --> 00:31:25.000
+We're making good progress on a lot and we're just kind of waiting for We're blocked a little bit by some of the page stuff.
+
+00:31:25.000 --> 00:31:29.000
+But I think now we're close to being unblocked on
+
+00:31:29.000 --> 00:31:36.000
+That is interesting. If you have any docs on that design or if it's, I mean, if you're just prototyping it, it would make sense.
+
+00:31:36.000 --> 00:31:52.000
+That maybe you don't. But using kind of the execution engine as an intermediate is Interesting. Might warrant a blog post or something like that.
+
+00:31:52.000 --> 00:31:57.000
+Yeah, yeah. So I can't remember where we got to with the PR yet.
+
+00:31:57.000 --> 00:31:58.000
+Bonu.
+
+00:31:58.000 --> 00:32:00.000
+Okay.
+
+00:32:00.000 --> 00:32:04.000
+Yeah, PR is out. But maybe I can add more to the details.
+
+00:32:04.000 --> 00:32:09.000
+Okay.
+
+00:32:09.000 --> 00:32:14.000
+A bit of design details.
+
+00:32:14.000 --> 00:32:19.000
+Yeah, that'd be fine. Thank you.
+
+00:32:19.000 --> 00:32:23.000
+Cool. Yeah, I think that covers it from our side at the moment, Justin.
+
+00:32:23.000 --> 00:32:28.000
+Awesome.
+
+00:32:28.000 --> 00:32:35.000
+Lastly on the agenda, Project Charter, unfortunately. David, thank you for joining. We don't have any news on that matter.
+
+00:32:35.000 --> 00:32:36.000
+Okay. Yeah.
+
+00:32:36.000 --> 00:32:44.000
+We have all been reaching out to hassle the people that need to be hassled. We will get back to you once they have been sufficiently hassled.
+
+00:32:44.000 --> 00:32:54.000
+Thank you for doing that, Celine. And no rush on my end. I mean, whenever you're ready, I just wanted to jump in in case there was a topic, but I'll join again for the next one.
+
+00:32:54.000 --> 00:33:08.000
+Awesome. Thank you. Does anybody else have anything they would like to discuss? The floor is yours.
+
+00:33:08.000 --> 00:33:10.000
+Matt, what do you got, bud?
+
+00:33:10.000 --> 00:33:16.000
+Hey, sorry. Yeah, just one thing came to mind. Not enterprise related at all.
+
+00:33:16.000 --> 00:33:37.000
+I mentioned it briefly on discord I wasn't sure it's more of a point of order on Apache 2 licensing I was having a glance through the Apache 2 license and it looked like we should have notice files in Things like the TARDIS that we build. And I couldn't see that we have them. We have license files.
+
+00:33:37.000 --> 00:33:45.000
+Look like there should be notices files. And I just thought I'd mention it. I think, I don't know much about it. I thought I'd mention it in an environment where someone who probably knows more about it than I do.
+
+00:33:45.000 --> 00:33:47.000
+Might be able to comment.
+
+00:33:47.000 --> 00:33:51.000
+I have no idea. I'll have to look into that.
+
+00:33:51.000 --> 00:33:55.000
+Yeah, it was really, really just a kind of a A point of order thing just to mention, uh.
+
+00:33:55.000 --> 00:33:56.000
+Yeah.
+
+00:33:56.000 --> 00:34:03.000
+That's kind of funny because it came up in another project earlier this week, someone noticed it so
+
+00:34:03.000 --> 00:34:09.000
+Uh-huh. So is that a, yes, we probably ought to have one, Ryan?
+
+00:34:09.000 --> 00:34:18.000
+That is not a position or a statement of anything. It's just i It's weird that it happened twice and it's weird that it happened twice in two days.
+
+00:34:18.000 --> 00:34:19.000
+Yeah.
+
+00:34:19.000 --> 00:34:24.000
+After not hearing for the last eight years. So I know as much as you know.
+
+00:34:24.000 --> 00:34:25.000
+Which is so I'm not offering advice. I will have to see.
+
+00:34:25.000 --> 00:34:26.000
+Okay. Sure.
+
+00:34:26.000 --> 00:34:34.000
+Okay. So there's something in the zeitgeist that has people examining the Apache 2 license that has triggered this.
+
+00:34:34.000 --> 00:34:40.000
+Yeah, neither I or I are lawyers, but if you want us to ask a lawyer, we can.
+
+00:34:40.000 --> 00:34:49.000
+It's all good. We'll take a look, see what we're missing and figure out whether or you know whether or not you know We'll handle it. There's no reason not to be compliant if it's a compliancy thing.
+
+00:34:49.000 --> 00:34:55.000
+All right. All right, great, great.
+
+00:34:55.000 --> 00:34:57.000
+Nice catch, Matt.
+
+00:34:57.000 --> 00:35:01.000
+Yeah, no worries. Yeah.
+
+00:35:01.000 --> 00:35:09.000
+Okay, anyone else?
+
+00:35:09.000 --> 00:35:14.000
+All right. Well, you can have the balance of your time back. Thank you for joining.
+
+00:35:14.000 --> 00:35:16.000
+And we'll see you next time.
+
+00:35:16.000 --> 00:35:22.000
+Thanks, y'allThank youOkay
+

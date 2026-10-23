@@ -1,0 +1,1346 @@
+WEBVTT
+
+1
+00:00:12.080 --> 00:00:14.309
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Good evening, everyone, and thanks for…
+
+2
+00:00:14.800 --> 00:00:24.350
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Thank you, Sean. Thanks for joining in. I think today's session is going to be real fun, in my opinion. I'm looking towards Terek and other folks who are going to jump in.
+
+3
+00:00:24.370 --> 00:00:40.459
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): But one of the things that we have been within the enterprise setup, we… there's always a challenge with respect to the RPC nodes for various infrastructure, chain infrastructure, that we generally aim to integrate with. And this is, again, even if you do private, or even if you do public.
+
+4
+00:00:40.460 --> 00:00:50.340
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): There's always a challenge with the RPC node, because it's not efficient. RPC nodes are not that efficient, and every chain infrastructure, as per my experience.
+
+5
+00:00:50.340 --> 00:01:01.889
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): is having a different way of implementing the RPC mode in terms of the standards. Some of it supports JSON RPC, many of them, and some of it's a different, different format over the RPC.
+
+6
+00:01:01.890 --> 00:01:03.550
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): So…
+
+7
+00:01:03.700 --> 00:01:17.640
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): whenever we are ingesting or designing an ingestion layer where we really need to have a continuous streaming of data back into our systems, enterprise systems, I think it's a big challenge.
+
+8
+00:01:17.640 --> 00:01:23.780
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): if you just rely on the RPC nodes for different type of queries, or if you really want to, you know.
+
+9
+00:01:24.230 --> 00:01:28.850
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Understand or gather all the data on a continuous basis.
+
+10
+00:01:28.890 --> 00:01:46.759
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): And that's where I feel the fire hose, the technology stack like fire hose, comes into the play, and I think that brings us a lot of value proposition for the enterprise. And this is where today's session is all about, where… how do we design our enterprise ingestion layer specifically when
+
+11
+00:01:46.770 --> 00:01:50.189
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): When you are trying to explore, or integrate, or…
+
+12
+00:01:50.190 --> 00:02:06.880
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Specifically, you're distributing your digital assets to the multi-chain infrastructure, and then you want to really, you know, manage its overall, you know, how it is transferring, you know, to the minute, all the information so that you can
+
+13
+00:02:06.880 --> 00:02:18.250
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): audit, you can have full traceability, and, you know, from the enterprise standpoint. So I feel Fire Rose, I was reading about the Fire Rose, I felt, that that is a good
+
+14
+00:02:18.250 --> 00:02:29.400
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): set of technology to really understand and see if it plays a… you know, I see the value proposition clearly, but I want to see from your point of view, what's the… your use case at the enterprises that you're working on.
+
+15
+00:02:29.400 --> 00:02:37.440
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): and how Fireos, stack can be… can be used. So, without further ado, I'd really like to call upon Derek.
+
+16
+00:02:37.470 --> 00:02:45.400
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): To really take on to that journey and see where this technology stack and how… what's the value proposition for… for the enterprise.
+
+17
+00:02:46.140 --> 00:02:47.529
+Derek Meyer: Derek, over to you.
+
+18
+00:02:48.160 --> 00:02:53.920
+Derek Meyer: Great. And, and thank you guys for having me. We've been kind of nose down in a lot of,
+
+19
+00:02:54.250 --> 00:03:07.170
+Derek Meyer: A lot of development work, you know, getting things ready to go. As a quick intro, so I'm Derek Meyer, I'm from… I run a company called Data Nexus. We implement, the graphs technology for different
+
+20
+00:03:07.190 --> 00:03:15.360
+Derek Meyer: Institutions, applications, Web3 protocols, really whoever needs to start solving their blockchain data woes, we'll help them with that.
+
+21
+00:03:15.590 --> 00:03:32.309
+Derek Meyer: For those of you that aren't familiar with the graph, we were kind of born in the ecosystem of DeFi, with our flagship products, called Subgraphs, and those do linear indexing. And before we go too deep into Firehose, I'll give you a little bit of framing.
+
+22
+00:03:32.450 --> 00:03:46.939
+Derek Meyer: We had, or I had one of my, one of my friends over from Uniswap. They reached out to us, saying, hey, we're getting a lot of traction with one of our deployments on this specific chain.
+
+23
+00:03:47.040 --> 00:03:55.249
+Derek Meyer: And we need some help, you know, getting our data products, you know, more optimized.
+
+24
+00:03:55.620 --> 00:04:07.050
+Derek Meyer: And so I was looking into it, and one of the difficulties that they were having is they were utilizing linear indexing, so something that indexes block 1, then block 2, then block 3.
+
+25
+00:04:07.350 --> 00:04:18.790
+Derek Meyer: Which for a lot of DeFi users, that has been sufficient, right? Because they don't have high transactions per second, there's not a ton for them to index quite yet.
+
+26
+00:04:19.149 --> 00:04:30.299
+Derek Meyer: And as we were looking, we saw that they had 60 transactions per second, which from, you know, our perspective on this call with different, FMIs, you know.
+
+27
+00:04:30.440 --> 00:04:41.779
+Derek Meyer: 60 transactions per second is kind of, like, laughably, small. And so we're like, okay, great, let's start putting in some of the more advanced indexing solutions that we've been working on.
+
+28
+00:04:42.000 --> 00:04:54.589
+Derek Meyer: You know, that was the recommendation that I made to them, and I want to show you guys a little bit of what that looks like, and as Hitesh mentioned, it's all around Firehose and lever… leveraging the…
+
+29
+00:04:54.740 --> 00:05:01.029
+Derek Meyer: Extraction method of taking the blockchain and putting it into flat files so that we can access things in parallel.
+
+30
+00:05:01.850 --> 00:05:05.470
+Derek Meyer: So I'll share my screen, because I got a little,
+
+31
+00:05:05.950 --> 00:05:08.019
+Derek Meyer: I've got some slides for us here.
+
+32
+00:05:09.420 --> 00:05:10.790
+Derek Meyer: Let me know when you guys can see that.
+
+33
+00:05:14.360 --> 00:05:16.080
+Sean Bohan (LFDT): Alright, we can see it. Go for it, Derek.
+
+34
+00:05:16.560 --> 00:05:28.019
+Derek Meyer: Beautiful. Okay, good. So, the Graph's high-performance Indexing Solution, this is Firehose, and then the technology that goes in and, takes that data after it's been,
+
+35
+00:05:28.120 --> 00:05:32.529
+Derek Meyer: run into, flat files, and that technology is called substreams.
+
+36
+00:05:33.800 --> 00:05:47.230
+Derek Meyer: So let's go into what this is. So, some of the… some of the initial data indexing challenges with the blockchain is, you want your… you want your data to be low latency.
+
+37
+00:05:47.960 --> 00:05:52.789
+Derek Meyer: You want it to be accurate. You need it to be auditable, especially in our industry.
+
+38
+00:05:53.000 --> 00:06:03.340
+Derek Meyer: You want monitoring in place, you need redundancy, and all of these different qualities, these are, like, these aren't preferences, these are… they… they must be this way.
+
+39
+00:06:03.620 --> 00:06:05.230
+Derek Meyer: You can't have…
+
+40
+00:06:05.420 --> 00:06:17.730
+Derek Meyer: really slow data, or, you know, periodic inaccuracies. All these things are must-haves, and so you need a technology base that's going to really satisfy each of those… each of those points.
+
+41
+00:06:17.990 --> 00:06:27.539
+Derek Meyer: Which, my opinion, and obviously I'm biased, I'm coming from this industry, but I think we've done a fantastic job, and a lot of our clients would agree with that.
+
+42
+00:06:28.070 --> 00:06:39.980
+Derek Meyer: So, and high transaction chains, things like Solana, you know, you need to be able to, to rapidly maintain, well, rapidly reprocess the chain.
+
+43
+00:06:40.120 --> 00:06:47.110
+Derek Meyer: Because you have two… two very different work streams. There's just the… we synced the data, and now we just need it to stay current.
+
+44
+00:06:47.370 --> 00:06:54.170
+Derek Meyer: Right? And the staying current part is actually… that's not… it can be challenging, but in a lot of cases, it's not that bad.
+
+45
+00:06:54.340 --> 00:06:58.620
+Derek Meyer: But also, you might be developing a product that you're iterating on.
+
+46
+00:06:58.740 --> 00:07:02.519
+Derek Meyer: And you need to go and re-sync the whole chain.
+
+47
+00:07:03.380 --> 00:07:15.900
+Derek Meyer: That re-syncing process can be quite cumbersome, and you don't necessarily want to start something, wait a month, and then see if it worked. Hopefully, there's no bugs. You need to be able to do that more rapidly.
+
+48
+00:07:16.040 --> 00:07:26.759
+Derek Meyer: As an example, with one of the clients that we're working on, we just re-synced the Ethereum blockchain. All in all, it took about 8 hours, and it was the entire chain.
+
+49
+00:07:27.230 --> 00:07:38.740
+Derek Meyer: And the beauty of being able to parallelize things is that you can scale it horizontally, so if you need to go even faster, you just send more worker nodes at it, and then you can go even faster.
+
+50
+00:07:39.360 --> 00:07:44.050
+Derek Meyer: So speed and scalability for data quality.
+
+51
+00:07:44.100 --> 00:07:56.819
+Derek Meyer: It says that, we've got raw and fragmented data, which requires heavy transformation, with forks and reorgs and cross-chain mismatches. Reorgs has been a really big one,
+
+52
+00:07:56.820 --> 00:08:09.940
+Derek Meyer: that has come up in a lot of my discussions with our clients. A lot of the times, people try to build their own indexing models, and those indexing models are not reorg-aware, because this is kind of a new concept with blockchain technology.
+
+53
+00:08:10.040 --> 00:08:13.649
+Derek Meyer: You have superior data availability.
+
+54
+00:08:13.820 --> 00:08:26.509
+Derek Meyer: which, from a DBA perspective, that's something that doesn't exist outside of blockchain. You know, if your app goes down, you lose data, it's a problem. With a blockchain, you don't have that, and that's a big pro
+
+55
+00:08:26.640 --> 00:08:29.009
+Derek Meyer: In the blockchain category.
+
+56
+00:08:29.460 --> 00:08:49.079
+Derek Meyer: one of the cons is you have to deal with reorgs, and you have these kind of premature commitments of state that later get ignored or invalidated, and so you need to be able to understand when does this happen, and how do I update my state downstack to ensure that my data warehouse and databases are all
+
+57
+00:08:49.200 --> 00:08:52.870
+Derek Meyer: They all contain canonical information.
+
+58
+00:08:53.740 --> 00:08:57.209
+Derek Meyer: Subgraphs would… are a flagship product.
+
+59
+00:08:57.330 --> 00:09:17.140
+Derek Meyer: Those were made to be reorg-aware from day one, and it will constantly look at what the latest block is, compare block hashes, identify when a reorg has occurred. It has proper versioning of entities to be able to roll back a few, a few blocks, and then replay those blocks correctly, and that way your database is,
+
+60
+00:09:17.300 --> 00:09:20.969
+Derek Meyer: You know, is totally fine, or only contains canonical information.
+
+61
+00:09:21.410 --> 00:09:31.130
+Derek Meyer: More recently, from the auditability perspective, we've had the request of, if there was inaccurate information that got to your database.
+
+62
+00:09:31.150 --> 00:09:37.170
+Derek Meyer: We wanted to implement some custom handling, and that way, we don't actually delete that data from the database.
+
+63
+00:09:37.170 --> 00:09:54.249
+Derek Meyer: But instead, we invalidate it in the database and maintain that, so as to achieve full auditability, in case a user says, I was accessing the website in it, or the application in it showed me that my balance was X. We can fully go through and say, yep, at time X,
+
+64
+00:09:54.250 --> 00:09:59.739
+Derek Meyer: We had a block you know, 1A that was reorged to 1B,
+
+65
+00:09:59.760 --> 00:10:03.200
+Derek Meyer: And that reorg came through right after that part, right?
+
+66
+00:10:03.290 --> 00:10:08.150
+Derek Meyer: So now you've got full auditability. And that's been…
+
+67
+00:10:08.460 --> 00:10:10.509
+Derek Meyer: You know, a fun thing to work on, but…
+
+68
+00:10:10.620 --> 00:10:13.019
+Derek Meyer: A lot of the times in your initial stages.
+
+69
+00:10:13.380 --> 00:10:19.290
+Derek Meyer: You don't… you don't consider reorgs until you see the first one, and then it's like, oh my goodness, what do we do about this?
+
+70
+00:10:19.840 --> 00:10:23.059
+Derek Meyer: And so we've already, we've already kind of,
+
+71
+00:10:23.520 --> 00:10:25.970
+Derek Meyer: Rounded out the wheel for you guys on that one.
+
+72
+00:10:26.490 --> 00:10:33.379
+Derek Meyer: The next stage is interoperability. When you're first building, you're thinking about your chain, right?
+
+73
+00:10:33.480 --> 00:10:35.819
+Derek Meyer: the one chain, right? My Beizu chain.
+
+74
+00:10:36.130 --> 00:10:37.850
+Derek Meyer: But…
+
+75
+00:10:38.420 --> 00:10:51.780
+Derek Meyer: over time, people start to deploy their contracts on other chains. That, you know, definitely changes a lot of their data models, but also they need to think about how do all these different chains play nicely together?
+
+76
+00:10:51.860 --> 00:11:04.120
+Derek Meyer: Ideally, you don't have to think about your data at all. Our products are typically built to be interoperable, and that way you can use whatever chain that you want.
+
+77
+00:11:04.840 --> 00:11:21.320
+Derek Meyer: The last part is it's high cost and high engineering time. The minds that it takes to solve some of these problems are not cheap. You know, they typically command a fairly high salary, and we've already solved them, so we're hoping to pass along some of that cost savings to you guys.
+
+78
+00:11:22.800 --> 00:11:40.639
+Derek Meyer: In terms of the general architecture, right, with RPC-based, indexing, right, there's the JSON RPC, which the block gets produced, you then go and, after the production of the block, you then send the request, you get your JSON object back.
+
+79
+00:11:40.800 --> 00:11:56.170
+Derek Meyer: That gets stored in your database, then you need to transform that information, and then ultimately load that into whatever your application is. Going from, you know, to use metals, we'll say you have your bronze layer, your silver layer, and then your gold layer.
+
+80
+00:11:56.860 --> 00:12:01.339
+Derek Meyer: with, with Firehose, and specifically with substreams.
+
+81
+00:12:01.430 --> 00:12:17.620
+Derek Meyer: What happens is, there's a little bit of code in the blockchain node that will then output all of the, all of the block, whether it's the event logs, the internal transactions, state changes, all the different components inside of the block. It outputs it
+
+82
+00:12:17.620 --> 00:12:27.600
+Derek Meyer: as it's being executed. And so, you get the beginning of the block immediately, and before you get the end of the block, because it's going, you know, as execution occurs.
+
+83
+00:12:28.020 --> 00:12:39.690
+Derek Meyer: This all gets written into a, an object storage, in different flat files, and then you have your transform layer, right? Transform layer would be your substreams.
+
+84
+00:12:39.690 --> 00:12:54.169
+Derek Meyer: This allows you to go and access those flat files in parallel. You can horizontally scale up however many worker nodes you want, so if you aren't in a rush, you could have one worker, and it's just kind of going linearly, which is how subgraphs do now.
+
+85
+00:12:54.380 --> 00:13:03.990
+Derek Meyer: Or if you have something that you need to, you know, needs to be tested before the end of the day, and you want to shove 100 workers or 1,000 workers, you can do that as well.
+
+86
+00:13:04.120 --> 00:13:12.719
+Derek Meyer: Obviously, the more worker nodes and the more compute you throw at it, the more cost there is to syncing it, but it gives you control of that knob.
+
+87
+00:13:13.420 --> 00:13:25.920
+Derek Meyer: Substreams are all written in Rust, and so these will build out your various modules, they'll access the blocks, extract the necessary points, and then feed that along either to another module.
+
+88
+00:13:26.220 --> 00:13:28.689
+Derek Meyer: Or directly into your database.
+
+89
+00:13:29.110 --> 00:13:47.150
+Derek Meyer: One of the… one of the beautiful things about substreams is that it's… it's all gRPC-based. It can write directly into your database, it can go through Kafka. We've been playing around with uploading, substream information directly into Snowflake. There's all kinds of, great
+
+90
+00:13:47.150 --> 00:13:53.309
+Derek Meyer: great places that you can put that information, because I'm sure each of us have slightly varying data stacks.
+
+91
+00:13:56.180 --> 00:14:14.770
+Derek Meyer: We've had a lot of success stories, specifically with substreams and fire hose, you know, 10,000 times faster indexing, 72,000 times faster indexing. So, you know, it's kind of a apples and oranges comparison, because parallel indexing is going to be so much faster than linear indexing.
+
+92
+00:14:15.020 --> 00:14:22.070
+Derek Meyer: And so it's been… it's been a huge, unlock for a lot of different projects that are using this.
+
+93
+00:14:24.290 --> 00:14:26.350
+Derek Meyer: And just as a quick,
+
+94
+00:14:26.600 --> 00:14:29.360
+Derek Meyer: Quick kind of, architecture design.
+
+95
+00:14:29.470 --> 00:14:36.999
+Derek Meyer: So I talked about at the… at the top left, we have the instrumented node, which this would be your Beizu node.
+
+96
+00:14:37.740 --> 00:14:48.280
+Derek Meyer: And this is something that we're kind of newly working on from the graphs perspective, is we want to, integrate Firehose directly with your Bezu node.
+
+97
+00:14:48.580 --> 00:14:53.630
+Derek Meyer: And as it's executing, all the execution traces get written to standard out.
+
+98
+00:14:53.980 --> 00:14:58.779
+Derek Meyer: This produces flat files so that you have the full archival history of the chain.
+
+99
+00:14:59.110 --> 00:15:05.820
+Derek Meyer: It also maintains a, a forkDB, which is an in-memory,
+
+100
+00:15:06.060 --> 00:15:09.410
+Derek Meyer: A cache of recent blocks,
+
+101
+00:15:09.690 --> 00:15:22.470
+Derek Meyer: And that way, you can reference things. This is where all of the reorg detection occurs, is in that forkDB. After block finalization, it's going to take the information from that forkDB and then write it to the flat file so that we can go and access history.
+
+102
+00:15:22.650 --> 00:15:24.740
+Derek Meyer: You know, down the road.
+
+103
+00:15:25.240 --> 00:15:41.719
+Derek Meyer: And then we have our WASM engine, right? One of the really nice things about this structure overall is it has deterministic execution, because each block happens at a, you know, at a specific point. Each step inside of the block has its own cursor.
+
+104
+00:15:41.760 --> 00:15:53.250
+Derek Meyer: And so you can execute the logic for event 1 before call handler 2, before internal transaction 3, and then event 4, right? Or event 2, which would be cursor number 4.
+
+105
+00:15:53.860 --> 00:16:03.049
+Derek Meyer: When you have deterministic execution, you can have scenario, that brings about verifiability. So you could have two different operators running the exact same
+
+106
+00:16:03.200 --> 00:16:09.880
+Derek Meyer: Substream, and come to the same result and be able to prove that we did the exact same work by the end of it.
+
+107
+00:16:10.150 --> 00:16:16.060
+Derek Meyer: Which is very nice for those of us that are considering what type of environment,
+
+108
+00:16:16.470 --> 00:16:32.499
+Derek Meyer: what type of redundancy do we have in place? Are we doing a hot, hot environment? Hot, hot, warm, hot, warm, right? How many… how many different environments you're running? And how do we ensure that each of these environments are in consensus? Not just from the blockchain level, but from our data level as well.
+
+109
+00:16:32.770 --> 00:16:38.559
+Derek Meyer: So… so this, you know, deterministic indexing, starts to enable that.
+
+110
+00:16:39.010 --> 00:16:55.020
+Derek Meyer: In addition to that, right, for people that are running things in their local environment, there also is the entire graph protocol, where we have, you know, hundreds of indexers that would also be, you know, kind of willing to go and run these things and be additional redundancy.
+
+111
+00:16:55.310 --> 00:17:05.990
+Derek Meyer: And with that additional redundancy, you also have improved verification. So you can compare, okay, we say we've got hash 0xabc123,
+
+112
+00:17:06.079 --> 00:17:16.979
+Derek Meyer: what do… what does the grass indexer say we have? Okay, there's 5 other indexers that are also at 0x ABC123. We are all in consensus. I can have confidence that my data
+
+113
+00:17:17.170 --> 00:17:22.260
+Derek Meyer: has been validated. And that's a big thing, especially with blockchain technology.
+
+114
+00:17:23.450 --> 00:17:32.610
+Derek Meyer: This, as I mentioned, goes into, as I mentioned, you know, different databases, Kafka, you can have PubSub, you could stream it directly into your application.
+
+115
+00:17:32.800 --> 00:17:37.460
+Derek Meyer: And so there's all kinds of… all kinds of flexibility around that.
+
+116
+00:17:37.580 --> 00:17:44.650
+Enrique Lacal (Kaleido): Hi, Derek. Sorry, I don't want to interrupt mid-flow. Do you want some questions as you go through, or do you want us to keep those towards the end?
+
+117
+00:17:44.890 --> 00:17:48.949
+Derek Meyer: Yeah, I have very few slides, but I would love to take any questions that you have. Go ahead.
+
+118
+00:17:48.950 --> 00:18:07.269
+Enrique Lacal (Kaleido): Okay, yeah, shout if you want to cover, cover, stuff later on. yeah, it's really interesting. I… I… my initial questions are around the difference between, chain history, like, transactions and blocks.
+
+119
+00:18:07.970 --> 00:18:09.990
+Enrique Lacal (Kaleido): and change state.
+
+120
+00:18:10.190 --> 00:18:14.750
+Enrique Lacal (Kaleido): And I wondered if you could talk a bit about…
+
+121
+00:18:15.040 --> 00:18:26.950
+Enrique Lacal (Kaleido): how Graph fits into that well. So, I guess for a bit of context, so I… I spent a bit of time working on Bessu's archive functionality when Bessie moved to a new database structure called Bonsai.
+
+122
+00:18:28.430 --> 00:18:43.460
+Enrique Lacal (Kaleido): And we kind of staged that into two steps. One was querying arbitrary state and history, like, what's the balance of this ERC20 at block 50? And the other was, to follow on from that, what… can I have a proof of that?
+
+123
+00:18:43.460 --> 00:18:58.349
+Enrique Lacal (Kaleido): that state at block 50, even though we're now at block 20 million. I wonder if you can comment a bit on where this indexing fits into the difference between I can just pull a transaction or a block from history, versus I can look at change state in history.
+
+124
+00:18:59.050 --> 00:19:12.609
+Derek Meyer: Yep, so, so with your… the node that's gonna be filling in the flat files, this node will need to be an archive node. And… and on the graph, most indexers, or I should say every indexer is running an archive node.
+
+125
+00:19:12.970 --> 00:19:15.969
+Derek Meyer: Once you have flat files in place.
+
+126
+00:19:16.050 --> 00:19:21.179
+Derek Meyer: You can… you have the option to be able to prune your archive node into a full node.
+
+127
+00:19:21.210 --> 00:19:38.200
+Derek Meyer: We… we don't do that because of that exact reason that you mentioned, right? Different ETH calls that you want to make in order to get, chain, you know, historical information of, let me time travel and say… see what the balance was as of a specific point, or…
+
+128
+00:19:38.290 --> 00:19:44.019
+Derek Meyer: you know, any of those functions. Those are things that you would still need an archive node for.
+
+129
+00:19:44.020 --> 00:19:48.220
+Enrique Lacal (Kaleido): Right, okay. Yep. That's great, thank you. That's really interesting. Cheers.
+
+130
+00:19:48.700 --> 00:19:49.250
+Derek Meyer: Yep.
+
+131
+00:19:50.240 --> 00:19:56.830
+Derek Meyer: Good, and then I get to my thank you page, so now it's time for questions and answers.
+
+132
+00:19:57.240 --> 00:20:04.789
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): So, Derek, a quick question, regarding the supporting different chains.
+
+133
+00:20:04.900 --> 00:20:14.980
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): what adapters, what chain adapters that is readily available and can be used? Is it just the Beisu, or is it Solana? What's the list of… that you're aiming at?
+
+134
+00:20:15.620 --> 00:20:22.849
+Derek Meyer: Yeah, so for, for Firehose specifically, this has been upstreamed inside of Geth, so any chains that are supporting Geth
+
+135
+00:20:23.040 --> 00:20:26.609
+Derek Meyer: are already instrumented for Firehose.
+
+136
+00:20:26.900 --> 00:20:40.889
+Derek Meyer: We're… we're in the process of, we, we really want to instrument the Bezu node, and that way, I mean, that benefits all of us on this phone call. And so that's gonna be a project that we're working on in short order here.
+
+137
+00:20:41.050 --> 00:20:47.919
+Derek Meyer: In addition to Beizu, we also want to instrument RETH as well, so that way we can have,
+
+138
+00:20:48.050 --> 00:20:50.030
+Derek Meyer: You know, all kinds of diversity there.
+
+139
+00:20:50.290 --> 00:21:05.479
+Derek Meyer: And that's… that's all for our EVM chains. We also have Solana-supported Bitcoin, Stellar, you know, a couple… yeah, there's a whole bunch of networks. Oh, thank you, Brandon. Brandon dropped into the chat the different supported networks, for Firehose.
+
+140
+00:21:05.710 --> 00:21:07.620
+Derek Meyer: Enrique, you had a question as well?
+
+141
+00:21:07.990 --> 00:21:15.510
+Enrique Lacal (Kaleido): Yeah, yeah, just a good presentation. Just to preface this, I have looked extensively into Firehose. I've run…
+
+142
+00:21:15.770 --> 00:21:31.419
+Enrique Lacal (Kaleido): I know the whole fire hose setup, substreams, everything. I'm quite… quite know the technology there in Discord. I think one of the challenges, I don't know if you've faced, is, most of these, what you call these indexers, right,
+
+143
+00:21:31.470 --> 00:21:37.780
+Enrique Lacal (Kaleido): What I found out was most of them are running Aragon, and especially the new version of Aragon as their archive node, which has this.
+
+144
+00:21:37.780 --> 00:21:38.450
+Derek Meyer: Yeah.
+
+145
+00:21:38.450 --> 00:21:51.689
+Enrique Lacal (Kaleido): peer-to-peer feature where you can download historical blocks in a peer-to-peer network very rapidly, so that 8-hour mark that you mentioned earlier, I'm sure comes because of using some of those efficiencies in the Aragon,
+
+146
+00:21:52.060 --> 00:21:53.020
+Enrique Lacal (Kaleido): Code.
+
+147
+00:21:53.310 --> 00:22:02.859
+Enrique Lacal (Kaleido): I wonder, just following on Matt's question, how have you targeted other clients, so maybe Gav, now Bessu, with those challenges of having to
+
+148
+00:22:03.190 --> 00:22:11.670
+Enrique Lacal (Kaleido): So, two parts of the question. One is, run an archive node from the beginning without this peer-to-peer network accelerating validation of blocks.
+
+149
+00:22:11.860 --> 00:22:30.599
+Enrique Lacal (Kaleido): And two, maybe enhancing the plug point. I think one of the things that you mentioned in your slide that was just overlooked was the fact of standard out, right? That little pipe communication between the plugin in Aragon, which is a GEF plugin architecture, into a standard out
+
+150
+00:22:30.600 --> 00:22:33.860
+Enrique Lacal (Kaleido): That gets picked up by the fire hose component.
+
+151
+00:22:33.860 --> 00:22:44.329
+Enrique Lacal (Kaleido): Are you envisioning more robustness there, to be able to persist to some sort of caching database, etc? So I think two parts to my question on how you see that moving forward.
+
+152
+00:22:44.840 --> 00:22:50.509
+Derek Meyer: Yeah, let me, let me address the first part. So, so, Firehose is instrumented into Geth.
+
+153
+00:22:50.680 --> 00:22:55.699
+Derek Meyer: And so indexers have the option of running Aragon or Geth.
+
+154
+00:22:55.730 --> 00:23:07.880
+Derek Meyer: On the… on the 8-hour resync that we did, that was all Geth-based. Well, it was on a fire hose that was filled from Geth files. Now, in that indexing time, we actually didn't touch the Geth node.
+
+155
+00:23:07.880 --> 00:23:20.779
+Derek Meyer: We only touched the flat files from Firehose, because all that information had already been extracted. And so we said, great, let's go spin up some workers, let's go extract all the credits and debits on-chain, or, you know.
+
+156
+00:23:21.090 --> 00:23:40.509
+Derek Meyer: And so… and we were able to chunk through that pretty quickly. And so, once you have… once you're from the blockchain layer to the firehose layer, you know, that… that saves your node to go and, you know, be used for writing information rather than trying to, answer reading information.
+
+157
+00:23:41.070 --> 00:23:58.499
+Derek Meyer: In regards to your second question, it's a great question. I am not the fire hose, engineer. I more so help with the actual implementation of substreams and all that stuff, so the… any challenges around standard out that I wouldn't be able to give you a good answer to, but I can definitely find out and let you know.
+
+158
+00:23:59.040 --> 00:24:08.930
+Enrique Lacal (Kaleido): Okay, I think just a follow-up question, specifically from the graph here. I think… so when the graph started was this decentralization of data, right? Then you have this…
+
+159
+00:24:08.930 --> 00:24:09.430
+Derek Meyer: Yeah.
+
+160
+00:24:09.430 --> 00:24:22.479
+Enrique Lacal (Kaleido): graph token where you could use to, like, make sure the indexes were running your subgraph. It seems like the firehose substreams is getting more centralized. How does that…
+
+161
+00:24:22.630 --> 00:24:44.260
+Enrique Lacal (Kaleido): plot point of… is it going to be the same incentive in the Graph Foundation for indexers to run these substreams and have decentralization of data, or is this more focused towards centralization? Because as one of your slides, and I'm familiar with some of those companies, like Streaming Fast and Pinax, it seems like there's a centralization of data
+
+162
+00:24:44.260 --> 00:24:51.250
+Enrique Lacal (Kaleido): and there is, like, paid APIs behind to get to these, substreams, execution environments.
+
+163
+00:24:51.810 --> 00:24:55.709
+Derek Meyer: Yeah, it's a great question. So, so far, what we've done is there's a,
+
+164
+00:24:55.840 --> 00:25:07.409
+Derek Meyer: The Graph smart contracts were all built kind of assuming the product of subgraphs. So, we're in the process of releasing more data products that will ultimately be encompassed by the Graph protocol.
+
+165
+00:25:07.510 --> 00:25:18.890
+Derek Meyer: So that it becomes more of a data services protocol. And we've got some new ones that are coming down the pike that we're excited to share. Don't want to get… don't want to put the cart ahead of the horse, though.
+
+166
+00:25:19.090 --> 00:25:23.729
+Derek Meyer: In terms of substreams and fire hose provision.
+
+167
+00:25:23.750 --> 00:25:38.670
+Derek Meyer: You can kind of think of this, the way that we have it modeled right now is you can almost think of it like, when you go to an exterior RPC provider, and you could go to an exterior fire hose provider, right?
+
+168
+00:25:38.670 --> 00:25:44.320
+Derek Meyer: We have a list of multiple different providers, on the graph.market. That's a,
+
+169
+00:25:44.530 --> 00:25:51.199
+Derek Meyer: one of our product pages. And then you can go and select, you know, who you want your firehose provider to be.
+
+170
+00:25:51.450 --> 00:26:09.239
+Derek Meyer: Obviously you then, you then have kind of the, the options of having multiple fire hose providers. You can compare firehose providers. You could just stick with one that you like, but it isn't the same type of a gateway into a, you know,
+
+171
+00:26:09.480 --> 00:26:12.660
+Derek Meyer: Large mix of many indexers type of thing.
+
+172
+00:26:14.070 --> 00:26:18.880
+Enrique Lacal (Kaleido): Okay, I think one of the things that I encountered was the trust assumption.
+
+173
+00:26:19.020 --> 00:26:29.550
+Enrique Lacal (Kaleido): So, when you go to these providers, and you say, yes, give me your flat files I want to download from your Sepolia, thing, and I want to repossess them in a substream.
+
+174
+00:26:30.130 --> 00:26:39.380
+Enrique Lacal (Kaleido): what is the trust assumption of those files? I know there's a cursor base that you can say, please give me next blocks through cursors, but how do you prove…
+
+175
+00:26:39.600 --> 00:26:44.869
+Enrique Lacal (Kaleido): As a provider of these flat files, that you've correctly extracted data from the node.
+
+176
+00:26:45.440 --> 00:26:49.840
+Derek Meyer: Yep, so this comes down to the question of verification, right?
+
+177
+00:26:50.110 --> 00:27:07.040
+Derek Meyer: And if you… and a lot of the times we've seen people that want to run their own Firehose nodes locally, and they start to use the graph as kind of, as redundancy. We have a lot of people that don't, want to run it locally, but they do want to, use Firehose, and so they go straight to the graph.
+
+178
+00:27:07.040 --> 00:27:19.089
+Derek Meyer: And so, as you're streaming this information, you'll be able to get a proof, or a hash or a cursor that shows, okay, this is what we have. And if you go and run it with a second provider.
+
+179
+00:27:19.090 --> 00:27:28.080
+Derek Meyer: then you can have verification of those proofs. Now, however much verification you want, you would just check with more and more providers. If you checked with 30 providers.
+
+180
+00:27:28.080 --> 00:27:31.500
+Derek Meyer: You know, that would be kind of overkill, but you'd be able to have
+
+181
+00:27:31.650 --> 00:27:41.729
+Derek Meyer: Pretty clean verification that all 30 people ran the same thing the same way, and, you know, that starts to build your, the verification step.
+
+182
+00:27:42.740 --> 00:27:44.019
+Enrique Lacal (Kaleido): Okay, so you're just…
+
+183
+00:27:44.170 --> 00:28:01.220
+Enrique Lacal (Kaleido): Okay, so you can either go to the node and query the node with the data you get, validate that it is in the canonical chain, or you expand as many providers as you can, and have a risk tolerance of, okay, if 3 or 4 providers have given me the same flat file data, then it must be true, is what you're saying.
+
+184
+00:28:01.220 --> 00:28:01.770
+Derek Meyer: Right.
+
+185
+00:28:01.860 --> 00:28:13.240
+Derek Meyer: Yeah, and you'll be able to also see who your providers are, so you'll be able to do a little bit of research into, okay, who are these companies? You know, I've got one that's located over here in the US, and another one
+
+186
+00:28:13.310 --> 00:28:24.120
+Derek Meyer: I know this company over in Europe, and then there's this other provider that I don't really know anything about. Let me go and compare the results of all three. Well, all three of them are in consensus. That's a good sign.
+
+187
+00:28:26.080 --> 00:28:31.019
+Enrique Lacal (Kaleido): Right, okay, cool, yeah. I have more questions, but I'll leave the… to other people to ask.
+
+188
+00:28:31.100 --> 00:28:42.950
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Yeah, no problem. Just continuing on what Enrique was talking about, the trust aspect of it, from the enterprise standpoint, I think that's pretty critical, right, to ensure that we have the trusted data that's coming in.
+
+189
+00:28:42.950 --> 00:28:43.840
+Derek Meyer: So.
+
+190
+00:28:43.840 --> 00:28:47.459
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Right now, the approach that you're talking about is to really
+
+191
+00:28:47.700 --> 00:29:03.779
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): onus is on the enterprise to do the verification, rather than… you know, because now I… what I'm getting is that you have to reach out to multiple providers to do your verification process before you say that, hey, this data is fully trusted, and now I can use it.
+
+192
+00:29:04.170 --> 00:29:12.710
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Is this the model that you're continuing to focus on, or you're thinking about different model that needs to be… so that enterprise doesn't have to be… has the onus?
+
+193
+00:29:12.710 --> 00:29:13.730
+Enrique Lacal (Kaleido): They…
+
+194
+00:29:13.730 --> 00:29:25.439
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): put that risk, because now I'm taking the risk as an enterprise, to really ensure that the verification is done before I push it into my downstream, you know, destination.
+
+195
+00:29:26.200 --> 00:29:37.790
+Derek Meyer: Yeah. Yeah, it's a great question. A lot of what we have seen is the, you know, different enterprising, sorry, different enterprises wanting to run Firehose themselves.
+
+196
+00:29:37.790 --> 00:29:47.560
+Derek Meyer: Okay. And so, that kind of mitigates that risk pretty dramatically, right? They want to have their own notes, plus they want to be able to scan through that as many times as they want.
+
+197
+00:29:47.750 --> 00:29:54.599
+Derek Meyer: And then, as a redundancy point, there's the decentralized protocol that they can lean on after the fact.
+
+198
+00:29:54.790 --> 00:30:05.860
+Derek Meyer: So that's what we've mostly seen, which has made it to where that question of, okay, what trust risks might come about, become internal.
+
+199
+00:30:07.820 --> 00:30:08.380
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Okay.
+
+200
+00:30:08.800 --> 00:30:09.520
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Thank you.
+
+201
+00:30:10.600 --> 00:30:14.820
+Pedro (The Graph Foundation): maybe just to complement the… what Derek just mentioned,
+
+202
+00:30:15.040 --> 00:30:18.910
+Pedro (The Graph Foundation): Just to add a little bit more color, we… we're also working on,
+
+203
+00:30:19.280 --> 00:30:24.550
+Pedro (The Graph Foundation): This is just to address the decentralization aspect that was brought up earlier.
+
+204
+00:30:24.550 --> 00:30:44.450
+Pedro (The Graph Foundation): The graph is coming to a point where we have this massive protocol upgrade coming up. It's actually slated for the end of the end of the year. We call it, Horizon, and it's essentially a protocol upgrade that will allow us to get to a multi-world of data services. So you can think of firehose and substreams being more…
+
+205
+00:30:45.080 --> 00:31:00.469
+Pedro (The Graph Foundation): Natively integrated with the protocol, and more available in our network, so that we can, yeah, not have it as centralized as it currently is, and with the trust assumptions that we currently have with existing solutions.
+
+206
+00:31:00.480 --> 00:31:10.960
+Pedro (The Graph Foundation): So we're working on that, and indeed, all of these trust assumptions and the verification, they're all relevant, and we are designing this data service to keep those,
+
+207
+00:31:11.460 --> 00:31:30.110
+Pedro (The Graph Foundation): to ensure that we can have those primitives baked in natively, so we can, yeah, just do better there. And, maybe I'll just share also in the chat a link to one of our teams, one of the core dev teams here at the graph. They've also been working on
+
+208
+00:31:30.470 --> 00:31:39.410
+Pedro (The Graph Foundation): Ensuring that the flat files produced by the firehose can be verified on the client side, and you can essentially just compare
+
+209
+00:31:39.450 --> 00:31:45.759
+Pedro (The Graph Foundation): Those outputs with, essentially the underlying chain's consensus. As in.
+
+210
+00:31:45.760 --> 00:32:02.449
+Pedro (The Graph Foundation): You can compare the headers, accumulators, and all of that stuff, just to make sure that whoever got you those flat files, you can make sure that if you go to the canonical chain and get those headers, you can just verify that nothing has been tampered with. And this might be the,
+
+211
+00:32:02.910 --> 00:32:17.299
+Pedro (The Graph Foundation): the root of trust we may have for downstream data services that are firehose-based, like substreams and potentially others. So, when designing this native integration with the protocol, we're keeping these things in mind.
+
+212
+00:32:17.450 --> 00:32:31.239
+Pedro (The Graph Foundation): Similar to what we did with subgraphs and proof of indexing and that type of consensus, we can do something similar here, but with these verifiable flat files as the baseline, let's say.
+
+213
+00:32:31.400 --> 00:32:35.930
+Pedro (The Graph Foundation): So hopefully that… that… Yeah, hopefully that's useful.
+
+214
+00:32:36.300 --> 00:32:38.189
+Enrique Lacal (Kaleido): Yeah, that's awesome. Thank you. Thanks for sharing.
+
+215
+00:32:43.690 --> 00:32:48.429
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Alright, any other questions, anything that anyone wants to bring on?
+
+216
+00:32:49.020 --> 00:33:05.790
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): I'm going to continue this series of this data ingestion. I think that's pretty important from various, you know, from at least from the enterprise standpoint, so hopefully in the next session, we'll continue to, you know, build on this to really think about the how
+
+217
+00:33:05.790 --> 00:33:25.519
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): different enterprises are thinking about creating that data ingestion layer. This is one of the technology stacks that I feel has a good value proposition, but now there might be different models that we should be, you know, we are exploring to really understand different patterns to implement this data ingestion layer. And this is purely from the enterprise standpoint.
+
+218
+00:33:26.290 --> 00:33:29.310
+Enrique Lacal (Kaleido): I guess… I guess I have two more questions.
+
+219
+00:33:29.310 --> 00:33:29.990
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Go ahead.
+
+220
+00:33:30.680 --> 00:33:44.550
+Enrique Lacal (Kaleido): I'll… I'll first start with the… where does the code live, right? This is a Linux Foundation Centralized Trust best working group, right? And we have, obviously, a lot of different projects, in… in this foundation, and BESO's one of the main…
+
+221
+00:33:44.550 --> 00:34:02.150
+Enrique Lacal (Kaleido): big projects, that's graduate projects, a client. And today, when I looked at Firehose, it seems like some of the codebase is in a company called Streaming Fast, then there's a fork in another one called Pinax, some implements that will support for Solana, some one implements for EVM, there's a Near protocol coming.
+
+222
+00:34:02.160 --> 00:34:21.659
+Enrique Lacal (Kaleido): I think one of the things, maybe as a point of feedback, or if you have in your roadmap, is where are you standardizing this code? Is this code going to live under the Graph Foundation in GitHub? Is it still going to live under companies? And that's something that us as enterprise, we really think about, right, in terms of licensing, in terms of what code we adopt.
+
+223
+00:34:21.719 --> 00:34:35.059
+Enrique Lacal (Kaleido): So, short answer is yes, I see from Pedro, we're working on it. So, I think that'll be interesting in understanding where that lives, and obviously, DLFDT, I'm a big fan of it. It's a place where that could live, but I understand the graph has a different foundation model.
+
+224
+00:34:35.300 --> 00:34:37.899
+Enrique Lacal (Kaleido): So yeah, okay, so the answer is yes.
+
+225
+00:34:38.590 --> 00:34:43.299
+Derek Meyer: I swear, you've been reading through my emails, because I just had this conversation recently.
+
+226
+00:34:43.300 --> 00:34:57.409
+Enrique Lacal (Kaleido): Okay, I'm a big fan of the fire hose. I've invested a lot of time running, reading codes, talking to people on Discord, and I've even joined the… I think you guys do an office hours indexer hours? I joined that once. Perfect.
+
+227
+00:34:58.050 --> 00:35:00.960
+Derek Meyer: You might see me with a different profile picture in there.
+
+228
+00:35:00.960 --> 00:35:13.599
+Enrique Lacal (Kaleido): Maybe, yeah. I guess the second question is, maybe it's not related directly to EVM, but how are you seeing adoption from other ecosystems? I know you've spoken about Solana, and you have very good, like.
+
+229
+00:35:13.820 --> 00:35:33.570
+Enrique Lacal (Kaleido): case studies, around, data ingestion for Solana. I was quite impressed. It's a really big chain, I'm really familiar with it. How are you finding adoption of clients in other chains? And it's quite funny that you're calling it Horizon. Stellar has a name of Horizon as well. So I wonder if you're ingesting into Stellar or other sorts of ecosystems there.
+
+230
+00:35:35.100 --> 00:35:42.860
+Derek Meyer: Yeah, so, I'll touch on some of the points there that I know I can touch on.
+
+231
+00:35:43.420 --> 00:35:50.119
+Derek Meyer: So, in terms of, you know, new chains coming out, a lot of the examples that we give with Solana,
+
+232
+00:35:50.180 --> 00:36:06.160
+Derek Meyer: you know, they're just so drastic, because Solana is such a fast chain, it's such a heavy chain, there's a lot to crunch through, and so everything, you know, when you're comparing things on EVM, yes, Ethereum does have, you know, I think our nodes are, you know.
+
+233
+00:36:06.200 --> 00:36:18.060
+Derek Meyer: single-digit terabytes, right? Not so bad, but we're not yet at the 100 terabytes, we're not in the petabytes, and some of these other chains have some of those woes. So, if you're building in Solana.
+
+234
+00:36:18.470 --> 00:36:31.050
+Derek Meyer: there really aren't other solutions to have a reorg-aware indexing solution than Firehose, which is why we've seen just a ton of adoption in Solana, because they don't really have any other place to go.
+
+235
+00:36:31.470 --> 00:36:37.430
+Derek Meyer: In the EVM world, we've seen that,
+
+236
+00:36:37.580 --> 00:36:48.800
+Derek Meyer: there's… there's two big users of, Firehose and Substreams, the… or I should say user class, and those are people that want macro-level information, so I want to know about
+
+237
+00:36:48.920 --> 00:37:01.830
+Derek Meyer: all tokens on the chain, right? You're not going to be able to get that information easily with linear indexing, or, I want to know about what's happening with stablecoins, right? That has been a big, a big user class.
+
+238
+00:37:02.060 --> 00:37:10.640
+Derek Meyer: The other one is people that are starting to reach higher and higher transactions per second, where linear indexing no longer works.
+
+239
+00:37:11.400 --> 00:37:25.669
+Derek Meyer: you know, which I think I put… I included in some of my initial framing of, like, a lot of these DeFi applications, a lot of these Web3 protocols, you know, they're at 10, you know, hopefully they're at tens of transactions per second.
+
+240
+00:37:25.750 --> 00:37:31.750
+Derek Meyer: But we kind of know that, a lot of the tests that we run
+
+241
+00:37:31.940 --> 00:37:38.579
+Derek Meyer: With our clients are, we think, in, you know, thousands and tens of thousands of transactions to make sure that it's performant enough.
+
+242
+00:37:38.880 --> 00:37:53.429
+Derek Meyer: So the people that are starting to reach that product-market fit, and they have, you know, greater than 25 transactions per second, that's when they start to get really serious about, okay, we need to think about how we're going to properly extract all of this information.
+
+243
+00:37:55.510 --> 00:37:58.820
+Derek Meyer: Did that… did that answer the question there sufficiently, or…
+
+244
+00:37:59.750 --> 00:38:01.239
+Derek Meyer: Any other points you wanted to touch on?
+
+245
+00:38:02.040 --> 00:38:17.820
+Enrique Lacal (Kaleido): Yeah, so I think what you're saying is, if I read between the lines, is when someone comes and says, I want an ecosystem that is very, very quick, or I need data from a really big ecosystem, then someone, a company, will go and implement that, instrumented node for that ecosystem.
+
+246
+00:38:17.840 --> 00:38:22.770
+Enrique Lacal (Kaleido): I'll put the flat files and ingest it to the core infrastructure. I think that's what I'm seeing as…
+
+247
+00:38:23.190 --> 00:38:35.979
+Derek Meyer: Yeah, I would say it's more… it's more of, you know, like, my company, Data Nexus, we will go and help build the substreams to give you the individual extractions that you want. In terms of the… the actual, like, fire hose itself.
+
+248
+00:38:36.060 --> 00:38:48.070
+Derek Meyer: How that the repo gets managed, I think Pedro kind of already alluded to, that we're gonna have some better organization around that. But, like, the Firehose codebase itself would be, you know, in,
+
+249
+00:38:48.680 --> 00:38:59.630
+Derek Meyer: well, I don't want to give Pedro's answer there. But, the individual substream code, that's kind of one layer down, so that would be all of your extractions. That's what… that's what we kind of help with.
+
+250
+00:39:00.630 --> 00:39:10.569
+Enrique Lacal (Kaleido): I guess what I'm asking is, in terms of roadmap, onboarding new ecosystems, like Stellar, whatever, other Layer 1s.
+
+251
+00:39:10.570 --> 00:39:12.260
+Derek Meyer: chain instrumentations.
+
+252
+00:39:12.260 --> 00:39:19.759
+Enrique Lacal (Kaleido): Yeah, change my stations. Is that part of the Ground Foundation roadmap, or is that specific companies that want to contribute that?
+
+253
+00:39:20.570 --> 00:39:36.619
+Derek Meyer: Yeah, that's something, and we have had individual companies work on instrumentations in the past. I would say that those haven't gone particularly well. It's not quite as maintained. Streaming fast is a pretty, a pretty fantastic job with overseeing that type of stuff.
+
+254
+00:39:36.710 --> 00:39:52.360
+Derek Meyer: And so, they've been kind of the ones that our protocol has utilized for all new, new client instrumentations. With the Bezu client instrumentation and the ref client instrumentation, Streaming Fast will be doing both those guys.
+
+255
+00:39:52.680 --> 00:39:55.960
+Derek Meyer: So, that's… that's kind of how we've been treating it thus far.
+
+256
+00:39:58.370 --> 00:40:01.569
+Enrique Lacal (Kaleido): Okay, I see.
+
+257
+00:40:01.780 --> 00:40:19.480
+Enrique Lacal (Kaleido): I guess just one more thing that… just a final point for me is I found it really interesting that in that plugin for Aragon and stuff, there was specific code for different Layer 2s and different EVM implementations, so maybe that's something to make aware of the best maintainers of, like… I think there's some level of different block
+
+258
+00:40:19.500 --> 00:40:21.970
+Enrique Lacal (Kaleido): Formats and stuff that gets emitted
+
+259
+00:40:22.060 --> 00:40:28.179
+Enrique Lacal (Kaleido): Based on a specific layer 2, but then you've standardized that format in your protobufs?
+
+260
+00:40:28.260 --> 00:40:51.589
+Enrique Lacal (Kaleido): For then upstream consuming, right? I think that layer that you have of reorg, it's not just reorg, super powerful, I loved it, it's like… it's like I'm standardizing what a block is, and everything above me, substreams or whatever, there's, like, layers of abstraction of interfaces, and then you can… at the top, you can really reliable say, I am going to receive a block of this format every single time I use this thing, regardless of whatever chain I'm consuming.
+
+261
+00:40:51.590 --> 00:41:00.310
+Enrique Lacal (Kaleido): So my end application can be, oh, I don't care if it's linear, or it's polygon, or it's whatever. It's, like, super useful, and I think that's a really good thing.
+
+262
+00:41:00.870 --> 00:41:09.990
+Derek Meyer: Yeah, and that works great with EVM as we start to, you know, move more into chains like Stellar, which we do already have a Stellar firehose provider for.
+
+263
+00:41:10.090 --> 00:41:13.229
+Derek Meyer: You know, those block… those blocks look very different.
+
+264
+00:41:13.500 --> 00:41:24.200
+Derek Meyer: We've been looking at a lot of different blocks recently. You know, Bitcoin's obviously… it's super different, and so, getting those ones instrumented, too, it's been a lot of fun, and
+
+265
+00:41:24.580 --> 00:41:28.100
+Derek Meyer: you know, from what I hear, it's… it's been fairly challenging.
+
+266
+00:41:29.340 --> 00:41:33.720
+Enrique Lacal (Kaleido): Cool. Yeah, thanks for the presentation. I'll stop hammering you with questions, but thanks for being so attractive.
+
+267
+00:41:33.720 --> 00:41:37.280
+Derek Meyer: Nowhere… I love it. I'm all for it.
+
+268
+00:41:37.430 --> 00:41:38.380
+Enrique Lacal (Kaleido): Okay.
+
+269
+00:41:40.380 --> 00:41:43.230
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Alright, quite interesting.
+
+270
+00:41:43.350 --> 00:42:02.109
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): I think, Enrique, you gave me a couple of, thoughts, you know, it's going on now in… from my… from my hat, from my enterprise standpoint, so thanks for sharing that, asking those questions, very meaningful. Because we are going for multi-chain, for sure, and I see, you know, how we can utilize,
+
+271
+00:42:02.160 --> 00:42:04.830
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Some of this technology stack,
+
+272
+00:42:05.490 --> 00:42:13.090
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): We'll see. Alright, so I guess anyone has any question for Derek, or Pedro, or in general, for anyone?
+
+273
+00:42:15.530 --> 00:42:22.419
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): If not, then probably I can give away 15 minutes back, and hope to…
+
+274
+00:42:22.420 --> 00:42:33.299
+Derek Meyer: Is it okay if I just do a… Sure. …give a couple… okay, good. I would say closing remarks, but upcoming remarks. Couple of things that I'm interested in doing and bringing to this working group.
+
+275
+00:42:33.390 --> 00:42:46.700
+Derek Meyer: I'd like to put together a demo. You're gonna have to give me a little bit of time to kind of get all that prepared and all of that. But I can bring a demo to just see each of the different components and how Firehose and Substreams works.
+
+276
+00:42:46.880 --> 00:42:54.700
+Derek Meyer: And that way we can also look at the different places that you can put the information at the end of things. I'm very curious,
+
+277
+00:42:54.870 --> 00:43:04.640
+Derek Meyer: About different, needs and requirements from people within the working group of… when you look at your current data stack, you know, what technology sets are you using?
+
+278
+00:43:04.770 --> 00:43:18.189
+Derek Meyer: Are there any things that are missing, things that… that need to be improved, and all that stuff? Because that's feedback that I would like to return to the foundation and to streaming fast and ways to kind of better this product.
+
+279
+00:43:18.470 --> 00:43:25.770
+Derek Meyer: But yeah, very, very excited to kind of show you guys the world of substreams and all of that, because it'll be… it'll be exciting.
+
+280
+00:43:26.900 --> 00:43:27.830
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Does that make sense?
+
+281
+00:43:28.310 --> 00:43:31.700
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): So, Derek, do you think in the next session, do you want to…
+
+282
+00:43:31.910 --> 00:43:33.490
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Do you want to prepare for that?
+
+283
+00:43:34.170 --> 00:43:35.290
+Derek Meyer: That…
+
+284
+00:43:35.570 --> 00:43:48.400
+Derek Meyer: I mean, I would love for us to get through the Bezoo instrumentation, and then I do a demo with Beisu. If that instrumentation's gonna take too long, I could just do one with Ethereum, you know.
+
+285
+00:43:48.600 --> 00:43:51.159
+Derek Meyer: We could do that, but it…
+
+286
+00:43:51.550 --> 00:44:10.750
+Derek Meyer: you know, on the BASI working group, that feels a little bit like cheating. So that would be my preference, and I can get some time frame. I don't think it would be the next session. Potentially, you know, I'll find out if we could do that for the session afterwards, or we can… I'll message you async, and we can coordinate.
+
+287
+00:44:10.750 --> 00:44:11.130
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Correct.
+
+288
+00:44:11.130 --> 00:44:12.070
+Derek Meyer: When to do that.
+
+289
+00:44:12.760 --> 00:44:13.579
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): That makes sense.
+
+290
+00:44:13.950 --> 00:44:14.910
+Derek Meyer: Good, Annik.
+
+291
+00:44:15.380 --> 00:44:20.110
+Enrique Lacal (Kaleido): Sorry, I have one more question just on the… on the firehole that might be useful.
+
+292
+00:44:20.410 --> 00:44:20.920
+Derek Meyer: Sir?
+
+293
+00:44:20.920 --> 00:44:31.100
+Enrique Lacal (Kaleido): So, what you've presented today is kind of like in an ETL pipeline, it's kind of like load and transformation. It's like you're transforming data into a data source.
+
+294
+00:44:31.200 --> 00:44:44.820
+Enrique Lacal (Kaleido): what are the next steps in terms of querying across, chunks of time, right? You said you were piping stuff into Snowflake, I think you mentioned, as an example. Is that…
+
+295
+00:44:45.110 --> 00:45:01.229
+Enrique Lacal (Kaleido): query part, is it gonna… obviously, each company can choose what technology they want to use for that, but do you see, a roadmap where that maybe fits into the graph, subgraphs, or any other tools you're thinking about in the ecosystem?
+
+296
+00:45:01.690 --> 00:45:07.650
+Derek Meyer: Yeah, I would say that we tried that. It wasn't massively popular in terms… like, we have subgraphs
+
+297
+00:45:07.770 --> 00:45:21.740
+Derek Meyer: with Firehose as its data source. It wasn't massively popular, and so it hasn't been something that we've been focusing on. But with Substreams itself, it's very modular, and so it depends on, like.
+
+298
+00:45:21.900 --> 00:45:33.919
+Derek Meyer: you can write it into Postgres, or ClickHouse, or, you know, we're doing Snowflake. You have a Kafka connector so that, anything that supports Kafka, you can just… you can write your database records into.
+
+299
+00:45:33.930 --> 00:45:47.610
+Derek Meyer: And so, in terms of… and there's tons of them. You could write it directly into a Parquet file, you could write it, you know, directly into your browser, so there's all kinds of different options there. And that's one of the things that I'm very interested in, is we've seen
+
+300
+00:45:47.610 --> 00:46:02.629
+Derek Meyer: some implementations of this, but what other implementations are people interested in, and what… what does their data stack look like to make sure that we're providing broad support, and not just the support that I've been saying, hey, I need this right now?
+
+301
+00:46:05.050 --> 00:46:16.269
+Enrique Lacal (Kaleido): Gotcha, okay, yeah. You just… I just mentioned in the chat, yeah, I built one of those substream syncs, and I… you can filter over specific things, and I store them in a Postgres, but then there's a level of thought after that, like, how do you index.
+
+302
+00:46:16.270 --> 00:46:18.000
+Derek Meyer: Yeah, how do you query that now?
+
+303
+00:46:18.000 --> 00:46:30.559
+Enrique Lacal (Kaleido): query that now, etc. There's a level of understanding that you need to have for big data still, even though you're narrowing the funnel with substreams, because one of the things that you mentioned, they're composable, so you can have one substream that filters on
+
+304
+00:46:30.560 --> 00:46:39.979
+Enrique Lacal (Kaleido): a specific smart contract, and another one that fills specific events, another one that's on specific addresses. So you can compose them over time, and there's also a big caching layer behind
+
+305
+00:46:39.980 --> 00:46:45.149
+Enrique Lacal (Kaleido): But then you can store it into your database, and you still need to think about how to persist that.
+
+306
+00:46:45.620 --> 00:46:53.200
+Derek Meyer: Right, and that's one of the big differences that I always recommend between substreams and subgraphs. Subgraphs, you get a whole package out of the box.
+
+307
+00:46:53.220 --> 00:47:10.749
+Derek Meyer: it's gonna extract, it loads it into a Postgres, you have a Postgres instance, you have a GraphQL interface that's really easy for front-end developers to say, okay, good, I'm gonna build a front-end and just write simple GraphQL queries, and if I need to edit something, it's a very simple query edit.
+
+308
+00:47:10.780 --> 00:47:15.650
+Derek Meyer: That's not the case with substreams. It's a more advanced product, and so you need to think about
+
+309
+00:47:15.800 --> 00:47:20.629
+Derek Meyer: How you want to query this, and we… we may have some…
+
+310
+00:47:20.850 --> 00:47:27.269
+Derek Meyer: new… news on that soon, but I… I don't want to say anything that'll get me in trouble.
+
+311
+00:47:29.020 --> 00:47:30.280
+Enrique Lacal (Kaleido): Okay, thank you.
+
+312
+00:47:30.280 --> 00:47:32.790
+Derek Meyer: Brandon, did you want to… did you want to add to that a little bit?
+
+313
+00:47:32.790 --> 00:47:39.070
+Brandon Kramer: Yeah, thanks. Hi, I'm BK, or Brandon. I'm at the Graff Foundation in Product Marketing.
+
+314
+00:47:39.070 --> 00:47:58.140
+Brandon Kramer: Yeah, I guess my question is along the lines for Enrique. Kind of what you're asking for is, you know, is it possible for us to standardize the query, you know, mechanisms or formats, and kind of make them readily available as, like, standardized code and things of that nature? Is it partly that question, or is it partly, like.
+
+315
+00:47:58.140 --> 00:48:07.300
+Brandon Kramer: I… or more along the lines of, like, what other technologies we have to, like, kind of make it easier to be able to do that. Can you clarify that?
+
+316
+00:48:08.210 --> 00:48:14.939
+Enrique Lacal (Kaleido): I think it's more the latter, which technologies you've seen have been useful, and how people have modeled the data in the correct way.
+
+317
+00:48:15.790 --> 00:48:28.680
+Brandon Kramer: Great, okay, cool. That's helpful. I mean, I think, I guess it's also helpful to know, are you mostly interested in, like, when you use substreams to port over into your, like, your data, environment,
+
+318
+00:48:28.720 --> 00:48:45.080
+Brandon Kramer: I guess there's kind of a bifurcation within the graph ecosystem. We have really hosted solutions, as well as fire hose and substreams where we make it possible to kind of port that data over to your environment, and then building those, you know, the storage and query layers on top of that. You're more interested in that latter as well, right?
+
+319
+00:48:45.080 --> 00:48:46.300
+Enrique Lacal (Kaleido): Yeah, yeah, correct.
+
+320
+00:48:46.300 --> 00:48:46.830
+Brandon Kramer: Perfect.
+
+321
+00:48:46.970 --> 00:48:59.190
+Brandon Kramer: Okay, perfect. Yeah, that's something we can continue to work on. There are a couple solutions ongoing, as Derek said. You should probably hear about those announcements, in the coming weeks, hopefully. So, great, thank you.
+
+322
+00:48:59.190 --> 00:49:00.290
+Enrique Lacal (Kaleido): I'll keep an eye on it.
+
+323
+00:49:02.410 --> 00:49:03.959
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Alright, I'm done now, I promise, sorry.
+
+324
+00:49:04.160 --> 00:49:12.980
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): No, all good questions, believe me. All good questions. Since you have already done the thorough, I think you've done a good homework there. You've been… I think you have already…
+
+325
+00:49:13.410 --> 00:49:18.439
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): been part of the, testing out the fire hose? Is that what I'm understanding? Is that true?
+
+326
+00:49:18.440 --> 00:49:24.109
+Enrique Lacal (Kaleido): Yeah, yeah, I've played around with it, I've run a node, all the setup, yeah.
+
+327
+00:49:24.440 --> 00:49:29.900
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Okay, that makes sense. All right, perfect. All right, anyone has any questions for Derek or Pedro?
+
+328
+00:49:30.120 --> 00:49:38.350
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): If not, then probably we can take 8 minutes back, and we'll definitely meet in the next session with the much more, you know, I think.
+
+329
+00:49:38.500 --> 00:49:39.950
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): packed,
+
+330
+00:49:40.260 --> 00:49:47.599
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): what I call agenda, around this line, or probably something new topic, but we'll definitely tune on this one again next month.
+
+331
+00:49:49.550 --> 00:49:52.490
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Alright guys, thank you very much. Thanks for joining.
+
+332
+00:49:52.490 --> 00:49:54.359
+Enrique Lacal (Kaleido): Thank you, thanks for the presentation, it's really.
+
+333
+00:49:54.360 --> 00:49:55.450
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Thank you. Thanks, Jared.
+
+334
+00:49:55.450 --> 00:49:56.620
+Enrique Lacal (Kaleido): Cheers.
+
+335
+00:49:56.620 --> 00:49:57.330
+Pedro (The Graph Foundation): Cool.
+
+336
+00:49:57.670 --> 00:49:58.370
+Pedro (The Graph Foundation): Bye.
+

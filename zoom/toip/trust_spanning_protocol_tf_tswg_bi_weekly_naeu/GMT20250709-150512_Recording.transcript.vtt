@@ -1,0 +1,642 @@
+WEBVTT
+
+1
+00:00:25.430 --> 00:00:26.570
+Steven Milstein (Collab.Ventures): Morning, Sam.
+
+2
+00:00:27.820 --> 00:00:28.570
+Samuel Smith: Hey?
+
+3
+00:00:30.168 --> 00:00:31.559
+Samuel Smith: I don't see. Wednesday.
+
+4
+00:00:31.560 --> 00:00:31.890
+Steven Milstein (Collab.Ventures): Numbers.
+
+5
+00:00:31.890 --> 00:00:32.670
+Samuel Smith: Company.
+
+6
+00:00:33.510 --> 00:00:35.120
+Samuel Smith: Maybe he's
+
+7
+00:00:42.010 --> 00:00:46.600
+Samuel Smith: alright, and maybe meeting date.
+
+8
+00:00:48.030 --> 00:00:48.859
+Steven Milstein (Collab.Ventures): Let me check.
+
+9
+00:00:48.860 --> 00:00:52.400
+Steven Milstein (Collab.Ventures): I'll check if Wayne Jean's on slack.
+
+10
+00:00:52.400 --> 00:00:53.150
+Samuel Smith: Yeah.
+
+11
+00:01:56.810 --> 00:02:03.020
+Steven Milstein (Collab.Ventures): I messaged Wang jing on slack. See if that works
+
+12
+00:02:15.600 --> 00:02:16.500
+Steven Milstein (Collab.Ventures): my dad.
+
+13
+00:02:19.130 --> 00:02:20.240
+Daniel Bachenheimer (Accenture Global Solutions Limited): Hey?
+
+14
+00:02:22.670 --> 00:02:26.910
+Daniel Bachenheimer (Accenture Global Solutions Limited): He's kind of the focal point here. Well, you guys are, but especially.
+
+15
+00:02:26.910 --> 00:02:28.700
+Samuel Smith: Yeah, if he's not here.
+
+16
+00:03:21.300 --> 00:03:24.489
+Steven Milstein (Collab.Ventures): Yeah, I can't find any emails about cancellations or anything.
+
+17
+00:03:30.210 --> 00:03:36.230
+Samuel Smith: Yeah, I think he may have just forgot about it, or had something come so
+
+18
+00:05:09.100 --> 00:05:13.010
+Samuel Smith: alright. Well, I guess we'll wait. Give it another
+
+19
+00:05:13.300 --> 00:05:18.459
+Samuel Smith: 5 min, and if he doesn't show up, I'm I'm assume he's not going to.
+
+20
+00:05:19.780 --> 00:05:20.450
+Samuel Smith: Yeah.
+
+21
+00:05:21.240 --> 00:05:25.440
+Samuel Smith: Do you guys have any questions or anything while waiting, or just.
+
+22
+00:05:28.030 --> 00:05:34.069
+Steven Milstein (Collab.Ventures): Nothing technical. Just what? What stage of completion do you think you're up.
+
+23
+00:05:34.860 --> 00:05:36.650
+Samuel Smith: So I think we're really close.
+
+24
+00:05:36.650 --> 00:05:37.010
+Samuel Smith: Yeah.
+
+25
+00:05:37.380 --> 00:05:38.860
+Steven Milstein (Collab.Ventures): Impression. I had too.
+
+26
+00:05:40.005 --> 00:05:41.294
+Samuel Smith: I I
+
+27
+00:05:42.080 --> 00:05:51.980
+Samuel Smith: So I I was gonna propose one additional variant, or just
+
+28
+00:05:52.410 --> 00:05:55.809
+Samuel Smith: proposed to discuss an additional variant today.
+
+29
+00:05:56.516 --> 00:06:03.249
+Samuel Smith: To see if there was any interest in it. It makes a different trade off in terms of metadata
+
+30
+00:06:03.430 --> 00:06:05.790
+Samuel Smith: for the hop message.
+
+31
+00:06:08.700 --> 00:06:18.725
+Samuel Smith: So the the current way the hot message works is the final message, there isn't.
+
+32
+00:06:20.240 --> 00:06:26.510
+Samuel Smith: The the final destination isn't anywhere in the hot message.
+
+33
+00:06:26.820 --> 00:06:30.514
+Samuel Smith: The final hop did is the
+
+34
+00:06:31.320 --> 00:06:37.200
+Samuel Smith: is the address is the vid of the final intermediary, not the final destination.
+
+35
+00:06:37.570 --> 00:06:42.490
+Samuel Smith: so that allows the final destination not have to disclose
+
+36
+00:06:42.880 --> 00:06:47.820
+Samuel Smith: a correlatable vid to the source. If
+
+37
+00:06:48.210 --> 00:06:53.380
+Samuel Smith: the final destination doesn't want to the source to know how to actually talk to it directly.
+
+38
+00:06:55.725 --> 00:07:05.540
+Samuel Smith: And then the embedded message that goes in in the hop uses a different did as its destination.
+
+39
+00:07:06.456 --> 00:07:21.479
+Samuel Smith: But that did isn't used to send the message to the final destination. So it basically allows the source and destination not have to know very much about each other to communicate. In other words, they're not. They're communicating, using
+
+40
+00:07:23.970 --> 00:07:31.040
+Samuel Smith: Vids that are not correlatable to the the hop pathing itself.
+
+41
+00:07:33.196 --> 00:07:42.900
+Samuel Smith: That approach, however, does mean that the intermediaries know the vids of the embedded message.
+
+42
+00:07:43.400 --> 00:07:46.729
+Samuel Smith: because it can't be encrypted
+
+43
+00:07:46.960 --> 00:07:53.230
+Samuel Smith: until the last intermediary gets it, and then it encrypts it to the final destination.
+
+44
+00:07:55.410 --> 00:08:02.100
+Samuel Smith: the the variant that I suggest you may want to consider is where we make a different trade off.
+
+45
+00:08:02.310 --> 00:08:11.556
+Samuel Smith: where? The source and destination trust each other more. And so it's okay for them to know
+
+46
+00:08:12.340 --> 00:08:17.330
+Samuel Smith: the routing between them, or at least the final hop routing.
+
+47
+00:08:18.288 --> 00:08:30.039
+Samuel Smith: So the source can encrypt to the final destination, which means the intermediaries don't see the embedded message vids
+
+48
+00:08:30.990 --> 00:08:40.230
+Samuel Smith: so they so so if you had less trust of the intermediaries they wouldn't they? They wouldn't see those. Now the thing is, you could always use ephemeral
+
+49
+00:08:43.080 --> 00:08:53.599
+Samuel Smith: some sort of ephemeral shared secret based derivation protocol for the vids in the embedded message, so that it's not
+
+50
+00:08:54.990 --> 00:08:56.470
+Samuel Smith: It doesn't really matter.
+
+51
+00:08:56.770 --> 00:08:58.790
+Samuel Smith: You just create new ones every time.
+
+52
+00:08:59.222 --> 00:09:02.447
+Samuel Smith: So there's lots of ways to to skin that cat.
+
+53
+00:09:03.180 --> 00:09:06.120
+Samuel Smith: But wouldn't you be more trusting of the end.
+
+54
+00:09:06.290 --> 00:09:10.110
+Steven Milstein (Collab.Ventures): The the person you're sending the message to. Then the intermediaries?
+
+55
+00:09:10.830 --> 00:09:12.799
+Steven Milstein (Collab.Ventures): Well, no, not no.
+
+56
+00:09:13.290 --> 00:09:21.880
+Samuel Smith: No, there's lots of applications where you wouldn't you? You may be sending information to somebody. And you don't. You don't want them to know how to.
+
+57
+00:09:21.980 --> 00:09:24.969
+Samuel Smith: You don't want them to know where you are
+
+58
+00:09:25.450 --> 00:09:35.829
+Samuel Smith: because you don't trust them with your location. You're you're basically sending information that that they need to know. But you you don't want them to know
+
+59
+00:09:36.920 --> 00:09:45.100
+Samuel Smith: who you are or to correlate to anything that is correlatable to you know the final hop is is the is the most.
+
+60
+00:09:45.350 --> 00:09:57.769
+Samuel Smith: is your most vulnerable piece of information. So that's the so in many applications you don't want the final hop to be exposed to whoever you're communicating with, and that means you trust your intermediary.
+
+61
+00:09:58.244 --> 00:10:07.069
+Samuel Smith: Because the intermediary knows how to talk to you. So so you're assuming that the final intermediary is somebody you trust. You trust more than the party you're talking to.
+
+62
+00:10:07.420 --> 00:10:18.619
+Samuel Smith: so so you could control the final intermediary. Right? You have to trust the intermediary to some extent. If the intermediaries are completely untrustworthy, then
+
+63
+00:10:19.319 --> 00:10:21.969
+Samuel Smith: then then they can correlate
+
+64
+00:10:22.750 --> 00:10:34.329
+Samuel Smith: the pass right they don't. They don't. They don't know what what you're they? They don't have access to the confidential information, but they do have access to the metadata A 3rd party doesn't.
+
+65
+00:10:34.590 --> 00:10:49.240
+Samuel Smith: which would be a surveiller unless they break your inter intermediaries. So yes, in in some applications you, you would trust your intermediaries less than than the parties where you have a trusted relationship with the parties. So that's that's why.
+
+66
+00:10:49.240 --> 00:10:51.830
+Steven Milstein (Collab.Ventures): Intermediaries are like my agents.
+
+67
+00:10:52.670 --> 00:10:54.960
+Samuel Smith: Yes. Well, at least the final ones.
+
+68
+00:10:55.360 --> 00:11:07.300
+Samuel Smith: Right? You got 2 intermediaries, if there's only 2. The the intermediary that's closest to you is an agent. He's working for you. That intermediary is working for you. You have a trusted relationship with them.
+
+69
+00:11:07.530 --> 00:11:08.230
+Steven Milstein (Collab.Ventures): Right?
+
+70
+00:11:08.480 --> 00:11:09.270
+Steven Milstein (Collab.Ventures): Okay.
+
+71
+00:11:09.270 --> 00:11:29.480
+Samuel Smith: But the intermediary, the far side intermediary. You don't. The far side intermediary works for the the other side, and anybody in between can they could be, whoever you want them to be, because they're not trusted by they aren't. Don't have to be trusted by either side. So the protocol works just fine, with just 2 intermediaries, one that is an agent for
+
+72
+00:11:29.640 --> 00:11:47.119
+Samuel Smith: the source, and one is an agent for the destination, you know, going both ways, and that. So you don't. So it's much simpler than than than than like onion wrapping and and it's more careful about the metadata correlation.
+
+73
+00:11:47.560 --> 00:12:07.860
+Samuel Smith: But you're assuming you have to assume that the intermediary knows the final hop. And and and and that's true in onion routing. So what you've done in onion routing is that you've lied to people and say, Oh, just send it onion routing. It doesn't matter. Well, you can correlate out onion routing. They've done that successfully.
+
+74
+00:12:09.910 --> 00:12:15.649
+Samuel Smith: because each hop you can correlate because the metadata is there for you to correlate.
+
+75
+00:12:15.770 --> 00:12:32.359
+Samuel Smith: So all you have to do is is just is just track the this, the the packet time, arrival, time of destined packet size, and and you can trace it all the way through all the hops. So you. So you have to have a pool of 1st hops
+
+76
+00:12:32.480 --> 00:12:38.699
+Samuel Smith: that you send to. You have to have a what's called a guard, and you have to, and both sides have to have a guard, and so
+
+77
+00:12:38.830 --> 00:12:44.099
+Samuel Smith: if you don't trust the 1st hop, then you, then you have to randomize your 1st hop.
+
+78
+00:12:48.430 --> 00:12:55.729
+Samuel Smith: And so the the Tsp. Says, well, the 1st top is actually a trusted intermediary in general.
+
+79
+00:12:55.860 --> 00:12:57.389
+Samuel Smith: because it's an agent.
+
+80
+00:13:00.011 --> 00:13:13.310
+Samuel Smith: and then other hops can be randomized. Right? So so so if you're going to do a randomized hop, you'd have a total of 3 hops, because the randomization you only really benefit from
+
+81
+00:13:13.720 --> 00:13:15.649
+Samuel Smith: from the randomized hops.
+
+82
+00:13:15.770 --> 00:13:24.660
+Samuel Smith: Any. Any hops that aren't randomized are are correlatable. So it doesn't matter that you have 10 hops, and then in routing, unless every hop is randomized.
+
+83
+00:13:24.780 --> 00:13:33.910
+Samuel Smith: then the the full path is correlatable, and all you need to know is the 1st and last hops to be to be to correlate. You don't have to know in in the ones in the middle.
+
+84
+00:13:34.230 --> 00:13:52.020
+Samuel Smith: So so so unless you use uncorrelated metadata for the packets, and you randomize the size of the packets and the timing of the packets, or or make them uniform. Then then your then, then your then your routing is still correlatable.
+
+85
+00:13:52.220 --> 00:14:02.789
+Samuel Smith: So people, people. So so, so everything has trade offs. And so I was looking at. And I said, Well, you know, there's another trade off we could make here if we wanted to.
+
+86
+00:14:03.340 --> 00:14:14.440
+Samuel Smith: And so that's what that was. My proposal would be. Maybe somebody wants to make that trade off is is instead of ha! Instead of using non correlatable
+
+87
+00:14:14.910 --> 00:14:18.959
+Samuel Smith: ephemeral dids in the embedded message.
+
+88
+00:14:19.370 --> 00:14:25.839
+Samuel Smith: you could encrypt it to the final destination, if you, if the source and the destination trust each other enough to
+
+89
+00:14:26.000 --> 00:14:29.640
+Samuel Smith: reveal the last hop to each other.
+
+90
+00:14:30.310 --> 00:14:39.549
+Samuel Smith: and that that's a that requires a lot of trust right? So more than the current Tsp assumes.
+
+91
+00:14:41.570 --> 00:14:48.070
+Steven Milstein (Collab.Ventures): And is this depending? What you want to do is this configurable at any point? Or that's not the.
+
+92
+00:14:48.070 --> 00:14:50.870
+Samuel Smith: Oh, yeah, because all the vids are configurable. Right?
+
+93
+00:14:51.400 --> 00:14:54.690
+Steven Milstein (Collab.Ventures): You could decide. If you want to do onion in the middle or not.
+
+94
+00:14:55.120 --> 00:14:55.830
+Samuel Smith: Yes.
+
+95
+00:14:56.430 --> 00:14:57.320
+Steven Milstein (Collab.Ventures): Okay.
+
+96
+00:14:58.200 --> 00:15:10.680
+Samuel Smith: And and and and one variant of the hop is that is, that you use nested hops instead of a hop list. You just have one hop, and then the embedded packet is another hop message.
+
+97
+00:15:10.900 --> 00:15:21.800
+Samuel Smith: and then it's it's embed is another hot message. So it's exactly onion rounding. When you do it that way except without the correlatable metadata. Because and and you're using Essr.
+
+98
+00:15:21.940 --> 00:15:24.609
+Samuel Smith: So it's better than onion routing. For those reasons.
+
+99
+00:15:25.100 --> 00:15:25.820
+Steven Milstein (Collab.Ventures): Hmm.
+
+100
+00:15:25.820 --> 00:15:32.859
+Samuel Smith: But it's also much more verbose right? Because you're you're adding a lot of overhead when you nest that way.
+
+101
+00:15:35.131 --> 00:15:37.800
+Samuel Smith: So so there's a trade off there.
+
+102
+00:15:38.280 --> 00:15:41.260
+Samuel Smith: It's always trade-offs right great.
+
+103
+00:15:41.652 --> 00:15:57.339
+Samuel Smith: So so I don't. I don't like to complicate things, but at the same time it it it's it's a it's a pretty straightforward forward variant. So I thought I'd bring it up just just as a point of discussion.
+
+104
+00:15:58.001 --> 00:16:02.639
+Samuel Smith: To see if you know, because sometimes, just discussing the trade-offs.
+
+105
+00:16:02.860 --> 00:16:06.739
+Samuel Smith: help helps to understand the protocol better.
+
+106
+00:16:07.030 --> 00:16:12.199
+Samuel Smith: right? You know, because it's like, Oh, we could have done it this way. But here's the trade off
+
+107
+00:16:12.807 --> 00:16:28.600
+Samuel Smith: and so sometimes the the trade offs get lost when you when you when you don't, when when you just say, Well, this is the way we're doing it right. And and you make a reason why you're doing. But you don't discuss the the trades so I I didn't do it.
+
+108
+00:16:28.730 --> 00:16:33.500
+Samuel Smith: I didn't even propose it originally, because
+
+109
+00:16:33.690 --> 00:16:49.432
+Samuel Smith: the original assumption is you. You don't want the source and the destination. You don't want to force them to be in a situation where they have to trust each other so it would always have to be an option, because it's not the default that the source of destination, trust each other
+
+110
+00:16:50.250 --> 00:16:56.400
+Samuel Smith: as much as they would trust their agent, which is their 1st hop.
+
+111
+00:16:56.630 --> 00:17:00.170
+Samuel Smith: I mean the the 1st hop is, if if.
+
+112
+00:17:00.290 --> 00:17:04.526
+Steven Milstein (Collab.Ventures): If I understand correctly, which is really a long shot.
+
+113
+00:17:05.250 --> 00:17:07.040
+Steven Milstein (Collab.Ventures): in the case where I wouldn't
+
+114
+00:17:07.339 --> 00:17:20.330
+Steven Milstein (Collab.Ventures): trust the destination would be like the phone home scenario, right? Like no phone home. I I wouldn't want anyone to check with my government, which is the destination where I am. So I don't.
+
+115
+00:17:20.339 --> 00:17:20.949
+Samuel Smith: Yeah.
+
+116
+00:17:20.950 --> 00:17:21.420
+Steven Milstein (Collab.Ventures): Awesome.
+
+117
+00:17:22.280 --> 00:17:34.729
+Samuel Smith: Right, or or you're just doing business with an anonymous pseudonymous party. All you know the party by is their bid, and you know that they have certain legal obligations.
+
+118
+00:17:34.900 --> 00:17:41.519
+Samuel Smith: But you don't have any other recourse, and so you don't want. You don't want them to be able to
+
+119
+00:17:41.670 --> 00:17:46.850
+Samuel Smith: to find you because you want to be pseudonymous.
+
+120
+00:17:48.250 --> 00:17:55.440
+Samuel Smith: And so you have 2 pseudonymous parties who want to maintain their pseudonymity and.
+
+121
+00:17:55.440 --> 00:17:55.889
+Steven Milstein (Collab.Ventures): So, yeah.
+
+122
+00:17:55.890 --> 00:17:56.450
+Samuel Smith: Yes.
+
+123
+00:17:59.390 --> 00:18:05.299
+Steven Milstein (Collab.Ventures): This stuff must be just primed for bad actors. No offense.
+
+124
+00:18:05.810 --> 00:18:22.470
+Samuel Smith: Oh, yeah, absolutely. If you get rid of us, if you. The whole point is, you're getting rid of survivability. It will be attractive to bad actors that that is unfortunately the the drawback here. But the difference is
+
+125
+00:18:22.880 --> 00:18:28.540
+Samuel Smith: is that the pseudonymity is non-reputable.
+
+126
+00:18:28.770 --> 00:18:30.970
+Samuel Smith: So if you sign something
+
+127
+00:18:31.260 --> 00:18:43.149
+Samuel Smith: and you make an agreement, and that vid you use to sign it right. If, if, in order for that traction transaction to consummate.
+
+128
+00:18:43.230 --> 00:19:01.360
+Samuel Smith: you have to know more about them because it's a high stakes transaction. Then no 3rd party will know. But you will have recourse against the other party, because it because everything's signed so they can't. They can't, they can't.
+
+129
+00:19:01.650 --> 00:19:15.210
+Samuel Smith: They don't have anonymity, they they have pseudonymity, and you can make that pseudonymity, you know, strong in terms of legal obligation, because you can force them to disclose
+
+130
+00:19:15.210 --> 00:19:32.010
+Samuel Smith: who they are, without any surveiler being able to see that disclosure. So you know, you can enforce it against them, because you have the information that you need to enforce it without a 3rd party being able to surveil it. Most of the other systems basically are weak
+
+131
+00:19:32.070 --> 00:19:38.150
+Samuel Smith: in that. If if you can figure out the other party, so can all the surveilers.
+
+132
+00:19:38.520 --> 00:19:56.250
+Samuel Smith: The Tsp. Is meant so that you can figure out the other party. The parties that are engaged in a confidential transaction have strong confidentiality and no surveillable metadata. And that's what you want for for not for legitimate transactions.
+
+133
+00:19:56.460 --> 00:19:57.220
+Samuel Smith: Right?
+
+134
+00:19:57.490 --> 00:20:03.939
+Samuel Smith: It's right. and and here's the thing. If you're engaged in the criminal
+
+135
+00:20:04.050 --> 00:20:09.170
+Samuel Smith: criminal act, and you can prove who the other side is.
+
+136
+00:20:09.730 --> 00:20:19.110
+Samuel Smith: It is a counter incentive to engage in the criminal act, because now now they can, they can turn you in right.
+
+137
+00:20:19.110 --> 00:20:19.980
+Steven Milstein (Collab.Ventures): Right, right.
+
+138
+00:20:19.980 --> 00:20:26.219
+Samuel Smith: They could. They, they, the the party that you're engaging with could be could be an undercover agent.
+
+139
+00:20:26.480 --> 00:20:46.870
+Samuel Smith: And so what you've done is you. You've made it so that they they don't have they don't have reputability, they can't. They can't say I wasn't there. You go. Well, no, this is this, you know, we we prove that you control this, this, this vid, and only you have the private keys. So unless you're sharing private keys with a bunch of people.
+
+140
+00:20:46.870 --> 00:21:01.799
+Samuel Smith: Which means that they're insecure, right? Anybody can impersonate them, forge it and spend their money. So they're not going to do that. Then then you have a you have a really, you know you you've they? They are at risk
+
+141
+00:21:02.040 --> 00:21:22.079
+Samuel Smith: in order to engage in a transaction. Right? They're not at risk of surveillance which legitimate parties want not to be at risk of surveillance from from. You know from governments that that are not friendly, or from competitors that are not friendly. But the the parties engaged in the confidential transaction
+
+142
+00:21:22.510 --> 00:21:28.039
+Samuel Smith: basically can hold each other accountable. And so that's and so legitimate parties have no problem.
+
+143
+00:21:28.040 --> 00:21:30.890
+Steven Milstein (Collab.Ventures): If I go down you go down too.
+
+144
+00:21:31.090 --> 00:21:43.890
+Samuel Smith: That's right. So so so now, so most criminals won't. Don't want that, they don't they? They? They don't want the the other party to be able to take them down.
+
+145
+00:21:44.090 --> 00:21:46.119
+Steven Milstein (Collab.Ventures): Right. They'll stay on Bitcoin.
+
+146
+00:21:46.710 --> 00:21:48.410
+Samuel Smith: Yeah, so.
+
+147
+00:21:49.920 --> 00:21:50.810
+Steven Milstein (Collab.Ventures): Cool.
+
+148
+00:21:50.810 --> 00:21:52.219
+Samuel Smith: But it looks like it's not coming so.
+
+149
+00:21:52.490 --> 00:21:53.610
+Steven Milstein (Collab.Ventures): Think it's the same.
+
+150
+00:21:53.610 --> 00:21:56.029
+Samuel Smith: So alright! Well.
+
+151
+00:21:56.030 --> 00:21:56.350
+Steven Milstein (Collab.Ventures): Well.
+
+152
+00:21:56.350 --> 00:21:56.680
+Samuel Smith: Discussion.
+
+153
+00:21:56.680 --> 00:22:09.450
+Steven Milstein (Collab.Ventures): Your comments about extending that use case on and put it into the paper for sure. I know he does have a a demo working with Tsp. And open wallet.
+
+154
+00:22:09.680 --> 00:22:11.430
+Steven Milstein (Collab.Ventures): You open wallet so.
+
+155
+00:22:11.430 --> 00:22:12.710
+Samuel Smith: Oh, okay. Yeah.
+
+156
+00:22:12.710 --> 00:22:13.180
+Steven Milstein (Collab.Ventures): Be interesting.
+
+157
+00:22:13.180 --> 00:22:14.160
+Samuel Smith: Lost it.
+
+158
+00:22:14.520 --> 00:22:16.120
+Samuel Smith: Yeah, alright, bye-bye.
+
+159
+00:22:16.120 --> 00:22:17.099
+Steven Milstein (Collab.Ventures): Great. Thank you.
+
+160
+00:22:17.360 --> 00:22:19.490
+Daniel Bachenheimer (Accenture Global Solutions Limited): Thanks a lot. Man, good stuff.
+

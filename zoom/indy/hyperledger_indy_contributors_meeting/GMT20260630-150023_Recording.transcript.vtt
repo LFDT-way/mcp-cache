@@ -1,0 +1,206 @@
+WEBVTT
+
+1
+00:00:37.650 --> 00:00:38.750
+Lynn Bendixsen (Indicio): G'day, mate.
+
+2
+00:00:39.610 --> 00:00:40.739
+Kim Ebert (Indicio): Greetings, Lynn.
+
+3
+00:00:42.200 --> 00:00:49.239
+Kim Ebert (Indicio): Welcome to the… June 30th Indy Contributors Call.
+
+4
+00:00:50.100 --> 00:00:56.209
+Kim Ebert (Indicio): One second here, and I will… Share my screen.
+
+5
+00:01:01.370 --> 00:01:02.410
+Kim Ebert (Indicio): Let's see…
+
+6
+00:01:05.770 --> 00:01:07.110
+Kim Ebert (Indicio): Sure…
+
+7
+00:01:10.710 --> 00:01:11.640
+Kim Ebert (Indicio): Bear.
+
+8
+00:01:12.350 --> 00:01:13.960
+Kim Ebert (Indicio): Alright, see my screen?
+
+9
+00:01:15.940 --> 00:01:16.460
+Lynn Bendixsen (Indicio): Yep.
+
+10
+00:01:17.360 --> 00:01:28.910
+Kim Ebert (Indicio): Alright, so, let's see here… Today's agenda…
+
+11
+00:01:31.310 --> 00:01:34.089
+Kim Ebert (Indicio): Well, first off, I'm getting ahead of myself.
+
+12
+00:01:34.220 --> 00:01:37.660
+Kim Ebert (Indicio): we're governed by the Linux anti…
+
+13
+00:01:37.980 --> 00:01:46.229
+Kim Ebert (Indicio): the Linux Foundation Decentralized Trust Antitrust Policy. That can be read here, and…
+
+14
+00:01:46.230 --> 00:01:58.199
+Kim Ebert (Indicio): We follow the Linux Foundation Decentralized Trust Code of Conduct. Basically, be nice to people, allow everyone's ideas, and let's work towards making something great!
+
+15
+00:01:59.330 --> 00:02:04.630
+Kim Ebert (Indicio): As far as our agenda today… I don't see anyone new.
+
+16
+00:02:05.670 --> 00:02:14.970
+Kim Ebert (Indicio): So let's go ahead and move on to the agenda. The Ubuntu 22.42.04 upgrade's actually making good progress.
+
+17
+00:02:14.970 --> 00:02:29.489
+Kim Ebert (Indicio): I am moving to a Docker configuration instead of Devian-based packages, and looking at adding support for maintaining the upgrade workflow that you guys use to upgrade the packages.
+
+18
+00:02:29.760 --> 00:02:36.139
+Kim Ebert (Indicio): for, Debian, but instead of upgrading packages, it will select a different Docker image.
+
+19
+00:02:38.150 --> 00:02:39.330
+Kim Ebert (Indicio): I'm hoping…
+
+20
+00:02:39.330 --> 00:02:43.310
+Lynn Bendixsen (Indicio): Do you have to switch to the new one before an upgrade will work? Is that…
+
+21
+00:02:43.830 --> 00:02:46.340
+Kim Ebert (Indicio): Yeah, we would have to switch to the new one.
+
+22
+00:02:46.340 --> 00:02:53.140
+Lynn Bendixsen (Indicio): So it'd have to be a manual upgrade to get to the new Docker-based thing, and then upgrades will work after that?
+
+23
+00:02:53.260 --> 00:02:58.609
+Kim Ebert (Indicio): Yeah, but it's also a manual upgrade anyways, because you have to upgrade the OS version, right?
+
+24
+00:02:59.630 --> 00:03:01.100
+Lynn Bendixsen (Indicio): It's a 20 to…
+
+25
+00:03:01.350 --> 00:03:07.370
+Lynn Bendixsen (Indicio): 22, so I was… I thought there may be a way to actually do it without a manual upgrade.
+
+26
+00:03:07.860 --> 00:03:15.489
+Kim Ebert (Indicio): That… I suppose that's a possibility. But yeah, there'll be some manual configuration steps to migrate the nodes over.
+
+27
+00:03:17.600 --> 00:03:29.139
+Kim Ebert (Indicio): The big motivator here is the Debian package tooling is, for the Python packages is pretty frail.
+
+28
+00:03:30.540 --> 00:03:37.909
+Kim Ebert (Indicio): And so we've been having a lot of issues getting the, repos updated.
+
+29
+00:03:38.210 --> 00:03:42.460
+Kim Ebert (Indicio): Getting the…
+
+30
+00:03:42.890 --> 00:04:01.409
+Kim Ebert (Indicio): the Debian package is built from Python. A lot of those workflows are pretty fragile, so moving to this new configuration should, simplify the development process, the build process, and I think it'll, make it for a better development environment moving forward.
+
+31
+00:04:03.160 --> 00:04:06.790
+Lynn Bendixsen (Indicio): Okay, the next upgrade is gonna be huge, then, because it…
+
+32
+00:04:07.280 --> 00:04:11.529
+Lynn Bendixsen (Indicio): Everyone will… every node operator will have to upgrade their own…
+
+33
+00:04:13.220 --> 00:04:17.769
+Lynn Bendixsen (Indicio): their own server, again, their own node, right? Manually, so…
+
+34
+00:04:18.450 --> 00:04:29.870
+Kim Ebert (Indicio): That's correct, but, I was trying to figure out how we could get this upgrade moved forward, and this is the best path forward, in my opinion.
+
+35
+00:04:36.410 --> 00:04:37.010
+Lynn Bendixsen (Indicio): Okay.
+
+36
+00:04:37.330 --> 00:04:43.369
+Kim Ebert (Indicio): It also, allows for installations that have been talked about, like using Kubernetes.
+
+37
+00:04:44.620 --> 00:04:49.050
+Kim Ebert (Indicio): So someone could host a node in the Kubernetes-type environment a little easier.
+
+38
+00:04:53.010 --> 00:04:57.970
+Kim Ebert (Indicio): Although automatic upgrades in a Kubernetes environment,
+
+39
+00:04:58.200 --> 00:05:02.930
+Kim Ebert (Indicio): I think they would have to restart their own node in a Kubernetes environment.
+
+40
+00:05:05.090 --> 00:05:08.570
+Kim Ebert (Indicio): So, that's the downside of using a Kubernetes environment there.
+
+41
+00:05:10.040 --> 00:05:10.550
+Lynn Bendixsen (Indicio): Okay?
+
+42
+00:05:11.070 --> 00:05:15.759
+Kim Ebert (Indicio): Did WebVH… I don't have any updates on that,
+
+43
+00:05:17.850 --> 00:05:24.170
+Kim Ebert (Indicio): I still need to look over the indie node monitor work to figure out how we're going to support that going forward.
+
+44
+00:05:24.470 --> 00:05:28.350
+Kim Ebert (Indicio): But the big push is on Ubuntu 22.04.
+
+45
+00:05:29.530 --> 00:05:35.010
+Kim Ebert (Indicio): And then it looks like we have some tasks that we're gonna need to review once the…
+
+46
+00:05:35.910 --> 00:05:40.220
+Kim Ebert (Indicio): Ending the 2204 upgrades completed.
+
+47
+00:05:40.770 --> 00:05:43.279
+Kim Ebert (Indicio): Lynn, do you have any other agenda items today?
+
+48
+00:05:44.430 --> 00:05:45.020
+Lynn Bendixsen (Indicio): Nope.
+
+49
+00:05:51.480 --> 00:05:52.090
+Kim Ebert (Indicio): Okay.
+
+50
+00:05:52.980 --> 00:05:57.510
+Kim Ebert (Indicio): That's everything for this week. Thanks for coming. We'll catch you all later.
+
+51
+00:05:58.650 --> 00:05:59.789
+Lynn Bendixsen (Indicio): Thanks, Kim. Bye.
+

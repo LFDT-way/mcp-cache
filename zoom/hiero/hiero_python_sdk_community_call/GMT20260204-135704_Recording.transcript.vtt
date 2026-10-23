@@ -1,0 +1,2134 @@
+WEBVTT
+
+1
+00:07:04.890 --> 00:07:07.040
+Angelina Ceppaluni: Hi, Nidia. Hi, Manish.
+
+2
+00:07:09.360 --> 00:07:20.640
+Angelina Ceppaluni: I was expecting a few more people to attend, so I'm thinking there may have just been a conflict with some of those individuals, which is totally fine.
+
+3
+00:07:20.990 --> 00:07:35.899
+Angelina Ceppaluni: If it's just going to be us three, I guess we'll just do a brief overview, since I know you guys are pretty familiar with what's going on in the Python SDK already. I don't think there would be anything new that I need to tell you guys.
+
+4
+00:07:36.040 --> 00:07:49.519
+Angelina Ceppaluni: But I'll just give it, like, another minute or two, see if we get anybody else, and then if we don't get anybody else, are you guys okay to postpone, for next time?
+
+5
+00:07:50.780 --> 00:07:55.530
+Angelina Ceppaluni: Feel free to type it in the chat, or just do a thumbs up if you can't talk, no worries.
+
+6
+00:07:55.820 --> 00:07:59.050
+Angelina Ceppaluni: Okay, alright.
+
+7
+00:08:00.840 --> 00:08:13.639
+Angelina Ceppaluni: So I'll just… I'll wait until about, like, 9.06. In the meantime, were there any questions anybody had? Congratulations to Manisha becoming a maintainer. Super awesome.
+
+8
+00:08:14.290 --> 00:08:18.689
+Angelina Ceppaluni: And… Of course,
+
+9
+00:08:19.160 --> 00:08:25.260
+Angelina Ceppaluni: Aditya, did you have any questions, or Manish, was there anything that you wanted to bring up?
+
+10
+00:08:26.000 --> 00:08:34.339
+Angelina Ceppaluni: Again, if you can't talk, feel free to type it in chat, no problem, or just put a thumbs up if you're good to go and there's nothing that you'd like to address.
+
+11
+00:08:34.860 --> 00:08:36.300
+Angelina Ceppaluni: About the only thing.
+
+12
+00:08:36.309 --> 00:08:38.279
+Manish Dait: Nothing from my side.
+
+13
+00:08:38.480 --> 00:08:45.219
+Angelina Ceppaluni: Okay, no, that's fine, Aditya, thank you for being here.
+
+14
+00:08:45.540 --> 00:08:50.900
+Angelina Ceppaluni: I'm going to assume that you're good to go if you didn't have anything to bring up.
+
+15
+00:08:51.320 --> 00:08:54.689
+Angelina Ceppaluni: So, I guess I will just give it another minute.
+
+16
+00:08:54.960 --> 00:09:01.730
+Angelina Ceppaluni: Or so, if not, then we'll just con… oh, hi, Sylvie!
+
+17
+00:09:02.150 --> 00:09:10.200
+Angelina Ceppaluni: We were just discussing maybe postponing the meeting, since everybody here is pretty familiar with what's going on in the SDK.
+
+18
+00:09:10.240 --> 00:09:23.439
+Angelina Ceppaluni: I don't think we're gonna have anybody else. I've been here for a little bit. So far, it's just been me, Aditya, and Manish. Was that okay with you, or was there anything that you wanted to bring up with the SDK?
+
+19
+00:09:24.100 --> 00:09:27.499
+Angelina Ceppaluni: We have, like, a really urgent problem with the release.
+
+20
+00:09:28.160 --> 00:09:28.780
+Angelina Ceppaluni: Okay.
+
+21
+00:09:31.510 --> 00:09:39.029
+Sophie Bulloch: But to do the release… We need to fit… The versionings of the project?
+
+22
+00:09:42.720 --> 00:09:47.569
+Sophie Bulloch: Yeah, basically, this is the issue.
+
+23
+00:09:49.350 --> 00:09:56.709
+Sophie Bulloch: That, right now, we force users to use specific package versions.
+
+24
+00:09:59.000 --> 00:10:02.680
+Sophie Bulloch: And we tell them that they can't use 3.14.
+
+25
+00:10:03.140 --> 00:10:05.850
+Sophie Bulloch: There's a reason for that, I think…
+
+26
+00:10:06.050 --> 00:10:13.079
+Sophie Bulloch: some time ago, I… I tried to do 3.14, and then… It failed, like, the…
+
+27
+00:10:14.360 --> 00:10:20.719
+Sophie Bulloch: I failed, like, the, you know, like, a URL check or something?
+
+28
+00:10:21.190 --> 00:10:28.540
+Sophie Bulloch: from the security team, so this… this test was just, like, not running, so I… I couldn't make it work at the time.
+
+29
+00:10:29.110 --> 00:10:33.960
+Sophie Bulloch: But because of this, we can't really do a new release, because…
+
+30
+00:10:34.290 --> 00:10:39.560
+Sophie Bulloch: If we update the protobuf, and we set it to, like, a new version and everything like this.
+
+31
+00:10:40.170 --> 00:10:46.210
+Sophie Bulloch: people that use other packages, not just the Python SDK, like, let's say you're making, like, an AI,
+
+32
+00:10:46.440 --> 00:10:53.339
+Sophie Bulloch: tool or whatever, and I'm going to be importing a certain AI package. Maybe it requires some other things.
+
+33
+00:10:54.240 --> 00:10:57.719
+Sophie Bulloch: So then you can't use the new release. So I think, like.
+
+34
+00:10:58.110 --> 00:11:02.300
+Sophie Bulloch: If we have this, we're gonna break… we're gonna have to break users.
+
+35
+00:11:02.920 --> 00:11:08.910
+Sophie Bulloch: So, Manisha's been working on a pull request, but I think we need to talk about, like,
+
+36
+00:11:09.070 --> 00:11:12.040
+Sophie Bulloch: How comfortable do we want to be?
+
+37
+00:11:12.530 --> 00:11:16.139
+Sophie Bulloch: with… The versions that are being selected.
+
+38
+00:11:16.300 --> 00:11:20.330
+Sophie Bulloch: So one of the questions that I have, like, for Manish is,
+
+39
+00:11:20.650 --> 00:11:23.030
+Sophie Bulloch: Like, in the versions that you've selected?
+
+40
+00:11:25.830 --> 00:11:34.700
+Sophie Bulloch: Have you been able to research, like, which of them have, like, no known security threats and stuff like that? Because we would have to, like, avoid them.
+
+41
+00:11:35.700 --> 00:11:42.000
+Sophie Bulloch: Because I noticed, like, some of these are, like, very different to what there currently is.
+
+42
+00:11:43.270 --> 00:11:49.770
+Sophie Bulloch: So, I just want to check, like, if these are all safe, and then if they are all deemed to be safe, like, possibly things you could choose.
+
+43
+00:11:50.000 --> 00:11:54.530
+Sophie Bulloch: Then I think we need to just check if the project itself builds at each of the edges.
+
+44
+00:11:54.820 --> 00:11:59.980
+Sophie Bulloch: But I don't know, I was gonna… I wanted to hear, like, Manisha's thoughts, but basically, this is the problem that we have.
+
+45
+00:12:00.370 --> 00:12:02.520
+Sophie Bulloch: I think… I think it's not…
+
+46
+00:12:03.110 --> 00:12:06.589
+Sophie Bulloch: A good idea to do a new release until we resolve this?
+
+47
+00:12:07.730 --> 00:12:13.579
+Sophie Bulloch: But we're kind of learning as we're going, so we need to figure out, do we need to add some more workflows, or…
+
+48
+00:12:14.730 --> 00:12:15.700
+Sophie Bulloch: Awesome, thank you.
+
+49
+00:12:23.480 --> 00:12:26.700
+Angelina Ceppaluni: Manish, my question for you would also be.
+
+50
+00:12:26.940 --> 00:12:32.339
+Angelina Ceppaluni: The addition that you have here, with the greater than and equals to.
+
+51
+00:12:32.530 --> 00:12:42.010
+Angelina Ceppaluni: Does that solve a majority of the dependency issues for users, or are they still encountering a lot of errors?
+
+52
+00:12:43.020 --> 00:12:50.520
+Manish Dait: Actually, I think it solves the majority of the problem, but, like, I'm totally not sure about that.
+
+53
+00:12:50.640 --> 00:12:53.620
+Manish Dait: I have, like, selected them,
+
+54
+00:12:54.190 --> 00:13:02.900
+Manish Dait: like, the last version which, got the CVE, so, like, they are one more about that, so…
+
+55
+00:13:04.000 --> 00:13:09.569
+Manish Dait: I'm, like, also not sure about if this will cover everything for the user.
+
+56
+00:13:14.840 --> 00:13:25.359
+Sophie Bulloch: Yeah, so I think Prote above 7, for example, doesn't exist yet, right? So it's just, like, managed is just adding, like, a few major versions to it, which I think is reasonable enough.
+
+57
+00:13:26.020 --> 00:13:31.050
+Sophie Bulloch: We don't know yet if, like, they're gonna be safe released and stuff, but I guess…
+
+58
+00:13:31.820 --> 00:13:36.339
+Sophie Bulloch: I guess we need to give people the flexibility and then exclude them later if we need to.
+
+59
+00:13:37.960 --> 00:13:43.290
+Sophie Bulloch: And then, so I noticed… so some of the things where you move to optional.
+
+60
+00:13:44.050 --> 00:13:47.899
+Sophie Bulloch: dependencies, I think this we need to be just very careful with.
+
+61
+00:13:48.880 --> 00:13:55.920
+Sophie Bulloch: Everything's a lot easier if you just have them in, like, the core dependencies, because everyone, like, builds the project in the same way.
+
+62
+00:13:58.340 --> 00:14:04.069
+Sophie Bulloch: But this can be helpful if you have, like, project conflicts and stuff, and not all of those things are essential.
+
+63
+00:14:05.350 --> 00:14:14.919
+Sophie Bulloch: And then if we do do this, like, we are changing the way things are done, so we would have to document it, like, a lot to tell people how to actually install.
+
+64
+00:14:15.560 --> 00:14:19.090
+Sophie Bulloch: all of these things, so we need, like, a README entry or something.
+
+65
+00:14:19.450 --> 00:14:23.570
+Sophie Bulloch: And, like, a note in the new release or something, saying, like,
+
+66
+00:14:24.680 --> 00:14:29.189
+Sophie Bulloch: Yeah, to install this, and to install everything, you're gonna have to do, like, the…
+
+67
+00:14:29.500 --> 00:14:32.089
+Sophie Bulloch: Optional flags and everything like that.
+
+68
+00:14:32.910 --> 00:14:38.700
+Sophie Bulloch: Manish, how are you thinking of handling Yeah, alright.
+
+69
+00:14:39.360 --> 00:14:51.470
+Manish Dait: the actual, like, the optional are mostly needed for, like, the testing, and I think so for the example purposes. So, I think, like, adding it to the documentation will be fine.
+
+70
+00:14:53.400 --> 00:14:54.580
+Sophie Bulloch: Yeah, okay.
+
+71
+00:14:57.450 --> 00:15:02.020
+Sophie Bulloch: It's not possible to add, like, a warning, right? Like, this is not installed.
+
+72
+00:15:02.430 --> 00:15:06.309
+Sophie Bulloch: Use this command to install it.
+
+73
+00:15:06.680 --> 00:15:14.340
+Manish Dait: Like, we… then we, like, need to update the example and the test to check if the dependencies…
+
+74
+00:15:14.730 --> 00:15:16.870
+Sophie Bulloch: Yeah. Install or not, not.
+
+75
+00:15:18.250 --> 00:15:21.679
+Manish Dait: Like, that can, like, an extra additional step we can add.
+
+76
+00:15:24.920 --> 00:15:34.079
+Angelina Ceppaluni: Are we able to test it, kind of like similarly to when we do dry runs for the, the workflows?
+
+77
+00:15:34.250 --> 00:15:39.680
+Angelina Ceppaluni: Would we be able to, quote-unquote, dry run this to see…
+
+78
+00:15:40.370 --> 00:15:46.529
+Angelina Ceppaluni: what kind of errors it does cause, and then just document them in the PR and update the README as needed.
+
+79
+00:15:48.850 --> 00:16:02.910
+Angelina Ceppaluni: Because I noticed that for… I say this because of my issues with Windows for the other SDKs, I've noticed not every user encounters the same error, especially when it comes to Windows. Some of them are just…
+
+80
+00:16:02.910 --> 00:16:05.679
+Sophie Bulloch: I need Windows build flows, right, Angie?
+
+81
+00:16:05.680 --> 00:16:15.820
+Angelina Ceppaluni: Yep, yes, you're definitely going to need those, because I can already tell that some of these are probably going to cause issues, especially for our Windows 10 users. Windows 11?
+
+82
+00:16:16.420 --> 00:16:27.370
+Angelina Ceppaluni: I'm not sure, to be quite honest with everybody. I don't have a Windows 11 operating system, so as of now, I'm just operating off of what I know for 10.
+
+83
+00:16:27.490 --> 00:16:44.990
+Angelina Ceppaluni: And if there are going to be, build errors, we are definitely going to want to update the README at a certain point. If there are too many, we may want to section off the README in the way that we have for the website, where we have separate setup guides.
+
+84
+00:16:47.210 --> 00:16:49.430
+Sophie Bulloch: Yeah, big…
+
+85
+00:16:49.660 --> 00:16:59.430
+Sophie Bulloch: Yeah, so do you mean, like, right now, this is, like, the thing for the project, but have you had to, like, install additional things, or different things somehow?
+
+86
+00:16:59.430 --> 00:17:06.740
+Angelina Ceppaluni: So, not necessarily anything different, it's just in the way that we go about it. So, I think on a Mac.
+
+87
+00:17:07.000 --> 00:17:14.190
+Angelina Ceppaluni: book, you're able to use homebrew, so you would do, like, homebrew, install, and then, like, high test, for example.
+
+88
+00:17:14.470 --> 00:17:29.070
+Angelina Ceppaluni: on a Windows machine, homebrew doesn't work, but unfortunately, a couple of the other commands that documentation sites are listing do not work as well. So users on Windows machines, when they install PyTest.
+
+89
+00:17:29.070 --> 00:17:38.590
+Angelina Ceppaluni: It's not as easy as it is on… compared to other operating systems, because Windows does not resolve paths correctly.
+
+90
+00:17:38.590 --> 00:17:41.800
+Angelina Ceppaluni: So, it tends to lead,
+
+91
+00:17:41.890 --> 00:17:53.959
+Angelina Ceppaluni: basically tends to lead users down a rabbit hole, so to speak. So I do know off the top of my head, PyTest is definitely the ones Windows… one of the ones Windows users struggle with.
+
+92
+00:17:54.140 --> 00:17:57.469
+Angelina Ceppaluni: Beyond that, I'm looking… Okay.
+
+93
+00:17:57.820 --> 00:18:04.729
+Sophie Bulloch: I think we should… we should write this down. Should we write this down on the Linux Discord?
+
+94
+00:18:05.180 --> 00:18:07.700
+Sophie Bulloch: stuff that we need to do, right? .
+
+95
+00:18:08.500 --> 00:18:18.090
+Angelina Ceppaluni: Yeah, we can… I just don't know, cause we haven't… I don't know, maybe…
+
+96
+00:18:18.340 --> 00:18:24.290
+Angelina Ceppaluni: test it first, because I don't know if people in the Linux dashboard would try to…
+
+97
+00:18:24.610 --> 00:18:32.390
+Angelina Ceppaluni: like, help us solve it, which is good. I'm not saying that's bad. I just… I…
+
+98
+00:18:32.500 --> 00:18:35.900
+Angelina Ceppaluni: I wouldn't know how to go about it if they had any other
+
+99
+00:18:36.100 --> 00:18:48.370
+Angelina Ceppaluni: further questions, because I haven't tested it before, and I have some of these dependencies already installed, so I won't encounter the same errors as before, and I don't have screenshots of them either.
+
+100
+00:18:49.990 --> 00:19:09.309
+Angelina Ceppaluni: But… yeah, I guess go ahead and post something in the Discord, just because we… with the amount of new people that we're having, we're bound to have somebody with a Windows computer who is going to run into these dependency issues. Worst comes to worse, I'll just have them, ping me directly, and I'll work through it with them.
+
+101
+00:19:09.550 --> 00:19:13.320
+Angelina Ceppaluni: But I think for now, yeah, we can go ahead and post something in there.
+
+102
+00:19:13.620 --> 00:19:20.549
+Sophie Bulloch: I think maybe I'll put them on the Zoom chat and then copy them over afterwards, so I don't do, like, one individual message, so…
+
+103
+00:19:20.780 --> 00:19:24.709
+Sophie Bulloch: But actually, what we need to do is update the README.
+
+104
+00:19:26.450 --> 00:19:27.210
+Angelina Ceppaluni: D.
+
+105
+00:19:27.650 --> 00:19:34.219
+Sophie Bulloch: instructions, Manish, right? Instructions on how to install, like, the groups, the dependency groups?
+
+106
+00:19:34.720 --> 00:19:35.460
+Manish Dait: Yeah.
+
+107
+00:19:36.700 --> 00:19:40.059
+Sophie Bulloch: That has to be super, super clear, super easy.
+
+108
+00:19:40.240 --> 00:19:41.530
+Sophie Bulloch: instructions.
+
+109
+00:19:42.360 --> 00:19:43.060
+Angelina Ceppaluni: Yeah.
+
+110
+00:19:44.500 --> 00:19:51.639
+Sophie Bulloch: Depending on what you are doing, depending on what you want, and then what else do we need to take action to with, like,
+
+111
+00:19:53.310 --> 00:20:02.179
+Sophie Bulloch: We need to have, like, a Windows setup guide to explain to users how to install these packages.
+
+112
+00:20:02.900 --> 00:20:09.000
+Angelina Ceppaluni: Yes, that's the other thing. So for the README, we have to decide on how do we want…
+
+113
+00:20:09.190 --> 00:20:16.410
+Angelina Ceppaluni: To do this in the terms, do we want to section it off like we do for the website, where we have separate
+
+114
+00:20:16.560 --> 00:20:28.129
+Angelina Ceppaluni: Setup guides, or did we want to leave it as is and just maybe make, like, a custom section for each operating system setup?
+
+115
+00:20:28.550 --> 00:20:33.670
+Angelina Ceppaluni: I personally am on the side of just having separate documentation.
+
+116
+00:20:33.970 --> 00:20:35.519
+Sophie Bulloch: Yeah, just keep it separate, yeah.
+
+117
+00:20:35.520 --> 00:20:44.930
+Angelina Ceppaluni: Yeah. I feel like it just makes it easier, and it's clear, and nobody's getting confused about things that are needed for, like, other operating systems and stuff like that.
+
+118
+00:20:45.670 --> 00:20:55.110
+Sophie Bulloch: Okay, so let's assume, we have the existing documentation for Mac, so we could just, like, leave it as that, just to, like, reduce the task that would just be creating a Windows one.
+
+119
+00:20:56.060 --> 00:20:58.290
+Angelina Ceppaluni: Yeah, yeah.
+
+120
+00:20:59.040 --> 00:21:01.640
+Sophie Bulloch: Yeah, in the long term, we wouldn't need a Macron.
+
+121
+00:21:01.640 --> 00:21:02.150
+Angelina Ceppaluni: Yeah.
+
+122
+00:21:02.150 --> 00:21:04.659
+Sophie Bulloch: And then… what else do we need?
+
+123
+00:21:04.800 --> 00:21:12.170
+Sophie Bulloch: So… Low… It's a workflow that tests.
+
+124
+00:21:14.740 --> 00:21:18.009
+Sophie Bulloch: Oh man, try and define these workflows. Workflow…
+
+125
+00:21:22.470 --> 00:21:26.130
+Sophie Bulloch: Is gonna be…
+
+126
+00:21:26.130 --> 00:21:29.640
+Angelina Ceppaluni: Do you know what the name is? You probably… oh, there it is. Oh.
+
+127
+00:21:30.110 --> 00:21:32.080
+Angelina Ceppaluni: Which one? Oh, okay.
+
+128
+00:21:33.170 --> 00:21:39.649
+Sophie Bulloch: This one, so this is the one… so it was really easy to update this to just 3.4, or 3.14, you just add it in.
+
+129
+00:21:40.380 --> 00:21:41.070
+Angelina Ceppaluni: Okay.
+
+130
+00:21:41.740 --> 00:21:45.110
+Sophie Bulloch: And then that automatically tests.
+
+131
+00:21:48.600 --> 00:21:53.450
+Sophie Bulloch: If all the unit tests and the integration tests pass.
+
+132
+00:21:54.160 --> 00:21:57.629
+Sophie Bulloch: And you can kind of install all these things,
+
+133
+00:22:00.190 --> 00:22:03.660
+Sophie Bulloch: For that, so I think we just need to update PR check test.
+
+134
+00:22:04.960 --> 00:22:06.190
+Sophie Bulloch: Let me write that down.
+
+135
+00:22:10.130 --> 00:22:16.010
+Sophie Bulloch: So, action 3 updates VR check test YAML to include Python 3.
+
+136
+00:22:20.060 --> 00:22:22.219
+Sophie Bulloch: What is the issue with the Windows setup?
+
+137
+00:22:23.760 --> 00:22:38.750
+Angelina Ceppaluni: So, right now, the issue with Windows setup is that for certain dependencies, they do not install properly, especially… like, for example, when you hit NPM install, it installs everything.
+
+138
+00:22:39.050 --> 00:22:56.409
+Angelina Ceppaluni: But, unfortunately, when we're running similar kinds of commands like that on Windows, it's not installing everything that we need. Users aren't counting path resolution errors, they're encountering operating system breaking changes and stuff like that, so…
+
+139
+00:22:56.410 --> 00:23:13.359
+Angelina Ceppaluni: We've come to the conclusion that it is better to create separate documentation files, especially because Windows also has OS 11, so those users are going to encounter a different set of errors all on their own when they are trying to set this up.
+
+140
+00:23:13.480 --> 00:23:33.450
+Angelina Ceppaluni: So we felt it best to kind of consolidate the documentation, or so to speak, separate it out, where there's a straightforward guide for anybody using Windows, there will be a straightforward guide for anybody using Mac, and then there will be a guide for Linux, sorry, when we get there. But…
+
+141
+00:23:33.770 --> 00:23:42.819
+Angelina Ceppaluni: As of right now, Aditya, to answer it plain and simple, it's just a lot of users, when they're setting it up, they're running into a lot of errors, so…
+
+142
+00:23:43.210 --> 00:23:44.689
+Angelina Ceppaluni: We felt it best.
+
+143
+00:23:45.390 --> 00:23:46.140
+Angelina Ceppaluni: Oh, go ahead.
+
+144
+00:23:47.810 --> 00:23:54.819
+Sophie Bulloch: No, sorry, I was… Don't get distracted. Edit says, we do have UV and even pip install.
+
+145
+00:23:55.860 --> 00:24:09.610
+Angelina Ceppaluni: Yeah, so I had issues with UV. I run a Windows 10, the way that I had to go about installing UV. I think, Sophie, you were part of this with me when we were first doing this.
+
+146
+00:24:09.640 --> 00:24:18.120
+Angelina Ceppaluni: We had all kinds of issues trying to set it up on my machine. We tried it through Ubuntu, Git Bash, PowerShell.
+
+147
+00:24:18.560 --> 00:24:19.840
+Angelina Ceppaluni: this command pop.
+
+148
+00:24:19.950 --> 00:24:39.529
+Angelina Ceppaluni: almost every terminal I can possibly think of, and it just was not installing, so I had to go in… I think I had to install, Chocolaty, and then Chocolatily let me get UV, and then UV allowed me to do pip install, and so forth. So, for lack of a better…
+
+149
+00:24:39.870 --> 00:24:42.080
+Angelina Ceppaluni: a word. It's basically…
+
+150
+00:24:42.190 --> 00:24:59.179
+Angelina Ceppaluni: dependencies require another thing, but then that other thing requires another thing, but then that other thing requires something else, so it's base… it's kind of like a domino effect, where you just… you're having one required dependency after another on Windows, which is…
+
+151
+00:24:59.270 --> 00:25:13.679
+Angelina Ceppaluni: it's an unfortunate experience, because it just makes it a little harder to get started. So that is why we are wanting to do our best to document everything that we possibly can, every error they could potentially encounter. That way, they can have
+
+152
+00:25:14.070 --> 00:25:19.140
+Angelina Ceppaluni: an easier onboarding process as compared to some of our other Windows users.
+
+153
+00:25:19.650 --> 00:25:21.620
+Angelina Ceppaluni: Does that help answer your question?
+
+154
+00:25:24.390 --> 00:25:32.219
+Angelina Ceppaluni: If you're typing, or I know you can't speak, I'll keep an eye out on the chat, but I think Sophie… oh, okay, wait.
+
+155
+00:25:33.020 --> 00:25:34.250
+Angelina Ceppaluni: And Meg.
+
+156
+00:25:35.980 --> 00:25:45.760
+Angelina Ceppaluni: Yes, I have heard of WinGet. I've had issues with WingGet on my system for whatever reason. I come into path resolution errors.
+
+157
+00:25:45.890 --> 00:25:48.150
+Angelina Ceppaluni: Yeah.
+
+158
+00:25:48.220 --> 00:25:51.580
+Sophie Bulloch: So, Aditya, like, do you use Windows 11?
+
+159
+00:25:51.870 --> 00:25:54.529
+Angelina Ceppaluni: Yeah, do you… or are you on Mac?
+
+160
+00:25:58.090 --> 00:25:59.550
+Aditya Arya: Hello.
+
+161
+00:26:00.270 --> 00:26:02.170
+Aditya Arya: Hello, I'm already?
+
+162
+00:26:02.170 --> 00:26:02.960
+Angelina Ceppaluni: Hi!
+
+163
+00:26:04.580 --> 00:26:06.330
+Aditya Arya: So, yeah, I'm in Windows 11 right now.
+
+164
+00:26:07.370 --> 00:26:08.909
+Angelina Ceppaluni: your Windows 11?
+
+165
+00:26:09.880 --> 00:26:10.449
+Aditya Arya: Got it.
+
+166
+00:26:11.030 --> 00:26:30.239
+Angelina Ceppaluni: Okay, so I'm Windows 10, so for… that's good, though. So if WinGet works for you, it tells me right there that the Windows 11 users are gonna have a much easier time compared to Windows 10. So I will keep that in mind. I may want to possibly update the…
+
+167
+00:26:30.540 --> 00:26:31.849
+Angelina Ceppaluni: Oh, sorry, go ahead.
+
+168
+00:26:31.850 --> 00:26:32.739
+Aditya Arya: Thank you, mate.
+
+169
+00:26:32.950 --> 00:26:35.810
+Aditya Arya: The manager for the Windows is pretty much,
+
+170
+00:26:36.050 --> 00:26:39.340
+Aditya Arya: what to say, it's broken, because in Linux, we…
+
+171
+00:26:39.480 --> 00:26:46.300
+Aditya Arya: have single command for every package manager, and, like, in Max, we have Homebrew, so we can download each and every
+
+172
+00:26:46.420 --> 00:26:55.679
+Aditya Arya: dependencies easily. Windows is just broken, so I must say that we should drive in the end of our Windows setup that can use Linux machine.
+
+173
+00:26:57.090 --> 00:27:11.460
+Angelina Ceppaluni: Yes, I… I have had to end up using Linux for certain things. I have… er, I think I have Ubuntu, I'm sorry, I have Ubuntu on here, it's like the WSL, integration.
+
+174
+00:27:11.870 --> 00:27:26.770
+Angelina Ceppaluni: I've had to use that for some of the installs. I've been able to kind of get lucky with that, in the sense I could use it to get around the errors and install it, and then go back to PowerShell and rerun it, and that seems to…
+
+175
+00:27:27.320 --> 00:27:33.009
+Angelina Ceppaluni: kind of, like, kick-started, almost. But yes, I do see what you're saying. Windows is.
+
+176
+00:27:33.010 --> 00:27:33.630
+Aditya Arya: Definitely.
+
+177
+00:27:33.630 --> 00:27:35.489
+Angelina Ceppaluni: I broke it.
+
+178
+00:27:37.410 --> 00:27:39.330
+Aditya Arya: Like, means, what…
+
+179
+00:27:40.320 --> 00:27:48.560
+Aditya Arya: Even with the CPP… sorry, the C++ SDK, I was having pretty much hard time with it for every setup.
+
+180
+00:27:50.160 --> 00:27:50.490
+Angelina Ceppaluni: Yeah.
+
+181
+00:27:50.490 --> 00:27:52.840
+Aditya Arya: I have no clue how to do that, so…
+
+182
+00:27:52.840 --> 00:27:53.240
+Sophie Bulloch: Okay.
+
+183
+00:27:54.410 --> 00:27:56.559
+Sophie Bulloch: Can't believe you guys had to use, like, VM.
+
+184
+00:27:56.560 --> 00:27:57.990
+Aditya Arya: Studio 2023.
+
+185
+00:27:57.990 --> 00:28:01.150
+Angelina Ceppaluni: Oh, Yes, we…
+
+186
+00:28:01.150 --> 00:28:02.290
+Sophie Bulloch: Random.
+
+187
+00:28:02.290 --> 00:28:05.700
+Angelina Ceppaluni: Yes, but on the other hand.
+
+188
+00:28:05.700 --> 00:28:30.219
+Angelina Ceppaluni: It's, you know, it's good that we're surfacing some of these errors sooner than later, especially with the Good First Issue Initiative bringing in so many people. You know, I don't want Windows setup to be something that deters them away from working on this. It is very possible to do on Windows, it's just… it's an unfortunate experience that it's a little bit harder compared to somebody who would be using a Mac system, but I do see what you're saying.
+
+189
+00:28:30.390 --> 00:28:46.560
+Angelina Ceppaluni: I struggled with so many issues with C++. I am actually still working through the issues with C++. Unfortunately, Solo is not working for Windows users. It is, it's killing port forwarding for some reason.
+
+190
+00:28:46.560 --> 00:28:51.509
+Angelina Ceppaluni: So, I do have somebody looking into that from the solo team.
+
+191
+00:28:51.520 --> 00:29:03.369
+Angelina Ceppaluni: So if you are still experiencing issues with C++, don't worry, you're not alone. I… again, I do have somebody looking on it, I'm just… I'm waiting for them. I have not heard anything back from them yet.
+
+192
+00:29:03.590 --> 00:29:11.160
+Angelina Ceppaluni: And then the same with JavaScript. I'm not sure if you've tried building JavaScript on your Windows machine. If you do.
+
+193
+00:29:11.160 --> 00:29:13.299
+Sophie Bulloch: I had a problem as well.
+
+194
+00:29:13.450 --> 00:29:30.650
+Angelina Ceppaluni: Yes, they're… basically, I'm coming to the realization that a majority of the SDKs are just… they're not set up for Windows, and on one hand, it is unfortunate because it… there is no documentation clearly outlining the setup process for Windows, but on the other hand.
+
+195
+00:29:30.650 --> 00:29:35.679
+Angelina Ceppaluni: It's a good thing, because a majority of people, it seems like, that do this kind of work
+
+196
+00:29:35.680 --> 00:29:43.730
+Angelina Ceppaluni: have a MacBook, so there hasn't really been a need for this kind of documentation to be present. However, with the
+
+197
+00:29:43.760 --> 00:29:59.970
+Angelina Ceppaluni: onboarding of all these new contributors, people coming out of uni, we are noticing that there are certain people, quite a few, actually, who are using Windows systems, but it's a good thing because it's ultimately helped us surface some of the
+
+198
+00:29:59.970 --> 00:30:05.989
+Angelina Ceppaluni: issues we've been, trying to tackle, for these last couple of weeks for…
+
+199
+00:30:05.990 --> 00:30:23.210
+Angelina Ceppaluni: I know this is a Python SDK call, but for the website, we… they also had issues to setting up on Windows the script that they have in JSON. It's not Windows compatible. When you do npm install, it doesn't install everything. It turns out that you need the
+
+200
+00:30:23.210 --> 00:30:42.899
+Angelina Ceppaluni: to install Tailwind CSS something something, differently. I can't remember what the exact annotation for that is. Crossenv has to be installed separately, and RIMF also needs to be installed separately. These are the dependencies that do not come combined with NPM install.
+
+201
+00:30:42.950 --> 00:30:50.590
+Angelina Ceppaluni: It's unfortunate, because most Windows users, their thinking is that npm install does do everything, but it…
+
+202
+00:30:50.810 --> 00:31:07.950
+Angelina Ceppaluni: It doesn't, but it's also kind of good, because it's given us a window of light into what's really going on, how can we fix this. So, we were fortunate, we were able to fix that website issue pretty quickly, so we have a separate guide. Windows users can get set up.
+
+203
+00:31:08.100 --> 00:31:10.089
+Angelina Ceppaluni: Super easily now.
+
+204
+00:31:10.600 --> 00:31:32.100
+Angelina Ceppaluni: We are still keeping an eye out, just in case there are any other issues Windows users encounter, but as of right now, things seem to be pretty good so far. But back to the JavaScript one, if you end up installing that on there, on your computer, please let me know if you run into any issues. I am working with one of the JavaScript maintainers.
+
+205
+00:31:32.100 --> 00:31:35.520
+Angelina Ceppaluni: Right now, to try to fix those Windows issues.
+
+206
+00:31:35.520 --> 00:31:43.540
+Angelina Ceppaluni: So, even if it's a path resolution issue, if it's a bug that you find, or just an error that you've not seen before.
+
+207
+00:31:43.540 --> 00:31:47.099
+Angelina Ceppaluni: Let me know, that way we can kind of…
+
+208
+00:31:47.210 --> 00:31:58.060
+Angelina Ceppaluni: maybe make a group of the three of us to outline what's going on with Windows, specifically in the Java SDK. But, yeah, that's kind of a brief…
+
+209
+00:31:58.350 --> 00:32:07.139
+Angelina Ceppaluni: well, I shouldn't say brief, sorry, it took so long, but kind of an overview with what's going on with the SDKs for Windows right now. Still working through them.
+
+210
+00:32:07.440 --> 00:32:21.829
+Angelina Ceppaluni: Hoping to have some of them resolved soon, and keep an eye out for the HIRO website, because when those issues are resolved, the Hiro website will be the go-to place to learn how we did it and get some more information on it. So…
+
+211
+00:32:22.050 --> 00:32:23.839
+Angelina Ceppaluni: But yeah, that's…
+
+212
+00:32:23.840 --> 00:32:26.589
+Sophie Bulloch: great, great work that you're doing, Angie.
+
+213
+00:32:26.590 --> 00:32:28.440
+Angelina Ceppaluni: Thank you, thank you.
+
+214
+00:32:29.230 --> 00:32:31.830
+Sophie Bulloch: Yeah, it's not good to just kind of, like, let these things…
+
+215
+00:32:32.230 --> 00:32:35.389
+Sophie Bulloch: flying on the 192, or doing anything about it.
+
+216
+00:32:35.800 --> 00:32:36.290
+Angelina Ceppaluni: Yeah.
+
+217
+00:32:36.290 --> 00:32:49.680
+Sophie Bulloch: So back to the release, I was just, thinking, like, okay, so we need to make sure that Python 3.14 is here. I'm just checking, like, so what does this do? It sets up Python, it installs, it builds the project, basically.
+
+218
+00:32:50.890 --> 00:32:58.449
+Sophie Bulloch: So… we might have to change this flag, Manish, this… Line 45, possibly?
+
+219
+00:32:58.570 --> 00:33:00.820
+Manish Dait: No, I think, like, that deck works.
+
+220
+00:33:00.820 --> 00:33:02.020
+Sophie Bulloch: suit everything.
+
+221
+00:33:02.720 --> 00:33:03.900
+Manish Dait: Yeah. Yeah.
+
+222
+00:33:04.180 --> 00:33:10.319
+Sophie Bulloch: Or maybe should we split it in two so that the user can see that you would, like, have to…
+
+223
+00:33:10.980 --> 00:33:16.500
+Sophie Bulloch: maybe do it in stages, depending on what you're doing. I don't know, but I think this workflow kind of…
+
+224
+00:33:17.730 --> 00:33:27.769
+Sophie Bulloch: does everything anyway. Right, do we need to test the new build? Oh, no, actually, I was thinking if we need, like, a minimum and maximum build.
+
+225
+00:33:29.440 --> 00:33:30.120
+Manish Dait: Oh.
+
+226
+00:33:30.230 --> 00:33:32.670
+Sophie Bulloch: You can, like, try for the minimum one.
+
+227
+00:33:34.330 --> 00:33:45.530
+Sophie Bulloch: Yeah, is… would that be, like, a workflow that only triggers in certain contexts? Like, only triggers if it's, like, on a certain release branch or something?
+
+228
+00:33:46.250 --> 00:33:53.909
+Sophie Bulloch: Because, yeah, if you are doing all of these, have you tested that they all work yet at, like, the lower bound?
+
+229
+00:33:54.070 --> 00:33:57.399
+Sophie Bulloch: And that the higher… higher possible bounce.
+
+230
+00:33:58.800 --> 00:34:04.019
+Manish Dait: I think, like, you should, like, add a workflow for that as well.
+
+231
+00:34:06.040 --> 00:34:20.270
+Sophie Bulloch: Yeah, I don't know how that would work. I assume you'd have to maybe test the middle range as well? I don't know. Like, maybe there's a way of just figuring out which combinations of things would break, but maybe that's just too much. Maybe the easiest thing is just do minimum max at it?
+
+232
+00:34:23.780 --> 00:34:26.389
+Angelina Ceppaluni: Aditya, you have your hand up, go ahead.
+
+233
+00:34:29.130 --> 00:34:37.550
+Aditya Arya: It looks like I have one last question. Why do we use the version here? Why can't we just write, name order depth, and we just, go ahead?
+
+234
+00:34:38.830 --> 00:34:40.260
+Aditya Arya: No, we require it.
+
+235
+00:34:40.260 --> 00:34:41.979
+Sophie Bulloch: Yeah, they…
+
+236
+00:34:42.440 --> 00:34:50.560
+Sophie Bulloch: Could I interrupt you? Is it possible that you could speak either a little bit slower or a little bit louder? I think your mic is just really quiet.
+
+237
+00:34:50.989 --> 00:34:52.509
+Angelina Ceppaluni: Yes, you're… oh, sorry.
+
+238
+00:34:52.510 --> 00:34:53.800
+Sophie Bulloch: isn't great.
+
+239
+00:34:53.800 --> 00:34:54.300
+Angelina Ceppaluni: Yeah.
+
+240
+00:34:54.300 --> 00:34:55.300
+Sophie Bulloch: I can hear you.
+
+241
+00:34:55.810 --> 00:35:07.829
+Angelina Ceppaluni: Yeah, if you want, please feel free to type it in chat if you can't change your settings, or maybe if it's an internet issue. We just want to make sure that we understand clearly what you're asking, so we can provide you a good answer.
+
+242
+00:35:08.100 --> 00:35:10.390
+Sophie Bulloch: Yeah, or just louder is fine.
+
+243
+00:35:10.600 --> 00:35:13.440
+Sophie Bulloch: Why do we require the versions?
+
+244
+00:35:13.890 --> 00:35:22.740
+Sophie Bulloch: So basically, this is not working for some of our Python SDK users. We've done a really good job at attracting SDK developers.
+
+245
+00:35:22.960 --> 00:35:25.950
+Sophie Bulloch: But our SDK users are having problems.
+
+246
+00:35:26.080 --> 00:35:31.099
+Sophie Bulloch: Because we are forcing them to have certain package versions.
+
+247
+00:35:31.320 --> 00:35:33.890
+Sophie Bulloch: And quite often, when you're building an app.
+
+248
+00:35:34.060 --> 00:35:43.189
+Sophie Bulloch: you're using things… you're using many things, not just the Python SDK, you're using, like, an AI tool, you're using some other things.
+
+249
+00:35:43.350 --> 00:35:52.860
+Sophie Bulloch: And then, what that means is that they might conflict. One tool might require you to have protobov 6.5, this one requires you to have protopov 6.33.
+
+250
+00:35:52.970 --> 00:35:55.630
+Sophie Bulloch: And so you… you can't use…
+
+251
+00:35:56.000 --> 00:36:01.389
+Sophie Bulloch: you can't use the new version, you can't use this version. So we're trying to make a new release.
+
+252
+00:36:02.470 --> 00:36:12.119
+Sophie Bulloch: But in this new release, we want to make sure that it's user-friendly for the SDK users. So it's really good that we're having SDK users now coming into the project.
+
+253
+00:36:12.460 --> 00:36:18.140
+Sophie Bulloch: And now they're creating their own issues, and they're letting us know, like, what's… what's… what they need. So…
+
+254
+00:36:19.140 --> 00:36:24.779
+Sophie Bulloch: I love that, but we need to be careful, because this is… this is, like, an easy way to break people if…
+
+255
+00:36:25.190 --> 00:36:29.330
+Sophie Bulloch: If, the project doesn't build, or something like that.
+
+256
+00:36:30.070 --> 00:36:30.780
+Sophie Bulloch: Yeah.
+
+257
+00:36:31.070 --> 00:36:32.210
+Sophie Bulloch: Any other questions?
+
+258
+00:36:38.240 --> 00:36:43.370
+Sophie Bulloch: Okay, got it. Okay, so… So that means…
+
+259
+00:36:47.350 --> 00:36:52.830
+Sophie Bulloch: Manish, are you okay creating the workflow to test the minimum and max builds?
+
+260
+00:36:53.260 --> 00:36:56.450
+Manish Dait: Yeah, I can go ahead and create the workflow.
+
+261
+00:36:57.230 --> 00:37:01.459
+Sophie Bulloch: I don't know how to trigger that. Maybe it would only be on workflow…
+
+262
+00:37:02.850 --> 00:37:06.439
+Sophie Bulloch: I don't want it to run all the time, right?
+
+263
+00:37:06.440 --> 00:37:13.789
+Manish Dait: Yeah, we can, like, use it for, like, when the pull request is raised, or something like that.
+
+264
+00:37:16.760 --> 00:37:24.210
+Sophie Bulloch: Or, like, only when this file changes? I don't know if that's possible.
+
+265
+00:37:24.210 --> 00:37:24.860
+Manish Dait: Yeah.
+
+266
+00:37:25.710 --> 00:37:28.960
+Manish Dait: Yeah, I should, like, check for that.
+
+267
+00:37:29.650 --> 00:37:30.990
+Sophie Bulloch: Yeah, okay.
+
+268
+00:37:31.260 --> 00:37:38.400
+Sophie Bulloch: Okay, nice. So, then the other issue with making a release is…
+
+269
+00:37:38.750 --> 00:37:41.559
+Sophie Bulloch: Finding out how safe our release is.
+
+270
+00:37:47.200 --> 00:37:51.070
+Sophie Bulloch: Okay, I have, like, way too many things going on on my computer at the moment.
+
+271
+00:37:52.750 --> 00:37:57.109
+Sophie Bulloch: So I, I, I didn't really expect our…
+
+272
+00:37:57.370 --> 00:38:07.830
+Sophie Bulloch: release to take such a long time, but it has. Basically, what this has meant is our changelog entry is absolutely huge. They have never seen something like this before.
+
+273
+00:38:08.610 --> 00:38:18.099
+Sophie Bulloch: And some sections are better than others and things. I think if you're a user thinking of upgrading to this latest version, you're going to get very scared.
+
+274
+00:38:18.600 --> 00:38:23.470
+Sophie Bulloch: You'll get very scared, because there's so many things that have happened, and it's hard to see, like, what…
+
+275
+00:38:23.950 --> 00:38:31.779
+Sophie Bulloch: Is actually possibly going to… What's actually, like, a source code change? What's, like, a documentation change?
+
+276
+00:38:32.730 --> 00:38:40.460
+Sophie Bulloch: And stuff like that. So… and also what could possibly break whatever Thing you have?
+
+277
+00:38:41.160 --> 00:38:50.770
+Sophie Bulloch: So… I was wondering if I have to… Refactor these entries.
+
+278
+00:38:51.380 --> 00:38:58.250
+Sophie Bulloch: And categorize them into, like, source code changes or additions.
+
+279
+00:38:58.630 --> 00:39:02.799
+Sophie Bulloch: Example changes, conditions, test changes, so then people…
+
+280
+00:39:02.980 --> 00:39:07.939
+Sophie Bulloch: No, okay, there's all these changes that have happened to the source code, these are the things that can
+
+281
+00:39:08.680 --> 00:39:13.249
+Sophie Bulloch: You know, change the functionality, all these other things are just probably doc changes.
+
+282
+00:39:14.160 --> 00:39:24.119
+Sophie Bulloch: I don't necessarily want to do that, because then I lose all the history. Right now, we can see who added all of these lines and everything.
+
+283
+00:39:24.700 --> 00:39:30.729
+Sophie Bulloch: So that's one issue, like, how do we actually present the unreleased content?
+
+284
+00:39:32.160 --> 00:39:36.000
+Sophie Bulloch: And then, when we make a new release, yeah?
+
+285
+00:39:39.290 --> 00:39:46.170
+Aditya Arya: To make, for every changes in the changelog, we do have their parts, right?
+
+286
+00:39:47.880 --> 00:39:49.600
+Aditya Arya: So, why can't we just…
+
+287
+00:39:51.490 --> 00:39:57.459
+Sophie Bulloch: Yeah, in the changelog, we have addition, we have changes, We have fixed it.
+
+288
+00:39:58.440 --> 00:39:59.529
+Sophie Bulloch: But there's hundreds.
+
+289
+00:39:59.530 --> 00:40:01.009
+Aditya Arya: I will get my feet.
+
+290
+00:40:01.900 --> 00:40:07.400
+Aditya Arya: Yeah, yeah, so, like, our mini says that we can't categorize the analog, right?
+
+291
+00:40:08.770 --> 00:40:10.380
+Sophie Bulloch: Yeah, the…
+
+292
+00:40:10.850 --> 00:40:17.120
+Sophie Bulloch: The original categories for changes and things don't work really well when you have, like, a really, really big change load.
+
+293
+00:40:19.590 --> 00:40:25.250
+Aditya Arya: Okay, so, means, why can't we just join the… what do you say?
+
+294
+00:40:25.490 --> 00:40:32.929
+Aditya Arya: In smaller chunks, like, we can release our first half in the, like, a minor release, then the second half in the minor release.
+
+295
+00:40:33.290 --> 00:40:34.780
+Aditya Arya: And then make a big release.
+
+296
+00:40:36.440 --> 00:40:37.790
+Aditya Arya: Yeah.
+
+297
+00:40:37.790 --> 00:40:44.039
+Sophie Bulloch: So I was trying to figure out how I can engineer a release, where I
+
+298
+00:40:44.290 --> 00:40:46.859
+Sophie Bulloch: separate out, like, I don't know, the dogs.
+
+299
+00:40:48.090 --> 00:40:56.549
+Sophie Bulloch: From the rest of it, or something, so then people could upgrade to version 0.1.11 in, like, a much less risky way.
+
+300
+00:40:56.940 --> 00:40:59.460
+Sophie Bulloch: And it's done, like, over two releases, not one.
+
+301
+00:41:00.070 --> 00:41:04.220
+Sophie Bulloch: But… There's actually no way of doing that.
+
+302
+00:41:06.250 --> 00:41:13.419
+Sophie Bulloch: As far as I figured out, let me try and show you.
+
+303
+00:41:21.860 --> 00:41:29.090
+Sophie Bulloch: is you can only go back a certain number of commits, you can only go back… your release can only be, like, 10 commits back.
+
+304
+00:41:30.080 --> 00:41:41.600
+Sophie Bulloch: So, the idea that I can release something in December 27th content is just not something available. So, we are forced to do the entire release.
+
+305
+00:41:42.670 --> 00:41:44.660
+Sophie Bulloch: Basically, I think.
+
+306
+00:41:45.870 --> 00:41:55.090
+Sophie Bulloch: In the future, maybe we can work from branches and things, but yeah, so let's say we were looking for, like, the recent 3-hour thing, this is pretty nice that they…
+
+307
+00:41:55.320 --> 00:41:57.310
+Sophie Bulloch: Kind of generous release note.
+
+308
+00:41:58.070 --> 00:42:03.830
+Sophie Bulloch: But, you know, as a new user, you are so scared of this. So many things.
+
+309
+00:42:04.480 --> 00:42:12.330
+Sophie Bulloch: Yeah, I was… maybe another idea I had is, like, to…
+
+310
+00:42:12.590 --> 00:42:18.090
+Sophie Bulloch: Rob, Rob had this idea, he found a breaking change that we didn't pick up on.
+
+311
+00:42:19.710 --> 00:42:25.759
+Sophie Bulloch: By posting the difference between 0.1.10 and 0.1.11.
+
+312
+00:42:25.970 --> 00:42:28.870
+Sophie Bulloch: I'm pushing that through an AI.
+
+313
+00:42:30.360 --> 00:42:37.259
+Sophie Bulloch: Yeah, I don't know if it's possible to, like, prompt an AI or something, but…
+
+314
+00:42:38.390 --> 00:42:39.900
+Sophie Bulloch: Yeah, making these new releases kind of.
+
+315
+00:42:39.900 --> 00:42:40.300
+Aditya Arya: Right.
+
+316
+00:42:40.300 --> 00:42:42.270
+Sophie Bulloch: the… the… the…
+
+317
+00:42:42.450 --> 00:42:49.970
+Sophie Bulloch: The focus at the moment, and it's also not going to be… there's not much that we can do to…
+
+318
+00:42:50.890 --> 00:42:52.240
+Sophie Bulloch: Fix things.
+
+319
+00:42:53.120 --> 00:42:54.329
+Sophie Bulloch: All we can do is kind of.
+
+320
+00:42:54.330 --> 00:42:55.430
+Aditya Arya: Thank you, Alex.
+
+321
+00:42:58.490 --> 00:43:06.389
+Aditya Arya: So, sorry to interrupt, like, we are just, comparing the versions from the previous analog to this analog, right?
+
+322
+00:43:07.010 --> 00:43:11.849
+Aditya Arya: And, here you are talking about just looking for the latest analog, which is…
+
+323
+00:43:12.020 --> 00:43:17.070
+Aditya Arya: I think, I guess it's for, it's of 100, 800 lines, I guess, or 1,000 lines.
+
+324
+00:43:18.730 --> 00:43:24.840
+Sophie Bulloch: Yeah, when you make a new release, when you try and install it, I don't know if I can see it here.
+
+325
+00:43:25.850 --> 00:43:30.330
+Sophie Bulloch: You can… you should be able to see what code has changed.
+
+326
+00:43:31.420 --> 00:43:32.520
+Sophie Bulloch: Right.
+
+327
+00:43:33.130 --> 00:43:35.569
+Sophie Bulloch: Yeah, I don't know how to do that.
+
+328
+00:43:36.830 --> 00:43:41.709
+Sophie Bulloch: Do you know how to do that, Manish? I have seen it hundreds of times, and then I can't remember how to…
+
+329
+00:43:45.340 --> 00:43:46.780
+Sophie Bulloch: How do you see it?
+
+330
+00:43:50.930 --> 00:44:00.000
+Aditya Arya: Let's say if we go through the AI, like, we will do… we will, we will feed the AI our chain along, and we expect it to write the breaking things.
+
+331
+00:44:00.300 --> 00:44:03.749
+Aditya Arya: So, most of our work is done by the code rabbit.
+
+332
+00:44:03.890 --> 00:44:10.039
+Aditya Arya: But I guess it's not persistent with our codebase, right? It's only invoked whenever a pull request or a…
+
+333
+00:44:10.470 --> 00:44:12.289
+Aditya Arya: Or an issue is generated.
+
+334
+00:44:12.570 --> 00:44:13.640
+Aditya Arya: 30 minutes.
+
+335
+00:44:15.560 --> 00:44:23.220
+Sophie Bulloch: Yeah, we don't push the changelog into Code Rabbit, we have to post the code difference.
+
+336
+00:44:24.020 --> 00:44:29.520
+Sophie Bulloch: And then, basically, I'll ask Code Rabbit to find… what broke?
+
+337
+00:44:29.950 --> 00:44:31.090
+Sophie Bulloch: Or what?
+
+338
+00:44:32.510 --> 00:44:33.740
+Sophie Bulloch: You know, hasn't been tested.
+
+339
+00:44:33.740 --> 00:44:34.610
+Aditya Arya: Beautiful.
+
+340
+00:44:35.120 --> 00:44:35.570
+Sophie Bulloch: that we…
+
+341
+00:44:35.570 --> 00:44:36.060
+Aditya Arya: We need to…
+
+342
+00:44:36.060 --> 00:44:40.129
+Sophie Bulloch: We need to make extra sure that the next release is safe.
+
+343
+00:44:41.120 --> 00:44:41.990
+Sophie Bulloch: So…
+
+344
+00:44:41.990 --> 00:44:43.240
+Aditya Arya: Alright, great.
+
+345
+00:44:43.640 --> 00:44:51.200
+Sophie Bulloch: We can't just, like, release what we have in, like, a more better organized way. We also have to check
+
+346
+00:44:51.310 --> 00:44:52.879
+Sophie Bulloch: What we have is safe.
+
+347
+00:44:53.290 --> 00:44:59.740
+Sophie Bulloch: And check that there's been no breaking changes, or if there has, that we have backwards compatibility in place?
+
+348
+00:45:01.530 --> 00:45:12.430
+Aditya Arya: So, one thing I'm not getting, like, if we… our CICD pipeline is working, and the test, the… the… whatever workflows we have right now, whenever a PR is raised.
+
+349
+00:45:12.690 --> 00:45:19.520
+Aditya Arya: So, we do check that. So, why don't we rely on those, like, if they are not breaking, this means that
+
+350
+00:45:19.790 --> 00:45:22.459
+Aditya Arya: Whenever we are released, that also won't break.
+
+351
+00:45:24.220 --> 00:45:29.849
+Sophie Bulloch: Yeah, I mean, I think that's a good thing to do, like, how can we test that a new release is actually safe?
+
+352
+00:45:30.420 --> 00:45:32.730
+Sophie Bulloch: The issue that we have is our tests.
+
+353
+00:45:33.140 --> 00:45:37.570
+Sophie Bulloch: Currently, they just test things that we wanted to test.
+
+354
+00:45:38.030 --> 00:45:45.540
+Sophie Bulloch: things that we thought would be a problem, right? Things that we were checking. But it's hard for us to understand
+
+355
+00:45:45.690 --> 00:45:47.900
+Sophie Bulloch: What users are actually using.
+
+356
+00:45:48.510 --> 00:45:51.489
+Sophie Bulloch: And what might have broken for them.
+
+357
+00:45:52.490 --> 00:45:59.330
+Sophie Bulloch: So, we can try and improve our, like, unit tests and integration tests, which will always run on new releases.
+
+358
+00:45:59.500 --> 00:46:01.820
+Sophie Bulloch: And that's going to check, like, if…
+
+359
+00:46:02.480 --> 00:46:06.699
+Sophie Bulloch: If anything that we were expecting broke.
+
+360
+00:46:06.880 --> 00:46:11.450
+Sophie Bulloch: But it won't necessarily pick up on the things that users need.
+
+361
+00:46:12.040 --> 00:46:17.590
+Sophie Bulloch: So we always kind of have, like, that blind spot of trying to make our tests as best as possible.
+
+362
+00:46:20.880 --> 00:46:27.739
+Sophie Bulloch: We could definitely have, like, extra checks when there's a new release, but the problem is, like, what would those tests look like?
+
+363
+00:46:28.900 --> 00:46:32.109
+Sophie Bulloch: So, yeah, I opened that for discussion.
+
+364
+00:46:32.300 --> 00:46:37.680
+Sophie Bulloch: When we make a new release, we can definitely run, like, new workflows and things, but…
+
+365
+00:46:39.690 --> 00:46:43.290
+Sophie Bulloch: All the workflows that we have will probably, like, already run.
+
+366
+00:46:43.840 --> 00:46:47.829
+Sophie Bulloch: On that new release, so it would just be, like, what additional workflows
+
+367
+00:46:49.330 --> 00:46:52.649
+Sophie Bulloch: So, yeah, I don't know if you guys have any ideas.
+
+368
+00:46:54.670 --> 00:47:03.530
+Angelina Ceppaluni: Is there a way to… Run, like, a workflow that will check… the dependency…
+
+369
+00:47:03.800 --> 00:47:08.469
+Angelina Ceppaluni: I'm trying to think of the word, like, dependency, correctness, in this sense.
+
+370
+00:47:08.580 --> 00:47:16.279
+Angelina Ceppaluni: Making sure that it's still supported, making sure that if the version is not supported, that…
+
+371
+00:47:16.440 --> 00:47:29.149
+Angelina Ceppaluni: it logs something letting us know, hey, this needs to be changed, this SHA has either been outdated, or maybe it's changed, maybe the location of this is not correct anymore.
+
+372
+00:47:32.550 --> 00:47:36.710
+Angelina Ceppaluni: I'm not sure if that would be doable, it would… it was just…
+
+373
+00:47:37.100 --> 00:47:44.649
+Angelina Ceppaluni: would be something that I personally would want to check, especially when it comes to updating these dependencies.
+
+374
+00:47:44.970 --> 00:47:48.349
+Angelina Ceppaluni: My thinking is that if there is…
+
+375
+00:47:48.650 --> 00:47:59.539
+Angelina Ceppaluni: isn't a way, or if there was no testing done to ensure the dependencies are compatible, can we get maybe, like, a workflow to do this?
+
+376
+00:47:59.600 --> 00:48:12.679
+Angelina Ceppaluni: And then just let us know if it is or if it isn't, and then we'll go from there. Not necessarily maybe giving it the ability to change the dependency, more or less just making us aware, possibly.
+
+377
+00:48:14.390 --> 00:48:19.150
+Sophie Bulloch: Yeah, so manage maybe, like, the minimum and maximum bill that we were talking about.
+
+378
+00:48:19.890 --> 00:48:27.100
+Sophie Bulloch: maybe… Maybe the trigger for that could be if you change prior projects.
+
+379
+00:48:28.080 --> 00:48:33.520
+Sophie Bulloch: But maybe the second trigger could be… There's a tag.
+
+380
+00:48:33.690 --> 00:48:35.210
+Sophie Bulloch: For a new version.
+
+381
+00:48:35.390 --> 00:48:36.580
+Sophie Bulloch: Or something.
+
+382
+00:48:37.260 --> 00:48:38.219
+Sophie Bulloch: And then I think…
+
+383
+00:48:38.220 --> 00:48:40.570
+Manish Dait: Like, a new release.
+
+384
+00:48:41.820 --> 00:48:47.920
+Sophie Bulloch: Yeah, but I think… Yeah, yeah, because sometimes you don't change Pi projects, you just do a new release.
+
+385
+00:48:50.530 --> 00:48:51.169
+Sophie Bulloch: And then the.
+
+386
+00:48:51.170 --> 00:48:52.859
+Manish Dait: I think, like, that can be done.
+
+387
+00:48:53.350 --> 00:48:55.150
+Sophie Bulloch: Yeah, okay, let's write that down.
+
+388
+00:49:02.460 --> 00:49:06.139
+Sophie Bulloch: Is there any… Other workflow that we can make.
+
+389
+00:49:07.600 --> 00:49:09.210
+Sophie Bulloch: Or a new release.
+
+390
+00:49:12.290 --> 00:49:15.470
+Sophie Bulloch: Is it possible to prompt Code Rabbit on a new release?
+
+391
+00:49:16.700 --> 00:49:25.770
+Angelina Ceppaluni: It… may be. We'd have to update the instructions and test it. I don't see why not, but it's not something I've tried before.
+
+392
+00:49:26.640 --> 00:49:27.420
+Sophie Bulloch: Okay.
+
+393
+00:49:27.820 --> 00:49:31.249
+Sophie Bulloch: That might be, like, the best thing to work on.
+
+394
+00:49:32.650 --> 00:49:34.970
+Angelina Ceppaluni: Oh, can Copilot do that?
+
+395
+00:49:37.000 --> 00:49:44.270
+Sophie Bulloch: So Copilot is flaky, because Copilot only applies to people that have tick.
+
+396
+00:49:44.410 --> 00:49:46.460
+Sophie Bulloch: the Copilot box.
+
+397
+00:49:46.720 --> 00:49:48.859
+Angelina Ceppaluni: Okay. It's an individual decision.
+
+398
+00:49:49.010 --> 00:49:53.990
+Sophie Bulloch: Whereas, Code Rabbit is applicable to everybody.
+
+399
+00:49:55.100 --> 00:49:55.820
+Angelina Ceppaluni: Okay.
+
+400
+00:49:56.830 --> 00:50:05.179
+Angelina Ceppaluni: Yeah, I think CodeRabbit, would be a great addition. We would just have to figure out how to, prompt it, I guess, to…
+
+401
+00:50:05.480 --> 00:50:07.149
+Angelina Ceppaluni: Take a look at these.
+
+402
+00:50:07.270 --> 00:50:12.360
+Angelina Ceppaluni: The other… idea I had, for the next…
+
+403
+00:50:12.780 --> 00:50:17.830
+Angelina Ceppaluni: Release is maybe doing releases, like, minor, like, every…
+
+404
+00:50:17.990 --> 00:50:22.729
+Angelina Ceppaluni: Every couple of months, maybe? That way… It reduces…
+
+405
+00:50:23.180 --> 00:50:31.109
+Angelina Ceppaluni: like, the amount of changes in the sense that there aren't going to be, like, 100 changes all at once. Maybe there's just, like, a select few.
+
+406
+00:50:31.510 --> 00:50:33.940
+Angelina Ceppaluni: Is that something we would want to do?
+
+407
+00:50:34.840 --> 00:50:39.090
+Sophie Bulloch: That's the… that's the optimal way, like, I'm a fan of doing things, like, every couple weeks.
+
+408
+00:50:40.270 --> 00:50:41.010
+Angelina Ceppaluni: Okay.
+
+409
+00:50:41.410 --> 00:50:43.540
+Sophie Bulloch: the issues that we run into Christmas.
+
+410
+00:50:45.890 --> 00:50:47.460
+Angelina Ceppaluni: Yes.
+
+411
+00:50:47.460 --> 00:50:54.710
+Sophie Bulloch: Normally, we need two maintainers to do a release, because we need, like, another one to approve it, and everything, so, yeah.
+
+412
+00:50:58.150 --> 00:50:59.160
+Angelina Ceppaluni: But now we have…
+
+413
+00:50:59.160 --> 00:51:01.440
+Sophie Bulloch: stream maintenance, so I think…
+
+414
+00:51:02.240 --> 00:51:08.909
+Sophie Bulloch: I think, like, going forward, most of our releases should be probably every 2 weeks, and then we won't have this massive problem that often.
+
+415
+00:51:09.600 --> 00:51:21.639
+Angelina Ceppaluni: Yeah, I'd say every… every 2 or 3, just in case there's a week where maybe somebody can't get to it, but yeah, as frequently as possible would be my…
+
+416
+00:51:21.780 --> 00:51:23.160
+Angelina Ceppaluni: Suggested.
+
+417
+00:51:23.970 --> 00:51:32.359
+Sophie Bulloch: I actually, with these changes, I don't know if we manage, like, for example, do you still think we need to do a 0.2?
+
+418
+00:51:33.830 --> 00:51:34.420
+Sophie Bulloch: Right.
+
+419
+00:51:35.030 --> 00:51:41.110
+Manish Dait: So, like, I think, like, it should be, like, 0.2, because, like, we have a lot of changes.
+
+420
+00:51:42.880 --> 00:51:43.880
+Sophie Bulloch: Yeah.
+
+421
+00:51:44.480 --> 00:51:52.600
+Sophie Bulloch: Okay, to just warn people as well. But also, like, I think we have a lot of changes, but also we have really sophisticated changes, like, that…
+
+422
+00:51:52.940 --> 00:51:56.149
+Sophie Bulloch: Like, we've changed, for example, how nodes work, and…
+
+423
+00:51:58.780 --> 00:52:04.720
+Sophie Bulloch: the TLS and things, we haven't just added, like, functionality to transactions, we've changed the way
+
+424
+00:52:04.910 --> 00:52:07.079
+Sophie Bulloch: Yeah. Some of the core logic books.
+
+425
+00:52:08.600 --> 00:52:14.629
+Sophie Bulloch: Okay, alright. I'm gonna paste all these into the Linux chat, then.
+
+426
+00:52:17.360 --> 00:52:20.099
+Sophie Bulloch: I think, like, it's good if everyone kind of stays…
+
+427
+00:52:20.740 --> 00:52:23.100
+Sophie Bulloch: Up to date with what the actions are.
+
+428
+00:52:26.120 --> 00:52:32.740
+Sophie Bulloch: Angie, I guess you're quite busy, right? You don't have availability to check, like, the windows?
+
+429
+00:52:33.530 --> 00:52:39.329
+Sophie Bulloch: build or create, like, a Windows workflow or something to complement Manage's PR?
+
+430
+00:52:40.270 --> 00:52:53.640
+Angelina Ceppaluni: I can try and see what I come up with. I don't know if I'll encounter the same issues as, say, a new Windows user, just because I already have some of the dependencies.
+
+431
+00:52:53.840 --> 00:52:55.210
+Sophie Bulloch: Okay.
+
+432
+00:52:55.260 --> 00:53:00.289
+Angelina Ceppaluni: Yeah, so I don't know, I think a DTM…
+
+433
+00:53:00.290 --> 00:53:05.350
+Sophie Bulloch: virtual environment, and they just started from scratch, but that sounds painful, yeah, I agree.
+
+434
+00:53:05.350 --> 00:53:23.380
+Angelina Ceppaluni: On Windows, creating a virtual environment is not as much… it's not as appealing as it is on a MacBook. I would love to do it on a MacBook. It's so much quicker, it's so faster, and it's so much easier. On Windows, it's doable, it's just…
+
+435
+00:53:23.560 --> 00:53:29.400
+Angelina Ceppaluni: it's a painstaking process, so to speak.
+
+436
+00:53:29.520 --> 00:53:49.489
+Angelina Ceppaluni: So, I'm thinking it may actually be better to have a brand new Windows user, or just maybe a Windows user that doesn't have all of these dependencies quite yet, because I would like to see what kind of errors they run into now with this new, version released.
+
+437
+00:53:49.490 --> 00:53:57.549
+Angelina Ceppaluni: Again, I can try it, I just don't know if I would be able to provide as much insight, because I have some of these already.
+
+438
+00:53:59.160 --> 00:53:59.639
+Sophie Bulloch: I know.
+
+439
+00:53:59.640 --> 00:54:00.000
+Angelina Ceppaluni: But…
+
+440
+00:54:02.720 --> 00:54:15.320
+Angelina Ceppaluni: I will… I'll follow what Manish is doing, I'll keep an eye on it, I'll see if there's a way that I can. If not, I think a DTIA, may be…
+
+441
+00:54:15.560 --> 00:54:29.159
+Angelina Ceppaluni: better suited, just because I don't believe he has all of the dependencies yet. I'll reach out to him and ask him and see what he has, because I am not sure how far into the Python SDK setup process he's gotten.
+
+442
+00:54:29.930 --> 00:54:35.699
+Angelina Ceppaluni: I would say pretty far, I have seen a few of his pool requests, so if not him.
+
+443
+00:54:35.870 --> 00:54:46.979
+Angelina Ceppaluni: Maybe it would just be him and I trying to come up with something, but he is on a Windows 11, so he may have an easier time spinning up a virtual environment on there.
+
+444
+00:54:47.510 --> 00:54:48.100
+Sophie Bulloch: Yep.
+
+445
+00:54:48.940 --> 00:54:55.580
+Sophie Bulloch: Okay, so basically, Manish, I think we are kind of riding on…
+
+446
+00:54:55.870 --> 00:55:01.050
+Sophie Bulloch: your PR. I can try and work on the Code Rabbit.
+
+447
+00:55:01.210 --> 00:55:02.920
+Sophie Bulloch: Investigation.
+
+448
+00:55:04.130 --> 00:55:05.459
+Sophie Bulloch: for the release.
+
+449
+00:55:07.710 --> 00:55:13.359
+Sophie Bulloch: And just other things that are important for the SDK at the moment are these prompts.
+
+450
+00:55:14.150 --> 00:55:18.980
+Sophie Bulloch: things, but I know we're all busy, and we probably won't be able to work on them, at least for a long time.
+
+451
+00:55:19.100 --> 00:55:24.620
+Sophie Bulloch: But I think this is, like, a nice new focus, because I've noticed that pull requests are actually
+
+452
+00:55:24.810 --> 00:55:27.250
+Sophie Bulloch: Increasing, they're not decreasing.
+
+453
+00:55:27.800 --> 00:55:32.540
+Sophie Bulloch: And what's happening now is, like, people are getting more and more experienced.
+
+454
+00:55:32.690 --> 00:55:35.139
+Sophie Bulloch: So instead of, like, submitting…
+
+455
+00:55:36.000 --> 00:55:44.100
+Sophie Bulloch: just good first issues. We have quite a few pull requests that are actually intermediate or advanced.
+
+456
+00:55:44.410 --> 00:55:48.279
+Sophie Bulloch: And each of them can easily, like, take 5 hours to, like, review.
+
+457
+00:55:49.320 --> 00:55:52.760
+Sophie Bulloch: So we kind of have, like, we have a problem,
+
+458
+00:55:53.060 --> 00:55:56.140
+Sophie Bulloch: This is why I think that this is quite important.
+
+459
+00:55:57.220 --> 00:56:04.709
+Sophie Bulloch: I know, Adit, you, like, Adit just left. Adit's been, like, waiting already a couple of weeks, I think, for his.
+
+460
+00:56:05.630 --> 00:56:06.610
+Sophie Bulloch: PR?
+
+461
+00:56:07.210 --> 00:56:11.210
+Sophie Bulloch: But yeah, there's just… there's just not enough time, so…
+
+462
+00:56:12.450 --> 00:56:15.610
+Angelina Ceppaluni: Yeah. I keep properties, I would say let's do a release.
+
+463
+00:56:15.620 --> 00:56:24.249
+Sophie Bulloch: Let's prompt Code Rabbit, and then if anyone has free time, we gotta do reviews, but I think this is just gonna keep growing and growing and growing.
+
+464
+00:56:25.100 --> 00:56:28.030
+Sophie Bulloch: Because we, we, we're not fast enough yet.
+
+465
+00:56:31.670 --> 00:56:35.769
+Sophie Bulloch: So we're just gonna have to get used to… we might have to increase, like, the…
+
+466
+00:56:36.040 --> 00:56:39.639
+Sophie Bulloch: Number of concurrent issues you can work on?
+
+467
+00:56:42.070 --> 00:56:48.569
+Sophie Bulloch: Because some people, like, have… Done everything they can. They're waiting for feedback.
+
+468
+00:56:49.020 --> 00:56:54.009
+Sophie Bulloch: And, you know, they're stuck from working on another issue, so that's just something to think about.
+
+469
+00:56:55.840 --> 00:57:01.079
+Sophie Bulloch: And the other thing to think about is, like, what are we gonna do with the changelog for the next version?
+
+470
+00:57:02.810 --> 00:57:11.500
+Sophie Bulloch: are we gonna, like… it's really easy for new starters in the C++ SDK and the website SDK, because they don't require changelogs.
+
+471
+00:57:14.180 --> 00:57:18.090
+Angelina Ceppaluni: Oh, yes, I remember we had been debating this.
+
+472
+00:57:18.530 --> 00:57:23.300
+Angelina Ceppaluni: I am on the side of…
+
+473
+00:57:23.550 --> 00:57:29.689
+Angelina Ceppaluni: If we're going to keep the changelog, I would say just limiting it to source changes.
+
+474
+00:57:29.810 --> 00:57:38.490
+Angelina Ceppaluni: The documentation changes, yes, they are important, but they're, in my opinion, they're a little bit more user-facing in the sense that
+
+475
+00:57:38.490 --> 00:57:50.989
+Angelina Ceppaluni: Users can see the documentation, they don't necessarily need to be aware that it's been updated. It is nice for us to know that it's been updated, this way we have the most current info.
+
+476
+00:57:50.990 --> 00:57:53.189
+Angelina Ceppaluni: For those users who are getting started.
+
+477
+00:57:53.790 --> 00:58:02.780
+Angelina Ceppaluni: But, yeah, if we're on the side of keeping it, I would say to just limit it to maybe, source changes.
+
+478
+00:58:03.330 --> 00:58:05.060
+Angelina Ceppaluni: Manish, what do you think?
+
+479
+00:58:06.330 --> 00:58:17.220
+Angelina Ceppaluni: Oh, agree? Okay. So, Sophie, what do you think? I thought you had said you were on the side of source, is that right? Or did you want it to include just a bit more?
+
+480
+00:58:21.540 --> 00:58:26.430
+Sophie Bulloch: Yeah, sauce is maybe most essential.
+
+481
+00:58:28.600 --> 00:58:30.849
+Angelina Ceppaluni: Yeah, definitely, for sure.
+
+482
+00:58:30.850 --> 00:58:35.589
+Sophie Bulloch: Like, it's useful to know what's changed in tasks, but it's useful for us.
+
+483
+00:58:36.260 --> 00:58:37.850
+Angelina Ceppaluni: Yeah, yeah.
+
+484
+00:58:37.850 --> 00:58:42.880
+Sophie Bulloch: More than… more than anything, to, like, Be able to look back.
+
+485
+00:58:43.440 --> 00:58:50.529
+Sophie Bulloch: in time, I've noticed that, okay, this is what happened in the Python SDK. We're gonna lose that knowledge.
+
+486
+00:58:50.850 --> 00:58:52.989
+Sophie Bulloch: Especially if our releases take 2 months.
+
+487
+00:58:53.470 --> 00:58:58.380
+Sophie Bulloch: We're gonna… in two months' time, we're gonna be like,
+
+488
+00:58:58.670 --> 00:59:06.640
+Sophie Bulloch: what actually changed or not? Like, because people, when they… when they, download a new release, they're gonna see difference. They're gonna see, like.
+
+489
+00:59:06.770 --> 00:59:10.240
+Sophie Bulloch: What 0.110 had, and what 0.11 has.
+
+490
+00:59:10.570 --> 00:59:19.109
+Sophie Bulloch: And they're gonna see maybe, like, tons of changes to tests, tons of changes to examples, docs, and they… they have no guidance.
+
+491
+00:59:19.970 --> 00:59:22.260
+Sophie Bulloch: That's, like, what that meant at all.
+
+492
+00:59:22.780 --> 00:59:28.370
+Sophie Bulloch: So, I think, like, end users, they want to know
+
+493
+00:59:28.850 --> 00:59:37.659
+Sophie Bulloch: What are they going to get impacted by? But they also kind of want to have, like, this safety, like, oh, all these other things that aren't really related to the source code changes.
+
+494
+00:59:37.930 --> 00:59:49.289
+Sophie Bulloch: Right? I wasn't expecting, like, test ABC to be changed. I'm seeing tons of changes to test ABC, but you guys told me you only change, you know,
+
+495
+00:59:49.680 --> 00:59:51.450
+Sophie Bulloch: Freddy sauce.
+
+496
+00:59:51.610 --> 00:59:59.989
+Sophie Bulloch: So, like, maybe… maybe… I don't know. I'm not sure with that yet.
+
+497
+01:00:00.250 --> 01:00:04.579
+Sophie Bulloch: But yeah, the changeload conflicts and stuff is pretty, pretty annoying.
+
+498
+01:00:05.270 --> 01:00:10.059
+Sophie Bulloch: Also, when you create a new release, GitHub automatically generates
+
+499
+01:00:10.610 --> 01:00:13.690
+Sophie Bulloch: Changes, but it doesn't do it that well.
+
+500
+01:00:14.130 --> 01:00:16.260
+Sophie Bulloch: So let me show you what happens.
+
+501
+01:00:21.520 --> 01:00:24.839
+Sophie Bulloch: So, if I do 0.11, let's say.
+
+502
+01:00:29.290 --> 01:00:31.179
+Sophie Bulloch: For the recent commit.
+
+503
+01:00:32.270 --> 01:00:44.759
+Sophie Bulloch: it's gonna generate these release notes, but it doesn't do it from our changelog entry. It does it from the way that people labeled their most recent commit, because we squashed their entire PR into their most recent commit.
+
+504
+01:00:47.150 --> 01:00:54.830
+Sophie Bulloch: So… I don't know about you, but I'm pretty bad at naming my commits, my final commit, that well.
+
+505
+01:00:56.660 --> 01:00:59.670
+Sophie Bulloch: Or it's the title, actually, I don't know.
+
+506
+01:01:00.460 --> 01:01:02.359
+Sophie Bulloch: But you're gonna see…
+
+507
+01:01:03.080 --> 01:01:09.530
+Sophie Bulloch: all of these hundreds of lines of changes anyway in the release notes, unless I delete them. But then I have to…
+
+508
+01:01:09.760 --> 01:01:13.209
+Sophie Bulloch: Separate the source code changes from the other ones and not delete.
+
+509
+01:01:14.260 --> 01:01:20.580
+Sophie Bulloch: So I don't really see, like, a way around… The massive amounts of information.
+
+510
+01:01:23.590 --> 01:01:32.429
+Angelina Ceppaluni: Does that happen if you do this more frequently, or is that only happening because we just did something very large?
+
+511
+01:01:33.250 --> 01:01:39.250
+Sophie Bulloch: Yeah, if you look at the previous releases, what I've done is I've actually reorganized the thing manually.
+
+512
+01:01:39.450 --> 01:01:40.320
+Sophie Bulloch: Like, I look at.
+
+513
+01:01:40.320 --> 01:01:41.190
+Angelina Ceppaluni: Yeah.
+
+514
+01:01:41.190 --> 01:01:45.880
+Sophie Bulloch: our list, and I split it up into, like, these are the new features, these are the fixes.
+
+515
+01:01:46.630 --> 01:01:48.700
+Sophie Bulloch: These are the workflow things and the docs.
+
+516
+01:01:50.230 --> 01:01:50.770
+Angelina Ceppaluni: Okay.
+
+517
+01:01:50.770 --> 01:02:02.689
+Sophie Bulloch: And sometimes I have to rename some of these, because that… like, sometimes it looks like I've changed a source code thing, but actually it was an example, but the person didn't, like, label it correctly, if that makes sense.
+
+518
+01:02:03.020 --> 01:02:03.700
+Angelina Ceppaluni: Yeah.
+
+519
+01:02:03.700 --> 01:02:09.790
+Sophie Bulloch: So sometimes it reads really scary, like, refactored token associate transaction.
+
+520
+01:02:12.110 --> 01:02:17.760
+Sophie Bulloch: And so, I… That, that, that kind of thing happens.
+
+521
+01:02:17.940 --> 01:02:21.640
+Sophie Bulloch: through the automatic system of GitHub, because…
+
+522
+01:02:23.580 --> 01:02:29.489
+Sophie Bulloch: Because it's doing it by the title, and we're not as good as titles as we are with changelog entries, for example.
+
+523
+01:02:30.710 --> 01:02:34.549
+Sophie Bulloch: Yeah, so I don't really have a good solution. But anyway, we're out of time.
+
+524
+01:02:35.700 --> 01:02:38.450
+Angelina Ceppaluni: Yes, we are.
+
+525
+01:02:38.510 --> 01:02:53.799
+Angelina Ceppaluni: Okay, so this was a pretty good discussion. I guess we will pick this up, next time, when we meet back up again in two weeks. For now, I do think we have some pretty good, action points, definitely. Manish, we will keep an eye out.
+
+526
+01:02:53.850 --> 01:02:58.790
+Angelina Ceppaluni: For your PR, I will see if Aditya
+
+527
+01:02:58.890 --> 01:03:02.360
+Angelina Ceppaluni: Is able to spin up the virtual environment.
+
+528
+01:03:02.520 --> 01:03:08.010
+Angelina Ceppaluni: Beyond that, I think we're pretty much good to go.
+
+529
+01:03:09.450 --> 01:03:11.729
+Sophie Bulloch: Yep, I'll do some Code Rabbit prompting.
+
+530
+01:03:12.580 --> 01:03:13.670
+Angelina Ceppaluni: Thank you very much.
+
+531
+01:03:14.210 --> 01:03:15.259
+Sophie Bulloch: Thanks, Manish, bye.
+
+532
+01:03:15.260 --> 01:03:15.820
+Manish Dait: Nice.
+
+533
+01:03:15.820 --> 01:03:17.610
+Angelina Ceppaluni: Thanks, everyone. Bye!
+

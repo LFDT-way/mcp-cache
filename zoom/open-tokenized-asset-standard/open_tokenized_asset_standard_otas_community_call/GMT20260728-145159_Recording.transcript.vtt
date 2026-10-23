@@ -1,0 +1,1038 @@
+WEBVTT
+
+1
+00:00:09.950 --> 00:00:33.940
+Sean W. Bohan (LF Decentralized Trust): Welcome, everyone, to the July 28, 2026 Open Tokenized Asset Standard Community Call. As with all Linux Foundation calls, this is held on the Linux Foundation antitrust policy. Linux Foundation Meetings involve participation by industry competitors, and it is the intention of the Linux Foundation to conduct all of its activities in accordance with applicable antitrust and competition laws. It is therefore extremely important that attendees adhere to meeting agendas, be aware of, and not participate in
+
+2
+00:00:33.940 --> 00:00:39.749
+Sean W. Bohan (LF Decentralized Trust): any activities that are prohibited under applicable U.S. state, federal, or foreign antitrust and competition laws.
+
+3
+00:00:39.830 --> 00:01:01.929
+Sean W. Bohan (LF Decentralized Trust): Examples of these types of actions that are prohibited in Linux Foundation meetings and in connection with LF activities are described in the Linux Foundation antitrust policy, available at Linuxfoundation.org slash antitrust dash policy. If you've got questions about these matters, please contact your company counsel, or if you're a member of the Linux Foundation, feel free to contact Andrew Updagrov of the firm Gessmer Updagrov LLP, which provides legal counsel to the Linux Foundation.
+
+4
+00:01:01.930 --> 00:01:08.270
+Sean W. Bohan (LF Decentralized Trust): In addition, this is held under the Linux Foundation Code of Conduct, which can best be summed up as be excellent to each other, and we're going to get a ton of work done.
+
+5
+00:01:08.270 --> 00:01:13.669
+Sean W. Bohan (LF Decentralized Trust): And with that, I'm going to turn it over to our host, Sarvesh, and our agenda. You're good to go.
+
+6
+00:01:14.900 --> 00:01:20.489
+Sarvesh Naidu: Awesome. Thank you so much. First of all, thank you and welcome all.
+
+7
+00:01:20.490 --> 00:01:31.219
+Sarvesh Naidu: I'm gonna let, Mukul handle the show today. So he's gonna go over the agenda, talk about what our whitepaper looks like, what are the various things that we've been doing, and, you know, also.
+
+8
+00:01:31.220 --> 00:01:42.680
+Sarvesh Naidu: I know we have a few new people on the, on the, on the call, so would love to hear from you how you would like to kind of shape up this white paper that we are working on.
+
+9
+00:01:42.680 --> 00:01:53.719
+Sarvesh Naidu: what are your pain points and discussion points that you want to kind of, you know, bring forth so we can start looking into how we can improve our V2 version of our white paper.
+
+10
+00:01:54.100 --> 00:01:56.379
+Sarvesh Naidu: That said, Mukul, all yours.
+
+11
+00:01:57.400 --> 00:01:58.539
+Mukul: Okay, perfect.
+
+12
+00:01:58.690 --> 00:02:00.540
+Mukul: I'll share my screen.
+
+13
+00:02:04.030 --> 00:02:06.279
+Sean W. Bohan (LF Decentralized Trust): Cool, you should be good to go, give it a shot.
+
+14
+00:02:06.870 --> 00:02:08.710
+Mukul: Yes, settings.
+
+15
+00:02:09.000 --> 00:02:10.010
+Mukul: Okay, thank you.
+
+16
+00:02:10.130 --> 00:02:13.750
+Mukul: Oh, yes, Saras, let me know if my screen is going to be.
+
+17
+00:02:13.750 --> 00:02:17.000
+Sarvesh Naidu: Not… yeah, oh yeah, there it is, yes.
+
+18
+00:02:17.530 --> 00:02:21.579
+Mukul: Okay, perfect. Okay, right. So…
+
+19
+00:02:23.810 --> 00:02:31.670
+Mukul: Hey everyone, I'm Mukul, thank you for joining. So, I'm a smart contract security researcher, and
+
+20
+00:02:32.180 --> 00:02:37.859
+Mukul: And as I briefly mentioned, working at Open Asset on Open Tokenized Asset Standard.
+
+21
+00:02:37.930 --> 00:02:55.920
+Mukul: First, maybe talk about what are the problems in the space. Also, note that, for new people joining in, this is not a legal or technical or financial advice in any way, or, you know, we are endorsing any new protocols and so on. So, my tab is completely visible, right, Sarvesh?
+
+22
+00:02:56.630 --> 00:02:57.520
+Sarvesh Naidu: Yes.
+
+23
+00:02:58.020 --> 00:02:59.650
+Mukul: Okay, perfect.
+
+24
+00:02:59.650 --> 00:03:04.920
+Sean W. Bohan (LF Decentralized Trust): For those joining us today, I did include a link to what Mukul is sharing right here.
+
+25
+00:03:04.920 --> 00:03:05.280
+Mukul: Yes.
+
+26
+00:03:05.280 --> 00:03:12.240
+Sean W. Bohan (LF Decentralized Trust): if you want to find it, it's also in the GitHub repo for the Open Tokenized Asset Standard OTAS project. Go for it, Mukul, sorry.
+
+27
+00:03:12.940 --> 00:03:17.700
+Mukul: Right. So, let's, start with the problem. The…
+
+28
+00:03:18.510 --> 00:03:34.930
+Mukul: solidly started the problem, because everything in a paper follows from it, right? The tokenization has slightly moved from pilots into production. We now have tokenized money, market funds, tokenized deposits, repos, 7 bonds, real money investment, right?
+
+29
+00:03:34.930 --> 00:03:43.160
+Mukul: Live on real ledgers. And several settlement initiatives have shown atomic delivery versus payment working.
+
+30
+00:03:43.160 --> 00:03:51.689
+Mukul: Yeah, both in central bank as well as commercial bank money, but the infrastructure underneath is fragmented, and here's the way I'd put it.
+
+31
+00:03:51.690 --> 00:04:09.979
+Mukul: take a single bond, and have 5 institutions token asset. You don't get one asset, you get 5 incompatible objects on 5 different ledgers, each with its own token schema, its own identity model, its own way of enforcing compliance, its own metadata conventions.
+
+32
+00:04:11.220 --> 00:04:29.269
+Mukul: So, liquidity basically gets wrapped, and everyone duplicates the same compliance work, and final settlement still leans on the legacy coordination layers we were supposedly moving away from. I think, even Michael does some of this in the compliance part he wrote, and I will go over that later.
+
+33
+00:04:29.270 --> 00:04:41.470
+Mukul: The fragmentation runs along, three axes at once, basically. Incompatible ledger models, different jurisdictional compliance regimes, and asset class-specific schemas, and
+
+34
+00:04:41.470 --> 00:04:57.849
+Mukul: It, by its hardest exactly where, programmable finance needs, real institution market structure, the post-trade layer. And we talk about post-trade layer in our, white paper in detail. And as we know, because of this, the liquidity, lives in silos, which
+
+35
+00:04:57.850 --> 00:05:04.420
+Mukul: leads to empowerment laws, loss of productivity, utility of any assets or currency, and so on. So…
+
+36
+00:05:04.740 --> 00:05:19.660
+Mukul: the… here's the central butt of the paper, and it's the one thing I'd ask you to hold onto. The answer is not another blockchain, it's not a new platform that everyone has to migrate onto. The answer is a thin protocol, agnostic.
+
+37
+00:05:19.660 --> 00:05:25.260
+Mukul: interface layer, a sort of common language that sits at the seams within institutions who
+
+38
+00:05:25.260 --> 00:05:33.589
+Mukul: Each keep running their own governed infrastructure, and basically the design principle that makes, this network is…
+
+39
+00:05:33.630 --> 00:05:52.610
+Mukul: Standardize the function, not the asset. Standardize the lowest form and denominator, and that, the two institutions which are… which want to interact with one another need to share. How to settle, how to prove eligibility, how to signal compliance, how to describe an asset, and so on.
+
+40
+00:05:52.610 --> 00:06:07.719
+Mukul: And deliberately don't, standardize the internal representation of an asset itself, because we want to lead that to institutions, and, because, it works differently in every jurisdiction, and so on. So, the…
+
+41
+00:06:08.350 --> 00:06:21.289
+Mukul: One analogy I find useful is, we had PIX Protocol, which standardized how rates get negotiated. We have SWIFT protocol, which standardizes how financial institutions and banks
+
+42
+00:06:21.290 --> 00:06:29.699
+Mukul: message and coordinate. We have PCBIP, of course, which tenders are completely different networks, talk with each other without anyone rebuilding.
+
+43
+00:06:29.700 --> 00:06:38.109
+Mukul: the post-trade layer for Tokenized Asset just, just doesn't have that yet. That missing layer is what FTAS is aiming at.
+
+44
+00:06:38.260 --> 00:06:45.400
+Mukul: So, we can, go over some of the things, and… document.
+
+45
+00:06:45.520 --> 00:06:52.510
+Mukul: we talked about some of the points here. The paper basically, talks about surveys, major,
+
+46
+00:06:52.540 --> 00:07:06.120
+Mukul: DBM, or Solana, or SUI, or basically Hyperledger ecosystem projects, yeah, also, via Intav Walk Alliance's TPF, which…
+
+47
+00:07:06.120 --> 00:07:19.640
+Mukul: We try to, find the common denominator and the differences among them, and try to evaluate what we can do, and how we can organize this in a specific standard. The…
+
+48
+00:07:20.350 --> 00:07:34.590
+Mukul: We try to model it as a token-based type, plus composable behavior, plus even schemas expressible across heterogeneous execution envelopment, as the different chains have different environments and different settlement arrays, and so on.
+
+49
+00:07:34.840 --> 00:07:51.639
+Mukul: So, we… OTAS have… we have prioritized four, layers, settlement networks, identity, compliance, and asset metadata, and we also talk about a bit, life cycle of asset and privacy in the paper a bit.
+
+50
+00:07:51.940 --> 00:08:04.380
+Mukul: We compare issuer archetypes, banks, asset managers, and other, financial firms, sovereign central banks, and so on, and compare, how they are dealing with tokenized assets and so on.
+
+51
+00:08:04.510 --> 00:08:05.690
+Mukul: Awesome.
+
+52
+00:08:05.950 --> 00:08:09.060
+Mukul: Yes, we talked about some of these things.
+
+53
+00:08:09.670 --> 00:08:21.470
+Mukul: Yes, the post-trade problems face, the post-trade lifecycle, the post-trade begins after a trade has agreed and spans, clearing settlement, custody, and safekeeping, asset servicing.
+
+54
+00:08:21.510 --> 00:08:32.860
+Mukul: some of the points, even… I don't think Amit has joined, but he also pointed out that we, have to talk about the legal aspect of settlement as well, which.
+
+55
+00:08:32.860 --> 00:08:35.010
+Sarvesh Naidu: Yeah, I think Amit is here as well, though. Amuka.
+
+56
+00:08:35.010 --> 00:08:37.469
+Mukul: Okay, okay, hi, Amit.
+
+57
+00:08:37.470 --> 00:08:38.039
+Amit Sagar (Bank of England): No, I'm here.
+
+58
+00:08:38.049 --> 00:08:38.589
+Mukul: Follow.
+
+59
+00:08:38.739 --> 00:08:39.719
+Mukul: Yesterday.
+
+60
+00:08:40.049 --> 00:08:54.809
+Mukul: Yes. As Amit pointed out, we want to highlight some of the legal aspects within the settlement, because they work different in different jurisdictions, different, regulatory aspects to it, so…
+
+61
+00:08:55.169 --> 00:09:00.119
+Mukul: Dad? We will talk about it later. English.
+
+62
+00:09:00.349 --> 00:09:07.289
+Mukul: Can I talk about some of these points? Yes, Amit also probably pointed out, about…
+
+63
+00:09:07.759 --> 00:09:15.039
+Mukul: Yes, how we can… we'll talk about how we can enforce the legal part, or try to, manage it, but yes, we…
+
+64
+00:09:15.139 --> 00:09:20.559
+Mukul: Talk about, hash time logs, escrow 3 schemes, or messaging bridges, in the…
+
+65
+00:09:20.769 --> 00:09:35.789
+Mukul: there, which we'll go over later. We, as I said, we, compared the different standards, Token standards which we have in EVM and SUI, and Solana SPL in both Token 2022 extensions, and so on.
+
+66
+00:09:35.899 --> 00:09:39.969
+Mukul: We talked about every… Oh…
+
+67
+00:09:40.729 --> 00:09:45.299
+Mukul: even neutral frameworks that we have, also PTF, and so on.
+
+68
+00:09:45.419 --> 00:09:57.429
+Mukul: What are the common denominators and different, aspects of different, differences among themselves, and we try to analyze the gaps which we have. Okay.
+
+69
+00:10:02.859 --> 00:10:09.039
+Mukul: If we take the whole thing from the whole, thing from the whole survey, I'd want to…
+
+70
+00:10:09.109 --> 00:10:23.479
+Mukul: I want it to be this. When you line up all these ecosystems side by side, the C and 4 functions show up in every single one of them. Who's allowed to hold or transfer? Under what rules? How value finally changes hands?
+
+71
+00:10:23.479 --> 00:10:39.819
+Mukul: And what the asset actually is, and how it's serviced. I think ledger answers those four questions, they just answer them from mutually incompatible ways, because they fundamentally work in different ways. And that incompatibly is the entire problem, which is also why the four layers of the paper aren't
+
+72
+00:10:39.819 --> 00:10:46.959
+Mukul: Arbitrary, they are just those four universal functions, pulled up to the level where they are shared across institutions.
+
+73
+00:10:47.079 --> 00:10:54.009
+Mukul: The function is neutral, the internal representation isn't. So that's the line whole standard tries to go.
+
+74
+00:10:54.389 --> 00:10:55.379
+Mukul: Oh…
+
+75
+00:11:01.389 --> 00:11:05.459
+Mukul: gun… Yeah, we covered some of the points.
+
+76
+00:11:05.749 --> 00:11:08.649
+Mukul: These are more technical points which,
+
+77
+00:11:08.859 --> 00:11:15.769
+Mukul: Do you have to rethink in time as we, are evaluating for the second iteration of the white paper?
+
+78
+00:11:16.309 --> 00:11:20.479
+Mukul: We can talk about them in our discussions, maybe.
+
+79
+00:11:22.529 --> 00:11:23.409
+Mukul: Yo.
+
+80
+00:11:25.879 --> 00:11:33.459
+Mukul: Does anyone have, any questions or points which they wanted to… jungle points they have on the paper so far?
+
+81
+00:11:34.930 --> 00:11:39.580
+Michael Santore: Yeah, one question here, regarding 5.1, standardized functions, not assets.
+
+82
+00:11:41.070 --> 00:11:42.270
+Mukul: Python front, right?
+
+83
+00:11:42.700 --> 00:11:43.500
+Michael Santore: Yeah.
+
+84
+00:11:45.320 --> 00:12:00.790
+Michael Santore: I'm working with a few groups. One is in real estate, figuring out how to model real estate records, and also a registered investment advisor, figuring out how to share compliance data, as well as just
+
+85
+00:12:00.800 --> 00:12:10.839
+Michael Santore: Asset data, what do you recommend for these groups trying to figure out how to create a standard for a specific use case and also leverage OTAS?
+
+86
+00:12:12.420 --> 00:12:15.420
+Mukul: I think that's… Standard for good.
+
+87
+00:12:15.420 --> 00:12:15.890
+Sarvesh Naidu: question.
+
+88
+00:12:16.350 --> 00:12:31.680
+Sarvesh Naidu: Mukul, I'm just gonna add a couple of things before you can jump in, right? I feel asset metadata would be a great opportunity where we can standardize a way where the data can flow from asset perspective, making it more agnostic.
+
+89
+00:12:31.680 --> 00:12:42.630
+Sarvesh Naidu: But again, and even for compliance, we have a security and a compliance pillar which we could use. Obviously, we need to understand what are those various things that… that…
+
+90
+00:12:42.880 --> 00:12:50.090
+Sarvesh Naidu: at a high level, make it generic enough for various chains, correct?
+
+91
+00:12:50.590 --> 00:12:56.140
+Sarvesh Naidu: So we'll have to yank, or at least understand what the compliance looks like before we can move things out.
+
+92
+00:12:56.880 --> 00:12:58.140
+Sarvesh Naidu: If that makes sense.
+
+93
+00:12:58.890 --> 00:12:59.920
+Michael Santore: 100%.
+
+94
+00:13:00.040 --> 00:13:17.330
+Michael Santore: And I know for the RIA group, one key point is just NPI, like personal information, but I think there's some standards already where certain groups, if they're authorized, can share more information. But yeah, just wondering if there's anything in the standard that says the type of asset it is.
+
+95
+00:13:19.540 --> 00:13:42.089
+Sarvesh Naidu: Not yet. What we can do is… and this is a good point, because we are in the… we would be building these specs, so having the right values and attributes for that protocol would make a lot of sense. Having an asset type would be one of those attributes within the protocol, I'm guessing. So, that is a good start for us. Mukul
+
+96
+00:13:42.090 --> 00:13:44.529
+Sarvesh Naidu: Does… if… if… please let me know if I'm…
+
+97
+00:13:44.630 --> 00:13:48.640
+Sarvesh Naidu: off track here, but I think that's something that you're writing in your spec anyways, right?
+
+98
+00:13:50.570 --> 00:13:51.300
+Mukul: First.
+
+99
+00:13:51.600 --> 00:13:52.130
+Sarvesh Naidu: Good.
+
+100
+00:13:55.310 --> 00:13:59.979
+Mukul: Yes, Michael, can you repeat your question again, the important bit?
+
+101
+00:14:00.160 --> 00:14:01.340
+Mukul: I messed them up.
+
+102
+00:14:02.160 --> 00:14:19.850
+Michael Santore: Well, yeah, it looks like the protocol goes, you know, sets some really clear guidelines for compliance between controls and other aspects, but just… and it's great that it's agnostic to asset types. I was just wondering where in the protocol to focus as I'm building these use cases.
+
+103
+00:14:21.060 --> 00:14:24.089
+Mukul: Right, you mentioned use case for real estate, right?
+
+104
+00:14:24.090 --> 00:14:28.519
+Michael Santore: Yeah, and as wealth advisors, so, like, retirement accounts.
+
+105
+00:14:28.940 --> 00:14:29.869
+Mukul: Right.
+
+106
+00:14:30.000 --> 00:14:30.670
+Mukul: 3rd.
+
+107
+00:14:33.370 --> 00:14:48.999
+Mukul: Right, it's an interesting question. So, yes, as you said, I think for, for the real estate thing, I think some of the protocols exist for it in our, ideally, some of the real-world applications are already on.
+
+108
+00:14:49.150 --> 00:14:55.290
+Mukul: Tokenized properties and real estate. I'm not sure if they are in production, but
+
+109
+00:14:55.390 --> 00:15:11.590
+Mukul: Sure. Yeah, a lot of people are working on that in different ecosystems. Pretty sure Solana ecosystem have a lot of, real-world applications, RWS projects on that. But, talking, I'm probably more thinking about compliance side of it, right?
+
+110
+00:15:14.400 --> 00:15:15.830
+Michael Santore: Yeah, 100%.
+
+111
+00:15:17.030 --> 00:15:18.569
+Mukul: Right. I'm sure.
+
+112
+00:15:18.570 --> 00:15:21.909
+Michael Santore: sharing records between groups, like MLS data, for example?
+
+113
+00:15:23.060 --> 00:15:26.210
+Mukul: Right. Caring records between the groups, yes.
+
+114
+00:15:27.070 --> 00:15:27.740
+Mukul: Hmm.
+
+115
+00:15:30.680 --> 00:15:35.259
+Michael Santore: I don't expect an answer now, but it's great to hear that the protocol is asset agnostic.
+
+116
+00:15:36.320 --> 00:15:44.360
+Mukul: Yes. We can maybe think along those lines. I think that's an interesting prospect. Do you…
+
+117
+00:15:44.790 --> 00:15:50.970
+Mukul: Have any suggestions where you can fit in that, for you to be useful in any way?
+
+118
+00:15:51.280 --> 00:16:02.059
+Mukul: Because it sounds something which we would want to do anyway, but if we can do it earlier for you, maybe you two be useful, or maybe we can help you in this way.
+
+119
+00:16:02.320 --> 00:16:10.669
+Mukul: So, that's worth taking some time after. Do you have any suggestions for what we can do to make it compatible with that host?
+
+120
+00:16:11.050 --> 00:16:25.999
+Michael Santore: Not on the asset side, but I can invite some people to the next call. On the compliance side, with some of my work, the NIST OSCAL format has been very helpful to link different compliance standards together. So that's one idea there.
+
+121
+00:16:27.140 --> 00:16:27.840
+Mukul: Right, right.
+
+122
+00:16:28.210 --> 00:16:32.540
+Mukul: Yes, but I'll surely think more about it, and maybe write to you about that.
+
+123
+00:16:32.860 --> 00:16:34.840
+Mukul: Sounds interesting, different.
+
+124
+00:16:36.410 --> 00:16:37.100
+Mukul: Oops.
+
+125
+00:16:38.140 --> 00:16:44.799
+Mukul: And yes, you… We can maybe go about discussions, right?
+
+126
+00:16:45.750 --> 00:16:50.840
+Mukul: We have… Mike, both you and Amit comment there.
+
+127
+00:16:51.260 --> 00:16:54.170
+Mukul: Discussion. As Kirina still present, right?
+
+128
+00:16:54.750 --> 00:16:56.160
+Mukul: You can see my feet.
+
+129
+00:16:56.400 --> 00:16:57.790
+Amit Sagar (Bank of England): Yeah, Mukul, we can see that.
+
+130
+00:16:58.900 --> 00:17:04.930
+Mukul: Perfect. Yes, I… I was going through Nest Hospital and so on, so it is quite interesting.
+
+131
+00:17:05.349 --> 00:17:09.690
+Mukul: Well, I didn't know more about it before, but it's quite interesting, and it is…
+
+132
+00:17:10.060 --> 00:17:12.509
+Mukul: major open source project I've seen in the industry.
+
+133
+00:17:12.910 --> 00:17:19.450
+Mukul: Have you used it in any production use cases, next possible, Michael?
+
+134
+00:17:19.450 --> 00:17:36.199
+Michael Santore: Yeah, so that's, some of the products my company's been developing, is… it's been… to start, it was focused on ISO and SOC 2 compliance, but now we've moved into SEC and FINRA compliance for that Wealth Advisor. So it's been very helpful there.
+
+135
+00:17:37.890 --> 00:17:40.890
+Mukul: Very true, thanks. Okay.
+
+136
+00:17:41.520 --> 00:17:48.659
+Mukul: And, basically do… protocol, so CEMAS has been privately, right? You are not publishing that.
+
+137
+00:17:49.720 --> 00:17:50.740
+Mukul: Technically good.
+
+138
+00:17:51.960 --> 00:17:52.510
+Michael Santore: What's that?
+
+139
+00:17:53.530 --> 00:18:02.510
+Mukul: these schemas are, are still private yet, right? They are enterprise, right? You're not publishing them as open source yet, right?
+
+140
+00:18:02.690 --> 00:18:05.120
+Michael Santore: No, not yet. No, not yet.
+
+141
+00:18:05.820 --> 00:18:06.650
+Mukul: Oh, okay.
+
+142
+00:18:06.870 --> 00:18:10.869
+Michael Santore: Yeah, NIST Oscale has, you know, documentation, but this.
+
+143
+00:18:10.870 --> 00:18:12.149
+Mukul: I'm trying to figure out these units.
+
+144
+00:18:12.150 --> 00:18:15.169
+Michael Santore: use cases, which is kind of why I'm here. Yeah.
+
+145
+00:18:15.670 --> 00:18:16.220
+Michael Santore: Awesome.
+
+146
+00:18:17.070 --> 00:18:26.540
+Mukul: Yes, I was thinking about Mika completely started in the start of this month, right? July 1st. I was, following it, for some time.
+
+147
+00:18:26.790 --> 00:18:34.309
+Mukul: You said, you mentioned somewhere, right, you were, interested in Nika and this Genius app, US one.
+
+148
+00:18:34.760 --> 00:18:39.310
+Mukul: I wanted to… check that out in the future. Mention somewhere.
+
+149
+00:18:44.240 --> 00:18:45.290
+Mukul: Oddly enough.
+
+150
+00:18:45.480 --> 00:18:46.490
+Mukul: You can go skipping.
+
+151
+00:18:47.130 --> 00:18:48.120
+Mukul: Yes, if…
+
+152
+00:18:51.390 --> 00:18:53.140
+Michael Santore: Yeah, exactly.
+
+153
+00:18:54.480 --> 00:19:15.500
+Michael Santore: Yeah, exactly. So what I've learned is ISO and SOC 2, for example, have a lot of the same controls in common. And so, you know, even once you get into the data continuity aspects of SEC FINRA, kind of similar. And that's where NIST OSCAL has been helpful, just mapping where there's similar controls and policies that
+
+154
+00:19:15.670 --> 00:19:16.760
+Michael Santore: relate.
+
+155
+00:19:18.670 --> 00:19:19.859
+Mukul: Nice, right.
+
+156
+00:19:21.470 --> 00:19:22.350
+Mukul: Right.
+
+157
+00:19:22.510 --> 00:19:28.939
+Mukul: This is still something, new to me. I, want to spend some more time in,
+
+158
+00:19:28.970 --> 00:19:35.850
+Mukul: hostile in general, but, looks promising in general. Not too long, but…
+
+159
+00:19:35.870 --> 00:19:49.599
+Mukul: Looks interesting. If you have any… in general, any pointers or suggestions about Nest Boswell or about devices, feel free to write to me, or make an issue in the Fabric for here, or make a decision
+
+160
+00:19:50.040 --> 00:19:56.320
+Mukul: Always welcome to discuss anything. Thank you. If any way we can help you, please feel free to write.
+
+161
+00:19:57.010 --> 00:19:58.980
+Mukul: And thanks for joining.
+
+162
+00:20:01.990 --> 00:20:17.770
+Sarvesh Naidu: What I would do is, I know we have these, discussion points, correct? We also have one for use cases. It might be a good idea to start adding use cases to their… to that
+
+163
+00:20:18.020 --> 00:20:28.459
+Sarvesh Naidu: Mukul. This way, whatever Michael has, right, we can start at least thinking on that perspective, you know, because then that eventually can grow into a POC.
+
+164
+00:20:29.040 --> 00:20:51.439
+Sarvesh Naidu: Right? Some deliverable artifact of how things would work, how would your protocol look like, what are the attributes within the protocol, how would this get communicated, how would this flow, how would the other party use it, and so on and so forth, correct? So those things are very important, but it needs to start at ground level, so having more understanding of
+
+165
+00:20:51.760 --> 00:21:02.999
+Sarvesh Naidu: those use cases is very important, right? I do see that there is a lot of traction towards real estate. You know, I think I had a call with a few people earlier as well.
+
+166
+00:21:03.130 --> 00:21:27.019
+Sarvesh Naidu: And they also were from the real estate world. So, I think they're called Skyline, I could be wrong, but, you know, I think they would also be interested in understanding how these things work, how the records work, how the, you know, data is maintained, even the PII data, for that matter. So these are all good questions.
+
+167
+00:21:27.070 --> 00:21:30.499
+Sarvesh Naidu: I'm hoping, you know, we can have some use cases around it.
+
+168
+00:21:32.060 --> 00:21:47.169
+Mukul: Actually, the state I'm from, Maharashtra, Mumbai is in Maharashtra, right? It, last week it passed a bill for blockchain use cases in, the state, so… I don't know what it is specific for, but…
+
+169
+00:21:47.870 --> 00:21:53.289
+Mukul: And, like, if it will be in place, but they passed a bill of some sort.
+
+170
+00:21:53.290 --> 00:21:54.239
+Sarvesh Naidu: Oh, that's good.
+
+171
+00:21:56.800 --> 00:21:57.630
+Mukul: Yup.
+
+172
+00:21:57.750 --> 00:22:04.030
+Mukul: Sure. Also, Amit, pointed out some things, difference between
+
+173
+00:22:04.170 --> 00:22:13.279
+Mukul: Finality, technical finality and legal finality, which was, book that was interesting.
+
+174
+00:22:15.380 --> 00:22:30.910
+Amit Sagar (Bank of England): Yeah, maybe I can give a bit of a light on that. It's like, I really liked the paper, the structure was really good. It's just, you know, those four points that you have added. The one that stood out was the settlement networks, and we still…
+
+175
+00:22:31.270 --> 00:22:39.799
+Amit Sagar (Bank of England): We still feel that, you know, the technical finality is taken as a standard point for a transaction finality, but it's not.
+
+176
+00:22:39.800 --> 00:22:40.430
+Mukul: and…
+
+177
+00:22:40.430 --> 00:22:59.949
+Amit Sagar (Bank of England): in the latest trend and the different projects, every other country or central banks are involved, it is… it is coming up as a point or question that what's the legal settlement and reconciliation standpoint looks like, and that's where I… I kind of shared my learning and understanding, looking into these, you know.
+
+178
+00:22:59.990 --> 00:23:11.809
+Amit Sagar (Bank of England): PFMI principles, like principles of financial market infrastructure principles, like, what's the basic or the baseline for a settlement finality look like? And it looks like there needs to be a construct around
+
+179
+00:23:11.810 --> 00:23:34.410
+Amit Sagar (Bank of England): the technical finality, which the DLT, of course, gives, and that's what we call atomicity. But then, in post-trade infrastructure, we have to be aware about, or we have to at least take into consideration the legal settlement aspect of it, and how it looks like. It depends on jurisdiction, it depends on protocol, or it depends on infrastructure, and stuff like that.
+
+180
+00:23:34.760 --> 00:23:42.970
+Amit Sagar (Bank of England): So, that's what I have added. And then there were a few points around different technical constructs that…
+
+181
+00:23:43.270 --> 00:24:02.299
+Amit Sagar (Bank of England): you know, some of the method which is settlement proposed, you know, it took into consideration, like, is it settled and aborted, which is quite the prime aspect of atomicity. Like, if it is settled, it is settled, or it is none. But then there has to be a state where we do the check, like, if it is…
+
+182
+00:24:02.470 --> 00:24:18.349
+Amit Sagar (Bank of England): If the transaction… sorry, if the settlement finality on the technical side, the constraints are met, we lock it, and then, of course, we do a quick check on the legal settlement finality aspect, and then both the constructs are being passed to this
+
+183
+00:24:18.350 --> 00:24:25.160
+Amit Sagar (Bank of England): Particular method so that it is in locked state or committed state, and then it is either settled or aborted.
+
+184
+00:24:25.160 --> 00:24:42.690
+Amit Sagar (Bank of England): Because I feel that once we achieve the technical settlement finality, there is still a place where we kind of be in a waiting stage that, okay, it is legally valid as a legally settled asset or not, or a legally settled transaction or not. And to address those kind of challenges, I felt like.
+
+185
+00:24:43.020 --> 00:24:52.639
+Amit Sagar (Bank of England): We should have the technical and legal construct before getting into the ultimate transaction settlement or ultimate transaction finality state.
+
+186
+00:24:54.120 --> 00:24:55.520
+Mukul: Right. Nice.
+
+187
+00:24:55.710 --> 00:24:59.170
+Mukul: Yes,
+
+188
+00:24:59.410 --> 00:25:06.310
+Mukul: Makes sense. So I wanted to ask you about this, technical and physical fine article thing. How do you…
+
+189
+00:25:06.550 --> 00:25:18.560
+Mukul: see it implemented in, us. In general, can you suggest a use case for it? Not use case. How does it done? How does, legal finality use,
+
+190
+00:25:19.020 --> 00:25:22.069
+Mukul: executed when… a corridor.
+
+191
+00:25:22.340 --> 00:25:24.640
+Mukul: I mean, use… practical use case.
+
+192
+00:25:25.110 --> 00:25:44.439
+Amit Sagar (Bank of England): Yeah, I mean, it is more sort of done practically now in a governance and compliance way, like, there are certain specifications every institutions or financial institutions follow, like, if we have to settle a trade, it has to be in a separate time zone, it has to be in a separate duration, but if it falls
+
+193
+00:25:44.520 --> 00:25:48.310
+Amit Sagar (Bank of England): outside of that particular period, it cannot be
+
+194
+00:25:48.550 --> 00:26:11.240
+Amit Sagar (Bank of England): considered a properly settled transaction. So this is, like, just one example. So technically, a payment is settled on both the ledgers, it reflects, but then there are situations where, suppose, you know, there are some checks going on for financial institutions, and it is involved in a lot of multiple transactions, but then at the point where it has to do a proper
+
+195
+00:26:11.310 --> 00:26:26.979
+Amit Sagar (Bank of England): insolvency check, right? It falls off that grid, and then, you know, it becomes insolvent, and all the transactions have become null, so it has to revert all those transactions, right? So in that aspect, it achieved technical finality because the payments are through.
+
+196
+00:26:26.980 --> 00:26:34.629
+Amit Sagar (Bank of England): For both the parties, but then one party is kind of, you know, not capable to provide insolvency.
+
+197
+00:26:34.630 --> 00:26:40.060
+Amit Sagar (Bank of England): proof or something like that, and it went to that stage. So that's the part of…
+
+198
+00:26:40.300 --> 00:26:56.220
+Amit Sagar (Bank of England): legal settlement finality and legal construct that even though a payment or technical finality is achieved in DLT-based transaction, but there are other legal constructs that depends on jurisdiction, time zone, cross-jurisdiction compliance, and regulations.
+
+199
+00:26:56.220 --> 00:27:03.999
+Amit Sagar (Bank of England): So how to take them into consideration, so that… that… that can be fallen… that can fall under legal settlement finality construct.
+
+200
+00:27:04.590 --> 00:27:22.039
+Sarvesh Naidu: So, just a quick question on that, right? Yeah. How, like, when it comes to legal finality, as you said, would that be a single transaction? Let's say your, technical, finality is complete, does that mean your transaction is complete and both parties are settled, or…
+
+201
+00:27:22.040 --> 00:27:29.890
+Sarvesh Naidu: Does it wait for the legal finality to complete, and then the entire transaction goes through? Or is it rolled back?
+
+202
+00:27:30.400 --> 00:27:36.929
+Amit Sagar (Bank of England): Yeah, that's a good point, Sarves, and that's what we see as a challenge in a lot of projects that
+
+203
+00:27:37.170 --> 00:27:52.350
+Amit Sagar (Bank of England): you know, central banks are involved, for example, Project Agora. So, it's kind of interaction between, local ledger and jurisdictional ledger, or unified ledger, right? So, unified ledger is kind of a shared ledger jurisdiction, there is kind of local ledger.
+
+204
+00:27:52.400 --> 00:28:09.629
+Amit Sagar (Bank of England): But then, you know, there are things like this insolvency checks, or audit checks, or something like that. So even though the payment has been through, but it's still not settled because of all those other constraints. And those constraints are coming up very often when we see these
+
+205
+00:28:09.740 --> 00:28:21.260
+Amit Sagar (Bank of England): heterogeneous systems transaction, like, from a DLT to normal, you know, legacy-based payment systems like RTGS or some other banks or institutions.
+
+206
+00:28:21.370 --> 00:28:41.290
+Amit Sagar (Bank of England): settlement systems, right? So that's… that's where we need to kind of clearly look into not only technical aspect of it, like, from… from technical aspect of it, I mean, you know, atomic transaction happening, all settled, all or none, but then we have to take into consideration of all these other checks. That happens maybe
+
+207
+00:28:41.550 --> 00:28:43.940
+Amit Sagar (Bank of England): In a post-trade environment, like…
+
+208
+00:28:44.540 --> 00:29:00.160
+Amit Sagar (Bank of England): for example, I was referring to the CRC3643, right? So it embeds a lot of identity and compliance into it, but still, it relies on other institutions called SPV, like Specialized Purpose Vehicle, that do live asset ownership
+
+209
+00:29:00.190 --> 00:29:10.020
+Amit Sagar (Bank of England): transaction and transfers, right? So, those systems, even though a transaction is settled and through on the DLT system, still relies on these SPVs, or third party.
+
+210
+00:29:10.020 --> 00:29:22.310
+Amit Sagar (Bank of England): And there may be hiccup in that process. So it is not settled until the SPV kind of gave a green flag to it. So that's one of the cases of legal finality, or legal settlement aspect of it.
+
+211
+00:29:22.310 --> 00:29:25.439
+Amit Sagar (Bank of England): And financial institutions have a lot of other constraints to that.
+
+212
+00:29:25.480 --> 00:29:26.979
+Amit Sagar (Bank of England): Hope that clarifies some points.
+
+213
+00:29:26.980 --> 00:29:28.349
+Sarvesh Naidu: Yeah, it does, it does.
+
+214
+00:29:28.350 --> 00:29:29.009
+Amit Sagar (Bank of England): Not sure.
+
+215
+00:29:29.010 --> 00:29:30.960
+Sarvesh Naidu: Completely, but yes, it does.
+
+216
+00:29:30.960 --> 00:29:31.670
+Amit Sagar (Bank of England): Yeah, yes.
+
+217
+00:29:31.670 --> 00:29:38.559
+Mukul: Yeah, and also on that, Amit, do you think this, sort of introduces a…
+
+218
+00:29:38.680 --> 00:29:49.780
+Mukul: centralized entity to it, or a non-blockchain entity to it, because we can't enforce the legality of jurisdiction on-chain, technically, right?
+
+219
+00:29:50.740 --> 00:30:03.340
+Amit Sagar (Bank of England): Yeah, we can't do it, but then there is a lot of reconciliation needs to happen from these centralized party or regulators, right? Like, the regulators give specifications that if this is… if a transaction is of
+
+220
+00:30:03.380 --> 00:30:19.500
+Amit Sagar (Bank of England): X kind of type, right, then these are the specifications it needs to follow technically and… and legally, and from regulation and jurisdiction perspective. And these both have to be coming from either a central party that can be, you know.
+
+221
+00:30:19.540 --> 00:30:23.640
+Amit Sagar (Bank of England): Transferred to a decentralized manner, like…
+
+222
+00:30:23.710 --> 00:30:28.890
+Amit Sagar (Bank of England): some sort of rule-based engine embedded into your TLT or something like that.
+
+223
+00:30:29.310 --> 00:30:34.000
+Mukul: Technically, we can… they can use ZRA knowledge too, but that is still,
+
+224
+00:30:34.260 --> 00:30:37.290
+Mukul: A kind of a off-chain mechanism.
+
+225
+00:30:37.290 --> 00:30:46.689
+Amit Sagar (Bank of England): Yeah, that is still kind of off-chain mechanism, and of course, it… it introduces a lot of capital-intensive infrastructure, right? Like, every party has to use some fire, or some…
+
+226
+00:30:46.870 --> 00:30:48.029
+Amit Sagar (Bank of England): Proof generator.
+
+227
+00:30:48.030 --> 00:30:52.990
+Mukul: Both the parties have to agree on a certain infrastructure to charge with first, right?
+
+228
+00:30:52.990 --> 00:30:53.480
+Amit Sagar (Bank of England): Yeah.
+
+229
+00:30:53.960 --> 00:31:07.580
+Mukul: that's still… that could still be an issue, because, if, it is centralized, one party may have more influence over the others in that, aspect. So, agreeing to something equally, or…
+
+230
+00:31:07.580 --> 00:31:16.559
+Mukul: mostly reputed organizations or, reputed service providers in this regard is important. So, do you want a…
+
+231
+00:31:16.580 --> 00:31:21.599
+Mukul: Do you want to introduce a separate section in the white paper for this?
+
+232
+00:31:22.100 --> 00:31:24.930
+Mukul: Maybe the settlement section, or somewhere else.
+
+233
+00:31:25.350 --> 00:31:43.530
+Amit Sagar (Bank of England): I think if you can address this in settlement section, that'll be good, because it still falls under settlement finality section. One is technical finality, that gives atomicity, that's the native, you know, feature of a DLT. And the other is legal finality, and how we can embed legal finality as rules
+
+234
+00:31:43.530 --> 00:31:48.900
+Amit Sagar (Bank of England): In the smart contract, that technical finality is already addressing, right?
+
+235
+00:31:50.090 --> 00:31:50.850
+Mukul: Both.
+
+236
+00:31:51.850 --> 00:31:55.360
+Mukul: Yes, I think… last 5 minutes.
+
+237
+00:31:55.930 --> 00:32:02.939
+Mukul: about the white paper, or about generally today's conversation.
+
+238
+00:32:14.550 --> 00:32:15.700
+Mukul: Oh my goodness.
+
+239
+00:32:17.640 --> 00:32:18.550
+Amit Sagar (Bank of England): No, I'm good.
+
+240
+00:32:19.190 --> 00:32:19.840
+Mukul: Okay.
+
+241
+00:32:21.330 --> 00:32:31.799
+Michael Santore: Really excited to follow this project. The Linux Foundation Open Asset webinar was very informative and really inspirational, so excited to be involved and follow the project.
+
+242
+00:32:33.490 --> 00:32:34.550
+Mukul: Thank you so much, Michael.
+
+243
+00:32:35.770 --> 00:32:54.879
+Sean W. Bohan (LF Decentralized Trust): If you get a chance, one of the things I really like about the way they set up the, the white paper were the nine open questions, which I think is really a great way to get people to engage. Like, it's… this is not done, and we're approving it, it's… we want help, we want people to… to… to dig in, and kudos to Mukul and, Sarvesh for getting this moving.
+
+244
+00:32:58.200 --> 00:32:59.360
+Mukul: Industrial.
+
+245
+00:33:02.480 --> 00:33:22.189
+Sarvesh Naidu: I'm sorry, I was speaking on mute. So, first of all, thank you so much. I mean, the whole idea behind doing this and keeping it open-ended and not, like, a final version was we wanted to kind of let the community decide how we need to pivot, what we need to do in OTAS, because we do have the concept, but we still need to kind of get more
+
+246
+00:33:22.190 --> 00:33:39.180
+Sarvesh Naidu: understanding, because there's a lot of knowledgeable people who are already doing this kind of work, and it would only help us to kind of get their understanding on these protocols and these specs, so that, you know, we have a good white paper in place, and then we have some hard…
+
+247
+00:33:39.920 --> 00:33:53.610
+Sarvesh Naidu: questions to answer, right? I mean, people have these questions, but we really need to kind of get to the bottom of it and have the right answers for them. So, this was the whole idea behind the white paper. I think Mukul has done a great job with that, so kudos to him.
+
+248
+00:33:53.860 --> 00:33:58.919
+Sarvesh Naidu: But yeah, we're really looking forward for the community to kind of help us move this forward.
+
+249
+00:33:59.170 --> 00:34:15.280
+Sarvesh Naidu: So, maybe Amit, Michael, if you guys can kind of, you know, come up with your, you know, if you have to write anything in the white paper to let us know, you know, we can… it's a community paper, so, you know, we can make changes to it and have… and add more stuff if needed, yeah?
+
+250
+00:34:18.150 --> 00:34:19.639
+Amit Sagar (Bank of England): Show service, yeah.
+
+251
+00:34:19.870 --> 00:34:26.379
+Sarvesh Naidu: This was good. Awesome. Thank you so much for your time, guys. If there's nothing, I'll, you know…
+
+252
+00:34:26.630 --> 00:34:32.170
+Sarvesh Naidu: We're anyway 7 minutes over, but this was… this was great. I really appreciate all of you joining. Thank you so much.
+
+253
+00:34:32.370 --> 00:34:48.149
+Sean W. Bohan (LF Decentralized Trust): Thank you, Sarvesh, and thank you, Mukul. I would like to note for everybody, our next community call is August, Tuesday, August 25th, same time, same Zoom room, and you can check out the Discord, that's where the conversations are happening in real time, and if you'd like, join the mailing list. We're gonna start sharing stuff on the mailing list soon.
+
+254
+00:34:48.810 --> 00:34:50.999
+Sean W. Bohan (LF Decentralized Trust): But thanks, everybody. Have a great day.
+
+255
+00:34:51.469 --> 00:34:52.679
+Sarvesh Naidu: You too, thank you so much.
+
+256
+00:34:52.679 --> 00:34:53.419
+Sean W. Bohan (LF Decentralized Trust): Thank you, too.
+
+257
+00:34:53.420 --> 00:34:53.880
+Mukul: June.
+
+258
+00:34:55.080 --> 00:34:55.590
+Sarvesh Naidu: Bye, guys.
+
+259
+00:34:55.590 --> 00:34:56.309
+Sean W. Bohan (LF Decentralized Trust): Bye, L.
+

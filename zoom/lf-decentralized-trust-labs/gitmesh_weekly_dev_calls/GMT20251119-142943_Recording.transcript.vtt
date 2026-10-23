@@ -1,0 +1,774 @@
+WEBVTT
+
+1
+00:01:19.050 --> 00:01:21.300
+Ryan Madhuwala: Okay, so, hi everyone.
+
+2
+00:01:22.380 --> 00:01:25.519
+Ryan Madhuwala: The, let me turn on my camera.
+
+3
+00:01:26.130 --> 00:01:26.960
+Ryan Madhuwala: Okay.
+
+4
+00:01:27.450 --> 00:01:29.680
+Ryan Madhuwala: So… hi everyone.
+
+5
+00:01:30.770 --> 00:01:33.930
+Ryan Madhuwala: Welcome to today's meet.
+
+6
+00:01:35.480 --> 00:01:36.280
+Ryan Madhuwala: Yo.
+
+7
+00:01:36.880 --> 00:01:39.040
+Ryan Madhuwala: So, welcome to today's mate.
+
+8
+00:01:39.670 --> 00:01:45.639
+Ryan Madhuwala: our weekly dev call for Wednesday on 19th November 2025.
+
+9
+00:01:46.060 --> 00:01:59.830
+Ryan Madhuwala: So, starting with the Code of Conduct, as you guys know, this license does not contain any type of advertisement, or of product, material, or anything. Anything, whichever, which we use in the PPT is just for an example.
+
+10
+00:02:00.010 --> 00:02:05.619
+Ryan Madhuwala: For the link of privacy policy, terms of use, and interest policy, you can check out here.
+
+11
+00:02:06.530 --> 00:02:18.380
+Ryan Madhuwala: So, starting with the agenda of today's meet, before starting, I want to just tell you that, today's… both of our maintainers won't be joining because of, some work. They are busy in.
+
+12
+00:02:18.740 --> 00:02:25.900
+Ryan Madhuwala: So, I would be sharing the whole stuff and the other stuff which I want to share with you guys.
+
+13
+00:02:26.720 --> 00:02:31.930
+Ryan Madhuwala: So, regarding the Open Source Summit Korea, how it went, and
+
+14
+00:02:32.050 --> 00:02:38.910
+Ryan Madhuwala: what were the things which I got, like, improvements which people suggested for the Gitmesh and those stuff?
+
+15
+00:02:39.230 --> 00:02:42.799
+Ryan Madhuwala: Also, regarding the features, issues, and updates.
+
+16
+00:02:42.960 --> 00:02:47.369
+Ryan Madhuwala: And I want to discuss much about the architecture of the Git Mesh, then.
+
+17
+00:02:47.780 --> 00:02:50.020
+Ryan Madhuwala: Upcoming Community Edition.
+
+18
+00:02:50.210 --> 00:02:54.429
+Ryan Madhuwala: And, upcoming events, where Gitmesh is going on.
+
+19
+00:02:54.690 --> 00:03:01.779
+Ryan Madhuwala: So, and the technical priorities, what would be the features or issues we would be prioritized in the future?
+
+20
+00:03:01.940 --> 00:03:05.340
+Ryan Madhuwala: And now Q&A, as we do every time.
+
+21
+00:03:06.170 --> 00:03:22.139
+Ryan Madhuwala: Yeah, so, starting with the summit thing, actually, the Korean summit was actually so crazy that I got to meet some of the biggest names, as you can see. Daniela Barbosa is the CEO of Linux Foundation Decentralized Trust.
+
+22
+00:03:22.400 --> 00:03:27.049
+Ryan Madhuwala: Greg is the person who is currently the lead maintainer of Linux kernel.
+
+23
+00:03:27.270 --> 00:03:32.429
+Ryan Madhuwala: And, even the James Demlin, who is the CEO of Linux Foundation, was there.
+
+24
+00:03:32.930 --> 00:03:46.209
+Ryan Madhuwala: Also, who does not know Linus Torvalds? So, he was also there at the summit. It was actually a great experience there, like, it was my first summit, and it was literally the greatest experience I could have ever had.
+
+25
+00:03:46.730 --> 00:03:59.589
+Ryan Madhuwala: So, would be trying that whosoever gets the chance for the LFX and upcoming LFX of the Git Mesh, would be mostly, I would be trying to send them some of this summit, if I could.
+
+26
+00:03:59.650 --> 00:04:17.789
+Ryan Madhuwala: So I would try to send them to some of the summits, because this provides a great exposure, and I got many, like, I got many friends there. I talked with some of the people from Atlassian, Red Hat, or, like, many companies, like KT Cloud, or many companies.
+
+27
+00:04:18.100 --> 00:04:32.809
+Ryan Madhuwala: So I got to know that, I got some feedback, which I would be showing what I was working in last week. We did not have any meet last week, because last week, none of, three of us were free.
+
+28
+00:04:32.880 --> 00:04:49.579
+Ryan Madhuwala: And that does not happen again, so I also have some of the architecture, like, the community architectural decisions to be taken, which I would be sharing in the further slides, which I decided and talked with Ronit and Pur also for those stuff.
+
+29
+00:04:50.500 --> 00:04:54.419
+Ryan Madhuwala: So, talking about Summit, it was, like, literally crazy one.
+
+30
+00:04:54.550 --> 00:05:10.159
+Ryan Madhuwala: And I got many feedbacks for the GetMesh platform, which I think is personally, like, perfect. Like, then I, like, changed some of the stuff in the website, added new features, was fixing some of the bugs, and…
+
+31
+00:05:10.160 --> 00:05:22.180
+Ryan Madhuwala: I guess the architecture of the codebase would be slightly harder now. We'll be more focusing on some of the parts, like UI, and more focus on the security parts.
+
+32
+00:05:22.370 --> 00:05:29.500
+Ryan Madhuwala: And the feature part, like, we would be… like, I have added some of the tools, like, you know, that Kafka.
+
+33
+00:05:29.610 --> 00:05:39.970
+Ryan Madhuwala: And, added open search for searching whole stuff, and unleashed for, like, the plant management system. I would be sharing it in the further slides.
+
+34
+00:05:40.950 --> 00:05:54.360
+Ryan Madhuwala: talking about the merged, PRs, or the issues in this last week, were, like, there was some of the bugs which were fixed. I added the LFX Insight, thing.
+
+35
+00:05:54.910 --> 00:06:07.740
+Ryan Madhuwala: Also, there was some, like, the repo was loading twice, so that issue was solved. Also, the toggle to include Radmin in the Create New Project dialog was added.
+
+36
+00:06:07.850 --> 00:06:20.130
+Ryan Madhuwala: the theme toggle bug was fixed, and the issue templates were added. So, like, now onwards, whatever issue we create would be using these issue templates in the further updates.
+
+37
+00:06:20.880 --> 00:06:24.250
+Ryan Madhuwala: Talking about what Ronit was working on.
+
+38
+00:06:24.350 --> 00:06:38.220
+Ryan Madhuwala: He was working on the manage page right now, but most probably, these won't be getting merged, because I had some… I had many, like, I have made many changes in the codebase to make it more stable.
+
+39
+00:06:38.220 --> 00:06:47.779
+Ryan Madhuwala: using more stable versions, even I was, like, testing with Kubernetes and some of this stuff to manage all this stuff completely working.
+
+40
+00:06:47.920 --> 00:07:06.779
+Ryan Madhuwala: I would be in the college maybe in next week. Mostly, I would be there in the next week till, 5th or 6th November… December, because some of the work, like, documentation work. So I have some of the things which I want to discuss for that purpose.
+
+41
+00:07:07.690 --> 00:07:12.620
+Ryan Madhuwala: Talking about the actual community version, which I was working on, was this.
+
+42
+00:07:13.720 --> 00:07:18.450
+Ryan Madhuwala: See, I would show you this, what I was working on.
+
+43
+00:07:19.390 --> 00:07:20.120
+Ryan Madhuwala: Hmm.
+
+44
+00:07:24.880 --> 00:07:25.680
+Ryan Madhuwala: Yup.
+
+45
+00:07:26.540 --> 00:07:45.229
+Ryan Madhuwala: So, actually, this was, like, it's quite changed. We do have two versions now. We do have a Community Edition and a Premium Edition. Under the, like, a commercial edition, like, we have a Premium Community Edition and an Enterprise Edition.
+
+46
+00:07:45.230 --> 00:07:58.460
+Ryan Madhuwala: Enterprise Edition would be completely handled by LVLI Labs. It would be a separate thing, and the Community Edition would… I would be uploading the whole code of the Community Edition on the GitHub of the Git Mesh.
+
+47
+00:07:58.600 --> 00:08:04.250
+Ryan Madhuwala: So… It has, like, many of the things. Now, first of all, I would sign out.
+
+48
+00:08:04.400 --> 00:08:09.210
+Ryan Madhuwala: So, there would be a page like this. This is what I was working on.
+
+49
+00:08:09.460 --> 00:08:18.419
+Ryan Madhuwala: added 3 types of sign-ups now. You can sign up with Google, GitHub, or the stuff, like, using the email and password thing.
+
+50
+00:08:19.420 --> 00:08:24.580
+Ryan Madhuwala: I have done with the GitHub earlier, so I would be doing it for right now.
+
+51
+00:08:24.840 --> 00:08:31.910
+Ryan Madhuwala: So, starting with, there would be a Get Started page. We have added many of the integrations now.
+
+52
+00:08:31.980 --> 00:08:48.020
+Ryan Madhuwala: So, we would be adding this integration soon. Currently, it is the Essential plan, which is of Commercial Edition. So, these stuff are available right now, but it won't be there in the community edition. The upgrade plan won't be there in Community Edition.
+
+53
+00:08:48.630 --> 00:09:05.290
+Ryan Madhuwala: So, talking about the invite to your team. Also, I thought of working the whole stuff in a tenant mechanism system. What is a tenant mechanism system is, like, how Slack or other stuff, other, like, companies work.
+
+54
+00:09:05.290 --> 00:09:24.739
+Ryan Madhuwala: they have a workspace, and every workspace get a tenant ID, and using that tenant ID, people could get access to the whole workspace. So, I… I thought of, like, what I got, reviews from the people at Summit, was to more be focused on the tenant version.
+
+55
+00:09:24.770 --> 00:09:33.909
+Ryan Madhuwala: Where we do have a complete workspace for all the people of the same project working there, instead of giving an individual dashboard to every contributor.
+
+56
+00:09:34.260 --> 00:09:37.510
+Ryan Madhuwala: So, there would be a workspace like this, now onwards.
+
+57
+00:09:37.860 --> 00:09:47.580
+Ryan Madhuwala: People can add their team members, they can explore the context, like, I would be showing you what the context is, organization which they are working for.
+
+58
+00:09:47.760 --> 00:09:56.589
+Ryan Madhuwala: also, reports, and, they can create automations of Slack, or whatever, like HubSpot, or whatever they want.
+
+59
+00:09:57.300 --> 00:10:11.110
+Ryan Madhuwala: Now onwards, you can easily drop us an email. Even other than the weekly dev calls, you can get up on a call with us if you have any doubt regarding onboarding of open source.
+
+60
+00:10:11.110 --> 00:10:22.960
+Ryan Madhuwala: We have given some of the slots from now onwards when I will be pushing this code, so people can just, come and talk with any three of… like, one of us would be there in the meet.
+
+61
+00:10:23.010 --> 00:10:30.580
+Ryan Madhuwala: So it would be handling the… those stuff, so you can directly add, and you can tell what you want for the meat.
+
+62
+00:10:30.780 --> 00:10:35.800
+Ryan Madhuwala: And then just confirm, and your meet would be finalized on Google Meet.
+
+63
+00:10:36.870 --> 00:10:46.810
+Ryan Madhuwala: So, talking about what I added, multiple things was, I added this dashboard stuff, people can add the…
+
+64
+00:10:47.100 --> 00:10:53.309
+Ryan Madhuwala: Task management, there is a task management system complete, completed a task management system here.
+
+65
+00:10:53.730 --> 00:10:56.470
+Ryan Madhuwala: We do have some dashboard right here.
+
+66
+00:10:57.030 --> 00:11:01.950
+Ryan Madhuwala: Then to have context section, where people can add context, like…
+
+67
+00:11:02.170 --> 00:11:07.249
+Ryan Madhuwala: If I want to add of Roneth, then I can write Ronit.
+
+68
+00:11:07.600 --> 00:11:17.099
+Ryan Madhuwala: If I want to write this stuff, then I can write it. Otherwise, just add his GitHub ID, which is Ronitraj9.
+
+69
+00:11:17.380 --> 00:11:23.669
+Ryan Madhuwala: And, tell him from which org he is. He is from Gitmesh.
+
+70
+00:11:24.130 --> 00:11:26.799
+Ryan Madhuwala: Who is he? He's a maintainer.
+
+71
+00:11:27.310 --> 00:11:38.210
+Ryan Madhuwala: And if you want to add, you can add the period and add the organization right here. It is added, and if you want to add any type of custom attributes, you can just add it right here.
+
+72
+00:11:38.290 --> 00:11:51.850
+Ryan Madhuwala: And you can just add the contact. So, there would be an engagement score calculated based on your engagement on the GitHub and other stuff, whichever you link the platform with.
+
+73
+00:11:52.090 --> 00:11:57.140
+Ryan Madhuwala: There is an integration section, we have added, GitHub, Discord, Slack.
+
+74
+00:11:57.300 --> 00:12:03.450
+Ryan Madhuwala: Twitter Dev, the dev one, the hacker news of YC.
+
+75
+00:12:03.570 --> 00:12:10.309
+Ryan Madhuwala: We have Reddit, LinkedIn, Stack Overflow, Zapier, Aniten, Discourse, and HubSpot now.
+
+76
+00:12:10.490 --> 00:12:13.520
+Ryan Madhuwala: And you can even build your own, right here.
+
+77
+00:12:14.230 --> 00:12:18.739
+Ryan Madhuwala: So, we have this stuff, we can even add our own filter now onwards.
+
+78
+00:12:18.870 --> 00:12:24.599
+Ryan Madhuwala: There is an organization section where people can just add and remove organization.
+
+79
+00:12:25.120 --> 00:12:31.340
+Ryan Madhuwala: Also, you can see the organization and the recent contacts added.
+
+80
+00:12:31.700 --> 00:12:45.510
+Ryan Madhuwala: There is an activities section where you can see everything happening. So, like, what you can do is, like, I'm working on this right now, so what it would do is, like, these are the default things, which would be showing it here.
+
+81
+00:12:45.630 --> 00:12:55.250
+Ryan Madhuwala: So, whosoever you added in the context, it would be serving them on this basis. You can even add your own custom activity right from here.
+
+82
+00:12:55.580 --> 00:12:57.299
+Ryan Madhuwala: Add an activity type.
+
+83
+00:12:57.530 --> 00:13:03.050
+Ryan Madhuwala: Just, add your own type, and then you can just go with this stuff.
+
+84
+00:13:03.280 --> 00:13:09.330
+Ryan Madhuwala: And you can add a contact for which you want to survey on, and those stuff would be done here.
+
+85
+00:13:09.730 --> 00:13:19.200
+Ryan Madhuwala: There's a report for contacts, product community fits, so whatever you're creating is how much related to the community, like.
+
+86
+00:13:19.400 --> 00:13:33.400
+Ryan Madhuwala: it would be gathering information from different social medias, like LinkedIn, Twitter, and getting stuff from the people, and what it would be doing is, like, whole Gitmesh would be doing the community plus collaboration version.
+
+87
+00:13:33.490 --> 00:13:45.110
+Ryan Madhuwala: We would be getting the feedback from community staff, would be reviewing everything using ML and those stuff, and we'd be also having the gamification stuff, and whole collaboration stuff, which we were working.
+
+88
+00:13:45.490 --> 00:13:50.680
+Ryan Madhuwala: We do have the default reports here, you can add your own reports from here.
+
+89
+00:13:51.080 --> 00:13:56.500
+Ryan Madhuwala: There's an Hawkeye section which, would be surveying on multiple things.
+
+90
+00:13:56.800 --> 00:14:06.540
+Ryan Madhuwala: Just, I would show you what… how this works is… Mmm… and PM start.
+
+91
+00:14:09.170 --> 00:14:24.159
+Ryan Madhuwala: there is a dashboard with the Gitmesh Super Admin right here. This won't be there in Community Edition, you will be getting access to the Hawkeye, but for… just for the… the commercial edition, which I have opened right now.
+
+92
+00:14:24.390 --> 00:14:28.039
+Ryan Madhuwala: Would be having this, super dashboard, so…
+
+93
+00:14:28.230 --> 00:14:35.309
+Ryan Madhuwala: Coming up on the Enterprise version, so the plan has been updated to Enterprise.
+
+94
+00:14:35.730 --> 00:14:38.119
+Ryan Madhuwala: So, if I would reload the website…
+
+95
+00:14:38.380 --> 00:14:41.800
+Ryan Madhuwala: You can see the Enterprise version right now here.
+
+96
+00:14:43.780 --> 00:14:53.510
+Ryan Madhuwala: And yeah, so you can now set up your feed based on this. You just have to click on set up your feed, and just set up the whole stuff.
+
+97
+00:14:53.890 --> 00:15:01.969
+Ryan Madhuwala: Also, you can add the, add automations right here from HubSpot, Slack, or any type of GitHub webhooks.
+
+98
+00:15:02.340 --> 00:15:21.399
+Ryan Madhuwala: I can add it here. So I was working on this stuff, the AI part, which we had added in the Git Mesh, currently on the LFDT's repo, would be added here, below this. So I was adding it, it would be done till maybe 5th of December. 5th of December, it would be done.
+
+99
+00:15:21.960 --> 00:15:27.599
+Ryan Madhuwala: So, this was what I was working on during this time.
+
+100
+00:15:29.380 --> 00:15:39.610
+Ryan Madhuwala: And, talking about the part, like, wait a second… Should… Yep.
+
+101
+00:15:39.860 --> 00:15:47.569
+Ryan Madhuwala: So, talking about the part which I was talking was this, that I was adding the community edition right here.
+
+102
+00:15:47.800 --> 00:16:00.469
+Ryan Madhuwala: which I would be pushing the code, soon, but, what there was some problem was I have currently wrote the code whole as, the enterprise version and the community version both together.
+
+103
+00:16:00.540 --> 00:16:14.430
+Ryan Madhuwala: So what I am planning is to open source the Community Edition, and have the models of the Premium Editions as the Premium folder, and store it in the LULI Labs, and use it as the subfolders
+
+104
+00:16:14.430 --> 00:16:23.039
+Ryan Madhuwala: or submodules in the Community Edition, so I can add the both of the code, the Community Edition and the Enterprise Edition, in the same
+
+105
+00:16:23.040 --> 00:16:24.340
+Ryan Madhuwala: codebase.
+
+106
+00:16:24.520 --> 00:16:32.180
+Ryan Madhuwala: So, it could take some time, because currently, I am only working on this part, because around 10 per RBC till 30th.
+
+107
+00:16:32.340 --> 00:16:36.579
+Ryan Madhuwala: Once they are god-free with the stuff, they can, like, start working on it again.
+
+108
+00:16:36.950 --> 00:16:40.719
+Ryan Madhuwala: So I would… I am working on it, it would be launched soon.
+
+109
+00:16:41.490 --> 00:16:46.600
+Ryan Madhuwala: For the upcoming roadmaps and the technical priorities stuff.
+
+110
+00:16:46.890 --> 00:17:03.300
+Ryan Madhuwala: As you all know, that I would be visiting the Tokyo, Japan, in December, that we have 4 days, like, maybe, sorry, 3 days presentation for whole get my stuff that I would be presenting this stuff.
+
+111
+00:17:03.300 --> 00:17:12.290
+Ryan Madhuwala: For that only, I'm working hard to get it ready till December, so that we can get actual customers from December.
+
+112
+00:17:12.970 --> 00:17:25.370
+Ryan Madhuwala: So, other than that, maybe you guys also know that, today only we got, we have cracked, event with GitHub itself. We were trying to crack an event, and…
+
+113
+00:17:25.690 --> 00:17:36.330
+Ryan Madhuwala: We first tried with the GitHub India, but we had some problems with GitHub India because of that we don't have any DevRels of GitHub in India.
+
+114
+00:17:36.410 --> 00:17:47.640
+Ryan Madhuwala: So then we tried to reach the DevRels from San Francisco. So, we talked with the DevRels of San Francisco, and then we got an event with GitHub itself.
+
+115
+00:17:47.920 --> 00:17:53.400
+Ryan Madhuwala: So, we will be livestreamed on GitHub's Twitch, YouTube, and every stuff.
+
+116
+00:17:53.800 --> 00:17:58.860
+Ryan Madhuwala: And then we will be introducing the team who is working in Tilda Fab.
+
+117
+00:17:59.270 --> 00:18:09.650
+Ryan Madhuwala: Also, we will be describing what is Gitmesh, a 20-minute demo of Gitmesh, our motivation to build it, and how can people contribute to it.
+
+118
+00:18:09.850 --> 00:18:16.779
+Ryan Madhuwala: Also, the new thing coming up in the further weeks of February, or the March.
+
+119
+00:18:17.360 --> 00:18:26.410
+Ryan Madhuwala: Also, if there is any question from audience, we would be taking it. It's on February 13, 11.15pm, according to Indian Standard Time.
+
+120
+00:18:26.680 --> 00:18:36.319
+Ryan Madhuwala: or other Pacific, or Eastern, or any other time, you can check it out here. I've also given the Twitch, YouTube, and, like, the links right here.
+
+121
+00:18:36.510 --> 00:18:40.990
+Ryan Madhuwala: which you can see I have provided here in the PPT itself.
+
+122
+00:18:42.840 --> 00:18:47.930
+Ryan Madhuwala: Okay, so, till this, that was all for the main thing.
+
+123
+00:18:48.630 --> 00:19:00.839
+Ryan Madhuwala: I, like, I know, like, there is only one person right now, so I wanted to discuss something important, but as we don't have everyone right here, so I would be postponing it to the next week.
+
+124
+00:19:01.350 --> 00:19:19.030
+Ryan Madhuwala: What majorly it is focused on is that part that we do have a coding stuff, but we are not able to manage the whole stuff. Like, even we have 3 maintainers, but some, like, some in… for some other reason, people are busy with some other part.
+
+125
+00:19:19.210 --> 00:19:37.980
+Ryan Madhuwala: So, what we are thinking is to make a complete architecture in a way that there are maintainers, there would be a sub-maintainers who would be maintaining the repository and the LinkedIn channels or the Twitter channels of Gitmesh.
+
+126
+00:19:38.140 --> 00:19:41.870
+Ryan Madhuwala: And would become almost given the access as the maintainers.
+
+127
+00:19:41.960 --> 00:19:46.940
+Ryan Madhuwala: And, they would be a part of Gitmesh, and would be even deciding
+
+128
+00:19:46.980 --> 00:20:02.360
+Ryan Madhuwala: what would be the further, parts which, or, like, further features which we want to, bring it, in some time, so they would be getting more access to whole Gitmesh ecosystem.
+
+129
+00:20:02.470 --> 00:20:17.020
+Ryan Madhuwala: Also, they would be getting some of the other, benefits which we were planning, and I've made a complete architecture for those stuff, so mainly next week, or I guess, like, if we have people
+
+130
+00:20:17.470 --> 00:20:23.870
+Ryan Madhuwala: I guess people would be free till 3rd December, so in the mid of 3rd December.
+
+131
+00:20:24.190 --> 00:20:40.149
+Ryan Madhuwala: That would be much more important, because I would be sharing the complete technical architecture, which I am currently following for the Community Edition. It's quite stable. I use whole Docker and Kubernetes stuff in it. I already, like, implemented whole stuff in it.
+
+132
+00:20:40.330 --> 00:20:44.769
+Ryan Madhuwala: Using Kafka for, like, sending message in the bulks, and those stuff.
+
+133
+00:20:45.810 --> 00:20:50.390
+Ryan Madhuwala: So, I would be sharing the technical architecture on 3rd December.
+
+134
+00:20:50.430 --> 00:21:06.590
+Ryan Madhuwala: And also sharing a community architecture in which, we would be having a monthly or twice-in-a-month voting, where people would be selected for 2 or 3 months, and for that duration.
+
+135
+00:21:06.590 --> 00:21:21.430
+Ryan Madhuwala: they would be a sub-maintainer, where they would be looking after some part of Gitmesh, and how to develop those parts efficiently, so that we can get more people, collaborating for the Git Mesh, as
+
+136
+00:21:21.430 --> 00:21:27.290
+Ryan Madhuwala: According to my plan, we would be, mostly raising money till December.
+
+137
+00:21:27.340 --> 00:21:34.220
+Ryan Madhuwala: with Antler, most probably, but if we don't, then, we would be waiting for some of the other stuff.
+
+138
+00:21:34.520 --> 00:21:41.330
+Ryan Madhuwala: So, that's the major, like, that was the major stuff which I wanted to discuss for the Today's Met.
+
+139
+00:21:41.530 --> 00:21:45.929
+Ryan Madhuwala: I know there are, like, there, we don't have many people right now in the meet, so…
+
+140
+00:21:46.270 --> 00:22:03.849
+Ryan Madhuwala: We don't have much stuff to discuss. I had, two stuff which I told technical architecture and community architecture to be discussed, but I would be making it more specific, and then would be sharing it with you guys in the upcoming week, or maybe in the third December.
+
+141
+00:22:04.550 --> 00:22:15.459
+Ryan Madhuwala: So, that was all from my side. If you have any doubt, like, if Anubhav have any doubt, you can, like, just ask if you have anything to discuss or any…
+
+142
+00:22:17.280 --> 00:22:26.450
+Anubhav Kokane: So, you showed majorly the dashboard part today, so are there any changes made to the chat section that we have been developing till now?
+
+143
+00:22:27.180 --> 00:22:32.619
+Ryan Madhuwala: Actually, yeah, so, say this. Actually, say this, yeah.
+
+144
+00:22:33.680 --> 00:22:43.069
+Ryan Madhuwala: Actually, what happened was why I did not edit the chat section here, because the current chat section, what I faced an issue was…
+
+145
+00:22:43.330 --> 00:22:45.920
+Ryan Madhuwala: It was, like,
+
+146
+00:22:45.990 --> 00:23:02.340
+Ryan Madhuwala: like, it was quite hanging, like, it was, like, stuck at some part, and it was hard to, like, make the whole Dockerize, so I haven't added the code of just the Docker part in it, like, oh, sorry, the chat part in it. Currently, I haven't added, I haven't changed any part.
+
+147
+00:23:02.340 --> 00:23:07.800
+Ryan Madhuwala: in the chat section currently, but I would be adding the chat section here with
+
+148
+00:23:07.890 --> 00:23:16.819
+Ryan Madhuwala: Maybe slightly less feature for the first version, because, this one is quite stable, it works well.
+
+149
+00:23:16.950 --> 00:23:21.130
+Ryan Madhuwala: It has, dependencies updated and everything working.
+
+150
+00:23:21.230 --> 00:23:39.840
+Ryan Madhuwala: So, I haven't added a chat system yet, but I would be adding it in the version. What I was thinking was, I would be making a branch, there would be another branch, we would be having another branch, and in that branch, the second branch, I would be adding the whole Community Edition codebase.
+
+151
+00:23:40.090 --> 00:23:48.730
+Ryan Madhuwala: Then, once we add the chat section from the first part to this part, then I would be merging it to the main branch, right?
+
+152
+00:23:48.850 --> 00:23:59.829
+Ryan Madhuwala: So, currently I'm thinking to add one more branch for just… for some weeks, and then just add it in the main branch, once, like, other maintenance would be free.
+
+153
+00:24:06.280 --> 00:24:13.420
+Anubhav Kokane: So, that's… that was the only doubt I had, so… I think…
+
+154
+00:24:14.960 --> 00:24:19.220
+Ryan Madhuwala: Also, most probably what I discussed with Ronit.
+
+155
+00:24:19.580 --> 00:24:33.510
+Ryan Madhuwala: you would be there in the, like, the sub-maintenance part, which I was discussing, because we, we would be adding the maintenance. I had some of the people asking me to contribute for Gitmesh from December.
+
+156
+00:24:33.510 --> 00:24:42.859
+Ryan Madhuwala: which I was actually, holding them back for right now, because I was working on the community edition, but the people who were working from beginning.
+
+157
+00:24:42.890 --> 00:24:47.689
+Ryan Madhuwala: What I am thinking is to, like, give them the community architecture and whole stuff.
+
+158
+00:24:47.830 --> 00:24:51.679
+Ryan Madhuwala: Wait a second… I have this thing.
+
+159
+00:24:51.790 --> 00:24:52.550
+Ryan Madhuwala: Yep.
+
+160
+00:24:52.920 --> 00:24:57.139
+Ryan Madhuwala: So actually, actually, you can see this code.
+
+161
+00:24:57.450 --> 00:25:02.699
+Ryan Madhuwala: In this code, we had this stuff, like, this would be added as the submodel.
+
+162
+00:25:03.060 --> 00:25:12.379
+Ryan Madhuwala: This would be added as the submodule in the community edition. So, I would be making this, this directory private.
+
+163
+00:25:12.650 --> 00:25:21.690
+Ryan Madhuwala: And, some of the stuff in the backend part, which I referred as, sorry, I referred as…
+
+164
+00:25:22.480 --> 00:25:28.529
+Ryan Madhuwala: Premium would be… there is… there are some sections where we do have a premium version.
+
+165
+00:25:28.990 --> 00:25:33.109
+Ryan Madhuwala: So I would be hiding the premium versions here.
+
+166
+00:25:33.210 --> 00:25:34.359
+Ryan Madhuwala: Yo, this one.
+
+167
+00:25:34.690 --> 00:25:46.560
+Ryan Madhuwala: So, the premium versions would be hidden in the community edition, and it would be called as a submodel here. So, the codebase is, like, quite…
+
+168
+00:25:46.680 --> 00:26:01.149
+Ryan Madhuwala: more tough, for the people to start with. We do have Kubernetes, right? As I told, we have NGINX for maintaining the server load. Also, we do have some of the stuff, like.
+
+169
+00:26:01.320 --> 00:26:05.979
+Ryan Madhuwala: We have added the open search for searching whole repository.
+
+170
+00:26:06.670 --> 00:26:10.930
+Ryan Madhuwala: For the repository's data, which is open source.
+
+171
+00:26:11.330 --> 00:26:27.810
+Ryan Madhuwala: As I just visited the open search con in Korea. Also, we do have some of the stuff, like Unleash used in it, and some other stuff also. So, it's quite, like, I've added quite many features, and now.
+
+172
+00:26:27.980 --> 00:26:34.520
+Ryan Madhuwala: we won't be running the direct NPM run thing, we would be running the whole Dockerized version.
+
+173
+00:26:34.580 --> 00:26:48.680
+Ryan Madhuwala: So, it may take some time, but I was thinking to add some of the people to the part of sub-maintenance, which we would be mostly giving them preference for the LFX version.
+
+174
+00:26:49.250 --> 00:26:54.039
+Ryan Madhuwala: for the RFX, which would be upcoming for the LFDT next year.
+
+175
+00:26:54.230 --> 00:27:10.219
+Ryan Madhuwala: And also for the events, like, we do have the event with Gitavo, those stuff. So we need a better structured team, because I think we can't manage everything just with us three. We would be distributing power, and we would be holding,
+
+176
+00:27:10.250 --> 00:27:26.599
+Ryan Madhuwala: They would be holding voting every 3 months, where the sub-maintainers would be getting voted in or voted out by the people, and it would be anonymous, as it is done in the LFDT's tax section, so we would be doing it that way.
+
+177
+00:27:34.780 --> 00:27:43.299
+Ryan Madhuwala: So, that was all from my side, and I would, as I told, I would be sharing the… both of the versions in the next
+
+178
+00:27:43.410 --> 00:27:51.039
+Ryan Madhuwala: next meet, I, like, would you be available for the next meet, or, like, you do have exams, right?
+
+179
+00:27:52.470 --> 00:27:52.860
+Anubhav Kokane: Yeah.
+
+180
+00:27:52.860 --> 00:27:53.270
+Ryan Madhuwala: More than.
+
+181
+00:27:53.270 --> 00:27:58.479
+Anubhav Kokane: As I said, according to the schedule, we have a holiday on Thursday, so it won't be a problem.
+
+182
+00:28:00.280 --> 00:28:01.270
+Ryan Madhuwala: Okay, okay.
+
+183
+00:28:01.290 --> 00:28:14.539
+Ryan Madhuwala: So just, I wanted to tell that on 26, I, like, the Ronit and Per head exam on these two days, so they told me to, like, share the community edition, but in next week.
+
+184
+00:28:14.560 --> 00:28:24.909
+Ryan Madhuwala: I would be sharing the, the technical architecture or the community architecture. One of the, one of the stuff, like, most probably, I would be sharing the technical architecture in next week.
+
+185
+00:28:24.960 --> 00:28:30.549
+Ryan Madhuwala: I'll be showing the whole stuff which I made, in this last 3 weeks.
+
+186
+00:28:30.740 --> 00:28:44.939
+Ryan Madhuwala: As I, like, I was not contributing to the main, main version of the LFDT's repo, so I would be sharing the technical architecture in next week, and, if you are, like, unable to join, you can just see it on YouTube.
+
+187
+00:28:45.050 --> 00:28:56.230
+Ryan Madhuwala: And then on the 3rd, we would be sharing the whole community architecture, which I would be discussing with you guys whenever your exam ends.
+
+188
+00:28:56.370 --> 00:29:04.109
+Ryan Madhuwala: So, once it is discussed, we would be sharing the details with the whole community on 3rd, which is Wednesday.
+
+189
+00:29:04.300 --> 00:29:10.970
+Ryan Madhuwala: We do have some other contributors, so that also, to tell them they can start contributing.
+
+190
+00:29:11.430 --> 00:29:14.149
+Ryan Madhuwala: So we'll be doing it from December.
+
+191
+00:29:17.110 --> 00:29:18.510
+Ryan Madhuwala: So, that's all.
+
+192
+00:29:21.420 --> 00:29:26.230
+Ryan Madhuwala: Yup, so thank you for joining, and I think…
+
+193
+00:29:26.840 --> 00:29:30.770
+Ryan Madhuwala: We can end the meet now. So, bye and have a great week.
+

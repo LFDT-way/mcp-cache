@@ -1,0 +1,258 @@
+WEBVTT
+
+1
+00:02:43.010 --> 00:02:44.419
+Angelina Ceppaluni: Oh, Nemo?
+
+2
+00:02:44.880 --> 00:02:49.169
+Angelina Ceppaluni: Depending on attendance, probably give it another minute or two.
+
+3
+00:02:49.590 --> 00:02:56.249
+Angelina Ceppaluni: And then after that, we'll just do a brief, update, seeing as how…
+
+4
+00:02:56.550 --> 00:03:03.799
+Angelina Ceppaluni: both of you are more or less aware of what's going on in Python, and I know this is going to be a Python-only meeting.
+
+5
+00:03:04.500 --> 00:03:15.660
+Angelina Ceppaluni: But we'll just… before I share anything, we'll just give it another minute or here, so just to see if we get anybody, that will be joining us for today.
+
+6
+00:03:18.820 --> 00:03:22.359
+Angelina Ceppaluni: In the meantime, did anyone have…
+
+7
+00:03:22.790 --> 00:03:29.809
+Angelina Ceppaluni: Any questions or comments, topics in general they wanted to raise? Any feedback about…
+
+8
+00:03:30.270 --> 00:03:34.059
+Angelina Ceppaluni: Any automation? Any tips to SQL?
+
+9
+00:03:34.790 --> 00:03:39.870
+Angelina Ceppaluni: Excellent. That's not a problem. If you can't speak, feel free to type it in chat.
+
+10
+00:03:40.630 --> 00:03:48.140
+Angelina Ceppaluni: And I can go over that. I do have the shot open, so… Okay. Yep, go ahead.
+
+11
+00:03:48.870 --> 00:03:57.329
+Manish Dait: Yeah, so, do you have any update on the HEAP19… what 195?
+
+12
+00:03:58.660 --> 00:04:17.379
+Angelina Ceppaluni: 11… yeah, $11.95, the hooks and allowances. That one, we were advised not to do any work, so as of now, that is blocked. I have gone ahead and updated the HIPAA board for that, so I don't think we'll have any, contributors, anybody trying to make issues for that.
+
+13
+00:04:17.380 --> 00:04:24.650
+Angelina Ceppaluni: But if you do happen to see anything that does come about like that in the Python SDK, just feel free to close it with a comment.
+
+14
+00:04:24.650 --> 00:04:44.319
+Angelina Ceppaluni: Explaining that it is blocked, and that further information will be shared, regarding the updates. I spoke to Keith yesterday, they are still working on that. They don't… I believe there may be a PR open. I will have to double check. I'm on mobile, so I cannot share the…
+
+15
+00:04:44.510 --> 00:04:57.520
+Angelina Ceppaluni: link at the moment, but for now, 1195 is blocked. We can move forward with the other hips. I am keeping an eye out on them. They are not,
+
+16
+00:04:57.540 --> 00:05:04.929
+Angelina Ceppaluni: approved yet. They still need to go through the TSC voting process, approval process, and then they'll need to be merged.
+
+17
+00:05:04.940 --> 00:05:22.230
+Angelina Ceppaluni: So, once those PRs have been merged for those respective HIPS, I think it's 1421 or 1427. One of those two, possibly both of them, I believe, might require, SDK implementation, but those are not completed yet as well.
+
+18
+00:05:22.540 --> 00:05:28.130
+Angelina Ceppaluni: So that's… I guess we'll go ahead and get started. For the hips,
+
+19
+00:05:28.550 --> 00:05:46.130
+Angelina Ceppaluni: We are still working. 1313 is merged, so we do have the go-ahead to just keep moving forward with the other ones, when they are available, and I will be sharing updates and news like that to folks that are interested in just kind of getting the general information on that.
+
+20
+00:05:46.340 --> 00:06:06.239
+Angelina Ceppaluni: topic, especially regarding 1195. What they are doing, for those who are curious, they are redesigning the design doc, so they will be releasing kind of an updated version of that. I'm sure most of you probably have seen 1195 implemented in the other SDKs.
+
+21
+00:06:06.320 --> 00:06:13.290
+Angelina Ceppaluni: Python is one of the last ones to implement this, however, given the changes that they'll be doing.
+
+22
+00:06:13.410 --> 00:06:22.239
+Angelina Ceppaluni: All SDKs will be either required to implement it freshly, how we will, or just simply update it.
+
+23
+00:06:22.540 --> 00:06:26.159
+Angelina Ceppaluni: accordingly, depending on which SDK you're working on.
+
+24
+00:06:26.450 --> 00:06:39.630
+Angelina Ceppaluni: But beyond that, I think that's about it for the HIP topic announcements, and updates are posted in the Discord channels as well for HIPS, so if anyone is interested, please take a look at those.
+
+25
+00:06:39.810 --> 00:06:42.740
+Angelina Ceppaluni: I want to say the most…
+
+26
+00:06:42.910 --> 00:06:48.480
+Angelina Ceppaluni: Recent post might be for 1313, the high-volume entity creation.
+
+27
+00:06:48.560 --> 00:07:03.070
+Angelina Ceppaluni: Okay, so please do feel free to look at that. I know that they have… I think a few of them have already been posted in the announcements channel from the LSET, and on the Hedera side as well, I know that they do show updates about that topic frequently.
+
+28
+00:07:03.320 --> 00:07:21.300
+Angelina Ceppaluni: The next kind of topic I want to go into, this has already been resolved, but for those of you who may have seen some funny errors over the weekend with CodeCub, we had a SHA issue, that has been corrected by our team member. Thank you, Manish.
+
+29
+00:07:21.520 --> 00:07:40.399
+Angelina Ceppaluni: And so you probably noticed that it could not find… I think it was the GPG key, so we've gone ahead and corrected that, so if you've updated your PR in the last two days or pushed any changes, you should notice that that check will resolve on its own now, or will be present, just depending on your PR requirements.
+
+30
+00:07:40.670 --> 00:07:57.029
+Angelina Ceppaluni: But beyond that, the next topic that I kind of want to get into, just a brief kind of overview, the automation. So, we will be starting, with some automation here in Python. At the moment, I will be…
+
+31
+00:07:57.090 --> 00:08:15.550
+Angelina Ceppaluni: calling this the kind of pick-your-own-approach, in the sense that there are a few bot options available that SDKs are more than welcome to choose from. We have a document floating around, for people to provide comments, give us some ideas, and share any insights that they feel
+
+32
+00:08:15.630 --> 00:08:31.520
+Angelina Ceppaluni: would be most helpful in their SDK repositories, things like that. I do say repository just because some of this automation is implemented in the website, so if you've taken a peek at that, you'll probably notice a few of those bots from Python.
+
+33
+00:08:31.520 --> 00:08:43.869
+Angelina Ceppaluni: and Enterprise Java as well. They also have a bit of this tooling behind them. So, for Python, I would like to try to move forward with the
+
+34
+00:08:43.900 --> 00:08:52.819
+Angelina Ceppaluni: PR dashboard, so I am working on this for the website, so I've just gone ahead and done this same for Python.
+
+35
+00:08:52.870 --> 00:08:58.129
+Angelina Ceppaluni: So I'm looking and, hoping to get that merged and put up soon.
+
+36
+00:08:58.470 --> 00:09:14.160
+Angelina Ceppaluni: I just want to make sure that with the logic behind it, seeing as how this was mostly and primarily done in C++, just want to make sure there aren't any additional tweaks or anything outlying that we'll need to change in or update for our Python SDK use cases.
+
+37
+00:09:14.270 --> 00:09:34.109
+Angelina Ceppaluni: When these workflows do come in, if you are a maintainer of another SDK, or if you're working on another SDK, or other repository, whether it be a library, the website, please do feel free to share your feedback and share insights that you feel would help you if you feel
+
+38
+00:09:34.340 --> 00:09:52.050
+Angelina Ceppaluni: that you see one of the bots, for example, suppose you see something in Python, you notice it's been really helpful, and you want to put it and say something like JavaScript, raise that issue to your team, propose that yourself, feel free to share that in the document that's been floating around.
+
+39
+00:09:52.930 --> 00:10:11.430
+Angelina Ceppaluni: to kind of circle back to that, we will hopefully be starting to see the PR dashboard that we have seen in C++. I know Rob is not here, but Rob has been a huge help in that. He has done great work with that, so we kind of wanted to take that same approach
+
+40
+00:10:11.760 --> 00:10:21.999
+Angelina Ceppaluni: Across the organization, and then most of you probably noticed, in the coming weeks, a bit of overlap with what I am doing, and possibly what Sophie is doing.
+
+41
+00:10:22.000 --> 00:10:37.660
+Angelina Ceppaluni: Sophie is doing a similar kind of approach, however, this is mentorship-based, so this work is just going to be, as of now, mentorship only, and then that will change depending on the direction she chooses. I can't provide any more insight on that.
+
+42
+00:10:37.660 --> 00:10:40.969
+Angelina Ceppaluni: This is as far as I know at the moment.
+
+43
+00:10:41.200 --> 00:10:48.530
+Angelina Ceppaluni: But the basis, from what I understand, is that they'll be building more of an application that gives you
+
+44
+00:10:48.750 --> 00:10:57.710
+Angelina Ceppaluni: these kind of bot features, what I am doing is just kind of allowing maintainers to pick the bot features as to… as opposed to having them
+
+45
+00:10:57.790 --> 00:11:10.060
+Angelina Ceppaluni: having all of the bots in one app. I do know that there are certain bots that, certain repositories just may not need at the moment, or feel that it is necessary, so we…
+
+46
+00:11:10.360 --> 00:11:12.139
+Angelina Ceppaluni: Wanted to, kind of.
+
+47
+00:11:12.420 --> 00:11:23.519
+Angelina Ceppaluni: presents a… an option to pick bots. This way, the maintainers aren't overwhelmed with all the workflows. But those are pretty much…
+
+48
+00:11:23.700 --> 00:11:34.469
+Angelina Ceppaluni: in regards to the topics, discussed for today, I know we have a few PRs coming in for the TCK. Super excited to see those, I know.
+
+49
+00:11:34.710 --> 00:11:38.570
+Angelina Ceppaluni: There are a few of those methods that we still need to implement.
+
+50
+00:11:38.580 --> 00:11:57.419
+Angelina Ceppaluni: But again, I'm keeping up with the hips, so as soon as I have any information, I'll be sharing that with the team in the Discord channels. As of now, please just do not do any work for 1195, as whatever you do may end up being changed according to the design document.
+
+51
+00:11:57.490 --> 00:12:08.749
+Angelina Ceppaluni: But I will be sharing updates when they become available, and if anyone is interested to hear more on the progress of this topic, we will be having another meeting
+
+52
+00:12:08.870 --> 00:12:23.800
+Angelina Ceppaluni: I believe on Monday. This is the SDK Community Call, so this is all of the SDKs, not just Pyvat, so you'll be able to get more information on it there as well. Please also feel free to visit the recording from yes…
+
+53
+00:12:23.800 --> 00:12:31.500
+Angelina Ceppaluni: Monday's meeting, sorry, thinking today's Tuesday. That meeting also did present a few insights about HIP 1195.
+
+54
+00:12:31.740 --> 00:12:44.699
+Angelina Ceppaluni: I think this is about it in terms of the topics that I had wanted to share and kind of present today. With everything that I've kind of gone over and shared so far, were there
+
+55
+00:12:44.700 --> 00:13:04.480
+Angelina Ceppaluni: any items or topics, anything anyone wanted to bring up, regarding automation, can be, security, such as our OpenSSF, can be TCK, any more hip questions, but if you can't speak, feel free to post it in chat. I do have it open here, so I can see any comments.
+
+56
+00:13:05.430 --> 00:13:12.370
+Angelina Ceppaluni: But if not, then I think we'll probably go ahead and wrap it up a bit early today.
+
+57
+00:13:15.200 --> 00:13:16.649
+Manish Dait: Nothing from my side.
+
+58
+00:13:17.430 --> 00:13:18.230
+Angelina Ceppaluni: Okay.
+
+59
+00:13:18.940 --> 00:13:30.659
+Angelina Ceppaluni: Aditya, I'm hoping I said that, yeah, yeah. I'm assuming you're good, I didn't see you come off of mute or anything, so I'll go ahead and take silence. It's good to go, which is fine.
+
+60
+00:13:30.780 --> 00:13:36.579
+Angelina Ceppaluni: But if that's the case, if everyone is good, then that's it for this meeting.
+
+61
+00:13:37.380 --> 00:13:51.100
+Angelina Ceppaluni: We can't… we'll go ahead and end it here early, and I will see you guys tomorrow for the, HIRO meetings. I believe that one will be at 11 a.m. Eastern Time, so be sure to keep an eye out for that.
+
+62
+00:13:51.170 --> 00:13:58.779
+Angelina Ceppaluni: But other than that, I hope everyone has a wonderful day, night, evening, wherever you are in the world today, and I'll see you next time!
+
+63
+00:14:02.690 --> 00:14:03.920
+Manish Dait: Thanks, and bye.
+
+64
+00:14:04.490 --> 00:14:05.230
+Angelina Ceppaluni: Bye!
+

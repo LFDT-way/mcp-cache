@@ -1,0 +1,2022 @@
+WEBVTT
+
+1
+00:00:29.670 --> 00:00:31.770
+Pepe Blasco: Hello, good afternoon.
+
+2
+00:00:34.770 --> 00:00:35.850
+Parisa Ataei: Hello!
+
+3
+00:00:37.250 --> 00:00:38.289
+Andrzej Kopeć: I don't know…
+
+4
+00:01:11.260 --> 00:01:11.950
+Andrey Venuto: Hey, everyone.
+
+5
+00:02:17.140 --> 00:02:18.560
+Andrey Venuto: Let me ping Kevin.
+
+6
+00:03:09.640 --> 00:03:12.270
+Andrey Venuto: Yeah, he's joining in a couple of minutes.
+
+7
+00:03:40.850 --> 00:03:42.459
+Kevin Millikin: Hello! Hello, everybody.
+
+8
+00:03:43.790 --> 00:03:44.570
+Andrey Venuto: Hey, Kevin.
+
+9
+00:03:48.100 --> 00:03:53.060
+Kevin Millikin: I think Thomas Kerber is out this week, so I think we're probably all here.
+
+10
+00:03:54.030 --> 00:03:57.839
+Kevin Millikin: Let me see if I can remember how to share my screen on Zoom.
+
+11
+00:04:05.770 --> 00:04:07.029
+Kevin Millikin: Would that work?
+
+12
+00:04:13.180 --> 00:04:14.400
+Kent Dybvig: I can see it.
+
+13
+00:04:15.090 --> 00:04:16.220
+Kevin Millikin: Excellent.
+
+14
+00:04:29.730 --> 00:04:31.200
+Kevin Millikin: Okay, November 5th.
+
+15
+00:04:31.740 --> 00:04:40.389
+Kevin Millikin: Okay if we cast… if a cast from bytes 0 to field or Uint is an error, and vice versa.
+
+16
+00:04:41.310 --> 00:04:42.530
+Kevin Millikin: Yeah. So…
+
+17
+00:04:42.670 --> 00:04:50.990
+Kent Dybvig: Yes, yeah, so the background on this is we currently, actually, for a long time, we have supported CAS from bytezero to Field.
+
+18
+00:04:51.670 --> 00:04:53.200
+Kent Dybvig: And from…
+
+19
+00:04:54.080 --> 00:05:02.760
+Kent Dybvig: and from field to byte 0. The cast from byte zero to field almost feels okay, like, the other way doesn't feel so good.
+
+20
+00:05:03.180 --> 00:05:12.420
+Kent Dybvig: The… but we're… we actually have… We actually haven't tested it.
+
+21
+00:05:13.470 --> 00:05:16.549
+Kent Dybvig: And it turns out there's a bug going…
+
+22
+00:05:16.680 --> 00:05:19.780
+Kent Dybvig: There's the obvious bug going from byte zero to field.
+
+23
+00:05:20.440 --> 00:05:26.620
+Kent Dybvig: Sorry, from field to byte 0, which is that the type of it ends up showing up as…
+
+24
+00:05:26.790 --> 00:05:33.450
+Kent Dybvig: Well, as you get to the circuit passes, it shows up as being one field long instead of zero fields long.
+
+25
+00:05:34.210 --> 00:05:34.600
+Kevin Millikin: Yeah.
+
+26
+00:05:34.600 --> 00:05:38.020
+Kent Dybvig: So, I could fix that.
+
+27
+00:05:38.390 --> 00:05:42.930
+Kent Dybvig: I could allow you to say… we know when we're casting to abide zero.
+
+28
+00:05:43.480 --> 00:05:50.469
+Kent Dybvig: From a field. And we could put in a check to see if, in the one special case where a field is zero, we could say, yeah, that's cool. We can go.
+
+29
+00:05:50.580 --> 00:05:53.860
+Kent Dybvig: And it's allowed… allowed to produce a byte zero.
+
+30
+00:05:54.320 --> 00:05:57.070
+Kent Dybvig: If… if the field is zero.
+
+31
+00:05:57.760 --> 00:06:09.380
+Kent Dybvig: But it's an extra special case, and I… I don't know that it's important. So, my simple solution to this was just to change the type checker to say this kind of cast is not allowed.
+
+32
+00:06:09.640 --> 00:06:11.620
+Kent Dybvig: That you need at least one byte.
+
+33
+00:06:11.830 --> 00:06:14.499
+Kent Dybvig: To store your field value in.
+
+34
+00:06:15.740 --> 00:06:19.559
+Kent Dybvig: And Ian, so I just want to know if there's any objections to this, if anybody's
+
+35
+00:06:19.680 --> 00:06:23.099
+Kent Dybvig: Sees any reason why this isn't a good fix.
+
+36
+00:06:24.810 --> 00:06:29.309
+Kent Dybvig: Just a slight restriction over what we've… Kind of been allowing.
+
+37
+00:06:30.510 --> 00:06:34.339
+Kevin Millikin: Yeah, I mean, the only potential objection I would have…
+
+38
+00:06:34.810 --> 00:06:41.129
+Kevin Millikin: Is that, zero is a… is the base case for generic…
+
+39
+00:06:41.320 --> 00:06:45.450
+Kevin Millikin: function instantiations, so you might write a generic function that
+
+40
+00:06:45.550 --> 00:06:51.370
+Kevin Millikin: You would instantiate at zero, and it would be now a static error.
+
+41
+00:06:52.210 --> 00:06:55.409
+Kevin Millikin: For that instantiation and not for others.
+
+42
+00:06:57.130 --> 00:06:57.800
+Kent Dybvig: Yeah.
+
+43
+00:06:58.300 --> 00:06:59.230
+Kevin Millikin: So that's…
+
+44
+00:06:59.390 --> 00:07:06.029
+Kevin Millikin: the only… the only… the only interesting thing about Xero, I think, is that it's the base case for generics.
+
+45
+00:07:07.050 --> 00:07:09.660
+Kent Dybvig: Yeah, I don't… I don't object to going…
+
+46
+00:07:10.880 --> 00:07:14.770
+Kent Dybvig: To adding this special case, it's… we'd be inserting an assert.
+
+47
+00:07:14.890 --> 00:07:15.950
+Kent Dybvig: statement.
+
+48
+00:07:18.060 --> 00:07:18.520
+Kevin Millikin: the
+
+49
+00:07:18.760 --> 00:07:32.539
+Kevin Millikin: Pragmatically, I think that if you want to get an empty links byte array, you can do it in other ways besides casting a field to get it. So I don't… I mean, to produce… to produce the byte zero, I don't think that that's a very interesting thing to do.
+
+50
+00:07:33.340 --> 00:07:34.010
+Kent Dybvig: Yeah.
+
+51
+00:07:34.720 --> 00:07:43.300
+Kent Dybvig: So I'm not looking for the easiest way out here, because they're both easy. I just want to figure out what's sensible, and it…
+
+52
+00:07:43.460 --> 00:07:46.470
+Kent Dybvig: Your point about the genetics taken, but…
+
+53
+00:07:47.370 --> 00:07:56.430
+Kent Dybvig: to me, it kind of isn't sensible. You know, a bytezer has no information, supposedly. Okay. Well, it does, the type.
+
+54
+00:07:56.810 --> 00:08:02.270
+Kent Dybvig: The type tells us that it's a byte zero, so there is a bit of information there, but if you ignore that.
+
+55
+00:08:02.630 --> 00:08:07.670
+Kent Dybvig: A byte zero should have no information, and zero is a bit of information.
+
+56
+00:08:08.500 --> 00:08:12.349
+Kent Dybvig: So… From that standpoint, it seems a little funny to me.
+
+57
+00:08:14.680 --> 00:08:17.209
+Kent Dybvig: So that's why I'm leaning towards just restricting it.
+
+58
+00:08:22.520 --> 00:08:29.950
+Kent Dybvig: I don't hear any… any big objections, so we'll just go with that, and if anybody complains in the future, we can… we can regenerize it.
+
+59
+00:08:30.820 --> 00:08:32.860
+Kevin Millikin: Yeah, I don't think there's huge objections.
+
+60
+00:08:34.230 --> 00:08:38.360
+Kevin Millikin: If we… if we made generics more powerful.
+
+61
+00:08:38.700 --> 00:08:43.829
+Kevin Millikin: then maybe we would say that we would actually want to revisit that decision, but otherwise, I think it's fine.
+
+62
+00:08:45.360 --> 00:08:47.529
+Kent Dybvig: Yeah, but if we made them more powerful, we could…
+
+63
+00:08:47.840 --> 00:08:51.060
+Kent Dybvig: Deal with that special case as part of the type.
+
+64
+00:08:52.860 --> 00:08:53.770
+Kent Dybvig: Anyway.
+
+65
+00:08:54.160 --> 00:08:57.170
+Kevin Millikin: Yeah, okay. I don't… I think there's no objection.
+
+66
+00:08:59.250 --> 00:09:00.909
+Kevin Millikin: I'll record that in the notes.
+
+67
+00:09:14.470 --> 00:09:17.510
+Kevin Millikin: a, good?
+
+68
+00:09:18.150 --> 00:09:19.769
+Kevin Millikin: Is that enough, Kent? You happy?
+
+69
+00:09:21.760 --> 00:09:32.230
+Kevin Millikin: Next agenda item is plan for dynamic versus static composable contracts regarding the generated JavaScript, TypeScript, and runtime.
+
+70
+00:09:32.620 --> 00:09:36.860
+Kevin Millikin: I think it's unclear right now. The…
+
+71
+00:09:37.190 --> 00:09:52.610
+Kevin Millikin: I think it would be a good idea for us to continue to make plans to get, the… the, Composable Contracts branch that is on Ledger 4 merged to Ledger 6.
+
+72
+00:09:53.700 --> 00:09:58.469
+Kevin Millikin: Because then we're prepared to do whatever Is decided we should do.
+
+73
+00:09:59.820 --> 00:10:00.900
+Kevin Millikin: It's not…
+
+74
+00:10:00.900 --> 00:10:02.659
+Parisa Ataei: Coming the other way around.
+
+75
+00:10:03.510 --> 00:10:08.899
+Kevin Millikin: the ledger… we have composable contracts… we have a composable contracts branch that's on Ledger 4.
+
+76
+00:10:09.280 --> 00:10:12.709
+Parisa Ataei: Right, so then merge ledger 6 into the composable contract.
+
+77
+00:10:14.220 --> 00:10:15.549
+Kevin Millikin: Merge them together.
+
+78
+00:10:16.250 --> 00:10:19.040
+Kevin Millikin: We should have disposable contracts on Ledger 6.
+
+79
+00:10:19.220 --> 00:10:19.830
+Parisa Ataei: Yes.
+
+80
+00:10:20.140 --> 00:10:24.669
+Kevin Millikin: We should have a… we should have a branch that is composable Contracts and Ledger 6 together.
+
+81
+00:10:25.320 --> 00:10:34.140
+Kevin Millikin: And I think practically this is going to happen by merging unshielded tokens into main, so that that is… that is completely merged. We can… we can…
+
+82
+00:10:34.400 --> 00:10:42.539
+Kevin Millikin: delete that branch if we want to. And then merging main, Ledger6 main, into, Composable contracts.
+
+83
+00:10:44.030 --> 00:10:56.999
+Kevin Millikin: I think it's an open question, whether the engineering org is going to decide that they want to, have the downstream contract library, whatever it is now.
+
+84
+00:10:57.430 --> 00:11:00.640
+Kevin Millikin: Oops. Okay.
+
+85
+00:11:00.640 --> 00:11:02.930
+Andrey Venuto: Just a comment,
+
+86
+00:11:03.360 --> 00:11:13.430
+Andrey Venuto: we are proposing… well, the deliverable for the milestone is still open. If we believe we will deliver
+
+87
+00:11:13.810 --> 00:11:16.650
+Andrey Venuto: composable contracts on Ledger 6, we should include
+
+88
+00:11:17.270 --> 00:11:22.060
+Andrey Venuto: on the milestones, on the change request. If we think not, we can just remove it.
+
+89
+00:11:22.570 --> 00:11:33.299
+Kevin Millikin: Right. I mean, the… so, taking a… yeah, so taking a step back, one question is we haven't done any thinking at all about how the two are compatible, if the two are compatible, and what would be the story of…
+
+90
+00:11:33.920 --> 00:11:35.679
+Kevin Millikin: Combining them in some way.
+
+91
+00:11:36.540 --> 00:11:42.910
+Kevin Millikin: So… so we're… we're awfully far off of… of having an answer to that question.
+
+92
+00:11:43.470 --> 00:11:48.670
+Andrey Venuto: So, would that be more effort, of course, but would that…
+
+93
+00:11:49.590 --> 00:11:52.420
+Andrey Venuto: Affect the work on the dynamic composability?
+
+94
+00:11:53.290 --> 00:11:54.070
+Kevin Millikin: I think…
+
+95
+00:11:54.070 --> 00:11:55.270
+Andrey Venuto: No, I think…
+
+96
+00:11:55.270 --> 00:12:01.649
+Kevin Millikin: No, so I think that the work on dynamic composability is that we are going to develop this as a spike.
+
+97
+00:12:02.080 --> 00:12:15.810
+Kevin Millikin: So we're gonna… it's going to be, like, according to the plan, 7 weeks of effort. And if we don't have… if we don't have enough resources, it might take… if we don't have enough engine… I hate calling people resources, if we don't have enough engineers to work on it.
+
+98
+00:12:15.860 --> 00:12:24.959
+Kevin Millikin: It might take longer than 7 weeks. But we need to… there's so many unknowns there that we need to develop that. That will be behind a feature flag.
+
+99
+00:12:25.100 --> 00:12:28.199
+Kevin Millikin: So that you can enable it and try it out.
+
+100
+00:12:28.380 --> 00:12:38.060
+Kevin Millikin: And then you, downstream can develop support for it, But, that is a…
+
+101
+00:12:38.340 --> 00:12:48.519
+Kevin Millikin: As we conceive of it right now, that is a separate feature from what we're calling static composable contracts, and we haven't done any thinking about how the two of those can be combined.
+
+102
+00:12:49.090 --> 00:12:56.109
+Andrey Venuto: Okay, so can we agree that the deliverables would be dynamic, composable contracts?
+
+103
+00:12:57.170 --> 00:13:00.619
+Andrey Venuto: own language, Ledger6, right? And we can just drop
+
+104
+00:13:01.220 --> 00:13:07.689
+Andrey Venuto: the Ledger 4 to Ledger 6 composability, the static one, so we can focus on the dynamic one as the MVP.
+
+105
+00:13:07.930 --> 00:13:09.229
+Andrey Venuto: Is that what you're saying?
+
+106
+00:13:09.650 --> 00:13:19.220
+Kevin Millikin: No, I'm saying that I think we would be in a bad position if we let the… I think we are in a bad position with the,
+
+107
+00:13:19.350 --> 00:13:26.980
+Kevin Millikin: letting the, ledger for Composable Contract branch bit rot further by not doing anything with it.
+
+108
+00:13:26.980 --> 00:13:27.840
+Andrey Venuto: Okay.
+
+109
+00:13:27.840 --> 00:13:32.530
+Kevin Millikin: I do feel like it would be… I do feel like it would be good for us to have that branch on Ledger 6.
+
+110
+00:13:32.900 --> 00:13:39.950
+Andrey Venuto: But do you want to include that as a deliverable for a foundation? Do we want to, like, have it formalized, or let's just do it.
+
+111
+00:13:39.950 --> 00:13:45.100
+Kevin Millikin: I don't… it's not a… it's not a deliver… I don't think it's a deliverable that there's a branch that…
+
+112
+00:13:45.100 --> 00:13:45.500
+Andrey Venuto: It's not.
+
+113
+00:13:45.500 --> 00:13:50.499
+Kevin Millikin: That there's a branch that exists in our repository that has that.
+
+114
+00:13:50.630 --> 00:14:01.420
+Andrey Venuto: But it's being considered deliverable, I think that's my point. There is a line in the contract saying, deliver composable contracts static on letter 6. On language only.
+
+115
+00:14:02.980 --> 00:14:08.290
+Kevin Millikin: They've got… yeah, they have it on language only right now.
+
+116
+00:14:08.290 --> 00:14:14.360
+Andrey Venuto: So I guess my question is, should I remove this from the contract, and we just organize ourselves to do that?
+
+117
+00:14:14.550 --> 00:14:24.160
+Kevin Millikin: the… I think that what's in main is support for language only. They can't… they can't use it. It's… it's broken, but they couldn't use it anyway.
+
+118
+00:14:24.350 --> 00:14:25.120
+Andrey Venuto: Okay.
+
+119
+00:14:25.120 --> 00:14:39.380
+Kevin Millikin: I mean, it's a… it's… there's a disconnect here, because it's a very strange thing for them to ask that the language will support the syntax of composable contracts that they can't use. It's just a really strange thing for anyone to want.
+
+120
+00:14:39.810 --> 00:14:41.049
+Andrey Venuto: Yeah, I agree.
+
+121
+00:14:41.300 --> 00:14:48.389
+Kevin Millikin: So I… so if they really want a static composable contracts feature.
+
+122
+00:14:49.050 --> 00:14:55.010
+Kevin Millikin: That they can use, then what they want is they want the entire platform to have support for that.
+
+123
+00:14:58.220 --> 00:15:02.200
+Andrey Venuto: Yeah, I think I'm gonna remove this from… as the deliverable we have.
+
+124
+00:15:02.650 --> 00:15:13.660
+Kevin Millikin: Right, but I think that… I think that we're get… I think we… I think we've gotten off in the weeds a little bit too much, because the actual feature that they're asking for is composable contracts.
+
+125
+00:15:13.760 --> 00:15:29.980
+Kevin Millikin: And they don't say anything about what composable contracts are, except, if I recall from the original… the original feature, without any limits. And that's not… it won't happen that they will get composable contracts without any limits at all, because they will practically be.
+
+126
+00:15:29.980 --> 00:15:30.660
+Andrey Venuto: Man.
+
+127
+00:15:30.660 --> 00:15:32.079
+Kevin Millikin: All kinds of lanes, right?
+
+128
+00:15:33.180 --> 00:15:39.409
+Kevin Millikin: So they want some form of composability. And what we're proposing to do is to build a feature right now.
+
+129
+00:15:39.630 --> 00:15:47.810
+Kevin Millikin: That will allow a contract to call another one, given an ad… to call a circuit of another contract, given an address.
+
+130
+00:15:48.900 --> 00:15:53.319
+Kevin Millikin: And that called contract cannot, in turn, call other contracts.
+
+131
+00:15:56.680 --> 00:16:00.290
+Andrey Venuto: Okay, so, follow-up question. Do you… do we believe.
+
+132
+00:16:00.290 --> 00:16:15.239
+Kevin Millikin: So I wouldn't… so I… so I think… I think dynamic composable contracts is jargony. I think it's not… it's not a good way… it's not a good way for us to… so we're… we are proposing a feature that we will… that we will try to get before the holidays.
+
+133
+00:16:15.410 --> 00:16:21.760
+Kevin Millikin: That they can, behind a feature flag, they can enable support.
+
+134
+00:16:21.950 --> 00:16:35.319
+Kevin Millikin: for a contract to call a… to… given a contract address, can call a circuit of the… of the other contract that cannot, in turn, call other contracts, can't… in general, can't… can't have any… can't use witnesses at all.
+
+135
+00:16:38.660 --> 00:16:39.320
+Kevin Millikin: Wrong.
+
+136
+00:16:45.880 --> 00:16:52.110
+Andrey Venuto: But do you think this work for Ledger Forge, Ledger 6 will happen only next year, or…
+
+137
+00:16:52.110 --> 00:16:56.079
+Kevin Millikin: unrelated. No, I think… I…
+
+138
+00:16:57.170 --> 00:17:12.600
+Kevin Millikin: I feel like if… I feel like, I feel like a… a step towards us delivering the feature that we… that was originally designed and implemented is to perform the… is to make sure that that branch is on Ledger 6, and I think we should do it now.
+
+139
+00:17:12.930 --> 00:17:14.760
+Kevin Millikin: Rather than late… later.
+
+140
+00:17:14.930 --> 00:17:19.000
+Andrey Venuto: Because I don't think it's easier… I don't think it gets easier for us to do it.
+
+141
+00:17:19.000 --> 00:17:22.610
+Kevin Millikin: by having Maine diverge further and further from where Maine is right now.
+
+142
+00:17:22.619 --> 00:17:23.389
+Andrey Venuto: Okay.
+
+143
+00:17:23.589 --> 00:17:24.589
+Andrey Venuto: Just to…
+
+144
+00:17:24.589 --> 00:17:31.839
+Kevin Millikin: So, but this is not a deliverable. This is not… our customer… it's… this is… we… we have done a ton of work on this branch.
+
+145
+00:17:31.859 --> 00:17:45.369
+Kevin Millikin: We would like this branch to be easy for us to merge into main, and so we need to do some engineering tasks to make sure that it is easy for us to merge into main, but that's not a deliverable that the customer can do anything with.
+
+146
+00:17:45.810 --> 00:17:46.920
+Andrey Venuto: Yeah, I understand.
+
+147
+00:17:46.920 --> 00:18:10.519
+Kevin Millikin: Yeah, and the customer… if the customer is really asking for us to have language support, we can give that to them today, because the compiler very nearly supports it. There are two unimplemented places, one in the TypeScript backend, and one in the ZKIR backend, where it says I can't generate code for this, and we could just generate an instruction that says, to-do, give it to them, and say, here you go. We have compiler support.
+
+148
+00:18:10.870 --> 00:18:25.399
+Andrey Venuto: It's literally, like, they can't use, right? I guess, just, like, to end this conversation, I'm just gonna put this as MS3, just because we are being required to provide progress on that as a deliverable.
+
+149
+00:18:25.720 --> 00:18:31.190
+Kevin Millikin: We have been required to provide progress on merging our internal branch.
+
+150
+00:18:31.190 --> 00:18:31.630
+Andrey Venuto: Yes.
+
+151
+00:18:31.630 --> 00:18:32.150
+Kevin Millikin: 7.
+
+152
+00:18:32.810 --> 00:18:35.350
+Andrey Venuto: I mean, it's fine. Well, it's…
+
+153
+00:18:35.350 --> 00:18:39.749
+Kevin Millikin: They want… they want our internal branch merged on… from Ledger 4 to Ledger 6.
+
+154
+00:18:39.750 --> 00:18:42.150
+Andrey Venuto: Well, that's the actual thing happening, right?
+
+155
+00:18:42.150 --> 00:18:50.369
+Kevin Millikin: Do they want… no, do they… they're not asking for us to release that branch, or we're not… we're not proposing that we're going to release that branch.
+
+156
+00:18:50.810 --> 00:19:00.609
+Andrey Venuto: I think this is all optics, right? We're gonna, like, just call it a deliverable, even not being deliverable. I think that's the point. Just to show progress, you know?
+
+157
+00:19:00.770 --> 00:19:08.780
+Andrey Venuto: Just because the way this is organized, we have to kind of have deliverables, and that's how it's written in the SOW. I mean, we can have this conversation later, we're.
+
+158
+00:19:08.780 --> 00:19:15.029
+Kevin Millikin: I feel like, I feel like, in general, we don't want to make tasks like this a deliverable, because.
+
+159
+00:19:15.030 --> 00:19:15.700
+Andrey Venuto: I agree.
+
+160
+00:19:15.700 --> 00:19:29.680
+Kevin Millikin: Because then, we will have other things that we would like to work on, like fixing bugs, for instance. And we'll say, well, we can't afford to fix those bugs, because we have a deliverable that we have to do this internal merge of our… of two of our branches.
+
+161
+00:19:29.680 --> 00:19:30.520
+Andrey Venuto: I see your point.
+
+162
+00:19:30.520 --> 00:19:39.509
+Kevin Millikin: That we're not shipping, right? So I feel like we don't want to make the internal state of our repository a deliverable.
+
+163
+00:19:39.680 --> 00:19:45.200
+Kevin Millikin: In any sense of the word deliverable, that we're going to promise that we're going to spend engineering effort on delivering that.
+
+164
+00:19:46.340 --> 00:19:47.120
+Andrey Venuto: Yeah, I agree.
+
+165
+00:19:47.120 --> 00:20:05.650
+Kevin Millikin: not… it's not… if the Foundation customer really wants us to provide compiler support, we can very easily support… provide compiler support. The compiler support would not work, right, because there's no downstream support for deploying or calling those contracts.
+
+166
+00:20:05.740 --> 00:20:09.259
+Kevin Millikin: And so we can easily say that we add an instruction.
+
+167
+00:20:09.390 --> 00:20:20.289
+Kevin Millikin: to the… we add a… throw an exception if you run the TypeScript code. We add an instruction to ZKIR that just always fails.
+
+168
+00:20:20.460 --> 00:20:23.300
+Kevin Millikin: And we say, you've got… Compiler support now.
+
+169
+00:20:24.430 --> 00:20:25.080
+Kevin Millikin: It's…
+
+170
+00:20:25.080 --> 00:20:27.330
+Andrey Venuto: I get your point. Let me…
+
+171
+00:20:28.050 --> 00:20:47.830
+Kevin Millikin: And I'm not seriously suggesting we do that at all. I'm saying that asking us to do something that we could so trivially satisfy with a non-working implementation means that the customer is not asking for the right thing, that they need to ask something that has some specific features, that they can see whether we deliver them or not.
+
+172
+00:20:50.600 --> 00:20:53.719
+Andrey Venuto: I'll raise this point to them, to remove this wrong.
+
+173
+00:20:54.540 --> 00:20:55.640
+Andrey Venuto: Any deliverable.
+
+174
+00:20:56.290 --> 00:20:57.530
+Kevin Millikin: Go ahead, Parisa.
+
+175
+00:20:59.860 --> 00:21:12.259
+Parisa Ataei: Yeah, so more so on the technical side. So, we are considering the feature, composable contract that we have that branch as the static composable contract.
+
+176
+00:21:14.910 --> 00:21:25.640
+Kevin Millikin: That is what I called static composable contracts, to differentiate it from the other thing that I suggested to John, which was what I called dynamic composable contracts.
+
+177
+00:21:25.950 --> 00:21:36.560
+Kevin Millikin: I think that those are two jargony ways to refer to the features, and I don't think that the customer actually cares about the distinction between static and dynamic. I don't think it's…
+
+178
+00:21:36.670 --> 00:21:43.780
+Kevin Millikin: I don't think it's a useful thing, and I also think that the final feature that we deliver will have elements of static and dynamic composability.
+
+179
+00:21:44.770 --> 00:21:45.320
+Parisa Ataei: Okay.
+
+180
+00:21:45.510 --> 00:22:05.569
+Parisa Ataei: And my understanding is that… so we have… the main reason I wrote this… this line was to decide whether we are gonna merge the PR that we have that has the changes for generated JavaScript, TypeScript, and runtime into the feature branch for Composable Construct.
+
+181
+00:22:05.650 --> 00:22:23.740
+Parisa Ataei: with this discussion, I don't see… I don't see an objection not to do that. So the plan, I think, for the team is to merge that PR, then go ahead with merging Unshielded token into main, and then merging main into the featured branch.
+
+182
+00:22:25.070 --> 00:22:25.630
+Kevin Millikin: I think it's…
+
+183
+00:22:25.630 --> 00:22:26.340
+Parisa Ataei: Can I help?
+
+184
+00:22:26.580 --> 00:22:27.440
+Parisa Ataei: Huh.
+
+185
+00:22:27.440 --> 00:22:30.459
+Kevin Millikin: I think if I understood that correctly, that sounds right, yeah.
+
+186
+00:22:31.140 --> 00:22:49.429
+Parisa Ataei: And then my other understanding is that regardless of the static or dynamic part of Composable Contract, we want the ZKIR changes, changes related to ZKIR for Composable Contract to go in both main and the feature branch.
+
+187
+00:22:50.290 --> 00:22:58.180
+Kevin Millikin: Yes. So, yeah, so my… my under… my understanding, or my belief, is that the ZKIR,
+
+188
+00:22:58.400 --> 00:23:00.709
+Kevin Millikin: Support in the calling.
+
+189
+00:23:01.330 --> 00:23:04.999
+Kevin Millikin: calling circuit will look exactly the same in both cases.
+
+190
+00:23:05.490 --> 00:23:13.080
+Kevin Millikin: And so in order to… in order to develop this spike behind a feature flag on main, we need to have that support.
+
+191
+00:23:13.330 --> 00:23:20.239
+Kevin Millikin: in main behind the flag. So, one strategy is that we add the flag, and then we land support for this on main.
+
+192
+00:23:20.920 --> 00:23:21.949
+Kevin Millikin: Behind the flag.
+
+193
+00:23:23.840 --> 00:23:28.500
+Parisa Ataei: Alright, that resolves all my… yeah.
+
+194
+00:23:28.730 --> 00:23:44.869
+Kevin Millikin: Yeah, so I think my… I think my goal with the existing feature branch is that we should be in a position where we can merge that domain if we need to. However, I don't think we should spend two weeks out of every month trying to keep that branch,
+
+195
+00:23:45.050 --> 00:23:53.159
+Kevin Millikin: in that state, if that's what it ends up taking. It's a little… it's a little unfortunate if it requires too much effort for us. Kent, go ahead.
+
+196
+00:23:54.160 --> 00:24:03.030
+Kent Dybvig: So, couple things, first… Is it feasible for us to actually merge all of that into Maine.
+
+197
+00:24:03.160 --> 00:24:04.769
+Kent Dybvig: Sooner rather than later.
+
+198
+00:24:05.730 --> 00:24:13.840
+Kent Dybvig: so, we merged main into that, and then we immediately merged that the whole thing.
+
+199
+00:24:14.050 --> 00:24:17.250
+Kent Dybvig: into Maine, with supp…
+
+200
+00:24:17.630 --> 00:24:33.719
+Kent Dybvig: with some set of it, I mean, I don't know if we're… if we're dependent on a different runtime, or what… what we're dependent on, but behind a feature flag, anything that's… that… that isn't in the mainstream, usage case would be behind the feature flag.
+
+201
+00:24:34.430 --> 00:24:44.310
+Kent Dybvig: and then… I understand, so… I understand that,
+
+202
+00:24:47.350 --> 00:24:53.460
+Kent Dybvig: Only to… only… only vaguely how the dynamic,
+
+203
+00:24:54.970 --> 00:24:59.029
+Kent Dybvig: Contracts are going… calls are going to work.
+
+204
+00:24:59.870 --> 00:25:07.149
+Kent Dybvig: But I also understood that… I understood that we were going to need to be able to have the support in the JavaScript code.
+
+205
+00:25:07.790 --> 00:25:14.589
+Kent Dybvig: In the form of being able to take, or in the contract code, compact code, in the form of being able to take
+
+206
+00:25:14.820 --> 00:25:21.630
+Kent Dybvig: Contract addresses as arguments to witnesses, or return values to witnesses and arguments to circuits.
+
+207
+00:25:22.610 --> 00:25:27.249
+Kent Dybvig: Okay, so we still need that, to support this.
+
+208
+00:25:27.640 --> 00:25:35.730
+Kevin Millikin: Yeah, there is a proposed language change that we do relax the restrictions that we have on where contract-typed values can appear.
+
+209
+00:25:35.730 --> 00:25:41.210
+Kent Dybvig: And is that something that needs to go in before the holidays.
+
+210
+00:25:41.400 --> 00:25:43.080
+Kent Dybvig: Before the end of the year, here. Okay.
+
+211
+00:25:43.450 --> 00:25:45.020
+Kevin Millikin: In… in… yeah.
+
+212
+00:25:45.170 --> 00:25:55.449
+Kent Dybvig: So we need… we need, to be completely clear, we need to have some form of cross-contract support in Compact, ready to be released.
+
+213
+00:25:55.840 --> 00:25:59.130
+Kent Dybvig: so…
+
+214
+00:26:00.760 --> 00:26:08.130
+Kevin Millikin: Yeah, I… I am trying to be clear that this is… that there are lots of unanswered questions.
+
+215
+00:26:08.180 --> 00:26:22.859
+Kevin Millikin: This is, a… I don't want to say proof of concept, because I don't want to suggest that it's the implementation that we're going to throw away, because it is the implementation that we will use if we like this feature. So I'm calling it an MVP.
+
+216
+00:26:23.040 --> 00:26:28.649
+Kevin Millikin: Minimal viable product, and it will be developed as a spike, which… with
+
+217
+00:26:29.450 --> 00:26:39.689
+Kevin Millikin: maybe, like, 3 developers working on it, as much as they can. We'll try to get it in a state where it works end-to-end for a simple example.
+
+218
+00:26:39.950 --> 00:26:42.450
+Kevin Millikin: By the holidays, so that we can tell people
+
+219
+00:26:43.030 --> 00:26:44.499
+Kevin Millikin: Here's a flag, try it out.
+
+220
+00:26:45.800 --> 00:27:03.319
+Kevin Millikin: I wouldn't call it a feature that we would launch, so it wouldn't be… so when we write the release notes for that release, we wouldn't say, here's a feature that you should use in your contracts. We would say, here is… there's a feature flag now that has this experimental feature, and here's some… here's a page that has some hints about…
+
+221
+00:27:03.610 --> 00:27:05.669
+Kevin Millikin: How it works. How to use it.
+
+222
+00:27:09.180 --> 00:27:13.490
+Kent Dybvig: Yeah, and I did ask two questions, so, Joe, you…
+
+223
+00:27:15.170 --> 00:27:16.410
+Kent Dybvig: You're gonna answer the first one.
+
+224
+00:27:19.320 --> 00:27:25.890
+Joseph Denman: Yeah, I don't know about the question, but I was just gonna say this is going to require two confirmed releases.
+
+225
+00:27:26.240 --> 00:27:27.750
+Joseph Denman: of the runtime?
+
+226
+00:27:28.110 --> 00:27:34.229
+Joseph Denman: Because I don't, yeah, see a way around having that compiler flag enabled, and…
+
+227
+00:27:34.840 --> 00:27:42.090
+Joseph Denman: Preserving static typing based on that flag, and, you know, at the same time, Delegating to the proper functions.
+
+228
+00:27:43.680 --> 00:27:45.889
+Joseph Denman: Which could be fine, you know, to run.
+
+229
+00:27:45.890 --> 00:27:51.300
+Kent Dybvig: Why do we… So we need a second runtime version because the…
+
+230
+00:27:51.680 --> 00:27:58.510
+Kent Dybvig: the code without contracts is incompatible with the one… With the… with contracts?
+
+231
+00:27:58.770 --> 00:27:59.990
+Joseph Denman: Yeah. We can't.
+
+232
+00:27:59.990 --> 00:28:04.250
+Kent Dybvig: We can't adjust… we can't adjust and use the new runtime for everything?
+
+233
+00:28:08.240 --> 00:28:14.930
+Joseph Denman: I mean, I… yeah, like, things just return res… like, different results. We… I guess we could, but,
+
+234
+00:28:15.790 --> 00:28:21.179
+Joseph Denman: I don't know, the typing would just be essentially so convoluted that it would be meaningless, like…
+
+235
+00:28:21.830 --> 00:28:24.989
+Joseph Denman: Yeah, you just… you return different structure values.
+
+236
+00:28:25.310 --> 00:28:26.580
+Joseph Denman: Depending on…
+
+237
+00:28:26.750 --> 00:28:35.379
+Joseph Denman: whether you're running a single contract or multiple. Like, when you're doing composable contracts, the runtime is essentially a stack-based machine, so you get artifacts for every contract that you've called.
+
+238
+00:28:35.790 --> 00:28:39.350
+Joseph Denman: I guess the APIs are just different.
+
+239
+00:28:39.350 --> 00:28:42.349
+Kent Dybvig: Oh, and… but in the long run, when we have
+
+240
+00:28:42.450 --> 00:28:52.590
+Kent Dybvig: full support for cross-contract calls, we're not going to have two runtimes. No. So eventually, eventually we're going to have to converge on the new runtime, and…
+
+241
+00:28:52.850 --> 00:28:56.400
+Kent Dybvig: And we're going to have to deal with a case where we only have a single contract.
+
+242
+00:28:56.930 --> 00:28:59.419
+Kent Dybvig: and, TypeScript.
+
+243
+00:29:00.060 --> 00:29:04.679
+Kent Dybvig: Programmers interfacing with us are going to have to change how they interface with it.
+
+244
+00:29:05.670 --> 00:29:12.060
+Joseph Denman: Yeah, I guess as always, it's just the perpetual, question of when we want to throw that wrench.
+
+245
+00:29:13.020 --> 00:29:13.680
+Kent Dybvig: Okay.
+
+246
+00:29:15.470 --> 00:29:19.520
+Kent Dybvig: Yeah, I can… I can understand. I mean, the… the… my… my…
+
+247
+00:29:20.010 --> 00:29:22.510
+Kent Dybvig: Default would be to get things in…
+
+248
+00:29:22.920 --> 00:29:31.839
+Kent Dybvig: Sooner rather than later for… for… both for our sanity, and because we're now in a period where non-breaking changes are… are still…
+
+249
+00:29:32.570 --> 00:29:35.080
+Kent Dybvig: acceptable.
+
+250
+00:29:35.190 --> 00:29:43.030
+Kent Dybvig: But I also understand that if… if there's a significant chance of of changes.
+
+251
+00:29:44.210 --> 00:29:53.429
+Kent Dybvig: As we learn more about the cross-contract calls and exercise them, then we end up… we may end up jerking people's chains twice instead of once.
+
+252
+00:29:54.360 --> 00:29:57.880
+Joseph Denman: Yeah, I… I agree that it would…
+
+253
+00:29:58.080 --> 00:30:00.660
+Joseph Denman: If what you're saying is, like, it would be better to…
+
+254
+00:30:00.790 --> 00:30:07.879
+Joseph Denman: yeah, do this sooner rather than later, and merge into main, and, like, force the runtime changes, I actually think.
+
+255
+00:30:07.990 --> 00:30:11.060
+Joseph Denman: It would be much better to do that sooner, because…
+
+256
+00:30:11.360 --> 00:30:22.670
+Joseph Denman: Over time, many more tools, have become dependent on Compact. It's not only in the Nite.js now, it's the Node toolkit. They have this separate Compact.js library with
+
+257
+00:30:22.700 --> 00:30:36.600
+Joseph Denman: you know, like, snazzy parsing and all sorts of stuff, and so it's no longer just going to be Midnight.js that's affected, it's going to be multiple rules, and so the amount of time that it's going to take to adapt them is much longer.
+
+258
+00:30:36.710 --> 00:30:49.909
+Joseph Denman: than when it was just made by JS. And the impression that I've gotten from Adam and his team is to just be really aggressive about pushing out, say, like, 3 releases or release candidates, whatever we're calling them now.
+
+259
+00:30:50.070 --> 00:30:56.520
+Joseph Denman: And, you know, like, they'll kind of handle it, but sooner rather than later on everything.
+
+260
+00:31:02.430 --> 00:31:09.709
+Joseph Denman: So even if we do… yeah, even if we do, like, expose some sort of feature flag, it might just be good to go ahead and
+
+261
+00:31:10.020 --> 00:31:13.919
+Joseph Denman: Update the runtime instead of managing two versions.
+
+262
+00:31:17.920 --> 00:31:19.429
+Kent Dybvig: That sounds like it to me.
+
+263
+00:31:24.920 --> 00:31:30.570
+Joseph Denman: Yeah, and in that case, yeah, I guess that sort of makes our lives fairly simple.
+
+264
+00:31:30.910 --> 00:31:33.429
+Joseph Denman: Because then we can just, yeah, continue to merge.
+
+265
+00:31:33.660 --> 00:31:40.489
+Joseph Denman: things into main, and as long as we have a feature flag for composable contracts, then we can do releases with the feature.
+
+266
+00:31:41.310 --> 00:31:42.020
+Kevin Millikin: Yeah.
+
+267
+00:31:42.590 --> 00:31:52.989
+Kevin Millikin: That's… that is a better place for us to be in, just to… to have that branch merged, even if, as Kent suggested, I think, once in this meeting, or once maybe just over a
+
+268
+00:31:53.180 --> 00:31:59.720
+Kevin Millikin: privately, that we could just fork the print TypeScript pass and have two completely different versions that the flag selects between.
+
+269
+00:32:00.400 --> 00:32:17.089
+Kevin Millikin: If we still have the ability to test them, and if somebody is developing a feature that requires updating that, they can test both… both backends that it still… that it still works. Whereas with the branch, you have someone else who hasn't developed the feature trying to merge it.
+
+270
+00:32:17.500 --> 00:32:21.820
+Kevin Millikin: I mean, that's just not ever going to be as easy.
+
+271
+00:32:23.610 --> 00:32:34.030
+Joseph Denman: But, okay, so… I'm wondering, though, like, if we are just planning on throwing the wrench with the runtime.
+
+272
+00:32:34.150 --> 00:32:41.339
+Joseph Denman: We're just gonna say, okay, here's the new runtime, it's the Shapercombustible contracts, we're not managing to make the change now.
+
+273
+00:32:41.590 --> 00:32:46.680
+Joseph Denman: then the benefit of having the feature flag in Compact is what?
+
+274
+00:32:47.590 --> 00:32:49.720
+Joseph Denman: Like, you'd be able to, I guess, to use…
+
+275
+00:32:49.950 --> 00:32:59.219
+Joseph Denman: old runtime versions with newer compiler versions, so you can use a version of the runtime that isn't specific to composable Contracts, while.
+
+276
+00:33:00.790 --> 00:33:04.300
+Kevin Millikin: I don't know if it's… I'm still not convinced it's just as easy as
+
+277
+00:33:04.410 --> 00:33:08.930
+Kevin Millikin: we update the runtime, because I think that the downstream support still needs to exist.
+
+278
+00:33:11.340 --> 00:33:16.049
+Kevin Millikin: But I… but I don't actually understand… understand that. Andy, you had your hand up first.
+
+279
+00:33:17.050 --> 00:33:30.320
+Andrzej Kopeć: Yeah. So, I… I guess there is also another op… thing to consider. That is, They're kind of…
+
+280
+00:33:31.080 --> 00:33:42.940
+Andrzej Kopeć: way of runtime working that was… that is discussed for the dynamic composability, where the runtime gives control back to the
+
+281
+00:33:43.530 --> 00:33:51.450
+Andrzej Kopeć: to the JavaScript world in order to schedule execution of the other contract.
+
+282
+00:33:51.680 --> 00:33:56.910
+Andrzej Kopeć: It could also work in the… for the static one, essentially.
+
+283
+00:33:58.160 --> 00:34:01.639
+Andrzej Kopeć: It could be the same thing, so it…
+
+284
+00:34:02.820 --> 00:34:09.440
+Kevin Millikin: When I wrote that, I actually thought that was the way that it worked, by the way. So yes, I agree with you.
+
+285
+00:34:09.909 --> 00:34:17.570
+Andrzej Kopeć: And, and, and so… while rema… so…
+
+286
+00:34:17.739 --> 00:34:26.280
+Andrzej Kopeć: From that perspective, I would hesitate to merge those runtime changes that are present for the static composability.
+
+287
+00:34:26.409 --> 00:34:35.999
+Andrzej Kopeć: Because the dynamic one, kind of, it opens, it, it still requires… it would still require tenders that would…
+
+288
+00:34:36.179 --> 00:34:38.079
+Andrzej Kopeć: Enable this case.
+
+289
+00:34:40.150 --> 00:34:41.159
+Joseph Denman: But isn't…
+
+290
+00:34:42.800 --> 00:34:50.289
+Joseph Denman: Okay, but isn't the alternative, then, that we don't update any runtime and nobody makes any downstream changes until we have…
+
+291
+00:34:50.719 --> 00:34:52.500
+Joseph Denman: Dynamics imposability.
+
+292
+00:34:53.870 --> 00:34:55.739
+Joseph Denman: That seems, like, way too late.
+
+293
+00:34:57.470 --> 00:35:16.420
+Kevin Millikin: Well, we… as part of this implementation effort for the spike, we proposed three parallel implementation efforts going on. One is in the compiler, one is downstream of us in whatever contract library it belongs in these days, and one is upstream of us in the Ledger's ZKIR implementation.
+
+294
+00:35:18.140 --> 00:35:21.619
+Kevin Millikin: So those are happening, so we're trying to enable those to happen in parallel.
+
+295
+00:35:21.790 --> 00:35:23.999
+Kevin Millikin: By 3 different developers.
+
+296
+00:35:24.920 --> 00:35:28.669
+Joseph Denman: No, I… yeah, I mean, I understand that, but I guess…
+
+297
+00:35:28.810 --> 00:35:31.530
+Joseph Denman: Andy, if I understood what you were saying, you were saying…
+
+298
+00:35:31.830 --> 00:35:49.219
+Joseph Denman: And I didn't actually really even follow, like, what you were saying would need to change in the runtime between static and dynamic composability, but what I understood from what you're saying is, like, just don't update the runtime until all of the changes for dynamic composability are in. Is that right?
+
+299
+00:35:51.900 --> 00:35:57.289
+Andrzej Kopeć: Not maybe, before they are in, but more of a…
+
+300
+00:35:57.630 --> 00:36:02.879
+Andrzej Kopeć: before the path forward is, is clear. Because if there…
+
+301
+00:36:02.880 --> 00:36:19.930
+Andrzej Kopeć: If the runtime changes that are present on the branch with static composability today, if they are merged, the only sane path forward for the midnail.js team is to support single contract there.
+
+302
+00:36:20.660 --> 00:36:37.799
+Andrzej Kopeć: in order to do it quickly enough, essentially still making this feature unsupported, despite runtime being prepared in its shape to support it that particular way. And then, when there is
+
+303
+00:36:37.940 --> 00:36:49.760
+Andrzej Kopeć: when the dynamic composability is implemented through the way of giving control back to the JavaScript world in order to schedule execution of the next contract.
+
+304
+00:36:50.050 --> 00:37:07.210
+Andrzej Kopeć: Then there's also this effect of, let's say, split brain, in a way, that you have essentially the same thing performed at runtime through two different mechanisms.
+
+305
+00:37:14.230 --> 00:37:20.159
+Joseph Denman: Yeah, I guess I would need to see specifically what you're talking about. I actually haven't read the proposal.
+
+306
+00:37:20.260 --> 00:37:21.649
+Joseph Denman: But…
+
+307
+00:37:29.020 --> 00:37:31.770
+Joseph Denman: Even if the only sane thing
+
+308
+00:37:32.990 --> 00:37:42.660
+Joseph Denman: for them to do, say, in the Midnight.js team, is to use the updated time to execute single contracts. Like, that seems completely reasonable.
+
+309
+00:37:42.930 --> 00:37:53.179
+Joseph Denman: That would be, like, the first step would be to reproduce what we can currently do, and that's possible. I mean, like, obviously you can execute single contracts,
+
+310
+00:37:54.060 --> 00:38:03.900
+Joseph Denman: I don't know, but yeah, I mean, maybe, yeah, if you're suggesting that the API at the runtime would change with dynamic composability, I can see the argument, I guess, but…
+
+311
+00:38:04.470 --> 00:38:11.429
+Joseph Denman: Yeah, I haven't seen anything that would indicate that the API at the runtime would actually change the entry points.
+
+312
+00:38:11.550 --> 00:38:14.640
+Joseph Denman: By introducing dynamic composability.
+
+313
+00:38:15.750 --> 00:38:26.200
+Andrzej Kopeć: it would not be the entry points, and this is why I raised this, because the detainers present on that branch, they changed the entry points.
+
+314
+00:38:26.200 --> 00:38:26.760
+Joseph Denman: Yep.
+
+315
+00:38:26.940 --> 00:38:33.609
+Andrzej Kopeć: Whereas the dynamic composability does not change the entry points, it changes the way things are orchestrated.
+
+316
+00:38:34.050 --> 00:38:42.209
+Andrzej Kopeć: and… And… That is actually required in order to work at all for the dynamic composability.
+
+317
+00:38:42.440 --> 00:38:49.459
+Andrzej Kopeć: And if the calling site is prepared for it, It can also…
+
+318
+00:38:50.940 --> 00:38:58.340
+Andrzej Kopeć: just by choosing a different mechanism to… to run the circuit, it can…
+
+319
+00:38:58.810 --> 00:39:03.949
+Andrzej Kopeć: be equivalent to the static composability in the functionality.
+
+320
+00:39:10.220 --> 00:39:14.440
+Andrzej Kopeć: Because… because the color, when it,
+
+321
+00:39:14.840 --> 00:39:24.319
+Andrzej Kopeć: it receives control, and it's asked to run another circuit, the Kohli. It can choose whether to interpret ZKAR,
+
+322
+00:39:24.520 --> 00:39:39.209
+Andrzej Kopeć: Without witnesses, because it's, let's say, the dynamic call and it doesn't have anything else to do. Or if it, has the whole circuit implementation present, including witnesses, it can do it that way.
+
+323
+00:39:45.030 --> 00:39:50.150
+Joseph Denman: Okay, yeah, I… Yeah, I guess I vaguely understand.
+
+324
+00:39:53.380 --> 00:39:55.730
+Kent Dybvig: Sounds like we need to do the spike before we…
+
+325
+00:39:56.720 --> 00:40:03.390
+Kent Dybvig: at least start the spike and get a good, you know, as Andre says, get… understand the path forward.
+
+326
+00:40:03.930 --> 00:40:04.880
+Kent Dybvig: Clearly.
+
+327
+00:40:12.290 --> 00:40:16.369
+Kent Dybvig: So we sync… we sync main and everything into the…
+
+328
+00:40:16.500 --> 00:40:20.880
+Kent Dybvig: End of the feature branch, but keep it separate for now, and then… And then…
+
+329
+00:40:22.410 --> 00:40:24.220
+Kent Dybvig: After or during the spike.
+
+330
+00:40:24.690 --> 00:40:26.390
+Kent Dybvig: We can merge it into main.
+
+331
+00:40:28.600 --> 00:40:34.440
+Kent Dybvig: And, or we may decide… Cat Burchard, I mean… bottom.
+
+332
+00:40:35.210 --> 00:40:36.769
+Kent Dybvig: This would be too disruptive.
+
+333
+00:40:38.340 --> 00:40:41.330
+Joseph Denman: So I guess that puts… if we're trying to…
+
+334
+00:40:41.500 --> 00:40:48.070
+Joseph Denman: The goal was to, like, as Kevin said, get static composability in before the holidays.
+
+335
+00:40:48.500 --> 00:40:50.290
+Joseph Denman: I guess… Go ahead.
+
+336
+00:40:50.290 --> 00:40:59.890
+Kevin Millikin: The goal was to… the goal was the implementation spike, the dynamic composability, before the holidays, so that we would… that we would have a release
+
+337
+00:41:00.030 --> 00:41:09.210
+Kevin Millikin: Shortly thereafter, we've actually planned to make the release right after, that we would have a flag that would be what we're calling Dynamic Composable Contracts people could try out.
+
+338
+00:41:09.350 --> 00:41:11.409
+Kevin Millikin: And they could test it end-to-end.
+
+339
+00:41:13.060 --> 00:41:15.150
+Andrey Venuto: The milestone is the end of January.
+
+340
+00:41:15.460 --> 00:41:16.620
+Andrey Venuto: MS3.
+
+341
+00:41:17.000 --> 00:41:17.540
+Kevin Millikin: Yep.
+
+342
+00:41:26.300 --> 00:41:30.830
+Parisa Ataei: And to just reiterate, the milestone does say that this is behind a flag.
+
+343
+00:41:31.520 --> 00:41:33.110
+Andrey Venuto: I am including that.
+
+344
+00:41:33.650 --> 00:41:38.020
+Parisa Ataei: Perfect. Yeah, we have a chain request. I'll share the chain request with you guys for feedback also.
+
+345
+00:41:40.300 --> 00:41:45.840
+Kevin Millikin: Yeah, I mean, I think in… yeah, I mean, I think in general, it's a feature that belongs behind a flag, because it will be changing.
+
+346
+00:41:46.320 --> 00:41:54.050
+Kevin Millikin: We… we still have… we still have reserved the ability to make braking changes until we get to Compact 1.0, but this feels like…
+
+347
+00:41:54.320 --> 00:41:59.310
+Kevin Millikin: A feature that you really want to warn users that they're at their own risk when they enable it.
+
+348
+00:41:59.970 --> 00:42:01.600
+Kevin Millikin: Because it will be evolving.
+
+349
+00:42:01.990 --> 00:42:03.070
+Kevin Millikin: Chand-changing.
+
+350
+00:42:08.930 --> 00:42:09.820
+Kevin Millikin: Okay.
+
+351
+00:42:10.200 --> 00:42:14.739
+Kevin Millikin: It feels like, sort of an unsatisfying discussion, but are we satisfied?
+
+352
+00:42:21.120 --> 00:42:22.620
+Kevin Millikin: Okay, I'm gonna check it off.
+
+353
+00:42:23.750 --> 00:42:31.910
+Kevin Millikin: Now we have view circuits and or portable state descriptions to enable wallets, inspecting contract-based tokens.
+
+354
+00:42:34.320 --> 00:42:35.940
+Kevin Millikin: Is this from you, Andre?
+
+355
+00:42:36.200 --> 00:42:43.540
+Andrzej Kopeć: Yes, yes, yes, it, it, it is, it is from a, so,
+
+356
+00:42:43.800 --> 00:42:49.540
+Andrzej Kopeć: there is this, PRD, circulating around, for…
+
+357
+00:42:49.830 --> 00:42:55.950
+Andrzej Kopeć: Enabling wallets to inspect the things like, token balances and so on.
+
+358
+00:42:56.340 --> 00:43:00.440
+Andrzej Kopeć: And… there are…
+
+359
+00:43:01.120 --> 00:43:16.640
+Andrzej Kopeć: two possible ways forward, at least that I can imagine, given the current state of things. If, you might remember that quite a while ago, we discussed it once, and back then, the idea was that…
+
+360
+00:43:17.130 --> 00:43:27.639
+Andrzej Kopeć: somewhat preferred way, or would be to actually change the contract state format in a way that it is self-describing, to make the inspection, let's say, trivial.
+
+361
+00:43:27.760 --> 00:43:38.610
+Andrzej Kopeć: But there is no time to get it, now, and the functionality is still kind of needed around MS34.
+
+362
+00:43:39.020 --> 00:43:40.500
+Andrzej Kopeć: as I understand.
+
+363
+00:43:40.850 --> 00:43:48.900
+Andrzej Kopeć: So… So there are essentially… one idea would be…
+
+364
+00:43:49.020 --> 00:44:08.739
+Andrzej Kopeć: that if the AR interpretation is performant enough to… to… to kind of… to not be noticeable by the user, then a concept of a view circuit would be very useful to enable it. Essentially, it would be a circuit that is
+
+365
+00:44:09.140 --> 00:44:12.880
+Andrzej Kopeć: Pure, but can read larger state.
+
+366
+00:44:14.110 --> 00:44:27.909
+Kevin Millikin: Yeah, so not entirely pure. Yes, yes, exactly. Yeah, it would be a different effect… it would be a different effects typing system of some kind that we already… we already know which ledger operations are reads and which ones are updates.
+
+367
+00:44:28.330 --> 00:44:30.800
+Kevin Millikin: So, it could make ledger reads.
+
+368
+00:44:32.560 --> 00:44:36.379
+Andrzej Kopeć: Yes, and that would enable contracts to have…
+
+369
+00:44:36.380 --> 00:44:38.120
+Kevin Millikin: And no witnesses.
+
+370
+00:44:38.530 --> 00:44:52.579
+Andrzej Kopeć: And no witnesses, yes. And that would enable contracts to have a custom logic for things like what is the balance of that user in this… in my token-based contract.
+
+371
+00:44:52.790 --> 00:45:04.040
+Andrzej Kopeć: contract-based token. So this is one idea. And the alternative, if the ZKR path, doesn't prove to be…
+
+372
+00:45:04.340 --> 00:45:18.589
+Andrzej Kopeć: enough, or it doesn't prove to be performant enough, that I could imagine would be some notion of a state description being provided by the compiler so that
+
+373
+00:45:18.890 --> 00:45:23.180
+Andrzej Kopeć: Just having, let's say, that state description.
+
+374
+00:45:23.630 --> 00:45:31.509
+Andrzej Kopeć: And the contract stayed at hand. Some third party would be able to parse it and,
+
+375
+00:45:31.780 --> 00:45:34.260
+Andrzej Kopeć: interpret to…
+
+376
+00:45:34.480 --> 00:45:44.799
+Andrzej Kopeć: At least as far as some of the simplest types go, in order to read the balance from a well-defined map, for example.
+
+377
+00:45:47.460 --> 00:45:53.880
+Andrzej Kopeć: And it's not definite, because, ultimately,
+
+378
+00:45:54.110 --> 00:46:02.350
+Andrzej Kopeć: It is still quite early, but I raised this in order to kind of
+
+379
+00:46:03.010 --> 00:46:06.949
+Andrzej Kopeć: To learn your preferences or opinions on both approaches.
+
+380
+00:46:11.250 --> 00:46:12.120
+Kevin Millikin: Go ahead, Joe.
+
+381
+00:46:13.380 --> 00:46:18.790
+Joseph Denman: I was just gonna say, I… yeah, I don't have a lot of, actually,
+
+382
+00:46:19.330 --> 00:46:25.490
+Joseph Denman: Really, anything deeply technical to say, just that this problem or suggestion
+
+383
+00:46:25.680 --> 00:46:38.990
+Joseph Denman: Reminds me of the same sort of structure, I guess, definitions, interpretable structure definitions that would maybe also be useful for events.
+
+384
+00:46:39.320 --> 00:46:42.459
+Joseph Denman: This strikes me as a similar sort of problem.
+
+385
+00:46:43.210 --> 00:46:58.450
+Kevin Millikin: Yep, that's a… that's a great observation, actually. The… there's an events PRD, and I was… Giles was… was suggesting that there should be some self-describing representation of events, and he actually wanted me to adopt some…
+
+386
+00:46:58.630 --> 00:47:03.889
+Kevin Millikin: Existing description, language of some kind, and…
+
+387
+00:47:04.160 --> 00:47:06.900
+Kevin Millikin: Perhaps that's what we… that's what we do.
+
+388
+00:47:07.130 --> 00:47:11.340
+Kevin Millikin: I think that's a good observation, that there really is something similar there.
+
+389
+00:47:11.450 --> 00:47:25.729
+Kevin Millikin: This is… so, so there was earlier, some discussion about what we would need to understand token metadata, and there was actually a MIP proposal submitted by one of the OpenZeppelin engineers.
+
+390
+00:47:25.790 --> 00:47:34.370
+Kevin Millikin: That was trying to describe, what he thought we thought… what he… what he, he, what he thought we thought we wanted.
+
+391
+00:47:34.370 --> 00:47:59.019
+Kevin Millikin: Which was a little bit of a disconnect, and then he and I just talked online, and I said, what if we just gave you the ability to call getters? And he said, yeah, that would be better, if you just had getters. So what he really wants is just getters for contract state. So I think we could do something like that, Andre. I think we could also define a self-describing format. I mean, the ledger… we could collect all of the ledger declarations, they used to be in a block anyway, collect them together.
+
+392
+00:47:59.190 --> 00:48:01.439
+Kevin Millikin: And then they just have a type and a path.
+
+393
+00:48:01.980 --> 00:48:14.530
+Kevin Millikin: And then you have to have a way of deserializing primitive compact types, and then compound types are made up of, in a very type-directed way from the… or syntax-directed way from the primitive types that…
+
+394
+00:48:14.810 --> 00:48:16.650
+Kevin Millikin: That they consist of.
+
+395
+00:48:16.760 --> 00:48:28.300
+Kevin Millikin: So I think you could… I think you could definitely do that. You could support that with code generation, which somebody could implement. Or you could build a little interpreter in any language you wanted that would interpret state.
+
+396
+00:48:29.020 --> 00:48:31.639
+Kevin Millikin: So that would be a possibility, and we could propose that as well.
+
+397
+00:48:35.830 --> 00:48:39.459
+Joseph Denman: Yeah, you know, we also… we also do something kind of, like…
+
+398
+00:48:40.310 --> 00:48:47.299
+Joseph Denman: I don't know how similar it is, but for composable contracts, we generate a data structure, that the points…
+
+399
+00:48:47.420 --> 00:48:59.230
+Joseph Denman: Two locations in the state, which are contract types, and then we use that map to actually extract values that we know are expected to be contract addresses.
+
+400
+00:49:00.680 --> 00:49:06.099
+Kevin Millikin: Yeah, so that sounds like kind of an ad hoc example of that exactly thing. Emanuel?
+
+401
+00:49:10.230 --> 00:49:15.699
+⟣ €₥ℵ∪ℓ: Oh, I just wanted to say that, view circuits would be really…
+
+402
+00:49:16.130 --> 00:49:23.290
+⟣ €₥ℵ∪ℓ: valuable for us, like, as developers. And I just wanted to… I guess…
+
+403
+00:49:23.560 --> 00:49:29.289
+⟣ €₥ℵ∪ℓ: emphasize, like, the point that I think Andrew made the MIP proposal?
+
+404
+00:49:29.750 --> 00:49:36.100
+⟣ €₥ℵ∪ℓ: But yeah, just like… Emphasize that, getters would definitely be the optimal.
+
+405
+00:49:36.300 --> 00:49:40.250
+⟣ €₥ℵ∪ℓ: Way to go about, the metadata stuff.
+
+406
+00:49:47.320 --> 00:49:49.680
+Kevin Millikin: Okay, it sounds like an idea worth pursuing.
+
+407
+00:49:56.670 --> 00:50:04.019
+⟣ €₥ℵ∪ℓ: Oh, one more thing, so… Is there any…
+
+408
+00:50:06.380 --> 00:50:17.159
+⟣ €₥ℵ∪ℓ: ongoing work related to adding ciphertext to UTXO-based tokens. I think right now, a challenge
+
+409
+00:50:17.340 --> 00:50:23.770
+⟣ €₥ℵ∪ℓ: that we're running into trying to develop UTXO-based token contracts.
+
+410
+00:50:23.880 --> 00:50:29.049
+⟣ €₥ℵ∪ℓ: Is that smart contracts can issue or mint tokens, but…
+
+411
+00:50:29.290 --> 00:50:35.270
+⟣ €₥ℵ∪ℓ: There is no ciphertext, or there's… there's an ability to add ciphertext
+
+412
+00:50:35.610 --> 00:50:40.399
+⟣ €₥ℵ∪ℓ: An optional cybertext to the tokens, but not via smart contracts.
+
+413
+00:50:41.060 --> 00:50:52.960
+⟣ €₥ℵ∪ℓ: So… there's no way for someone who receives that token to know they got that token unless there's, like, some other, like, off-chain channel, I think.
+
+414
+00:50:54.840 --> 00:51:04.270
+Kevin Millikin: Yeah, I think there's no one in this room right now that knows the answer to that. I think we need to loop in some of the ledger architects to… or maybe, maybe Angie knows. Angie knows.
+
+415
+00:51:05.110 --> 00:51:12.449
+Andrzej Kopeć: Yeah, I know, so… The… the outputs, they…
+
+416
+00:51:12.640 --> 00:51:20.330
+Andrzej Kopeć: are required to have the cypress, as of Ledger 4, which is the version that is deployed on the stand O2.
+
+417
+00:51:20.400 --> 00:51:35.100
+Andrzej Kopeć: So, what we are relying on is that essentially the Midnight.js being able to resolve the right encryption public key in order to
+
+418
+00:51:35.220 --> 00:51:37.000
+Andrzej Kopeć: To create that ciphertext.
+
+419
+00:51:40.610 --> 00:51:45.590
+Andrzej Kopeć: But from doing this within contract, the…
+
+420
+00:51:46.150 --> 00:51:53.900
+Andrzej Kopeć: the obstacle is implementing the encryption itself in circuit, if I… if I remember correctly.
+
+421
+00:52:02.050 --> 00:52:05.309
+⟣ €₥ℵ∪ℓ: Can you say that one more time, Andre? What's going on in circuit?
+
+422
+00:52:05.780 --> 00:52:16.629
+Andrzej Kopeć: So, for doing this in-circuit, the obstacle is implementing the encryption in a way that could be performed in-circuit.
+
+423
+00:52:30.850 --> 00:52:33.290
+Kevin Millikin: So, so more, more missing crypto features.
+
+424
+00:52:36.210 --> 00:52:37.410
+Kevin Millikin: Joe?
+
+425
+00:52:37.550 --> 00:52:38.370
+Kevin Millikin: End up.
+
+426
+00:52:41.640 --> 00:52:42.480
+Kevin Millikin: Kent?
+
+427
+00:52:57.690 --> 00:52:58.870
+Joseph Denman: You're muted, Kent.
+
+428
+00:53:01.230 --> 00:53:03.709
+Kent Dybvig: Somehow I got myself big-screened, I don't know.
+
+429
+00:53:04.140 --> 00:53:08.489
+Kent Dybvig: So… The… the… it's on the…
+
+430
+00:53:08.600 --> 00:53:15.119
+Kent Dybvig: Bouncing one… back one level, the getters, we… we…
+
+431
+00:53:15.400 --> 00:53:21.200
+Kent Dybvig: I may be completely in a different place, but we actually have getters for ledger fields.
+
+432
+00:53:21.730 --> 00:53:24.149
+Kent Dybvig: If they're exported from Compact.
+
+433
+00:53:24.580 --> 00:53:32.410
+Kent Dybvig: Is this some… is this some different thing, or do we… do we want to have… Some information?
+
+434
+00:53:32.410 --> 00:53:33.520
+Kevin Millikin: It's potentially…
+
+435
+00:53:33.770 --> 00:53:44.870
+Kevin Millikin: It's potentially more than that, so you might want a getter that takes a pair of keys, and it looks… it drills down into two map… into a map, and into a map, and pulls out the value that's… that's at that key.
+
+436
+00:53:46.210 --> 00:53:55.869
+Kent Dybvig: Well, for things like maps, we have more elaborate, support already, where we have the lookups that are in the generated JavaScript code for those exported fields.
+
+437
+00:53:56.270 --> 00:53:56.770
+Joseph Denman: I think…
+
+438
+00:53:58.630 --> 00:54:02.810
+Joseph Denman: Sorry, I think the difference here would be the ability to do it for…
+
+439
+00:54:03.580 --> 00:54:14.219
+Joseph Denman: Well, actually, I don't know in the circuit case. I was gonna say that, yeah, it would be the ability to do it for an arbitrary contract, not necessarily a contract that you have compiled locally, but I actually don't know if that's what I…
+
+440
+00:54:15.270 --> 00:54:19.039
+Kent Dybvig: I mean, then a getter doesn't really make sense, but,
+
+441
+00:54:20.870 --> 00:54:27.270
+Kent Dybvig: Anyway, the other thing we could… we could easily include in the compiler output is a…
+
+442
+00:54:28.280 --> 00:54:30.030
+Kent Dybvig: You know, as some sort of map.
+
+443
+00:54:30.270 --> 00:54:35.110
+Kent Dybvig: from… You know, some sort of…
+
+444
+00:54:36.170 --> 00:54:41.279
+Kent Dybvig: Object allows you to say what are the fields, and what are their types, and…
+
+445
+00:54:41.490 --> 00:54:51.180
+Kent Dybvig: But if… if all we need is… is for a contract to be able to get, you know, from TypeScript to be able to access those fields, it's already… the support's already there for that.
+
+446
+00:54:52.660 --> 00:54:55.309
+Kent Dybvig: Through the… through the ledger,
+
+447
+00:54:55.850 --> 00:55:00.930
+Kent Dybvig: export, you know, for the ledger part… the ledger… Object.
+
+448
+00:55:02.050 --> 00:55:08.299
+Kent Dybvig: that's produced, in the JavaScript code, and described in the TypeScript header.
+
+449
+00:55:08.960 --> 00:55:16.389
+Kevin Millikin: Yeah, I think the… I think the general idea was that you wanted a wallet to be able to do that, for instance, without the source code of the contract.
+
+450
+00:55:17.430 --> 00:55:18.060
+Kent Dybvig: Okay.
+
+451
+00:55:19.230 --> 00:55:32.819
+Kent Dybvig: then I don't… so I… so yeah. So I'm… I'll be interested in seeing what the proposal is then, because… that doesn't sound like getters to me. That sounds like some sort of general inspection mechanism that allows you to… to get a descriptor, and then…
+
+452
+00:55:32.950 --> 00:55:37.650
+Kent Dybvig: And then dynamically process the descriptor, which is… which is a good feature.
+
+453
+00:55:38.190 --> 00:55:50.390
+Kevin Millikin: Yeah, no, so I think that where getters are enough is that the token interface, for instance, says that you have to have a getter that tells you how many decimal places there are.
+
+454
+00:55:50.850 --> 00:56:05.779
+Kevin Millikin: And then, you have to be… and you have to be able to invoke that and get a number back. And this is probably stored in your ledger state somewhere, but my ledger state will look very different from your ledger state. We might not have declared this field with the same name or in the same order, we just have to provide
+
+455
+00:56:07.980 --> 00:56:09.770
+Kevin Millikin: Get decimal places.
+
+456
+00:56:10.650 --> 00:56:16.720
+Kent Dybvig: And where is this information stored for the… for the wallet to begin at? If it doesn't have access to the contract code, where…
+
+457
+00:56:16.720 --> 00:56:18.810
+Kevin Millikin: Andy was just an information store.
+
+458
+00:56:18.970 --> 00:56:27.930
+Kevin Millikin: Well, Andy was suggesting that it's the same way that you get the ZKIR code for the circuit in order to invoke it, if it were used in a cross-contract call.
+
+459
+00:56:29.050 --> 00:56:31.890
+Kent Dybvig: Okay, so it's another product of the compiler?
+
+460
+00:56:32.420 --> 00:56:37.420
+Kevin Millikin: Yes, it would be produced as a product and compiler, or there's some self-descripting
+
+461
+00:56:38.220 --> 00:56:44.190
+Kevin Millikin: Some self-describing representation of the contract state that you must be able to get from somewhere.
+
+462
+00:56:44.970 --> 00:56:47.289
+Kent Dybvig: Or it's put… or it's put into the…
+
+463
+00:56:47.890 --> 00:56:50.150
+Kent Dybvig: Ledger field… ledger, but you don't know where.
+
+464
+00:56:50.150 --> 00:57:04.069
+Kevin Millikin: What could we put in a ledger? I mean, we… so the ledger is just a blob in a… I mean, the ledger under Compact Control is just a blob, and we could actually… the compiler could actually have special places in the ledger that it puts stuff.
+
+465
+00:57:04.510 --> 00:57:05.190
+Kent Dybvig: Yes.
+
+466
+00:57:07.120 --> 00:57:09.320
+Joseph Denman: I wonder if you could describe a field of this…
+
+467
+00:57:10.140 --> 00:57:14.500
+Joseph Denman: Like, one of the value, like, field descriptors that we use as a field.
+
+468
+00:57:14.630 --> 00:57:15.420
+Joseph Denman: So…
+
+469
+00:57:20.170 --> 00:57:21.660
+Joseph Denman: Sorry.
+
+470
+00:57:21.660 --> 00:57:31.790
+Kevin Millikin: I think there's more than one way to do that. I mean, what I suggested is that you just have to have a way of translating the primitive compact types, and then you have to know what the syntax of
+
+471
+00:57:31.900 --> 00:57:35.799
+Kevin Millikin: Compound types is to be able to find a path in them.
+
+472
+00:57:37.100 --> 00:57:41.529
+Kevin Millikin: It needs… it definitely needs design, and there is a design space.
+
+473
+00:57:43.920 --> 00:57:45.480
+Kent Dybvig: Yes, August. Okay.
+
+474
+00:57:45.740 --> 00:57:57.960
+Andrzej Kopeć: So, Kent, to answer you, or provide slightly different perspective, the main difficulty is that the representation… it…
+
+475
+00:57:58.260 --> 00:58:06.200
+Andrzej Kopeć: Can… it needs to be portable enough so that a component can just fetch it.
+
+476
+00:58:06.830 --> 00:58:11.720
+Andrzej Kopeć: and interpret it, but it cannot be a JavaScript itself.
+
+477
+00:58:11.900 --> 00:58:12.660
+Andrzej Kopeć: Because…
+
+478
+00:58:12.660 --> 00:58:13.450
+Kent Dybvig: Yes.
+
+479
+00:58:13.450 --> 00:58:15.439
+Andrzej Kopeć: Simplifying things a bit.
+
+480
+00:58:15.610 --> 00:58:18.809
+Andrzej Kopeć: It rises a lot of problems, so it needs…
+
+481
+00:58:19.140 --> 00:58:28.960
+Andrzej Kopeć: It needs to be something, let's say, more portable and still kind of flexible enough so that the wallet, for example, it can just
+
+482
+00:58:29.160 --> 00:58:39.800
+Andrzej Kopeć: let's say, pull a single compact-related library, let's say, in order to interpret that and get the information that it needs. Yeah.
+
+483
+00:58:40.090 --> 00:58:43.280
+Kent Dybvig: Yeah, obviously, for security reasons, another… other…
+
+484
+00:58:43.970 --> 00:58:46.659
+Kent Dybvig: Other reasons, that's… that's important, yeah.
+
+485
+00:58:47.650 --> 00:58:48.470
+Kent Dybvig: Okay.
+
+486
+00:58:57.720 --> 00:58:58.380
+Kevin Millikin: Alright.
+
+487
+00:58:58.610 --> 00:59:02.679
+Kevin Millikin: Are there any more agenda items that aren't on the list?
+
+488
+00:59:04.680 --> 00:59:06.040
+Kevin Millikin: One… one minute.
+
+489
+00:59:09.610 --> 00:59:13.210
+Andrey Venuto: We want to take a break before our next meeting, maybe 10 minutes?
+
+490
+00:59:13.450 --> 00:59:14.370
+Andrey Venuto: Right.
+
+491
+00:59:14.610 --> 00:59:15.870
+Andrey Venuto: 5 minutes? Okay.
+
+492
+00:59:15.870 --> 00:59:16.460
+Kevin Millikin: too.
+
+493
+00:59:17.150 --> 00:59:19.129
+Kevin Millikin: Not too long, or I'll forget to come back.
+
+494
+00:59:19.400 --> 00:59:19.820
+Andrey Venuto: Okay.
+
+495
+00:59:19.830 --> 00:59:21.940
+Kevin Millikin: Emmanuel?
+
+496
+00:59:22.980 --> 00:59:38.580
+⟣ €₥ℵ∪ℓ: Yeah, one last thing, Iskander and I went over the composable Contracts proposal in the Midnight Architecture repo, we left some comments, questions on that proposal, and it would just be nice if,
+
+497
+00:59:38.730 --> 00:59:43.179
+⟣ €₥ℵ∪ℓ: We could get some… If someone could take a look at those.
+
+498
+00:59:43.340 --> 00:59:43.899
+⟣ €₥ℵ∪ℓ: So…
+
+499
+00:59:43.900 --> 00:59:44.690
+Kevin Millikin: I won't…
+
+500
+00:59:44.870 --> 00:59:56.099
+Kevin Millikin: Yeah, I wrote the proposal. I will take a look. I was out for a week, so I just got back today, and I'm just playing catch-up with email, so I just haven't seen those yet. But I'll take a look. Thanks for bringing it to my attention.
+
+501
+00:59:56.830 --> 00:59:59.639
+⟣ €₥ℵ∪ℓ: Yep, yep, no worries, I just wanted to make sure those didn't get buried.
+
+502
+01:00:00.580 --> 01:00:01.330
+Kevin Millikin: Thank you.
+
+503
+01:00:02.040 --> 01:00:03.080
+Kevin Millikin: Anything else?
+
+504
+01:00:04.090 --> 01:00:05.910
+Kevin Millikin: Okay, happy hacking.
+
+505
+01:00:06.410 --> 01:00:07.410
+Kevin Millikin: See you in 5.
+

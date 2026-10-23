@@ -1,0 +1,440 @@
+WEBVTT
+
+00:05:39.000 --> 00:05:46.000
+The project so should be all good there. We released Firefly 1.33.
+
+00:05:46.000 --> 00:05:54.000
+Since the last call, so there's been quite a bit of fixes got into this They wanted to release.
+
+00:05:54.000 --> 00:06:02.000
+Metrics. So if I just bring up the Firefly docs. Here we go. I have them here.
+
+00:06:02.000 --> 00:06:06.000
+You'll see in the release notes here.
+
+00:06:06.000 --> 00:06:19.000
+So there was a new interface for blockchain plugins and stream recertifications and transactional batches i think the PR from the Cardano from Simon is using that which is one function, but there's a lot of thinking on that. There was a lot of changes to metrics.
+
+00:06:19.000 --> 00:06:41.000
+We have this component inside Firefly, especially when using multi-party, which is all about data exchange so communicating off-chain private data over HTTP and MTLS. So there are certificates to manage And what we've got is metrics to be able to alert when that certificate needs to be rotated.
+
+00:06:41.000 --> 00:07:04.000
+And when the expiry is. So for folks like SREs and cloud engineers are running Firefly In cloud environments, which is the Helm charts, in production etc they have better metrics and Prometheus Go support to monitor Firefly in these scenarios. Some of them are quite tricky to monitor if you didn't have this metric. So it's quite good that we added Hayden added that recently.
+
+00:07:04.000 --> 00:07:27.000
+And we changed slightly the way the endpoints work for monitoring. So before we used to couple the health endpoints, so live and endpoints and ready endpoints to the Firefly Core API server, and now we've moved it into a different server, which is the metric server on a different port, which means that server doesn't have to be
+
+00:07:27.000 --> 00:07:32.000
+For example, unauthenticated it can be easier to access.
+
+00:07:32.000 --> 00:07:47.000
+And then there was a few issues around private messaging that we spotted with the metrics. And yeah, there's loads of bugs. We added the OpenSSF scorecard and we're quite good score. I think 7.8. I still need to go back and do a little bit of cleaning on dependencies
+
+00:07:47.000 --> 00:08:10.000
+For GitHub actions to get the score higher and higher There is one OpenSSF scorecard action as well, which I don't fully agree with, which is the fact that you need to have at least two maintainer reviewers per I think that slows down significant contributions if you always have to find at least two.
+
+00:08:10.000 --> 00:08:17.000
+To review so for now, I've left it for one and that might LoRa scored by 0.5 or something. That's a pending discussion.
+
+00:08:17.000 --> 00:08:29.000
+And yeah, we did add some documentation updates for troubleshooting multi-party messages. So a lot of our And around listeners as well, we have made some updates.
+
+00:08:29.000 --> 00:08:45.000
+And the only thing to consider, we did add like a slightly breaking change the metrics, but we've improved it But we value it as a patch release because we thought that um is a very slight change to a Prometheus dashboard
+
+00:08:45.000 --> 00:09:03.000
+So I can find a dashboard using Prometheus. It's going from a counter in Prometheus to a counter vector And the reason is because when you're running Firefly with multiple namespaces you want to have metrics or namespace isolated instead of having metrics for the whole Firefly
+
+00:09:03.000 --> 00:09:13.000
+Instance, especially the core instance So this helps with troubleshooting with SREs and it's an easy upgrade, as I mentioned here in the migration consideration.
+
+00:09:13.000 --> 00:09:26.000
+So yes, just the normal patch release, a few new things have been added a few new metrics changes that have been added and some as usual issues, CVEs, troubleshooting, and OpenSSF score.
+
+00:09:26.000 --> 00:09:33.000
+Any questions on the release?
+
+00:09:33.000 --> 00:09:50.000
+Cool. So as usual, the Helm charts have been released with this. The Firefly CLI has been updated. So all the usual update procedure has been done for this. And I guess we will follow the cadence on one every quarter at least.
+
+00:09:50.000 --> 00:09:59.000
+Of these and then we can do more releases with more features whenever we feel like our release is due.
+
+00:09:59.000 --> 00:10:13.000
+So yeah, so from your annual review, we had the adopters, MD, and then Firefly 1.3. I did want to discuss next steps in the Cardano. I'm really sorry, Simon. I've had a lot of internal busy work Over the last few weeks, I haven't been able to
+
+00:10:13.000 --> 00:10:23.000
+Spend that much time on Firefly world But I'm hoping to come back in the next few weeks and get that in. I think we're really close. I think it's just a matter of me pressing some buttons.
+
+00:10:23.000 --> 00:10:41.000
+And really getting things in and then maybe having discussion around making sure the docs are fine and just maybe adding future items like, okay, we have an end-to-end test that might run with Cardano et and just And just monitoring that. And I think moving forwards
+
+00:10:41.000 --> 00:10:50.000
+Potentially we could have… discussion around how the ownership of that connector will move forwards and knowledge sharing that stuff.
+
+00:10:50.000 --> 00:10:53.000
+Any questions there, Simon?
+
+00:10:53.000 --> 00:11:07.000
+Yeah, that's good to hear. I think the main thing that I could use on my end is I'm trying to communicate with IOG about the delivery timeline for the Cardano connector.
+
+00:11:07.000 --> 00:11:18.000
+So it would help to have like dates to a… bring to them. If the dates are a matter of like weeks or months out, that's fine.
+
+00:11:18.000 --> 00:11:26.000
+It's easier to be able to say like we can expect to have this in at this point.
+
+00:11:26.000 --> 00:11:38.000
+Okay. I guess, of course, this is an open source project and I understand that the Cardano connector was part of some contract or something.
+
+00:11:38.000 --> 00:11:47.000
+I guess I don't know what completion means in those agreements that are not part of the open source project.
+
+00:11:47.000 --> 00:11:51.000
+I don't think you should have to worry about that part anyway.
+
+00:11:51.000 --> 00:11:52.000
+Yeah, so…
+
+00:11:52.000 --> 00:11:56.000
+It's not really for terms of the contract. It's for like publicity stuff
+
+00:11:56.000 --> 00:12:16.000
+Okay, cool. So… Okay, maybe we can take this one offline, but I think just the things I'm looking at is just making sure that We have the repo for the main Firefly Cardano connector like nice and consistent with all the other connectors
+
+00:12:16.000 --> 00:12:26.000
+I already put in place all the, I remember, permissions around branch protection, everything to just match whatever the LFT Asked.
+
+00:12:26.000 --> 00:12:36.000
+The CLI stuff, I think you already have a PR, getting the connector in, and then really focusing on documentation And making sure people can run it in both modes.
+
+00:12:36.000 --> 00:12:48.000
+The one with the API key and the one with the the sockets to the Cardano node. I think that's all there. I think it's just a matter of merging All of that. And then just maybe also doing a bit of
+
+00:12:48.000 --> 00:13:07.000
+Publicity on discord around it to get work and also documenting the limitations of it. I think we don't have multi-party support, for example, that's why what I was trying try and describe as like being done. I want just documenting what's there and what's not because sometimes
+
+00:13:07.000 --> 00:13:16.000
+We document things in the website saying, yeah, we support this thing, but just in specific scenarios just documenting that will be would be really good for adopters.
+
+00:13:16.000 --> 00:13:18.000
+Understood.
+
+00:13:18.000 --> 00:13:30.000
+And if there is Oswell, Simon, if there's an opportunity where you need someone from Firefly like myself to jump on with a Cardano community and there's like a a demo or something, just let me know and I'm happy to make the time
+
+00:13:30.000 --> 00:13:35.000
+All right.
+
+00:13:35.000 --> 00:13:38.000
+Cool. Okay. I guess, Matt. Sorry, go ahead, Simon.
+
+00:13:38.000 --> 00:13:48.000
+Yes. I guess we can… talk more specifics offline or a separate thing.
+
+00:13:48.000 --> 00:13:49.000
+Yes, that's fine.
+
+00:13:49.000 --> 00:13:54.000
+Okay, cool.
+
+00:13:54.000 --> 00:14:03.000
+I guess, Matt, you wanted to bring a change that you were introducing. I thought I've merged um but Yeah, it's a pretty small one.
+
+00:14:03.000 --> 00:14:12.000
+I thought it was worth just mentioning on the call No, share screen. You want me to share or you can bring up the PR, which I can bring the PR.
+
+00:14:12.000 --> 00:14:20.000
+So EVM Connect 166. Yeah, okay. Yeah, so you might want to hit control plus.
+
+00:14:20.000 --> 00:14:26.000
+A couple of times. Oh, is it too small? Yeah, just a little, yeah.
+
+00:14:26.000 --> 00:14:44.000
+Thanks. Yeah, so… I've phrased the PR specifically for EDM Connect, but it'd be interesting just to see if the same change would be beneficial for other connectors So we were looking at the behavior of WebSocket subscriptions for for blockchain events.
+
+00:14:44.000 --> 00:15:01.000
+And kind of observing that there's always a bit of discussion on how do you correlate as an application that's subscribing to on-chain events, how do you correlate the events you get back with activity that you might have initiated or you might not have done?
+
+00:15:01.000 --> 00:15:27.000
+But also just knowing where that event has come from um and the events give you the information about where it's come from within a blockchain But we kind of would talking about the fact that It's not particularly easy to know which chain event has come from.
+
+00:15:27.000 --> 00:15:31.000
+You get the Firefly namespace. In an event.
+
+00:15:31.000 --> 00:15:40.000
+And you might have one file namespace connected to an EVM based blockchain through Transaction Manager.
+
+00:15:40.000 --> 00:15:50.000
+But there's nothing that means that Firefly namespace has to stay that name could be recreated against the same EVM in the future with a different name.
+
+00:15:50.000 --> 00:15:58.000
+So it's not a super kind of a It's a slightly brittle way of correlating a blockchain to a given event.
+
+00:15:58.000 --> 00:16:11.000
+Um and So that kind of got some discussion between Enrique and I that led to this PR, which is for EVM Connect, you can see bang in the middle of that example I put in the PR.
+
+00:16:11.000 --> 00:16:22.000
+What we've done is in EVM Connect. We've included in the info, which is kind of the unstructured free form part of the event that the connector can put in what it likes.
+
+00:16:22.000 --> 00:16:28.000
+We've put in the chain ID that the EVM Connect connector is talking to.
+
+00:16:28.000 --> 00:16:46.000
+So that's pretty much the only uniquely identifiable ID for a chain. It's obviously not totally unique because you can create change with the same chain ID, but it's as close as you can get to being able to uniquely identify a chain, you can certainly distinguish between main ethereum
+
+00:16:46.000 --> 00:16:52.000
+And you're locally running death chain, for example.
+
+00:16:52.000 --> 00:17:13.000
+And this felt like it was a useful thing for an application to have the option of correlating and distinguishing events from because an application might have subscriptions to several chains through several namespaces It might not want to rely on the namespace in the event as the way of determining, well, this is Ethereum mainnet because I've caught my Firefly namespace
+
+00:17:13.000 --> 00:17:36.000
+If they're in mainnet namespace, for example. So that's what this PR does. I guess I'm kind of interested. I guess Simon, you might have kind of be honest, whether or not Cardano has the same kind of chain identification that WebSocket subscribers would benefit from knowing which particular Cardano instance you're getting events from.
+
+00:17:36.000 --> 00:17:41.000
+But that's just why I just thought I'd mention it briefly on the community call.
+
+00:17:41.000 --> 00:17:48.000
+Yeah, Cardano's got a magic number for each chain, which could make sense to put there.
+
+00:17:48.000 --> 00:17:58.000
+Yeah, and I guess that's going to be true for, I think, well, I had a quick look, things like the channel.
+
+00:17:58.000 --> 00:18:18.000
+Identifier, I think is kind of considered to be somewhat equivalent to an EVM. Do we add channel already i think we did for fabric we might yeah we might do um and uh yeah other blockchains are likely to have some sort of identifier that might be useful for an application to
+
+00:18:18.000 --> 00:18:32.000
+Distinguish which chain you're getting events from. So yeah, this just adds it into the interconnect it doesn't do some of the work that would be necessary to get token connector events to include this. So this is just if you're getting
+
+00:18:32.000 --> 00:18:38.000
+If you're driving traffic through Firefly without going through toe connectors for the time being, it's just gone into those events.
+
+00:18:38.000 --> 00:18:50.000
+It doesn't get propagated to the token connectors, the info as it is If you do a token connector mint then the event that comes back.
+
+00:18:50.000 --> 00:18:55.000
+Doesn't include the journey for now. I started looking into where it was being dropped.
+
+00:18:55.000 --> 00:19:02.000
+Okay. Because I think it is being, I think it is being captured at the EVM Connect layer.
+
+00:19:02.000 --> 00:19:09.000
+But I think the token connector is effectively dropping it as it passes the event through on the batch it sends back to Firefly.
+
+00:19:09.000 --> 00:19:13.000
+Whereas with the batches that go from EV and Connect direct to Firefly.
+
+00:19:13.000 --> 00:19:17.000
+They do include it. I thought I'd just start with the raw.
+
+00:19:17.000 --> 00:19:25.000
+Non-token connector events. And get some feedback, see what people think first.
+
+00:19:25.000 --> 00:19:31.000
+So yeah, that was about it really. Sounds good.
+
+00:19:31.000 --> 00:19:37.000
+I did think I proved it, but I didn't even approve a merger. I did look at the PR last week.
+
+00:19:37.000 --> 00:19:41.000
+I don't even left a comment. No, okay. So I'll take an action to get this in.
+
+00:19:41.000 --> 00:19:56.000
+I think this is quite useful, especially when you're doing like bridging use cases or you're listening to a lot of public chains, as Matt mentioned, where you might have the same address you're using into the EVM chains, and you're looking for the exact same event on the same ERC contract
+
+00:19:56.000 --> 00:20:01.000
+And you don't know if it's polygon or EVM mainnet or whatever. Yeah, yeah.
+
+00:20:01.000 --> 00:20:18.000
+Can be quite useful. Okay, so we'll get a PRN. So I'll just put the agenda, just discuss that so chain idpr EPM Connect, I will take an action.
+
+00:20:18.000 --> 00:20:26.000
+Okay, cool. I'll open the floor. Also, we also have Alexa in case this is also interesting for Teslas if we have an equivalent chain ID.
+
+00:20:26.000 --> 00:20:27.000
+Change.
+
+00:20:27.000 --> 00:20:32.000
+Okay, I will tackle as well.
+
+00:20:32.000 --> 00:20:38.000
+Sounds good. Actually we're not doing eventing in testos yet, so this might not apply to the Tezos connector yet.
+
+00:20:38.000 --> 00:20:45.000
+Yeah, yeah, yeah. But we are looking at this as well.
+
+00:20:45.000 --> 00:20:52.000
+Okay. Oh, nice. Okay, that's good to hear.
+
+00:20:52.000 --> 00:20:57.000
+Okay, I'll open the floor. Any other discussion points, any other questions?
+
+00:20:57.000 --> 00:21:16.000
+And the last thing I wanted to mention where the CDI issues are missing CDI folder project that I've been testing or the testing that i've been doing I have to stop testing because it keeps giving me a ConnectX error. I went in through the docker logs.
+
+00:21:16.000 --> 00:21:27.000
+Seems to be related to a folder that is not present. Am I able to just manually override that and add the folder? Or is there a way to add the folder?
+
+00:21:27.000 --> 00:21:28.000
+I went through the, there are folders, but there's nothing labeled CDI.
+
+00:21:28.000 --> 00:21:34.000
+So.
+
+00:21:34.000 --> 00:21:40.000
+So you have an issue with the Firefly CLI or is it part of something else?
+
+00:21:40.000 --> 00:21:49.000
+It doesn't seem to be related to the CLI. It just seems to be related to the way when we run testing. When I run the test command.
+
+00:21:49.000 --> 00:21:59.000
+I think it was something like make tests or something like that. I can find the exact command. It gives me back a ConnectX error. No connection can be replaced because it was actively refused.
+
+00:21:59.000 --> 00:22:16.000
+That was a Docker error. So I went into docker And the only thing that shows in the logs are all of these missing folders and directories. I'm not really, I tried to add them just to create temporary directories and I get a permission denied error.
+
+00:22:16.000 --> 00:22:25.000
+Okay, yes, because the um the Docker images that we run, they have a specific user that you have to go under.
+
+00:22:25.000 --> 00:22:45.000
+So they're kind of like locked So that you cannot just do the file system is read only So, okay, so you're getting an issue when running the make test, which is running probably the end-to-end tests which stands up using the Firefly CLI
+
+00:22:45.000 --> 00:22:55.000
+Set of containers to run the end-to-end tests. And there is an issue where the folders are not being mounted onto the containers.
+
+00:22:55.000 --> 00:23:01.000
+Yep, I have the exact error messages. I can post them here. Give me one second and I will post Exactly.
+
+00:23:01.000 --> 00:23:05.000
+This is all on Windows, right?
+
+00:23:05.000 --> 00:23:15.000
+Yes, I run this on Windows. I was able to fix all the other ConnectX errors from the last one. This is the new set of errors I am now running into.
+
+00:23:15.000 --> 00:23:22.000
+Okay. Okay, CDI setup.
+
+00:23:22.000 --> 00:23:36.000
+Filter monitor for changes no such file directory. Okay, this looks like… overlay file system yeah this looks very like Docker specific.
+
+00:23:36.000 --> 00:23:59.000
+We do watch for changes using Golang. So the way it works is the the firefly config is always watched And if something's changed, the process changed will… will just verify that nothing has changed the config. And if you add a new namespace or if you've modified something, you'll try and kind of lure
+
+00:23:59.000 --> 00:24:06.000
+Reconciliation inside Firefly and make sure it has the right plugins and start the right things.
+
+00:24:06.000 --> 00:24:17.000
+So I think I owe you a… a session, Angelina does to try and debug this. I need to run this in Windows. I said, I think last community con has been a month, so I'm really sorry about that.
+
+00:24:17.000 --> 00:24:33.000
+So I think probably on me. So if you want to post this error on the GitHub issue because we'll lose it once we close the zoom And just make sure you document all the commands. What I'll do is, well, there's two actions I think that'll be really useful.
+
+00:24:33.000 --> 00:24:56.000
+One is me running it on a Windows machine. Two is us having a CI for Windows. So today, all the github actions we run, I believe they all run on Linux. Yes, I think so.
+
+00:24:56.000 --> 00:24:57.000
+Okay.
+
+00:24:57.000 --> 00:25:01.000
+Having a Windows GitHub action would be useful as well. So we can have these Okay, so…
+
+00:25:01.000 --> 00:25:04.000
+Let me…
+
+00:25:04.000 --> 00:25:16.000
+Action. Action.
+
+00:25:16.000 --> 00:25:24.000
+And this is with including your PR changes. I know we want to get that reset um those reset changes and
+
+00:25:24.000 --> 00:25:31.000
+Yep, I'm still working on the collection of all the fixes I ended up having to do for the first set of errors.
+
+00:25:31.000 --> 00:25:38.000
+I think I've got a pretty well comprised list. I'm just going over it again today to make sure there wasn't anything I missed.
+
+00:25:38.000 --> 00:25:53.000
+Am running a Windows 10. Operating system. I'm also aware that there could be a little I want to say slight changes in the way that we have to run this should we have someone using Windows 11?
+
+00:25:53.000 --> 00:26:00.000
+Right now, I think I'm the only Windows user, so I'm just doing this for Windows 10.
+
+00:26:00.000 --> 00:26:13.000
+By all means, if there is anyone else running Windows. Please let me know. I am happy to continue down this road for Windows, especially with Firefly.
+
+00:26:13.000 --> 00:26:14.000
+Nice.
+
+00:26:14.000 --> 00:26:25.000
+I was finally able to get three nodes up and running so I like to say that I'm well versed in any Windows issue you've got for me, but I know there's probably something that I have yet to encounter and have me to start.
+
+00:26:25.000 --> 00:26:43.000
+But yeah, anyway, right now everything is set up to run on a Windows 10, but should there need to be changes for Windows 11, I'll go ahead and add them. As of right now, though, I don't see that being a necessity for us. So we'll just I figured we could just leave it as Windows 10 environment for now.
+
+00:26:43.000 --> 00:26:48.000
+Okay, let me just capture this message just in case in the agenda.
+
+00:26:48.000 --> 00:26:49.000
+Yeah.
+
+00:26:49.000 --> 00:26:57.000
+Sounds good. Just to make sure we have efficient communication is that sometimes I miss you on discord What time zone are you in just to make sure that
+
+00:26:57.000 --> 00:26:59.000
+I am in Eastern time. Eastern Standard.
+
+00:26:59.000 --> 00:27:09.000
+Okay, so maybe if we… Because I know you've been battling these issues for weeks. Maybe we can get a call specifically to run through this.
+
+00:27:09.000 --> 00:27:14.000
+Because I really want you to get over the line on that PR so we can merge it.
+
+00:27:14.000 --> 00:27:20.000
+Yeah, not a problem. It seems as though once these are addressed that the testing should run smoothly.
+
+00:27:20.000 --> 00:27:37.000
+I just can't get it to run any testing without it not running into these errors. I tried to get around it by me making temporary directories but I am not the correct user for that.
+
+00:27:37.000 --> 00:27:38.000
+And at least now I know why I get that error.
+
+00:27:38.000 --> 00:27:48.000
+Yeah, it's… Yeah, so it's the combination of the user in the docker file plus the location you're trying to create a directory in is a volume mount.
+
+00:27:48.000 --> 00:28:00.000
+Okay. Okay.
+
+00:28:00.000 --> 00:28:01.000
+Okay.
+
+00:28:01.000 --> 00:28:10.000
+So we create a volume in docker. Then within that volume, we add the runtime directory which contains all like the config and stuff for each component and then we mount that volume in to the image in the docker compose yaml file.
+
+00:28:10.000 --> 00:28:12.000
+Okay.
+
+00:28:12.000 --> 00:28:21.000
+Okay, so yeah, we need to get better at… getting things running on Windows, clearly.
+
+00:28:21.000 --> 00:28:26.000
+All right. Thanks, Angelina. Thanks for raising that.
+
+00:28:26.000 --> 00:28:35.000
+Any other points of discussion?
+
+00:28:35.000 --> 00:28:46.000
+Okay, I think we're good. And apologies, I rescheduled the call from last week. And I think a few folks didn't get I have to go through the LFDT stuff. I don't have ownership of the calendar invite.
+
+00:28:46.000 --> 00:29:02.000
+And I think it was delayed and apologies for folks. I thought the meeting was on and it wasn't so I'll try to do that rescheduling a bit earlier. So give them enough time to do the calendar updates and people get notified on their email.
+
+00:29:02.000 --> 00:29:06.000
+All right if that's all, I'll close the call there. The recording will be added here.
+
+00:29:06.000 --> 00:29:10.000
+And I will take the actions from the call. All right. Thanks all. Hope you have a good day. Thanks.
+
+00:29:10.000 --> 00:29:18.000
+Thank you
+

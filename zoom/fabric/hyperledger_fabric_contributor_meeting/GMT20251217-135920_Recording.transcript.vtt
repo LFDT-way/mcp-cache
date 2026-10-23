@@ -1,0 +1,286 @@
+WEBVTT
+
+1
+00:04:19.660 --> 00:04:21.649
+Tatsuya Sato (Hitachi, Ltd.): Hello, can you hear me?
+
+2
+00:04:23.610 --> 00:04:25.380
+Arne Fuchs: Yes, right?
+
+3
+00:04:25.380 --> 00:04:26.200
+Tatsuya Sato (Hitachi, Ltd.): Yeah.
+
+4
+00:04:26.700 --> 00:04:32.660
+Tatsuya Sato (Hitachi, Ltd.): Hello, I'm Tatio. I'm one of the public maintainers, and
+
+5
+00:04:32.820 --> 00:04:39.360
+Tatsuya Sato (Hitachi, Ltd.): So, unfortunately, there are no announcements for today's meeting.
+
+6
+00:04:39.780 --> 00:04:48.830
+Tatsuya Sato (Hitachi, Ltd.): And, there are now East managers who, will facilitate this meeting, so…
+
+7
+00:04:53.850 --> 00:04:55.879
+Arne Fuchs: So, we don't have an agenda.
+
+8
+00:04:56.980 --> 00:05:08.819
+Tatsuya Sato (Hitachi, Ltd.): Yeah, so… We don't have a, agenda, so… Shall we skip today's meeting?
+
+9
+00:05:09.380 --> 00:05:11.980
+Arne Fuchs: I have a point, actually.
+
+10
+00:05:13.400 --> 00:05:19.040
+Arne Fuchs: Hold on, I'm looking up the issue for that. Give me a minute.
+
+11
+00:05:21.190 --> 00:05:31.780
+Arne Fuchs: Okay, so, I am discussing with someone on GitHub, I'm… Posting the,
+
+12
+00:05:32.420 --> 00:05:34.599
+Arne Fuchs: The link to the issue in the chat.
+
+13
+00:05:35.990 --> 00:05:43.509
+Arne Fuchs: It's a discussion about, adding binary builders to the Hyperledger fabric node.
+
+14
+00:05:45.420 --> 00:05:55.100
+Arne Fuchs: We've already discussed in the issue, what possi- what implementation possibilities, there could be, and,
+
+15
+00:05:56.380 --> 00:05:59.829
+Arne Fuchs: Wanted to talk about it a bit.
+
+16
+00:06:01.150 --> 00:06:05.910
+Arne Fuchs: So generally, the idea is, as the name says, that,
+
+17
+00:06:06.330 --> 00:06:10.970
+Arne Fuchs: The hyperledger fabric node should be able to, handle binaries.
+
+18
+00:06:12.910 --> 00:06:23.240
+Arne Fuchs: So instead of uploading the source code, you'll be able to just put the binary into the compressed Archive.
+
+19
+00:06:23.560 --> 00:06:27.509
+Arne Fuchs: And then give it to the node so that the node is executing the binary.
+
+20
+00:06:28.700 --> 00:06:33.690
+Arne Fuchs: The, only limitation, or, like, the only,
+
+21
+00:06:34.180 --> 00:06:43.939
+Arne Fuchs: Difficulties to implement that is to support, different architectures. So, for example, x86 or ARM systems.
+
+22
+00:06:44.990 --> 00:06:58.789
+Arne Fuchs: And, and how we're gonna address this issue should be discussed in the contributor meeting today. JT already posted
+
+23
+00:06:59.710 --> 00:07:02.650
+Arne Fuchs: about that in the Discord, I guess?
+
+24
+00:07:02.970 --> 00:07:04.810
+Arne Fuchs: Sadly, no one answered on that.
+
+25
+00:07:05.180 --> 00:07:07.340
+Arne Fuchs: But, yeah, here we are.
+
+26
+00:07:18.590 --> 00:07:19.860
+Tatsuya Sato (Hitachi, Ltd.): So…
+
+27
+00:07:19.870 --> 00:07:20.730
+Arne Fuchs: Yep.
+
+28
+00:07:21.150 --> 00:07:22.309
+Tatsuya Sato (Hitachi, Ltd.): Go ahead, go ahead, go ahead.
+
+29
+00:07:22.810 --> 00:07:30.340
+Arne Fuchs: Yeah, so the, first idea would be… oh, hold on, I guess I'll share my screen, so this is gonna be a bit easier, I guess.
+
+30
+00:07:35.180 --> 00:07:36.610
+Arne Fuchs: Give me a moment.
+
+31
+00:07:49.170 --> 00:07:52.460
+Arne Fuchs: Okay, everyone should see my screen… screen now.
+
+32
+00:07:53.490 --> 00:07:54.160
+Bernardo José Ribeiro Figueiredo: Yes.
+
+33
+00:07:54.630 --> 00:07:54.950
+Tatsuya Sato (Hitachi, Ltd.): Yes.
+
+34
+00:07:54.950 --> 00:08:03.770
+Arne Fuchs: Great. So this is, an issue opened by JT on 2022, and I've bring it up again, last month.
+
+35
+00:08:04.670 --> 00:08:13.159
+Arne Fuchs: Because currently, I'm implementing the Hyperledger, Fabric SDK for Rust, so I'm implementing an,
+
+36
+00:08:14.020 --> 00:08:30.379
+Arne Fuchs: Rust library to interact with the network and also run chain code, and so I crossed the issue that if you want to deploy binaries to the network, there's not a standard for that, which actually surprised me a bit.
+
+37
+00:08:30.740 --> 00:08:37.950
+Arne Fuchs: So this is why I… so I've looked up, and I've solved this issue, and brought it… brought the topic up again.
+
+38
+00:08:38.120 --> 00:08:44.129
+Arne Fuchs: And in my opinion, it should be integrated to the Aperture fabric. And,
+
+39
+00:08:45.160 --> 00:08:56.179
+Arne Fuchs: So, yeah, there should… already, first ideas how to support different architectures. For example, just do, like, folder structure where…
+
+40
+00:08:57.350 --> 00:09:04.819
+Arne Fuchs: the different architectures, binaries are placed in there. So, for example, x86 is in the folder runtime.
+
+41
+00:09:05.200 --> 00:09:15.440
+Arne Fuchs: in the folder runtime slash x86 slash, and then the binary, and for arm in the folder runtime slash arm 64, slash, and then the binary.
+
+42
+00:09:15.580 --> 00:09:21.290
+Arne Fuchs: But, of course, there are different approaches here, and, this is just, like, one of them.
+
+43
+00:09:21.990 --> 00:09:25.870
+Arne Fuchs: So it would be great if, you…
+
+44
+00:09:26.460 --> 00:09:31.060
+Arne Fuchs: also add your opinion about this topic. You've got the issue link.
+
+45
+00:09:31.230 --> 00:09:37.110
+Arne Fuchs: Probably we won't, like, go through the whole thing now,
+
+46
+00:09:37.260 --> 00:09:46.660
+Arne Fuchs: But, if you could, like, get a read into it and add your opinion, so we can start, implementing this idea, it would be great.
+
+47
+00:09:48.270 --> 00:09:54.579
+Arne Fuchs: If there are, like, any ideas generally now, or questions, go ahead and ask.
+
+48
+00:09:54.780 --> 00:09:57.840
+Arne Fuchs: But I wanted to bring this up.
+
+49
+00:09:58.060 --> 00:09:58.890
+Arne Fuchs: Thanks.
+
+50
+00:10:04.090 --> 00:10:07.870
+Tatsuya Sato (Hitachi, Ltd.): Thank you for sharing, so I will reject our discussion.
+
+51
+00:10:11.800 --> 00:10:19.979
+Tatsuya Sato (Hitachi, Ltd.): But unfortunately, there are no, other, internals in this… today's meeting.
+
+52
+00:10:21.070 --> 00:10:24.279
+Tatsuya Sato (Hitachi, Ltd.): We will, discuss on that.
+
+53
+00:10:25.710 --> 00:10:27.580
+Tatsuya Sato (Hitachi, Ltd.): in toggling shoes.
+
+54
+00:10:28.070 --> 00:10:28.680
+Arne Fuchs: Yes.
+
+55
+00:10:28.680 --> 00:10:29.420
+Tatsuya Sato (Hitachi, Ltd.): Yeah.
+
+56
+00:10:29.570 --> 00:10:38.200
+Arne Fuchs: So I just wanted to bring the attention to it, because, maybe, you know, more people, better, better results at the end, you know.
+
+57
+00:10:49.800 --> 00:10:56.450
+Arne Fuchs: Alright, but I guess if there's no one else… Adding a new topic.
+
+58
+00:11:04.050 --> 00:11:07.199
+Tatsuya Sato (Hitachi, Ltd.): Question from my side, so.
+
+59
+00:11:12.790 --> 00:11:23.680
+Bernardo José Ribeiro Figueiredo: Yeah, on my part, I was hoping to catch Yaakov, or…
+
+60
+00:11:25.990 --> 00:11:34.180
+Bernardo José Ribeiro Figueiredo: Arton, that is the core wind, also those food maintainers, since I have been talking with,
+
+61
+00:11:34.400 --> 00:11:38.229
+Bernardo José Ribeiro Figueiredo: for quite a while, due to an RFC.
+
+62
+00:11:38.490 --> 00:11:49.810
+Bernardo José Ribeiro Figueiredo: that I'm trying to properly submit over at the Hyperledger fabric. I will also share on…
+
+63
+00:11:50.680 --> 00:11:55.019
+Bernardo José Ribeiro Figueiredo: Chat, but yeah, since they are not here,
+
+64
+00:11:55.180 --> 00:12:03.749
+Bernardo José Ribeiro Figueiredo: I will just share the link, and hopefully on the next meeting, I talk to them. But yeah, thanks for…
+
+65
+00:12:04.380 --> 00:12:05.680
+Bernardo José Ribeiro Figueiredo: Yelp, anyway.
+
+66
+00:12:11.150 --> 00:12:13.120
+Tatsuya Sato (Hitachi, Ltd.): Okay, thank you for sharing.
+
+67
+00:12:20.060 --> 00:12:26.650
+Tatsuya Sato (Hitachi, Ltd.): If there are no topics… Shall we close today's meeting?
+
+68
+00:12:28.060 --> 00:12:31.560
+Bernardo José Ribeiro Figueiredo: No, I think, yes, we can close it. Thank you.
+
+69
+00:12:31.870 --> 00:12:33.480
+Bernardo José Ribeiro Figueiredo: Have a nice day. Bye-bye.
+
+70
+00:12:33.520 --> 00:12:34.720
+Tatsuya Sato (Hitachi, Ltd.): Goodbye.
+
+71
+00:12:34.750 --> 00:12:35.590
+Arne Fuchs: What?
+

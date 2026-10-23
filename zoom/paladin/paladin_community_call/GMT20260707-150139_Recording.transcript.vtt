@@ -1,0 +1,546 @@
+WEBVTT
+
+1
+00:00:09.060 --> 00:00:11.209
+Matthew Whitehead (Kaleido): Hi everyone, hi Stankup.
+
+2
+00:00:13.270 --> 00:00:14.270
+Sharma, Sankalp: Hey, Matthew.
+
+3
+00:00:14.440 --> 00:00:18.320
+Matthew Whitehead (Kaleido): Okay, just bear with us a second and then we'll get started.
+
+4
+00:01:18.780 --> 00:01:23.870
+Matthew Whitehead (Kaleido): Okay, I'm just gonna screen share the wiki agenda for today.
+
+5
+00:01:27.950 --> 00:01:29.040
+Matthew Whitehead (Kaleido): Find it.
+
+6
+00:01:44.020 --> 00:01:48.769
+Matthew Whitehead (Kaleido): Okay, you should be able to see the wiki page. Is that showing okay?
+
+7
+00:01:50.280 --> 00:01:51.400
+Matthew Whitehead (Kaleido): Yeah, great.
+
+8
+00:01:51.700 --> 00:01:57.509
+Matthew Whitehead (Kaleido): And… So what I will do is just open the antitrust policy.
+
+9
+00:01:57.720 --> 00:02:14.520
+Matthew Whitehead (Kaleido): So, yeah, just, a reminder that these calls are recorded, and they're conducted, under the Linux Foundation Antitrust Policy, and that link to that is in the Community Calls Wiki, which is… so we're on the Paladin Wiki here.
+
+10
+00:02:16.670 --> 00:02:30.380
+Matthew Whitehead (Kaleido): I don't know if we'll get others today. And given that we're a few minutes past, I suggest we probably start the agenda for today that I put in. We will quickly go down.
+
+11
+00:02:30.720 --> 00:02:36.510
+Matthew Whitehead (Kaleido): Hannah has joined from the maintainer team, particularly to talk about performance as well in a moment.
+
+12
+00:02:37.000 --> 00:02:48.039
+Matthew Whitehead (Kaleido): But I thought it worth mentioning for, for, the community that we released Baldim V1 about 10 days ago, which was, it was a huge milestone,
+
+13
+00:02:48.210 --> 00:02:55.470
+Matthew Whitehead (Kaleido): And a lot of work went into that, a lot of effort around stability testing, robustness.
+
+14
+00:02:56.080 --> 00:03:12.100
+Matthew Whitehead (Kaleido): Along with a load of, a load of, engineering and feature work. And that may have been for some users, I think there was a bit of a surprise, because we did a lot of work on a, on a feature branch, for a long time. So there were a few people who kind of saw us do the 0.15, 0.16 releases.
+
+15
+00:03:12.100 --> 00:03:16.529
+Matthew Whitehead (Kaleido): And suddenly, not long afterwards, we had a big, big bang for release, so,
+
+16
+00:03:16.750 --> 00:03:19.660
+Matthew Whitehead (Kaleido): So, version 1's gone out,
+
+17
+00:03:19.920 --> 00:03:31.129
+Matthew Whitehead (Kaleido): There will be a blog article going out under the Linux Foundation's pages at some point, which will give a bit of a summary of what's in it.
+
+18
+00:03:32.230 --> 00:03:38.580
+Matthew Whitehead (Kaleido): We have done a bunch of docs updates, So…
+
+19
+00:03:40.330 --> 00:03:53.290
+Matthew Whitehead (Kaleido): under the Paladin docs, we do have particularly a new section around how the sequencing… this new distributed sequencing component works, that there's been a lot of the work for the… for the last, 12 months.
+
+20
+00:03:53.860 --> 00:04:01.449
+Matthew Whitehead (Kaleido): And all these sections here will look new to a lot of people, because they were all just being worked on under that release branch.
+
+21
+00:04:01.460 --> 00:04:15.760
+Matthew Whitehead (Kaleido): the distributed sequencer section of the docs is worth a look for anyone who wants to have a look at some of the biggest bits that have gone in. But also, we've had new versions of Noto going in that time, and it's probably also worth mentioning that we have
+
+22
+00:04:16.720 --> 00:04:31.110
+Matthew Whitehead (Kaleido): had some work being done on standardization around the, the lockable semantics between… between both Paladin-style tokens and transparent tokens, so, ERC8316.
+
+23
+00:04:31.520 --> 00:04:33.600
+Matthew Whitehead (Kaleido): It's being reviewed at the moment.
+
+24
+00:04:33.920 --> 00:04:47.949
+Matthew Whitehead (Kaleido): which is called Programmable Settlement Locks, and then there is another ERC, which is yet to be assigned a number, I think, which is, related to the standardization of the noto token itself, the notarized issuer-backed token.
+
+25
+00:04:49.210 --> 00:04:55.969
+Matthew Whitehead (Kaleido): So, there's been a lot of, you know, non-technical work going in behind the scenes around version 1.
+
+26
+00:04:56.810 --> 00:05:02.319
+Matthew Whitehead (Kaleido): And, and we, maybe I'll kind of mention item 3 while I talk about this.
+
+27
+00:05:02.750 --> 00:05:07.009
+Matthew Whitehead (Kaleido): We attended some of us from Kaleido who contribute to Paladin.
+
+28
+00:05:07.410 --> 00:05:17.360
+Matthew Whitehead (Kaleido): presented at the Linux Foundation Decentralized Trust Privacy Workshop last week, with a lot of other people, people from LinEath, another LFDT project.
+
+29
+00:05:18.150 --> 00:05:31.389
+Matthew Whitehead (Kaleido): and a number of others around Paladin's approach to privacy on Ethereum chains, and it was very well received, lots of questions, lots of discussion, and lots of interest in V1 and so on, so…
+
+30
+00:05:31.510 --> 00:05:37.459
+Matthew Whitehead (Kaleido): that is a quick summary of where we got to with V1.
+
+31
+00:05:38.090 --> 00:05:44.520
+Matthew Whitehead (Kaleido): Needless to say, a lot of work went into that, so we're very pleased to now be moving on to what's next.
+
+32
+00:05:45.250 --> 00:05:59.300
+Matthew Whitehead (Kaleido): Which we'll talk a little bit about in a moment. So, item 2, just a quick update on the Java SDK Mentorship Program. So, Divyam is raising PRs, and we are merging PRs into a specific,
+
+33
+00:05:59.750 --> 00:06:02.440
+Matthew Whitehead (Kaleido): non-main branch at the moment.
+
+34
+00:06:02.850 --> 00:06:04.870
+Matthew Whitehead (Kaleido): So here's,
+
+35
+00:06:05.290 --> 00:06:12.209
+Matthew Whitehead (Kaleido): adding a Java SDK alongside the Go SDK and the TypeScript SDK, and doing great work,
+
+36
+00:06:12.630 --> 00:06:24.370
+Matthew Whitehead (Kaleido): in, starting to add that, that, that new feature to Paladin, which is gonna be really, really useful. So good updates, good progress, he's clearly working hard on it, and, and,
+
+37
+00:06:24.570 --> 00:06:27.339
+Matthew Whitehead (Kaleido): Hopefully, we might have
+
+38
+00:06:27.540 --> 00:06:42.109
+Matthew Whitehead (Kaleido): It's a bit short notice this month, but it might be that we try and get Divyam on next month's community call, maybe to give a bit of a playback of what he's added so far. I don't know if it'll be the point of having enough there to show anything working.
+
+39
+00:06:42.340 --> 00:06:47.929
+Matthew Whitehead (Kaleido): But yeah, we are seeing great progress on the Java SDK.
+
+40
+00:06:48.140 --> 00:06:57.980
+Matthew Whitehead (Kaleido): So then, what's next after V1 kind of brings us on to item 4. Anna, you're doing a load of performance work, worth just highlighting what's going on there? Yeah,
+
+41
+00:06:58.150 --> 00:07:01.300
+Matthew Whitehead (Kaleido): So, now we've got a V1 release for…
+
+42
+00:07:01.700 --> 00:07:12.909
+Matthew Whitehead (Kaleido): the question then turns onto, well, how… how well does it perform? So we've, picked an initial scenario to start with, which is…
+
+43
+00:07:13.140 --> 00:07:16.660
+Matthew Whitehead (Kaleido): just simply minting Noto tokens.
+
+44
+00:07:16.830 --> 00:07:17.680
+Matthew Whitehead (Kaleido): And.
+
+45
+00:07:18.360 --> 00:07:31.090
+Matthew Whitehead (Kaleido): So there's plenty more scenarios we can move on to in the future, more sophisticated use cases with Noto, Noto and Pente hooks, but starting just looking at Noto mints.
+
+46
+00:07:31.530 --> 00:07:37.939
+Matthew Whitehead (Kaleido): And that has… the early work on there has highlighted
+
+47
+00:07:38.100 --> 00:07:43.339
+Matthew Whitehead (Kaleido): A whole bunch of areas that I'm now starting to look at,
+
+48
+00:07:44.040 --> 00:07:55.990
+Matthew Whitehead (Kaleido): some of them quite high level, like the logger we use, our use of protos versus JSON, some of them a bit more detailed,
+
+49
+00:07:56.080 --> 00:08:13.400
+Matthew Whitehead (Kaleido): specifically around how we do assembly. So yeah, there'll be various PRs coming from me in the current weeks as we try and move those numbers forward, hopefully at some point leading to us actually having some more shareable performance figures.
+
+50
+00:08:13.800 --> 00:08:19.269
+Matthew Whitehead (Kaleido): That's great. Yeah, yeah, having a before and after number for Netta at some point would be really good.
+
+51
+00:08:20.090 --> 00:08:21.070
+Matthew Whitehead (Kaleido): Yeah.
+
+52
+00:08:21.180 --> 00:08:33.350
+Matthew Whitehead (Kaleido): Yeah, so, so, yeah, that's a great natural next thing to move on to, now that we've got, as I said, V1 had a lot of stability and robustness testing, and now pushing it harder is the name of the game.
+
+53
+00:08:35.980 --> 00:08:50.069
+Matthew Whitehead (Kaleido): the last thing I had on the agenda today, some of these calls have been fairly short, we've not had a huge number of attendees recently, but, the last thing I was going to mention was just a bit of admin. So, we've got this growing wiki on, on, the, Paladin repo.
+
+54
+00:08:50.500 --> 00:08:55.900
+Matthew Whitehead (Kaleido): And it's not under source control. I was intending to…
+
+55
+00:08:57.230 --> 00:09:03.600
+Matthew Whitehead (Kaleido): migrate this to use something like GitHub Pages as our wiki, so… We can…
+
+56
+00:09:04.920 --> 00:09:07.409
+Matthew Whitehead (Kaleido): Track changes a bit more easily.
+
+57
+00:09:08.080 --> 00:09:17.670
+Matthew Whitehead (Kaleido): It's something that some of the other communities are doing, so that's a minor admin thing that you might see that this moves over to, to a source control wiki,
+
+58
+00:09:17.820 --> 00:09:19.250
+Matthew Whitehead (Kaleido): I was trying to work out.
+
+59
+00:09:19.350 --> 00:09:21.709
+Matthew Whitehead (Kaleido): The best way of us,
+
+60
+00:09:22.700 --> 00:09:42.010
+Matthew Whitehead (Kaleido): yeah, having meeting agendas and notes tracked in a way that kind of scales, because I think the basic wiki structure doesn't scale particularly well. So yeah, you might see that the wiki moves or ends up on a different endpoint, but I'll update that on the next community call.
+
+61
+00:09:42.500 --> 00:09:46.909
+Matthew Whitehead (Kaleido): So, that was all I had noted down. Sankalp,
+
+62
+00:09:47.690 --> 00:09:57.320
+Matthew Whitehead (Kaleido): I… I wonder if you… do you have any questions? Are you… are you using Paladin at the moment? I think… I have seen you on previous calls, but maybe you could remind us your, kind of, interest in Paladin.
+
+63
+00:09:57.960 --> 00:09:59.279
+Sharma, Sankalp: Yeah, so,
+
+64
+00:09:59.590 --> 00:10:18.620
+Sharma, Sankalp: Right. We've been using Paladin for internal deployments, testing it out, trying it out. Really good to see the V1 release that has happened earlier this month. And in fact, the LiveDuty event, you know, I was there. It was amazing. I think your team presented it pretty well.
+
+65
+00:10:18.620 --> 00:10:19.160
+Matthew Whitehead (Kaleido): Oh, great.
+
+66
+00:10:19.160 --> 00:10:19.780
+Sharma, Sankalp: Booked.
+
+67
+00:10:19.920 --> 00:10:34.979
+Sharma, Sankalp: Yeah, and in fact, you know, I had a good conversation. I myself was presenting a bunch on privacy, speaking and then having panels and such. One item that I wanted to, you know, maybe touch upon and perhaps
+
+68
+00:10:34.980 --> 00:10:39.929
+Sharma, Sankalp: Ticket forward was that I had a back and forth with Peter Broadhurst.
+
+69
+00:10:39.970 --> 00:10:53.510
+Sharma, Sankalp: And, you know, what we wanted to look into was that if we can integrate our own private domain within Paladin as a project.
+
+70
+00:10:53.580 --> 00:11:10.070
+Sharma, Sankalp: So what we have is a bunch of private circuits, ZK circuits with its own contracts, but it's got a lot of flavor into it, a lot of various things which are unique as compared to what maybe Zeto or other projects are providing.
+
+71
+00:11:10.160 --> 00:11:22.000
+Sharma, Sankalp: And he did open up, you know, insight that, in fact, Railgun itself is looking to integrate their customized circuits for Paladin, which is the route that perhaps we can take in as well.
+
+72
+00:11:22.340 --> 00:11:26.360
+Sharma, Sankalp: And, yeah, but I really haven't had a touch after the event.
+
+73
+00:11:27.400 --> 00:11:40.029
+Sharma, Sankalp: from that point onwards, but I would really like to explore that possibility, if we can contribute to Paladin, our open-source ZK circuit, which you are also, by the way, putting with an LFDT foundation. Yes.
+
+74
+00:11:40.210 --> 00:11:58.030
+Sharma, Sankalp: And, seeing if we can provide that private domain, which it has multi-tenant issuance and auditing capabilities with, massive, account issuance and such, a lot of technicalities, but we wanted to understand what would be the process and how would it be then received to make it part of the main Paladin's, workstream.
+
+75
+00:11:58.300 --> 00:12:15.170
+Matthew Whitehead (Kaleido): Yeah, yeah, yeah, and apologies, I remember you being on the panel last week. Yeah, apologies, I didn't put the name to the face. Yeah, so, absolutely, that's really great to hear, and indeed, we do have some work around, yeah, a railgun domain.
+
+76
+00:12:15.170 --> 00:12:22.199
+Matthew Whitehead (Kaleido): I… the way that that's been done… being done at the moment is… is… it's being implemented in a totally separate repo.
+
+77
+00:12:24.320 --> 00:12:35.570
+Matthew Whitehead (Kaleido): And it might be that, one of the other… so Jim Zhang, who built the majority of the Zeto, domain, it might be that we'd benefit from…
+
+78
+00:12:36.690 --> 00:12:42.019
+Matthew Whitehead (Kaleido): him perhaps providing a bit of detail on Discord about what he's doing and where and how.
+
+79
+00:12:42.500 --> 00:12:43.220
+Matthew Whitehead (Kaleido): Yeah.
+
+80
+00:12:43.730 --> 00:12:58.569
+Matthew Whitehead (Kaleido): and maybe get him to play back a little bit on the next Community Call, some of what he's been doing, because I'd hope by then he might have also kind of been making some progress to talk through his design and how that's working.
+
+81
+00:12:58.920 --> 00:13:06.440
+Matthew Whitehead (Kaleido): The pipeline for building a custom domain in… I don't think we have, like, a really clear best practice pattern for that yet.
+
+82
+00:13:06.850 --> 00:13:14.970
+Matthew Whitehead (Kaleido): I think maybe it would probably start with… looking at
+
+83
+00:13:15.110 --> 00:13:28.169
+Matthew Whitehead (Kaleido): what it takes for you to build a kind of a prototype in… potentially in your own repo, if you think it best belongs as a standalone domain implementation.
+
+84
+00:13:28.340 --> 00:13:30.749
+Matthew Whitehead (Kaleido): That could be plugged in.
+
+85
+00:13:31.790 --> 00:13:48.609
+Matthew Whitehead (Kaleido): But I think maybe it would be good for us to get Jim involved in that conversation, because I think he's probably a step ahead of where I am in terms of his thoughts on bringing a custom, you know, an additional domain into Paladin. So maybe, Sankalp, we try and do a bit of work to,
+
+86
+00:13:49.450 --> 00:13:50.720
+Matthew Whitehead (Kaleido): Hook you up with J.
+
+87
+00:13:51.520 --> 00:14:09.830
+Sharma, Sankalp: Okay. So, can we, I don't know, table a discussion on this, in parallel? We want to, move quickly, and we are interested into contributing to Paladin. Yeah. Taking the project forward, so not just, like a completely standalone, which is a fork of Paladin.
+
+88
+00:14:09.830 --> 00:14:20.590
+Sharma, Sankalp: but instead, works to contribute within Paladin, if it's hold value. I'm not sure if, there is a bit of a pre-processing approval, where then you guys…
+
+89
+00:14:20.620 --> 00:14:32.360
+Sharma, Sankalp: form a consensus of this, whether it adds a value or not, that Paradigm should seek, but I would, you know, really look forward to having this conversation and taking it forward, so…
+
+90
+00:14:32.360 --> 00:14:32.800
+Matthew Whitehead (Kaleido): Yeah, that'.
+
+91
+00:14:32.800 --> 00:14:52.059
+Sharma, Sankalp: Yeah, I rely on you folks of how we can structure it, but we would like to move rather quickly. Some of our customers are in fact using ZK circuits, but in a very customized manner. We would like to standardize it and package it nicely while utilizing all the good stuff that Paladin already has to offer as a project.
+
+92
+00:14:52.540 --> 00:14:58.770
+Matthew Whitehead (Kaleido): Yeah, absolutely. And I think in some respects, Zeto kind of already
+
+93
+00:14:58.960 --> 00:15:15.610
+Matthew Whitehead (Kaleido): gives an example of a domain where the implementation, the on-chain implementation, is in its own repo, so there's a Zeto repo under Paladin, which I suspect you're aware of. If I go to…
+
+94
+00:15:15.790 --> 00:15:27.439
+Matthew Whitehead (Kaleido): so there is, there is both the, the implementation of, the base ledger, implementation, and then there's the domain implementation with Paladin itself.
+
+95
+00:15:28.870 --> 00:15:37.369
+Matthew Whitehead (Kaleido): And I know that… I believe that what Jim's doing for the one that he's experimenting with is a separate repo for the implementation
+
+96
+00:15:37.700 --> 00:15:52.120
+Matthew Whitehead (Kaleido): of the, the base ledger, domain interfaces, and then I think what we need to look at is whether the, the domain implementation for Paladin is, is in the domain Paladin repo.
+
+97
+00:15:52.350 --> 00:16:09.600
+Matthew Whitehead (Kaleido): which is certainly something we can look at, or whether or not, that is pulled in separately as well. So, I think there are two parts to it. I think, maybe we'll take that away as, as, something to discuss within the current maintainers.
+
+98
+00:16:10.110 --> 00:16:12.440
+Matthew Whitehead (Kaleido): And…
+
+99
+00:16:13.070 --> 00:16:23.539
+Matthew Whitehead (Kaleido): I think we can probably come back then fairly soon with a proposal on a best set of next steps. I definitely don't think it needs forking Paladin. That certainly wouldn't be my expectation.
+
+100
+00:16:24.300 --> 00:16:25.359
+Matthew Whitehead (Kaleido): But…
+
+101
+00:16:26.630 --> 00:16:34.750
+Matthew Whitehead (Kaleido): So I think maybe what we'll do is we'll have a think about the best way for you to start iterating on that quickly.
+
+102
+00:16:35.560 --> 00:16:47.490
+Sharma, Sankalp: Yeah, and of course, you know, I would like for you guys to have a consensus what contribution that we're looking for really adds value. And we can have a separate session on it too. You know, we can take that offline.
+
+103
+00:16:47.490 --> 00:16:58.160
+Sharma, Sankalp: But, yeah, of course, you know, contribution means nothing if it… if it's just for the sake of it. I think you guys would have their strict requirements of, how, to… to,
+
+104
+00:16:58.160 --> 00:17:10.339
+Sharma, Sankalp: plan your roadmap of items, whether this item itself does do the job. So, is there a way for us to stay in touch and coordinate on all of this to help,
+
+105
+00:17:10.589 --> 00:17:12.809
+Sharma, Sankalp: You know, plan some next steps.
+
+106
+00:17:12.810 --> 00:17:21.599
+Matthew Whitehead (Kaleido): Yeah, I think… I think, what I'd suggest is that we, link you up with Jim.
+
+107
+00:17:22.390 --> 00:17:28.049
+Matthew Whitehead (Kaleido): And maybe what I'll do, I think I probably have your email address from the Zoom chat.
+
+108
+00:17:28.660 --> 00:17:30.680
+Matthew Whitehead (Kaleido): From the Zoom participants.
+
+109
+00:17:30.810 --> 00:17:41.900
+Matthew Whitehead (Kaleido): what I might do is just send a kind of introductory email between you, but also, I think a lot of the comms can probably be done initially on Discord.
+
+110
+00:17:42.360 --> 00:18:05.449
+Matthew Whitehead (Kaleido): where, if it helps for the two of you, or some of us, to get together to discuss the best way to bring it into Paladin, we can arrange ad hoc Zooms, if that's helpful. But I think there will be lots of other people interested in what's the pattern for… I like the Paladin framework and everything it offers as a kind of this enhanced wallet experience.
+
+111
+00:18:05.650 --> 00:18:10.310
+Matthew Whitehead (Kaleido): I'm interested in developing a custom domain for it. What's the best practice for that? Because
+
+112
+00:18:10.500 --> 00:18:12.029
+Matthew Whitehead (Kaleido): We will have some.
+
+113
+00:18:12.310 --> 00:18:23.600
+Matthew Whitehead (Kaleido): documentation around where the plug points are for Paladin, but certainly in this area, we might need to make that a little clearer as to what the best practice approach is for bringing in custom domains.
+
+114
+00:18:24.120 --> 00:18:33.990
+Matthew Whitehead (Kaleido): So, I'll do a combination of emailing you and doing a bit of introduction to Jim, and I'll probably reach out to you on Discord if you use that.
+
+115
+00:18:35.090 --> 00:18:38.270
+Sharma, Sankalp: Yeah, yeah, we can do that. So we can start with email.
+
+116
+00:18:38.870 --> 00:18:44.579
+Sharma, Sankalp: And I can probably drop my Discord ID as well, for the email, perhaps?
+
+117
+00:18:44.820 --> 00:18:51.649
+Matthew Whitehead (Kaleido): That… yeah, that'd be great, or if you want to put your… can you put your Discord ID into the Zoom chat at all?
+
+118
+00:18:51.860 --> 00:18:54.689
+Sharma, Sankalp: Alright, I think I'll have to log in for that.
+
+119
+00:18:54.690 --> 00:18:58.110
+Matthew Whitehead (Kaleido): Okay, no worries, I will… oh yeah, okay, thank you.
+
+120
+00:18:58.110 --> 00:19:03.569
+Sharma, Sankalp: This is my email I've dropped in. So this is something that you can, you know, just…
+
+121
+00:19:04.150 --> 00:19:06.990
+Sharma, Sankalp: Email to us, and I can try my Discord as well.
+
+122
+00:19:07.550 --> 00:19:11.799
+Matthew Whitehead (Kaleido): Great, thank you. I'm just going to take a note of that. Great, thanks.
+
+123
+00:19:12.190 --> 00:19:14.179
+Matthew Whitehead (Kaleido): very much sync up.
+
+124
+00:19:14.390 --> 00:19:30.369
+Matthew Whitehead (Kaleido): I will, I'll do a bit of introductory email, and then we can… we can make sure we get in touch with each other on… on Discord, and, it's… we want to have as much of this discussion in the open as possible for other contributors, so… but I don't think that needs to slow us down at all.
+
+125
+00:19:32.050 --> 00:19:34.260
+Sharma, Sankalp: Right, great. Yeah, we would like to move fast, yeah.
+
+126
+00:19:35.120 --> 00:19:46.410
+Matthew Whitehead (Kaleido): Great, okay, yeah, that'd be really exciting, because I think now we're looking to prove out the pluggability and the way that other domains come up, just as well as the reference ones.
+
+127
+00:19:47.540 --> 00:19:48.130
+Sharma, Sankalp: Got it.
+
+128
+00:19:49.070 --> 00:19:50.050
+Matthew Whitehead (Kaleido): Okay.
+
+129
+00:19:51.870 --> 00:19:59.209
+Matthew Whitehead (Kaleido): So I think then… For now, that was all I had on the agenda.
+
+130
+00:19:59.560 --> 00:20:00.270
+Matthew Whitehead (Kaleido): And…
+
+131
+00:20:02.630 --> 00:20:09.579
+Matthew Whitehead (Kaleido): So, I think what we'll do is we'll catch up on the next call, and I think we'll hopefully talk to you in the meantime, Sankap.
+
+132
+00:20:10.070 --> 00:20:11.090
+Matthew Whitehead (Kaleido): on email.
+
+133
+00:20:11.090 --> 00:20:13.220
+Sharma, Sankalp: Yeah, sure, absolutely.
+
+134
+00:20:13.220 --> 00:20:21.020
+Matthew Whitehead (Kaleido): Okay. Right, I think we'll close the call there then. Thanks everyone, and look forward to speaking on the next call.
+
+135
+00:20:22.780 --> 00:20:24.700
+Sharma, Sankalp: Looking forward. Bye.
+
+136
+00:20:24.700 --> 00:20:25.839
+Matthew Whitehead (Kaleido): Bye for now. Bye.
+

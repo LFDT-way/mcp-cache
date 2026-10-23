@@ -1,0 +1,1598 @@
+WEBVTT
+
+00:01:59.000 --> 00:02:00.000
+Alright. How are you guys?
+
+00:02:00.000 --> 00:02:04.000
+Hey.
+
+00:02:04.000 --> 00:02:07.000
+Hey, Priyachu. Good, how are you doing?
+
+00:02:07.000 --> 00:02:16.000
+Uh, hello. The… when we would be starting, like, I'm just, like, curious.
+
+00:02:16.000 --> 00:02:17.000
+Uh, maybe, like, another minute.
+
+00:02:17.000 --> 00:02:19.000
+Like, it's up time, na?
+
+00:02:19.000 --> 00:02:24.000
+So…
+
+00:02:24.000 --> 00:02:54.000
+I need to wait for people to filter in.
+
+00:03:15.000 --> 00:03:18.000
+Alright, we could probably go ahead and get started.
+
+00:03:18.000 --> 00:03:21.000
+Um, I didn't have any…
+
+00:03:21.000 --> 00:03:24.000
+agenda items outside of the…
+
+00:03:24.000 --> 00:03:27.000
+Our usual SDK updates and…
+
+00:03:27.000 --> 00:03:29.000
+Hub PRs, um…
+
+00:03:29.000 --> 00:03:37.000
+I'm just gonna go ahead and run that down. Does JavaScript wanna go first?
+
+00:03:37.000 --> 00:03:49.000
+Yeah. So, for the JS SDK, we've been mainly working on the block node discoverability.
+
+00:03:49.000 --> 00:04:10.000
+I've, uh… I've managed to test the transactions, and now have some of the test plan actually the mirror node just recently merged the PR which probably includes the.
+
+00:04:10.000 --> 00:04:24.000
+The query endpoints for the registered nodes. So I'm currently checking if they are present and they are working, so I can complete the test one for this heap.
+
+00:04:24.000 --> 00:04:34.000
+I also investigated. the other hip for the block notes and started implementation of the protobufs in the.
+
+00:04:34.000 --> 00:04:50.000
+SDK, and… the next steps would be to investigate how can we query the block nodes? And if they are exposed correctly, and if they're actually exposed somehow from the.
+
+00:04:50.000 --> 00:05:04.000
+So setup. Uh… that's pretty too much for my side. I also worked on a production book regarding the note update transaction.
+
+00:05:04.000 --> 00:05:11.000
+which is now fixed in the latest version of the SDK, which I released on Friday.
+
+00:05:11.000 --> 00:05:27.000
+Uh, also, as far as I know, we viole has, uh… has been collaborating with, uh… With people from the concessional team regarding 2 books he found.
+
+00:05:27.000 --> 00:05:38.000
+In the consensus note regarding the the pector upgrade, and uh… And, uh, high-volume entity creation heap.
+
+00:05:38.000 --> 00:05:44.000
+But maybe, as he's here, he can share more insights about that.
+
+00:05:44.000 --> 00:05:54.000
+Yeah, so basically the 1313 is a heap that… It's about, like Van said, high volume creation. When the network gets.
+
+00:05:54.000 --> 00:06:05.000
+Congested, let's say it when it's under heavy load. The prices… of, uh, account create, for example, can… can go up.
+
+00:06:05.000 --> 00:06:13.000
+But they won't get throttled. But, uh, so, for example, if the network is under 8% volt.
+
+00:06:13.000 --> 00:06:31.000
+Uh, the fees get multiplied by 4 if it's, uh, if the network is under a 90% vote, it's 8 times multiplier and stuff like this. So this doesn't work as far as I know. I tried to reproduce it.
+
+00:06:31.000 --> 00:06:40.000
+And, uh, the only one… I can hit only one multiplier and then I try to do some debugging with with quote.
+
+00:06:40.000 --> 00:06:46.000
+And Quad found some issues with the implementation of the consensus node.
+
+00:06:46.000 --> 00:06:48.000
+And now I saw like just before the meeting.
+
+00:06:48.000 --> 00:07:00.000
+That Michael King responded that there is some truth to it, and they will take a look. Basically.
+
+00:07:00.000 --> 00:07:11.000
+Yeah, currently the multipliers don't work under some scenarios, and uh… Yeah, this is our observation from end-to-end tests of.
+
+00:07:11.000 --> 00:07:21.000
+A high volume creation. Uh, for the vector stuff, basically access list right now is an array of strings.
+
+00:07:21.000 --> 00:07:25.000
+It should actually be… area of the objects.
+
+00:07:25.000 --> 00:07:34.000
+And, um… yeah, that's pretty much from our side.
+
+00:07:34.000 --> 00:07:35.000
+Are we, um…
+
+00:07:35.000 --> 00:07:36.000
+Um… yeah. Rob?
+
+00:07:36.000 --> 00:07:40.000
+So it sounds like the, uh…
+
+00:07:40.000 --> 00:07:45.000
+APIs that the SDK is going to expose for Pectra are gonna be changing, or is this…
+
+00:07:45.000 --> 00:07:50.000
+something purely on the consensus node side, like they were reading it wrong.
+
+00:07:50.000 --> 00:07:56.000
+No, I think it's on our side, uh, which is kind of a concern for us.
+
+00:07:56.000 --> 00:08:14.000
+Because, uh… This might be a breaking change, I guess, but… It wasn't expecting us it should anyway, because it shouldn't be an array of strings. It should be an array of objects according to the AP.
+
+00:08:14.000 --> 00:08:23.000
+Um, and yeah, so yeah, we have to change the API of the SDK for… access list.
+
+00:08:23.000 --> 00:08:31.000
+Gotcha, but, um, so what you've released for Pectra has been under, like, a beta release, right? So…
+
+00:08:31.000 --> 00:08:32.000
+There's been no guarantee of…
+
+00:08:32.000 --> 00:08:51.000
+Yeah. Oh, actually… Actually, we did release, but this is not just about Pectra. This is more like the transactions. You can check your ADKs, but… Uh, the JS SDK had the wrong implementation for access list.
+
+00:08:51.000 --> 00:08:56.000
+Not for authorization list, but access list. It's an old property.
+
+00:08:56.000 --> 00:09:05.000
+And, uh, yeah, you can check if… You have implemented this as an RAF strings and not an RAF object.
+
+00:09:05.000 --> 00:09:08.000
+Okay. Do we…
+
+00:09:08.000 --> 00:09:10.000
+I can send you the issue.
+
+00:09:10.000 --> 00:09:16.000
+Well, I was just gonna say, should we just… should we update the SDK design doc?
+
+00:09:16.000 --> 00:09:17.000
+for that, will that require a change?
+
+00:09:17.000 --> 00:09:30.000
+Wow. Well, I think so. Let me… I will send you an issue. Um…
+
+00:09:30.000 --> 00:09:40.000
+This is the issue. It's not just about Petra, though, it's about type 1 and type 2, too.
+
+00:09:40.000 --> 00:09:44.000
+Oh, so we might have to change, like, the…
+
+00:09:44.000 --> 00:09:49.000
+Ethereum transaction data objects that we already have.
+
+00:09:49.000 --> 00:09:50.000
+I see.
+
+00:09:50.000 --> 00:10:00.000
+Yep, exactly. They had the old implementation, which was not correct. This might be only in JS though. You can check your SDKs.
+
+00:10:00.000 --> 00:10:04.000
+Okay. Yeah, if we're gonna have to change those, then…
+
+00:10:04.000 --> 00:10:06.000
+Um…
+
+00:10:06.000 --> 00:10:09.000
+Yeah, we might have to start communications about…
+
+00:10:09.000 --> 00:10:13.000
+braking changes.
+
+00:10:13.000 --> 00:10:14.000
+We'll do, like, a deprecation period or something.
+
+00:10:14.000 --> 00:10:19.000
+Yeah.
+
+00:10:19.000 --> 00:10:23.000
+Okay. Well, that's a good catch. Um…
+
+00:10:23.000 --> 00:10:25.000
+Yeah, and then the…
+
+00:10:25.000 --> 00:10:26.000
+with the 1313, um…
+
+00:10:26.000 --> 00:10:28.000
+Yeah.
+
+00:10:28.000 --> 00:10:32.000
+You've been working with Neha on that.
+
+00:10:32.000 --> 00:10:34.000
+Right? And everything's been…
+
+00:10:34.000 --> 00:10:36.000
+Been going good. You said you found a couple bugs.
+
+00:10:36.000 --> 00:10:37.000
+That they've been fixing.
+
+00:10:37.000 --> 00:10:44.000
+Yeah, yeah, and uh… but I think she went to maternity leave, and she told me to.
+
+00:10:44.000 --> 00:10:53.000
+cooperate with Michael Tinker and. What was the name of the there is another guy that she told me to communicate with.
+
+00:10:53.000 --> 00:10:59.000
+Okay. But, like, for the… for the most part, at least from our side, um…
+
+00:10:59.000 --> 00:11:03.000
+you know, we're able… you were able to, um…
+
+00:11:03.000 --> 00:11:05.000
+saturate the network and able to test…
+
+00:11:05.000 --> 00:11:06.000
+Okay.
+
+00:11:06.000 --> 00:11:19.000
+Yeah. Yeah. I did, like, a bunch of transactions in a short span with multiple workers, so we can fill the buckets, the total buckets.
+
+00:11:19.000 --> 00:11:29.000
+And, uh, yeah, then it should, um… Change the multipliers, but it doesn't. It's always the same multiplier.
+
+00:11:29.000 --> 00:11:38.000
+Um, I will communicate with Michael and I think Arkham, Arkham.
+
+00:11:38.000 --> 00:11:39.000
+Okay, great.
+
+00:11:39.000 --> 00:11:41.000
+A chrome, yeah, account.
+
+00:11:41.000 --> 00:11:46.000
+Um, one last thing for JSO, uh…
+
+00:11:46.000 --> 00:11:51.000
+I've been getting pinged by transaction tool team about…
+
+00:11:51.000 --> 00:11:53.000
+11.37…
+
+00:11:53.000 --> 00:11:55.000
+or what release…
+
+00:11:55.000 --> 00:12:00.000
+of JS SDK, they can expect 1137 to be implemented in.
+
+00:12:00.000 --> 00:12:05.000
+I told them initially 2.83, which I believe is your next release.
+
+00:12:05.000 --> 00:12:13.000
+Um, is that still a fine estimate, or should I communicate to them that it might be 2.84?
+
+00:12:13.000 --> 00:12:15.000
+Um, do you guys think…
+
+00:12:15.000 --> 00:12:21.000
+That'll be able to be completed by then, or should we push it back?
+
+00:12:21.000 --> 00:12:28.000
+Well… I think it's a… it's a reasonable waste.
+
+00:12:28.000 --> 00:12:41.000
+The only thing I'm concerned is that, uh, we… the only missing bit for it is the mirror node endpoints, which we are currently checking with DOSI.
+
+00:12:41.000 --> 00:12:57.000
+If, uh, for some reason these endpoints are not released within this time span, then we might need to postpone it to the next.
+
+00:12:57.000 --> 00:12:58.000
+Okay. So…
+
+00:12:58.000 --> 00:13:04.000
+version. But only only in this case. If the work is dependent only on our side, it would like be released in the next version.
+
+00:13:04.000 --> 00:13:07.000
+Gotcha, okay.
+
+00:13:07.000 --> 00:13:20.000
+By the way, Rob, I know this isn't a… Uh… I think, but I think you mentioned that you had an issue with sole sometimes not running in Ci.
+
+00:13:20.000 --> 00:13:28.000
+Today, I talked with Yvu Yankov, and he told me that we can install Helm.
+
+00:13:28.000 --> 00:13:37.000
+In our CI, because he found that. This is what triggers the… The CIA failing.
+
+00:13:37.000 --> 00:13:47.000
+And, uh, yeah, if you cannot step… temporary before they found find the underlying issue.
+
+00:13:47.000 --> 00:13:48.000
+Okay.
+
+00:13:48.000 --> 00:13:58.000
+Um, yeah. This is about… this is about to being stuck.
+
+00:13:58.000 --> 00:13:59.000
+Yeah.
+
+00:13:59.000 --> 00:14:02.000
+On, um… Basically, it gets stuck for a couple of hours, for, like, 5 hours in prepare higher solve in starting dependencies.
+
+00:14:02.000 --> 00:14:07.000
+So what was the nature of that error? Is it, like…
+
+00:14:07.000 --> 00:14:10.000
+trying to download something that's not there, or…
+
+00:14:10.000 --> 00:14:14.000
+I guess, like, I guess, how does installing Helm, like…
+
+00:14:14.000 --> 00:14:17.000
+help fix that.
+
+00:14:17.000 --> 00:14:20.000
+Or did he not really say?
+
+00:14:20.000 --> 00:14:25.000
+He just sent me an issue, uh, sole issue.
+
+00:14:25.000 --> 00:14:36.000
+So 073 is hanging at the need at checking for Helm on Linux. So I guess it can't install for some reason Helm.
+
+00:14:36.000 --> 00:14:38.000
+Okay.
+
+00:14:38.000 --> 00:14:41.000
+I can send you that for sure.
+
+00:14:41.000 --> 00:14:46.000
+well, I guess if Solo can't install Helm, then…
+
+00:14:46.000 --> 00:14:54.000
+if we tried to install it before, would we not just run into the same problems?
+
+00:14:54.000 --> 00:14:55.000
+Yeah, I mean, we could try it, like, it's…
+
+00:14:55.000 --> 00:14:56.000
+I don't know. Maybe.
+
+00:14:56.000 --> 00:15:02.000
+Um… maybe at something we can add to the Hyro solo action.
+
+00:15:02.000 --> 00:15:04.000
+Um, as, like, another step.
+
+00:15:04.000 --> 00:15:19.000
+Oh, yeah. Yeah. Maybe this is why he also mentioned that this happens only on Linux. So this is why we don't hit this error on Mac and locally we can work with two. But in CI it's, um…
+
+00:15:19.000 --> 00:15:20.000
+Yeah.
+
+00:15:20.000 --> 00:15:23.000
+It's flake.
+
+00:15:23.000 --> 00:15:28.000
+Alright, yeah, I mean, it's, uh… we got something to try, which is good.
+
+00:15:28.000 --> 00:15:33.000
+Um, yeah, I have noticed, at least, like, the past week, the…
+
+00:15:33.000 --> 00:15:37.000
+those 6-hour delays have been getting pretty bad, so…
+
+00:15:37.000 --> 00:15:41.000
+Glad someone's looking into it.
+
+00:15:41.000 --> 00:15:45.000
+Um, okay, yeah, I guess, um…
+
+00:15:45.000 --> 00:15:48.000
+Yeah, keep me posted on the…
+
+00:15:48.000 --> 00:15:52.000
+11.37 implementation, and I can communicate.
+
+00:15:52.000 --> 00:16:00.000
+Um… if that needs to be pushed back or released or not. Um, I don't think there…
+
+00:16:00.000 --> 00:16:02.000
+It seemed like their timeline was…
+
+00:16:02.000 --> 00:16:08.000
+kind of flexible, um, but yeah, we'll… we'll need it at some point, so…
+
+00:16:08.000 --> 00:16:09.000
+Uh, sounds good. Uh, does… Java want to go next?
+
+00:16:09.000 --> 00:16:13.000
+Alright.
+
+00:16:13.000 --> 00:16:17.000
+Assuming JS is done.
+
+00:16:17.000 --> 00:16:19.000
+Alright, cool. Yeah, Java?
+
+00:16:19.000 --> 00:16:24.000
+Yeah, sure. Uh, so, from the Java SDK…
+
+00:16:24.000 --> 00:16:27.000
+Uh, we actually…
+
+00:16:27.000 --> 00:16:31.000
+Because one of the validation when we are submitting, uh…
+
+00:16:31.000 --> 00:16:33.000
+transaction itself…
+
+00:16:33.000 --> 00:16:38.000
+Um, beside that, we are testing locally heap.
+
+00:16:38.000 --> 00:16:40.000
+11.37.
+
+00:16:40.000 --> 00:16:43.000
+Uh, for work node discoverability…
+
+00:16:43.000 --> 00:16:47.000
+And… actively working on…
+
+00:16:47.000 --> 00:16:51.000
+Creating, uh, good first tissues.
+
+00:16:51.000 --> 00:16:55.000
+And I can say that for the last 3 months,
+
+00:16:55.000 --> 00:16:59.000
+We have 6 new contributors, so…
+
+00:16:59.000 --> 00:17:03.000
+We are making good progress there.
+
+00:17:03.000 --> 00:17:06.000
+And… yeah, I think…
+
+00:17:06.000 --> 00:17:10.000
+This is all.
+
+00:17:10.000 --> 00:17:14.000
+Great. So you guys are, um, kind of waiting on mere node as well to…
+
+00:17:14.000 --> 00:17:15.000
+do your full 1137.
+
+00:17:15.000 --> 00:17:22.000
+Yeah, yeah. The same situation as JavaScript, and this is the reason I'm not mentioning it again.
+
+00:17:22.000 --> 00:17:24.000
+Yeah. Okay.
+
+00:17:24.000 --> 00:17:27.000
+No, sounds good.
+
+00:17:27.000 --> 00:17:34.000
+Um, does Go have an update?
+
+00:17:34.000 --> 00:17:48.000
+Yes, so for Go, again, it's the same. The 1137 is the same state as in Java and Jess SDK.
+
+00:17:48.000 --> 00:18:01.000
+And also Dossi is also working on the back 3 AVM type for transaction and coding support.
+
+00:18:01.000 --> 00:18:06.000
+And that's pretty much it.
+
+00:18:06.000 --> 00:18:16.000
+Alright. Sounds good. Um, and Rust?
+
+00:18:16.000 --> 00:18:25.000
+Yeah, for us, I guess George asked me to take over the GFI initiative so we can implement it in Rust also.
+
+00:18:25.000 --> 00:18:39.000
+But with the 1313 heap in Jess. I couldn't find time, but I guess I will manage to create some issues there, too.
+
+00:18:39.000 --> 00:18:42.000
+Okay, sounds good.
+
+00:18:42.000 --> 00:18:48.000
+Um… I can give an update for C++…
+
+00:18:48.000 --> 00:18:51.000
+I think we merged, I want to say, like…
+
+00:18:51.000 --> 00:18:55.000
+15 PRs the past week.
+
+00:18:55.000 --> 00:18:57.000
+Um, getting a lot of, uh…
+
+00:18:57.000 --> 00:19:02.000
+Action from the community out of good first issues, I think we merged, like, maybe…
+
+00:19:02.000 --> 00:19:11.000
+7 or 8, um, couple beginner issues, couple intermediate, so things are… things are moving along nicely.
+
+00:19:11.000 --> 00:19:14.000
+I've been working on…
+
+00:19:14.000 --> 00:19:18.000
+11.37. I haven't…
+
+00:19:18.000 --> 00:19:24.000
+Uh, got to testing it yet, but the implementation is in progress.
+
+00:19:24.000 --> 00:19:27.000
+And, uh, I added a couple other…
+
+00:19:27.000 --> 00:19:31.000
+bought, um…
+
+00:19:31.000 --> 00:19:33.000
+features…
+
+00:19:33.000 --> 00:19:37.000
+to help with, uh, the repo management, so…
+
+00:19:37.000 --> 00:19:41.000
+One was kind of re… redoing our…
+
+00:19:41.000 --> 00:19:44.000
+or, um…
+
+00:19:44.000 --> 00:19:48.000
+how do I say it? Like, um…
+
+00:19:48.000 --> 00:19:51.000
+are kind of issue submissions, so we…
+
+00:19:51.000 --> 00:19:57.000
+redid our issue templates, um, and did them more based on issue type instead of…
+
+00:19:57.000 --> 00:20:00.000
+uh, skill level, so…
+
+00:20:00.000 --> 00:20:08.000
+A new contributor can come in, and they don't need to know or guess what the skill level would be. That's a… that'd be a maintainer responsibility.
+
+00:20:08.000 --> 00:20:15.000
+Um, all they need to do is just know if it's a feature request, a bug, or just kind of a, uh…
+
+00:20:15.000 --> 00:20:17.000
+generic task.
+
+00:20:17.000 --> 00:20:22.000
+Um, and there's plenty of documentation in the templates, as well as in the docs.
+
+00:20:22.000 --> 00:20:25.000
+folder in the repo to…
+
+00:20:25.000 --> 00:20:30.000
+kind of go into more detail about what each of those entails.
+
+00:20:30.000 --> 00:20:33.000
+We added a…
+
+00:20:33.000 --> 00:20:37.000
+No, and with that, we added a…
+
+00:20:37.000 --> 00:20:39.000
+Uh, new maintainer command.
+
+00:20:39.000 --> 00:20:45.000
+Um, they called it Finalize. It's basically a way for maintainers on an issue to…
+
+00:20:45.000 --> 00:20:51.000
+you know, make sure everything is properly labeled, proper skill level, priority, all that.
+
+00:20:51.000 --> 00:20:54.000
+And fix up the issue to…
+
+00:20:54.000 --> 00:21:01.000
+Basically, just look nice and have as much detail in it as possible.
+
+00:21:01.000 --> 00:21:04.000
+That should make it easy for new contributors to…
+
+00:21:04.000 --> 00:21:07.000
+get an exact idea of what…
+
+00:21:07.000 --> 00:21:09.000
+The issue is, um…
+
+00:21:09.000 --> 00:21:13.000
+proposing or, uh, looking to fix?
+
+00:21:13.000 --> 00:21:20.000
+So, I think that'll be a… that'll be a good improvement there. We also added a…
+
+00:21:20.000 --> 00:21:25.000
+new limit for the number of GFIs a contributor can take.
+
+00:21:25.000 --> 00:21:29.000
+Um, so let's see if I'm supposed to put that at 5 for now.
+
+00:21:29.000 --> 00:21:31.000
+So if someone tries to take a sixth
+
+00:21:31.000 --> 00:21:33.000
+good first issue. Um…
+
+00:21:33.000 --> 00:21:39.000
+it'll reject the assignment and basically recommend taking,
+
+00:21:39.000 --> 00:21:42.000
+a beginner issue, or up.
+
+00:21:42.000 --> 00:21:47.000
+Um, so, this is a way to encourage people to kind of take that next step and…
+
+00:21:47.000 --> 00:21:50.000
+And start looking to do, um…
+
+00:21:50.000 --> 00:21:55.000
+more impactful work.
+
+00:21:55.000 --> 00:21:59.000
+And yeah, I think that's… that's pretty much it for C++.
+
+00:21:59.000 --> 00:22:07.000
+Um… Swifts, there's not much going on there. Working on 1137 as well.
+
+00:22:07.000 --> 00:22:10.000
+Um, again, kind of in the same spot, I haven't…
+
+00:22:10.000 --> 00:22:15.000
+gotten to test it yet, um, but the implementation is being worked on.
+
+00:22:15.000 --> 00:22:22.000
+the transaction list validation, um, that I think all SDKs, uh, kind of worked on this past week.
+
+00:22:22.000 --> 00:22:27.000
+a PR up for that fix as well.
+
+00:22:27.000 --> 00:22:34.000
+And yeah, that's… that's pretty much it for Swift. We've had a couple contributors here and there picking up good first issues, but…
+
+00:22:34.000 --> 00:22:40.000
+Not nearly as much traction as C++ is getting, so hopefully we can, uh…
+
+00:22:40.000 --> 00:22:42.000
+Look to…
+
+00:22:42.000 --> 00:22:45.000
+Get those… get those numbers up.
+
+00:22:45.000 --> 00:22:48.000
+In the coming weeks.
+
+00:22:48.000 --> 00:22:54.000
+Python. Do you guys have an update?
+
+00:22:54.000 --> 00:23:02.000
+Um, we recently went ahead and released a new latest version. Initially, we had some issues with it.
+
+00:23:02.000 --> 00:23:30.000
+I believe it might have been due to an update to our self-hosted runners. So we went ahead and changed them from Ubuntu to… I believe it's, like, H1-SDK. Basically, it's a self-hosted runners. And then we're currently working on finalizing the implementation for 1261. There is a PR in place.
+
+00:23:30.000 --> 00:23:45.000
+A few corrections need to be made to that, and then hopefully that should be pushed in the coming days.
+
+00:23:45.000 --> 00:23:49.000
+Awesome. Sounds good. Um…
+
+00:23:49.000 --> 00:23:55.000
+This is, like, one of the first major hips that Python has implemented, correct?
+
+00:23:55.000 --> 00:24:07.000
+Uh, correct. As of recently, I do apologize. We're a little bit behind in our implementations. Currently, we are trying to.
+
+00:24:07.000 --> 00:24:16.000
+support our maintainers in understanding these, trying to bring them up to speed. I've more or less tried to.
+
+00:24:16.000 --> 00:24:38.000
+push the implementations myself, so apologies for the delay, but yes, hopefully once this is completed, our next step is to move to 1137. We are in the process of currently trying to implement this one as well. The reason I didn't bring this one up is because currently it is blocked.
+
+00:24:38.000 --> 00:24:50.000
+in the pipeline SDK. We are fortunate. One of our maintainers is helping us to resolve this. I believe it's an issue with the protobuf. Not all of the fields are present.
+
+00:24:50.000 --> 00:24:57.000
+So once those are added and a few things, I believe there might be a few more configurations. I'll double check on that.
+
+00:24:57.000 --> 00:25:05.000
+And then once those are adjusted, we hopefully plan to have 1137 implemented as well.
+
+00:25:05.000 --> 00:25:07.000
+Yeah, I think, um…
+
+00:25:07.000 --> 00:25:11.000
+for the 1137, I think that there were initially…
+
+00:25:11.000 --> 00:25:18.000
+some fields that were added in the hip that weren't in the protobuf.
+
+00:25:18.000 --> 00:25:19.000
+I think we, like, updated our…
+
+00:25:19.000 --> 00:25:21.000
+Yeah.
+
+00:25:21.000 --> 00:25:25.000
+design doc to account for that. Um, I think…
+
+00:25:25.000 --> 00:25:28.000
+Either those will be implemented at a later time,
+
+00:25:28.000 --> 00:25:31.000
+Or… or I guess I'm not too sure, but…
+
+00:25:31.000 --> 00:25:36.000
+Yeah, I think the design doc was updated to accommodate for that, so…
+
+00:25:36.000 --> 00:25:39.000
+everything… everything proper should be…
+
+00:25:39.000 --> 00:25:41.000
+Um, there.
+
+00:25:41.000 --> 00:26:00.000
+Perfect. We did have somebody merge something related to this, I believe, uh, Manish, is he here? No. Okay. He was one of the maintainers helping us to add the additional missing Protoba fields for 1137. I know he has closed one PR to do this.
+
+00:26:00.000 --> 00:26:15.000
+I believe he is still currently working on another PR. I want to say that this could be the last one. I'm not sure where he is at in the implementation process, but I am happy to reach out and see if he can give us an update.
+
+00:26:15.000 --> 00:26:18.000
+Yeah, sure, I mean, um, I think…
+
+00:26:18.000 --> 00:26:19.000
+all SDKs working at 1137 sounds like we're…
+
+00:26:19.000 --> 00:26:21.000
+Excellent.
+
+00:26:21.000 --> 00:26:28.000
+We're blocked on… we're waiting for the mirror node endpoint to be implemented anyways.
+
+00:26:28.000 --> 00:26:36.000
+So, I think, even when you solve that, you'll only be able to get so far.
+
+00:26:36.000 --> 00:26:39.000
+Yeah, sounds good. I appreciate the update.
+
+00:26:39.000 --> 00:26:45.000
+Um… the Python, anything else, or…?
+
+00:26:45.000 --> 00:26:56.000
+Um, I don't believe so. I went ahead and checked this morning, other than what we've done most recently.
+
+00:26:56.000 --> 00:27:06.000
+I guess the last thing I could share is that we did go ahead and update our advanced issue templates, so if anyone's interested in taking a peek.
+
+00:27:06.000 --> 00:27:21.000
+Please feel free to do so. Let us know if you have any comments, suggestions, or questions. But other than that… The most recent as it was the last few days.
+
+00:27:21.000 --> 00:27:24.000
+Great, sounds good.
+
+00:27:24.000 --> 00:27:40.000
+Um, did anyone have any questions for any SDKs about any particular updates or things they're looking for?
+
+00:27:40.000 --> 00:27:43.000
+Alrighty. Can move on to, uh…
+
+00:27:43.000 --> 00:27:47.000
+SDK Hub PRs, um…
+
+00:27:47.000 --> 00:27:52.000
+Don't think much has changed here in the past week or so.
+
+00:27:52.000 --> 00:27:56.000
+I know Sophie had this, uh…
+
+00:27:56.000 --> 00:27:58.000
+issue progression…
+
+00:27:58.000 --> 00:28:01.000
+PR, um…
+
+00:28:01.000 --> 00:28:06.000
+I don't know how many people have had a chance to look through this, but, um, I think…
+
+00:28:06.000 --> 00:28:08.000
+it kind of just…
+
+00:28:08.000 --> 00:28:12.000
+centralizes all our… our same…
+
+00:28:12.000 --> 00:28:14.000
+helper docs, um,
+
+00:28:14.000 --> 00:28:17.000
+So, helping with things like signing, merge conflicts, all that.
+
+00:28:17.000 --> 00:28:21.000
+Um, and the… the same templates.
+
+00:28:21.000 --> 00:28:23.000
+Which, actually, I'll need to…
+
+00:28:23.000 --> 00:28:29.000
+I need to talk with her about this, because I could just kind of change these a little bit. Um…
+
+00:28:29.000 --> 00:28:31.000
+At least, at least for what I'm doing, but…
+
+00:28:31.000 --> 00:28:33.000
+Um, I think there were some…
+
+00:28:33.000 --> 00:28:36.000
+Also, some helper, uh…
+
+00:28:36.000 --> 00:28:40.000
+Markdown files here about using AI, so…
+
+00:28:40.000 --> 00:28:43.000
+Yeah, uh…
+
+00:28:43.000 --> 00:28:47.000
+So people have the time, they can go ahead and look through that.
+
+00:28:47.000 --> 00:28:54.000
+the request hierarchy for V3, um…
+
+00:28:54.000 --> 00:28:55.000
+Hendrik and I have been…
+
+00:28:55.000 --> 00:29:02.000
+talking about this for a bit now. There are quite a few things that we need to…
+
+00:29:02.000 --> 00:29:07.000
+kind of align on. Um, I think what we decided is that for each of these…
+
+00:29:07.000 --> 00:29:13.000
+Each of these topics, we're gonna do a separate PR, because a lot of them could, uh…
+
+00:29:13.000 --> 00:29:17.000
+have a lot more discussion associated with them.
+
+00:29:17.000 --> 00:29:22.000
+Um, so we actually went ahead and merged the first one of those last week.
+
+00:29:22.000 --> 00:29:25.000
+So that's the idea of this new, uh…
+
+00:29:25.000 --> 00:29:29.000
+Transaction Builder Design?
+
+00:29:29.000 --> 00:29:31.000
+Which, uh…
+
+00:29:31.000 --> 00:29:34.000
+will operate very similarly to what, um,
+
+00:29:34.000 --> 00:29:39.000
+Hendrick had initially proposed with the transaction impact transaction design.
+
+00:29:39.000 --> 00:29:43.000
+Um, with just a couple changes here and there.
+
+00:29:43.000 --> 00:29:46.000
+But, yeah, I mean, even this, we… there were…
+
+00:29:46.000 --> 00:29:47.000
+Still a couple things that…
+
+00:29:47.000 --> 00:29:49.000
+Federal discussions, yeah.
+
+00:29:49.000 --> 00:29:54.000
+Yes, so, it's, uh, it's unraveling very quickly.
+
+00:29:54.000 --> 00:29:59.000
+But, uh, yeah, so, Hendrik, I'll look to, um…
+
+00:29:59.000 --> 00:30:04.000
+I put up another PR this week, either expanding more on the transaction builder, I think that the next…
+
+00:30:04.000 --> 00:30:08.000
+big thing we probably should address is the, uh…
+
+00:30:08.000 --> 00:30:13.000
+the templated return types?
+
+00:30:13.000 --> 00:30:17.000
+Uh, for, yeah, for, like, the individual, like, transaction receipt, transaction record.
+
+00:30:17.000 --> 00:30:20.000
+All that, because I think that'll, um…
+
+00:30:20.000 --> 00:30:22.000
+be the next, kind of…
+
+00:30:22.000 --> 00:30:26.000
+heavy lift, um, that we'll need to do here.
+
+00:30:26.000 --> 00:30:30.000
+Um, so yeah, I'll just let you know, um, when I put that up.
+
+00:30:30.000 --> 00:30:33.000
+And, uh,
+
+00:30:33.000 --> 00:30:34.000
+Yep.
+
+00:30:34.000 --> 00:30:42.000
+We can either have that discussion on there, or discuss more next Monday.
+
+00:30:42.000 --> 00:30:44.000
+Um…
+
+00:30:44.000 --> 00:30:45.000
+Sorry?
+
+00:30:45.000 --> 00:30:48.000
+One… one open thing is this, like,
+
+00:30:48.000 --> 00:30:54.000
+You have coded unbuilt, right? This, um…
+
+00:30:54.000 --> 00:30:55.000
+Yes.
+
+00:30:55.000 --> 00:30:58.000
+Was it unbuild this functionality here, where I said, yeah, I get smudged this first?
+
+00:30:58.000 --> 00:31:00.000
+And do that in an…
+
+00:31:00.000 --> 00:31:03.000
+you know, like, in an additional…
+
+00:31:03.000 --> 00:31:06.000
+discussion, how should we continue here?
+
+00:31:06.000 --> 00:31:11.000
+Should I try to bring something up, um…
+
+00:31:11.000 --> 00:31:20.000
+Or what is your idea here?
+
+00:31:20.000 --> 00:31:28.000
+I kinda liked your suggestion. I think for a couple of these, you mentioned just maybe trying to code something up, and just…
+
+00:31:28.000 --> 00:31:31.000
+kind of seeing how it works, and how it feels.
+
+00:31:31.000 --> 00:31:32.000
+Yep.
+
+00:31:32.000 --> 00:31:38.000
+Um… maybe that's something, uh… yeah, one of us can do, and then…
+
+00:31:38.000 --> 00:31:40.000
+you know, either…
+
+00:31:40.000 --> 00:31:45.000
+you know, just get on a call, or we can go through it, like, next Monday.
+
+00:31:45.000 --> 00:31:48.000
+Yeah. So maybe then take…
+
+00:31:48.000 --> 00:31:53.000
+I mean, you just said you would take the next out of the big PR.
+
+00:31:53.000 --> 00:31:56.000
+So maybe I can take that and…
+
+00:31:56.000 --> 00:32:01.000
+Work… work on that one to come up with a solution.
+
+00:32:01.000 --> 00:32:04.000
+Okay. Yeah, that sounds good.
+
+00:32:04.000 --> 00:32:09.000
+Yep.
+
+00:32:09.000 --> 00:32:11.000
+Oh, and um…
+
+00:32:11.000 --> 00:32:13.000
+Some news, so…
+
+00:32:13.000 --> 00:32:15.000
+As you might know, um…
+
+00:32:15.000 --> 00:32:20.000
+I, um, edit, um…
+
+00:32:20.000 --> 00:32:25.000
+A mentorship, an egg of mentorship topic about SDK vs,
+
+00:32:25.000 --> 00:32:28.000
+And that got accepted.
+
+00:32:28.000 --> 00:32:30.000
+Oh, nice.
+
+00:32:30.000 --> 00:32:41.000
+Yeah. So, I have a meeting later this week, um, where I will find out more about it, what all that means, and so on.
+
+00:32:41.000 --> 00:32:46.000
+Um, but, uh, yeah, once, once I know it, um…
+
+00:32:46.000 --> 00:32:50.000
+Um, I will keep you updated how this mentorship works.
+
+00:32:50.000 --> 00:32:54.000
+In Genoa, and then especially for that topic.
+
+00:32:54.000 --> 00:32:59.000
+Yeah, oh, that's awesome. Would you be the mentor for that, or is that not decided yet?
+
+00:32:59.000 --> 00:33:05.000
+Oh, so we needed to add somebody? I added myself.
+
+00:33:05.000 --> 00:33:08.000
+Um, but I'm more than happy to have a second person.
+
+00:33:08.000 --> 00:33:14.000
+Um, who's doing mentorship here, so if anybody is interested in helping…
+
+00:33:14.000 --> 00:33:20.000
+out on that topic, please, please ping me, and I'm…
+
+00:33:20.000 --> 00:33:22.000
+More than happy to, um…
+
+00:33:22.000 --> 00:33:25.000
+create, create contact.
+
+00:33:25.000 --> 00:33:30.000
+Um, maybe even, um…
+
+00:33:30.000 --> 00:33:32.000
+Turning to go on his name.
+
+00:33:32.000 --> 00:33:34.000
+Dion, who's…
+
+00:33:34.000 --> 00:33:39.000
+Not in this meeting right here, right? But I think he will do more work on SDKs in future.
+
+00:33:39.000 --> 00:33:46.000
+Um, I have a meeting with some later this week, but to get C. Yeah, so I'm open to, to, to everything, and I think…
+
+00:33:46.000 --> 00:33:51.000
+Having two people would be better than one, so, yeah.
+
+00:33:51.000 --> 00:33:54.000
+Yeah. Yeah, I know, at least for V3, uh…
+
+00:33:54.000 --> 00:33:57.000
+I would definitely like to continue to be involved in that,
+
+00:33:57.000 --> 00:34:01.000
+that's… as, like, a mentor, just like a…
+
+00:34:01.000 --> 00:34:02.000
+Sure.
+
+00:34:02.000 --> 00:34:04.000
+Yeah, then… then get to take you. Yeah, that's… I'm… I'm totally fine in… in adding you.
+
+00:34:04.000 --> 00:34:07.000
+Um, yeah, yeah. Actually, because…
+
+00:34:07.000 --> 00:34:12.000
+I have a second one, so I have this higher enterprise Java,
+
+00:34:12.000 --> 00:34:19.000
+Um, where I would do… which… I assume goes into SDK later then anyway,
+
+00:34:19.000 --> 00:34:24.000
+Um, well, I would do a research on, um…
+
+00:34:24.000 --> 00:34:29.000
+EVM events and rocks, and how you can easily, you know,
+
+00:34:29.000 --> 00:34:38.000
+Like, observe them and get proactively notified when someone calls a smart contract, you're an observer for, and…
+
+00:34:38.000 --> 00:34:44.000
+And an event is triggered. So for that one, we have an arg mentorship 2, where I'm
+
+00:34:44.000 --> 00:34:48.000
+was a mentor too, so yeah, sharing things here.
+
+00:34:48.000 --> 00:34:53.000
+Um, I, I accepted a gold.
+
+00:34:53.000 --> 00:34:58.000
+Awesome.
+
+00:34:58.000 --> 00:35:02.000
+Yeah, I think we'll… I mean, the mentorship meeting is, like, right after this one, right? So…
+
+00:35:02.000 --> 00:35:05.000
+I'm probably going into more detail about that over there.
+
+00:35:05.000 --> 00:35:10.000
+Yeah, I will be there because, um, what I'm curious at…
+
+00:35:10.000 --> 00:35:13.000
+I know I haven't checked, maybe I can find it somewhere, is…
+
+00:35:13.000 --> 00:35:21.000
+Um, what about the other two proposals we as HIRO, um, brought up? Are they accepted too?
+
+00:35:21.000 --> 00:35:25.000
+Are they not accepted? I have not seen that so far, so, um…
+
+00:35:25.000 --> 00:35:30.000
+Maybe Jessica knows something, and maybe she's in some meetings, so I will for sure be there in the meeting, yeah.
+
+00:35:30.000 --> 00:35:33.000
+Yeah. You know, we can find out more there.
+
+00:35:33.000 --> 00:35:45.000
+Cool, sounds… sounds like it's all gaining traction, though, that's great.
+
+00:35:45.000 --> 00:35:47.000
+Hendrik, have you…
+
+00:35:47.000 --> 00:35:51.000
+been chatting more with, uh…
+
+00:35:51.000 --> 00:35:54.000
+this person here about this.
+
+00:35:54.000 --> 00:35:57.000
+Looks like they maybe addressed, like, some comments, but…
+
+00:35:57.000 --> 00:36:00.000
+Oh, I approved it.
+
+00:36:00.000 --> 00:36:03.000
+Um, are they…
+
+00:36:03.000 --> 00:36:16.000
+Because you said they have an implementation for this somewhere, right? In, like, a separate repo?
+
+00:36:16.000 --> 00:36:19.000
+Hendrick? You might be on mute.
+
+00:36:19.000 --> 00:36:25.000
+Oh, yes! Sigir, I'm talking, I'm talking. So, so I said, yes, there was an…
+
+00:36:25.000 --> 00:36:28.000
+Implementation, so if you go to HyroHackers,
+
+00:36:28.000 --> 00:36:32.000
+Um, is there some repository where that guy is working on?
+
+00:36:32.000 --> 00:36:37.000
+And that is, um…
+
+00:36:37.000 --> 00:36:42.000
+I don't know if you find it like that, do GitHub, and then HIVOS SHECAS.
+
+00:36:42.000 --> 00:36:51.000
+Um…
+
+00:36:51.000 --> 00:36:53.000
+Am I spelling that right?
+
+00:36:53.000 --> 00:36:57.000
+It's written like that.
+
+00:36:57.000 --> 00:37:03.000
+Oh, look, it only searches for repositories and not for orgs on the left, so just do it in the URL.
+
+00:37:03.000 --> 00:37:06.000
+GitHub.com slash highway.
+
+00:37:06.000 --> 00:37:08.000
+their shackles. Yeah.
+
+00:37:08.000 --> 00:37:13.000
+And here on the right, you see there's the iOS highway mirror node.
+
+00:37:13.000 --> 00:37:15.000
+We pull…
+
+00:37:15.000 --> 00:37:20.000
+And that's from the same person, and here he…
+
+00:37:20.000 --> 00:37:25.000
+has created that, and that is part of the, um…
+
+00:37:25.000 --> 00:37:30.000
+how to say, um, of the, um…
+
+00:37:30.000 --> 00:37:32.000
+Heckerson for the… for the bounty.
+
+00:37:32.000 --> 00:37:35.000
+Um…
+
+00:37:35.000 --> 00:37:45.000
+So, but… I don't know whilst, right? But it looks like this is a fully functional API to access the mirror node, and it's following…
+
+00:37:45.000 --> 00:37:51.000
+The definition in that pull request. So from my point of view,
+
+00:37:51.000 --> 00:37:52.000
+Okay.
+
+00:37:52.000 --> 00:37:59.000
+we can just merge that pull request. I think DCO was missing? Can you scroll down? I think that was the last one I said, which is like, hey, you need to do DCO.
+
+00:37:59.000 --> 00:38:03.000
+I'll verify signatures. Ah, shit, okay.
+
+00:38:03.000 --> 00:38:05.000
+Oh, yeah, he signs the DCO, um, but…
+
+00:38:05.000 --> 00:38:07.000
+Verified here, yeah.
+
+00:38:07.000 --> 00:38:12.000
+Yeah, so maybe somewhere a signature is missing.
+
+00:38:12.000 --> 00:38:20.000
+Yeah, yeah, that… it's more about that, that this PI is not in it. In worst case, he needs to create it again, because I think
+
+00:38:20.000 --> 00:38:22.000
+signature verification cannot be…
+
+00:38:22.000 --> 00:38:24.000
+done afterwards.
+
+00:38:24.000 --> 00:38:25.000
+Hmm, okay.
+
+00:38:25.000 --> 00:38:27.000
+Not that I know.
+
+00:38:27.000 --> 00:38:28.000
+Um, yeah.
+
+00:38:28.000 --> 00:38:30.000
+Yeah. Alright, yeah, I can leave a comment.
+
+00:38:30.000 --> 00:38:32.000
+about that, um…
+
+00:38:32.000 --> 00:38:37.000
+Yeah, just recommending Path Forward. Yeah, I would like to get this merged.
+
+00:38:37.000 --> 00:38:38.000
+Yeah, yeah.
+
+00:38:38.000 --> 00:38:39.000
+So she already has a full implementation already.
+
+00:38:39.000 --> 00:38:43.000
+Yeah, yeah, yeah, we should have it in. It's good content, yeah.
+
+00:38:43.000 --> 00:38:45.000
+Mm-hmm.
+
+00:38:45.000 --> 00:38:49.000
+Perfect. Okay, yeah, I'll look to do that today.
+
+00:38:49.000 --> 00:38:51.000
+Cool.
+
+00:38:51.000 --> 00:38:55.000
+1081, I think…
+
+00:38:55.000 --> 00:38:57.000
+we're still waiting…
+
+00:38:57.000 --> 00:39:02.000
+to get Nana to look at this, I think he mentioned Richard wanted to look through this as well, so this is still…
+
+00:39:02.000 --> 00:39:03.000
+Yeah, yeah, yeah.
+
+00:39:03.000 --> 00:39:08.000
+kind of on hold.
+
+00:39:08.000 --> 00:39:09.000
+Yeah.
+
+00:39:09.000 --> 00:39:10.000
+collections, so I… I… I can just take this one over, Hendrik.
+
+00:39:10.000 --> 00:39:11.000
+Yeah, do it, please.
+
+00:39:11.000 --> 00:39:13.000
+Yeah, okay, yeah.
+
+00:39:13.000 --> 00:39:17.000
+Yeah. That's… that's fine, yeah, it's been old for a while. Okay.
+
+00:39:17.000 --> 00:39:18.000
+Yeah, yeah.
+
+00:39:18.000 --> 00:39:23.000
+Um, and then… standardized GitHub Legals. Um, this…
+
+00:39:23.000 --> 00:39:26.000
+This should probably…
+
+00:39:26.000 --> 00:39:31.000
+get merged with this, I think. Maybe I'll talk to Sophie about that.
+
+00:39:31.000 --> 00:39:32.000
+They go hand-in-hand. Yep.
+
+00:39:32.000 --> 00:39:33.000
+Yeah, yeah, that is going both in the same direction, but yeah, yeah.
+
+00:39:33.000 --> 00:39:36.000
+Alright.
+
+00:39:36.000 --> 00:39:38.000
+Uh, okay…
+
+00:39:38.000 --> 00:39:41.000
+That's all we have for…
+
+00:39:41.000 --> 00:39:44.000
+Hub PRs, um, I mean, that's… that's…
+
+00:39:44.000 --> 00:39:58.000
+That's all we had today. Did anyone have any topics they wanted to bring up?
+
+00:39:58.000 --> 00:40:00.000
+Nope.
+
+00:40:00.000 --> 00:40:04.000
+Alrighty. Thanks for joining, everyone. We'll talk to… oh, uh, Josh.
+
+00:40:04.000 --> 00:40:07.000
+Yes, Joshua.
+
+00:40:07.000 --> 00:40:08.000
+You have the floor.
+
+00:40:08.000 --> 00:40:11.000
+Oh, that's hands up.
+
+00:40:11.000 --> 00:40:15.000
+Hey, am I audible?
+
+00:40:15.000 --> 00:40:16.000
+Yeah, we hear ya.
+
+00:40:16.000 --> 00:40:17.000
+I think it…
+
+00:40:17.000 --> 00:40:18.000
+Yep.
+
+00:40:18.000 --> 00:40:21.000
+Hey, uh, I'm Joshua from Uganda.
+
+00:40:21.000 --> 00:40:23.000
+And…
+
+00:40:23.000 --> 00:40:27.000
+Um, I would like to contribute to HARO.
+
+00:40:27.000 --> 00:40:30.000
+Oh, cool! Hey!
+
+00:40:30.000 --> 00:40:31.000
+Yeah.
+
+00:40:31.000 --> 00:40:34.000
+Sounds amazing. Um, did you… um…
+
+00:40:34.000 --> 00:40:48.000
+I guess have a particular… have you… like, how much do you know about Hiro? Have you looked through the repos? Um, I mean, I'm assuming, since you're here, you probably want to contribute to SDKs. Um, I guess, what were you… what were you looking to help out with?
+
+00:40:48.000 --> 00:40:54.000
+Uh, so I… I saw Hiro in early this year, and…
+
+00:40:54.000 --> 00:40:57.000
+I tried working on a ticket, but unfortunately,
+
+00:40:57.000 --> 00:41:04.000
+I wasn't able to get it closed. I mean to get it managed, so they closed it because I hadn't updated it for a while. Uh…
+
+00:41:04.000 --> 00:41:08.000
+But I had looked at, um, the documentation…
+
+00:41:08.000 --> 00:41:11.000
+on the website?
+
+00:41:11.000 --> 00:41:15.000
+And… right now, I'm looking for direction on how I can…
+
+00:41:15.000 --> 00:41:16.000
+get started with Akshop.
+
+00:41:16.000 --> 00:41:20.000
+Uh, have you looked at our good first issues?
+
+00:41:20.000 --> 00:41:22.000
+So, what we have, and I can…
+
+00:41:22.000 --> 00:41:24.000
+forwarded to you.
+
+00:41:24.000 --> 00:41:30.000
+So we have especially a good first issue section.
+
+00:41:30.000 --> 00:41:37.000
+So, if you click on… I was sharing with you. So, we have this link, I just…
+
+00:41:37.000 --> 00:41:42.000
+share it here in, um…
+
+00:41:42.000 --> 00:41:44.000
+In, um…
+
+00:41:44.000 --> 00:41:51.000
+Zoom, and if you click on that ring, you will come to… give me a second, I will share it.
+
+00:41:51.000 --> 00:41:54.000
+You will come to this view, which is on the highway website,
+
+00:41:54.000 --> 00:42:01.000
+Where we have defined some kind of issues from Git First issues up to advanced, and…
+
+00:42:01.000 --> 00:42:06.000
+Best is to click on Good First Issues, and um…
+
+00:42:06.000 --> 00:42:08.000
+Here you have a list of…
+
+00:42:08.000 --> 00:42:10.000
+several good first issues.
+
+00:42:10.000 --> 00:42:13.000
+that we have created, and…
+
+00:42:13.000 --> 00:42:21.000
+Some are on the website, here's one maybe for the Go language, one from the Swift, one for the CPP.
+
+00:42:21.000 --> 00:42:24.000
+language, and…
+
+00:42:24.000 --> 00:42:27.000
+You can just click on one of them,
+
+00:42:27.000 --> 00:42:36.000
+And those have, in general, a very good description with goats and so on, who gets kicked on another one to show…
+
+00:42:36.000 --> 00:42:40.000
+differences. Um…
+
+00:42:40.000 --> 00:42:42.000
+Oh, that is…
+
+00:42:42.000 --> 00:42:45.000
+Um, where do we have one that is…
+
+00:42:45.000 --> 00:42:47.000
+food out with our…
+
+00:42:47.000 --> 00:42:49.000
+Let's have a look. This one, for example,
+
+00:42:49.000 --> 00:42:56.000
+Um, where you have even, like, step-by-step guides and things like that. And the best is…
+
+00:42:56.000 --> 00:43:00.000
+to take one of those issues and, um…
+
+00:43:00.000 --> 00:43:06.000
+Eyes are just ask in the comments that you want to be assigned.
+
+00:43:06.000 --> 00:43:10.000
+offers several repos, and that is then part of the step-by-step guide.
+
+00:43:10.000 --> 00:43:13.000
+If you comment with Suresh a sign,
+
+00:43:13.000 --> 00:43:19.000
+And you have not worked on good first issues so far, you will be automatically assigned to that.
+
+00:43:19.000 --> 00:43:22.000
+Um, and then you can work on that issue. So that is…
+
+00:43:22.000 --> 00:43:27.000
+Especially what we did for newcomers to have
+
+00:43:27.000 --> 00:43:31.000
+those issues and workflows.
+
+00:43:31.000 --> 00:43:33.000
+Sure. Thank you so much.
+
+00:43:33.000 --> 00:43:34.000
+Thank you so much.
+
+00:43:34.000 --> 00:43:36.000
+Absolutely. Sure.
+
+00:43:36.000 --> 00:43:41.000
+Uh, one last question. Who should I tag when I, like,
+
+00:43:41.000 --> 00:43:45.000
+would like to assign on any issue. Is it the author, or is someone
+
+00:43:45.000 --> 00:43:46.000
+dedicated…
+
+00:43:46.000 --> 00:43:51.000
+Oh, just add a command, just add a… in that case, just add a command to the, um, issue.
+
+00:43:51.000 --> 00:43:54.000
+That is the best, and um…
+
+00:43:54.000 --> 00:44:01.000
+You can mention… mention the… in most cases, the author is for good, first issue is good, because
+
+00:44:01.000 --> 00:44:06.000
+She also is aware of good first issues, and that people will come.
+
+00:44:06.000 --> 00:44:10.000
+So that is totally fine, and I've seen… and Georgina has just
+
+00:44:10.000 --> 00:44:14.000
+shared a link to our Discord.
+
+00:44:14.000 --> 00:44:19.000
+That's another very good point, so there's a Discord, and that can be used.
+
+00:44:19.000 --> 00:44:24.000
+Um, for asking questions, and so on and so on.
+
+00:44:24.000 --> 00:44:27.000
+Sure. Thank you so much.
+
+00:44:27.000 --> 00:44:30.000
+Sure, absolutely. Happy to help.
+
+00:44:30.000 --> 00:44:33.000
+Yeah, happy to have you, Joshua. Thanks for joining.
+
+00:44:33.000 --> 00:44:36.000
+Um, excited to see, uh…
+
+00:44:36.000 --> 00:44:38.000
+What you can contribute for us.
+
+00:44:38.000 --> 00:44:44.000
+Yeah, definitely, um, the Discord is a great spot to, uh, reach out for, like, any questions and…
+
+00:44:44.000 --> 00:44:52.000
+Um, if you get stuck on anything, or in the… any particular GitHub issue as well.
+
+00:44:52.000 --> 00:44:55.000
+Yeah, happy to have you.
+
+00:44:55.000 --> 00:44:56.000
+Sure, thank you.
+
+00:44:56.000 --> 00:45:05.000
+Alright. Anyone else?
+
+00:45:05.000 --> 00:45:10.000
+Alright, sounds like we're good. Thanks for joining, everyone. Talk to you next Monday.
+
+00:45:10.000 --> 00:45:11.000
+Right?
+
+00:45:11.000 --> 00:45:41.000
+Bye!
+

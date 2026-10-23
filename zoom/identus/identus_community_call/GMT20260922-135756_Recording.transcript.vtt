@@ -1,0 +1,1050 @@
+WEBVTT
+
+1
+00:02:52.430 --> 00:02:53.320
+Fábio Pinheiro: Hello?
+
+2
+00:02:57.760 --> 00:02:58.660
+Javi Ribó: -Oh.
+
+3
+00:03:00.480 --> 00:03:01.830
+Fábio Pinheiro: How are you guys doing?
+
+4
+00:03:02.370 --> 00:03:03.269
+Javi Ribó: Doing good.
+
+5
+00:03:03.670 --> 00:03:04.270
+Fábio Pinheiro: Yeah?
+
+6
+00:03:11.810 --> 00:03:13.570
+Fábio Pinheiro: Any news on Identus?
+
+7
+00:03:13.960 --> 00:03:15.409
+Javi Ribó: Not much.
+
+8
+00:03:15.850 --> 00:03:21.310
+Javi Ribó: You're doing, work with late and midnight, and not… Yeah, not much.
+
+9
+00:03:21.560 --> 00:03:22.329
+Fábio Pinheiro: Nope.
+
+10
+00:03:23.220 --> 00:03:25.000
+Javi Ribó: Based project.
+
+11
+00:03:26.030 --> 00:03:26.990
+Javi Ribó: a month.
+
+12
+00:03:27.860 --> 00:03:29.880
+Fábio Pinheiro: Are you guys using Rust a lot?
+
+13
+00:03:30.180 --> 00:03:33.310
+Javi Ribó: Yeah, on Identus starting, at least.
+
+14
+00:03:37.360 --> 00:03:40.970
+Fábio Pinheiro: on Identus, and what is the goal for using REST on Identus?
+
+15
+00:03:40.970 --> 00:03:52.229
+Javi Ribó: Well, to unify the code base, we don't need to develop the stuff three times, and rather generate it from a single source of truth. Or at least start to do it component by component.
+
+16
+00:03:58.730 --> 00:04:04.059
+Fábio Pinheiro: Only, are you still working on the identity?
+
+17
+00:04:04.240 --> 00:04:05.250
+Fábio Pinheiro: Voice ID?
+
+18
+00:04:05.710 --> 00:04:10.080
+Javi Ribó: Yes, but it's slightly different to what you were used to seeing.
+
+19
+00:04:11.190 --> 00:04:12.830
+Javi Ribó: Tomorrow on midnight.
+
+20
+00:04:15.090 --> 00:04:15.840
+Fábio Pinheiro: Oh, okay.
+
+21
+00:04:17.829 --> 00:04:23.159
+Javi Ribó: So, we achieved… The ability to verify
+
+22
+00:04:23.609 --> 00:04:27.169
+Javi Ribó: A credential and the claims inside the smart contract?
+
+23
+00:04:28.199 --> 00:04:34.089
+Javi Ribó: And you can imagine, for example, a smart contract where you log funds, and you only…
+
+24
+00:04:34.249 --> 00:04:39.429
+Javi Ribó: Allow me and Gonzalo to unlock the funds, if we prove who we are.
+
+25
+00:04:40.999 --> 00:04:45.109
+Javi Ribó: So yeah, that's… That's pretty powerful.
+
+26
+00:04:47.970 --> 00:04:48.960
+Fábio Pinheiro: Nice, nice.
+
+27
+00:05:18.770 --> 00:05:24.889
+Javi Ribó: Cool. While I wait a couple more minutes to see if Yuri and the others can join, and…
+
+28
+00:05:27.190 --> 00:05:28.000
+Javi Ribó: Yeah.
+
+29
+00:06:23.000 --> 00:06:24.130
+Javi Ribó: Hey, Yuri.
+
+30
+00:06:35.000 --> 00:06:37.900
+Javi Ribó: Don't you find anyone familiar in the room?
+
+31
+00:06:44.450 --> 00:06:46.889
+Yurii Shynbuiev: Okay, I switched to my local device.
+
+32
+00:06:48.180 --> 00:06:50.479
+Yurii Shynbuiev: Can you hear me now? Yes. Fabio?
+
+33
+00:06:51.450 --> 00:06:52.090
+Fábio Pinheiro: Hey, Yuri.
+
+34
+00:06:57.200 --> 00:07:03.390
+Javi Ribó: Cool, I guess that we could get started. I think that there was some kind of problem in one of the…
+
+35
+00:07:05.570 --> 00:07:07.859
+Javi Ribó: The calendar invites, and…
+
+36
+00:07:08.230 --> 00:07:17.480
+Javi Ribó: Yeah, Seydi at least reported me that he could not join. I sent him the link, but I will get started, and if not, he can watch the recording.
+
+37
+00:07:19.020 --> 00:07:26.130
+Javi Ribó: Cool, so as a reminder, the antitrust policy notice and the Code of Conduct to make sure that we comply with it,
+
+38
+00:07:39.330 --> 00:07:41.320
+Yurii Shynbuiev: I don't hear, is it?
+
+39
+00:07:41.720 --> 00:07:51.489
+Javi Ribó: Yeah, sorry, it was just, yeah, Seydi was telling me that he's having troubles joining the meeting, and I got distracted. But yeah, interest policy notice and the Code of Conduct.
+
+40
+00:07:52.200 --> 00:08:03.399
+Javi Ribó: Today, we are going to have, like, a pretty short agenda, like the one that we had past week, where we are basically… there's no new onboarding or community call members joining, so…
+
+41
+00:08:03.520 --> 00:08:07.820
+Javi Ribó: mentorship program updates, which I will be giving, and then…
+
+42
+00:08:07.980 --> 00:08:16.009
+Javi Ribó: Yeah, I will maybe give the floor up to Yuri for the team updates around, yeah, some SDK work that we are doing in Rust.
+
+43
+00:08:17.410 --> 00:08:28.160
+Javi Ribó: Cool, so about the mentorship program updates, as a reminder for everyone, the mentorship program, the objective was to build a unified UI that would shoot
+
+44
+00:08:28.480 --> 00:08:41.110
+Javi Ribó: the TypeScript SDK and would suit the cloud agent, so you no longer need to be doing different UIs for both. You can basically configure your environment variables to either point to the SDK,
+
+45
+00:08:41.140 --> 00:08:48.949
+Javi Ribó: Local agent, or you can use a cloud agent that you already deploy, or deploy one in the configuration.
+
+46
+00:08:49.240 --> 00:08:59.430
+Javi Ribó: We… I'm pretty happy with the progress we've made so far. So, right now, the repository is already public, people can test it, people can download it. I've been doing that
+
+47
+00:08:59.780 --> 00:09:01.050
+Javi Ribó: my…
+
+48
+00:09:01.180 --> 00:09:09.860
+Javi Ribó: yeah, helping Seydi, which was the member from the community that was picked up to this mentorship program, and we are basically doing…
+
+49
+00:09:10.660 --> 00:09:26.859
+Javi Ribó: weekly sessions where we do pair programming to get features out, and right now we have the ability to create schemas, to create deeds, publish deeds, deactivate and update deeds. We also have the ability to start an out-of-band credential offer.
+
+50
+00:09:26.860 --> 00:09:33.260
+Javi Ribó: And get the credential issued. And when I say those features, I mean both Cloud Agent and local.
+
+51
+00:09:33.910 --> 00:09:48.350
+Javi Ribó: Then, right now, we are running a little bit of, like, cleaning task, let's say. So far, all the contents that we added were done in a single page, and now we are splitting that into different pages, so that it looks like a…
+
+52
+00:09:48.540 --> 00:09:51.739
+Javi Ribó: Some kind of structured application instead.
+
+53
+00:09:52.150 --> 00:10:06.229
+Javi Ribó: And then, pending, we have two additional phases. The fourth one, or the fifth one, I think it is, would be to create the out-of-band presentation URLs and proceed with the verification flow.
+
+54
+00:10:06.310 --> 00:10:12.609
+Javi Ribó: And the last one is a thing that we need to invest some time testing the cloud agent side of things, because
+
+55
+00:10:13.180 --> 00:10:23.680
+Javi Ribó: Yeah, it's just untested, and we probably maybe have made some mistakes on what body fields we need to be sending, what response objects we expect, and all these kind of things.
+
+56
+00:10:23.920 --> 00:10:30.319
+Javi Ribó: But it's looking pretty good. I'm confident that, yeah, we are basically going to close it,
+
+57
+00:10:30.510 --> 00:10:32.970
+Javi Ribó: Yeah, in the following weeks, I would say.
+
+58
+00:10:34.310 --> 00:10:48.079
+Javi Ribó: That's… that's pretty much it. Yeah, credential issuance probably needs… these tickets need to be updated, and as I was saying, Phase 6 is verification, request, and validation. Phase 7 will be…
+
+59
+00:10:48.450 --> 00:10:53.099
+Javi Ribó: Tidying things up, testing a lot in the cloud agent, and making sure everything works.
+
+60
+00:10:53.360 --> 00:11:05.389
+Javi Ribó: And as an end objective, I would love that, yeah, Seydi does a presentation on the learning lessons that he had. He can do a recording of, yeah, how to use the…
+
+61
+00:11:06.280 --> 00:11:15.129
+Javi Ribó: The… the service, how to deploy it, how to check it, and we probably will deploy one instance of the… of both.
+
+62
+00:11:15.590 --> 00:11:20.069
+Javi Ribó: Cloud agent and local, so community can play with it, and…
+
+63
+00:11:20.360 --> 00:11:23.009
+Javi Ribó: Organize a workshop on how to use this.
+
+64
+00:11:23.300 --> 00:11:24.770
+Javi Ribó: Identity Portal.
+
+65
+00:11:26.230 --> 00:11:29.910
+Javi Ribó: Cool, that's pretty much for… from my side.
+
+66
+00:11:30.240 --> 00:11:36.040
+Javi Ribó: On the second one, I had, yeah, Yuri give his updates about some progress that we made.
+
+67
+00:11:36.690 --> 00:11:38.909
+Javi Ribó: So, yeah. Please, Yuri.
+
+68
+00:11:39.300 --> 00:11:55.889
+Yurii Shynbuiev: Yep, we submitted a technical committee report. It's a middle-year report for the hyperledger Identus, and Javier, can you share this report I sent you in Slack?
+
+69
+00:11:56.300 --> 00:11:56.910
+Javi Ribó: Yes.
+
+70
+00:11:59.900 --> 00:12:13.849
+Yurii Shynbuiev: If you're interested, you can also take a look. It's still under review, and we need to attend some meetings with Linux Foundation Decentralized Trust, but it corresponds to the current state of things.
+
+71
+00:12:14.230 --> 00:12:24.460
+Yurii Shynbuiev: you can open it as a MD file. There is three dots on the top right corner, and View.
+
+72
+00:12:27.190 --> 00:12:28.080
+Yurii Shynbuiev: Hi.
+
+73
+00:12:28.410 --> 00:12:29.060
+Javi Ribó: Yes?
+
+74
+00:12:29.380 --> 00:12:33.900
+Yurii Shynbuiev: Next to the name of the file, there are three dots,
+
+75
+00:12:34.090 --> 00:12:35.899
+Javi Ribó: What do you want? Do you find?
+
+76
+00:12:35.900 --> 00:12:38.970
+Yurii Shynbuiev: profile. Yeah, it's… Easier to view them.
+
+77
+00:12:38.970 --> 00:12:41.250
+Javi Ribó: Yeah, yeah, I'm just used to it, sorry.
+
+78
+00:12:42.140 --> 00:12:43.140
+Yurii Shynbuiev: I didn't…
+
+79
+00:12:43.140 --> 00:12:44.849
+Javi Ribó: I was not even paying attention.
+
+80
+00:12:45.590 --> 00:12:55.570
+Yurii Shynbuiev: Yeah, and, as you know, we, we are planning to deprecate Priest Note. This is still a valid,
+
+81
+00:12:56.160 --> 00:13:07.869
+Yurii Shynbuiev: goal for us. It's still 2026, and I believe that till the end of the year, we will fully deprecate it by making
+
+82
+00:13:08.260 --> 00:13:19.000
+Yurii Shynbuiev: the platform release without Prism Node, but with Neo Prism. And we also started to…
+
+83
+00:13:19.840 --> 00:13:38.209
+Yurii Shynbuiev: create more PRs and contributions to the SDK Rust, and to be close to publish the first package. It's not the first official release, it's just the first publishing of Rust creates to cover
+
+84
+00:13:38.210 --> 00:13:44.740
+Yurii Shynbuiev: cryptography logic and prism-bit logic that we have in the Neoprism. So, the first version of
+
+85
+00:13:44.740 --> 00:13:58.169
+Yurii Shynbuiev: SDK Rust packages is going to be fully compliant with the Apollo project, all cryptography types and keys and AHT derivation, and it's going to contain
+
+86
+00:13:58.690 --> 00:14:14.020
+Yurii Shynbuiev: PRISM did method implementation in Rust, and VDR implementation in Rust as reusable components. So, the corresponding branch in the new PRISM project is also opened, and together with Spot, we
+
+87
+00:14:14.020 --> 00:14:25.379
+Yurii Shynbuiev: created a couple of tests to ensure that old Neopres and Neopres with reusable packages from the ZK Rust works.
+
+88
+00:14:25.770 --> 00:14:27.869
+Yurii Shynbuiev: In the same manner.
+
+89
+00:14:28.810 --> 00:14:29.450
+Yurii Shynbuiev: Yep.
+
+90
+00:14:29.450 --> 00:14:40.319
+Javi Ribó: Yuri, one question, maybe, that I want to make is, I see here that we have UniFi. My question is, are we going to start only by grades, or are we also gonna plan UniFi in the.
+
+91
+00:14:40.320 --> 00:14:43.749
+Yurii Shynbuiev: Yeah, it's in plan, but the first is, crate.
+
+92
+00:14:43.750 --> 00:14:45.350
+Javi Ribó: Great, yeah, yeah, okay, perfect.
+
+93
+00:14:45.610 --> 00:15:03.670
+Yurii Shynbuiev: We are moving with tiny steps. We will keep you updated on these meetings. So, just a couple of days ago, together with admins from Linux Foundation, we created the corresponding Secret, and we're going to start publishing of all these
+
+94
+00:15:04.140 --> 00:15:17.239
+Yurii Shynbuiev: all 3 packages, only 3 packages for now. So there are plenty of code, but only 3 packages are meaningful and will be used by Neopreism.
+
+95
+00:15:17.900 --> 00:15:18.760
+Yurii Shynbuiev: Yep.
+
+96
+00:15:20.560 --> 00:15:22.210
+Yurii Shynbuiev: And,
+
+97
+00:15:25.260 --> 00:15:33.720
+Yurii Shynbuiev: But he's not here, but he's actually working on the implementation of Software Factory for Identus Platform.
+
+98
+00:15:33.880 --> 00:15:42.289
+Yurii Shynbuiev: So, we still have plenty of tickets in the different projects, and we're going to use the factory as an harness tool.
+
+99
+00:15:42.500 --> 00:15:58.189
+Yurii Shynbuiev: That defines rules and policies and SDLC for particular issues that we have in particular repository, and me, Javier, and Pat will automate a lot of
+
+100
+00:15:58.490 --> 00:16:04.019
+Yurii Shynbuiev: PRs, especially from boats, or transitive upgrades.
+
+101
+00:16:04.020 --> 00:16:18.639
+Yurii Shynbuiev: to save us some time for meaningful work. And we will try to deliver a couple of cross-cutting context issues using this factory. But we need to wait at least one, two weeks, but it's actually testing it right now.
+
+102
+00:16:19.370 --> 00:16:20.570
+Yurii Shynbuiev: And promisade.
+
+103
+00:16:21.220 --> 00:16:25.649
+Yurii Shynbuiev: For this meeting, so… Any question, guys? Hi, John.
+
+104
+00:16:26.750 --> 00:16:27.610
+Jon Bauer (Good Future, LLC): Hey, guys.
+
+105
+00:16:29.940 --> 00:16:33.099
+Javi Ribó: Yeah, no questions on my side, but I'm really excited to…
+
+106
+00:16:34.560 --> 00:16:38.090
+Javi Ribó: Yeah, to try and explore if we can unify the whole…
+
+107
+00:16:38.220 --> 00:16:42.600
+Javi Ribó: the whole SDK into one single source of truth, I think we would…
+
+108
+00:16:43.060 --> 00:16:46.300
+Javi Ribó: Save, yeah, a lot of time by not having…
+
+109
+00:16:46.460 --> 00:16:49.750
+Yurii Shynbuiev: With AI, it's possible. It's slowly, but possible.
+
+110
+00:16:52.630 --> 00:16:53.880
+Jon Bauer (Good Future, LLC): Hey, can I,
+
+111
+00:16:53.880 --> 00:16:54.870
+Yurii Shynbuiev: Very simple.
+
+112
+00:16:55.200 --> 00:16:57.580
+Jon Bauer (Good Future, LLC): Well, yeah, can I give you an update on that?
+
+113
+00:16:57.580 --> 00:16:58.690
+Javi Ribó: Yes. Completely.
+
+114
+00:17:02.830 --> 00:17:10.669
+Jon Bauer (Good Future, LLC): Let me put this in the chat. Yeah, so we're actually nearing the end of our project. We have to wrap it up in the next,
+
+115
+00:17:11.180 --> 00:17:16.529
+Jon Bauer (Good Future, LLC): Next week or so, so… Let me just…
+
+116
+00:17:18.020 --> 00:17:22.920
+Jon Bauer (Good Future, LLC): So if you go to that link,
+
+117
+00:17:23.530 --> 00:17:30.350
+Jon Bauer (Good Future, LLC): So if you… yeah, so the book is here. If you click around on the left-hand side, you will,
+
+118
+00:17:31.510 --> 00:17:39.310
+Jon Bauer (Good Future, LLC): These are the chapters. So, a couple, couple things. So, the book is, is pinned to, basically, the current release.
+
+119
+00:17:39.790 --> 00:17:54.889
+Jon Bauer (Good Future, LLC): For the release. So, we do talk about Prism Node, all that. I don't think we will be getting… I don't think we'll be doing anything past that, although, of course, we can update the book in the future.
+
+120
+00:17:56.110 --> 00:18:01.719
+Jon Bauer (Good Future, LLC): Yeah, I would click through some chapters. The book is meant to be…
+
+121
+00:18:02.590 --> 00:18:11.370
+Jon Bauer (Good Future, LLC): it is certainly not non-compromising. It is not for a beginner. I mean, it is for a beginner, but it's for a,
+
+122
+00:18:12.930 --> 00:18:16.619
+Jon Bauer (Good Future, LLC): It's for a technical beginner.
+
+123
+00:18:16.870 --> 00:18:20.740
+Jon Bauer (Good Future, LLC): This is basically doing Identists sometimes the hard way.
+
+124
+00:18:21.260 --> 00:18:23.610
+Jon Bauer (Good Future, LLC): But we hope that that's a little…
+
+125
+00:18:23.810 --> 00:18:29.899
+Jon Bauer (Good Future, LLC): bit of a sort of different approach than sort of a handheld tutorial.
+
+126
+00:18:30.060 --> 00:18:34.729
+Jon Bauer (Good Future, LLC): And this is, of course, based on our learnings from building CSIGN and all that.
+
+127
+00:18:36.400 --> 00:18:42.130
+Jon Bauer (Good Future, LLC): But, yeah, so… This is the book,
+
+128
+00:18:43.020 --> 00:18:54.410
+Jon Bauer (Good Future, LLC): We are actively looking for feedback. In fact, part of our requirement is to incorporate some feedback. Of course, we're down to the deadline.
+
+129
+00:18:55.140 --> 00:19:00.750
+Jon Bauer (Good Future, LLC): I don't… right now, we're kind of scrambling to finish everything, so I don't right now have a…
+
+130
+00:19:00.960 --> 00:19:10.630
+Jon Bauer (Good Future, LLC): a great way to receive that feedback, but we do need, as part of our Catalyst project, we do need to show that we've incorporated some feedback, so,
+
+131
+00:19:11.180 --> 00:19:16.169
+Jon Bauer (Good Future, LLC): I don't know how we do that, to be totally honest.
+
+132
+00:19:16.900 --> 00:19:22.349
+Jon Bauer (Good Future, LLC): But, there is… let's see, let me find the repos. This is all open source, hold on, let me get the…
+
+133
+00:19:22.350 --> 00:19:25.099
+Javi Ribó: Maybe I could propose,
+
+134
+00:19:26.050 --> 00:19:34.520
+Javi Ribó: That we organize a workshop for the book, where we have some kind of exercise that you need to complete by reading this book.
+
+135
+00:19:35.270 --> 00:19:40.019
+Javi Ribó: And at the end of the workshop, we can have a section with questions, feedback.
+
+136
+00:19:40.190 --> 00:19:42.140
+Javi Ribó: Just dropping an idea, dunno.
+
+137
+00:19:42.300 --> 00:19:48.190
+Jon Bauer (Good Future, LLC): No, I mean, that's great. I just don't know that… that's great. I don't know if we have time for the…
+
+138
+00:19:48.770 --> 00:19:52.130
+Jon Bauer (Good Future, LLC): the Catalyst proposal? But yes, that would be awesome.
+
+139
+00:19:52.580 --> 00:19:56.279
+Jon Bauer (Good Future, LLC): Here is the repo.
+
+140
+00:19:56.630 --> 00:19:58.040
+Jon Bauer (Good Future, LLC): Are the repos?
+
+141
+00:20:00.640 --> 00:20:04.029
+Jon Bauer (Good Future, LLC): Here is the book. I guess the best way is…
+
+142
+00:20:05.170 --> 00:20:10.689
+Jon Bauer (Good Future, LLC): Via issues. So there are example projects as well, by the way, you can see there,
+
+143
+00:20:11.440 --> 00:20:14.990
+Jon Bauer (Good Future, LLC): iOS, Android, and web.
+
+144
+00:20:15.190 --> 00:20:17.820
+Jon Bauer (Good Future, LLC): And so, we have an example app.
+
+145
+00:20:17.970 --> 00:20:20.500
+Jon Bauer (Good Future, LLC): like, if you go to the iOS app, there…
+
+146
+00:20:21.030 --> 00:20:25.309
+Jon Bauer (Good Future, LLC): I guess you can look at the TypeScript, but that's the one I'm familiar with, iOS.
+
+147
+00:20:25.310 --> 00:20:27.139
+Javi Ribó: Yeah, I carve out that…
+
+148
+00:20:27.360 --> 00:20:44.919
+Jon Bauer (Good Future, LLC): So this is FlightTix, so this is an example app to do airplane tickets and move through an airport. So you can sort of buy a ticket, you set up a passport, you buy a ticket, and then you go to security, and then security validates your ticket.
+
+149
+00:20:44.920 --> 00:20:51.780
+Jon Bauer (Good Future, LLC): Obviously, it's not designed well, it's just meant as an example. But it's open source.
+
+150
+00:20:51.990 --> 00:20:58.309
+Jon Bauer (Good Future, LLC): And at least of a couple months ago, it compiled. I don't know, haven't tried it since. There's a little demo right there.
+
+151
+00:20:59.690 --> 00:21:01.959
+Jon Bauer (Good Future, LLC): And so, yeah, so that's part of the book.
+
+152
+00:21:02.700 --> 00:21:08.660
+Jon Bauer (Good Future, LLC): As far as what's left, and the remaining… we need to publish this by the end of the month, so…
+
+153
+00:21:09.150 --> 00:21:15.390
+Jon Bauer (Good Future, LLC): We're scrambling to, to do that. But, I need to test the Android app.
+
+154
+00:21:15.820 --> 00:21:19.949
+Jon Bauer (Good Future, LLC): It was just an AI port of the iOS. The iOS was written by hand.
+
+155
+00:21:20.860 --> 00:21:26.390
+Jon Bauer (Good Future, LLC): And the TypeScript and Android were sort of ported from that. And,
+
+156
+00:21:32.790 --> 00:21:39.549
+Jon Bauer (Good Future, LLC): And so, yeah, so that's where we're at. The book is meant to be a living book, of course.
+
+157
+00:21:40.490 --> 00:21:49.750
+Jon Bauer (Good Future, LLC): So, we will publish to meet the catalyst deadline, but then obviously we can update it going forward.
+
+158
+00:21:51.430 --> 00:21:59.650
+Jon Bauer (Good Future, LLC): Yeah, what I may do is I may ping, javi, Fabio, and Yuri, -
+
+159
+00:22:00.270 --> 00:22:03.380
+Jon Bauer (Good Future, LLC): in Discord, I may ping you guys.
+
+160
+00:22:03.380 --> 00:22:14.190
+Javi Ribó: Yeah, probably… probably do it… do it in public, because I'm sure that probably Seydi, that has been working for months in the Identity Portal, could… could also participate in giving you feedback about the book.
+
+161
+00:22:14.330 --> 00:22:20.900
+Javi Ribó: Because he's got knowledge on how to use the identity tools that we have, and he's learning on how to use every component.
+
+162
+00:22:21.370 --> 00:22:22.510
+Jon Bauer (Good Future, LLC): Yeah, that would be great.
+
+163
+00:22:22.510 --> 00:22:27.170
+Javi Ribó: Is it also gonna be a good idea that they should… you share it in the general chat or something like that?
+
+164
+00:22:27.410 --> 00:22:47.359
+Jon Bauer (Good Future, LLC): Okay, I'll do that. Yeah, we need to incorporate, like, a few comments, basically, as part of our catalyst proposal, so it'd be great if anyone could take a look, even this week, and just let us know. It can be small. We do plan on doing, like, an overhaul for this, but we have to just meet the catalyst deadline. It's been…
+
+165
+00:22:47.740 --> 00:22:57.279
+Jon Bauer (Good Future, LLC): published as we go, every time… it's all automated, so every time we make a commit, it republishes the book. So the book has been published, online for quite some time, but…
+
+166
+00:22:57.950 --> 00:23:02.000
+Jon Bauer (Good Future, LLC): For Catalyst, we have to sort of make it official. Yeah.
+
+167
+00:23:02.390 --> 00:23:03.890
+Jon Bauer (Good Future, LLC): And,
+
+168
+00:23:04.000 --> 00:23:10.540
+Jon Bauer (Good Future, LLC): Yeah, so that's where we're at. I'd love to keep it updated, but we're just trying to meet the deadline right now.
+
+169
+00:23:12.090 --> 00:23:19.040
+Jon Bauer (Good Future, LLC): And yeah, that's where we're at. So yeah, I have to test the Android app, and have to do a pass on the book.
+
+170
+00:23:19.230 --> 00:23:20.969
+Jon Bauer (Good Future, LLC): This weekend.
+
+171
+00:23:21.300 --> 00:23:28.509
+Jon Bauer (Good Future, LLC): And so any feedback would be really helpful for that, and we can always talk about it going forward and see if it's useful.
+
+172
+00:23:30.030 --> 00:23:30.820
+Jon Bauer (Good Future, LLC): Yeah.
+
+173
+00:23:33.140 --> 00:23:33.940
+Javi Ribó: Awesome.
+
+174
+00:23:34.790 --> 00:23:36.599
+Javi Ribó: Yeah, really good contribution.
+
+175
+00:23:38.360 --> 00:23:46.130
+Jon Bauer (Good Future, LLC): Like, go to, let's see, go to production environment and maintenance and things like that, down by deploy, yeah.
+
+176
+00:23:47.070 --> 00:23:50.480
+Jon Bauer (Good Future, LLC): Like, some of those. So you'll see that,
+
+177
+00:23:53.040 --> 00:23:55.160
+Jon Bauer (Good Future, LLC): This is really meant to,
+
+178
+00:23:55.380 --> 00:23:59.670
+Jon Bauer (Good Future, LLC): And it's also very cloud agent heavy, I'll say that.
+
+179
+00:24:06.680 --> 00:24:17.500
+Jon Bauer (Good Future, LLC): So you can see that it's a little… I wouldn't say it's outdated yet. I'd say if we let the book atrophy for, like, 6 months, it will definitely feel a little out of date with all the changes happening.
+
+180
+00:24:17.850 --> 00:24:23.539
+Javi Ribó: To be fair, we are, like, recently announcing that we plan to deprecate Prism Note, but it's still.
+
+181
+00:24:23.540 --> 00:24:24.320
+Jon Bauer (Good Future, LLC): there.
+
+182
+00:24:24.440 --> 00:24:26.960
+Jon Bauer (Good Future, LLC): Yeah, I just… I just heard that,
+
+183
+00:24:27.160 --> 00:24:27.940
+Javi Ribó: Yeah.
+
+184
+00:24:27.940 --> 00:24:30.739
+Jon Bauer (Good Future, LLC): The Catalyst proposal is to tie it to the existing
+
+185
+00:24:30.880 --> 00:24:37.939
+Jon Bauer (Good Future, LLC): app, so we won't change that, you know, for this month. But yeah, that's kind of stuff that we're gonna have to update. Yeah.
+
+186
+00:24:37.940 --> 00:24:44.820
+Javi Ribó: The good thing, anyway, is that we have a drop-in replacement, and in my opinion, it's a lot easier to use the new one, so…
+
+187
+00:24:45.080 --> 00:24:51.779
+Javi Ribó: Yeah, it should not be a big deal to give that an update and just replace Prism now by a new Prism.
+
+188
+00:24:52.340 --> 00:24:54.970
+Jon Bauer (Good Future, LLC): Okay, great. Yeah, this is all based on, like.
+
+189
+00:24:55.110 --> 00:25:00.960
+Jon Bauer (Good Future, LLC): our experience, so… Yep. And of course, it's also based on our experience running this in prod.
+
+190
+00:25:01.390 --> 00:25:02.650
+Javi Ribó: So…
+
+191
+00:25:04.330 --> 00:25:11.350
+Jon Bauer (Good Future, LLC): So again, this is not the, the pretty get-started tutorial, this is basically based on… Everything.
+
+192
+00:25:11.350 --> 00:25:14.150
+Javi Ribó: the Go Production tutorial, right? Yep.
+
+193
+00:25:14.460 --> 00:25:16.809
+Jon Bauer (Good Future, LLC): Yep, so hopefully there's some value there.
+
+194
+00:25:20.910 --> 00:25:21.710
+Javi Ribó: Cool.
+
+195
+00:25:26.140 --> 00:25:27.140
+Javi Ribó: Yeah, I thought so.
+
+196
+00:25:27.430 --> 00:25:46.760
+Jon Bauer (Good Future, LLC): I'll make a post in the Discord, and maybe I would love… what would be great, to be totally honest, is if anyone could give it a skim and create some issues on GitHub on the book, I'll post the repo directly in there. Quite honestly, anything would do.
+
+197
+00:25:46.910 --> 00:25:53.430
+Jon Bauer (Good Future, LLC): You know, hey, you don't like green as the color of the text? Like,
+
+198
+00:25:53.680 --> 00:26:02.339
+Jon Bauer (Good Future, LLC): Comments would be great, or if you find a section that we can improve, we still have time to actually do some meaty, resolutions.
+
+199
+00:26:02.450 --> 00:26:07.889
+Jon Bauer (Good Future, LLC): But if we can show that we got some, some comments and we resolved them, like, this weekend.
+
+200
+00:26:09.150 --> 00:26:11.869
+Jon Bauer (Good Future, LLC): That would be something we can check off the box.
+
+201
+00:26:13.040 --> 00:26:18.019
+Jon Bauer (Good Future, LLC): But yeah, but please leave, you know, as many comments as you want ongoing, it's open source, so…
+
+202
+00:26:18.140 --> 00:26:22.220
+Jon Bauer (Good Future, LLC): Well, and if we get to a point where, you know.
+
+203
+00:26:23.550 --> 00:26:27.939
+Jon Bauer (Good Future, LLC): contributions are better, too, like, obviously, it's all open, so we'll handle that, too.
+
+204
+00:26:29.100 --> 00:26:29.830
+Javi Ribó: Awesome.
+
+205
+00:26:30.900 --> 00:26:32.339
+Yurii Shynbuiev: Very good job, John.
+
+206
+00:26:34.830 --> 00:26:40.540
+Javi Ribó: I mean, it consolidates the work that they've been following for a long time, so I really like that.
+
+207
+00:26:44.230 --> 00:26:53.830
+Javi Ribó: cool Seydi, so just because you were late, and John was presenting, John participated in Catalyst program, And…
+
+208
+00:26:54.040 --> 00:26:57.679
+Javi Ribó: They are developing an Identus book.
+
+209
+00:26:58.220 --> 00:27:05.479
+Javi Ribó: And here, it is describing how to use the cloud agent for the things that they used. They were… they were building
+
+210
+00:27:05.800 --> 00:27:14.989
+Javi Ribó: an application that would allow you to sign documents and then verify them on other devices by using the technologies that you are using in the portal. It's exactly the same.
+
+211
+00:27:16.660 --> 00:27:26.659
+Javi Ribó: Yeah, feel free, we are sharing the URLs, but I suggested John also to share it on Discord, so you have access to this, and you can basically take a look at that.
+
+212
+00:27:27.390 --> 00:27:34.890
+Javi Ribó: But yeah, here it basically explains, yeah, absolutely everything in reality. It's not just the API, but…
+
+213
+00:27:35.340 --> 00:27:38.849
+Javi Ribó: How it works behind the scenes, the specification, and all that.
+
+214
+00:27:39.380 --> 00:27:45.590
+Javi Ribó: I think we finally, you know, one commit that I could do is this one.
+
+215
+00:27:46.470 --> 00:27:48.509
+Javi Ribó: Because I think we now have…
+
+216
+00:27:49.430 --> 00:27:52.489
+Javi Ribó: Identus .io, pointing to the right place.
+
+217
+00:27:53.090 --> 00:27:58.680
+Jon Bauer (Good Future, LLC): Oh yeah, that… actually, that would be extremely helpful. There might be some out-of-date URLs and things like that.
+
+218
+00:27:59.000 --> 00:28:02.420
+Jon Bauer (Good Future, LLC): I plan to do a pass on that this week, but that would be huge.
+
+219
+00:28:02.920 --> 00:28:03.889
+Javi Ribó: And it works.
+
+220
+00:28:04.340 --> 00:28:04.900
+Javi Ribó: Okay.
+
+221
+00:28:06.170 --> 00:28:07.599
+Jon Bauer (Good Future, LLC): Yeah, no, that would be great.
+
+222
+00:28:07.600 --> 00:28:09.150
+Javi Ribó: Picked it to the right place.
+
+223
+00:28:10.430 --> 00:28:13.860
+Javi Ribó: Okay, probably GitHub is managing that internally somehow.
+
+224
+00:28:16.810 --> 00:28:17.710
+Javi Ribó: Cool.
+
+225
+00:28:18.010 --> 00:28:19.000
+Javi Ribó: Okay.
+
+226
+00:28:21.230 --> 00:28:24.259
+Javi Ribó: Awesome. I'm not sure, Seydi, do you want to give…
+
+227
+00:28:24.780 --> 00:28:36.039
+Javi Ribó: I gave a general update of the progress that we made, but I don't know if you have anything to comment on the GitHub… on, yeah, the GitHub PRs that you created, if you need any help from us.
+
+228
+00:28:36.620 --> 00:28:37.690
+Javi Ribó: I saw that…
+
+229
+00:28:37.860 --> 00:28:46.459
+Javi Ribó: the PRs exist, but you did not request me to review, so I'm not sure if they are ready, or you're still working on them, or…
+
+230
+00:28:48.820 --> 00:28:50.930
+Seydi Charyev: Can you hear me?
+
+231
+00:28:51.290 --> 00:28:51.930
+Javi Ribó: Yes.
+
+232
+00:28:52.320 --> 00:28:56.700
+Seydi Charyev: Yeah, I'm sorry for the late, I think I get the wrong link.
+
+233
+00:28:57.100 --> 00:29:06.240
+Seydi Charyev: to… to join this meeting. So, yeah, if you gave already the general information about that, what we did last week,
+
+234
+00:29:06.350 --> 00:29:18.969
+Seydi Charyev: Right now, I'm working on the last pull request that I couldn't finish today, so maybe we can do the pair session, and we can discuss over there.
+
+235
+00:29:19.470 --> 00:29:20.240
+Seydi Charyev: So…
+
+236
+00:29:21.450 --> 00:29:22.539
+Javi Ribó: Today, you mean?
+
+237
+00:29:23.200 --> 00:29:26.170
+Seydi Charyev: Tomorrow, if it…
+
+238
+00:29:26.400 --> 00:29:31.679
+Javi Ribó: Okay, yeah, I'll do that for you. I'm off tomorrow, but I will do that for you.
+
+239
+00:29:32.500 --> 00:29:39.580
+Seydi Charyev: Yeah, today I hope to, we… I think we finished the Phase 5, and I start today,
+
+240
+00:29:39.580 --> 00:29:48.829
+Javi Ribó: By the way, actually, I told you tomorrow, yes, very quickly, but I have some appointment, so maybe Thursday or Friday better for me.
+
+241
+00:29:49.390 --> 00:29:51.479
+Seydi Charyev: Oh, okay, cool, understood.
+
+242
+00:29:53.320 --> 00:29:57.689
+Javi Ribó: Awesome. So yeah, let's… let's probably… these are your… just…
+
+243
+00:29:57.980 --> 00:30:01.850
+Javi Ribó: like, as I was saying at the beginning of the meeting, like, very…
+
+244
+00:30:02.730 --> 00:30:19.159
+Javi Ribó: simple PRs to split the work that we've done and structure the work a little bit better in terms of user experience. And after that, we're missing two phases, the verification flow and testing the whole solution end-to-end.
+
+245
+00:30:19.840 --> 00:30:27.250
+Javi Ribó: But I think in the following 2 or 3 weeks, we should be able to get whatever we need out, and…
+
+246
+00:30:27.470 --> 00:30:31.759
+Javi Ribó: If not complete, almost at the point that we just need to test.
+
+247
+00:30:32.230 --> 00:30:39.560
+Javi Ribó: So, yeah, as I was saying, I'm very happy with the progress, so let's just continue and run the last sprint.
+
+248
+00:30:40.360 --> 00:30:42.139
+Javi Ribó: But it's looking really good.
+
+249
+00:30:43.310 --> 00:30:44.349
+Seydi Charyev: Okay, got it.
+
+250
+00:30:46.960 --> 00:30:47.890
+Javi Ribó: Awesome.
+
+251
+00:30:49.870 --> 00:31:03.079
+Javi Ribó: Again, questions and answers, I'm not sure… I think that we've already spoken, but if you guys have anything additional that you want to introduce or talk about, please feel free to raise your hand or just interrupt and talk.
+
+252
+00:31:04.180 --> 00:31:12.720
+Javi Ribó: If not, I think that we can leave it here and get 30 minutes of extra time in this marvelous Tuesday.
+
+253
+00:31:15.760 --> 00:31:16.300
+Yurii Shynbuiev: Yep.
+
+254
+00:31:16.590 --> 00:31:17.999
+Yurii Shynbuiev: Thank you, have your phone.
+
+255
+00:31:18.000 --> 00:31:18.560
+Javi Ribó: Awesome.
+
+256
+00:31:18.560 --> 00:31:20.520
+Yurii Shynbuiev: Welcome to the meeting. Thank you guys for telling.
+
+257
+00:31:20.520 --> 00:31:21.030
+Fábio Pinheiro: Thank you.
+
+258
+00:31:21.320 --> 00:31:22.380
+Javi Ribó: Bye-bye.
+
+259
+00:31:22.380 --> 00:31:22.940
+Yurii Shynbuiev: Bye-bye.
+
+260
+00:31:22.940 --> 00:31:23.740
+Fábio Pinheiro: That's vision.
+
+261
+00:31:23.740 --> 00:31:24.350
+Javi Ribó: the toe.
+
+262
+00:31:25.050 --> 00:31:26.370
+Seydi Charyev: Goodbye. Bye.
+

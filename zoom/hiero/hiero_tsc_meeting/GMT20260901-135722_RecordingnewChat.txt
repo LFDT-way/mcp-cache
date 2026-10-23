@@ -1,0 +1,39 @@
+00:05:06	Hendrik Ebbers (Hedera Hashgraph LLC):	https://github.com/hiero-ledger/governance/wiki/TSCCall20260901
+00:12:29	Jessica Gonzalez:	https://hiero.org/blog/tsc-elections-september-2026
+00:13:59	Diane Mueller (Hedera Hashgraph LLC):	Do we have quorum now?
+00:14:19	Hendrik Ebbers (Hedera Hashgraph LLC):	yes
+00:14:50	Jessica Gonzalez:	We do have quorum
+00:25:28	Sophie Bulloch:	https://github.com/hiero-hackers/CLPR-spec
+00:25:34	Sophie Bulloch:	https://github.com/hiero-hackers/clpr-evm-endpoint
+00:25:39	Sophie Bulloch:	https://github.com/hiero-hackers/clpr-smart-contracts
+00:25:48	Daniel Ntege:	CLPR-spec
+00:25:49	Michael Garber:	How/where do we make the nominations @Jessica Gonzalez ? I checked that link but don’t see a clear way
+00:26:31	Jessica Gonzalez:	@Michael Garber , you need to post a nomination (PR) here https://github.com/hiero-ledger/governance/tree/main/elections/nominees/sep-2026-election
+00:26:45	Jessica Gonzalez:	There is a sample nomination file you can use as a base
+00:27:04	Sophie Bulloch:	@Jessica Gonzalez where is the guide you shared in the community call?
+00:27:53	Jessica Gonzalez:	@Sophie Bulloch , you mean this one?  https://github.com/hiero-ledger/governance/blob/main/elections/nominees/sep-2026-election/README.md
+00:34:15	Michael Kantor:	Because CLPR is basically a messaging service, can it be used for communication unrelated to asset movement between networks? E.G.. AI <> AI communication like HCS-10?
+00:34:54	Edward Wertz (Hashgraph Foundry Inc. (DBA Hashgraph)):	yes
+00:35:42	Edward Wertz (Hashgraph Foundry Inc. (DBA Hashgraph)):	CLPR moves data, the applications that implement the CLPR Application API interpret the data however they want.   Asset transfer is actually an application level interpretation, not a CLPR native api.
+00:36:39	Edward Wertz (Hashgraph Foundry Inc. (DBA Hashgraph)):	This branch and PR contain the native implementation of CLPR in Hiero: https://github.com/hiero-ledger/hiero-consensus-node/pull/27029
+00:37:26	Leemon Baird:	Yes. In fact, the first version will allow a smart contract on one ledger to call one on the other ledger. Which has MANY uses.
+00:37:41	Jessica Gonzalez:	TSC team, can somone please approve https://github.com/hiero-ledger/governance/pull/733
+00:37:48	Hendrik Ebbers (Hedera Hashgraph LLC):	message ClprMessage {   bytes connector_id;   bytes target_application;   bytes sender;   bytes message_data; }
+00:37:53	Hendrik Ebbers (Hedera Hashgraph LLC):	And RICHARD JUST SAID IT
+00:41:14	Michael Kantor:	Great. That could be very interesting to explore for AI use cases we are working on at HOL.
+00:42:13	Michael Kantor:	HCS-10 for reference: https://github.com/hiero-ledger/hiero-consensus-specifications/blob/main/docs/standards/hcs-10/index.md
+00:43:34	Edward Wertz (Hashgraph Foundry Inc. (DBA Hashgraph)):	I would be very interested in how CLPR could help you do that as well.  :-)
+00:44:46	Michael Kantor:	Yeah, lots would need to be figured out. Like, do we keep messages on HCS and use CLPR as some sort of proxy? How do agents pay for message cost? And so forth...
+00:46:46	Michael Kantor:	This could tie in neatly with some of our larger goals with our Registry Broker and HCS-14 / UAID (Universal Agent Id)
+00:50:36	Alex Popowycz:	I have a question regarding communications. Please clarify if this is correct.  At a native layer, CLPR introduces a communication model that allows (requires?) the consensus node to initiate a Gossip connection to any address. Today, Gossip communications are limited to consensus nodes within a given network using keys in the address book to verify the connections mutually.
+00:55:25	Hendrik Ebbers (Hedera Hashgraph LLC):	I would say that is wrong. The Hiero based network (after HIP is implemented) can have a connection to anther network (independent if Hiero based, Besu, …). But that is not Gossip based since networks that are not based on Hiero „do not speak Gossip“.
+00:56:15	Leemon Baird:	That’s how it works when the endpoint is at the bottom layer. The alternative is that the endpoint is a separate computer. It can work either way.  You can call this a new kind of gossip. But it’s much more flexible than gossip within a ledger.
+00:57:20	Leemon Baird:	Also, CLPR has the equivalent of having many address books. They are all stored on your ledger. Just like many smart contracts are stored on your ledger.
+01:01:03	Joseph Sinclair (Hashgraph Foundry Inc. (DBA Hashgraph)):	CLPR: Completely decentralized, completely permissionless, completely trustless interledger communication with no required intermediary.
+01:01:27	Alex Popowycz:	But, say, for Hedera with CLPR implemented at a native layer, the node would need to be able to communicate to any IP address that might represent either an independent endpoint node or a port of a consensus node for a given network.
+01:02:20	Sophie Bulloch:	Hi, can I request adding this to the timeplan for a future tsc session please after 17th? https://github.com/exploreriii/governance/blob/6d9717e80b805d59b020e953d25f4a6edc53d960/roles/advancement-qualifications.md
+01:02:31	Leemon Baird:	Yes. That’s how it works. And those IP addresses are in a set of entities that are like address books.  Hedera might use the proxies to deal with firewall issues.
+01:03:15	Jessica Gonzalez:	Will do @Sophie Bulloch  👍
+01:04:57	Richard Bair:	We would like to have the code merged (and disabled) in Hedera testnet release on the 22nd of September, so we would like to have the HIP vote by the 8th so that we can do that. Even in a disabled state we would prefer to have the vote before merging any code into  main  on the consensus node
+01:05:50	Jessica Gonzalez:	TSC team, can soemone please approve https://github.com/hiero-ledger/governance/pull/734
+01:06:36	Alex Popowycz:	I have to drop….

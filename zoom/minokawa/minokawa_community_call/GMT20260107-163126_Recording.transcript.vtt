@@ -1,0 +1,846 @@
+WEBVTT
+
+1
+00:00:41.600 --> 00:00:42.350
+Andrzej Kopeć: Hello.
+
+2
+00:01:49.700 --> 00:01:50.510
+Kent Dybvig: Hello.
+
+3
+00:02:03.520 --> 00:02:08.649
+Kevin Millikin (Shielded Technologies): Still always disconcerted by this Zoom… switching between Zoom and Google Meet.
+
+4
+00:02:09.740 --> 00:02:13.790
+Kevin Millikin (Shielded Technologies): I think… I think my screen's on… I think my screen is on screen.
+
+5
+00:02:16.450 --> 00:02:20.689
+Kevin Millikin (Shielded Technologies): So welcome back after the holidays. Happy New Year, everybody!
+
+6
+00:02:23.640 --> 00:02:25.509
+Kevin Millikin (Shielded Technologies): Let's see, January 7th?
+
+7
+00:02:26.940 --> 00:02:36.359
+Kevin Millikin (Shielded Technologies): Number… the first thing on the agenda is division by computing the multiplicative inverse out of circuit with a witness or a native and verifying it in circuit.
+
+8
+00:02:38.320 --> 00:02:40.679
+Kevin Millikin (Shielded Technologies): Anyone want to volunteer for having put this up?
+
+9
+00:02:41.410 --> 00:02:47.450
+Kent Dybvig: Yeah, I put that up there. Bob asked me about it, just before the
+
+10
+00:02:47.890 --> 00:02:54.200
+Kent Dybvig: break before New Year's, he has,
+
+11
+00:02:55.030 --> 00:03:01.809
+Kent Dybvig: Suggested that we could create the… the inverse… the multiplicative inverse using a witness.
+
+12
+00:03:02.030 --> 00:03:04.300
+Kent Dybvig: I think maybe we could do it with a native.
+
+13
+00:03:04.830 --> 00:03:11.010
+Kent Dybvig: And then verify that it is actually the… the, inverse…
+
+14
+00:03:11.670 --> 00:03:20.560
+Kent Dybvig: In circuit, and then use that with a multiplication to compute the… the, quotient.
+
+15
+00:03:21.240 --> 00:03:30.260
+Kent Dybvig: This is presumably for,
+
+16
+00:03:34.990 --> 00:03:39.679
+Kent Dybvig: Field values, preferable to using
+
+17
+00:03:39.860 --> 00:03:45.579
+Kent Dybvig: You know, trying to do the division out of circuit, and then trying to verify it, because that has multiple answers.
+
+18
+00:03:45.880 --> 00:03:52.109
+Kent Dybvig: Multiple answers would satisfy that because of the modular arithmetic.
+
+19
+00:03:52.690 --> 00:03:56.880
+Kent Dybvig: The unsigned… I don't know…
+
+20
+00:03:58.830 --> 00:04:07.900
+Kent Dybvig: I didn't work through all the details of it, but the question is, should we… should we do this? Should we… should we, is it feasible?
+
+21
+00:04:08.140 --> 00:04:11.150
+Kent Dybvig: Is it efficient? Is there a better way of doing it?
+
+22
+00:04:13.450 --> 00:04:15.190
+Kent Dybvig: Of supplying a division.
+
+23
+00:04:15.900 --> 00:04:21.060
+Kevin Millikin (Shielded Technologies): Yeah, so it's… it would be…
+
+24
+00:04:23.630 --> 00:04:28.209
+Kevin Millikin (Shielded Technologies): I think that would be essentially the way that it would be encoded in ZKIR anyway.
+
+25
+00:04:29.440 --> 00:04:33.269
+Kent Dybvig: Right, but the idea is that we can do the… the,
+
+26
+00:04:33.820 --> 00:04:42.510
+Kent Dybvig: The idea is that we… that that's supposedly very expensive, and that we could do this… we can compute it much more inexpensively.
+
+27
+00:04:43.180 --> 00:04:46.090
+Kent Dybvig: Outside of the, circuit.
+
+28
+00:04:50.950 --> 00:04:55.150
+Kevin Millikin (Shielded Technologies): Right, I think that… I'm sorry, maybe I don't understand the proposal.
+
+29
+00:04:55.680 --> 00:04:56.540
+Kent Dybvig: I think.
+
+30
+00:04:57.310 --> 00:05:01.589
+Kevin Millikin (Shielded Technologies): I think that the… I think that the ZKIR implementation would be exactly that.
+
+31
+00:05:03.910 --> 00:05:08.900
+Kevin Millikin (Shielded Technologies): And, I think we've talked… we did talk about this quite a while ago.
+
+32
+00:05:09.160 --> 00:05:13.959
+Kevin Millikin (Shielded Technologies): And we talked about, like, rounding behavior and…
+
+33
+00:05:14.220 --> 00:05:18.670
+Kevin Millikin (Shielded Technologies): What we really intended, and decided that people could just implement it themselves.
+
+34
+00:05:19.080 --> 00:05:23.269
+Kevin Millikin (Shielded Technologies): and went off and told DevRel to just publicize that
+
+35
+00:05:23.920 --> 00:05:28.840
+Kevin Millikin (Shielded Technologies): When people say that they're missing division, they're not really missing division, they can do it.
+
+36
+00:05:29.010 --> 00:05:34.460
+Kevin Millikin (Shielded Technologies): And they'll learn a cute trick about about ZK verification.
+
+37
+00:05:36.620 --> 00:05:41.990
+Kevin Millikin (Shielded Technologies): But it's clear that people feel like it's painful, so I think we could… I think we could add division now.
+
+38
+00:05:44.350 --> 00:05:52.260
+Kent Dybvig: I think one of the dangers, I mean, if we make it, witness, then we are actually…
+
+39
+00:05:52.940 --> 00:05:58.269
+Kent Dybvig: potentially changing the characteristics of it a little bit. You know, division is no longer…
+
+40
+00:05:59.200 --> 00:06:09.920
+Kent Dybvig: quite has the same semantics as multiplication or subtraction or addition because of the witness call involved. Maybe making it a native doesn't have that. Our natives are basically intrinsic.
+
+41
+00:06:11.100 --> 00:06:16.450
+Kent Dybvig: I mean, the other thing, if… if…
+
+42
+00:06:16.570 --> 00:06:22.410
+Kent Dybvig: It is reasonable, maybe, to… if a reference manual were,
+
+43
+00:06:22.820 --> 00:06:30.099
+Kent Dybvig: up-to-date, and we actually had this as an example in the reference manual. That might actually be a sufficient solution as well.
+
+44
+00:06:30.660 --> 00:06:31.310
+Kevin Millikin (Shielded Technologies): Ms.
+
+45
+00:06:37.090 --> 00:06:39.999
+Kent Dybvig: Does anybody else want to weigh in on this? Thomas, maybe?
+
+46
+00:06:46.280 --> 00:06:50.910
+Thomas Kerber: I'm… I'm not sure, I feel strongly either way.
+
+47
+00:06:52.630 --> 00:06:54.729
+Thomas Kerber: I think all of your points are valid, but I don't…
+
+48
+00:06:56.050 --> 00:06:58.980
+Thomas Kerber: I don't know what the best resolution is either.
+
+49
+00:07:00.200 --> 00:07:08.180
+Kent Dybvig: So, is… are we actually… Can we actually make this more efficient, by doing… This out of circuit.
+
+50
+00:07:08.970 --> 00:07:10.020
+Kent Dybvig: Or…
+
+51
+00:07:10.670 --> 00:07:13.300
+Thomas Kerber: You have to do it out of circuit anyway.
+
+52
+00:07:14.060 --> 00:07:21.470
+Thomas Kerber: Regardless of how you slice it, it'll end up being you do multiplicative inverse, out of circuit, and multiplication in circuit.
+
+53
+00:07:21.700 --> 00:07:27.750
+Thomas Kerber: Because in the circuit, the only tool you have, or the only tools you have, are additional.
+
+54
+00:07:27.890 --> 00:07:30.340
+Thomas Kerber: multiplication .
+
+55
+00:07:31.170 --> 00:07:35.829
+Kent Dybvig: Okay, so you would… we would be… no matter what we do, we have to,
+
+56
+00:07:35.950 --> 00:07:39.920
+Kent Dybvig: We have to, verify the inverse in-circuit.
+
+57
+00:07:41.610 --> 00:07:43.249
+Kent Dybvig: And then do the level.
+
+58
+00:07:43.250 --> 00:07:43.680
+Thomas Kerber: question.
+
+59
+00:07:43.680 --> 00:07:44.310
+Kent Dybvig: Most questions.
+
+60
+00:07:45.260 --> 00:07:48.960
+Thomas Kerber: It's a question of how you surface that to the language more than anything else.
+
+61
+00:07:48.960 --> 00:07:49.580
+Kent Dybvig: Okay.
+
+62
+00:08:04.230 --> 00:08:07.370
+⟣ €₥ℵ∪ℓ: One thing I would like to point out,
+
+63
+00:08:07.790 --> 00:08:13.349
+⟣ €₥ℵ∪ℓ: By punting the implementation of Division to the developers themselves.
+
+64
+00:08:13.980 --> 00:08:18.200
+⟣ €₥ℵ∪ℓ: There's a risk of unsafe implementations.
+
+65
+00:08:18.390 --> 00:08:22.389
+⟣ €₥ℵ∪ℓ: And by, like, creating a standardized division.
+
+66
+00:08:22.650 --> 00:08:26.449
+⟣ €₥ℵ∪ℓ: Implementation in the language itself would be much safer.
+
+67
+00:08:26.910 --> 00:08:30.270
+⟣ €₥ℵ∪ℓ: From a DAP development perspective.
+
+68
+00:08:31.090 --> 00:08:34.289
+Joseph Denman: We already have, essentially, built-in witnesses with the…
+
+69
+00:08:34.440 --> 00:08:39.169
+Joseph Denman: z-swap, input, output, own, public key, those sorts of things.
+
+70
+00:08:41.330 --> 00:08:45.569
+Joseph Denman: So, we might take a similar approach here. It's kind of like a built-in with this.
+
+71
+00:08:55.760 --> 00:09:13.610
+Kevin Millikin (Shielded Technologies): I don't have super strong opinions. I mean, it's clear at some point we'll have a division operator. To me, it's clear to me at some point we'll have a division operator, and we've pushed it ahead of ourselves, because we didn't want to have a breaking change where we implemented something and then decided that that was not the behavior of the division operator, and we had… we broke a bunch of code.
+
+72
+00:09:13.890 --> 00:09:22.969
+Kevin Millikin (Shielded Technologies): So, we just have been trying to tell people when they say that they're blocked by not having division, that they're not actually blocked by division, and we show them the trick.
+
+73
+00:09:25.230 --> 00:09:28.130
+Kevin Millikin (Shielded Technologies): I don't have a strong opinion.
+
+74
+00:09:34.220 --> 00:09:39.150
+Kent Dybvig: I think the… fact that I have some questions about the difference between
+
+75
+00:09:39.690 --> 00:09:45.800
+Kent Dybvig: How this works for fields and unsigns, and eventually for bigants, may…
+
+76
+00:09:46.700 --> 00:09:48.819
+Kent Dybvig: Point to the fact that we should build it in.
+
+77
+00:09:49.710 --> 00:09:53.630
+Kent Dybvig: If I'm puzzling over it, other people will puzzle over it.
+
+78
+00:09:57.560 --> 00:10:01.880
+Thomas Kerber: Yeah, I think my word would be for built-in overall as well.
+
+79
+00:10:04.480 --> 00:10:14.690
+Kent Dybvig: Yeah, it may not be using the divide syntax, we might actually provide a circuit that does it, simply because it might be… if it involves
+
+80
+00:10:15.700 --> 00:10:18.460
+Kent Dybvig: If it involves a witness,
+
+81
+00:10:18.760 --> 00:10:23.489
+Kent Dybvig: Then it makes it an impure function, which is going to be very not obvious for…
+
+82
+00:10:23.810 --> 00:10:30.929
+Kent Dybvig: use the division operator. But if we can do it with a, you know, some way that doesn't do that.
+
+83
+00:10:35.450 --> 00:10:41.579
+Thomas Kerber: Yeah, it's worth pointing out, it's probably also useful to expose the remainder
+
+84
+00:10:41.740 --> 00:10:43.920
+Thomas Kerber: At the same time as doing division.
+
+85
+00:10:44.830 --> 00:10:47.800
+Thomas Kerber: And… Yep.
+
+86
+00:10:48.180 --> 00:10:53.149
+Thomas Kerber: That makes more sense for a function than for an operator, because people…
+
+87
+00:10:53.940 --> 00:10:57.270
+Thomas Kerber: Expect operators to behave the specific way.
+
+88
+00:10:57.940 --> 00:11:02.320
+Kent Dybvig: Right, we can certainly give them back, two values, the tuple.
+
+89
+00:11:10.670 --> 00:11:11.430
+Kent Dybvig: Okay.
+
+90
+00:11:12.030 --> 00:11:17.919
+Kent Dybvig: I'll make a story to do this at some point. It's obviously a non-breaking change, so…
+
+91
+00:11:18.460 --> 00:11:20.569
+Kent Dybvig: We can… we can add it when we please.
+
+92
+00:11:21.000 --> 00:11:22.870
+Kevin Millikin (Shielded Technologies): I don't think it has to be really impure.
+
+93
+00:11:24.360 --> 00:11:31.680
+Kevin Millikin (Shielded Technologies): It's not, even if it… even if it uses a witness technology, it could be a sort of global witness that it can find somewhere.
+
+94
+00:11:35.540 --> 00:11:40.070
+Kent Dybvig: Yeah, I don't know that it can't just be a… A native, anyway.
+
+95
+00:11:40.070 --> 00:11:41.569
+Kevin Millikin (Shielded Technologies): It can't… I think it can be.
+
+96
+00:11:43.180 --> 00:11:47.880
+Kevin Millikin (Shielded Technologies): yeah, I think it can be.
+
+97
+00:11:54.410 --> 00:11:55.620
+Kent Dybvig: Yeah. Okay.
+
+98
+00:12:16.590 --> 00:12:27.819
+Kevin Millikin (Shielded Technologies): Okay, there is a… a bug, that is, if you have a numeric literal, like, 256, and you try to cast it to a uint8,
+
+99
+00:12:28.050 --> 00:12:33.250
+Kevin Millikin (Shielded Technologies): then that, used to fail at runtime with Ledger 6…
+
+100
+00:12:33.640 --> 00:12:41.230
+Kevin Millikin (Shielded Technologies): and that failed with Ledger7, it now, fails when it tries to compile the ZKIR circuit, or tries to generate keys.
+
+101
+00:12:42.350 --> 00:12:49.150
+Thomas Kerber: I think it's both casts and, comparisons, or quality tricks.
+
+102
+00:12:49.600 --> 00:12:54.579
+Kevin Millikin (Shielded Technologies): Yeah, it would, it would be some… it would be some constant comparisons that would fail.
+
+103
+00:12:55.290 --> 00:12:57.289
+Kevin Millikin (Shielded Technologies): And I don't know exactly which ones it is.
+
+104
+00:12:57.710 --> 00:13:01.200
+Kevin Millikin (Shielded Technologies): It's not failing due… we haven't changed the way that we compile them.
+
+105
+00:13:01.360 --> 00:13:09.769
+Kevin Millikin (Shielded Technologies): And the ZKIR implementation in the ledger hasn't changed, but the Midnight ZK library has a behavior change.
+
+106
+00:13:10.720 --> 00:13:14.029
+Joseph Denman: I'm… I'm relatively assured that the…
+
+107
+00:13:14.970 --> 00:13:19.630
+Thomas Kerber: Behavior change is only rejecting things that are not satisfiable.
+
+108
+00:13:20.100 --> 00:13:28.149
+Thomas Kerber: Yeah. So specifically, if you check something against a constant that cannot be true, then that fails.
+
+109
+00:13:29.700 --> 00:13:32.770
+Kevin Millikin (Shielded Technologies): I think that… That sounds plausible.
+
+110
+00:13:33.060 --> 00:13:36.099
+Kevin Millikin (Shielded Technologies): So this is a regression with Ledger 7.
+
+111
+00:13:36.440 --> 00:13:41.130
+Kevin Millikin (Shielded Technologies): It now crashes when it would previously compile and fail at runtime.
+
+112
+00:13:42.910 --> 00:13:50.429
+Kevin Millikin (Shielded Technologies): It's, it is a bug, obviously. It's pretty low severity, because anybody that hits it has an easy workaround. They can…
+
+113
+00:13:51.050 --> 00:13:55.270
+Kevin Millikin (Shielded Technologies): Comment that code out and replace it with assert false, if they want to fail at runtime.
+
+114
+00:13:55.880 --> 00:14:03.029
+Kevin Millikin (Shielded Technologies): But I… but we should fix it. And then the only question I have is, did we want to continue to leave this as a…
+
+115
+00:14:03.420 --> 00:14:10.500
+Kevin Millikin (Shielded Technologies): Fails at runtime, or did we want to allow some things to fail statically when they were going to fail at runtime?
+
+116
+00:14:11.410 --> 00:14:12.090
+Kevin Millikin (Shielded Technologies): M.
+
+117
+00:14:12.440 --> 00:14:19.140
+Kevin Millikin (Shielded Technologies): I personally think there's a benefit to failing, to being… allowing people to write code that they know will fail 100% at runtime.
+
+118
+00:14:19.780 --> 00:14:20.480
+Kevin Millikin (Shielded Technologies): And…
+
+119
+00:14:22.700 --> 00:14:36.110
+Kent Dybvig: I agree with that, what you just said, and I also am not sure that there's an easy workaround, because this arose because they used a generic,
+
+120
+00:14:36.650 --> 00:14:38.480
+Kent Dybvig: size argument.
+
+121
+00:14:39.200 --> 00:14:47.199
+Kent Dybvig: In most uses, it succeeds. In one… in the case it fails, it's going to be hard for them to work around, because they… there's no… there's no…
+
+122
+00:14:47.640 --> 00:14:53.949
+Kent Dybvig: There's no compile time trick they can use to… to prevent that one from… Going belly up.
+
+123
+00:14:54.060 --> 00:15:04.480
+Kent Dybvig: So… Yeah, I don't think we should be in the business of… of… you know…
+
+124
+00:15:05.310 --> 00:15:10.240
+Kent Dybvig: Yeah. Of airing out at compile time in such cases.
+
+125
+00:15:10.360 --> 00:15:12.819
+Kent Dybvig: Keeping in mind that a lot of code is…
+
+126
+00:15:13.020 --> 00:15:18.080
+Kent Dybvig: Written. In the world at large, the vast majority of code is written… is machine-generated.
+
+127
+00:15:18.240 --> 00:15:26.890
+Kent Dybvig: And including all the special cases you would need to include to prevent such things in a machine generator is a real pain in the ass.
+
+128
+00:15:28.640 --> 00:15:36.440
+Kent Dybvig: I don't know how much machine-generated code we'll have in the long run, but I'm sure we'll have some, and I'd…
+
+129
+00:15:36.570 --> 00:15:44.600
+Kent Dybvig: I don't like introducing things like this as permanent features. As bugs, we have to deal with it, but as permanent features, no.
+
+130
+00:15:49.840 --> 00:15:57.519
+Kevin Millikin (Shielded Technologies): It might be that the fix, then, is that we have to, in the ZKIRPI implementation, we have to guard against
+
+131
+00:15:57.810 --> 00:15:58.620
+Kevin Millikin (Shielded Technologies): this…
+
+132
+00:16:04.240 --> 00:16:09.800
+Thomas Kerber: So I think there's… There's two stages in my mind to this fix. One is…
+
+133
+00:16:10.390 --> 00:16:15.840
+Thomas Kerber: Part of the reason why, when we discussed this regression previously.
+
+134
+00:16:16.300 --> 00:16:21.720
+Thomas Kerber: I, at least in my view, we said, okay, we'll leave it in for now. It's because we know there's a couple of
+
+135
+00:16:22.240 --> 00:16:26.890
+Thomas Kerber: similar things in ZKIRV2, where
+
+136
+00:16:29.300 --> 00:16:32.890
+Thomas Kerber: We… we have these corner cases, which it…
+
+137
+00:16:33.070 --> 00:16:38.410
+Thomas Kerber: Doesn't handle well because it evaluates code at a time that it shouldn't be evaluating.
+
+138
+00:16:38.830 --> 00:16:48.409
+Thomas Kerber: And this is kind of a similar scenario, like, it's trying to evaluate this constant expression at compile time, and is erroring while doing that, is my read on it, essentially.
+
+139
+00:16:49.330 --> 00:16:57.270
+Thomas Kerber: So, partly, I think, we want to be stricter about this with CKRB3.
+
+140
+00:16:57.470 --> 00:17:01.819
+Thomas Kerber: To say, okay, no, it should have well-defined behavior that they…
+
+141
+00:17:02.110 --> 00:17:10.010
+Thomas Kerber: check does not fail, or does not error the ZKIR pass, but that it
+
+142
+00:17:12.040 --> 00:17:17.409
+Thomas Kerber: Manifests as runtime failure in every case, that we are explicit about that.
+
+143
+00:17:18.130 --> 00:17:21.309
+Thomas Kerber: But also, I guess, in the short term.
+
+144
+00:17:22.240 --> 00:17:32.880
+Thomas Kerber: one way that I'd see to deal with it is to be more explicit about constant propagation, that we say, okay, this is happening because it is doing
+
+145
+00:17:34.710 --> 00:17:43.670
+Thomas Kerber: somewhat nonsensical operations with constants, so if we want those to be well-defined, then we can define how those should behave in the compiler.
+
+146
+00:17:44.050 --> 00:17:47.899
+Thomas Kerber: Let's say, you know, if we, if we define casting.
+
+147
+00:17:48.280 --> 00:17:53.060
+Thomas Kerber: We define that the code gen for casting a constant to
+
+148
+00:17:54.790 --> 00:17:59.779
+Thomas Kerber: A type that it doesn't inhabit generates that error, for example.
+
+149
+00:18:09.560 --> 00:18:21.209
+Kent Dybvig: Yeah, I think we could… we could handle such… errors like this, we could handle in the compiler, when it is literally a constant… the compiler's already doing the constant folding, so…
+
+150
+00:18:21.430 --> 00:18:25.600
+Kent Dybvig: Those places should be evident, and comparisons likewise.
+
+151
+00:18:26.290 --> 00:18:37.539
+Kent Dybvig: So this doesn't necessarily have to be fixed in ZKIR, it could be fixed in a pass that comes before actually generating the ZKI, or during the ZKI, or a pass itself.
+
+152
+00:18:40.120 --> 00:18:46.930
+Kent Dybvig: I also want to point out that constant propagation in the compiler can make these things appear when they may not have
+
+153
+00:18:47.380 --> 00:18:49.420
+Kent Dybvig: appeared otherwise.
+
+154
+00:18:50.210 --> 00:18:51.370
+Kent Dybvig: And…
+
+155
+00:18:51.690 --> 00:19:00.239
+Kent Dybvig: It can… which is… which is a very… potentially sets up a very non-obvious fix, because it might be a function argument or something like that.
+
+156
+00:19:01.060 --> 00:19:03.190
+Kent Dybvig: inlined…
+
+157
+00:19:03.530 --> 00:19:18.109
+Kent Dybvig: unrolled, you know, anyway, and somehow somebody's supposed to fix it, but it's some, like, 3 levels of indirect off from what they wrote. They never wrote, you know, cast 256 to, you know, a UNT8.
+
+158
+00:19:18.620 --> 00:19:24.719
+Kent Dybvig: They wrote something else. Especially the comparisons. I think the cast may be a little bit less, but the comparisons, for sure.
+
+159
+00:19:25.050 --> 00:19:30.079
+Kent Dybvig: I need the cast, too. So yeah, we could definitely…
+
+160
+00:19:30.190 --> 00:19:35.810
+Kent Dybvig: Catch this in the later part of the compiler, and that may be the place to do it, at least for now.
+
+161
+00:19:38.140 --> 00:19:45.000
+Kent Dybvig: It'd be nice… it's always nice to get the same error message, but it's… but at least if we get some error message, it's… it's…
+
+162
+00:19:45.280 --> 00:19:50.400
+Kent Dybvig: At runtime instead of… of the compiler time fail, that's… that's better.
+
+163
+00:19:57.620 --> 00:19:58.320
+Kevin Millikin (Shielded Technologies): How about that?
+
+164
+00:20:00.820 --> 00:20:05.990
+Kevin Millikin (Shielded Technologies): I just wanted to give everyone a heads up about the upcoming releases.
+
+165
+00:20:06.140 --> 00:20:11.959
+Kevin Millikin (Shielded Technologies): So we've long passed the branch point for Compact 0.27.
+
+166
+00:20:12.100 --> 00:20:17.049
+Kevin Millikin (Shielded Technologies): But we haven't had a public release, because the preview network is not public yet.
+
+167
+00:20:17.560 --> 00:20:22.730
+Kevin Millikin (Shielded Technologies): It sounds like there's going to be a preview announcement coming relatively soon?
+
+168
+00:20:24.330 --> 00:20:31.219
+Kevin Millikin (Shielded Technologies): So do my control, obviously. But we're ready to push the button and drop the 0.27 release when that comes.
+
+169
+00:20:31.730 --> 00:20:40.040
+Kevin Millikin (Shielded Technologies): So I think there will be a 0.27 release, and we're going to branch for 0.28, which is the first Lightyear 7 release.
+
+170
+00:20:40.550 --> 00:20:50.589
+Kevin Millikin (Shielded Technologies): I said close of business today. In reality, it'll be sometime tomorrow, so we can get everything we want in, but that's coming, coming soon, and then we'll be working on 0.29.
+
+171
+00:20:52.040 --> 00:20:57.790
+Kevin Millikin (Shielded Technologies): And then… and then the next question is when we release unbacked language 1.0.
+
+172
+00:20:59.840 --> 00:21:13.010
+Kevin Millikin (Shielded Technologies): Feels like we're relatively close. I think we could conceivably, if we get everything we have right now, into 0.28, we could call that 1.0. But maybe it's the next release that is Compact Language 1.0.
+
+173
+00:21:30.340 --> 00:21:37.770
+Kevin Millikin (Shielded Technologies): And then the last thing I put on there is that there's a rename of curve point to native point in the standard library.
+
+174
+00:21:38.190 --> 00:21:50.179
+Kevin Millikin (Shielded Technologies): And there was some question about… it was a struct. We wanted to hide the struct fields. I think that after talking with Kent and Prisa, we're… we all agree that we can do that. I will do that.
+
+175
+00:21:50.660 --> 00:21:57.470
+Kevin Millikin (Shielded Technologies): The rename is necessary because we're going to introduce other curve types, and so CurvePoint itself is ambiguous, and we'll call it native point.
+
+176
+00:21:57.840 --> 00:22:06.370
+Kevin Millikin (Shielded Technologies): And the… hiding the fact that it's a struct is necessary so that we can change the representation without that being a breaking change in the future.
+
+177
+00:22:08.710 --> 00:22:09.639
+Kevin Millikin (Shielded Technologies): Go ahead, Kent.
+
+178
+00:22:11.370 --> 00:22:14.230
+Kent Dybvig: I have a PR in place that,
+
+179
+00:22:16.070 --> 00:22:24.290
+Kent Dybvig: makes native type an alias for an unexported simple type in the Compact Standard Library.
+
+180
+00:22:25.650 --> 00:22:31.880
+Kent Dybvig: It's still possible to cast that to… a type.
+
+181
+00:22:32.500 --> 00:22:37.300
+Kent Dybvig: That is a struct with two fields, X colon something and Y colon something.
+
+182
+00:22:38.230 --> 00:22:42.920
+Kent Dybvig: And then to access the X and Y fields directly. I did… I did add…
+
+183
+00:22:43.170 --> 00:22:49.210
+Kent Dybvig: Accessors for this, but the point remains that It is possible for somebody
+
+184
+00:22:49.380 --> 00:22:54.560
+Kent Dybvig: Right now, even with this pull request cast, To something that looks like…
+
+185
+00:22:55.030 --> 00:22:57.159
+Kent Dybvig: What the native type ends up being.
+
+186
+00:22:58.740 --> 00:22:59.500
+Kent Dybvig: I…
+
+187
+00:23:00.650 --> 00:23:14.430
+Kent Dybvig: There are breaking changes, and there are breaking changes. There are breaking… things that break what we document people can do, and there are things that break what we document people shouldn't do, and there are people… there are breaking changes that… that,
+
+188
+00:23:14.950 --> 00:23:19.440
+Kent Dybvig: That we tell people they must not do, you know, and we actually check.
+
+189
+00:23:22.440 --> 00:23:24.530
+Kent Dybvig: I don't know… I don't know if…
+
+190
+00:23:25.640 --> 00:23:31.459
+Kent Dybvig: Yeah, I don't know how people feel about the breaking change and what constitutes a breaking change, but…
+
+191
+00:23:33.380 --> 00:23:52.630
+Kevin Millikin (Shielded Technologies): Yeah, here's what… here's what I would do. I would be very, very clear in the release notes that announces the rename that the type native point is… you should treat it as opaque, you don't know the implementation of native point, and I would add to the standard library docs string for native point
+
+192
+00:23:52.630 --> 00:24:05.760
+Kevin Millikin (Shielded Technologies): that in all bold, this is an opaque type. Don't try to figure out what it is. Don't try to cast it to a struct of any kind, because we will change it. We deserve the right to change it.
+
+193
+00:24:06.310 --> 00:24:15.100
+Kevin Millikin (Shielded Technologies): So… so I would… I would solve it by something like that, and then when we… and then when we change it, we can say that's… that's not a breaking change, because you were told not to rely on the implementation.
+
+194
+00:24:23.430 --> 00:24:29.340
+Kent Dybvig: We could go to the… Additional trouble of making an opaque type for it.
+
+195
+00:24:30.220 --> 00:24:34.130
+Kent Dybvig: Yeah.
+
+196
+00:24:36.300 --> 00:24:38.749
+Kent Dybvig: Right now, but I'm not sure how far we'll get.
+
+197
+00:24:38.930 --> 00:24:41.050
+Kent Dybvig: How fast would that change?
+
+198
+00:24:43.500 --> 00:24:49.139
+Kent Dybvig: I was able to put this in in a couple hours. It's not gonna be so fast to make an opaque type.
+
+199
+00:24:52.070 --> 00:24:58.579
+Kevin Millikin (Shielded Technologies): No, but on the… on the PR I have that actually changes the representation, it essentially does that, so it's not.
+
+200
+00:24:58.580 --> 00:24:59.030
+Kent Dybvig: Right.
+
+201
+00:24:59.030 --> 00:25:03.889
+Kevin Millikin (Shielded Technologies): horrible. It's not horrible, but I don't think I would worry about being too heroic about that.
+
+202
+00:25:04.330 --> 00:25:07.239
+Kevin Millikin (Shielded Technologies): If people… if… if people are… if people are warned.
+
+203
+00:25:07.480 --> 00:25:11.840
+Kevin Millikin (Shielded Technologies): And they ignore the warning, then, didn't they?
+
+204
+00:25:11.950 --> 00:25:18.080
+Kevin Millikin (Shielded Technologies): There's a pretty easy fix when the representation does change and those accessors stop working.
+
+205
+00:25:18.460 --> 00:25:22.179
+Kevin Millikin (Shielded Technologies): Is they have to change those to… Circate calls.
+
+206
+00:25:37.160 --> 00:25:41.300
+Kevin Millikin (Shielded Technologies): Is there anything else to talk about? Those are the agenda items that we had.
+
+207
+00:25:50.990 --> 00:25:52.249
+Kevin Millikin (Shielded Technologies): That sounds like a no.
+
+208
+00:25:53.320 --> 00:25:57.190
+Kevin Millikin (Shielded Technologies): Right? If not… Happy hacking, everybody. Thanks for this.
+
+209
+00:25:57.320 --> 00:25:59.370
+Kevin Millikin (Shielded Technologies): Let's have a good 2026.
+
+210
+00:26:00.510 --> 00:26:01.040
+Joseph Denman: etc.
+
+211
+00:26:01.630 --> 00:26:03.260
+⟣ €₥ℵ∪ℓ: Good to see you guys.
+

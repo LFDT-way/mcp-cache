@@ -1,0 +1,1582 @@
+WEBVTT
+
+1
+00:01:49.410 --> 00:01:51.239
+Parth Bhatt (Individual Contribution): Hey? Good evening, Javier!
+
+2
+00:01:52.050 --> 00:01:54.040
+Javier Ribó: Hello, my friend, welcome.
+
+3
+00:05:07.770 --> 00:05:14.350
+Javier Ribó: hey, guys! Hello! Welcome to the 1st spring community call
+
+4
+00:05:14.720 --> 00:05:19.109
+Javier Ribó: of 2,025 while we give the team couple of minutes to join.
+
+5
+00:05:21.070 --> 00:05:23.480
+Javier Ribó: Yeah, let's just take a small break
+
+6
+00:06:28.460 --> 00:06:43.150
+Javier Ribó: cool. So let's get let's get started welcome again to April. 1st community call depending on where you are in the in the globe. Also, our 1st spring community call so hope the weather.
+
+7
+00:06:43.520 --> 00:06:45.310
+Javier Ribó: and gets better as we speak.
+
+8
+00:06:46.300 --> 00:06:57.300
+Javier Ribó: awesome. So as a reminder, please follow and read and adhere to the antitrust policy, notice, and the code of conduct from hyperledger which is available in our Github repositories.
+
+9
+00:06:58.480 --> 00:07:16.629
+Javier Ribó: Then, as usual, we are going to run the same agenda. We usually run with a section with updates. Today we are going to allocate some time to talk about what? We didn't have time to talk past week, which is talking about handling multiple mediators on the SDK.
+
+10
+00:07:17.030 --> 00:07:26.780
+Javier Ribó: I see that we we don't have so many community members today. But the meeting is is still recorded, and I hope that we can kick off at least the discussion.
+
+11
+00:07:27.390 --> 00:07:37.280
+Javier Ribó: Then next we will go through open discussions and things that we need to take actions. And if the community members have anything additional that they are struggling with.
+
+12
+00:07:37.520 --> 00:07:45.400
+Javier Ribó: It's the right moment to to raise the bar, not the raise the bar. Sorry to raise the concern or to ask questions about what you are doing.
+
+13
+00:07:45.750 --> 00:07:52.779
+Javier Ribó: Also, if you are planning to work on a project, and you want to showcase, you want to present yourself, feel free to
+
+14
+00:07:53.950 --> 00:07:57.219
+Javier Ribó: to raise your hand and and then jump, jump in
+
+15
+00:07:58.510 --> 00:08:22.149
+Javier Ribó: cool. So on the 1st section. This is something that I'm taking. I'm I started having discussions with Curtis where these are is is where where this started, I think there there is 2 2 points right? The 1st point is that what happens if I establish a connection with one mediator, and then the mediator goes down for whatever reason.
+
+16
+00:08:22.635 --> 00:08:29.259
+Javier Ribó: I do not have a very easy way in the SDK to switch to another failover mediator, or something like that.
+
+17
+00:08:29.600 --> 00:08:36.580
+Javier Ribó: and that breaks a little bit. Compatibility, not compatibility. But yeah, it, it breaks a little bit. The flow.
+
+18
+00:08:36.840 --> 00:08:44.010
+Javier Ribó: If if a connection issue happens in in the middle of the of the issuance flow or presentation flow.
+
+19
+00:08:44.780 --> 00:08:51.219
+Javier Ribó: then another another perspective or point of view that Curtis and myself were exploring
+
+20
+00:08:51.410 --> 00:08:59.370
+Javier Ribó: is, why don't we have the ability to receive and send messages from different mediators at the same time?
+
+21
+00:09:00.450 --> 00:09:09.189
+Javier Ribó: Then this A and B concept is easy to understand. But it's not so simple internally.
+
+22
+00:09:09.400 --> 00:09:13.460
+Javier Ribó: So that's what I'm trying to to mention in the next slide that
+
+23
+00:09:14.337 --> 00:09:26.030
+Javier Ribó: I feel myself underestimated the that it's it's not so trivial to fix. Then the 2 or 3 problems that we identified is that.
+
+24
+00:09:26.950 --> 00:09:32.310
+Javier Ribó: for example, the 1st one is something that this already happens in the current flows.
+
+25
+00:09:32.910 --> 00:09:34.410
+Javier Ribó: So let's say.
+
+26
+00:09:35.190 --> 00:09:44.580
+Javier Ribó: if you start issuance with one mediator, and then that mediator goes down, you know it. Keep in mind that issuance can take
+
+27
+00:09:44.960 --> 00:09:51.159
+Javier Ribó: from minutes to hours to days whatever the issuer takes to to issue that credential.
+
+28
+00:09:51.400 --> 00:09:57.570
+Javier Ribó: And then, during this period, you could have switched to another mediator. In this case
+
+29
+00:09:57.900 --> 00:10:03.779
+Javier Ribó: the flows are going to be broken. So that's that's a handicap that we see in the current implementation.
+
+30
+00:10:04.710 --> 00:10:11.569
+Javier Ribó: Then 1 1 of the things that Curtis and myself were discussing is
+
+31
+00:10:11.850 --> 00:10:31.539
+Javier Ribó: we can have basically a a peer did with multiple services inside. And that makes a lot of sense. But then this doesn't mean that the fact that the Sdks are implementing that in that way doesn't mean that other parties like the mediator or the cloud agent are going to be doing the same.
+
+32
+00:10:31.850 --> 00:10:37.210
+Javier Ribó: So I also see that as a handicap in in order to get that through.
+
+33
+00:10:37.740 --> 00:10:40.680
+Javier Ribó: And then another handicap is that
+
+34
+00:10:41.570 --> 00:10:45.080
+Javier Ribó: this affects 2 or 3 things mainly, but
+
+35
+00:10:46.410 --> 00:11:01.120
+Javier Ribó: you need to be able to notify other parties, and other parties are probably the cloud agent that you changed your prd. So let's say I am no longer peer. Did a. And and I am now this peer did. B.
+
+36
+00:11:01.360 --> 00:11:14.230
+Javier Ribó: There is something that is already taken care of in an existing didcom protocol, which I'm not sure if we are going to have time to jump in detail on that I think we could.
+
+37
+00:11:16.470 --> 00:11:32.229
+Javier Ribó: and yeah, there, there is currently no process in the Sdks or in the other flows like the agent, so that whenever you. You say I am this new deed, they will not update your identity. So we we go back to the 1st part, which is.
+
+38
+00:11:32.880 --> 00:11:41.080
+Javier Ribó: if I start issuance with with mediator A and I switch to Mediator B, the verification is broken or the issuance flow is broken.
+
+39
+00:11:42.000 --> 00:11:58.439
+Javier Ribó: One, the the existing didcom protocol that manages that. And and we can probably go go and take a look at. That is a protocol that basically states that you are the a field that I am not sure if it's if I'm being precise or not, we will check it later.
+
+40
+00:11:58.810 --> 00:12:05.910
+Javier Ribó: But you basically say you add a firm field with a proof of who you are now, and proving who you were before.
+
+41
+00:12:06.430 --> 00:12:11.850
+Javier Ribó: and that that's something that needs to be implemented on on every side.
+
+42
+00:12:13.590 --> 00:12:27.760
+Javier Ribó: So having that said, because we are an open community, and there is a part that work for for Iohk. There is a part that that you guys come from the outside community. So I wanted to. 1st
+
+43
+00:12:27.940 --> 00:12:39.820
+Javier Ribó: knowing, for example, that Curtis, Fabio, and myself who are in the room, we have different points of view. I want to make sure that we all can express our points of view, despite.
+
+44
+00:12:40.300 --> 00:12:46.910
+Javier Ribó: Yeah, we already kind of had some internal discussions. But I want to just not to make it all open.
+
+45
+00:12:49.010 --> 00:13:03.089
+Javier Ribó: So yeah, that's from my side. I'm not sure, Curtis, if you have anything else to add, or did I cover more or less what we wanted to cover. And then for Fabio, I would like him to express what he thinks.
+
+46
+00:13:03.430 --> 00:13:13.799
+Javier Ribó: because I think Fabio is more in favor of one of the approaches that we had in here, but a little bit less about the second. So if if he can express his opinion about it
+
+47
+00:13:14.550 --> 00:13:20.609
+Javier Ribó: also see Shiloh and Julie have joined, so please feel free to to bring your point
+
+48
+00:13:22.200 --> 00:13:29.590
+Curtis: So, from my point of view, the specification allows it, and the community
+
+49
+00:13:30.020 --> 00:13:41.739
+Curtis: well, at least some people in the community have been vocal about wanting it, plus. There's no reason, or at least I'm still waiting on a detailed description of the negatives
+
+50
+00:13:41.900 --> 00:13:43.320
+Curtis: of adding it.
+
+51
+00:13:43.430 --> 00:13:45.400
+Curtis: So for me, it's just.
+
+52
+00:13:45.630 --> 00:13:47.559
+Curtis: There's no reason not to do it.
+
+53
+00:13:47.900 --> 00:13:54.502
+Curtis: People say it's complicated, and I keep asking well, describe the complications to me because I don't see them.
+
+54
+00:13:54.850 --> 00:14:05.040
+Javier Ribó: But can can you try and explain? What? What is it that you envision? If it's A or B, or it's both at the same time, and by A and BI mean these these 2 dots here
+
+55
+00:14:05.040 --> 00:14:09.180
+Curtis: I think none of them matter. I don't think a use case is required.
+
+56
+00:14:10.450 --> 00:14:12.510
+Curtis: I think the fact that it is
+
+57
+00:14:13.590 --> 00:14:22.709
+Curtis: a potential like you can imagine any number of scenarios where a consumer of the SDK might want multiple mediator connections.
+
+58
+00:14:22.910 --> 00:14:32.529
+Curtis: We don't have to have a concrete example for it. So if you want the specific answer, I can say both. But again, a concrete example is kind of irrelevant
+
+59
+00:14:32.790 --> 00:14:36.870
+Javier Ribó: Okay.
+
+60
+00:14:36.870 --> 00:14:50.659
+Curtis: And I mean, I mean, even if you take your examples and try to break them. That might fail over. As far as I'm aware you can't fail over if you're or if you're in the middle of a credential issuance flow, there isn't a failover. You just
+
+61
+00:14:50.660 --> 00:14:51.150
+Javier Ribó: Oh no!
+
+62
+00:14:51.435 --> 00:14:51.710
+Curtis: Flow.
+
+63
+00:14:51.710 --> 00:14:58.419
+Javier Ribó: Not not today. But this is one of the handicaps that I stated here that that we would need to solve. To make this a complete thing
+
+64
+00:14:58.570 --> 00:15:05.040
+Curtis: I, well, yeah, this is, I don't know for certain if you can make it. A complete thing is my point.
+
+65
+00:15:05.430 --> 00:15:05.980
+Javier Ribó: I'm not sure
+
+66
+00:15:05.980 --> 00:15:11.769
+Curtis: If the credential flow is just tied, and, like you can change your
+
+67
+00:15:12.160 --> 00:15:23.630
+Javier Ribó: You, you can you? You can. But there is a there is an existing protocol which we will check later, which is a didcom protocol, and it states what is the operation that you need to run to update your deed on another entity
+
+68
+00:15:23.630 --> 00:15:32.869
+Curtis: Yeah, I know you can rotate dids. But like, I'm just not certain I've not got into the spec deep enough to know if that actually affects the credential issuance flow or not.
+
+69
+00:15:35.360 --> 00:15:49.039
+Curtis: But, again, either way, it's all somewhat irrelevant. My point is, it's all feasible, and it's all desirable. So unless the complications of adding it are such that make it impossible. I don't understand why we wouldn't do it
+
+70
+00:15:52.360 --> 00:15:54.780
+Javier Ribó: Okay, thank you. Curtis. Yuri
+
+71
+00:15:55.930 --> 00:16:15.919
+Yurii Shynbuiev: Yeah, I just wanted to highlight that. There are 3 different concerns from my point of view. 1st concern is mediator. The main purpose of mediator is to allow a passive applications passive. I mean applications that cannot keep active endpoint
+
+72
+00:16:16.340 --> 00:16:22.690
+Yurii Shynbuiev: to be used by other party to get the messages over Didcom.
+
+73
+00:16:22.850 --> 00:16:36.099
+Yurii Shynbuiev: So this is the main purpose of mediator. Okay? And then, second concern is that in order to connect 2 peers, it does matter agent or and SDK, or SDK and SDK,
+
+74
+00:16:36.420 --> 00:16:58.680
+Yurii Shynbuiev: we have a connect protocol where we share some auto band message and establish a trust connection, and it's the culprit from all other protocols. It's kind of a 1st protocol that should happen between 2 parties in order to proceed with some other protocols. And then this statement that
+
+75
+00:16:58.680 --> 00:17:14.140
+Yurii Shynbuiev: issuance and verification should be done by using the same mediator. It's absolutely true if we established connection with this mediator. But if we switch mediator from A to B, then we need to
+
+76
+00:17:14.560 --> 00:17:21.779
+Yurii Shynbuiev: also establish the connection and then trigger the corresponding protocol without any problem
+
+77
+00:17:22.050 --> 00:17:33.850
+Javier Ribó: You let let me stop it. It's not fully like that. So instead of establishing a new connection, what you would do is that you would run a didcom protocol which is, establish it to do exactly that.
+
+78
+00:17:34.310 --> 00:17:43.690
+Javier Ribó: So instead of creating a new connection and then using that connection, what you would do. Basically like explained. Very simple is, Tell the the cloud agent, hey?
+
+79
+00:17:43.840 --> 00:17:49.330
+Javier Ribó: I was media. I was in mediator A, and I am now in mediator. B. Please apply this configuration
+
+80
+00:17:50.290 --> 00:17:50.920
+Fábio Pinheiro: So.
+
+81
+00:17:50.920 --> 00:17:56.370
+Yurii Shynbuiev: My point of view, Sir Fabio, give me 30 seconds. This
+
+82
+00:17:56.470 --> 00:18:00.970
+Yurii Shynbuiev: kind of protocol related to key rotation or deed rotation.
+
+83
+00:18:01.730 --> 00:18:04.879
+Yurii Shynbuiev: It's not related to mediator, and there is a
+
+84
+00:18:05.370 --> 00:18:21.579
+Yurii Shynbuiev: pretty, the corporate stuff. If you want to rotate your key, you can use this feature, but it's not about switching from mediator A to mediator B, but it can be probably
+
+85
+00:18:22.530 --> 00:18:30.279
+Fábio Pinheiro: So I just wanted to enforce that that what you just mentioned, so that the
+
+86
+00:18:30.380 --> 00:18:36.609
+Fábio Pinheiro: need quotation was based on one something that come from the com version one
+
+87
+00:18:36.820 --> 00:18:37.260
+Javier Ribó: Okay.
+
+88
+00:18:37.390 --> 00:18:39.410
+Fábio Pinheiro: People were using it. So
+
+89
+00:18:39.680 --> 00:18:47.069
+Fábio Pinheiro: I I think people are trying to use it on Didcom V version 2. But I still don't see the feeling of it.
+
+90
+00:18:47.810 --> 00:19:02.039
+Fábio Pinheiro: And when you say that you need to basically rotating deeds is like, Okay, you you get there. And you say, Okay, this is my new identity. So each deed is one identity, and you are saying, This is your new identity.
+
+91
+00:19:02.860 --> 00:19:11.669
+Fábio Pinheiro: But if we consider other types of deeds that are not did peer like. Let's consider deed, prism or deed web doesn't matter.
+
+92
+00:19:12.300 --> 00:19:18.600
+Fábio Pinheiro: Those deeds can rotate. The can can change the mediator at any point in time.
+
+93
+00:19:19.200 --> 00:19:22.269
+Fábio Pinheiro: so they can just update the details there.
+
+94
+00:19:22.400 --> 00:19:28.460
+Fábio Pinheiro: And they can. Okay, this is my new mediator, and it it's expected for the sender
+
+95
+00:19:28.770 --> 00:19:30.339
+Fábio Pinheiro: to use that mediator.
+
+96
+00:19:31.140 --> 00:19:34.099
+Fábio Pinheiro: So I don't see a problem of of
+
+97
+00:19:34.635 --> 00:19:43.509
+Fábio Pinheiro: even. I think that is a good thing, the the to have the libraries to support multi mediators because there's nothing against that.
+
+98
+00:19:43.900 --> 00:19:48.570
+Fábio Pinheiro: And because most of the functionality that Curtis is describing is like to
+
+99
+00:19:50.700 --> 00:19:53.200
+Fábio Pinheiro: switching from one mediator to another.
+
+100
+00:19:53.450 --> 00:20:00.359
+Javier Ribó: Not not really what what we were thinking, Fabio, is that we would create a Brd with multiple services inside.
+
+101
+00:20:01.530 --> 00:20:03.419
+Javier Ribó: That's what we were envisioning.
+
+102
+00:20:03.940 --> 00:20:04.480
+Javier Ribó: So it's
+
+103
+00:20:04.480 --> 00:20:05.320
+Fábio Pinheiro: Same time.
+
+104
+00:20:05.320 --> 00:20:07.000
+Javier Ribó: Yes, at the same time.
+
+105
+00:20:07.000 --> 00:20:12.879
+Fábio Pinheiro: Yeah, but there is no problem for that. It's just a question of the library doesn't allow to do that, but it could
+
+106
+00:20:12.880 --> 00:20:24.419
+Curtis: Just just to add a bit more. We could also have multiple periods with each with a different mediator. Again, like we're building an SDK, we don't have a use case, but our users can do whatever they want with it right
+
+107
+00:20:25.910 --> 00:20:27.329
+Fábio Pinheiro: Yeah. And that sounds good.
+
+108
+00:20:27.330 --> 00:20:28.300
+Fábio Pinheiro: Yeah, exactly.
+
+109
+00:20:28.300 --> 00:20:28.670
+Fábio Pinheiro: 0,
+
+110
+00:20:28.670 --> 00:20:30.130
+Curtis: Kind of enabling
+
+111
+00:20:30.380 --> 00:20:33.370
+Fábio Pinheiro: I'm just saying that this may
+
+112
+00:20:34.410 --> 00:20:39.550
+Fábio Pinheiro: make more sense in terms in terms of use cases when you are talking about other type of leads.
+
+113
+00:20:40.040 --> 00:20:51.589
+Fábio Pinheiro: because, for example, you can have, like one deed that is using a mediator that is a deed peer, and that is using another mediator. That is a deed web, for example, stuff like that
+
+114
+00:20:53.100 --> 00:21:00.450
+Javier Ribó: I don't see why, having different mediators, different deeds, or a chain of deeds affects this conversation.
+
+115
+00:21:01.020 --> 00:21:07.710
+Fábio Pinheiro: It doesn't affect. It's just like you are allowing the sender to choose which one they want to use.
+
+116
+00:21:09.330 --> 00:21:12.579
+Javier Ribó: The sender. But all yeah, the sender. Exactly. Yeah.
+
+117
+00:21:14.330 --> 00:21:19.069
+Fábio Pinheiro: I mean, I'm just like exemplifying what type of use cases can be. There
+
+118
+00:21:20.910 --> 00:21:25.779
+Shailesh Patil: But then, really, I mean, my opinion is that did be
+
+119
+00:21:25.950 --> 00:21:31.070
+Shailesh Patil: is, normally is being used for communication purpose only. Right?
+
+120
+00:21:32.580 --> 00:21:35.220
+Shailesh Patil: So you can have your present date.
+
+121
+00:21:36.830 --> 00:21:44.760
+Shailesh Patil: You're not using prism. Do to communicate with anyone you are using. Did P. And then you communicate
+
+122
+00:21:45.340 --> 00:21:53.099
+Fábio Pinheiro: Yes, so that that's the thing that I think we should improve in in the college and then in the libraries is to allowed
+
+123
+00:21:54.180 --> 00:21:58.830
+Fábio Pinheiro: the use of other type of feeds to to
+
+124
+00:21:58.830 --> 00:21:59.239
+Javier Ribó: To pass.
+
+125
+00:21:59.240 --> 00:22:03.990
+Fábio Pinheiro: To communication, to do, to execute the protocol, to do all the functionalities so
+
+126
+00:22:03.990 --> 00:22:15.029
+Javier Ribó: It's basically to pass the did resolver and secret resolver to the Didcom libraries and pass a custom one.
+
+127
+00:22:16.390 --> 00:22:30.709
+Javier Ribó: But then the the point to try and bring. Gonzalo is not here today, but I'm going to try and bring the points that he was trying to bring is what what is the point, and I and I kind of know what Curtis would reply to it. But I still want to make it open.
+
+128
+00:22:31.030 --> 00:22:34.730
+Javier Ribó: So what is the point of having multiple
+
+129
+00:22:35.140 --> 00:22:48.019
+Javier Ribó: multiple services in one single deed. If no other party is going to listen, that because that's not specified anywhere, what needs to be done if one mediator fails, if you need to pick up the second one.
+
+130
+00:22:48.200 --> 00:22:56.579
+Javier Ribó: or what is the logic that the mediator or the cloud agent needs to follow in case it finds 2 Didcom services which one should it choose
+
+131
+00:22:57.560 --> 00:23:02.260
+Shailesh Patil: And I think it also adds a lot of complication there. Only I think.
+
+132
+00:23:02.831 --> 00:23:06.178
+Shailesh Patil: when you're talking about the failed failover things, because
+
+133
+00:23:07.170 --> 00:23:18.819
+Shailesh Patil: if you fail between the protocol, then what you do, are you going to start again? Because then you don't know what you stay you have to switch the mediator. You are losing the messages. So you have to go back to different mediator
+
+134
+00:23:19.190 --> 00:23:24.379
+Curtis: So just to be clear, the SDK shouldn't care about the services that it
+
+135
+00:23:24.380 --> 00:23:28.619
+Shailesh Patil: Yeah, yeah, no, no, I mean, it's not nothing to do with SDK, but it's just
+
+136
+00:23:28.620 --> 00:23:33.589
+Curtis: Yeah, but that's my point. If it's nothing to do with the SDK, then I don't think it's a conversation worth having.
+
+137
+00:23:33.830 --> 00:23:37.489
+Shailesh Patil: Yeah, that is more on application level. Only I would say.
+
+138
+00:23:37.670 --> 00:23:42.120
+Curtis: Yeah, exactly. At the end of the day I could use the SDK to build a mediator
+
+139
+00:23:44.350 --> 00:23:44.790
+Javier Ribó: I agree.
+
+140
+00:23:44.790 --> 00:23:58.570
+Shailesh Patil: Yeah, yeah, I mean, like that way, SDK, is agnostic to this, and it is none of its business. If something fails, I think they need to handle. That means how they handled, or that it is like out of scope
+
+141
+00:23:59.370 --> 00:23:59.960
+Curtis: Yeah.
+
+142
+00:23:59.960 --> 00:24:00.440
+Shailesh Patil: Okay.
+
+143
+00:24:00.440 --> 00:24:16.580
+Javier Ribó: And then, would you, would you guys put put in the scope of the 1st phase, for example? So one phase is adding different deeds different services in a deed, and then making the SDK choose one or the other, or whatever, or leave it up to the user. That's 1 task.
+
+144
+00:24:16.790 --> 00:24:31.600
+Javier Ribó: But then, whenever you have started a flow with one with one of the deeds, and you are now changing the deed, would you guys consider that updating updating each party would be important. So, calling the agent to notify that I'm now here
+
+145
+00:24:32.630 --> 00:24:38.449
+Shailesh Patil: Yes, it needs to happen right? Otherwise it wouldn't know the other agent wouldn't
+
+146
+00:24:38.450 --> 00:24:52.000
+Javier Ribó: We can. We can just we can just make it make it a requirement that if you start an issuance flow with one deed that you need to finish it with that deed. That's what I'm trying to say. Do you guys see it as a handicap, or as something that we can live with
+
+147
+00:24:53.120 --> 00:24:59.490
+Shailesh Patil: The I mean, like, it needs to be explicitly, explicitly mentioned by the implementer of the
+
+148
+00:24:59.840 --> 00:25:06.520
+Shailesh Patil: service. Right? For example, if you are issuer, and you are running the agent. Then that's how your each agent is going to behave.
+
+149
+00:25:07.950 --> 00:25:18.409
+Shailesh Patil: And, Fab, you mentioned something which I remember. I don't know, Fabul, what was the reason? You said that it is always need to use the 1st mediator in the list right
+
+150
+00:25:18.996 --> 00:25:26.239
+Fábio Pinheiro: No. So that what the in the deep core, so it's about did Comp
+
+151
+00:25:26.390 --> 00:25:34.420
+Fábio Pinheiro: says about it is that it's recommended to use the 1st service on on the
+
+152
+00:25:35.520 --> 00:25:45.989
+Fábio Pinheiro: the 1st service that is, did call. So if there is a mediator there you should use, but that is not a requirement that is like a recommendation. It doesn't. You can choose
+
+153
+00:25:46.300 --> 00:25:47.349
+Fábio Pinheiro: as a sender
+
+154
+00:25:47.670 --> 00:25:54.730
+Shailesh Patil: No. So my question is, that's why? Because, other use case what he's raising sorry. What have you mentioned
+
+155
+00:25:55.130 --> 00:26:06.589
+Shailesh Patil: relies on that right, because how do the their application? Or the agent knows that I need to use this date now, like how that communication happens? How do
+
+156
+00:26:06.690 --> 00:26:20.050
+Shailesh Patil: the SDK tells you that. Okay, you need to use this did when communicating. Now, how? Who decides how? Who like start that conversation? Saying that I need to use did one rather than did did 2 mediator
+
+157
+00:26:20.050 --> 00:26:29.210
+Javier Ribó: What you would do. Shilish, you would create a did rotation or a Didcom message with a from Prior, which contains a Jwt. Proof of who you are.
+
+158
+00:26:29.210 --> 00:26:30.489
+Shailesh Patil: Okay. Okay.
+
+159
+00:26:31.060 --> 00:26:40.900
+Javier Ribó: So this is what you would use to notify the agent that you are now using that. So we either. What my question was, do we? Do we think that this is like important? For
+
+160
+00:26:42.430 --> 00:26:55.109
+Javier Ribó: for at least the cloud agent implementation? Or do we consider that if you started an issuance or presentation flow with. One did that, you must finish it, and this is a requirement that you can. We can put somewhere in the Cloud agent
+
+161
+00:26:56.960 --> 00:26:58.570
+Shailesh Patil: Yeah, we could.
+
+162
+00:27:00.000 --> 00:27:03.050
+Shailesh Patil: My question is, is this feature important? That much
+
+163
+00:27:03.260 --> 00:27:04.760
+Javier Ribó: That? That's the question.
+
+164
+00:27:06.139 --> 00:27:07.000
+Shailesh Patil: Okay.
+
+165
+00:27:07.000 --> 00:27:12.519
+Fábio Pinheiro: I I would prefer focusing on making the the other features more limiting. This one
+
+166
+00:27:12.520 --> 00:27:13.639
+Shailesh Patil: I agree with that
+
+167
+00:27:13.640 --> 00:27:18.580
+Fábio Pinheiro: Because I think there is not many people using this feature
+
+168
+00:27:18.730 --> 00:27:19.470
+Shailesh Patil: Yeah.
+
+169
+00:27:19.940 --> 00:27:28.579
+Shailesh Patil: and we have. I mean also, I also think that only like we have one mediator running. Okay? Fine. This can be.
+
+170
+00:27:29.460 --> 00:27:36.010
+Shailesh Patil: consider as a improvement, but it doesn't gives any added advantage.
+
+171
+00:27:37.050 --> 00:27:38.290
+Shailesh Patil: At this moment
+
+172
+00:27:40.260 --> 00:27:41.110
+Javier Ribó: Okay.
+
+173
+00:27:42.070 --> 00:27:43.560
+Shailesh Patil: That's my opinion.
+
+174
+00:27:44.770 --> 00:27:49.150
+Javier Ribó: But it's cool to have diversity in opinion. I do think it. At least
+
+175
+00:27:49.750 --> 00:28:03.530
+Javier Ribó: the failover use case to me is is very useful to have and I would make it default on the sdks that in case you have more than one deed and one fails, you try with the next one in the list. Something simple.
+
+176
+00:28:05.770 --> 00:28:14.719
+Fábio Pinheiro: But the this is not a fail. This is nothing to do with. Fell over after you send this message. You are not supposed to use the previous
+
+177
+00:28:14.720 --> 00:28:16.120
+Shailesh Patil: Yeah, exactly.
+
+178
+00:28:17.160 --> 00:28:20.519
+Fábio Pinheiro: It's not just like any placement
+
+179
+00:28:20.520 --> 00:28:23.989
+Javier Ribó: Yeah, yeah, we understand. I'm not mixing now this with rotation.
+
+180
+00:28:24.940 --> 00:28:27.630
+Javier Ribó: So does anyone else has opinions about it.
+
+181
+00:28:27.930 --> 00:28:33.600
+Javier Ribó: Well, Berto and Gonzalo did, but neither of them are here. So hey, Yuri!
+
+182
+00:28:33.600 --> 00:28:35.280
+Shailesh Patil: But you know, like
+
+183
+00:28:35.879 --> 00:28:51.440
+Shailesh Patil: sorry. Just one thing to add. You know, like there could be a genuine requirement, right? For example, forget about failover. But there could be a genuine requirement that I don't want to use this mediator anymore. Like, Okay, I used for one year. I don't want to use, I found
+
+184
+00:28:52.116 --> 00:28:57.533
+Shailesh Patil: this meat eater is not available most of the time, or something is a problem, and I want to switch straight away.
+
+185
+00:28:58.080 --> 00:29:05.599
+Shailesh Patil: That is the genuine use case. But you can switch the mediator itself. Then you don't have. Don't need to have 2 services.
+
+186
+00:29:05.600 --> 00:29:08.969
+Shailesh Patil: Well, or you can just establish a newcom connection.
+
+187
+00:29:08.970 --> 00:29:09.630
+Shailesh Patil: Yeah.
+
+188
+00:29:09.630 --> 00:29:11.640
+Javier Ribó: And it is not the end of the world
+
+189
+00:29:13.060 --> 00:29:18.190
+Shailesh Patil: Yes. So my, my point why I was raised was that you are not blocked
+
+190
+00:29:18.470 --> 00:29:24.289
+Shailesh Patil: by any sense that you need to have 2 mediators, you are always open to change and
+
+191
+00:29:25.860 --> 00:29:37.930
+Curtis: Topic slightly. So in the SDK, currently, you can explicitly only have a single mediator. So if somebody did have a requirement for 2, they would indeed be blocked
+
+192
+00:29:38.370 --> 00:29:40.500
+Shailesh Patil: Okay, then probably then
+
+193
+00:29:40.500 --> 00:29:47.050
+Javier Ribó: But hold on. I don't agree with that. They they can change the the deed that they used to start the agent with
+
+194
+00:29:47.300 --> 00:29:54.279
+Curtis: But the the A. They'd have to have 2 agents running. They couldn't have a single agent with 2 mediators running at the same
+
+195
+00:29:54.280 --> 00:30:00.050
+Javier Ribó: That we agree that we agree what Chinese is saying, that you stop the agent and you start the agent with a different
+
+196
+00:30:00.264 --> 00:30:00.480
+Curtis: Yeah.
+
+197
+00:30:00.480 --> 00:30:01.399
+Javier Ribó: Not at the same time
+
+198
+00:30:01.690 --> 00:30:09.689
+Curtis: I don't think that's that's not really what we're talking about. Then I think we're like, the conversation is about multiple mediators. It's not about?
+
+199
+00:30:10.660 --> 00:30:12.589
+Curtis: Did rotation, or anything else like that
+
+200
+00:30:12.590 --> 00:30:16.340
+Fábio Pinheiro: So how hard would it be to implement that on the SDK.
+
+201
+00:30:20.150 --> 00:30:23.005
+Curtis: It's not very 90% of it. So
+
+202
+00:30:26.962 --> 00:30:51.049
+Yurii Shynbuiev: Guys, I wanted to highlight and correct me if I'm wrong. But we also have a layered architecture for our protocols. We use a did pure to establish the connection, and we can throw it if we are not interested in this connection anymore. But inside of the issuance of verification logic, we use a deep prism.
+
+203
+00:30:51.410 --> 00:30:55.129
+Yurii Shynbuiev: So this prism is kind of
+
+204
+00:30:56.400 --> 00:31:08.370
+Yurii Shynbuiev: Allow us to build the business logic with particular signatures and verification, and be agnostic to the peer that is currently used
+
+205
+00:31:08.370 --> 00:31:10.910
+Javier Ribó: And that's that's not fully true.
+
+206
+00:31:12.116 --> 00:31:13.309
+Yurii Shynbuiev: Correct me.
+
+207
+00:31:13.610 --> 00:31:27.569
+Javier Ribó: It's not agnostic like. The fact that the issuer did is your identity, and the peer did is for communication. So no matter, it doesn't matter if you are the same. Prism did that you would need to establish a newcom connection in.
+
+208
+00:31:28.100 --> 00:31:32.620
+Javier Ribó: and the agent will not recognize you by your present date by by your peer did.
+
+209
+00:31:33.050 --> 00:31:42.260
+Javier Ribó: and then at the at the credential layer with your presumed, that's true. But at the network layer at the communication layer it will always use. Peer did
+
+210
+00:31:43.390 --> 00:31:44.200
+Yurii Shynbuiev: Yes, hey?
+
+211
+00:31:44.520 --> 00:31:52.880
+Yurii Shynbuiev: And you can establish one connection, using one edit peer with issuer, and you can use another edit peer with verifier.
+
+212
+00:31:53.290 --> 00:32:03.620
+Yurii Shynbuiev: Just allow some additional privacy, or don't allow to track you. You did peers
+
+213
+00:32:04.090 --> 00:32:09.330
+Curtis: Sure, but both did. Peers would have to use the same mediator, which is what the conversation's about.
+
+214
+00:32:10.010 --> 00:32:13.289
+Yurii Shynbuiev: And it's absolutely fun, because mediator is just a mailbox
+
+215
+00:32:13.290 --> 00:32:22.880
+Curtis: It doesn't matter if it's fine or not. The point again, the point is, there is use cases that are imaginable where people will want multiple mediators.
+
+216
+00:32:23.080 --> 00:32:26.790
+Curtis: and then the debate is about whether or not we.
+
+217
+00:32:26.890 --> 00:32:31.709
+Curtis: we do it now. We don't do it or we do it later. Essentially.
+
+218
+00:32:32.570 --> 00:32:42.000
+Yurii Shynbuiev: And as the mediator is just a mailbox, I also have my private Google account corporate Google account. And another
+
+219
+00:32:42.310 --> 00:32:58.639
+Yurii Shynbuiev: account in Microsoft that I don't check at all. And usually it looks like I have 3 mediators, but it doesn't make any sense enough. It's enough to have one email, account, probably 2. If you really want to
+
+220
+00:32:59.240 --> 00:32:59.930
+Yurii Shynbuiev: excuse me.
+
+221
+00:32:59.930 --> 00:33:06.789
+Javier Ribó: I would say, you know how I would say, Yuri, you know, when when you have a domain name and the domain name has Mx records.
+
+222
+00:33:08.190 --> 00:33:13.059
+Javier Ribó: Right? Then it is not like, you create a different email account.
+
+223
+00:33:13.210 --> 00:33:18.429
+Javier Ribó: It is like you switch the email server from one server to the other server.
+
+224
+00:33:19.870 --> 00:33:25.990
+Javier Ribó: and the thing is that it affects, because if you go and pick up the messages from the old place they won't be there.
+
+225
+00:33:26.470 --> 00:33:31.180
+Javier Ribó: So this is kind of the conceptually what we are trying to solve.
+
+226
+00:33:33.140 --> 00:33:34.230
+Javier Ribó: So
+
+227
+00:33:34.370 --> 00:33:42.429
+Javier Ribó: yeah, from my point of view, without wanting like, we are not going to to make this our highest priority, I guess.
+
+228
+00:33:43.220 --> 00:33:44.610
+Javier Ribó: to
+
+229
+00:33:45.300 --> 00:33:56.419
+Javier Ribó: to complete absolutely everything. So we won't make the cloud agent start using multiple Prds and failover and all that. That's up to whoever implements the cloud agent.
+
+230
+00:33:56.900 --> 00:34:05.239
+Javier Ribó: But from the sdks we are going to try and document. What are the changes that are required to do? Multiple mediators at the same time.
+
+231
+00:34:05.880 --> 00:34:08.470
+Javier Ribó: and then it will be up to the user
+
+232
+00:34:08.909 --> 00:34:14.659
+Javier Ribó: to use the from prior de rotation protocol or not use it at all.
+
+233
+00:34:14.989 --> 00:34:24.200
+Javier Ribó: and it would be up to the user to do the failover or to not do the failover, but at least support using the different mediators
+
+234
+00:34:24.540 --> 00:34:30.219
+Javier Ribó: either by stopping and and creating an additional one, or by doing that at Runtime.
+
+235
+00:34:31.440 --> 00:34:42.469
+Javier Ribó: then the the priority. This will have. You guys know already that we have the offline. 1st we want to bring issuance to the SDK, so it's likely not going to be the highest priority.
+
+236
+00:34:42.679 --> 00:34:48.800
+Javier Ribó: But I think there is chance that we can get it out relatively soon between Curtis and me.
+
+237
+00:34:50.199 --> 00:34:54.019
+Javier Ribó: So, yeah, that's been a very good conversation, guys.
+
+238
+00:34:55.580 --> 00:35:02.279
+Javier Ribó: Anyone else has any notes or points to bring in here
+
+239
+00:35:09.700 --> 00:35:10.550
+Javier Ribó: awesome
+
+240
+00:35:11.730 --> 00:35:27.079
+Javier Ribó: cool. So next thing that I'll do is as we usually do. We go to the to the Identity roadmap to see if there's anything that the community open, that there's open for discussion, for now everything that I see in our main columns
+
+241
+00:35:27.080 --> 00:35:27.670
+Yurii Shynbuiev: Jesus
+
+242
+00:35:27.670 --> 00:35:33.710
+Yurii Shynbuiev: created by us. And I'm not sure, Yuri, if you have seen any activity from the community that is working.
+
+243
+00:35:33.710 --> 00:35:45.359
+Yurii Shynbuiev: there is. Yes, yes, there is one issue that alias created and alias can elaborate it. And we can decide if we're going to pick it up, or there is some alternative
+
+244
+00:35:46.850 --> 00:35:49.240
+Javier Ribó: Yeah. Do you know which one it is before
+
+245
+00:35:50.840 --> 00:35:53.170
+Elias: Can you hear me with the
+
+246
+00:35:56.470 --> 00:35:58.100
+Elias: can you scroll up
+
+247
+00:35:58.540 --> 00:36:02.869
+Javier Ribó: Yes, if you give me the number, I I will probably find it faster
+
+248
+00:36:03.680 --> 00:36:04.420
+Elias: Okay?
+
+249
+00:36:05.600 --> 00:36:10.060
+Elias: One second, yeah, it's that one. No, no.
+
+250
+00:36:10.270 --> 00:36:10.620
+Javier Ribó: This one.
+
+251
+00:36:10.620 --> 00:36:11.220
+Elias: Hello!
+
+252
+00:36:11.550 --> 00:36:14.379
+Elias: No, it's not that one sorry. Let me just
+
+253
+00:36:23.130 --> 00:36:27.759
+Yurii Shynbuiev: And you can navigate to cloud agent issues. It will be easier to find it's on top
+
+254
+00:36:27.890 --> 00:36:29.680
+Javier Ribó: Cloud agent issues
+
+255
+00:36:35.150 --> 00:36:36.999
+Elias: Is delete endpoints for cloud
+
+256
+00:36:37.000 --> 00:36:38.380
+Fábio Pinheiro: 1, 5, 4, 8,
+
+257
+00:36:38.380 --> 00:36:42.929
+Elias: 1, 5, 4, 8, 1, 5, 4, 8,
+
+258
+00:36:46.920 --> 00:36:50.369
+Javier Ribó: I will probably open directly, faster.
+
+259
+00:36:51.350 --> 00:36:52.540
+Elias: No. Okay.
+
+260
+00:36:56.650 --> 00:36:57.520
+Javier Ribó: Cool.
+
+261
+00:36:58.670 --> 00:37:04.030
+Javier Ribó: Okay, what's this about? Do you want to introduce the issue? Or do you want me to read
+
+262
+00:37:04.501 --> 00:37:08.269
+Elias: No, let me just give a quick introduction.
+
+263
+00:37:08.742 --> 00:37:14.359
+Elias: So basically, the issue is that if we are trying to, if you set up a connection right?
+
+264
+00:37:14.680 --> 00:37:26.759
+Elias: And then you maybe for some reason you send the wrong detail. You send the wrong claim. So you would want to drop the connection and reestablish a new connection. You would have to restart the cloud agents
+
+265
+00:37:26.940 --> 00:37:34.766
+Elias: rather than, and from their testing perspective, or from a dev perspective, you would have to
+
+266
+00:37:35.450 --> 00:37:39.739
+Elias: drop the docker volumes as well to clear the the data.
+
+267
+00:37:39.990 --> 00:37:53.410
+Elias: And then, yeah, I think that's the main thing that we restart. And then you clear the docker. So I thought maybe having a delete endpoint for connections will probably be better rather than going through the
+
+268
+00:37:55.590 --> 00:38:02.510
+Elias: and through rather than restarting, but also john raised some legitimate issues.
+
+269
+00:38:02.650 --> 00:38:13.629
+Elias: He I saw it from a developer perspective. But I wasn't thinking about. I forgot to look at it from an a user perspective as well, because he was like.
+
+270
+00:38:13.740 --> 00:38:32.760
+Elias: if you could go to his issue raised, I think that. Yeah, I think yeah, that those ones. So he was asking whether the what happens? Maybe if the other one we've established or the other party we've established connection with how do? How does the person know you've deleted the connection?
+
+271
+00:38:33.000 --> 00:38:35.899
+Elias: How does it also cascade
+
+272
+00:38:37.160 --> 00:38:40.740
+Elias: Does it also cascade? I think, if I remember, yeah.
+
+273
+00:38:41.530 --> 00:38:46.230
+Elias: he was like, does it also cascade along other parts of the system.
+
+274
+00:38:46.490 --> 00:39:00.110
+Elias: So maybe the mediator. I don't really know if it would affect the Mediator. I think that one, if you could help me with that one. And then he said, if other people also making Api calls with the same connection. Id. That's if
+
+275
+00:39:00.220 --> 00:39:05.460
+Elias: one party has already shared the connection with multiple
+
+276
+00:39:05.860 --> 00:39:11.060
+Elias: parties. That's how I understood it. But I was like, go raise this issue and
+
+277
+00:39:11.060 --> 00:39:20.329
+Javier Ribó: So you would create. Sorry, sorry to interrupt you. You would create one connection per person that you want to connect with, so you would not reuse one connection
+
+278
+00:39:20.840 --> 00:39:28.829
+Javier Ribó: for everyone. What you can do is that you can reuse out of band invitations. But you cannot reuse didcom connections if that makes sense
+
+279
+00:39:29.850 --> 00:39:32.669
+Elias: Oh, okay, yeah.
+
+280
+00:39:32.670 --> 00:39:35.780
+Elias: Then, what what Fabio is trying to say in here
+
+281
+00:39:38.030 --> 00:39:54.370
+Javier Ribó: Is that there is also the fact that we can establish a timeout. So let's say that you have the ability to expire an out of bind invitation, and Fabio is also stating that it would be good to have an endpoint to cancel a connection
+
+282
+00:39:54.610 --> 00:39:56.379
+Fábio Pinheiro: That depends on the invitation
+
+283
+00:39:56.850 --> 00:40:01.700
+Javier Ribó: Yeah, Fabio, question for you would be.
+
+284
+00:40:03.050 --> 00:40:05.859
+Javier Ribó: is, is a connection always deleteable
+
+285
+00:40:07.390 --> 00:40:08.680
+Fábio Pinheiro: So.
+
+286
+00:40:09.560 --> 00:40:13.100
+Javier Ribó: Even if it's in the connected stage. Can you delete it?
+
+287
+00:40:13.100 --> 00:40:21.510
+Fábio Pinheiro: When we create the invitation, I think the invitation stays on the database until you remove it. So the invitation is there, or until the time out.
+
+288
+00:40:22.340 --> 00:40:26.840
+Fábio Pinheiro: so there is no way to delete that from the database. So that's what I'm saying
+
+289
+00:40:27.490 --> 00:40:29.590
+Fábio Pinheiro: about the connections. I'm not
+
+290
+00:40:29.860 --> 00:40:36.149
+Fábio Pinheiro: even a big fan of that connection. Protocol that we have. I prefer to like the connectionless
+
+291
+00:40:36.150 --> 00:40:37.379
+Javier Ribó: Yeah, not not even
+
+292
+00:40:37.380 --> 00:40:40.990
+Fábio Pinheiro: Because that is more didcom, more pure didcom
+
+293
+00:40:40.990 --> 00:40:41.730
+Javier Ribó: Yeah.
+
+294
+00:40:43.940 --> 00:40:50.240
+Javier Ribó: Well, I think the the out of band invitations and the connection entity that we created
+
+295
+00:40:50.580 --> 00:40:58.100
+Javier Ribó: was an easy way for us in the cloud agent implementation to to recognize who we are connecting with in the Api.
+
+296
+00:40:58.650 --> 00:41:04.459
+Javier Ribó: But it belongs more to the implementation, logic, and the business logic of the cloud agent
+
+297
+00:41:04.750 --> 00:41:08.299
+Javier Ribó: rather than the Sdks or the protocols itself.
+
+298
+00:41:13.681 --> 00:41:16.629
+Elias: Yeah, that's that's what I was thinking
+
+299
+00:41:20.880 --> 00:41:29.539
+Fábio Pinheiro: And what John mentioned there, it makes sense so deleting the con. The that connection, after being established may be weird. Because
+
+300
+00:41:29.740 --> 00:41:32.540
+Fábio Pinheiro: and that's exactly what I was asking you. Yeah.
+
+301
+00:41:33.840 --> 00:41:36.150
+Fábio Pinheiro: but for me deleting the invitation.
+
+302
+00:41:37.110 --> 00:41:40.640
+Fábio Pinheiro: having an endpoint to remove that invitation, also makes sense
+
+303
+00:41:41.280 --> 00:41:42.270
+Javier Ribó: Okay. Now.
+
+304
+00:41:42.270 --> 00:41:45.310
+Fábio Pinheiro: Imagine that you create the invitation by accident or something
+
+305
+00:41:45.840 --> 00:41:46.600
+Javier Ribó: Yeah.
+
+306
+00:41:47.850 --> 00:41:48.540
+Elias: Sorry
+
+307
+00:41:49.130 --> 00:41:54.539
+Javier Ribó: Yes, something that you can pick up, that you want to pick up yourself, or what's
+
+308
+00:41:55.130 --> 00:41:57.409
+Elias: Yeah, I would like to work on it myself
+
+309
+00:41:57.710 --> 00:41:58.450
+Javier Ribó: Okay.
+
+310
+00:41:59.030 --> 00:41:59.920
+Javier Ribó: Not. Believe
+
+311
+00:41:59.920 --> 00:42:00.520
+Elias: Like.
+
+312
+00:42:01.109 --> 00:42:24.259
+Elias: Think here the the suggestion. I I didn't catch that, that you said the connection, and then the invitation. So you send the invitation, and then when the user, when the other party accepts the invitation, and then the connection is up right. But you said the invitation is stored in the database, or you're talking about out of one invitation
+
+313
+00:42:24.260 --> 00:42:31.130
+Fábio Pinheiro: Invitation. So when when you create the out of one invitation, that invitation is stored in the database.
+
+314
+00:42:31.430 --> 00:42:36.300
+Fábio Pinheiro: and then, if you give you need to give the invitation to the other party somehow
+
+315
+00:42:36.750 --> 00:42:40.259
+Fábio Pinheiro: or by QR code, or by email, or something doesn't matter.
+
+316
+00:42:41.000 --> 00:42:41.570
+Fábio Pinheiro: But
+
+317
+00:42:41.570 --> 00:42:42.070
+Elias: Okay.
+
+318
+00:42:42.070 --> 00:42:48.290
+Fábio Pinheiro: If we, if you call that endpoint to create invitation, I think there is no endpoint to delete the invitation
+
+319
+00:42:48.930 --> 00:42:52.089
+Fábio Pinheiro: Like you need to wait, wait for the expired time
+
+320
+00:42:52.730 --> 00:42:55.330
+Shailesh Patil: No, I it was so fabulous.
+
+321
+00:42:57.450 --> 00:43:06.950
+Shailesh Patil: Probably. Also you can, once that invitation is used you cannot use it again. So I mean, like. If you are already established a connection, you couldn't
+
+322
+00:43:06.950 --> 00:43:10.350
+Fábio Pinheiro: What I'm saying is not use. The invitations
+
+323
+00:43:11.490 --> 00:43:14.579
+Fábio Pinheiro: only expire. There is no way to delete them
+
+324
+00:43:16.879 --> 00:43:29.139
+Shailesh Patil: But I mean, like you couldn't able to delete it, because it will be still part of that connection record. So that's why I'm saying so. You can only update and remove that invitation. If you are, you mean that way.
+
+325
+00:43:29.250 --> 00:43:30.400
+Shailesh Patil: R.
+
+326
+00:43:30.400 --> 00:43:32.910
+Fábio Pinheiro: It's a okay. It's also not a problem. In my opinion.
+
+327
+00:43:32.910 --> 00:43:40.950
+Shailesh Patil: Yeah, I don't think it's a big problem to handle, because I mean, like, it's only possibility of
+
+328
+00:43:41.340 --> 00:43:48.850
+Shailesh Patil: reusability is that if, for example, if the invitation was created with, say, no time associated with.
+
+329
+00:43:49.320 --> 00:43:51.099
+Shailesh Patil: and then anyone can
+
+330
+00:43:51.240 --> 00:43:58.909
+Shailesh Patil: connect, and at any point to that invitation. That's the only one vulnerability I see, but you couldn't use reuse it
+
+331
+00:44:00.910 --> 00:44:08.059
+Fábio Pinheiro: So what should we do with this ticket? Then should should we close it? Or you guys want to do any improvement
+
+332
+00:44:08.060 --> 00:44:11.549
+Shailesh Patil: I would say, close it, because I don't think it should be a priority
+
+333
+00:44:14.020 --> 00:44:21.889
+Javier Ribó: Well, if the community can pick this up, and it is doable and interesting for us, then let's leave chance for that.
+
+334
+00:44:22.560 --> 00:44:30.239
+Shailesh Patil: I think what my point is like. We can community could do it. The only thing is we need to make sure that
+
+335
+00:44:30.770 --> 00:44:36.170
+Shailesh Patil: we cannot delete it. I would say we have to update it if that's what community wants.
+
+336
+00:44:36.500 --> 00:44:39.689
+Shailesh Patil: unless it was never used unless it was never used
+
+337
+00:44:39.690 --> 00:44:42.280
+Javier Ribó: Exactly. That's what we need to write down
+
+338
+00:44:42.589 --> 00:44:46.609
+Shailesh Patil: Okay, as long as that is made clear. Right? Then it's fine. Yeah.
+
+339
+00:44:49.980 --> 00:44:57.899
+Fábio Pinheiro: Yeah. So so the goal is to create an endpoint to change the connection, the invitation state to expired, or something like that, right?
+
+340
+00:44:59.220 --> 00:45:02.110
+Shailesh Patil: No delete, right? We need delete endpoint
+
+341
+00:45:02.110 --> 00:45:04.780
+Fábio Pinheiro: Yes, some some deleting state
+
+342
+00:45:04.780 --> 00:45:05.600
+Shailesh Patil: Yeah.
+
+343
+00:45:05.600 --> 00:45:09.350
+Fábio Pinheiro: It's not deleting from the database just changing the
+
+344
+00:45:09.560 --> 00:45:12.120
+Fábio Pinheiro: the invitation not to be able to be used
+
+345
+00:45:12.490 --> 00:45:15.009
+Shailesh Patil: I would say you could delete from the database also.
+
+346
+00:45:15.010 --> 00:45:15.720
+Shailesh Patil: Yeah, why not?
+
+347
+00:45:15.720 --> 00:45:18.380
+Shailesh Patil: Because if it is not used, then you could delete.
+
+348
+00:45:19.020 --> 00:45:34.390
+Shailesh Patil: The thing is when there is a connection state already. So there is an established connection. So you could check the State as long as it is not received, or there are 2 states which we need to check, and as long as those 2 States are not there, you could always delete that
+
+349
+00:45:35.370 --> 00:45:36.060
+Fábio Pinheiro: Okay.
+
+350
+00:45:40.974 --> 00:45:54.999
+Shailesh Patil: Because, as as per my understanding, February by default, we always have an expiry, so the invitation will get expired anyways, unless it was configured. Not so, I would suggest. If really want to do, then let's delete it. If it was never used
+
+351
+00:45:55.130 --> 00:45:58.469
+Yurii Shynbuiev: I mean like, and as long as it was not not in the 2 States.
+
+352
+00:45:58.470 --> 00:46:09.689
+Javier Ribó: And then hold on to to complete the the solution, we would be talking about deleting the out of band. And only if the connection state is this one. We also allow deleting the connection correct
+
+353
+00:46:10.929 --> 00:46:14.660
+Shailesh Patil: No, I don't think we should allow deleting the connection right
+
+354
+00:46:14.660 --> 00:46:18.300
+Javier Ribó: But if it's in a state that it has not been replied by anyone
+
+355
+00:46:18.756 --> 00:46:45.889
+Shailesh Patil: Then you can. So that mean no. What I'm trying to say is that when we create this invitation record, right? It is part of always connection, only it's just that the establishment is not happened. So when I say delete the record, it's gone from the connection, so whichever way, whether it is used or not, used. Sorry when you say delete, and if it is not used, you could delete it, or if it is used, and you could still delete it, and I'm saying that we shouldn't delete when it is used
+
+356
+00:46:48.370 --> 00:46:52.549
+Javier Ribó: Say that again. Sorry you can say that we can delete if it's not used
+
+357
+00:46:52.740 --> 00:46:53.500
+Shailesh Patil: Yeah.
+
+358
+00:46:53.500 --> 00:47:00.700
+Javier Ribó: Yeah, yeah, correct. That's the same that they was thinking, okay,
+
+359
+00:47:01.800 --> 00:47:16.020
+Javier Ribó: so having that said, Does any one of you? Maybe Fabio Silesh or or Yuri. Do you guys mind to to write down what are the initial states? So in what exact cases we would allow that to be removed.
+
+360
+00:47:16.660 --> 00:47:26.799
+Javier Ribó: and then probably that gives Elias a little bit of of information on on what needs to to be completed. And I think it is. It is a quick thing to
+
+361
+00:47:28.192 --> 00:47:33.079
+Shailesh Patil: I I can update that. Just assign that ticket to me, and I will update what needs to be done.
+
+362
+00:47:33.290 --> 00:47:38.730
+Javier Ribó: Okay, perfect. Thank you, Charlie assigned to
+
+363
+00:47:42.010 --> 00:47:51.499
+Javier Ribó: Awesome. And then, Elias, thank you for for having the will and the the motivation to start contributing.
+
+364
+00:47:51.930 --> 00:48:00.800
+Javier Ribó: and we we really encourage you to continue doing so, and think that you already did your 1st contribution, which was merged.
+
+365
+00:48:01.550 --> 00:48:06.849
+Javier Ribó: But at some point, if you continue doing contributions, we'll probably add you to
+
+366
+00:48:08.380 --> 00:48:15.320
+Javier Ribó: to the contributors page or something like that. So yeah, really appreciate everything that you are doing
+
+367
+00:48:15.590 --> 00:48:20.680
+Javier Ribó: and anything you need, you always can reach us out on discord.
+
+368
+00:48:21.140 --> 00:48:25.519
+Javier Ribó: Or, yeah, the easiest would be discord. Basically
+
+369
+00:48:27.810 --> 00:48:28.943
+Elias: And so
+
+370
+00:48:29.680 --> 00:48:36.170
+Elias: I forgot his name, so he will work on, or he will go ahead and work on it on the issue
+
+371
+00:48:37.220 --> 00:48:39.350
+Javier Ribó: So say that again. Sorry I could not understand
+
+372
+00:48:40.080 --> 00:48:45.670
+Elias: I was saying that you just assigned it to. I can't pronounce the name
+
+373
+00:48:45.670 --> 00:48:46.720
+Javier Ribó: He says sorry
+
+374
+00:48:47.703 --> 00:48:50.340
+Elias: So he'll go on to work on the issue
+
+375
+00:48:50.790 --> 00:48:57.610
+Javier Ribó: No. What what we are saying is that we are going to put the initial stage. So when can you remove a connection?
+
+376
+00:48:59.410 --> 00:49:03.630
+Javier Ribó: Tell you exactly what states a connection can be removed
+
+377
+00:49:04.860 --> 00:49:05.240
+Elias: Okay.
+
+378
+00:49:05.240 --> 00:49:11.949
+Yurii Shynbuiev: And shellish is going to clarify the ticket and define the use case and corner cases
+
+379
+00:49:12.700 --> 00:49:14.419
+Elias: Okay. Okay. Sure.
+
+380
+00:49:15.250 --> 00:49:20.880
+Javier Ribó: The goal. The goal is that everything is more clear than my my one sentence
+
+381
+00:49:21.356 --> 00:49:26.120
+Elias: Okay, Yuri is available. So anything I'll just question me
+
+382
+00:49:26.430 --> 00:49:28.660
+Javier Ribó: Yeah, you can also write Yuri
+
+383
+00:49:31.760 --> 00:49:42.800
+Javier Ribó: awesome. I think we are almost set up for today. I am not sure if any community member. If you guys want to talk about what you are building or
+
+384
+00:49:43.720 --> 00:49:50.770
+Javier Ribó: or not. But I'm pretty excited to see new people come come in, and I'm especially looking at
+
+385
+00:49:51.890 --> 00:49:56.290
+Javier Ribó: at Elias right now, and also to part.
+
+386
+00:49:58.990 --> 00:50:02.239
+Javier Ribó: So yeah, I don't know. The floor is yours in case you want it.
+
+387
+00:50:03.840 --> 00:50:08.859
+Javier Ribó: If not, please don't worry, but don't be shy on the other side
+
+388
+00:50:11.010 --> 00:50:27.750
+Parth Bhatt (Individual Contribution): Thank you. Shave. I do not have anything to share at the moment. But yeah, in the future, sure, I'll be trying. I'm just learning what's the current state of identity and like what's work is going on, and hoping to contribute in the future meetings
+
+389
+00:50:29.030 --> 00:50:31.710
+Javier Ribó: That's awesome. Man. Really appreciate to have it here
+
+390
+00:50:32.680 --> 00:50:33.220
+Parth Bhatt (Individual Contribution): Thank you.
+
+391
+00:50:33.590 --> 00:50:34.410
+Javier Ribó: Awesome.
+
+392
+00:50:34.550 --> 00:50:44.169
+Javier Ribó: So yeah, I think we can. We can close and get 7 valuable minutes back to our day and see you next Tuesday
+
+393
+00:50:44.841 --> 00:50:47.789
+Fábio Pinheiro: Okay. Thank you. Have a nice week.
+
+394
+00:50:47.790 --> 00:50:48.740
+Yurii Shynbuiev: You guys, bye-bye
+
+395
+00:50:48.740 --> 00:50:49.870
+Javier Ribó: Thank you.
+

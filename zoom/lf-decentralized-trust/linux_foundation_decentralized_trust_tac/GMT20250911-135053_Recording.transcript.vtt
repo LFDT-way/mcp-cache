@@ -1,0 +1,1422 @@
+WEBVTT
+
+1
+00:00:37.420 --> 00:00:48.410
+Tracy Kuhrt: Okay, welcome everybody to the September 11th LF Decentralized Trust Technical Advisory Council meeting. As you are all aware,
+
+2
+00:00:49.450 --> 00:01:01.860
+Tracy Kuhrt: Two things that we have to abide by. The first is our antitrust policy notice, so we just need to be aware of and not participate in any activities that are prohibited under any of the antitrust and competition laws across the world.
+
+3
+00:01:02.180 --> 00:01:12.909
+Tracy Kuhrt: The second thing that we have to abide by, is our code of conduct, which in general says to be respectful of others on the call and their ideas.
+
+4
+00:01:15.210 --> 00:01:31.940
+Tracy Kuhrt: So, for today, we have, for announcements, the LFC Centralized Trust Dev Weekly Developer Newsletter that goes out each Friday. If you do have something that you would like to include in that newsletter, please do leave a comment on the wiki page.
+
+5
+00:01:32.230 --> 00:01:34.619
+Tracy Kuhrt: That is linked here in the agenda.
+
+6
+00:01:34.730 --> 00:01:53.939
+Tracy Kuhrt: The second announcement that we have is that we have had two new lab proposals come in this week, and just as a reminder, we did vote for TAC members to be able to approve labs, so if you would like to, we have a proposal for two different zero-knowledge proof
+
+7
+00:01:53.940 --> 00:02:02.039
+Tracy Kuhrt: labs. One is related to, personal credentials, and the other one is related to ZKSNARCs.
+
+8
+00:02:03.070 --> 00:02:06.550
+Tracy Kuhrt: Any other announcements that anybody has or would like to make today?
+
+9
+00:02:15.160 --> 00:02:19.780
+Ry Jones (The Linux Foundation): I guess, I couldn't find my unmute button,
+
+10
+00:02:20.090 --> 00:02:28.370
+Ry Jones (The Linux Foundation): some of you may have noticed that you have been getting, some notifications on GitHub. I'm slowly working my way through the list, because I don't have a way
+
+11
+00:02:29.190 --> 00:02:34.699
+Ry Jones (The Linux Foundation): to contact, one of the downsides of us being in different orgs is I don't have a way to contact
+
+12
+00:02:35.070 --> 00:02:40.720
+Ry Jones (The Linux Foundation): All the maintainers across all the orgs, Please chime in.
+
+13
+00:02:40.840 --> 00:02:48.280
+Ry Jones (The Linux Foundation): on this, our plan for maintainers days. We have got, two… comments,
+
+14
+00:02:49.140 --> 00:02:53.859
+Ry Jones (The Linux Foundation): asking about a virtual option, one from San Juan and one from R. Barker.
+
+15
+00:02:54.600 --> 00:02:59.349
+Ry Jones (The Linux Foundation): So, if you have comments, questions, etc, please,
+
+16
+00:03:00.450 --> 00:03:02.480
+Ry Jones (The Linux Foundation): Feel free to hop in and make a comment.
+
+17
+00:03:07.990 --> 00:03:10.769
+Tracy Kuhrt: Alright, thanks, Troy. Any other announcements for today?
+
+18
+00:03:20.850 --> 00:03:24.369
+Tracy Kuhrt: Okay. If there are no other announcements, then…
+
+19
+00:03:24.490 --> 00:03:34.729
+Tracy Kuhrt: I guess we'll move on to the quarterly reports. So as you can see, we do have quite a lot of quarterly reports that are waiting to be, reviewed by the TAC.
+
+20
+00:03:36.590 --> 00:03:47.299
+Tracy Kuhrt: There… the cacti one is the oldest. It's been out there for the longest. When I put this agenda together on Tuesday, it only had 5.
+
+21
+00:03:47.880 --> 00:03:53.360
+Tracy Kuhrt: Approvals, so we do need at least one more for the cacti report.
+
+22
+00:03:53.520 --> 00:03:56.559
+Tracy Kuhrt: Before it can get merged.
+
+23
+00:03:58.400 --> 00:04:03.479
+Tracy Kuhrt: Looks like maybe India's now at a good state, but that's good.
+
+24
+00:04:03.700 --> 00:04:18.210
+Tracy Kuhrt: Yeah, Roja needs one more as well. So, yeah, I think the… the point here, guys, is that we do need TAC members to review these before they can get merged, and if
+
+25
+00:04:18.480 --> 00:04:23.440
+Tracy Kuhrt: You are one of the people who has not reviewed them, please do so.
+
+26
+00:04:23.670 --> 00:04:32.170
+Tracy Kuhrt: They are coming in quite strongly. You can see that we do have a number of reports that have come in,
+
+27
+00:04:32.680 --> 00:04:42.770
+Tracy Kuhrt: Although, I'm seeing a lot of these say they're Q3 reports, and I'm wondering… I don't think we have that many Q3s. Some of these should say Q2.
+
+28
+00:04:42.910 --> 00:04:47.849
+Tracy Kuhrt: So, but I think, you know, we've got…
+
+29
+00:04:48.210 --> 00:04:53.980
+Tracy Kuhrt: maybe 3… 4 Q3 reports have come in. The rest are all…
+
+30
+00:04:54.260 --> 00:04:59.119
+Tracy Kuhrt: Q2, so they're quite old, and so, you know, part of…
+
+31
+00:04:59.360 --> 00:05:04.860
+Tracy Kuhrt: What we need to talk about is why we're having problems, with…
+
+32
+00:05:05.720 --> 00:05:14.629
+Tracy Kuhrt: Yeah, they do say Q3, don't they? Okay, maybe I'm…
+
+33
+00:05:14.950 --> 00:05:33.970
+Tracy Kuhrt: off on my dates. I could have swore a lot of these were key, too. But anyway, what I guess, you know, part of the discussion I wanted to have with the TAC today is, what is the problem? What am I missing that, is causing the delay in reviewing these? We've talked about this once before.
+
+34
+00:05:34.160 --> 00:05:39.070
+Tracy Kuhrt: That, you know, the TAC members need to be reviewing these.
+
+35
+00:05:39.190 --> 00:05:51.660
+Tracy Kuhrt: I think it was probably 3 or 4 weeks ago by now, and so I was hoping that that would make a change and a difference, but it doesn't seem to have. And so, just want to see, you know, what's going on here.
+
+36
+00:05:53.020 --> 00:05:55.209
+Tracy Kuhrt: Any thoughts as to why?
+
+37
+00:05:55.700 --> 00:05:58.040
+Tracy Kuhrt: We're not reviewing them when they come in?
+
+38
+00:06:08.180 --> 00:06:20.569
+Diane Mueller (Hedera Hashgraph LLC): So I probably don't have, notification turned on for these when they come in, so I need to fix that, but it's also, taking the time to go through and understanding the projects.
+
+39
+00:06:24.470 --> 00:06:43.749
+Tracy Kuhrt: All right, thanks, Diane. Yeah, I… I think that the reminders are a really important thing. Everybody on the TSC should be subscribed to the LF Decentralized Trust Governance Repo, as well as the LF Decentralized Trust Project Proposals Repo. Those are the two places where we obviously get things that
+
+40
+00:06:43.780 --> 00:06:52.279
+Tracy Kuhrt: we should be looking at. The other thing that I would probably say, now that, TAC members can review to
+
+41
+00:06:54.280 --> 00:07:13.209
+Tracy Kuhrt: review the labs is also… that's probably another repo that you should start getting subscribed to. I know that if you are subscribed, you will receive an email on the work that's being done there. That could be another sort of issue that might be happening here for some of the TAC members, is there are
+
+42
+00:07:13.260 --> 00:07:17.200
+Tracy Kuhrt: Sometimes a lot of emails that come in, and so they may have…
+
+43
+00:07:17.220 --> 00:07:27.150
+Tracy Kuhrt: redirected those emails to a folder, where they can take a look at them. So I guess, you know, the thing there is
+
+44
+00:07:27.150 --> 00:07:43.939
+Tracy Kuhrt: That if you have moved those emails coming in, filtered them to a folder, to please have a look at that folder, at least once a week, if not more, because there are, you know, a number of emails that do come in, and if you're not keeping up to date with them, it can be extremely hard to
+
+45
+00:07:45.940 --> 00:07:55.090
+Tracy Kuhrt: Yeah, other reasons that people think, oh, Diane, your second comment about, taking the time to understand them.
+
+46
+00:07:55.160 --> 00:08:11.590
+Tracy Kuhrt: I do think that quarterly reports are slightly different than the annual reports. I know we put a lot of time into the annual reports, to dig into projects. I think the only ones that we would really want to dig into at that level
+
+47
+00:08:11.590 --> 00:08:17.389
+Tracy Kuhrt: Are the ones that, people, reviewers suggested in the
+
+48
+00:08:17.390 --> 00:08:29.299
+Tracy Kuhrt: annual review that we should give a, you know, some time to, you know, 6 months or whatever to come back and start to follow through on some of the recommendations by the TAC.
+
+49
+00:08:29.300 --> 00:08:38.099
+Tracy Kuhrt: to see if they have, made, or worked through those recommendations. I think the other piece, you know, obviously is
+
+50
+00:08:38.140 --> 00:08:45.640
+Tracy Kuhrt: That, you know, at least for me, when I review those, I read them through, I see if
+
+51
+00:08:45.690 --> 00:08:50.640
+Tracy Kuhrt: There's any questions that I have specifically about those
+
+52
+00:08:50.680 --> 00:09:05.660
+Tracy Kuhrt: reports that they trigger in my mind, where they've said something, but it's not quite clear, or they've said something, and there… it feels like there's a piece missing that I don't really understand, and so I just ask them on the PR.
+
+53
+00:09:05.680 --> 00:09:25.050
+Tracy Kuhrt: Right? You know, could you fill in more details about this? Or, hey, I know you guys were working on this, and didn't see any details on this, could you provide some information? You know, anything that basically starts the communication, I think, is a good thing when it comes to these reports.
+
+54
+00:09:25.140 --> 00:09:38.429
+Tracy Kuhrt: But otherwise, I think, you know, reading through them, and it shouldn't be a major task, right? Like it is when we do the annual reviews. So, yeah, I guess that's,
+
+55
+00:09:39.060 --> 00:09:47.839
+Tracy Kuhrt: You know, maybe just a bit of feedback, that, you know, you don't have to put in the same amount of time that you did with the annual reviews in these quarterly reports.
+
+56
+00:09:48.040 --> 00:09:56.599
+Tracy Kuhrt: And so, yeah. Other reasons or other things that people think might be stopping them from looking at the quarterly reports?
+
+57
+00:09:57.160 --> 00:10:08.040
+Tracy Kuhrt: Things… suggest… other suggestions that people have who are pretty good at maintaining and keeping on top of these quarterly reports that they would have for people who are potentially struggling.
+
+58
+00:10:20.750 --> 00:10:21.760
+Tracy Kuhrt: Enrique?
+
+59
+00:10:22.690 --> 00:10:29.359
+Enrique Lacal (Kaleido): Hey, sorry, sorry I'm late. I guess one thing I do to keep up with these quarterly reports, I did review a few this week.
+
+60
+00:10:29.460 --> 00:10:37.790
+Enrique Lacal (Kaleido): No, no, this is just a tactic I think Matt and I have done here. I know that it can be quite busy during the week, so we normally, like, slot 15 minutes.
+
+61
+00:10:37.980 --> 00:10:49.610
+Enrique Lacal (Kaleido): one morning, or, like, half an hour, or whatever, which is, like, blocked out to just review the reports and catch up with everything. I think that's normally useful, because sometimes these meetings come quite quickly every week.
+
+62
+00:10:49.650 --> 00:11:05.140
+Enrique Lacal (Kaleido): And you can forget to go to reports, and then people join the meeting, and then they'll go and do the reports afterwards, or during the meeting, which is, like, a change of mindset. So, yeah, I find it useful to just block some calendar time in your own calendars to just come back to this.
+
+63
+00:11:05.270 --> 00:11:06.880
+Enrique Lacal (Kaleido): Yeah, that's it.
+
+64
+00:11:06.880 --> 00:11:15.999
+Tracy Kuhrt: Yeah, yeah, thanks, Ricky. Yeah, it's funny because… because I have to put together the agendas, I just do the same thing, right? Like, the agenda…
+
+65
+00:11:16.000 --> 00:11:29.370
+Tracy Kuhrt: if there's any quarterly reports that I haven't reviewed yet and have put them on the agenda, I just go ahead and review them then. So, a similar sort of strategy, right? It's… it's dedicated time to… to focus on
+
+66
+00:11:29.460 --> 00:11:34.240
+Tracy Kuhrt: To focus on them, but appreciate that. Peter?
+
+67
+00:11:36.110 --> 00:11:38.940
+Peter Metz (Capital One): Also, sorry for being late.
+
+68
+00:11:39.270 --> 00:11:47.759
+Peter Metz (Capital One): two things, two strategies I use. One is to reduce friction, to get to the list of reports that I need to review, as I have a bookmark.
+
+69
+00:11:48.690 --> 00:11:49.680
+Peter Metz (Capital One): with…
+
+70
+00:11:50.020 --> 00:11:59.349
+Peter Metz (Capital One): the PR list filter down to PRs that require my review. There's a built-in filter in GitHub for this, on that little drop-down.
+
+71
+00:11:59.720 --> 00:12:05.109
+Peter Metz (Capital One): That you can select abating review from you, or something like that.
+
+72
+00:12:06.320 --> 00:12:14.010
+Peter Metz (Capital One): So if you bookmark that and put it in a very visible place in your browser, wherever you put your favorite bookmarks, then…
+
+73
+00:12:14.350 --> 00:12:18.370
+Peter Metz (Capital One): It takes half a second to get to the list.
+
+74
+00:12:18.670 --> 00:12:22.359
+Peter Metz (Capital One): You know, the second thing… I do sometimes is…
+
+75
+00:12:23.550 --> 00:12:35.059
+Peter Metz (Capital One): for… I read the report in multiple phases. At first, I kind of just glance over each section, read the first sentence, get a feel for what it is like.
+
+76
+00:12:35.830 --> 00:12:45.309
+Peter Metz (Capital One): And then, afterwards, I go in deeper detail and read, actually, the whole thing, based on what I think, is most interesting to me.
+
+77
+00:12:45.910 --> 00:12:49.079
+Peter Metz (Capital One): And that way, I think sometimes…
+
+78
+00:12:50.270 --> 00:13:02.720
+Peter Metz (Capital One): I, do miss a couple of details in the initial pass, but then I'm able to focus on the parts that are definitely interesting to me, and that way, it's a little less mundane than just reading top to bottom the whole thing.
+
+79
+00:13:05.420 --> 00:13:15.819
+Tracy Kuhrt: Alright, thanks, Peter. I really like the suggestion about the GitHub link. I've seen that in the past, I've never used it, but I have seen it, so I know what you're talking about.
+
+80
+00:13:15.890 --> 00:13:25.590
+Tracy Kuhrt: And definitely could be a really good way… you know, I would imagine a number of maintainers probably do that, to stay on top of their projects, and so…
+
+81
+00:13:25.640 --> 00:13:36.929
+Tracy Kuhrt: It's good for us as, truly maintainers of the governance and project proposals and lab repos, to stay on top of those three things.
+
+82
+00:13:38.880 --> 00:13:46.700
+Ry Jones (The Linux Foundation): Alright, any other… I just wanted to show that I do, I have the labeler tool, and you can also…
+
+83
+00:13:46.890 --> 00:13:54.180
+Ry Jones (The Linux Foundation): you know, basically subscribe to a label. So you can go in here, and this report is filtered by quarterly report.
+
+84
+00:13:54.940 --> 00:14:00.480
+Ry Jones (The Linux Foundation): So you can go in here and say, I only want to see, meeting minutes, And…
+
+85
+00:14:01.220 --> 00:14:07.430
+Ry Jones (The Linux Foundation): Oh, it looks like there's… Nothing is tagged as meeting minutes, so anyway.
+
+86
+00:14:07.880 --> 00:14:12.849
+Tracy Kuhrt: That's… you have them tagged as both quarterly reports and meeting minutes at the moment.
+
+87
+00:14:12.850 --> 00:14:19.269
+Ry Jones (The Linux Foundation): Okay, yeah, so anyway, that's also a tool to mitigate the flood of notifications.
+
+88
+00:14:19.820 --> 00:14:20.460
+Tracy Kuhrt: Yeah.
+
+89
+00:14:24.510 --> 00:14:26.440
+Tracy Kuhrt: Alright,
+
+90
+00:14:27.910 --> 00:14:44.950
+Tracy Kuhrt: That's weird that they're not just meeting minutes. Okay, so yeah, I think then the other thing I just wanted to call out on the quarterly reports before we get, to the discussion is that we did see… If you could scroll down, up.
+
+91
+00:14:45.070 --> 00:14:55.499
+Tracy Kuhrt: up, I guess, would be, yeah. Did the Loch Ness report, Q3 report, came in. As we had previously talked about, they…
+
+92
+00:14:55.690 --> 00:15:07.179
+Tracy Kuhrt: had a Q2 report that was due. Rama, I don't know if you had ever reached back to them to let them know they could report, or send both of them at the same time. Did you ever…
+
+93
+00:15:07.290 --> 00:15:09.980
+Tracy Kuhrt: Hear anything from them, or have that discussion?
+
+94
+00:15:12.370 --> 00:15:13.910
+Ramakrishna V (International Business Machines Corporation): I did,
+
+95
+00:15:14.380 --> 00:15:19.340
+Ramakrishna V (International Business Machines Corporation): I write a long comment to him, but I don't think I ever got a response. Let me quickly check.
+
+96
+00:15:20.250 --> 00:15:22.310
+Ramakrishna V (International Business Machines Corporation): According to the Discord channel.
+
+97
+00:15:31.730 --> 00:15:44.190
+Tracy Kuhrt: Yeah, I'm just… I'm wondering, if the TAC has any thoughts on what we want to do about that. Do we want to just ignore that, or do we want to try and get them to also fill out the Q2 report?
+
+98
+00:15:48.110 --> 00:16:00.860
+Ramakrishna V (International Business Machines Corporation): Yeah, sorry, I'm just looking at the channel, and yeah, my comment just stands. It was added to Dennis, but there's no response to that, and there's been a little bit of chat after that, but nothing addressing my comment.
+
+99
+00:16:01.360 --> 00:16:04.630
+Tracy Kuhrt: Okay. Thanks, Rama, for that update. Enrique?
+
+100
+00:16:05.470 --> 00:16:09.189
+Enrique Lacal (Kaleido): Just out of curiosity, is there a reason why they…
+
+101
+00:16:09.500 --> 00:16:14.149
+Enrique Lacal (Kaleido): They wanted to skip that one and haven't submitted, or it's just a lack of answer?
+
+102
+00:16:14.350 --> 00:16:15.780
+Enrique Lacal (Kaleido): from the maintainers.
+
+103
+00:16:17.140 --> 00:16:26.249
+Tracy Kuhrt: So if I recall correctly, it was that they don't have a whole lot of time, and Rama, you can correct me if I'm wrong there.
+
+104
+00:16:28.820 --> 00:16:38.259
+Ramakrishna V (International Business Machines Corporation): Yeah, I think it was more, that they felt, since the next quarterly update was just, I think, 2 or 3 weeks, ahead, so they felt that
+
+105
+00:16:38.550 --> 00:16:43.469
+Ramakrishna V (International Business Machines Corporation): The two updates would not be very different if they were to submit two updates.
+
+106
+00:16:44.460 --> 00:16:48.849
+Enrique Lacal (Kaleido): So, two, three weeks after the annual review was closed, or…
+
+107
+00:16:49.940 --> 00:16:50.620
+Enrique Lacal (Kaleido): Yes.
+
+108
+00:16:50.930 --> 00:16:55.579
+Ramakrishna V (International Business Machines Corporation): Yes, 2-3 weeks after the annual review is close. So, yeah.
+
+109
+00:16:55.770 --> 00:16:58.709
+Enrique Lacal (Kaleido): So it's a piece of feedback for the TAC to
+
+110
+00:16:59.080 --> 00:17:07.719
+Enrique Lacal (Kaleido): try and, maybe next year, make the annual reports finish earlier. I know, I know it's not… it's very difficult to do that, but yeah, okay, I get… I get it.
+
+111
+00:17:08.319 --> 00:17:13.179
+Ramakrishna V (International Business Machines Corporation): No, in this case, it was Loctrith maintainers who took their time in responding to us.
+
+112
+00:17:13.409 --> 00:17:15.069
+Ramakrishna V (International Business Machines Corporation): So it's not really our fault.
+
+113
+00:17:16.190 --> 00:17:17.309
+Enrique Lacal (Kaleido): Okay, I see.
+
+114
+00:17:21.359 --> 00:17:32.809
+Tracy Kuhrt: Yeah, but Enrique, I… I hear your point, and I do think that a topic for discussion for us at some point should be for reports in general, right?
+
+115
+00:17:32.989 --> 00:17:41.409
+Tracy Kuhrt: Just, you know, what does it look like? How do we… how do we change this process, or is there something we can do to improve the process?
+
+116
+00:17:41.609 --> 00:17:55.669
+Tracy Kuhrt: You know, I have a thought, and maybe today's not the time to have that discussion, because it wasn't really on the agenda. But I… I, you know, would like to see about
+
+117
+00:17:55.739 --> 00:18:14.469
+Tracy Kuhrt: figuring out what we want to do, because I do think that the annual reports took us a long time this year to get through, through some fault of our own, but, through a lot of fault of just not getting the maintainers to respond to questions. So I think a combination, depending on which report it was.
+
+118
+00:18:14.479 --> 00:18:28.099
+Tracy Kuhrt: You know, some of them you can see on the overdue reports we haven't even received, the annual report for. So that's… that's another sort of concern, that I have when it comes to the reports in general.
+
+119
+00:18:29.220 --> 00:18:30.369
+Enrique Lacal (Kaleido): Yep, sounds good.
+
+120
+00:18:32.640 --> 00:18:37.040
+Tracy Kuhrt: So, maybe we can, add that for a discussion for next week.
+
+121
+00:18:37.510 --> 00:18:42.189
+Tracy Kuhrt: To have a conversation about what we want to do with reports in general.
+
+122
+00:18:46.480 --> 00:18:51.569
+Enrique Lacal (Kaleido): Yeah, I guess, just on that topic, Tracy, if we could add for next week as well,
+
+123
+00:18:51.780 --> 00:18:57.149
+Enrique Lacal (Kaleido): how we… because I came across this, this week, was reviewing the Q3 for Caliper.
+
+124
+00:18:57.440 --> 00:19:01.009
+Enrique Lacal (Kaleido): How we've, like… Make sure we…
+
+125
+00:19:01.270 --> 00:19:12.159
+Enrique Lacal (Kaleido): we… when we review a report that's quarterly, look at the objectives of the year, and I was involved with Pete at the beginning of the year in the review for Caliper. There was a lot of discussion on the state of the project.
+
+126
+00:19:12.300 --> 00:19:13.219
+Tracy Kuhrt: So I think…
+
+127
+00:19:13.230 --> 00:19:28.000
+Enrique Lacal (Kaleido): I just put a comment on that PR saying, you haven't listed the objectives on how you're tracking against those objectives. I think we can have a general discussion around how we track that, because I feel like each review is slightly different sometimes. So yeah, maybe something for next week.
+
+128
+00:19:28.830 --> 00:19:43.620
+Tracy Kuhrt: Okay, yeah, sounds good. I, you know, and that could possibly be a change in the template for the quarterly reports, but, yeah, let's hold that for next week, to think about that sort of thing, because I do think that is…
+
+129
+00:19:43.840 --> 00:19:45.200
+Tracy Kuhrt: another…
+
+130
+00:19:45.380 --> 00:19:52.089
+Tracy Kuhrt: I don't know, maybe we'll… we'll talk a little bit… maybe we'll continue a little bit with that discussion when I start to ask some of these,
+
+131
+00:19:52.110 --> 00:20:09.599
+Tracy Kuhrt: questions just around the guidelines about criteria for maintaining project status, but you know, I do think that there's something that has to be done, and I'm not quite sure what those some things are, and so I want to just see what the TAC feels. But we'll definitely have that on the conversation for next week.
+
+132
+00:20:10.350 --> 00:20:11.259
+Enrique Lacal (Kaleido): Sounds good, thanks.
+
+133
+00:20:14.370 --> 00:20:26.840
+Tracy Kuhrt: All right, so anyway, I think that's probably enough for quarterly reports, in my quarterly reports discussion item here. Let's move on to the second discussion item that I have. So last week, we
+
+134
+00:20:26.840 --> 00:20:35.309
+Tracy Kuhrt: We kind of talked about, well, we kind of brought up this topic of, you know, do we have guidelines about criteria for maintaining project status?
+
+135
+00:20:35.420 --> 00:20:52.700
+Tracy Kuhrt: And I, you know, at the end of the meeting, we hadn't really had much of a discussion around it, and I said, well, maybe we need something to react to, but, in putting together this week's agenda, I thought, well, maybe instead of reacting to something, maybe we could have a brainstorming session?
+
+136
+00:20:52.720 --> 00:20:59.559
+Tracy Kuhrt: And so I put down some questions here around things that we might be able to brainstorm and discuss.
+
+137
+00:20:59.580 --> 00:21:03.879
+Tracy Kuhrt: And then we can put together something that will potentially help us.
+
+138
+00:21:03.890 --> 00:21:21.930
+Tracy Kuhrt: So that's… that's the idea for this week, is just to really, you know, maybe talk about these particular questions, see if we have any sort of ideas. Again, we can do it in a brainstorm fashion, so it doesn't have to be, you know,
+
+139
+00:21:22.010 --> 00:21:37.620
+Tracy Kuhrt: Anything that we may or may not do, it just, you know, put the idea out there, we can think about it and put it down on a piece of paper, and then we can have a look and further discuss as we go through something that's more formal.
+
+140
+00:21:37.990 --> 00:21:52.860
+Tracy Kuhrt: So, I guess the first question I have here is, we obviously have a lot of documentation that already exists out there, around maintaining project status. We have the,
+
+141
+00:21:53.210 --> 00:21:59.710
+Tracy Kuhrt: incubation entry criteria or considerations. We have the exit
+
+142
+00:21:59.990 --> 00:22:08.809
+Tracy Kuhrt: incubation exit criteria. We do have some things around the project lifecycle and the OpenSFSS
+
+143
+00:22:08.950 --> 00:22:14.389
+Tracy Kuhrt: S… open SSF scores. And so, you know.
+
+144
+00:22:14.860 --> 00:22:34.789
+Tracy Kuhrt: the question is, are new projects not finding these? And if so, what can we do to make sure that projects can find all of these different, disparate pieces of information that we already have around project status? And maybe not even just projects, but also the new TAC members who might not have
+
+145
+00:22:34.850 --> 00:22:40.700
+Tracy Kuhrt: the same history that some of us do have. So, yeah, that's kind of my first question.
+
+146
+00:22:40.990 --> 00:22:41.870
+Tracy Kuhrt: Thoughts?
+
+147
+00:22:44.320 --> 00:22:51.540
+Diane Mueller (Hedera Hashgraph LLC): So, that kind of leads nicely into the contributor website, that we're working on.
+
+148
+00:22:51.810 --> 00:22:54.090
+Diane Mueller (Hedera Hashgraph LLC): Discussion, which will…
+
+149
+00:22:54.190 --> 00:23:03.590
+Diane Mueller (Hedera Hashgraph LLC): continue in the next meeting after this one today. There is a maintainer section of it, or maintaining a project, or… and…
+
+150
+00:23:04.540 --> 00:23:18.359
+Diane Mueller (Hedera Hashgraph LLC): That… that could be, and it probably should be, a place where all of the pieces about maintaining project status, and growing a project as a maintainer,
+
+151
+00:23:18.360 --> 00:23:32.899
+Diane Mueller (Hedera Hashgraph LLC): could reside, because it's pretty much all… it's all over the place and buried in a lot of the site, and as a new TAC member this year, finding it all, is… is not the easiest thing. So…
+
+152
+00:23:33.470 --> 00:23:44.239
+Diane Mueller (Hedera Hashgraph LLC): I'm hoping that that contributor site will help, and the maintainers, and then maybe one of the subtopics under there is a section on maintaining project status.
+
+153
+00:23:47.630 --> 00:24:04.949
+Tracy Kuhrt: All right, thanks, Darren. And I, you know, potentially one of the things that came to mind when you were speaking is, you know, is there a better way to arrange the TAC governance site so that it is easier for people to find the things that they're looking for?
+
+154
+00:24:05.050 --> 00:24:10.860
+Tracy Kuhrt: You know, that could be another thing that we'd take a look at, is, you know, are there just…
+
+155
+00:24:11.460 --> 00:24:18.999
+Tracy Kuhrt: You know, link pages that we should have somewhere that will help people, with that stuff outside of, you know, the contributor site.
+
+156
+00:24:19.140 --> 00:24:21.289
+Tracy Kuhrt: That, that we can take a look at.
+
+157
+00:24:23.090 --> 00:24:27.939
+Tracy Kuhrt: Other ideas on how we help people find the documentation that we already have?
+
+158
+00:24:51.500 --> 00:24:52.410
+Tracy Kuhrt: Peter?
+
+159
+00:24:54.260 --> 00:25:01.939
+Peter Metz (Capital One): One trick I like to do sometimes is… Clone the different repositories.
+
+160
+00:25:02.110 --> 00:25:06.130
+Peter Metz (Capital One): into a separate directory where I know documentation is.
+
+161
+00:25:07.300 --> 00:25:12.870
+Peter Metz (Capital One): And then, do free text search, either with Graph or VS Code.
+
+162
+00:25:13.310 --> 00:25:17.299
+Peter Metz (Capital One): on all of those repositories. But the one downside of that is…
+
+163
+00:25:17.790 --> 00:25:23.080
+Peter Metz (Capital One): You have to manually pull the changes for each repo.
+
+164
+00:25:23.330 --> 00:25:31.170
+Peter Metz (Capital One): So, nowadays, I just use, a lot of times, GitHub's own search, because I… Knows that…
+
+165
+00:25:31.560 --> 00:25:34.969
+Peter Metz (Capital One): it has gotten slightly better, I think.
+
+166
+00:25:38.660 --> 00:25:49.780
+Tracy Kuhrt: Yeah, I have definitely used GitHub for, GitHub search. Actually, the other day, I was looking for the Hyrule Adopters page and where that ended up.
+
+167
+00:25:49.840 --> 00:26:01.989
+Tracy Kuhrt: And so, like, I went to the higher ledger organization, and I just did a search for adopters, and oh, it showed up first thing. So, you know, there are some good things about that when…
+
+168
+00:26:01.990 --> 00:26:11.410
+Tracy Kuhrt: the organization is all one, which, obviously, for governance, it is. It's actually in a single repo, so…
+
+169
+00:26:11.410 --> 00:26:30.380
+Tracy Kuhrt: you know, that definitely makes things a lot easier. But now, if we were to say we wanted to search against the governance site and the contributor site, which is currently a lab, that becomes a bit more difficult, because those are two different organizations, right? So, yeah, I do think that, you know.
+
+170
+00:26:30.530 --> 00:26:38.629
+Tracy Kuhrt: find… finding ways to make it easier for search is good. One of the things I, you know, that…
+
+171
+00:26:38.720 --> 00:26:52.660
+Tracy Kuhrt: It does exist with the Make Docs as a search function, so you can do a search and find different pages, so if there's, something that you're interested in seeing, you can obviously go to the governance
+
+172
+00:26:53.140 --> 00:27:04.830
+Tracy Kuhrt: make doc site, and do a search and see if you can find what you're looking for. But again, you need to know what you're looking for, probably. Do that search sometimes, so that could be a challenge.
+
+173
+00:27:07.590 --> 00:27:14.859
+Diane Mueller (Hedera Hashgraph LLC): People may not even know that, maintaining product status is a thing.
+
+174
+00:27:15.040 --> 00:27:17.719
+Diane Mueller (Hedera Hashgraph LLC): That they could lose it is,
+
+175
+00:27:18.070 --> 00:27:24.470
+Diane Mueller (Hedera Hashgraph LLC): might not even be, entering their heads, other than being archived.
+
+176
+00:27:24.900 --> 00:27:29.060
+Diane Mueller (Hedera Hashgraph LLC): Or… what's the word? Not decommissioned, but.
+
+177
+00:27:29.600 --> 00:27:30.260
+Tracy Kuhrt: End of life.
+
+178
+00:27:30.260 --> 00:27:30.980
+Diane Mueller (Hedera Hashgraph LLC): mid-door.
+
+179
+00:27:31.080 --> 00:27:48.879
+Diane Mueller (Hedera Hashgraph LLC): end of life, or dormant, or whatever. So, yeah, pull… that's… that's what I like about the Make Doc sites, is that it can be a reference for linking out to other things, and that's what I'm hoping with the containers and the maintainers and mentoring pieces of it, that
+
+180
+00:27:48.960 --> 00:27:53.529
+Diane Mueller (Hedera Hashgraph LLC): we'll be able to pull these things together. You know…
+
+181
+00:27:54.740 --> 00:27:55.380
+Tracy Kuhrt: I hesitate to…
+
+182
+00:27:55.380 --> 00:28:07.020
+Diane Mueller (Hedera Hashgraph LLC): say this, but hesitate to say this, but putting the word governance, it all under governance, I know these are the rules for all… doing all this stuff, but it's not the natural place where people
+
+183
+00:28:07.260 --> 00:28:13.130
+Diane Mueller (Hedera Hashgraph LLC): at least I would look for help on maintaining a project.
+
+184
+00:28:13.130 --> 00:28:36.890
+Diane Mueller (Hedera Hashgraph LLC): And… and that, so it's… I… I think it's important, to pull it out, and it's… it's a hard bit of work to design a good website that, and good documentation. And I think the governance repo works for us as the people developing the governance and posting it, much like the Constitution or other governmental agencies.
+
+185
+00:28:37.000 --> 00:28:45.430
+Diane Mueller (Hedera Hashgraph LLC): But for people who are using this stuff, having a sub-site that pulls it together and
+
+186
+00:28:45.510 --> 00:29:02.400
+Diane Mueller (Hedera Hashgraph LLC): makes it sort of what we're doing for contributors is, you know, focusing on a persona for end users, for maintainers, for contributors, and pull… teasing all of that out. I think that's the work effort that, we… we haven't done, and,
+
+187
+00:29:02.800 --> 00:29:05.929
+Diane Mueller (Hedera Hashgraph LLC): that I'm hoping to do with the contributor site.
+
+188
+00:29:10.760 --> 00:29:19.740
+Tracy Kuhrt: All right, thanks, Diane. I did, for some reason, get dropped in the middle, but I heard the beginning and the end. I'm sure the middle was great.
+
+189
+00:29:20.700 --> 00:29:35.450
+Tracy Kuhrt: Yeah, I hear what you're saying, Diane, about making things easier for the people who are using them, and that's the piece that maybe we haven't done a great job of.
+
+190
+00:29:39.060 --> 00:29:43.360
+Tracy Kuhrt: Alright, anything else that you… anybody thinks would help?
+
+191
+00:29:43.510 --> 00:29:51.460
+Tracy Kuhrt: Would help people find the work that we've already put together. Yeah, Yuri.
+
+192
+00:29:52.430 --> 00:30:03.420
+Yurii Shynbuiev: Yep, I know that keeping documentation up-to-date is really pain for all projects, including Identos, and…
+
+193
+00:30:03.510 --> 00:30:15.469
+Yurii Shynbuiev: Recently, we figured out that there is a deep wiki site that is able to index public GitHub repositories and create a pretty…
+
+194
+00:30:15.580 --> 00:30:19.030
+Yurii Shynbuiev: Verbos documentation with a good structure.
+
+195
+00:30:19.220 --> 00:30:25.420
+Yurii Shynbuiev: Based on the knowledge of the codebase and existing documentation in the repository.
+
+196
+00:30:25.440 --> 00:30:43.439
+Yurii Shynbuiev: What I wanted to propose is that all repositories under the Hyperledger organization, I mean, Linux Foundation Decentralized Trust, might be indexed, and it's possible to create pretty interesting combinations, like.
+
+197
+00:30:43.440 --> 00:30:49.139
+Yurii Shynbuiev: ask, AI agent of, Deep Wiki to,
+
+198
+00:30:49.940 --> 00:30:55.180
+Yurii Shynbuiev: Answer the question based on context of two or three repositories.
+
+199
+00:30:55.430 --> 00:30:58.659
+Yurii Shynbuiev: Which, increase capabilities and…
+
+200
+00:30:58.900 --> 00:31:09.449
+Yurii Shynbuiev: allows people to ask particular questions without looking for a particular piece of documentation. I can send you the link.
+
+201
+00:31:09.720 --> 00:31:11.260
+Yurii Shynbuiev: to one of the…
+
+202
+00:31:11.690 --> 00:31:14.770
+Tracy Kuhrt: That would be great. Would love to see it.
+
+203
+00:31:14.900 --> 00:31:19.249
+Tracy Kuhrt: Because I think… I think there are, you know, definitely tools
+
+204
+00:31:19.520 --> 00:31:28.319
+Tracy Kuhrt: newer tools that are probably out there now that we haven't even thought about or discovered, like this, right? That,
+
+205
+00:31:28.780 --> 00:31:39.139
+Tracy Kuhrt: you know, are coming about because of all the work that's being done right now in the AI space, if you will, right? So, I definitely appreciate this.
+
+206
+00:31:39.450 --> 00:31:49.879
+Yurii Shynbuiev: Despite having our own documentation portal, we also recommend our community to use this deep wiki engine with documentation, and I wonder
+
+207
+00:31:50.190 --> 00:31:54.940
+Yurii Shynbuiev: If you really like this tool, it's possible to host,
+
+208
+00:31:55.070 --> 00:32:09.579
+Yurii Shynbuiev: DeepWiki private instance and create this unified documentation portal for all repositories that is going to be updated based on the latest codebase and latest documentation.
+
+209
+00:32:09.720 --> 00:32:10.640
+Yurii Shynbuiev: I know.
+
+210
+00:32:10.920 --> 00:32:13.710
+Yurii Shynbuiev: Slightly crazy idea, but… Why not?
+
+211
+00:32:14.200 --> 00:32:27.250
+Tracy Kuhrt: Okay, this is probably a good time to ask. We're at the, you know, probably planning of financials for next year, and so maybe this is something that, we can take a look at and see if it makes sense.
+
+212
+00:32:28.130 --> 00:32:28.920
+Tracy Kuhrt: Invest some money here.
+
+213
+00:32:29.050 --> 00:32:31.440
+Tracy Kuhrt: It's free for public repositories.
+
+214
+00:32:31.440 --> 00:32:32.670
+Yurii Shynbuiev: So, everyone can…
+
+215
+00:32:33.940 --> 00:32:35.939
+Tracy Kuhrt: Well, that may, you know…
+
+216
+00:32:36.200 --> 00:32:50.180
+Tracy Kuhrt: That may be enough for us to get started and to figure out whether or not this is something that's useful for more than just identifists. But, yeah, I'll definitely have a look and see what this looks like after the meeting.
+
+217
+00:32:50.620 --> 00:32:51.569
+Tracy Kuhrt: Thank you.
+
+218
+00:32:59.630 --> 00:33:03.980
+Tracy Kuhrt: Alright, anything else on this particular question?
+
+219
+00:33:10.830 --> 00:33:16.129
+Tracy Kuhrt: Alright, so I think the next… Few questions are kind of…
+
+220
+00:33:16.420 --> 00:33:23.200
+Tracy Kuhrt: all pitted towards the same thing, but we'll take them one by one here. So…
+
+221
+00:33:23.450 --> 00:33:32.000
+Tracy Kuhrt: What should the TAC do in a situation where a project is no longer meeting the guidelines criteria for a given life cycle state?
+
+222
+00:33:32.190 --> 00:33:37.390
+Tracy Kuhrt: Any thoughts on… on how we, you know.
+
+223
+00:33:38.450 --> 00:33:51.630
+Tracy Kuhrt: One, recognize that maybe as the first phase, and then, secondly, what steps are we going to take after we've recognized that something is no longer meeting the guidelines or criteria for a given life cycle stage?
+
+224
+00:34:04.560 --> 00:34:14.299
+Diane Mueller (Hedera Hashgraph LLC): Is it something, and Daniela's here, I think, that we should involve the governing board in if we're stepping back a project?
+
+225
+00:34:18.159 --> 00:34:28.089
+Tracy Kuhrt: So… I would say that based on the charter, the life cycle,
+
+226
+00:34:29.870 --> 00:34:34.689
+Tracy Kuhrt: Life cycle phases are something that the governing board has
+
+227
+00:34:34.820 --> 00:34:41.760
+Tracy Kuhrt: hand it to the TAC as part of their responsibilities, and so, you know, I…
+
+228
+00:34:42.570 --> 00:34:44.040
+Diane Mueller (Hedera Hashgraph LLC): I…
+
+229
+00:34:44.159 --> 00:35:00.820
+Tracy Kuhrt: haven't seen a reason to involve the governing board in that, because it feels like, you know, that's something that, based on the charter, they've already given to us as something to do. But, to tell me more, why would you think that the governing board would need to be involved?
+
+230
+00:35:01.840 --> 00:35:15.939
+Diane Mueller (Hedera Hashgraph LLC): Well, you know, there are things, there are outliers, like the Trust Over IP annual report still isn't in, and that's a top-level project, and…
+
+231
+00:35:15.940 --> 00:35:23.189
+Diane Mueller (Hedera Hashgraph LLC): Even if it's just notifying them that we have an issue, so that they're aware of it.
+
+232
+00:35:24.750 --> 00:35:29.499
+Diane Mueller (Hedera Hashgraph LLC): Not that they should govern whether or not we step it back or not, but at some point.
+
+233
+00:35:29.700 --> 00:35:35.219
+Diane Mueller (Hedera Hashgraph LLC): I'm just wondering if we can use them to nudge the project as well?
+
+234
+00:35:37.580 --> 00:35:39.090
+Tracy Kuhrt: Yeah, it's,
+
+235
+00:35:40.190 --> 00:35:51.189
+Tracy Kuhrt: It's a good question, Diane, and I think this maybe falls into the timeline. What timeline do we follow? What does that process look like? Because,
+
+236
+00:35:51.320 --> 00:36:06.390
+Tracy Kuhrt: I have notified the governing board, when we have archived projects, or when we move them back to labs, right? They get the update, but it's after the fact, it's not, like, before the fact, if you will.
+
+237
+00:36:06.580 --> 00:36:24.540
+Tracy Kuhrt: And so maybe… maybe there is something in there where we, you know, we recognize it, then we put out the notification that, hey, we're thinking about doing something here, and then, that something happens. You know, like, what… what does that look like, and how do we make that happen, I think, is a…
+
+238
+00:36:24.560 --> 00:36:26.940
+Tracy Kuhrt: There's questions that we probably need to answer.
+
+239
+00:36:28.880 --> 00:36:37.219
+Diane Mueller (Hedera Hashgraph LLC): Because stepping someone back from graduated to incubated is a pretty significant step back.
+
+240
+00:36:39.320 --> 00:36:47.370
+Diane Mueller (Hedera Hashgraph LLC): And would warrant at least… and you… I know you are giving notifications at the governing board and report, so, but…
+
+241
+00:36:48.350 --> 00:36:49.230
+Diane Mueller (Hedera Hashgraph LLC): Yeah.
+
+242
+00:36:49.690 --> 00:37:01.030
+Tracy Kuhrt: Yeah, no, I hear you, and I do believe that, we have struggled with this. We, the TAC, for many years, have struggled with this.
+
+243
+00:37:01.100 --> 00:37:11.400
+Tracy Kuhrt: a question of, you know, how do we… how do we do that? Do we do that? Right? It used to be the case that our life cycle was forward to none.
+
+244
+00:37:11.480 --> 00:37:24.749
+Tracy Kuhrt: And never go back, unless you got, you know, an end of life, and then you decided to bring that project back to life, then the cycle starts over again, right? That was really the only way to go back in the life cycle.
+
+245
+00:37:24.850 --> 00:37:28.190
+Tracy Kuhrt: So, you know, I know that…
+
+246
+00:37:28.570 --> 00:37:41.969
+Tracy Kuhrt: it's been recently, within the last year, I believe, right? If it wasn't the beginning of this year, it was the end of last year that we made the change so that the life cycle, could…
+
+247
+00:37:42.850 --> 00:37:57.230
+Tracy Kuhrt: have these kind of backward moments, if you will. And so, the challenge is that we haven't really ever done that, and so we need to be thinking about, how do we do that? How do we make that happen? And so that's kind of what this question
+
+248
+00:37:57.470 --> 00:38:01.589
+Tracy Kuhrt: Is hopefully gonna drive us to, is some sort of answer around that?
+
+249
+00:38:01.780 --> 00:38:05.940
+Tracy Kuhrt: Daniel, I see you have come off mute, if you would like to add anything.
+
+250
+00:38:06.560 --> 00:38:09.980
+Daniela Barbosa (The Linux Foundation): Yeah, no, no, I was just gonna agree with Tracy's comment.
+
+251
+00:38:09.980 --> 00:38:34.710
+Daniela Barbosa (The Linux Foundation): specific to whose responsibility is based on the charter, around making the project lifecycle decisions. Tracy, for those of you who are, you know, not attending the board call, or do not work for a member company that attends the board call and reports out back to you, Tracy does, a monthly readout
+
+252
+00:38:34.710 --> 00:38:41.989
+Daniela Barbosa (The Linux Foundation): Of what is happening across all the projects, which includes touching on all the project,
+
+253
+00:38:42.270 --> 00:38:53.989
+Daniela Barbosa (The Linux Foundation): reports, and highlighting, you know, essentially, you know, good things and sometimes bad things that, are found in those project reports as well. And,
+
+254
+00:38:54.040 --> 00:39:03.540
+Daniela Barbosa (The Linux Foundation): Yeah, so this is certainly something we can, you know, bring up to the board, Diane, as you do attend those calls as alternate, board member to.
+
+255
+00:39:03.540 --> 00:39:25.260
+Daniela Barbosa (The Linux Foundation): Hedera, so that, that is, if you want to bring that up to them. But I truly believe that project lifecycle, has, you know, for the last going on 10 years, always been the responsibility of the tech, or the technical steering committee. With the growth of LFDT and the projects, and the continued growth of, of, of projects.
+
+256
+00:39:25.260 --> 00:39:48.439
+Daniela Barbosa (The Linux Foundation): that are, sometime, you know, not sometimes, you know, could very often be different in the type of mission and charter that they have within our expanded umbrella. You know, we've been having these conversations around the need for looking at project lifecycle. I mean, someone just brought up the Trust Over IP report. There is a report out there, I was just trying to find it, I don't know.
+
+257
+00:39:48.440 --> 00:40:13.380
+Daniela Barbosa (The Linux Foundation): why it hasn't been submitted. But those kind of things, as projects are no longer just one thing, right? They're not just ledgers, right? They're not just one thing. Taking a closer look at the project lifecycle, looking at the structure of the TAC today, and what it should look like in the future. You know, the TAC numbers have not gone up, but the
+
+258
+00:40:13.380 --> 00:40:15.919
+Daniela Barbosa (The Linux Foundation): Projects, you know, go up that need more support.
+
+259
+00:40:15.920 --> 00:40:18.259
+Daniela Barbosa (The Linux Foundation): Those are all things that,
+
+260
+00:40:18.710 --> 00:40:27.800
+Daniela Barbosa (The Linux Foundation): I think just as a natural evolution of, you know, LFDT, you know, going into, you know, year two and year 3 needs to be, evaluated.
+
+261
+00:40:31.160 --> 00:40:46.750
+Tracy Kuhrt: Yeah, thanks, Daniela. And David, your comment about, we did move a project, back in the life cycle. That was the first time this year. Good for us, right? It went from incubating to labs. The problem is, is that project itself
+
+262
+00:40:48.340 --> 00:41:05.610
+Tracy Kuhrt: you know, it took us multiple years to get to the place where we were finally able to say, yes, let's move it, you know, from incubating to labs. I don't want it to be a harder and longer discussion when it comes to, hey, we have something that's graduated that really shouldn't be graduated anymore.
+
+263
+00:41:05.620 --> 00:41:10.140
+Tracy Kuhrt: I want us to be able to have a process that looks
+
+264
+00:41:10.230 --> 00:41:26.890
+Tracy Kuhrt: at these things, and, you know, the attempt at the OpenSSF score and the work that, Rama led with the, you know, putting in criteria for how you maintain status or move between statuses.
+
+265
+00:41:27.120 --> 00:41:30.039
+Tracy Kuhrt: I think was our start, and I think…
+
+266
+00:41:30.120 --> 00:41:33.960
+Tracy Kuhrt: You know, that was an attempt for us to be…
+
+267
+00:41:34.010 --> 00:41:52.520
+Tracy Kuhrt: Objective about the matters of which state should a project be in, versus subjective about, yeah, just, you know, looking at these annual reports and the quarterly reports and the way that they come in, or not feeling like this project should maintain the status that they are, and so we need to have that discussion.
+
+268
+00:41:52.530 --> 00:42:05.950
+Tracy Kuhrt: You know, I think that was a good start, and I think what we potentially learned with Hiro wanting to graduate is that it's hard, to do that work. It's hard to gather that information, it's hard to get
+
+269
+00:42:05.970 --> 00:42:21.209
+Tracy Kuhrt: the information so that we can be objective and say, yes, without a doubt, Hiro should be graduated. I felt there was still some subjectivity there, which implies that there's going to be even more subjectivity when it comes to
+
+270
+00:42:21.210 --> 00:42:34.819
+Tracy Kuhrt: you know, hey, we want to take something from graduated back to incubate it, right? That's going to be a very tough call, sort of thing, without that sort of objectivity. Yes, I think there will always be some sort of…
+
+271
+00:42:34.980 --> 00:42:52.979
+Tracy Kuhrt: thought process that we have to put in place and be thoughtful as TAC members about the status of projects, but at the same time, I don't, you know, I don't want these sorts of decisions to be multi-year decisions. I want them to happen within the term of a TAC.
+
+272
+00:42:53.060 --> 00:43:01.929
+Tracy Kuhrt: I want that if we review something in the annual review, and we have doubts about it, and we want to give them 6 months to
+
+273
+00:43:01.960 --> 00:43:20.669
+Tracy Kuhrt: to turn that around, that at 6 months, we make that decision of, yes, they've turned it around, they can maintain their status, or no, they haven't, and therefore the status needs to change, right? I don't want this to be a, oh, next year's TAC, which may be more than 50% new, which is what happened this year.
+
+274
+00:43:20.670 --> 00:43:39.409
+Tracy Kuhrt: has to have a discussion that we had last year, at the beginning of the year, and never really made any decisions on. I don't want that kicking down the can to the next TAC happening, as we move forward. And so, you know, I want to make sure that this, whatever sort of process that we're looking at fits within
+
+275
+00:43:39.450 --> 00:43:46.199
+Tracy Kuhrt: The term of a TAC, so that, you know, we don't make it harder for the next year's TAC as we move forward.
+
+276
+00:43:46.430 --> 00:43:50.560
+Tracy Kuhrt: So, yeah, I think that's…
+
+277
+00:43:51.150 --> 00:44:00.190
+Tracy Kuhrt: Just some reasons for why we're having this discussion, is to try and… try and make this easier, for us.
+
+278
+00:44:00.300 --> 00:44:05.660
+Tracy Kuhrt: To, you know, point to a process and say, that's the process we're gonna follow.
+
+279
+00:44:14.230 --> 00:44:16.310
+Tracy Kuhrt: So, are there certain steps
+
+280
+00:44:16.540 --> 00:44:23.199
+Tracy Kuhrt: I think that's what this question is trying to get to. Are there certain steps that we feel we should be taking,
+
+281
+00:44:23.670 --> 00:44:31.189
+Tracy Kuhrt: When we recognize that a project is no longer meeting the guidelines or criteria for a given life cycle.
+
+282
+00:44:31.430 --> 00:44:33.610
+Tracy Kuhrt: And what would those steps look like?
+
+283
+00:44:58.890 --> 00:45:01.979
+Diane Mueller (Hedera Hashgraph LLC): Is there a notification of the…
+
+284
+00:45:02.510 --> 00:45:08.689
+Diane Mueller (Hedera Hashgraph LLC): project message that we can send via GitHub, that the project status is,
+
+285
+00:45:08.950 --> 00:45:13.460
+Diane Mueller (Hedera Hashgraph LLC): In question, or on hold, or being reviewed, so that it shows up.
+
+286
+00:45:13.640 --> 00:45:16.840
+Diane Mueller (Hedera Hashgraph LLC): on the GitHub repo, kind of like badging.
+
+287
+00:45:17.460 --> 00:45:18.809
+Diane Mueller (Hedera Hashgraph LLC): Of some sort?
+
+288
+00:45:19.550 --> 00:45:25.159
+Tracy Kuhrt: Yep, we can definitely do that. I mean, we could open an issue on GitHub, if that's the right…
+
+289
+00:45:25.370 --> 00:45:28.090
+Tracy Kuhrt: Mechanism for that.
+
+290
+00:45:29.570 --> 00:45:36.659
+Tracy Kuhrt: You know, the question would also be, do we want to make sure that once we open that issue, there's
+
+291
+00:45:37.750 --> 00:45:50.419
+Tracy Kuhrt: I mean, where does the discussion happen, I guess? Is it inside of that issue? Is it, at a TAC meeting where the maintainers of that particular project can be invited?
+
+292
+00:45:50.760 --> 00:45:52.520
+Tracy Kuhrt: Thoughts on that?
+
+293
+00:45:56.040 --> 00:45:58.290
+Diane Mueller (Hedera Hashgraph LLC): I mean, I don't think Arun's…
+
+294
+00:45:58.550 --> 00:46:08.729
+Diane Mueller (Hedera Hashgraph LLC): on… is it Arun who's been reaching out to the late, report people? But he's been, asking in Discord, and I just wonder if…
+
+295
+00:46:08.730 --> 00:46:24.769
+Diane Mueller (Hedera Hashgraph LLC): all of the maintainers of the projects that are in question are aware of it. So, if there was an issue that we could put, that would be… bring… because it may just be the project leaders, and they're, you know, they may not have a…
+
+296
+00:46:25.550 --> 00:46:27.010
+Diane Mueller (Hedera Hashgraph LLC): The… the…
+
+297
+00:46:27.530 --> 00:46:36.520
+Diane Mueller (Hedera Hashgraph LLC): The bulk of the maintainers might not know that, the project is in limbo, or under review, so there…
+
+298
+00:46:36.750 --> 00:46:41.729
+Diane Mueller (Hedera Hashgraph LLC): If we logged an issue that We're currently reviewing, you know.
+
+299
+00:46:43.810 --> 00:46:48.390
+Diane Mueller (Hedera Hashgraph LLC): Some sort of notification to the community of that project.
+
+300
+00:46:49.680 --> 00:46:50.940
+Diane Mueller (Hedera Hashgraph LLC): Via GitHub.
+
+301
+00:46:51.730 --> 00:46:53.320
+Diane Mueller (Hedera Hashgraph LLC): Might be a next step.
+
+302
+00:46:54.090 --> 00:46:55.450
+Tracy Kuhrt: Yeah, I like that.
+
+303
+00:46:55.680 --> 00:47:00.799
+Tracy Kuhrt: I know we used to have a tool.
+
+304
+00:47:01.030 --> 00:47:06.880
+Tracy Kuhrt: An action that would, notify the… the…
+
+305
+00:47:07.280 --> 00:47:11.669
+Tracy Kuhrt: Projects when their issue, or when their, report was due.
+
+306
+00:47:11.670 --> 00:47:16.530
+Ry Jones (The Linux Foundation): That's what I was scrolling, trying to find, because I know Arun recently,
+
+307
+00:47:17.070 --> 00:47:19.590
+Ry Jones (The Linux Foundation): created one, so let… I'm digging for it.
+
+308
+00:47:20.070 --> 00:47:34.220
+Tracy Kuhrt: Yeah, but I do think that's a good point, right? Like, let's communicate to the projects in a way that they're… they should see it, right? And if they are not responding to issues.
+
+309
+00:47:34.380 --> 00:47:46.860
+Tracy Kuhrt: Then that's gonna give us another clue, right? That, there's… there's an issue here, that it really, truly is an issue. It's not just a… something that we think might be of concern.
+
+310
+00:47:47.040 --> 00:47:55.219
+Tracy Kuhrt: You know, because that should be an expectation of our projects, right? That they are responding to issues and… on a regular basis.
+
+311
+00:47:57.090 --> 00:48:11.240
+Tracy Kuhrt: And I… I remember when we were doing that previously, I think that really helped our projects, right, to stay on top of things and, to… to do things. The reason that action doesn't… or isn't,
+
+312
+00:48:12.170 --> 00:48:14.680
+Tracy Kuhrt: Working at the moment is because
+
+313
+00:48:14.730 --> 00:48:25.690
+Tracy Kuhrt: we switched to separate organizations, right? And so we would need the action on, every organization's governance kind of repo, if you will. So,
+
+314
+00:48:25.730 --> 00:48:36.649
+Tracy Kuhrt: I think there's things that we could do to automate that, but there's also things that we can do just to make that, something that occurs, even if we had to do it manually.
+
+315
+00:48:43.140 --> 00:48:45.869
+Ry Jones (The Linux Foundation): So I'm just digging around. I found,
+
+316
+00:48:47.320 --> 00:48:50.340
+Ry Jones (The Linux Foundation): One, so this is, Arun's test repo.
+
+317
+00:48:51.340 --> 00:48:56.690
+Ry Jones (The Linux Foundation): And, he does have…
+
+318
+00:49:00.580 --> 00:49:07.280
+Ry Jones (The Linux Foundation): For instance, he has this review reminder, which pings people.
+
+319
+00:49:08.140 --> 00:49:16.469
+Ry Jones (The Linux Foundation): And I know that he has, another action in another branch that does something similar, so these actions do exist.
+
+320
+00:49:16.730 --> 00:49:24.669
+Ry Jones (The Linux Foundation): I just need to get with Arun and figure out when and how we, deploy this.
+
+321
+00:49:26.350 --> 00:49:29.460
+Ry Jones (The Linux Foundation): On, on the main governance repo.
+
+322
+00:49:29.820 --> 00:49:36.460
+Ry Jones (The Linux Foundation): So what this would do is… this… this in particular reminds GitHub,
+
+323
+00:49:36.720 --> 00:49:41.249
+Ry Jones (The Linux Foundation): People who are assigned a review to go and look at the thing.
+
+324
+00:49:41.810 --> 00:49:48.370
+Ry Jones (The Linux Foundation): And I know that he also has another script, which, sends a…
+
+325
+00:49:49.670 --> 00:49:53.429
+Ry Jones (The Linux Foundation): a ping, right? So this will open a PR.
+
+326
+00:49:54.630 --> 00:49:58.630
+Ry Jones (The Linux Foundation): to, ping… other repos.
+
+327
+00:49:59.750 --> 00:50:03.449
+Ry Jones (The Linux Foundation): So, there… he has, like, half of this done.
+
+328
+00:50:06.590 --> 00:50:19.610
+Tracy Kuhrt: Yeah, but I think this might be a good thing for us to bring back to life, right, is a mechanism where we are opening issues, for the maintainers.
+
+329
+00:50:19.740 --> 00:50:28.009
+Tracy Kuhrt: And then we can actually track those issues and see, you know, one, are they getting done? And two,
+
+330
+00:50:28.380 --> 00:50:33.260
+Tracy Kuhrt: You know, if they're not getting done, then that tells us also something about a project, and it's…
+
+331
+00:50:33.390 --> 00:50:44.669
+Tracy Kuhrt: status, right? So, yeah, I, and I… Just a question, Ryan,
+
+332
+00:50:45.940 --> 00:50:50.570
+Tracy Kuhrt: My brain says, well, what if we… what if we created issues in the…
+
+333
+00:50:50.860 --> 00:51:02.450
+Tracy Kuhrt: in the governance repo? Is it possible for us to add a project team, so the maintainer team, or is that…
+
+334
+00:51:02.560 --> 00:51:06.429
+Tracy Kuhrt: Not possible across organizations.
+
+335
+00:51:07.190 --> 00:51:14.759
+Ry Jones (The Linux Foundation): I would have to test that, but I think it's not possible across organizations. Yeah. One thing that…
+
+336
+00:51:15.010 --> 00:51:18.019
+Ry Jones (The Linux Foundation): I had hoped to be able to do.
+
+337
+00:51:19.010 --> 00:51:22.619
+Ry Jones (The Linux Foundation): Is basically, as part of the enterprise, be able to
+
+338
+00:51:23.550 --> 00:51:28.089
+Ry Jones (The Linux Foundation): So if I, if I go here to the Enterprise, and look at the people.
+
+339
+00:51:30.040 --> 00:51:33.679
+Ry Jones (The Linux Foundation): I had hoped that once we had people in the enterprise.
+
+340
+00:51:33.860 --> 00:51:36.270
+Ry Jones (The Linux Foundation): I would just be able to add them to orgs.
+
+341
+00:51:37.330 --> 00:51:43.940
+Ry Jones (The Linux Foundation): so that I could, for instance, add everyone to the LFDT org.
+
+342
+00:51:44.910 --> 00:51:50.670
+Ry Jones (The Linux Foundation): And then, you know, create the proper teams, and then that would work.
+
+343
+00:51:51.320 --> 00:51:55.349
+Ry Jones (The Linux Foundation): But, it turns out, no. So…
+
+344
+00:51:55.640 --> 00:51:59.390
+Tracy Kuhrt: it's a little bit trickier than that. I can't just go in here and, like.
+
+345
+00:51:59.390 --> 00:52:10.319
+Ry Jones (The Linux Foundation): click on Lance2Birds and add him to another org. I still have to invite him to the org. So even though I have ownership of both the Enterprise and all the orgs underneath it.
+
+346
+00:52:10.910 --> 00:52:12.910
+Ry Jones (The Linux Foundation): I don't have that ability, so…
+
+347
+00:52:12.910 --> 00:52:13.580
+Tracy Kuhrt: Okay.
+
+348
+00:52:15.380 --> 00:52:18.760
+Tracy Kuhrt: Well, I see we're at time, so…
+
+349
+00:52:18.940 --> 00:52:38.680
+Tracy Kuhrt: I think we'll have to continue this, but I think this step is probably a good first step, right, for us to make sure that we're able to track and the projects are able to see, what's happening, and then also for us potentially to, have a discussion, right, if the… if an issue is not,
+
+350
+00:52:38.800 --> 00:52:45.400
+Tracy Kuhrt: being resolved for us to have that discussion, and then potentially invite the maintainers to a TAC call?
+
+351
+00:52:45.450 --> 00:53:01.750
+Tracy Kuhrt: When we think that, you know, potentially the project needs to change status. So, let's… let's continue this as we move forward, but I do think this is something that we'll… we'll talk about again, but maybe we have at least some initial steps for us, Jake?
+
+352
+00:53:02.130 --> 00:53:10.019
+Tracy Kuhrt: And then next week, we'll talk about the… the… our reports, and,
+
+353
+00:53:11.050 --> 00:53:16.630
+Tracy Kuhrt: Specifically, how do we improve the way that we're doing reporting today?
+
+354
+00:53:16.760 --> 00:53:19.959
+Tracy Kuhrt: So that we can, make some changes there as well.
+
+355
+00:53:20.230 --> 00:53:26.110
+Tracy Kuhrt: With that, I'm going to go ahead and close out today's meeting. Thank you all for attending, and we'll talk again.
+

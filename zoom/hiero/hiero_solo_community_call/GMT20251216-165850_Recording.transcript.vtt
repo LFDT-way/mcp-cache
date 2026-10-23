@@ -1,0 +1,826 @@
+WEBVTT
+
+1
+00:01:18.780 --> 00:01:20.419
+Alex (HashGraph): Good morning, good evening.
+
+2
+00:01:29.530 --> 00:01:30.580
+Jeromy Cannon: Hello!
+
+3
+00:01:31.100 --> 00:01:32.289
+Jeromy Cannon: How are you doing?
+
+4
+00:01:32.610 --> 00:01:38.169
+Alex (HashGraph): Doing busy, kind of, multidimensional block node, released new version.
+
+5
+00:01:38.970 --> 00:01:45.409
+Alex (HashGraph): Main changes, RTM, and I started testing 0.52 to see if it helps.
+
+6
+00:01:46.000 --> 00:01:48.019
+Jeromy Cannon: Oh, you started running it?
+
+7
+00:01:48.610 --> 00:01:51.669
+Alex (HashGraph): Yeah, just click the button to see what's going on.
+
+8
+00:01:53.500 --> 00:01:59.600
+Alex (HashGraph): But for a hanging symptom, it usually requires the whole week to state if it's fixed or not fixed.
+
+9
+00:02:01.140 --> 00:02:04.590
+Jeromy Cannon: Because of the, you say it's not consistent?
+
+10
+00:02:04.590 --> 00:02:11.539
+Alex (HashGraph): Yeah, 050 reproduces about twice a week, assuming that I run solo about 10 deployments a day.
+
+11
+00:02:12.040 --> 00:02:12.700
+Jeromy Cannon: Hold on.
+
+12
+00:02:12.840 --> 00:02:16.660
+Jeromy Cannon: So… 51?
+
+13
+00:02:17.300 --> 00:02:23.589
+Jeromy Cannon: is where we introduced the, cube control, not 50. And so,
+
+14
+00:02:23.700 --> 00:02:30.809
+Jeromy Cannon: So, the… all that logic got completely replaced… replaced for exec container, copy to, and copy from.
+
+15
+00:02:31.720 --> 00:02:33.100
+Jeromy Cannon: In
+
+16
+00:02:33.470 --> 00:02:50.220
+Jeromy Cannon: So, so yeah, so that… so I… I thought that it had been there a little bit longer, and that's when I made that comment, but I think what happened was, was that we had rolled 49, and then we had a bunch of, issues, with,
+
+17
+00:02:50.940 --> 00:03:01.670
+Jeromy Cannon: our builds, and then I had to spend a couple weeks fixing all of that auto-restart logic, where it was automatically restarting consensus node.
+
+18
+00:03:01.670 --> 00:03:14.310
+Jeromy Cannon: And then… and then I… and then after I got that working, then there was some issues because they had changed some of the higher ledger org-level permissions that broke, our release and tag process.
+
+19
+00:03:14.760 --> 00:03:18.090
+Jeromy Cannon: And so then I had to fix that, and then we finally…
+
+20
+00:03:18.440 --> 00:03:26.510
+Jeromy Cannon: published 50, so there was, like, a little bit of time gap between, like, 49 and 50. We've been trying to, like, publish weekly.
+
+21
+00:03:26.820 --> 00:03:30.199
+Jeromy Cannon: But yeah, that one was a little bit further apart.
+
+22
+00:03:30.910 --> 00:03:40.370
+Jeromy Cannon: And then, or no, that was… sorry, that was between 50 and 51 I meant, not 49.50. Anyway, and so…
+
+23
+00:03:42.030 --> 00:03:49.749
+Jeromy Cannon: I was just talking with the team, earlier today, because we had our team meeting a little bit before this, and
+
+24
+00:03:50.860 --> 00:04:05.380
+Jeromy Cannon: we… Nathan kind of said, let's never, never, never release on a holiday week. So, we won't be releasing, this… we'll release this week, unless something happens. We'll plan on releasing this week.
+
+25
+00:04:05.380 --> 00:04:14.540
+Jeromy Cannon: But we won't release the next 2 weeks, and so that means we'll resume releases on January 8th. Our preference is to be on a Thursday.
+
+26
+00:04:14.720 --> 00:04:15.870
+Jeromy Cannon: So…
+
+27
+00:04:15.870 --> 00:04:17.330
+Alex (HashGraph): It's very wise, yes.
+
+28
+00:04:18.130 --> 00:04:23.140
+Alex (HashGraph): There are some even CMI official rules, never release anything on Friday afternoon.
+
+29
+00:04:23.300 --> 00:04:24.750
+Alex (HashGraph): That's total.
+
+30
+00:04:24.940 --> 00:04:26.080
+Jeromy Cannon: I'm trying not to do that.
+
+31
+00:04:26.080 --> 00:04:33.259
+Alex (HashGraph): Be advised, though, yes, be advised. As we switch to Kubernetes, Kubernetes has
+
+32
+00:04:33.570 --> 00:04:36.979
+Alex (HashGraph): almost officially documented symptom of Hengen.
+
+33
+00:04:37.180 --> 00:04:41.570
+Alex (HashGraph): Which reproduces 100% time reproducers.
+
+34
+00:04:41.690 --> 00:04:58.600
+Alex (HashGraph): That's why in, sitter script, instead of, kubectl call, I always use, my script that I wrap kubectl with, a timeout waiter. If it's hand, it automatically restarts the same, same call.
+
+35
+00:04:59.100 --> 00:05:03.629
+Alex (HashGraph): Differently, Kubernetes will help us copy, too.
+
+36
+00:05:03.900 --> 00:05:14.050
+Alex (HashGraph): Yes, it's true, but it might introduce its own hanging symptom, that's why, let's see, if it's reproduced, then I will suggest my wrapper, for kubectl calls.
+
+37
+00:05:14.510 --> 00:05:15.069
+Alex (HashGraph): But let's.
+
+38
+00:05:15.940 --> 00:05:16.589
+Alex (HashGraph): Because it's a…
+
+39
+00:05:16.590 --> 00:05:21.320
+Jeromy Cannon: So what cube control issue do you have issues with?
+
+40
+00:05:21.520 --> 00:05:31.259
+Alex (HashGraph): So, any kube control call, any, like, whatever, kubectl shell, LS, like, super small, or just any calls.
+
+41
+00:05:31.590 --> 00:05:43.150
+Alex (HashGraph): Maybe in conjunction with, teleport. We don't know who is guilty, in what proportion is guilty, but kubectl with Teleport, okay, introduced handing symptom.
+
+42
+00:05:43.550 --> 00:05:46.370
+Alex (HashGraph): To work it around, about an year ago.
+
+43
+00:05:46.760 --> 00:05:49.810
+Jeromy Cannon: Wait, wait, you said a symptom, like, what's the symptom?
+
+44
+00:05:49.980 --> 00:05:51.869
+Alex (HashGraph): I just cook cube, cattle called Hanks.
+
+45
+00:05:52.470 --> 00:05:53.859
+Jeromy Cannon: Oh, it hangs!
+
+46
+00:05:53.860 --> 00:06:02.310
+Alex (HashGraph): Yes, without traces, just… an unexpectedly simple call. Like, kubectl, for example, get Namespaces, or…
+
+47
+00:06:02.310 --> 00:06:05.080
+Jeromy Cannon: And it hangs 100% of the time, you said?
+
+48
+00:06:05.770 --> 00:06:07.360
+Alex (HashGraph): Oh, randomly, of course.
+
+49
+00:06:07.360 --> 00:06:08.929
+Jeromy Cannon: Oh, randomly, okay.
+
+50
+00:06:08.930 --> 00:06:25.919
+Alex (HashGraph): Yes, randomly, but annoyingly, that ruined the whole business. Let's suppose. Why introduce this wrapper? Because in the middle of night, in some unexpectedly innocent operation of kubectl, kubectl LS processes, or what, PS processes, just…
+
+51
+00:06:26.390 --> 00:06:28.960
+Alex (HashGraph): Happens to, to hang forever.
+
+52
+00:06:29.280 --> 00:06:39.999
+Alex (HashGraph): So that's why I introduced a wrapper script that automatically kill hand process and restart it, to, maintain continuity of all scripts.
+
+53
+00:06:40.320 --> 00:06:41.130
+Alex (HashGraph): However.
+
+54
+00:06:41.130 --> 00:06:48.470
+Jeromy Cannon: Well, I wonder, I wonder if, okay, so when we're doing cube control, then we, we basically,
+
+55
+00:06:48.750 --> 00:06:57.059
+Jeromy Cannon: we first make sure it's installed, and if it's not, I think we pull a version for ourselves.
+
+56
+00:06:57.180 --> 00:07:16.339
+Jeromy Cannon: And then, if, and then… and then I think we do a spawn command to leverage it. So, if you… if you have it wired up where your cube control wrapper is called cube control, then it might automatically pick yours up. But if your wrapper's not called cube control, it probably won't pick up your wrapper.
+
+57
+00:07:16.950 --> 00:07:23.199
+Alex (HashGraph): Okay, so Marabel in, support slash sitter slash kubectl T.
+
+58
+00:07:23.450 --> 00:07:32.199
+Alex (HashGraph): That's called CurrentCube Control, but with 10 minutes, waiting time. But my point is, so, recently, recently.
+
+59
+00:07:32.580 --> 00:07:46.809
+Alex (HashGraph): Andrew released a new message to everybody, telling that Dallas will be in maintenance since December 18. The purpose of an upgrade version of Cube Control Everywhere.
+
+60
+00:07:47.940 --> 00:07:48.720
+Alex (HashGraph): fees.
+
+61
+00:07:49.400 --> 00:07:50.410
+Alex (HashGraph): So, that's why…
+
+62
+00:07:50.410 --> 00:07:52.580
+Jeromy Cannon: I thought of Kubernetes.
+
+63
+00:07:54.110 --> 00:07:55.240
+Alex (HashGraph): Kubernetes, yes.
+
+64
+00:07:55.240 --> 00:07:57.980
+Jeromy Cannon: I thought they were updating the cluster, the Kubernetes cluster.
+
+65
+00:07:58.740 --> 00:08:06.339
+Alex (HashGraph): Yes. Hopefully, that will kind of fix hanging symptoms, who knows? That's why I'm not kind of rising any panic.
+
+66
+00:08:06.640 --> 00:08:14.339
+Jeromy Cannon: Oh, so you don't know, like, yeah, because you don't know what the issue is. Is it teleport? Is it the Kubernetes cluster? Is it the Kuber command?
+
+67
+00:08:14.340 --> 00:08:14.980
+Alex (HashGraph): guilty.
+
+68
+00:08:14.980 --> 00:08:24.159
+Jeromy Cannon: Too many. It could also be… So are you running them from within the cluster, or is it running from outside a cluster, talking to a different cluster?
+
+69
+00:08:24.490 --> 00:08:33.510
+Alex (HashGraph): No, in the same cluster. So, kubectl… no, kube control on an external runner, talking to Oh…
+
+70
+00:08:33.510 --> 00:08:34.860
+Jeromy Cannon: A different cluster.
+
+71
+00:08:34.860 --> 00:08:36.210
+Alex (HashGraph): Different clusters, exactly.
+
+72
+00:08:36.210 --> 00:08:36.760
+Jeromy Cannon: Okay, okay.
+
+73
+00:08:36.760 --> 00:08:37.500
+Alex (HashGraph): So that's.
+
+74
+00:08:37.500 --> 00:08:50.069
+Jeromy Cannon: Because the HashSphere team does something a little different. They run a lot of solo commands from directly within the same cluster that they're doing the network manipulation on.
+
+75
+00:08:50.120 --> 00:09:07.970
+Jeromy Cannon: And so we had to augment some of our code to use that different style of kubeconfig, because instead of having a kubeconfig file, you pull the configurations from the cluster itself, and so we had to augment our code to handle that scenario.
+
+76
+00:09:08.040 --> 00:09:09.290
+Alex (HashGraph): So, yeah.
+
+77
+00:09:10.810 --> 00:09:12.300
+Alex (HashGraph): So, that's why, kind of…
+
+78
+00:09:12.440 --> 00:09:17.820
+Alex (HashGraph): The result is, so be emotionally prepared for potential hanging symptoms in cube control.
+
+79
+00:09:17.990 --> 00:09:36.799
+Alex (HashGraph): Okay? But second, it may not be cube control that guilty, it may be teleport, because I see that only in latitude, under teleport. Maybe it's teleport, okay. And since Andrew will update cube control everywhere and latitude on Dallas.
+
+80
+00:09:36.970 --> 00:09:41.430
+Alex (HashGraph): I'm not panicking, waiting until it's happened. That's why, so…
+
+81
+00:09:41.430 --> 00:09:48.769
+Jeromy Cannon: Well, you couldn't just proactively go ahead and open up a GitHub issue, As an enhancement.
+
+82
+00:09:48.920 --> 00:09:58.809
+Jeromy Cannon: For those, cube control calls, anytime we're leveraging cube control directly to add the logic that your wrapper script does, basically.
+
+83
+00:09:59.200 --> 00:10:05.300
+Jeromy Cannon: Where it just detects after a certain amount of timeout to, kill it and restart it.
+
+84
+00:10:05.740 --> 00:10:11.150
+Jeromy Cannon: And we can make that timeout configurable via some environment variables or something.
+
+85
+00:10:11.150 --> 00:10:27.820
+Jeromy Cannon: Because that might honestly be a good thing to add, probably specifically for you would probably use it the most, but I'm sure somebody, sooner or later, it might get triggered, and it might even help some occasional end-to-end test failures that we have, too, so…
+
+86
+00:10:29.120 --> 00:10:29.770
+Alex (HashGraph): True.
+
+87
+00:10:29.930 --> 00:10:45.710
+Alex (HashGraph): And if you wish, there are a little historical review. So, in Google, they have two drivers, which is Kubernetes, Cube Control Driver, and ADB. ADB is a driver to see Android device attached to PC.
+
+88
+00:10:45.710 --> 00:10:46.670
+Jeromy Cannon: Yeah, yeah.
+
+89
+00:10:46.670 --> 00:10:50.410
+Alex (HashGraph): Both of them have this hanging symptom. Both of them.
+
+90
+00:10:50.940 --> 00:11:02.620
+Alex (HashGraph): So, in my previous place, when I operated with trillion ADB calls a day, and trillion, coop cattle calls a day, I noticed it hanging. That's why I introduced this automated
+
+91
+00:11:02.750 --> 00:11:05.900
+Alex (HashGraph): Rapid to work around that hanging symptom.
+
+92
+00:11:06.180 --> 00:11:06.500
+Alex (HashGraph): Huh.
+
+93
+00:11:08.240 --> 00:11:15.649
+Alex (HashGraph): Yes, that's something about Google. Maybe they use some mutex thread library, that's hanging, I don't know.
+
+94
+00:11:19.040 --> 00:11:19.980
+Jeromy Cannon: Interesting.
+
+95
+00:11:22.430 --> 00:11:27.719
+Alex (HashGraph): Yes, next topic is, .env file, so…
+
+96
+00:11:27.720 --> 00:11:44.780
+Alex (HashGraph): So, currently, I use workaround, which is just restart.all consensus nodes, and redefine… explicitly redefine an environment variable with export, but if you kind of fix that yesterday issue sooner, I'll be super happy.
+
+97
+00:11:45.390 --> 00:11:51.749
+Jeromy Cannon: Yeah, so I told the team to go ahead and work it. They, they, they, but what Evo told me was.
+
+98
+00:11:52.160 --> 00:12:08.090
+Jeromy Cannon: is that if you, that you re… that you renamed it to application.env.txt, if you just call it application.env instead of applicationenv text, it works, is what he said. But I told him to go ahead and fix it anyway, because,
+
+99
+00:12:08.200 --> 00:12:21.899
+Jeromy Cannon: somebody else might have the problem anyway, and we just should go ahead and fix it, and that you already have a workaround. But, it sounds like if you just didn't call it .txt, it would work, but, but obviously it still needs to be fixed, so…
+
+100
+00:12:22.560 --> 00:12:33.650
+Alex (HashGraph): Yes, thank you. The problem is, if we keep files like blah blah.properties, blah blah.env, GitHub Actions has issues with them.
+
+101
+00:12:34.080 --> 00:12:46.740
+Alex (HashGraph): So, that's why in sitter script, Roger introduces a script to keep them only as a .txt file, otherwise GitHub action scripts will permanently and constantly complain on something.
+
+102
+00:12:47.320 --> 00:12:52.930
+Jeromy Cannon: What is the GitHub Actions complaint about? Because our stuff runs, and it uses them like that.
+
+103
+00:12:53.410 --> 00:13:03.730
+Alex (HashGraph): just format of tags, like, for example, application.properties. Github action scripts that have that million verifications.
+
+104
+00:13:03.860 --> 00:13:10.430
+Alex (HashGraph): complaining on each and every PR and telling, you're keeping .property files, it's not safe, blah blah blah. That's, that's why
+
+105
+00:13:11.400 --> 00:13:12.949
+Alex (HashGraph): into those pieces?
+
+106
+00:13:12.950 --> 00:13:22.589
+Jeromy Cannon: Probably, it probably has to do with your repo configurations, and how, like, all your different, linters and stuff like that.
+
+107
+00:13:22.590 --> 00:13:32.629
+Jeromy Cannon: And so, Consensus Node has got… is Java, so they probably have some property file linters and things like that, whereas ours is JavaScript.
+
+108
+00:13:32.630 --> 00:13:45.130
+Jeromy Cannon: And so, we don't typically lint property files, because that's a Java thing, and so we're probably never picking that up. But we do sometimes lint, like, YAML or, JSON or something like that.
+
+109
+00:13:45.260 --> 00:13:52.030
+Jeromy Cannon: But, I don't even know if we lent JSON, but we do… we do JavaScript, TypeScript, and YAML.
+
+110
+00:13:52.160 --> 00:13:54.499
+Jeromy Cannon: But… Yeah, the point is…
+
+111
+00:13:54.500 --> 00:14:05.249
+Alex (HashGraph): to work it around, Roger just renamed application.properties to applicationproperty.txt, and this problem is it. Yeah, well, he could have also just excluded the directory from the lender.
+
+112
+00:14:05.990 --> 00:14:08.170
+Jeromy Cannon: And that would have also fixed the problem.
+
+113
+00:14:08.450 --> 00:14:09.430
+Jeromy Cannon: But anyway…
+
+114
+00:14:09.930 --> 00:14:17.460
+Alex (HashGraph): good. But in general, We continue. Thank you for incoming fix with .inin file, it's fine.
+
+115
+00:14:17.460 --> 00:14:17.940
+Jeromy Cannon: Yeah.
+
+116
+00:14:17.940 --> 00:14:21.419
+Alex (HashGraph): And, priorities of the days for me is, of course.
+
+117
+00:14:21.680 --> 00:14:27.170
+Alex (HashGraph): Besides testing all the releases, it's a new monster project, which is Smart EVM.
+
+118
+00:14:27.410 --> 00:14:30.599
+Alex (HashGraph): That's what I'm focused… oh, Roger joined. Hello, Roger.
+
+119
+00:14:30.810 --> 00:14:35.260
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Yeah, we were just talking about you, Roger. My ears were burning, so I thought I'd show up.
+
+120
+00:14:37.800 --> 00:14:38.430
+Jeromy Cannon: Yeah.
+
+121
+00:14:42.050 --> 00:14:44.460
+Jeromy Cannon: Jerry, these…
+
+122
+00:14:44.490 --> 00:14:47.769
+Alex (HashGraph): You pick… changing your, icon.
+
+123
+00:14:48.780 --> 00:14:49.470
+Jeromy Cannon: Huh?
+
+124
+00:14:49.470 --> 00:14:52.230
+Alex (HashGraph): You changed your icon, it was different.
+
+125
+00:14:52.270 --> 00:14:54.669
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Oh, now it was different, now it's this one.
+
+126
+00:14:55.220 --> 00:14:56.950
+Alex (HashGraph): Yeah. What's the occasion?
+
+127
+00:14:58.280 --> 00:14:59.910
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): We're coming up on a new year.
+
+128
+00:15:00.020 --> 00:15:00.670
+Alex (HashGraph): Nice.
+
+129
+00:15:03.240 --> 00:15:04.359
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): So, it was time.
+
+130
+00:15:07.730 --> 00:15:11.230
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): I have a very angry panda as well that looks very similar to this one.
+
+131
+00:15:12.040 --> 00:15:15.660
+Jeromy Cannon: Do you pull that one out when you're feeling especially angry?
+
+132
+00:15:15.950 --> 00:15:22.870
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): I almost pulled out today. It's, it's my GitHub thing now, so… Little avatar there.
+
+133
+00:15:25.130 --> 00:15:25.640
+Jeromy Cannon: Nice.
+
+134
+00:15:25.640 --> 00:15:30.250
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Probably turn it into my, new public icon at some point.
+
+135
+00:15:30.850 --> 00:15:45.990
+Jeromy Cannon: So, so on, on, Roger, I was telling Alex earlier we weren't gonna, probably release… I mean, we're not gonna do a release… we'll do a release this Thursday, but then we'll stop for a couple weeks, and then resume on January 8th, and
+
+136
+00:15:46.230 --> 00:15:50.430
+Jeromy Cannon: But also, there was a bug that Alex had opened,
+
+137
+00:15:50.430 --> 00:16:11.809
+Jeromy Cannon: around some calls, and those calls were drastically changed in version 51, and version 52 is the latest. So, version 50, if y'all are still using that on your pipeline stuff, there was a drastic change to the, exec, container and the copy2 and the copy from, which we use in a lot of different things, and sometimes we're creating issues.
+
+138
+00:16:11.810 --> 00:16:12.929
+Jeromy Cannon: So.
+
+139
+00:16:12.930 --> 00:16:14.740
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): So do I need to update the version there?
+
+140
+00:16:14.980 --> 00:16:23.650
+Jeromy Cannon: It probably would be good, but honestly, I don't know if it's stable enough, maybe you should just leave it alone until I get back from vacation.
+
+141
+00:16:24.130 --> 00:16:29.240
+Jeromy Cannon: So, because I'll be out the last two weeks of the year, so I'll be here all of this week, and then I'm out for two weeks, so…
+
+142
+00:16:29.940 --> 00:16:32.100
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): I'm gonna listen to what you want me to do, Alex.
+
+143
+00:16:32.690 --> 00:16:33.950
+Jeromy Cannon: So, yeah, I would say listen.
+
+144
+00:16:33.950 --> 00:16:36.440
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Around 50, around 50 across the board, do you want…
+
+145
+00:16:36.440 --> 00:16:39.819
+Jeromy Cannon: I think Alex is running some 52 on something, but.
+
+146
+00:16:39.820 --> 00:16:44.100
+Alex (HashGraph): I'm testing 52, Roger, please don't switch until I give a green light.
+
+147
+00:16:44.100 --> 00:16:44.820
+Jeromy Cannon: Yeah, there you go.
+
+148
+00:16:44.820 --> 00:16:45.330
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Just let me know.
+
+149
+00:16:45.330 --> 00:16:47.040
+Jeromy Cannon: Sounds good.
+
+150
+00:16:47.040 --> 00:16:55.599
+Alex (HashGraph): Jeremy, just to correct my sentence, nothing against 0.52, but please wait until green light, who knows?
+
+151
+00:16:58.450 --> 00:17:06.560
+Jeromy Cannon: Yeah, I mean, Alex has got a lot of unique scenarios that, our end-to-end tests don't cover, so…
+
+152
+00:17:06.560 --> 00:17:10.449
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Yeah, it's pretty good. You should get Alex to write some tests or solo.
+
+153
+00:17:10.930 --> 00:17:20.839
+Jeromy Cannon: Yeah, you know, when you… or figure out one that he… whenever he has these issues, it also typically blows up, but it doesn't take, you know, 24 hours to run.
+
+154
+00:17:20.849 --> 00:17:21.329
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Yeah.
+
+155
+00:17:21.329 --> 00:17:36.509
+Jeromy Cannon: Or, what we could also do is daisy chain them together so that, like, maybe, one particular one that's a good one, can be kicked off automatically whenever we do a tag or something like that with the new version or something, I don't know, but…
+
+156
+00:17:36.699 --> 00:17:50.149
+Jeromy Cannon: Sometimes the issue, they work just fine, and then they, they don't break until, like, randomly. Like, he was just saying this, this exec container issue happens 2 times out of 10. So, yeah.
+
+157
+00:17:50.929 --> 00:17:54.359
+Jeromy Cannon: It's not a… it's not a for deal thing, you know?
+
+158
+00:17:54.649 --> 00:17:56.369
+Jeromy Cannon: Not consistent, it's random.
+
+159
+00:17:57.259 --> 00:18:01.459
+Jeromy Cannon: Which is actually better odds than we were getting trying to integrate block node and MirrorNode.
+
+160
+00:18:01.679 --> 00:18:09.719
+Jeromy Cannon: It started off… it started off 1 out of 10, but before I finally killed the logic, it was, like, more like 1 half.
+
+161
+00:18:09.859 --> 00:18:16.149
+Jeromy Cannon: flip a coin. Actually, it was worse, I think, sometimes, I don't know, but anyway, it was pretty bad.
+
+162
+00:18:16.459 --> 00:18:25.099
+Jeromy Cannon: So I finally just disabled the integration between blocked node and MirrorNode, and things stabilized dramatically. That was that… remember, test GCS failing all the time?
+
+163
+00:18:25.519 --> 00:18:30.829
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): And a couple other jobs, it was… it executed a very piece of logic.
+
+164
+00:18:30.829 --> 00:18:36.589
+Jeromy Cannon: That required, the mirror node to properly have all of the data.
+
+165
+00:18:36.729 --> 00:18:51.229
+Jeromy Cannon: from the, the block node, which got it from the business node. So it's testing that whole flow of data there, and that's… that was creating all of the instability in all of our test cases. A majority of it. Probably not, like, 100%, but, like.
+
+166
+00:18:51.369 --> 00:19:05.079
+Jeromy Cannon: probably 70% of all those failures was that, so now we're still failing occasionally, but the test GCS is, like, I don't even know the last time it failed, but, we're having some issues with a couple other jobs, so… but anyway.
+
+167
+00:19:06.849 --> 00:19:12.659
+Jeromy Cannon: Yeah, fun stuff. Sometimes we spend more time on those stupid end-to-end Test regression jobs, but…
+
+168
+00:19:12.660 --> 00:19:13.280
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): That's a…
+
+169
+00:19:13.280 --> 00:19:30.960
+Jeromy Cannon: That's just the way it is, you know? And sometimes it's about just getting the jobs, the code for the testing working correctly, and it doesn't have to do with your actual code. But when it does actually have to do with your code, that makes it worth it. At least, it should, right?
+
+170
+00:19:33.320 --> 00:19:34.550
+Jeromy Cannon: That's the way it is.
+
+171
+00:19:35.610 --> 00:19:36.779
+Jeromy Cannon: Do you have anything, Mark?
+
+172
+00:19:36.780 --> 00:19:37.620
+Alex (HashGraph): Exception.
+
+173
+00:19:37.850 --> 00:19:40.170
+Alex (HashGraph): Speaking of, like, exceptions… I don't…
+
+174
+00:19:40.310 --> 00:19:41.910
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Have anything right now?
+
+175
+00:19:42.370 --> 00:19:43.220
+Jeromy Cannon: Okay.
+
+176
+00:19:43.750 --> 00:19:47.009
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): You could cancel this job before it uploads to GCS, though.
+
+177
+00:19:49.880 --> 00:19:51.810
+Jeromy Cannon: Is that one of mine, Cello's?
+
+178
+00:19:51.810 --> 00:19:53.699
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Oh, it's one of mine.
+
+179
+00:19:53.700 --> 00:19:54.370
+Jeromy Cannon: Okay.
+
+180
+00:19:54.370 --> 00:20:01.230
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): I'm updating to ensure that, we're passing…
+
+181
+00:20:02.060 --> 00:20:06.019
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): the, the… we're doing a state validator uber jar build.
+
+182
+00:20:06.130 --> 00:20:08.000
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): in XCS Dry Run.
+
+183
+00:20:08.790 --> 00:20:09.500
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Mmm.
+
+184
+00:20:10.020 --> 00:20:11.760
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): And we haven't been doing that before.
+
+185
+00:20:12.080 --> 00:20:15.470
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): So I need to make sure that we've got it all set correctly.
+
+186
+00:20:17.390 --> 00:20:18.920
+Jeromy Cannon: Can you say something, Alex?
+
+187
+00:20:20.000 --> 00:20:27.570
+Alex (HashGraph): Yes, kind of joking through the tears. As you talk about, never release anything during vacation.
+
+188
+00:20:27.940 --> 00:20:34.460
+Alex (HashGraph): block note team give me situation. Right now, they change the way how they build it, remove
+
+189
+00:20:34.760 --> 00:20:39.720
+Alex (HashGraph): several build targets in Gradle, Everything's in a mess.
+
+190
+00:20:39.890 --> 00:20:40.430
+Alex (HashGraph): good.
+
+191
+00:20:40.430 --> 00:20:41.789
+Jeromy Cannon: Get down with the team.
+
+192
+00:20:41.790 --> 00:20:42.240
+Alex (HashGraph): Yes.
+
+193
+00:20:43.710 --> 00:20:50.410
+Jeromy Cannon: Nice. Yeah, they decided to throw that in there. Are you taking time off for the holidays, Alex?
+
+194
+00:20:50.820 --> 00:20:53.680
+Alex (HashGraph): Nothing extra.
+
+195
+00:20:54.030 --> 00:20:55.360
+Jeromy Cannon: Okay.
+
+196
+00:20:57.590 --> 00:21:07.569
+Jeromy Cannon: And they're gonna keep you busy, and they'll be all gone. I think Nana is gonna hang… no, like, I think Freddy's gonna hang around, so Freddie should be around in case you need him, is my understanding.
+
+197
+00:21:08.110 --> 00:21:09.370
+Alex (HashGraph): Yeah, 3Ds Online.
+
+198
+00:21:09.510 --> 00:21:10.740
+Jeromy Cannon: That's good.
+
+199
+00:21:13.540 --> 00:21:19.440
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): be doing, like, mostly half days next week, and then I'll be off the week after that.
+
+200
+00:21:20.130 --> 00:21:20.870
+Jeromy Cannon: Yeah.
+
+201
+00:21:20.870 --> 00:21:28.980
+Alex (HashGraph): Jeremy, by the way, okay, iteration number 2, I'm friendly reminding you about one page of our trip to,
+
+202
+00:21:28.980 --> 00:21:34.489
+Jeromy Cannon: Yeah, this is… yeah, I'm on it. This isn't the right recorded meeting for that, but anyway…
+
+203
+00:21:34.490 --> 00:21:35.619
+Alex (HashGraph): That's funny, yes.
+
+204
+00:21:35.620 --> 00:21:44.950
+Jeromy Cannon: But yeah, I'm working on that, and we'll have some updates for this evening's meeting, too, so… Yeah.
+
+205
+00:21:46.170 --> 00:21:56.240
+Jeromy Cannon: All right, I guess I'll go ahead and end this call then. So, y'all have a good day, and I guess I'll chat with both of you at our team meeting later, so…
+
+206
+00:21:56.680 --> 00:21:58.409
+Alex (HashGraph): Thank you, Jeremy. Bye.
+

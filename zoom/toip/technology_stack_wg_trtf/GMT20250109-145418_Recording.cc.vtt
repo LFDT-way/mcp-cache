@@ -1,0 +1,1007 @@
+WEBVTT
+
+00:16:53.000 --> 00:17:06.000
+Way. The green piece in the center and make sure that's you know It's really solid. And then we got to sort of work our way outward to make sure everything else is necessary.
+
+00:17:06.000 --> 00:17:21.000
+For the protocol to be successful. And so it sort of starts to get towards what's the ordered plan but What I was asking about earlier is more all right, what's our plan for the green block? And, you know, to get to the
+
+00:17:21.000 --> 00:17:24.000
+Next up, winter strap. That's all.
+
+00:17:24.000 --> 00:17:33.000
+Yep. No, it totally makes sense. And Auntie just pinged about getting some access to invite calendar issues but Yes. So with this Good. Awesome. Awesome. Glad you got here.
+
+00:17:33.000 --> 00:17:39.000
+Yep. Got here. Sorry.
+
+00:17:39.000 --> 00:17:45.000
+Okay, so we just talked about a little bit where we left off last call and we're starting the year.
+
+00:17:45.000 --> 00:18:01.000
+Talking about a PR that's in flight right now. That actually addresses artifacts and where things go and how this will look And I think we'll… hopefully add some clarity to this and eventually to a question Drummond has around like timelines and when this does actually happen
+
+00:18:01.000 --> 00:18:08.000
+So this PR right here, just pull this up.
+
+00:18:08.000 --> 00:18:14.000
+If a proposal expansion and refactoring of the current repository structure.
+
+00:18:14.000 --> 00:18:23.000
+At least for me, your audio is dropping out Every… I don't know.
+
+00:18:23.000 --> 00:18:24.000
+I don't know if there's anything you can do about it. It's airport Wi-Fi.
+
+00:18:24.000 --> 00:18:28.000
+So… Oh, sorry. Let me see if I can…
+
+00:18:28.000 --> 00:18:33.000
+Maybe I can kick out some video. Let me kick out my video.
+
+00:18:33.000 --> 00:18:34.000
+Maybe that's better. Can you guys hear me okay?
+
+00:18:34.000 --> 00:18:36.000
+Yeah, I'll turn mine off too.
+
+00:18:36.000 --> 00:18:41.000
+It's quite okay for us at least. Maybe Stroman's in.
+
+00:18:41.000 --> 00:18:45.000
+Oh, maybe it's in my end. Yeah, okay.
+
+00:18:45.000 --> 00:19:03.000
+All right. So we have here a proposal to expand the repo structure and creating starting point for basically the artifacts that will get generated that we need to form that will help implementers and actually you know implement the thing. So let me just pull up here
+
+00:19:03.000 --> 00:19:08.000
+What that looks like and describe kind of what I'm proposing here we do.
+
+00:19:08.000 --> 00:19:14.000
+So
+
+00:19:14.000 --> 00:19:22.000
+Okay, so initially it was just a spec But you'll see here four folders.
+
+00:19:22.000 --> 00:19:29.000
+A documentation folder which has things like user guides and so forth a profile registry, which I'm going to talk about in a sec.
+
+00:19:29.000 --> 00:19:47.000
+Which is essentially similar to the did registry has a, there's a registry around did methods This is a registry around profiles for the trpp a reference implementation folder which has an example for people to learn how to implement the TRQP for themselves
+
+00:19:47.000 --> 00:19:59.000
+And the actual specification. Our core focus is the specification But breaking these out like this makes it really easy, I think, to understand what is not the specification and what goes somewhere else.
+
+00:19:59.000 --> 00:20:05.000
+So for example, the profile doesn't go to the specification. The profile goes to the profile registry.
+
+00:20:05.000 --> 00:20:16.000
+The user guides go into the docs. And so I think that's a starting point to start actually creating artifacts that will be clearly delineated on scope.
+
+00:20:16.000 --> 00:20:21.000
+So I wanted to pause here. Ask, is this making sense?
+
+00:20:21.000 --> 00:20:29.000
+To start off with, and then I'll go through each of these repos or each of these folders in more detail And there's some things we'll bring up at some point later in this fall.
+
+00:20:29.000 --> 00:20:33.000
+Around the content in these folders.
+
+00:20:33.000 --> 00:20:39.000
+So far, it makes complete sense and looks very logical.
+
+00:20:39.000 --> 00:20:47.000
+So… In the documentation folder I have currently a first version.
+
+00:20:47.000 --> 00:20:51.000
+That has some work to do, but a user guide to the Cherokee.
+
+00:20:51.000 --> 00:21:12.000
+And what this guide is, is essentially the basics for what does it mean as an implementer Whereas an actor in the TRQP systems to implement were act in those systems so it's the basic diagrams around diagrams how does data flow between the trust registry and the verifier
+
+00:21:12.000 --> 00:21:23.000
+What are the questions we're asking? And an example bridge that I think we should do which is it can Right now, there's a slot for a What would an open ID federation bridge look like?
+
+00:21:23.000 --> 00:21:27.000
+Those are things I think that we can address in the user guide as well as an FAQ.
+
+00:21:27.000 --> 00:21:34.000
+And then basically that's the starting point for people that are trying to understand more about How do I implement TRPP for me?
+
+00:21:34.000 --> 00:21:45.000
+And again, this is a supplementary tool. But it's also helpful because we make sure our story is clear on How does the TRPDA work? What does it mean for me as an implementer? And how do you actually do it?
+
+00:21:45.000 --> 00:21:53.000
+So that's this document right here. You know describes what an ecosystem governance framework is What is an authorization?
+
+00:21:53.000 --> 00:22:02.000
+Types of supportive registry entries Is there offline support? All the security considerations, those are all going into this file.
+
+00:22:02.000 --> 00:22:07.000
+Any questions on this guide?
+
+00:22:07.000 --> 00:22:11.000
+No, it looks like a great start on it.
+
+00:22:11.000 --> 00:22:21.000
+Then we have here, and this all needs to get merged in I'm going to skip the profile register for now. I'll discuss that in a bit.
+
+00:22:21.000 --> 00:22:27.000
+The reference implementation. So this is actually working code It runs the Swagger API.
+
+00:22:27.000 --> 00:22:46.000
+That is set up in the Current tier qp specification and it basically just runs that over a json file And so we can donate this to, this is a work that happened within Again, and we put this initially together but
+
+00:22:46.000 --> 00:22:59.000
+I think it'd be really helpful for Professor IP So you can run it yourself and essentially this JSON file is the registry And so you can just run against this registry and test the CRTP endpoints yourself This is a really good starting point to understand
+
+00:22:59.000 --> 00:23:12.000
+How would I construct my own registry? With uh you know my own data models or my own ecosystems and so forth So that's the next thing.
+
+00:23:12.000 --> 00:23:13.000
+Sounds good.
+
+00:23:13.000 --> 00:23:22.000
+And you can just run it with, it's just a go, go thing. So this will explain like how do you run it and everything else there.
+
+00:23:22.000 --> 00:23:23.000
+Cool so far? Awesome. Okay.
+
+00:23:23.000 --> 00:23:28.000
+Very nice.
+
+00:23:28.000 --> 00:23:44.000
+Now, on… the profile itself I want to there's a Right now, this is more like a conversation discussion around a thought around how these profiles actually work in practice.
+
+00:23:44.000 --> 00:23:51.000
+So let me pull this flagger real quick. Let me show you real quick.
+
+00:23:51.000 --> 00:23:58.000
+Essentially, I'm proposing here. As a starting point.
+
+00:23:58.000 --> 00:24:02.000
+Three required endpoints.
+
+00:24:02.000 --> 00:24:12.000
+That is needed to be TRTP compliant. There's a metadata endpoint an entity authorized endpoint And an ecosystem recognition endpoint.
+
+00:24:12.000 --> 00:24:20.000
+Those are the only three required endpoints you need. There may be additional ones that are specified in the profile?
+
+00:24:20.000 --> 00:24:34.000
+But they're not needed as a requirement to DTRCD compliant. So to me, and I'll go through how this actually works in practice This is the free main APIs that an ecosystem needs to support or a trust registry needs to support
+
+00:24:34.000 --> 00:24:40.000
+To be able to be TRQP compliant And that's the check that you do is can you support these three things?
+
+00:24:40.000 --> 00:24:56.000
+Ecosystem The first one, metadata is about the trust registry itself So it's all the information that who's controlling the trust registry What's the name of the trust registry?
+
+00:24:56.000 --> 00:25:04.000
+The entity authorization is clearing a specific ecosystem itself Are you authorized in this ecosystem to do this thing?
+
+00:25:04.000 --> 00:25:10.000
+That's the question. Is Entity X authorized in ecosystem Y under government's framework Z?
+
+00:25:10.000 --> 00:25:28.000
+And the ecosystem recognition and endpoint is this concept around As in, do you recognize other ecosystems And it's very important that we clearly delineate. It's an ecosystem, not a trust registry And I'll explain why later, but essentially you're asking the recognition of ecosystem status.
+
+00:25:28.000 --> 00:25:35.000
+That's the starting point. And then I'm going to go into more detail But I wanted to check in here. Am I losing anybody so far or is this making sense?
+
+00:25:35.000 --> 00:25:40.000
+What are your guys' thoughts so far where things are in this description
+
+00:25:40.000 --> 00:26:00.000
+Yeah, brief comments. I think just terrific, terrific job. A question on Especially because it equals to them recognition Have we validated or is there a clear use case in what kind of situations it is used? I mean, I understand the
+
+00:26:00.000 --> 00:26:08.000
+File on high level and but how we validated that, for example, in certain use cases there is a already a requirement.
+
+00:26:08.000 --> 00:26:21.000
+That we would do this kind of separate query. Yeah, I understand the need for it but it's sort of like Do we have some kind of anchoring through a specific use case that has a requirement for this.
+
+00:26:21.000 --> 00:26:38.000
+Well, I can tell you began as a need for this to be able to express how to describe recognition of other ecosystems in a peer-based fashion. So that's one way that we have a use case. Drumen, do you have any thoughts on that or want to add on to that?
+
+00:26:38.000 --> 00:26:39.000
+Justin, go ahead. Go ahead.
+
+00:26:39.000 --> 00:26:56.000
+Yeah, just sorry. Sorry, just to elaborate shortly so The only thing I'm really thinking is that what is, I don't know if user experience is the proper term here But on whether or not it should be in its own api
+
+00:26:56.000 --> 00:27:09.000
+Or whether or not it should be part of something else and it should be part of sort of a verification sequence instead of an API, just throwing thoughts out I don't have a strong opinion at the moment.
+
+00:27:09.000 --> 00:27:14.000
+Yeah, I agree. I can see that as I think about the triples model.
+
+00:27:14.000 --> 00:27:33.000
+I see it clearly in the second, what you're calling entity authorization It's a little bit different to see in the third one but i and and i We qualify an ecosystem recognition as it As I've been showing in one of my examples, the same way you could
+
+00:27:33.000 --> 00:28:03.000
+Qualify, you know, what is qualify What are you recognizing there? Is it the whole… ecosystem or is it a uh A, well, essentially, is it a governance framework at that ecosystem because that's that's a different question but that's Diving down a little bit deeper right now. I think you're at a high level, this is making
+
+00:28:03.000 --> 00:28:04.000
+Yeah, so maybe if I reframe now that I think about it, it's really a matter of trust model.
+
+00:28:04.000 --> 00:28:09.000
+Awesome. Okay.
+
+00:28:09.000 --> 00:28:30.000
+So how do we anchor trust models to the TRQP? And if there is a trust model pattern that we can model in TRQP using the the ecosystem query so at least i think there's a something I need to think about in terms of terminology here. But all in all, great job so far.
+
+00:28:30.000 --> 00:28:40.000
+I… So I think these are excellent points. I think basically to your point I haven't in something I'm writing, there's two questions as a verifier you need to ask.
+
+00:28:40.000 --> 00:28:45.000
+Is that person authorized in the ecosystem, right? And then is this the right ecosystem to be active?
+
+00:28:45.000 --> 00:28:50.000
+Essentially, do you want to Should I be talking to you about this question?
+
+00:28:50.000 --> 00:29:05.000
+Because it's possible that you're not the right ecosystem to ask for this question. So I think those are the basic two premises the problem we're solving here is should I be asking you and then is this person authorized in the capacity that you're the right person to talk to?
+
+00:29:05.000 --> 00:29:11.000
+And I think the first one is actually harder because it's more flexed in terms of how you structure that.
+
+00:29:11.000 --> 00:29:15.000
+Then the second one, which is just the authorization state.
+
+00:29:15.000 --> 00:29:33.000
+Yeah, so to abstract this, it's really about how do we How do we, for example, enhance the credential exchange model the basic triangle that we know with this. So it's not only the trust registry or the very public data registry, but also
+
+00:29:33.000 --> 00:29:43.000
+Checking another ecosystem so just kind of throwing throwing these if we take any notes on that, I think that's something we can come by later.
+
+00:29:43.000 --> 00:29:44.000
+I will say… Yeah, go, sir.
+
+00:29:44.000 --> 00:29:51.000
+And by the way, I'm going to public transportation, so I may be silent for 10 minutes or so.
+
+00:29:51.000 --> 00:29:55.000
+No problem.
+
+00:29:55.000 --> 00:29:56.000
+Mm-hmm.
+
+00:29:56.000 --> 00:30:08.000
+Pandor, I have one question. You mentioned, I think, if I got this right, you mentioned a little earlier that One of the ways you can satisfy this requirement is by the organization of the registry.
+
+00:30:08.000 --> 00:30:20.000
+And… I guess what I'm wondering is that, is that really enforceable? I mean, in my mind The actual registry seems like something that
+
+00:30:20.000 --> 00:30:26.000
+Could be private or could be sort of hidden.
+
+00:30:26.000 --> 00:30:44.000
+And what really matters is the interface to that registry am i either missing some part of the architecture Or is it more of a… soft hope that the registry itself is formatted a particular way.
+
+00:30:44.000 --> 00:30:46.000
+Or can the protocol really enforced that or just the interface to it.
+
+00:30:46.000 --> 00:30:50.000
+So…
+
+00:30:50.000 --> 00:30:57.000
+The protocols It's not intended to design how you build your trust registry.
+
+00:30:57.000 --> 00:31:16.000
+The intention of the protocol is to be able to provide a base layer of questioning that even somebody outside the ecosystem can be able to understand the two questions that basically are here which is What's the authorization state of the entity in that ecosystem
+
+00:31:16.000 --> 00:31:35.000
+That this trust registry is representing And so that's just a query that has, am I answering your question correctly? Is this what you're asking is So there's no… The design, the TRC makes no design decisions on how you design your own trust registry.
+
+00:31:35.000 --> 00:31:49.000
+Just about how people will ask about questions to your trust registry and the thesis here, and I see, Drummond, you have your hand up is There's three required endpoints, any trust registry that wants to be TRQ compliant will need to have.
+
+00:31:49.000 --> 00:31:59.000
+Which is metadata the metadata registry is the entity authorization registry or uh endpoint and the ecosystem recognition endpoint Drummond, go ahead.
+
+00:31:59.000 --> 00:32:17.000
+In many ways, I was just going to Confluent what you're saying by just explaining to John that the uh What we found is there's so many different ways and so many different systems that are authoritative systems of record.
+
+00:32:17.000 --> 00:32:31.000
+For this kind of information. That all it's really feasible for us to do is say if we want to achieve the We just need to basically have a very, very simple language for being able to ask the questions and get the answers.
+
+00:32:31.000 --> 00:33:01.000
+That you need for the… authority statements or as they're currently called authorizations um statements that that so so the idea is any Any system that has that information in it It should not be too hard for them to go, oh, okay, well, this is how we're storing that information. This is how we can…
+
+00:33:08.000 --> 00:33:09.000
+I use, I used… I drummond, I use the phrase system of record.
+
+00:33:09.000 --> 00:33:13.000
+What is the spec calling the component um uh and or i haven't been back in the most recent version, the component that you
+
+00:33:13.000 --> 00:33:22.000
+No, no, but I'm not talking about the system. I'm talking about the component the endpoint implementation that actually, in a lot of enterprise, that would be an adapter.
+
+00:33:22.000 --> 00:33:25.000
+What are we calling it?
+
+00:33:25.000 --> 00:33:35.000
+We have, yeah, it's called, it swaps a little bit. I think it's either bridge or an adapter is kind of we've been using the term interchangeably. I don't know exactly what the spec uses as a word but um
+
+00:33:35.000 --> 00:33:44.000
+But it's just an API endpoint. The spec is just an API endpoint, whether they call it a bridge or of course native to the system
+
+00:33:44.000 --> 00:34:00.000
+Yeah, I didn't know if we used a… a standard term for you know bridge or gateway or adapter or whatever but you're right. I know it's an API endpoint that But it feels like in talking about how you actually implement this
+
+00:34:00.000 --> 00:34:09.000
+It'd be nice if we had a consistent term for or be implemented if the system is not natively TRQP.
+
+00:34:09.000 --> 00:34:24.000
+So you can see just to add some color here, the diagram that I'm showing And this clarifies, Sean, your question a little bit These are all systems of record or in this case different versions of trust frameworks that various ecosystems will use.
+
+00:34:24.000 --> 00:34:43.000
+And the TRQP is a bridge to them. Essentially, it's the responsibility of the ecosystem to determine how they're going to create that bridge And one of the things I want to do, and there's a starting point here is create a sample bridge example with the OpenID Federation or some other one just to show what it would look like
+
+00:34:43.000 --> 00:34:49.000
+If you wanted to take on the responsibility of making that break yourself.
+
+00:34:49.000 --> 00:35:03.000
+That bridge is not the, yeah, so I think there's a terminology we need to be very clear about about the API endpoint, the bridging adapters you need to get into your trust framework and then a trust framework itself that needs to be super clear
+
+00:35:03.000 --> 00:35:14.000
+I'll share the user guide actually that I've been putting together because that might be helpful actually if you have time, I'd love some feedback on it I will share in the Zoom link.
+
+00:35:14.000 --> 00:35:19.000
+And I'll put it on the notes after.
+
+00:35:19.000 --> 00:35:27.000
+Where's the chain chat window? Oh, Zoom changed their uh
+
+00:35:27.000 --> 00:35:28.000
+Yes. Cool.
+
+00:35:28.000 --> 00:35:31.000
+Yes, Zoom keeps evolving.
+
+00:35:31.000 --> 00:35:50.000
+With that said, I think one of the things that I've been thinking about is interaction patterns of the query model itself for, let's talk about authorization So outside of the dots, let's go up here We have a file called
+
+00:35:50.000 --> 00:36:05.000
+Profile registry or a folder called profile registry now This may live outside eventually of this is a proposal PR that did eventually This folder could eventually move out. But the idea of the profile registry is that we might have many profiles
+
+00:36:05.000 --> 00:36:12.000
+That support the TRTP and the profile is a description of requirements to be TRQP compliant for a network.
+
+00:36:12.000 --> 00:36:31.000
+Right. And so in this case, we have one profile that I've put together called the HTTP did-based profile And in that profile describes a number of things including the RESTful interfaces, it describes the data models for the particular ecosystem and the trust registries, the requirements.
+
+00:36:31.000 --> 00:36:51.000
+And what was interesting is interesting is interesting is interesting the interaction between how an ecosystem governance framework works with the trust registries which works It interacts with the user. So I'm going to describe a little bit how an ecosystem governance framework, this whole flow in terms of asking for the authorization has to work.
+
+00:36:51.000 --> 00:37:01.000
+In my head right now and i'd love some feedback Because I think this is like ultimately the question we're trying to get to is how would I implement this? And this is to me the closest we've gotten to getting like, here's a real
+
+00:37:01.000 --> 00:37:10.000
+A proposal around a pattern to establish that trusted interaction stressed interaction.
+
+00:37:10.000 --> 00:37:17.000
+The ecosystem governance framework is a DID. And in this did, actually, let me just pull back up a little bit, in this did.
+
+00:37:17.000 --> 00:37:22.000
+There are two special fields that are not normally part of a dead document.
+
+00:37:22.000 --> 00:37:33.000
+One is an ETF URI, which points to an ecosystem governance frameworks uri so people can validate the governance framework And that's just an HTTP resolvable address.
+
+00:37:33.000 --> 00:37:41.000
+The second is a list of valid trust registries that represents an ecosystem governance framework.
+
+00:37:41.000 --> 00:38:00.000
+So this would be a list of registries that can display the state of the ecosystem And these are all gid based, right? So you have basically an array of trust registries that represent a particular ecosystem or EGF did. Is that making sense so far?
+
+00:38:00.000 --> 00:38:03.000
+Any questions there starting off with that?
+
+00:38:03.000 --> 00:38:14.000
+Can… I guess those cannot be nil for this for this to be compliant, right?
+
+00:38:14.000 --> 00:38:15.000
+Say it again.
+
+00:38:15.000 --> 00:38:33.000
+So my, sorry, it's probably, I guess what I'm saying is that adding any structure, any… additional nodes to this particular thing might be a heavy lift for certain ecosystems. So I guess my question is.
+
+00:38:33.000 --> 00:38:36.000
+I think in reality, if they do add them, they would add them and they might be nil.
+
+00:38:36.000 --> 00:38:42.000
+They might be empty for majority of their stuff, but I guess as long as they're filled in.
+
+00:38:42.000 --> 00:38:46.000
+They have a value, then that's what it would take to be compliant.
+
+00:38:46.000 --> 00:38:47.000
+Right. Like if the first step is just getting the system to add these fields.
+
+00:38:47.000 --> 00:38:52.000
+Yeah.
+
+00:38:52.000 --> 00:38:53.000
+Yep.
+
+00:38:53.000 --> 00:38:58.000
+But allow them to be empty for a while. And then when it's implemented, they just have to be, there has to be a value there.
+
+00:38:58.000 --> 00:39:05.000
+Exactly. They have to have at least one trust registry. So as an ecosystem, the requirement is you have to have one trust registry and a valid trust registries.
+
+00:39:05.000 --> 00:39:13.000
+And you have to have an ETF URI that points to some real thing.
+
+00:39:13.000 --> 00:39:14.000
+Okay.
+
+00:39:14.000 --> 00:39:28.000
+Those are the two requirements as an ecosystem itself, right? And you can set up a document before, but if it doesn't have those two things, it can't work with the TRP because it doesn't have the necessary information to actually establish trust.
+
+00:39:28.000 --> 00:39:30.000
+Go ahead, Drummond.
+
+00:39:30.000 --> 00:39:43.000
+I'm a little curious, you know, now coming from my doc background, why the EGF URI is not expressed as a service endpoint?
+
+00:39:43.000 --> 00:39:47.000
+Thoughts on that?
+
+00:39:47.000 --> 00:39:56.000
+Yes. Because…
+
+00:39:56.000 --> 00:40:02.000
+It…
+
+00:40:02.000 --> 00:40:03.000
+Once again, whatever the audio problem is, you're dropping out on me. Go ahead.
+
+00:40:03.000 --> 00:40:10.000
+I thought it was… No, no, I wasn't talking. I was thinking about how to answer this.
+
+00:40:10.000 --> 00:40:36.000
+The service endpoints I think… Is it really a service though like because in my head, there wasn't a like it wasn't it was slightly it's slightly it could be a doc. It could be anything. I guess technically you could actually move it over as long as you had a class type
+
+00:40:36.000 --> 00:40:37.000
+Well…
+
+00:40:37.000 --> 00:40:44.000
+That you could viably search for the service endpoints to be an array and you can have multiple and this is a it has to be one one field, I guess. Yeah, go ahead.
+
+00:40:44.000 --> 00:40:50.000
+But… Let me share the perspective on it.
+
+00:40:50.000 --> 00:40:51.000
+Yep.
+
+00:40:51.000 --> 00:41:11.000
+The service is DRQP. That's what you're speaking. So it's just… I didn't, I mean, I'm not saying you can't do it this way, but there are advantages to using, as folks have pounded into my head, advantages to using a known
+
+00:41:11.000 --> 00:41:32.000
+Uh you know uh in the SPAC or expressing how you would talk to the entity represented by the DID. If the entity represented by the did is the ecosystem, then the ecosystem is offering a service it's TRQP.
+
+00:41:32.000 --> 00:41:42.000
+Query as a protocol and so then as a protocol specifying here's the endpoints for that It would be more spec compliant. I'll put it that way.
+
+00:41:42.000 --> 00:41:48.000
+Well, sorry, real quick. And then I see your hand up, John. It's not the TRQP endpoints, the EGF, URI.
+
+00:41:48.000 --> 00:41:52.000
+This is simply the government's documentation.
+
+00:41:52.000 --> 00:41:55.000
+Ah, okay, okay. Then, then…
+
+00:41:55.000 --> 00:42:00.000
+So the EGF URI points to a website, that's it. For most cases.
+
+00:42:00.000 --> 00:42:04.000
+Okay. Okay, so then…
+
+00:42:04.000 --> 00:42:14.000
+Then I propose a different name because I think EGFU or I was used in our previous version of the charges the street protocol.
+
+00:42:14.000 --> 00:42:15.000
+Yeah.
+
+00:42:15.000 --> 00:42:24.000
+Yeah, and it's a little bit too… compact yeah Right now, but I have the same instinct as auntie.
+
+00:42:24.000 --> 00:42:30.000
+If that is what that is.
+
+00:42:30.000 --> 00:42:38.000
+Yes, so we can rename it. That's fine. I see John hands up. John? Go ahead.
+
+00:42:38.000 --> 00:42:53.000
+You guys are much more knowledgeable about this stuff and have thought much deeper But I was going to have the same comment and maybe Drummond, you… Already answered that concern. I was going to think that, yeah, having it as a service
+
+00:42:53.000 --> 00:42:58.000
+Would be much easier to sort of implement in existing systems.
+
+00:42:58.000 --> 00:43:07.000
+Whereas the service is sort of a do what you want create you know additional logic on a did whereas adding a field is going to have some friction there.
+
+00:43:07.000 --> 00:43:15.000
+When it comes to existing ecosystems but i
+
+00:43:15.000 --> 00:43:17.000
+Go ahead, Roman. That's a good question. Good answer.
+
+00:43:17.000 --> 00:43:30.000
+Yeah, I'm… I mean, this is the first time really looking at, okay, what are we talking about? What has to be in the doc? And this is probably one of the few help with, you know.
+
+00:43:30.000 --> 00:43:45.000
+What's going on because this, you know, that's where I spend a ton of time The second question is valid trust registries Am I just missing something or is the second value in that not… not…
+
+00:43:45.000 --> 00:43:51.000
+The dids of the trust registry. So this is the ecosystem We resolve to did the bids have the service endpoint in it.
+
+00:43:51.000 --> 00:44:00.000
+Yeah. No, I understand. But why, as one did in quotes and the other one's not?
+
+00:44:00.000 --> 00:44:07.000
+Oh, that's just a typo. That was just… It should be both in quotes.
+
+00:44:07.000 --> 00:44:14.000
+Okay. And it's… Yeah, it's the same value in both too. So I think you intend to put two different dids in there
+
+00:44:14.000 --> 00:44:17.000
+Yeah, sorry. I did this on the fly right on the uh Like what?
+
+00:44:17.000 --> 00:44:28.000
+I totally understand. I just, you know, when it was just as little as like, wow, that's a new JSON notation. I haven't seen that one before.
+
+00:44:28.000 --> 00:44:29.000
+Yes, you're correct. So this is two separate bids. So essentially your governance framework is saying.
+
+00:44:29.000 --> 00:44:32.000
+Okay.
+
+00:44:32.000 --> 00:44:39.000
+I trust these two, Trust Registry did. To represent my ecosystem.
+
+00:44:39.000 --> 00:44:42.000
+Yeah. Yeah.
+
+00:44:42.000 --> 00:44:43.000
+And the kids could have a service. And those did have services.
+
+00:44:43.000 --> 00:44:48.000
+That's the point of that goes too. And so I think what's interesting, go sorry Go ahead.
+
+00:44:48.000 --> 00:44:49.000
+Yes.
+
+00:44:49.000 --> 00:45:05.000
+Yeah, so those The ecosystem doesn't do the ecosystem is a concept But the trust registries are real things that are operating. And so the ecosystem bid document is what resolves to operating trust registries And those trust structures have to
+
+00:45:05.000 --> 00:45:19.000
+Be facilitating and like the ecosystem and the trust registries have to have some interaction pattern that says, I'm still a valid trust registry within this ecosystem. So what happens if the ecosystem kicks out one of the trust registries?
+
+00:45:19.000 --> 00:45:26.000
+You can't anchor against a trust registry Because it's possible that the ecosystem says this is no longer a valid representer of the ecosystem.
+
+00:45:26.000 --> 00:45:28.000
+Ah.
+
+00:45:28.000 --> 00:45:33.000
+So you need to be able to say we can kick out that trust registry because it's no longer a delegate.
+
+00:45:33.000 --> 00:45:34.000
+Okay. Okay.
+
+00:45:34.000 --> 00:45:38.000
+Of my state, my ecosystem state.
+
+00:45:38.000 --> 00:45:46.000
+So, okay, that makes sense to me. So, I mean, this is stating the obvious, but This did document could end up on a blockchain somewhere, right?
+
+00:45:46.000 --> 00:45:47.000
+Yep.
+
+00:45:47.000 --> 00:45:55.000
+And so Each of these did could have services of their own which have some dynamic logic hiding behind them.
+
+00:45:55.000 --> 00:46:07.000
+And you can follow the chain But there would be no resilience at this layer right you would you would be forced to have the resilience sort of built in at the at those dig level. And maybe that's the point right
+
+00:46:07.000 --> 00:46:25.000
+So… You… I guess if you need to rotate these dids you could do that you'd have to do that in a traditional rotation way right like publishing a new did document
+
+00:46:25.000 --> 00:46:28.000
+Yeah, okay. Just thinking through it.
+
+00:46:28.000 --> 00:46:43.000
+Yeah, drumming your hands up. Great, great point, Don.
+
+00:46:43.000 --> 00:46:44.000
+Mm-hmm.
+
+00:46:44.000 --> 00:46:50.000
+So I was starting to get my head wrapped around this because this is the first time I've actually seen this component. And I want to back up a little bit and make sure I understand what is being I looked at.
+
+00:46:50.000 --> 00:46:55.000
+So this is a DID document. Let me just ask a very simple question.
+
+00:46:55.000 --> 00:47:00.000
+What is identified by this did document? What are you identifying?
+
+00:47:00.000 --> 00:47:01.000
+What is the subject? All right. So the subject is the ecosystem.
+
+00:47:01.000 --> 00:47:07.000
+The ecosystem.
+
+00:47:07.000 --> 00:47:08.000
+Correct.
+
+00:47:08.000 --> 00:47:17.000
+All right. In that case, there's a standard way to express the uri In other words, an HTTPS URI.
+
+00:47:17.000 --> 00:47:20.000
+For an ecosystem, but you don't do it
+
+00:47:20.000 --> 00:47:49.000
+That's an anti pattern. It's also known as an What we've got here is the did for the ecosystem. If that's what's being recognized, then the URI you're after is you just have to also known as You don't need a separate…
+
+00:47:49.000 --> 00:47:50.000
+Yep.
+
+00:47:50.000 --> 00:48:05.000
+If I'm understanding correctly, right, if this is the did document for the ecosystem And then, and if you're saying that, okay, there are trust registries associated with the ecosystem that have their own did, and there's discussion over the history of the evolution of the protocol whether
+
+00:48:05.000 --> 00:48:17.000
+The ecosystem itself has crossed treasury services and you have multiple endpoints And they don't need their own dids because they're all endpoints for the same thing.
+
+00:48:17.000 --> 00:48:18.000
+Mm-hmm.
+
+00:48:18.000 --> 00:48:23.000
+Or whether you want to give trust registry separate dids To say, hey, that is a separate thing.
+
+00:48:23.000 --> 00:48:36.000
+I can't. Well, one is the right way or the other. But I do think Now that I understand what we're representing here is this is the ecosystem, right?
+
+00:48:36.000 --> 00:48:37.000
+And the, yeah.
+
+00:48:37.000 --> 00:48:39.000
+This is the one.
+
+00:48:39.000 --> 00:49:00.000
+Now I sort of understand why it was striking me as a little funky There's just the Do you understand what I'm saying is if this is the… You know, if that did, I'm looking at the ID, okay.
+
+00:49:00.000 --> 00:49:01.000
+What?
+
+00:49:01.000 --> 00:49:04.000
+The ecosystem we're talking about here is example. You know.
+
+00:49:04.000 --> 00:49:07.000
+This is did web, for example.com. Okay, got it.
+
+00:49:07.000 --> 00:49:18.000
+Yeah. Yeah. What I'll do is after onto your hand, what I'm going to do is Real quick, we'll pause and I want to show you the next stage of this.
+
+00:49:18.000 --> 00:49:31.000
+Because it might make sense why we need to use this framework. And I actually am pretty After running through this, it may convince you that this is the right way to do it. But I want to open that up
+
+00:49:31.000 --> 00:49:34.000
+So we have time to discuss it. Ansi, go ahead.
+
+00:49:34.000 --> 00:49:59.000
+Yeah, so I comment on it. Which may affect the next steps. One is that One ecosystem may have multiple control documents which define different trust registries and the anchoring of those trust registry authorities to those control documents, which means an ecosystem actually
+
+00:49:59.000 --> 00:50:07.000
+Cannot state that these are valid trust registries. It should state these are the control documents which then decline.
+
+00:50:07.000 --> 00:50:16.000
+Anchoring of authority which is then represented in these trust registries.
+
+00:50:16.000 --> 00:50:18.000
+Are you following me?
+
+00:50:18.000 --> 00:50:39.000
+Yeah, well, what's the in your head, if… If we swapped out Well, the controller of the ecosystem is different than the representative of the I think that's a difference. There is a difference.
+
+00:50:39.000 --> 00:50:40.000
+Yeah.
+
+00:50:40.000 --> 00:50:58.000
+The document, not controller, the control document. Let's say here you have an ecosystem to trust registry relationship And instead of that, there should be ecosystem to I don't know if the governance framework or full document is the proper word because each of those may have one or more trust registries
+
+00:50:58.000 --> 00:50:59.000
+And each of those trust registries may be actually very different because they will state different things.
+
+00:50:59.000 --> 00:51:08.000
+Yep.
+
+00:51:08.000 --> 00:51:09.000
+No, so the way that
+
+00:51:09.000 --> 00:51:29.000
+And there's different authorities on different things. So here we're just missing we're just missing here is the more descriptive stage of saying what are these trust registries actually tied to? Because right now they're tied to ecosystem where if they should be tied on to some kind of a document or a statement of authority.
+
+00:51:29.000 --> 00:51:49.000
+Right, right, right, right. Right. So that's an expansion where we say that there is a binding between the ecosystem and authority level. Yeah, that would be more complicated, but I could see why you'd want to do that.
+
+00:51:49.000 --> 00:51:50.000
+Yeah.
+
+00:51:50.000 --> 00:52:08.000
+Yeah, so it would be a key value pair essentially that let's say list of issuers X and here's the draft registry list of issuers why this is the trust registry although that's not a good pattern but you you know you get the point
+
+00:52:08.000 --> 00:52:33.000
+I got the point. And it's a great point. Drummond before I want to get to that real the process real quick. We do this and then we close off to get to the next part Yeah.
+
+00:52:33.000 --> 00:52:34.000
+Yep.
+
+00:52:34.000 --> 00:52:41.000
+It's fine. I just, I think as I listen to this and I think about it, I'm realizing we do have a data modeling question here, an ecosystem and registry modeling question which overlaps with discussions you and I have had, Andor. So we can take that offline, but it feels like, oh, yeah, this is super important. This is the stuff we have to really pound out to get to the next influencer draft.
+
+00:52:41.000 --> 00:52:47.000
+Keep going with what you want to share here. We only have 15 minutes left.
+
+00:52:47.000 --> 00:52:54.000
+Yeah, and it's a great point, Auntie. I think it's I understand the point. It makes sense okay so Here's where it's actually interesting.
+
+00:52:54.000 --> 00:53:06.000
+How do you actually ask the question to the registry? Right. Because if I give you the digital registry that doesn't bind it to the ecosystem governance framework.
+
+00:53:06.000 --> 00:53:17.000
+So that's a problem because now you need to somehow find this ecosystem that still validates that the Trust registry is appropriate to serve its state.
+
+00:53:17.000 --> 00:53:26.000
+And so here's an actual process. Which is the first stab at what that actually looks like on a mechanical level to get to the point of answering the question.
+
+00:53:26.000 --> 00:53:32.000
+And this also works for the ecosystem recognition problem She'll describe later.
+
+00:53:32.000 --> 00:53:41.000
+The first thing that a person does they generate the nonce is a security thing But the first part is they resolve the ecosystem governance frameworks did.
+
+00:53:41.000 --> 00:53:51.000
+You resolve the DID document, and in that you get the trust registry dids And Auntie, maybe they have also bindings to appropriate authorizations, right?
+
+00:53:51.000 --> 00:53:56.000
+To evaluate that, you then get the evaluate Trust registries did.
+
+00:53:56.000 --> 00:54:03.000
+And the service endpoints are in that trust registry stead. It also has the public keys.
+
+00:54:03.000 --> 00:54:16.000
+So now you go and you query the entity authorization in that trust registry relative to whatever. So that trust registry might be the first entry in the ecosystem governance framework did document.
+
+00:54:16.000 --> 00:54:39.000
+You query that. Etrust registry has to respond back with a JWS response that has The public key of the did document that is registered under the ecosystem governance framework Trust registry registration. So that did document for the TR has to be there in that response um
+
+00:54:39.000 --> 00:54:51.000
+Basically as the signing. So that is just security that was actually the correct TR that was sending it back because you validated now that Lucas is in governance framework the chain between that and the trust registry and the trust registry has given you a signed
+
+00:54:51.000 --> 00:54:57.000
+Author is assigned payload back saying this is actually signed by the controller.
+
+00:54:57.000 --> 00:55:00.000
+Of the trust registry. I see this up one second here.
+
+00:55:00.000 --> 00:55:01.000
+Then the youth Yeah. User verifies the public key.
+
+00:55:01.000 --> 00:55:06.000
+No, go ahead and finish. No problem.
+
+00:55:06.000 --> 00:55:07.000
+Go ahead, sorry.
+
+00:55:07.000 --> 00:55:15.000
+Sorry, just a question. Yeah, I have a point regarding this exact point because Shouldn't it be the keys of the EGF?
+
+00:55:15.000 --> 00:55:19.000
+Because they are the ones who are authoritative. Over the trust registry.
+
+00:55:19.000 --> 00:55:26.000
+But the trust registry is the only one that, yes, but the trust registry doesn't have the EGS.
+
+00:55:26.000 --> 00:55:33.000
+Piece. So the trust resolution is the one actually giving the response Right?
+
+00:55:33.000 --> 00:55:34.000
+You're asking you're asking
+
+00:55:34.000 --> 00:55:46.000
+Yeah, but they should prove that but they should they should prove that they are authority they are the ones that the EGS has given authority to. So they should have some kind
+
+00:55:46.000 --> 00:55:59.000
+Right. So there's two ways. Either you bundle So this is a really good question, Auntie. Either you bundle the signing basically the two signs, one from the TR and one from the EGF.
+
+00:55:59.000 --> 00:56:19.000
+Or you have two separate queries and you just It's a little bit lossy, which is that you assume that the ecosystem governs favorite listing is the authorization It's the document because it has that endpoint then you're good But the best way is actually the wraps signed, I think.
+
+00:56:19.000 --> 00:56:21.000
+It's a good point. Drum in your handset and then auntie, do you have any thoughts on this or no?
+
+00:56:21.000 --> 00:56:27.000
+Okay.
+
+00:56:27.000 --> 00:56:28.000
+Sure.
+
+00:56:28.000 --> 00:56:41.000
+Uh… Yeah, I got my hand up because i got my hand up I'm going to suggest something that will significantly simplify all of this. I know it's going to It might be a little bit of a headbanger.
+
+00:56:41.000 --> 00:56:42.000
+Okay.
+
+00:56:42.000 --> 00:56:51.000
+Imagine we This concept of ecosystem being separate from a trust registry for right now just to just Hear me out here okay Imagine it's trust registries all the way down.
+
+00:56:51.000 --> 00:56:57.000
+Yep. Mm-hmm.
+
+00:56:57.000 --> 00:56:58.000
+Correct.
+
+00:56:58.000 --> 00:57:08.000
+Okay. That an ecosystem has a trust registry endpoint. And if the pattern that Anti talked about, which is, oh, that ecosystem actually has multiple trust registries.
+
+00:57:08.000 --> 00:57:17.000
+You treat that essentially as an ecosystem of ecosystems. You say there is a trust registry that I can talk to to find out about the other trust.
+
+00:57:17.000 --> 00:57:27.000
+You see where I'm going with this. Everything gets simpler because you simply this whole authorization step you're going through is basically just going.
+
+00:57:27.000 --> 00:57:41.000
+Hey, I have a did for an ecosystem. Is the system I'm going to talk to at that endpoint can you prove you are actually the one at that endpoint by answering a challenge message, which is just a standard pattern with any interaction.
+
+00:57:41.000 --> 00:57:59.000
+So I think everything gets a lot simpler if we just say If you have an ecosystem and it's got a did It has a service, which is the TRQP, and you ask it questions. And if it has multiple registries, one of the questions you can ask it is, okay.
+
+00:57:59.000 --> 00:58:12.000
+What other registries do you recognize are they You know, are they a child Or, you know, that's why I think we need this recognition pattern. If they're children, you'll know, okay, they're all in your ecosystem.
+
+00:58:12.000 --> 00:58:29.000
+If they're just recognized, then they're peers and you recognize them but Everything would get simpler if it's just There's a did for the ecosystem and it has a A TRQP service endpoint and you ask the questions of that and then you can
+
+00:58:29.000 --> 00:58:33.000
+To Auntie's point, set up your ecosystem any way you want.
+
+00:58:33.000 --> 00:58:36.000
+See where I'm going?
+
+00:58:36.000 --> 00:58:57.000
+Yeah, I'm not sure. So there's a couple things here i think One is, in my head, an ecosystem may be controlled by many parties and have a requirement to have So the recognition pattern I agree with, and I think that there is a place for that recognition pattern.
+
+00:58:57.000 --> 00:59:19.000
+But in terms of an ecosystem in my head there may be very good cases where they have multiple TRs that are If you force it down one service endpoint at the starting point, right? You might have multiple as a group, you might host all your 10 separate tr's and then decide we want to
+
+00:59:19.000 --> 00:59:30.000
+Form an ecosystem, but an ecosystem is just a an agreement between all 10 of them basically that we're going to hosts a state of the ecosystem.
+
+00:59:30.000 --> 00:59:31.000
+I need to think… Go ahead, sorry.
+
+00:59:31.000 --> 00:59:47.000
+That's a pattern that we've been discussing. Sorry, I was just saying I totally get that but I think all these different configurations of whether they're they're peers that are going to mirror each other or, you know, however they do it.
+
+00:59:47.000 --> 01:00:05.000
+If we just treat that, I know we have this concept of ecosystem because there are a lot of other things but What I'm proposing we look at is just simply ecosystem has QRQP service endpoint, so it can… who it trusts and who it doesn't.
+
+01:00:05.000 --> 01:00:14.000
+And it just, I think it will simplify things because now everything, it's ecosystems, it's frustrating all the way down.
+
+01:00:14.000 --> 01:00:28.000
+I mentioned this because it actually aligns with stuff we've been doing in the You know, in the GAN governance documents about how in fact ecosystems connect to each other. But that's a different question.
+
+01:00:28.000 --> 01:00:38.000
+Anyway, I'm happy. I know we only have five minutes left, so I'm happy to take this offline. We can discuss it further or have a discussion.
+
+01:00:38.000 --> 01:00:52.000
+This is awesome though drummer. Yeah, I think this is we need to continue the discussion But what I'm happy about, it feels like we just made a whole bunch of really concrete proposals and push back with each other around like this is what it needs to be
+
+01:00:52.000 --> 01:01:11.000
+That's to me going to align into motion where we actually move this the spec to the spot you need to go relatively quickly. So this is a I think a great way to start off 2025 is Oh, no, I think you're wrong. Here's how it needs to be done. And it's not just this like concept. It's like.
+
+01:01:11.000 --> 01:01:12.000
+Practically, here's how it needs to be done. That's awesome. Go, Terry.
+
+01:01:12.000 --> 01:01:23.000
+Yeah. A big plus one and the thing that helps this every place I'm going right now i I'm going to say 2025 is going to be the year of plant UML.
+
+01:01:23.000 --> 01:01:24.000
+Yeah.
+
+01:01:24.000 --> 01:01:31.000
+Because everything we need to work out, we need to work out at this level. And this is what That's what we're doing.
+
+01:01:31.000 --> 01:01:39.000
+That's great. Thanks for having pushing us down to this level so we can really get to the nub of it.
+
+01:01:39.000 --> 01:01:45.000
+Before we close off. Any other questions, comments, thoughts? I hope this was okay.
+
+01:01:45.000 --> 01:01:56.000
+For everybody else here. But I really do appreciate the time and the fact that the contributions are so great.
+
+01:01:56.000 --> 01:02:00.000
+Yeah, this is really good. Makes it real for me anyhow.
+
+01:02:00.000 --> 01:02:01.000
+I appreciate you that you've done all this work while you're on India, you know.
+
+01:02:01.000 --> 01:02:05.000
+What I want to hear.
+
+01:02:05.000 --> 01:02:13.000
+Most people in the world would be, that would be a full vacation week, but you've done a lot of work uh well, well, you know.
+
+01:02:13.000 --> 01:02:17.000
+On vacation so thank you
+
+01:02:17.000 --> 01:02:23.000
+We're going to get there. John, really appreciate all your questions. It was awesome to hear them.
+
+01:02:23.000 --> 01:02:31.000
+So have a great rest of the week. We'll catch up next week. Hopefully we'll move this a little bit along.
+
+01:02:31.000 --> 01:02:47.000
+And my goal is that we have a refined At least first HTTP did-based Hopefully in the next, oh, Drummond, to answer your question about timing considering where this is at, I would hope in the next month or two, we could get something that's actually feasible.
+
+01:02:47.000 --> 01:02:48.000
+So that was going to help. Yes, sir.
+
+01:02:48.000 --> 01:02:59.000
+Yeah, I was…
+
+01:02:59.000 --> 01:03:20.000
+The implementers draft by the end of the quarter. I think it's a reasonable time frame uh but we got So we'll…
+
+01:03:20.000 --> 01:03:24.000
+I got lost audio again. Sorry.
+
+01:03:24.000 --> 01:03:25.000
+Okay. Yeah, I was just saying, yeah, but I mean, yeah, yeah, we publish it. It's out there.
+
+01:03:25.000 --> 01:03:33.000
+You're good. I'm assuming you said at the end of the quarter that you think That three…
+
+01:03:33.000 --> 01:03:48.000
+You know, we do a blog post that we've got a new influencers draft and, and yeah yeah so anyway we can we can sort of We can go offline in terms of onto the Slack or GitHub in terms of going, okay, what are the steps? Maybe you put that on the agenda for the next uh
+
+01:03:48.000 --> 01:03:49.000
+Next week's call. Are we meeting weekly or biweekly right now?
+
+01:03:49.000 --> 01:03:55.000
+Yeah.
+
+01:03:55.000 --> 01:03:56.000
+Yeah, good, good. I just want to make sure. All right. Thanks very much.
+
+01:03:56.000 --> 01:04:02.000
+Weekly. Awesome, guys. Really appreciate it. Take a good.
+
+01:04:02.000 --> 01:04:03.000
+Awesome. Thank you.
+
+01:04:03.000 --> 01:04:04.000
+Hey, have a good, good, safe trip back. Well, I guess you… When do you fly?
+
+01:04:04.000 --> 01:04:07.000
+Thank you.
+
+01:04:07.000 --> 01:04:08.000
+You're in the airport now, I guess.
+
+01:04:08.000 --> 01:04:15.000
+I'm at the airport right now. So I'll be flying out Japan first and then back to the US, so.
+
+01:04:15.000 --> 01:04:16.000
+All right. Bye, guys.
+
+01:04:16.000 --> 01:04:24.000
+Okay, that's right. Have a great trip. All right.
+

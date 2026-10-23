@@ -1,0 +1,1055 @@
+WEBVTT
+
+00:06:11.000 --> 00:06:13.000
+Yeah, maybe, like, one more minute.
+
+00:06:13.000 --> 00:06:43.000
+Yeah.
+
+00:07:15.000 --> 00:07:24.000
+All right, we can probably go ahead and get started, um… Looks like it's a bit of a smaller crowd today, but that's okay.
+
+00:07:24.000 --> 00:07:33.000
+Um, but yeah, I mean, the only thing we have on the agenda, uh, is your prototype demo, Hendrik. So, um… You go to… just take it away?
+
+00:07:33.000 --> 00:07:39.000
+Well, sure, I can do that. Um, let me…
+
+00:07:39.000 --> 00:07:42.000
+Well, then, uh, I'll let you share.
+
+00:07:42.000 --> 00:07:48.000
+Yeah. So, um, yeah, I have… I have two things I would like to share. Maybe we.
+
+00:07:48.000 --> 00:07:59.000
+Let's start with… Um… of this one. So, um…
+
+00:07:59.000 --> 00:08:10.000
+I created a small presentation, which is more, I guess, like, 3 slides, because I already discussed that with Richard and needed that to show it to Richard as an example.
+
+00:08:10.000 --> 00:08:22.000
+Um, so what I did, and this is not specific to the… Java SDK, that is… that is more specific to, like, our SDKs in general.
+
+00:08:22.000 --> 00:08:30.000
+And what I did is I looked at the SDKs from a perspective of a.
+
+00:08:30.000 --> 00:08:44.000
+Developer experience, like, um, how easy is it to understand our… APIs, how… Easy is it to use our APIs in a wrong way?
+
+00:08:44.000 --> 00:08:57.000
+And what can we do to make them more understandable and, um… not, um… allowed to use it in one way, or allow you guys to use it in a one way.
+
+00:08:57.000 --> 00:09:03.000
+And, um, so what I have here, is it… is it readable for everything, or is it too small?
+
+00:09:03.000 --> 00:09:04.000
+No, I think it's fine.
+
+00:09:04.000 --> 00:09:12.000
+Yeah. So, I mean, we don't need all the commands. I think I can join in. So, so what we see here is…
+
+00:09:12.000 --> 00:09:17.000
+Like, some, um, code that I created with one hour SDKs.
+
+00:09:17.000 --> 00:09:28.000
+Which shows a little bit, like. The worst thing you can do with our SDK. So this is, like, how wrong can you use our SDKs?
+
+00:09:28.000 --> 00:09:41.000
+And… and here we have several things, um… that are programmatic from my point of view, and I think I can… do you see that when I paint?
+
+00:09:41.000 --> 00:10:00.000
+Perfect, okay, good. So, um… So let's start with that. This is, like, one of the most common things we do in our SDK. I'm not talking here about that this is quite Hedera-specific, and do not make that much sense from a hybrid point of.
+
+00:10:00.000 --> 00:10:11.000
+Perspective. The bigger problem is here that we create a kind that is used later, and this client has no.
+
+00:10:11.000 --> 00:10:17.000
+Operator account, so it's quite easy to just create a client without an operator account.
+
+00:10:17.000 --> 00:10:23.000
+And this is the method that most people call, and then set an operator account.
+
+00:10:23.000 --> 00:10:34.000
+Afterwards, why… I assume for most use cases, especially for something like the Java SDK, where it's used on the server.
+
+00:10:34.000 --> 00:10:40.000
+Having an operator account is something that would totally make sense.
+
+00:10:40.000 --> 00:10:50.000
+Um, what I'm doing now is I execute a transaction which is an account create transaction, so just creating a new account.
+
+00:10:50.000 --> 00:10:54.000
+And… One thing I can do.
+
+00:10:54.000 --> 00:10:59.000
+When creating a new account and putting in the key for an account.
+
+00:10:59.000 --> 00:11:06.000
+I'm allowed to put in a private key here, which should be, in general, a public key.
+
+00:11:06.000 --> 00:11:12.000
+Um, so that is one program that I've found, but that is only.
+
+00:11:12.000 --> 00:11:20.000
+A small problem. The bigger problem is here with the flow, because what we normally do, um, is that we create an.
+
+00:11:20.000 --> 00:11:28.000
+Transaction, set all the values of the transaction, that is what we do here. Then.
+
+00:11:28.000 --> 00:11:33.000
+We freeze the transaction, we sign the transaction, and send it away.
+
+00:11:33.000 --> 00:11:39.000
+Um, the problem is that the API that we have today.
+
+00:11:39.000 --> 00:11:44.000
+Has zero problem with signing the transaction before freeze is called.
+
+00:11:44.000 --> 00:11:51.000
+So the API just allows that, which… will end in an era when…
+
+00:11:51.000 --> 00:12:02.000
+Just calling freeze on such transaction. Next to this, we could… call freeze after a transaction has been signed.
+
+00:12:02.000 --> 00:12:09.000
+And the other thing is, we could… mutate…
+
+00:12:09.000 --> 00:12:17.000
+The transaction and the internals of the transaction after sign, end, or freeze has been called, which both.
+
+00:12:17.000 --> 00:12:25.000
+Should not be possible, and um… After Freeze, at least, it ends in an indirect…
+
+00:12:25.000 --> 00:12:32.000
+Error, but that error happens at runtime, right? So you don't see it here in your code.
+
+00:12:32.000 --> 00:12:40.000
+It just happened at one time. Um… Let me see, um…
+
+00:12:40.000 --> 00:12:47.000
+Oh yeah, that was something… oops. Give me a second, I wanted to… to move the…
+
+00:12:47.000 --> 00:12:57.000
+Zoom window away. So this is something, um… I was just missing when we created this, because normally, in such scenario, what you want to do is.
+
+00:12:57.000 --> 00:13:06.000
+Use your operator account to sign a transaction, and I do not have any API to really do that.
+
+00:13:06.000 --> 00:13:17.000
+Um, the only thing I had was, like, store the operator account up front somewhere, and then later use it here.
+
+00:13:17.000 --> 00:13:24.000
+Um… let's assume, so we had some problems here, but let's assume the API has been used up to this point.
+
+00:13:24.000 --> 00:13:32.000
+Pawn in a correct way, which means, um… you created a transaction.
+
+00:13:32.000 --> 00:13:38.000
+Set everything, like, like, all the attributes. Then freeze it.
+
+00:13:38.000 --> 00:13:42.000
+And then sign it. So, doing it in the right way.
+
+00:13:42.000 --> 00:13:48.000
+And then we execute it to receive a response, and out of that response, receive a.
+
+00:13:48.000 --> 00:13:56.000
+Received all records, up to what you want. Independent, if you work with the received or data with the record.
+
+00:13:56.000 --> 00:14:04.000
+Um, you now have access to a lot of things. That do not make any sense. So, um…
+
+00:14:04.000 --> 00:14:12.000
+When you have an account create transaction. In the receipt, you have things like file ID.
+
+00:14:12.000 --> 00:14:26.000
+So, and… why I know where it's coming from when going down to the protobuf, for a developer who's using the SDK and who has an account create transaction.
+
+00:14:26.000 --> 00:14:33.000
+It's just, you know. He could misunder credit or misuse that.
+
+00:14:33.000 --> 00:14:50.000
+To have information like a file ID, and it's not only a file ID, right? If you… create a file, you would have an account ID in the reside that is used for a new account being created, that then is just Nile, which, again, is…
+
+00:14:50.000 --> 00:15:08.000
+Something that, um… does not make much sense for that kind of transaction. The other thing is that while here on top, we work with methods and have getters and setters, I think I never have a getter used anywhere. When it comes.
+
+00:15:08.000 --> 00:15:16.000
+And that is Java only now? That is a Java program only, or at least I have not looked into the other languages for that.
+
+00:15:16.000 --> 00:15:21.000
+To the responses, you need to do direct access. There are no getters or something.
+
+00:15:21.000 --> 00:15:29.000
+For fields like that, so you really need to… get access to those fields.
+
+00:15:29.000 --> 00:15:46.000
+Um, and yeah, in the record, you have the same problem, right? So, while we work with account created transaction, I could now… do, like, contract function reside, contract ID, which, again, makes, from a workflow perspective.
+
+00:15:46.000 --> 00:15:53.000
+Absolutely no idea, uh, makes absolutely no sense. And, um…
+
+00:15:53.000 --> 00:16:04.000
+All those is, um, from my point of view, when it comes to… Developer experience kind of misleading, because you have way too much.
+
+00:16:04.000 --> 00:16:12.000
+Openapi in the given scenarios that you… Do not use that.
+
+00:16:12.000 --> 00:16:18.000
+Don't make sense in those scenarios. And that allows to create.
+
+00:16:18.000 --> 00:16:25.000
+Different workflows and… a wrong usage of the API.
+
+00:16:25.000 --> 00:16:34.000
+Um, so, so with that in mind, what I did is, um… let me now remove all that.
+
+00:16:34.000 --> 00:16:41.000
+Um… Okay, here we go. So, so with that in mind, what I did is, um…
+
+00:16:41.000 --> 00:16:53.000
+I created an updated, and now I need to move out a little bit, an updated model on how the flow that we do on an SDK.
+
+00:16:53.000 --> 00:17:07.000
+Um, when executing a transaction could look like. Um, so the main difference is here that in our current SDKs.
+
+00:17:07.000 --> 00:17:12.000
+All the things… We have here on top.
+
+00:17:12.000 --> 00:17:19.000
+Is packed in… 1 class, record, however you want to call it.
+
+00:17:19.000 --> 00:17:25.000
+Why I have it put here in 2, we will have a look later in… into that.
+
+00:17:25.000 --> 00:17:35.000
+And then, here in the bottom, while the response is more or less on this diagram, first of all, look same, it will… specifications will come.
+
+00:17:35.000 --> 00:17:51.000
+Or specializations will come into it when we look into this code. Um, I changed a little bit on this record and reside and how that works. Another thing I changed is, and when I now remove everything again, that.
+
+00:17:51.000 --> 00:18:01.000
+Um, I defined all APIs to be. As in first, and… synchronized chords.
+
+00:18:01.000 --> 00:18:06.000
+Uh, can be based on top of that, because it's always super hard to create.
+
+00:18:06.000 --> 00:18:16.000
+Synchronized, uh, synchronized node to create async codes based on synchronized functionality, so the right way to do that is.
+
+00:18:16.000 --> 00:18:26.000
+To do async and create synchronized on top. And in the Java SDK, for example, it's currently more, I guess, like, there are two different.
+
+00:18:26.000 --> 00:18:32.000
+Workflows, if you call it, async or synth. As an example.
+
+00:18:32.000 --> 00:18:51.000
+And by doing this split here in the top, by having those two classes, um, I created the general transaction, which could be the account create, transaction, create account transaction, that is mute-able, where you can do, like.
+
+00:18:51.000 --> 00:18:59.000
+Set memo… set, um… initial H bar, whatever, get those things.
+
+00:18:59.000 --> 00:19:05.000
+And then, what is freeze today, I think instead of freeze, the word pack.
+
+00:19:05.000 --> 00:19:13.000
+Would make more sense. Um… Instead of calling it on the object and continue to work with this object.
+
+00:19:13.000 --> 00:19:21.000
+What this method does, it returns. An immutable… object, which is this…
+
+00:19:21.000 --> 00:19:28.000
+Pegged transaction, or frozen transaction, however you want to call it, which is immutable.
+
+00:19:28.000 --> 00:19:40.000
+Which has no getters of any attributes anymore. And that can only be signed by. By doing so, here, we cannot sign.
+
+00:19:40.000 --> 00:19:46.000
+And here, we cannot set attributes, which ends in an API.
+
+00:19:46.000 --> 00:19:51.000
+That does not allow a wrong usage. So you can set, set, set, set.
+
+00:19:51.000 --> 00:19:57.000
+Pick, sign, send. You cannot use it in a wrong…
+
+00:19:57.000 --> 00:20:10.000
+Direction or in the wrong way. What I added to get back from here to here is this unpack, or you could call it unfreeze, however you want to name those, which.
+
+00:20:10.000 --> 00:20:16.000
+Would create, if you have a packed transaction and causes NPACT.
+
+00:20:16.000 --> 00:20:21.000
+A new instance of a transaction. Where all the attributes.
+
+00:20:21.000 --> 00:20:30.000
+A set, yikes, it was stored when calling this pack. Um, maybe we can have a look at.
+
+00:20:30.000 --> 00:20:39.000
+Code, how that looks like, um… When I go to… to this one… so this is now a Java API.
+
+00:20:39.000 --> 00:20:46.000
+And what it does is, I have this account create transaction, and you already see it here, right?
+
+00:20:46.000 --> 00:20:53.000
+And here I have an account create transaction, where I call this withWizWiz, and then I call this.
+
+00:20:53.000 --> 00:21:02.000
+Pack transaction. And that results in a packed transaction. So we do not have an account create transaction anymore, and.
+
+00:21:02.000 --> 00:21:09.000
+If I do a dot here, I would not be able to call something like whiskey, setKey.
+
+00:21:09.000 --> 00:21:16.000
+With Inertia and said initial bergens, because the API. Just do not allow it.
+
+00:21:16.000 --> 00:21:23.000
+So, a user who's using our APIs for the first time would not be able to.
+
+00:21:23.000 --> 00:21:31.000
+To do a wrong workflow at all. And what you see here is why I said, um…
+
+00:21:31.000 --> 00:21:41.000
+Um, as in Kronos calls first should be the default to make it easier. I have created next to send.
+
+00:21:41.000 --> 00:21:49.000
+Which is currently more or less, like, the execute. Um… send and rate, which does nothing but.
+
+00:21:49.000 --> 00:22:02.000
+Calling sent the asynchronous one, and wait until it's done. Which results in a response, and then I could get the record by calling a query, which would.
+
+00:22:02.000 --> 00:22:13.000
+Result in a record. And you already see one specification here that I do not have here, like today, a generic response and a generic record.
+
+00:22:13.000 --> 00:22:21.000
+I have an account create response and an account create record, and by doing so, this account create record.
+
+00:22:21.000 --> 00:22:30.000
+Has a method. Created account, or get account, however you want to call it, but you could not call something like.
+
+00:22:30.000 --> 00:22:39.000
+Get contract ID, or get FIG ID, because this API. Do not exist at all.
+
+00:22:39.000 --> 00:22:53.000
+Um, because we work here with a concrete. Account create record that has only this concrete information, like, that is the created account, that is… I don't know what…
+
+00:22:53.000 --> 00:23:02.000
+Information are interesting for an account creator. Response, maybe how many HBAR has a creation costed.
+
+00:23:02.000 --> 00:23:18.000
+And so on. So maybe that as an, um… First overview of the API. What I can do now is let me stop sharing that one and open the…
+
+00:23:18.000 --> 00:23:30.000
+Project in IntegriJ…
+
+00:23:30.000 --> 00:23:43.000
+There we have some other things in it. Um… Where's Zoom here soon? Um… oh, I see there's a comment in the chat, um…
+
+00:23:43.000 --> 00:23:50.000
+Oh, hey, Andrew, um… Great, great to have you here.
+
+00:23:50.000 --> 00:23:57.000
+So, that's… let's have a look. So, this is my… Um, create ground where I couldn't we work with all that.
+
+00:23:57.000 --> 00:24:05.000
+One thing I learned while doing it, another deep dive I did is into how to handle protobuf.
+
+00:24:05.000 --> 00:24:09.000
+And the more I worked with it, the more I believe that we.
+
+00:24:09.000 --> 00:24:16.000
+Really need to do this, um, split between the SDK and the generated protobuBuff.
+
+00:24:16.000 --> 00:24:24.000
+Fights, because those. Should be a kind of… dependencies that we have.
+
+00:24:24.000 --> 00:24:31.000
+Coming from Consensus Node, and by having those changes, I could work in the SDK with.
+
+00:24:31.000 --> 00:24:47.000
+Out having… You know, to update any protobuf things, or anything like that. I believe that this is another point. I don't have that in the slides, but that's another point that totally makes sense to do that split.
+
+00:24:47.000 --> 00:24:54.000
+So when going into… let's… let's open this sample here. And maybe we start from.
+
+00:24:54.000 --> 00:25:00.000
+Scratch, or let's create a… Maybe we create a sample.
+
+00:25:00.000 --> 00:25:05.000
+The sample suite gets just created, and say we start from scratch here.
+
+00:25:05.000 --> 00:25:14.000
+So, um, one thing I did, um, is… I, next to, um…
+
+00:25:14.000 --> 00:25:26.000
+Well, that's the problem here? Oh, it does… let's do it like that. Um… Okay, so one… another thing I… I did here is what I learned.
+
+00:25:26.000 --> 00:25:39.000
+That, um, when I started to work against, um, a solo-based network, which is currently client… quite hard for our, um, SDKs.
+
+00:25:39.000 --> 00:25:46.000
+I created this functionality that says, hey, here's my operator account, please create a client for this operator account.
+
+00:25:46.000 --> 00:25:57.000
+And… for this network identifier, and the network identifier is… based on an SPI naming where.
+
+00:25:57.000 --> 00:26:06.000
+Everybody could… do implementations of configurations that are based on a name. So.
+
+00:26:06.000 --> 00:26:20.000
+Since there are testnet is… we can have a look at that… somewhere… in my configuration…
+
+00:26:20.000 --> 00:26:28.000
+Network settings… Let me check where I have an implementation here. I have two Hedera Testnet and HIRO. So here's the…
+
+00:26:28.000 --> 00:26:34.000
+Implementation of the configuration of the network. I couldn't be only run against one node, right? To make.
+
+00:26:34.000 --> 00:26:42.000
+Everything super easy. That should be more complex for a real SDK, it's more about the pattern.
+
+00:26:42.000 --> 00:26:47.000
+And then I have a unique identifier, and I can easily use.
+
+00:26:47.000 --> 00:26:59.000
+That unique identifier to. Run against the network with that name, where I then get the full configuration, and the nice way is by using an SPI, if.
+
+00:26:59.000 --> 00:27:07.000
+Somebody has a custom network, or somebody is running something like a hash sphere network.
+
+00:27:07.000 --> 00:27:13.000
+You only need one jar with one glass in it that looks like this.
+
+00:27:13.000 --> 00:27:21.000
+And then, and you need to have this jar at runtime on your class path or execution path when it goes to go.
+
+00:27:21.000 --> 00:27:30.000
+And things like that, and then you can dynamically route everything just by this name, and know that you have the right configuration.
+
+00:27:30.000 --> 00:27:38.000
+Um, okay, so let's say I have an account create transaction. So let's have a look. What can I do? I can do, like.
+
+00:27:38.000 --> 00:27:48.000
+Get key, getInishibergens. What I do not can do is. Fine. I do not have an API to sign here.
+
+00:27:48.000 --> 00:27:55.000
+Don't make sense to have an API to sign here, because signing should not happen until.
+
+00:27:55.000 --> 00:28:02.000
+Freeze of packing the transaction has been executed. So, let's say we do…
+
+00:28:02.000 --> 00:28:10.000
+Set account, memo… got this new account created. We still have an account create transaction, so we could.
+
+00:28:10.000 --> 00:28:18.000
+Set more stuff, like. Oh, I don't want to call Seth, I wanted to do with…
+
+00:28:18.000 --> 00:28:23.000
+To have a Fluent API. So I could do, like, I don't know, with…
+
+00:28:23.000 --> 00:28:34.000
+Key, yeah, sure, we need to define the key that is used for the, um… for the… how to say it… for the account.
+
+00:28:34.000 --> 00:28:44.000
+Um, what I could do now is… I could say I want to pack that transaction. And packing this transaction, as said, is.
+
+00:28:44.000 --> 00:28:55.000
+What is in the current APIs called Freeze today. For sure, to do that, I need to define a client where all the gRPC stuff and things like that is coming from.
+
+00:28:55.000 --> 00:29:01.000
+And now that I have a packed transaction, I cannot call anymore.
+
+00:29:01.000 --> 00:29:09.000
+With account Mimo, or something like that. The only thing I can do is, I can send it, and here I can do.
+
+00:29:09.000 --> 00:29:18.000
+And as in Chronos sent, which is just calling the send function what returns the asynchronous return type for Java.
+
+00:29:18.000 --> 00:29:27.000
+Or I could say, um, send and wait, and best case to when calling something like that, is always to say, like.
+
+00:29:27.000 --> 00:29:37.000
+Um, I want to have an… you know, like, um… period that I want to wait a month or an hour is thrown.
+
+00:29:37.000 --> 00:29:46.000
+And since I have sent that now. Um, I now have a response where, for example, could get the transaction ID.
+
+00:29:46.000 --> 00:29:50.000
+That is something I could now get out of the response.
+
+00:29:50.000 --> 00:29:59.000
+I cannot get super detailed stuff here, but what I could do is I could now query for a resub.
+
+00:29:59.000 --> 00:30:06.000
+And again, I do not cause the. The, um, async call, I do the…
+
+00:30:06.000 --> 00:30:10.000
+Sync call, so let's say, again, we wait for 10 seconds.
+
+00:30:10.000 --> 00:30:19.000
+And now, I have next to the status, which is just the status code of the transaction and the transaction ID.
+
+00:30:19.000 --> 00:30:26.000
+I have specific APIs that are specific to the account create transaction.
+
+00:30:26.000 --> 00:30:30.000
+So I cannot access now something like a flag ID, because.
+
+00:30:30.000 --> 00:30:37.000
+It don't make sense for that account type. But what I could access is a created account.
+
+00:30:37.000 --> 00:30:44.000
+And now I could store the account ID here, oh… Which isn't.
+
+00:30:44.000 --> 00:30:51.000
+Account ID, um… And by doing so, I really have, uh…
+
+00:30:51.000 --> 00:30:56.000
+An API that… does not allow me to.
+
+00:30:56.000 --> 00:31:12.000
+Move in the wrong direction. And really guide the user with functionality the user can use, and only exposes things that make sense, or that… it's not even make sense, that are allowed in that case.
+
+00:31:12.000 --> 00:31:20.000
+Because… signing and then setting something is just not allowed.
+
+00:31:20.000 --> 00:31:28.000
+Um, that is… First of all, the prototype I have so far. I… I…
+
+00:31:28.000 --> 00:31:35.000
+I did some other improvements when it comes to gRPC and things like that.
+
+00:31:35.000 --> 00:31:44.000
+But I think the most important point about. Making them more easy to use is really resist.
+
+00:31:44.000 --> 00:31:50.000
+You're not allowed, or you cannot break it, you cannot do it in a wrong way.
+
+00:31:50.000 --> 00:31:55.000
+Thing. That is… what I wanted to show, first of all.
+
+00:31:55.000 --> 00:32:05.000
+Um, are there any questions on that? Or comments. Whatever.
+
+00:32:05.000 --> 00:32:14.000
+No, I was gonna say, I feel like this does… this implementation, like, addresses a lot of pain points that people have had. I know, um…
+
+00:32:14.000 --> 00:32:25.000
+At least back when, like, uh, HIP745 came out, that's one that allowed, um… Allowed you to send transactions without automatically setting, like.
+
+00:32:25.000 --> 00:32:38.000
+Transaction ID, note icon ID, like, being able to pass, like, the raw bytes of a transaction between… like, wallets and apps, for example, like, if an app needed to get a signature from a wallet, you know, it could send it there, and…
+
+00:32:38.000 --> 00:32:42.000
+Um, be able to get a signature and then send back.
+
+00:32:42.000 --> 00:32:47.000
+That kind of use case, uh… you know, I think something like this could.
+
+00:32:47.000 --> 00:32:52.000
+Could help with that. I also… I believe at the time, even, that there was some…
+
+00:32:52.000 --> 00:33:00.000
+Uh… an opinion that was brought up, I don't remember by who, but that was saying basically just, like, we don't… we shouldn't even…
+
+00:33:00.000 --> 00:33:04.000
+Have freeze. Like, freeze doesn't make sense, it's just an extra step.
+
+00:33:04.000 --> 00:33:05.000
+The…
+
+00:33:05.000 --> 00:33:14.000
+That's another point, yeah. So, I was… when I did a deep dive, I was all the time, why do I freeze at all? You know?
+
+00:33:14.000 --> 00:33:22.000
+Because you could do, like, when the first time sign is called.
+
+00:33:22.000 --> 00:33:23.000
+Right. Yep.
+
+00:33:23.000 --> 00:33:28.000
+It's already freezing, right? So… That is something else I was thinking of, um…
+
+00:33:28.000 --> 00:33:32.000
+For me, it was now, okay, let's do not change everything.
+
+00:33:32.000 --> 00:33:40.000
+Let's try to keep, kind of, the workflow we have, but make it more strict and more solid.
+
+00:33:40.000 --> 00:33:46.000
+I agree, um, in theory. Increase is not needed.
+
+00:33:46.000 --> 00:33:47.000
+Yeah.
+
+00:33:47.000 --> 00:34:01.000
+Mm-hmm. Yeah, it's kind of one of those things I feel like, where it's… you know, how, like, how… How much do we want to let, potentially, a new developer shoot themselves in the foot? You know, like, maybe…
+
+00:34:01.000 --> 00:34:02.000
+Yeah, exactly, yeah.
+
+00:34:02.000 --> 00:34:12.000
+Maybe there's some more… some things that we should… um, you know, make easier for them, but also that's like, you might have more experienced developers that may want to have, like, more…
+
+00:34:12.000 --> 00:34:20.000
+Manual, uh, control, and kind of have… uh, those more, like, advanced use cases where they're passing transactions between wallets and apps, and…
+
+00:34:20.000 --> 00:34:28.000
+And everything, um… But yeah, I mean, I like the PAC transaction, calling it PAC, as opposed to freeze. I think that…
+
+00:34:28.000 --> 00:34:33.000
+The kind of, um, at least in my head, it kind of makes more sense.
+
+00:34:33.000 --> 00:34:39.000
+Um, but uh, yeah, Keith?
+
+00:34:39.000 --> 00:34:45.000
+So, I always assumed we had previous transactions to deal with the start-stop consensus timestamps.
+
+00:34:45.000 --> 00:34:48.000
+Is that not true?
+
+00:34:48.000 --> 00:34:58.000
+So, um, freeze right now, it generates… the transaction ID and note account IDs for the transaction, if…
+
+00:34:58.000 --> 00:35:04.000
+The user has not set them manually. Um, but…
+
+00:35:04.000 --> 00:35:10.000
+Basically, I think the thought was, um, back in the day when there was talk about.
+
+00:35:10.000 --> 00:35:23.000
+You know, potentially taking Freeze out, or just trying to figure out why we had it, um… It would basically just be, like, yeah, kind of like what Hendrick said, it's like, it would happen at the first, uh, signing of the transaction, so…
+
+00:35:23.000 --> 00:35:30.000
+A user could go in and execute, um, and not even have to bother, um, freezing or thinking of anything.
+
+00:35:30.000 --> 00:35:35.000
+Anything about that, but when the client would go in and… or the operator would go in and sign it, that's when all the freezing.
+
+00:35:35.000 --> 00:35:41.000
+Would take place, i.e, the transaction ID and the note account IDs get generated.
+
+00:35:41.000 --> 00:35:50.000
+Um, but that… that functionality would still be available. Like, we wouldn't take those APIs out for the user to do that. It would just kind of.
+
+00:35:50.000 --> 00:35:52.000
+Minimizing the amount of steps.
+
+00:35:52.000 --> 00:36:06.000
+Yeah, and I believe… so as you can see, that is currently… I mean, call it freeze, call it pack, whatever, what it really does, it, yeah, it creates a client ID, and… or the transaction ID, and the transaction ID is time-based, right?
+
+00:36:06.000 --> 00:36:14.000
+So, um, keys, you are right when saying freeze sets a timestamp, because that is.
+
+00:36:14.000 --> 00:36:22.000
+Kind of what this one does. And maybe… I don't know, maybe there are scenarios where you want to freeze.
+
+00:36:22.000 --> 00:36:30.000
+And not directly sign and send. You want to freeze and then… do something else, and not do the signing.
+
+00:36:30.000 --> 00:36:31.000
+So for that, it…
+
+00:36:31.000 --> 00:36:43.000
+Yeah, I mean, I was just writing the documentation on the HSM stuff, so… I mean, that's just one example, right? But HSM, you want to freeze, send it to your HSM, sign.
+
+00:36:43.000 --> 00:36:44.000
+Yeah. Yeah.
+
+00:36:44.000 --> 00:36:49.000
+Send it back, submit, which could take… One second, or it could take… a long… a long time, right?
+
+00:36:49.000 --> 00:37:00.000
+Yeah, yeah. Yeah, yeah, maybe… maybe pack or freeze, however you want to call it, is a must, certainly, for… for those use cases, yeah.
+
+00:37:00.000 --> 00:37:10.000
+So, what I assume is, um… A nice API would allow you to cosign, which, if it's not freezing, do freeze and then sign.
+
+00:37:10.000 --> 00:37:15.000
+Like an example.
+
+00:37:15.000 --> 00:37:30.000
+I guess my other question, Hendrik, is what… what is being… I mean, this is great, but what is being asked for? Are we… from my understanding, you're not asking to deprecate anything, you're not asking to add new functionality to.
+
+00:37:30.000 --> 00:37:31.000
+All SDKs.
+
+00:37:31.000 --> 00:37:38.000
+Yeah, yeah, yeah, yeah. Yeah, no. So, I mean, what this is, is coming from… from a request.
+
+00:37:38.000 --> 00:37:43.000
+From Redshot about how can we make all that more soggy, and.
+
+00:37:43.000 --> 00:37:54.000
+And better for the value paths. And what I've shown here is nothing… We can… I mean, like, implement tomorrow and then have it. That includes a lot of.
+
+00:37:54.000 --> 00:38:01.000
+Shape… so let's say, like, this includes, really, changes in the public API.
+
+00:38:01.000 --> 00:38:13.000
+For sure. And that's why I call this a prototype, like… a background about how could future APIs look like. This is nothing where I would say.
+
+00:38:13.000 --> 00:38:21.000
+We should implement that the next two months, and change our current APIs to that.
+
+00:38:21.000 --> 00:38:30.000
+This is more like, maybe we can create an incubation project about how could future APIs look like.
+
+00:38:30.000 --> 00:38:35.000
+Pierre was all that figure out what would be the best API to do so.
+
+00:38:35.000 --> 00:38:39.000
+And once we know that and have a solid understanding of everything.
+
+00:38:39.000 --> 00:38:45.000
+We could create a hip to say, like, hey, we want to move our APIs.
+
+00:38:45.000 --> 00:38:51.000
+In 9 months, whatever, in a, um… new major version.
+
+00:38:51.000 --> 00:39:00.000
+Into that direction. It's more about that. So it's really about the future.
+
+00:39:00.000 --> 00:39:05.000
+So, sorry, I'm just gonna put on my PM hat here. So, like.
+
+00:39:05.000 --> 00:39:13.000
+You know, to do that kind of change, you know, I don't question, it might bring value. It will also bring disruption. So I guess my question would be.
+
+00:39:13.000 --> 00:39:20.000
+Has anyone… maybe I'll turn this to Robert. Have you ever heard… yes, of course, we could improve the APIs, but anyone actually.
+
+00:39:20.000 --> 00:39:31.000
+Requested this, or asked for this, or… like, because… you know, we break a lot of code when we make these… if we're changing APIs, are we not going to break code, and is then that worth.
+
+00:39:31.000 --> 00:39:33.000
+The pay… is that benefit worth the pain?
+
+00:39:33.000 --> 00:39:43.000
+So, I have seen a lot that people. Used it in that way, and that it don't work, and they needed to…
+
+00:39:43.000 --> 00:39:57.000
+To check it. Even I did it when I started working with the SDKs, that it was quite hard to understand, and to understand the flow, and all that. So… Um, I would say…
+
+00:39:57.000 --> 00:40:05.000
+I agree, it creates friction, it creates changes, disruption. Totally agree on that. That's why I say.
+
+00:40:05.000 --> 00:40:10.000
+Um, that is nothing we want to have tomorrow, this is more about.
+
+00:40:10.000 --> 00:40:16.000
+We have a queen field, how could an API look like that is really.
+
+00:40:16.000 --> 00:40:34.000
+As developer-friendly and good to use as possible. And… From that point of view, from my point of view, we then need to check what can we maybe port to our SDKs, what can we take without.
+
+00:40:34.000 --> 00:40:39.000
+Having people that need to change everything? Can some things maybe.
+
+00:40:39.000 --> 00:40:46.000
+With next to other APIs, that is something we need to figure out as a next step.
+
+00:40:46.000 --> 00:40:58.000
+Step. Um… And I… we don't have numbers, but I would say a clear yes that those programs.
+
+00:40:58.000 --> 00:41:10.000
+Or that people have exactly those problems. I've seen it when I did the… at the German university, teaching half a year, um, smart contracts, and how to use our SDKs.
+
+00:41:10.000 --> 00:41:22.000
+I did some… some workshops about how to use SDKs. I mean, if we show everything in a video and people do it step-by-step from that video, for sure they won't have.
+
+00:41:22.000 --> 00:41:37.000
+Those… those problems, but if you set somebody just to our SDKs and say, hey, let's try… let's… gay wizard, try it out, people will end at exactly those problems.
+
+00:41:37.000 --> 00:41:45.000
+So, I'm just trying to think back, Hendrik. I also remember I struggled with freeze and when to use Freeze, and it was very painful.
+
+00:41:45.000 --> 00:41:46.000
+Yeah.
+
+00:41:46.000 --> 00:41:52.000
+Now, I just want to put a suggestion out there. Maybe it was that. Also, I also thought it was gonna be because.
+
+00:41:52.000 --> 00:42:04.000
+And sorry, this falls back on us. Our docs were not very good around the need, like, when to freeze, stuff like that, like… maybe there was a docs gap about why it caused a lot of confusion about the freeze functionality.
+
+00:42:04.000 --> 00:42:07.000
+So, maybe that's something we have to address.
+
+00:42:07.000 --> 00:42:14.000
+I don't think so. I mean, that is… that's… we… I mean, let's go into the extreme, right?
+
+00:42:14.000 --> 00:42:20.000
+So, the extreme would be… We do not have concrete data types, everything is.
+
+00:42:20.000 --> 00:42:31.000
+Generic, and we have a documentation, and you need to understand the documentation, how everything works. The other extreme is, you do not need a documentation at all.
+
+00:42:31.000 --> 00:42:39.000
+Because you can only use the API in the right way. Um, I believe both things along.
+
+00:42:39.000 --> 00:42:44.000
+And I believe a good one would be having a documentation.
+
+00:42:44.000 --> 00:42:52.000
+But an API that… makes… or I'd say, like, an API that…
+
+00:42:52.000 --> 00:42:57.000
+Does not allow you to create totally wrong workflows with it, and.
+
+00:42:57.000 --> 00:43:03.000
+Because, especially developers, yeah, we have a documentation, AI will use it.
+
+00:43:03.000 --> 00:43:12.000
+But most developers I know, first of all, try things before they look into any external documentation, especially.
+
+00:43:12.000 --> 00:43:17.000
+Documentation that is not like when going, yeah, I do not have any Java doc.
+
+00:43:17.000 --> 00:43:29.000
+But that is, um, like… encode documentation. I assume that we used a lot, but there it will be hard to… to define those workflows and things like that.
+
+00:43:29.000 --> 00:43:36.000
+Um, so I don't believe that. Only documentation will help at that point.
+
+00:43:36.000 --> 00:43:42.000
+But I agree, it's something we need to figure out how much change do we want to have.
+
+00:43:42.000 --> 00:43:47.000
+To make those things work better.
+
+00:43:47.000 --> 00:43:51.000
+Yeah, I mean, I kind of just see this as, like, a… almost like a.
+
+00:43:51.000 --> 00:43:53.000
+V3, like, prototype, like… Yeah, like you said, we wouldn't try and make these.
+
+00:43:53.000 --> 00:43:57.000
+Yeah.
+
+00:43:57.000 --> 00:44:04.000
+You know, just out of the blue, like, we'd have to kind of… this is, like, pretty much a… I mean, not, like, a completely whole new architecture, but, like.
+
+00:44:04.000 --> 00:44:11.000
+Yeah, like, the APIs we're providing, like, a lot of them are gonna change, and the workflows are gonna be different.
+
+00:44:11.000 --> 00:44:23.000
+I kind of equate this, like, if we were to try and implement this, like, we'd have to implement this, but then also keep supporting what we already have for… you know, a certain amount of time, 9 months a year, whatever.
+
+00:44:23.000 --> 00:44:24.000
+Yep.
+
+00:44:24.000 --> 00:44:40.000
+Um, the… kind of allow that for people to… people to switch over, but… Um, I mean, I like it. I think it's more intuitive, at least, like, the… just from seeing, kind of, what you've showed us here, and…
+
+00:44:40.000 --> 00:44:52.000
+Um, yeah, I like the, uh, the pack, and I also like the unpack, too, because… I know in our current API, we can freeze, but then once it's frozen, it's… you can't go back the other way.
+
+00:44:52.000 --> 00:45:03.000
+Um, which… which I think could… could be helpful, um, but, uh, yeah, the pack and the unpack, I think, is… I think is good, and that can… That kind of helped, too, with those use cases, where if, um…
+
+00:45:03.000 --> 00:45:11.000
+You know, apps and wallets want to send, uh… transactions between each other, they can… they can easily, uh.
+
+00:45:11.000 --> 00:45:15.000
+The pack and unpack, I feel like, makes it, um, a bit more streamlined.
+
+00:45:15.000 --> 00:45:24.000
+And that is… that is a nice one, right? Can we, like, unpack, and then… set something that is specific for account create.
+
+00:45:24.000 --> 00:45:27.000
+And then pack that again and continue, yeah.
+
+00:45:27.000 --> 00:45:34.000
+Mm-hmm. Yeah, because, like, some of the… some of the errors and use cases we were seeing is, um…
+
+00:45:34.000 --> 00:45:44.000
+You know, the… the… the DAP would, uh, you know, have its own client, its own list of nodes in the network that it's using. It would.
+
+00:45:44.000 --> 00:45:48.000
+Generate transactions based on those nodes. It would send it to the wall to get signed.
+
+00:45:48.000 --> 00:46:00.000
+And then the wallet would have its own separate collection of nodes, um… And, uh, er… Wait, no, sorry, I got that back, I got that messed up. The wallet would generate their own, you know, transaction they would want to send.
+
+00:46:00.000 --> 00:46:04.000
+Um, you just have those, like, node IDs, then send it back to the dApp to send.
+
+00:46:04.000 --> 00:46:14.000
+Um, to the network, but the DAP wouldn't have the same nodes anymore, and we would just get, like, a bunch of… a bunch of errors, um, or people would get those, like, invalid… invalid node account IDs.
+
+00:46:14.000 --> 00:46:23.000
+Um, but, uh… Yeah, no, I think this is good. I like this.
+
+00:46:23.000 --> 00:46:33.000
+Cool. Well, Robert, what would be the next… I mean, I would think that we would need to present this to the broader SDK team. Certainly also SIMI.
+
+00:46:33.000 --> 00:46:39.000
+Um, what would be the next possible steps to explore this as you and Hendrik suggest?
+
+00:46:39.000 --> 00:46:50.000
+I… I believe I need to… create some more, you know, like, architecture documentation about what I have created here.
+
+00:46:50.000 --> 00:47:02.000
+Um, especially when it goes a little bit deeper. And, um… So, I have this account create transaction now working.
+
+00:47:02.000 --> 00:47:10.000
+Party walking, because the… very, um, record is not implemented, so for me.
+
+00:47:10.000 --> 00:47:28.000
+The goal is to have one transaction, and I'm most… so the API is there, but if I would call that an error, it would be… will be, uh, thrown at one time. So, that is something I want to do, is to have, for one transaction, just everything working.
+
+00:47:28.000 --> 00:47:38.000
+And, um, yeah, then this could be something to… added documentation, a draft, um, about.
+
+00:47:38.000 --> 00:47:45.000
+Future SDK architecture to the SDK hub. Maybe we can create a GitHub discussion there.
+
+00:47:45.000 --> 00:47:51.000
+You're going to… this is just a repository under GitHub slash Hendrik Abbas, it's a public repo.
+
+00:47:51.000 --> 00:48:00.000
+Where all that is, and then start a discussion. I… I assume that… that would make sense, and see what people like about it, when people maybe… because.
+
+00:48:00.000 --> 00:48:12.000
+I don't know if I see everything, right? So there are so many use cases, maybe people directly see, like, oh yeah, but… By doing it like you did it, this or that use case will not work anymore.
+
+00:48:12.000 --> 00:48:17.000
+Um, so, so having such a discussion for some time would make sense.
+
+00:48:17.000 --> 00:48:22.000
+And I believe this is nothing where we need to hurry. This is really, like.
+
+00:48:22.000 --> 00:48:28.000
+Moving to the future, maybe then next year, or at the end of this year, we can say, like.
+
+00:48:28.000 --> 00:48:33.000
+Oh, yeah, that is the architecture we would like to have.
+
+00:48:33.000 --> 00:48:44.000
+In the future, and can then decide a plan on how we want to go forward.
+
+00:48:44.000 --> 00:48:51.000
+Yeah, we still have that discussion in the SDK Hub, too, about V3. Um, people have just kind of been posting there about.
+
+00:48:51.000 --> 00:48:59.000
+Things they want to see, um… And, uh, yeah, additional APIs we may want to add, so I think maybe…
+
+00:48:59.000 --> 00:49:08.000
+We can post a link to this in… in there, and then, um… Yeah, I mean, maybe, Keith, we can… we can talk with Simi and…
+
+00:49:08.000 --> 00:49:18.000
+Um, yeah, I don't know, I mean, I guess, Hendrick, you've already talked to Richard about this too, so maybe this would be, like, a… This is something we take to the TSC, maybe?
+
+00:49:18.000 --> 00:49:26.000
+I don't know. So, I would… I mean, this is very technical, um, and…
+
+00:49:26.000 --> 00:49:32.000
+And not defined. This is now, like, Hendrik's pitch. You know, let's see it like that.
+
+00:49:32.000 --> 00:49:39.000
+And I would really like to discuss this in the SDK community first, before we move anything to the TSC.
+
+00:49:39.000 --> 00:49:55.000
+Because I like what I did. But now we need feedback and understand if all that makes sense, and so on and so on, before we move it to the TSC. I, as you know, nobody in the TSC has any problem with.
+
+00:49:55.000 --> 00:50:05.000
+Of playing with possible future APIs, but as long as we do not say, like, hey, this is now the architecture we want to have defined.
+
+00:50:05.000 --> 00:50:12.000
+In a document, or this is our roadmap for SDK v3, or something.
+
+00:50:12.000 --> 00:50:17.000
+I believe it's too early to go to the TSC.
+
+00:50:17.000 --> 00:50:32.000
+Yeah, so my suggestion, Henrik, if you're going to create documentation, why don't we just start by you creating a SDK design doc per the template, and… we start with that, and create the SDK design doc, then the SDK team can review.
+
+00:50:32.000 --> 00:50:35.000
+And then everyone can look at it, provide comments and feedback.
+
+00:50:35.000 --> 00:50:40.000
+So kind of like a hip. And then go from there.
+
+00:50:40.000 --> 00:50:52.000
+We can do that. I would even have started one point earlier and created discussion in the repo.
+
+00:50:52.000 --> 00:50:53.000
+Okay, yeah.
+
+00:50:53.000 --> 00:50:59.000
+Because the design doc would be like, okay, here's a concrete PR with a concrete design I want to have.
+
+00:50:59.000 --> 00:51:12.000
+And I believe having a discussion first would make more sense.
+
+00:51:12.000 --> 00:51:24.000
+Yeah, um, if you… would you want a separate discussion for this, or would you want to… just kind of tag this along on the V3 discussion already.
+
+00:51:24.000 --> 00:51:45.000
+To be fair, I have not looked into that one. I will look… I had no idea that we have that discussion, so I will have a look into that, and… then I can decide that. Actually, I cannot say it.
+
+00:51:45.000 --> 00:51:46.000
+Yeah. Yeah, okay, yeah.
+
+00:51:46.000 --> 00:51:51.000
+Yeah. Yeah, I don't think there's… too much… it's been open for a while, but it's… it's more so people just kind of posting ideas of what they would want in a video, as opposed to actual discussion, so…
+
+00:51:51.000 --> 00:52:00.000
+Maybe I create a new one and link it into that one, like, oh, here's the… Another idea, but this is a little bit more…
+
+00:52:00.000 --> 00:52:04.000
+Big and… but detailed, so I externalized it. Something like… yeah.
+
+00:52:04.000 --> 00:52:08.000
+Yeah. Yeah, that sounds good.
+
+00:52:08.000 --> 00:52:13.000
+Good. Good. Okay.
+
+00:52:13.000 --> 00:52:25.000
+Cool. Yeah, this is awesome. No, thanks, thanks for the demo. Yeah, I… I like what I see so far. I think it's… I think it's good.
+
+00:52:25.000 --> 00:52:33.000
+Um, sweet, uh, yeah, that's all we had on the agenda today. Um, does anyone else have anything they wanted to bring up?
+
+00:52:33.000 --> 00:52:38.000
+Let me go ahead and open the floor.
+
+00:52:38.000 --> 00:52:46.000
+Maybe just a call out, Robert, I think the, um… I need to do this myself, I think the high-row hooks design proposal is out there, so maybe…
+
+00:52:46.000 --> 00:52:50.000
+Everyone can take a look and provide feedback.
+
+00:52:50.000 --> 00:52:55.000
+The hip for that one.
+
+00:52:55.000 --> 00:52:56.000
+I think there's a… there's a high-row hook SDK design proposal.
+
+00:52:56.000 --> 00:52:59.000
+Oh, is that a…
+
+00:52:59.000 --> 00:53:00.000
+Okay, yeah, okay.
+
+00:53:00.000 --> 00:53:01.000
+So…
+
+00:53:01.000 --> 00:53:08.000
+Oh, yep, mm-hmm. Yeah, that was opened… Oh, 3 weeks ago, it looks like, yeah.
+
+00:53:08.000 --> 00:53:18.000
+Yep, so we still have that, um… 1193 is still open, too, but I think that one's approved, they just need to merge it, um…
+
+00:53:18.000 --> 00:53:27.000
+Yep, that's in PR in the hub, so anyone can go take a look at that.
+
+00:53:27.000 --> 00:53:34.000
+And I think that's… yeah, that's all I had. All right, thanks for joining, everyone. I'll catch you in two Mondays.
+
+00:53:34.000 --> 00:53:48.000
+Yep.Right
+

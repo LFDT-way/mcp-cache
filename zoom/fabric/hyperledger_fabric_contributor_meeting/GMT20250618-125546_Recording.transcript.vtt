@@ -1,0 +1,570 @@
+WEBVTT
+
+1
+00:00:56.130 --> 00:00:56.790
+Yacov Manevich: Good!
+
+2
+00:04:40.850 --> 00:04:42.030
+Yacov Manevich: Hey! That's real.
+
+3
+00:04:43.565 --> 00:04:44.040
+Tatsuya Sato (Hitachi, Ltd.): Nicole.
+
+4
+00:04:51.710 --> 00:04:52.710
+Yacov Manevich: How are you doing?
+
+5
+00:04:53.600 --> 00:04:55.949
+Yacov Manevich: I wish you well, thank you.
+
+6
+00:05:40.890 --> 00:05:42.020
+Yacov Manevich: Hey, Angelo.
+
+7
+00:05:43.760 --> 00:05:45.350
+Angelo De Caro (International Business Machines Corporation): Hey? Yakov! So hi.
+
+8
+00:05:45.350 --> 00:05:46.239
+Yacov Manevich: How are you doing.
+
+9
+00:05:46.840 --> 00:05:47.290
+Angelo De Caro (International Business Machines Corporation): Very.
+
+10
+00:05:47.780 --> 00:05:48.690
+Yacov Manevich: Thank you.
+
+11
+00:05:48.690 --> 00:05:49.220
+Angelo De Caro (International Business Machines Corporation): You too.
+
+12
+00:05:58.570 --> 00:06:07.650
+Yacov Manevich: Alright. Maybe we can get started. So Hi, everyone! Welcome to the 18th of June contributor meeting.
+
+13
+00:06:07.790 --> 00:06:10.720
+Yacov Manevich: Is there anyone that wants to bring up any topics.
+
+14
+00:06:25.240 --> 00:06:33.740
+Jim Mason (Sky Web Team): Can I ask you a question, Jim Mason? Just I know Angelo. I see you on the call. Looking for any more updates on
+
+15
+00:06:34.456 --> 00:06:49.819
+Jim Mason (Sky Web Team): both fabric X and fabric from a direction perspective to see if there's I know if I understand it right, Angelo, fabric X is a branch off of fabric, but the 2 are not going to be tied together in the future. Am I right on that.
+
+16
+00:06:55.000 --> 00:07:05.620
+Angelo De Caro (International Business Machines Corporation): Now, Branch, it's also an overloaded term, but I would say that, as I said last time, fabric and fabricx share most of the proto buffs.
+
+17
+00:07:05.860 --> 00:07:08.270
+Angelo De Caro (International Business Machines Corporation): Really, most of the proto buffs there are changes.
+
+18
+00:07:08.270 --> 00:07:09.160
+Jim Mason (Sky Web Team): Right. So
+
+19
+00:07:10.140 --> 00:07:37.189
+Jim Mason (Sky Web Team): pardon me. So what I'm looking at is I'm trying to understand, because the argument would be as you say, if the protocols. There, that means to me there's what I call common interfaces, and that fabric X is implementing some of those differently which is fine to me in the sense that that is a quote reasonable approach to have different capability, maybe even different behavior in some levels. But you're to your point. You're at least having common
+
+20
+00:07:37.520 --> 00:07:41.900
+Jim Mason (Sky Web Team): behavior in some areas, I'll say going forward. Then.
+
+21
+00:07:43.160 --> 00:07:50.289
+Angelo De Caro (International Business Machines Corporation): I can give also an example in the I'm sure even Jacob can can even speak about this, because he is the
+
+22
+00:07:50.290 --> 00:08:15.210
+Angelo De Caro (International Business Machines Corporation): it is invented. They create dharma, the new ordering services. So in Arma there is a distinction of roles between different eddies. There are what we call Batcher or the the core, ordering service and then the assemblers. So this makes a clear distinction. So it's a departure from the previous
+
+23
+00:08:15.210 --> 00:08:40.130
+Angelo De Caro (International Business Machines Corporation): bft configuration that we that we had before. So now we have to differentiate between these different nodes, and in certain times we have to contact. If a client, for example, has to go to the to the Batcher, and instead of committer has to go to the assembler. So we need to be able to differentiate this in the configuration block. That's it's similar to the changes that happen when we switch the
+
+24
+00:08:40.130 --> 00:08:49.919
+Angelo De Caro (International Business Machines Corporation): when we allowed. When we allowed smart Bfd in fabric and we had to change the configuration block and stuff like that. I'm sure Yagov can say even.
+
+25
+00:08:49.920 --> 00:08:54.150
+Yacov Manevich: Actually Angelo, a client purchased the router, not the battery.
+
+26
+00:08:54.430 --> 00:09:00.310
+Angelo De Caro (International Business Machines Corporation): Oh, sorry for the yeah. Right terminology. You see, the Yago is up to speed with with that
+
+27
+00:09:00.470 --> 00:09:05.539
+Angelo De Caro (International Business Machines Corporation): perfect. So these are some of the some some of the changes. For, for example.
+
+28
+00:09:06.460 --> 00:09:07.599
+Jim Mason (Sky Web Team): Okay, thanks.
+
+29
+00:09:08.810 --> 00:09:16.200
+Jim Mason (Sky Web Team): Oh, sorry. And one last thing in theory for all of for whatever the goals are with fabricx.
+
+30
+00:09:16.420 --> 00:09:26.070
+Jim Mason (Sky Web Team): one of the goals I'm guessing is the potential to have higher throughput on transactions at some point. Does that make sense.
+
+31
+00:09:26.460 --> 00:09:30.180
+Yacov Manevich: Why, at some point, I mean, you can read the paper.
+
+32
+00:09:30.320 --> 00:09:32.590
+Yacov Manevich: I thought. It's already there, right.
+
+33
+00:09:32.770 --> 00:09:34.000
+Jim Mason (Sky Web Team): Yep. Okay.
+
+34
+00:09:34.000 --> 00:09:54.399
+Angelo De Caro (International Business Machines Corporation): Yeah, and that's correct, Jim, of course, with a with a caveat not all type of transactions will will see a massive acceleration for sure for utx like transaction where each State is consumed. Once there we will. Then we can reach the maximum level of parallelization.
+
+35
+00:09:54.430 --> 00:10:15.779
+Angelo De Caro (International Business Machines Corporation): But if you have an application where the keys are updated. Multiple times and their transactions have many dependencies. Of course this will have a hit on the overall performance still better than what you can get with fabric overall, but not the peak performance that you would be able to get from pure Utxo.
+
+36
+00:10:16.470 --> 00:10:19.709
+Yacov Manevich: By the way, Angelo, when are you going to release the code.
+
+37
+00:10:20.280 --> 00:10:33.600
+Angelo De Caro (International Business Machines Corporation): If, to the best of my knowledge, it should be by the end of the month, it should it should happen it should. Happening this this far, we we release a attack preview. If I'm not wrong with the terminologies. Yeah.
+
+38
+00:10:34.420 --> 00:10:41.750
+Jim Mason (Sky Web Team): Let me ask a question. Are you familiar with Project Hamilton? That was done by? I think it was the Federal Reserve and Mit.
+
+39
+00:10:42.870 --> 00:10:59.809
+Jim Mason (Sky Web Team): Yeah. So all right, I know that. And when I was at Dtcc we did something called lithium, which looked at 1st Hamilton, and then it was a digital dollar project with digital dollar Project, Dtcc. And Federal Reserve, also
+
+40
+00:10:59.810 --> 00:11:12.890
+Jim Mason (Sky Web Team): as a follow-on to Hamilton. And the thing we found when we looked at Hamilton is it was Utxo. They had done some pretty cool things to try to scale performance, which they did nicely. That was good
+
+41
+00:11:12.960 --> 00:11:38.910
+Jim Mason (Sky Web Team): in their little benchmarks for what they did. What we found to your point was that Utxo was fine, for, as you said, simple transactions and simple locking mechanisms like hash time lock were appropriate. But when we were trying to do like a Dvp delivery versus payment settlement transaction at Dtcc. To your point, the complexity of that didn't fit Utxo as defined. If that makes sense.
+
+42
+00:11:40.420 --> 00:11:45.070
+Angelo De Caro (International Business Machines Corporation): I will need to see the the details of the the transaction to the.
+
+43
+00:11:45.070 --> 00:11:52.219
+Jim Mason (Sky Web Team): Right. But we built right? So what we did is we designed our own transaction manager that provided
+
+44
+00:11:52.653 --> 00:11:57.180
+Jim Mason (Sky Web Team): I'll quote a different set of capabilities than what Hamilton had. I'll say that.
+
+45
+00:11:58.315 --> 00:12:25.810
+Jim Mason (Sky Web Team): So, anyway, to your point, I think you're right, or at least I'm my assumption is you're right that the world can be divided into something as simple as Utxo, and simple things like hash time lock when it's a very trivial transaction, and if it's more complex from a governance perspective, as you said, with multiple dependencies, including compliance. Then maybe it doesn't fit that model, and you have to have a different model to manage the transaction if you will.
+
+46
+00:12:25.810 --> 00:12:32.960
+Jim Mason (Sky Web Team): And so, as a result, one of the things we looked at was separating the concept of commit versus finalization formally
+
+47
+00:12:33.060 --> 00:12:36.850
+Jim Mason (Sky Web Team): in a life cycle for a transaction. Do you know what I mean?
+
+48
+00:12:37.620 --> 00:13:02.160
+Jim Mason (Sky Web Team): So which I don't think fabric does that? But on the database side I've done that in the past where you say, Okay, we have enough information now. Not only do we agree, the transaction is valid, there's consensus there, but, more importantly, we have captured enough information on the transaction that if there's a failure of any kind we can guarantee that this transaction is automatically recoverable
+
+49
+00:13:02.160 --> 00:13:24.069
+Jim Mason (Sky Web Team): without outside intervention, if you will, in the event of any kind of failure. So at that point we're saying, that's a commit boundary kind of like on a database different than a finalization boundary in conceptually in a blockchain where you say, Oh, are all the nodes current now on state, you know, for that last transaction, or that last block which is a completely different concept.
+
+50
+00:13:24.070 --> 00:13:26.879
+Jim Mason (Sky Web Team): So we were separating those. If that made sense.
+
+51
+00:13:27.180 --> 00:13:54.920
+Angelo De Caro (International Business Machines Corporation): Yeah, make sense. Also, let me clarify a point that I might have missed. So the the difference with the with Hamilton is that fabricx as fabric can handle, read, write sets, which is a generalization of the Utxo. So you can also have. You can also update keys like you. You would have you, would you would do in a database. So essentially, you represent the state update
+
+52
+00:13:54.920 --> 00:14:24.720
+Angelo De Caro (International Business Machines Corporation): of your word state. So this remains in fabricx, which means that if your red rate set is representing a Utxo so meaning that is spending each key only once, then you get to the maximum performance possible, because you, almost you don't have any dependency. A dependency on the other side represents a conflict. Therefore it should be stopped. But if your application is more complex, you need to update the same keys multiple times, you can still do that with
+
+53
+00:14:24.720 --> 00:14:44.480
+Angelo De Caro (International Business Machines Corporation): fabric as well. And that is why. But we didn't experience any issue in running atomic Dvp. But again, it depends on the protocol that you are that you are using for the Dvp. And which kind of privacy you need. This is again the the 2 things fabric access for 2 things at the same time, but from.
+
+54
+00:14:44.480 --> 00:15:02.319
+Jim Mason (Sky Web Team): Which is actually great, I'll argue that's great. So the fact that you have 2 kind of like with the regular fabric where you say we have different consensus methods. Anytime you give me, I'll call it 2 different capabilities. It means, probably I'm supporting a broader set of use cases under one environment which is pretty good.
+
+55
+00:15:09.320 --> 00:15:11.109
+Jim Mason (Sky Web Team): Yeah, thanks for the updates, though.
+
+56
+00:15:11.110 --> 00:15:11.870
+Angelo De Caro (International Business Machines Corporation): Absolutely.
+
+57
+00:15:19.170 --> 00:15:24.319
+Jim Mason (Sky Web Team): Oh, well, since it's quiet, one more question on Fabricx
+
+58
+00:15:24.960 --> 00:15:28.539
+Jim Mason (Sky Web Team): moving away from in a sense, who's involved in
+
+59
+00:15:28.650 --> 00:15:33.150
+Jim Mason (Sky Web Team): building fabric X. Do we have, I'll call it
+
+60
+00:15:33.865 --> 00:15:40.029
+Jim Mason (Sky Web Team): what kind of interest I'll say at a community level. Is there so far in fabricx
+
+61
+00:15:40.500 --> 00:15:48.450
+Jim Mason (Sky Web Team): outside of what I call you know, the contributor teams, if you will, that are working on it. Do we know
+
+62
+00:15:48.620 --> 00:16:10.520
+Jim Mason (Sky Web Team): who's looking at it? To me it might be interesting, because to your point. If you looked at what I call the simple transactions, they probably will scale pretty well, is the guess, and at the same time, in the same environment. I would have the ability to support the kind of transactions that we were looking at at Dtcc.
+
+63
+00:16:13.030 --> 00:16:22.239
+Jim Mason (Sky Web Team): So in theory, something that in a sense has dual capability and is permission based might
+
+64
+00:16:22.500 --> 00:16:28.450
+Jim Mason (Sky Web Team): apply to a broad range of I'll say, standard blockchain use cases.
+
+65
+00:16:31.090 --> 00:16:46.180
+Angelo De Caro (International Business Machines Corporation): Good, good question. We don't know yet. I don't know yet. Maybe we will know better. We will have more information as we release the 1st tech preview, and then we see also people will have to code in the hands and and and see
+
+66
+00:16:46.180 --> 00:17:04.930
+Angelo De Caro (International Business Machines Corporation): at the same time. I don't know if you agree, Jim. This seems to me also these are a bit. This is my personal opinion. It it's a bit niche. Now this this a very high performance version of fabric, because it requires also more more performance hardware. And the deployment is different.
+
+67
+00:17:05.358 --> 00:17:15.220
+Angelo De Caro (International Business Machines Corporation): It would be interesting to see if it would reach a large scale the large scale audience or stuff like that.
+
+68
+00:17:15.220 --> 00:17:18.129
+Yacov Manevich: Angela, why do you think it requires more performance? Hardware.
+
+69
+00:17:19.050 --> 00:17:34.240
+Angelo De Caro (International Business Machines Corporation): More hardware. Sorry not not the performance hard again. Definitely. Commodity. Sorry the the I didn't say it correctly. Certainly. Commodity hardware is. It's fine, but you need more more nodes, more more. CPU, more.
+
+70
+00:17:34.240 --> 00:17:50.289
+Yacov Manevich: Well, I would not say that because there is no reason that you cannot locate several processes on the same host right in the end of the day a node like the way that your nodes are run today, anyway, like in real cloud systems.
+
+71
+00:17:50.560 --> 00:18:00.959
+Yacov Manevich: There are also very collocated, that is, if you run like nodes in Kubernetes, you will have several pods even in the city that might be in the same physical host.
+
+72
+00:18:01.100 --> 00:18:07.740
+Yacov Manevich: What is the difference between that and having several like processes right in the simple. There's no difference.
+
+73
+00:18:08.300 --> 00:18:30.319
+Angelo De Caro (International Business Machines Corporation): No fair. But now our committer is not a monolith anymore, so at least the committer would require more definitely more processes. If you want. If if I have to follow your metaphor that needs to communicate, and the more processes the better. In in this case that are processing in parallel requests. Right? It's the principle of mapreduce.
+
+74
+00:18:30.670 --> 00:18:36.579
+Angelo De Caro (International Business Machines Corporation): If you have more nodes that can do the mapping, then you can. You can scale better.
+
+75
+00:18:38.820 --> 00:18:55.590
+Jim Mason (Sky Web Team): Yeah. So that's where the argument comes in on strategies. To make something scale better. Which is why we were looking at the idea of separating commitment and finalization is 2 completely different points, and having built applications that were distributed before
+
+76
+00:18:56.100 --> 00:19:25.840
+Jim Mason (Sky Web Team): we did, forgetting blockchain, we did that with database. And it worked fine. And it actually was quite useful. So we could say, Okay, here comes a transaction. It's a good transaction. Transaction is not on the network yet complete. But at this point we actually can acknowledge back to those that submitted. The transaction. Transaction is solid, and it will, in a sense, wind up on the network finalized for sure. And then the finalization task took longer, obviously. And so in your world.
+
+77
+00:19:25.840 --> 00:19:39.070
+Jim Mason (Sky Web Team): with this new architecture, it sounds like the finalization piece of that could be longer. There's nothing preset, of course, on the number of nodes you can define that any way you want depending upon what your network needs.
+
+78
+00:19:39.120 --> 00:20:07.390
+Jim Mason (Sky Web Team): and much like the original fabric. What was better about that architecture was the idea is, you could decide who or how many, for a given application. How many who has to participate in consensus, if you will, to validate a transaction and separately, we do have a bunch of nodes and say, okay, this is the network. And that's where we've got to finalize or distribute the transaction to. But that concept of separating commit versus finalization
+
+79
+00:20:07.470 --> 00:20:11.809
+Jim Mason (Sky Web Team): seems like a fairly core thing to
+
+80
+00:20:11.910 --> 00:20:15.830
+Jim Mason (Sky Web Team): improve performance, just like we did with distributed database.
+
+81
+00:20:17.484 --> 00:20:43.500
+Angelo De Caro (International Business Machines Corporation): For sure, especially if the execution on the execution side of the the business logic. Right? That's there is a price. It's always a trade off right? You have to pay a price in this case. If you have an application that will generate a lot of many conflicts, then many transaction will will fail. That's so if if a pro, if an application, it's
+
+82
+00:20:43.610 --> 00:21:05.140
+Angelo De Caro (International Business Machines Corporation): by design very sequential, this will not help right. The fabric model will not, will not help any much you need to sequentialize, anyway, in some way, either before or after. But you need to sequentialize, because that's the nature of the application. Utxo is not is the case the opposite. It's on the other, the opposite side of the spectrum. So it's fully parallelizable.
+
+83
+00:21:05.570 --> 00:21:17.419
+Jim Mason (Sky Web Team): So you're right. But I think the nice part of this potentially, I guess, is it has different capabilities for different use cases at a high level, so
+
+84
+00:21:17.710 --> 00:21:31.909
+Jim Mason (Sky Web Team): unlike a lot of other platforms that have one architecture only. My only thing would be looking and saying, Okay, sometimes a lot of times, I'll say, in the real world we do have transactions that
+
+85
+00:21:32.040 --> 00:21:38.910
+Jim Mason (Sky Web Team): don't have a dependency on being serialized into a specific block. What matters is
+
+86
+00:21:38.910 --> 00:22:03.339
+Jim Mason (Sky Web Team): that's an update issue, not a transaction dependency issue. And so there's a difference between those. And so if it's if I look at what I call the business logic or the transaction dependency side of it. If the transactions are actually fully independent, then that gives me a lot more flexibility on how I distribute the transactions and using my example of commit versus finalization, have lots of room
+
+87
+00:22:03.470 --> 00:22:08.830
+Jim Mason (Sky Web Team): to do some pretty powerful things performance-wise across the network. For sure.
+
+88
+00:22:09.170 --> 00:22:10.309
+Angelo De Caro (International Business Machines Corporation): Yeah, that. That's.
+
+89
+00:22:10.310 --> 00:22:37.780
+Jim Mason (Sky Web Team): Last thing, especially when most applications today, I'll say, and this is an overstatement, are being engineered for what I call the concept of promises. So I submit a transaction. It is committed for sure it's going to happen, but yet it's not finalized, but in a sense we have. I'll call it smarter applications on the other end consuming this stuff. Whether it be reports, queries, whatever that say, hey.
+
+90
+00:22:37.780 --> 00:22:43.179
+Jim Mason (Sky Web Team): there are transactions here that are in process, not yet finalized. That's it. And so.
+
+91
+00:22:43.180 --> 00:22:56.400
+Angelo De Caro (International Business Machines Corporation): If I understand correctly, you mean there are a business process can can span multiple ledger transactions. So that's definitely. And this can run over many transactions fair.
+
+92
+00:22:56.400 --> 00:23:13.109
+Jim Mason (Sky Web Team): That's right. So it depends upon what your business application is. You're right. And the requirements of that, just like your implementation of Utxo is a simple model and a more complex model. Business applications have that same call it range, and it sounds like that. The architecture
+
+93
+00:23:13.570 --> 00:23:22.810
+Jim Mason (Sky Web Team): would be what I call at least more accommodative of that need for range, if you will, from simple to complex.
+
+94
+00:23:23.460 --> 00:23:24.460
+Angelo De Caro (International Business Machines Corporation): Yeah, yeah.
+
+95
+00:23:25.600 --> 00:23:27.000
+Jim Mason (Sky Web Team): Which is actually a big deal.
+
+96
+00:23:28.468 --> 00:23:35.439
+Jim Mason (Sky Web Team): Oh, and then the other. The only other thing, I think, is the permissioning models and arguing about how.
+
+97
+00:23:35.840 --> 00:23:55.800
+Jim Mason (Sky Web Team): in the case of identity, how many different types of identity systems can plug into this thing. You know, we have the membership services piece, and I'm not sure how that changed. Not having read the white paper on Fabricx, but the concept of that I'll call it interface. And then saying, Okay, we've got lots of different services for that. Again, looking at.
+
+98
+00:23:55.800 --> 00:24:09.289
+Jim Mason (Sky Web Team): I'll go to flexible architecture to plug different memory. Sorry, different identity interfaces into it, most of them coming through something like SSI in my case with Oidc connectivity. If you will.
+
+99
+00:24:09.870 --> 00:24:11.677
+Jim Mason (Sky Web Team): things like that,
+
+100
+00:24:12.540 --> 00:24:17.629
+Jim Mason (Sky Web Team): open up a door, a big door, I'll say to an existing application set for what it's worth.
+
+101
+00:24:22.740 --> 00:24:31.643
+Angelo De Caro (International Business Machines Corporation): Interesting is this interesting requirements. Indeed it from my point of view, I look at it from a different perspective. I look at it, I look at the identity
+
+102
+00:24:32.300 --> 00:24:40.239
+Angelo De Caro (International Business Machines Corporation): with the prospect, with the with respect to the how, how can I connect an identity to a token
+
+103
+00:24:40.530 --> 00:24:49.339
+Angelo De Caro (International Business Machines Corporation): so that that token is owned by that identity. And here the problems are usually more related to.
+
+104
+00:24:49.850 --> 00:24:50.450
+Angelo De Caro (International Business Machines Corporation): The ability to.
+
+105
+00:24:50.450 --> 00:24:50.820
+Jim Mason (Sky Web Team): So.
+
+106
+00:24:50.820 --> 00:24:54.900
+Angelo De Caro (International Business Machines Corporation): Technology. Because again, we are interested in privacy. So.
+
+107
+00:24:54.900 --> 00:25:10.219
+Jim Mason (Sky Web Team): Privacy is so right, the 3 requirements of security, confidentiality and privacy are just a given done. We're not going to argue that that's just a hundred percent guaranteed. But back to the token idea, the one thing we found when we were looking at the settlement, why, Hamilton sort of didn't
+
+108
+00:25:10.670 --> 00:25:19.859
+Jim Mason (Sky Web Team): wasn't broad enough in its architecture was, they had the simple idea of ownership, of a token.
+
+109
+00:25:20.210 --> 00:25:25.580
+Jim Mason (Sky Web Team): What was missing was the concept of control as a separate
+
+110
+00:25:25.580 --> 00:25:51.169
+Jim Mason (Sky Web Team): attribute from ownership. So yes, a token might be owned by me. But you are coordinating the transaction. In this case you actually, as a different party, are controlling the transaction, not the owner. So the owner, in a sense, for a given transaction, might transfer control to I call it the controlling entity for the transaction which happens all the time in the financial world.
+
+111
+00:25:51.290 --> 00:26:02.120
+Jim Mason (Sky Web Team): And so it's different than ownership. Ownership does transfer, like in delivery versus payment at a different point, and so, therefore, separating those 2, just like separating commit and finalization, were huge
+
+112
+00:26:02.310 --> 00:26:05.569
+Jim Mason (Sky Web Team): improvements over Hamilton. I'll say that.
+
+113
+00:26:06.450 --> 00:26:13.620
+Angelo De Caro (International Business Machines Corporation): Yeah, no, it's an interesting distinction between ownership and control.
+
+114
+00:26:13.620 --> 00:26:14.120
+Jim Mason (Sky Web Team): Yes.
+
+115
+00:26:14.120 --> 00:26:23.089
+Angelo De Caro (International Business Machines Corporation): Yeah, I would. I would say more. Also, the I guess the owner still retain full control, even if it's delegating control to us. To a 3rd party.
+
+116
+00:26:23.090 --> 00:26:47.760
+Angelo De Caro (International Business Machines Corporation): I would say that even in this case I mean the different. Even if you want to apply this, you want to go for a distinction between ownership and control is still about identity identity management. In the end, permission permissioning these identities in the with the respect to a token, you can even do a level of
+
+117
+00:26:47.760 --> 00:27:06.239
+Angelo De Caro (International Business Machines Corporation): in direction. So, for example, you can assign the ownership of a token to a smart contract, and then the smart contract applies the rules to decide. Oh, okay, this token. It's true that is owned by this entity, but it's also. But this other entity can perform certain operations, no matter what.
+
+118
+00:27:06.550 --> 00:27:11.999
+Angelo De Caro (International Business Machines Corporation): How do you do this in 0 knowledge can be more complex. But yeah, interesting.
+
+119
+00:27:12.440 --> 00:27:14.670
+Jim Mason (Sky Web Team): Yep, yeah.
+
+120
+00:27:15.120 --> 00:27:36.920
+Jim Mason (Sky Web Team): So anyway, those are some of the things. But you're right. It potentially. It opens the door for the more complex transaction architectures we looked at, and then the only thing is the concept of separating finalization from commit which would certainly allow phenomenal scale for applications that can support that separation. Not all can.
+
+121
+00:27:37.300 --> 00:27:49.559
+Jim Mason (Sky Web Team): But that's why, having a lot of flexibility in the architecture matters a lot, and why it would differentiate significantly from the existing blockchains that are out there, period.
+
+122
+00:27:50.274 --> 00:28:10.079
+Jim Mason (Sky Web Team): and and I again, you have interfaces for every internal service. What that means is in theory. I could assemble different implementers for each of those interfaces. You know whether it be, you know, permissions, identity, whatever. I want it to be. Membership. All of those things.
+
+123
+00:28:10.240 --> 00:28:15.870
+Jim Mason (Sky Web Team): If they're interfaces, then the fabric X model
+
+124
+00:28:16.040 --> 00:28:21.619
+Jim Mason (Sky Web Team): could ultimately be what I call very flexible from an architecture viewpoint.
+
+125
+00:28:23.450 --> 00:28:33.209
+Angelo De Caro (International Business Machines Corporation): Let's the future will tell you. Sometimes flexibility comes also with the great complexity, and then that's another another pain point.
+
+126
+00:28:34.420 --> 00:28:49.454
+Jim Mason (Sky Web Team): It can. You're right. So the argument is, how do you simplify it? And I would argue, I'm not architecting this, so I have no knowledge on it. But I will say in other systems I've been in surprisingly
+
+127
+00:28:50.990 --> 00:29:00.650
+Jim Mason (Sky Web Team): improving I'll call it flexibility. Architecturally, actually, also improve performance. I can say that.
+
+128
+00:29:00.960 --> 00:29:01.360
+Angelo De Caro (International Business Machines Corporation): So.
+
+129
+00:29:01.360 --> 00:29:30.270
+Jim Mason (Sky Web Team): I can remember some of the things we did. I'll call it a more modular architecture, with interfaces, as an example, you would think like, oh, it's got to be slower. It wasn't. It was faster, you know, much like my concept of separating. Commit versus finalization as an architecture item, you'd say, Oh, you know, it sounds like it's more work. Well, wait a second. You know, when I actually look at distributed data systems we built, they're far faster than blockchain is for sure.
+
+130
+00:29:30.660 --> 00:29:40.550
+Jim Mason (Sky Web Team): absolutely. And so that releasing some of those constraints and adding flexibility sometimes makes the thing in a sense more applicable for sure.
+
+131
+00:29:40.710 --> 00:29:41.540
+Angelo De Caro (International Business Machines Corporation): Yeah, yeah.
+
+132
+00:29:41.540 --> 00:29:54.100
+Jim Mason (Sky Web Team): A broader range of use cases. But you're right. That's not something obviously forgetting today. Some, those kind of considerations are long term architectural planning things. They're not something that happens in a meeting or 2.
+
+133
+00:29:54.460 --> 00:29:55.870
+Angelo De Caro (International Business Machines Corporation): Yeah, definitely definitely.
+
+134
+00:29:57.110 --> 00:30:00.050
+Jim Mason (Sky Web Team): I think that's why releases evolve. I'll say
+
+135
+00:30:07.850 --> 00:30:08.630
+Jim Mason (Sky Web Team): cool.
+
+136
+00:30:10.200 --> 00:30:16.670
+Yacov Manevich: Right was an interesting discussion. Is there anyone else that wants to raise any points or ask any questions?
+
+137
+00:30:29.300 --> 00:30:31.960
+Yacov Manevich: In that case I think we can end this call.
+
+138
+00:30:33.070 --> 00:30:35.760
+Yacov Manevich: So thank you. Everyone.
+
+139
+00:30:35.970 --> 00:30:37.529
+Yacov Manevich: Yes, Angelo, that is correct.
+
+140
+00:30:37.780 --> 00:30:40.869
+Yacov Manevich: Thank you. Everyone, and see you in next month.
+
+141
+00:30:41.650 --> 00:30:42.539
+Jim Mason (Sky Web Team): Great. Thank you very much.
+
+142
+00:30:42.540 --> 00:30:43.660
+Angelo De Caro (International Business Machines Corporation): See you. Bye-bye.
+

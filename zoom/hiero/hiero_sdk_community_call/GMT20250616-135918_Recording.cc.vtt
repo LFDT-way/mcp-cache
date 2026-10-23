@@ -1,0 +1,548 @@
+WEBVTT
+
+00:02:28.000 --> 00:02:33.000
+It's… actually there yet.
+
+00:02:33.000 --> 00:02:40.000
+Yeah, I think this was gonna be, like, the first… Meaning, we kind of use the new structure there.
+
+00:02:40.000 --> 00:02:50.000
+Okay. Yeah, so I don't know if we have, um… formal agenda for today or not.
+
+00:02:50.000 --> 00:03:06.000
+Okay. I think maybe we'll just… kind of go through what we went through last meeting, see if there's any updates, and then, uh… see if there's anything new people want to talk about.
+
+00:03:06.000 --> 00:03:22.000
+Right? Here, I'll send you the link to the meetings area, uh, you got it, never mind.
+
+00:03:22.000 --> 00:03:52.000
+Just give it another minute or two, let more people show up.
+
+00:04:19.000 --> 00:04:23.000
+Alright, I think we probably go ahead and get started here.
+
+00:04:23.000 --> 00:04:31.000
+Welcome, everyone, to our IRSDK meeting, our bi-weekly meeting on Mondays.
+
+00:04:31.000 --> 00:04:52.000
+Uh, this is where we just kind of talk about everything, and everything, uh… everything and anything SDK for HIRO, um… Any, uh, particular issues we might be finding, or just anything, any new designs and… In our collaboration hub, we may want to look at any new hips coming down the line.
+
+00:04:52.000 --> 00:05:08.000
+Uh, just basically any issue any of us want to talk about, um… So, I don't think we necessarily had anything… well, at least that I'm aware of on the docket for today. Um, I think maybe we can just go ahead and
+
+00:05:08.000 --> 00:05:11.000
+Just kind of go through what we went through last week.
+
+00:05:11.000 --> 00:05:20.000
+Um, see if there's any updates, anything new that people want to bring to the table, um, and then just kind of leave it open-ended after that for, uh.
+
+00:05:20.000 --> 00:05:41.000
+Any new issues people may want to bring up. Um, so I believe the first thing we went through last week, I think this was, yeah, HIP 1046, um… I think we were waiting on the mirror node implementation for this, um, before we could
+
+00:05:41.000 --> 00:05:46.000
+Go ahead and start defining our own… design for it.
+
+00:05:46.000 --> 00:05:54.000
+Ivan, have you heard anything more about that? Are we good to go on that?
+
+00:05:54.000 --> 00:05:58.000
+Um, about HIP 1046. You mean?
+
+00:05:58.000 --> 00:05:59.000
+Yes.
+
+00:05:59.000 --> 00:06:11.000
+Um… yeah, I think we're good. Uh, we wrapped up the… And, um, testing in Seoul environment, and everything seems okay.
+
+00:06:11.000 --> 00:06:27.000
+Um… yeah, um… I think we also wanted to update… Uh, the notes… the domain names for the web proxies on PreviewNet or Desnet.
+
+00:06:27.000 --> 00:06:33.000
+In order to make sure everything's all right. But yeah, I think we're… we're good on that.
+
+00:06:33.000 --> 00:06:39.000
+Okay, were you… were you just waiting to hear from the MirrorNode team for that?
+
+00:06:39.000 --> 00:06:46.000
+Um, we have a meeting later today, uh… Simi mentioned that, um.
+
+00:06:46.000 --> 00:06:54.000
+Someone from… from your side is… Using the transaction tool in order to do that. I'm not very familiar, so we'll see.
+
+00:06:54.000 --> 00:07:00.000
+What's going on there. She mentioned that there's some kind of problem.
+
+00:07:00.000 --> 00:07:07.000
+Uh, with the transaction to execute in the note update, so I'm not really sure.
+
+00:07:07.000 --> 00:07:11.000
+Right, yep, okay, that's ringing a bell for me now, too. Okay.
+
+00:07:11.000 --> 00:07:25.000
+Cool, yeah, I think… I think that meeting's right after this one, actually, so… Um, yeah, maybe we can check back in again on this next week and just make sure we're all good there.
+
+00:07:25.000 --> 00:07:41.000
+Okay, um, I think we're good with that one, it sounds like. Um… We were talking about the client implementation, uh, for how we want to track shards and realms in the client. I think we had, uh.
+
+00:07:41.000 --> 00:07:58.000
+A dock open… Um, for that… I think, um… you guys were still looking at that, right? Uh… I think I remember… Some changes were made with that.
+
+00:07:58.000 --> 00:08:07.000
+You know, we updated this document today. Um, yeah, after a lot of discussions, I think this is the final version.
+
+00:08:07.000 --> 00:08:16.000
+And that we decided to… Um, to implement… It's pretty simple, it's… more simple than the previous one.
+
+00:08:16.000 --> 00:08:38.000
+Um, so basically, we ditched the idea of having chart and realms for the… for methods such as for mainnet, for testnet, and so on, because… Uh, after… you know, talking with Simi Uh, we now know that this doesn't make sense, because…
+
+00:08:38.000 --> 00:08:44.000
+These networks are known, and they have already set shards and rounds to zero.
+
+00:08:44.000 --> 00:08:52.000
+And another thing… We changed… we changed is that… for the four-network method.
+
+00:08:52.000 --> 00:08:57.000
+And we decided to consume the chart and realm from the network itself.
+
+00:08:57.000 --> 00:09:04.000
+Because when you specify a network, you need to pass the account IDs of the nodes.
+
+00:09:04.000 --> 00:09:10.000
+And in the account IDs, you specify the chart and realm, and what we're going to do is, uh.
+
+00:09:10.000 --> 00:09:15.000
+Verify that the shards and Realms for this network are the same.
+
+00:09:15.000 --> 00:09:25.000
+And if… Uh, if that check passes, we will get, uh… the short and round from there.
+
+00:09:25.000 --> 00:09:38.000
+And the same goes for the… from config method, which is, uh… which constructs a client from a JSON object.
+
+00:09:38.000 --> 00:09:48.000
+Mm-hmm. So, with the Shard and Realm just be contained in that JSON, or would it kind of be the same that you just described, where you would just grab it from the node account IDs again?
+
+00:09:48.000 --> 00:10:03.000
+Um, yeah, for the JSON, I'm sorry, I think I, uh… I didn't, uh… said clearly. So, for the JSON initialization, we decided to… to have the short in Rome.
+
+00:10:03.000 --> 00:10:17.000
+Passed separately, because… If we don't do that, we need to… Uh, we have a lot of different use cases, for example, for the network, we can pass a name.
+
+00:10:17.000 --> 00:10:24.000
+For example, you have network which is mainnet testnet. Or you can have a list of nodes.
+
+00:10:24.000 --> 00:10:31.000
+Or you can have only mirror network without a network, and there are a lot of different use cases where we should validate, like.
+
+00:10:31.000 --> 00:10:39.000
+Probably, uh… dozens of, uh, of different flows that the user can pass.
+
+00:10:39.000 --> 00:10:47.000
+And this creates a lot of complexity, and we decided to just pass them as parameters.
+
+00:10:47.000 --> 00:11:05.000
+Uh, here you can see it in the example usage. And if something goes wrong, like, it's on the user's side to fix it, because… they can pass anything they want, really, like… There are, like, limitless amount of… combinations that they can do with that config.
+
+00:11:05.000 --> 00:11:26.000
+There's also a use case for, um… For the operator account, you can also pass the operator account in .config, and this also creates a lot of complexity to verify that operator account is on the right sharding realm. Compared to the network, compared to the pass chart and RAM, and stuff like that.
+
+00:11:26.000 --> 00:11:43.000
+So, yeah, we decided to just… get them from… from the JSON, and… Uh, if something goes wrong, like, the user should just fix the configuration that they have. And this is pretty much how it works right now.
+
+00:11:43.000 --> 00:12:00.000
+Mm-hmm. Do we, um… Do you know if we have, like, an example… I mean, I know we have, like, the example JSONs in the repos themselves. Do we have… any sort of, uh, maybe, like, documentation somewhere just describing, like.
+
+00:12:00.000 --> 00:12:12.000
+All the possible inputs we can put in that JSON file, um, just… So, whoever uses it can have, you know, all their possible configuration options, just… listed somewhere.
+
+00:12:12.000 --> 00:12:18.000
+For languages like Go and Java, I don't think we have that.
+
+00:12:18.000 --> 00:12:24.000
+Not really sure about JS. I haven't, uh, checked that.
+
+00:12:24.000 --> 00:12:48.000
+Okay, maybe… maybe that's something we can have stored in here. I can go ahead and… make an issue for that. I think that'd be good to kind of just have all those configuration options somewhere.
+
+00:12:48.000 --> 00:12:57.000
+Okay, cool. So it sounds like this… this should be good to… get merged and worked on this week, then.
+
+00:12:57.000 --> 00:12:58.000
+Yeah, yeah.
+
+00:12:58.000 --> 00:13:05.000
+Okay, cool. Nice.
+
+00:13:05.000 --> 00:13:15.000
+Um, did anyone else have anything regarding that they wanted to bring up?
+
+00:13:15.000 --> 00:13:16.000
+Yeah. Yep. Okay.
+
+00:13:16.000 --> 00:13:34.000
+Specific to the Shards and Realms?
+
+00:13:34.000 --> 00:13:35.000
+Are they? I haven't seen… a clean run yet in, uh, Consensus Node. Can you go track.
+
+00:13:35.000 --> 00:13:40.000
+Alright, uh, we talked about TCK regression tests and consensus node. I think… for the most part, we got all those figured out, right, Roger. I think those are all running good. I think there were some… I…
+
+00:13:40.000 --> 00:13:47.000
+Okay. Okay, maybe I'll… Um, is he viable on the call?
+
+00:13:47.000 --> 00:13:48.000
+Uh, maybe not. Yeah, I'll have to check with them. Yeah, I know there was some…
+
+00:13:48.000 --> 00:13:55.000
+Nope. I see. Yeah, uh, last time I talked with him, uh.
+
+00:13:55.000 --> 00:14:03.000
+They found the issue, it was… something regarding the port forwarding, I think.
+
+00:14:03.000 --> 00:14:04.000
+Mm-hmm.
+
+00:14:04.000 --> 00:14:05.000
+I'm pretty sure it's got…
+
+00:14:05.000 --> 00:14:29.000
+Uh, no, we… we actually fixed that one, yeah, um… the tests themselves are functioning okay, but if I would say that there was a… regression, uh… for a previous book on main… I don't know if it's, uh… fixed yet, uh, but yeah, we have, like, currently…
+
+00:14:29.000 --> 00:14:37.000
+I believe 11 tests failing. Uh, which, uh… our expected failures.
+
+00:14:37.000 --> 00:14:39.000
+So, a fix for them, okay.
+
+00:14:39.000 --> 00:14:45.000
+So, I just… I just pulled up the latest, um… XJS run.
+
+00:14:45.000 --> 00:14:56.000
+And the TCK regression panel has 46 failures in it. I don't know if it's 46 unique failures, or if it's just 46 failures, I have not looked into it at all.
+
+00:14:56.000 --> 00:15:10.000
+But I put that in the chat if someone from the SCK team wants to look at that, that would be… Highly appreciated. And then, um… Yeah, if it's something that needs to happen inside of Consensus Node to… to enable…
+
+00:15:10.000 --> 00:15:18.000
+The TCK regression, then… Rob, what's the path forward on getting that?
+
+00:15:18.000 --> 00:15:22.000
+Communications set up, and… And talking through that type of stuff.
+
+00:15:22.000 --> 00:15:27.000
+Okay, so this… this is the latest one you just sent, with these connection refuse?
+
+00:15:27.000 --> 00:15:28.000
+Yes.
+
+00:15:28.000 --> 00:15:36.000
+I think it would be a good idea to do a rerun, because this was during the time that there were problems with the runners, I believe.
+
+00:15:36.000 --> 00:15:41.000
+Okay, yeah, that's what I thought, too. I thought all these issues had gotten fixed.
+
+00:15:41.000 --> 00:15:46.000
+Okay, yeah, maybe we just need to do a rerun on this.
+
+00:15:46.000 --> 00:15:47.000
+I…
+
+00:15:47.000 --> 00:15:59.000
+Um, and then, yeah, I think there were some tests that were failing, like, uh, just like the Hedera errors or whatever, but I… thought that we had merged something that fixed that, too. I'll have to check in with you, Vilo again.
+
+00:15:59.000 --> 00:16:07.000
+Alright, um, so I just kicked off a rerun, you can see it's yellow now on the side.
+
+00:16:07.000 --> 00:16:13.000
+So we'll… I guess we'll see how this one runs. Um, but yeah, this is the latest run that we had here.
+
+00:16:13.000 --> 00:16:16.000
+Okay. Alright.
+
+00:16:16.000 --> 00:16:30.000
+Yeah, I mean, I… yeah, if it's… if it's something between and someone on the consensus team, um, I'd like to see… I'd really like to see this going green, uh, sooner than later.
+
+00:16:30.000 --> 00:16:31.000
+Yeah, yeah, agreed. Understood.
+
+00:16:31.000 --> 00:16:35.000
+It's been… it's been red for a couple weeks now.
+
+00:16:35.000 --> 00:16:50.000
+Yeah. Okay. Yeah, well, uh, I'll check in with him again on this, uh… Yeah, just… just so you figure out what we gotta do to get this going.
+
+00:16:50.000 --> 00:16:56.000
+Great.
+
+00:16:56.000 --> 00:17:06.000
+Alright. So that was it for TCK. Um, yes, last time we talked about, uh, this idea of office hours.
+
+00:17:06.000 --> 00:17:26.000
+Which I believe was… me setting up some time, maybe once a week, or even more than… a couple times a week, um, whether it's in Discord or another separate call where people could just come in and join and ask whatever questions, um, they had.
+
+00:17:26.000 --> 00:17:37.000
+Do an SDK work or anything else. I think… Uh, Sophie, I believe you were kind of working this with Jessica, correct? Or you were looking to?
+
+00:17:37.000 --> 00:17:45.000
+Yeah, we've been, um… discussing it here and there in some of the meetings. I've never done these, uh, office hour concept before.
+
+00:17:45.000 --> 00:18:06.000
+But, um, as we are getting some new starters with the Python SDK, And, um… Yeah, we're still working on, like, growing growing the support for… the new starters, and… Um, you know, just for anyone to be able to ask questions and work through things together.
+
+00:18:06.000 --> 00:18:07.000
+Mm-hmm.
+
+00:18:07.000 --> 00:18:22.000
+So I think we've… I'm just waiting for when I had enough time to set this up. I think I'll probably… be looking to do this, and then… the things that I had outstanding was trying to establish, like, what would be the best practices.
+
+00:18:22.000 --> 00:18:28.000
+For making… Such an office hour is successful and useful for people.
+
+00:18:28.000 --> 00:18:29.000
+Mm-hmm.
+
+00:18:29.000 --> 00:18:38.000
+Um, so Jessica sent me a list, and… Um, yeah, still kind of building… I still have to work on that.
+
+00:18:38.000 --> 00:18:43.000
+Um, and obviously try and see how many people are interested.
+
+00:18:43.000 --> 00:18:49.000
+But I think I'll probably… be looking to trial that out.
+
+00:18:49.000 --> 00:18:50.000
+Um, sometime this month or something.
+
+00:18:50.000 --> 00:19:10.000
+Yeah. Okay, yeah, that sounds good. Um… Yeah, were you… Were you guys thinking, like, maybe just doing, like, a voice channel in the Discord, um, for that? Or, like, a separate Zoom meeting? Had you kind of gotten that far in the planning yet?
+
+00:19:10.000 --> 00:19:25.000
+Yeah, I think, um… I think we were settling maybe on something like a mini sort of hackathon, so, like, um… in the Linux calendar.
+
+00:19:25.000 --> 00:19:33.000
+We would have, like, okay, today is a docs. Office hour or mini hackathon.
+
+00:19:33.000 --> 00:19:47.000
+And so that would require a little bit of planning, like, what we want to work on, and… Yeah, so it would be some kind of Zoom… activity or Zoom question activity.
+
+00:19:47.000 --> 00:20:11.000
+Maybe a couple hours a week, um… Yeah, so I just had to think how to split the tasks up, and… And… because I think in… to begin with, you… you know, for people to attend, you might have to be quite clear on what will be done, and what they can get out of it, so…
+
+00:20:11.000 --> 00:20:32.000
+Mm-hmm. Yeah, uh, that makes sense. Yeah, he's… I can see, yeah, people don't necessarily know what it's about, then, you know, they might not join, and you just might not gain… you know, the traction we want, so Yeah, I… I think that's good. Yeah, I think… I think let's, you know, take the time to…
+
+00:20:32.000 --> 00:20:42.000
+Really plan it out, and um… figure out every… everything that we kind of want it to be, and then we can be very direct with… with people.
+
+00:20:42.000 --> 00:20:48.000
+About just, yeah, what the idea is, and, you know, if… If it'd be good for them to join or not.
+
+00:20:48.000 --> 00:20:59.000
+Um, yeah, so I guess maybe, uh, maybe we can just check up again on this in the next meeting, two weeks from now?
+
+00:20:59.000 --> 00:21:00.000
+Yeah, I think by next week, I'll definitely have something more concrete.
+
+00:21:00.000 --> 00:21:04.000
+And see where we're at.
+
+00:21:04.000 --> 00:21:05.000
+Um… Yeah, that should be good.
+
+00:21:05.000 --> 00:21:15.000
+Okay. Great. Yeah, that sounds good.
+
+00:21:15.000 --> 00:21:32.000
+Okay, I think that was most of everything from the last meeting, um… I guess, you know, kind of open up the floor. Is there anything that anyone wanted to bring up? Any… issues to discuss, um…
+
+00:21:32.000 --> 00:21:40.000
+Um, I was hoping to bring up, um… request that I've got in the Python SDK, it's number 127.
+
+00:21:40.000 --> 00:21:47.000
+And just kind of get status on… the review there. I know it's… I know it's a big PR.
+
+00:21:47.000 --> 00:21:50.000
+Yeah, it is that the, um, the type? Pinting.
+
+00:21:50.000 --> 00:21:53.000
+Yeah.
+
+00:21:53.000 --> 00:21:59.000
+Yeah. Um… I've looked through half of it already.
+
+00:21:59.000 --> 00:22:07.000
+Awesome. And that's enough for me. I just kind of wanted to get a state of where we're at in that one.
+
+00:22:07.000 --> 00:22:14.000
+Because I don't want to go too much further. On the rest of the… on the rest of the codebase until this first part gets merged in.
+
+00:22:14.000 --> 00:22:18.000
+Because it had some quality of life changes in there, too.
+
+00:22:18.000 --> 00:22:22.000
+Yeah, it, um… It's really extensive, it's really good.
+
+00:22:22.000 --> 00:22:28.000
+Um, we, you know, the majority of the work, we didn't have too much type hinting, right? So… Yeah, that's a big step forward, and I see… I see some of the new pull requests.
+
+00:22:28.000 --> 00:22:34.000
+Yeah.
+
+00:22:34.000 --> 00:22:39.000
+Um, from those that are starting to do type painting as well.
+
+00:22:39.000 --> 00:22:40.000
+It looks like we have, like, a nice… Nice momentum going with that.
+
+00:22:40.000 --> 00:22:45.000
+Yeah.
+
+00:22:45.000 --> 00:22:46.000
+So I'm trying to… trying to set a standard, kind of, for the type hint again here, because it's been a little bit mismatched.
+
+00:22:46.000 --> 00:22:51.000
+Um.
+
+00:22:51.000 --> 00:23:02.000
+And maybe I'll write up some documentation for how to… to write your type hinting to make it look… conformant as a follow-on to this.
+
+00:23:02.000 --> 00:23:13.000
+I think that would be… good to have, like, best practice for how to do the type hinting in here.
+
+00:23:13.000 --> 00:23:26.000
+Yeah, I think that would be really good. Um, yeah, right, I think, um, Nadine's just back from annual leave as well, so if you… I think she might… she might be available if you need.
+
+00:23:26.000 --> 00:23:48.000
+Some additional feedback on that. Um… Yeah, we have… we have, like, a nice… nice set of pull requests happening at, um… So there's, like, there's a few from those sick, and then… I had to get the Python one out yesterday, so that's why I couldn't… I wanted to do it over the weekend.
+
+00:23:48.000 --> 00:23:56.000
+But, uh, yeah, I'm halfway through, Roger, so… maybe… maybe today, maybe tomorrow I'll be able to finish it.
+
+00:23:56.000 --> 00:24:01.000
+Awesome. Oh, thank you.
+
+00:24:01.000 --> 00:24:12.000
+Oh, thanks, CE, for all of that.
+
+00:24:12.000 --> 00:24:18.000
+Cool. Anything else? From anyone?
+
+00:24:18.000 --> 00:24:30.000
+I think we had some progress, uh… Regarding the saw auction, maybe Georgie can share more if he wants to.
+
+00:24:30.000 --> 00:24:51.000
+Yeah, we actually made it work against the PR in the C++ SDK, Uh, so we currently can now start the progress for I think adding… adding it to the other SDKs, and fully migrate from local node.
+
+00:24:51.000 --> 00:25:05.000
+Awesome. That is great to hear. What was, um… sorry, what was the issue we were having before? Just… wasn't able to connect properly.
+
+00:25:05.000 --> 00:25:13.000
+Uh, we didn't actually find out the exact reason. The most recent release, which was, uh.
+
+00:25:13.000 --> 00:25:21.000
+37.1… I just bumped the version, and I guess it all ran correctly.
+
+00:25:21.000 --> 00:25:35.000
+Uh, I also experienced some issues with, uh… Uh, the estimate gas, uh… functionalities, because the integration tests were failing against that.
+
+00:25:35.000 --> 00:25:41.000
+But I think it was support forwarding issue, so we managed to fix that as well.
+
+00:25:41.000 --> 00:26:08.000
+So I think we're kind of good to go with the solo action at this point. Currently, I've, uh… PR and C++ is pointed towards commits. There is no stable release for null release for the solo action, but I guess that's, uh, gonna happen soon.
+
+00:26:08.000 --> 00:26:17.000
+And the C++, we… this way, we managed to delete a couple of custom setup scripts.
+
+00:26:17.000 --> 00:26:18.000
+Yeah.
+
+00:26:18.000 --> 00:26:26.000
+And, uh, yeah, I think it's quite a seamless transition. It's gonna be relatively easy for the other SDKs as well.
+
+00:26:26.000 --> 00:26:46.000
+Um, maybe on a thing that's currently missing in the solo action is, uh… having an experience with, like, similar to the local node experience for account generations and so on, because currently it's only… Uh, creating one account, and uh…
+
+00:26:46.000 --> 00:27:06.000
+The other account that's being used is 002, So, yeah, I think that's, uh… Uh, that's gonna have to be completed in this solo action in order to be feature compatible with, uh, LocalNote.
+
+00:27:06.000 --> 00:27:12.000
+What you're saying? So, you're saying for the tests, we need more than one account to be created?
+
+00:27:12.000 --> 00:27:25.000
+Yeah, I think that, for example, Go and Java have a functionality which basically books, uh, some throwaway account, which is, like, 1, 2, 3.
+
+00:27:25.000 --> 00:27:31.000
+Uh, which is, uh, basically one of the accounts, for example, generated by the local node.
+
+00:27:31.000 --> 00:27:37.000
+Uh, and this feature… If we integrate to the solo action.
+
+00:27:37.000 --> 00:27:58.000
+Uh, yeah, 002 bypasses, uh, some of the transactions, uh. Um, checks… Um, yeah, if we go ahead and integrate the solo action into, for example, the… Go SDK, uh, we have the possibility of choosing an account which is not
+
+00:27:58.000 --> 00:28:03.000
+Currently existing in the network.
+
+00:28:03.000 --> 00:28:09.000
+Gotcha, okay, yeah, sorry, I misunderstood. I thought you were saying we needed more than one, like.
+
+00:28:09.000 --> 00:28:25.000
+Auto-generated account, um, of, like, the… Yeah, the 1022, 1023, all that. Um, but yeah, the, um… Yeah, definitely, uh… needs some… needs some of those accounts, too. Not using the 002.
+
+00:28:25.000 --> 00:28:26.000
+Okay.
+
+00:28:26.000 --> 00:28:27.000
+Yeah.
+
+00:28:27.000 --> 00:28:34.000
+So, what I ran into with the, um… SDK regression panel in consensus node.
+
+00:28:34.000 --> 00:28:38.000
+I didn't use the solo action for it, I just… did a manual setup of Solo.
+
+00:28:38.000 --> 00:28:44.000
+Um, and the work was there, but I did have to do some manual account creation.
+
+00:28:44.000 --> 00:28:56.000
+After getting solo configured, because, yeah, like, like I've been saying, that admin account 0.2, doesn't work. You need to have… At least a 1,002 count.
+
+00:28:56.000 --> 00:28:57.000
+And uh… and that comes with a… with an account create.
+
+00:28:57.000 --> 00:29:00.000
+Right.
+
+00:29:00.000 --> 00:29:13.000
+Action. So I think that's a great idea, that's a good recommendation for the solo action team, is to add in a flag to have, like, a configurable number of accounts generated.
+
+00:29:13.000 --> 00:29:21.000
+Mm-hmm. Yeah, agreed. Um… Dude, were you gonna try and work that this week, Georgie?
+
+00:29:21.000 --> 00:29:40.000
+Oh, yeah, it's… I hope it's gonna be a quick one. It's basically just creating some accounts. So, uh, by the way, Roger, it's gonna be really useful if, uh… Uh, you can share where you've, uh, actually created those accounts, so maybe I can review some code there.
+
+00:29:40.000 --> 00:29:44.000
+Yeah, I'll send that link in the Discord, um… So, Action Channel.
+
+00:29:44.000 --> 00:29:56.000
+Perfect, thanks. And I think that about wraps it up for the… So, action stuff.
+
+00:29:56.000 --> 00:30:04.000
+Cool. Yeah, this is… this is a lot cleaner. I'm excited to get this implemented everywhere.
+
+00:30:04.000 --> 00:30:19.000
+Nice work. Um… Cool, yeah, uh, anything else from anyone?
+
+00:30:19.000 --> 00:30:23.000
+Alrighty, we'll give you a half hour back. Thanks to everyone for joining.
+
+00:30:23.000 --> 00:30:33.000
+Uh, have a nice day. See ya.
+
+00:30:33.000 --> 00:30:53.000
+Bye.Very
+

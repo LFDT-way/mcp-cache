@@ -1,0 +1,2022 @@
+WEBVTT
+
+1
+00:01:12.010 --> 00:01:13.650
+Parisa Ataei (Shielded Tech): Hello, people.
+
+2
+00:01:17.540 --> 00:01:19.900
+Parisa Ataei (Shielded Tech): Oh, oh, no, oh.
+
+3
+00:01:22.710 --> 00:01:25.410
+Parisa Ataei (Shielded Tech): I can see my own screen, wonderful!
+
+4
+00:01:26.630 --> 00:01:28.420
+Parisa Ataei (Shielded Tech): Hmm, I don't know.
+
+5
+00:01:31.170 --> 00:01:32.640
+Parisa Ataei (Shielded Tech): Hello, folks.
+
+6
+00:01:34.640 --> 00:01:36.680
+Parisa Ataei (Shielded Tech): Hopefully you're having a good week.
+
+7
+00:01:36.830 --> 00:01:39.040
+Parisa Ataei (Shielded Tech): Paul is officially here.
+
+8
+00:01:39.560 --> 00:01:42.199
+Parisa Ataei (Shielded Tech): Hopefully you're not as cold as I am.
+
+9
+00:01:42.840 --> 00:01:44.570
+Parisa Ataei (Shielded Tech): Wherever you are.
+
+10
+00:01:47.740 --> 00:01:53.080
+Parisa Ataei (Shielded Tech): I have my heater on. Oh, I'm just missing my tea. I have my hand warmer in hand.
+
+11
+00:01:53.890 --> 00:01:54.280
+Jonathan Sobel: Oh.
+
+12
+00:01:54.280 --> 00:01:59.709
+Parisa Ataei (Shielded Tech): And… I'm moving offices. I decided enough is enough.
+
+13
+00:02:00.870 --> 00:02:05.059
+Jonathan Sobel: Still varying wildly here. I think it's supposed to be 85 tomorrow.
+
+14
+00:02:05.870 --> 00:02:08.440
+Parisa Ataei (Shielded Tech): She's so jealous, Michael.
+
+15
+00:02:08.449 --> 00:02:11.819
+Jonathan Sobel: But it was… it was 45 this morning, so…
+
+16
+00:02:12.200 --> 00:02:12.900
+Parisa Ataei (Shielded Tech): Hmm.
+
+17
+00:02:13.160 --> 00:02:16.029
+Parisa Ataei (Shielded Tech): I have my boots out, hats out.
+
+18
+00:02:16.030 --> 00:02:17.860
+Kent Dybvig: It was 93.
+
+19
+00:02:18.000 --> 00:02:21.059
+Kent Dybvig: It was 93 in La Jolla last week.
+
+20
+00:02:21.060 --> 00:02:21.950
+Jonathan Sobel: Wow.
+
+21
+00:02:21.950 --> 00:02:25.550
+Kent Dybvig: Second hottest second hottest place in the planet last week.
+
+22
+00:02:26.810 --> 00:02:30.880
+Kent Dybvig: Just, like, completely ridiculous. Never happened before.
+
+23
+00:02:31.660 --> 00:02:37.019
+Kent Dybvig: San Diego was second hottest, not La Jolla. La Jolla is 10 degrees colder than other parts.
+
+24
+00:02:37.020 --> 00:02:37.470
+Parisa Ataei (Shielded Tech): itself.
+
+25
+00:02:37.470 --> 00:02:39.609
+Kent Dybvig: Diego, which was, like, 105.
+
+26
+00:02:41.890 --> 00:02:44.820
+Yurii Shynbuiev: guys And Parisa?
+
+27
+00:02:45.480 --> 00:02:46.180
+Parisa Ataei (Shielded Tech): Hello.
+
+28
+00:02:46.180 --> 00:02:47.000
+Kent Dybvig: Hello.
+
+29
+00:02:48.220 --> 00:02:52.089
+Parisa Ataei (Shielded Tech): Alright, as I'm waiting for people to…
+
+30
+00:02:52.340 --> 00:02:59.729
+Parisa Ataei (Shielded Tech): join. I think most of the conversation today would be around the serialization format.
+
+31
+00:03:00.430 --> 00:03:07.790
+Parisa Ataei (Shielded Tech): and consistency of serialization that is happening in multiple places in Compact.
+
+32
+00:03:08.420 --> 00:03:14.530
+Parisa Ataei (Shielded Tech): for the purposes of, of.
+
+33
+00:03:14.640 --> 00:03:27.409
+Parisa Ataei (Shielded Tech): being responsive and accountable to the community. I do have the COIPs that are still pending here, and I will carry them over, over all the meetings until, we get to a decision.
+
+34
+00:03:28.130 --> 00:03:38.279
+Parisa Ataei (Shielded Tech): Besides those, anything else that people would like to discuss today? I see Andre's hand up. Andre?
+
+35
+00:03:38.850 --> 00:03:46.419
+Andrzej Kopeć (Shielded): Yeah, so folks from OpenZeppelin started to threats that
+
+36
+00:03:46.780 --> 00:03:55.349
+Andrzej Kopeć (Shielded): I did not manage to raise last week, so I hope we get to discuss them today. It is one…
+
+37
+00:03:55.670 --> 00:04:11.729
+Andrzej Kopeć (Shielded): is related to the transient hash slash Poseidon exposure API and the compatibility guarantees that come with it, and the kind of issues that they come.
+
+38
+00:04:12.650 --> 00:04:22.569
+Andrzej Kopeć (Shielded): We're, and the issues that they arrive to with the way it is, exposed today.
+
+39
+00:04:22.910 --> 00:04:33.680
+Andrzej Kopeć (Shielded): And the second one is elliptic curve operations in a more generic way available in Compact.
+
+40
+00:04:39.020 --> 00:04:45.750
+Kent Dybvig: So what can you can you elaborate on the the transient hash, persistent hash issues?
+
+41
+00:04:46.520 --> 00:04:48.120
+Andrzej Kopeć (Shielded): So.
+
+42
+00:04:48.650 --> 00:05:00.159
+Andrzej Kopeć (Shielded): Essentially, Iskander, please, please correct me if I misrepresented it, but… One thing is…
+
+43
+00:05:00.310 --> 00:05:03.980
+Andrzej Kopeć (Shielded): Specifically, the very fact that,
+
+44
+00:05:04.540 --> 00:05:21.000
+Andrzej Kopeć (Shielded): Transient hash, as it is exposed today, says no guarantees, you should not hash anything that you store in state, and yet this is the efficient in-circuit hash to use.
+
+45
+00:05:22.030 --> 00:05:36.760
+Andrzej Kopeć (Shielded): And, there is a related issue, that, transient hash…
+
+46
+00:05:37.320 --> 00:05:47.620
+Andrzej Kopeć (Shielded): Related issue is that in some places, there is this degrade to transient, degrade to persistent.
+
+47
+00:05:47.740 --> 00:05:56.690
+Andrzej Kopeć (Shielded): Which… Which, seems to behave in an unexpected way.
+
+48
+00:06:08.260 --> 00:06:09.250
+Parisa Ataei (Shielded Tech): Iskander.
+
+49
+00:06:10.200 --> 00:06:13.419
+Iskander Andrews: Yeah, thanks. Can you hear me? Okay.
+
+50
+00:06:14.490 --> 00:06:23.620
+Iskander Andrews: Cool. So, yeah, thanks, Andrej for opening this up. So, with, The.
+
+51
+00:06:24.460 --> 00:06:32.820
+Iskander Andrews: If we have, like, the persistent hasher that's, shot to 5.6, and the size it got, like, bytes 32, that's beyond the size of the field.
+
+52
+00:06:33.000 --> 00:06:34.090
+Iskander Andrews: So…
+
+53
+00:06:34.190 --> 00:06:43.760
+Iskander Andrews: if we want to get this, like, rehash this in a way that's… get the full size of the field, then the only API we can use is delegate to transient.
+
+54
+00:06:44.290 --> 00:06:48.599
+Iskander Andrews: But what… when we looked inside what it does,
+
+55
+00:06:48.710 --> 00:06:56.970
+Iskander Andrews: It, it actually truncates, like, cuts the latest… cut the latest bits, like, 8 bits, I believe.
+
+56
+00:06:57.420 --> 00:07:05.039
+Iskander Andrews: And then you will… you will get at the end, like, 248 bits of value that still can
+
+57
+00:07:05.190 --> 00:07:08.339
+Iskander Andrews: Fit in, the field, but,
+
+58
+00:07:08.700 --> 00:07:11.379
+Iskander Andrews: And in our use case, it was not useful.
+
+59
+00:07:11.680 --> 00:07:14.830
+Iskander Andrews: I can elaborate more in the use case.
+
+60
+00:07:15.140 --> 00:07:17.949
+Iskander Andrews: Or I can send it a sync.
+
+61
+00:07:18.100 --> 00:07:20.720
+Iskander Andrews: But, very simple idea that
+
+62
+00:07:21.710 --> 00:07:31.700
+Iskander Andrews: We have a value we call… in our… in the design we work on, like, the values of type field, and we want to hide this value to make a mask around it.
+
+63
+00:07:32.040 --> 00:07:40.040
+Iskander Andrews: And as the value itself is a field, the best way to hide the value is to have a mask the same size of the field.
+
+64
+00:07:40.900 --> 00:07:45.489
+Iskander Andrews: So, for the nouns, we can,
+
+65
+00:07:45.850 --> 00:07:49.790
+Iskander Andrews: So we we need like an API that's hashed to field.
+
+66
+00:07:50.080 --> 00:07:59.219
+Iskander Andrews: So, it gets… It doesn't truncate, basically, it gets the full field size, if that makes sense.
+
+67
+00:07:59.530 --> 00:08:04.899
+Iskander Andrews: Because therefore, we can properly hide the value on-chain.
+
+68
+00:08:16.340 --> 00:08:20.450
+Iskander Andrews: For more information, I can write you guys a proper…
+
+69
+00:08:21.040 --> 00:08:27.849
+Iskander Andrews: detail with the links, like, with the modules we have, so… or, or, or I can discuss it further here, if you like.
+
+70
+00:08:27.850 --> 00:08:34.820
+Parisa Ataei (Shielded Tech): So, is it a good capture to say that you're looking for an efficient way in circuit
+
+71
+00:08:34.950 --> 00:08:37.480
+Parisa Ataei (Shielded Tech): to… to mask
+
+72
+00:08:38.210 --> 00:08:45.940
+Parisa Ataei (Shielded Tech): a value of field, and the only way that you can do this right now is using transient hash.
+
+73
+00:08:46.670 --> 00:08:49.860
+Parisa Ataei (Shielded Tech): But that turns out to…
+
+74
+00:08:53.400 --> 00:08:54.830
+Parisa Ataei (Shielded Tech): to…
+
+75
+00:08:55.480 --> 00:08:58.729
+Jonathan Sobel: Well, it's explicitly stated as not okay for storage.
+
+76
+00:09:02.170 --> 00:09:03.270
+Jonathan Sobel: Transient hash.
+
+77
+00:09:04.500 --> 00:09:09.319
+Iskander Andrews: Yeah, I would like to use Transit Cash, but yes, we can't, so…
+
+78
+00:09:09.560 --> 00:09:10.259
+Jonathan Sobel: And it also throws.
+
+79
+00:09:10.260 --> 00:09:10.670
+Iskander Andrews: There's…
+
+80
+00:09:10.670 --> 00:09:11.290
+Jonathan Sobel: you.
+
+81
+00:09:12.280 --> 00:09:20.179
+Iskander Andrews: So we end up doing a hand-rolled hash-to-field sort of circuit, which, at the end, it will be
+
+82
+00:09:20.650 --> 00:09:23.410
+Iskander Andrews: Not nice in terms of constraints.
+
+83
+00:09:25.210 --> 00:09:29.270
+Iskander Andrews: And maybe not also as secure as how when it comes from.
+
+84
+00:09:29.570 --> 00:09:31.429
+Iskander Andrews: The proper Rust backend.
+
+85
+00:09:33.900 --> 00:09:42.749
+Kent Dybvig: Yeah, so I think, you could… you could, create a midnight problem statement for this.
+
+86
+00:09:43.710 --> 00:09:45.720
+Kent Dybvig: If… if you wouldn't mind.
+
+87
+00:09:46.570 --> 00:09:57.309
+Kent Dybvig: And because this is really a crypto thing, it would be a surface to the language, but it would be the crypto team eventually that would that would have to create this for you.
+
+88
+00:09:57.560 --> 00:10:02.690
+Kent Dybvig: You know, a version of the hash that doesn't truncate bits, and…
+
+89
+00:10:03.510 --> 00:10:11.310
+Kent Dybvig: And I think it would be a… A broader decision about…
+
+90
+00:10:12.170 --> 00:10:18.710
+Kent Dybvig: the guarantees on Transient Hash, and whether… whether we could change it to be something that.
+
+91
+00:10:19.220 --> 00:10:22.419
+Kent Dybvig: You know, or add something that is a more permanent thing.
+
+92
+00:10:23.060 --> 00:10:25.719
+Kent Dybvig: I mean, the idea is, you know.
+
+93
+00:10:26.380 --> 00:10:33.140
+Kent Dybvig: The idea behind transient hash is something quick and dirty that you can use for to recognize
+
+94
+00:10:33.400 --> 00:10:43.860
+Kent Dybvig: over a very short period of time. I mean, I'm not sure about the storage, but I think it's long-term storage, is the idea, right? That you could recognize over a short period of time.
+
+95
+00:10:44.510 --> 00:10:47.359
+Kent Dybvig: The difference between one thing and another.
+
+96
+00:10:49.510 --> 00:10:59.149
+Kent Dybvig: And that if you had something that you wanted to keep around for, you know, essentially forever, that you would use one where we guarantee the hash function.
+
+97
+00:10:59.420 --> 00:11:12.429
+Kent Dybvig: And I know Kevin and I have also talked about the need to actually name these things specifically. It's a little silly to actually call them transient hash and persistent hash, or at least it's a little silly to call it persistent hash.
+
+98
+00:11:12.580 --> 00:11:18.210
+Kent Dybvig: Persistent hash instead of… Naming a particular hash function.
+
+99
+00:11:20.430 --> 00:11:26.269
+Kent Dybvig: And, because if you really want to have some guarantee of permanency, that's the best way to do it.
+
+100
+00:11:27.760 --> 00:11:30.250
+Kent Dybvig: And if we did that for a transient hash as well.
+
+101
+00:11:30.350 --> 00:11:31.240
+Kent Dybvig: them.
+
+102
+00:11:32.840 --> 00:11:35.579
+Kent Dybvig: You know, you could continue using that indefinitely.
+
+103
+00:11:35.690 --> 00:11:40.159
+Kent Dybvig: So, yeah, I think this is… this is a good candidate for a midnight problem statement.
+
+104
+00:11:40.590 --> 00:11:46.050
+Kent Dybvig: And then… and then we can pick it up from there. You can ping me when you…
+
+105
+00:11:46.440 --> 00:11:50.259
+Kent Dybvig: when you have that ready, and I will make sure it gets in the right hands.
+
+106
+00:11:51.610 --> 00:11:56.650
+Iskander Andrews: Well, can I send it… would you prefer through an email, like, or…
+
+107
+00:11:57.270 --> 00:12:00.689
+Iskander Andrews: Slack, I'm not sure if you're on Slack, so…
+
+108
+00:12:00.690 --> 00:12:06.480
+Kent Dybvig: Yeah, I think… I think we've… we've actually had… Exchange this before, so…
+
+109
+00:12:07.220 --> 00:12:08.720
+Iskander Andrews: Yeah, on email, so…
+
+110
+00:12:09.090 --> 00:12:12.999
+Kent Dybvig: Okay. Email's fine. However you get to me, it doesn't I don't care how it gets to me.
+
+111
+00:12:13.460 --> 00:12:14.060
+Iskander Andrews: Okay.
+
+112
+00:12:14.450 --> 00:12:17.069
+Iskander Andrews: Yeah, I'll open a problem statement for it.
+
+113
+00:12:19.360 --> 00:12:21.080
+Iskander Andrews: Thank you. Yep.
+
+114
+00:12:21.420 --> 00:12:28.649
+Iskander Andrews: The other… the other issue, I think it also… I would… I believe it also would require an MPS,
+
+115
+00:12:29.230 --> 00:12:38.019
+Iskander Andrews: which I'm… I'm not… I don't remember if Andre already spoke about it, but the problem of, like, the current elliptic curve operations are all based on
+
+116
+00:12:38.260 --> 00:12:42.260
+Iskander Andrews: The the curve that the back end is using, the ZK backend.
+
+117
+00:12:42.410 --> 00:12:49.140
+Iskander Andrews: But for future, we know that from the future, like, the future, you guys will change the briefing system.
+
+118
+00:12:49.680 --> 00:12:54.709
+Iskander Andrews: Maybe to still elliptic curve-based, or maybe to do a wholly different thing.
+
+119
+00:12:54.980 --> 00:13:01.900
+Iskander Andrews: But that's… The APIs we have are not generic, are dependent on that curve, so if…
+
+120
+00:13:02.100 --> 00:13:11.579
+Iskander Andrews: If anything changed, that means in the future, the modules will be, not… the old modules that are… have been bending on the old curve.
+
+121
+00:13:11.890 --> 00:13:17.319
+Iskander Andrews: We'll get… we'll break, or we won't be able to, sort of, upgrade.
+
+122
+00:13:17.530 --> 00:13:22.059
+Iskander Andrews: So are there like discussions of like generalizing the curve?
+
+123
+00:13:22.220 --> 00:13:26.660
+Iskander Andrews: On the elliptic operations, and then you specify what curve you want to operate on.
+
+124
+00:13:29.040 --> 00:13:30.239
+Iskander Andrews: Something like this.
+
+125
+00:13:32.280 --> 00:13:37.610
+Kent Dybvig: Maybe Kevin can comment on that. We are we have added new curves. I'm not sure if this is
+
+126
+00:13:37.880 --> 00:13:39.700
+Kent Dybvig: Exactly what you're getting at.
+
+127
+00:13:43.830 --> 00:13:47.939
+Kevin Millikin (Shielded Technologies): I don't… I don't completely understand the question. I mean, right now, you…
+
+128
+00:13:48.720 --> 00:13:57.379
+Kevin Millikin (Shielded Technologies): Right now, you could make, I believe you could make a circuit generic over a curve type.
+
+129
+00:13:58.660 --> 00:13:59.600
+Kevin Millikin (Shielded Technologies): But
+
+130
+00:13:59.960 --> 00:14:15.619
+Kevin Millikin (Shielded Technologies): the… the, so… so it's… it's not likely that we are going to change the underlying crypto system, in the… in the intermediate term, and it's not likely that we're going… it's a thing we're going to be doing very frequently.
+
+131
+00:14:15.620 --> 00:14:20.779
+Kevin Millikin (Shielded Technologies): But the, but the thing is that, all of the other curves we've implemented are emulated.
+
+132
+00:14:20.940 --> 00:14:27.970
+Kevin Millikin (Shielded Technologies): in the proof system. And so they're very expensive. And Jubjub is cheap, is relatively cheap.
+
+133
+00:14:28.490 --> 00:14:39.810
+Kevin Millikin (Shielded Technologies): And this is the same for the hashing functions. So all of the hashing functions that we've implemented, except for Poseidon, are emulated and they're expensive and then Poseidon is cheap.
+
+134
+00:14:41.150 --> 00:14:48.309
+Kevin Millikin (Shielded Technologies): So… so, I don't think that really answers your question, but it tells you why we
+
+135
+00:14:48.710 --> 00:14:54.689
+Kevin Millikin (Shielded Technologies): why we have a preferred elliptic curve and hashing function.
+
+136
+00:14:55.430 --> 00:15:04.420
+Iskander Andrews: I think I meant precisely the APIs, the primitive APIs we get from the standard library regarding the elliptic curve operations.
+
+137
+00:15:04.610 --> 00:15:05.200
+Kevin Millikin (Shielded Technologies): Such as?
+
+138
+00:15:05.200 --> 00:15:09.709
+Iskander Andrews: Easy mall, easy ad.
+
+139
+00:15:09.710 --> 00:15:18.679
+Kevin Millikin (Shielded Technologies): Those are overloaded. Those are overloaded. So if you just made a generic circuit that was generic over a curve type and you instantiated it to JubJub, you would get…
+
+140
+00:15:18.870 --> 00:15:27.029
+Kevin Millikin (Shielded Technologies): EC add of ChubJub, and if you instantiated it to curve 25519, you would get EC add for 25519.
+
+141
+00:15:29.730 --> 00:15:32.639
+Iskander Andrews: Okay, I think I didn't know this,
+
+142
+00:15:32.960 --> 00:15:35.260
+Parisa Ataei (Shielded Tech): Your question is that better dose.
+
+143
+00:15:35.450 --> 00:15:41.190
+Parisa Ataei (Shielded Tech): ECMOL and ECAD, those are generic or not? Is that the question?
+
+144
+00:15:41.190 --> 00:15:42.000
+Iskander Andrews: Yeah, yeah.
+
+145
+00:15:42.000 --> 00:15:44.829
+Kevin Millikin (Shielded Technologies): They're not generic, they're not generic, they're overloaded.
+
+146
+00:15:45.110 --> 00:15:50.929
+Kevin Millikin (Shielded Technologies): Which you could think of as a different kind of genericity.
+
+147
+00:15:51.990 --> 00:15:52.930
+Kevin Millikin (Shielded Technologies): Jonathan?
+
+148
+00:15:53.130 --> 00:16:09.430
+Jonathan Sobel: Yeah, I was actually wondering whether, Iskander, did you really mean the need is for generic, or do you really mean the same kind of thing as for the hash functions? And Kevin, you came in late, but we were talking about the need for the hash functions to be named with precisely the hash algorithm, so that if you come back to it 5 years later.
+
+149
+00:16:09.430 --> 00:16:19.209
+Jonathan Sobel: our default persistent hash might be different, but you might want to say, I want that one. So, Iskander, did you actually mean that what you want is to be able to identify the specific one?
+
+150
+00:16:20.070 --> 00:16:29.689
+Iskander Andrews: Well, I I I thought that the EC ad, EC model only work on job ship curve, and then when we change the curve or the if if the back-end curve got changed.
+
+151
+00:16:30.080 --> 00:16:34.140
+Iskander Andrews: And as far as I understand, the object curve is the default one right now.
+
+152
+00:16:34.320 --> 00:16:38.989
+Iskander Andrews: And if that default one changed, then these will then also get different.
+
+153
+00:16:39.210 --> 00:16:43.870
+Iskander Andrews: Then they're in the same case like transient hash. That's what they're sold on.
+
+154
+00:16:43.870 --> 00:16:46.750
+Jonathan Sobel: I think he actually meant generic in the sense of the opposite of generic.
+
+155
+00:16:46.900 --> 00:17:02.280
+Jonathan Sobel: So it's it's this need to be able to say, I am using precisely this algorithm for this, so that if I use it again 18 years later and the and we've changed what our default is, we can there's some way to still go back and say, no, I mean that algorithm that I used 18 years ago.
+
+156
+00:17:03.400 --> 00:17:21.759
+Kevin Millikin (Shielded Technologies): Compact does not have any notion of a generic, or a default curve. So if you… if you call EC add on a pair of JubJub points, you get the JubJub EC add. And if you call EC add on a pair of curve 25519 points, you get curve 25519 add.
+
+157
+00:17:21.780 --> 00:17:27.970
+Kevin Millikin (Shielded Technologies): And there's no notion of a default Like, a default curve point.
+
+158
+00:17:28.380 --> 00:17:32.700
+Kevin Millikin (Shielded Technologies): You will… you explicitly name the one that you're working with in compact types.
+
+159
+00:17:33.330 --> 00:17:38.509
+Iskander Andrews: Okay, so seems already have what we need, or what I was concerned of.
+
+160
+00:17:38.800 --> 00:17:42.980
+Iskander Andrews: So I'll test it and play around with it, that's actually good news, good, and
+
+161
+00:17:43.960 --> 00:17:48.640
+Iskander Andrews: Maybe it has to be said somewhere in the docs. I don't believe it's there, but…
+
+162
+00:17:49.490 --> 00:17:54.740
+Iskander Andrews: I actually may or I just misunderstood it anyways. But thank you guys.
+
+163
+00:17:55.500 --> 00:17:56.190
+Iskander Andrews: Cool.
+
+164
+00:18:11.300 --> 00:18:13.150
+Parisa Ataei (Shielded Tech): Okay.
+
+165
+00:18:16.860 --> 00:18:28.369
+Parisa Ataei (Shielded Tech): Alright, I'm gonna move on to serialization format and consistency. So, we have to figure out a couple of things. The first thing is.
+
+166
+00:18:29.690 --> 00:18:33.699
+Parisa Ataei (Shielded Tech): is, there's… At least, Claude.
+
+167
+00:18:34.190 --> 00:18:49.099
+Parisa Ataei (Shielded Tech): Claude says that there is inconsistency in serialize and deserialize the function themselves with the descriptors that we have. So, the very first step, at least from my perspective.
+
+168
+00:18:49.230 --> 00:18:57.220
+Parisa Ataei (Shielded Tech): For making… making sure that serialization in Compact is consistent is to…
+
+169
+00:18:57.380 --> 00:19:08.500
+Parisa Ataei (Shielded Tech): Get rid of the expansion of the serialize that we have right now early in the compiler, and change that so that those also go down the path of
+
+170
+00:19:08.700 --> 00:19:15.950
+Parisa Ataei (Shielded Tech): the descriptors and generating the ZKAR if we have instructions for it.
+
+171
+00:19:16.110 --> 00:19:20.520
+Parisa Ataei (Shielded Tech): I do see hands up if it's… urgent.
+
+172
+00:19:21.150 --> 00:19:25.270
+Kent Dybvig: Parisa, I just wanted to. I just wanted to set the context for people.
+
+173
+00:19:25.270 --> 00:19:25.650
+Parisa Ataei (Shielded Tech): Sure.
+
+174
+00:19:25.650 --> 00:19:29.799
+Kent Dybvig: who may not be aware of what this is about. So.
+
+175
+00:19:29.970 --> 00:19:39.720
+Kent Dybvig: What this is about is, it's kind of similar to what Iskander was asking about. It's about having some guarantee for the future, that
+
+176
+00:19:39.890 --> 00:19:46.649
+Kent Dybvig: That we… that the serialization format won't change, or at least won't change unless… unless…
+
+177
+00:19:46.770 --> 00:19:53.820
+Kent Dybvig: Something obvious about it, about the actual serialized form has changed, and a version flag.
+
+178
+00:19:54.190 --> 00:20:04.659
+Kent Dybvig: So, what we're… what we're aiming for, what we're trying to build here is, is a serialization format that is common to
+
+179
+00:20:04.880 --> 00:20:12.380
+Kent Dybvig: To the serialized… the explicit serialized and deserialized, circuits to the events.
+
+180
+00:20:12.480 --> 00:20:22.429
+Kent Dybvig: How they're serialized and deserialized, and to how we serialize the deserialized chain, information that's going to go on chain.
+
+181
+00:20:22.470 --> 00:20:32.740
+Kent Dybvig: And how we serialize information that's going to go… that's getting fed into the hash functions when they take a compact values argument.
+
+182
+00:20:32.940 --> 00:20:40.289
+Kent Dybvig: And so, we're trying to figure out how to do that, and the first step of that is making sure that the existing formats are all consistent.
+
+183
+00:20:41.000 --> 00:20:55.780
+Kent Dybvig: And then, with each other, so that we have the same format, and then adding… adding a version tag to each… to each of them, so that they… so that if we want to make a change in the future, we can do so without… and give people a way of saying, hey.
+
+184
+00:20:55.970 --> 00:21:02.310
+Kent Dybvig: I… I don't understand this, instead of just bogusly interpreting something wrong.
+
+185
+00:21:06.950 --> 00:21:08.650
+Parisa Ataei (Shielded Tech): Thank you.
+
+186
+00:21:12.570 --> 00:21:19.410
+Parisa Ataei (Shielded Tech): Okay. So the first step that we have, that we have discussed, is introducing version bytes.
+
+187
+00:21:23.880 --> 00:21:42.299
+Parisa Ataei (Shielded Tech): And to give more of a… well, yeah, I was half listening. So we have serialized and deserialized that are… they were a side product of events. We do have persistent hash, we do have, the, flattened data type pass.
+
+188
+00:21:45.610 --> 00:21:56.249
+Parisa Ataei (Shielded Tech): That carries that out, and then we have the descriptors. That are generated, as part of the print TypeScript pass.
+
+189
+00:21:59.570 --> 00:22:00.720
+Parisa Ataei (Shielded Tech): So.
+
+190
+00:22:02.760 --> 00:22:12.869
+Parisa Ataei (Shielded Tech): The… the part that serialize and deserialize, can be improved in terms of they can at least use the descriptors that are used.
+
+191
+00:22:13.030 --> 00:22:21.680
+Parisa Ataei (Shielded Tech): Instead of… instead of, the expansion and then doing their own serialization. That's, that's one.
+
+192
+00:22:24.070 --> 00:22:36.380
+Parisa Ataei (Shielded Tech): one clear path to take. I think the next question is whether persistent hash and the flattened data types and the descriptors that are generated.
+
+193
+00:22:36.780 --> 00:22:40.590
+Parisa Ataei (Shielded Tech): From the runtime, if those are consistent.
+
+194
+00:22:40.730 --> 00:22:43.030
+Parisa Ataei (Shielded Tech): Kevin.
+
+195
+00:22:46.540 --> 00:22:47.400
+Kent Dybvig: You're muted.
+
+196
+00:22:47.400 --> 00:22:57.319
+Kevin Millikin (Shielded Technologies): Alright, thank you. I was gonna say, the first step is not to change the compiler to remove the serialized, deserialized pass. The first step is to define what our serialization format is.
+
+197
+00:22:57.680 --> 00:23:01.469
+Kevin Millikin (Shielded Technologies): That's… that's just the very first thing we should do.
+
+198
+00:23:01.550 --> 00:23:19.409
+Kevin Millikin (Shielded Technologies): And then we should make sure that those two formats agree, by changing one or the other. I think that using this as an opportunity to optimize the way that serialization works in circuit is future work and not necessary to… not necessarily the first thing that we need to do.
+
+199
+00:23:21.140 --> 00:23:30.539
+Kevin Millikin (Shielded Technologies): A flattened data type is not, is not separate from, flattened data type is not separate from the.
+
+200
+00:23:30.840 --> 00:23:41.569
+Kevin Millikin (Shielded Technologies): from, the descriptors. It has to agree with the descriptors. It's a… like, we define the descriptors, and flattened data type must agree with the descriptors, or the system won't work.
+
+201
+00:23:42.620 --> 00:23:43.420
+Kevin Millikin (Shielded Technologies): Kent.
+
+202
+00:23:43.980 --> 00:23:44.660
+Kent Dybvig: Yes.
+
+203
+00:23:45.180 --> 00:23:47.770
+Kent Dybvig: I agree with that statement.
+
+204
+00:23:48.070 --> 00:23:57.290
+Kent Dybvig: But looked at it from the standpoint of… of, The fact is, we have different mechanisms for serialization and.
+
+205
+00:23:57.290 --> 00:23:59.559
+Kevin Millikin (Shielded Technologies): Yeah, yeah, it's just not, it's not a, it's not a portal.
+
+206
+00:23:59.560 --> 00:24:00.090
+Kent Dybvig: And it's not.
+
+207
+00:24:00.090 --> 00:24:01.690
+Kevin Millikin (Shielded Technologies): It's a fourth serialization format. It's not.
+
+208
+00:24:01.690 --> 00:24:19.639
+Kent Dybvig: Yeah. No. It's not. I don't ideally, there's only one serialization format, as you said, and we and we define that clearly. But we have to be conscious that it's implemented in in four different ways. Well, three different ways, really, because persistent hash goes by way of the descriptors also.
+
+209
+00:24:21.070 --> 00:24:32.000
+Kevin Millikin (Shielded Technologies): Right, and the other hashing functions don't use, the other hashing functions use the descriptors in a different way. It's kind of an ad hoc flattening function that I've written in JavaScript.
+
+210
+00:24:32.380 --> 00:24:41.610
+Kent Dybvig: Yeah, so I think we've got too many different implementations of it. If we could cut the number of implementations, that would be useful, too.
+
+211
+00:24:41.610 --> 00:24:55.660
+Kevin Millikin (Shielded Technologies): I think it's… I think it's… I think it's clear, I think we agree. The… the, ultimately, eventually, the descriptors will… will also do serialization. It's, they… it won't be the.
+
+212
+00:24:55.660 --> 00:25:04.689
+Kevin Millikin (Shielded Technologies): two-value function that they have right now, because that does not do the same serialization that we do, necessarily. So there'll be another method in descriptors.
+
+213
+00:25:04.870 --> 00:25:17.100
+Kevin Millikin (Shielded Technologies): that serializes. And then the opportunity for improvement, the JavaScript code for serialization right now is really big, because it unrolls everything. So if you have a vector of structs, you end up with
+
+214
+00:25:17.580 --> 00:25:23.909
+Kevin Millikin (Shielded Technologies): potentially, like, thousands of lines of JavaScript code to serialize the individual elements and fields instead of… instead of
+
+215
+00:25:24.110 --> 00:25:25.759
+Kevin Millikin (Shielded Technologies): Looping, like you would expect.
+
+216
+00:25:26.260 --> 00:25:26.890
+Kent Dybvig: Yeah.
+
+217
+00:25:26.890 --> 00:25:46.490
+Kevin Millikin (Shielded Technologies): We can do much better by just calling the descriptors in JavaScript, but a related point is that there are going to be in-circuit efficient serialized and deserialization operations for ZKIR types, and we should use those in our representation.
+
+218
+00:25:46.850 --> 00:25:53.300
+Kevin Millikin (Shielded Technologies): when we do step zero, which is define the representation, we should use the efficient in-circuit representations.
+
+219
+00:25:54.160 --> 00:25:58.509
+Kevin Millikin (Shielded Technologies): Which is why we want to version the format, because those might change.
+
+220
+00:25:59.310 --> 00:26:04.360
+Parisa Ataei (Shielded Tech): And those exist today, so there are already… For some types.
+
+221
+00:26:04.360 --> 00:26:16.499
+Kevin Millikin (Shielded Technologies): For some types. I mean, we'll add… we'll add them. I mean, there's a… there is a proposal coming. I'm working on a proposal for exactly what we're going to do here, so there… so there is something… so it is coming.
+
+222
+00:26:19.550 --> 00:26:22.510
+Jonathan Sobel: So, two questions. One, one…
+
+223
+00:26:22.820 --> 00:26:29.500
+Jonathan Sobel: I like the way, Kent, you sort of laid out the… there are logically these separate things, and it turns out that some of them match
+
+224
+00:26:29.940 --> 00:26:33.250
+Jonathan Sobel: necessarily right now, and some don't.
+
+225
+00:26:33.490 --> 00:26:35.280
+Jonathan Sobel: Is it true that…
+
+226
+00:26:35.570 --> 00:26:50.039
+Jonathan Sobel: the serialization used in events is the same as what we use for serialized, deserialized, by result of the fact that we surface deserialized because of events, is that right? So those already match, right?
+
+227
+00:26:50.150 --> 00:26:50.930
+Jonathan Sobel: Okay.
+
+228
+00:26:51.340 --> 00:26:54.350
+Jonathan Sobel: And then on the efficiency thing, I just wanna…
+
+229
+00:26:54.780 --> 00:27:06.270
+Jonathan Sobel: I don't have notes from it, but was it David or someone a while back mentioned getting some massive speed up in actual code, or circuit shrinking, or something, or proof speed up by
+
+230
+00:27:06.280 --> 00:27:15.150
+Jonathan Sobel: sort of hand-choosing some serialization operators that were efficient instead of our default one, or something like that. Am I misremembering that? Is that…
+
+231
+00:27:15.660 --> 00:27:17.270
+Kent Dybvig: I don't… I don't recall that.
+
+232
+00:27:17.270 --> 00:27:28.499
+Kevin Millikin (Shielded Technologies): recall, but the… yeah, so one point is that we… the event COIP was written to require serialization in circuit, and I think that that was not something that we should have required.
+
+233
+00:27:29.990 --> 00:27:33.100
+Kevin Millikin (Shielded Technologies): But,
+
+234
+00:27:34.350 --> 00:27:48.669
+Kevin Millikin (Shielded Technologies): But we… but we have it. So… but you don't necessarily need serialization in circuit. So if you're doing serialization off-chain, you can call the… you can just directly in your DAP call the descriptors. And there are… there are some.
+
+235
+00:27:48.870 --> 00:27:59.060
+Kevin Millikin (Shielded Technologies): usability issues with the way that we expose descriptors. We don't actually export them, so you have to define your own, and I've got… I've filed issues that we should… we should do better, like, the descriptors that we use.
+
+236
+00:27:59.280 --> 00:28:03.610
+Kevin Millikin (Shielded Technologies): The descriptors for the types that we export should also be exported, for instance.
+
+237
+00:28:03.750 --> 00:28:17.230
+Jonathan Sobel: I'm just remembering, on one of these previous calls, someone gave a bunch of stats that said, you know, here was this performance, and I don't remember if it was circuit size or proving time or what, but one of their huge speedups was in changing serialization.
+
+238
+00:28:18.070 --> 00:28:26.109
+Kevin Millikin (Shielded Technologies): Yeah, that's that's clearly a known issue. It's I filed. I filed issues about the inefficiencies and the way we do it now.
+
+239
+00:28:26.650 --> 00:28:30.960
+Kent Dybvig: We can certainly file a new COIT for… For,
+
+240
+00:28:31.980 --> 00:28:37.730
+Kent Dybvig: Events that doesn't require the serialization and circuit, So…
+
+241
+00:28:37.730 --> 00:28:45.969
+Kevin Millikin (Shielded Technologies): Well, I think it's… I think it's… it's there. I mean, it's… it's not… it may be a nice to have, but it's not the only way that we would expose serialization.
+
+242
+00:28:46.480 --> 00:28:51.819
+Kent Dybvig: peter: Yeah, but at least we can make the serialization more efficient in circuit by using the bytes.
+
+243
+00:28:52.270 --> 00:28:55.200
+Kent Dybvig: Type and operators.
+
+244
+00:28:56.630 --> 00:28:59.839
+Kent Dybvig: Right now, right now, we're basically creating vectors.
+
+245
+00:29:00.400 --> 00:29:02.070
+Kent Dybvig: And converting the bytes.
+
+246
+00:29:02.910 --> 00:29:08.759
+Kent Dybvig: So and if something was a bytes, we turn it into a vector, but then we turn it back into a bytes. It's just a mess.
+
+247
+00:29:11.010 --> 00:29:17.749
+Kent Dybvig: And I was… I think the other thing about the serialized… the descriptors, is that.
+
+248
+00:29:17.870 --> 00:29:23.589
+Kent Dybvig: Effectively, they bought them out in the OCRT, the on-chain runtime.
+
+249
+00:29:24.030 --> 00:29:28.760
+Kent Dybvig: As far as interpretation and flattening of it, so, like, persistent hash.
+
+250
+00:29:29.410 --> 00:29:32.320
+Kent Dybvig: Actually… Takes.
+
+251
+00:29:33.020 --> 00:29:34.830
+Kent Dybvig: the,
+
+252
+00:29:36.940 --> 00:29:47.389
+Kent Dybvig: The descriptor-generated serialization format and turns it into something else that obviously has to turn it into a sequence of bytes internally, and…
+
+253
+00:29:47.920 --> 00:30:00.769
+Kent Dybvig: that's where my visibility ends when I'm looking at the code. So, I remember when I was trying to get flattened program… sorry, flattened data type, the pass to the compiler that… that, turns things into… into sequence. It turns…
+
+254
+00:30:00.770 --> 00:30:08.060
+Kent Dybvig: nested data structures and atoms into a sequence of field values.
+
+255
+00:30:08.320 --> 00:30:23.540
+Kent Dybvig: And I was trying to look and compare it with the descriptors to make sure that I was doing the same thing. It was completely unclear what the descriptors were doing to me, because they're creating a… basically JavaScript structures or objects, that don't…
+
+256
+00:30:23.650 --> 00:30:27.799
+Kent Dybvig: Have an obvious representation as a sequence of fields.
+
+257
+00:30:28.480 --> 00:30:38.040
+Kent Dybvig: And I find that lack of transparency is is a problem. It was a problem for me understanding how to do flat how to create flattened data type.
+
+258
+00:30:38.190 --> 00:30:57.910
+Kent Dybvig: And how to modify descriptors when new types are added. And it's gonna be a perpetual problem, unless we can somehow make that relationship between what we… how we transform programs in the compiler, in preparation for creating the circuits, and how we…
+
+259
+00:30:58.170 --> 00:31:02.419
+Kent Dybvig: Create the same representation in our generated JavaScript code.
+
+260
+00:31:05.360 --> 00:31:16.140
+Kevin Millikin (Shielded Technologies): Yeah, I've spent two quarters now wrestling with exactly this problem, getting all of these things to agree. So it's sorely needed for sure.
+
+261
+00:31:16.220 --> 00:31:28.179
+Kevin Millikin (Shielded Technologies): The one thing that we've discussed with the crypto team is getting away from this field encoding at all, so it's not necessary that we even have that. It was sort of a consequence of
+
+262
+00:31:28.340 --> 00:31:39.510
+Kevin Millikin (Shielded Technologies): ZKIR2 being an untyped language, and the only… a unitype language, and the only type was the native field values. So we now have types in ZKIR, and the crypto team would rather have
+
+263
+00:31:39.960 --> 00:31:41.950
+Kevin Millikin (Shielded Technologies): The, the,
+
+264
+00:31:42.060 --> 00:31:53.650
+Kevin Millikin (Shielded Technologies): private inputs and public inputs than the circuit inputs that they're given be encoded as binary representations using their binary format in the Midnight ZK library than the field encoding anyway.
+
+265
+00:31:53.980 --> 00:32:09.009
+Kevin Millikin (Shielded Technologies): So we have implicit decode instructions and explicit encode instructions that's converting in ZKIR between the representations. We could just get rid of that. That's a bigger… that's a bigger change, obviously.
+
+266
+00:32:09.010 --> 00:32:16.839
+Kevin Millikin (Shielded Technologies): I think it's… I think the ledger's agnostic to it. The ledger just stores what we… what we tell it to, and it's all… and this all happens off-chain.
+
+267
+00:32:18.690 --> 00:32:21.779
+Kent Dybvig: Yeah. But the on chain runtime is involved somehow in all this.
+
+268
+00:32:21.980 --> 00:32:25.489
+Kent Dybvig: It's not the ledger. It's not the ledger, but it is.
+
+269
+00:32:25.490 --> 00:32:44.380
+Kevin Millikin (Shielded Technologies): Right, the on-chain runtime is gonna hash, like, for persistent hash, it's gonna hash what we tell it. So we don't have to tell it that it's 19 field values, we can tell it that it's 78 bytes, and it just… and that's… we can just tell… we can just always tell the on-chain runtime that things are a certain number of bytes, and we can have our own binary encoding.
+
+270
+00:32:45.240 --> 00:32:54.910
+Kevin Millikin (Shielded Technologies): I did write, there is in the compact runtime now a JavaScript function called toBinaryRupper, which implements exactly this.
+
+271
+00:32:55.020 --> 00:33:03.879
+Kevin Millikin (Shielded Technologies): conversion… It implements exactly the conversion that persistent hash uses.
+
+272
+00:33:05.610 --> 00:33:06.340
+Kevin Millikin (Shielded Technologies): Umm.
+
+273
+00:33:07.510 --> 00:33:16.600
+Kevin Millikin (Shielded Technologies): in… in JavaScript, and that's used for the… yeah, for Ketchak UC, for Ketchak 256 and the SHA-512 hashing.
+
+274
+00:33:24.680 --> 00:33:25.180
+Kent Dybvig: Yep.
+
+275
+00:33:25.430 --> 00:33:33.250
+Kevin Millikin (Shielded Technologies): So that's… so those… so Keccak256 and SHA512 are not, exposed in the on-chain runtime.
+
+276
+00:33:33.540 --> 00:33:42.849
+Kevin Millikin (Shielded Technologies): And they're not, and we're not using an on-chain runtime implementation of those at all. But we are doing the exact same.
+
+277
+00:33:43.070 --> 00:33:46.960
+Kevin Millikin (Shielded Technologies): Flattening of the… of the…
+
+278
+00:33:47.210 --> 00:33:50.470
+Kevin Millikin (Shielded Technologies): field-aligned binary representation that the on-chain runtime would do.
+
+279
+00:33:51.780 --> 00:33:56.599
+Kent Dybvig: Okay. I'll wait for your proposal.
+
+280
+00:33:56.740 --> 00:34:03.570
+Kent Dybvig: But at some point, I'd love to sit down with the code in front of us for the descriptors, and…
+
+281
+00:34:03.770 --> 00:34:09.150
+Kent Dybvig: And flatten programs, and… Serialize and deserialize, and…
+
+282
+00:34:09.960 --> 00:34:22.169
+Kent Dybvig: And satisfy my own curiosity about how it… how it happens that these… that the flat data type and the descriptors actually produce the same thing, because it's not at all clear to me.
+
+283
+00:34:23.980 --> 00:34:29.149
+Kent Dybvig: And to try to figure out if we can do something to make it more transparent.
+
+284
+00:34:29.850 --> 00:34:32.210
+Kent Dybvig: Whatever representation we end up with.
+
+285
+00:34:34.710 --> 00:34:44.370
+Parisa Ataei (Shielded Tech): Andre, quick, before I move on to Andre, Kevin, did you say, two binary representation is used for Keshak and…
+
+286
+00:34:44.989 --> 00:34:46.369
+Kevin Millikin (Shielded Technologies): Shot 512.
+
+287
+00:34:46.840 --> 00:34:47.949
+Parisa Ataei (Shielded Tech): Oh, thank you.
+
+288
+00:34:48.150 --> 00:34:50.110
+Parisa Ataei (Shielded Tech): Andrej?
+
+289
+00:34:50.760 --> 00:35:03.879
+Andrzej Kopeć (Shielded): So with the descriptors, I wonder because one thing is to expose them at all and that would be very nice. But I wonder…
+
+290
+00:35:04.060 --> 00:35:14.230
+Andrzej Kopeć (Shielded): The structure today is that… Essentially, every descriptor is custom built for every.
+
+291
+00:35:14.550 --> 00:35:22.729
+Andrzej Kopeć (Shielded): place where a particular type is defined and every descriptor kind of re-implements the
+
+292
+00:35:22.840 --> 00:35:29.210
+Andrzej Kopeć (Shielded): to alignment, from alignment, and the conversions to FAB and back.
+
+293
+00:35:29.550 --> 00:35:43.180
+Andrzej Kopeć (Shielded): I wonder if keeping this in sync would help if the descriptors were more… Data-driven, as in…
+
+294
+00:35:44.180 --> 00:35:52.780
+Andrzej Kopeć (Shielded): The descriptor is essentially a result of operating on a data structure that describes what a particular type is.
+
+295
+00:35:53.080 --> 00:36:07.290
+Andrzej Kopeć (Shielded): So that, so that hopefully, the representation that you use internally in the compiler could be, more or less transformed into
+
+296
+00:36:07.820 --> 00:36:15.040
+Andrzej Kopeć (Shielded): equivalent JSON or something like that, and provide it as an input to a function that produces the descriptor.
+
+297
+00:36:22.590 --> 00:36:23.170
+Joseph Denman: So.
+
+298
+00:36:23.170 --> 00:36:26.990
+Kent Dybvig: Possibly. There's an interpretation overhead there.
+
+299
+00:36:27.140 --> 00:36:32.040
+Kent Dybvig: at runtime that I'm not… very keen on. It's a nice thing about
+
+300
+00:36:33.580 --> 00:36:43.919
+Kent Dybvig: either generating the code directly or using the descriptors indirectly, is that that type has already been baked in. They've been specialized to the particular type, so that
+
+301
+00:36:44.120 --> 00:36:48.059
+Kent Dybvig: You don't have that interpretation overhead at runtime.
+
+302
+00:36:48.190 --> 00:36:50.579
+Kent Dybvig: I don't actually think that it's important.
+
+303
+00:36:50.940 --> 00:36:51.950
+Kent Dybvig: that…
+
+304
+00:36:53.560 --> 00:37:04.360
+Kent Dybvig: Yeah, I don't think it's actually important to making them the same. Since that information is available at compile time, I see no reason not to consume it at compile time to create some
+
+305
+00:37:04.840 --> 00:37:09.070
+Kent Dybvig: Some more efficient, algorithm.
+
+306
+00:37:10.380 --> 00:37:11.370
+Kent Dybvig: Personally.
+
+307
+00:37:12.820 --> 00:37:20.350
+Andrzej Kopeć (Shielded): So one reason I asked about that direction was that It would…
+
+308
+00:37:22.740 --> 00:37:33.070
+Andrzej Kopeć (Shielded): It could potentially enable us or move us a step closer towards making interaction with Compact.
+
+309
+00:37:33.240 --> 00:37:45.599
+Andrzej Kopeć (Shielded): more platform agnostic and less bound to JavaScript because in such case the descriptors as data could be consumed more easily in another language.
+
+310
+00:37:45.670 --> 00:37:53.720
+Andrzej Kopeć (Shielded): and then convert it to the actual serialization, the serialization functions suitable for that language.
+
+311
+00:37:55.990 --> 00:38:00.239
+Andrzej Kopeć (Shielded): Without necessarily compiler knowing about it or.
+
+312
+00:38:00.240 --> 00:38:03.940
+Kent Dybvig: Yeah, well, I think that… I think that just goes hand in hand with providing
+
+313
+00:38:04.620 --> 00:38:14.239
+Kent Dybvig: sufficient information for people to generate code. I don't think that… I don't think you have to resort to runtime interpretation for that.
+
+314
+00:38:14.920 --> 00:38:21.419
+Kent Dybvig: peter: If you said, I want to be able to, at runtime, conjure up a new type that didn't exist at compile time.
+
+315
+00:38:21.970 --> 00:38:23.650
+Kent Dybvig: And…
+
+316
+00:38:24.110 --> 00:38:29.469
+Kent Dybvig: and do something with it, then I would say, yeah, let's have an interpreter for those in the runtime as well.
+
+317
+00:38:29.670 --> 00:38:38.369
+Kent Dybvig: And then the right way to get the compiled version of that would be to specialize the interpreter to the particular constant input of the type value.
+
+318
+00:38:38.880 --> 00:38:42.099
+Kent Dybvig: But I think that…
+
+319
+00:38:42.220 --> 00:38:55.130
+Kent Dybvig: we're talking about different stages of execution here, and I think we should keep compile time, compile time, and runtime, runtime, and if… if we want to support other languages, we should give, compile time support.
+
+320
+00:38:55.460 --> 00:39:05.640
+Kent Dybvig: compile time descriptors, you know, that JSON could be their compile time, or whatever representation would be there at their compile time, so they could also generate efficient
+
+321
+00:39:05.970 --> 00:39:08.640
+Kent Dybvig: Serialization and deserialization code.
+
+322
+00:39:14.000 --> 00:39:16.339
+Parisa Ataei (Shielded Tech): Joe, did you have something?
+
+323
+00:39:16.640 --> 00:39:19.549
+Parisa Ataei (Shielded Tech): I saw Joe's hand, and then it disappeared.
+
+324
+00:39:19.840 --> 00:39:36.480
+Joseph Denman: Yeah, I mean, I just… I was just gonna mention, that, you know, there was, at one point, an appetite for creating, essentially, a DSL, for compact types for curve points, and field values.
+
+325
+00:39:36.480 --> 00:39:42.160
+Joseph Denman: Because we had seen, in many places that it is possible.
+
+326
+00:39:42.250 --> 00:39:51.499
+Joseph Denman: To pass in values, since we were just representing fields as big ints that are not necessarily fields, or not necessarily the proper scalars.
+
+327
+00:39:51.500 --> 00:40:09.500
+Joseph Denman: And you would only find out about that indirectly. But if you introduce some sort of DSL that allowed you to specify values with, like, some smart constructor, then… Yeah, it's kind of in the same path.
+
+328
+00:40:09.990 --> 00:40:16.179
+Joseph Denman: But, you know, then the conversation kind of went a different direction, so I lowered my hand.
+
+329
+00:40:21.200 --> 00:40:22.180
+Parisa Ataei (Shielded Tech): Jonathan.
+
+330
+00:40:23.700 --> 00:40:28.779
+Jonathan Sobel: Yeah, there's, there's an interesting interaction, I think, still, between
+
+331
+00:40:29.200 --> 00:40:46.780
+Jonathan Sobel: But Iskander was asking about hash and the serialization, because… If we say we want persistent hash to use the same serialization as the other things, in order to do its hashing, and we're gonna put versioning on our
+
+332
+00:40:47.530 --> 00:40:58.130
+Jonathan Sobel: on our hashing. This is version… I mean, on our serialization. This is version 4 of our serialization format, and we get specific about our hashing and say, and this is…
+
+333
+00:40:58.130 --> 00:41:07.569
+Jonathan Sobel: this hash function, hash function XYZ, then effectively you're having to say, this is hash function XYZ, which, given a value, will use serialization format 5.
+
+334
+00:41:07.570 --> 00:41:23.680
+Jonathan Sobel: And I will also potentially need hash function XYZ that still knows how to work with serialization format 4 in order to work with some old data. There's a funny kind of cross-product there that could get ugly, and I just want to sort of raise that concern.
+
+335
+00:41:25.510 --> 00:41:30.960
+Kent Dybvig: Yeah. This is actually, our documentation claims that.
+
+336
+00:41:31.750 --> 00:41:43.919
+Kent Dybvig: that, I guess, persistent hash will be the same forever, and people have interpreted this as meaning not just that we'll be using the same hash function, but we'll also have the same serialization of
+
+337
+00:41:43.930 --> 00:42:00.879
+Kent Dybvig: the compact data value, and I can see why they would want that, because it doesn't really help for the hash function to be the same if we pull the rug out from under them on how we represent things, even for fields, for example, for Iskander. If all he wants is a field.
+
+338
+00:42:01.150 --> 00:42:13.410
+Kent Dybvig: And we decide to, turn a field into a big Indian sequence of bits, of bytes, instead of a little Indian sequence of bytes, between one version and another, it's gonna screw up his hashing.
+
+339
+00:42:13.960 --> 00:42:22.010
+Kent Dybvig: So, I think that, yeah, this is… actually, nailing down the serialization format is a prerequisite for… for having
+
+340
+00:42:22.230 --> 00:42:27.750
+Kent Dybvig: Having the hash functions, really be persistent.
+
+341
+00:42:32.500 --> 00:42:36.140
+Kent Dybvig: I don't know about supporting old versions. I think, in general.
+
+342
+00:42:38.310 --> 00:42:44.019
+Kent Dybvig: I don't know how far down that path we're gonna go in the long run. There will always be
+
+343
+00:42:44.620 --> 00:42:47.330
+Kent Dybvig: Available, the old compiler to use.
+
+344
+00:42:47.780 --> 00:42:49.309
+Kent Dybvig: For an old contract.
+
+345
+00:42:49.590 --> 00:42:54.050
+Kent Dybvig: And if you… anytime you use the new compiler, you're going to change the…
+
+346
+00:42:54.200 --> 00:43:02.099
+Kent Dybvig: You're gonna have to redeploy because the, because the keys are gonna change, the verifier keys are gonna change anyway.
+
+347
+00:43:02.720 --> 00:43:20.749
+Kent Dybvig: So I don't know how far down the path of… of, you know, say, being able to have a compiler that takes as input some older version of language, or some older curves that we never… that we no longer support, or, you know, once we switch from JubJub to something else, still support JubJub. I don't know how much of that we're gonna…
+
+348
+00:43:21.270 --> 00:43:25.479
+Kent Dybvig: we should engage in. Certainly, we shouldn't be changing anything
+
+349
+00:43:25.840 --> 00:43:42.679
+Kent Dybvig: it's making things backward compatible. Once we have a 1.0, we shouldn't be making backward incompatible changes until we get to 2.0, but I think at the point where we release 2.0, it's fair… it's gonna probably be fair and necessary for us to say, if you need to compile an old contract.
+
+350
+00:43:43.170 --> 00:43:49.200
+Kent Dybvig: That's already deployed on chain and not have to redeploy it. The only safe bet is to use the old compiler.
+
+351
+00:43:51.060 --> 00:43:53.009
+Kent Dybvig: And same thing with serialization.
+
+352
+00:43:57.530 --> 00:43:58.380
+Parisa Ataei (Shielded Tech): Andre.
+
+353
+00:43:58.900 --> 00:44:07.579
+Andrzej Kopeć (Shielded): But one thing, one thing makes it kind of nasty, that is,
+
+354
+00:44:08.530 --> 00:44:23.959
+Andrzej Kopeć (Shielded): When there is any change to the proof system, let's say the underlying curve, the system as a whole, in that case we have a situation where we have existing contracts.
+
+355
+00:44:24.070 --> 00:44:26.299
+Andrzej Kopeć (Shielded): That needs to migrate.
+
+356
+00:44:26.620 --> 00:44:44.130
+Andrzej Kopeć (Shielded): So they so essentially the state needs to stay because it might record some old volume movements and so on. But the contract executable is the only thing that kind of can change in place.
+
+357
+00:44:44.260 --> 00:44:57.430
+Andrzej Kopeć (Shielded): So in that case, the requirement would be to expose in the newer version of Compact the APIs that behave exactly the same as the older versions.
+
+358
+00:44:57.730 --> 00:45:01.220
+Andrzej Kopeć (Shielded): To… to have the ability to use the state.
+
+359
+00:45:02.260 --> 00:45:05.430
+Andrzej Kopeć (Shielded): They do not need to be the same APIs.
+
+360
+00:45:05.670 --> 00:45:12.050
+Andrzej Kopeć (Shielded): But they need to exist in order to not block the contract forever.
+
+361
+00:45:15.220 --> 00:45:16.170
+Kent Dybvig: Yeah.
+
+362
+00:45:16.170 --> 00:45:27.039
+Andrzej Kopeć (Shielded): And this is also why… Yeah, it is. And this is also why there was this decision made with this naming exactly of persistent and transient hash.
+
+363
+00:45:27.040 --> 00:45:36.569
+Andrzej Kopeć (Shielded): This is the one that is kind of guaranteed to work the same and suitable for state operations, because this is something that we…
+
+364
+00:45:36.630 --> 00:45:45.800
+Andrzej Kopeć (Shielded): Kind of commit ourselves to support in one way or another, even if highly inefficient across different
+
+365
+00:45:46.430 --> 00:45:52.140
+Andrzej Kopeć (Shielded): Difficult upgrades whereas the other one is on a best effort basis.
+
+366
+00:46:03.820 --> 00:46:06.959
+Jonathan Sobel: What I can imagine is that we end up with
+
+367
+00:46:07.620 --> 00:46:15.770
+Jonathan Sobel: That we never end up, you know, if it's some number of years down the road, and there have been different serialization versions and different hash functions.
+
+368
+00:46:15.800 --> 00:46:24.619
+Jonathan Sobel: It seems unlikely we would have to support every combination, but I can certainly imagine that the sort of main thing that everyone used before.
+
+369
+00:46:24.650 --> 00:46:41.010
+Jonathan Sobel: If there's some upgrade to it, you're going to want, in the next version, to still be able to… not with the same name, necessarily, maybe you have to use the call that says, I want to do that old thing. But I can imagine having some specific, well-identified things to be able to go back and recover that data.
+
+370
+00:46:41.460 --> 00:46:55.809
+Jonathan Sobel: without having… the problem with just saying, go use the old compiler is, I mean, I tried to do that a few weeks ago with an old compiler from 14 years ago, and it won't build on my system anymore, and I don't have the… the binary won't run on my system anymore, and I mean, so…
+
+371
+00:46:56.740 --> 00:46:58.030
+Jonathan Sobel: I just want the data.
+
+372
+00:47:00.410 --> 00:47:04.329
+Kent Dybvig: But how do you want the data? I mean, the data is there on chain. You can
+
+373
+00:47:04.910 --> 00:47:08.800
+Kent Dybvig: You can go and grab it from the contract address. It's public.
+
+374
+00:47:09.150 --> 00:47:17.869
+Kent Dybvig: peter: You can go and pull it out of there. It may be that we… what we end up providing people is a… a tool that migrates it from
+
+375
+00:47:18.170 --> 00:47:24.269
+Kent Dybvig: from one thing to another. Obviously, we're not gonna… if it's a hash function, we're not gonna be able to do that, but…
+
+376
+00:47:24.430 --> 00:47:30.470
+Kent Dybvig: I don't… I don't think that the solution is to make the compiler.
+
+377
+00:47:30.980 --> 00:47:42.860
+Kent Dybvig: be able to handle that old stuff. I don't think that's a workable solution to be… to say the compiler now will generate this, because inevitably it's going to also generate different, verifier keys.
+
+378
+00:47:43.320 --> 00:47:48.010
+Kent Dybvig: So, you know, you won't actually be able to run the code to do the extraction.
+
+379
+00:47:48.970 --> 00:47:53.559
+Jonathan Sobel: Yeah, I was thinking more of the, Getting a data somehow.
+
+380
+00:47:54.390 --> 00:47:55.000
+Kent Dybvig: Yeah.
+
+381
+00:47:58.060 --> 00:48:07.120
+Kent Dybvig: Yeah. I think for hard forks or anything where we're changing the the fundamentals of the system, there's gonna have to be a way of plucking the old data out and
+
+382
+00:48:07.430 --> 00:48:14.820
+Kent Dybvig: reinstalling it, and I don't have any idea how you're going to ever be able to access that data from a contract again.
+
+383
+00:48:15.110 --> 00:48:17.759
+Kent Dybvig: And I think that's a totally different…
+
+384
+00:48:18.410 --> 00:48:23.510
+Kent Dybvig: peter: problem, and one that we should be thinking about and working on.
+
+385
+00:48:23.750 --> 00:48:25.750
+Kent Dybvig: Proactively before it happens.
+
+386
+00:48:26.210 --> 00:48:29.620
+Kent Dybvig: Because it's… I don't see my way through.
+
+387
+00:48:30.510 --> 00:48:43.789
+Kent Dybvig: you know, the constraint that the verifier keys have to remain the same, for example. Now, if you tell me the verifier keys can be changed at the same time as the data is changed, maybe that's the hook, and we can figure out how to
+
+388
+00:48:44.430 --> 00:48:45.960
+Kent Dybvig: How to make all that work.
+
+389
+00:48:51.750 --> 00:48:54.719
+Kent Dybvig: But I think we're done with the serialization discussion.
+
+390
+00:48:55.500 --> 00:48:58.819
+Parisa Ataei (Shielded Tech): Yeah, that's a different can of worms that they're opening.
+
+391
+00:48:58.820 --> 00:49:01.270
+Kent Dybvig: And Penny Kevin's, proposal.
+
+392
+00:49:01.980 --> 00:49:03.970
+Kent Dybvig: Which I'd like to see.
+
+393
+00:49:05.270 --> 00:49:06.700
+Kent Dybvig: Not to be pushy, but…
+
+394
+00:49:06.700 --> 00:49:08.340
+Parisa Ataei (Shielded Tech): Can I ask for a date?
+
+395
+00:49:12.580 --> 00:49:14.280
+Kent Dybvig: Of course you can ask for a date.
+
+396
+00:49:14.280 --> 00:49:14.970
+Kevin Millikin (Shielded Technologies): Sorry.
+
+397
+00:49:15.960 --> 00:49:22.059
+Parisa Ataei (Shielded Tech): Can I ask for not to be pushy, but can I ask for a date? Because Gianluca is gonna ask for a date and.
+
+398
+00:49:24.560 --> 00:49:40.809
+Kevin Millikin (Shielded Technologies): I don't know, a couple weeks. It's, I mean… There's a, like, like, what does he want? Does he want… does he want an accepted, approved COIP that's… that is approved by the TSC? Does he want us to just have some proposal? Does he, like…
+
+399
+00:49:41.150 --> 00:49:43.360
+Kevin Millikin (Shielded Technologies): that… He's.
+
+400
+00:49:43.360 --> 00:49:46.000
+Kent Dybvig: going to ask what we have and when. Yeah.
+
+401
+00:49:46.000 --> 00:49:54.560
+Kevin Millikin (Shielded Technologies): We need a specific thing. I mean, the motivation and the…
+
+402
+00:49:54.740 --> 00:50:14.060
+Kevin Millikin (Shielded Technologies): And the… is all written. The, the core idea is what I've said several times in several different meetings. The actual detail… like, part of the COIP is to actually specify what the format is, and the actual details of that need some ironing out.
+
+403
+00:50:14.190 --> 00:50:29.280
+Kevin Millikin (Shielded Technologies): Since we're proposing that the base types have the cryptographically efficient in-circuit encoding, we have to work with the crypto team to figure out exactly what that is and specify what that is, because we don't want to specify something different than that.
+
+404
+00:50:30.050 --> 00:50:35.009
+Kent Dybvig: So, johnny graham: I think we need to stage this, personally.
+
+405
+00:50:35.620 --> 00:50:36.490
+Kent Dybvig: To give.
+
+406
+00:50:36.860 --> 00:50:39.470
+Kent Dybvig: We don't… we have very short
+
+407
+00:50:39.980 --> 00:50:43.389
+Kent Dybvig: Views on this at this point.
+
+408
+00:50:45.190 --> 00:50:50.560
+Kent Dybvig: So, I think what you're… what you're discussing is good long-term, but I'm not sure it's…
+
+409
+00:50:50.930 --> 00:50:53.800
+Kent Dybvig: It's still bullshit, in the quarter.
+
+410
+00:50:54.670 --> 00:51:06.429
+Kevin Millikin (Shielded Technologies): Oh, I think it is. I think that's… I think that's… I think that's doable in a couple of weeks. It's just that I would do that specification work first before changing… trying to change the implementations, and then I would make sure that the two implementations we have
+
+411
+00:51:06.430 --> 00:51:21.479
+Kevin Millikin (Shielded Technologies): There's really only two implementations, and I would make sure that those two implementations agree with each other. And where they don't, I would fix it in one way or the other. Before we do that, we could add… we should add… we should… so part of the specification will be that there is a pair of
+
+412
+00:51:21.720 --> 00:51:28.160
+Kevin Millikin (Shielded Technologies): major and minor version bytes at the start of the format, and we should just add the current format as 0.0.
+
+413
+00:51:28.330 --> 00:51:30.940
+Kevin Millikin (Shielded Technologies): 1.0 or whatever we, whatever we call it.
+
+414
+00:51:31.130 --> 00:51:36.490
+Kent Dybvig: Yeah, okay. Well, let's talk about it. I think there's 3, but we can have that debate later.
+
+415
+00:51:36.870 --> 00:51:40.330
+Kevin Millikin (Shielded Technologies): There's… well, there's not, so… you.
+
+416
+00:51:40.830 --> 00:51:48.389
+Kent Dybvig: There's the serialization code implemented by the serialized function, the serialized pass, and there's the…
+
+417
+00:51:48.500 --> 00:51:51.880
+Kent Dybvig: The what the descriptors do, and there's what flat data types do.
+
+418
+00:51:51.880 --> 00:52:11.700
+Kevin Millikin (Shielded Technologies): No, flattened data is completely specified by the ledger. So the ledger interprets the alignment tags. So one format is field aligned binary. One is the event serialization. The ledger interprets the alignment tags to produce the field values. And that's…
+
+419
+00:52:11.730 --> 00:52:15.739
+Kevin Millikin (Shielded Technologies): Completely specified by the ledger, so we just have to implement that.
+
+420
+00:52:16.210 --> 00:52:22.000
+Kevin Millikin (Shielded Technologies): in our flattened data type, or like I've advocated, we should just stop flattening data types.
+
+421
+00:52:22.150 --> 00:52:25.439
+Kevin Millikin (Shielded Technologies): Yeah. We could let ZKIR handle that where it needs to.
+
+422
+00:52:25.440 --> 00:52:25.980
+Kent Dybvig: Okay.
+
+423
+00:52:26.380 --> 00:52:32.269
+Kent Dybvig: Alright. Well, I think we're… we're talking about three implementations of two specifications.
+
+424
+00:52:32.970 --> 00:52:33.930
+Kent Dybvig: Anyway.
+
+425
+00:52:34.800 --> 00:52:47.509
+Kent Dybvig: Yeah, let's… Kevin lets you and I work on that precinct and report back to Priest and make sure that, she has what she needs to tell Jen Luca what's what.
+
+426
+00:52:51.240 --> 00:52:59.069
+Parisa Ataei (Shielded Tech): Alright, and I'm gonna postpone the coips that are awaiting, because I don't think anyone has reviewed them.
+
+427
+00:52:59.310 --> 00:53:01.459
+Parisa Ataei (Shielded Tech): I actually haven't looked, but…
+
+428
+00:53:02.300 --> 00:53:03.340
+Kent Dybvig: What are the names?
+
+429
+00:53:04.500 --> 00:53:10.610
+Parisa Ataei (Shielded Tech): The, the Rust backend and the language agnostic.
+
+430
+00:53:11.280 --> 00:53:12.550
+Parisa Ataei (Shielded Tech): I. R.
+
+431
+00:53:13.370 --> 00:53:16.610
+Parisa Ataei (Shielded Tech): So it's PR730 and 700.
+
+432
+00:53:20.120 --> 00:53:22.840
+Parisa Ataei (Shielded Tech): So, I'm saying postpone to next.
+
+433
+00:53:23.040 --> 00:53:25.950
+Parisa Ataei (Shielded Tech): Week, and we'll follow…
+
+434
+00:53:25.950 --> 00:53:40.079
+Yurii Shynbuiev: Thank you, Parisa. I have a question. You discussed plenty of issues and difficulties, but do you have issues in GitHub for these problems, or is it somewhere in internal task tracking system?
+
+435
+00:53:40.900 --> 00:53:42.769
+Kent Dybvig: For which problems? We have a lot of issues.
+
+436
+00:53:42.770 --> 00:53:55.609
+Yurii Shynbuiev: Sterilization, all this, support of, data types, all these things that, were discussed at this meeting.
+
+437
+00:53:55.790 --> 00:54:01.150
+Yurii Shynbuiev: I wonder if there are corresponding issues in the Minakawa project.
+
+438
+00:54:01.760 --> 00:54:02.740
+Kent Dybvig: So, yeah.
+
+439
+00:54:02.960 --> 00:54:13.930
+Parisa Ataei (Shielded Tech): We have specific issues with serialization that I have seen them filed and addressed. The one that we're discussing, there is an open issue for it.
+
+440
+00:54:14.040 --> 00:54:19.380
+Parisa Ataei (Shielded Tech): That is evading the COIP, and, it goes from there.
+
+441
+00:54:22.790 --> 00:54:34.079
+Parisa Ataei (Shielded Tech): Yeah, I don't… I have not looked to see if there was an issue on the transient hash and the elliptical curve that, Iskander asked.
+
+442
+00:54:34.630 --> 00:54:40.350
+Kent Dybvig: There is an issue some there is an issue for giving them specific names like SHA-256.
+
+443
+00:54:40.650 --> 00:54:41.980
+Kent Dybvig: And Poseidon.
+
+444
+00:54:42.540 --> 00:54:46.850
+Kent Dybvig: As… as well as their generic names.
+
+445
+00:54:46.960 --> 00:54:50.199
+Kent Dybvig: Transient hash and persistent hash, so that…
+
+446
+00:54:50.580 --> 00:54:54.250
+Kent Dybvig: So basically, I had an indirector, so the idea would be that we would
+
+447
+00:54:54.400 --> 00:55:02.330
+Kent Dybvig: We would always have a SHA-256. Well, we wouldn't necessarily always be deprecated, but… That.
+
+448
+00:55:02.690 --> 00:55:09.729
+Kent Dybvig: that SHA-256 would remain SHA-256, even if… Transient… or persistent hash changed.
+
+449
+00:55:10.230 --> 00:55:11.459
+Kent Dybvig: to something else.
+
+450
+00:55:12.620 --> 00:55:20.080
+Kent Dybvig: But I don't think there's a… there's one specifically for the issue that he's raised, which is, like I said.
+
+451
+00:55:20.660 --> 00:55:29.469
+Kent Dybvig: seems to me to be better as an MPS, and… Not as a compact issue, because it's… it's more of a crypto and…
+
+452
+00:55:30.130 --> 00:55:33.210
+Kent Dybvig: And midnight level decision.
+
+453
+00:55:36.730 --> 00:55:41.050
+Jonathan Sobel: And is there an issue for the serialization inconsistencies?
+
+454
+00:55:42.680 --> 00:55:52.459
+Parisa Ataei (Shielded Tech): There's one that asked for the formatting, and that it is started with SIGNetworks, so I think we're just following up on that.
+
+455
+00:55:52.610 --> 00:55:54.040
+Parisa Ataei (Shielded Tech): Kevin?
+
+456
+00:55:56.240 --> 00:56:02.559
+Kevin Millikin (Shielded Technologies): Yeah, I was just gonna say that it's a little bit of a weird situation because we have
+
+457
+00:56:03.070 --> 00:56:16.219
+Kevin Millikin (Shielded Technologies): purely compact features that we're working on that, don't start with a compact feature request as an issue filed in our repository at all. They start as a MPS midnight problem statement.
+
+458
+00:56:16.440 --> 00:56:30.330
+Kevin Millikin (Shielded Technologies): And I'm working on drafting one now, and I'm really super careful to say in big, bold text, this does not require any changes to the Midnight Network, it completely happens off-chain, it has nothing to do with the Midnight Network, it's a compact feature request.
+
+459
+00:56:31.420 --> 00:56:35.599
+Kent Dybvig: You know what? You know what? Maybe we should push back and say.
+
+460
+00:56:35.780 --> 00:56:37.769
+Kent Dybvig: And have the statement of work.
+
+461
+00:56:38.870 --> 00:56:40.080
+Kent Dybvig: for midnight.
+
+462
+00:56:40.310 --> 00:56:42.879
+Kent Dybvig: For our work, reference.
+
+463
+00:56:43.180 --> 00:56:44.820
+Kent Dybvig: compact issue.
+
+464
+00:56:45.370 --> 00:56:50.900
+Kevin Millikin (Shielded Technologies): I feel like it's easier for us to track and connect things if they do.
+
+465
+00:56:51.470 --> 00:56:58.850
+Kent Dybvig: Let me ask that question. I'll ask if we can, instead of having MPSs for these things, if we can have them as compact issues.
+
+466
+00:56:59.450 --> 00:57:12.069
+Jonathan Sobel: The other thing they sometimes ask is, is, if they… is just reference them, you know, if there is an MPS, because it is natural for there to be one, but you can still open an issue in Compact, and the issue is to address that problem.
+
+467
+00:57:12.730 --> 00:57:22.410
+Kent Dybvig: Yeah, I was thinking… I was thinking exactly this for the MIP. If we have to write a MIP, that it should just be a link. It should just… the MIP should open up, and it'd be one sentence saying.
+
+468
+00:57:23.150 --> 00:57:26.890
+Kent Dybvig: This myth is to address the scrape.
+
+469
+00:57:27.560 --> 00:57:28.540
+Kent Dybvig: you know…
+
+470
+00:57:28.870 --> 00:57:35.189
+Kent Dybvig: And we could do the same thing for the midnight problem statement. This problem statement is to address this issue.
+
+471
+00:57:35.810 --> 00:57:36.310
+Jonathan Sobel: Yeah.
+
+472
+00:57:38.730 --> 00:57:46.070
+Parisa Ataei (Shielded Tech): Well, in the MPS, you can link a MIP. What I did for the multi-environment, I just linked the COIP.
+
+473
+00:57:46.480 --> 00:57:47.020
+Kent Dybvig: Yeah.
+
+474
+00:57:47.350 --> 00:57:48.280
+Kent Dybvig: For sure.
+
+475
+00:57:49.650 --> 00:57:54.250
+Kent Dybvig: For sure. That's a template. You can always change the template and violate it a little bit.
+
+476
+00:57:55.630 --> 00:58:01.150
+Kent Dybvig: I think Kevin has just pointed out what I think is an incredibly good reason to do this.
+
+477
+00:58:01.480 --> 00:58:03.040
+Kent Dybvig: Which is that…
+
+478
+00:58:04.120 --> 00:58:11.020
+Kent Dybvig: This makes it clear that there isn't anything else but compact involved, and otherwise it looks like there's other things involved.
+
+479
+00:58:11.550 --> 00:58:17.710
+Kent Dybvig: So I think for the ones that are just compact, there should not be an implication that it's a broader issue.
+
+480
+00:58:18.710 --> 00:58:23.230
+Kent Dybvig: I hadn't thought of that angle before. I think that's a good angle, and I think I could probably convince
+
+481
+00:58:23.640 --> 00:58:28.210
+Kent Dybvig: Bob and Mike, that that's a good angle, too. If not… Carmel.
+
+482
+00:58:30.920 --> 00:58:31.730
+Parisa Ataei (Shielded Tech): Alright.
+
+483
+00:58:32.090 --> 00:58:38.380
+Parisa Ataei (Shielded Tech): Hopefully that answers your question, Yuri. And with that, we are almost at time.
+
+484
+00:58:39.530 --> 00:58:43.279
+Parisa Ataei (Shielded Tech): All right, folks. Thanks for the discussion.
+
+485
+00:58:43.280 --> 00:58:43.810
+Jonathan Sobel: the.
+
+486
+00:58:43.810 --> 00:58:44.360
+Parisa Ataei (Shielded Tech): and.
+
+487
+00:58:44.360 --> 00:58:48.710
+Jonathan Sobel: Heads up, two weeks in advance. Two weeks from now, we will probably not have this meeting.
+
+488
+00:58:49.630 --> 00:59:02.320
+Parisa Ataei (Shielded Tech): Yes, I will… well, I asked the LFTT to cancel the meetings. I don't… I don't have direct access to cancel myself, but also, I'll just announce it in the Discord. I have no idea who watches the Discord channel.
+
+489
+00:59:04.000 --> 00:59:04.819
+Parisa Ataei (Shielded Tech): But also it's tough.
+
+490
+00:59:04.820 --> 00:59:05.240
+Kent Dybvig: another.
+
+491
+00:59:06.410 --> 00:59:11.459
+Parisa Ataei (Shielded Tech): At least on my calendar, once they cancel the meeting, it does not…
+
+492
+00:59:11.920 --> 00:59:16.790
+Parisa Ataei (Shielded Tech): It does not update my calendar, so it will still appear on my calendar, so.
+
+493
+00:59:18.890 --> 00:59:19.500
+Kent Dybvig: Yeah.
+
+494
+00:59:20.920 --> 00:59:23.459
+Parisa Ataei (Shielded Tech): It will be announced on Discord, in any case, yeah.
+
+495
+00:59:24.210 --> 00:59:26.280
+Parisa Ataei (Shielded Tech): Thank you for the reminder, Jonathan.
+
+496
+00:59:26.410 --> 00:59:30.229
+Parisa Ataei (Shielded Tech): Alright, folks, have a good sunny day, hopefully.
+
+497
+00:59:30.810 --> 00:59:33.619
+Kent Dybvig: Yeah, I would put that in next week's agenda, Parisa.
+
+498
+00:59:33.840 --> 00:59:36.799
+Parisa Ataei (Shielded Tech): Oh, that's a good idea. Yep. All right.
+
+499
+00:59:36.800 --> 00:59:39.770
+Kent Dybvig: No meeting on the 19th. Okay. Thank you very much.
+
+500
+00:59:39.770 --> 00:59:41.210
+Parisa Ataei (Shielded Tech): Yep. Thank you, everyone.
+
+501
+00:59:41.210 --> 00:59:41.620
+Yurii Shynbuiev: Thanks.
+
+502
+00:59:41.620 --> 00:59:41.960
+Parisa Ataei (Shielded Tech): I.
+
+503
+00:59:41.960 --> 00:59:42.450
+Yurii Shynbuiev: can.
+
+504
+00:59:42.450 --> 00:59:43.370
+Andrzej Kopeć (Shielded): Thanks, Lily.
+
+505
+00:59:43.680 --> 00:59:44.460
+Andrew Fleming: Thanks, guys.
+

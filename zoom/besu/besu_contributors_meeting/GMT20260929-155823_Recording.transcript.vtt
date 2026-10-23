@@ -1,0 +1,1774 @@
+WEBVTT
+
+1
+00:03:24.090 --> 00:03:25.450
+Justin Florentine: Hi, everybody.
+
+2
+00:03:28.090 --> 00:03:28.990
+David Boswell (The Linux Foundation): Hello.
+
+3
+00:03:30.040 --> 00:03:30.780
+Matthew Whitehead (Kaleido): Right.
+
+4
+00:03:32.900 --> 00:03:33.870
+Edward Wertz (Hashgraph): Greetings.
+
+5
+00:03:42.200 --> 00:03:44.740
+Justin Florentine: Give people another minute to join…
+
+6
+00:04:15.190 --> 00:04:18.610
+Justin Florentine: Alright, I'm gonna top off my coffee and then we'll get started.
+
+7
+00:04:23.900 --> 00:04:24.880
+Justin Florentine: Right.
+
+8
+00:04:40.810 --> 00:04:41.720
+Justin Florentine: Okay.
+
+9
+00:04:46.140 --> 00:04:48.590
+Justin Florentine: Okay.
+
+10
+00:04:48.970 --> 00:04:53.689
+Justin Florentine: Alright, alright, alright. Welcome, everybody, to the…
+
+11
+00:04:53.770 --> 00:05:14.099
+Justin Florentine: September edition of the Besu Community Contributor Call. I am your host, Justin Florentine. Welcome to the call. This is, as usual, under an antitrust policy, the details of which can be found on our website and the meeting agenda, which I will post in the chat here for folks to reference.
+
+12
+00:05:15.230 --> 00:05:23.500
+Justin Florentine: This meeting is being recorded, transcribed, and machine summarized. Please mute unless you're speaking, and if you have a question, use the raise hand feature.
+
+13
+00:05:25.010 --> 00:05:44.749
+Justin Florentine: We have a somewhat light agenda today, but it sounds like we've got a guest from Swirls Labs that wants to talk to us about something, so we're going to, do that at the end, so basically they can have the most amount of time. The first two items that I'd like to, kind of just get in front of people, is…
+
+14
+00:05:45.900 --> 00:05:48.240
+Justin Florentine: a couple of API issues.
+
+15
+00:05:48.650 --> 00:05:59.150
+Justin Florentine: So the first one is, GraphQL API. I'd love to start hearing from users as to how useful it is, and, you know.
+
+16
+00:05:59.650 --> 00:06:12.330
+Justin Florentine: how often is it being used, what's it being used for, etc. Why is it better or worse than the RPC, the JSON RPC API, etc. There is…
+
+17
+00:06:12.330 --> 00:06:23.729
+Justin Florentine: Only on one other client that fully supports the GraphQL API. The GraphQL API is not actually well-specified, from an Ethereum perspective.
+
+18
+00:06:24.070 --> 00:06:28.830
+Justin Florentine: So this is one of those sort of organic pseudo-standards that has emerged.
+
+19
+00:06:28.970 --> 00:06:40.779
+Justin Florentine: It is a source of technical debt, it is, you know, rarely reviewed for updating or completeness, and we would like to deprecate it.
+
+20
+00:06:40.870 --> 00:06:52.780
+Justin Florentine: We think that there's a not insignificant cost savings in doing so, and we are skeptical that the value it provides is worth that cost. So…
+
+21
+00:06:52.780 --> 00:07:10.509
+Justin Florentine: Consider this, the opening salvo, as far as that discussion is concerned. These things do take a lot of time, we're not planning on deprecating it unilaterally or immediately, but we do want to hear a strong case being made for keeping it in there and continuing to
+
+22
+00:07:10.600 --> 00:07:13.069
+Justin Florentine: Pay that… pay that cost.
+
+23
+00:07:13.590 --> 00:07:18.189
+Justin Florentine: Does anybody have any immediate feedback on that?
+
+24
+00:07:19.650 --> 00:07:26.080
+Justin Florentine: you know, known users, known applications that really care about GraphQL, etc?
+
+25
+00:07:28.220 --> 00:07:30.930
+Justin Florentine: Matthew, go ahead. I was hoping you would chime in on this one.
+
+26
+00:07:30.930 --> 00:07:40.880
+Matthew Whitehead (Kaleido): Yeah, hey, Justin. Yeah, it's interesting. I, yeah, we don't… I, I don't think we really hear of many people using it.
+
+27
+00:07:41.100 --> 00:07:52.239
+Matthew Whitehead (Kaleido): It very rarely gets mentioned, in relation to, kind of, you know, interfacing with Besu, and…
+
+28
+00:07:52.560 --> 00:08:00.060
+Matthew Whitehead (Kaleido): I don't know that we have exploited it at all in any kind of Web3 tooling at all. I think the JSON-RPC interface is pretty much
+
+29
+00:08:00.160 --> 00:08:04.720
+Matthew Whitehead (Kaleido): what everyone kind of goes by. Again, like you say, partly for the standardization.
+
+30
+00:08:04.870 --> 00:08:06.599
+Matthew Whitehead (Kaleido): Making that,
+
+31
+00:08:06.860 --> 00:08:14.249
+Matthew Whitehead (Kaleido): making that a bit easier. But yeah, that's kind of a two cents from me. I think Ghan wants to kind of chip in as well.
+
+32
+00:08:14.250 --> 00:08:16.240
+Justin Florentine: Go ahead, Ghan. Welcome to the call.
+
+33
+00:08:16.660 --> 00:08:27.400
+Ghan Vashishtha (Zeeve Inc): Yeah, yeah, yeah, thank you. So if if I'm correct, we're talking about the the the graph based indexing capabilities here, right? On top of the RPC.
+
+34
+00:08:28.880 --> 00:08:33.249
+Justin Florentine: Yes, the GraphQL Remote RPC Interface, that's right.
+
+35
+00:08:34.490 --> 00:08:51.139
+Ghan Vashishtha (Zeeve Inc): So I think I agree with Matthew there. On the general RPCs, nobody expects anything additional, because whatever throughput expectations or, you know, DAP expectations they have, they are fulfilled by the standard RPC layer itself, on top of HTTPS.
+
+36
+00:08:51.140 --> 00:08:59.419
+Ghan Vashishtha (Zeeve Inc): They don't require additional GraphQL-based layer or wrapper, unless it provides security. We, though, have heard in some cases that
+
+37
+00:08:59.610 --> 00:09:07.090
+Ghan Vashishtha (Zeeve Inc): Enterprises or certain fintech institutions, they prefer some sort of
+
+38
+00:09:07.430 --> 00:09:11.850
+Ghan Vashishtha (Zeeve Inc): you know, security layer on top of the RPC, but that does not…
+
+39
+00:09:12.020 --> 00:09:23.040
+Ghan Vashishtha (Zeeve Inc): They do not expect the capabilities that GraphQL might have to offer here. They simply look at something like Envoy or other capabilities attached to it.
+
+40
+00:09:23.610 --> 00:09:31.400
+Justin Florentine: Thank you for that. Yeah, that makes sense, and honestly, I find GraphQL to be a little bit of a design mismatch for the Ethereum domain.
+
+41
+00:09:34.390 --> 00:09:50.659
+Ghan Vashishtha (Zeeve Inc): Yeah, yeah, true, because if you enable this and then integrate it into your project, then you pretty much become tied up with this new interface programming, which you cannot simply switch to another EVM or another network. You become incompatible directly.
+
+42
+00:09:51.270 --> 00:09:51.960
+Justin Florentine: Yep.
+
+43
+00:09:53.140 --> 00:09:54.170
+Justin Florentine: Thank you.
+
+44
+00:10:00.530 --> 00:10:01.600
+Justin Florentine: Okay.
+
+45
+00:10:02.080 --> 00:10:09.550
+Justin Florentine: Okay, that's good. I would encourage folks to reach out to any of your users, customers, etc. And, you know.
+
+46
+00:10:09.880 --> 00:10:16.160
+Justin Florentine: get their opinions on it as well. And like I said, this is just kind of the start of that conversation.
+
+47
+00:10:17.830 --> 00:10:20.830
+Justin Florentine: Cool. So, speaking of APIs…
+
+48
+00:10:21.150 --> 00:10:35.580
+Justin Florentine: Somebody reached out to me, with a notion of… wait, oh, do I have the link here? A… a interest in starting to standardize our tracing APIs.
+
+49
+00:10:36.020 --> 00:10:41.609
+Justin Florentine: Traces are an interesting… Interesting artifact of…
+
+50
+00:10:42.540 --> 00:10:48.659
+Justin Florentine: I shouldn't call it an artifact, but it's an interesting subdomain of Ethereum.
+
+51
+00:10:48.830 --> 00:10:57.560
+Justin Florentine: Where the output can be used for lots of interesting things. I see Gary just joined. This is also a…
+
+52
+00:10:57.900 --> 00:11:12.040
+Justin Florentine: an area that people that run L2s, specifically ZK L2s, are interested in. They like to see what exactly was run through the EVM, what was touched, what was affected, etc.
+
+53
+00:11:12.500 --> 00:11:16.729
+Justin Florentine: And right now, I can share my screen here. Why not?
+
+54
+00:11:21.860 --> 00:11:23.880
+Justin Florentine: One second…
+
+55
+00:11:24.060 --> 00:11:34.149
+Justin Florentine: This was submitted by a community user, detailing some of the differences between Besu's tracing and other clients.
+
+56
+00:11:34.950 --> 00:11:44.340
+Justin Florentine: Okay, what they're trying to do is sort of bring back parity-style traces and standardize on them, and potentially even.
+
+57
+00:11:44.670 --> 00:11:52.029
+Justin Florentine: Expand on a tracing… domain, or namespace, rather, in the API.
+
+58
+00:11:52.910 --> 00:12:00.029
+Justin Florentine: They're trying to put together a working group, to further discuss these, and, you know.
+
+59
+00:12:00.470 --> 00:12:06.430
+Justin Florentine: Design the work, and make sure that it's useful to the users.
+
+60
+00:12:06.490 --> 00:12:16.090
+Justin Florentine: I myself am spread pretty thin. I would love to participate in this, but I don't really have the capacity.
+
+61
+00:12:16.090 --> 00:12:27.080
+Justin Florentine: So, I wanted to put this out here as kind of an open call to the community, for anybody that is particularly interested in tracing to maybe participate in these working groups.
+
+62
+00:12:27.080 --> 00:12:29.190
+Justin Florentine: Or at least help us, help us.
+
+63
+00:12:29.260 --> 00:12:33.570
+Justin Florentine: Form opinions as we participate in those working groups.
+
+64
+00:12:33.740 --> 00:12:38.570
+Justin Florentine: It's very early times here. I will post, actually, this link
+
+65
+00:12:38.960 --> 00:12:46.260
+Justin Florentine: here in the chat, and then I'll add it to the meeting agenda for history…
+
+66
+00:12:46.850 --> 00:12:56.970
+Justin Florentine: And, yeah, Again, early times, but I think it's a valuable… it's a valuable thing to have standardized tracing.
+
+67
+00:12:58.020 --> 00:13:01.359
+Justin Florentine: for where we're going as Ethereum.
+
+68
+00:13:02.210 --> 00:13:04.220
+Justin Florentine: Gary? Hi.
+
+69
+00:13:04.400 --> 00:13:12.259
+Gary Schulte: Hey, how you doing, Justin? This is the first I've seen of that, so that's super interesting. I wonder… It's hot off the presses.
+
+70
+00:13:12.260 --> 00:13:12.810
+Justin Florentine: sense.
+
+71
+00:13:12.810 --> 00:13:26.650
+Gary Schulte: I'm on mobile, so I can't read your screen, but I'm wondering what the output of this working group would be, because I would hope that it would be an EIP and a champion in order to get some consensus around this, because we have
+
+72
+00:13:26.650 --> 00:13:43.160
+Gary Schulte: we have this mess of tracing because we have parity style and we have Geth style tracing over the years that just kind of developed as part of individual clients, and when you don't take that into account with the entire ecosystem of execution clients, you end up with that whole XKCD comment, you know.
+
+73
+00:13:43.160 --> 00:13:52.279
+Gary Schulte: There's 17 competing standards now. There's 18 competing standards. So I would hope that the the outcome of this would be like consensus around.
+
+74
+00:13:52.280 --> 00:14:05.739
+Gary Schulte: what that tracing should look like based on all the existing stakeholders that are using tracing and the product would be an EIP and a champion to get that through ACD. Because it's not a consensus affecting, it's not a hard fork.
+
+75
+00:14:05.740 --> 00:14:12.519
+Gary Schulte: Necessary implementation, but it's definitely something that we want to have consensus among the execution clients on.
+
+76
+00:14:14.460 --> 00:14:15.350
+Justin Florentine: Okay.
+
+77
+00:14:15.940 --> 00:14:23.430
+Justin Florentine: I updated the meeting agenda with a link to the page that I shared, and I will send it to you directly as well.
+
+78
+00:14:24.870 --> 00:14:26.170
+Gary Schulte: Great, thanks.
+
+79
+00:14:31.090 --> 00:14:32.080
+Justin Florentine: Yeah.
+
+80
+00:14:32.380 --> 00:14:35.299
+Justin Florentine: Any other questions, comments, concerns?
+
+81
+00:14:39.280 --> 00:14:40.110
+Justin Florentine: Okay.
+
+82
+00:14:41.610 --> 00:14:55.260
+Justin Florentine: Great. And that's kind of all I had on the agenda. The floor is open, I understand, somebody from, Swirled Labs from, wanted to make a presentation.
+
+83
+00:14:57.880 --> 00:15:05.060
+Edward Wertz (Hashgraph): Hi, Justin. My name's Edward. I'm from Hashgraph, formerly Swirls Labs. We've changed our name about a year ago.
+
+84
+00:15:05.270 --> 00:15:06.710
+Justin Florentine: Okay, so Hedera.
+
+85
+00:15:09.210 --> 00:15:10.109
+Justin Florentine: Is that correct?
+
+86
+00:15:10.310 --> 00:15:11.810
+Edward Wertz (Hashgraph): No, so…
+
+87
+00:15:11.810 --> 00:15:14.529
+Gary Schulte: A couple names ago, right?
+
+88
+00:15:14.530 --> 00:15:22.489
+Edward Wertz (Hashgraph): Hedera is the governing council, and Hashgraph is now the development team, like the labs.
+
+89
+00:15:23.430 --> 00:15:24.450
+Justin Florentine: Okay.
+
+90
+00:15:24.450 --> 00:15:28.579
+Edward Wertz (Hashgraph): So yeah, we were Squirrels Labs, but we changed our name to Hashgraph.
+
+91
+00:15:28.730 --> 00:15:35.219
+Edward Wertz (Hashgraph): It's very confusing, there's, like, 10 different forms of Hashgraph online, the Hashgraph group.
+
+92
+00:15:35.320 --> 00:15:38.970
+Edward Wertz (Hashgraph): So, I understand the complexity there of…
+
+93
+00:15:39.560 --> 00:15:44.610
+Edward Wertz (Hashgraph): But, yes, I'm here, and I would love to present, Clipper.
+
+94
+00:15:45.160 --> 00:15:52.460
+Justin Florentine: Okay, great. You have the floor, I don't know if I need to grant you permission to share, or if you can do that…
+
+95
+00:15:53.670 --> 00:15:55.369
+Edward Wertz (Hashgraph): Let me see here…
+
+96
+00:15:59.080 --> 00:15:59.650
+Justin Florentine: Alright.
+
+97
+00:15:59.650 --> 00:16:00.710
+Edward Wertz (Hashgraph): So.
+
+98
+00:16:00.710 --> 00:16:01.500
+Justin Florentine: Got your screen.
+
+99
+00:16:01.590 --> 00:16:02.980
+Edward Wertz (Hashgraph): Screen shared.
+
+100
+00:16:04.530 --> 00:16:08.730
+Edward Wertz (Hashgraph): Just before I get started, I was wondering if I could…
+
+101
+00:16:09.470 --> 00:16:13.990
+Edward Wertz (Hashgraph): get a feel for the audience. Has anybody heard of Clipper yet?
+
+102
+00:16:15.870 --> 00:16:16.460
+Justin Florentine: I have not.
+
+103
+00:16:16.460 --> 00:16:17.070
+Gary Schulte: it.
+
+104
+00:16:17.470 --> 00:16:18.060
+Edward Wertz (Hashgraph): Okay.
+
+105
+00:16:19.000 --> 00:16:19.660
+Edward Wertz (Hashgraph): No.
+
+106
+00:16:20.310 --> 00:16:24.670
+Edward Wertz (Hashgraph): Great, then I'll be speaking to the lowest common denominator.
+
+107
+00:16:25.930 --> 00:16:34.560
+Edward Wertz (Hashgraph): Okay, so, Clipper is… I love the XKCD comment. There are 14 competing standards.
+
+108
+00:16:34.810 --> 00:16:39.370
+Edward Wertz (Hashgraph): Let's write a universal standard that univites them all, now there's 15 competing standards.
+
+109
+00:16:39.700 --> 00:16:44.600
+Edward Wertz (Hashgraph): And Clipper is yet another, interledger protocol.
+
+110
+00:16:45.230 --> 00:16:59.049
+Edward Wertz (Hashgraph): So hopefully, my goal with the presentation today is to motivate why, get your feedback, and, you know, explain what we're doing, how we're doing it, and why we're excited about it.
+
+111
+00:16:59.980 --> 00:17:01.270
+Edward Wertz (Hashgraph): Okay.
+
+112
+00:17:01.860 --> 00:17:06.150
+Edward Wertz (Hashgraph): So, Clipper, was just released.
+
+113
+00:17:06.560 --> 00:17:21.070
+Edward Wertz (Hashgraph): from Hedera to the LFDT, and turning over the trademark and the copyright and logo and all that. We're standing up a lab, on our way to becoming a, project.
+
+114
+00:17:21.670 --> 00:17:30.779
+Edward Wertz (Hashgraph): And we're very excited to welcome anybody that's interested in participating and growing Clipper and improving it, and…
+
+115
+00:17:31.960 --> 00:17:33.449
+Edward Wertz (Hashgraph): Oh, working on it.
+
+116
+00:17:34.330 --> 00:17:35.190
+Edward Wertz (Hashgraph): Okay.
+
+117
+00:17:35.470 --> 00:17:38.890
+Edward Wertz (Hashgraph): So let me get to my slideshow here.
+
+118
+00:17:41.710 --> 00:17:46.040
+Edward Wertz (Hashgraph): And this is an LFDT slide deck. I'm… so…
+
+119
+00:17:47.070 --> 00:17:54.959
+Edward Wertz (Hashgraph): We just turned it over, and I am in charge of building the lab and, facilitating the community.
+
+120
+00:17:55.980 --> 00:18:07.019
+Edward Wertz (Hashgraph): So, bear with me as I learn. This is my first time interacting at this level with the LFDT. I've been a developer for Hashgraph and on the consensus node side.
+
+121
+00:18:07.290 --> 00:18:13.209
+Edward Wertz (Hashgraph): And have not had to operate at the LFTT level, so I'm cutting my teeth.
+
+122
+00:18:14.920 --> 00:18:15.830
+Edward Wertz (Hashgraph): Okay.
+
+123
+00:18:16.390 --> 00:18:17.060
+Edward Wertz (Hashgraph): So I'm gonna print…
+
+124
+00:18:17.060 --> 00:18:18.170
+Gary Schulte: Friendly crowd.
+
+125
+00:18:18.170 --> 00:18:23.360
+Edward Wertz (Hashgraph): Thank you very much, I appreciate it. And anytime anybody wants to ask a question or chime in.
+
+126
+00:18:23.480 --> 00:18:28.870
+Edward Wertz (Hashgraph): I'm staring at the slides, so feel free to just speak up and interject.
+
+127
+00:18:30.740 --> 00:18:43.170
+Edward Wertz (Hashgraph): I'm gonna explain my perception of the Interledger communication problem, the various solutions and approaches, categorically, what… and then the Clipper architecture.
+
+128
+00:18:43.300 --> 00:18:54.160
+Edward Wertz (Hashgraph): I don't have the full slide deck built out, and we probably don't have enough time to go through it anyway. I'm intending that for a 90-minute webinar deep dive in November.
+
+129
+00:18:55.070 --> 00:19:06.569
+Edward Wertz (Hashgraph): If anybody is further interested in Clipper and wants to speak to me more directly, my name is… my email is at… is edward at hashgraph.com.
+
+130
+00:19:08.200 --> 00:19:15.130
+Edward Wertz (Hashgraph): But, we'll go through the architecture, and then hopefully we have time for a demo at the end. It shouldn't take too long.
+
+131
+00:19:16.960 --> 00:19:18.999
+Edward Wertz (Hashgraph): How many minutes do I have?
+
+132
+00:19:19.690 --> 00:19:26.849
+Justin Florentine: The floor is yours, honestly. We're scheduled for the hour, so you're looking at 43 minutes right now.
+
+133
+00:19:26.850 --> 00:19:28.230
+Edward Wertz (Hashgraph): Wow. All right.
+
+134
+00:19:28.640 --> 00:19:36.139
+Edward Wertz (Hashgraph): Hopefully, I don't take that long, but if there's active discussion. Or feedback, that would be welcome. Thank you.
+
+135
+00:19:37.380 --> 00:19:38.290
+Edward Wertz (Hashgraph): Okay.
+
+136
+00:19:40.230 --> 00:19:42.620
+Edward Wertz (Hashgraph): So the interledger communication problem.
+
+137
+00:19:44.180 --> 00:19:55.059
+Edward Wertz (Hashgraph): You've got two networks, and there are different types of ledgers. Now, let's say the left-hand side is a Besu network, and the right-hand side is a Hyro network.
+
+138
+00:19:55.610 --> 00:20:07.509
+Edward Wertz (Hashgraph): Besu is, of course, Ethereum-based and as a data format. And takes Ethereum, or ETH as currency, and a HIRO network.
+
+139
+00:20:07.830 --> 00:20:12.910
+Edward Wertz (Hashgraph): Speaks Protobuf as a data format, and takes HBAR as currency.
+
+140
+00:20:13.820 --> 00:20:21.419
+Edward Wertz (Hashgraph): There are different consensus mechanisms, and there's really no internal way to send data between the two ledgers.
+
+141
+00:20:21.600 --> 00:20:29.989
+Edward Wertz (Hashgraph): So, we're having to solve all of those types of problems, and I'm sure many of you are familiar with different interledger solutions.
+
+142
+00:20:30.220 --> 00:20:34.020
+Edward Wertz (Hashgraph): Or use them, and so there's a variety of approaches.
+
+143
+00:20:34.840 --> 00:20:37.979
+Edward Wertz (Hashgraph): So, data format is one problem.
+
+144
+00:20:39.480 --> 00:20:45.180
+Edward Wertz (Hashgraph): getting the payment… For remote execution of the transactions that you send across is another.
+
+145
+00:20:46.500 --> 00:20:53.490
+Edward Wertz (Hashgraph): Getting the… getting the transaction to actually send between the two ledgers, how do you do that?
+
+146
+00:20:54.300 --> 00:21:01.560
+Edward Wertz (Hashgraph): And then translating trust between the ledgers. How do you get to trust the data that's being sent so you don't have fraud?
+
+147
+00:21:03.530 --> 00:21:11.400
+Edward Wertz (Hashgraph): Finally, you want an architecture for your protocol that is scalable and extensible to multiple ledger types.
+
+148
+00:21:15.070 --> 00:21:19.720
+Edward Wertz (Hashgraph): So the major approaches have been, build a third letter type.
+
+149
+00:21:19.960 --> 00:21:24.149
+Edward Wertz (Hashgraph): One that's designed for, interledger communication.
+
+150
+00:21:24.550 --> 00:21:29.280
+Edward Wertz (Hashgraph): And you have, essentially, oracles that monitor the source chain on the left.
+
+151
+00:21:29.770 --> 00:21:34.359
+Edward Wertz (Hashgraph): Submit data to the Interledger ledger.
+
+152
+00:21:34.440 --> 00:21:50.319
+Edward Wertz (Hashgraph): And then, push state changes to the destination ledger on the right. And you deploy smart contracts on either side to help with the process. Use oracles to monitor chain state, and
+
+153
+00:21:50.500 --> 00:21:51.719
+Edward Wertz (Hashgraph): So on and so forth.
+
+154
+00:21:53.320 --> 00:22:02.030
+Edward Wertz (Hashgraph): As has been recent in the news, this is very error-prone. The fellows that tend to build the Interledger solutions.
+
+155
+00:22:02.500 --> 00:22:07.860
+Edward Wertz (Hashgraph): And the reliance on oracles, or oracles are a huge attack vector.
+
+156
+00:22:08.410 --> 00:22:14.259
+Edward Wertz (Hashgraph): And not everybody does their due diligence in performing these things, so…
+
+157
+00:22:14.700 --> 00:22:20.380
+Edward Wertz (Hashgraph): You're diluting the trust model by adding yet another trustable entity in the middle.
+
+158
+00:22:20.910 --> 00:22:29.550
+Edward Wertz (Hashgraph): And you're creating a greater attack surface for hijacking assets. So, I'm sure we've all heard of the Layer 0 exploits.
+
+159
+00:22:29.980 --> 00:22:33.420
+Edward Wertz (Hashgraph): And there's other exploits in attacking oracles.
+
+160
+00:22:34.000 --> 00:22:37.760
+Edward Wertz (Hashgraph): So… This is one approach.
+
+161
+00:22:39.120 --> 00:22:45.320
+Edward Wertz (Hashgraph): Another approach is to go straight for the oracles, take the ledger out of the middle, just monitor or change state.
+
+162
+00:22:45.700 --> 00:22:56.750
+Edward Wertz (Hashgraph): On the source ledger, generate a standardized report format, and then on the destination ledger, have a contract that accumulates reports.
+
+163
+00:22:56.990 --> 00:23:03.970
+Edward Wertz (Hashgraph): And then, once you've reached the threshold number of independent reports, you can.
+
+164
+00:23:04.270 --> 00:23:07.380
+Edward Wertz (Hashgraph): You know, execute the transaction that you want on the remote ledger.
+
+165
+00:23:08.680 --> 00:23:14.830
+Edward Wertz (Hashgraph): Again, this has failure scenarios where people can attack the oracles or emulate the oracles.
+
+166
+00:23:14.930 --> 00:23:16.760
+Edward Wertz (Hashgraph): And this has happened as well.
+
+167
+00:23:17.180 --> 00:23:25.909
+Edward Wertz (Hashgraph): This would be the Chainlink model. I'm not saying Chainlink was attacked, but just that oracles in general tend to be an attack vector, and you're relying on
+
+168
+00:23:26.200 --> 00:23:35.969
+Edward Wertz (Hashgraph): whoever is standing up the Oracle system to do their due diligence and have secure process in place, redundancy, and so on and so forth.
+
+169
+00:23:38.200 --> 00:23:51.900
+Edward Wertz (Hashgraph): Let me get to like clients. Like clients are basically let's proxy the consensus trust layer from one network to another, verify that trust layer.
+
+170
+00:23:52.240 --> 00:24:05.260
+Edward Wertz (Hashgraph): And then, process the data, verify that their certain state is true or not true on the source ledger. And that is all done inside smart contracts in the destination ledger.
+
+171
+00:24:05.550 --> 00:24:13.959
+Edward Wertz (Hashgraph): Here in the light clients, because you're relying on the trust of the source ledger, their consensus mechanism and state-proof protocols.
+
+172
+00:24:14.240 --> 00:24:24.889
+Edward Wertz (Hashgraph): You're… you're not really trusting any intermediary, so your relays that monitor the chain state and then send the data forward are…
+
+173
+00:24:25.490 --> 00:24:34.549
+Edward Wertz (Hashgraph): Trustless. You know, basically… Your ledger is not trusting their observations, because what it's providing is an actual proof.
+
+174
+00:24:35.000 --> 00:24:39.650
+Edward Wertz (Hashgraph): A state proof that their source chain state is the way it is.
+
+175
+00:24:40.770 --> 00:24:43.510
+Edward Wertz (Hashgraph): And light clients are complex beasts.
+
+176
+00:24:44.690 --> 00:24:50.230
+Edward Wertz (Hashgraph): But they still rely on, Smart contracts to be deployed.
+
+177
+00:24:50.860 --> 00:25:00.870
+Edward Wertz (Hashgraph): And there's not much way of getting around that unless the, ledgers themselves incorporate the light client implementations into their own.
+
+178
+00:25:01.110 --> 00:25:06.919
+Edward Wertz (Hashgraph): implementation of the ledger. That kind of gets to native integrations.
+
+179
+00:25:07.120 --> 00:25:15.609
+Edward Wertz (Hashgraph): Which is what Clipper is hoping to push for, going from a like-client model to inspiring the different ledgers to adopt.
+
+180
+00:25:15.930 --> 00:25:22.179
+Edward Wertz (Hashgraph): A standardized communication protocol that they would implement natively, so that the…
+
+181
+00:25:22.660 --> 00:25:37.130
+Edward Wertz (Hashgraph): Each network has components that are willing to communicate with each other, exchange bundles of data, and facilitate state-proof progression automatically.
+
+182
+00:25:37.520 --> 00:25:49.910
+Edward Wertz (Hashgraph): And if the… if the native chains implement those standardized protocols, we kind of get rid of this third-party perspective of needing to trust another implementation or another.
+
+183
+00:25:51.050 --> 00:25:52.780
+Edward Wertz (Hashgraph): mechanism here.
+
+184
+00:25:54.620 --> 00:26:04.590
+Edward Wertz (Hashgraph): So, Clipper is a way to approach the hybrid picture between light clients and native integrations.
+
+185
+00:26:04.720 --> 00:26:09.939
+Edward Wertz (Hashgraph): It's, got some design principles I'll go over here in just a second.
+
+186
+00:26:10.770 --> 00:26:11.670
+Edward Wertz (Hashgraph): Okay.
+
+187
+00:26:12.770 --> 00:26:22.170
+Edward Wertz (Hashgraph): So again, comparing these approaches, in the intermediate ledger case, the destination ledger cannot see or trust the source ledger.
+
+188
+00:26:22.510 --> 00:26:25.899
+Edward Wertz (Hashgraph): And must completely trust the third-party intermediate ledger.
+
+189
+00:26:27.340 --> 00:26:35.160
+Edward Wertz (Hashgraph): In the Oracle-based solutions, the destination ledger cannot see or trust the source ledger, and must completely trust the third-party oracles.
+
+190
+00:26:37.420 --> 00:26:41.950
+Edward Wertz (Hashgraph): With like clients, we do see the consensus mechanism being proxied.
+
+191
+00:26:42.360 --> 00:26:45.989
+Edward Wertz (Hashgraph): And this is done with the help of deployed smart contracts.
+
+192
+00:26:47.810 --> 00:26:54.769
+Edward Wertz (Hashgraph): And then, in native integrations, You know, the ledgers are gonna trust each other directly.
+
+193
+00:26:54.950 --> 00:27:03.750
+Edward Wertz (Hashgraph): And, natively implement the translation of trust and the translation of data formats necessary to communicate between each other.
+
+194
+00:27:07.680 --> 00:27:14.400
+Edward Wertz (Hashgraph): So this is a run-through of the Clipper architecture, and these are the design principles behind Clipper.
+
+195
+00:27:14.570 --> 00:27:22.120
+Edward Wertz (Hashgraph): It is a messaging protocol, and that means any effort to do asset management is left to the application layer.
+
+196
+00:27:22.970 --> 00:27:28.639
+Edward Wertz (Hashgraph): We're just focused on transferring data between the ledgers and making sure the data gets there.
+
+197
+00:27:29.940 --> 00:27:38.909
+Edward Wertz (Hashgraph): We do want to preserve ABFT semantics, so if the destination and the source ledgers are asynchronous Byzantine fault tolerant.
+
+198
+00:27:39.460 --> 00:27:51.359
+Edward Wertz (Hashgraph): The in-order message handling preserves that, as well as the eventual message delivery. So you could have an arbitrary amount of time in between message deliveries.
+
+199
+00:27:51.540 --> 00:27:59.269
+Edward Wertz (Hashgraph): But that the message will eventually get there, and what that means is you can't time a message out, because that could be an attack vector.
+
+200
+00:28:02.420 --> 00:28:15.149
+Edward Wertz (Hashgraph): The, Clipper should be modular and scalable, so extensibility to arbitrary consensus, state proof, and data formats without needing to rework existing implementations.
+
+201
+00:28:18.620 --> 00:28:34.109
+Edward Wertz (Hashgraph): And then the goal is to inspire native integration. If it's a good enough standard, and there's enough economic activity using the reference implementations, then a ledger might be inspired to go ahead and adopt the implementation natively.
+
+202
+00:28:34.310 --> 00:28:37.129
+Edward Wertz (Hashgraph): And make it part of their ledgers protocols.
+
+203
+00:28:38.990 --> 00:28:39.790
+Edward Wertz (Hashgraph): Okay.
+
+204
+00:28:39.980 --> 00:28:49.379
+Edward Wertz (Hashgraph): And then one of the other things that Clipper tries to do is make sure that we have a mechanism of facilitating remote execution.
+
+205
+00:28:49.570 --> 00:28:57.900
+Edward Wertz (Hashgraph): By compensating the relays and paying for the remote execution. So there's a methodology for facilitating Payments.
+
+206
+00:29:00.460 --> 00:29:10.899
+Edward Wertz (Hashgraph): And that's not transfer of assets, this is paying for the execution of the protocol, just getting the data across, and the handling of the execution of the transaction on the remote side.
+
+207
+00:29:13.410 --> 00:29:30.259
+Edward Wertz (Hashgraph): So, in… in component diagram pictures here, the… each ledger has their own Clipper service. Which is either deployed as a smart contract to that ledger, or written as a native service or smart contract.
+
+208
+00:29:30.940 --> 00:29:33.220
+Edward Wertz (Hashgraph): And the Clipper service is responsible.
+
+209
+00:29:33.620 --> 00:29:39.879
+Edward Wertz (Hashgraph): For communicating between all of the on-chain components and routing messages.
+
+210
+00:29:40.060 --> 00:29:46.239
+Edward Wertz (Hashgraph): Updating state and bookkeeping in the communication between different ledgers.
+
+211
+00:29:48.720 --> 00:29:54.829
+Edward Wertz (Hashgraph): Of course, we want our applications to be able to send and receive messages, and they do that directly to the Clipper service.
+
+212
+00:29:55.030 --> 00:30:04.429
+Edward Wertz (Hashgraph): The Clipper applications are completely unaware of state proofs or any of the consensus mechanisms or trust.
+
+213
+00:30:04.680 --> 00:30:11.540
+Edward Wertz (Hashgraph): The Clipper application basically trusts the Clipper service, and the Clipper service is written to… Hide all those details.
+
+214
+00:30:15.740 --> 00:30:18.629
+Edward Wertz (Hashgraph): Once the Clipper service receives a message.
+
+215
+00:30:18.870 --> 00:30:27.260
+Edward Wertz (Hashgraph): It will put it on an outgoing message queue, in destination to a particular, ledger. We call these channels.
+
+216
+00:30:27.970 --> 00:30:39.460
+Edward Wertz (Hashgraph): So the Clipper service will update the state of the channel, and the channel indicates that it's an intended communication for a specific Clipper service on a specific remote ledger.
+
+217
+00:30:40.170 --> 00:30:50.790
+Edward Wertz (Hashgraph): So, if Ledger X can speak to Ledger Y and Ledger Z, those will be two different channels. You can also have multiple channels between Ledger X and Ledger Y.
+
+218
+00:30:54.520 --> 00:31:06.059
+Edward Wertz (Hashgraph): Since, the channel state is on-chain, you need some entity that is going to scrape the on-chain state from the Clipper service, looking at the different channels.
+
+219
+00:31:06.270 --> 00:31:16.220
+Edward Wertz (Hashgraph): And then bundling up that data in order to exchange it with similar endpoints on the remote side. So we call these Clipper endpoints.
+
+220
+00:31:16.400 --> 00:31:17.550
+Edward Wertz (Hashgraph): A.
+
+221
+00:31:17.660 --> 00:31:21.549
+Edward Wertz (Hashgraph): Clipper endpoints are tailored to specific ledgers.
+
+222
+00:31:21.730 --> 00:31:32.559
+Edward Wertz (Hashgraph): And, they're designed to monitor the chain state and know how to submit transactions to that ledger. So this is the kind of the fluidity here, where
+
+223
+00:31:32.910 --> 00:31:39.299
+Edward Wertz (Hashgraph): Clipper endpoints insulate Specific chain state. I see a raised hand, Justin?
+
+224
+00:31:39.300 --> 00:31:55.919
+Justin Florentine: Yeah, so yeah, this is… for me, this is kind of the… one of the most important parts here, where I want to understand how we're not just reinventing a bridge. So, for instance, the Clipper endpoints are the same color as the ledger, but they are outside of the ledger.
+
+225
+00:31:55.920 --> 00:32:09.540
+Justin Florentine: In this diagram. So, like, what is… what is that… how is that not just a bridge, I guess, is my question. To me, I see those endpoints being an off-chain.
+
+226
+00:32:09.740 --> 00:32:12.650
+Justin Florentine: Entity that still requires trust.
+
+227
+00:32:15.470 --> 00:32:24.610
+Edward Wertz (Hashgraph): So even with like clients where they're considered to be bridgeless, there's no trust of the relay because the trust is in the state proof.
+
+228
+00:32:25.140 --> 00:32:33.930
+Edward Wertz (Hashgraph): This is basically a light client model, where these are relays, the trust is in the state proof, and I'll get to that in the next slide.
+
+229
+00:32:34.120 --> 00:32:34.810
+Justin Florentine: Okay.
+
+230
+00:32:34.810 --> 00:32:42.439
+Edward Wertz (Hashgraph): you you know, What people call a bridge can vary from person to person.
+
+231
+00:32:43.090 --> 00:32:49.740
+Edward Wertz (Hashgraph): And, a bridge… You know, if we consider layer zero a bridge.
+
+232
+00:32:50.320 --> 00:32:57.180
+Edward Wertz (Hashgraph): Or Wormhole, or any of those, where they have a full ledger in between.
+
+233
+00:32:57.500 --> 00:33:01.650
+Edward Wertz (Hashgraph): And they have custody of assets, that's one form of bridge.
+
+234
+00:33:01.880 --> 00:33:10.439
+Edward Wertz (Hashgraph): And then someone might consider just the relay in a light client, like IBC's light client, light clients, bridges.
+
+235
+00:33:10.750 --> 00:33:14.000
+Edward Wertz (Hashgraph): But in terms of trust.
+
+236
+00:33:14.910 --> 00:33:20.860
+Edward Wertz (Hashgraph): You're not trusting the bridge. You do need somebody to pump the data back and forth.
+
+237
+00:33:21.010 --> 00:33:26.340
+Edward Wertz (Hashgraph): There's no getting around that. Like, ledgers were not designed themselves to communicate across ledgers.
+
+238
+00:33:26.480 --> 00:33:37.359
+Edward Wertz (Hashgraph): They're all walled gardens, and you need something, some sort of compute to introspect state and ship it up and bundle it and send it to the other side.
+
+239
+00:33:39.100 --> 00:33:46.920
+Edward Wertz (Hashgraph): So the responsibility of these Clipper endpoints is to monitor source chain state. And it's to construct state proofs.
+
+240
+00:33:47.340 --> 00:33:53.230
+Edward Wertz (Hashgraph): of the data In the native state-proof format of the source ledger.
+
+241
+00:33:54.370 --> 00:34:02.630
+Edward Wertz (Hashgraph): And to… What happens is these endpoints, they sync with each other and exchange bundles.
+
+242
+00:34:02.730 --> 00:34:15.019
+Edward Wertz (Hashgraph): you know, the teal guy has something for the orange guy on the right, and the orange guy on the right has something for the teal guy on the left. They exchange bundles. What happens is the receiving clipper endpoint
+
+243
+00:34:15.100 --> 00:34:29.099
+Edward Wertz (Hashgraph): Wraps that bundle, treats it as opaque bytes. Because it's a data format and a state-proof format that it doesn't understand. Wraps it in a transaction and submits it to the Clipper service in the destination ledger.
+
+244
+00:34:29.699 --> 00:34:44.580
+Edward Wertz (Hashgraph): And the Clipper service doesn't… doesn't speak the foreign ledger data format or the state proof format, so it calls the verifier contract. And says, hey, I've got this bundle of data, can you, check that it… state proof checks out?
+
+245
+00:34:44.719 --> 00:34:48.659
+Edward Wertz (Hashgraph): And can you hand me back the data in a data format I understand?
+
+246
+00:34:49.449 --> 00:35:01.520
+Edward Wertz (Hashgraph): So the trust here is in the implementation of the verifier contracts, that they are able to properly and validate the state proofs from the source ledger.
+
+247
+00:35:01.750 --> 00:35:06.459
+Edward Wertz (Hashgraph): And translate the data to the destination letter's data format. Period.
+
+248
+00:35:06.460 --> 00:35:07.020
+Justin Florentine: Okay.
+
+249
+00:35:10.360 --> 00:35:14.560
+Gary Schulte: I heard Justin pipe in there, if you want to have a follow-up, Justin.
+
+250
+00:35:15.060 --> 00:35:18.499
+Justin Florentine: No, no, I was, I was just actually going to throw to you. So go ahead, Gary.
+
+251
+00:35:18.500 --> 00:35:28.140
+Gary Schulte: Yeah, I'm wondering about what your, how you're handling, synchrony, because, you know, I…
+
+252
+00:35:28.200 --> 00:35:43.079
+Gary Schulte: On the Ethereum side, there's certainly no guarantee about the inclusion of any particular bundle. The fossils is coming, and that will give us some bounds around executable transactions that should be included, but it's certainly not, like, single slot
+
+253
+00:35:43.160 --> 00:35:54.649
+Gary Schulte: guarantees of inclusion, so how is Clipper handling, like, periods of peak traffic, or periods of, you know, adversarial conditions where bundles aren't being included across Ledger?
+
+254
+00:35:56.020 --> 00:36:02.499
+Edward Wertz (Hashgraph): Yeah, that gets a little bit deeper, than this current presentation level of detail.
+
+255
+00:36:02.640 --> 00:36:12.909
+Edward Wertz (Hashgraph): But… So, in… I'm assuming that the execution model is basically single-threaded. It is for HIRO.
+
+256
+00:36:13.200 --> 00:36:16.269
+Edward Wertz (Hashgraph): That only, only one
+
+257
+00:36:17.150 --> 00:36:23.450
+Edward Wertz (Hashgraph): Thread space executes at a time in order to modify state, and that gives a kind of…
+
+258
+00:36:23.590 --> 00:36:28.060
+Edward Wertz (Hashgraph): Guarantee that state changes are not being done in parallel.
+
+259
+00:36:28.290 --> 00:36:35.630
+Edward Wertz (Hashgraph): So when a Clipper application calls the Clipper service, it's in the same thread space, and the update of the queue
+
+260
+00:36:36.000 --> 00:36:40.290
+Edward Wertz (Hashgraph): is in the same thread space. So, the queue is first come, first serve.
+
+261
+00:36:40.480 --> 00:36:41.730
+Edward Wertz (Hashgraph): In order…
+
+262
+00:36:41.870 --> 00:36:48.779
+Edward Wertz (Hashgraph): And then things are bundled up in order, so things can't get out of order, and there's a running hash
+
+263
+00:36:48.970 --> 00:36:56.119
+Edward Wertz (Hashgraph): across all the messages in the queue to guarantee that the order is preserved on the receiving side. So.
+
+264
+00:36:56.400 --> 00:37:06.739
+Edward Wertz (Hashgraph): The Clipper endpoints are not able to reorder the messages. The receiving Clipper service validates that the running hash checks off that it left off.
+
+265
+00:37:07.300 --> 00:37:26.109
+Edward Wertz (Hashgraph): It resumes from the point of the last message it had received when it processes a bundle, and then every message that's in the bundle is in order, and that the running hash advances properly and derives the state-proven expectation of the result of the running hash at the end of processing the messages in the bundle.
+
+266
+00:37:26.360 --> 00:37:29.830
+Edward Wertz (Hashgraph): Does that address your question, Gary, or…
+
+267
+00:37:29.830 --> 00:37:48.789
+Gary Schulte: I mean, it sounds like there's… it's a, it's a single-threaded pipeline, for inclusion of bundles across Clipper, so, like, everybody gets in line to… to get a cross-ledger transaction, and a stall of… somebody at the head of the line is gonna stall everybody in the line.
+
+268
+00:37:49.830 --> 00:37:51.420
+Gary Schulte: Is that… if that… is that accurate?
+
+269
+00:37:53.630 --> 00:37:59.109
+Edward Wertz (Hashgraph): So when you say stall, I'm curious what that means.
+
+270
+00:37:59.110 --> 00:38:10.459
+Gary Schulte: Well, if we have… if we're reliant on a, like, the entire state, like a state root of the entire state, then these transactions have to execute in a sequential order.
+
+271
+00:38:10.570 --> 00:38:25.839
+Gary Schulte: And if… if transaction A is not included because for, you know, censorship reasons, or adversarial conditions, or just, you know, high contention for limited block space, that's gonna… that would hold up
+
+272
+00:38:25.930 --> 00:38:37.010
+Gary Schulte: any… any prior transactions as… as well, I assume, right? Because they… they… they can't… they would not order… it would not execute in parallel, or just in a first-come… it is first-come, first-served, but, like, you know…
+
+273
+00:38:37.010 --> 00:38:37.680
+Edward Wertz (Hashgraph): Yep.
+
+274
+00:38:37.680 --> 00:38:39.410
+Gary Schulte: Yeah.
+
+275
+00:38:40.030 --> 00:38:41.810
+Edward Wertz (Hashgraph): Under the hood.
+
+276
+00:38:41.990 --> 00:38:54.989
+Edward Wertz (Hashgraph): there is a communication of, throttles that occurs along a channel, so where if one ledger says, I don't want any application transactions to… to go over, you know.
+
+277
+00:38:55.630 --> 00:39:01.630
+Edward Wertz (Hashgraph): 5 million gas or something, or, you know, Ethereum is not my native language, so I'm not.
+
+278
+00:39:02.610 --> 00:39:13.460
+Edward Wertz (Hashgraph): totally familiar on what realistic throttles would be. But basically, there's ways of setting throttles and saying that if you're going to send a message, it needs to conform to this form.
+
+279
+00:39:14.170 --> 00:39:31.099
+Edward Wertz (Hashgraph): Before I'm willing to receive it, and that throttle is communicated along the channel, and it gates… you're trusting the source clipper service to, enforce those throttles and shaping of the execution of the message.
+
+280
+00:39:31.220 --> 00:39:49.709
+Edward Wertz (Hashgraph): Now, if… if the application, you know, on the destination ledger, it executes the message, it handles it, and it reverts, the Clipper service is going to absorb the reversion and bundle up a reply response, saying basically the execution of this failed, and send that back to the source ledger.
+
+281
+00:39:49.990 --> 00:39:54.409
+Edward Wertz (Hashgraph): In terms of any kind of manipulation or blocking.
+
+282
+00:39:55.730 --> 00:40:00.699
+Edward Wertz (Hashgraph): You know, the… there's gonna be ranchercy guards, so…
+
+283
+00:40:01.410 --> 00:40:08.699
+Edward Wertz (Hashgraph): I'm… I'm not totally clear on the ways that things can fail. I'm gonna have to bone up on that. But we have…
+
+284
+00:40:09.190 --> 00:40:13.089
+Edward Wertz (Hashgraph): So is there… is there specific scenarios that you have questions about?
+
+285
+00:40:17.050 --> 00:40:31.609
+Gary Schulte: Mostly, it's about inclusion guarantees, because I think if you want to offer a cross-ledger experience, you want it to be time-bound. And, you know, Ethereum's block time, at least L1 block time, is currently 12 seconds.
+
+286
+00:40:31.820 --> 00:40:51.709
+Gary Schulte: So, like, ideally, you would want to time-bound your cross-ledger transaction time to the slowest slot time of either chain. But the thing is, that 12 seconds can become 24, can become 36, can become 48. Like, if you don't have inclusion guarantees, then…
+
+287
+00:40:51.970 --> 00:40:58.850
+Gary Schulte: You know, the user experience for that cross-chain transaction, that cross-bridge, sorry, cross-ledger transaction is…
+
+288
+00:40:59.340 --> 00:41:11.460
+Gary Schulte: kind of open-ended. Right. That's why I was asking. I think the reason I'm asking this is because I'm looking at the Ethereum Economic Zone, you know, L1, L2, real-time synchronous composability, and it…
+
+289
+00:41:11.640 --> 00:41:29.180
+Gary Schulte: honestly has the exact same problems. There's no guarantee, certainly not today, and there's weak guarantees in the future about a time to inclusion for your composed transaction. So I'm just kind of in my head comparing Clipper to EEZ.
+
+290
+00:41:30.220 --> 00:41:31.820
+Edward Wertz (Hashgraph): Yeah.
+
+291
+00:41:31.940 --> 00:41:40.869
+Edward Wertz (Hashgraph): You know, if there's a network outage, it's an asynchronous messaging protocol, so the amount of time that could go in between is arbitrary.
+
+292
+00:41:40.960 --> 00:41:53.560
+Edward Wertz (Hashgraph): If all of the components are up and running, then the amount of time is basically related to the depth of the queue and how fast you can get things to get processed on either end through the consensus layers.
+
+293
+00:41:53.810 --> 00:42:11.009
+Edward Wertz (Hashgraph): On the Ethereum side, there's really no guarantee, because people can construct blocks in arbitrary ways. So somebody could, you know, maliciously leave your transaction out, or if you're not spicing things up with enough of a bonus to…
+
+294
+00:42:11.150 --> 00:42:14.470
+Edward Wertz (Hashgraph): To get the message through into a block.
+
+295
+00:42:14.820 --> 00:42:20.329
+Edward Wertz (Hashgraph): you know, you're gonna have that delay as well, you're gonna be waiting for downtime on the Ethereum side.
+
+296
+00:42:20.570 --> 00:42:25.650
+Edward Wertz (Hashgraph): I don't know how people get around that right now.
+
+297
+00:42:26.230 --> 00:42:34.259
+Edward Wertz (Hashgraph): But… The Clipper semantics is, eventual processing.
+
+298
+00:42:35.380 --> 00:42:35.750
+Gary Schulte: Okay.
+
+299
+00:42:35.750 --> 00:42:42.599
+Edward Wertz (Hashgraph): So some downtime occurs, and then the message gets through. There's not going to be a guarantee of within a certain amount of time.
+
+300
+00:42:45.450 --> 00:42:53.240
+Gary Schulte: On the Ethereum side, Fossil is a fork choice enforced inclusion list, is like an anti-censorship.
+
+301
+00:42:53.300 --> 00:43:10.149
+Gary Schulte: measure that is, included in the Hagoda hard fork, so just FYI, that will help put some soft bound on how long a Clipper transaction might, you know, a composed Clipper transaction might take when Ethereum is Ledger Y in this case, or
+
+302
+00:43:10.240 --> 00:43:16.969
+Gary Schulte: Or Ledger X, whichever. When it's involved in the cross-ledger, you know, transaction.
+
+303
+00:43:17.580 --> 00:43:19.650
+Gary Schulte: Just FYI. Okay.
+
+304
+00:43:19.940 --> 00:43:20.890
+Edward Wertz (Hashgraph): Great, thank you.
+
+305
+00:43:23.730 --> 00:43:25.230
+Edward Wertz (Hashgraph): Any follow-up on that?
+
+306
+00:43:28.070 --> 00:43:28.830
+Edward Wertz (Hashgraph): Okay.
+
+307
+00:43:29.260 --> 00:43:34.199
+Matthew Whitehead (Kaleido): Hi. Sorry, I didn't put my hand up. I had a question if, if, if that's right, Edward.
+
+308
+00:43:34.200 --> 00:43:34.840
+Edward Wertz (Hashgraph): Yes.
+
+309
+00:43:35.470 --> 00:43:41.269
+Matthew Whitehead (Kaleido): Yeah, I was just… I was keen to understand, maybe on a different tack.
+
+310
+00:43:41.270 --> 00:44:05.050
+Matthew Whitehead (Kaleido): Maybe where you you see this fitting in terms of ledgers that are permissioned, private, you know, typical enterprise scenarios compared to things like public chains, main nets running thousands of nodes where everyone needs to be running nodes at the same hard fork and with agreed
+
+311
+00:44:05.050 --> 00:44:12.130
+Matthew Whitehead (Kaleido): You know, agreed behaviours at a given level across lots of intentionally.
+
+312
+00:44:12.130 --> 00:44:19.109
+Matthew Whitehead (Kaleido): heterogeneous client implementations you know Aragon, Geth, Besu and so on.
+
+313
+00:44:19.130 --> 00:44:36.650
+Matthew Whitehead (Kaleido): In terms of all the components here, to me, this looks like something that is, potentially suitable for the kind of permissioned world where you have a small number of nodes, and you tend to have control over which clients you're running, and what
+
+314
+00:44:36.650 --> 00:44:44.820
+Matthew Whitehead (Kaleido): consensus algorithms they're using on each ledger, and so on and so on. And you have quite a small number of…
+
+315
+00:44:45.080 --> 00:44:49.010
+Matthew Whitehead (Kaleido): pairs of ledgers, I guess, that you might be wanting to bridge between?
+
+316
+00:44:49.400 --> 00:45:01.709
+Matthew Whitehead (Kaleido): I'm just trying to… I guess my general question is, do you have a view for if and how this can fit into the public space versus the permission space?
+
+317
+00:45:03.250 --> 00:45:05.130
+Edward Wertz (Hashgraph): Yes.
+
+318
+00:45:05.930 --> 00:45:14.380
+Edward Wertz (Hashgraph): you know, at Hashgraph, we developed the HARO networks. HARO networks can be set up, private as well as public.
+
+319
+00:45:14.870 --> 00:45:29.059
+Edward Wertz (Hashgraph): And our goal is to facilitate interledger communication. My demonstration later on, if I get to it, is between a Besu network and a Hiero network, communicating to each other.
+
+320
+00:45:29.530 --> 00:45:31.670
+Edward Wertz (Hashgraph): It… Oh.
+
+321
+00:45:33.560 --> 00:45:36.849
+Edward Wertz (Hashgraph): HIRO has a native implementation of Clipper.
+
+322
+00:45:37.080 --> 00:45:44.880
+Edward Wertz (Hashgraph): And Besu has a smart track contract where the Clipper endpoint is on… is a separate compute.
+
+323
+00:45:45.050 --> 00:45:54.310
+Edward Wertz (Hashgraph): from the Besu validator, but on the Hyro side, the Clipper endpoint is integrated into the consensus node, so they can talk directly to each other.
+
+324
+00:45:55.460 --> 00:46:05.170
+Edward Wertz (Hashgraph): The intent is that this was deployable in both public ledger scenarios, but as well as private ledgers.
+
+325
+00:46:05.260 --> 00:46:21.230
+Edward Wertz (Hashgraph): And the model that we have is basically a private ledger is like a submarine. It can stay under the water and be inaccessible until it comes to the surface and decides it wants to do a sync with a public network or another private network.
+
+326
+00:46:21.420 --> 00:46:32.200
+Edward Wertz (Hashgraph): And that it… its endpoints would talk directly to the endpoints of that ledger, perform the bundle exchanges, and then go back to being incognito.
+
+327
+00:46:32.380 --> 00:46:33.420
+Edward Wertz (Hashgraph): Oh!
+
+328
+00:46:33.900 --> 00:46:37.230
+Edward Wertz (Hashgraph): You know, it wouldn't advertise necessarily its endpoints.
+
+329
+00:46:37.450 --> 00:46:41.959
+Edward Wertz (Hashgraph): You know, and so it could preserve its privacy that way.
+
+330
+00:46:43.170 --> 00:46:50.859
+Matthew Whitehead (Kaleido): Yeah, yeah, I think… I think that's… that's really interesting, yeah, and I don't want to delay, because, you know, a live demo is always great to see. I guess.
+
+331
+00:46:50.930 --> 00:47:12.659
+Matthew Whitehead (Kaleido): It's the… it's the… you know, you talk about the standard… standardization of doing this between ledgers is really appealing. I guess our standardization here is a number of things. It's… it's the protocol between the Clipper endpoints, I guess, and it's the… I assume there are smart contracts on both ledgers, is that right?
+
+332
+00:47:13.540 --> 00:47:14.250
+Edward Wertz (Hashgraph): Yes.
+
+333
+00:47:14.760 --> 00:47:22.750
+Matthew Whitehead (Kaleido): And I guess the smart contracts on each ledger, are they specific to each ledger to ledger pairing?
+
+334
+00:47:24.830 --> 00:47:32.139
+Edward Wertz (Hashgraph): Right, so I've got… I'm a very color-oriented person, so I've got this color-coded here, where.
+
+335
+00:47:32.560 --> 00:47:36.729
+Edward Wertz (Hashgraph): you know, Ledger X is teal, and Ledger Y is orange.
+
+336
+00:47:36.990 --> 00:47:44.769
+Edward Wertz (Hashgraph): And what you have on Ledger X is a smart contract that's designed to translate from orange to teal, the verifier contract.
+
+337
+00:47:44.910 --> 00:47:53.160
+Edward Wertz (Hashgraph): So the Orange Clipper endpoint monitors the orange ledger, Y, bundles up its chain state.
+
+338
+00:47:53.540 --> 00:48:13.089
+Edward Wertz (Hashgraph): for the Clipper protocol on a specific channel, and then sends it to the TL Clipper endpoint. That passes it through as an opaque bytes to the Clipper service. Clipper service looks at the channel and sees the verifier… finds the verifier contract for that channel, and then hands the bundle over. That verifier that's
+
+339
+00:48:13.090 --> 00:48:27.859
+Edward Wertz (Hashgraph): designed to decode the Orange Ledger's data format and state proofs, does so in a trusted way, and then hands the data decoded back, translated to the Clipper service, where the Clipper service then hands it over to the Clipper application.
+
+340
+00:48:29.200 --> 00:48:29.920
+Matthew Whitehead (Kaleido): Okay.
+
+341
+00:48:31.070 --> 00:48:42.159
+Matthew Whitehead (Kaleido): That totally makes sense, and I guess my last kind of question around the public chain case, before I let you carry on, is like, if…
+
+342
+00:48:42.160 --> 00:48:52.259
+Matthew Whitehead (Kaleido): If you're looking at interaction between, let's say, L1 Ethereum and L1 Tempo or something.
+
+343
+00:48:52.630 --> 00:48:58.290
+Matthew Whitehead (Kaleido): Do you see this as needing really kind of broad buy-in from
+
+344
+00:48:58.650 --> 00:49:21.469
+Matthew Whitehead (Kaleido): from those ecosystems, that this is the way to integrate between those ledgers, and this is where the contracts exist for those… for that pairing, and clients need to buy into integrating these… this kind of… this endpoint technology and so on into their clients, so that anyone who interacts with this contract for inter-ledger communication
+
+345
+00:49:21.570 --> 00:49:27.850
+Matthew Whitehead (Kaleido): They know that all the clients across that permission space will implement that and work with that.
+
+346
+00:49:28.870 --> 00:49:42.910
+Matthew Whitehead (Kaleido): that's… that's the kind of, standardization effort that I… I perceive from what you're describing here that would be needed for, like, big L1 to L1 intercommunication, unless I've… unless I've misunderstood it slightly.
+
+347
+00:49:43.700 --> 00:49:47.159
+Edward Wertz (Hashgraph): No, I think you have it correctly. So…
+
+348
+00:49:47.630 --> 00:49:53.320
+Edward Wertz (Hashgraph): Let me see how many more slides there are. There's only a few more slides here.
+
+349
+00:49:53.330 --> 00:49:57.239
+Matthew Whitehead (Kaleido): Do carry on if you want to carry on, and that'll kind of help answer that as you go.
+
+350
+00:49:57.240 --> 00:50:00.110
+Edward Wertz (Hashgraph): Yeah, so
+
+351
+00:50:03.770 --> 00:50:10.059
+Edward Wertz (Hashgraph): you know, in the HIRO case, we've integrated a native implementation of Clipper.
+
+352
+00:50:10.450 --> 00:50:22.909
+Edward Wertz (Hashgraph): And the… Basically, the Clipper services need to match the same protocol, and the syncing bundle exchange process between the Clipper endpoints need to match.
+
+353
+00:50:23.630 --> 00:50:31.409
+Edward Wertz (Hashgraph): But the and that leaves the verifier contracts as kind of the the translation points of plugins of extensibility.
+
+354
+00:50:32.110 --> 00:50:35.279
+Edward Wertz (Hashgraph): So… Well, let's say I have…
+
+355
+00:50:35.610 --> 00:50:42.949
+Edward Wertz (Hashgraph): an existing Clipper ecosystem that has 9 different ledger types, or N different ledger types, and I want to add one more.
+
+356
+00:50:43.930 --> 00:50:53.079
+Edward Wertz (Hashgraph): It's a brand new type, which means it needs its Clipper service implemented correctly. It needs a Clipper endpoint
+
+357
+00:50:54.140 --> 00:50:57.769
+Edward Wertz (Hashgraph): Code base to translate and understand its ledger type.
+
+358
+00:50:58.430 --> 00:51:04.599
+Edward Wertz (Hashgraph): And this is where the complexity comes in. You need, And new verifiers.
+
+359
+00:51:05.480 --> 00:51:10.970
+Edward Wertz (Hashgraph): To deploy to the other pre-existing
+
+360
+00:51:11.350 --> 00:51:23.379
+Edward Wertz (Hashgraph): chains, types. And, and so that would translate… so that's N verifiers for the new ledger type, deployable to the existing ledger types.
+
+361
+00:51:23.610 --> 00:51:30.959
+Edward Wertz (Hashgraph): And then you need N verifiers on the new ledger type that translate from the source ledger types.
+
+362
+00:51:31.100 --> 00:51:37.789
+Edward Wertz (Hashgraph): So there's a 2N implementation effort on the verifier contract level to facilitate.
+
+363
+00:51:38.280 --> 00:51:43.729
+Edward Wertz (Hashgraph): The reintegration, so that something can talk point to point.
+
+364
+00:51:43.960 --> 00:51:45.730
+Edward Wertz (Hashgraph): With all the different ledger types.
+
+365
+00:51:47.380 --> 00:51:50.860
+Matthew Whitehead (Kaleido): Cool, thank you, that's a really useful explanation, thanks.
+
+366
+00:51:50.860 --> 00:51:59.220
+Edward Wertz (Hashgraph): Yep. Okay. So, the final component in this picture is the connector. And this is an entity.
+
+367
+00:51:59.440 --> 00:52:12.079
+Edward Wertz (Hashgraph): Just like we have channels that kind of bridge the two ledgers. Facilitating, so channel is… on one side is indicating the outgoing message queue, channel on the other side is indicating its outgoing message queue.
+
+368
+00:52:12.230 --> 00:52:21.830
+Edward Wertz (Hashgraph): A connector binds to a channel on either end, and a connector is a financial entity that's willing to put
+
+369
+00:52:22.070 --> 00:52:25.489
+Edward Wertz (Hashgraph): Funds in the native currency of both ledgers.
+
+370
+00:52:26.010 --> 00:52:33.089
+Edward Wertz (Hashgraph): And bind to the channel, and then facilitate communication across the channel, paying for the execution of the transaction.
+
+371
+00:52:34.930 --> 00:52:47.139
+Edward Wertz (Hashgraph): So, when the Clipper application submits a message, it provides four pieces of information. The channel ID, which is going to determine its destination ledger and Clipper service.
+
+372
+00:52:47.240 --> 00:52:57.370
+Edward Wertz (Hashgraph): The connector to use to pay for the remote execution, the target application on the remote ledger, and the data payload that it wants to send to that remote ledger.
+
+373
+00:52:57.940 --> 00:53:02.800
+Edward Wertz (Hashgraph): The Clipper service then asks locally, the connector.
+
+374
+00:53:03.290 --> 00:53:10.490
+Edward Wertz (Hashgraph): Given all this data, are you willing to subsidize the execution of the transaction of this message on the remote ledger?
+
+375
+00:53:10.760 --> 00:53:14.079
+Edward Wertz (Hashgraph): The connector has the ability to say yes or no.
+
+376
+00:53:14.200 --> 00:53:28.059
+Edward Wertz (Hashgraph): If it says no, the attempt to send the message is rejected and handed back to the application. If it says yes, the Clipper service then enqueues the message bundle. Message data on the outgoing message queue. The…
+
+377
+00:53:28.190 --> 00:53:33.539
+Edward Wertz (Hashgraph): Clipper endpoint for that source ledger packages it up at some point, you know, it pulls…
+
+378
+00:53:33.840 --> 00:53:40.570
+Edward Wertz (Hashgraph): Periodically monitors chain state, sees that there's a message waiting to be sent, bundles it up, sends it to the remote clipper endpoint.
+
+379
+00:53:40.840 --> 00:53:45.249
+Edward Wertz (Hashgraph): The remote endpoint sends it to the Clipper service.
+
+380
+00:53:45.610 --> 00:53:51.760
+Edward Wertz (Hashgraph): It's handled, the Remote Clipper application is invoked, and then a response message is sent back.
+
+381
+00:53:52.450 --> 00:54:03.669
+Edward Wertz (Hashgraph): So the connector is committing to pay for the remote execution of the sent message as well as the response message that comes back across Clipper.
+
+382
+00:54:05.040 --> 00:54:05.910
+Edward Wertz (Hashgraph): Okay.
+
+383
+00:54:06.170 --> 00:54:24.229
+Edward Wertz (Hashgraph): So, without this connector bridging it, things get kind of gummed up. You're waiting for somebody to pay it. Nobody wants to lose money on the transaction. So this… the presence of this connector is basically lubricant to facilitate. Ultimately, it's the application that pays the connector.
+
+384
+00:54:24.590 --> 00:54:34.420
+Edward Wertz (Hashgraph): Enough to facilitate, and the connector's responsible for making sure there's enough liquidity on either end to pay for the incoming transactions that it's responsible for.
+
+385
+00:54:35.400 --> 00:54:39.189
+Edward Wertz (Hashgraph): Connectors are bonded, so if they misbehave, they'll be slashed.
+
+386
+00:54:40.810 --> 00:54:41.710
+Edward Wertz (Hashgraph): Okay.
+
+387
+00:54:43.110 --> 00:54:49.310
+Edward Wertz (Hashgraph): Alright, so, when you create the channel, you specify the verifier contracts on either side.
+
+388
+00:54:50.170 --> 00:54:55.589
+Edward Wertz (Hashgraph): And, And that's kind of where the magic comes in.
+
+389
+00:54:57.010 --> 00:55:01.300
+Edward Wertz (Hashgraph): Of, flexibility, where the verifier contract
+
+390
+00:55:01.420 --> 00:55:07.839
+Edward Wertz (Hashgraph): You can deploy a brand new verifier contract, and that will translate from a new ledger you're integrating.
+
+391
+00:55:08.110 --> 00:55:16.130
+Edward Wertz (Hashgraph): Into the native data… of the Clipper service. So the Clipper service contract doesn't have to… be updated.
+
+392
+00:55:16.470 --> 00:55:23.479
+Edward Wertz (Hashgraph): You just deploy a new verifier contract when you want to extend the capability of what types of letters it wants to communicate with.
+
+393
+00:55:26.870 --> 00:55:27.770
+Edward Wertz (Hashgraph): Okay.
+
+394
+00:55:28.650 --> 00:55:32.459
+Edward Wertz (Hashgraph): So, in my demonstration.
+
+395
+00:55:32.810 --> 00:55:41.859
+Edward Wertz (Hashgraph): Besu… on the Besu side, everything is in smart contracts. The Clipper endpoint for the Besu side is external compute.
+
+396
+00:55:42.350 --> 00:55:50.269
+Edward Wertz (Hashgraph): And on the HIRO side, The Clipper endpoint is actually integrated into the consensus node.
+
+397
+00:55:51.630 --> 00:55:58.650
+Edward Wertz (Hashgraph): So, the HIRO side is native implementation, and the Besu side is a… Oh.
+
+398
+00:56:02.660 --> 00:56:08.719
+Edward Wertz (Hashgraph): is a separate compute. Okay, I'm gonna have to stop sharing, and then I'll share my demo screen.
+
+399
+00:56:10.410 --> 00:56:13.320
+Edward Wertz (Hashgraph): Or I'll just bring things over. Okay.
+
+400
+00:56:18.500 --> 00:56:19.480
+Edward Wertz (Hashgraph): Okay.
+
+401
+00:56:22.580 --> 00:56:30.230
+Edward Wertz (Hashgraph): So I'm telling my application to, send from Besu round trip through Hyro.
+
+402
+00:56:30.610 --> 00:56:33.959
+Edward Wertz (Hashgraph): And it's tracing here that it's gone through the Beso network.
+
+403
+00:56:34.300 --> 00:56:38.320
+Edward Wertz (Hashgraph): Hits Hiro and then comes back to Besu.
+
+404
+00:56:39.950 --> 00:56:52.019
+Edward Wertz (Hashgraph): And, to prove I'm not lying, there's the, links here for the explorers of the respective networks. This one's on the Hyro side, and you can see the transaction.
+
+405
+00:56:52.330 --> 00:56:53.350
+Edward Wertz (Hashgraph): Come up.
+
+406
+00:56:53.660 --> 00:56:55.660
+Edward Wertz (Hashgraph): Oh, great.
+
+407
+00:56:59.410 --> 00:57:00.070
+Edward Wertz (Hashgraph): Hmm.
+
+408
+00:57:03.030 --> 00:57:08.910
+Edward Wertz (Hashgraph): Let me… Okay, it's telling me I'm a liar.
+
+409
+00:57:09.160 --> 00:57:12.090
+Edward Wertz (Hashgraph): You go to a live demo, and it messes up on you.
+
+410
+00:57:12.090 --> 00:57:12.440
+Matthew Whitehead (Kaleido): and.
+
+411
+00:57:12.440 --> 00:57:15.490
+Lakshay Gaur | Zeeve: I think there's an extra 5 that you have to put down in URL, if you…
+
+412
+00:57:16.040 --> 00:57:17.920
+Lakshay Gaur | Zeeve: You missed it in the copy.
+
+413
+00:57:17.920 --> 00:57:20.230
+Edward Wertz (Hashgraph): Oh, okay. I didn't copy properly.
+
+414
+00:57:21.630 --> 00:57:22.390
+Edward Wertz (Hashgraph): Okay.
+
+415
+00:57:23.260 --> 00:57:27.610
+Edward Wertz (Hashgraph): Alright, so on the HIROS side, it's the mirror node that I need.
+
+416
+00:57:36.370 --> 00:57:39.920
+Edward Wertz (Hashgraph): Boom. That's the… the data, okay.
+
+417
+00:57:50.130 --> 00:57:51.779
+Edward Wertz (Hashgraph): So here we have the…
+
+418
+00:57:52.010 --> 00:58:05.490
+Edward Wertz (Hashgraph): This was an initiation on Besu. It went through the Clipper endpoints, got proxied, got processed on Hyro. It's a ping-pong contract, so basically it just goes back and forth.
+
+419
+00:58:05.730 --> 00:58:11.129
+Edward Wertz (Hashgraph): And then it goes back, to Besu, and, you know, I had…
+
+420
+00:58:11.450 --> 00:58:15.340
+Edward Wertz (Hashgraph): Claude set up this nice little log of presenting links.
+
+421
+00:58:16.420 --> 00:58:17.990
+Edward Wertz (Hashgraph): To the demo here.
+
+422
+00:58:18.220 --> 00:58:25.030
+Edward Wertz (Hashgraph): And it can go both ways. So, whether you initiate on the HIRO side or the Besu side, it's there.
+
+423
+00:58:26.100 --> 00:58:34.920
+Edward Wertz (Hashgraph): Okay, we've got… 4 minutes left in the hour. That's as much as I had to present today.
+
+424
+00:58:35.580 --> 00:58:39.409
+Edward Wertz (Hashgraph): I really appreciate everybody's time and attention.
+
+425
+00:58:39.760 --> 00:58:46.450
+Edward Wertz (Hashgraph): And if there's any further questions I can answer, or if you want to reach me.
+
+426
+00:58:46.960 --> 00:58:48.000
+Edward Wertz (Hashgraph): Oh!
+
+427
+00:58:48.940 --> 00:58:53.919
+Edward Wertz (Hashgraph): You can email me at, edward at hashgraph.com.
+
+428
+00:58:57.560 --> 00:59:00.569
+Justin Florentine: Thanks, Edward. This is great.
+
+429
+00:59:00.840 --> 00:59:07.080
+Justin Florentine: I will circulate this amongst anybody that I think might be interested in the matter.
+
+430
+00:59:08.120 --> 00:59:10.450
+Justin Florentine: Appreciate, appreciate you sharing that.
+
+431
+00:59:10.810 --> 00:59:11.740
+Edward Wertz (Hashgraph): Thank you.
+
+432
+00:59:11.930 --> 00:59:13.300
+Justin Florentine: Yeah.
+
+433
+00:59:13.300 --> 00:59:14.660
+Matthew Whitehead (Kaleido): Thank you very much, Edward.
+
+434
+00:59:14.970 --> 00:59:24.130
+Edward Wertz (Hashgraph): And, I'll express this, because I think we are interested, is in a possible native implementation to ship with Besu.
+
+435
+00:59:24.430 --> 00:59:36.029
+Edward Wertz (Hashgraph): I don't know if y'all would be interested in that. You know, right now, we're just deploying as smart contracts, and we're setting up bespoke Besu networks so that our enterprise customers that run Besu nodes can
+
+436
+00:59:36.760 --> 00:59:46.609
+Edward Wertz (Hashgraph): use Clipper, but if Besu is interested in a native implementation, we'd be open to exploring that further.
+
+437
+00:59:47.460 --> 00:59:51.260
+Gary Schulte: That sounds like a perfect case for a plugin implementation.
+
+438
+00:59:57.800 --> 01:00:08.699
+Justin Florentine: Yeah, and if you do try to implement it as a plugin and find limitations in the plugin framework, we'd love to hear about it, so we could, you know, make extensions to make that more viable.
+
+439
+01:00:10.670 --> 01:00:11.440
+Edward Wertz (Hashgraph): Awesome.
+
+440
+01:00:11.560 --> 01:00:19.490
+Justin Florentine: Great. Perfect timing. Thanks again, folks. See you next month.
+
+441
+01:00:21.430 --> 01:00:22.160
+Gary Schulte: That's all.
+
+442
+01:00:22.570 --> 01:00:23.360
+Matthew Whitehead (Kaleido): Thanks, Sue.
+
+443
+01:00:26.480 --> 01:00:27.160
+Fabio Di Fabio: Bye.
+

@@ -1,0 +1,51 @@
+00:19:35	Yurii Shynbuiev:	I’m back
+00:21:32	Gonçalo Frade:	Hey Jon.
+00:21:42	Jon Bauer (Good Future, LLC):	yo
+00:21:44	Gonçalo Frade:	I saw you squashed but you need to sign
+00:21:55	Jon Bauer (Good Future, LLC):	I did
+00:23:05	Gonçalo Frade:	Yes you did strange
+00:23:38	Gonçalo Frade:	But it’s not verified. Did you sign with gpg? When you rebase it messes up gig signature
+00:23:40	Jon Bauer (Good Future, LLC):	I did it late last night. And there was a conflict which I resolved this morning
+00:23:51	Roberto:	https://statistics.blocktrust.dev/resolve?method=prism&network=preprod&identifier=c5b7d8c71c323300b857f7a222ae77c427f83e0970abc69c5e7890abeb2d7431
+00:24:05	Gonçalo Frade:	Probably if you amend and resign again it will work
+00:24:12	Jon Bauer (Good Future, LLC):	Hrm.  My commits were signed and when I squashed it it won’t let me push signed.  It only supports signed commits not signed pushes
+00:24:46	Jon Bauer (Good Future, LLC):	The other commits are mostly your updates and merges from main
+00:24:46	Gonçalo Frade:	Resign with gpg. Yeah when you rebase It messes up the signs we had problems with that in the past
+00:24:55	Jon Bauer (Good Future, LLC):	I can’t sign, because there’s nothing to commit
+00:25:04	Jon Bauer (Good Future, LLC):	Unless I’m squashing wrong
+00:25:17	Jon Bauer (Good Future, LLC):	I used git rebase -i HEAD~4
+00:25:59	Gonçalo Frade:	Yup had the same problem in the past 😄
+00:26:06	Gonçalo Frade:	I can give you the steps
+00:26:22	Jon Bauer (Good Future, LLC):	Maybe you can show me the right way to do it.  The signed commit thing is all new to me so I just need to learn one good way to do it and follow that
+00:26:33	Gonçalo Frade:	If you do: git commit --amend --no-edit -S It should work then just force push
+00:26:41	Jon Bauer (Good Future, LLC):	After the rebase?
+00:26:54	Gonçalo Frade:	Dont be in rebase mode
+00:27:12	Gonçalo Frade:	Just be in the branch and run that line that should work
+00:27:24	Gonçalo Frade:	Then just force push ;)
+00:27:36	Jon Bauer (Good Future, LLC):	Ok.  Can I do that now after it’s already been squashed?
+00:28:04	Gonçalo Frade:	Yeah it will just amend that last commit and had the sign, it should not give any warning
+00:28:47	Jon Bauer (Good Future, LLC):	Just did it, how does that look?
+00:31:53	Gonçalo Frade:	Did you push?
+00:31:59	Jon Bauer (Good Future, LLC):	yeah
+00:32:14	Jon Bauer (Good Future, LLC):	I ran git commit --amend --no-edit -S
+00:32:20	Jon Bauer (Good Future, LLC):	git push -f
+00:33:54	Gonçalo Frade:	This is very strange. It didn’t work. It still doesn’t say verified
+00:36:49	Javi Ribó:	🥰
+00:37:33	Jon Bauer (Good Future, LLC):	https://diceurope.org
+00:39:50	Gonçalo Frade:	Jon can we try this: git show --show-signature HEAD
+00:43:45	Jon Bauer (Good Future, LLC):	Git pull does nothing, I’m up to date
+00:44:11	Gonçalo Frade:	So just try to amend again and push and after you amend check if the signature is there
+00:45:25	Jon Bauer (Good Future, LLC):	git commit --amend --no-edit -S [jon/fix-cd-recusive-save-2 5e8ad07] wrap flatMap write operation in Future  Date: Tue Jan 21 00:13:45 2025 -0800  12 files changed, 84 insertions(+), 100 deletions(-)
+00:47:12	Gonçalo Frade:	What shows signature looks?
+00:47:28	Gonçalo Frade:	*How
+00:47:46	Jon Bauer (Good Future, LLC):	gpg: Signature made Tue Feb 11 09:35:44 2025 CST gpg:                using EDDSA key 9893D794503EDA4643042328257FEDBA7A5F22AF gpg: Good signature from "Jon Bauer <jon@covelop.org>" [ultimate]
+00:49:43	Gonçalo Frade:	The force push is not working still
+00:49:58	Jon Bauer (Good Future, LLC):	I didn’t force push just now
+00:50:21	Jon Bauer (Good Future, LLC):	I can force push again
+00:50:36	Gonçalo Frade:	Yes please
+00:50:47	Jon Bauer (Good Future, LLC):	done
+00:53:35	Gonçalo Frade:	Ah I know what is happening
+00:53:47	Jon Bauer (Good Future, LLC):	Good Idea Yurii
+00:53:53	Gonçalo Frade:	Ok you need to refactor because your not changing the last commit
+00:58:44	Gonçalo Frade:	@Jon Bauer (Good Future, LLC)  Lets start by: git rebase -i b206ce0^
+01:01:05	Gonçalo Frade:	To join the video meeting, click this link: https://meet.google.com/jxr-nwwi-uuy Otherwise, to join by phone, dial +351 21 122 1670 and enter this PIN: 218 832 105# To view more phone numbers, click this link: https://tel.meet/jxr-nwwi-uuy?hs=5

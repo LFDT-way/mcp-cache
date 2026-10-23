@@ -1,0 +1,1170 @@
+WEBVTT
+
+1
+00:03:02.530 --> 00:03:06.250
+Justin Florentine: Hey everyone, we'll get started in a minute or two. Let people fill in.
+
+2
+00:04:25.270 --> 00:04:44.870
+Justin Florentine: Okay, let's get started. Hi, everybody. Welcome to the September edition of the Besu Contributors Call. I'm your host, Justin Florentine. As a reminder, this meeting is being held under an antitrust policy, the link to which is included in our meeting agenda. I will post a link to the meeting agenda in chat.
+
+3
+00:04:46.710 --> 00:04:55.730
+Justin Florentine: Boom. There you go. The meeting is being recorded, transcribed, and machine summarized. Please mute unless speaking, and if you have questions, use the raise hand feature.
+
+4
+00:04:56.220 --> 00:05:07.510
+Justin Florentine: I've got an agenda here, it's got 4 items on it, and it sounds like Matt Whitehead has a suggestion to recap a few things in the empty block QBFT space. That would be great, Matthew.
+
+5
+00:05:10.000 --> 00:05:12.470
+Justin Florentine: Hi Mercy, welcome, we're just getting started.
+
+6
+00:05:13.420 --> 00:05:24.749
+Justin Florentine: Agenda items. PR reviews. Boy, we have a lot of outstanding PRs. I went through during our regular triage meeting and assigned many out.
+
+7
+00:05:24.840 --> 00:05:36.269
+Justin Florentine: But we had up to over, over 60, approaching 70 PRs that are in flight, and some need to be addressed. Now, many of these are still in draft.
+
+8
+00:05:37.050 --> 00:05:55.809
+Justin Florentine: Okay, so if anybody, is talking to members of the community that may have submitted PRs and they are in draft, we don't look at those unless you specifically tag somebody, while they're in draft. We assume that they are works in progress and, don't dedicate time to reviewing them or providing feedback.
+
+9
+00:05:55.970 --> 00:06:03.929
+Justin Florentine: So just be advised. We also have automation in place, that if a PR is open for 30 days, it's no progress.
+
+10
+00:06:04.460 --> 00:06:10.520
+Justin Florentine: It gets tagged, so you get a warning that says, hey, this is getting stale.
+
+11
+00:06:10.660 --> 00:06:18.619
+Justin Florentine: And then I think you have 15 days after that warning, to either make some updates to it, or it's gonna get closed.
+
+12
+00:06:18.920 --> 00:06:35.110
+Justin Florentine: Obviously, the source branch doesn't… isn't affected, but we do try to keep the signal-to-noise ratio manageable in our incoming PR queue. It's tough out there with all these agents opening PRs and submitting them.
+
+13
+00:06:37.060 --> 00:06:39.840
+Justin Florentine: Any questions or comments on that point?
+
+14
+00:06:44.660 --> 00:06:45.480
+Justin Florentine: Great.
+
+15
+00:06:46.390 --> 00:06:54.309
+Justin Florentine: Thank you. And as a reminder, in the agenda, for the meeting, I did put an example link to the GitHub,
+
+16
+00:06:54.600 --> 00:07:11.329
+Justin Florentine: you know, tool page where you can actually see what's assigned to you. So, if a PR has been assigned to you, typically that means, hey, somebody's waiting on feedback on this, can you please prioritize that? That's mostly a note for, maintainers, not so much for the contributors.
+
+17
+00:07:12.550 --> 00:07:16.789
+Justin Florentine: Cool. Hagoda is on the way.
+
+18
+00:07:16.960 --> 00:07:24.149
+Justin Florentine: EIP rankings. Reminder, if you have EIPs that you want to advocate for.
+
+19
+00:07:24.150 --> 00:07:37.079
+Justin Florentine: Make a case, go to forecast, put together your list. I did… I did a list of my own. I am not speaking for the Besu team yet, because we haven't really collected all of our different opinions and synthesized them.
+
+20
+00:07:37.270 --> 00:07:52.690
+Justin Florentine: But I did… I did take my own personal, ranking of issues, that I posted on Farcaster and Twitter, and I'm happy to link that, too. Please don't take that as…
+
+21
+00:07:53.020 --> 00:07:59.370
+Justin Florentine: Besu's position, it's something that I'm just posting to motivate others to do their own rankings.
+
+22
+00:08:01.840 --> 00:08:06.700
+Justin Florentine: So… any questions on that?
+
+23
+00:08:10.590 --> 00:08:13.240
+Justin Florentine: Okay, forecast is your friend.
+
+24
+00:08:13.790 --> 00:08:15.199
+Justin Florentine: It's a great tool.
+
+25
+00:08:17.370 --> 00:08:21.550
+Justin Florentine: Speaking of the future… Roadmaps.
+
+26
+00:08:22.570 --> 00:08:31.839
+Justin Florentine: It's about that time that we update our roadmap. The 2026 roadmap is coming to a close, and it's time to start thinking about 2027.
+
+27
+00:08:32.460 --> 00:08:39.670
+Justin Florentine: Hagoda will obviously be a very large part of that. We plan on shipping Glamsterdam before the end of the year.
+
+28
+00:08:40.150 --> 00:08:49.290
+Justin Florentine: And I think one of the things that I wanted to solicit from this group is… well, two things. One,
+
+29
+00:08:49.580 --> 00:08:54.729
+Justin Florentine: Things that they think private networks may want, as far as new features.
+
+30
+00:08:56.120 --> 00:08:58.149
+Justin Florentine: And two, tech debt.
+
+31
+00:08:58.780 --> 00:09:11.109
+Justin Florentine: Tech debt is a thing that I think we can budget a little time for at the front end of the year. I'd love to say, hey, we're gonna take this much time, we're gonna dedicate it, and we're gonna grind through all of these issues.
+
+32
+00:09:11.110 --> 00:09:27.269
+Justin Florentine: But we need to come up with that list of issues and prioritize them. So if you have areas of the code that are particularly difficult to work with or understand, or you just don't like, please bring that up in the Discord, and we can maybe… or just open an issue.
+
+33
+00:09:27.290 --> 00:09:32.509
+Justin Florentine: Describing it and how you'd like to see it fixed, and we can prioritize that.
+
+34
+00:09:34.390 --> 00:09:43.139
+Justin Florentine: But speaking of private networks and what they want, maybe that's a good time that I can segue over to Matthew. You had a couple of bullet points that you wanted to bring up.
+
+35
+00:09:44.380 --> 00:09:46.619
+Matthew Whitehead (Kaleido): Hey Justin, yeah, thanks.
+
+36
+00:09:46.980 --> 00:09:53.460
+Matthew Whitehead (Kaleido): Yeah, yeah, I know we had a short DM about some thoughts in this space, I think…
+
+37
+00:09:53.460 --> 00:10:07.170
+Matthew Whitehead (Kaleido): this kind of aligns with the item I put in the chat around empty block period. So one thing in the permissioned private network space, is the maturity of that feature. I think
+
+38
+00:10:07.170 --> 00:10:22.119
+Matthew Whitehead (Kaleido): I see it being really popular, with permission networks, but, as we've kind of discovered… so we did some testing, it was pretty good, brought it out of experimental, and as you can imagine, we did then found some things that,
+
+39
+00:10:22.350 --> 00:10:29.090
+Matthew Whitehead (Kaleido): kind of highlighted how it's not really being used, kind of, in anger yet.
+
+40
+00:10:29.090 --> 00:10:33.770
+Justin Florentine: Matthew, could you… I don't see the link that you just mentioned in the chat?
+
+41
+00:10:33.770 --> 00:10:43.279
+Matthew Whitehead (Kaleido): Oh, no, sorry, I didn't mention a link, just… I just mentioned that I put in the chat that empty block period was one thing we wanted on the, kind of, roadmap in general.
+
+42
+00:10:43.790 --> 00:10:45.979
+Justin Florentine: 2 block period, okay,
+
+43
+00:10:45.980 --> 00:10:53.000
+Matthew Whitehead (Kaleido): I think I DM'd… did you see… I think we discussed a few things on DM, Justin, but I can put those…
+
+44
+00:10:53.000 --> 00:10:53.390
+Justin Florentine: I can, too.
+
+45
+00:10:53.390 --> 00:11:04.080
+Matthew Whitehead (Kaleido): the Git issue for the meeting, if that's useful, or wherever we're… Are we tracking the roadmap in a wiki page still?
+
+46
+00:11:05.040 --> 00:11:10.350
+Justin Florentine: That's a good question. Why don't you just put it as a comment on the agenda?
+
+47
+00:11:10.350 --> 00:11:11.010
+Matthew Whitehead (Kaleido): Sure.
+
+48
+00:11:11.780 --> 00:11:12.300
+Matthew Whitehead (Kaleido): Yes.
+
+49
+00:11:13.210 --> 00:11:14.580
+Matthew Whitehead (Kaleido): I would do that after the.
+
+50
+00:11:14.580 --> 00:11:17.850
+Justin Florentine: Yes, the wiki would be the place for that, yeah.
+
+51
+00:11:17.850 --> 00:11:31.039
+Matthew Whitehead (Kaleido): Yeah, it's… yeah, yeah, yeah, if I can help put anything into a wiki. I know it was, really useful in the old wiki. You kind of had the public and permission paths, and, like, the now and next kind of view,
+
+52
+00:11:31.040 --> 00:11:41.480
+Matthew Whitehead (Kaleido): But, yeah, so, yeah, so empty block period was one of the things I wanted on the roadmap as to, like, the kind of now and next area, because,
+
+53
+00:11:42.000 --> 00:12:05.760
+Matthew Whitehead (Kaleido): it's a really compelling combination with a short block period when you do have traffic, and you really want to churn through transactions, and you don't want a huge memory allocation for your mempool, so you want a short block period. Also, to reduce, like, average transaction latency, you typically want a short block period at times of high throughput to kind of… so that each
+
+54
+00:12:05.760 --> 00:12:09.270
+Matthew Whitehead (Kaleido): Transactions average latency is kept fairly low.
+
+55
+00:12:09.270 --> 00:12:15.729
+Matthew Whitehead (Kaleido): But then coupled with a big empty block period when… when you're not trading.
+
+56
+00:12:15.850 --> 00:12:27.290
+Matthew Whitehead (Kaleido): And yeah, so we've been… I've been raising some PRs in this space, partly around just functionality and things we observed when we started trying to really use it, the way that CubeFT votes.
+
+57
+00:12:27.720 --> 00:12:43.230
+Matthew Whitehead (Kaleido): Work, when you have, like, an empty block period, kind of meant you could end up not having a long period of time when new validators weren't voted in, or old validators weren't voted out, because the votes happen on, like, on a block, kind of, as part of the block production.
+
+58
+00:12:44.220 --> 00:12:58.270
+Matthew Whitehead (Kaleido): But also, and this is kind of an interesting one for us, observability of the health of a chain. That's often, for permissioned users, measured in when was the last block produced, if it, you know, as a good finger-in-the-air kind of…
+
+59
+00:12:58.440 --> 00:13:10.599
+Matthew Whitehead (Kaleido): kind of canary down the mine, whatever your kind of metaphor is for, is a chain healthy? It's kind of, well, if a block was produced within a smallish period of time recently, then signs are good.
+
+60
+00:13:10.840 --> 00:13:24.600
+Matthew Whitehead (Kaleido): That… that really changes when you have times of long periods of inactivity, where you don't want a single block for hours, maybe, and so your finger in the air kind of, does the chain look healthy, becomes quite different.
+
+61
+00:13:24.780 --> 00:13:44.709
+Matthew Whitehead (Kaleido): So I've got a PR on the go that Jason has been reviewing around metrics that help you see that the chain is kind of sitting there, telling you actively, I'm intentionally not producing a block. I am here, but I'm intentionally not producing a block, so you can start to use those as a guide of, is the chain healthy, in a way that
+
+62
+00:13:44.850 --> 00:13:59.959
+Matthew Whitehead (Kaleido): the kind of… the other, the other approaches, the traditional approaches, assuming blocks are going to be pretty, pretty regular cadence, that kind of changes that approach quite dramatically for observability for, for kind of enterprise networks.
+
+63
+00:13:59.960 --> 00:14:05.650
+Matthew Whitehead (Kaleido): So that… generally, that's the space that I'm paying attention to, to get
+
+64
+00:14:06.090 --> 00:14:10.170
+Matthew Whitehead (Kaleido): Make sure it's a feature people can really use and get real value out of.
+
+65
+00:14:11.820 --> 00:14:26.659
+Matthew Whitehead (Kaleido): I will drop some other things into the Git issue after the call around some of our priorities. I guess they generally just skim down them. Some of them include, like, the Bonsai Archive with Proofs, which Jason has been doing loads of work on, and we're really appreciative of that, and I'm trying to help
+
+66
+00:14:26.660 --> 00:14:38.009
+Matthew Whitehead (Kaleido): kind of dropped some thoughts and comments into his PRs. That's something that we think enterprise users are going to really benefit from, and Besu will benefit from getting rid of Forest.
+
+67
+00:14:39.120 --> 00:14:58.360
+Matthew Whitehead (Kaleido): the… the pluggability, having, like, this… this approach of having some official plugins in a, in a, in a Besu-owned repo, we're trying to just kind of contribute to the discussions there, and maybe once that
+
+68
+00:14:58.360 --> 00:15:08.579
+Matthew Whitehead (Kaleido): pipeline has matured, we'll start thinking about what new function could go in as a plugin, because we have a really clear picture for which images include the plugins and which ones don't, maybe.
+
+69
+00:15:08.660 --> 00:15:14.239
+Matthew Whitehead (Kaleido): And so we're happy to try and kind of contribute some, some kind of thoughts and move some time there.
+
+70
+00:15:16.450 --> 00:15:33.130
+Matthew Whitehead (Kaleido): the… I think one other space, and then I think I'll shut up, is, administration of the transaction pool. That's an area that we're kind of having conversations with enterprise users about.
+
+71
+00:15:33.190 --> 00:15:46.319
+Matthew Whitehead (Kaleido): in terms of your ability to control times where a transaction just shouldn't come into the pool because it's problematic for one reason or another. Generally, the pool and recent features have come in
+
+72
+00:15:46.320 --> 00:15:56.309
+Matthew Whitehead (Kaleido): We've contributed, kind of, one recently, just to prevent problematic transactions getting in the pool, but generally, there's a degree of comfort enterprises feel
+
+73
+00:15:56.310 --> 00:16:09.199
+Matthew Whitehead (Kaleido): If they know, they have a control point on a node that says, whatever else other nodes in the network tell you, you know, they might be run by other operators, but for this node, you don't let this transaction in, because we know it's causing problems, or… and so on.
+
+74
+00:16:09.390 --> 00:16:30.689
+Matthew Whitehead (Kaleido): or we've got a transaction in the pool, and it's currently causing problems, please kick it out, and keep it on the evicted list, so that it's not allowed back in. So, that's an area we might spend some time. Probably that's more of a 2027 area, because I think those, as Fabio's kind of rightly pointed out in the past discussions on this, some of those
+
+75
+00:16:30.980 --> 00:16:33.300
+Matthew Whitehead (Kaleido): Can be well implemented through plugins.
+
+76
+00:16:33.550 --> 00:16:47.570
+Matthew Whitehead (Kaleido): We just need to make sure that they are, to the end user, a permissioned user, they're just consuming Besu, not consuming Besu plus plugins 1, 5, and 9. They're just, they're just consuming Besu. So I think for us.
+
+77
+00:16:47.690 --> 00:16:55.380
+Matthew Whitehead (Kaleido): it really helps if the approach to plugins matures such that then our end users just think, well, we're just using Besu.
+
+78
+00:16:55.470 --> 00:17:11.180
+Matthew Whitehead (Kaleido): But we've implemented some of these new enhancements as plugins, and that helps, kind of, keep the codebase clean. So, yeah, that's just some thoughts, some space that we're kind of spending time, but the empty block period is the stuff that we're really focusing on, kind of, right now, actively.
+
+79
+00:17:11.630 --> 00:17:28.330
+Justin Florentine: Cool. Very cool. I look forward to learning more about this empty block period. I'll brush up on my QBFT info. With regard to the idea about administering the transaction pool, there's some potential synergy with upcoming main network.
+
+80
+00:17:28.339 --> 00:17:28.949
+Matthew Whitehead (Kaleido): Hmm.
+
+81
+00:17:28.950 --> 00:17:35.329
+Justin Florentine: The frame transaction concept that's been recently SFI'd for Hagoda.
+
+82
+00:17:35.330 --> 00:17:35.670
+Matthew Whitehead (Kaleido): Okay.
+
+83
+00:17:35.670 --> 00:17:41.220
+Justin Florentine: Has some new requirements, for policing the transaction pool.
+
+84
+00:17:41.910 --> 00:17:50.080
+Justin Florentine: Because users are going to be able to specify their criteria for how a transaction is verified more dynamically. Yeah.
+
+85
+00:17:50.080 --> 00:18:04.770
+Justin Florentine: filtering those things, you know, invalid transactions, out of the transaction pool, needs to become more dynamic. And so, the problem space is currently being described as VOPs, validity-only Partial Statelessness.
+
+86
+00:18:05.000 --> 00:18:11.420
+Justin Florentine: And it's a series of profiles that are being introduced alongside with frame transactions
+
+87
+00:18:11.860 --> 00:18:21.799
+Justin Florentine: That, you know, will kind of define rules and heuristics for determining validity of a transaction with as little access to the state as possible.
+
+88
+00:18:21.950 --> 00:18:22.380
+Matthew Whitehead (Kaleido): Hmm.
+
+89
+00:18:22.380 --> 00:18:26.529
+Justin Florentine: Because we don't want to crush… because when things are,
+
+90
+00:18:26.970 --> 00:18:29.519
+Justin Florentine: In the mempool, they're not being paid for.
+
+91
+00:18:29.800 --> 00:18:45.419
+Justin Florentine: Right? It's very much an off-chain environment. It's very susceptible to DOS and, you know, crippling machines with unnecessary work. So the rules that we are going to allow to be defined to determine the validity have to be as stateless as possible.
+
+92
+00:18:46.560 --> 00:18:51.890
+Matthew Whitehead (Kaleido): Yeah, that's really interesting. Would that ever come up on recent Cordev or Cordov calls?
+
+93
+00:18:52.100 --> 00:19:09.109
+Justin Florentine: No, this isn't even in the core dev space yet. This is still being talked about with regard to Fossil and with, framed transactions. I just posted a link to an example of a PR into an EIP that helps to define one of these profiles.
+
+94
+00:19:09.540 --> 00:19:11.229
+Justin Florentine: Excuse me, Fabio, go ahead.
+
+95
+00:19:13.490 --> 00:19:25.599
+Fabio Di Fabio: Yeah, and there are… Some things that… Some synergies that could, be done, using plugins.
+
+96
+00:19:25.990 --> 00:19:30.420
+Fabio Di Fabio: Let's call the official plugins that we distribute.
+
+97
+00:19:30.760 --> 00:19:32.720
+Fabio Di Fabio: Along with the Besu.
+
+98
+00:19:33.200 --> 00:19:42.860
+Fabio Di Fabio: They could allow for making the transaction plural Implementation, different plugins.
+
+99
+00:19:43.920 --> 00:19:52.799
+Fabio Di Fabio: And… Allowing for further customization of it, because Depending on,
+
+100
+00:19:53.130 --> 00:20:00.730
+Fabio Di Fabio: How much, private network enterprise are interested in frames?
+
+101
+00:20:02.270 --> 00:20:09.450
+Fabio Di Fabio: Since frames are… introducing new concept, And also.
+
+102
+00:20:10.270 --> 00:20:13.800
+Fabio Di Fabio: Probably a lot more, effort.
+
+103
+00:20:14.080 --> 00:20:15.770
+Fabio Di Fabio: In the transaction pool.
+
+104
+00:20:17.020 --> 00:20:24.210
+Fabio Di Fabio: It could be that… The main transaction pool is not well suited or…
+
+105
+00:20:26.020 --> 00:20:30.880
+Fabio Di Fabio: Private network, but maybe don't have this kind of stuff, so…
+
+106
+00:20:32.210 --> 00:20:38.020
+Fabio Di Fabio: We should always think about having Different implementation.
+
+107
+00:20:38.470 --> 00:20:48.820
+Fabio Di Fabio: If this is better, then try to keep one implementation that Fits all size, but… It's not good.
+
+108
+00:20:49.600 --> 00:20:52.090
+Fabio Di Fabio: Not very good at any of them.
+
+109
+00:20:52.190 --> 00:21:03.029
+Fabio Di Fabio: So… Could be that in the next year, we… Are able also to… Make the transaction pool.
+
+110
+00:21:03.900 --> 00:21:14.150
+Fabio Di Fabio: a plugin and distribute it with… distribute different implementation, like we do now, but as plugin.
+
+111
+00:21:15.600 --> 00:21:23.170
+Justin Florentine: I think that's a good point, Fabio. I think the, when we implement VPOS, or VOPS, D-O-P-S. D-O-P-S.
+
+112
+00:21:23.410 --> 00:21:32.560
+Justin Florentine: When we implement that for mainnet, we probably should implement it as a plugin, because otherwise, private networks won't really be able to turn it off.
+
+113
+00:21:35.610 --> 00:21:43.050
+Matthew Whitehead (Kaleido): Yeah, that, that's, that's interesting. That is a, so I think I totally agree with the point Fabio's making.
+
+114
+00:21:43.170 --> 00:21:49.920
+Matthew Whitehead (Kaleido): One area, just generally as a background, kind of, area for… for me is…
+
+115
+00:21:50.350 --> 00:21:54.840
+Matthew Whitehead (Kaleido): Keeping an eye on things which are very public mainnet focused.
+
+116
+00:21:55.290 --> 00:22:04.080
+Matthew Whitehead (Kaleido): And just making sure that there are no unexpected, unintentional impacts on permission chains,
+
+117
+00:22:04.210 --> 00:22:07.169
+Matthew Whitehead (Kaleido): As far ahead of time as possible.
+
+118
+00:22:08.030 --> 00:22:13.700
+Matthew Whitehead (Kaleido): And, yeah, so I totally agree, Fabio, that, we should look at
+
+119
+00:22:14.410 --> 00:22:24.840
+Matthew Whitehead (Kaleido): where there are overlaps and synergies, and actually where they just differ so much. Like, we have two distinct transaction pools, and I assume no one running on public mania uses the…
+
+120
+00:22:24.990 --> 00:22:26.460
+Matthew Whitehead (Kaleido): the sequenced one.
+
+121
+00:22:26.860 --> 00:22:34.979
+Matthew Whitehead (Kaleido): And I know almost no one running enterprise chains runs the layered pool. That's kind of a good example of where it makes sense that they're totally disjoint.
+
+122
+00:22:36.600 --> 00:22:42.800
+Fabio Di Fabio: Yeah, that's… that's true, and I'm also thinking of other… Implementation that could be useful.
+
+123
+00:22:43.660 --> 00:22:49.170
+Fabio Di Fabio: For performance, some that are very specific, for high throughput.
+
+124
+00:22:50.640 --> 00:22:56.709
+Fabio Di Fabio: and the… With gasless network.
+
+125
+00:22:57.320 --> 00:23:01.640
+Fabio Di Fabio: Because the sequences still check the gas.
+
+126
+00:23:02.500 --> 00:23:07.020
+Fabio Di Fabio: Still tried to prioritize by gas price.
+
+127
+00:23:07.400 --> 00:23:10.900
+Fabio Di Fabio: Even if it's a gasless network, no?
+
+128
+00:23:11.230 --> 00:23:19.940
+Fabio Di Fabio: So, another implementation that is… Very specific, very optimized for a gasless network would be nice to have.
+
+129
+00:23:20.530 --> 00:23:27.150
+Matthew Whitehead (Kaleido): Yeah, agreed. We, we certainly… we kind of see an interesting mix of
+
+130
+00:23:27.550 --> 00:23:36.550
+Matthew Whitehead (Kaleido): Most users are, kind of, free gas, so they still… they're still happy with the concept of gas,
+
+131
+00:23:36.890 --> 00:23:42.709
+Matthew Whitehead (Kaleido): As a way of, kind of, measuring transaction… transaction size, but they're generally free gas.
+
+132
+00:23:42.970 --> 00:23:45.100
+Matthew Whitehead (Kaleido): But some are still…
+
+133
+00:23:45.310 --> 00:24:00.490
+Matthew Whitehead (Kaleido): either using non-free gas for certain… for certain use cases as a way of effectively distributing, quoted access to the network, by… by distributing ETH…
+
+134
+00:24:00.650 --> 00:24:08.870
+Matthew Whitehead (Kaleido): at a rate that they're happy with, and that allows different users a different amount of the network's capacity.
+
+135
+00:24:08.980 --> 00:24:13.959
+Matthew Whitehead (Kaleido): Or they're very keen just not to close the door to doing something like that in the future.
+
+136
+00:24:14.430 --> 00:24:26.209
+Matthew Whitehead (Kaleido): So, yeah, most uses are free gas, but a lot of them are kind of still keeping an eye on whether or not the concept of a chargeable gas with the associated token
+
+137
+00:24:26.700 --> 00:24:39.130
+Matthew Whitehead (Kaleido): has benefit in dishing out allocated quota on the network when you have a number of different parties using it. So, yeah, I think you're right that there could be real performance optimizations.
+
+138
+00:24:39.190 --> 00:24:50.689
+Matthew Whitehead (Kaleido): But we'll also always probably keep an eye on making sure that the basic intrinsic behavior, if you do want a non-free gas price, is still there within that kind of sequence pool.
+
+139
+00:24:54.830 --> 00:24:55.980
+Justin Florentine: That's interesting.
+
+140
+00:24:55.980 --> 00:25:13.940
+Matthew Whitehead (Kaleido): I thought, while I'm on that, I just have one last point, which is kind of related to that, and possibly interesting to this audience, is that one thing we had a lot of discussions with enterprise users about recently was, like, for Sarka's per transaction gas limit.
+
+141
+00:25:14.410 --> 00:25:24.690
+Matthew Whitehead (Kaleido): That's kind of an example of a mainnet behavior change that sort of had an unintended consequence for enterprise users.
+
+142
+00:25:25.520 --> 00:25:35.229
+Matthew Whitehead (Kaleido): Where users were generally… Able to use really high trans… really high gas transactions.
+
+143
+00:25:35.510 --> 00:25:42.140
+Matthew Whitehead (Kaleido): And then Forsaka came along and set this default, not default, even, really, baked in…
+
+144
+00:25:42.370 --> 00:26:00.169
+Matthew Whitehead (Kaleido): gas limit, and, another, some other maintainers, I think it was Marcos, kind of contributed some work, then we reviewed it, but I just wanted to highlight that as an example of, like, an unintended public mainnet behavior change trickling its way down to enterprise users in a slightly unexpected way.
+
+145
+00:26:05.640 --> 00:26:06.390
+Justin Florentine: Okay.
+
+146
+00:26:09.620 --> 00:26:12.949
+Justin Florentine: Yeah, please keep an eye on, eye out for those types of things.
+
+147
+00:26:14.330 --> 00:26:16.019
+Justin Florentine: I think that's actually,
+
+148
+00:26:16.920 --> 00:26:21.800
+Justin Florentine: So we're gonna do a meeting to kind of talk more about the Hagoda stuff.
+
+149
+00:26:22.740 --> 00:26:30.340
+Justin Florentine: And I'd love to invite at least this group of people, to participate
+
+150
+00:26:30.580 --> 00:26:38.210
+Justin Florentine: or even if you can't make a meeting, please go on to Forecast and put together your own ranking.
+
+151
+00:26:38.440 --> 00:26:41.280
+Justin Florentine: And send it to us for consideration.
+
+152
+00:26:41.810 --> 00:26:47.279
+Justin Florentine: But I would be… I'd be happy to, at least send out a meeting invite.
+
+153
+00:26:47.450 --> 00:26:49.890
+Justin Florentine: For those types of discussions.
+
+154
+00:26:50.660 --> 00:26:52.799
+Justin Florentine: For anybody that wants to participate.
+
+155
+00:26:56.440 --> 00:26:57.300
+Justin Florentine: Great.
+
+156
+00:26:59.230 --> 00:27:00.650
+Justin Florentine: Great,
+
+157
+00:27:01.050 --> 00:27:03.030
+Fabio Di Fabio: Yeah, justin?
+
+158
+00:27:03.030 --> 00:27:03.640
+Justin Florentine: Yes.
+
+159
+00:27:04.560 --> 00:27:13.640
+Fabio Di Fabio: Yeah, I want to add something to Matt. Actually, it's more a request question than… A comment is…
+
+160
+00:27:14.230 --> 00:27:20.110
+Fabio Di Fabio: So, when, Matt, when you say, okay, there are, unwanted
+
+161
+00:27:20.990 --> 00:27:25.569
+Fabio Di Fabio: unwanted consequences of something that we do on mainnet.
+
+162
+00:27:26.430 --> 00:27:34.300
+Fabio Di Fabio: Yeah, we try… Let's say our best to also think about other kinds of usages.
+
+163
+00:27:34.920 --> 00:27:42.460
+Fabio Di Fabio: But… It is easy for us to run nodes.
+
+164
+00:27:43.820 --> 00:27:50.229
+Fabio Di Fabio: to test what we did on testnet, DevNet, that are public, no?
+
+165
+00:27:50.540 --> 00:27:56.249
+Fabio Di Fabio: But, of course, he's… We are completely, blind about
+
+166
+00:27:57.160 --> 00:28:03.169
+Fabio Di Fabio: private network, permission network, because we can't join them.
+
+167
+00:28:03.810 --> 00:28:10.889
+Fabio Di Fabio: But… If you have, Some way to…
+
+168
+00:28:11.560 --> 00:28:17.150
+Fabio Di Fabio: Create or test this kind of network, maybe with some tool like
+
+169
+00:28:17.370 --> 00:28:20.820
+Fabio Di Fabio: kurtosis that could be added to the ACI.
+
+170
+00:28:20.980 --> 00:28:25.810
+Fabio Di Fabio: That would be nice, so I don't know what… Do you think about…
+
+171
+00:28:26.580 --> 00:28:31.640
+Fabio Di Fabio: A way to preview, the changes on, some,
+
+172
+00:28:32.030 --> 00:28:41.309
+Fabio Di Fabio: similar or, very similar net… DevNet, to… to Prabhat Network.
+
+173
+00:28:41.310 --> 00:28:54.780
+Matthew Whitehead (Kaleido): Yeah, that's a really good question. So, my kind of focus on that, so far, has been the… what's called the BFT soak test.
+
+174
+00:28:55.580 --> 00:29:09.139
+Matthew Whitehead (Kaleido): And I happen to be looking… I raised an issue today because Sally pointed out that it seems to have started failing, and it doesn't run routinely, it doesn't run in the pipeline because it's quite long, and it goes through…
+
+175
+00:29:09.260 --> 00:29:20.849
+Matthew Whitehead (Kaleido): A number of forks, it goes London, Shanghai, I think it includes Osaka now. And it does a bunch of basic stuff you'd be doing in an enterprise network.
+
+176
+00:29:22.320 --> 00:29:32.429
+Matthew Whitehead (Kaleido): It runs for just over an hour, and the intention of that, when we kind of introduced that a couple of years back, was to do exactly that, to give a really convenient way of saying.
+
+177
+00:29:32.500 --> 00:29:55.500
+Matthew Whitehead (Kaleido): on a given branch, run a 4-node QBFT chain, and do some stuff, like do some transactions, do some transitions. The FSACA transaction gas limit issue is a really good example of where that test just didn't… didn't… was, you know, didn't have a huge transaction in it, which would have probably helped highlight the change, so…
+
+178
+00:29:55.500 --> 00:29:57.190
+Matthew Whitehead (Kaleido): The BFT soap test
+
+179
+00:29:57.480 --> 00:30:07.079
+Matthew Whitehead (Kaleido): I'm really keen to kind of make more reliable and make really useful for people who are focusing on public chain development.
+
+180
+00:30:07.080 --> 00:30:23.699
+Matthew Whitehead (Kaleido): But it's kind of quite… it's quite a long-soak kind of system test style thing. And it may be that for some things… normally, the rest of the integration and acceptance tests in the codebase are pretty good for spotting that kind of stuff.
+
+181
+00:30:25.480 --> 00:30:36.670
+Matthew Whitehead (Kaleido): probably after the Osaka stuff, I don't know if the PR that fixed that added tests that… that would show a regression in that space, but generally speaking.
+
+182
+00:30:37.490 --> 00:30:40.789
+Matthew Whitehead (Kaleido): the soap test is probably a good place to start, Fabio.
+
+183
+00:30:41.430 --> 00:30:55.160
+Matthew Whitehead (Kaleido): Maybe, like, it's generally been reliable. I'm still looking into why it started failing recently, but the more people are using it, the more pressure there will be on people like me to make it reliable.
+
+184
+00:30:55.190 --> 00:31:02.080
+Matthew Whitehead (Kaleido): So maybe that's a kind of a good thing to have as a kind of a routine thing to run your branch on.
+
+185
+00:31:04.080 --> 00:31:11.540
+Fabio Di Fabio: Okay, what I can, say from the DevUX point of view now,
+
+186
+00:31:12.050 --> 00:31:17.020
+Fabio Di Fabio: I honestly haven't looked at this test too much.
+
+187
+00:31:17.750 --> 00:31:21.480
+Fabio Di Fabio: And I don't know when it fails.
+
+188
+00:31:21.800 --> 00:31:22.920
+Fabio Di Fabio: So…
+
+189
+00:31:23.780 --> 00:31:24.290
+Matthew Whitehead (Kaleido): Yet.
+
+190
+00:31:24.290 --> 00:31:29.460
+Fabio Di Fabio: Having something that… Makes the build red.
+
+191
+00:31:29.600 --> 00:31:38.350
+Fabio Di Fabio: When it fail, even… Of course, you can't run it on every PR?
+
+192
+00:31:39.590 --> 00:31:52.460
+Fabio Di Fabio: But… Like, if it fails, save something in a shared… place… that the next BR will be red.
+
+193
+00:31:53.420 --> 00:31:54.920
+Matthew Whitehead (Kaleido): Yeah, I…
+
+194
+00:31:54.920 --> 00:32:03.619
+Fabio Di Fabio: So you will… so I will know about that. Otherwise, it will be difficult for me to look at it if I'm not interested.
+
+195
+00:32:03.720 --> 00:32:04.660
+Fabio Di Fabio: Actually.
+
+196
+00:32:04.660 --> 00:32:18.190
+Matthew Whitehead (Kaleido): Yeah, I agree. One of my, kind of, quandaries with some of these, like, kind of long-run tests is whether scheduled tests are actually useful or not. I think often running a nightly test, because it's… this one is kind of over an hour long.
+
+197
+00:32:18.860 --> 00:32:34.419
+Matthew Whitehead (Kaleido): Can be good, because then you can see it much more easily, but I think failing scheduled tests so quickly get ignored or not seen, or they're not visible, and it's hard to tell if your change was the thing that broke it, or one of the other many things that went in that day.
+
+198
+00:32:34.550 --> 00:32:41.939
+Matthew Whitehead (Kaleido): At the same time, it's quite hard to demonstrate quite a broad range of…
+
+199
+00:32:42.460 --> 00:32:48.049
+Matthew Whitehead (Kaleido): permissioned chain behavior without that kind of long-running test.
+
+200
+00:32:48.170 --> 00:32:54.080
+Matthew Whitehead (Kaleido): Maybe we could start, once it's reliable, in making it a scheduled?
+
+201
+00:32:55.870 --> 00:33:08.140
+Matthew Whitehead (Kaleido): test, and I don't know if there are ways to integrate scheduled test success with… with, kind of, PRs. Yeah, I'm open to suggestions there.
+
+202
+00:33:08.770 --> 00:33:13.409
+Fabio Di Fabio: No, I think that some guitar action will be possible.
+
+203
+00:33:13.600 --> 00:33:21.030
+Fabio Di Fabio: So you, you will have, an alert on every PR, failure.
+
+204
+00:33:21.240 --> 00:33:25.390
+Fabio Di Fabio: For example, I don't know if you…
+
+205
+00:33:25.540 --> 00:33:29.280
+Fabio Di Fabio: I've, heard about Hive tests.
+
+206
+00:33:29.930 --> 00:33:32.950
+Fabio Di Fabio: Those are for mainnet. I just shared the link.
+
+207
+00:33:32.950 --> 00:33:34.410
+Matthew Whitehead (Kaleido): Oh, yeah, I'm just looking, yeah.
+
+208
+00:33:35.260 --> 00:33:39.940
+Fabio Di Fabio: So those are… Per test that takes hours.
+
+209
+00:33:40.360 --> 00:33:41.670
+Fabio Di Fabio: to run.
+
+210
+00:33:42.240 --> 00:33:46.320
+Fabio Di Fabio: So, they are not integrated in any client…
+
+211
+00:33:46.940 --> 00:33:47.380
+Matthew Whitehead (Kaleido): Hmm.
+
+212
+00:33:47.380 --> 00:33:51.610
+Fabio Di Fabio: CI, but we know that we need to check
+
+213
+00:33:51.720 --> 00:33:54.309
+Fabio Di Fabio: The result of those tests, because
+
+214
+00:33:54.650 --> 00:34:03.400
+Fabio Di Fabio: They are confirming that our implementation is following the specification, all the new AIPs.
+
+215
+00:34:03.570 --> 00:34:04.340
+Matthew Whitehead (Kaleido): Hmm.
+
+216
+00:34:04.830 --> 00:34:11.520
+Fabio Di Fabio: So we already… Follow this, even if it is asynchronous?
+
+217
+00:34:11.909 --> 00:34:16.139
+Fabio Di Fabio: to the CI, Because we know that.
+
+218
+00:34:16.670 --> 00:34:20.460
+Fabio Di Fabio: In this case, probably we need a little help.
+
+219
+00:34:21.040 --> 00:34:25.349
+Fabio Di Fabio: To have something that rises our attention.
+
+220
+00:34:25.850 --> 00:34:34.270
+Fabio Di Fabio: And thinking about… the difficulty of telling which is the PR that introduced the issue or not.
+
+221
+00:34:34.690 --> 00:34:41.199
+Fabio Di Fabio: Basically, we already do this with… Hive, we do this manually.
+
+222
+00:34:41.540 --> 00:34:46.030
+Fabio Di Fabio: Because maybe Ivo runs every day, so…
+
+223
+00:34:46.750 --> 00:34:50.410
+Fabio Di Fabio: We manually try to find which is the PR,
+
+224
+00:34:50.920 --> 00:34:55.300
+Fabio Di Fabio: In the last day that introduced the… the issues.
+
+225
+00:34:55.300 --> 00:35:08.739
+Matthew Whitehead (Kaleido): Yeah, I wonder if there's a way to integrate… so I just put a link into the chat of the soak test I was referring to, in case anyone's not familiar with it. I wonder if there's a way to integrate that into the Hive?
+
+226
+00:35:08.970 --> 00:35:10.789
+Matthew Whitehead (Kaleido): Kind of, feed?
+
+227
+00:35:11.320 --> 00:35:23.759
+Fabio Di Fabio: I don't think so, because that is, managed by the Ethereum Foundation, the PandaOps, and is only mainnet related.
+
+228
+00:35:24.670 --> 00:35:33.730
+Fabio Di Fabio: But the tool… Are… there are a lot of tools that could be reused.
+
+229
+00:35:33.930 --> 00:35:39.969
+Fabio Di Fabio: I don't know if it makes sense. I would suggest to…
+
+230
+00:35:40.370 --> 00:35:45.200
+Fabio Di Fabio: look at Curtosis and the Ethereum package for Curtosis.
+
+231
+00:35:45.650 --> 00:35:51.649
+Fabio Di Fabio: If it maybe could be useful for this kind of test.
+
+232
+00:35:52.780 --> 00:36:09.749
+Matthew Whitehead (Kaleido): On the Hive test, because obviously the UI there gives you a kind of a… shows you how things have been recently, do developers subscribe to, like, more of an alert on that? Are developers in the habit of just looking at that?
+
+233
+00:36:10.080 --> 00:36:12.070
+Matthew Whitehead (Kaleido): On a, on a daily basis.
+
+234
+00:36:13.220 --> 00:36:15.999
+Fabio Di Fabio: We look at them because we are…
+
+235
+00:36:16.150 --> 00:36:19.509
+Fabio Di Fabio: following. I'm not sure there is…
+
+236
+00:36:19.890 --> 00:36:30.269
+Fabio Di Fabio: There could be a possibility to have some kind of notification, but personally, I just check it because I know that I'm working on the feature.
+
+237
+00:36:30.490 --> 00:36:31.790
+Fabio Di Fabio: And they,
+
+238
+00:36:32.990 --> 00:36:40.019
+Fabio Di Fabio: those tests running every day, and I check every day the output, so I don't need the notification at the moment.
+
+239
+00:36:40.020 --> 00:36:41.420
+Matthew Whitehead (Kaleido): Yeah, okay.
+
+240
+00:36:42.020 --> 00:36:43.999
+Matthew Whitehead (Kaleido): Yeah, certainly…
+
+241
+00:36:44.000 --> 00:36:44.399
+Fabio Di Fabio: Could be.
+
+242
+00:36:44.400 --> 00:36:54.070
+Matthew Whitehead (Kaleido): there's something we could do there to… I mean, I think maybe there's an argument to run the BFT test on a schedule now.
+
+243
+00:36:54.790 --> 00:37:01.250
+Matthew Whitehead (Kaleido): I think that would be a good starting point. I am conscious of it just…
+
+244
+00:37:01.670 --> 00:37:11.519
+Matthew Whitehead (Kaleido): falling down a bit of a hole if it fails unreliably over and over again, but it feels like maybe that's a good starting point, and then I don't know if that can be pinned to a daily notification.
+
+245
+00:37:11.870 --> 00:37:16.719
+Matthew Whitehead (Kaleido): In some way that would be fairly visible to people like me and other developers.
+
+246
+00:37:18.250 --> 00:37:22.880
+Justin Florentine: I think we… yeah, it's worth investigating. Mercy, do you have an idea?
+
+247
+00:37:27.470 --> 00:37:33.849
+Mercy Boma: Yeah, so on the notification, it's mostly on JasonRQC channel.
+
+248
+00:37:34.170 --> 00:37:43.560
+Mercy Boma: On… the EF, discord channel, so we have this, alert. It comes in every Monday.
+
+249
+00:37:43.870 --> 00:37:52.170
+Mercy Boma: like, early morning, every Monday, just to, the tutorial on… The entire town.
+
+250
+00:37:55.090 --> 00:37:58.530
+Matthew Whitehead (Kaleido): Okay, so… so people tend to monitor that channel, do they?
+
+251
+00:38:00.060 --> 00:38:04.120
+Mercy Boma: Yes, me, for example, I do take a look at it every month, and I…
+
+252
+00:38:05.400 --> 00:38:08.519
+Mercy Boma: Because I'm handling, the LPC calls, sort of, so…
+
+253
+00:38:12.320 --> 00:38:16.839
+Matthew Whitehead (Kaleido): Okay, so maybe… yeah, maybe there's something to think about there,
+
+254
+00:38:17.550 --> 00:38:20.290
+Matthew Whitehead (Kaleido): What's the name of that channel, Mercy?
+
+255
+00:38:21.390 --> 00:38:25.939
+Mercy Boma: JSNRPC, it's on, it's R&D Discord channel.
+
+256
+00:38:26.280 --> 00:38:27.040
+Matthew Whitehead (Kaleido): Okay.
+
+257
+00:38:28.380 --> 00:38:35.149
+Matthew Whitehead (Kaleido): Okay, so, yeah, I'm… I'm not quite sure what options we'll have for, kind of.
+
+258
+00:38:35.270 --> 00:38:43.579
+Matthew Whitehead (Kaleido): for pushing out, kind of, failure notifications elsewhere, like the Ethernity channels, but… maybe, Justin, you and I can have a bit of a thought about that.
+
+259
+00:38:44.140 --> 00:38:49.700
+Matthew Whitehead (Kaleido): Once we have it running as a scheduled action and reliable.
+
+260
+00:38:50.790 --> 00:38:59.200
+Justin Florentine: Yeah, yeah, I would include Mercy and Sally on that as well. This is a thing that Sally's been quite interested in for some time.
+
+261
+00:38:59.870 --> 00:39:16.170
+Matthew Whitehead (Kaleido): Sure, yeah, absolutely. Okay, so what I'll do is I'm going to get to the bottom of the failures, because it's not very useful with that anyway. I might propose a PR that changes the workflow to be a schedule, and then I think maybe I'll start a chat with the four of us.
+
+262
+00:39:16.260 --> 00:39:20.029
+Matthew Whitehead (Kaleido): To work out how best to, kind of, keep notifications in a useful place.
+
+263
+00:39:22.500 --> 00:39:23.649
+Justin Florentine: Sounds good.
+
+264
+00:39:28.580 --> 00:39:29.500
+Justin Florentine: Awesome.
+
+265
+00:39:29.710 --> 00:39:30.720
+Justin Florentine: Very good.
+
+266
+00:39:32.370 --> 00:39:45.700
+Justin Florentine: And with that, it's kind of open issues time. If anybody wants to bring anything else to the floor, or campaign for your favorite tech debt issue that needs to be cleaned up…
+
+267
+00:39:46.070 --> 00:39:55.920
+Justin Florentine: Or perhaps discuss a good time for a Hagoda EIP planning meeting. Is 1PM GMT good for anybody?
+
+268
+00:39:59.180 --> 00:40:03.669
+Justin Florentine: If we can nail down a good time of day, we can then figure out which day.
+
+269
+00:40:10.410 --> 00:40:11.790
+Matthew Whitehead (Kaleido): Yeah, it tends to be good for me.
+
+270
+00:40:12.170 --> 00:40:19.439
+Justin Florentine: Okay… Mercy, you're available around then? Vivek's available? Okay. Alright.
+
+271
+00:40:27.570 --> 00:40:29.200
+Justin Florentine: Tomorrow?
+
+272
+00:40:29.980 --> 00:40:32.870
+Justin Florentine: Let's see, tomorrow or Friday…
+
+273
+00:40:34.900 --> 00:40:40.849
+Justin Florentine: Why don't we do it early next week, just to give folks a sense of the list. It is a large list.
+
+274
+00:40:40.850 --> 00:40:46.620
+Fabio Di Fabio: Yeah, indeed, it's a very large list. I started to look at it, and there's…
+
+275
+00:40:47.120 --> 00:40:53.870
+Fabio Di Fabio: Unless you just want to read the title, tomorrow is not enough to have an idea.
+
+276
+00:40:54.250 --> 00:40:59.230
+Fabio Di Fabio: So, yes, for me, I suggest Friday or early next week.
+
+277
+00:40:59.690 --> 00:41:04.229
+Justin Florentine: How about… Monday or Tuesday next week.
+
+278
+00:41:07.380 --> 00:41:08.520
+Fabio Di Fabio: That was good for me.
+
+279
+00:41:11.640 --> 00:41:14.030
+Matthew Whitehead (Kaleido): Yeah, I think generally both of those would work for me.
+
+280
+00:41:14.770 --> 00:41:15.810
+Justin Florentine: Fantastic.
+
+281
+00:41:16.700 --> 00:41:17.720
+Justin Florentine: Okay.
+
+282
+00:41:18.280 --> 00:41:28.820
+Justin Florentine: I will post on the Besu… the general Besu Contributors channel…
+
+283
+00:41:29.550 --> 00:41:38.519
+Justin Florentine: with a Zoom link to a meeting. And let's plan for Tuesday at 1PM GMT.
+
+284
+00:41:38.730 --> 00:41:40.550
+Justin Florentine: September 8th.
+
+285
+00:41:50.900 --> 00:41:51.690
+Justin Florentine: Awesome.
+
+286
+00:42:01.800 --> 00:42:05.329
+Justin Florentine: Okay. Open floor going once.
+
+287
+00:42:10.210 --> 00:42:12.120
+Justin Florentine: Going twice…
+
+288
+00:42:17.760 --> 00:42:19.550
+Justin Florentine: Three times.
+
+289
+00:42:23.000 --> 00:42:23.920
+Justin Florentine: Okay.
+
+290
+00:42:24.130 --> 00:42:25.460
+Justin Florentine: Thanks, everybody!
+
+291
+00:42:25.710 --> 00:42:27.219
+Fabio Di Fabio: Thank you. Bye.
+
+292
+00:42:27.510 --> 00:42:28.469
+Justin Florentine: Come on, talk to you later.
+

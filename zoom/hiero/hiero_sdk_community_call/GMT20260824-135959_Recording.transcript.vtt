@@ -1,0 +1,942 @@
+WEBVTT
+
+1
+00:02:22.380 --> 00:02:24.540
+Keith Kowal (Hedera Hashgraph LLC): Hey everyone, I've got a few more minutes.
+
+2
+00:02:27.630 --> 00:02:28.289
+Dosi Kolev: I am.
+
+3
+00:04:13.220 --> 00:04:13.880
+Keith Kowal (Hedera Hashgraph LLC): Great.
+
+4
+00:04:25.160 --> 00:04:32.760
+Keith Kowal (Hedera Hashgraph LLC): Welcome, everyone, to the SDK Community Call. This is a,
+
+5
+00:04:33.050 --> 00:04:38.129
+Keith Kowal (Hedera Hashgraph LLC): call, where we talk about all the great things about the Hiero SDKs,
+
+6
+00:04:38.280 --> 00:04:48.850
+Keith Kowal (Hedera Hashgraph LLC): key governing principle for these calls is, hopefully everyone can be nice for one another. So, let's dive in.
+
+7
+00:04:49.140 --> 00:05:00.930
+Keith Kowal (Hedera Hashgraph LLC): On the agenda today, I did have a new proposal, in the SDK Collaboration Hub that I wanted to quickly discuss. Is there any other agenda topics that anyone else had?
+
+8
+00:05:12.900 --> 00:05:15.659
+Keith Kowal (Hedera Hashgraph LLC): No. Can I just check, can you guys hear me okay?
+
+9
+00:05:16.960 --> 00:05:18.350
+Mustafa Uzun: Yeah, working through.
+
+10
+00:05:18.530 --> 00:05:19.530
+Dosi Kolev: Greatness.
+
+11
+00:05:20.010 --> 00:05:27.549
+Keith Kowal (Hedera Hashgraph LLC): Perfect. Okay, so let me, go to the first topic, just give it one second…
+
+12
+00:05:45.020 --> 00:05:47.359
+Keith Kowal (Hedera Hashgraph LLC): Okay, I'm gonna share my screen.
+
+13
+00:05:51.590 --> 00:05:58.000
+Keith Kowal (Hedera Hashgraph LLC): Alright, so on Friday, I put up a new, SDK proposal.
+
+14
+00:05:59.370 --> 00:06:05.139
+Keith Kowal (Hedera Hashgraph LLC): And maybe I can just give some his… Sorry, it's just a PR right now,
+
+15
+00:06:08.700 --> 00:06:10.450
+Keith Kowal (Hedera Hashgraph LLC): Yep, this one here.
+
+16
+00:06:15.130 --> 00:06:24.400
+Keith Kowal (Hedera Hashgraph LLC): So, basically, maybe I'll just give you a background for this proposal. You know.
+
+17
+00:06:24.440 --> 00:06:32.199
+Keith Kowal (Hedera Hashgraph LLC): as you know, we've had some other SDK proposals around adding,
+
+18
+00:06:32.200 --> 00:06:44.479
+Keith Kowal (Hedera Hashgraph LLC): balance functionality and token balance functionality using the Hedera mirror node. And, you know, this is not new. The, the Hiero SDKs already have
+
+19
+00:06:44.650 --> 00:06:52.160
+Keith Kowal (Hedera Hashgraph LLC): mirror node functionality, I guess the most… biggest one would be, like, fee estimate query is a big mirror node one we have.
+
+20
+00:06:52.290 --> 00:07:02.580
+Keith Kowal (Hedera Hashgraph LLC): We also have, you know, we've also, also, always had the one for HCS streaming, although that's a bit different. But…
+
+21
+00:07:02.720 --> 00:07:21.290
+Keith Kowal (Hedera Hashgraph LLC): I think as we've… as I've been working on these new SDK proposals for the Mir Node, account balance query and MirrorNode token query, Hendrik has been doing an architectural review and raising some concerns that maybe the architecture we've been using for those MirrorNode
+
+22
+00:07:21.320 --> 00:07:36.790
+Keith Kowal (Hedera Hashgraph LLC): HTTP request is not ideal. And he has, you know, this was in particular, I think he left some comments on for the Java… in the Java SDK, but I think the comments are probably more universal.
+
+23
+00:07:36.880 --> 00:07:46.390
+Keith Kowal (Hedera Hashgraph LLC): So, kind of following his feedback, which I kind of did document, you can actually see his comments here in the Java.
+
+24
+00:07:46.460 --> 00:07:59.090
+Keith Kowal (Hedera Hashgraph LLC): in the Java PR, regarding mirror node balanced query, I put together this revised architecture proposal. So, you know, this is obviously a bigger effort, right? This would mean that we would have to
+
+25
+00:07:59.250 --> 00:08:17.640
+Keith Kowal (Hedera Hashgraph LLC): not only would this affect, potentially, the implementations for mirror node balance query, or mirror node token query, but maybe we have to go back and actually fix fee estimate query as well, and there's a couple other… I think they are… they're all here, all these queries.
+
+26
+00:08:18.950 --> 00:08:19.890
+Keith Kowal (Hedera Hashgraph LLC): So…
+
+27
+00:08:20.610 --> 00:08:30.619
+Keith Kowal (Hedera Hashgraph LLC): Now, you know, obviously there's… there's some specific things to specific SDKs, now there's just a more generic architecture. So let me just first ask,
+
+28
+00:08:30.960 --> 00:08:42.669
+Keith Kowal (Hedera Hashgraph LLC): Mustafa… Did you have time to look at this, or at Hendrik's comments on the Java, SDK?
+
+29
+00:08:43.090 --> 00:08:47.819
+Mustafa Uzun: Yeah, I look at that, but I need to,
+
+30
+00:08:48.150 --> 00:08:55.500
+Mustafa Uzun: do a deep dive, because I only get familiar with the problem and the ideas.
+
+31
+00:08:56.050 --> 00:08:58.650
+Mustafa Uzun: So I need, further research.
+
+32
+00:09:00.320 --> 00:09:00.950
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+33
+00:09:05.060 --> 00:09:15.730
+Keith Kowal (Hedera Hashgraph LLC): So yeah, so like I said, there's, like, a generic… there's some generic points here, but then there's some specific ones, like, when we talk about Android, that's more specific to probably Java.
+
+34
+00:09:16.320 --> 00:09:26.850
+Keith Kowal (Hedera Hashgraph LLC): and there's the goals, the non-goals, there's a proposal for new APIs, new headers, SPI,
+
+35
+00:09:27.070 --> 00:09:34.250
+Keith Kowal (Hedera Hashgraph LLC): So yeah. And I… just to be honest, like, I just created this on Friday, so I certainly need Hendrik to go through this and…
+
+36
+00:09:34.670 --> 00:09:39.529
+Keith Kowal (Hedera Hashgraph LLC): And, provide his feedback and make sure I've gotten this proposal correct.
+
+37
+00:09:41.760 --> 00:09:50.610
+Keith Kowal (Hedera Hashgraph LLC): And then just beyond the transport, there was just also some comments about just overall behavioral alignment between the SDKs on some of this stuff.
+
+38
+00:09:52.160 --> 00:10:01.990
+Keith Kowal (Hedera Hashgraph LLC): So, yeah, it's obviously, it's a big proposal, it has an impact. I do think it raises the open question, which I also raised to Hendrik, is like.
+
+39
+00:10:02.100 --> 00:10:09.479
+Keith Kowal (Hedera Hashgraph LLC): for these outstanding SDK proposals we have on, Mirror Node.
+
+40
+00:10:11.210 --> 00:10:14.890
+Keith Kowal (Hedera Hashgraph LLC): Just in case anyone's not seen them on… Oh.
+
+41
+00:10:16.400 --> 00:10:25.009
+Keith Kowal (Hedera Hashgraph LLC): the mirror node balance query and mirror node token query. Do we move forward with those proposals using the
+
+42
+00:10:25.200 --> 00:10:43.170
+Keith Kowal (Hedera Hashgraph LLC): current architecture, or do we hold until, like, we have this new HTTP client architecture finalized, and then implement them? You know, we've actually already implemented mirror node balanced query in the JS SDK, so, you know, we'd certainly have to go back and refactor that.
+
+43
+00:10:43.250 --> 00:10:49.129
+Keith Kowal (Hedera Hashgraph LLC): Yes, that's an open question that we have to… we'll have to work on on an SDK by SDK basis.
+
+44
+00:10:49.640 --> 00:10:54.670
+Sophie Bulloch: Sorry, Keith. Hi, Sophie, I didn't understand exactly what DHTTP
+
+45
+00:10:55.990 --> 00:10:59.220
+Sophie Bulloch: Is, is, is, what are we switching to?
+
+46
+00:11:00.190 --> 00:11:08.280
+Keith Kowal (Hedera Hashgraph LLC): Yeah, maybe… I think maybe you just joined, so I… I think… So, do we…
+
+47
+00:11:08.510 --> 00:11:10.480
+Keith Kowal (Hedera Hashgraph LLC): Do we make these changes?
+
+48
+00:11:11.130 --> 00:11:23.780
+Keith Kowal (Hedera Hashgraph LLC): like, do we finalize this proposal before implementing MirrorNode token balance query and mirror node, account balance query, or do we move forward with the current architecture, the current proposals?
+
+49
+00:11:26.260 --> 00:11:29.050
+Sophie Bulloch: Okay, so we will have to change them afterwards, is what you're saying?
+
+50
+00:11:29.430 --> 00:11:30.010
+Keith Kowal (Hedera Hashgraph LLC): Yeah.
+
+51
+00:11:33.900 --> 00:11:43.340
+Keith Kowal (Hedera Hashgraph LLC): Like, just, just to be clear, the current, the, the current proposals for, mirror, let's say, mirror node balance query.
+
+52
+00:11:43.560 --> 00:11:44.290
+Keith Kowal (Hedera Hashgraph LLC): Boom.
+
+53
+00:11:44.840 --> 00:11:53.069
+Keith Kowal (Hedera Hashgraph LLC): follows the current architecture used by fee estimate query. So it uses that current architecture for the HTTP requests.
+
+54
+00:11:58.000 --> 00:11:59.780
+Keith Kowal (Hedera Hashgraph LLC): Does that make sense, Sophie?
+
+55
+00:12:00.230 --> 00:12:00.990
+Sophie Bulloch: Yeah.
+
+56
+00:12:02.480 --> 00:12:08.659
+Sophie Bulloch: Okay, I mean, I guess I don't have enough experience, sort of, to judge what is best, but, yeah.
+
+57
+00:12:10.090 --> 00:12:10.410
+Angelina C: Oh.
+
+58
+00:12:13.060 --> 00:12:22.710
+Angelina C: My initial question would be, I guess, what are the benefits of going forward with this proposal, as opposed to continuing on with the current architecture file?
+
+59
+00:12:24.210 --> 00:12:24.880
+Angelina C: Sorry.
+
+60
+00:12:26.040 --> 00:12:27.890
+Keith Kowal (Hedera Hashgraph LLC): Yeah, so, so maybe,
+
+61
+00:12:28.540 --> 00:12:33.869
+Keith Kowal (Hedera Hashgraph LLC): Maybe the best thing is actually… let's just look at… let's look at Hendrik's original comment.
+
+62
+00:12:34.030 --> 00:12:36.950
+Keith Kowal (Hedera Hashgraph LLC): There's some echo, I think.
+
+63
+00:12:41.140 --> 00:12:52.180
+Keith Kowal (Hedera Hashgraph LLC): So… So let me because maybe it's easier to understand if we actually look at Hendrik's original objections.
+
+64
+00:12:54.380 --> 00:12:55.820
+Keith Kowal (Hedera Hashgraph LLC): So this is just…
+
+65
+00:12:57.610 --> 00:13:06.850
+Keith Kowal (Hedera Hashgraph LLC): So, Hendrik's point, and this was looking at the implementation for mere… well, the proposed implementation for mere node token balance query in the Java SDK.
+
+66
+00:13:07.050 --> 00:13:18.089
+Keith Kowal (Hedera Hashgraph LLC): his comments were, so, I have huge concerns with the implementation, and this is why, I'll just let you guys read this, but, like.
+
+67
+00:13:20.220 --> 00:13:30.790
+Keith Kowal (Hedera Hashgraph LLC): there was some concerns about, also some concerns about precision, although that was specific to the JS SDK, and I think I have a different proposal to fix that. But…
+
+68
+00:13:31.100 --> 00:13:31.960
+Keith Kowal (Hedera Hashgraph LLC): you know.
+
+69
+00:13:32.760 --> 00:13:50.019
+Keith Kowal (Hedera Hashgraph LLC): some, you know, each… each static HTTP client owns its own selector thread and connection pool, none of them is ever closed. So, I mean, this is kind of more deep architectural stuff. Other problems, the HTTP client doesn't use client executor,
+
+70
+00:13:50.250 --> 00:14:09.609
+Keith Kowal (Hedera Hashgraph LLC): there's no builder, so callers cannot supply a corporate proxy query. Specific to the Java one, it's not part of the Android class, so it kind of breaks Android compatibility. So, yeah, this was his suggestion, was to stop all this development, and to kind of take a second look at the architecture.
+
+71
+00:14:09.750 --> 00:14:10.800
+Keith Kowal (Hedera Hashgraph LLC): So I…
+
+72
+00:14:10.800 --> 00:14:31.269
+Keith Kowal (Hedera Hashgraph LLC): I mean, I'm not doing a very good job of explaining all his points, but I think it's easier, you guys can just go in and read his comments. And that's his concerns about the existing architecture. And this would be the existing architecture for, most importantly, this is the architecture used by Fee Estimate Query, which today is in all the SDKs. So he's saying the current architecture we have for fee estimate query is also, in some ways.
+
+73
+00:14:31.270 --> 00:14:36.489
+Keith Kowal (Hedera Hashgraph LLC): problematic, although I don't… you know, I think the feedback I gave to Henrik was, well.
+
+74
+00:14:36.490 --> 00:14:54.939
+Keith Kowal (Hedera Hashgraph LLC): we've been running Fiesta McQuery for quite a while now, and we've not had any problems, but I do think that in the review, I mean, his points are valid. I mean, it was probably not an ideal architectural design, what we're currently using, at least in the SDKs I looked at.
+
+75
+00:14:55.450 --> 00:14:57.479
+Keith Kowal (Hedera Hashgraph LLC): Does that make sense, Sophie?
+
+76
+00:14:57.860 --> 00:15:04.069
+Sophie Bulloch: Yeah, I mean, I didn't create, like, the estimate query, so yeah, this is why I'm trying to, like.
+
+77
+00:15:04.610 --> 00:15:07.059
+Sophie Bulloch: Extrapolate a little bit, but,
+
+78
+00:15:07.900 --> 00:15:12.390
+Sophie Bulloch: Yeah, I think that makes sense, especially, like, fetching and stuff is…
+
+79
+00:15:12.630 --> 00:15:18.670
+Sophie Bulloch: like, hard to get consistently right, I guess. So I think his points make sense.
+
+80
+00:15:19.830 --> 00:15:24.619
+Sophie Bulloch: At the same time, we probably have this kind of thing going on in the SDKs anyway, and we sort of…
+
+81
+00:15:25.870 --> 00:15:28.090
+Sophie Bulloch: Used to it, but yeah, it's not great.
+
+82
+00:15:28.300 --> 00:15:29.570
+Sophie Bulloch: Thanks for explaining.
+
+83
+00:15:31.220 --> 00:15:34.439
+Keith Kowal (Hedera Hashgraph LLC): Yeah, so I think the call to action is if,
+
+84
+00:15:35.070 --> 00:15:45.159
+Keith Kowal (Hedera Hashgraph LLC): you know, if everyone… if you go and look at the PRs, if you can go look at this… this PR… like I said, it's still just a draft, because I need Hendrick to review and make sure I got it right.
+
+85
+00:15:45.160 --> 00:15:56.790
+Keith Kowal (Hedera Hashgraph LLC): But yeah, if everyone can go in and take a look at this PR, and you can… this is your chance to provide comments and stuff, early comments and questions, and we can, work through it.
+
+86
+00:16:02.190 --> 00:16:16.530
+Keith Kowal (Hedera Hashgraph LLC): Okay, that was the major topic I had. Maybe we… we could just do a kind of a roundtable and see if there's any other, comments, so maybe I'll stop with you, Mustafa, any updates on the SDKs from your side?
+
+87
+00:16:16.890 --> 00:16:20.349
+Mustafa Uzun: Yeah, from Java… We were…
+
+88
+00:16:20.640 --> 00:16:24.020
+Mustafa Uzun: And we are also now focused on…
+
+89
+00:16:24.270 --> 00:16:28.650
+Mustafa Uzun: This, mirror account balance, mirror token balance.
+
+90
+00:16:29.100 --> 00:16:35.690
+Mustafa Uzun: Also, I opened some tasks… In, Go…
+
+91
+00:16:36.120 --> 00:16:41.179
+Mustafa Uzun: And we are currently working on them, but I can't give the word.
+
+92
+00:16:41.440 --> 00:16:44.990
+Mustafa Uzun: to Dosi, Dosi? Do you want to say your update?
+
+93
+00:16:47.070 --> 00:16:48.939
+Dosi Kolev: Well, yeah, we're,
+
+94
+00:16:49.160 --> 00:16:58.390
+Dosi Kolev: Yeah, in the Go SDK, we are also working for these, deprecations. Also, there are some, issues that…
+
+95
+00:16:59.120 --> 00:17:03.269
+Dosi Kolev: are open in the SDK, and I'm working on them.
+
+96
+00:17:03.980 --> 00:17:06.470
+Dosi Kolev: And… Yeah.
+
+97
+00:17:09.849 --> 00:17:10.419
+Keith Kowal (Hedera Hashgraph LLC): Great.
+
+98
+00:17:11.469 --> 00:17:15.099
+Keith Kowal (Hedera Hashgraph LLC): Angie or Sophie, any updates on the Python SDK?
+
+99
+00:17:17.690 --> 00:17:29.420
+Angelina C: We are moving forward with the deprecation of account balance query and switching over to the mirror node account balance query. My question for you, Keith, is the status update for 1195, has this…
+
+100
+00:17:29.420 --> 00:17:39.189
+Angelina C: document been finalized, where we are able to go ahead and make an issue to create the functionality for $11.95, or do you suggest that we still hold off for the time being?
+
+101
+00:17:41.170 --> 00:17:59.389
+Keith Kowal (Hedera Hashgraph LLC): Yeah, so HIP 1195, or Hiero Hooks, is, still on hold. My expectation is that we will probably eventually be making some architectural changes to HIP1195, so my recommendation would be to hold on HIP1195 for now.
+
+102
+00:17:59.950 --> 00:18:18.550
+Angelina C: Okay, thank you. But beyond that, we… we do plan on implementing, the next upcoming attempts. We are just waiting for them to reach final status, and then we have had a few, changes to our TCK in the sense that we've just been adding our PC methods. So if you have your hand up, I think I'm forgetting something.
+
+103
+00:18:19.320 --> 00:18:24.749
+Sophie Bulloch: No, no, no, it's just, after you've finished, it's not exactly related.
+
+104
+00:18:26.580 --> 00:18:28.329
+Angelina C: Oh, okay, so…
+
+105
+00:18:28.520 --> 00:18:34.089
+Angelina C: Beyond that, that's pretty much it from our end on the Python side of things for now. Thank you.
+
+106
+00:18:34.860 --> 00:18:35.460
+Keith Kowal (Hedera Hashgraph LLC): Great.
+
+107
+00:18:37.340 --> 00:18:42.179
+Sophie Bulloch: Mine's not update-related, so I don't know if anyone else wants to jump in. I just have something.
+
+108
+00:18:42.640 --> 00:18:44.029
+Sophie Bulloch: I also like to talk about…
+
+109
+00:18:44.970 --> 00:18:46.329
+Keith Kowal (Hedera Hashgraph LLC): Yeah, please, go ahead, Sophie.
+
+110
+00:18:48.230 --> 00:18:52.010
+Sophie Bulloch: Okay, yeah, I was busy over the weekend.
+
+111
+00:18:52.270 --> 00:19:02.830
+Sophie Bulloch: So, we have become aware that there's, permission holders?
+
+112
+00:19:03.010 --> 00:19:09.709
+Sophie Bulloch: Across Hiero that… R… I haven't had any pull requests.
+
+113
+00:19:10.210 --> 00:19:17.380
+Sophie Bulloch: Issue, comment, or review, or merge kind of activity for… More than 6 months.
+
+114
+00:19:18.510 --> 00:19:24.879
+Sophie Bulloch: So I created these pull requests to leave it up to the maintainers.
+
+115
+00:19:25.490 --> 00:19:30.290
+Sophie Bulloch: and decide what to do with this. So, for example, with the C++ SDK,
+
+116
+00:19:31.420 --> 00:19:38.320
+Sophie Bulloch: It would be, like, the proposal, basically, I've done this throughout Hiero, so, like, it's just one rule applied to everything, which is, if
+
+117
+00:19:38.480 --> 00:19:42.840
+Sophie Bulloch: You know, to remove the permission holders that have been inactive for 6 months.
+
+118
+00:19:43.290 --> 00:19:50.610
+Sophie Bulloch: The reason why I believe that could be a good idea is they hold, you know, possibly write permissions.
+
+119
+00:19:51.230 --> 00:19:57.169
+Sophie Bulloch: And, you know, they could merge something, but they may not have the same affiliation with the project, or…
+
+120
+00:19:57.340 --> 00:20:11.020
+Sophie Bulloch: they might not have the current knowledge to safely, like, maintain it anymore. So the idea is to, like, remove the permission holders if the person then comes back, alive on the project.
+
+121
+00:20:11.220 --> 00:20:16.510
+Sophie Bulloch: Then, you know, of course, you would just follow the same procedures, whatever, to get that back again.
+
+122
+00:20:17.030 --> 00:20:22.260
+Sophie Bulloch: But this means that I have a few pending pull requests for SDKs.
+
+123
+00:20:23.070 --> 00:20:29.870
+Sophie Bulloch: And, yeah, this all has a Git vote, so all you need to do is go to the relevant page.
+
+124
+00:20:30.170 --> 00:20:34.080
+Sophie Bulloch: And then you need to give it a thumbs up, or a thumbs down, or an eye.
+
+125
+00:20:35.680 --> 00:20:42.220
+Sophie Bulloch: Yeah, I would really appreciate that. What some people have done, some maintainers have done, is they have requested changes.
+
+126
+00:20:42.380 --> 00:20:47.639
+Sophie Bulloch: So, for example, you know, I don't know who all these GitHub accounts are.
+
+127
+00:20:49.510 --> 00:20:58.770
+Sophie Bulloch: And some of the inactive members, and maybe… maybe people you don't want to remove. So people just tell me, can you add this person back and add this person back?
+
+128
+00:20:58.940 --> 00:21:08.790
+Sophie Bulloch: So if you want to make any changes with that, then that's fine. Ultimately, I think you can also say it's a bad idea, cancel everything, I think, you know, that's also fine, but it would be good to get this moving
+
+129
+00:21:08.930 --> 00:21:14.400
+Sophie Bulloch: Because this… this might be seen, like, as a security issue, or just general tidy up.
+
+130
+00:21:15.250 --> 00:21:23.140
+Sophie Bulloch: So, for example, in, like, the analytics dashboard, we do have, like, 100 permission holders that are inactive.
+
+131
+00:21:23.800 --> 00:21:28.129
+Sophie Bulloch: Which I don't think… Is giving, like, the best, sort of.
+
+132
+00:21:28.490 --> 00:21:35.489
+Sophie Bulloch: impressions. I think that's, like, a good… good time to sort of tidy that up. So, yeah, if anyone from the SDKs…
+
+133
+00:21:35.950 --> 00:21:37.889
+Sophie Bulloch: As a free minute or two?
+
+134
+00:21:38.140 --> 00:21:40.499
+Sophie Bulloch: You just look through the ones that you are.
+
+135
+00:21:40.930 --> 00:21:43.149
+Sophie Bulloch: Maintainers of, I'd really appreciate that.
+
+136
+00:21:45.920 --> 00:21:49.930
+Keith Kowal (Hedera Hashgraph LLC): So, I think the… thank you, Sophie. I guess my question is…
+
+137
+00:21:51.660 --> 00:22:02.410
+Keith Kowal (Hedera Hashgraph LLC): I have to go back through and look, but what's our official policy? Is there an official Hiero policy on… like, I think you've based this on if nobody's had activity for 6 months, they are removed.
+
+138
+00:22:02.710 --> 00:22:04.790
+Keith Kowal (Hedera Hashgraph LLC): Is there… is there an official policy?
+
+139
+00:22:06.900 --> 00:22:19.980
+Sophie Bulloch: Yes, there is a… I think there is a, roles and groups?
+
+140
+00:22:21.120 --> 00:22:22.710
+Sophie Bulloch: for maintainers?
+
+141
+00:22:24.820 --> 00:22:27.969
+Keith Kowal (Hedera Hashgraph LLC): Yeah, but I don't… is it in there?
+
+142
+00:22:28.200 --> 00:22:35.029
+Keith Kowal (Hedera Hashgraph LLC): in that document… yeah, we should… maybe you can open it up. I don't know if it has that… is that removal as part… oh yeah, here we go.
+
+143
+00:22:35.570 --> 00:22:37.660
+Keith Kowal (Hedera Hashgraph LLC): It's inactive for 6 months.
+
+144
+00:22:38.740 --> 00:22:43.419
+Keith Kowal (Hedera Hashgraph LLC): So there's a second part to that, right? And does not respond when contacted.
+
+145
+00:22:45.130 --> 00:22:52.760
+Sophie Bulloch: Yeah, you know, and it's May as well, so ultimately, I think you can… Decide not to.
+
+146
+00:22:53.990 --> 00:22:59.969
+Sophie Bulloch: Yeah, so as I said, you could just be like, yeah, I'm not interested in this, let's leave all the permission holders
+
+147
+00:23:01.570 --> 00:23:04.020
+Sophie Bulloch: It seems, you know, in Hiero, it's like…
+
+148
+00:23:04.230 --> 00:23:08.049
+Sophie Bulloch: The responsibilities given exactly to the maintainer teams.
+
+149
+00:23:09.260 --> 00:23:20.780
+Keith Kowal (Hedera Hashgraph LLC): So, just to be clear, like, I'm supportive. I think we should remove inactive maintainers. I do think, though, that, like, some SDKs, like, you know, I can think of, like, some of the identity SDKs, or some of the…
+
+150
+00:23:20.880 --> 00:23:39.389
+Keith Kowal (Hedera Hashgraph LLC): the, maybe the C++ SDK… no, I think that's a bad example, but maybe the Swift SDK… there's not been a lot of activity… yeah, like, maybe they've not been proactive, but there's not been a lot of PRs or anything for them to approve. So that's why I think the AND is important, because if they are still responsive.
+
+151
+00:23:39.570 --> 00:23:42.869
+Keith Kowal (Hedera Hashgraph LLC): and there's just not been many PRs for them to approve.
+
+152
+00:23:43.030 --> 00:23:47.059
+Keith Kowal (Hedera Hashgraph LLC): Then, should they be removed? You know, obviously this is up to
+
+153
+00:23:47.430 --> 00:23:49.909
+Keith Kowal (Hedera Hashgraph LLC): This is up to the intended… yeah.
+
+154
+00:23:50.160 --> 00:23:54.619
+Sophie Bulloch: The inactivity is not about PR approvals only.
+
+155
+00:23:55.030 --> 00:24:07.069
+Sophie Bulloch: It's multi-dimensional, so it's going to account for you haven't been creating any issues, you haven't been creating any comments, you haven't been doing any approvals either, or mergers.
+
+156
+00:24:07.650 --> 00:24:12.469
+Sophie Bulloch: So, I mean… You know, it depends the standards that you want to… to…
+
+157
+00:24:12.830 --> 00:24:16.809
+Sophie Bulloch: to kind of enforce at Hiero, but my consideration of a…
+
+158
+00:24:17.420 --> 00:24:22.759
+Sophie Bulloch: Maintainer would be, like, a project steward, so,
+
+159
+00:24:22.960 --> 00:24:25.699
+Sophie Bulloch: You know, creating issues is part of it as well.
+
+160
+00:24:26.000 --> 00:24:36.900
+Sophie Bulloch: So we don't have, like, the chicken and egg problem of, like, okay, there's no… there's no issues, so there's nothing to do, or things to talk about. My… my personal opinion would be…
+
+161
+00:24:38.230 --> 00:24:41.830
+Sophie Bulloch: Would be, yeah, we should…
+
+162
+00:24:42.180 --> 00:24:47.170
+Sophie Bulloch: We should consider somebody inactive if they've not even created issues and they're a maintainer.
+
+163
+00:24:47.870 --> 00:25:03.490
+Sophie Bulloch: I mean, you can think of even just basic Dependabot updates, where you need to update the… for security reasons, the packages that you use. That would count as activity, and I think that's… that's a very fair maintainer responsibility to have to do.
+
+164
+00:25:05.500 --> 00:25:06.170
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+165
+00:25:06.730 --> 00:25:10.999
+Keith Kowal (Hedera Hashgraph LLC): I… Daniel, did you get your hand up? Any questions coming?
+
+166
+00:25:14.300 --> 00:25:17.059
+Sophie Bulloch: I'm trying to figure out just to take my hand down, so I don't know.
+
+167
+00:25:17.820 --> 00:25:22.090
+Daniel Ntege (Open Elements): Yeah, just one thing, I just wanted to add on,
+
+168
+00:25:22.420 --> 00:25:31.359
+Daniel Ntege (Open Elements): Sophie's presentation, because, there is, a point you raised that, there could be,
+
+169
+00:25:31.750 --> 00:25:34.630
+Daniel Ntege (Open Elements): A repository where maintainers don't have
+
+170
+00:25:34.910 --> 00:25:42.730
+Daniel Ntege (Open Elements): Any PROs to review. But now to the workflows, we have, well, the upgrade of the workflows we have.
+
+171
+00:25:42.930 --> 00:25:43.950
+Daniel Ntege (Open Elements): like…
+
+172
+00:25:44.300 --> 00:25:54.600
+Daniel Ntege (Open Elements): Someone can't just come out from nowhere and opens up here without being assigned, without issues being raised, so…
+
+173
+00:25:56.000 --> 00:25:59.119
+Daniel Ntege (Open Elements): I think that's a concern. It's known that…
+
+174
+00:25:59.720 --> 00:26:09.529
+Daniel Ntege (Open Elements): But that's a concern, because, for the PRs to… to gain number, it means that we have to have more issues to… to work on.
+
+175
+00:26:10.560 --> 00:26:11.370
+Sophie Bulloch: Yeah.
+
+176
+00:26:11.670 --> 00:26:19.570
+Sophie Bulloch: I also believe, like, if we don't have up-to-date data on who Who, you know, is involved?
+
+177
+00:26:19.790 --> 00:26:23.499
+Sophie Bulloch: with the project, it, you know.
+
+178
+00:26:23.620 --> 00:26:26.699
+Sophie Bulloch: In meaningful ways, then… then,
+
+179
+00:26:27.980 --> 00:26:36.470
+Sophie Bulloch: we… we don't know when we need to find new maintainers. We might believe we have 3 maintainers, 2 committers, we have a pipeline going.
+
+180
+00:26:36.880 --> 00:26:45.960
+Sophie Bulloch: So that's, like, the other consideration, right? So, as Daniel said, yeah, we could always have community members stepping in to these repos, and they want to be engaged.
+
+181
+00:26:46.740 --> 00:26:51.019
+Sophie Bulloch: And the maintainers may not be active, but then the second issue is…
+
+182
+00:26:51.150 --> 00:27:04.779
+Sophie Bulloch: like, we just might not be aware of the long-term sustainability of that project if we don't have healthy pipelines. By removing the people that are inactive, we can see what's left and start acting based on
+
+183
+00:27:05.110 --> 00:27:07.050
+Sophie Bulloch: higher quality information.
+
+184
+00:27:10.220 --> 00:27:13.950
+Keith Kowal (Hedera Hashgraph LLC): Okay, are you gonna, raise this at TSC tomorrow, Sophie?
+
+185
+00:27:16.680 --> 00:27:19.309
+Sophie Bulloch: I don't know if I will,
+
+186
+00:27:19.870 --> 00:27:23.479
+Sophie Bulloch: But I think Jessica will raise it, so it was her idea.
+
+187
+00:27:25.360 --> 00:27:27.919
+Sophie Bulloch: I think Hendrik is involved in it, too.
+
+188
+00:27:28.260 --> 00:27:33.559
+Sophie Bulloch: The… we initially tried to call inactive permission holders across
+
+189
+00:27:34.480 --> 00:27:39.910
+Sophie Bulloch: Hiero as a whole, and I think we would need TSC approval for that. Long story short.
+
+190
+00:27:40.480 --> 00:27:48.719
+Sophie Bulloch: The decision was, probably with this is that we're gonna have to do it by team, so I went ahead and created, like, 40 pull requests.
+
+191
+00:27:49.690 --> 00:27:55.579
+Sophie Bulloch: But we do have people that are inactive for 6 months, like, across the entire project.
+
+192
+00:27:56.170 --> 00:27:57.869
+Sophie Bulloch: Not just in the team.
+
+193
+00:27:58.680 --> 00:28:04.880
+Sophie Bulloch: And there's quite, quite a lot of people, like, I don't know how many this is, but it looks to me like 60.
+
+194
+00:28:07.760 --> 00:28:08.400
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+195
+00:28:08.790 --> 00:28:18.140
+Keith Kowal (Hedera Hashgraph LLC): Alright, well, it sounds like a good initiative. I mean, I guess at the end of the day, it will be up to individual projects to vote and to remove a maintainer or committer, so…
+
+196
+00:28:18.280 --> 00:28:20.580
+Keith Kowal (Hedera Hashgraph LLC): Yeah, sounds good.
+
+197
+00:28:23.630 --> 00:28:35.430
+Sophie Bulloch: Yep, so again, if you like the idea of calling permission holders, but not everyone that I specified, please just let me know, and I will change the names and things. I just don't know who these people are, so…
+
+198
+00:28:36.690 --> 00:28:37.320
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I…
+
+199
+00:28:37.320 --> 00:28:37.810
+Sophie Bulloch: wave of…
+
+200
+00:28:37.810 --> 00:28:40.319
+Keith Kowal (Hedera Hashgraph LLC): I… I assume for some of the…
+
+201
+00:28:40.450 --> 00:28:52.499
+Keith Kowal (Hedera Hashgraph LLC): for many of the SDK… the SDK repos, these are gonna be, like, Lime Chain, people that were at Lime Chain that either have left Lime Chain or have moved on to other projects at Lime Chain, so probably,
+
+202
+00:28:52.620 --> 00:29:03.060
+Keith Kowal (Hedera Hashgraph LLC): Yeah, for some of those folks, we will know who they are, and they should be removed. So I'll just speak to the SDK repos. That one's for sure. Yeah, we need to probably do that cleanup.
+
+203
+00:29:04.220 --> 00:29:05.189
+Sophie Bulloch: Alright, thank you.
+
+204
+00:29:12.470 --> 00:29:15.270
+Keith Kowal (Hedera Hashgraph LLC): All right, any other questions or comments?
+
+205
+00:29:17.720 --> 00:29:23.400
+Daniel Ntege (Open Elements): Just one thing, I just wanted to ask Anji about the progress of the tip.
+
+206
+00:29:23.590 --> 00:29:24.970
+Daniel Ntege (Open Elements): Hip Tracking Boot.
+
+207
+00:29:29.180 --> 00:29:50.199
+Angelina C: As of right now, Sophie and I are still working. We need to come up with a kind of better way to either automate it through the use of TCK testing. We have run into quite a few issues with that. The biggest one is that because of the architecture and the way that the services are structured, you essentially will have
+
+208
+00:29:50.200 --> 00:30:10.699
+Angelina C: For example, I'm just gonna use 1261. It will correlate to a contract service, then it will correlate to token service, then it could correlate to another service, so you essentially have a lot of test specifications, and then there are times where it's duplicates. So, we have been exploring a different idea of trying to
+
+209
+00:30:10.700 --> 00:30:16.420
+Angelina C: One, come up with a better way to automate this to reduce up the duplication.
+
+210
+00:30:16.420 --> 00:30:33.569
+Angelina C: The idea that Sophie and I have, kind of been going around back and forth with is to have individual HIP tracking boards, for each of the SDKs, so essentially you'll have one for Python, Java, Swift, JavaScript, so on and so forth.
+
+211
+00:30:33.570 --> 00:30:39.530
+Angelina C: That will essentially follow a set of specifications defined in their repository.
+
+212
+00:30:39.530 --> 00:30:43.409
+Angelina C: And then that way, users, contributors will kind of have a better
+
+213
+00:30:43.650 --> 00:31:00.099
+Angelina C: influence or idea of where exactly HIPS are in the process in terms of have they been implemented or have they not been implemented. So do feel free to reach out if you have a different idea in mind, if you have a better way to kind of automate this process.
+
+214
+00:31:00.100 --> 00:31:14.350
+Angelina C: Because we do kind of want to get this moving forward, especially as more hips are coming out. I know we will have the introduction of 1068, we'll have 1500, then of course 1195 when this design document is ready.
+
+215
+00:31:14.350 --> 00:31:23.550
+Angelina C: But again, do feel free to let us know if you have any ideas. As of right now, we are still just kind of going back and forth, trying to determine what the best approach would be for this moving forward.
+
+216
+00:31:27.500 --> 00:31:29.010
+Daniel Ntege (Open Elements): Okay, thank you.
+
+217
+00:31:29.400 --> 00:31:29.970
+Angelina C: Yeah.
+
+218
+00:31:33.990 --> 00:31:36.100
+Keith Kowal (Hedera Hashgraph LLC): Great. Any other comments or feedback?
+
+219
+00:31:40.670 --> 00:31:59.400
+Keith Kowal (Hedera Hashgraph LLC): All right, I think we can end it there. As I said, the major call to action is, hopefully everyone can review that new PR in the SDK Collaboration Hub for the HTTP client architecture, because this is a… this is quite important, and it will potentially, generate, a fair amount of work.
+
+220
+00:31:59.400 --> 00:32:05.210
+Keith Kowal (Hedera Hashgraph LLC): And it happens to… requires us to go back and revise some existing queries. So…
+
+221
+00:32:05.210 --> 00:32:15.420
+Keith Kowal (Hedera Hashgraph LLC): Yeah, we want to make sure we get it right, so everyone's comments and feedback are most appreciated. Yeah, otherwise, thank you everyone for your time today, and I look forward to talking again.
+
+222
+00:32:16.270 --> 00:32:16.999
+Sophie Bulloch: Thank you again, Kate.
+
+223
+00:32:17.000 --> 00:32:17.800
+Mustafa Uzun: Goodbye.
+
+224
+00:32:17.800 --> 00:32:19.800
+Angelina C: Thank you, Heath. Have a good one, everyone.
+
+225
+00:32:19.800 --> 00:32:20.410
+Dosi Kolev: Bye.
+
+226
+00:32:20.410 --> 00:32:23.019
+Daniel Ntege (Open Elements): Is there… is there a link in the chat?
+
+227
+00:32:23.860 --> 00:32:26.280
+Keith Kowal (Hedera Hashgraph LLC): Nope, but I can provide… oh.
+
+228
+00:32:26.280 --> 00:32:26.900
+Daniel Ntege (Open Elements): None.
+
+229
+00:32:27.210 --> 00:32:29.520
+Keith Kowal (Hedera Hashgraph LLC): Provide it, one sec, let me just get it to you.
+
+230
+00:32:44.200 --> 00:32:45.179
+Keith Kowal (Hedera Hashgraph LLC): You got it?
+
+231
+00:32:45.660 --> 00:32:46.799
+Daniel Ntege (Open Elements): Yeah, thank you.
+
+232
+00:32:47.270 --> 00:32:48.660
+Keith Kowal (Hedera Hashgraph LLC): Alright. Thank you.
+
+233
+00:32:48.660 --> 00:32:49.190
+Daniel Ntege (Open Elements): Okay.
+
+234
+00:32:49.670 --> 00:32:51.130
+Keith Kowal (Hedera Hashgraph LLC): create it in.
+
+235
+00:32:51.130 --> 00:32:52.590
+Daniel Ntege (Open Elements): Bye. Thank you.
+

@@ -1,0 +1,48 @@
+00:06:24	Peter Chmiel:	Zoom is saying my mic and speakers are not working.
+00:15:01	Peter Chmiel:	Audio is working now.  Had to restart my MacBook Air
+00:19:45	MADUGULA JAYARAM:	https://drive.google.com/file/d/1q1JHLCZ2UMLGqQkye_z13uPy8ieqh76s/view?usp=drivesdk
+00:19:57	MADUGULA JAYARAM:	Link to the updated video 
+00:21:45	Ryan Madhuwala:	Actually github funds program has stopped after 2024
+00:23:57	Bobbi Muscara:	https://www.linuxfoundation.org/blog
+00:24:19	MADUGULA JAYARAM:	@Bobbi Muscara can be a mentor and maintainer for this AIFAQ project for the next session LFDT mentorship ? 
+00:29:04	Gianluca Capuzzi:	https://github.com/gcapuzzi/founderkeystone-prod/tree/menu
+00:29:10	MADUGULA JAYARAM:	I will also make 2 to 3 pull requests in the Snowflake branch by tomorrow with the updated code
+00:31:57	Gianluca Capuzzi:	https://lfdt.aifaq.info/
+00:34:40	MADUGULA JAYARAM:	Trained models are costly to deploy and use them every day. But RAG it brings the cost to less than 10x 
+00:35:43	MADUGULA JAYARAM:	To remove hallucinations, we need to improve the data ingestion pipeline and RAG techniques. 
+00:37:45	Ryan Madhuwala:	Instead of running an LLM locally for security reasons, sometimes advanced platforms retrieve data and replace sensitive parts with placeholders before sending it to an LLM API. This way, even if the LLM processes the data, it never sees the actual sensitive information, only masked or anonymized content.
+00:36:35	MADUGULA JAYARAM:	Running it offline needs GPU and depends upon the usage and heavy hardware 
+00:39:15	Ryan Madhuwala:	Because, as Gianluca mentioned, it’s difficult to use the local one every time, in the end, every big company uses an API.
+00:39:15	MADUGULA JAYARAM:	But retains the data ( very lengthy legal and privacy terms to read ) 
+00:40:15	Bobbi Muscara:	https://trello.com/c/eko2divF
+00:40:20	MADUGULA JAYARAM:	They mention we improve our services by our data, not your personal data ( as google says ) 
+00:41:15	Peter Chmiel:	I have a question about Snowflake diagram in the AIFAQ roadmap doc. The diagram shows that the LLM runs locally inside the snowflake environment.  Is this true? No external API calls to mistral?
+00:44:56	Ryan Madhuwala:	But actually even for snowflake one it is under our control right?
+00:45:06	Ryan Madhuwala:	so for customer it is cloud
+00:43:32	MADUGULA JAYARAM:	Yes, these LLM's are hosted and managed by the Snowflake cloud.. 
+00:45:17	Ryan Madhuwala:	it just chosing aifaq over openai
+00:45:25	Ryan Madhuwala:	for security basis
+00:44:23	MADUGULA JAYARAM:	No external API calls as we use them inside the Snowflake cloud
+00:49:27	Ryan Madhuwala:	Even if our setup is running inside Snowflake and feels “local” to us, from an external user’s perspective it’s still a cloud call. They aren’t running the model themselves; they’re just calling our hosted Snowflake instance instead of OpenAI’s endpoint. So effectively, we are their cloud provider.
+00:49:29	Ryan Madhuwala:	If we instead let them run the model fully on their own local hardware (like on their laptop), then we lose the usage-based billing model because we have no visibility into token consumption. No usage trace means no usage-based revenue.
+00:50:10	Ryan Madhuwala:	ok we are claiming snowflake as safer than openai and others??
+00:49:30	MADUGULA JAYARAM:	But hosted and managed by Snowflake cloud vs their API's calls from external LLM's  
+00:49:41	MADUGULA JAYARAM:	Will make a big difference 
+00:53:44	Ryan Madhuwala:	ok
+00:52:37	MADUGULA JAYARAM:	The Snowflake is built for cloud data warehousing, analytics just like aws but not completely like aws ( as in aws we have s3 bucket where all the confidential data can be stored but aws services will not use that data to use it or improve their services just like the aws it is safer to run the open-source llms ( just an example ).. 
+00:55:11	Ryan Madhuwala:	We'd be pulling the data directly from their Snowflake storage into the Snowflake-hosted model, so nothing leaves their Snowflake environment. The data doesn’t get sent to an external LLM provider. It stays inside their Snowflake account end-to-end. @MADUGULA JAYARAM right?
+00:53:38	Peter Chmiel:	Got it thanks
+00:56:08	Ryan Madhuwala:	ok great
+00:57:15	Ryan Madhuwala:	To prevent manual setup steps, we can include them in a .sh script for an easier and automated setup process.
+00:55:44	Bobbi Muscara:	https://docs.google.com/document/d/1VMjWI7DHQN52kPIyMV1XTy9anNxQqjAdWdzkJhIMn9U/edit?tab=t.0#heading=h.a7sgpui8epg9
+00:57:23	Ryan Madhuwala:	@Gianluca Capuzzi
+00:55:56	MADUGULA JAYARAM:	Yes, that is correct @Ryan Madhuwala 
+00:59:27	Bobbi Muscara:	Asked chatgpt for 5 steps https://docs.google.com/document/d/1uIQxhAcncx-WY1rS6PVLyBONUu3VZx_L3nPeh_RHSO0/edit?tab=t.0#heading=h.qe8cwt3sitsh
+00:59:30	MADUGULA JAYARAM:	For the Snowflake app, that will be just like installing an app from playstore.  ( login / sign up to Snowflake cloud , install the snowflake app from market place , connect the database or just manually upload the docs to the knowledgebase , start asking questions )
+01:02:12	LOCHAN PAUDEL:	Bye everyone! I have to go.
+01:03:36	MADUGULA JAYARAM:	Need to make the guide for each cloud platforms for how to deploy it on aws Azure, gcp cloud platforms
+01:05:25	MADUGULA JAYARAM:	Need to download ssh pem keys to login into the instance 
+01:05:57	MADUGULA JAYARAM:	Authorize login from the key 
+01:06:12	MADUGULA JAYARAM:	When when we do ssh , 
+01:07:26	MADUGULA JAYARAM:	We need to add screenshots one by one step to make it as a setup guide or video kind of would be helpful for setting up 
+01:07:44	Bobbi Muscara:	1. Prepare and Set Up the EC2 Environment 2. Install Dependencies & Configure Application 3. Set Environment & Authentication 4. Configure Hosting & Networking 5. Create and Run the AIFAQ Service

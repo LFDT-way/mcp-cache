@@ -1,0 +1,1322 @@
+WEBVTT
+
+1
+00:00:58.710 --> 00:00:59.520
+Ivaylo N: Hello.
+
+2
+00:01:13.880 --> 00:01:14.840
+Robert Walworth: Hey, everyone.
+
+3
+00:01:15.730 --> 00:01:16.470
+Venilin Vasilev: Hello.
+
+4
+00:01:18.030 --> 00:01:18.770
+Aditya Arya: I…
+
+5
+00:02:31.450 --> 00:02:33.359
+Robert Walworth: Hey, Angie, you know if Sophie's joining?
+
+6
+00:02:35.970 --> 00:02:42.910
+Angelina Ceppaluni: I… don't think so. She may try, I have not heard from her this morning.
+
+7
+00:02:43.100 --> 00:02:44.230
+Angelina Ceppaluni: Let me see…
+
+8
+00:02:44.420 --> 00:02:55.139
+Angelina Ceppaluni: Let's see, I can try to ask her, but I don't believe so. I think she said last night that she wouldn't be available, or would have light availability these next 3 days.
+
+9
+00:02:58.150 --> 00:02:59.530
+Robert Walworth: Okay, that's fine.
+
+10
+00:03:00.660 --> 00:03:12.630
+Robert Walworth: Did you want to provide a Python SDK update, in this meeting, or… or, we're gonna stay until next week, too?
+
+11
+00:03:13.740 --> 00:03:15.659
+Angelina Ceppaluni: I can.
+
+12
+00:03:16.050 --> 00:03:18.370
+Robert Walworth: Need be, I don't mind.
+
+13
+00:03:18.880 --> 00:03:23.130
+Angelina Ceppaluni: Let me double… let me pull up that window.
+
+14
+00:03:23.910 --> 00:03:31.509
+Robert Walworth: Yeah, I mean, it doesn't have to be anything crazy, just, like, I don't know, a minute or so of just what's been going on, I think. We're gonna try and start doing that.
+
+15
+00:03:32.090 --> 00:03:44.559
+Angelina Ceppaluni: Yeah, that's fine. I guess I'll just… I'll give it another minute or so, just see if anybody else joins. I did post it in the Discord, so let me see if we got anything back from some people.
+
+16
+00:03:48.270 --> 00:03:50.530
+Angelina Ceppaluni: That one, that's for later.
+
+17
+00:05:23.170 --> 00:05:30.969
+Robert Walworth: Alright, I'm gonna probably go ahead and get started. I think it looks like maybe more people are filtering in, but
+
+18
+00:05:31.180 --> 00:05:44.079
+Robert Walworth: Yeah, it's 4 minutes past the hour now, so let's get this going. Welcome everyone to the SDK Community Call. On the agenda today, we have our, SDK updates,
+
+19
+00:05:44.080 --> 00:05:53.380
+Robert Walworth: each SDK is gonna just give a rundown of what we've been working on, what we're looking to implement next, the blockers, all that stuff.
+
+20
+00:05:53.630 --> 00:05:58.770
+Robert Walworth: And then, I had one other topic about issue labels.
+
+21
+00:05:59.350 --> 00:06:04.340
+Robert Walworth: And, yeah, so we can go ahead and get started. I guess…
+
+22
+00:06:04.730 --> 00:06:08.610
+Robert Walworth: I can go ahead and go first, so…
+
+23
+00:06:09.440 --> 00:06:14.930
+Robert Walworth: Let me present on the Swift SDK here. So we got a couple things going on here.
+
+24
+00:06:15.260 --> 00:06:24.159
+Robert Walworth: The big one, I'd say, is, we're looking to add Swift 6 support,
+
+25
+00:06:25.010 --> 00:06:31.379
+Robert Walworth: In the coming weeks. So, up until now, we've only been supporting,
+
+26
+00:06:31.770 --> 00:06:49.629
+Robert Walworth: a minimum version of 5.6, and we've been testing in our CI up to 510, but a lot, well, those are probably, like, I don't know, like, one and a half, two years old now, so we're gonna look to upgrade to Swift 6, which,
+
+27
+00:06:49.830 --> 00:06:54.689
+Robert Walworth: Apple has been requiring for their App Store submissions anyways for the past couple months.
+
+28
+00:06:54.760 --> 00:07:12.520
+Robert Walworth: Well, almost a full year now. We've been requiring it since April last year. So this will be coming out, we'll support this, or start supporting this officially in two weeks. I think the announcement is going to be, February 2nd.
+
+29
+00:07:12.750 --> 00:07:18.220
+Robert Walworth: And that'll be release, 0.47 for Swift.
+
+30
+00:07:18.540 --> 00:07:23.269
+Robert Walworth: So, any… any developers working on that can look for that.
+
+31
+00:07:24.650 --> 00:07:30.560
+Robert Walworth: some other, implementation I've added here, we,
+
+32
+00:07:30.720 --> 00:07:46.169
+Robert Walworth: got it caught up in our, added TCK… missing TCK endpoints. It's, Swift has been, a little bit behind on TCK, but… and there's still a couple more that we have to add, but,
+
+33
+00:07:46.230 --> 00:07:59.309
+Robert Walworth: for the most part, we're pretty caught up. I think the only ones we have to add are the, schedule transactions and the node transactions. But once those are added in, we'll be fully, fully up to date.
+
+34
+00:07:59.310 --> 00:08:06.690
+Robert Walworth: And there are several bugs here that… that we found when, when we were implementing this, so…
+
+35
+00:08:06.810 --> 00:08:09.919
+Robert Walworth: Yep, so,
+
+36
+00:08:10.040 --> 00:08:25.769
+Robert Walworth: those new features there, did some CI version updates, new versions of Solo and MirrorNote have been coming out, so we've updated there. Then HIP1195, with the changes that Consensus Node has made,
+
+37
+00:08:26.010 --> 00:08:32.950
+Robert Walworth: we have, went ahead and, and, changed the API names,
+
+38
+00:08:33.260 --> 00:08:45.310
+Robert Walworth: to accompany those changes. So, whenever that's implemented and good to go in Consensus Node, which I believe is going to be version 70, or 0.70, we can go ahead and look to merge those.
+
+39
+00:08:45.480 --> 00:08:48.700
+Robert Walworth: And make those features available.
+
+40
+00:08:50.860 --> 00:08:53.009
+Robert Walworth: Any questions on Swift?
+
+41
+00:08:58.590 --> 00:08:59.640
+Robert Walworth: Alright, cool.
+
+42
+00:08:59.830 --> 00:09:13.480
+Robert Walworth: Look at C++ next. C++ has been getting a lot of action this week. We really went ahead and started really pushing the, the Good First Is Shues, initiative. We've had…
+
+43
+00:09:13.480 --> 00:09:28.669
+Robert Walworth: A lot of good first issues opened. You see we have a good amount here, most of them have been assigned. I believe we've closed maybe about 3 or 4 here? Yeah, just within… within the past couple weeks here.
+
+44
+00:09:28.950 --> 00:09:38.279
+Robert Walworth: So, yeah, this has been getting a lot of action, which is great. New developers are coming in, making contributions, getting familiar with the codebase.
+
+45
+00:09:38.510 --> 00:09:44.780
+Robert Walworth: And we love to see that, so now it's a matter of, making sure that
+
+46
+00:09:44.860 --> 00:10:01.470
+Robert Walworth: We have enough issues for new contributors to… to keep coming, and, you know, not only having just good first issues, but, having enough, you know, beginner-level issues too, which are a step up to, allow new contributors to,
+
+47
+00:10:01.670 --> 00:10:11.819
+Robert Walworth: you know, gain more knowledge about the codebase and try, a little bit more difficult issues, and hopefully continue to… to make contributions.
+
+48
+00:10:12.370 --> 00:10:24.689
+Robert Walworth: So yeah, so for C++, that's mostly what we've been doing. Again, the action is looking good, so we'll be figuring out how we wanna… how we wanna maintain this.
+
+49
+00:10:24.900 --> 00:10:29.160
+Robert Walworth: And, yeah, just keep this going.
+
+50
+00:10:29.400 --> 00:10:35.049
+Robert Walworth: So that's it for… for me,
+
+51
+00:10:35.120 --> 00:10:53.419
+Robert Walworth: for HIP1261, did, so, did you guys want to, go buy each SDK, or did you all want to give updates on… on this, UVILO and… and Venolin and everyone?
+
+52
+00:10:55.180 --> 00:11:02.219
+Ivaylo N: Yeah, so… oh, sorry, when do you want to speak about the 1261? Because I think you…
+
+53
+00:11:03.010 --> 00:11:04.120
+Ivaylo N: You finished it?
+
+54
+00:11:04.530 --> 00:11:06.129
+Venilin Vasilev: Yes. Yes.
+
+55
+00:11:06.410 --> 00:11:17.170
+Venilin Vasilev: So, basically, HIPAA 1261 is, currently in a PR state, like the CI is passing, but since the…
+
+56
+00:11:17.260 --> 00:11:29.570
+Venilin Vasilev: The mirror node endpoint for, sympathies is, currently a dummy endpoint. It's not actually, integrated already, with the consensus node.
+
+57
+00:11:30.360 --> 00:11:37.760
+Venilin Vasilev: It doesn't make sense, to merge it, so we are probably dependent on the next stack of the mirror node.
+
+58
+00:11:39.840 --> 00:11:46.840
+Robert Walworth: Is this just for JS, or is Java Go in the same spot?
+
+59
+00:11:47.600 --> 00:11:50.899
+Venilin Vasilev: I'm not sure I'm speaking for JavaScript.
+
+60
+00:11:51.310 --> 00:11:52.040
+Robert Walworth: Okay.
+
+61
+00:11:53.500 --> 00:12:01.899
+Ivaylo N: And I think for Java, Vank reworked it. He was using the JRPC, implementation.
+
+62
+00:12:02.000 --> 00:12:05.809
+Ivaylo N: But then he implemented it in… with the REST API.
+
+63
+00:12:06.450 --> 00:12:10.570
+Ivaylo N: And as far as I know, he should be in the same state as us.
+
+64
+00:12:10.760 --> 00:12:18.180
+Ivaylo N: Yeah, he can't merge it because it throws dummy data, so it doesn't make sense for us to release it to the community.
+
+65
+00:12:18.380 --> 00:12:21.490
+Ivaylo N: Because, yeah, it will show wrong data to the users.
+
+66
+00:12:28.130 --> 00:12:32.690
+Ivaylo N: No, I'm not sure about the state in C++, and and go.
+
+67
+00:12:34.950 --> 00:12:38.730
+Robert Walworth: As, sorry, go ahead.
+
+68
+00:12:39.000 --> 00:12:46.210
+Ivaylo N: Yeah, I think, actually, he worked in Go, in Java, I'm not sure. In Java, Emma should say. Sorry, I was confused for a second.
+
+69
+00:12:48.310 --> 00:12:57.199
+Robert Walworth: Yeah, no worries. What about, rust? Has Rust been making progress on this?
+
+70
+00:13:00.070 --> 00:13:04.120
+Ivaylo N: I'm not sure if we have made any progress in Rust.
+
+71
+00:13:04.250 --> 00:13:08.969
+Ivaylo N: Maybe I can ask, Georgie, but currently Georgie isn't available.
+
+72
+00:13:09.080 --> 00:13:12.010
+Ivaylo N: He's in our meeting, so, yeah.
+
+73
+00:13:12.400 --> 00:13:16.749
+Ivaylo N: Maybe I can, ask, and I will… Update you.
+
+74
+00:13:21.110 --> 00:13:25.850
+Robert Walworth: Okay, and then the, Petra update.
+
+75
+00:13:27.260 --> 00:13:32.490
+Ivaylo N: Yeah, so for Spectra, I made a, design proposal.
+
+76
+00:13:33.870 --> 00:13:39.880
+Ivaylo N: Yeah, maybe… I… Yeah.
+
+77
+00:13:40.280 --> 00:13:41.430
+Robert Walworth: Yeah, go ahead.
+
+78
+00:13:42.740 --> 00:13:43.839
+Ivaylo N: Give me a second.
+
+79
+00:13:48.320 --> 00:13:52.969
+Ivaylo N: So, basically, the pectoral upgrade is a new type of transaction.
+
+80
+00:13:53.430 --> 00:13:55.999
+Ivaylo N: This is the Type 4 transaction.
+
+81
+00:13:56.240 --> 00:14:01.110
+Ivaylo N: And also… Give me a second.
+
+82
+00:14:07.720 --> 00:14:11.879
+Ivaylo N: So, this is the new transaction. It has these properties.
+
+83
+00:14:12.150 --> 00:14:18.079
+Ivaylo N: It's basically the same as Type 2, with this additional property authorization list.
+
+84
+00:14:18.970 --> 00:14:34.000
+Ivaylo N: And, there are two updated APIs. The account create and account update has two properties, has one property delegation address with, a setter and a getter in both of these transactions.
+
+85
+00:14:34.010 --> 00:14:39.790
+Ivaylo N: So, yeah, account create has a new set and get delegation address, and account update has the same one.
+
+86
+00:14:41.220 --> 00:14:43.490
+Ivaylo N: Yeah, it's currently in,
+
+87
+00:14:44.120 --> 00:14:46.910
+Ivaylo N: It's currently reviewed, this design proposal.
+
+88
+00:14:47.420 --> 00:14:54.499
+Ivaylo N: I think, Vank approved it today, and, Rob raised some, comments.
+
+89
+00:14:54.730 --> 00:14:59.070
+Ivaylo N: I will probably, address them today.
+
+90
+00:14:59.770 --> 00:15:10.160
+Ivaylo N: I made a PR about this, HIP 1340 in the JS SDK, So, we are, like,
+
+91
+00:15:10.290 --> 00:15:16.549
+Ivaylo N: Halfway there, because… I implemented the setters and the getters and the type 4 transaction.
+
+92
+00:15:17.720 --> 00:15:30.339
+Ivaylo N: But yeah, we don't have a tag for it, so basically the CI can't pass right now. As far as I know, this, Ethereum Type 4 transaction will be supported in the consensus note in…
+
+93
+00:15:30.550 --> 00:15:34.400
+Ivaylo N: 072.
+
+94
+00:15:34.570 --> 00:15:39.369
+Ivaylo N: version of the consensus node, and we're currently in 069, I think.
+
+95
+00:15:40.720 --> 00:15:44.570
+Ivaylo N: So, yeah, we don't have a dock where we can run the CI.
+
+96
+00:15:45.830 --> 00:15:51.329
+Ivaylo N: Yeah, so this is basically the update about Pectra.
+
+97
+00:15:54.480 --> 00:15:56.989
+Ivaylo N: I'm not sure if there are any questions, I can answer them.
+
+98
+00:15:59.830 --> 00:16:02.050
+Robert Walworth: So this is gonna be,
+
+99
+00:16:02.770 --> 00:16:07.359
+Robert Walworth: If it's not getting released till 72, this might be sitting in PR for a while, then?
+
+100
+00:16:07.750 --> 00:16:11.460
+Ivaylo N: Yeah, basically it will be the same as the multiple topics.
+
+101
+00:16:12.010 --> 00:16:14.949
+Ivaylo N: Probably will be sitting in the back work for a while.
+
+102
+00:16:16.620 --> 00:16:23.099
+Ivaylo N: Yeah, this is, as far as I know, 072 is the earliest they will be releasing it.
+
+103
+00:16:23.220 --> 00:16:30.590
+Ivaylo N: The guy said that the more reasonable date is, the more reasonable version is 073.
+
+104
+00:16:32.440 --> 00:16:33.689
+Ivaylo N: So yeah.
+
+105
+00:16:34.360 --> 00:16:37.999
+Robert Walworth: I think 073 is somewhere in March.
+
+106
+00:16:38.280 --> 00:16:39.310
+Ivaylo N: even April.
+
+107
+00:16:40.690 --> 00:16:41.700
+Ivaylo N: Not sure.
+
+108
+00:16:46.800 --> 00:16:51.219
+Robert Walworth: Great. Yeah, any… any questions for… for JavaScript?
+
+109
+00:16:57.780 --> 00:17:02.160
+Robert Walworth: Cool, and I guess I have,
+
+110
+00:17:02.590 --> 00:17:12.979
+Robert Walworth: Has, I guess, like, Java and Go been kind of working on the same things, generally? The 1261 and Pectra update?
+
+111
+00:17:13.900 --> 00:17:16.789
+Ivaylo N: Yeah, for, the Vectra one.
+
+112
+00:17:16.920 --> 00:17:26.659
+Ivaylo N: I think Emma has made some progress there too, and he successfully executes the new type of transaction. It's the same with Go.
+
+113
+00:17:26.970 --> 00:17:45.979
+Ivaylo N: So, both Java and Go execute the new type for transactions. They just haven't, added the new properties in the account create and account update, because this is not finalized. I just wanted to make some work, to… basically to play around with the… with the new, with the new fields.
+
+114
+00:17:47.310 --> 00:17:55.790
+Ivaylo N: Yeah, they will probably make a PR with these new fields when we merge this proposal.
+
+115
+00:17:58.070 --> 00:17:59.980
+Emiliyan Kadiyski: Yes, exactly. Yeah.
+
+116
+00:18:04.340 --> 00:18:12.460
+Robert Walworth: Great. Yeah, sounds good. Yeah, any questions for, any of the SDKs?
+
+117
+00:18:13.100 --> 00:18:14.160
+Robert Walworth: From anyone.
+
+118
+00:18:22.050 --> 00:18:34.380
+Robert Walworth: All right, sounds good. So the only, other topic on the agenda today was, something I just kind of had an idea about. I know we've been kind of
+
+119
+00:18:34.500 --> 00:18:47.110
+Robert Walworth: pushing good first issues and gradually rolling them out, over our SDKs. So, obviously, it started with Python, and now we got C++ up and rolling,
+
+120
+00:18:47.150 --> 00:19:03.459
+Robert Walworth: with, kind of the same workflow. And I was kind of thinking forward to, you know, when… when we start rolling this out across all our SDKs, over time, and, just the idea of kind of a…
+
+121
+00:19:03.460 --> 00:19:08.449
+Robert Walworth: Consistent look, and, kind of consistent,
+
+122
+00:19:08.950 --> 00:19:13.600
+Robert Walworth: I guess, I don't know if workflow is the correct word, but,
+
+123
+00:19:13.890 --> 00:19:20.420
+Robert Walworth: Yeah, like, the idea of, you know, a developer, a new developer coming in, being able to go
+
+124
+00:19:20.520 --> 00:19:30.880
+Robert Walworth: you know, contribute to JavaScript, and then go to contribute to Python, and in general, just the idea of picking up a good first issue and
+
+125
+00:19:30.880 --> 00:19:43.089
+Robert Walworth: It being as seamless as possible, and, you know, even… even if you kind of learn the process in one repo, you're able to go to the other, and it pretty much works the exact same way.
+
+126
+00:19:43.180 --> 00:19:50.170
+Robert Walworth: I think kind of having… having that, kind of ease of…
+
+127
+00:19:50.450 --> 00:19:58.339
+Robert Walworth: ease of use, for contributors that may want to contribute to multiple SDKs, would be beneficial.
+
+128
+00:19:58.450 --> 00:20:10.580
+Robert Walworth: And I had this idea of looking to maybe standardize our issue labels, across SDKs. So obviously, you know.
+
+129
+00:20:10.580 --> 00:20:20.319
+Robert Walworth: This, this would only really be, like… or at least my thought would be this would only be, like, the base set of issue labels, so, you know, things like…
+
+130
+00:20:20.330 --> 00:20:36.790
+Robert Walworth: you know, good first issue, you know, beginner, intermediate, advanced, you know, new feature, documentation, you know, all that stuff. But then obviously, you know, SD… or different repos could add on top of that with their own
+
+131
+00:20:36.960 --> 00:20:40.460
+Robert Walworth: you know, labels that maybe they want to use as well.
+
+132
+00:20:40.780 --> 00:20:48.590
+Robert Walworth: You know, maybe you have, like, specific build system, labels,
+
+133
+00:20:48.700 --> 00:21:08.449
+Robert Walworth: can't think of any other off the top of my head, but, yeah, I just kind of wanted to see, if this would be something that SDKs would be interested in, interested in kind of, like, conforming to a standardized set of labels.
+
+134
+00:21:08.700 --> 00:21:16.010
+Robert Walworth: And, yeah, kind of encouraging that, that, ease of use and kind of just similar look.
+
+135
+00:21:16.360 --> 00:21:21.309
+Robert Walworth: of… of SDKs across each other.
+
+136
+00:21:21.790 --> 00:21:37.340
+Robert Walworth: And I, again, I know, like, we're implementing these good-first issues, and in general, the guidelines for, you know, good first issues are going to be relatively similar. I can't imagine there'll be any huge changes or differences.
+
+137
+00:21:37.470 --> 00:21:53.930
+Robert Walworth: Between SDKs for that. But the, I think, going along with that, having… having a similar look and feel, to how work can be assigned, and I think labels are a good part of that.
+
+138
+00:21:54.050 --> 00:22:06.480
+Robert Walworth: Is… could be, important. So my… my thought was initially I might, come up with, like, a… a guidelines doc that we can put in the SDK Hub.
+
+139
+00:22:06.720 --> 00:22:14.970
+Robert Walworth: Which would define this kind of standard label set, you know, colors, descriptions, all that.
+
+140
+00:22:14.980 --> 00:22:29.740
+Robert Walworth: And then we could maybe… they could roll this out separately, or we could roll this out with, you know, with the good first issues, when new repos start to pick them up.
+
+141
+00:22:29.880 --> 00:22:33.710
+Robert Walworth: And, and, and get those going. Yeah, Keith?
+
+142
+00:22:35.620 --> 00:22:49.809
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I mean, I think you're right, Robert, although I would say it's more broad. We need consistency around good first issues across all HIRO repos, not just SDKs. So, you know, it should be the same
+
+143
+00:22:49.810 --> 00:23:02.360
+Keith Kowal (Hedera Hashgraph LLC): Across all the heroes. And I thought, you know, that, you know, I think we both saw, you know, Hendrix working on a document. I thought that was, like, the next step of that document was, yeah, ensuring that consistency across all repos.
+
+144
+00:23:03.250 --> 00:23:21.360
+Robert Walworth: Yeah, I mean, like, obviously, you know, we can only speak from… from an SDK standpoint, and I guess I kind of see, or at least kind of how Hendrik has made the impression to me was the SDK is kind of… or the SDKs are kind of like the… the, initial…
+
+145
+00:23:22.230 --> 00:23:33.579
+Robert Walworth: like, playground, I suppose you'd call it, for figuring out how we want to do good first issues, how we want to, you know, implement these workflows for new contributors, you know.
+
+146
+00:23:34.020 --> 00:23:50.030
+Robert Walworth: you know, stuff like labels as well. So yeah, I mean, if we wanted to start here, and then, when other repos, not necessarily SDK repos, want to…
+
+147
+00:23:50.240 --> 00:24:01.320
+Robert Walworth: you know, kind of copy what we're doing, or use us as an example for how they want to run, you know, their good first issues and contribution workflows. You know, that'd be great.
+
+148
+00:24:01.690 --> 00:24:13.319
+Robert Walworth: But yeah, I guess just for now, I'm just thinking just from an SDK standpoint. But yeah, again, like, if we do this, and then other repos want to copy it, that's great.
+
+149
+00:24:25.850 --> 00:24:44.870
+Robert Walworth: Yeah, so if, anybody has, you know, any thoughts or comments on that, I'm probably gonna, yeah, go ahead and open up a kind of template or guidelines doc for this in the SDK Hub. Just give a little bit of description, and then what I think a good initial set of
+
+150
+00:24:45.270 --> 00:24:47.560
+Robert Walworth: Standardized labels could be.
+
+151
+00:24:48.020 --> 00:24:56.420
+Robert Walworth: Again, with, you know, with the names, the color hex, and the descriptions for them.
+
+152
+00:24:56.580 --> 00:25:07.369
+Robert Walworth: And… Yeah, we can get reviews on that, and SDKs can start conforming to that.
+
+153
+00:25:07.630 --> 00:25:10.019
+Robert Walworth: Whenever they want.
+
+154
+00:25:12.000 --> 00:25:15.590
+Robert Walworth: Any questions, guidance, or comments?
+
+155
+00:25:16.320 --> 00:25:17.440
+Robert Walworth: About that.
+
+156
+00:25:22.290 --> 00:25:23.190
+Robert Walworth: Cool.
+
+157
+00:25:23.500 --> 00:25:29.329
+Robert Walworth: Well, that's… that's all we had on the agenda, for today. Oh, Keith, go ahead.
+
+158
+00:25:30.190 --> 00:25:33.010
+Keith Kowal (Hedera Hashgraph LLC): Yeah, just one more topic, on…
+
+159
+00:25:33.150 --> 00:25:51.419
+Keith Kowal (Hedera Hashgraph LLC): You know, I posted about, moving all of the SDK repos so that when they… on the READMEs, when they talk about local environment, they reference solo and not local node. Now, I saw that you opened up something for C++ and one of the other repos, but,
+
+160
+00:25:51.820 --> 00:25:54.679
+Keith Kowal (Hedera Hashgraph LLC): Is this a change we can make across all the repos?
+
+161
+00:25:56.850 --> 00:26:05.230
+Robert Walworth: Yeah, absolutely. Yeah, what were the other repos? I think it was… Oh, rust there.
+
+162
+00:26:05.230 --> 00:26:05.700
+Keith Kowal (Hedera Hashgraph LLC): Oh, boy.
+
+163
+00:26:06.160 --> 00:26:07.130
+Robert Walworth: Okay.
+
+164
+00:26:09.290 --> 00:26:10.810
+Robert Walworth: Okay, yeah.
+
+165
+00:26:12.640 --> 00:26:14.389
+Robert Walworth: Yeah, maybe.
+
+166
+00:26:14.390 --> 00:26:27.599
+Keith Kowal (Hedera Hashgraph LLC): I could put up tickets in those repos, but yeah, I just wondered if there's any… actually, what I was wondering is, is there any… are all the SDKs, work okay with Solo? I mean, is there any reason why an SDK couldn't point to Solo?
+
+167
+00:26:30.670 --> 00:26:42.319
+Robert Walworth: I know C++, Swift, and the TCK have had no problems with it. I don't think any of the others have either, but I'll, let them chime in.
+
+168
+00:26:50.420 --> 00:26:54.969
+Venilin Vasilev: It's for… for the JavaScript SDK. Last week, I've,
+
+169
+00:26:55.770 --> 00:27:06.279
+Venilin Vasilev: implemented some changes regarding the streamlining, streamlining the local development with Solo. So, previously, it pointed to…
+
+170
+00:27:06.450 --> 00:27:14.569
+Venilin Vasilev: the local node, and now the… there is, like, solid development dependency in the SDK, so…
+
+171
+00:27:14.930 --> 00:27:33.969
+Venilin Vasilev: there are some startup scripts that lets potential contributors run the integration test and have the actual setup that is in the CI, so it's deterministic if the tests pass locally, they pass in the CI, because this was not the case previously.
+
+172
+00:27:34.360 --> 00:27:37.020
+Venilin Vasilev: And that's a great improvement there.
+
+173
+00:27:40.990 --> 00:27:43.470
+Robert Walworth: Yeah, that sounds awesome.
+
+174
+00:27:43.500 --> 00:27:54.349
+Robert Walworth: Yeah, we definitely want to get, or move everything from local node to solo. I think, in general, we have, but yeah, I think…
+
+175
+00:27:54.350 --> 00:28:07.030
+Robert Walworth: Keith's mentioning even references in, like, the README and… and stuff like that. We want to get those out of there so, you know, new contributors aren't, you know, confused, maybe.
+
+176
+00:28:12.900 --> 00:28:20.029
+Robert Walworth: Yeah, I think, Keith, if you wanted to go ahead and open issues, in the repos as just sort of, like,
+
+177
+00:28:20.470 --> 00:28:21.630
+Robert Walworth: you know…
+
+178
+00:28:22.330 --> 00:28:29.609
+Robert Walworth: if there's references to local node, remove them, or replace them with solo. If not, then we're good.
+
+179
+00:28:30.190 --> 00:28:33.399
+Robert Walworth: you know, something like that, I think, I think would be good.
+
+180
+00:28:34.820 --> 00:28:36.149
+Keith Kowal (Hedera Hashgraph LLC): Okay, great, thank you.
+
+181
+00:28:39.620 --> 00:28:41.530
+Robert Walworth: Cool. Angie?
+
+182
+00:28:44.210 --> 00:28:53.679
+Angelina Ceppaluni: Hi everyone, good morning. Just wanted to give a quick update on the Python SDK. We are expanding with the GFI initiative quite nicely, I would like to add.
+
+183
+00:28:53.680 --> 00:29:06.210
+Angelina Ceppaluni: We do have a lot, a lot of contributors, so we are continuously having to make issues, so if anybody is interested in getting on board with the Python SDK, or if you're new here and you want to join in, we're always happy to have you.
+
+184
+00:29:06.210 --> 00:29:16.969
+Angelina Ceppaluni: Beyond that, we have closed a few good issues. We've closed a couple of intermediate and advanced. Wanna say the last thing we closed… give me double…
+
+185
+00:29:17.130 --> 00:29:18.670
+Angelina Ceppaluni: Let me just double check.
+
+186
+00:29:19.310 --> 00:29:21.150
+Angelina Ceppaluni: Would have been…
+
+187
+00:29:22.340 --> 00:29:36.100
+Angelina Ceppaluni: So, good first issues, we've closed some beginner and intermediate issues. We are continuously working to get more issues posted, so if you did go on there and you didn't see anything, always check back again. We are trying to post them as they are coming.
+
+188
+00:29:36.620 --> 00:29:42.809
+Angelina Ceppaluni: If anyone would like to post issues for the Python SDK, we would greatly appreciate your help. I…
+
+189
+00:29:43.020 --> 00:29:51.919
+Angelina Ceppaluni: thought Monty was going to be here. I don't know, she did not make it. But she and I have been working, as well as Sophie. We are pushing that initiative through.
+
+190
+00:29:52.300 --> 00:29:54.209
+Angelina Ceppaluni: for the Python SDK.
+
+191
+00:29:54.410 --> 00:30:01.930
+Angelina Ceppaluni: But other than that, I don't believe there was anything quite outstanding. Let me double check…
+
+192
+00:30:03.700 --> 00:30:05.259
+Angelina Ceppaluni: Just made sure… nope.
+
+193
+00:30:05.560 --> 00:30:18.109
+Angelina Ceppaluni: I think we're good. We are seeing the interest in that growing quite nicely. We're super happy about that. So we are excited to continue this initiative to the other SDKs, but that was it for me. Thanks!
+
+194
+00:30:21.610 --> 00:30:24.780
+Robert Walworth: Thanks, Angie. Yeah, it sounds good. Yeah, I'll,
+
+195
+00:30:25.300 --> 00:30:43.349
+Robert Walworth: I've been thinking I'm gonna head over to the Python SDK and hopefully start helping out a little bit more with, good first issues and stuff like that, to hope that can alleviate some of your, some of your, stress and workload.
+
+196
+00:30:48.050 --> 00:30:55.469
+Robert Walworth: Cool. Yeah, again, that's all we had on the agenda. Did anyone have any other topics that they wanted to…
+
+197
+00:30:55.720 --> 00:30:57.279
+Robert Walworth: Talk about or bring up?
+
+198
+00:31:06.070 --> 00:31:07.270
+Robert Walworth: Yeah, Hendrik.
+
+199
+00:31:08.160 --> 00:31:09.060
+Hendrik Ebbers (Hedera Hashgraph LLC): Hey!
+
+200
+00:31:09.280 --> 00:31:17.880
+Hendrik Ebbers (Hedera Hashgraph LLC): So I'm a little bit irate, and when I came, you already talked about getting away from,
+
+201
+00:31:18.800 --> 00:31:22.810
+Hendrik Ebbers (Hedera Hashgraph LLC): Local note to… to solo as an…
+
+202
+00:31:22.930 --> 00:31:28.809
+Hendrik Ebbers (Hedera Hashgraph LLC): development dependency. I assume that is regarding…
+
+203
+00:31:29.080 --> 00:31:38.039
+Hendrik Ebbers (Hedera Hashgraph LLC): GitHub Actions and the CI tasks to run the tests automatically against Solos. Is that correct?
+
+204
+00:31:38.870 --> 00:31:47.909
+Robert Walworth: I think it's that, and then also, updating READMEs that may still reference local node or any other documentation in the repos.
+
+205
+00:31:48.240 --> 00:32:00.670
+Hendrik Ebbers (Hedera Hashgraph LLC): Because there, there I have some… some information. I was in a, in a meeting with… with Nathan and… and the other people from… from SOL, and they, since…
+
+206
+00:32:00.670 --> 00:32:11.539
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe since a week, or whatever, they now have, like, solo in a state where it's really easy to use, so you can…
+
+207
+00:32:11.790 --> 00:32:16.360
+Hendrik Ebbers (Hedera Hashgraph LLC): now, finally install Solo and all
+
+208
+00:32:16.860 --> 00:32:24.129
+Hendrik Ebbers (Hedera Hashgraph LLC): of it dependencies, so everything Sorio needs to run, by MPX, or by HomePu.
+
+209
+00:32:24.640 --> 00:32:43.009
+Hendrik Ebbers (Hedera Hashgraph LLC): Both seems to work now, and they created two special commands, once solo is installed, to set up a solo network with just one node that is perfect for running tests against it, and a second Konar command to swallow all that away.
+
+210
+00:32:43.220 --> 00:32:57.709
+Hendrik Ebbers (Hedera Hashgraph LLC): They're currently working on the documentation for it, but once that is done and available, I think the best is that we integrate that into our,
+
+211
+00:32:58.660 --> 00:33:10.559
+Hendrik Ebbers (Hedera Hashgraph LLC): documentation for the SDKs to have really, like, even on a local machine, people use Solo with a super easy, like, two-command way.
+
+212
+00:33:10.560 --> 00:33:19.040
+Hendrik Ebbers (Hedera Hashgraph LLC): to run, unit tests, and do not depend on, for example, Hedera testnet to do so.
+
+213
+00:33:21.210 --> 00:33:31.709
+Robert Walworth: So you're saying you want the SDK documentation to specify these easy one-line, two-line solo commands to.
+
+214
+00:33:31.710 --> 00:33:41.749
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, my wish would be to have that in every SDK documentation, like, if you want to build and test the SDK locally, just do this.
+
+215
+00:33:41.990 --> 00:33:48.450
+Hendrik Ebbers (Hedera Hashgraph LLC): And then you can link to the bigger solo documentation, because in the solo documentation, and that was
+
+216
+00:33:48.500 --> 00:33:56.490
+Hendrik Ebbers (Hedera Hashgraph LLC): a discussion we had, you know? In the SOGO documentation, you have this documentation, how to run SOGO against a remote Kubernetes.
+
+217
+00:33:56.490 --> 00:34:12.329
+Hendrik Ebbers (Hedera Hashgraph LLC): how to run Zogo with this, how to run Zogo with that, but for this specific use case, you can have a very short documentation that does exactly what you need with two easy commands, and I think that's a huge benefit for
+
+218
+00:34:12.400 --> 00:34:29.320
+Hendrik Ebbers (Hedera Hashgraph LLC): people outside of our ecosystem if they want to try something. From my point of view, that should even be the default way for app developers to test their stuff, but I think we can start with the SDK as a kind of, you know, like, eat your own dog food.
+
+219
+00:34:32.260 --> 00:34:43.380
+Keith Kowal (Hedera Hashgraph LLC): So, I guess a little bit off-topic, but actually, Hendrik, I've actually asked the solo team to remove those Quick Start things, because I don't think it's that easy yet. Yes.
+
+220
+00:34:43.380 --> 00:34:45.540
+Keith Kowal (Hedera Hashgraph LLC): There is a quick start, but…
+
+221
+00:34:45.540 --> 00:35:10.509
+Keith Kowal (Hedera Hashgraph LLC): there's actually a lot of prerequisites, and if most users, particularly users with 16GB laptops, if they try that Quick Start routine, they might not have a very good experience if they don't first read the prerequisites of Docker and all that stuff. Also, it doesn't work on Windows, so I've been telling the team that they should not, at this stage, maybe in the future we can do Quick Start, but it's not, as a product, not ready for that yet.
+
+222
+00:35:10.510 --> 00:35:21.750
+Keith Kowal (Hedera Hashgraph LLC): we probably need people to go to a documentation page, and particularly read prerequisites, and what their dependencies are. They need to install Solo before they do that quick start.
+
+223
+00:35:22.210 --> 00:35:24.570
+Hendrik Ebbers (Hedera Hashgraph LLC): When have you talked with them about it?
+
+224
+00:35:26.270 --> 00:35:30.400
+Keith Kowal (Hedera Hashgraph LLC): I mean, I had a conversation with Pranaly, like, last week, like, Thursday.
+
+225
+00:35:30.400 --> 00:35:41.749
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, okay, then we're more, I guess, on the same stage, because that was really like, oh, they have news on that since one week, or whatever. Just wanted to… to make sure we talk about the same.
+
+226
+00:35:42.130 --> 00:35:52.819
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, okay, I had no idea about Windows, understand that. That must make clear that, that this is a problem. But on the other hand.
+
+227
+00:35:52.820 --> 00:36:05.999
+Hendrik Ebbers (Hedera Hashgraph LLC): If I understand it correctly, the only thing you need on a machine is Docker, and I would say, for developers, Docker, in combination with something like NPX,
+
+228
+00:36:06.000 --> 00:36:14.680
+Hendrik Ebbers (Hedera Hashgraph LLC): Super generic tool that a developer should know, and should be able to use.
+
+229
+00:36:14.750 --> 00:36:34.329
+Hendrik Ebbers (Hedera Hashgraph LLC): And on the other hand, I agree with you that you need a machine that has enough power, but, I mean, from my point of view, it's better to have that, and maybe make clear, hey, that takes a lot of resources, and currently only working on, on,
+
+230
+00:36:35.720 --> 00:36:49.629
+Hendrik Ebbers (Hedera Hashgraph LLC): Unix-based machines, like Mac or Linux, is better than having nothing, or doing one thing with Zolo and the other thing with local node, as an example.
+
+231
+00:36:51.430 --> 00:36:56.269
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I don't know if you were… I think you joined late… we just had the conversation. I mean, I definitely agree.
+
+232
+00:36:56.270 --> 00:36:57.800
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh, yeah, yeah.
+
+233
+00:36:58.180 --> 00:37:16.590
+Keith Kowal (Hedera Hashgraph LLC): Within all the SDK repos that we switched them over to reference them to use Solo, I'm just saying, like, we should not be at this stage, because I don't know when the last time you was… that you installed Solo. The last time I installed Solo, like, I had to use a very exact version of… I forget what it was… MPM…
+
+234
+00:37:16.590 --> 00:37:18.529
+Hendrik Ebbers (Hedera Hashgraph LLC): That was horrible. Yeah, yeah, yeah, yeah, that was horrible.
+
+235
+00:37:18.530 --> 00:37:22.820
+Keith Kowal (Hedera Hashgraph LLC): No, no, I don't think that's improved, so, like, I…
+
+236
+00:37:22.970 --> 00:37:29.109
+Keith Kowal (Hedera Hashgraph LLC): So, I don't think it's as easy as what you're… I mean, I wish it was as easy as you're saying. I don't think it's as easy as you're saying.
+
+237
+00:37:29.110 --> 00:37:44.510
+Hendrik Ebbers (Hedera Hashgraph LLC): My problem is that I've played so much with all your on my machine already that I cannot test my machine to see how easy it is. What I wanted to do is setting up a virtual machine with a paid Ubuntu.
+
+238
+00:37:44.510 --> 00:37:50.290
+Hendrik Ebbers (Hedera Hashgraph LLC): and then try those commands in that virtual machine and see where I end.
+
+239
+00:37:50.290 --> 00:38:03.380
+Hendrik Ebbers (Hedera Hashgraph LLC): Maybe you are right. So my… and that is what they told me, that now everything is super easy since, like, 2 or 3 weeks. So, maybe you are right, and you still need a specific version, and this and that. Then, I totally agree with you.
+
+240
+00:38:05.780 --> 00:38:20.910
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I just think they need to do more user testing. I think they test on their own machines, but it's not very representative. So, yeah, something I've been pushing on is, like… so, okay, I don't want to distract on this meeting, but, like, yeah, I mean, I'm all for a quick start, I just don't think…
+
+241
+00:38:20.910 --> 00:38:33.300
+Keith Kowal (Hedera Hashgraph LLC): that product is in the position of… so, in the SDK docs, I'd rather just say, yes, we… for local testing, please use Solo, and here is the Solo getting started page, and just have them go to that page, and not…
+
+242
+00:38:33.300 --> 00:38:44.269
+Keith Kowal (Hedera Hashgraph LLC): That's just… that's the only thing I'm pushing back on, is, like, don't tell them to run the quick stall… first, just direct them to go, at this stage of the product, just direct them to go to the solo getting started page.
+
+243
+00:38:44.660 --> 00:38:55.300
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, yeah, makes sense to me, let's do it. Iterative, and I, I agree with you, so especially whenever your, concerns, we should, we should check that out. Agreed, yeah.
+
+244
+00:38:57.590 --> 00:39:05.669
+Robert Walworth: Yeah, that's just… that's kind of what I was gonna say, too, is I think… I think Solo just needs to improve their documentation to…
+
+245
+00:39:05.800 --> 00:39:16.840
+Robert Walworth: have, you know, something at the top that says, like, alright, if you're just trying to get started, here's the one or two commands, here we go, and then we can just point to that.
+
+246
+00:39:17.050 --> 00:39:25.810
+Robert Walworth: And, yeah, SDKs can just point to that documentation. But also, like, in their documentation, they should also state, like.
+
+247
+00:39:25.960 --> 00:39:31.419
+Robert Walworth: if something's not working on Windows correctly, you know, or, like.
+
+248
+00:39:31.450 --> 00:39:47.170
+Robert Walworth: people… they need to specify exactly, you know, this works for Windows, or Mac, Linux, whatever, but not Windows yet, so people aren't, you know, trying things and then getting confused as to why it's not working.
+
+249
+00:39:50.840 --> 00:39:56.219
+Ivaylo N: By the way, I think you're missing one key point that we had, created.
+
+250
+00:39:56.430 --> 00:40:01.770
+Ivaylo N: the… So, action, that I think the DevOps guys and Georgie made.
+
+251
+00:40:02.060 --> 00:40:05.650
+Ivaylo N: So it's incredibly easy to implement in the CI.
+
+252
+00:40:06.620 --> 00:40:12.050
+Ivaylo N: But, yeah, if you want to test the SDK locally, it's a bit of a pain.
+
+253
+00:40:12.380 --> 00:40:15.250
+Ivaylo N: Because of Seoul, but even then.
+
+254
+00:40:15.710 --> 00:40:19.269
+Ivaylo N: If someone wants to test locally, they can run the work or not.
+
+255
+00:40:20.810 --> 00:40:22.170
+Ivaylo N: But, yeah.
+
+256
+00:40:23.100 --> 00:40:39.249
+Venilin Vasilev: Yeah, for JSDK, it's now… I've made it intuitive, so it's a simple startup script with one-liner that runs the required commands for the solo setup for the JSD integration test that are,
+
+257
+00:40:39.670 --> 00:40:41.520
+Venilin Vasilev: are running the CI.
+
+258
+00:40:41.930 --> 00:40:55.200
+Venilin Vasilev: Mainly the… the complication comes from the fact that Solo is, doesn't create accounts, so you need to, like, create a regular ACDSA account, for example.
+
+259
+00:40:55.270 --> 00:41:06.419
+Venilin Vasilev: So, the tests can be, run, because most of the tests in our SDKs are for the regular users.
+
+260
+00:41:06.810 --> 00:41:24.339
+Venilin Vasilev: with the… the sole startup script, you have the… only the Genesis account, so you need some startup script that would extract… that would create this account, then extract the credentials of this account, and write them to ENV. And basically, I've made this abstraction, so this is…
+
+261
+00:41:24.580 --> 00:41:28.979
+Venilin Vasilev: created… When this, script is started.
+
+262
+00:41:29.960 --> 00:41:35.630
+Venilin Vasilev: But yeah, that needs to be somehow adopted in other SDKs as well.
+
+263
+00:41:36.640 --> 00:41:50.079
+Venilin Vasilev: I'm not sure, actually, what's, what are the actual things this, easy startup script, does the… does this create an account, for example?
+
+264
+00:41:50.180 --> 00:42:02.659
+Venilin Vasilev: It… is it flexible? Can we change some things in the setup? Because for our setups, we have tests that require two nodes, for example, for the dynamic address book tests.
+
+265
+00:42:05.810 --> 00:42:15.070
+Venilin Vasilev: And yeah, we tweak some things, like enabling, we need to enable the gRPC, proxy for the…
+
+266
+00:42:15.690 --> 00:42:20.879
+Venilin Vasilev: for the… integration tests in web environment in JavaScript.
+
+267
+00:42:23.600 --> 00:42:42.780
+Keith Kowal (Hedera Hashgraph LLC): Yeah, so that's super interesting. Like, no, the solo one-shot just creates a single node network, so that's an area where it sounds like we actually have conflicts. I mean, this is a great point, like, I didn't realize… so, I didn't know… so, for SDK tests, it requires two nodes.
+
+268
+00:42:43.200 --> 00:42:44.849
+Venilin Vasilev: And it's doing what, like…
+
+269
+00:42:46.130 --> 00:42:49.719
+Keith Kowal (Hedera Hashgraph LLC): Oh, a mirror node. Oh, it creates a mirror node, yes.
+
+270
+00:42:51.470 --> 00:43:02.039
+Robert Walworth: Well, I think this is kind of why we made the solo action, right? Because it can kind of consolidate all this extra setup into just one thing that,
+
+271
+00:43:02.140 --> 00:43:13.849
+Robert Walworth: you know, the SDK CI can pull, and it just kind of does it all for them. I know we just added dual mode, like, to that, like, I don't know, like a month, two months ago, to support this dynamic address book testing.
+
+272
+00:43:16.070 --> 00:43:18.870
+Ivaylo N: Yeah, and it's pretty stable, doesn't have any issues.
+
+273
+00:43:19.130 --> 00:43:27.419
+Ivaylo N: There are some issues when the Seoul team decide to do some braking changes, and we have to update the action, but other than that…
+
+274
+00:43:27.670 --> 00:43:30.319
+Ivaylo N: The… the survival action is pretty great.
+
+275
+00:43:31.160 --> 00:43:31.880
+Robert Walworth: Yeah.
+
+276
+00:43:33.560 --> 00:43:44.439
+Robert Walworth: Yeah, no, solo action is definitely easier than running it locally. I've had to do the same thing, I have, like, my own script, of… yeah, like, it creates the accounts, and then,
+
+277
+00:43:45.090 --> 00:43:52.380
+Robert Walworth: Yeah, you have to, like, set the, set the credentials right so that, so it matches your… your ENV,
+
+278
+00:43:54.400 --> 00:44:09.889
+Robert Walworth: But yeah, I mean, yeah, I haven't had any issues running it now that I have a script that kind of does it all for me. But… yeah, maybe that's something the solo team, like, could support in their own repo, just kind of have, like, an easy…
+
+279
+00:44:10.090 --> 00:44:12.649
+Robert Walworth: Startup script of some kind, or like…
+
+280
+00:44:13.070 --> 00:44:20.359
+Robert Walworth: A script that you can, like, kind of configure, or just add the configuration options to the one-shot command.
+
+281
+00:44:22.690 --> 00:44:24.020
+Keith Kowal (Hedera Hashgraph LLC): Well,
+
+282
+00:44:24.310 --> 00:44:38.299
+Keith Kowal (Hedera Hashgraph LLC): So, I just want to capture this. I think this is a great point. So, today, they have the Easy Start script, which, you know, sets up a full network with a single node. I think what I'm hearing is what would be nice is that that script additionally, like.
+
+283
+00:44:38.300 --> 00:44:47.090
+Keith Kowal (Hedera Hashgraph LLC): created the first… the Genesis account and exported it? Is that… is that what's missing today from what… what's supported today in their script versus what's needed?
+
+284
+00:44:47.840 --> 00:44:54.789
+Venilin Vasilev: Actually, the Genesis account is created, we need additional, regular accounts.
+
+285
+00:44:57.370 --> 00:45:02.439
+Robert Walworth: Yeah, we do our testing with non-admin accounts, so… Sure, sure, so you need to keep…
+
+286
+00:45:02.810 --> 00:45:07.100
+Keith Kowal (Hedera Hashgraph LLC): So you need the script to create the first account on the network, the first real account.
+
+287
+00:45:09.350 --> 00:45:10.090
+Robert Walworth: Yeah.
+
+288
+00:45:10.090 --> 00:45:10.750
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+289
+00:45:11.480 --> 00:45:19.189
+Robert Walworth: With, with hopefully, like, a consistent key, too, so that we don't have to keep changing keys in our ENV file.
+
+290
+00:45:19.710 --> 00:45:24.679
+Ivaylo N: And also huge barons, like, maybe, like, 10,000 H-bars.
+
+291
+00:45:25.930 --> 00:45:26.620
+Robert Walworth: Yeah.
+
+292
+00:45:27.360 --> 00:45:29.840
+Ivaylo N: Even more, actually, if they can make it, like.
+
+293
+00:45:30.100 --> 00:45:31.509
+Robert Walworth: I guess I could do, like, a million.
+
+294
+00:45:31.680 --> 00:45:33.619
+Ivaylo N: Yeah, yeah, as much as possible.
+
+295
+00:45:33.620 --> 00:45:34.960
+Venilin Vasilev: Oh, slow.
+
+296
+00:45:36.770 --> 00:45:39.319
+Ivaylo N: And we can't use the admin account because…
+
+297
+00:45:40.100 --> 00:45:43.820
+Ivaylo N: It keeps… it skips the fee part…
+
+298
+00:45:45.250 --> 00:45:50.459
+Ivaylo N: So, yeah, if we can have another account that… That's a huge balance.
+
+299
+00:45:51.190 --> 00:46:07.990
+Keith Kowal (Hedera Hashgraph LLC): So, I think my request… I mean, this sounds like a good idea, but, you know, I don't want to get lost in this meeting. Can someone… can one of the LimeChain folks, can you just go create this issue, or, yeah, just create this as an issue in the solo repo, just so we capture it?
+
+300
+00:46:09.560 --> 00:46:10.140
+Ivaylo N: Okay.
+
+301
+00:46:11.700 --> 00:46:12.410
+Keith Kowal (Hedera Hashgraph LLC): Thank you.
+
+302
+00:46:20.130 --> 00:46:27.090
+Robert Walworth: Quick thing, actually, that I just thought of, slightly going off-topic, but still related to solo,
+
+303
+00:46:27.360 --> 00:46:36.369
+Robert Walworth: Angie, so I've noticed when I've been making, like, beginner, intermediate issues, for the repos,
+
+304
+00:46:36.370 --> 00:46:48.630
+Robert Walworth: I've kind of just defaulted to intermediate for any issue that requires, like, solo or, like, TCK to test. Basically, anything that requires, like, another
+
+305
+00:46:48.900 --> 00:46:57.680
+Robert Walworth: like, testing tool or network. I've just defaulted those to intermediate, because I don't think…
+
+306
+00:46:57.780 --> 00:47:03.339
+Robert Walworth: We would want someone working on a beginner issue to have to try and set up
+
+307
+00:47:03.650 --> 00:47:13.500
+Robert Walworth: or go through the setup of, like, a solo environment or the TCK. Do… are you kind of aligned on that with me, or do you have other opinions?
+
+308
+00:47:14.000 --> 00:47:25.610
+Angelina Ceppaluni: Yeah, Sophie and I, we are aligned with you on that one. We were talking about that the other day, because I had made an issue, and I labeled it… I think I labeled it as a beginner.
+
+309
+00:47:25.610 --> 00:47:34.870
+Angelina Ceppaluni: But it involved a little bit of testing, so we kind of felt that any issues involving testing, any additional use of tools.
+
+310
+00:47:34.980 --> 00:47:53.609
+Angelina Ceppaluni: related dependencies, anything beyond that nature should be just classified as intermediate and above, because at that point, we feel that they have enough background knowledge from completing the good first issue and the beginner issue to take on a more complex task, such as testing. So, in that, yeah, we're aligned with you.
+
+311
+00:47:54.320 --> 00:48:13.269
+Robert Walworth: Okay. Yeah, I'm still fine with having beginner issues that, you know, involve writing, like, maybe a unit test or two, but anything, like, integration, like, end-to-end, anything that requires solo or TCK, I'm… yeah, I just lean immediate or intermediate immediately.
+
+312
+00:48:13.920 --> 00:48:18.229
+Angelina Ceppaluni: Yeah, that's fine. Unit tests are one of those things, they're…
+
+313
+00:48:18.430 --> 00:48:29.810
+Angelina Ceppaluni: they're simple in a sense, and enough that it's… it's a good foundational practice for contributors to learn to write them, to understand them, and stuff like that. So when it comes to unit testing.
+
+314
+00:48:30.330 --> 00:48:31.370
+Angelina Ceppaluni: I…
+
+315
+00:48:31.500 --> 00:48:41.630
+Angelina Ceppaluni: I think… I can't speak for Sophie. I do want to say, however, that for unit testing in general, it can be considered a beginner.
+
+316
+00:48:41.800 --> 00:48:48.880
+Angelina Ceppaluni: Issue, but yeah, for anything, integration, anything end-to-end testing like that is intermediate and above.
+
+317
+00:48:49.900 --> 00:48:50.790
+Robert Walworth: Okay.
+
+318
+00:48:51.080 --> 00:48:57.779
+Robert Walworth: Yeah, maybe, maybe we want to specify those in the… in the guidelines, then.
+
+319
+00:48:58.580 --> 00:49:00.970
+Robert Walworth: Have it, like, explicit somewhere.
+
+320
+00:49:02.920 --> 00:49:08.370
+Angelina Ceppaluni: Yeah, not a problem. I will… I'll let her know, and we'll get… we can have that corrected.
+
+321
+00:49:11.860 --> 00:49:12.750
+Robert Walworth: Great.
+
+322
+00:49:13.430 --> 00:49:19.640
+Robert Walworth: Okay, any other topics? Questions, concerns, queries?
+
+323
+00:49:25.010 --> 00:49:44.369
+Angelina Ceppaluni: My topic wasn't related to anything in particular, just wanted to make a quick mention that we have the HIRO website community call, in 10 minutes, so if anybody is available, would like to join, please feel free to attend. We always love to have new joiners, and we always love to hear new feedback, especially if you're using the site, testing it.
+
+324
+00:49:44.370 --> 00:49:46.009
+Angelina Ceppaluni: Developing, whatever it be.
+
+325
+00:49:46.010 --> 00:49:47.279
+Angelina Ceppaluni: Always happy to have you.
+
+326
+00:49:52.060 --> 00:49:53.510
+Robert Walworth: Fantastic.
+
+327
+00:49:54.090 --> 00:49:59.860
+Robert Walworth: Alright, thanks for joining, everyone. Give you 10 minutes back.
+
+328
+00:50:00.100 --> 00:50:02.330
+Robert Walworth: Have a good day. See ya!
+
+329
+00:50:02.890 --> 00:50:03.240
+Ivaylo N: Dear.
+
+330
+00:50:06.140 --> 00:50:06.790
+Emiliyan Kadiyski: Bye.
+

@@ -1,0 +1,962 @@
+WEBVTT
+
+1
+00:01:51.170 --> 00:01:57.640
+Andrey Venuto: Hey guys, Kevin… I was in a meeting with Kevin, he's joining soon.
+
+2
+00:02:07.940 --> 00:02:15.669
+Andrey Venuto: So, for the OpenZeppelin folks, I will reschedule a meeting for randomness, okay? I had to cancel yesterday's one, but…
+
+3
+00:02:16.230 --> 00:02:17.809
+Andrey Venuto: Try to buy something next week.
+
+4
+00:02:41.790 --> 00:02:42.839
+Joseph Denman: Who is the wolf?
+
+5
+00:02:50.790 --> 00:02:52.670
+Andrey Venuto: We're the seniors. Oh, yeah.
+
+6
+00:02:54.340 --> 00:02:55.390
+Andrey Venuto: new people.
+
+7
+00:04:27.270 --> 00:04:30.329
+Andrey Venuto: Yeah, I just pinged Kevin. Let's wait a minute more.
+
+8
+00:05:11.650 --> 00:05:12.550
+Andrey Venuto: Okay.
+
+9
+00:05:12.670 --> 00:05:14.219
+Andrey Venuto: He's almost here, guys.
+
+10
+00:05:36.090 --> 00:05:42.820
+Kevin Millikin: Hey, sorry I'm… sorry I'm late. I'm in the wrong time zone still, so I was going to be here in an hour.
+
+11
+00:05:43.100 --> 00:05:47.060
+Kevin Millikin: Let me see if I can get the… Agenda up real quick.
+
+12
+00:06:22.940 --> 00:06:25.110
+Kevin Millikin: Okay, I think the agenda's on screen now.
+
+13
+00:06:27.920 --> 00:06:28.640
+Andrey Venuto: Yes.
+
+14
+00:06:28.640 --> 00:06:29.230
+Kevin Millikin: Thank you.
+
+15
+00:06:29.710 --> 00:06:37.719
+Kevin Millikin: Excellent. Everyone's here. So, December 3rd, the first thing, this is something I put on there,
+
+16
+00:06:38.010 --> 00:06:48.820
+Kevin Millikin: some people were using the language, and they felt like the compact equality between opaque U and 8 arrays was not what they expected.
+
+17
+00:06:49.220 --> 00:06:56.550
+Kevin Millikin: So it's reference equality that they're actually the same object, in the JS implementation. And that's…
+
+18
+00:06:56.780 --> 00:07:05.060
+Kevin Millikin: Working as intended, from the standpoint that that's what we intentionally implemented, and that's what it says in the language reference, but it doesn't seem very useful.
+
+19
+00:07:05.430 --> 00:07:15.949
+Kevin Millikin: So, my first… my first inclination was to say that's all we can do, because it's an opaque type, but we do actually say that we know what's represented as a UN8 array.
+
+20
+00:07:16.660 --> 00:07:23.230
+Kevin Millikin: And so we can define it, and its definition is some JavaScript code.
+
+21
+00:07:23.460 --> 00:07:30.489
+Kevin Millikin: Strict equality. So we could actually say that it's something else, that it's… that it's pairwise, strict equality.
+
+22
+00:07:31.010 --> 00:07:33.750
+Kevin Millikin: Element-wise, stretching quality. Kent.
+
+23
+00:07:35.430 --> 00:07:38.719
+Kent Dybvig: Yeah, that's fine. What about strings?
+
+24
+00:07:40.370 --> 00:07:49.079
+Kevin Millikin: Strings are already, strict equality is already, e- equal values.
+
+25
+00:07:49.350 --> 00:07:56.940
+Kevin Millikin: Not references quality, I believe. I'm no longer a JavaScript expert, but I think that's what it is.
+
+26
+00:07:57.590 --> 00:07:58.560
+Kevin Millikin: Thomas?
+
+27
+00:07:58.560 --> 00:07:59.220
+Kent Dybvig: Okay.
+
+28
+00:07:59.870 --> 00:08:06.150
+Thomas Kerber: Yeah, I just wanted to highlight, like, in… in circuit, this is defined through hash equality.
+
+29
+00:08:06.400 --> 00:08:12.529
+Thomas Kerber: So, having a defined… As value equality makes sense there as well.
+
+30
+00:08:12.910 --> 00:08:15.239
+Kevin Millikin: Yeah, that's… that's a great point. I was…
+
+31
+00:08:15.350 --> 00:08:31.880
+Kevin Millikin: I was, looking at the representation circuit, and I… and I… and it troubled me a little bit that it seemed like there was a mismatch there, that you would have something that was… that was not equal, in the JS implementation, and that was equal in circuit, and that was a potential soundness problem.
+
+32
+00:08:32.320 --> 00:08:35.200
+Kevin Millikin: Okay, so I think we'll agree to make this change.
+
+33
+00:08:36.900 --> 00:08:41.259
+Kevin Millikin: And I think it was Iskander that pointed it out, so thanks for… thanks for bringing that to our attention.
+
+34
+00:08:43.240 --> 00:08:46.230
+Joseph Denman: One more… Comment on this?
+
+35
+00:08:46.730 --> 00:08:47.300
+Kevin Millikin: Yeah.
+
+36
+00:08:48.510 --> 00:08:56.340
+Joseph Denman: It would… so, are the only, admissible, parameters for the opaque type… you went 8 array and string, are there…
+
+37
+00:08:57.260 --> 00:08:58.250
+Kevin Millikin: This time, yes.
+
+38
+00:08:58.590 --> 00:09:03.850
+Kevin Millikin: Okay. We have… we have reserved the right to add any that we might… that we might want to add.
+
+39
+00:09:04.010 --> 00:09:13.510
+Kevin Millikin: And we've even discussed the idea of using opaque types for other kinds of types than JavaScript types. So, for instance, like, backend types or something might be opaque.
+
+40
+00:09:14.620 --> 00:09:17.020
+Joseph Denman: As long as you have something… yeah.
+
+41
+00:09:17.160 --> 00:09:23.670
+Joseph Denman: like, to generalize it, I'd say. I mean, as long as you… have some sort of lightweight.
+
+42
+00:09:23.850 --> 00:09:24.370
+Joseph Denman: Sure.
+
+43
+00:09:24.370 --> 00:09:29.529
+Kevin Millikin: They're enumerated, they're enumerated, and so we can have a custom equality for each… for each one.
+
+44
+00:09:29.880 --> 00:09:30.750
+Kevin Millikin: Kent.
+
+45
+00:09:31.990 --> 00:09:39.940
+Kent Dybvig: Yeah, we talked about having User-defined opaque types, where you,
+
+46
+00:09:40.580 --> 00:09:42.830
+Kent Dybvig: You can provide something like,
+
+47
+00:09:43.310 --> 00:09:52.799
+Kent Dybvig: a hash function or quality function, you know, there may be a set of things that the object has to satisfy in order to be considered a valid opaque type.
+
+48
+00:09:53.630 --> 00:10:04.350
+Kent Dybvig: Other than the ones we have built in. So we have… we build in the ones for… for simple types, like the UNT iterate and strings, but then beyond that, it'd have to be serializable, or…
+
+49
+00:10:04.510 --> 00:10:11.549
+Kent Dybvig: So that we could compare it, or it'd have to be hashable and equal, you know, equable…
+
+50
+00:10:14.950 --> 00:10:16.319
+Kent Dybvig: It's for the future.
+
+51
+00:10:18.320 --> 00:10:25.250
+Thomas Kerber: Yeah, just to… to add to that, we… We do have… or… I think the…
+
+52
+00:10:25.680 --> 00:10:30.489
+Thomas Kerber: Limitation there is that we need to have a runtime representation of the type.
+
+53
+00:10:30.640 --> 00:10:31.879
+Thomas Kerber: Or whatever it is.
+
+54
+00:10:31.990 --> 00:10:33.969
+Thomas Kerber: And our, our runtime.
+
+55
+00:10:34.470 --> 00:10:43.229
+Thomas Kerber: Requires serialization, and that… once you have serialization, you kind of get the hash equality and the value equality for free.
+
+56
+00:10:43.650 --> 00:10:51.439
+Thomas Kerber: The challenge we had when we looked into adding user-defined types here is
+
+57
+00:10:51.630 --> 00:10:54.679
+Thomas Kerber: More how to let the compiler know of them.
+
+58
+00:10:54.920 --> 00:10:58.319
+Thomas Kerber: And it's… it's an API question of…
+
+59
+00:10:58.990 --> 00:11:11.940
+Thomas Kerber: at the moment, we're just outputting TypeScript, and that would require us to ingest a snippet of TypeScript that defines this type instead, or as well, which is not clear what the best way to do that.
+
+60
+00:11:13.900 --> 00:11:20.729
+Kent Dybvig: I don't know that we would have to ingest TypeScript. We would just have to know that there was a… there would have to be a method on it.
+
+61
+00:11:20.860 --> 00:11:21.630
+Kent Dybvig: That we could call.
+
+62
+00:11:21.630 --> 00:11:22.330
+Thomas Kerber: Yeah.
+
+63
+00:11:22.620 --> 00:11:24.370
+Kent Dybvig: in the generated TypeScript code.
+
+64
+00:11:26.070 --> 00:11:33.599
+Thomas Kerber: It's more that there needs to be some TypeScript defining the serialization, deserialization somewhere.
+
+65
+00:11:33.730 --> 00:11:39.280
+Thomas Kerber: And it's not clear how to link that with the generated TypeScript. You're right, it's not necessary that it would ingest.
+
+66
+00:11:39.280 --> 00:11:44.009
+Kent Dybvig: Well, I think it's just… if it's… if it's just a method call, there's no linking. There's just dynamic linking.
+
+67
+00:11:45.570 --> 00:11:46.800
+Joseph Denman: But if…
+
+68
+00:11:46.800 --> 00:11:51.229
+Thomas Kerber: Not just an effort call, though, because it needs to have the type objects.
+
+69
+00:11:51.570 --> 00:12:00.259
+Thomas Kerber: available at runtime. It needs… and in particular, if we return this type from Compact, it's not clear where Compact would get those from.
+
+70
+00:12:03.240 --> 00:12:04.089
+Thomas Kerber: So this is the…
+
+71
+00:12:04.090 --> 00:12:04.410
+Kent Dybvig: Okay.
+
+72
+00:12:04.410 --> 00:12:06.000
+Thomas Kerber: Descriptors in the compiler.
+
+73
+00:12:06.380 --> 00:12:07.040
+Kent Dybvig: Alright.
+
+74
+00:12:07.780 --> 00:12:10.730
+Kent Dybvig: This is a good topic for a whiteboard sometime.
+
+75
+00:12:12.740 --> 00:12:14.069
+Thomas Kerber: Yeah, exactly.
+
+76
+00:12:15.010 --> 00:12:21.759
+Kevin Millikin: Yeah, I can imagine that what the compiler generates for a opaque type definition is a descriptor.
+
+77
+00:12:26.640 --> 00:12:28.280
+Kevin Millikin: Okay, good.
+
+78
+00:12:28.790 --> 00:12:38.460
+Kevin Millikin: I'm guessing Kent put the next one on. Should making a cross-contract, or poor Parisa, should making a cross-contract call implicitly disclose the contract address?
+
+79
+00:12:38.870 --> 00:12:40.170
+Kevin Millikin: and hash…
+
+80
+00:12:40.460 --> 00:12:42.459
+Joseph Denman: Of the remote circuit name.
+
+81
+00:12:46.530 --> 00:12:55.219
+Kent Dybvig: Yeah, this… this comes from, so it's… we have to do a, claim contract call, and claim contract call
+
+82
+00:12:56.580 --> 00:13:05.839
+Kent Dybvig: Is declared to disclose the address, and it's declared to disclose the hash of the circuit name.
+
+83
+00:13:06.730 --> 00:13:09.370
+Kent Dybvig: Every single…
+
+84
+00:13:09.940 --> 00:13:16.649
+Kent Dybvig: cross-contract call will do the same thing. It will disclose the address and hash of the circuit name.
+
+85
+00:13:17.290 --> 00:13:23.620
+Kent Dybvig: It seems a little mean to require the disclose, rather than just documenting that it's implicitly disclosing.
+
+86
+00:13:24.210 --> 00:13:26.600
+Kent Dybvig: But if we decide that it should be.
+
+87
+00:13:27.010 --> 00:13:43.440
+Kent Dybvig: explicitly disclosed by the programmer, then we have a little syntactic issue, which is there's nowhere to put it on the… on the name. Can put it on the address, but we can't put it on… we have no… syntactically, at present, we have no way of attaching a disclose to the name, because the name has to be a symbol.
+
+88
+00:13:44.950 --> 00:13:46.320
+Kent Dybvig: Syntactically.
+
+89
+00:13:48.560 --> 00:13:52.450
+Kent Dybvig: So, my… My vote would be that…
+
+90
+00:13:52.570 --> 00:14:00.199
+Kent Dybvig: We would leave claim contract call as, something which, isn't implicitly disclosing.
+
+91
+00:14:00.490 --> 00:14:06.469
+Kent Dybvig: In case somebody has… finds some use for claim contract call, I'm not sure what that would be.
+
+92
+00:14:06.780 --> 00:14:19.909
+Kent Dybvig: But that we insert discloses when we… when we create the call to claim contract call in… while we translate… when we translate the, cross-confruct call in the compiler.
+
+93
+00:14:29.570 --> 00:14:30.780
+Thomas Kerber: Kevin, you're mute.
+
+94
+00:14:31.860 --> 00:14:33.459
+Kevin Millikin: Oh, were you gonna say something, Joe?
+
+95
+00:14:35.100 --> 00:14:36.919
+Joseph Denman: I'm gonna let Thomas take this in.
+
+96
+00:14:47.040 --> 00:14:49.780
+Kent Dybvig: Thomas gave the thumbs up, so I think he already took it.
+
+97
+00:14:50.270 --> 00:14:54.620
+Kevin Millikin: Okay, so what was your… I'm sorry, Ken, what was your proposal exactly, then?
+
+98
+00:14:55.460 --> 00:15:01.750
+Kent Dybvig: My proposal is that making a cross-contract call implicitly discloses the address
+
+99
+00:15:01.890 --> 00:15:07.929
+Kent Dybvig: and a hash of the name. And we document that, and we don't require any explicit disclose there.
+
+100
+00:15:10.740 --> 00:15:12.690
+Kevin Millikin: Like, I mean, I like that as well. Okay.
+
+101
+00:15:15.540 --> 00:15:21.249
+Parisa Ataei: But, but then this does mean that if someone is calling,
+
+102
+00:15:21.500 --> 00:15:29.849
+Parisa Ataei: claim contract call, they cannot disclose… they have to disclose the address and the hash of the circuit name.
+
+103
+00:15:30.020 --> 00:15:35.560
+Parisa Ataei: But syntactically, they still do not have a way to disclose
+
+104
+00:15:36.480 --> 00:15:40.090
+Parisa Ataei: the circuit name. Whether that's a use case that…
+
+105
+00:15:40.580 --> 00:15:47.040
+Kent Dybvig: If they're going to, if they're gonna call a claim contract call,
+
+106
+00:15:47.220 --> 00:15:49.460
+Kent Dybvig: I mean, first of all, I don't know why they would.
+
+107
+00:15:49.710 --> 00:15:52.970
+Kent Dybvig: It may… it may even be something we shouldn't expose.
+
+108
+00:15:53.710 --> 00:16:01.519
+Kent Dybvig: But if they were going to call claim contract call, they're calling it as an ordinary function, and they can… they can wrap discloses around the arguments.
+
+109
+00:16:02.420 --> 00:16:05.570
+Joseph Denman: It's only because we have this syntax for calls.
+
+110
+00:16:05.900 --> 00:16:08.219
+Kent Dybvig: That we have this issue.
+
+111
+00:16:11.170 --> 00:16:15.980
+Kevin Millikin: Right, they would have to explicitly hash the name to use that API.
+
+112
+00:16:16.260 --> 00:16:18.330
+Kevin Millikin: And then they would have to disclose the hash.
+
+113
+00:16:29.810 --> 00:16:34.949
+Kent Dybvig: All right, sounds like we have no objections. Let's… let's proceed along those lines. I think Bruce has already…
+
+114
+00:16:35.070 --> 00:16:36.789
+Kent Dybvig: Proceeding that direction.
+
+115
+00:16:39.990 --> 00:16:40.850
+Kevin Millikin: Sounds good.
+
+116
+00:16:42.960 --> 00:16:50.559
+Kevin Millikin: And then the last one is, from a practical viewpoint, should we allow a cross-contract call to call a pure circuit?
+
+117
+00:16:53.970 --> 00:17:01.110
+Parisa Ataei: Right, we had this conversation that whether we want to allow a cross-contract call to call a pure circuit.
+
+118
+00:17:01.680 --> 00:17:10.689
+Parisa Ataei: But whether we allow it or not, I'm more interested in, is that a practical use case for people to…
+
+119
+00:17:11.680 --> 00:17:14.220
+Parisa Ataei: To expect that from cross-contract calls.
+
+120
+00:17:14.359 --> 00:17:19.130
+Parisa Ataei: And if so, This would just be…
+
+121
+00:17:19.329 --> 00:17:24.939
+Parisa Ataei: A witness call without any claims, any contract call claims.
+
+122
+00:17:29.920 --> 00:17:35.950
+Parisa Ataei: And I see that we have, or should it be treated the same as a call to an impure circuit?
+
+123
+00:17:42.960 --> 00:17:43.739
+Joseph Denman: But check.
+
+124
+00:17:44.590 --> 00:17:45.400
+Kevin Millikin: Joe?
+
+125
+00:17:46.120 --> 00:17:51.849
+Joseph Denman: I was just gonna say that, yeah, like, treating it the same as a call to an inverse circuit, where we do the whole…
+
+126
+00:17:52.710 --> 00:18:07.160
+Joseph Denman: I mean, claim contract call, I don't even know if that would make sense, but if it introduces any additional overhead besides what the original pure circuit would, I would say that we should not do it.
+
+127
+00:18:07.470 --> 00:18:16.659
+Joseph Denman: Because if, like… I wouldn't want to, like, add an additional proof burden where we don't actually need it.
+
+128
+00:18:17.110 --> 00:18:24.469
+Joseph Denman: And furthermore, I guess, like, is this even a valid use case? It's a reasonable question, because…
+
+129
+00:18:26.720 --> 00:18:28.090
+Joseph Denman: I mean, it would…
+
+130
+00:18:29.250 --> 00:18:42.379
+Joseph Denman: It seems that if… so if both contracts, like the contract… the original contract decliner and the contract user, if they know that this function is going to be shared, then there's always a way to factor out a pure circuit.
+
+131
+00:18:42.830 --> 00:18:48.669
+Joseph Denman: So the situation that we would need to consider is where… is whether
+
+132
+00:18:48.870 --> 00:18:57.960
+Joseph Denman: A contract, say, definer or provider does not know that a contract producer wants to use the Cure circuit in the future.
+
+133
+00:18:59.530 --> 00:19:06.970
+Joseph Denman: Yeah, like, because there's… yeah, there's always a way that you could factor it out, and so you could make the argument that it shouldn't even be, like, in a contract.
+
+134
+00:19:08.670 --> 00:19:14.790
+Joseph Denman: There is a way to define top-level peer service, right? Like, those are not necessarily defined inside? Yeah, okay.
+
+135
+00:19:14.900 --> 00:19:19.379
+Joseph Denman: So yeah, I would say that it's not even really a valid use case.
+
+136
+00:19:23.540 --> 00:19:24.870
+Kevin Millikin: Kent? Kent?
+
+137
+00:19:31.140 --> 00:19:39.779
+Kent Dybvig: at present, security is, an optional declaration.
+
+138
+00:19:40.200 --> 00:19:47.429
+Kent Dybvig: And you can call something… you can not… you can omit the peer label on the contract declaration.
+
+139
+00:19:52.990 --> 00:19:56.379
+Kent Dybvig: And… and treat it as a pure… as an impure circuit.
+
+140
+00:19:57.000 --> 00:20:02.650
+Kent Dybvig: So, we have to decide… if we're gonna… if we're gonna… outlaw.
+
+141
+00:20:02.810 --> 00:20:04.610
+Kent Dybvig: calls to pure circuits.
+
+142
+00:20:05.010 --> 00:20:12.160
+Kent Dybvig: cross-contract calls to pure circuits, then we would have to, maybe change,
+
+143
+00:20:12.950 --> 00:20:15.839
+Kent Dybvig: change around how we do things. And…
+
+144
+00:20:16.490 --> 00:20:23.720
+Kent Dybvig: And I guess the reason I'm feeling uncomfortable with all of this is that I would like for us to keep these contracts at arm's length.
+
+145
+00:20:24.000 --> 00:20:32.790
+Kent Dybvig: And not understand how their circuits are implemented, and whether even necessarily you know, know whether they're pure.
+
+146
+00:20:33.210 --> 00:20:43.550
+Kent Dybvig: We might insist they're pure, in which case it'll get checked, and presumably we have to check it at runtime, as well as at compile time, if we have any kind of dynamic code loading.
+
+147
+00:20:47.060 --> 00:20:59.800
+Kent Dybvig: So, I… I feel uncomfortable with outlying false-to-peer circuits, because we don't know that they are, and… and also for debugging purposes, it made me peer right now because I took out the ledger right.
+
+148
+00:21:00.170 --> 00:21:01.380
+Kent Dybvig: for testing.
+
+149
+00:21:01.780 --> 00:21:04.959
+Kent Dybvig: But I still want to test it without the ledger rate.
+
+150
+00:21:05.510 --> 00:21:08.380
+Kent Dybvig: So, anyway, I'll let somebody else talk.
+
+151
+00:21:10.660 --> 00:21:23.779
+Kevin Millikin: I guess I'm next. I was… I was just going to flip it around and say that, we should think about the implementation model, so the… what we're proposing that we do, as a first cut of this implementation is that you…
+
+152
+00:21:23.820 --> 00:21:31.179
+Kevin Millikin: When you make a cross-contract call, you get the binary ZKIR representation of the circuit you're calling from somewhere in the ledger.
+
+153
+00:21:31.360 --> 00:21:39.139
+Kevin Millikin: And you interpret that binary representation, that ZKII representation, in a little sandbox ZKIR interpreter.
+
+154
+00:21:39.740 --> 00:21:42.760
+Kevin Millikin: And so pure circuits don't have
+
+155
+00:21:43.020 --> 00:21:46.270
+Kevin Millikin: such a ZKII representation, so ergo, they can't be called.
+
+156
+00:21:46.510 --> 00:21:55.130
+Kevin Millikin: And the way that I would actually make this into a language feature is I would say that contracts have an interface, and pure circuits do not appear in the contract interface.
+
+157
+00:21:55.340 --> 00:22:02.970
+Kevin Millikin: So there's a, a contract declaration implicitly defines maybe a named interface with that same name.
+
+158
+00:22:03.020 --> 00:22:15.670
+Kevin Millikin: And the pure circuits are not in that interface, so making sure the programmers understand that in some way is kind of… is kind of something for us to start out from an ergonomic standpoint, but that's the way that I would think about it semantically.
+
+159
+00:22:16.190 --> 00:22:17.339
+Kevin Millikin: And Jay.
+
+160
+00:22:20.390 --> 00:22:33.179
+Andrzej Kopeć: What is expected to happen, then, if there is a contract interface which is implement… where a circuit appears there and is implemented in a pure fashion?
+
+161
+00:22:33.590 --> 00:22:41.420
+Andrzej Kopeć: So, like, for example, for the ERC20-like tokens.
+
+162
+00:22:41.650 --> 00:22:51.040
+Andrzej Kopeć: The interface defines, constants which are returned by actually pure functions.
+
+163
+00:22:51.550 --> 00:22:55.810
+Andrzej Kopeć: So… So then I would say…
+
+164
+00:22:55.810 --> 00:23:01.090
+Kevin Millikin: Then I would say that… then I would say that because they appear in the interface, we must generate ZKIR for them.
+
+165
+00:23:02.460 --> 00:23:03.840
+Kevin Millikin: So that we can interpret them.
+
+166
+00:23:04.480 --> 00:23:05.210
+Andrzej Kopeć: Makes sense.
+
+167
+00:23:11.610 --> 00:23:12.420
+Kevin Millikin: Thomas?
+
+168
+00:23:13.360 --> 00:23:21.160
+Thomas Kerber: Yeah, so I, I think… The whole discussion around purity changes when we have cross-contract calls.
+
+169
+00:23:21.290 --> 00:23:29.440
+Thomas Kerber: Because it used to be, well, if it's a pure function, there is no point in having this on-chain, because it cannot possibly touch state.
+
+170
+00:23:29.890 --> 00:23:34.139
+Thomas Kerber: There is point to having pure
+
+171
+00:23:34.450 --> 00:23:37.600
+Thomas Kerber: Functions on-chain in some cases.
+
+172
+00:23:37.880 --> 00:23:40.399
+Thomas Kerber: If there's another contract interacting with them.
+
+173
+00:23:40.530 --> 00:23:53.009
+Thomas Kerber: And I think Andy highlighted one of those, which is, well, you know, if you have a contract wanting to return a constant in there, maybe that constant depends on the address, for example, but you still want it to be dynamically callable.
+
+174
+00:23:54.640 --> 00:24:04.430
+Thomas Kerber: Like, something else might be… maybe you want to have a contract that just provides something as a library feature, like verifying a certain type of signature.
+
+175
+00:24:04.560 --> 00:24:07.270
+Thomas Kerber: And that doesn't necessarily interact with state.
+
+176
+00:24:07.930 --> 00:24:13.199
+Thomas Kerber: So I think we might need to revisit this, this notion of purity a little bit.
+
+177
+00:24:13.320 --> 00:24:19.910
+Thomas Kerber: I, I don't exactly know… what we do, like, there's this… there's a conflict here, because we still…
+
+178
+00:24:20.700 --> 00:24:26.500
+Thomas Kerber: don't necessarily want to put all circuits on-chain. But maybe purity is not the right filter for that.
+
+179
+00:24:28.900 --> 00:24:37.519
+Thomas Kerber: One… one comment I would have is there is a technicality here which might make this tricky and might make it not work, with the ledger directly.
+
+180
+00:24:37.990 --> 00:24:41.559
+Thomas Kerber: Which is that the ledger expects there is always a transcript.
+
+181
+00:24:41.970 --> 00:24:45.109
+Thomas Kerber: So even if there is an empty…
+
+182
+00:24:45.440 --> 00:24:48.109
+Thomas Kerber: coal, it still needs to be…
+
+183
+00:24:49.360 --> 00:24:59.530
+Thomas Kerber: it still needs to have a transcript associated with it. I don't think there is actually a problem if that is the empty transcript, but I'm not sure how much of the tooling
+
+184
+00:24:59.740 --> 00:25:04.219
+Thomas Kerber: Right now is set up to allow that, or if there'll be something that blows up.
+
+185
+00:25:10.080 --> 00:25:18.380
+Thomas Kerber: But I guess… I guess my conclusion would be, yes, I think it makes sense to only call things that have ZKIR,
+
+186
+00:25:18.600 --> 00:25:25.890
+Thomas Kerber: But it might not be… I don't think it makes sense anymore to say that only pure circuits have CKIR attached.
+
+187
+00:25:27.390 --> 00:25:29.329
+Thomas Kerber: Of the impure circuits, right?
+
+188
+00:25:34.640 --> 00:25:35.490
+Kevin Millikin: Ants?
+
+189
+00:25:41.560 --> 00:25:42.790
+Kevin Millikin: I think you're still muted.
+
+190
+00:25:45.050 --> 00:25:51.680
+Kent Dybvig: Sorry, to Joe's point, if there is a routine that is pure, it could be made available
+
+191
+00:25:52.280 --> 00:25:57.080
+Kent Dybvig: Hit in the same… You know, as a module, a separate module.
+
+192
+00:25:57.370 --> 00:26:05.380
+Kent Dybvig: Or… You know, In the same module as the contract declaration, for example, that somebody publishes.
+
+193
+00:26:05.900 --> 00:26:18.170
+Kent Dybvig: The pure circuits could be made available there, and we could simply say… we could… we could stick with the notion that only impure circuits are allowed to be in the interface.
+
+194
+00:26:21.090 --> 00:26:27.040
+Kent Dybvig: I like that better than… And I like… and I think that we ended up with a
+
+195
+00:26:27.230 --> 00:26:29.370
+Kent Dybvig: You know, we end up with a runtime check.
+
+196
+00:26:29.470 --> 00:26:36.090
+Kent Dybvig: To verify that it is indeed not pure,
+
+197
+00:26:36.930 --> 00:26:39.499
+Kent Dybvig: In other words, that it has a CKIR.
+
+198
+00:26:39.730 --> 00:26:45.360
+Kent Dybvig: I don't know what other criteria we could actually use.
+
+199
+00:26:45.520 --> 00:26:52.960
+Kent Dybvig: we're saying… we want to generate a ZKR for something other than Other than some…
+
+200
+00:26:53.410 --> 00:27:09.200
+Kent Dybvig: you know, I don't know, hacky declaration. I think it's better, you know, if somebody's gonna go through the trouble of saying, hey, create me ZKR for this, even though I don't… it doesn't appear that I sh… you should, then they might as well just put the thing in a separate library, a separate module, and make it available separately.
+
+201
+00:27:15.360 --> 00:27:17.759
+Kevin Millikin: Thanks, Thomas, your hand is still up. Are you…
+
+202
+00:27:18.900 --> 00:27:20.830
+Thomas Kerber: Nope, no, I'm just not used to Zoom.
+
+203
+00:27:21.500 --> 00:27:22.949
+Kevin Millikin: Okay, Joe?
+
+204
+00:27:24.600 --> 00:27:32.400
+Joseph Denman: Yeah, I guess, and maybe this question was already answered, Kevin, but…
+
+205
+00:27:33.240 --> 00:27:40.199
+Joseph Denman: So, if we're attempting to move to this, like, long-term, this only interpreting ZKIR
+
+206
+00:27:40.760 --> 00:27:44.050
+Joseph Denman: For execution sort of thing, what…
+
+207
+00:27:44.290 --> 00:27:46.629
+Joseph Denman: Would be the plan for pure circulates.
+
+208
+00:27:47.500 --> 00:27:50.970
+Joseph Denman: How would you get the code to execute those?
+
+209
+00:27:52.020 --> 00:27:54.710
+Thomas Kerber: First, you've got something more different in this regard.
+
+210
+00:27:55.520 --> 00:28:09.990
+Kevin Millikin: Yeah, I think we're a long… I think we're a long way from… from that, though, so it's… like, it feels like clearly we would have to generate Zeek AIR for everything if we… if we actually did get there, but I don't know if we're going to get there or not. That's… I think that's pretty speculative right now.
+
+211
+00:28:12.050 --> 00:28:17.960
+Joseph Denman: Yeah, and I guess more so, I get the sense,
+
+212
+00:28:18.190 --> 00:28:25.970
+Joseph Denman: from this conversation that, yeah, we would need, like, another whiteboard or brainstorming session to actually
+
+213
+00:28:26.410 --> 00:28:33.829
+Joseph Denman: decide what it is that we expect contracts to provide, because if…
+
+214
+00:28:34.310 --> 00:28:37.889
+Joseph Denman: If the point of contracts is to provide,
+
+215
+00:28:38.040 --> 00:28:45.650
+Joseph Denman: Like, let's… to be deployed and used as services, which are stateful services in some way, then…
+
+216
+00:28:46.120 --> 00:28:54.120
+Joseph Denman: We might expect or require that, you know, or allow them to export certain functionality, like in pure circuits.
+
+217
+00:28:54.360 --> 00:29:06.110
+Joseph Denman: Pure circuits are useful when you want to provide, maybe, let's say, some sort of library function. Some functions that are stateless, you know, for calculating different hashes of things and stuff like that.
+
+218
+00:29:06.340 --> 00:29:17.640
+Joseph Denman: And so we might need another structure, some sort of language structure that provides, you know, just library-type functions as interfaces.
+
+219
+00:29:17.940 --> 00:29:30.190
+Joseph Denman: But I think, yeah, getting really specific about what we expect contract… the functionality we expect contracts to provide when they're deployed on-chain is a conversation, that's worth having.
+
+220
+00:29:30.970 --> 00:29:45.199
+Joseph Denman: Because right now, it seems a little fuzzy. Like, sometimes they provide… I mean, maybe if we can do cross-contract calls, then they're providing some sort of library function. If they can only export witnesses, or sorry, into your circuits, then they're behaving a little bit of services.
+
+221
+00:29:46.690 --> 00:29:54.950
+Joseph Denman: So, yeah, I think that that's worth its own conversation for Spike to really define and get very specific about
+
+222
+00:29:55.130 --> 00:29:56.950
+Joseph Denman: What we expect of contracts.
+
+223
+00:29:57.890 --> 00:30:01.120
+Kevin Millikin: There's a… there's a language design space there.
+
+224
+00:30:02.020 --> 00:30:10.040
+Kevin Millikin: one answer is we can just say that if they're exported, then they are potentially called from… from not only TypeScript, but other contracts.
+
+225
+00:30:10.810 --> 00:30:22.549
+Kevin Millikin: The, I liked Kent's module point. When this discussion actually came up internally on Slack,
+
+226
+00:30:22.550 --> 00:30:39.529
+Kevin Millikin: a couple weeks ago, and my first inclination was that, why would you make a cross-contract call to a pure circuit? You could just import… if you had the source code available, you could just import it. And, in order to make that actually work, right now, you can import from a file, but it has to be… it has to contain a single module declaration.
+
+227
+00:30:39.760 --> 00:30:43.099
+Kevin Millikin: And you would need to have a potentially,
+
+228
+00:30:43.700 --> 00:30:53.869
+Kevin Millikin: Awful language feature where you could import a file and it was treated as if it had a single module declaration, without explicitly having a single module declaration.
+
+229
+00:30:55.890 --> 00:30:57.009
+Kevin Millikin: Otherwise, you can't.
+
+230
+00:31:01.680 --> 00:31:05.169
+Joseph Denman: Yeah, if a contract defined a pure circuit at the top of
+
+231
+00:31:05.760 --> 00:31:16.809
+Joseph Denman: you know, at the top of the file, then wouldn't also importing the file that contains the contract work. So I just say, like, I factor all my pure circuits into the outside module.
+
+232
+00:31:17.060 --> 00:31:31.560
+Kevin Millikin: It needs to… right now… right now, the way that we've implemented the import from file means it has to have a single module declaration, and so that… so unless that was a single module declaration, and if it was a single module declaration, then it's not a contract anymore, it has to export some stuff.
+
+233
+00:31:31.810 --> 00:31:33.229
+Kevin Millikin: So it doesn't quite work right now.
+
+234
+00:31:38.830 --> 00:31:47.580
+Kevin Millikin: Okay, I think, I mean, I think the conclusion here is that there is some design work to be done, but lots of this is speculative.
+
+235
+00:31:48.300 --> 00:31:56.269
+Kevin Millikin: So, I, I don't… I don't know the answer.
+
+236
+00:31:56.470 --> 00:31:58.720
+Kevin Millikin: To the, to the actual question.
+
+237
+00:32:05.090 --> 00:32:09.039
+Kevin Millikin: Is there anything else that we should discuss while we're here?
+
+238
+00:32:19.350 --> 00:32:28.470
+Kevin Millikin: Okay, that sounds like a no. So, we get 27 minutes back. Sorry I was late again. Happy hacking, everybody!
+
+239
+00:32:30.580 --> 00:32:31.180
+Joseph Denman: Thank you.
+
+240
+00:32:32.060 --> 00:32:32.600
+Andrey Venuto: Thanks, guys.
+

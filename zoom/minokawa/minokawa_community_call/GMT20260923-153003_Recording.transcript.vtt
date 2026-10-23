@@ -1,0 +1,1238 @@
+WEBVTT
+
+1
+00:00:34.390 --> 00:00:36.769
+Parisa Ataei (Shielded Tech): Hey, Jamison, how's it going?
+
+2
+00:01:08.740 --> 00:01:09.610
+Andrzej Kopeć (Shielded): No.
+
+3
+00:01:10.910 --> 00:01:13.160
+Parisa Ataei (Shielded Tech): Hey, Andre. Hi, William.
+
+4
+00:01:19.970 --> 00:01:20.840
+William Hankins: So…
+
+5
+00:01:29.980 --> 00:01:35.869
+Parisa Ataei (Shielded Tech): We have Kent and Kevin, hello. We have Ron. Welcome.
+
+6
+00:01:37.750 --> 00:01:45.429
+Parisa Ataei (Shielded Tech): As I'm waiting, I have… I have status unreleased, because I've been out.
+
+7
+00:01:45.670 --> 00:01:57.679
+Parisa Ataei (Shielded Tech): And I have dynamic dispatching that was requested by Jonathan. Anything else, folks, that you need to discuss?
+
+8
+00:02:06.340 --> 00:02:07.310
+Parisa Ataei (Shielded Tech): Alright.
+
+9
+00:02:12.240 --> 00:02:25.900
+Parisa Ataei (Shielded Tech): Alright, I'm gonna get started. I'm assuming that we need you for dynamic dispatching, but let's just get it started, and hopefully he'll join. Status and release, are we ready to cut a branch?
+
+10
+00:02:28.740 --> 00:02:34.429
+Kevin Millikin (Shielded Technologies): Not… I think… I think it would be better for us to wait for, like, a day
+
+11
+00:02:35.070 --> 00:02:45.120
+Kevin Millikin (Shielded Technologies): 24 hours. We have the curve 25519 and the ED25519 verification, nearly ready to go.
+
+12
+00:02:47.540 --> 00:02:48.230
+Parisa Ataei (Shielded Tech): Okay.
+
+13
+00:02:50.840 --> 00:02:55.449
+Parisa Ataei (Shielded Tech): Okay, I'm sorry, what is today? Today is a Wednesday, so…
+
+14
+00:02:55.780 --> 00:03:13.990
+Parisa Ataei (Shielded Tech): Maybe Thursday. All right, and then I have Vaderie… Hi, Yuri. Whether we want to use the new release process. I saw Ken's comments on the PR, and that depends on whether Joe can address them.
+
+15
+00:03:14.220 --> 00:03:16.970
+Parisa Ataei (Shielded Tech): And… All right.
+
+16
+00:03:19.290 --> 00:03:30.650
+Parisa Ataei (Shielded Tech): That is that. Dynamic Dispatching, PR628. Jonathan, would you like to take the floor? Oh, there's Joe, perfect.
+
+17
+00:03:30.950 --> 00:03:37.349
+Jonathan Sobel: Yeah, I can… just wanted to… I didn't think we had presented to this group how we were,
+
+18
+00:03:37.710 --> 00:03:52.990
+Jonathan Sobel: how we were handling the dynamic dispatch, for cross-contract calls, and I wanted to take a minute to show it to everyone and ask the official maintainers to, assign this COIP a number and make it a
+
+19
+00:03:53.210 --> 00:03:56.779
+Jonathan Sobel: An actual draftoid, instead of just a thing.
+
+20
+00:03:56.940 --> 00:04:01.499
+Jonathan Sobel: With an XXXXX, or whatever it is in the title.
+
+21
+00:04:02.270 --> 00:04:05.060
+Jonathan Sobel: So, the… let's see, can I share a screen?
+
+22
+00:04:05.690 --> 00:04:09.469
+Parisa Ataei (Shielded Tech): Yeah, I think you can just steal mine, but let me see…
+
+23
+00:04:09.470 --> 00:04:13.490
+Jonathan Sobel: tells me, unable to share screen while someone's sharing, probably because I'm trying to guess.
+
+24
+00:04:13.490 --> 00:04:17.469
+Parisa Ataei (Shielded Tech): I stopped sharing it. Can you try again? Okay.
+
+25
+00:04:17.470 --> 00:04:18.839
+Jonathan Sobel: Yep, yep, yep.
+
+26
+00:04:25.480 --> 00:04:26.469
+Jonathan Sobel: Working on it.
+
+27
+00:04:32.410 --> 00:04:33.320
+Jonathan Sobel: Alright.
+
+28
+00:04:33.510 --> 00:04:37.530
+Jonathan Sobel: Can you guys see this, pipe draft?
+
+29
+00:04:39.510 --> 00:04:50.520
+Jonathan Sobel: Okay, so, it… the release of Compact that was delivered at the end of June.
+
+30
+00:04:50.720 --> 00:05:05.040
+Jonathan Sobel: added new things. It added contract types, and the ability to make cross-contract calls, and contract values that could be stored in the ledger, and all that kind of stuff. So it was a… it was a lot.
+
+31
+00:05:05.040 --> 00:05:10.950
+Jonathan Sobel: that showed up at the end of June. And in order to deliver all that, we had to impose certain restrictions.
+
+32
+00:05:10.980 --> 00:05:18.299
+Jonathan Sobel: There are two big restrictions that were included in the… what was delivered at the end of June. One.
+
+33
+00:05:18.300 --> 00:05:38.630
+Jonathan Sobel: was the one I'm going to address today. The other is the ability to make cross-contract calls and hold references to other contracts when the callee has private state of some kind. That is not addressed yet. We are working on that now, but working on the plans for that.
+
+34
+00:05:38.770 --> 00:05:43.929
+Jonathan Sobel: But the… The other big restriction was the one I'm going to talk about today.
+
+35
+00:05:44.170 --> 00:05:48.570
+Jonathan Sobel: Which is, we had this… can you guys see the code here?
+
+36
+00:05:51.110 --> 00:06:04.270
+Jonathan Sobel: the… we had this ability that we added at the end of June to have contract types, since I have a contract type T, and let's say I describe T as having a circuit C that takes a number as an argument.
+
+37
+00:06:04.540 --> 00:06:15.110
+Jonathan Sobel: So we can say that in Compact, and we can say, hey, I'd like a circuit F that, given a value of type T, which means a contract that has a C circuit.
+
+38
+00:06:15.110 --> 00:06:26.009
+Jonathan Sobel: I can take V and call it C circuit and pass it this argument. So this code is meaningful code and compiles and runs with the version of Compact delivered at the end of June.
+
+39
+00:06:27.260 --> 00:06:39.110
+Jonathan Sobel: the big question is, what code gets run here at V.C? Where is… where does it get code for this? I have this value, V, of type T, where is the circuit code for that?
+
+40
+00:06:39.350 --> 00:06:48.760
+Jonathan Sobel: And what we delivered at the end of June, we said the application can provide code for contract type T.
+
+41
+00:06:49.150 --> 00:06:53.249
+Jonathan Sobel: And just one code for contract type T.
+
+42
+00:06:53.250 --> 00:07:13.089
+Jonathan Sobel: And so it could say, here is the code you will run. Whenever anyone hands you a value of contract type T, then, and they say they want to run circuit C, here is the code for it. And so, therefore, this call would run the same code, no matter what specific V was passed.
+
+43
+00:07:14.420 --> 00:07:30.240
+Jonathan Sobel: drill down on that a little bit, that means that if I had 5 different contracts, each of which had, you know, all kinds of different circuits, and all of them had a C of this signature, I could treat them all as type T, I could pass any of them to F,
+
+44
+00:07:30.360 --> 00:07:36.010
+Jonathan Sobel: But my application gets to say, here is the C code you'll actually run. Now.
+
+45
+00:07:36.490 --> 00:07:39.340
+Jonathan Sobel: if that C code isn't,
+
+46
+00:07:40.220 --> 00:07:59.479
+Jonathan Sobel: isn't the code that was compiled with the particular contracts and deployed with them, then it would fail because the, the verifier key wouldn't match, right? I wouldn't be able to build this call and build the ZK proof for it and have it work. So, in fact, it's a little more constrained than I… than I said. It isn't really the application gets to say.
+
+47
+00:07:59.480 --> 00:08:05.749
+Jonathan Sobel: here's some code C, trust me, it has to actually provide code that's gonna match what's deployed on-chain.
+
+48
+00:08:06.260 --> 00:08:13.719
+Jonathan Sobel: Okay, but when you make that cross-contract call, the big constraint was you get one version of code for the type T.
+
+49
+00:08:13.920 --> 00:08:24.040
+Jonathan Sobel: This code… this COIP is about relaxing that constraint to say, now you get what you would expect, which is different code for each value of type T.
+
+50
+00:08:24.160 --> 00:08:25.770
+Jonathan Sobel: So if I call F,
+
+51
+00:08:25.920 --> 00:08:45.369
+Jonathan Sobel: with, one contract, and it has one code for C, that's fine, and I call it with a different contract, it has different code for C, that's fine, and this V.C would run different code depending on the specific value V that landed there, which is more like what you would expect if you're familiar with OO or any kind of thing that does that kind of dynamic dispatch.
+
+52
+00:08:46.690 --> 00:08:57.199
+Jonathan Sobel: Okay, so how does that… that's the goal of this. The motivation is go from type-based determination of what code to run in a cross-contract call to value-based determination.
+
+53
+00:08:57.560 --> 00:09:10.829
+Jonathan Sobel: The way it worked before was that the code generated for this call site actually did an import of dot dot slash t slash contract slash index.js, so it was actually very static.
+
+54
+00:09:10.890 --> 00:09:17.750
+Jonathan Sobel: It said, you know, your app needs to drop some code in at that path, and that is the code that will be run.
+
+55
+00:09:17.830 --> 00:09:19.460
+Jonathan Sobel: And so there is…
+
+56
+00:09:19.800 --> 00:09:25.750
+Jonathan Sobel: It was really not… it was very, very fixed, and even in terms of how you had to structure the app for it to work.
+
+57
+00:09:26.010 --> 00:09:30.070
+Jonathan Sobel: So does everyone understand that situation and the problem that's being solved?
+
+58
+00:09:32.660 --> 00:09:35.770
+Jonathan Sobel: I'll take that as a yes, if there's no… no complaints there.
+
+59
+00:09:35.770 --> 00:09:36.180
+Joseph Denman: Yes.
+
+60
+00:09:36.180 --> 00:09:39.560
+Jonathan Sobel: So, the,
+
+61
+00:09:40.640 --> 00:09:46.609
+Jonathan Sobel: I'm gonna see if I can see more people, I just see one person, and that's just no fun to talk to. There we go, much better.
+
+62
+00:09:49.020 --> 00:10:04.369
+Jonathan Sobel: So, the way that we saw this, we talked about different possibilities, and so let me actually skip down to the rejected ideas part, because it's kind of important, because there's a fairly obvious thing to do.
+
+63
+00:10:04.370 --> 00:10:13.090
+Jonathan Sobel: The fairly obvious thing is have some kind of registry somewhere that says, oh, I can find the code for deployed contracts, I'll run it.
+
+64
+00:10:13.180 --> 00:10:15.649
+Jonathan Sobel: In fact, maybe it would…
+
+65
+00:10:15.670 --> 00:10:31.869
+Jonathan Sobel: be on-chain, it will just be deployed when you deploy the contract, we'll have the code to go with it, and when you say, run this circuit for this value, we go grab the code and run it. We rejected that for the time being, and there are two big problems and reasons we rejected that.
+
+66
+00:10:31.870 --> 00:10:41.149
+Jonathan Sobel: One is we don't have any standardized representation of contracts yet, of compiled contracts, other than the JavaScript.
+
+67
+00:10:41.230 --> 00:10:54.989
+Jonathan Sobel: Yes, we all recognize that's a shortcoming, and it's a thing we're working on, but at the moment, that's what we have. Which means that grabbing the code from just somewhere out there, even on-chain, would mean grab some JavaScript and run it.
+
+68
+00:10:55.080 --> 00:11:09.590
+Jonathan Sobel: And even if you had code signing, you'd go, great, I'm grabbing the JavaScript that someone put there, and no one has swapped it with different code, but it still doesn't mean you can trust it, and it doesn't mean there's any kind of protection in terms of what secrets it can see that's in your app or anything.
+
+69
+00:11:09.830 --> 00:11:22.900
+Jonathan Sobel: So that's, that is kind of unsafe. And there, while we've talked about, you know, there are things like sandboxed JavaScript, different things where you could try and do some kind of isolation,
+
+70
+00:11:23.030 --> 00:11:38.289
+Jonathan Sobel: there isn't anything probably mature enough yet. We're investigating ways to do that. And furthermore, this is probably the most important point of why we didn't go ahead and try and do something that did some kind of sandboxed grab some code and run it, is that
+
+71
+00:11:38.420 --> 00:11:52.699
+Jonathan Sobel: Which, if you move on to do a version of this that does support private state, where you can be doing a cross-contract call to something that has private state, then you really need a system that provides isolation of private state, too.
+
+72
+00:11:52.770 --> 00:12:11.489
+Jonathan Sobel: And it would be a shame to deliver something that provided supposed isolation, and then have to throw it out and have a whole different approach to isolation when we handle private state. So for now, we are not delivering anything that says, just grab some code out there, magically built into the system, trust that it's okay, and run it.
+
+73
+00:12:11.610 --> 00:12:12.970
+Jonathan Sobel: Instead.
+
+74
+00:12:13.860 --> 00:12:33.260
+Jonathan Sobel: The thing that's being delivered is a way for the app itself, for the DAP to say, here is a lookup table. Let me go beyond that. Not really a lookup table, because it's more general than that. For the dApp to say, here is a way to resolve contract addresses to contract code.
+
+75
+00:12:33.720 --> 00:12:52.540
+Jonathan Sobel: Right? And that could be as simple as a very static lookup table, or as complex as some full dynamic system that reaches out across the network and pulls things from a registry, whatever it wants to do, but that does leave it up to the DAP to decide how it wants to do this resolution from address to code.
+
+76
+00:12:52.540 --> 00:12:54.079
+Jonathan Sobel: And…
+
+77
+00:12:54.080 --> 00:13:05.699
+Jonathan Sobel: That means the DAP can decide to be very locked down and untrusting, or it could decide to be wide open and trusting, in which case it should tell its users it's doing that. But we aren't delivering a fixed solution for that.
+
+78
+00:13:05.920 --> 00:13:22.849
+Jonathan Sobel: What we are delivering is the mechanisms that allow ADAPT to work this way. And that consists of a few crucial pieces. The first is a thing called the module type in JavaScript. Or in TypeScript, rather. A TypeScript type module.
+
+79
+00:13:23.150 --> 00:13:31.250
+Jonathan Sobel: And a module represents, this module type represents a loaded contract code.
+
+80
+00:13:31.660 --> 00:13:41.219
+Jonathan Sobel: Right? So, in particular, if you import the same thing that is imported by the currently generated code as of the end of June.
+
+81
+00:13:41.380 --> 00:14:00.589
+Jonathan Sobel: it would actually produce a module, or rather, doing the import as promise of module, because, of course, import is, doing file I.O. or something there, so it comes with as a promise. But that means that there's, changes to how code is generated a little bit. So you can still do the import you used to do, and things will work.
+
+82
+00:14:00.590 --> 00:14:05.329
+Jonathan Sobel: But part of what comes in in that import is a thing that represents this module.
+
+83
+00:14:06.030 --> 00:14:12.760
+Jonathan Sobel: And so this… the module type represents compiled contracts.
+
+84
+00:14:13.480 --> 00:14:21.089
+Jonathan Sobel: And then how do you resolve some contract address into that is there's a thing called a contract module provider.
+
+85
+00:14:21.190 --> 00:14:34.290
+Jonathan Sobel: And it has one function, that's all it needs, this one method. A contract module provider is anything that has a resolve method that, given an address, a contract address, where that's a type defined by the on-chain runtime.
+
+86
+00:14:34.290 --> 00:14:41.370
+Jonathan Sobel: It returns a module funk, that is, a thing that can be invoked to produce this promise for a module.
+
+87
+00:14:42.070 --> 00:14:49.270
+Jonathan Sobel: So that's kind of all it takes, is an application says, here's how I want to resolve addresses.
+
+88
+00:14:49.400 --> 00:15:06.199
+Jonathan Sobel: then, it can do whatever it wants to do to get the code for a particular contract address. Now, part of what's being delivered at the moment coming up, is, I think this is built into Midnight.js level, isn't it, Joe? The simple one.
+
+89
+00:15:07.100 --> 00:15:25.030
+Jonathan Sobel: And so Midnight.js will come with a thing that says, here, let me build a contract module provider just from a map, the obvious, simplest thing that would work. Here's a map from contact addresses to module funks, and you could do it literally with the static, you know, sort of,
+
+90
+00:15:25.260 --> 00:15:28.120
+Jonathan Sobel: Square bracket,
+
+91
+00:15:28.120 --> 00:15:45.689
+Jonathan Sobel: thing that goes address to import, address to import, address to import, and each one of those imports would just be the code for the different contracts. And you would get a map, you can pass that kind of map to this builder, and you get a contract module provider that's the simple one, whose resolve just says, oh, that address, I know what the code is for that.
+
+92
+00:15:46.130 --> 00:16:05.139
+Jonathan Sobel: But we also have tests that, some of our QA team has built inside Shielded already. Or is this, I think Matthew may have worked on this even, that does a much more sophisticated version that says, oh, when you call Resolve, let me do a lookup and dynamically load the code from some lookup system.
+
+93
+00:16:05.140 --> 00:16:23.479
+Jonathan Sobel: That will go find the code for this address based on what's deployed, or based on some outside registry, and load that up. And so, that means we have the example of kind of the most static thing and a very dynamic lookup system, and you can imagine extending that to some truly external shared lookup if you wanted.
+
+94
+00:16:23.480 --> 00:16:30.309
+Jonathan Sobel: That's up to the DAP to decide which one of those providers it wants to use, but it all works that way.
+
+95
+00:16:30.390 --> 00:16:33.580
+Jonathan Sobel: That does come with it, some new kinds of error cases.
+
+96
+00:16:34.000 --> 00:16:45.110
+Jonathan Sobel: So there's, a nicely defined… and Joe, I think, did a really beautiful job of coming up with the… a lot of interesting error cases that could happen here, and,
+
+97
+00:16:45.320 --> 00:16:46.979
+Jonathan Sobel: Distinguishing between them.
+
+98
+00:16:47.020 --> 00:17:10.229
+Jonathan Sobel: So that, you know, if you don't have a provider, that's a different thing from you have a provider, but it doesn't do the lookup properly, or maybe you tried to import some compact code, but it was compiled with the old compiler, and it doesn't have the right things to look like a module, that's a different thing. Or you have something that really is a module, and everything seems to work, except that the thing you're invoking expects
+
+99
+00:17:10.230 --> 00:17:13.530
+Jonathan Sobel: To the code you loaded,
+
+100
+00:17:13.530 --> 00:17:28.249
+Jonathan Sobel: has a particular verifier key associated with it, and this value that you're calling, when it's looked up on-chain has a different… has a verifier key associated with it, and they don't match, which means you've just provided code that doesn't match the deployed contract, and that will fail also.
+
+101
+00:17:28.470 --> 00:17:33.080
+Jonathan Sobel: Because it's a, an implement… an implementation mismatch.
+
+102
+00:17:33.230 --> 00:17:48.439
+Jonathan Sobel: And so, for all these different kinds of things, you get errors and some nice payloads with them, to say, oh, this one doesn't match. And one of the interesting things is there's no static way to guarantee, even in the June delivery, that
+
+103
+00:17:48.440 --> 00:17:59.340
+Jonathan Sobel: Like I said, imagine you have 5 different contracts you've defined that have a C circuit, and you say, I'd like to pass these along as if it's a T, because Ts have a C circuit.
+
+104
+00:17:59.340 --> 00:18:10.480
+Jonathan Sobel: Well, suppose it doesn't have the right number of arguments, or the right type. You could catch that statically, but you don't really know. You can fake it enough with JavaScript, it can't reliably be caught statically.
+
+105
+00:18:10.480 --> 00:18:22.209
+Jonathan Sobel: And so you have to do dynamic checks on the argument counts and argument types and return types and all that. And there's nice error messages that say, oh, you passed a thing that dynamically doesn't match in some way.
+
+106
+00:18:23.050 --> 00:18:27.699
+Jonathan Sobel: So, that is, what is being delivered with the next release of Compact.
+
+107
+00:18:27.740 --> 00:18:47.710
+Jonathan Sobel: this way to do this sort of dynamic dispatch, which really takes you a long way towards being able to build, in Compaq something a lot like the DEXs that you have with Ethereum, because you can have these different implementations of things, and you can invoke one knowing its interface.
+
+108
+00:18:47.740 --> 00:18:59.540
+Jonathan Sobel: in our case, a contract type, and get different behavior for the different ones. It does mean that the app is responsible for deciding how it wants to do the dispatch, but we have the mechanism in place.
+
+109
+00:18:59.880 --> 00:19:12.650
+Jonathan Sobel: So, that's what I wanted to present. That's this… this Kope describes that, and gives the rationale, and, has some of that, explanation of why we didn't do the other thing yet. And,
+
+110
+00:19:12.900 --> 00:19:14.580
+Jonathan Sobel: This is what's being folded in.
+
+111
+00:19:14.920 --> 00:19:17.970
+Jonathan Sobel: Joe, did I miss anything significant that we need to relay about it?
+
+112
+00:19:18.220 --> 00:19:20.119
+Joseph Denman: I think you got most of the main points.
+
+113
+00:19:25.060 --> 00:19:25.940
+Parisa Ataei (Shielded Tech): Alright.
+
+114
+00:19:26.200 --> 00:19:30.189
+Parisa Ataei (Shielded Tech): Thank you, Jonathan. Questions, concerns?
+
+115
+00:19:30.670 --> 00:19:32.870
+Parisa Ataei (Shielded Tech): Rejections on this spot?
+
+116
+00:19:37.720 --> 00:19:40.359
+Parisa Ataei (Shielded Tech): No, wonderful. All right.
+
+117
+00:19:40.840 --> 00:19:41.280
+Yurii Shynbuiev: Oh.
+
+118
+00:19:41.620 --> 00:19:50.700
+Yurii Shynbuiev: Sorry, I just unmuted myself. Really great job, and I can't imagine complexity of all this stuff, because…
+
+119
+00:19:50.820 --> 00:20:00.809
+Yurii Shynbuiev: you have a different compact version, compilation, ZK, AR keys, backends, etc, etc. I wonder…
+
+120
+00:20:00.880 --> 00:20:12.330
+Yurii Shynbuiev: does this specification code the TypeScript implementation to the compact language as the only supported runtime and backend?
+
+121
+00:20:12.990 --> 00:20:23.579
+Yurii Shynbuiev: Because it's really… Users with imports the build of model, with some abstraction of the code, and other stuff.
+
+122
+00:20:23.830 --> 00:20:40.799
+Jonathan Sobel: Well, so remember, there's no… first of all, I can let Joe answer some of the TypeScript-specific things, but there are no on-chain changes for any of this, right? So first of all, let's do the separation of midnight chain and compact language. This is still a language side thing, right?
+
+123
+00:20:41.060 --> 00:20:52.949
+Jonathan Sobel: And then, for the language change, there's the, there's no change to the syntax.
+
+124
+00:20:53.230 --> 00:21:08.390
+Jonathan Sobel: of Compact here, which is actually, I guess, a weird thing, makes it… that's part of actually what makes it, in a sense, sort of not quite backward compatible, in that, the semantics is changing, but the syntax isn't. So there's no way to say which one you want. It's just if you're using the newer version of Compact, then it's going to do the new thing.
+
+125
+00:21:08.540 --> 00:21:23.729
+Jonathan Sobel: And then the… there's the code that is generated for it. And so, to the extent that the code that is generated is JavaScript, TypeScript code that does the lookup and does the import and does the dispatch.
+
+126
+00:21:23.830 --> 00:21:32.140
+Jonathan Sobel: Yes, that was true before, right? It's true in the current one, when it says, I'm going to import this code when there's a cross-contract call. Now, a different backend
+
+127
+00:21:32.210 --> 00:21:51.969
+Jonathan Sobel: can do a different thing. If you had a backend, for instance, a Rust backend, then it would need to figure out a way, how do I do this kind of resolve, the… to resolve to different code for different values? And so I guess this is specifically about the runtime and TypeScript-generated code, is what this is proposing.
+
+128
+00:21:53.530 --> 00:22:02.769
+Yurii Shynbuiev: And another question is about the ZKAR backend and the TypeScript backend. So, if we execute the
+
+129
+00:22:02.800 --> 00:22:16.740
+Yurii Shynbuiev: cross smart contract calls in TypeScript. We need to have the code as is defined in the specification, and we need to know the
+
+130
+00:22:16.860 --> 00:22:18.330
+Yurii Shynbuiev: contract address.
+
+131
+00:22:18.500 --> 00:22:19.519
+Yurii Shynbuiev: Am I right?
+
+132
+00:22:19.670 --> 00:22:21.440
+Yurii Shynbuiev: That we are going to call from.
+
+133
+00:22:21.550 --> 00:22:23.359
+Yurii Shynbuiev: the… yeah, the…
+
+134
+00:22:23.360 --> 00:22:29.840
+Jonathan Sobel: The value… the address is… some version of the address is the representation of a contract value.
+
+135
+00:22:29.840 --> 00:22:34.110
+Yurii Shynbuiev: This T-type is literally some kind of contract address.
+
+136
+00:22:34.860 --> 00:22:39.850
+Joseph Denman: Yes. Behind the scenes, contract references are just contract addresses.
+
+137
+00:22:40.990 --> 00:22:42.360
+Yurii Shynbuiev: Yep.
+
+138
+00:22:42.520 --> 00:22:56.299
+Yurii Shynbuiev: Okay, so in theory, it's really possible to compose code and call it, but my question is about ZKIR execution. When we need to generate zero-knowledge proof.
+
+139
+00:22:56.370 --> 00:23:16.019
+Yurii Shynbuiev: with, cross-smart contracts calls. Is it, aggregation of, two proofs? Because, call to the, another smart contract is actually self-sufficient, and it uses its own prover-verifier keys.
+
+140
+00:23:17.080 --> 00:23:17.979
+Jonathan Sobel: So, that part…
+
+141
+00:23:18.320 --> 00:23:24.499
+Jonathan Sobel: from the June one, right? That's the… that was already true in the June delivery that we had cross-contract columns.
+
+142
+00:23:24.500 --> 00:23:28.030
+Yurii Shynbuiev: It's composition. It's composition of two zero-knowledge proofs.
+
+143
+00:23:28.200 --> 00:23:28.740
+Joseph Denman: Yes.
+
+144
+00:23:29.880 --> 00:23:35.949
+Yurii Shynbuiev: Okay, got it. So you don't need to regen… I just wonder how it's…
+
+145
+00:23:36.150 --> 00:23:46.119
+Yurii Shynbuiev: implemented in Mizzy AR backend, because somewhere in the middle of the zero-knowledge proof circuit.
+
+146
+00:23:46.220 --> 00:23:53.130
+Yurii Shynbuiev: You have result of another zero-knowledge proof, and you need to prove that this result is probable.
+
+147
+00:23:53.300 --> 00:23:57.639
+Yurii Shynbuiev: Can you share how it's implemented? Oh, it's so hard.
+
+148
+00:23:58.050 --> 00:24:14.509
+Jonathan Sobel: Yeah, the communication commitment that Joe mentioned. That was already way back in beginnings of midnight, before it was even called midnight. In the Kachina papers, there was this idea of depending on a… of having multiple proofs that depend on each other.
+
+149
+00:24:14.510 --> 00:24:19.999
+Jonathan Sobel: And the notion of a commitment that, in the proofed system says this thing is.
+
+150
+00:24:20.000 --> 00:24:21.490
+Yurii Shynbuiev: forward to implement.
+
+151
+00:24:21.490 --> 00:24:40.069
+Jonathan Sobel: So, I think we may have had to add something in… I think it does require Ledger 9. I mean, not just… not just because the compiler happens to target it, but I think there was something changed from Ledger A to Ledger 9 to make those communication commitments work the right way, but I may be misremembering that. But it… it doesn't…
+
+152
+00:24:40.090 --> 00:24:47.520
+Jonathan Sobel: That's all supported in Bedger 9, this notion of communication commitments, and it's all in ZKIR.
+
+153
+00:24:48.590 --> 00:24:51.629
+Yurii Shynbuiev: Okay, two more questions.
+
+154
+00:24:52.330 --> 00:25:12.079
+Yurii Shynbuiev: The TypeScript code is imperative, so if we have ifs-and-else closure, we can go to the closest branch, but a zero-knowledge proof code is not imperative. It tests all options, and it ignores if and else, because of the zero-knowledge proof nature.
+
+155
+00:25:13.020 --> 00:25:16.659
+Yurii Shynbuiev: Is there a way to call another contract?
+
+156
+00:25:16.780 --> 00:25:29.609
+Yurii Shynbuiev: And use it as a conditional statement in the main contract, and somehow wrote that this proof was true, false, or…
+
+157
+00:25:30.650 --> 00:25:31.819
+Yurii Shynbuiev: Some slice it.
+
+158
+00:25:33.420 --> 00:25:43.310
+Yurii Shynbuiev: I mean, if we call some contract and we literally return A result of proving logic.
+
+159
+00:25:44.320 --> 00:25:51.389
+Yurii Shynbuiev: But if is literally ignored because it's a zero-knowledge proof circuit execution.
+
+160
+00:25:52.130 --> 00:25:53.100
+Yurii Shynbuiev: So, generally.
+
+161
+00:25:53.100 --> 00:25:57.000
+Kent Dybvig: speaking… generally speaking, the ifs… the ifs aren't ignored.
+
+162
+00:25:57.340 --> 00:26:08.929
+Kent Dybvig: They are… dealt with… Right now, in a somewhat ad hoc basis, but the code,
+
+163
+00:26:09.370 --> 00:26:15.380
+Kent Dybvig: Essentially, what happens is, if you have a branch that isn't taken, then…
+
+164
+00:26:15.860 --> 00:26:24.370
+Kent Dybvig: Yes, it still gets done, and the… it's still part of the proof, but it's done in a way that it's innocuous and can't cause the proof to fail.
+
+165
+00:26:24.610 --> 00:26:29.760
+Kent Dybvig: Yeah. So… as far as, so I… I don't…
+
+166
+00:26:29.900 --> 00:26:38.170
+Kent Dybvig: So I think the premise is actually not quite right. So it has the same logic as the JavaScript code.
+
+167
+00:26:38.410 --> 00:26:41.769
+Kent Dybvig: As far as… as far as the if and else.
+
+168
+00:26:43.460 --> 00:26:57.690
+Kent Dybvig: But as far as, and as far as whether you could… whether you make the cross-contract call, that is also… there's a… there's a guard on the cross-contract call, so that the cross-contract call isn't made if it should… if it wouldn't have been made in the JavaScript code, it wouldn't be made
+
+169
+00:26:57.950 --> 00:26:59.420
+Kent Dybvig: by the ZIR.
+
+170
+00:26:59.800 --> 00:27:00.860
+Kent Dybvig: So, just…
+
+171
+00:27:01.230 --> 00:27:13.990
+Kent Dybvig: take that and… and maybe rephrase, your question, because I'm not quite sure, starting from that premise, I'm not quite sure where you're going with what it is you're hoping the contract will do.
+
+172
+00:27:14.610 --> 00:27:18.800
+Yurii Shynbuiev: If the call to the contract returned true-false.
+
+173
+00:27:19.040 --> 00:27:23.059
+Yurii Shynbuiev: It can return true-false if the,
+
+174
+00:27:23.560 --> 00:27:31.239
+Yurii Shynbuiev: check is true, I mean, prove that it's true, but the circuit can also fail.
+
+175
+00:27:31.680 --> 00:27:36.250
+Yurii Shynbuiev: So it's not true-false, it's also a third state, how it's going.
+
+176
+00:27:36.250 --> 00:27:36.650
+Kent Dybvig: I see.
+
+177
+00:27:36.650 --> 00:27:38.340
+Yurii Shynbuiev: Standard in the main contract.
+
+178
+00:27:39.750 --> 00:27:48.149
+Joseph Denman: So you're… okay, so you're asking whether or not you can materialize the…
+
+179
+00:27:48.150 --> 00:27:48.950
+Yurii Shynbuiev: Yep.
+
+180
+00:27:48.950 --> 00:27:49.350
+Joseph Denman: Truth in.
+
+181
+00:27:51.090 --> 00:27:56.779
+Yurii Shynbuiev: Also with, successful, circuit call and, circuit call fail.
+
+182
+00:27:56.780 --> 00:28:00.269
+Jonathan Sobel: That was already true without cross-contract calls, though, right?
+
+183
+00:28:00.270 --> 00:28:00.799
+Kent Dybvig: What is?
+
+184
+00:28:00.800 --> 00:28:07.619
+Jonathan Sobel: other circuit in the test position, and it could return true or false or fail. It could have an assert that failed.
+
+185
+00:28:10.260 --> 00:28:11.869
+Kent Dybvig: What happens if it fails?
+
+186
+00:28:14.790 --> 00:28:16.189
+Jonathan Sobel: Then the whole thing fails.
+
+187
+00:28:16.720 --> 00:28:19.780
+Kent Dybvig: Yes, I think that's what he's asking. Is there a way to…
+
+188
+00:28:20.100 --> 00:28:24.369
+Kent Dybvig: To detect that it failed, and have the calling contract not fail.
+
+189
+00:28:26.060 --> 00:28:27.830
+Joseph Denman: And the short answer is no.
+
+190
+00:28:31.780 --> 00:28:33.830
+Parisa Ataei (Shielded Tech): Did you get that at runtime?
+
+191
+00:28:34.290 --> 00:28:35.370
+Yurii Shynbuiev: You have a specific.
+
+192
+00:28:35.370 --> 00:28:38.130
+Parisa Ataei (Shielded Tech): errors that you get at runtime, so then…
+
+193
+00:28:38.340 --> 00:28:56.859
+Parisa Ataei (Shielded Tech): your DAP can basically go off of those, like, I can have a pattern matching of those errors that I get, and add those, not in the compact code, but in the DAP, add those that, like, so this condition passed or failed, or the call failed, and this is, like.
+
+194
+00:28:57.050 --> 00:28:59.200
+Parisa Ataei (Shielded Tech): Whatever conditions the call failed.
+
+195
+00:29:00.040 --> 00:29:03.830
+Jonathan Sobel: Yeah, but we don't have throw, catch, or catch, and assert within compact code.
+
+196
+00:29:03.830 --> 00:29:12.150
+Yurii Shynbuiev: Yes, because it's not try-catch, it's a zero-knowledge proof circuit. That's what my question, how are you going to manage those cases?
+
+197
+00:29:12.330 --> 00:29:16.940
+Joseph Denman: These, these occur at, at… at different times. So the…
+
+198
+00:29:17.170 --> 00:29:26.670
+Joseph Denman: The correctness of the proof is determined at proving time, and you're asking whether or not that could be detected at runtime, which is the stage before.
+
+199
+00:29:26.670 --> 00:29:46.609
+Joseph Denman: So you run the contracts first to produce the artifacts you need for a proof. So by the time you get to proving, you've already finished executing the contracts. So, yeah, exposing whether or not a proof is valid at runtime would be sort of reaching back to a prior stage in the overall execution.
+
+200
+00:29:47.190 --> 00:29:52.370
+Joseph Denman: Which, you know, could be… I mean, maybe, but not, not currently.
+
+201
+00:29:52.730 --> 00:30:00.670
+Kent Dybvig: Well, you could get partway there. You could say there's some things… if the rehearsal of that second con… of the called contract fails.
+
+202
+00:30:01.610 --> 00:30:06.280
+Kent Dybvig: You don't… that doesn't necessarily mean that the rehearsal of the
+
+203
+00:30:06.540 --> 00:30:13.509
+Kent Dybvig: of the parent… the calling contract has to fail. We could actually have A method of detecting that.
+
+204
+00:30:14.450 --> 00:30:19.219
+Kent Dybvig: The proof is a different story, as you said, and the proof actually…
+
+205
+00:30:19.460 --> 00:30:21.049
+Kent Dybvig: I mean, the proof can fail.
+
+206
+00:30:21.380 --> 00:30:30.290
+Kent Dybvig: Anytime in the future, not just… not just at initialization time, not just when the transaction is created, but it could… it could fail when it gets applied on-chain.
+
+207
+00:30:30.430 --> 00:30:35.749
+Kent Dybvig: And that's… that would be asking a lot to… to be able to use that as feedback, and to…
+
+208
+00:30:35.880 --> 00:30:39.429
+Kent Dybvig: into the rehearsal of the calling contract. It's impossible.
+
+209
+00:30:39.970 --> 00:30:41.020
+Kent Dybvig: But…
+
+210
+00:30:41.020 --> 00:30:44.210
+Jonathan Sobel: Right now, any failure in the rehearsal falls back out to the app.
+
+211
+00:30:44.770 --> 00:30:45.340
+Kent Dybvig: Yeah.
+
+212
+00:30:45.890 --> 00:30:58.599
+Kent Dybvig: But you could… but you could… you could have a way of… I mean, we could have a way in our… in a single contract to… to detect failure of that contract, you know, a catch and throw kind of thing.
+
+213
+00:30:58.830 --> 00:31:09.180
+Kent Dybvig: An exception system, and we could… we could extend that to… to cross-contract calls, so that, failures that happen at rehearsal time
+
+214
+00:31:09.530 --> 00:31:13.850
+Kent Dybvig: you know, when we're building the transcript, Ken,
+
+215
+00:31:13.950 --> 00:31:23.379
+Kent Dybvig: Can be detected and recovered from, but we don't have that mechanism either within a single contract or within the cross-contract call mechanism right now.
+
+216
+00:31:24.480 --> 00:31:26.250
+Kent Dybvig: That's a great feature to have.
+
+217
+00:31:27.300 --> 00:31:29.629
+Joseph Denman: Yeah, and I guess Yurii, like…
+
+218
+00:31:30.500 --> 00:31:53.340
+Joseph Denman: Under normal circumstances, where you're just executing a contract, and you're doing it correctly, based on the inputs, then you should not see the proof for a colleague fail, right? Because, I mean, you're running it, and you're passing the inputs, so unless there's, like, funny business going on, and there's been some sort of, like, I don't know, corruption.
+
+219
+00:31:53.430 --> 00:31:56.640
+Joseph Denman: You shouldn't see proving fail.
+
+220
+00:32:01.010 --> 00:32:16.349
+Kent Dybvig: Yeah, there's proving, and there's… there's, applying the transcript, and I'm not sure… we always make this distinction, but I'm not sure it's… it's a… it's a valid distinction. I think that transcript application failures also
+
+221
+00:32:16.620 --> 00:32:18.420
+Kent Dybvig: You know.
+
+222
+00:32:19.290 --> 00:32:33.849
+Kent Dybvig: Perceptively, it's the same thing. In effect, it's the same thing. The nice thing is, you know, you know that the proof's going to succeed if you did everything right, but you don't know that the transcript application is going to succeed in general.
+
+223
+00:32:35.170 --> 00:32:38.549
+Kent Dybvig: So you can't… can't… you just simply can't catch all failures.
+
+224
+00:32:38.790 --> 00:32:43.280
+Kent Dybvig: In the calling contract, and… and operate on them.
+
+225
+00:32:50.520 --> 00:32:56.480
+Yurii Shynbuiev: So, the, composition of, proofs.
+
+226
+00:32:57.750 --> 00:33:03.480
+Yurii Shynbuiev: will fail if at least one proof is, not successful. Am I right?
+
+227
+00:33:04.690 --> 00:33:08.140
+Kent Dybvig: But the… but just… it's not the proof, right?
+
+228
+00:33:09.180 --> 00:33:11.769
+Kent Dybvig: It's not the… your proof will…
+
+229
+00:33:12.560 --> 00:33:20.849
+Kent Dybvig: Your proof should succeed regardless, as Joe said, if it's well-formed. It's the transcript application that could fail
+
+230
+00:33:21.170 --> 00:33:22.949
+Kent Dybvig: On-chain.
+
+231
+00:33:24.230 --> 00:33:32.860
+Kent Dybvig: So I would say, you know, if the rehearsal succeeds,
+
+232
+00:33:33.320 --> 00:33:42.350
+Kent Dybvig: if your JavaScript rehearsal, or Rust, if you had a Rust backend rehearsal succeeds for the cost contract call, then the proof, presumably, unless something's
+
+233
+00:33:42.450 --> 00:33:46.309
+Kent Dybvig: Implemented improperly. The proof will also succeed.
+
+234
+00:33:48.760 --> 00:33:55.300
+Jonathan Sobel: And the on-chain application of it, if any part of it fails, then the transaction fails.
+
+235
+00:33:55.710 --> 00:33:59.890
+Jonathan Sobel: Well… Depending on whether it's in the guaranteed or available section.
+
+236
+00:33:59.890 --> 00:34:01.300
+Kent Dybvig: Yes, exactly.
+
+237
+00:34:01.680 --> 00:34:11.660
+Yurii Shynbuiev: I see complexity in imperative code in TypeScript, where you can use ifs and else with different calls to another contract.
+
+238
+00:34:12.800 --> 00:34:16.170
+Kent Dybvig: Yeah, I think you're… I think you're… Stop.
+
+239
+00:34:16.170 --> 00:34:18.430
+Yurii Shynbuiev: That is going to execute all circuits.
+
+240
+00:34:18.719 --> 00:34:22.900
+Yurii Shynbuiev: ignoring anything else, conditions.
+
+241
+00:34:22.900 --> 00:34:27.899
+Kent Dybvig: Again, again, first of all, I think you're confusing terminology here.
+
+242
+00:34:28.010 --> 00:34:30.730
+Kent Dybvig: If-then-else is not an imperative construct.
+
+243
+00:34:31.159 --> 00:34:41.039
+Kent Dybvig: But it's also… It is true that calling another contract is a side effect, so therefore it's imperative.
+
+244
+00:34:41.550 --> 00:34:47.320
+Kent Dybvig: And, those are conditioned in the ZKR…
+
+245
+00:34:47.320 --> 00:34:52.020
+Yurii Shynbuiev: I mean, the branch might be not executed in the TypeScript, because.
+
+246
+00:34:52.020 --> 00:35:00.139
+Kent Dybvig: And it might not… and if it's not executed in the TypeScript, it's not… it doesn't happen at… it never happens. It doesn't happen in the ZKR either.
+
+247
+00:35:00.510 --> 00:35:03.399
+Yurii Shynbuiev: Yes, because ZKR works in a different way.
+
+248
+00:35:03.740 --> 00:35:06.779
+Kent Dybvig: No, I said it doesn't happen in ZKR either.
+
+249
+00:35:06.780 --> 00:35:07.420
+Yurii Shynbuiev: Okay.
+
+250
+00:35:07.420 --> 00:35:08.830
+Kent Dybvig: It's the same semantics.
+
+251
+00:35:14.440 --> 00:35:18.030
+Yurii Shynbuiev: Okay, cool feature. Let's deliver it. I would like to test it.
+
+252
+00:35:26.220 --> 00:35:28.059
+Parisa Ataei (Shielded Tech): Right. All right.
+
+253
+00:35:28.200 --> 00:35:30.199
+Parisa Ataei (Shielded Tech): I'm muting. Alright.
+
+254
+00:35:31.010 --> 00:35:34.480
+Parisa Ataei (Shielded Tech): It's my late breakfast, early lunch.
+
+255
+00:35:34.590 --> 00:35:36.980
+Parisa Ataei (Shielded Tech): Yup. Okay.
+
+256
+00:35:37.630 --> 00:35:38.250
+Parisa Ataei (Shielded Tech): Mom.
+
+257
+00:35:40.950 --> 00:35:46.960
+Parisa Ataei (Shielded Tech): I think that's the last thing I have on the agenda. Anything else, folks?
+
+258
+00:35:51.150 --> 00:35:54.639
+Parisa Ataei (Shielded Tech): Going once, going twice, both wonderful points.
+
+259
+00:35:54.640 --> 00:35:59.840
+Jonathan Sobel: or see any problem, giving this COIP number, and… Promoting it to us.
+
+260
+00:35:59.840 --> 00:36:01.040
+Kent Dybvig: Oh, it sounds good.
+
+261
+00:36:03.780 --> 00:36:08.820
+Parisa Ataei (Shielded Tech): Is that… I'm assuming someone's gonna do that? Is that you, Joe, or…
+
+262
+00:36:09.180 --> 00:36:09.930
+Joseph Denman: John.
+
+263
+00:36:09.930 --> 00:36:10.680
+Parisa Ataei (Shielded Tech): Don't…
+
+264
+00:36:10.680 --> 00:36:14.909
+Joseph Denman: I can… I can do it. I will be honest, and…
+
+265
+00:36:15.200 --> 00:36:20.609
+Joseph Denman: say that I don't understand what is involved in doing that, besides… You know.
+
+266
+00:36:20.880 --> 00:36:23.129
+Joseph Denman: Just pushing a number, and…
+
+267
+00:36:23.130 --> 00:36:40.439
+Parisa Ataei (Shielded Tech): Right, so I think we agree that no one is opposed to it, so you assign it a number, and then you add it to the README under COPS, and you add it as, go through this status. I think, is this draft, or is it accepted? I think this would be accepted, yeah.
+
+268
+00:36:41.870 --> 00:36:42.350
+Joseph Denman: Okay.
+
+269
+00:36:42.350 --> 00:36:42.840
+Parisa Ataei (Shielded Tech): Yep.
+
+270
+00:36:43.180 --> 00:36:50.790
+Parisa Ataei (Shielded Tech): Cool. And once it is shipped and released, we added that it was released under this specific version of the compiler that was released.
+
+271
+00:36:51.020 --> 00:36:52.080
+Kevin Millikin (Shielded Technologies): Today's incorrect.
+
+272
+00:36:54.150 --> 00:36:54.809
+Kent Dybvig: Thank you, Kevin.
+
+273
+00:36:55.330 --> 00:37:00.799
+Kevin Millikin (Shielded Technologies): It would stay in draft status. We're still… we're still drafting it, it's not approved at all.
+
+274
+00:37:04.350 --> 00:37:08.180
+Kevin Millikin (Shielded Technologies): We're just… we're just agreeing that this is something that we should…
+
+275
+00:37:08.470 --> 00:37:12.570
+Kevin Millikin (Shielded Technologies): Finish, and assign… so we're assigning a number so we can talk about it.
+
+276
+00:37:17.640 --> 00:37:27.439
+Joseph Denman: Okay, so to actually have it added to the repo, the approval process is a review on the PR that all of the maintainers…
+
+277
+00:37:28.030 --> 00:37:28.890
+Joseph Denman: Thumbs up?
+
+278
+00:37:29.090 --> 00:37:41.959
+Kevin Millikin (Shielded Technologies): We just… we just… we just… we didn't actually call a roll vote, but we asked for objections, and there were no objections. So we've agreed that this can be Kope number 3, or 4, or whatever the next number is.
+
+279
+00:37:41.990 --> 00:37:51.010
+Kevin Millikin (Shielded Technologies): That's all we've done. We haven't approved it, we've not accepted it, we're still working on refining it, it's still open for comments, it just now has a number.
+
+280
+00:37:53.570 --> 00:38:17.789
+Kevin Millikin (Shielded Technologies): So think about the… just think about the process if an external contributor came to us with some, thing that was just random and completely off-topic and not of interest. We would say, no, close it. If somebody came to us with something that we… that was a real, legitimate, well-motivated thing that we wanted to discuss, we would say, yes, this is now COIP72, let's work on finishing this and getting it through the process that we've outlined.
+
+281
+00:38:17.790 --> 00:38:18.920
+Kevin Millikin (Shielded Technologies): we've outlined.
+
+282
+00:38:19.510 --> 00:38:29.000
+Kevin Millikin (Shielded Technologies): So, the first step in the process is that you get a number that it's worth talking about, or you don't. It doesn't mean it will be accepted. There will be withdrawn ones, there will be rejected ones.
+
+283
+00:38:30.060 --> 00:38:34.750
+Jonathan Sobel: Yeah, the question is, is this one also further accepted, and what are the steps for it to be accepted?
+
+284
+00:38:35.480 --> 00:38:44.319
+Kevin Millikin (Shielded Technologies): I haven't read it. I think… I think we have to read it. I mean, but we're at… we're at… we've just… we've just agreed that it's the… it gets the next number in the index, whatever that is.
+
+285
+00:38:45.070 --> 00:38:48.699
+Jonathan Sobel: Kevin, can you support Joe in getting the, the details?
+
+286
+00:38:48.700 --> 00:38:49.020
+Kevin Millikin (Shielded Technologies): Yeah.
+
+287
+00:38:49.810 --> 00:38:50.390
+Kevin Millikin (Shielded Technologies): Yep.
+
+288
+00:38:52.440 --> 00:38:56.579
+Parisa Ataei (Shielded Tech): And please go with number 4, because events is sitting at 3.
+
+289
+00:38:59.750 --> 00:39:03.569
+Kevin Millikin (Shielded Technologies): Did we… did we formally number events as 3?
+
+290
+00:39:04.150 --> 00:39:07.500
+Kevin Millikin (Shielded Technologies): We just… we should do that at the same time.
+
+291
+00:39:08.560 --> 00:39:10.770
+Parisa Ataei (Shielded Tech): Right. Well, yeah.
+
+292
+00:39:10.920 --> 00:39:19.370
+Parisa Ataei (Shielded Tech): Well, we had the discussion that, because that has been implemented, it kind of goes from Non-draft to,
+
+293
+00:39:19.520 --> 00:39:21.530
+Parisa Ataei (Shielded Tech): Yeah. Release, actually.
+
+294
+00:39:21.720 --> 00:39:29.379
+Parisa Ataei (Shielded Tech): And I did get, comments from Joe. I am waiting from Kevin and Kent, no pressure.
+
+295
+00:39:30.690 --> 00:39:50.430
+Kevin Millikin (Shielded Technologies): Sure, but we can… we can just… we can just number it for now. Like, to actually… for us to actually accept this COIP, we have to convince ourselves that it accurately describes what we did implement. So it's… it's now moved to not a design proposal, but more of an informational or implementation description, explaining what we did implement.
+
+296
+00:39:50.540 --> 00:39:59.119
+Kevin Millikin (Shielded Technologies): But for us to accept it, we still have to make sure that it accurately describes what we did implement, because we don't want to accept something that describes something other than what we implemented.
+
+297
+00:39:59.370 --> 00:40:05.879
+Kevin Millikin (Shielded Technologies): Because then we're in a weird situation where we honestly should change the implementation to match what we accepted, and we don't want to do that.
+
+298
+00:40:06.960 --> 00:40:13.689
+Parisa Ataei (Shielded Tech): Okay, so you want it to be in draft first, and then once… once it is reviewed by…
+
+299
+00:40:13.690 --> 00:40:22.669
+Kevin Millikin (Shielded Technologies): It should go… it should… yeah, it should go to draft status, which just means we give it… we give it a number, it's a draft status, so we should do… we can just do… we can do number 3 and 4 at the same time.
+
+300
+00:40:23.390 --> 00:40:26.970
+Kevin Millikin (Shielded Technologies): And I can… and I can do that if… if… If we want.
+
+301
+00:40:30.760 --> 00:40:31.450
+Kent Dybvig: Nice too.
+
+302
+00:40:31.890 --> 00:40:33.480
+Kevin Millikin (Shielded Technologies): Okay, I'll do… I'll do that, Joe.
+
+303
+00:40:36.670 --> 00:40:37.630
+Parisa Ataei (Shielded Tech): Alright.
+
+304
+00:40:38.100 --> 00:40:41.160
+Parisa Ataei (Shielded Tech): That is that. Anything else, folks?
+
+305
+00:40:44.110 --> 00:40:50.569
+Parisa Ataei (Shielded Tech): Alright, wonderful. 20 minutes earlier, my dog will be very happy to go for his walk.
+
+306
+00:40:51.680 --> 00:40:57.550
+Parisa Ataei (Shielded Tech): Alright, folks, thank you everyone for attending, and have a good rest of your day!
+
+307
+00:40:57.720 --> 00:40:58.940
+Parisa Ataei (Shielded Tech): Thank you. Bye.
+
+308
+00:40:58.940 --> 00:41:00.100
+Kent Dybvig: Thanks.
+
+309
+00:41:01.420 --> 00:41:02.090
+Andrzej Kopeć (Shielded): Bye-bye.
+

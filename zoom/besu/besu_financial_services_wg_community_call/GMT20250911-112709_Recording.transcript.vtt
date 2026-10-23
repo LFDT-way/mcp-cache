@@ -1,0 +1,1206 @@
+WEBVTT
+
+1
+00:01:33.840 --> 00:01:34.910
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Hello, Trevor.
+
+2
+00:01:37.940 --> 00:01:38.850
+Trevor Scanlon: Hey, Tish.
+
+3
+00:01:39.480 --> 00:01:40.180
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): How are you?
+
+4
+00:01:40.750 --> 00:01:41.910
+Trevor Scanlon: Doing well, how are you?
+
+5
+00:01:42.210 --> 00:01:43.330
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): I am fine, thank you.
+
+6
+00:01:52.370 --> 00:01:56.750
+Sean W. Bohan (LF Decentralized Trust): Okay, welcome everybody to the September 11, 2025.
+
+7
+00:01:56.920 --> 00:02:15.890
+Sean W. Bohan (LF Decentralized Trust): Bezu Financial Services Working Group General Meeting. As with all Linux Foundation meetings, this is held under the Linux Foundation antitrust policy. If you have any questions about these matters, please contact your company counsel, or if you're a member of the Linux Foundation, feel free to contact Andrew Updagrov of the firm Gesmer Updagrov LLP, which provides legal counsel to the Linux Foundation.
+
+8
+00:02:15.890 --> 00:02:18.930
+Sean W. Bohan (LF Decentralized Trust): This is also held under the Linux Foundation Code of Conduct.
+
+9
+00:02:19.170 --> 00:02:31.810
+Sean W. Bohan (LF Decentralized Trust): Which can best be summed up as, be excellent to each other, be kind to each other, be respectful of each other, and we're all gonna get a lot of things done. And I'm gonna turn it over to Hitesh, who is our WG chair. Go for it, Hitesh. Hitesh.
+
+10
+00:02:31.810 --> 00:02:43.550
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Great, thank you. Thank you, Sean, as always, and welcome, everyone, to this, to this group again. This group was silent, for a few, I would say for a few months,
+
+11
+00:02:43.730 --> 00:02:59.800
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): the last meeting we had, it's somewhere in January, February, so it's pretty two quarters have gone, and we have not met, but I think now, we are back, we are making sure that now this year will have a continue, continue to have this discussion for the important topics, and
+
+12
+00:02:59.800 --> 00:03:22.169
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Especially when the whole industry is moving towards, you know, the productionizing the key use cases, and taking the advantage of the overall BESUS capability. So, today's discussion is around the security, specifically focusing on P256, the elective
+
+13
+00:03:22.520 --> 00:03:47.010
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): elliptic curve. I know that this has already been added into the enterprise base rule, but again, I don't have much insight, but that's exactly the focus of today's call, is to really understand the readiness of P256 to be, to be part of the base rule. And for that, I have, I've asked, requested Miguel Colorello from the,
+
+14
+00:03:47.410 --> 00:04:05.979
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): I forgot his… Alastria is the name of the company. He has brought a, you know, couple of, you know, he's brought that topic last… last week, or probably in the last meeting. Oh, I see him joining. Great, Miguel. And I wanted him to give us
+
+15
+00:04:05.980 --> 00:04:15.530
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): some update around what he learned. He brought that whole topic, discussed with the, the basic contributor team, and basically what's his learning.
+
+16
+00:04:15.530 --> 00:04:26.080
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): So I wanted him to basically, you know, share with us and see what we can learn out of it. I'm very keen on understanding that, because we are moving towards, as a DTCC,
+
+17
+00:04:26.080 --> 00:04:42.379
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): We are moving towards productionizing some of the use cases, and one of the key requirements is to really adhere to certain, NIST-approved these securities, or rather, to be very specific, curves implementation. So.
+
+18
+00:04:42.380 --> 00:04:48.289
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): without any ado, I think I'll… I'll give this forum stage to Miguel, and Miguel, over to you.
+
+19
+00:04:50.640 --> 00:04:58.779
+Miguel Calero: Okay, so thank you very much for your invitation. I'm pretty sorry about the delay. I was having trouble with Zoom,
+
+20
+00:04:59.400 --> 00:05:01.889
+Miguel Calero: So let me… let me share my screen.
+
+21
+00:05:02.440 --> 00:05:07.989
+Miguel Calero: How many of you,
+
+22
+00:05:08.240 --> 00:05:13.510
+Miguel Calero: Probably you don't know about Dalastria, isn't it? Or… Do you need reform?
+
+23
+00:05:14.890 --> 00:05:34.390
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Miguel, I'm not aware of the Alastria, so if you could just share some highlights, you know, what you guys do, what your specialization is, and what's your… where you're in the journey right now, from… and specifically why, this time, you know, why you have started, focusing on P256 at this time.
+
+24
+00:05:34.660 --> 00:05:35.240
+Miguel Calero: Yeah.
+
+25
+00:05:47.270 --> 00:05:49.010
+Miguel Calero: Okay, can you see my screen?
+
+26
+00:05:49.010 --> 00:05:50.440
+Sean W. Bohan (LF Decentralized Trust): Your screen looks good, Miguel.
+
+27
+00:05:50.880 --> 00:05:51.240
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Yes.
+
+28
+00:05:51.240 --> 00:05:58.970
+Miguel Calero: Okay, thank you very much. So, this is a small presentation that I also share with the contributors.
+
+29
+00:05:59.110 --> 00:06:13.609
+Miguel Calero: So I'll take more than 10 minutes, and then we go to the, you know, at the end, this is why we're handling right now the issue regarding P256. That is very similar,
+
+30
+00:06:14.010 --> 00:06:18.319
+Miguel Calero: the similar rational than yours, Hidesh.
+
+31
+00:06:18.570 --> 00:06:21.640
+Miguel Calero: And… but I wanted to give you,
+
+32
+00:06:21.780 --> 00:06:30.360
+Miguel Calero: a highlight of why we're doing this, okay? So, Alastia is a non-profit organization, and…
+
+33
+00:06:30.820 --> 00:06:44.100
+Miguel Calero: But also, it's handling… yeah, we are, you know, a nonprofit organization with a common purpose that started, like, 8 years ago, the implementation of the centralization technology.
+
+34
+00:06:44.210 --> 00:06:53.750
+Miguel Calero: Is a natural meeting point for special regulation, generation, innovation, and launching the…
+
+35
+00:06:53.960 --> 00:07:12.439
+Miguel Calero: We are… those were… these are our main goals as last year. So, democratize access, strengthen the public production system, post a new digital business model, support the development of blockchain networks, and the only insights available in real-world cases.
+
+36
+00:07:12.610 --> 00:07:16.960
+Miguel Calero: And… In numbers, we are 500 members.
+
+37
+00:07:17.920 --> 00:07:24.620
+Miguel Calero: 15 countries, half of the members are There's an East.
+
+38
+00:07:24.860 --> 00:07:32.960
+Miguel Calero: 42 public administration, national, regional, and local, administrations.
+
+39
+00:07:33.210 --> 00:07:39.050
+Miguel Calero: 4 working groups, and more than 60 use cases in this, indeed, right now, 19.
+
+40
+00:07:39.270 --> 00:07:53.090
+Miguel Calero: use case deployed in our two blockchain networks that we've been managing for the last, 6 years, okay? We were built, and we're still operating a co-opetition
+
+41
+00:07:53.360 --> 00:08:01.649
+Miguel Calero: Way, so… Both big, telecom companies, big banks.
+
+42
+00:08:01.790 --> 00:08:14.680
+Miguel Calero: But also, small, tech companies are building together some basics to work on, you know, to build some basic components to build, to add value on top of that.
+
+43
+00:08:14.780 --> 00:08:26.640
+Miguel Calero: Specifically, we've been working on privacy for blockchain, confidentiality for blockchain, and digital identity. Now, you know, we're a pure
+
+44
+00:08:26.930 --> 00:08:41.689
+Miguel Calero: Identity, like, 3 years ago. Right now, we're, moving and, and, we're making approaches to AIS2 that is not that decentralized, but we are…
+
+45
+00:08:41.840 --> 00:08:57.510
+Miguel Calero: deploying a dual approach, mixing both DIDs and X, like, O9 certificates to manage a more complex trusted registry. You know, that's another story.
+
+46
+00:08:57.890 --> 00:09:05.370
+Miguel Calero: Yeah, we've been managing, you know, deeply, this is all for you, and you're…
+
+47
+00:09:05.540 --> 00:09:18.239
+Miguel Calero: you all well known the concept of public promotion networks. That is, public for reading, and private for permission for writing, yeah?
+
+48
+00:09:18.340 --> 00:09:24.630
+Miguel Calero: Using both regular notes and validator notes, but you probably know this, kind of,
+
+49
+00:09:24.990 --> 00:09:30.790
+Miguel Calero: you know, I will send you the slides, and you know this topic, so I'm just going…
+
+50
+00:09:30.990 --> 00:09:32.669
+Miguel Calero: To go carve out through that.
+
+51
+00:09:32.930 --> 00:09:43.909
+Miguel Calero: Right now, we have more than 90 documented cases, mainly in authorization, that is, you know, given a time span, a timestamp of a document.
+
+52
+00:09:44.040 --> 00:09:48.540
+Miguel Calero: But also traceability, that is following,
+
+53
+00:09:49.100 --> 00:09:55.110
+Miguel Calero: A digital… a digital asset, or a real world asset, but with,
+
+54
+00:09:55.470 --> 00:09:59.279
+Miguel Calero: VIN mirror, we have data mirror, they did that during the lock chain.
+
+55
+00:09:59.440 --> 00:10:06.099
+Miguel Calero: The organization and digital identity. We have had, some success cases.
+
+56
+00:10:06.210 --> 00:10:10.369
+Miguel Calero: And in a variety of publications and sectors, okay?
+
+57
+00:10:10.540 --> 00:10:20.759
+Miguel Calero: Also, we've been involved in a lot of, organizations, especially in organizations and standardization, where there are available members
+
+58
+00:10:20.870 --> 00:10:24.439
+Miguel Calero: of, Alastia are also contributing to Etsy.
+
+59
+00:10:24.570 --> 00:10:27.460
+Miguel Calero: ISO, and semiq.
+
+60
+00:10:28.350 --> 00:10:31.830
+Miguel Calero: For example, myself, I'm not that relevant, but I'm also contributed.
+
+61
+00:10:32.080 --> 00:10:35.389
+Miguel Calero: And also, we've been working closely with the EU.
+
+62
+00:10:35.700 --> 00:10:37.490
+Miguel Calero: European Commission.
+
+63
+00:10:37.670 --> 00:10:44.569
+Miguel Calero: And… Yeah, in the digital industry especially, we've been working,
+
+64
+00:10:45.840 --> 00:10:51.080
+Miguel Calero: Strongly, and indeed, Spain was the first
+
+65
+00:10:51.570 --> 00:10:58.139
+Miguel Calero: Globally the first approved standard for, decentralized digital identity.
+
+66
+00:10:58.270 --> 00:11:07.300
+Miguel Calero: And we've been contributing, for… to many of the, normalization and, and, understandings.
+
+67
+00:11:07.910 --> 00:11:20.409
+Miguel Calero: And here you have some projects using the data as TIE, and also, we've been contributing with that knowledge, to the European Blockchain Partnership, ESIF, and the IDAS.
+
+68
+00:11:20.670 --> 00:11:27.120
+Miguel Calero: And now we are last two, okay? We have even, working… a fully working…
+
+69
+00:11:27.310 --> 00:11:30.530
+Miguel Calero: An ecosystem that can handle.
+
+70
+00:11:30.870 --> 00:11:34.949
+Miguel Calero: Expudential response, verifying presentation, and so on.
+
+71
+00:11:35.250 --> 00:11:38.230
+Miguel Calero: I'm happy to dig deeper on that.
+
+72
+00:11:38.560 --> 00:11:46.490
+Miguel Calero: Anyway, going to the, production networks, we have been, since 2019,
+
+73
+00:11:46.780 --> 00:11:53.560
+Miguel Calero: We've been operating a public permission, Quorum base… based on Quorum network.
+
+74
+00:11:53.730 --> 00:11:55.620
+Miguel Calero: That is called the T network.
+
+75
+00:11:55.880 --> 00:12:05.820
+Miguel Calero: There we have, like, 121 regular nodes, 6 validator nodes, and we deploy the digital MID model for the last table.
+
+76
+00:12:06.030 --> 00:12:22.030
+Miguel Calero: Yeah, it's robust, and they're gonna have to release it again, problem is that it's not pretty well maintained right now, because the, you know, we couldn't keep up with the updates on… on… on that network, and also we're…
+
+77
+00:12:22.250 --> 00:12:33.779
+Miguel Calero: making alert on Hyperledger version. We started with, the B network, that is the Hyperledger version network, since, 2022.
+
+78
+00:12:33.900 --> 00:12:48.130
+Miguel Calero: 49 regular nodes, 6 valid nodes, and deployed a digital identity model, and it has been used not only in European projects, but also in private sector projects, okay? Involving
+
+79
+00:12:48.340 --> 00:12:51.200
+Miguel Calero: But public administration, corporates, and SMEs.
+
+80
+00:12:51.460 --> 00:13:02.059
+Miguel Calero: It's also aligned with Epsi and blockchain, as you may know, okay? The question is that we've been operating those networks in a best-perform mode.
+
+81
+00:13:02.790 --> 00:13:09.270
+Miguel Calero: And… and there was a strong interest in public administration to go production.
+
+82
+00:13:09.450 --> 00:13:11.990
+Miguel Calero: And having a,
+
+83
+00:13:12.430 --> 00:13:18.790
+Miguel Calero: service level agreement with the… with the blockchain operator. That couldn't be… that couldn't happen with the…
+
+84
+00:13:18.930 --> 00:13:26.280
+Miguel Calero: also need to be compliant with UDBR, and it's two, mika…
+
+85
+00:13:26.650 --> 00:13:29.960
+Miguel Calero: And, you know, all the regulations.
+
+86
+00:13:30.080 --> 00:13:34.349
+Miguel Calero: And that wasn't… that was not possible with our current network, so…
+
+87
+00:13:34.440 --> 00:13:52.350
+Miguel Calero: We reach an agreement with, regional, government that agree, but also with Comedian Asturias, that is North Spain, and a third, region that will be joining, to deliver the lochen Services Infrastructure,
+
+88
+00:13:52.810 --> 00:13:54.920
+Miguel Calero: Of Spain?
+
+89
+00:13:55.120 --> 00:13:56.379
+Miguel Calero: To help.
+
+90
+00:13:56.630 --> 00:14:01.680
+Miguel Calero: a lot of interested stakeholders deploy their use cases there.
+
+91
+00:14:01.680 --> 00:14:02.140
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Miguel?
+
+92
+00:14:02.140 --> 00:14:03.370
+Miguel Calero: So, yeah.
+
+93
+00:14:03.370 --> 00:14:15.440
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Quick question, sorry to interrupt, but is this, the infrastructure, the ISPE, the infrastructure service, is it just for the experimentation, or is it, is it also meant for the production,
+
+94
+00:14:16.790 --> 00:14:20.239
+Miguel Calero: It is… it is specifically meant for production.
+
+95
+00:14:20.240 --> 00:14:21.940
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Okay, alright, gotcha.
+
+96
+00:14:21.940 --> 00:14:33.070
+Miguel Calero: So we have two other networks for experimentation. We have done a lot of that, but what we need now is a production-ready public permission blockchain that
+
+97
+00:14:33.240 --> 00:14:39.220
+Miguel Calero: Everybody can use, and be confident that it's… Compliance with the regulation.
+
+98
+00:14:41.450 --> 00:14:43.389
+Miguel Calero: Is that… that answers your question?
+
+99
+00:14:43.390 --> 00:14:44.580
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Yes, it does, thank you.
+
+100
+00:14:45.030 --> 00:14:46.089
+Miguel Calero: Okay, okay.
+
+101
+00:14:46.630 --> 00:14:49.610
+Miguel Calero: So, I want to specifically,
+
+102
+00:14:49.710 --> 00:14:58.779
+Miguel Calero: pay attention to blockchain services infrastructure, because it's not only a network, okay? So we will come to that.
+
+103
+00:14:59.810 --> 00:15:00.790
+Miguel Calero: I'm just slides.
+
+104
+00:15:00.940 --> 00:15:09.960
+Miguel Calero: So also, it's, you know, reinforcing Spain, technology, but also working with open source, with other open source.
+
+105
+00:15:10.090 --> 00:15:12.459
+Miguel Calero: Software, okay?
+
+106
+00:15:12.630 --> 00:15:31.910
+Miguel Calero: Anyway, yeah, our study objectives with ISBA, aligning with, European regulation, that meaning Epsi, that is the Introduction Solutions Infrastructure, EIS2, NIST2, GDPR, and also position in Spain, that is something that, obviously, our…
+
+107
+00:15:32.190 --> 00:15:38.169
+Miguel Calero: Our supporters are asking us, but also strengthening, security interests.
+
+108
+00:15:38.440 --> 00:15:43.799
+Miguel Calero: We think that one of the biggest contributions will be a governance model.
+
+109
+00:15:43.930 --> 00:15:45.989
+Miguel Calero: Different from the…
+
+110
+00:15:46.260 --> 00:15:58.520
+Miguel Calero: traditional public blockchains. We're working on that. We have been experimenting with that in the next this year, and probably we will come to something that is probably scalable to other ecosystems, okay?
+
+111
+00:15:58.860 --> 00:16:09.040
+Miguel Calero: By now, the blockchain infrastructure, at least, is complete with two different networks and services. One is, their network.
+
+112
+00:16:09.620 --> 00:16:12.400
+Miguel Calero: Focused on highly high compliance.
+
+113
+00:16:13.290 --> 00:16:16.760
+Miguel Calero: So, simplified network, no network, no token deployment.
+
+114
+00:16:17.010 --> 00:16:31.140
+Miguel Calero: Focus probably on audiences and identities, with some core services, strict, regulatory compliance, and, with a, you know, recommended code. That is not a recommendation, since
+
+115
+00:16:31.340 --> 00:16:45.940
+Miguel Calero: even aid us to, is forcing us to use P256, so we will need to adopt, adopt a needs to, needs to approve algorithm code. So, P256.
+
+116
+00:16:45.990 --> 00:17:04.780
+Miguel Calero: Smart Contrast out data are probably only deployed by ISBE, and, in principle, no personal data. And another use case network that would be more flexible, allowing token deployment with some other core services, but also BDPR compliant.
+
+117
+00:17:04.849 --> 00:17:13.420
+Miguel Calero: And… right now, personally, is compliant. That way, we have checked that we can use P256 in production.
+
+118
+00:17:13.569 --> 00:17:19.060
+Miguel Calero: Probably use Case Network, or at least one of them, will adopt.
+
+119
+00:17:19.160 --> 00:17:20.890
+Miguel Calero: FP256.
+
+120
+00:17:21.109 --> 00:17:27.680
+Miguel Calero: Also interpret everything, interpreter with other networks, and prepare required empathetic and anchoring to that network.
+
+121
+00:17:28.040 --> 00:17:29.050
+Miguel Calero: And…
+
+122
+00:17:29.670 --> 00:17:41.860
+Miguel Calero: Also, every… we have deployed some smart contracts deployment flow, so every smart contract is upgradable, has a panic button from the operator,
+
+123
+00:17:42.180 --> 00:17:51.400
+Miguel Calero: Smart contract stoppable, smart contracts, and, you know, another, other audit, and, and,
+
+124
+00:17:51.900 --> 00:18:00.400
+Miguel Calero: Yeah, unneeded features that right now, by design, but right now public Blockchains doesn't at all, so…
+
+125
+00:18:00.530 --> 00:18:05.470
+Miguel Calero: An operator can't really… Manage the network, okay?
+
+126
+00:18:05.600 --> 00:18:11.870
+Miguel Calero: Yeah. So, when we… we were to the, Vesu Contributor meeting, so…
+
+127
+00:18:12.030 --> 00:18:22.819
+Miguel Calero: Is it right, until… you know, I've been very brief with that, because I don't… I didn't want to stand a lot. Is everything, like, clear to you?
+
+128
+00:18:23.280 --> 00:18:33.910
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): No, yeah, it does, it does make sense. I think, just wanted to see if anyone has any question before we move to PEED… double-click on PEED256, but if anyone has any question.
+
+129
+00:18:34.070 --> 00:18:35.540
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): It's the right time now.
+
+130
+00:18:36.410 --> 00:18:41.580
+Iulian: I have a quick question for the bold sentence, recommended curve.
+
+131
+00:18:41.820 --> 00:18:43.060
+Miguel Calero: Yeah. Boys…
+
+132
+00:18:43.060 --> 00:18:46.019
+Iulian: The entity that is recommending this perf.
+
+133
+00:18:46.490 --> 00:18:58.600
+Miguel Calero: Okay, right now, EIDAS II in one of the implementing acts of EIDAS2, if you want to use a qualified digital, decentralized ledger.
+
+134
+00:18:59.100 --> 00:19:04.680
+Miguel Calero: sorry, qualified centralized, ledger. Trust, service.
+
+135
+00:19:04.830 --> 00:19:11.550
+Miguel Calero: you need to be compliant with these two, so P256 is necessary.
+
+136
+00:19:11.900 --> 00:19:19.679
+Miguel Calero: is really out of scope, K1, because it's not super defined, from my NIST 2.
+
+137
+00:19:19.760 --> 00:19:37.270
+Miguel Calero: but also our national crypto futility center, but also at the European scale. You know, I think that is robot. So, if we want to provide trust services with the blockchain that we do, we need to go to P2Faxis.
+
+138
+00:19:37.570 --> 00:19:43.159
+Miguel Calero: And also, in the use case network, as we are trying to also onboard some
+
+139
+00:19:43.400 --> 00:19:48.220
+Miguel Calero: you know, the use case number in this. It's something that
+
+140
+00:19:48.600 --> 00:19:56.110
+Miguel Calero: any other stakeholders may want to replicate, okay? And, you know, start another network, but with the same design.
+
+141
+00:19:56.220 --> 00:19:59.839
+Miguel Calero: So as we want to involve,
+
+142
+00:20:00.200 --> 00:20:03.669
+Miguel Calero: You know, corporates that need to handle keys.
+
+143
+00:20:03.950 --> 00:20:13.189
+Miguel Calero: in the way they used to do, they are requiring us to move to P256 in order to comply with their cybersecurity rules, so…
+
+144
+00:20:14.520 --> 00:20:32.829
+Miguel Calero: You know, they can use a third party to access public, blockchains, but if they are to operate natively, with this kind of public permission, they need to handle their piece, according to regulation, but also with the tools
+
+145
+00:20:32.900 --> 00:20:34.780
+Miguel Calero: That they already have.
+
+146
+00:20:35.410 --> 00:20:38.290
+Miguel Calero: Is that… that answers your question?
+
+147
+00:20:39.160 --> 00:20:50.939
+Iulian: Yes, but I have two follow-up questions now. One is related to the document that you mentioned from ADAS and from electronic qualified ledgers.
+
+148
+00:20:50.940 --> 00:20:51.360
+Miguel Calero: what's.
+
+149
+00:20:51.360 --> 00:20:53.760
+Iulian: share it, I would love to take a look at it.
+
+150
+00:20:54.010 --> 00:20:57.330
+Iulian: Sure. And second one, it's about the…
+
+151
+00:20:57.470 --> 00:21:07.409
+Iulian: let's say the scope of using this curve, because if we look to the blockchain networks, we have a signing process at the
+
+152
+00:21:07.410 --> 00:21:21.550
+Iulian: Validator level, producing blocks and signing the… the ceiling of the block, but we have another vertical on the user side, which are using… are signing transactions and broadcasting them to the blockchain network.
+
+153
+00:21:21.660 --> 00:21:29.999
+Iulian: In this case, the recommendation that you are aware of, it's coming for which of them? It's for both, or only for one of the cases?
+
+154
+00:21:30.630 --> 00:21:38.380
+Miguel Calero: ID, IV both, but right now, sign intersections is the recommended, is the needed, is needed.
+
+155
+00:21:42.180 --> 00:21:45.160
+Miguel Calero: The mandatory one is signing transactions.
+
+156
+00:21:45.360 --> 00:21:54.420
+Miguel Calero: we're working because we're not sure. We're doing some, you know, assigning the blocks would also be needed, because you will need some
+
+157
+00:21:54.920 --> 00:22:02.070
+Miguel Calero: Ways to really recover the network. And, you know, they have tools to do that with,
+
+158
+00:22:02.410 --> 00:22:04.919
+Miguel Calero: R1, but not with K1.
+
+159
+00:22:08.240 --> 00:22:10.120
+Miguel Calero: It's that, that downshot field.
+
+160
+00:22:10.480 --> 00:22:12.290
+Miguel Calero: There was another question in the chat?
+
+161
+00:22:18.300 --> 00:22:19.619
+Enrique Lacal (Kaleido): Sorry, go ahead, Reline.
+
+162
+00:22:21.010 --> 00:22:23.950
+Iulian: No, that's it. I just wanted to say that is good for me.
+
+163
+00:22:24.710 --> 00:22:27.220
+Miguel Calero: Okay, thank you. Anyway…
+
+164
+00:22:27.220 --> 00:22:29.290
+Enrique Lacal (Kaleido): I have a question about… Sorry.
+
+165
+00:22:29.290 --> 00:22:29.860
+Miguel Calero: Yeah.
+
+166
+00:22:30.330 --> 00:22:41.519
+Enrique Lacal (Kaleido): Just a question about the smart contract, permissioning, so that… that bullet point around only smart contracts only deployed by SBE. Are you using…
+
+167
+00:22:41.520 --> 00:22:54.549
+Enrique Lacal (Kaleido): any of the permissioning, tools investor, like on-chain permissioning or file permissioning, to limit this, or is this just a firewall-based permission on how you're controlling, specific transactions and deployments of smart contracts?
+
+168
+00:22:55.160 --> 00:23:03.749
+Miguel Calero: I think, honestly, I need to go on the test. I would be happy to give you more insights on that. Right now, I think we are doing on-chain permission.
+
+169
+00:23:03.870 --> 00:23:07.570
+Miguel Calero: But the questions that we…
+
+170
+00:23:07.830 --> 00:23:13.469
+Miguel Calero: There weren't… there will be no smart console be deployed with a diamond.
+
+171
+00:23:13.630 --> 00:23:29.860
+Miguel Calero: architecture, so there is, is the needs to sign the deployment of the contract, both in the bare network and the use case network, okay? So, there will be an audit of the, of the contract anyway.
+
+172
+00:23:30.230 --> 00:23:36.470
+Miguel Calero: So in the end, it's always required a sign, assigned,
+
+173
+00:23:36.930 --> 00:23:43.650
+Miguel Calero: A signature of the operator, of the blockchain operator, to deploy any kind of smart contract.
+
+174
+00:23:44.950 --> 00:23:45.640
+Enrique Lacal (Kaleido): Okay.
+
+175
+00:23:48.160 --> 00:23:48.910
+Miguel Calero: We're good.
+
+176
+00:23:49.340 --> 00:23:55.820
+Miguel Calero: Anyway, I'll be happy to connect you with the rest of the team. So, as you may know, we are…
+
+177
+00:23:55.910 --> 00:24:11.530
+Miguel Calero: delivering that in 9 months, the speed is really hell, and… and I'm not, you know, I… I haven't go deeper to all the technical details that sometimes, are changing. So, anyway, I would be happy to, to connect you with the…
+
+178
+00:24:11.620 --> 00:24:20.440
+Miguel Calero: With the developers, and asking, that we will be opening all the sources. That's required also with the,
+
+179
+00:24:20.830 --> 00:24:30.430
+Miguel Calero: from the public administration. So, I can give you, you know, if you want to contribute or, or check, we can give you, like, a…
+
+180
+00:24:30.540 --> 00:24:34.599
+Miguel Calero: And a review of that, okay? Happy to do that.
+
+181
+00:24:34.600 --> 00:24:36.119
+Enrique Lacal (Kaleido): Sounds good, thank you, that'll be useful.
+
+182
+00:24:38.070 --> 00:24:40.050
+Miguel Calero: Okay,
+
+183
+00:24:40.700 --> 00:24:48.430
+Miguel Calero: So if there's no more questions, I wanted to go to our questions to the contributors, team, and then the answers.
+
+184
+00:24:48.870 --> 00:24:49.749
+Miguel Calero: Is that right?
+
+185
+00:24:50.590 --> 00:24:51.320
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): That's great.
+
+186
+00:24:51.750 --> 00:24:52.320
+Miguel Calero: Okay.
+
+187
+00:24:52.790 --> 00:25:07.700
+Miguel Calero: So that was our… right now, these were our topics, because we haven't tested on our own, until we, were to the meeting, okay? Now that's changed, and we have some conclusions with that.
+
+188
+00:25:08.060 --> 00:25:14.890
+Miguel Calero: We asked… you know, if, who were adopting P256.
+
+189
+00:25:15.070 --> 00:25:19.170
+Miguel Calero: In wine, and, you know, I think we are all in the same
+
+190
+00:25:19.500 --> 00:25:31.370
+Miguel Calero: in the same direction. We need to be compliant, we need to go to production, and that is required by our stakeholders. We wanted to know the current status and roadmap. We have some insights on that.
+
+191
+00:25:31.510 --> 00:25:42.079
+Miguel Calero: We were… we had some issues with the ecosystem, you know, and then we asked another… another of the questions that were related to that, but in the end.
+
+192
+00:25:42.220 --> 00:25:53.139
+Miguel Calero: Probably will… for an answer by the… by the first ones, okay? I'm giving an overview, and you will, I can give more of this, for sure, okay?
+
+193
+00:25:53.320 --> 00:26:02.409
+Miguel Calero: So the question, if you have, been following the reviews, investor, the precompiled support…
+
+194
+00:26:02.550 --> 00:26:04.040
+Miguel Calero: They precompiled for…
+
+195
+00:26:04.160 --> 00:26:20.440
+Miguel Calero: PE256, course so far it was implemented in the 25.7, but that wasn't working properly. There were some, bugs in the resolution of the, in the resolution of the curve.
+
+196
+00:26:20.670 --> 00:26:30.250
+Miguel Calero: They implemented some in the 25.8, they improved the performance, but the, books were still there.
+
+197
+00:26:30.540 --> 00:26:38.839
+Miguel Calero: So, what they expect, and they are working on, and moving, checking the issue is that in the next release will be handled, okay?
+
+198
+00:26:39.200 --> 00:26:44.049
+Miguel Calero: So what they asked, on our site? So, okay, please,
+
+199
+00:26:44.300 --> 00:26:46.900
+Miguel Calero: Do more dentist testing and come back to us.
+
+200
+00:26:47.180 --> 00:26:56.350
+Miguel Calero: We started doing that, and you can… I think this GitHub, is open, the repo is open. Let me know if you can…
+
+201
+00:26:56.650 --> 00:27:00.790
+Miguel Calero: access, because, yeah, I'm not sure if that…
+
+202
+00:27:00.900 --> 00:27:04.160
+Miguel Calero: It will be open, okay? So, yeah.
+
+203
+00:27:04.960 --> 00:27:19.440
+Miguel Calero: Yeah, I will send you the link anyway, okay? So, our… right now, our next steps are, you know, more testing, we are doing that. We will probably spend the next 3 weeks doing more, in deep
+
+204
+00:27:19.720 --> 00:27:28.149
+Miguel Calero: In the texting, testing, sorry, and we're publishing that in the repo, so, you know, stay…
+
+205
+00:27:28.540 --> 00:27:32.860
+Miguel Calero: Stay updated, let me know if you want to… to get more information.
+
+206
+00:27:33.000 --> 00:27:44.150
+Miguel Calero: And they kindly, offered to introduce us to the contributors of those, four libraries that we're using, probably you also are using.
+
+207
+00:27:44.320 --> 00:27:49.069
+Miguel Calero: Just to check that they have support for… they have support for…
+
+208
+00:27:49.440 --> 00:27:53.290
+Miguel Calero: P256, we have done some,
+
+209
+00:27:53.540 --> 00:27:57.960
+Miguel Calero: experimentation also. Women, we think that they have,
+
+210
+00:27:58.150 --> 00:28:03.880
+Miguel Calero: They have, support, but, we need to end our, our testing, okay?
+
+211
+00:28:04.030 --> 00:28:19.999
+Miguel Calero: And with the dates and expectations that they give to us, what we expect is to, deliver our first product production release, last day of the year, with full support of P256.
+
+212
+00:28:20.340 --> 00:28:27.129
+Miguel Calero: So, they expect it to have their next release published before end of the year.
+
+213
+00:28:27.390 --> 00:28:35.329
+Miguel Calero: You know, we're all in the development, you know, we're all in the development, like, business.
+
+214
+00:28:35.450 --> 00:28:49.010
+Miguel Calero: So please don't take, like, a film day. You can say, you know what I'm saying, everyone. But we are, you know, we're really offering support and contribution if they are not able to…
+
+215
+00:28:49.380 --> 00:28:53.330
+Miguel Calero: To reach that deadline, and we will try our best.
+
+216
+00:28:53.530 --> 00:28:59.500
+Miguel Calero: to really deliver that, Fresh Production release with a full PA2 package support end of the year.
+
+217
+00:29:00.700 --> 00:29:16.899
+Miguel Calero: That's all. We have a, you know, a really enriching conversation. The YouTube will be published. I haven't accessed still to the transcription, so probably some of the details are
+
+218
+00:29:16.960 --> 00:29:21.400
+Miguel Calero: Still, not… probably, missing from this presentation?
+
+219
+00:29:21.480 --> 00:29:22.639
+Miguel Calero: But…
+
+220
+00:29:22.850 --> 00:29:36.590
+Miguel Calero: let me know if that's a good, like, overview of the conversation, or if you have any other questions that I can either, answer for myself, or,
+
+221
+00:29:36.820 --> 00:29:41.519
+Miguel Calero: You know, forward to the, the contributors.
+
+222
+00:29:43.240 --> 00:30:00.720
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): No, I think… thanks for sharing, Michael. I think this was quite, informative for, at least for me. But I think Matt is on the call. Matt, do you have any… any insight into, since you're the… you're the principal in maintaining this base shoe, code.
+
+223
+00:30:00.990 --> 00:30:01.340
+Miguel Calero: I'm.
+
+224
+00:30:01.340 --> 00:30:02.050
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): I haven't.
+
+225
+00:30:02.580 --> 00:30:03.199
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Hi, man.
+
+226
+00:30:03.200 --> 00:30:07.980
+Enrique Lacal (Kaleido): Yeah, good to see you again. I think we were both on the community call… was it last week?
+
+227
+00:30:07.980 --> 00:30:19.529
+Miguel Calero: Yeah, hopefully, hopefully I, I really say what was done there, okay? So, if you need to correct me, or say anything that I'm wrong, please feel free, okay?
+
+228
+00:30:19.530 --> 00:30:24.249
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Sorry, I thought it was Matt or Enric. Enrique, I think you were talking, right? Sorry, I didn't…
+
+229
+00:30:24.690 --> 00:30:26.570
+Enrique Lacal (Kaleido): No, sorry, Matt and I are in the same room.
+
+230
+00:30:26.570 --> 00:30:36.950
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Oh, you guys are in the same… oh, okay, right. All right, perfect. Could you guys share any of… any of that insight around that E256?
+
+231
+00:30:36.950 --> 00:30:52.069
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Especially from the roadmap standpoint, because that's also one of the… one of the things that we are discussing within DTCC is, is exactly the same, one of the topics, because we are also intend to go in production, in the first, in the first quarter of the next year.
+
+232
+00:30:52.070 --> 00:31:00.850
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): So, wondering, you know, if you have any insight in terms of the date, when this is going to be solidified in the, in the… in the Bay Soo.
+
+233
+00:31:00.850 --> 00:31:08.060
+Enrique Lacal (Kaleido): Yeah, yeah, thanks, and yeah, there was some good discussion, I think, on the community call last week,
+
+234
+00:31:08.720 --> 00:31:20.730
+Enrique Lacal (Kaleido): Excuse me. So it's not… it's not an area of Bessie that I know, super well. I believe that there is already support for signing…
+
+235
+00:31:20.730 --> 00:31:38.860
+Enrique Lacal (Kaleido): transaction on the ledger with… with that curve. Right. One of the… sort of on… on the Bestu community call last week, there was a bit of chat in the… in the Zoom chat between myself, and one of two of the other maintainers, and one of the things that…
+
+236
+00:31:38.860 --> 00:31:52.860
+Enrique Lacal (Kaleido): we have seen that I was keen to, make the community aware of was that we've, had conversations where an HSM vendor has been involved in
+
+237
+00:31:52.980 --> 00:31:59.139
+Enrique Lacal (Kaleido): A wider architecture, and existing…
+
+238
+00:31:59.140 --> 00:32:15.960
+Enrique Lacal (Kaleido): policies within an enterprise, may… may just assume that that curve is the one that's going to be used for signing, and they may already be signing through an existing HSM with that same curve, for other reasons.
+
+239
+00:32:15.970 --> 00:32:17.060
+Enrique Lacal (Kaleido): And…
+
+240
+00:32:17.100 --> 00:32:25.879
+Enrique Lacal (Kaleido): for, for the community to, I think, be aware of that, and for them to, just… just…
+
+241
+00:32:26.190 --> 00:32:42.340
+Enrique Lacal (Kaleido): factor in that, in some cases, just the ability to avoid getting exceptions raised for pre-existing, internal policies around what signing curves are going to be used, or what a particular HSM is making available.
+
+242
+00:32:42.890 --> 00:32:58.839
+Enrique Lacal (Kaleido): I think… I think it was useful for the community to be aware of that, because I think often there is quite a focus on public Ethereum, where I think this is… this is obviously less relevant. I… I…
+
+243
+00:32:58.840 --> 00:33:06.939
+Enrique Lacal (Kaleido): I'm not aware of any concern from existing maintainers about BESU continuing to have that support.
+
+244
+00:33:06.960 --> 00:33:15.800
+Enrique Lacal (Kaleido): I'm not… I'm not aware of conversations about… or concerns about continuing to have that support. I know…
+
+245
+00:33:16.160 --> 00:33:29.330
+Enrique Lacal (Kaleido): that's somewhat in light of the last 12 months, we have had deprecation of certain function in Besu, and so obviously, it's kind of, I think, something where
+
+246
+00:33:29.790 --> 00:33:36.820
+Enrique Lacal (Kaleido): both myself, but also, I think, users of BESU, I would encourage to…
+
+247
+00:33:37.510 --> 00:33:55.190
+Enrique Lacal (Kaleido): come onto the Discord channels, and as Miguel did, join… join community calls, to just… to just, reiterate some… some of the more enterprise-focused use cases and scenarios and requirements, because I think that will help with prioritization calls about
+
+248
+00:33:55.360 --> 00:34:02.610
+Enrique Lacal (Kaleido): what… what enterprise-specific code does it… is it valuable for BESU to retain for the foreseeable future?
+
+249
+00:34:03.030 --> 00:34:22.180
+Enrique Lacal (Kaleido): Where otherwise, for public use cases, it might not be necessary, and there is… there can be quite a focus on keeping the best codebase lean and focused, and that totally makes sense, but I think it would be to its detriment if it started excluding, features that enterprises are reliant on, especially when they're not
+
+250
+00:34:22.409 --> 00:34:29.359
+Enrique Lacal (Kaleido): particularly complex features. So, obviously, I think some of you will be aware that, tests are a,
+
+251
+00:34:29.650 --> 00:34:36.119
+Enrique Lacal (Kaleido): was removed from the Betsuit codebase this year after the deprecation announcement, and I think most people would agree with… with…
+
+252
+00:34:36.120 --> 00:34:59.490
+Enrique Lacal (Kaleido): better, more suitable privacy solutions, things like Paladin coming along. I don't… I don't think many people would… would disagree with that being a good large chunk of legacy code that it made sense for BESU to divest itself of. But I think for the smaller, really useful, but not huge, complex areas of code in BESU, I think it's useful for… for…
+
+253
+00:34:59.490 --> 00:35:08.740
+Enrique Lacal (Kaleido): enterprises to come and just… just keep… keep the community aware of how they are using Vesu, because it won't always be obvious to public chain focus maintainers.
+
+254
+00:35:12.080 --> 00:35:22.780
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Yep, no, that makes sense. Thanks for, sharing your view there. I guess, and you're right, I think from the enterprise standpoint, there are specific needs that enterprise will have.
+
+255
+00:35:22.790 --> 00:35:32.670
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): And obviously, we want to make sure that you guys are, at least BASU maintainers, or the whole community is, you know, developers are aligned to the enterprise need, because
+
+256
+00:35:32.670 --> 00:35:43.510
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): It's going to be very soon, just as Miguel said, many use cases are now going… are ready to go in production very soon, and I think
+
+257
+00:35:43.510 --> 00:35:52.590
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Fundamentally, many, many organizations are looking for Bayview to be, you know, to support those production use cases, so…
+
+258
+00:35:52.880 --> 00:36:00.279
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Well, that makes sense. So thanks for, thanks for sharing that. Anyone has any thoughts, any questions, anything that is…
+
+259
+00:36:00.290 --> 00:36:13.720
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): pressing from your enterprise need, not just this particular topic, there's a 256, it's very critical, to have that, kind of alignment there, but I guess, anyone has any other thoughts, that want to share?
+
+260
+00:36:17.720 --> 00:36:21.150
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Any questions? Any burning questions from your enterprise need?
+
+261
+00:36:29.620 --> 00:36:35.870
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): All right, then in that case, I think I can… we can take the 20 minutes back,
+
+262
+00:36:36.100 --> 00:36:37.909
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): I guess, but…
+
+263
+00:36:39.080 --> 00:36:58.160
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): I think let's continue on this particular discussion about 256. Let's continue to engage with Matt and the other folks who are maintaining that codebase, and specifically just keep watching our roadmap, you know, and make sure that at least Enterprise is aware of the roadmap, what's coming in.
+
+264
+00:36:58.660 --> 00:37:12.830
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Right? I think that's… that's the way I generally do it at my level and within DTCC, to make sure that we are fully, you know, aware of how this roadmap is, and then plan our… all the use cases around it.
+
+265
+00:37:15.490 --> 00:37:16.130
+Miguel Calero: Okay.
+
+266
+00:37:16.540 --> 00:37:17.220
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Alright?
+
+267
+00:37:17.340 --> 00:37:24.690
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): So thank you very much, Miguel. Thank you very much for coming in and sharing your view there, and thanks for bringing those… oh, Lillian, go ahead.
+
+268
+00:37:25.060 --> 00:37:32.160
+Iulian: Yeah, I just wanted to say a few words from my side, I mean, from our side. First, I am,
+
+269
+00:37:32.310 --> 00:37:36.530
+Iulian: working directly with the European blockchain Service Infrastructure.
+
+270
+00:37:36.640 --> 00:37:45.070
+Iulian: And it's a topic somehow connected to what we heard earlier from Alastria, which I really appreciate.
+
+271
+00:37:45.200 --> 00:37:50.979
+Iulian: It's exactly about the same regulation and the same, let's say, initiative to
+
+272
+00:37:51.310 --> 00:38:02.009
+Iulian: work on this to qualify trusted ledgers. And, from the… at least from the draft of the regulation that we have at this moment, it seems that
+
+273
+00:38:02.390 --> 00:38:09.240
+Iulian: At least for this ledger to be qualified as a certified and trusted ledger.
+
+274
+00:38:09.250 --> 00:38:25.970
+Iulian: we need to have, certifications, like, what is accepted in Europe, it's EAL4+, and until 2030, we also accept FIA… FIPS, F-I-A-PS.
+
+275
+00:38:25.970 --> 00:38:27.370
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): 3, level 3.
+
+276
+00:38:28.030 --> 00:38:33.169
+Iulian: And this is for storing the private keys of the validators.
+
+277
+00:38:33.320 --> 00:38:53.210
+Iulian: This is exactly about, I mean, limiting the discussions only to this topic. That's why, for some time, we are investigating the possibility of storing the private keys of the validators in some sort of HSM, hardware security modules, that are certified in this matter.
+
+278
+00:38:53.310 --> 00:39:10.480
+Iulian: Of course, we reviewed all the documentation available and everything that is available in the open source. Unfortunately, we could not find a plugin that works with Basel and allows a validator to store the private keys on an HSM.
+
+279
+00:39:10.710 --> 00:39:18.010
+Iulian: So… adding to the discussion of today, I think, would be very useful for all the European projects.
+
+280
+00:39:18.580 --> 00:39:32.200
+Iulian: to have on the roadmap this addition, this plugin, that can integrate with at least the, let's say, the most well-known HHSM providers.
+
+281
+00:39:32.420 --> 00:39:42.810
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Enrique, you did refer to some HSM that is quite compliant. Can you share what that HSM provider is?
+
+282
+00:39:46.890 --> 00:39:48.290
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Matt and Rick?
+
+283
+00:39:48.980 --> 00:39:51.130
+Enrique Lacal (Kaleido): So, sorry, did you mean Matt?
+
+284
+00:39:51.380 --> 00:40:01.720
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Matt or Enrica, whoever, I think you were… you were speaking, I think I… I think I heard that there are some HSM providers which is probably, at this state, they are compliant for 256.
+
+285
+00:40:02.080 --> 00:40:17.659
+Enrique Lacal (Kaleido): Yeah, so, so that would be me, yeah. So, yeah, I guess there are two, two parts to the discussion here, yeah. Yeah, so, I'm certainly aware of support from, I believe, the Fortanix HSM, for that curve.
+
+286
+00:40:17.660 --> 00:40:26.820
+Enrique Lacal (Kaleido): But I think the question more generally was around BESU support for, Remote HSM…
+
+287
+00:40:27.240 --> 00:40:40.449
+Enrique Lacal (Kaleido): signing of valid data, signing keys for things like QBFT. There are some plugins in the marketplace, there are commercial entities, who,
+
+288
+00:40:40.580 --> 00:40:42.979
+Enrique Lacal (Kaleido): Who may, may,
+
+289
+00:40:43.490 --> 00:41:01.650
+Enrique Lacal (Kaleido): take on commercial work to… to deliver specific, HSM support. This isn't a place for plugging orgs, but yeah, that's one thing that Kaleido provides, those kind of features. So, yeah, it's something that we do here occasionally.
+
+290
+00:41:01.680 --> 00:41:11.200
+Enrique Lacal (Kaleido): And, whether or not it's something that the open source community will deliver, is, probably still… still in discussion.
+
+291
+00:41:11.550 --> 00:41:13.909
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Hmm, okay, that makes sense.
+
+292
+00:41:15.860 --> 00:41:16.840
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Go ahead, Migo.
+
+293
+00:41:18.240 --> 00:41:25.100
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Okay, all right, great. I think anyone has any other questions, any thoughts, any… anything that you would like to share with the group?
+
+294
+00:41:29.640 --> 00:41:35.580
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Alright, in that case, let's meet in the next month, and we'll have much more…
+
+295
+00:41:35.580 --> 00:41:50.489
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): different topics, and we are, you know, expected to have more guests coming in for different topics that I'm trying to align. So, let's, let's meet in the next, next month. And thanks, Miguel, and… and everyone for joining this call. Really appreciate it.
+
+296
+00:41:51.190 --> 00:41:52.050
+Miguel Calero: Okay, thank you.
+
+297
+00:41:52.050 --> 00:41:52.960
+Hitesh Goradia (Depository Trust and Clearing Corporation (DTCC)): Thanks, everyone.
+
+298
+00:41:53.630 --> 00:41:54.470
+Enrique Lacal (Kaleido): Thank you.
+
+299
+00:41:54.950 --> 00:41:55.370
+Derek Meyer: Thanks, guys.
+
+300
+00:41:55.370 --> 00:41:56.250
+Gen Nakajima (Japan Securities Clearing Corporation (JSCC)): goob.
+
+301
+00:41:57.340 --> 00:41:58.620
+Iulian: Thank you, bye.
+

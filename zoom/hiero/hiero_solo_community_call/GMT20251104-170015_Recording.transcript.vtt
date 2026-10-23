@@ -1,0 +1,1234 @@
+WEBVTT
+
+1
+00:00:12.840 --> 00:00:14.580
+Alex K (HaashGraph): Hello, Jeremy.
+
+2
+00:00:14.990 --> 00:00:16.780
+Jeromy Cannon: Hello, hello!
+
+3
+00:00:18.920 --> 00:00:20.680
+Jeromy Cannon: Recording in progress.
+
+4
+00:00:21.660 --> 00:00:29.419
+Alex K (HaashGraph): Thank you for fixing solar. Totally appreciate it. Now it's knocking the wood, everything fine. We resume testing.
+
+5
+00:00:29.730 --> 00:00:30.580
+Alex K (HaashGraph): It's great.
+
+6
+00:00:31.650 --> 00:00:33.370
+Jeromy Cannon: Yeah, what version are you using?
+
+7
+00:00:33.830 --> 00:00:37.940
+Alex K (HaashGraph): Latest, which is 046.1.
+
+8
+00:00:38.600 --> 00:00:40.730
+Jeromy Cannon: No, we're at 48.
+
+9
+00:00:42.400 --> 00:00:46.320
+Alex K (HaashGraph): I use whatever set by Roger.
+
+10
+00:00:47.000 --> 00:00:51.949
+Alex K (HaashGraph): Okay, let's not jump until super very well tested, okay?
+
+11
+00:00:55.230 --> 00:01:04.649
+Alex K (HaashGraph): I was sitting on version 35 last year, about, like, half of year, because it was a super stable version, 35.
+
+12
+00:01:04.650 --> 00:01:13.180
+Jeromy Cannon: I know, you kept calling it, you know, you were… this is my… I forget the words you used, but yeah, you kept using the same old version, and I was like…
+
+13
+00:01:13.350 --> 00:01:19.130
+Alex K (HaashGraph): It's stable, never give me any troubles, never, for, like, 6 months.
+
+14
+00:01:19.910 --> 00:01:32.249
+Jeromy Cannon: But see, you didn't give the other ones a chance. Like, I know, like, some of them actually had issues, but then we would try to fix the issues, right? And, but, you know, I don't know, I mean…
+
+15
+00:01:32.890 --> 00:01:36.190
+Jeromy Cannon: I think a lot of it has to do back with,
+
+16
+00:01:36.880 --> 00:01:46.200
+Jeromy Cannon: like, different types of, like, cube control calls and things like that. So we had, like, a lot of our own implementation for,
+
+17
+00:01:46.250 --> 00:02:00.809
+Jeromy Cannon: Like, port forward, and so we ended up removing that, but now that we're using cube control as a force dependency, then we may always, like, want to change some other stuff, too, to increase stability.
+
+18
+00:02:02.080 --> 00:02:08.340
+Jeromy Cannon: Because, you know, cube control has a lot more logic, and there's no sense in reinventing the wheel.
+
+19
+00:02:08.590 --> 00:02:13.089
+Jeromy Cannon: So… Because there's certain calls that we do that…
+
+20
+00:02:14.020 --> 00:02:23.060
+Jeromy Cannon: there's a lot of logic in, and so to be able to, like, strip that out and just use a cube control call would be so much helpful. I don't remember which ones they were, I have to look and see, but…
+
+21
+00:02:23.650 --> 00:02:24.590
+Jeromy Cannon: Anyway.
+
+22
+00:02:26.480 --> 00:02:32.200
+Jeromy Cannon: I wonder if it was some of that code that created some instabilities, but…
+
+23
+00:02:33.480 --> 00:02:37.210
+Jeromy Cannon: But we've got some issues in our pipelines now where things are coming out.
+
+24
+00:02:37.730 --> 00:02:40.869
+Jeromy Cannon: You know, sometimes, and we're trying to…
+
+25
+00:02:41.180 --> 00:02:49.920
+Jeromy Cannon: I need to go in there and see… I think it's because… of the… block node integration with MirrorNode.
+
+26
+00:02:50.420 --> 00:02:55.820
+Jeromy Cannon: Or something, I don't know if it's… I don't know. We'll have to look and see.
+
+27
+00:03:01.790 --> 00:03:08.289
+Jeromy Cannon: Well, I guess we'll wait a few more minutes, and then you and I are the only ones here.
+
+28
+00:03:09.310 --> 00:03:11.419
+Jeromy Cannon: Let me think about it for a second.
+
+29
+00:03:11.420 --> 00:03:16.719
+Alex K (HaashGraph): Besides dedication to solar and projects for community.
+
+30
+00:03:16.720 --> 00:03:19.969
+Jeromy Cannon: Yeah, I know this is the community call, and it's just…
+
+31
+00:03:19.970 --> 00:03:23.459
+Alex K (HaashGraph): I'm a part of community, like, I would say…
+
+32
+00:03:23.460 --> 00:03:25.959
+Jeromy Cannon: You're one of our biggest users.
+
+33
+00:03:25.980 --> 00:03:27.720
+Alex K (HaashGraph): user.
+
+34
+00:03:27.720 --> 00:03:28.510
+Jeromy Cannon: For sure.
+
+35
+00:03:28.510 --> 00:03:39.869
+Alex K (HaashGraph): Yes, kind of, please don't be sensitively overreacting for my critics for solar, it's all for good. It's not, like, critics for everybody, just me talking to you.
+
+36
+00:03:39.870 --> 00:03:44.499
+Jeromy Cannon: Yeah, you've got a… you've got a special use case, but you're, like, our… one of our main users.
+
+37
+00:03:44.500 --> 00:03:48.889
+Alex K (HaashGraph): Yeah, yeah, my problem is, so I use Solas that nobody else uses. I'm using.
+
+38
+00:03:48.890 --> 00:03:52.020
+Jeromy Cannon: Yeah, nobody else is using it that way, yeah.
+
+39
+00:03:52.020 --> 00:03:54.430
+Alex K (HaashGraph): Yes. Yes.
+
+40
+00:03:54.430 --> 00:04:07.170
+Jeromy Cannon: Not yet, anyway, but, yeah. I actually, at one point in time, I think somebody, because we had, like, back in the 35s or something like that, we had your… some of your,
+
+41
+00:04:07.330 --> 00:04:12.020
+Jeromy Cannon: performance stuff, like, checked in underneath examples, and said…
+
+42
+00:04:12.020 --> 00:04:26.080
+Alex K (HaashGraph): There are some dead branches, never meant to merge. It's like golden branches just for reference. I totally decoupled from them yesterday, and they can be deleted. But let me delete by myself.
+
+43
+00:04:26.080 --> 00:04:28.139
+Jeromy Cannon: Oh, we already deleted them out of Solo.
+
+44
+00:04:28.140 --> 00:04:28.890
+Alex K (HaashGraph): Okay.
+
+45
+00:04:29.330 --> 00:04:35.859
+Jeromy Cannon: Yeah, they're gone. But, what I was gonna say was, was that we had a community member reach out to us.
+
+46
+00:04:36.230 --> 00:04:47.119
+Jeromy Cannon: Because he was trying to figure out how to do a performance test, and saw that example, but knew he was missing some stuff. And so we had to tell him, like, that was…
+
+47
+00:04:47.380 --> 00:05:04.970
+Jeromy Cannon: a unique scenario, and, you know, that it's got a lot of other stuff that's not, you know, part of Solo, and we really need to pull that out of examples. Because they were like, how do I run this performance test? And they started asking all these other questions about performance.
+
+48
+00:05:04.970 --> 00:05:15.909
+Alex K (HaashGraph): Even more! Jeremy, it's worth mentioning that, network load generator sources, kind of has a closed source, so people from outside cannot see them.
+
+49
+00:05:16.060 --> 00:05:21.879
+Alex K (HaashGraph): So, Olik explains that if troublemaker reads the sources of energy.
+
+50
+00:05:21.990 --> 00:05:27.210
+Alex K (HaashGraph): He or she can develop some… Dos attack scripts.
+
+51
+00:05:27.690 --> 00:05:31.739
+Alex K (HaashGraph): So that's why we keep sources of NLG kind of closed. Okay.
+
+52
+00:05:32.040 --> 00:05:40.980
+Alex K (HaashGraph): That's why. But, idea of to have NLG as a pre-compiled jar file in a solo, and deploy the solo, that's a good idea, totally supported.
+
+53
+00:05:41.470 --> 00:05:44.210
+Alex K (HaashGraph): Great. Also, Jeremy,
+
+54
+00:05:44.210 --> 00:05:47.910
+Jeromy Cannon: But you do realize you can just decompile Java code real easily.
+
+55
+00:05:47.910 --> 00:05:58.679
+Alex K (HaashGraph): Decompile, yes, it's totally, please, decompile, but it's difficult to restore the logic by Java Assembler, or recompile code. It's kind of…
+
+56
+00:05:58.970 --> 00:06:05.379
+Alex K (HaashGraph): It's not, not, not super cool. My point is, let me jump to block node support for.
+
+57
+00:06:05.380 --> 00:06:07.610
+Jeromy Cannon: Are y'all, are y'all obfuscating it?
+
+58
+00:06:08.490 --> 00:06:10.809
+Alex K (HaashGraph): We're not obsolegated, yeah, we're not.
+
+59
+00:06:10.810 --> 00:06:18.010
+Jeromy Cannon: You made it obfuscated if you're gonna… if we're gonna use that jar, and you're wanting to keep it private. I mean to make a note and talk to Nathan about it.
+
+60
+00:06:18.010 --> 00:06:19.549
+Alex K (HaashGraph): Yeah, I'll also make a note.
+
+61
+00:06:19.700 --> 00:06:27.419
+Alex K (HaashGraph): Block node for solos, thank you, working fine, working fine, I use it for testing BlockNote on a regular basis.
+
+62
+00:06:28.090 --> 00:06:43.979
+Alex K (HaashGraph): However, however, I use some little workaround. So, I do deploy with solo at BlockNode, it perfectly starts, but since block node has couple of issues, couple of issues in the logic, how they deploy things.
+
+63
+00:06:44.290 --> 00:06:51.450
+Alex K (HaashGraph): I kill the Java, and then start my own build of block node, with instrumentation, with profiler, and so on.
+
+64
+00:06:51.580 --> 00:06:52.520
+Alex K (HaashGraph): So…
+
+65
+00:06:52.680 --> 00:07:10.300
+Alex K (HaashGraph): This is not affecting, like, a production deployment with BlockNode with Solar, of course, it's only my things. But if somebody mentions that I always redeploy what's deployed with Solar, it's because I'm working around known tickets in block node.
+
+66
+00:07:10.860 --> 00:07:22.929
+Alex K (HaashGraph): For example, root mode is not completely root, it's very strange. Submit a ticket. I need root access to the pod where BlockNode is running. So, currently, they deploy it without root.
+
+67
+00:07:23.300 --> 00:07:25.150
+Alex K (HaashGraph): So, second,
+
+68
+00:07:25.460 --> 00:07:38.460
+Alex K (HaashGraph): if I kill Java, it should not collapse, it must just stay. Okay, they fixed it recently, it's good, thanks. And what else? second problem… third problem is, I cannot use my custom build of
+
+69
+00:07:38.610 --> 00:07:47.470
+Alex K (HaashGraph): block note. It always assumed a released build from Artifactory. I work it around. So, nothing against solo for block node, it's just…
+
+70
+00:07:47.470 --> 00:07:52.239
+Jeromy Cannon: Well, okay, so you do know, so you do know, like, what you can do…
+
+71
+00:07:52.500 --> 00:07:58.310
+Jeromy Cannon: Well, I wonder… so what we, what we do is,
+
+72
+00:07:58.870 --> 00:08:07.850
+Jeromy Cannon: When we do our block node, if you look at our block node, some of our block node stuff, we have a test where we build the block node locally.
+
+73
+00:08:07.850 --> 00:08:19.890
+Jeromy Cannon: And then we… we basically take and we… after we build the compile… we compile it, then we build the Docker container for it, and then we sideload the Docker container into Kind.
+
+74
+00:08:20.460 --> 00:08:27.710
+Jeromy Cannon: So, and then, and then, and then, and then we, I don't know if we override the values file with the new name.
+
+75
+00:08:27.710 --> 00:08:47.809
+Jeromy Cannon: In repo or whatever, but it'll show up as already cached, and then it'll use that version instead of going and downloading the one out of block node. So that's our way to do a local compile for block node. So you can go in there and look at Solo and see how we're doing it. I don't know if that helps you or not.
+
+76
+00:08:47.810 --> 00:08:52.630
+Jeromy Cannon: Because you're running inside of, external clusters.
+
+77
+00:08:52.660 --> 00:09:03.559
+Jeromy Cannon: And so, I don't know… I'm sure there's probably a way to sideload it so you can build it, but… but, I mean, you've already built it, so I don't know if your way is… I mean, your way is already implemented, so, I mean, I don't know.
+
+78
+00:09:03.560 --> 00:09:07.530
+Alex K (HaashGraph): I see, custom. Angelina Cappellini, welcome to club.
+
+79
+00:09:07.710 --> 00:09:08.880
+Alex K (HaashGraph): Good morning, good evening.
+
+80
+00:09:13.130 --> 00:09:15.790
+Jeromy Cannon: Do you have any discussion topics?
+
+81
+00:09:16.170 --> 00:09:17.570
+Jeromy Cannon: Angelina?
+
+82
+00:09:18.480 --> 00:09:22.049
+Angelina Ceppaluni: I don't have anything to bring up at the moment.
+
+83
+00:09:22.760 --> 00:09:25.950
+Jeromy Cannon: Oh, okay. Do you use Cello?
+
+84
+00:09:27.890 --> 00:09:37.209
+Angelina Ceppaluni: I've done work for the HIRO SDK, so I joined in, I saw it on the calendar, figured I'd come in and see if there's anything new or anything to be updated on.
+
+85
+00:09:37.850 --> 00:09:40.700
+Jeromy Cannon: Oh, cool! Which, SDK are you working on?
+
+86
+00:09:41.040 --> 00:09:49.619
+Angelina Ceppaluni: I'm working on the Python one. Currently, right now, I am fixing the node account ID feature for it.
+
+87
+00:09:49.620 --> 00:10:00.270
+Jeromy Cannon: Oh, well, that's the new… oh, wow. Okay. You're… because, I know Simi's got a lot of the other SDK teams working on that, and so, Python has been…
+
+88
+00:10:00.490 --> 00:10:06.110
+Jeromy Cannon: behind, so if you're already, like, implementing that, it sounds like Python's catching up.
+
+89
+00:10:07.540 --> 00:10:15.440
+Angelina Ceppaluni: Yep, I'm happy to share a link to what I'm currently working on. Let me see if I can find it for ya…
+
+90
+00:10:15.880 --> 00:10:16.550
+Jeromy Cannon: That's cool.
+
+91
+00:10:17.670 --> 00:10:34.099
+Angelina Ceppaluni: Oh, here it is. So I just made a change about 2 minutes ago. So right now, this is more or less just, tweaking. We had an error come up with some of our integration tests, so I'm just going in and trying to fix that so those tests will start passing.
+
+92
+00:10:35.580 --> 00:10:36.500
+Jeromy Cannon: Awesome.
+
+93
+00:10:38.140 --> 00:10:44.710
+Jeromy Cannon: Yeah, no, I, I, I know this, this repo was,
+
+94
+00:10:45.080 --> 00:10:47.990
+Jeromy Cannon: I think the people really appreciate it, but,
+
+95
+00:10:48.210 --> 00:10:53.340
+Jeromy Cannon: Nadine had, like, a lot of other responsibilities, like…
+
+96
+00:10:53.590 --> 00:11:00.050
+Jeromy Cannon: It sounds like it's starting to get some, some special attention, and so it's, yeah, that's great.
+
+97
+00:11:02.140 --> 00:11:05.020
+Jeromy Cannon: Yeah, oh yeah, look at all these, contributors.
+
+98
+00:11:05.930 --> 00:11:06.550
+Angelina Ceppaluni: Yeah.
+
+99
+00:11:07.170 --> 00:11:10.870
+Jeromy Cannon: I think, like, I guess maybe Python repo's getting so much…
+
+100
+00:11:11.120 --> 00:11:17.510
+Jeromy Cannon: different commit authors just because people want it, and Hashgraph hasn't
+
+101
+00:11:17.640 --> 00:11:30.539
+Jeromy Cannon: really had the time to bring it up to speed, whereas a lot of our other projects, we start, and I guess we're doing all the work, so maybe we're not getting as many contributions.
+
+102
+00:11:30.740 --> 00:11:37.010
+Jeromy Cannon: Are these a lot of, employees, I wonder, or for Hashcrap, or are they…
+
+103
+00:11:37.880 --> 00:11:49.490
+Angelina Ceppaluni: I am not sure of the statistics behind the contributors. I do know some of them are relatively new in the sense that they're… I don't believe that they're doing anything within the
+
+104
+00:11:49.840 --> 00:12:08.300
+Angelina Ceppaluni: Pyro workspace outside of the SDK. From my understanding, it's more or less just a… a lot of newcomers, people looking to make those first contributions, and then from there… Yeah, and then from there, they're looking to take on bigger tasks. So, it's really nice, though. We've had a lot of help on the SDK.
+
+105
+00:12:08.580 --> 00:12:17.279
+Angelina Ceppaluni: And we appreciate everyone's feedback, especially when it comes time to reviews. There's so much to review, so it's always nice having more than one person to try to get it all done.
+
+106
+00:12:17.700 --> 00:12:19.030
+Jeromy Cannon: Yeah, yeah.
+
+107
+00:12:19.690 --> 00:12:20.840
+Jeromy Cannon: Yeah, that's cool.
+
+108
+00:12:21.240 --> 00:12:33.449
+Jeromy Cannon: Well, a lot of times it's just Alex and I on this call, and sometimes I… because I know it's recording and somebody might view it later, I might, like, show, like, you know, this is something that we're rolling out.
+
+109
+00:12:33.580 --> 00:12:42.020
+Jeromy Cannon: But, like, I don't know if there's anything specific, trying to think of what…
+
+110
+00:12:43.400 --> 00:12:51.809
+Jeromy Cannon: I mean, we are working on the NLG, the network load generator that Alex mentioned right as you were joining.
+
+111
+00:12:52.120 --> 00:12:58.620
+Jeromy Cannon: So we, we added that, but it's not, we have another,
+
+112
+00:12:59.930 --> 00:13:10.109
+Jeromy Cannon: GitHub issue to work that will add more functionality to it and make it a little bit better. And so that is about to get picked up.
+
+113
+00:13:10.840 --> 00:13:18.520
+Jeromy Cannon: We'll probably have it in by the end of the year, for sure, because it's a major milestone for our team.
+
+114
+00:13:18.950 --> 00:13:33.130
+Jeromy Cannon: But yeah, we've had a few contributors outside of Hashgraph, but… and one of them was actually some pretty good work, but it kind of stepped away, and we didn't hear back from him, so I don't know.
+
+115
+00:13:33.710 --> 00:13:35.530
+Jeromy Cannon: What happened there, but…
+
+116
+00:13:37.610 --> 00:13:50.850
+Jeromy Cannon: Yeah, so anyway, so we're just kind of wrapping it up towards the end of the year, trying to make a couple more. We're gonna bring down… we're gonna, continue to bring down the memory footprint. I guess that's probably some big news, like, with version 48,
+
+117
+00:13:50.850 --> 00:13:58.779
+Jeromy Cannon: We implemented some configuration changes for block node that was able to bring the memory footprint down a lot.
+
+118
+00:13:59.140 --> 00:14:10.059
+Jeromy Cannon: And so now, it typically, if you're… if you just boot it up… and it is… it actually booted up without block node, even. I think it
+
+119
+00:14:10.540 --> 00:14:15.069
+Jeromy Cannon: was, like, 7… 6 or 7 gigs, I forget what the number is.
+
+120
+00:14:15.360 --> 00:14:18.089
+Jeromy Cannon: And so it should now fit within that.
+
+121
+00:14:18.100 --> 00:14:22.230
+Jeromy Cannon: you know, 12, 16 gig, or whatever,
+
+122
+00:14:22.230 --> 00:14:38.320
+Jeromy Cannon: it also runs on the GitHub… the GitHub-hosted runners now. It was barely squeezing, and then it stopped working, and then, recently Simi tested it, and it's working again, and she's able to do… to deploy it that way.
+
+123
+00:14:38.570 --> 00:14:41.570
+Jeromy Cannon: So… That's good news.
+
+124
+00:14:41.980 --> 00:14:46.790
+Jeromy Cannon: So that's version 48, so it's got the smallest footprint, I think.
+
+125
+00:14:49.920 --> 00:14:52.250
+Jeromy Cannon: I don't know if there's anything else to say…
+
+126
+00:14:57.090 --> 00:15:08.019
+Jeromy Cannon: Oh, so we're working on some installation stuff so that, I mean, I think… I don't know, 47 or 48, but we've got it…
+
+127
+00:15:08.020 --> 00:15:18.159
+Jeromy Cannon: where it'll implement… it'll… it'll install Podmin, if you don't have Podmin or Docker installed on your machine, on macOS.
+
+128
+00:15:18.400 --> 00:15:30.250
+Jeromy Cannon: And we're wrapping it up to work on Linux, and once it's working on Linux, it should also work on Windows with WSL2, because with WSL2 is how we're going to support Windows.
+
+129
+00:15:30.340 --> 00:15:38.680
+Jeromy Cannon: And, I set my personal Windows laptop up the other, you know, last week, and worked on it, and
+
+130
+00:15:39.120 --> 00:15:47.390
+Jeromy Cannon: if you… the plotman part is not working, because we have some implementation to do there, but the,
+
+131
+00:15:47.500 --> 00:15:59.449
+Jeromy Cannon: if you have Docker pre-installed, or Pavman, I guess, then it will work. You can run and use Solo WSL2.
+
+132
+00:15:59.660 --> 00:16:05.380
+Jeromy Cannon: You can even just do, like, OneShot, so, that's working. Are you familiar with OneShot?
+
+133
+00:16:06.430 --> 00:16:07.910
+Angelina Ceppaluni: I am not.
+
+134
+00:16:08.640 --> 00:16:09.310
+Jeromy Cannon: Wow.
+
+135
+00:16:09.650 --> 00:16:16.279
+Jeromy Cannon: Well, you know what, that's probably a good little thing. I could show you that, and it'd be recorded on the call, and actually be useful for somebody watching.
+
+136
+00:16:16.850 --> 00:16:17.440
+Angelina Ceppaluni: Of course.
+
+137
+00:16:18.700 --> 00:16:25.250
+Jeromy Cannon: Let's see here, the best way to show it would be to just open up the solo dots.
+
+138
+00:16:26.090 --> 00:16:31.020
+Jeromy Cannon: -Oh, so… I'll share my screen.
+
+139
+00:16:31.690 --> 00:16:34.100
+Jeromy Cannon: Dude… Zoom.
+
+140
+00:16:38.250 --> 00:16:46.720
+Jeromy Cannon: Okay. So, when you go into… just Docs, I believe, and then you click on… And solo…
+
+141
+00:16:46.880 --> 00:16:53.709
+Jeromy Cannon: user guide? I believe if you go here, it should have a link, yeah, so it has a new one-shot command. Check it out.
+
+142
+00:16:53.960 --> 00:17:08.519
+Jeromy Cannon: And then when you click here, it goes to version 41, which is broken. I have a defect open for that, but you can manually navigate here, or change that back to 8, or you could even do… well, that's probably a better thing to do right now.
+
+143
+00:17:10.240 --> 00:17:20.569
+Jeromy Cannon: But, so the one-shot deployment, what you do is, is, like… so… so let's say that you, if you have…
+
+144
+00:17:21.660 --> 00:17:39.700
+Jeromy Cannon: if you're on macOS, and you've got Node 22 or higher, that was the change, then… so you have Node.js 22 or higher, I think that's… is that the only thing you need now?
+
+145
+00:17:40.810 --> 00:17:41.960
+Jeromy Cannon: I think so.
+
+146
+00:17:42.170 --> 00:17:51.480
+Jeromy Cannon: And then you, you know, do an npm install-g solo, at latest, or at version 0.48.0.
+
+147
+00:17:51.560 --> 00:18:06.050
+Jeromy Cannon: which is currently the latest, then it will install Solo, and then you can run solo one-shot single deploy, and that's it with just NPM installed. And what it's gonna do is it's gonna install
+
+148
+00:18:06.140 --> 00:18:15.109
+Jeromy Cannon: It's gonna detect… And install that you don't have Kind installed, Or if you do.
+
+149
+00:18:15.730 --> 00:18:25.560
+Jeromy Cannon: and that you don't have Docker installed, or if you do, and then it'll… or Podman, and then it will install Kind, you'll install Podman, KubeControl, and
+
+150
+00:18:25.820 --> 00:18:32.650
+Jeromy Cannon: Helm, but it doesn't install globally, it just installs it into, like, a Silo installation directory.
+
+151
+00:18:32.760 --> 00:18:41.959
+Jeromy Cannon: And so, for right now, we may change that later. We have it in our plans to change it later, to solve liability, but right now, that's all we're doing.
+
+152
+00:18:42.130 --> 00:18:55.670
+Jeromy Cannon: And so, and then it spins up the cluster and will do everything and give you a fully deployed environment with, one consensus node, the relay, the mirror node explorer.
+
+153
+00:18:56.370 --> 00:18:59.710
+Jeromy Cannon: And the mirror node.
+
+154
+00:19:00.960 --> 00:19:05.370
+Jeromy Cannon: So you got the Explorer and the Marriott, and the Relay, and the Consensus Node, and
+
+155
+00:19:05.580 --> 00:19:13.209
+Jeromy Cannon: Yeah, and so it's all running there, and it'll expose the ports for you, too, using KubeControl Port Forward, built into Zillow.
+
+156
+00:19:14.770 --> 00:19:31.120
+Jeromy Cannon: Yeah, so it'll just… it'll do all that for you. And it also pre-generates accounts for you, and it's consistently the same accounts. I think they're the same ones that LocalNode generated, also, for people who used to like to use LocalNode. Could be, like, a kind of a drop and replacement-ish.
+
+157
+00:19:31.300 --> 00:19:38.160
+Jeromy Cannon: And then the other thing is we have, like, a lot of examples, when you click on examples,
+
+158
+00:19:38.370 --> 00:19:42.580
+Jeromy Cannon: But, here, let me switch to main, though, because I think there's, there was a…
+
+159
+00:19:42.980 --> 00:19:45.220
+Jeromy Cannon: book, I think that, hasn't…
+
+160
+00:19:45.600 --> 00:19:57.160
+Jeromy Cannon: pushed yet. It was… yeah, there's more of them here. Not all of them are showing up. But, I think we were going to create… well, so this is the one-shot Falcon deployment.
+
+161
+00:19:57.270 --> 00:20:00.389
+Jeromy Cannon: But here's a solo deployment with hard hat example.
+
+162
+00:20:00.520 --> 00:20:18.419
+Jeromy Cannon: And, it needs to be, tweaked a little bit. I'm making some comments. This is creating a solo deployment via OneShot, and it talks about the task file, but see, this is the task file dev. So, we need… we're gonna add some hyperlinks in here. It was a miss, but if you go into…
+
+163
+00:20:21.750 --> 00:20:27.460
+Jeromy Cannon: the examples folder… And then you go into hard hat.
+
+164
+00:20:28.220 --> 00:20:32.930
+Jeromy Cannon: You click on Task File, and then you can see all the different commands that are being ran in here.
+
+165
+00:20:33.100 --> 00:20:41.150
+Jeromy Cannon: And really… where is it at? Here… One-shot single, well, let's destroy.
+
+166
+00:20:45.610 --> 00:20:46.290
+Jeromy Cannon: I don't know.
+
+167
+00:20:47.240 --> 00:20:52.960
+Jeromy Cannon: Oh, there it is, right there. So, solo one-shot single deploy.
+
+168
+00:20:53.280 --> 00:21:02.999
+Jeromy Cannon: And then it is using Hardhat, using the exposed ports and stuff. So, I mean, that's…
+
+169
+00:21:03.200 --> 00:21:09.290
+Jeromy Cannon: One of the use cases for local node, and so we've got that documented here.
+
+170
+00:21:11.670 --> 00:21:16.949
+Jeromy Cannon: Yeah, so one shot, yeah, it's nice, it's working better. I have, like, a bit of a…
+
+171
+00:21:17.070 --> 00:21:22.570
+Jeromy Cannon: The block node's gonna be integrated into it, I mean, it kinda is, but,
+
+172
+00:21:22.700 --> 00:21:30.230
+Jeromy Cannon: temporarily, until it's, like, fully ready, I just put it behind an environment variable that you have to set true.
+
+173
+00:21:30.460 --> 00:21:35.029
+Jeromy Cannon: And our environment variables are documented also.
+
+174
+00:21:37.240 --> 00:21:51.670
+Jeromy Cannon: We don't… our environment variables, the reason why they're not, like, a little bit… is these are more for developers, that are wanting more advanced functionality, and we don't want to, like, bloat the flag list and overwhelm people.
+
+175
+00:21:51.800 --> 00:22:10.230
+Jeromy Cannon: And so we put different things in here, and so the… the thing about the, the one-shot with BlockNode is it was, like, one of those things where it's not fully ready yet, so it's almost like a… I guess, in a way, it's kind of like a feature flag, but we'll implement feature flags differently. But, yeah.
+
+176
+00:22:10.630 --> 00:22:12.180
+Jeromy Cannon: So…
+
+177
+00:22:14.250 --> 00:22:22.339
+Jeromy Cannon: Yeah, this is… it's interesting. So, does your… let's see… let me put in the link, let me see here…
+
+178
+00:22:23.040 --> 00:22:25.390
+Jeromy Cannon: I blow that back up again, because I closed it.
+
+179
+00:22:26.100 --> 00:22:27.099
+Jeromy Cannon: That's the way.
+
+180
+00:22:29.900 --> 00:22:31.980
+Jeromy Cannon: Oh, it's because I'm sharing, that's why.
+
+181
+00:22:32.220 --> 00:22:35.569
+Jeromy Cannon: Pulled the chatbot chat, chat, chat, chat, there we go.
+
+182
+00:22:36.930 --> 00:22:38.200
+Jeromy Cannon: Let's see the repo.
+
+183
+00:22:51.580 --> 00:22:57.650
+Jeromy Cannon: So… Let's see… Runs on… okay, so you are using GitHub Runner.
+
+184
+00:22:58.440 --> 00:23:06.060
+Jeromy Cannon: And… let's see, validate… So you're just doing… so there's a test, let's see what Tess is doing.
+
+185
+00:23:08.980 --> 00:23:11.559
+Jeromy Cannon: Which runners, yeah, this is GitHub Runner.
+
+186
+00:23:13.900 --> 00:23:15.360
+Jeromy Cannon: Python install…
+
+187
+00:23:18.530 --> 00:23:23.249
+Jeromy Cannon: Or high road… oh, so there you go, you're… oh, yeah, we're using the solo action, okay.
+
+188
+00:23:24.210 --> 00:23:24.970
+Jeromy Cannon: Yeah.
+
+189
+00:23:26.520 --> 00:23:27.679
+Jeromy Cannon: Terrables, okay.
+
+190
+00:23:28.590 --> 00:23:34.609
+Jeromy Cannon: So, you are using the silhouette Action. I don't… let me see… I don't even know what version they're on right now.
+
+191
+00:23:36.230 --> 00:23:42.870
+Jeromy Cannon: They were doing a custom install previously? I don't think they… Ditto.
+
+192
+00:23:43.320 --> 00:23:45.019
+Jeromy Cannon: that they're using OneShot yet.
+
+193
+00:23:45.550 --> 00:23:46.430
+Jeromy Cannon: But we…
+
+194
+00:23:46.430 --> 00:23:47.720
+Angelina Ceppaluni: I believe so.
+
+195
+00:23:47.990 --> 00:23:49.090
+Jeromy Cannon: You what?
+
+196
+00:23:49.090 --> 00:23:55.770
+Angelina Ceppaluni: I don't believe we are. I will bring that up to one of the maintainers, Sophie Bullock.
+
+197
+00:23:55.940 --> 00:24:01.200
+Angelina Ceppaluni: She has been, very helpful in getting a lot of reviews and maintaining work.
+
+198
+00:24:01.540 --> 00:24:03.200
+Angelina Ceppaluni: On this, and she has…
+
+199
+00:24:03.440 --> 00:24:06.860
+Jeromy Cannon: So here they're switching to 48, and then if I hit,
+
+200
+00:24:09.960 --> 00:24:11.760
+Jeromy Cannon: Let's see…
+
+201
+00:24:18.250 --> 00:24:21.690
+Jeromy Cannon: I'm gonna check some version, deploy, test network.
+
+202
+00:24:25.850 --> 00:24:32.630
+Jeromy Cannon: Yeah, it's doing it, like, the manual way, which is… it's, it's fine, it's more advanced.
+
+203
+00:24:32.800 --> 00:24:40.920
+Jeromy Cannon: And they may still be needing some of it, but what we did is, is we now have a new one, it's called…
+
+204
+00:24:42.870 --> 00:24:47.920
+Jeromy Cannon: And it's probably mentioned here, maybe? I think it is? Let's see…
+
+205
+00:24:48.380 --> 00:24:56.080
+Jeromy Cannon: So, yeah, here we go. So, there's the OneShot Falcon, this is new.
+
+206
+00:24:56.670 --> 00:25:11.589
+Jeromy Cannon: And what this does is it basically gives you the ability to, instead of running, like, as you see here, like, you know, all these, like, different commands, like 1, 2, 3, I don't even know how many you have to run of solo to get all these…
+
+207
+00:25:11.600 --> 00:25:30.000
+Jeromy Cannon: I mean, right here alone was, like, you know, 1, 2, 3, 4, 5, 6, 7, 8, and that's not even all of them, right? Because you got a couple up here, 12, 13, 14, 15… I don't know, there's a lot of them. I think we actually documented some of the steps in here. But instead, what you can do is, is that you can basically set certain,
+
+208
+00:25:30.000 --> 00:25:32.500
+Jeromy Cannon: Configurations inside of a values file.
+
+209
+00:25:32.530 --> 00:25:44.000
+Jeromy Cannon: And then you just run, solo one-shot Falcon deploy and pass in the values file, and then in that one command, it'll do your more advanced deployment
+
+210
+00:25:44.000 --> 00:25:56.390
+Jeromy Cannon: Allowing all those different flags that you would normally get, but also not having to pass in all those flags, but instead moving them all into a values file.
+
+211
+00:25:56.810 --> 00:26:02.720
+Jeromy Cannon: So, and then we have that example there, too, that outlines it, too.
+
+212
+00:26:04.090 --> 00:26:18.899
+Jeromy Cannon: So, that's pretty cool. So, I don't know, depending on what they're doing, what they may want to do is, is switch to Falcon, and then just build the values file, and then they can just, and then it would, it would significantly, simplify this.
+
+213
+00:26:19.110 --> 00:26:22.169
+Jeromy Cannon: But, see, the only thing is…
+
+214
+00:26:22.670 --> 00:26:29.129
+Jeromy Cannon: is that… I don't know, are they allowing… I think they're allowing people to use older solo versions, and…
+
+215
+00:26:29.300 --> 00:26:38.819
+Jeromy Cannon: when you… so, then you are almost maintaining all that old code, too. I mean… but, I mean, you could have the new and just if-else it, but,
+
+216
+00:26:39.000 --> 00:26:44.880
+Jeromy Cannon: And then, eventually, you'd be able to, once you hit a certain point, you'd stop supporting those older versions, and then you would just remove it.
+
+217
+00:26:45.010 --> 00:26:48.800
+Jeromy Cannon: But yeah, it gets kind of… I don't know…
+
+218
+00:26:51.320 --> 00:27:00.650
+Jeromy Cannon: I don't know, it's getting kind of long in here, but that's fine. At this point, you're like, this is enough code here where maybe it just belongs in its own shell file, but anyway.
+
+219
+00:27:00.890 --> 00:27:01.630
+Angelina Ceppaluni: Yay!
+
+220
+00:27:01.980 --> 00:27:09.969
+Jeromy Cannon: But then you can run a shell editor, you know, and it'll give you, like, syntax completion and all kinds of stuff, versus trying to shove it in here, but anyway.
+
+221
+00:27:11.330 --> 00:27:12.569
+Jeromy Cannon: Sorry, whatever.
+
+222
+00:27:14.880 --> 00:27:25.579
+Jeromy Cannon: I think… I don't know what's gonna happen with that project. We've gone back and forth. I think… I don't know if my team will end up owning it or merging… I don't know. There's a big lot of conversations about that.
+
+223
+00:27:27.150 --> 00:27:35.410
+Jeromy Cannon: about the GitHub solo action, because that was… originally, that was on our plate to develop, and then it went and got created on a side project.
+
+224
+00:27:35.580 --> 00:27:43.470
+Jeromy Cannon: Outside, so… Anyway, so yeah, so, solo one-shot Falcon Deploy is the new stuff.
+
+225
+00:27:45.860 --> 00:27:51.300
+Jeromy Cannon: Multiple is for when you want to deploy more than one node, but also… but still keep it simple.
+
+226
+00:27:52.980 --> 00:27:53.660
+Jeromy Cannon: Hmm.
+
+227
+00:27:54.360 --> 00:27:57.329
+Jeromy Cannon: So, lots of good stuff there. But…
+
+228
+00:27:57.570 --> 00:28:01.389
+Jeromy Cannon: Yeah, if you're using the Python SDK,
+
+229
+00:28:01.520 --> 00:28:05.519
+Jeromy Cannon: So, you can see here they're running it, and then…
+
+230
+00:28:06.560 --> 00:28:09.309
+Jeromy Cannon: Yeah, they're doing the integration tests, so…
+
+231
+00:28:13.060 --> 00:28:14.310
+Jeromy Cannon: That's interesting.
+
+232
+00:28:16.620 --> 00:28:18.060
+Jeromy Cannon: Is it because…
+
+233
+00:28:25.490 --> 00:28:32.210
+Jeromy Cannon: Sorry, I used to… I was in the habit of code reviewing, and I just, like, noticed something. It was like, it looks like you're…
+
+234
+00:28:32.550 --> 00:28:37.010
+Jeromy Cannon: They're running the integration test before they're running the unit test.
+
+235
+00:28:37.540 --> 00:28:43.150
+Jeromy Cannon: I would run the unit test first, like, fail fast, that sort of thing, and then run the integration test.
+
+236
+00:28:43.500 --> 00:28:45.399
+Jeromy Cannon: But, maybe they run… I don't know.
+
+237
+00:28:45.820 --> 00:28:48.140
+Jeromy Cannon: Yeah, because, I mean, solo, when you stand up.
+
+238
+00:28:48.440 --> 00:28:51.719
+Jeromy Cannon: I mean, you could run the unit test, like, way up here.
+
+239
+00:28:51.870 --> 00:28:55.210
+Jeromy Cannon: And then, if the unit test fell, then just abort.
+
+240
+00:28:55.610 --> 00:29:01.190
+Jeromy Cannon: But… It takes, like, you know, 6 minutes to stand up, solo at least.
+
+241
+00:29:01.560 --> 00:29:02.650
+Jeromy Cannon: Probably.
+
+242
+00:29:02.820 --> 00:29:04.170
+Jeromy Cannon: And,
+
+243
+00:29:04.980 --> 00:29:12.159
+Jeromy Cannon: And so your test could have already failed, and you'd know, before it ever got down to there, so I would re…
+
+244
+00:29:12.280 --> 00:29:15.080
+Jeromy Cannon: I've arranged that a little bit, but not a big deal.
+
+245
+00:29:19.250 --> 00:29:32.719
+Jeromy Cannon: So, yeah, so I guess I got… had something to talk about. I know you… you said you really haven't used Solo, so, but do you have any… anybody have any questions or thoughts or discussion points I can…
+
+246
+00:29:33.610 --> 00:29:34.270
+Alex K (HaashGraph): Nope.
+
+247
+00:29:34.960 --> 00:29:35.670
+Jeromy Cannon: Nope.
+
+248
+00:29:37.290 --> 00:29:39.680
+Jeromy Cannon: Okay, well… Huh?
+
+249
+00:29:40.150 --> 00:29:42.329
+Angelina Ceppaluni: Oh, I'm… I'm good, sorry.
+
+250
+00:29:42.700 --> 00:30:01.639
+Jeromy Cannon: Yeah. Well, thank you for joining us, Angelina, we appreciate it. It's good to have somebody, somebody here, somebody else, besides just Alex and I. Alex is our… our number one fan, but he's also, number one… he's our number one user, but he uses it differently, as… and,
+
+251
+00:30:01.800 --> 00:30:05.759
+Jeromy Cannon: But he's always joining my higher community call, which is pretty cool, so…
+
+252
+00:30:05.930 --> 00:30:08.400
+Alex K (HaashGraph): And I help other people with solo.
+
+253
+00:30:08.930 --> 00:30:17.519
+Angelina Ceppaluni: Oh, that's… that's awesome. I'm actually taking a look at the issues. I noticed there's a little over 200.
+
+254
+00:30:17.880 --> 00:30:19.310
+Angelina Ceppaluni: So I'm very interested…
+
+255
+00:30:19.310 --> 00:30:20.070
+Jeromy Cannon: Hello?
+
+256
+00:30:20.240 --> 00:30:21.640
+Angelina Ceppaluni: Yes, the…
+
+257
+00:30:22.480 --> 00:30:28.479
+Angelina Ceppaluni: repository. I'm interested in, trying to get started with tackling some of these. They look very interesting.
+
+258
+00:30:28.750 --> 00:30:46.509
+Jeromy Cannon: Oh, yeah, absolutely. I mean, I've got, like, a lot more that I just have to key in. Some of them, I don't, like, have them, like, fully typed out where somebody on the team may fully understand it, or somebody. I'd have to, like, talk to them or update the ticket to provide more clarity, but,
+
+259
+00:30:46.630 --> 00:30:49.840
+Jeromy Cannon: Some of them are kind of like placeholders that need to be expanded.
+
+260
+00:30:49.950 --> 00:30:52.840
+Jeromy Cannon: But yeah, we've got… we've got a lot of stuff,
+
+261
+00:30:54.000 --> 00:30:59.520
+Jeromy Cannon: A lot, a lot of work to do, and we got a lot… we got some more stuff coming in, for this next year.
+
+262
+00:31:00.110 --> 00:31:00.770
+Jeromy Cannon: Oh.
+
+263
+00:31:01.990 --> 00:31:12.599
+Jeromy Cannon: But I think, like, we were just hearing an update for next year, and yeah, we're gonna work significantly across all the teams on lowering the memory footprint for Solo.
+
+264
+00:31:12.770 --> 00:31:16.670
+Jeromy Cannon: To, to lower levels, and,
+
+265
+00:31:16.880 --> 00:31:20.390
+Jeromy Cannon: there's some changes with, it's called TSS.
+
+266
+00:31:20.840 --> 00:31:24.010
+Jeromy Cannon: And I forget what that has to do with…
+
+267
+00:31:24.280 --> 00:31:30.180
+Jeromy Cannon: but I think it's, like, Transaction Science Day, or… I can't remember. Do you remember what TSS stands for, Alex?
+
+268
+00:31:34.450 --> 00:31:35.650
+Alex K (HaashGraph): Okay, no questions?
+
+269
+00:31:36.070 --> 00:31:38.570
+Jeromy Cannon: Do you remember what TSS stands for?
+
+270
+00:31:38.720 --> 00:31:46.869
+Alex K (HaashGraph): It's, written by Michael Tinker, it's a sign-in… transaction sign-in system. So…
+
+271
+00:31:47.250 --> 00:31:53.899
+Jeromy Cannon: Yeah, and I think it runs, like, one of those cryptographic algorithms or something like that, that,
+
+272
+00:31:54.530 --> 00:31:59.489
+Jeromy Cannon: One of our, cryptographers developed, and
+
+273
+00:32:00.080 --> 00:32:18.589
+Jeromy Cannon: But yeah, it's an advanced signing feature, and it's using a lot of memory, but we're going to bring the memory down and then integrate it so that Solo can run it, but still keep the memory footprint down. And then we'll have block node into one shot,
+
+274
+00:32:18.980 --> 00:32:23.750
+Jeromy Cannon: And then… it will also… Work on getting the,
+
+275
+00:32:24.060 --> 00:32:35.169
+Jeromy Cannon: the transaction tool version 2 integrated, and all of that, bringing the memory footprint still down to where it will run inside of one of those, GitHub
+
+276
+00:32:35.300 --> 00:32:41.519
+Jeromy Cannon: self-hosted runners or a laptop only running 16 gigs of RAM.
+
+277
+00:32:41.780 --> 00:32:51.749
+Jeromy Cannon: So that's still our goal, some of our goals for next year, as well as we're doing some… we have some major refactoring that we started earlier this year that we had to kind of put on hold.
+
+278
+00:32:51.990 --> 00:32:55.570
+Jeromy Cannon: But we'll go back to that being our goals for next year.
+
+279
+00:32:55.680 --> 00:33:14.239
+Jeromy Cannon: To go in there and kind of re… we have a design that we're working towards that will create out the layers, and I have those… they're inside of our repo, underneath design, docs… docs design, or something like that.
+
+280
+00:33:14.750 --> 00:33:16.510
+Jeromy Cannon: There's some markdown files.
+
+281
+00:33:16.670 --> 00:33:29.559
+Jeromy Cannon: And so we'll work on that, which will… once we get that work done, it will unlock us for a lot more, better rapid development going forward, so… and probably maybe reduce bugs as well.
+
+282
+00:33:31.770 --> 00:33:35.939
+Jeromy Cannon: Lots of… lots of good stuff to do. But yeah, that's it.
+
+283
+00:33:36.150 --> 00:33:42.560
+Jeromy Cannon: So, I guess I'll see y'all, next month, if you join again. I know Alex probably will.
+
+284
+00:33:44.920 --> 00:34:00.079
+Angelina Ceppaluni: Well, thank you both for the information. I look forward to meeting next month, and I'm very interested in this, redo… the ones you have for reducing the memory footprint, especially with Consensus, Blockchain, Mirror, Explorer, Relay.
+
+285
+00:34:00.080 --> 00:34:03.619
+Jeromy Cannon: Yeah. Trying to get it below 10 gigabytes of memory, wow.
+
+286
+00:34:03.870 --> 00:34:05.359
+Jeromy Cannon: Yeah, yeah.
+
+287
+00:34:05.450 --> 00:34:06.790
+Angelina Ceppaluni: That's very interesting.
+
+288
+00:34:06.790 --> 00:34:18.559
+Jeromy Cannon: Yeah, I mean, we… I've already got it running in the pipeline with block node at about 8.5, but that's only running at…
+
+289
+00:34:19.969 --> 00:34:25.239
+Jeromy Cannon: 5 minutes of just using the MiraNose TPS pinger.
+
+290
+00:34:25.400 --> 00:34:42.240
+Jeromy Cannon: 5 TPS with the mirror node pinger. But we're gonna be using NLG to create a more diverse load, and then bumping it up to 30 minutes brought it to 10 and a half gigs at 10 transactions per second, though, which is not… it's a little bit above our goal.
+
+291
+00:34:42.239 --> 00:34:48.429
+Jeromy Cannon: So, for the end of this year, there's… we have a goal, and so I'm working on that, too.
+
+292
+00:34:48.469 --> 00:34:59.530
+Jeromy Cannon: So, yeah, we're bringing down the memory footprint, but the good news is, is already you should start to be able to use it, unless you're running serious loads on it, you should be able to do some basic stuff.
+
+293
+00:35:00.880 --> 00:35:09.849
+Jeromy Cannon: inside of a GitHub, hosted runner, which is, as we were just looking at your Python workflow, it was using a GitHub hosted runner.
+
+294
+00:35:09.850 --> 00:35:24.370
+Jeromy Cannon: And so those are limited, whereas, you know, on Hashgraph, we have our self-hosted runners, which have a lot more memory, and so, like, the solo itself, when it's running on a runner, inside of our GitHub CI,
+
+295
+00:35:24.760 --> 00:35:30.910
+Jeromy Cannon: They're using self-hosted runners, so they have, like, a lot more memory access than the ones that,
+
+296
+00:35:31.280 --> 00:35:39.750
+Jeromy Cannon: that are self-hosted. I mean, sorry, the GitHub hosted, which are limited, so I… some of the…
+
+297
+00:35:40.120 --> 00:35:46.839
+Jeromy Cannon: different SDK pipelines are still using the GitHub-hosted runners, which,
+
+298
+00:35:47.010 --> 00:36:04.239
+Jeromy Cannon: doesn't have as much, so yeah. So it's really good for us to stay below that amount, just because it allows our community to use, the various solo installations, whether it be through the action or through, just installing Solo directly and using it in a CI.
+
+299
+00:36:04.690 --> 00:36:16.459
+Jeromy Cannon: Which, actually, I think, I think, I didn't show it, but… Simi… Added an example.
+
+300
+00:36:16.630 --> 00:36:24.399
+Jeromy Cannon: for how to put solo… In the CI, I think.
+
+301
+00:36:25.130 --> 00:36:26.259
+Jeromy Cannon: Where'd it go?
+
+302
+00:36:26.480 --> 00:36:28.570
+Jeromy Cannon: Anyway, maybe I'll talk about it next time.
+
+303
+00:36:30.400 --> 00:36:31.340
+Jeromy Cannon: But yeah.
+
+304
+00:36:31.770 --> 00:36:34.629
+Jeromy Cannon: So, I think she added in the docs, that's what it was.
+
+305
+00:36:35.830 --> 00:36:39.480
+Jeromy Cannon: Alright, well, y'all have a great day, and I'll see y'all next time.
+
+306
+00:36:39.870 --> 00:36:41.179
+Angelina Ceppaluni: You too. Bye.
+
+307
+00:36:41.330 --> 00:36:41.890
+Jeromy Cannon: Right.
+
+308
+00:36:42.810 --> 00:36:43.879
+Alex K (HaashGraph): Bye, thank you.
+

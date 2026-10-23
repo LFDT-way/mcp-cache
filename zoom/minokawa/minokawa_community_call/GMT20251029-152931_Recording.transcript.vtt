@@ -1,0 +1,1198 @@
+WEBVTT
+
+1
+00:00:22.020 --> 00:00:23.309
+⟣ €₥ℵ∪ℓ: How's it going, Kevin?
+
+2
+00:00:24.110 --> 00:00:25.899
+Kevin Millikin: Good? How are you?
+
+3
+00:00:26.470 --> 00:00:30.009
+⟣ €₥ℵ∪ℓ: Doing well, doing well. I watched your,
+
+4
+00:00:30.190 --> 00:00:37.360
+⟣ €₥ℵ∪ℓ: your video on YouTube with the Linux Foundation on Minokawa, that was really, really insightful, I liked it a lot.
+
+5
+00:00:37.870 --> 00:00:38.960
+Kevin Millikin: Cool. Awesome.
+
+6
+00:00:49.790 --> 00:00:50.850
+Parisa Ataei: Hello!
+
+7
+00:00:52.440 --> 00:00:53.409
+Kevin Millikin: I will pursue.
+
+8
+00:00:55.560 --> 00:00:57.680
+Kevin Millikin: Trying to figure out how to share my screen again.
+
+9
+00:01:45.980 --> 00:01:48.550
+Kevin Millikin: I'll give other people a few minutes to show up.
+
+10
+00:02:49.140 --> 00:02:50.660
+Kevin Millikin: Hector, can you mute yourself?
+
+11
+00:02:53.000 --> 00:02:54.710
+Kevin Millikin: I hear… I hear birds.
+
+12
+00:02:56.440 --> 00:02:59.709
+Hector Bulgarini - Midnight Foundation: Yep, that was me, sorry.
+
+13
+00:03:28.290 --> 00:03:31.370
+Kevin Millikin: We're just waiting for a couple more of the usual participants.
+
+14
+00:03:31.520 --> 00:03:33.220
+Kevin Millikin: I'll just give them a couple more minutes.
+
+15
+00:04:32.500 --> 00:04:36.429
+Kevin Millikin: Okay, I'm just gonna… Going to jump into the agenda.
+
+16
+00:04:36.550 --> 00:04:39.440
+Kevin Millikin: Give people a chance to… to show up later.
+
+17
+00:04:39.960 --> 00:04:45.809
+Kevin Millikin: Kent wants to give us an update on the Uint syntax change and compact fix-ups.
+
+18
+00:04:52.950 --> 00:04:57.140
+Kent Dybvig: Okay, so, yeah, this is a pretty…
+
+19
+00:04:57.250 --> 00:05:03.110
+Kent Dybvig: big change for people who are, actually using the UENT range syntax.
+
+20
+00:05:03.400 --> 00:05:12.090
+Kent Dybvig: At some point, Actually, a little while ago, we realized that the range syntax was inconsistent between four.
+
+21
+00:05:12.740 --> 00:05:20.039
+Kent Dybvig: And you went… And we, decided that we needed to… to keep the…
+
+22
+00:05:20.150 --> 00:05:23.530
+Kent Dybvig: the range syntax as it is for 4.
+
+23
+00:05:23.900 --> 00:05:30.170
+Kent Dybvig: And change the range of attacks for UNT. So, the change is that the endpoint
+
+24
+00:05:30.530 --> 00:05:34.490
+Kent Dybvig: Is now exclusive instead of inclusive.
+
+25
+00:05:35.360 --> 00:05:44.060
+Kent Dybvig: So, range from 0 to 5, used to mean 5 was included, now it means that 5 is not included, so it's just 0, 1, 2, 3, and 4.
+
+26
+00:05:45.020 --> 00:05:55.800
+Kent Dybvig: The fix-up tool has, been modified to handle the case where, it's a manifest constant. There's a constant actually sitting there, 0 to 5.
+
+27
+00:05:56.190 --> 00:06:04.859
+Kent Dybvig: So it'll change 0 to 5 to 0 to 6, so that you now… it now restores the range 0 through 5, inclusive.
+
+28
+00:06:05.050 --> 00:06:17.409
+Kent Dybvig: However, it doesn't attempt… I actually went down this rabbit hole for quite a while. It doesn't attempt to try to fix up cases where the,
+
+29
+00:06:17.880 --> 00:06:22.550
+Kent Dybvig: Where the end of range is a reference to a generic variable.
+
+30
+00:06:23.440 --> 00:06:32.010
+Kent Dybvig: and the reason for that is it's not always possible to do that because of inconsistencies between
+
+31
+00:06:32.130 --> 00:06:37.429
+Kent Dybvig: You know, maybe that generic variable is used for more than one purpose.
+
+32
+00:06:37.840 --> 00:06:45.069
+Kent Dybvig: And, one of which isn't in this case. It's probably pretty rare, but I decided
+
+33
+00:06:45.580 --> 00:06:47.030
+Kent Dybvig: Rather than make
+
+34
+00:06:47.150 --> 00:06:57.159
+Kent Dybvig: possibly erroneous changes, it should just give a warning. So what it does now is it just… it just warns for each occurrence that it finds, and it can't repair.
+
+35
+00:06:57.320 --> 00:07:01.860
+Kent Dybvig: So that, to give the user an indication they need to update manually.
+
+36
+00:07:02.340 --> 00:07:10.660
+Kent Dybvig: So we'll have to be careful in the messaging for the… the, Release notes, and
+
+37
+00:07:10.840 --> 00:07:15.420
+Kent Dybvig: And whatnot. I don't know how many people are using the event arrange syntax.
+
+38
+00:07:15.720 --> 00:07:20.649
+Kent Dybvig: I think it's probably more common to use the UNT, with the width.
+
+39
+00:07:20.780 --> 00:07:23.329
+Kent Dybvig: you know, like, I have 32-bit wide.
+
+40
+00:07:23.630 --> 00:07:28.609
+Kent Dybvig: Unsigned integer, as opposed to one that ranges from 0 to some odd number.
+
+41
+00:07:29.110 --> 00:07:35.270
+Kent Dybvig: But there you have it. So that's my update. Any questions?
+
+42
+00:07:42.420 --> 00:07:43.670
+Kevin Millikin: Sounds like a no.
+
+43
+00:07:44.080 --> 00:07:45.489
+Kevin Millikin: You wanna go on to the next one?
+
+44
+00:07:46.040 --> 00:07:54.649
+Kent Dybvig: Yeah, so the other one is, I've actually implemented… we… I didn't… I didn't copy it down in here, but a few agenda items back, we have
+
+45
+00:07:54.750 --> 00:08:01.550
+Kent Dybvig: the syntax for… for, Type definitions.
+
+46
+00:08:01.700 --> 00:08:14.180
+Kent Dybvig: I'm thinking of them and internally calling them type aliases, some aliases are… Our,
+
+47
+00:08:16.020 --> 00:08:25.120
+Kent Dybvig: identical, can be used identically, and some… some are unique, in a sense that, when you… when you do just type.
+
+48
+00:08:25.500 --> 00:08:35.860
+Kent Dybvig: and we use the keyword type followed by a name equals some type, then those two types are interchangeable. You can use them anywhere, each for the other.
+
+49
+00:08:35.860 --> 00:08:49.269
+Kent Dybvig: If you say new type, then you get a brand new type that's distinct from the other, has the same characteristics as the other, but it's distinct. It can't be used interchangeably, and the only way you can get between them is to do a cast.
+
+50
+00:08:49.680 --> 00:08:56.489
+Kent Dybvig: And so the way to think about this is maybe I have… I want to make sure that I don't accidentally treat feet as meters.
+
+51
+00:08:56.590 --> 00:09:02.310
+Kent Dybvig: So I define feet to be, you went 32, I define meters to be a UNT32.
+
+52
+00:09:02.700 --> 00:09:09.610
+Kent Dybvig: And then I can't just blithely treat a meter… a fetus in meters anywhere where it's not supposed to be.
+
+53
+00:09:11.420 --> 00:09:30.810
+Kent Dybvig: But you can always cast it till you went, and then… and then… or even from feet… 2 meters, if you wish. Those casts are allowed, but you have to be, you have to… you have to do it explicitly, and with… presumably with full understanding that what you're doing may be not… not a good idea.
+
+54
+00:09:31.820 --> 00:09:40.100
+Kent Dybvig: So, it occurred to me as I was working on this,
+
+55
+00:09:41.890 --> 00:09:47.800
+Kent Dybvig: But wait, before I go on to this other issue, I want to mention something about the semantics. I had a…
+
+56
+00:09:48.230 --> 00:09:58.140
+Kent Dybvig: an issue, in my head about this. I was thinking, okay, what if I add 2 feet? I defied feet to be a UNT32, and I add
+
+57
+00:09:58.290 --> 00:10:00.280
+Kent Dybvig: I add two feet values.
+
+58
+00:10:00.770 --> 00:10:07.380
+Kent Dybvig: What do I get? Right now, when we add to unsigned 32 values, we get an unsigned 33 value.
+
+59
+00:10:09.750 --> 00:10:12.250
+Kent Dybvig: What do I get when I add two feet values?
+
+60
+00:10:13.050 --> 00:10:20.560
+Kent Dybvig: So what I decided is that the arithmetic operations should be closed under…
+
+61
+00:10:20.790 --> 00:10:32.029
+Kent Dybvig: Under arithmetic, and so the arithmetic options should be closed under the, the, types, numeric types that are defined using new.
+
+62
+00:10:32.140 --> 00:10:35.059
+Kent Dybvig: Using, using type aliases.
+
+63
+00:10:35.990 --> 00:10:37.700
+Kent Dybvig: So, if you…
+
+64
+00:10:38.230 --> 00:10:47.909
+Kent Dybvig: sorry, using new, not type aliases, using new types, that it should be closed, so that if I add two feet, I get a feat back.
+
+65
+00:10:48.370 --> 00:10:51.789
+Kent Dybvig: And so this involves the compiler actually adding a cast.
+
+66
+00:10:52.370 --> 00:10:53.890
+Kent Dybvig: That might be unsafe.
+
+67
+00:10:55.430 --> 00:11:00.600
+Kent Dybvig: That's how I decided to resolve that. Of course, it means now that if I multiply 2 feet, I don't get a feet squared.
+
+68
+00:11:00.860 --> 00:11:02.280
+Kent Dybvig: I still get a feat.
+
+69
+00:11:05.590 --> 00:11:14.830
+Kent Dybvig: Nothing's perfect. But I didn't like the idea that if you add two feet, you get an unsigned 33 popping out. That just… that just seemed too weird.
+
+70
+00:11:15.360 --> 00:11:21.190
+Kevin Millikin: I don't think… I don't think feet and meters are necessarily the killer app for this. I think it's.
+
+71
+00:11:21.190 --> 00:11:21.570
+Kent Dybvig: No.
+
+72
+00:11:21.570 --> 00:11:25.220
+Kevin Millikin: I think it's more, API signatures get really awkward.
+
+73
+00:11:25.370 --> 00:11:36.530
+Kevin Millikin: And so you want to simplify them, but you also want some safety that people are going through, like, using your API to create your objects and not just consing them up out of thin air.
+
+74
+00:11:36.530 --> 00:11:37.290
+Kent Dybvig: Yes.
+
+75
+00:11:37.770 --> 00:11:53.559
+Kent Dybvig: Yeah, but it's actually kind of a cool thing now that you don't actually have to explicitly cast. If you… if you want the semantics where it… where it implicitly casts, you give a name to it, a new name to it, and if you don't want it… if you want it to just keep growing.
+
+76
+00:11:53.680 --> 00:12:02.979
+Kent Dybvig: you know, if you want the UN32 to change to a UN33 and have to explicitly cast to get back to UN33, then you just use the original ones or a non-new alias.
+
+77
+00:12:04.120 --> 00:12:05.040
+Kevin Millikin: People…
+
+78
+00:12:05.630 --> 00:12:16.020
+Kevin Millikin: I was just gonna say, people often expect that our UN arithmetic works that way. They want the implicit cast so that they're all closed, and they don't have to add casts themselves.
+
+79
+00:12:16.380 --> 00:12:17.080
+Kevin Millikin: So.
+
+80
+00:12:17.420 --> 00:12:25.159
+Kevin Millikin: Maybe this is confusing because of that, and maybe it's… maybe it's good because we can tell people that they can define a new type alias.
+
+81
+00:12:25.550 --> 00:12:29.430
+Kent Dybvig: Yeah, well, I'll be happy when we have, big names in our…
+
+82
+00:12:29.670 --> 00:12:35.340
+Kent Dybvig: In our language, and we maybe even… maybe even at that point decided to itch the unsigned.
+
+83
+00:12:35.480 --> 00:12:40.860
+Kent Dybvig: As a separate type. But for now, yeah.
+
+84
+00:12:41.660 --> 00:12:58.370
+Kent Dybvig: I'm not going to change… this… this PR does not change, you know, ad explicit casting, and… and the problem with explicit… sorry, implicit casting for, like, you went, the problem with that is that, like, the number 3 has a type
+
+85
+00:12:59.640 --> 00:13:01.050
+Kent Dybvig: 0 to 4.
+
+86
+00:13:01.200 --> 00:13:12.700
+Kent Dybvig: Now, range 04. And, you wouldn't want to have, you know, 3 plus 3 in your code turn into an error, because
+
+87
+00:13:13.190 --> 00:13:18.010
+Kent Dybvig: Of the explicit cast back to 0.3, or 0.4.
+
+88
+00:13:19.700 --> 00:13:34.770
+Kent Dybvig: All right, and then the other… the thing that also occurred to me is that, you know, so it's really obvious when you start thinking about it, when you look at the code, the code for implementing structs and the code for implementing new types overlaps in quite a few places.
+
+89
+00:13:34.870 --> 00:13:36.540
+Kent Dybvig: Because they're very similar.
+
+90
+00:13:37.740 --> 00:13:45.320
+Kent Dybvig: And, it occurred to me that it's… that…
+
+91
+00:13:45.770 --> 00:13:49.999
+Kent Dybvig: It's just a fairly simple parser change, probably.
+
+92
+00:13:50.270 --> 00:13:51.500
+Kent Dybvig: I believe.
+
+93
+00:13:52.550 --> 00:13:57.900
+Kent Dybvig: To get rid of the struct keyword, and replace it with new type.
+
+94
+00:13:58.130 --> 00:13:59.630
+Kent Dybvig: And the equal sign.
+
+95
+00:14:00.410 --> 00:14:02.530
+Kent Dybvig: So…
+
+96
+00:14:05.500 --> 00:14:14.959
+Kent Dybvig: If we wish to get rid of the struct keyword, we have an easy path to do so now. Whether we unify the internal code for handling these things or not, we have an easy path.
+
+97
+00:14:16.800 --> 00:14:27.550
+Kent Dybvig: The downside, or the upside is we get rid of the struct keyword. The downside is that people might expect to be able to write just type struct equals, which we don't yet support.
+
+98
+00:14:27.760 --> 00:14:32.820
+Kent Dybvig: You know, we don't yet support not structurally typed. Structs.
+
+99
+00:14:33.430 --> 00:14:35.860
+Kent Dybvig: Only anomaly-type structs presently.
+
+100
+00:14:35.970 --> 00:14:37.280
+Kent Dybvig: We could add them.
+
+101
+00:14:38.220 --> 00:14:41.309
+Kent Dybvig: Right? They may also expect to be able to just write
+
+102
+00:14:41.720 --> 00:14:47.209
+Kent Dybvig: open brace, x colon type for one of these things, without even giving it a name.
+
+103
+00:14:47.770 --> 00:14:56.369
+Kent Dybvig: Which, gets us back into the… you know, it's consistent with TypeScript, I don't think it's inherently bad. It does get us back into the…
+
+104
+00:14:56.470 --> 00:15:03.259
+Kent Dybvig: The right-hand side of the arrow syntax being, you know, re… you know.
+
+105
+00:15:04.440 --> 00:15:09.920
+Kent Dybvig: Ambiguous, in a way, because the right-hand side could either be a block or a… or a struct.
+
+106
+00:15:10.100 --> 00:15:11.190
+Kent Dybvig: creation.
+
+107
+00:15:12.560 --> 00:15:21.030
+Kent Dybvig: And then it starts, you know, either way, whether we expand that out or not, we start thinking about, do we…
+
+108
+00:15:21.340 --> 00:15:31.249
+Kent Dybvig: If you can create a new struct object using the S open brace syntax, can you create a new feat using the feet?
+
+109
+00:15:31.880 --> 00:15:34.010
+Kent Dybvig: Open brace, or feet.
+
+110
+00:15:34.260 --> 00:15:35.360
+Kent Dybvig: value.
+
+111
+00:15:35.770 --> 00:15:37.000
+Kent Dybvig: syntax.
+
+112
+00:15:37.980 --> 00:15:44.989
+Kent Dybvig: Anyway, I didn't want to get into all those questions. I mean, I did get into all those questions. I sent a dump of my thoughts to Parisa and to Joe, but…
+
+113
+00:15:45.190 --> 00:15:50.589
+Kent Dybvig: I didn't want to solve… I didn't want to solve those questions.
+
+114
+00:15:50.750 --> 00:16:05.649
+Kent Dybvig: At this point. As soon as we add the construction syntax for feet, or whatever, or, you know, scalars, then we're… we have another… we have a second way of doing casts, basically. Maybe with slightly different semantics, which is…
+
+115
+00:16:05.760 --> 00:16:07.300
+Kent Dybvig: even more confusing.
+
+116
+00:16:08.930 --> 00:16:09.690
+Kent Dybvig: So…
+
+117
+00:16:11.160 --> 00:16:25.040
+Kent Dybvig: Food for thought. If we… if we wish to remove this threat keyword, we have a path, but we have to be worried about it being tempting to, you know, confusing… possibly confusing that people think we can do more than… more with it than we can.
+
+118
+00:16:26.540 --> 00:16:27.700
+Kent Dybvig: Any comments?
+
+119
+00:16:29.540 --> 00:16:40.199
+Kevin Millikin: Well, I would exactly expect that I could write that anonymous struct type, because I would form the rule that the thing on the right-hand side of the equals is just a type, and I could put it anywhere that I could put a type.
+
+120
+00:16:40.700 --> 00:16:41.250
+Kent Dybvig: Yep.
+
+121
+00:16:41.660 --> 00:16:42.270
+Kent Dybvig: So I was…
+
+122
+00:16:42.270 --> 00:16:44.209
+Kevin Millikin: I would… I would exactly expect that.
+
+123
+00:16:44.500 --> 00:16:56.989
+Kevin Millikin: So I would say not… not at this time. I think it's appealing to remove struct, because it's not a TypeScript keyword, and object literal types are types in TypeScript. So, I think it's appealing, but not at this time.
+
+124
+00:16:57.640 --> 00:16:58.180
+Kent Dybvig: Yeah.
+
+125
+00:16:59.080 --> 00:17:05.870
+Kent Dybvig: Yeah, it's a backward compatible change. You know, removing a keyword is a backward compatible change, so…
+
+126
+00:17:07.190 --> 00:17:08.470
+Kent Dybvig: We can do it later.
+
+127
+00:17:09.390 --> 00:17:10.890
+Kent Dybvig: Alright, that's all I got on that.
+
+128
+00:17:15.950 --> 00:17:16.819
+Kevin Millikin: Excellent.
+
+129
+00:17:17.480 --> 00:17:22.019
+Kevin Millikin: I was hoping Joe would be here, I hope maybe he dialed into the wrong meeting link.
+
+130
+00:17:22.290 --> 00:17:29.240
+Kevin Millikin: I removed the Google Meet link. Oh, maybe Joe is here, and I can't see him because of… oh, Joe is here.
+
+131
+00:17:29.350 --> 00:17:43.480
+Kevin Millikin: Because of Zoom, because Zoom decides how… Zoom decides how many I can see, and it doesn't include everybody. Okay, Joe, do you want to give us an update on where we are with the Ledger 6 Unshielded token merge, and what's left to do, and how we can help out?
+
+132
+00:17:44.780 --> 00:17:46.160
+Joseph Denman: Yeah, right.
+
+133
+00:17:46.270 --> 00:17:58.630
+Joseph Denman: So the feature branch for Unshielded tokens is up-to-date with all the most, recent Ledger versions, so that's, Ledger Alpha 4, I think?
+
+134
+00:17:58.880 --> 00:18:17.289
+Joseph Denman: And all the tests in the local retail are passing. The issue that I'm seeing now, as I mentioned earlier in the engineering stand-up, is that we're seeing some errors related to minting, and so these, these are errors that, Les reported, and
+
+135
+00:18:17.530 --> 00:18:22.049
+Joseph Denman: I believe I know exactly why it's happening, and it's because…
+
+136
+00:18:22.460 --> 00:18:31.790
+Joseph Denman: Essentially the contract balance… Or making and balance checking issues, and essentially the contract balance that's stored on-chain is not making its way into the runtime.
+
+137
+00:18:32.000 --> 00:18:36.709
+Joseph Denman: So I have a fix for it, which is the good news.
+
+138
+00:18:37.520 --> 00:18:49.400
+Joseph Denman: I haven't yet produced the next internal release candidate for it, but that would be the sort of next step, and to properly have Midnight.js also push another release for it.
+
+139
+00:18:49.520 --> 00:18:59.639
+Joseph Denman: I was attempting to reproduce the errors and test the fixes locally using the toolkit, package, and I think I'm pretty close.
+
+140
+00:19:00.020 --> 00:19:04.109
+Joseph Denman: I think the question is whether or not that's, like.
+
+141
+00:19:04.620 --> 00:19:07.559
+Joseph Denman: Still the approach that we should be taking.
+
+142
+00:19:07.690 --> 00:19:17.229
+Joseph Denman: Like, as an alternative, we just push out the new release candidates, and have everyone else update, and then report new bugs once they start using the next release candidate.
+
+143
+00:19:19.690 --> 00:19:26.929
+Joseph Denman: Yeah, and so I figured, yeah, I mean, obviously, we're going to want to result these bugs before we merge into main,
+
+144
+00:19:26.940 --> 00:19:40.309
+Joseph Denman: Hopefully just the next couple days, but since we've only been able to test minting, so far, it's not even clear, like, which of the remaining shielded… unshielded token transfer functions would fail.
+
+145
+00:19:40.790 --> 00:19:44.660
+Joseph Denman: So… Yeah, currently in debugging…
+
+146
+00:19:45.180 --> 00:19:49.560
+Joseph Denman: I think if our goal, was the fifth.
+
+147
+00:19:49.890 --> 00:19:55.809
+Joseph Denman: We're… so I saw… I saw everything somewhere that the 027 release was, like, the 15th.
+
+148
+00:19:57.320 --> 00:20:06.419
+Joseph Denman: I'm not sure if that's correct, or if there is an exact release date that we need to be targeting besides that one. So, Andre, if you know anything different, please let me know.
+
+149
+00:20:06.640 --> 00:20:10.819
+Joseph Denman: If that is the goal for the next release, I think that's very doable.
+
+150
+00:20:11.250 --> 00:20:15.779
+Joseph Denman: I don't think that there's anything else anyone on this team can help me with, Ebony.
+
+151
+00:20:17.590 --> 00:20:34.679
+Kevin Millikin: Yeah, so we would like a real release through our regular release channel, when the… when preview goes live and people start using it, because we don't wanna… because we'll have… we'll slowly roll out access to partners, for instance, to give… to give access to that preview network.
+
+152
+00:20:34.790 --> 00:20:48.539
+Kevin Millikin: And we don't want to have to tell them that they have to find a binary somewhere and unzip it in this kind of weird way, and mess with Mac privacy and security settings and stuff. We'd just like to have it be just a regular release that they can get.
+
+153
+00:20:49.030 --> 00:20:49.660
+Joseph Denman: Yep.
+
+154
+00:20:50.210 --> 00:20:59.140
+Kevin Millikin: And we're happy telling… we're not happy, we're… we're, resigned to telling TestNet02 users that this next release won't work on TestN02.
+
+155
+00:20:59.470 --> 00:21:02.550
+Kevin Millikin: And just dealing with… they should not update.
+
+156
+00:21:04.830 --> 00:21:09.730
+Andrey Venuto: And… this release would be the 027, the logistics.
+
+157
+00:21:10.610 --> 00:21:30.209
+Kevin Millikin: 0.2… 0.27 will be ledger 6. I've been really… I've been really careful not telling people… trying not to tell people, version numbers, because version numbers always end up being wrong, and then it's confusing that people are talking about… about things in terms of version numbers that you… you can't… we can't guarantee what version number will hit. So, yes.
+
+158
+00:21:30.210 --> 00:21:35.960
+Kevin Millikin: We intend that the next release will be… the next release will definitely be 0.27. We intend that the next release is.
+
+159
+00:21:35.960 --> 00:21:42.040
+Andrey Venuto: Yeah, but reframing my question, what we have, the tickets we have on the 027,
+
+160
+00:21:42.200 --> 00:21:50.060
+Andrey Venuto: is the same as this one we're talking about, the logistics update plus whatever tickets we have on 027 on Jira, is that correct?
+
+161
+00:21:50.300 --> 00:21:51.100
+Kevin Millikin: Yes.
+
+162
+00:21:51.390 --> 00:21:51.930
+Andrey Venuto: Perfect.
+
+163
+00:21:54.220 --> 00:22:00.070
+Kevin Millikin: And I was going to try, Parisa, I was going to try to do the release following the playbook.
+
+164
+00:22:00.260 --> 00:22:10.919
+Kevin Millikin: And then we were going to make Xin, our new release manager, do the next one after that, to get some feedback on how easy it was and how possible it was for somebody outside our team to just follow the playbook.
+
+165
+00:22:11.230 --> 00:22:20.170
+Parisa Ataei: Yeah, I do have to update some of the links, because the links, are probably pointing to Compact C, and not Compact Export,
+
+166
+00:22:20.760 --> 00:22:28.020
+Parisa Ataei: But, so, to just confirm, I'm seeing on the channel for releases that And…
+
+167
+00:22:28.240 --> 00:22:32.860
+Parisa Ataei: Preview Network is supposed to be deployed on the 13th.
+
+168
+00:22:33.170 --> 00:22:48.430
+Parisa Ataei: That's a Thursday, so if we want Compaq 0.27 for preview network, that means that by the 13th, we need to have not just a release candidate, but
+
+169
+00:22:48.870 --> 00:22:52.680
+Parisa Ataei: a public release out. We're all on the same page? Okay, perfect.
+
+170
+00:22:55.240 --> 00:22:58.500
+Kevin Millikin: Yeah, I don't know exactly how those dates will shake out, but yes.
+
+171
+00:23:00.010 --> 00:23:10.719
+Kevin Millikin: And this is probably not a release that we announce as widely as we have our previous ones. What we really do announce is we tell people, like the Discord users, that this is targeting a different network.
+
+172
+00:23:10.900 --> 00:23:12.939
+Kevin Millikin: And that they should not update.
+
+173
+00:23:13.430 --> 00:23:20.859
+Kevin Millikin: We might even, not allow it to be the latest for the purposes of the contact update tool.
+
+174
+00:23:22.180 --> 00:23:23.910
+Kevin Millikin: Which is a little weird.
+
+175
+00:23:33.100 --> 00:23:33.850
+Kevin Millikin: Okay.
+
+176
+00:23:33.970 --> 00:23:43.579
+Kevin Millikin: I was just gonna give a quick update on the ZKAR version 3. I made lots of cosmetic changes that improved the format.
+
+177
+00:23:43.680 --> 00:23:49.459
+Kevin Millikin: Joe got… got me, started on testing it with the ledger code, which is great.
+
+178
+00:23:49.690 --> 00:23:59.670
+Kevin Millikin: We are at the point where we are going to add ZKIIR version 3 types. So the first thing we'll do is we'll replace the curve point type.
+
+179
+00:24:00.060 --> 00:24:02.969
+Kevin Millikin: In the standard library with a native point.
+
+180
+00:24:03.770 --> 00:24:09.139
+Kevin Millikin: And native point is different from curve point because it will not be explicitly a struct type.
+
+181
+00:24:09.470 --> 00:24:11.329
+Kevin Millikin: It will be opaque.
+
+182
+00:24:11.440 --> 00:24:25.659
+Kevin Millikin: Because we don't know that all points are affine where you can project out X and Y coordinates. And the reason it's called native point is because there will be, four to a half dozen different kinds of curve points, depending on the curve.
+
+183
+00:24:26.520 --> 00:24:30.129
+Kevin Millikin: So they'll, so we'll have a lot of different curve points.
+
+184
+00:24:30.410 --> 00:24:47.269
+Kevin Millikin: And the difference will be that it's not when we have the flattened types passed that flattens everything down to field values. Native points don't get flattened down to a pair of field values. They stay native points, and they will be native points in the ZKII representation, so that the backend can actually just represent them directly as a native point.
+
+185
+00:24:50.590 --> 00:24:53.289
+Kevin Millikin: So that's the update on that. Are there questions?
+
+186
+00:24:54.920 --> 00:24:59.440
+Miguel Ambrona: They can also be called, maybe jab-jab points, to be more specific.
+
+187
+00:25:00.350 --> 00:25:04.540
+Kevin Millikin: Native points are… the native points and the jump-job points are identical.
+
+188
+00:25:06.060 --> 00:25:07.350
+Kevin Millikin: Yeah.
+
+189
+00:25:08.870 --> 00:25:15.340
+Kevin Millikin: That would be… that would be better. Native point is ambiguous. JumpJumpPoint would be… would be perfect.
+
+190
+00:25:15.610 --> 00:25:24.920
+Kevin Millikin: So we're going to do this as a, as a test to verify that we actually can make this work. And then after that, the world is our oyster, as they say.
+
+191
+00:25:28.300 --> 00:25:44.199
+Kevin Millikin: There's been a lot of talk over the last, 2 or 3 weeks about a, a very, sort of, MVP-style composable contracts feature that will address, a more dynamic kind of composability. Hang on, that's transformed by…
+
+192
+00:25:53.200 --> 00:26:00.690
+Kevin Millikin: Okay, the train… the train's gone by. There's a… there's a… there's a desire that, comes from, like, the very top.
+
+193
+00:26:00.710 --> 00:26:16.570
+Kevin Millikin: that we support use cases like a decentralized exchange, where the DEX, the decentralized exchange contract, can interact with token contracts, for instance, that were created after the DEX was written and deployed.
+
+194
+00:26:17.130 --> 00:26:30.419
+Kevin Millikin: And so we would like to support a kind of dynamic composability that allows a contract to make cross-contract calls to contracts that are… to circuit Sync contracts that were not known at deployment time.
+
+195
+00:26:31.350 --> 00:26:39.220
+Kevin Millikin: And the proposal is that we could do this by, interpreting ZKII representations of the called circuits.
+
+196
+00:26:39.340 --> 00:26:45.899
+Kevin Millikin: So we think that this… we can make this work. We have a plan to put together a sort of spike,
+
+197
+00:26:46.230 --> 00:26:58.470
+Kevin Millikin: the… the work we've sketched out takes, is planned for, like, 7 weeks. And so that puts us to getting it finished just before the end of year holidays.
+
+198
+00:26:59.050 --> 00:27:13.919
+Kevin Millikin: And the goal is that we would get a feature behind a flag, so not a completed feature that we would tell users is something that is ready for them to use, in seriousness, but a feature behind a flag that people could start trying out, giving us feedback, finding bugs.
+
+199
+00:27:14.100 --> 00:27:16.559
+Kevin Millikin: And so that's the… so that's the plan.
+
+200
+00:27:20.980 --> 00:27:29.970
+Andrey Venuto: Quick question. Emmanuel, did you get access to the docs you needed to analyze the dynamic composable contracts?
+
+201
+00:27:31.170 --> 00:27:35.870
+⟣ €₥ℵ∪ℓ: Are you referring to the proposal document?
+
+202
+00:27:35.870 --> 00:27:40.279
+Kevin Millikin: Yeah, just the proposal, I think, is the only thing that there really is right now.
+
+203
+00:27:40.760 --> 00:27:44.439
+⟣ €₥ℵ∪ℓ: I don't… think I saw any…
+
+204
+00:27:44.640 --> 00:27:45.280
+Kevin Millikin: up, up here.
+
+205
+00:27:45.280 --> 00:27:45.750
+⟣ €₥ℵ∪ℓ: Yeah.
+
+206
+00:27:45.750 --> 00:27:53.129
+Kevin Millikin: Iskender had some comments left on it. I'll ping you with it and see if you have access to it.
+
+207
+00:27:53.570 --> 00:28:06.639
+⟣ €₥ℵ∪ℓ: Yeah, so he just copy-pasted all that and, like, shared it with me over Slack, and I've been reading over that, so… Okay. Yeah, I guess technically I do. Just going through it right now and making comments in Notion.
+
+208
+00:28:07.720 --> 00:28:08.290
+Andrey Venuto: Okay.
+
+209
+00:28:08.290 --> 00:28:09.489
+⟣ €₥ℵ∪ℓ: So we're ready to…
+
+210
+00:28:12.660 --> 00:28:13.590
+Kevin Millikin: So the feature…
+
+211
+00:28:13.590 --> 00:28:14.700
+Andrey Venuto: I also…
+
+212
+00:28:14.700 --> 00:28:15.649
+Kevin Millikin: Oh, go ahead.
+
+213
+00:28:15.650 --> 00:28:19.870
+Andrey Venuto: I shared the… I also shared the notes from the previous meeting with you guys.
+
+214
+00:28:21.570 --> 00:28:22.979
+⟣ €₥ℵ∪ℓ: Oh, that's great. Awesome.
+
+215
+00:28:23.570 --> 00:28:24.490
+⟣ €₥ℵ∪ℓ: Excuse me.
+
+216
+00:28:24.940 --> 00:28:35.909
+Kevin Millikin: So the feature as designed is limited, just so we can get out a kind of MVP, version of it, and we would be especially interested in feedback from users
+
+217
+00:28:35.910 --> 00:28:52.209
+Kevin Millikin: about, which limitations are the highest priority for us to lift, because we have… we have ideas about all of… ways we would lift all of them, but we just need to focus our work a little bit. We also want to put ourselves in a position where we can evaluate the performance and see if it's…
+
+218
+00:28:52.300 --> 00:28:58.419
+Kevin Millikin: Tractable, or if it's a deal-breaker, or where we have to put engineering effort into performance improvements.
+
+219
+00:29:01.270 --> 00:29:12.489
+Kevin Millikin: the… I think that the audit results, the audit's been… there's an audit that's been ongoing of the CompactC code. They took a snapshot of the Compact C repository a month or so ago.
+
+220
+00:29:12.590 --> 00:29:27.470
+Kevin Millikin: And they've been looking at it, and looking at it quite deeply and finding running problems and issues, and I think the results are expected quite soon, because Maddie has already created placeholder JIRA issues for dumping the results into.
+
+221
+00:29:28.610 --> 00:29:46.859
+Kevin Millikin: The… I looked at the similar audit that was done of the ledger, and they found… they identified a lot of, like, high-quality issues that were good… that were good things to have, like, some things that the ledger knew about… team knew about, and some things that were new, so this is good. So I'm… I'm actually pretty excited about this… about this coming in and giving us something to…
+
+222
+00:29:47.160 --> 00:29:50.259
+Kevin Millikin: Also work on, in addition to all the other high-priority things.
+
+223
+00:29:52.400 --> 00:29:59.409
+Kevin Millikin: And then Kent has a using field descriptor for Ewan, so I think that's you, Kent.
+
+224
+00:30:01.390 --> 00:30:05.859
+Kent Dybvig: Yeah, so, this was an issue I, I,
+
+225
+00:30:07.320 --> 00:30:14.450
+Kent Dybvig: it came up because of a test that Les wrote, where he was using very large,
+
+226
+00:30:14.900 --> 00:30:21.589
+Kent Dybvig: unsigned integers. These are integers that are between the,
+
+227
+00:30:21.930 --> 00:30:27.869
+Kent Dybvig: Number of… that occupy more bytes than the number of bytes that fit in a field.
+
+228
+00:30:28.470 --> 00:30:30.669
+Kent Dybvig: But occupy their abyss.
+
+229
+00:30:30.800 --> 00:30:34.530
+Kent Dybvig: Than the number of bits that fit in a field.
+
+230
+00:30:35.380 --> 00:30:43.290
+Kent Dybvig: Right now, as far as I can… as far as I understand, the,
+
+231
+00:30:44.070 --> 00:30:53.810
+Kent Dybvig: the descriptors that we use in TypeScript to, to convert between ledger and, compact types, that is.
+
+232
+00:30:54.370 --> 00:30:59.980
+Kent Dybvig: really, TypeScript types, or JavaScript types for,
+
+233
+00:31:00.250 --> 00:31:15.019
+Kent Dybvig: or unsigned integers, ends up saying that, well, that must take up two fields, because it takes up more bytes. It's measured in bytes instead of bits. And so it says, oh, it takes up more bytes than fit in a field, therefore this must take up two fields.
+
+234
+00:31:15.400 --> 00:31:21.660
+Kent Dybvig: And that causes, of course, a proof failure, because the, the…
+
+235
+00:31:21.880 --> 00:31:26.759
+Kent Dybvig: the CKR code, knows that these things should only occupy one field.
+
+236
+00:31:28.070 --> 00:31:40.159
+Kent Dybvig: So the question is, how do we… how do we fix this? And, you know, the simplest fix in the world would be just to say, okay, well, the maximum unsigned integer is the one that fits in the number of field bytes.
+
+237
+00:31:41.970 --> 00:31:48.739
+Kent Dybvig: So we don't even allow those ones that don't fit in the number of field bytes, even if they would fit in the number of field bits.
+
+238
+00:31:49.300 --> 00:32:00.629
+Kent Dybvig: So that's… that's one possibility. Another possibility is that we, simply just use the field descriptor for unsigned integers.
+
+239
+00:32:01.830 --> 00:32:09.919
+Kent Dybvig: And so the question is, why don't we just use the field descriptor for unsigned integers? Are we getting some advantage off of
+
+240
+00:32:10.270 --> 00:32:12.120
+Kent Dybvig: Using some other descriptor.
+
+241
+00:32:12.390 --> 00:32:15.850
+Kent Dybvig: And this is really a question for Thomas.
+
+242
+00:32:16.690 --> 00:32:19.289
+Kent Dybvig: He seems to be on. Are you there, Thomas?
+
+243
+00:32:20.280 --> 00:32:28.509
+Thomas Kerber: Yes. So… Do we get an advantage of some other descriptor?
+
+244
+00:32:28.980 --> 00:32:34.780
+Thomas Kerber: Yes, so one thing that it does get us to use something else than the field descriptor there.
+
+245
+00:32:35.000 --> 00:32:41.600
+Thomas Kerber: Is, if we store it in… In the ledger state.
+
+246
+00:32:41.800 --> 00:32:47.119
+Thomas Kerber: Then, that descriptor gets stored in there as well.
+
+247
+00:32:47.430 --> 00:32:54.220
+Thomas Kerber: And in particular, that means that down the line, if we ever changed our field size.
+
+248
+00:32:54.870 --> 00:32:59.029
+Thomas Kerber: We would know whether it is affected by that change or not.
+
+249
+00:32:59.390 --> 00:33:04.599
+Thomas Kerber: So if, for example, we ever decided we're going to cut our field size in half.
+
+250
+00:33:05.100 --> 00:33:08.989
+Thomas Kerber: Which may happen, it may also not.
+
+251
+00:33:09.440 --> 00:33:17.160
+Thomas Kerber: Then, if we see, oh, this is a… You know, 8-byte object.
+
+252
+00:33:17.450 --> 00:33:21.739
+Thomas Kerber: We know it doesn't care, or even if we see that it's a…
+
+253
+00:33:23.160 --> 00:33:28.210
+Thomas Kerber: object that is, you know, up to or longer than the field size. We know that it's a… something…
+
+254
+00:33:28.570 --> 00:33:32.529
+Thomas Kerber: Fundamentally is the number of bytes that we will interpret differently
+
+255
+00:33:32.700 --> 00:33:37.500
+Thomas Kerber: As, say, a big int in whatever the new thing is, for example.
+
+256
+00:33:37.800 --> 00:33:40.739
+Thomas Kerber: Whereas, if we're storing it as a field element.
+
+257
+00:33:40.920 --> 00:33:48.420
+Thomas Kerber: We kind of have to just heuristically say it's probably still going to be an integer
+
+258
+00:33:48.610 --> 00:33:50.919
+Thomas Kerber: Hopefully still in range.
+
+259
+00:33:51.090 --> 00:33:58.650
+Thomas Kerber: So, I think there is… Yeah, I think it is relatively important that that information does survive.
+
+260
+00:33:59.030 --> 00:34:03.489
+Thomas Kerber: Just because it makes, it makes translation, or…
+
+261
+00:34:04.880 --> 00:34:08.639
+Thomas Kerber: It makes working with a different proving system in the future
+
+262
+00:34:09.480 --> 00:34:13.359
+Thomas Kerber: more robust. We have a better translation path for it.
+
+263
+00:34:14.469 --> 00:34:21.249
+Kent Dybvig: Okay, so… Right now, the size is measured in bytes. I assume it's…
+
+264
+00:34:21.659 --> 00:34:25.219
+Kent Dybvig: Not gonna happen, that we're gonna change that to be measured in bits.
+
+265
+00:34:26.949 --> 00:34:27.789
+Thomas Kerber: No.
+
+266
+00:34:27.790 --> 00:34:29.019
+Kent Dybvig: It's a ledger change.
+
+267
+00:34:29.820 --> 00:34:34.460
+Thomas Kerber: Yeah, that would be a relatively invasive change at this point.
+
+268
+00:34:35.360 --> 00:34:44.210
+Kent Dybvig: So, I think, therefore, that we probably just have to limit the unsigned integer range to what fits the number of field bytes.
+
+269
+00:34:48.989 --> 00:34:49.679
+Thomas Kerber: Yeah.
+
+270
+00:34:49.919 --> 00:34:51.499
+Thomas Kerber: That seems reasonable.
+
+271
+00:34:52.900 --> 00:34:55.129
+Kent Dybvig: I mean, it's still a very large number these days.
+
+272
+00:34:55.760 --> 00:35:00.590
+Kent Dybvig: To the 240-something… So…
+
+273
+00:35:01.550 --> 00:35:09.569
+Thomas Kerber: And I guess the hope would be that we get big integer support relatively soon anyway, at which point it becomes nitpicking.
+
+274
+00:35:10.370 --> 00:35:10.930
+Kent Dybvig: Right.
+
+275
+00:35:10.930 --> 00:35:14.019
+Kevin Millikin: Yeah, yeah, I'm… I'm comf… I'm comfortable with that.
+
+276
+00:35:14.720 --> 00:35:19.789
+Kent Dybvig: Okay, so we will fix this bug by eliminating the unsigned integer range.
+
+277
+00:35:22.430 --> 00:35:22.750
+Kevin Millikin: That's good.
+
+278
+00:35:22.750 --> 00:35:30.900
+Kent Dybvig: We're cutting off most of the unsigned integers this way, but they're also, you know, Yeah.
+
+279
+00:35:33.690 --> 00:35:38.529
+Thomas Kerber: We already cut off infinitely many when we decided… Yeah.
+
+280
+00:35:39.230 --> 00:35:39.950
+Kevin Millikin: Yeah.
+
+281
+00:35:41.100 --> 00:35:44.020
+Kevin Millikin: Alright, that's great. Is there anything else?
+
+282
+00:35:46.600 --> 00:35:50.160
+Kevin Millikin: Yeah, I'll already raise our hands on this platform, which is a shout, I think.
+
+283
+00:35:50.160 --> 00:35:51.240
+Andrey Venuto: Yeah, me neither.
+
+284
+00:35:53.550 --> 00:36:00.259
+Andrey Venuto: Well, if we don't have anything else, I propose we continue our meeting. I just need, like, 15 minutes with the team.
+
+285
+00:36:01.290 --> 00:36:06.150
+Kevin Millikin: Okay, I've… I've got some… I've got some… oh yeah, we're okay, we have half an hour.
+
+286
+00:36:06.150 --> 00:36:08.589
+Andrey Venuto: Yeah, so we can skip the other one.
+
+287
+00:36:09.080 --> 00:36:09.640
+Kevin Millikin: Okay.
+
+288
+00:36:09.780 --> 00:36:13.940
+Kevin Millikin: And what meeting link are we dialing into, Andre?
+
+289
+00:36:13.940 --> 00:36:14.530
+Andrey Venuto: There's no M.
+
+290
+00:36:14.530 --> 00:36:15.970
+Kevin Millikin: So there's no… so there's no confusion.
+
+291
+00:36:16.010 --> 00:36:20.699
+Andrey Venuto: Yeah, that's a good one. Let's go back to the Google Meets, the one that we're supposed to have.
+
+292
+00:36:21.000 --> 00:36:22.240
+Kevin Millikin: I deleted that one.
+
+293
+00:36:22.680 --> 00:36:29.519
+Andrey Venuto: No, but that is another one from… there is another one which is supposed to be our meeting another from now. Yeah, let's… let's join that.
+
+294
+00:36:29.520 --> 00:36:30.190
+Kevin Millikin: That's the one.
+
+295
+00:36:30.540 --> 00:36:31.120
+Andrey Venuto: okay.
+
+296
+00:36:31.120 --> 00:36:33.170
+Kevin Millikin: Does everyone understand?
+
+297
+00:36:33.290 --> 00:36:35.290
+Andrey Venuto: I'll share also in the channel.
+
+298
+00:36:35.290 --> 00:36:39.000
+Kevin Millikin: Okay, thank you for this, everybody. Thanks, guys. Happy.
+
+299
+00:36:39.000 --> 00:36:39.890
+⟣ €₥ℵ∪ℓ: Thank you, guys.
+

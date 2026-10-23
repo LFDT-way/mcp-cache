@@ -1,0 +1,982 @@
+WEBVTT
+
+1
+00:00:15.320 --> 00:00:16.550
+Wenjing Chu (Futurewei Technologies, Inc.): Hi, Sam.
+
+2
+00:00:16.930 --> 00:00:18.400
+Samuel Smith: Hey, Wenjink?
+
+3
+00:00:24.120 --> 00:00:26.119
+Samuel Smith: Is it just us, or.
+
+4
+00:00:26.120 --> 00:00:35.169
+Wenjing Chu (Futurewei Technologies, Inc.): It might be because I didn't see usually Drummond send out a email. But I didn't see it last night.
+
+5
+00:00:36.260 --> 00:00:42.259
+Wenjing Chu (Futurewei Technologies, Inc.): I was sick last week, so I didn't do much.
+
+6
+00:00:42.260 --> 00:00:43.480
+Wenjing Chu (Futurewei Technologies, Inc.): Wow, otherwise.
+
+7
+00:00:43.480 --> 00:00:46.193
+Samuel Smith: I have one thing. Yeah, I want to talk to you about
+
+8
+00:00:46.420 --> 00:00:46.950
+Wenjing Chu (Futurewei Technologies, Inc.): Okay.
+
+9
+00:00:48.530 --> 00:00:52.159
+Samuel Smith: But let's see, yeah, are you feeling better now?
+
+10
+00:00:52.520 --> 00:00:59.039
+Wenjing Chu (Futurewei Technologies, Inc.): I'm feeling a lot of it as if back, you know, basically the very end of it. I think it's still a little bit of a
+
+11
+00:00:59.740 --> 00:01:02.150
+Wenjing Chu (Futurewei Technologies, Inc.): symptom, but almost gone.
+
+12
+00:01:02.390 --> 00:01:11.250
+Samuel Smith: Oh, yeah, I got a text from Drummond just now, he said. He's in dice at dice in Zurich, and probably can't make the meeting this this morning.
+
+13
+00:01:12.230 --> 00:01:12.820
+Wenjing Chu (Futurewei Technologies, Inc.): Cool.
+
+14
+00:01:12.820 --> 00:01:16.070
+Samuel Smith: I guess we'll we'll have it without him.
+
+15
+00:01:16.070 --> 00:01:16.840
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah.
+
+16
+00:01:18.050 --> 00:01:24.434
+Samuel Smith: And I just have the one thing. If you weren't able to get to any of that stuff we talked about last time, I just have the one thing to discuss.
+
+17
+00:01:24.820 --> 00:01:25.420
+Samuel Smith: So I'm happy.
+
+18
+00:01:25.420 --> 00:01:26.390
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, we do that.
+
+19
+00:01:26.390 --> 00:01:26.890
+Samuel Smith: Cheers! Don't.
+
+20
+00:01:26.890 --> 00:01:29.014
+Wenjing Chu (Futurewei Technologies, Inc.): But I'm not ready to
+
+21
+00:01:29.590 --> 00:01:37.639
+Wenjing Chu (Futurewei Technologies, Inc.): not in anything organized. So if we don't have anything else you go ahead with. Yeah.
+
+22
+00:01:37.640 --> 00:01:38.420
+Samuel Smith: Oh, okay.
+
+23
+00:01:38.420 --> 00:01:39.640
+Wenjing Chu (Futurewei Technologies, Inc.): The topic, yeah.
+
+24
+00:01:39.890 --> 00:01:48.430
+Samuel Smith: Yeah. So if you remember, last last time we met we were just talking about the source identifier
+
+25
+00:01:48.540 --> 00:01:51.560
+Samuel Smith: being inside the encrypted payload.
+
+26
+00:01:51.560 --> 00:01:51.900
+Wenjing Chu (Futurewei Technologies, Inc.): Right.
+
+27
+00:01:52.377 --> 00:01:58.579
+Samuel Smith: And you had said that in some cases with with an Hpke
+
+28
+00:01:58.940 --> 00:02:09.329
+Samuel Smith: method, not the base method that that you did, that you were carrying that in the hpke. Did I hear that correctly? So it didn't need to be inside the
+
+29
+00:02:09.560 --> 00:02:12.150
+Samuel Smith: the pay. The encrypted payload.
+
+30
+00:02:12.715 --> 00:02:19.085
+Wenjing Chu (Futurewei Technologies, Inc.): The the source. So in that case the the source is part of the
+
+31
+00:02:20.010 --> 00:02:30.999
+Wenjing Chu (Futurewei Technologies, Inc.): key derivation. So it's kind of you can think of that. The the key the source information is embedded in there. So it's got the equivalent to result
+
+32
+00:02:31.120 --> 00:02:33.659
+Wenjing Chu (Futurewei Technologies, Inc.): without the this step.
+
+33
+00:02:33.910 --> 00:02:57.610
+Samuel Smith: So so the so I want to be really clear, because I I reread through the the hpke spec, and so the the key encapsulation method doesn't have a space for an identifier. I mean, there's the the shared public key identifier. But that's a completely different thing. So the only thing that can be in the encapsulation is a public key, or a set or public keys.
+
+34
+00:02:57.950 --> 00:03:19.360
+Samuel Smith: So if you say that the public key is part of the derivation that exposes us to malleability attacks. And that's my concern. If you don't actually have the identifier like in now, if the identifier is ephemeral, in that case the identifier is just the public key.
+
+35
+00:03:19.480 --> 00:03:26.710
+Samuel Smith: Then then they're equivalent. It's it's not a problem, although it's problematic from the standpoint of parsing. Because now you when you
+
+36
+00:03:26.780 --> 00:03:48.130
+Samuel Smith: when you do the decryption, the decryption has to return, not just the decrypted plain text from which you get the the source identifier. It has to return also as a separate parameter, the public key. And then you have to invert the lookup to find the the identifier. And that's the problem. That's the malleability attack. Because because if I have a persistent identifier.
+
+37
+00:03:48.130 --> 00:04:01.029
+Samuel Smith: then the persistent identifier, the public, the key state changes underneath the identifier. I mean, that's really the innovation of the trust spanning protocol is that we're using persistent identifiers, not public keys. And therefore the key state can change.
+
+38
+00:04:01.030 --> 00:04:20.627
+Samuel Smith: And so and so we have an out of band mechanism for looking up the key state which isn't subject to a key compromise, a personage attack or a malleability attack, and and a lot of people aren't familiar with this. It does mention hpk, spec. However, that ec, Ecdsa, because it's only
+
+39
+00:04:22.432 --> 00:04:35.689
+Samuel Smith: existential security, not strong security against unforgability existential unforgibility versus strong unforgability like the Ed. Dsa.
+
+40
+00:04:35.800 --> 00:04:38.209
+Samuel Smith: Then you can have a signature
+
+41
+00:04:38.790 --> 00:04:42.040
+Samuel Smith: for a different public key that still verifies.
+
+42
+00:04:42.170 --> 00:04:44.889
+Samuel Smith: So I can have a public key create a signature
+
+43
+00:04:45.200 --> 00:04:48.920
+Samuel Smith: it verifies I can find another public key
+
+44
+00:04:49.270 --> 00:04:53.649
+Samuel Smith: with the same signature. So then I can substitute my
+
+45
+00:04:53.900 --> 00:05:21.080
+Samuel Smith: fake public key, and it's still verify against the signature. So it doesn't satisfy Essr. It actually exposes us to the the attack that Esr, the embedding the source identifier in the encryption is meant to protect against. So you can't get away with including it on the outside. It has to be inside the encrypted content. It can't be in the in, the, in the key encapsulation message. That's that's my understanding. So we can talk about that some more, but that that was my concern.
+
+46
+00:05:22.260 --> 00:05:30.049
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, I so this was a quite bit of a discussion in the
+
+47
+00:05:30.290 --> 00:05:35.199
+Wenjing Chu (Futurewei Technologies, Inc.): back then, and I think I wrote it down somewhere.
+
+48
+00:05:36.140 --> 00:05:39.620
+Wenjing Chu (Futurewei Technologies, Inc.): I'm not sure I can find out right.
+
+49
+00:05:39.620 --> 00:05:50.580
+Samuel Smith: Yeah, I just I I if if you had thought that we were not putting it in the thing, it was my mistake, because I I always assumed all along that we always were gonna have the identifier, because the
+
+50
+00:05:50.580 --> 00:05:51.430
+Samuel Smith: because they
+
+51
+00:05:51.430 --> 00:06:04.430
+Samuel Smith: HP key can only put keys, not the identifier. So so you lose the ability to to securely associate the key state with the identifier in order to verify the signature.
+
+52
+00:06:04.590 --> 00:06:19.830
+Samuel Smith: Because because if I have keys that change for an identifier. Then then the signature could be for an old key, or it could be depending on the type of signature algorithm could be for a different identifier that uses the same key.
+
+53
+00:06:20.540 --> 00:06:31.980
+Samuel Smith: or it could be for a a different entity altogether. Who's using a different key? But with the same signature depending on the sing signing algorithm. So there's multiple.
+
+54
+00:06:31.980 --> 00:06:35.520
+Wenjing Chu (Futurewei Technologies, Inc.): And it is when the key State changes
+
+55
+00:06:35.670 --> 00:06:39.170
+Wenjing Chu (Futurewei Technologies, Inc.): during that transition period. Is that what you.
+
+56
+00:06:40.450 --> 00:06:41.460
+Wenjing Chu (Futurewei Technologies, Inc.): When do you have.
+
+57
+00:06:41.670 --> 00:06:50.529
+Samuel Smith: Well, well, yeah, yes. If if let's say that, I I sign, and I have an identifier.
+
+58
+00:06:50.530 --> 00:06:50.910
+Wenjing Chu (Futurewei Technologies, Inc.): Go ahead!
+
+59
+00:06:50.910 --> 00:07:01.379
+Samuel Smith: If if I sign something and send it over the wire. And in the meantime the key state changes, then I have. I can't assume that that's a valid
+
+60
+00:07:01.853 --> 00:07:22.690
+Samuel Smith: signature anymore. Because 1 1 of the main reasons for the key state to have changed is that the key that was compromised. And so what what I have now is. I have a a signed packet that could have been signed with a compromised key, and I have no way of knowing.
+
+61
+00:07:22.990 --> 00:07:23.895
+Samuel Smith: because
+
+62
+00:07:25.000 --> 00:07:36.459
+Samuel Smith: because unless I'm anchoring my signatures to the key State, anything that I sign. So so the default policy is, if the only time you would accept a signature
+
+63
+00:07:36.540 --> 00:08:06.100
+Samuel Smith: is if this it was signed with your current key state. As soon as you rotate your key, state everything you signed with that old key is immediately null and void, and that's the standard policy for tokens anything ephemeral for security. So you just can't trust it. So the fact that we have an identifier. That key can change means we have. We have a different policy that says, Well, if the key state changes, then anything signed with that last key we can't validate, but if we don't send the identifier we can't know that the key state has changed.
+
+64
+00:08:06.880 --> 00:08:27.819
+Samuel Smith: and and so that defeats the whole, the whole point of having identifiers with with dynamic key State or persistent identifiers that that exist forever. And we just go back to just using public keys, which is which which the Hpe guys don't have a concept of identifiers that aren't just public keys. They? It's not in their brain. They? They have never heard or thought of this idea.
+
+65
+00:08:28.230 --> 00:08:42.510
+Samuel Smith: so so I don't. So so you can't rely on them for for anything reliable with regard to what we're doing with Tsp, because they don't. They don't. They don't understand the concept of of identifiers that have changing key state.
+
+66
+00:08:42.510 --> 00:08:51.140
+Wenjing Chu (Futurewei Technologies, Inc.): So in this case the receiver is receiver's responsibility every single time, or whatever it chooses to check the
+
+67
+00:08:51.270 --> 00:08:52.620
+Wenjing Chu (Futurewei Technologies, Inc.): state of the.
+
+68
+00:08:52.620 --> 00:08:53.350
+Samuel Smith: Yes.
+
+69
+00:08:53.720 --> 00:09:12.959
+Samuel Smith: yes, and and it's the risk. And if the receiver is caching that and the in the and you know the cache timeout or something, then the receiver might be subjected to a narrow window where where that happens. But that's that's purely on the receiver. That's the receiver's choice. They can optimize that. But but
+
+70
+00:09:12.960 --> 00:09:24.429
+Samuel Smith: but but this, the sender is only protect, is only protected to the extent that it, it does the best that it could do. Which is, it rotated its key state, and if any receivers don't pick that up.
+
+71
+00:09:24.790 --> 00:09:27.949
+Samuel Smith: then then the receiver, subject to attack.
+
+72
+00:09:28.380 --> 00:09:31.770
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so I'll take a note and.
+
+73
+00:09:31.770 --> 00:09:32.240
+Samuel Smith: Okay.
+
+74
+00:09:32.240 --> 00:09:36.330
+Wenjing Chu (Futurewei Technologies, Inc.): To dig out the the note we wrote back way back.
+
+75
+00:09:36.330 --> 00:09:37.210
+Samuel Smith: Yeah, okay.
+
+76
+00:09:37.410 --> 00:09:45.740
+Wenjing Chu (Futurewei Technologies, Inc.): And see if this is an issue, because we, you know, if it is, then we may be able to, you know. Let's discuss that next time.
+
+77
+00:09:46.190 --> 00:10:13.129
+Samuel Smith: Yeah, okay, but that that. But but based on that, my, my strong assumption is that the source identifier must be inside the crypto payload there is. It isn't an optional thing, and the Hpke mechanism wouldn't ever change that, because it can't convey that identifier. It can only convey public keys. There's another attack. So that's that's the attack where the key state changes. The other attack is dependent on the digital signing algorithm.
+
+78
+00:10:13.430 --> 00:10:14.850
+Samuel Smith: So so
+
+79
+00:10:16.192 --> 00:10:22.987
+Samuel Smith: most digital signing algorithms, like all the Ecdsa family and all of the related ones
+
+80
+00:10:23.650 --> 00:10:31.450
+Samuel Smith: ha! Are have a malleability attack, and the attack looks like this. If somebody gives me a signature
+
+81
+00:10:31.690 --> 00:10:36.449
+Samuel Smith: that is an Ecdsa signature. I can find a public key
+
+82
+00:10:36.710 --> 00:10:44.979
+Samuel Smith: that will verify against that signature, and it doesn't have to be the public key that belongs to the private key that created the signature.
+
+83
+00:10:46.580 --> 00:11:05.710
+Samuel Smith: And so that is a known attack that people have used against Bitcoin, where people would submit transactions, they would check the signature on the transaction and say, Yeah, that's the same signature on the transaction that I posted. They wouldn't actually check the details of the transaction, because that would require additional work.
+
+84
+00:11:05.710 --> 00:11:22.859
+Samuel Smith: And so somebody could then post a different transaction with it. Using a different identifier, you know, and with the same signature, and they would verify against the other person's signature. So so so
+
+85
+00:11:23.455 --> 00:11:29.144
+Samuel Smith: against their key, because they they could substitute a different public key. If in the paper,
+
+86
+00:11:30.000 --> 00:11:33.840
+Samuel Smith: provable security of Eddsa.
+
+87
+00:11:34.395 --> 00:11:58.229
+Samuel Smith: Ecd, yeah. Ed. 2, 5, 5, 1, 9, they talk about that attack. So that's that's how they came up with the term. Strong unforgeability is to distinguish between sing signing algorithms that are subject to that attack versus ones that aren't so so existential, and forgibility is subject to that attack where strong and forgibility isn't so. So if all we send around our public keys and signatures.
+
+88
+00:11:58.230 --> 00:12:04.180
+Samuel Smith: Then we're subject to that attack because somebody could substitute a public key, and it'll still verify.
+
+89
+00:12:04.180 --> 00:12:12.369
+Samuel Smith: because the because you only use the public key to verify, not the private key. And so you can find another public key that will that will verify against that signature.
+
+90
+00:12:13.190 --> 00:12:15.250
+Samuel Smith: Yeah, I mean, it's it's not easy.
+
+91
+00:12:15.360 --> 00:12:35.499
+Samuel Smith: You basically have to search the space. You have to create a whole bunch of public private key pairs. So you find one. But it but it, but it, but you can do it in much less than you know. 2 to the 2, to the 16 operations. It's a pretty, it's it's a. It's a reasonable brute force attack, and and they used it in in Bitcoin.
+
+92
+00:12:36.270 --> 00:12:47.119
+Wenjing Chu (Futurewei Technologies, Inc.): And the the. So the protection again is basically give the same thing right with basically giving the receiver an opportunity to do that.
+
+93
+00:12:47.550 --> 00:12:47.870
+Samuel Smith: Yeah.
+
+94
+00:12:47.870 --> 00:12:50.650
+Wenjing Chu (Futurewei Technologies, Inc.): Whether they do it every single time, or you know
+
+95
+00:12:51.120 --> 00:12:55.020
+Wenjing Chu (Futurewei Technologies, Inc.): that's up to them. But they would have the opportunity to to.
+
+96
+00:12:55.020 --> 00:13:06.089
+Samuel Smith: Yeah. So so the reason the reason, Ed, 2, 5, 5, 1, 9 is not subject to that attack is because they prepend the the public key
+
+97
+00:13:06.530 --> 00:13:15.979
+Samuel Smith: to the signed data before they do the hash that becomes the signature. So it's a dip. So you can't ever find
+
+98
+00:13:16.240 --> 00:13:36.969
+Samuel Smith: another public key because it's part of the hash. But Ecdsa doesn't do that. Ecdsa doesn't put the public key inside the hash data. So when we put the identifier inside the encrypted data. We're essentially doing the same thing for our identifier. We're making it so that we are not subject to any of those malleability attacks on the identifier.
+
+99
+00:13:36.970 --> 00:13:51.650
+Samuel Smith: which is, which is what Essr recognizes, but they just use the public key. And since we're using the identifier, we, we get the same unforgeability constraint, but on a and on on a system that allows us to change key state.
+
+100
+00:13:52.240 --> 00:14:03.019
+Samuel Smith: And and that's the that's the main innovation of of doing stuff. The the carry way right? And and or any identifier system that has. You know.
+
+101
+00:14:03.240 --> 00:14:05.260
+Samuel Smith: key state.
+
+102
+00:14:05.260 --> 00:14:06.755
+Samuel Smith: Yeah. So you oh.
+
+103
+00:14:07.130 --> 00:14:12.939
+Wenjing Chu (Futurewei Technologies, Inc.): You you because the the the id, giving you more information than the.
+
+104
+00:14:12.940 --> 00:14:40.760
+Samuel Smith: Yeah, that that's right. The idea. Yeah. And if it, I mean now, obviously, if the identifier isn't securely derived from the in the incepting key state. And if it doesn't have a secure mechanism, a verifiable mechanism for propagating key state in time as it changes, then then the identifier doesn't buy you anything right? I mean that that then you've just recreated. Dns, right? You've got a
+
+105
+00:14:41.340 --> 00:15:11.129
+Samuel Smith: right. You've got certificates that propagate key state through time, but they're completely insecure. They're just asserted. They're not bound to the identifier. And so you have all of all of the problems that you get from that. But you do get the the advantage of being able to change key state. Right? So so so so that that's the that's the trade off there. So we don't want to make that trade. We want to be able to change key state, but not make the trade to to have a completely insecure system in the process, which is what we get with Dns.
+
+106
+00:15:11.770 --> 00:15:18.199
+Samuel Smith: So that's my concern. So I just wanted to, you know, and we haven't talked about it in a long time. So I'm not, you know.
+
+107
+00:15:18.200 --> 00:15:44.630
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, yeah, it's been quite a while. So I remember this this back and forth for several times meetings I remember wrote down at at least that you know a couple of pages. Why, we concluded that time. So we'll revisit that again. Make sure that these these these new issues are covered. If that's true, then we could
+
+108
+00:15:44.630 --> 00:15:51.750
+Wenjing Chu (Futurewei Technologies, Inc.): simplify that as well, because then we don't need these various variations of it.
+
+109
+00:15:52.550 --> 00:16:17.257
+Samuel Smith: Yes, that's right. Yeah. And that that's and that's why that's why, even if you're using non transferable key state identifiers, it's still advantageous to, not to to just be able to have the encryption, give you the plain text, and not have to attach to it the source identifier, so that you can then verify the signature, and and and say that it was there. You know.
+
+110
+00:16:18.040 --> 00:16:37.417
+Samuel Smith: It's it. I mean, you're still signing the the chem. But but now that's a separate piece of data that you have to push through the layers. And instead, just just send the plain text up. And the plain text includes as the 1st field the source identifier in every case. So it's simplifies that. Anyway. I posted the link to the
+
+111
+00:16:37.970 --> 00:16:40.980
+Samuel Smith: the Ed. 2, 5, 5, 1, 9. Paper.
+
+112
+00:16:40.980 --> 00:16:41.655
+Wenjing Chu (Futurewei Technologies, Inc.): Okay.
+
+113
+00:16:42.330 --> 00:16:47.873
+Samuel Smith: And and it goes and it talks about the malleability attacks on Ecdsa.
+
+114
+00:16:48.510 --> 00:16:52.090
+Samuel Smith: I think. What section? Yeah, I don't remember the section, but
+
+115
+00:16:52.720 --> 00:16:55.939
+Samuel Smith: it's it's down there, but you can look at it, and you can find it.
+
+116
+00:16:55.940 --> 00:17:05.069
+Wenjing Chu (Futurewei Technologies, Inc.): And I believe the all the existing user of hpke also use the base mode.
+
+117
+00:17:05.910 --> 00:17:12.480
+Samuel Smith: Yes, and so anything that's not base mode is highly experimental, and and I don't know that there's any reason
+
+118
+00:17:12.599 --> 00:17:16.563
+Samuel Smith: to use anything but base mode given that we're using
+
+119
+00:17:17.240 --> 00:17:35.049
+Samuel Smith: this identifier system. Right? I mean, if you look at the non-base mode, they're exchanging an additional shared secret as an additional authentication mechanism. But that still isn't doesn't protect them from King compromise impersonation attacks. So they're still not
+
+120
+00:17:35.050 --> 00:17:58.160
+Samuel Smith: strong authentication. It's just a little bit stronger, right? It's a little bit stronger than right. You get 2. You get 2, 2, often 2, 2. It's 2 factor. It's it's 2 factor with 2 shared secrets, but but it's still it's still it's still not as strong as is is having a a digital signature with an out of band exchange of.
+
+121
+00:17:58.160 --> 00:18:16.869
+Wenjing Chu (Futurewei Technologies, Inc.): Are you familiar with the the other, the the group working on this, and also there. I remember there's a Tos group using it, and also a multicast group, I think, want. They want to recreate something similar to signal. are you familiar.
+
+122
+00:18:16.870 --> 00:18:24.019
+Samuel Smith: Yeah, and they're there. But but I'm not familiar with those groups other than you have this very
+
+123
+00:18:24.370 --> 00:18:32.730
+Samuel Smith: echo chamber kind of thing going on in the crypto community, where they they have
+
+124
+00:18:33.060 --> 00:18:41.919
+Samuel Smith: convince themselves that it's just impractical. Do digital signing with non reputable signatures? Signing is too hard.
+
+125
+00:18:42.060 --> 00:18:46.279
+Samuel Smith: so everything has to be authentication through shared secrets.
+
+126
+00:18:47.190 --> 00:19:04.100
+Samuel Smith: right? And and and it's just more of the same right? And so if I'm doing, if I'm doing a group, a group encryption scheme. Then what I'm gonna do is I'm gonna create a single shared secret among the group, right? And there are very method, various mechanisms for doing that. There's a there's several papers like 10 years ago
+
+127
+00:19:04.230 --> 00:19:08.169
+Samuel Smith: on on how to use like a Patricia tree
+
+128
+00:19:08.240 --> 00:19:35.990
+Samuel Smith: to to efficiently share share the encryption key amongst a group right by doing diffie helmet key exchanges in in a tree form of of any number of group members, and then you can add and remove members from the group group. And and do you know either either binary tree or a patricia tree? So. But it's still it's still weak authentication, right? And and you can't detect a leaker if somebody in the group is leaking the information.
+
+129
+00:19:36.950 --> 00:19:57.920
+Samuel Smith: you can't tell which member of the group, because it's not, it's it's reputable. Every every every form of authentication is reputable to say no, it wasn't me. It's the other person. Now, if there's only 2 you could say, well, it's the other guy and the other guy could say, no, it was you. And now any 3rd party says, well, I don't know. It's it's 1 of you 2, but I can't tell right so so.
+
+130
+00:19:57.920 --> 00:20:08.519
+Wenjing Chu (Futurewei Technologies, Inc.): That's the biggest of a change. I think we we chose, I mean, even with a diff. I think it's very different, because we choose to really make this the top part.
+
+131
+00:20:08.920 --> 00:20:19.210
+Samuel Smith: Yeah. And that that's the that was the primary weakness of Didcom in its inception is that almost now now, Didcom version 2 allows you use non reputable digital signatures.
+
+132
+00:20:19.380 --> 00:20:26.930
+Samuel Smith: but but that means then, having the infrastructure to to share the the the key state
+
+133
+00:20:27.040 --> 00:20:52.300
+Samuel Smith: out of band, so that so that those work and and nobody none of the did methods have that except for, like the you know, the carry base did methods or the the carry the the carry light. Did methods that that copied the the verifiable data structure for the key state. But not not everything. So so yes, that is, the departure from everybody else in the world.
+
+134
+00:20:52.400 --> 00:21:20.650
+Samuel Smith: But everybody else in the world is subject to attacks, because their authentication is based on shared secrets, and and the and the attackers have just gotten really good at at how to cause. All you have to do is fish one edge right? There's 2 edges in a shared secret. You just have to get one of them, and now you have the other end. So now you can do a recursive privilege, isolation, attack just by just, and you just need to find the weakest edge right and.
+
+135
+00:21:20.650 --> 00:21:25.570
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so and so, attacking a endpoint is really easy.
+
+136
+00:21:25.800 --> 00:21:26.290
+Samuel Smith: Yes.
+
+137
+00:21:26.290 --> 00:21:28.106
+Wenjing Chu (Futurewei Technologies, Inc.): Fortunately, it's quite easy. Yeah.
+
+138
+00:21:28.470 --> 00:21:57.629
+Samuel Smith: Yeah. So so, anyway. So that that was my concern. Well, that's the only thing I had to talk about. So I know you've been. You've been sick and stuff like that. So when you get a chance to look at that, but I I think my suggestion is is that the the that every payload must have the source identifier. And we can just standardize. So that's the 1st field. Well, it's actually the second field. The 1st field is the payload type. But every payload type has the source identifier unless it's if it's.
+
+139
+00:21:58.230 --> 00:22:09.049
+Samuel Smith: you know, unless it's a nested payload. That isn't Essr right, you can always have the next payload down isn't Essr, but if it's an Esr. Essr payload, then it'll have it so.
+
+140
+00:22:11.460 --> 00:22:18.964
+Samuel Smith: if if if the wrapper is an Essr wrapper, right? You can have a payload. That's not an Essr wrapper.
+
+141
+00:22:20.100 --> 00:22:25.279
+Samuel Smith: which, which is one layer down from the highest Dssr wrapper, whatever that is.
+
+142
+00:22:25.710 --> 00:22:28.840
+Samuel Smith: Well, that's all I had. So I just wanted to bring that up.
+
+143
+00:22:29.060 --> 00:22:37.260
+Wenjing Chu (Futurewei Technologies, Inc.): Great great anyone else have a topic to bring up. We we didn't have a agenda.
+
+144
+00:22:37.380 --> 00:22:40.960
+Wenjing Chu (Futurewei Technologies, Inc.): but you know Pre selected this time so.
+
+145
+00:22:45.390 --> 00:22:50.169
+Wenjing Chu (Futurewei Technologies, Inc.): and I was sick most most of it last week.
+
+146
+00:22:50.170 --> 00:22:50.800
+Samuel Smith: Let's see.
+
+147
+00:22:51.560 --> 00:22:53.280
+Eric Drury (Forth Consulting): Are you getting better? Whinging.
+
+148
+00:22:54.185 --> 00:22:57.762
+Wenjing Chu (Futurewei Technologies, Inc.): The only thing left is a little bit of coughing.
+
+149
+00:22:58.120 --> 00:22:58.670
+Eric Drury (Forth Consulting): Right.
+
+150
+00:22:58.840 --> 00:23:02.930
+Wenjing Chu (Futurewei Technologies, Inc.): And that, and it almost gone. So a lot better.
+
+151
+00:23:03.390 --> 00:23:04.000
+Eric Drury (Forth Consulting): All right.
+
+152
+00:23:10.830 --> 00:23:36.350
+Wenjing Chu (Futurewei Technologies, Inc.): Charles and Rob Mackey. Great to see you all, any any questions. Topics you want to. I I can share one thing. We we are just starting working on the the code side again to we heard about quite a bit a lot of a different type of applications. And so so the this
+
+153
+00:23:38.450 --> 00:23:47.740
+Wenjing Chu (Futurewei Technologies, Inc.): the new development work is to. Of course, one is to update, to keep up with the spec update.
+
+154
+00:23:47.940 --> 00:24:11.370
+Wenjing Chu (Futurewei Technologies, Inc.): And but then we'll focus on various kinds of applications the higher level protocols that can be done. So we want to do a few of those examples. If you guys have anything that's really interesting love to do that. There was a talk with the group was about a month ago now or 2 weeks ago.
+
+155
+00:24:11.470 --> 00:24:14.609
+Wenjing Chu (Futurewei Technologies, Inc.): and so we want to do some experimentation
+
+156
+00:24:15.150 --> 00:24:18.710
+Wenjing Chu (Futurewei Technologies, Inc.): on that. As well. See, we can keep the messaging
+
+157
+00:24:19.810 --> 00:24:34.009
+Wenjing Chu (Futurewei Technologies, Inc.): protocol in higher layer or higher part of the com, and to run over Tsp. That would be good experimentation as well. But it will be looking at other messaging protocols as well.
+
+158
+00:24:34.280 --> 00:24:35.850
+Wenjing Chu (Futurewei Technologies, Inc.): Eric. Yes.
+
+159
+00:24:35.850 --> 00:24:38.540
+Eric Drury (Forth Consulting): When doing 2 things. When you say we, who's we.
+
+160
+00:24:38.540 --> 00:24:44.050
+Wenjing Chu (Futurewei Technologies, Inc.): Oh, the project in open wallet. So the Tsp project
+
+161
+00:24:46.630 --> 00:25:06.700
+Wenjing Chu (Futurewei Technologies, Inc.): currently, I have. Let me see, maybe like 3 or 4 developers working on it. There are others express interest over doing essentially other type of applications on the top. So again, using trust of Ips terminology that will be trust tests.
+
+162
+00:25:06.860 --> 00:25:07.420
+Eric Drury (Forth Consulting): Like.
+
+163
+00:25:08.360 --> 00:25:19.260
+Wenjing Chu (Futurewei Technologies, Inc.): And so again, that that the project group, hoping that there will be more people starting to doing various kind of just asks on.
+
+164
+00:25:19.260 --> 00:25:21.720
+Eric Drury (Forth Consulting): Okay, yeah, okay, yeah.
+
+165
+00:25:22.300 --> 00:25:29.250
+Eric Drury (Forth Consulting): Alright. So that's the that's the 1st question. The second question is, the the
+
+166
+00:25:29.450 --> 00:25:34.109
+Eric Drury (Forth Consulting): trust over, IP is thinking sometime later in the year
+
+167
+00:25:34.250 --> 00:25:45.829
+Eric Drury (Forth Consulting): that we wanna do some sort of demo like a demo day, just to show that. You know the technology is is out there. It's it's, you know, they're in production environments, etc.
+
+168
+00:25:46.300 --> 00:25:47.170
+Eric Drury (Forth Consulting): M.
+
+169
+00:25:47.310 --> 00:25:53.819
+Eric Drury (Forth Consulting): So when and what would you think? Would it be? Sort of the open wallet
+
+170
+00:25:53.920 --> 00:26:00.180
+Eric Drury (Forth Consulting): implementation that would be able to be demoed, and if so, like, when would you be comfortable, showing that.
+
+171
+00:26:00.640 --> 00:26:07.300
+Wenjing Chu (Futurewei Technologies, Inc.): We actually did the 1st demo last year in the fall Iw.
+
+172
+00:26:08.770 --> 00:26:09.400
+Eric Drury (Forth Consulting): Yes.
+
+173
+00:26:09.400 --> 00:26:25.233
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so we can do demo now. And it's pretty nice. Actually, you can, you know, basically send a message back and forth, going through the out of band messaging how to start and show the messages.
+
+174
+00:26:25.620 --> 00:26:25.980
+Eric Drury (Forth Consulting): No.
+
+175
+00:26:27.570 --> 00:26:40.869
+Wenjing Chu (Futurewei Technologies, Inc.): the next level demo will be actually applications. So again, you know, maybe a trust task. So so that kind of a demo probably be
+
+176
+00:26:42.830 --> 00:26:45.109
+Wenjing Chu (Futurewei Technologies, Inc.): summertime, or after summer.
+
+177
+00:26:45.580 --> 00:26:46.230
+Eric Drury (Forth Consulting): Okay? Yeah.
+
+178
+00:26:46.230 --> 00:26:58.819
+Eric Drury (Forth Consulting): because because the I guess the point is with with us being part of Linux Foundation and under that umbrella that they're asking us. So there's a bit of a bigger audience. So they're asking us, hey, do you guys
+
+179
+00:26:59.579 --> 00:27:07.959
+Eric Drury (Forth Consulting): have anything to to share? Or they're they're they're suggesting that we do some sort of demo day, so that we can get a little bit more visibility.
+
+180
+00:27:08.510 --> 00:27:13.719
+Wenjing Chu (Futurewei Technologies, Inc.): Do they have like? events for the demo day or something?
+
+181
+00:27:13.720 --> 00:27:18.100
+Wenjing Chu (Futurewei Technologies, Inc.): Well, it would be an event, but it would be trust over IP specific, I see.
+
+182
+00:27:18.100 --> 00:27:22.749
+Wenjing Chu (Futurewei Technologies, Inc.): And using their using the broader Linux Foundation network to.
+
+183
+00:27:22.850 --> 00:27:26.059
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, I would love to see like the
+
+184
+00:27:26.290 --> 00:27:34.530
+Wenjing Chu (Futurewei Technologies, Inc.): like we were talking about right, the trust registry query protocol to run over Tsp. And
+
+185
+00:27:34.670 --> 00:27:37.239
+Wenjing Chu (Futurewei Technologies, Inc.): within 2 demo as well.
+
+186
+00:27:37.240 --> 00:27:37.790
+Eric Drury (Forth Consulting): Yeah.
+
+187
+00:27:38.323 --> 00:27:39.923
+Wenjing Chu (Futurewei Technologies, Inc.): In addition to
+
+188
+00:27:41.570 --> 00:27:44.489
+Wenjing Chu (Futurewei Technologies, Inc.): the the ideas we're talking about here.
+
+189
+00:27:46.720 --> 00:28:00.362
+Wenjing Chu (Futurewei Technologies, Inc.): and we'll talk about the timing. We'll talk about location service. We talk there's quite a we talk about, you know, fraud protection for again messaging again. Right?
+
+190
+00:28:02.970 --> 00:28:08.518
+Eric Drury (Forth Consulting): Yeah, I think people just like to see, yeah, whatever the use case or the trust task is, I think people like to see it.
+
+191
+00:28:08.940 --> 00:28:09.700
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so that.
+
+192
+00:28:09.700 --> 00:28:10.370
+Eric Drury (Forth Consulting): And now on.
+
+193
+00:28:10.370 --> 00:28:18.170
+Wenjing Chu (Futurewei Technologies, Inc.): Definitely be more accessible to a lot of people. Today's demo we can do is that just Tsp itself? So what.
+
+194
+00:28:18.170 --> 00:28:18.630
+Eric Drury (Forth Consulting): Be.
+
+195
+00:28:18.630 --> 00:28:44.609
+Wenjing Chu (Futurewei Technologies, Inc.): Esp message going back and forth, and you can look at the you know the message envelope, how to nesting it, how all those kind of things it will be for relatively smaller audience. But once you have actual use cases, applications on top, you could open to much larger audience, and we can talk about the SDK, how you use it right about it, etc.
+
+196
+00:28:45.040 --> 00:28:48.709
+Wenjing Chu (Futurewei Technologies, Inc.): So now a great demo day kind of thing.
+
+197
+00:28:49.060 --> 00:28:53.650
+Eric Drury (Forth Consulting): Alright. So we'll maybe work towards that. And and then the last thing is that, is there anything
+
+198
+00:28:54.030 --> 00:28:58.300
+Eric Drury (Forth Consulting): that you guys want to share
+
+199
+00:28:58.890 --> 00:29:07.679
+Eric Drury (Forth Consulting): for this month because they're doing, and they do a Newsletter Monthly Newsletter. And they they've asked us if we have any anything to to share or promote.
+
+200
+00:29:09.337 --> 00:29:12.199
+Wenjing Chu (Futurewei Technologies, Inc.): When is this this month like? March.
+
+201
+00:29:12.200 --> 00:29:19.740
+Eric Drury (Forth Consulting): Yeah, I mean that we'll have to submit it this week. So I mean, if it's nothing, don't worry about it. But just so, you know, on a monthly basis they'll be coming to us and asking.
+
+202
+00:29:19.740 --> 00:29:21.120
+Wenjing Chu (Futurewei Technologies, Inc.): They do monthly.
+
+203
+00:29:21.120 --> 00:29:22.120
+Eric Drury (Forth Consulting): I think so. Yeah.
+
+204
+00:29:22.120 --> 00:29:25.440
+Wenjing Chu (Futurewei Technologies, Inc.): Oh, great! Then maybe what can do next month?
+
+205
+00:29:26.130 --> 00:29:26.450
+Eric Drury (Forth Consulting): Correct.
+
+206
+00:29:26.450 --> 00:29:31.780
+Wenjing Chu (Futurewei Technologies, Inc.): We will, we will. We can talk about definitely. Tsp, revision, right? The specs revision.
+
+207
+00:29:32.100 --> 00:29:34.290
+Wenjing Chu (Futurewei Technologies, Inc.): Maybe next month will be good.
+
+208
+00:29:34.600 --> 00:29:35.160
+Eric Drury (Forth Consulting): Okay.
+
+209
+00:29:36.060 --> 00:29:40.039
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, great to to hear that.
+
+210
+00:29:40.220 --> 00:29:52.769
+Wenjing Chu (Futurewei Technologies, Inc.): So we could, while we added, like we could also sign on some point we could plug in for the the AI. You know white paper as well, so that.
+
+211
+00:29:52.770 --> 00:29:53.610
+Eric Drury (Forth Consulting): That would be.
+
+212
+00:29:53.610 --> 00:29:54.800
+Wenjing Chu (Futurewei Technologies, Inc.): On that too.
+
+213
+00:29:55.080 --> 00:29:57.460
+Eric Drury (Forth Consulting): Yeah, true. Yeah, yeah, okay.
+
+214
+00:29:57.890 --> 00:30:01.950
+Wenjing Chu (Futurewei Technologies, Inc.): Great. So you are in our like a marketing. The the marketing group.
+
+215
+00:30:02.310 --> 00:30:06.669
+Eric Drury (Forth Consulting): No, somehow, I'm receiving these emails.
+
+216
+00:30:06.670 --> 00:30:07.260
+Wenjing Chu (Futurewei Technologies, Inc.): Okay.
+
+217
+00:30:07.260 --> 00:30:10.380
+Eric Drury (Forth Consulting): Because there's no residious there. Yeah.
+
+218
+00:30:10.713 --> 00:30:14.710
+Eric Drury (Forth Consulting): There's no, there's no Judith, and so me and Carly are getting.
+
+219
+00:30:14.710 --> 00:30:20.857
+Wenjing Chu (Futurewei Technologies, Inc.): Exactly. Yeah, yeah. Some of us have to go to pick that. Yeah.
+
+220
+00:30:23.960 --> 00:30:25.100
+Eric Drury (Forth Consulting): Barely load.
+
+221
+00:30:27.400 --> 00:30:42.609
+Samuel Smith: Great. Oh, I just posted. It's section 5, 4 of the of the paper posted, and the technical term is a key substitution attack, which is a type of key malleability attack. But I just wasn't using the the more precise term, which is a key substitution.
+
+222
+00:30:42.610 --> 00:30:48.550
+Wenjing Chu (Futurewei Technologies, Inc.): So they're just going to search a public key to fund a match.
+
+223
+00:30:49.020 --> 00:30:53.800
+Samuel Smith: Yeah, yeah. Well, basically, if somebody generates something with a signature.
+
+224
+00:30:53.800 --> 00:30:54.570
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah.
+
+225
+00:30:54.800 --> 00:30:57.950
+Samuel Smith: Then the signature and a public key.
+
+226
+00:30:57.950 --> 00:30:58.510
+Wenjing Chu (Futurewei Technologies, Inc.): Both are not.
+
+227
+00:30:58.510 --> 00:30:59.090
+Samuel Smith: Yeah.
+
+228
+00:30:59.550 --> 00:31:04.800
+Samuel Smith: yeah, yeah. It doesn't mean that it was signed by the private key that you thought it was signed by.
+
+229
+00:31:05.910 --> 00:31:07.420
+Wenjing Chu (Futurewei Technologies, Inc.): Right, right, right.
+
+230
+00:31:08.380 --> 00:31:17.270
+Samuel Smith: Because you can. You be many signature schemes are subject to a key. Substitution attacks right?
+
+231
+00:31:17.270 --> 00:31:17.850
+Samuel Smith: And so.
+
+232
+00:31:17.850 --> 00:31:20.179
+Wenjing Chu (Futurewei Technologies, Inc.): I guess it's just how hot it is, so.
+
+233
+00:31:20.180 --> 00:31:22.380
+Samuel Smith: This year, yeah.
+
+234
+00:31:22.530 --> 00:31:23.350
+Wenjing Chu (Futurewei Technologies, Inc.): Okay.
+
+235
+00:31:28.960 --> 00:31:35.000
+Wenjing Chu (Futurewei Technologies, Inc.): all right. If there's no other topics, I guess we can save half an hour.
+
+236
+00:31:35.500 --> 00:31:37.090
+Samuel Smith: Yeah, that would be great.
+
+237
+00:31:37.330 --> 00:31:38.369
+Wenjing Chu (Futurewei Technologies, Inc.): That'd be great.
+
+238
+00:31:38.550 --> 00:31:39.930
+Samuel Smith: See you in 2 weeks.
+
+239
+00:31:40.150 --> 00:31:42.579
+Wenjing Chu (Futurewei Technologies, Inc.): Well, thank you very much.
+
+240
+00:31:43.250 --> 00:31:53.430
+Wenjing Chu (Futurewei Technologies, Inc.): and see you in 2 weeks, and we'll report back all the what it was. 3 or 4 topics. Now, next hopefully. Next meeting.
+
+241
+00:31:53.750 --> 00:31:54.890
+Wenjing Chu (Futurewei Technologies, Inc.): Thank you so much.
+
+242
+00:31:54.890 --> 00:31:55.500
+Eric Drury (Forth Consulting): Alright. Thank you.
+
+243
+00:31:55.500 --> 00:31:55.890
+Samuel Smith: Thank you.
+
+244
+00:31:55.890 --> 00:31:56.860
+Makki Elfatih (Hkdolts): How much?
+
+245
+00:31:56.860 --> 00:31:58.920
+Makki Elfatih (Hkdolts): Speak soon? Bye, bye.
+

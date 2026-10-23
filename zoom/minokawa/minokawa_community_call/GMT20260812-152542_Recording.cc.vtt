@@ -1,0 +1,2054 @@
+WEBVTT
+
+00:05:59.000 --> 00:06:00.000
+That might be my bias.
+
+00:06:00.000 --> 00:06:08.000
+She clearly didn't because she didn't know how to mute everyone.
+
+00:06:08.000 --> 00:06:09.000
+Anyways, they're the kids.
+
+00:06:09.000 --> 00:06:11.000
+Sounds like they need to have an IT guy on the call.
+
+00:06:11.000 --> 00:06:16.000
+Yeah, exactly.
+
+00:06:16.000 --> 00:06:21.000
+Hello, everyone. For the two minutes in, I'm going to wait.
+
+00:06:21.000 --> 00:06:25.000
+I'm seeing lots of new faces, so welcome.
+
+00:06:25.000 --> 00:06:32.000
+Um, usually wait for the TSC members to at least join and
+
+00:06:32.000 --> 00:06:34.000
+Nothing has.
+
+00:06:34.000 --> 00:06:38.000
+Uh, we're gonna give them a couple of more minutes. Let me actually ping all of them.
+
+00:06:38.000 --> 00:06:56.000
+Oh, Joe's joining. Okay, here we go.
+
+00:06:56.000 --> 00:07:06.000
+Alright, exacerbating is anything on anyone's mind that they would like to discuss that does not appear on.
+
+00:07:06.000 --> 00:07:14.000
+on the agenda.
+
+00:07:14.000 --> 00:07:16.000
+Going once…
+
+00:07:16.000 --> 00:07:18.000
+Going twice…
+
+00:07:18.000 --> 00:07:23.000
+All right. If something comes up, feel free to raise your hand, ask to discuss it.
+
+00:07:23.000 --> 00:07:26.000
+That would be fine.
+
+00:07:26.000 --> 00:07:34.000
+And oh, here we go. Now we have Kent.
+
+00:07:34.000 --> 00:07:38.000
+Um, let's see…
+
+00:07:38.000 --> 00:07:40.000
+3 minutes, and…
+
+00:07:40.000 --> 00:07:45.000
+I'm gonna read a little bit longer to see if Kevin's gonna join.
+
+00:07:45.000 --> 00:08:00.000
+I'm going to annoyingly try again.
+
+00:08:00.000 --> 00:08:06.000
+Okay. All right, as a rating for Kevin.
+
+00:08:06.000 --> 00:08:21.000
+I'm gonna start… we have, I think from last time, we have the proof checks in circuits. I think that's something that Kent wanted to discuss, if I remember correctly.
+
+00:08:21.000 --> 00:08:28.000
+You are muted.
+
+00:08:28.000 --> 00:08:34.000
+Yeah, we have a separate meeting elsewhere. I don't think… I don't think we should waste people's time here, because we don't have all the right people anyway.
+
+00:08:34.000 --> 00:08:36.000
+Okay.
+
+00:08:36.000 --> 00:08:46.000
+That sounds good.
+
+00:08:46.000 --> 00:08:55.000
+All right. Then I have binary compatibility. What guarantee can we make about it?
+
+00:08:55.000 --> 00:09:03.000
+I do not know who has added this.
+
+00:09:03.000 --> 00:09:04.000
+Yeah
+
+00:09:04.000 --> 00:09:06.000
+David, do you want to take it away and give us some context?
+
+00:09:06.000 --> 00:09:11.000
+Sure. So
+
+00:09:11.000 --> 00:09:20.000
+Sure. So you guys have a serialization format called Fab or field aligned binary
+
+00:09:20.000 --> 00:09:22.000
+And
+
+00:09:22.000 --> 00:09:34.000
+Broadly speaking, so a little bit of introduction first. First of all, we have a protocol, and what that protocol does is it allows you to cross-chain transactions. And the way it does that is it emits events
+
+00:09:34.000 --> 00:09:46.000
+And those events are sort of read off-chain, and then it basically the thing that signed payloads are sent back to it. Those signed payloads are then, deserialized
+
+00:09:46.000 --> 00:10:03.000
+And then you get some sort of deck destruct out of it. So it's a classic, you need to serialization for that. Serialization is obviously rather difficult on ZKVMs. So we thought we would rely on the FAB format because it's internal to Compact, and it seems quite efficient
+
+00:10:03.000 --> 00:10:19.000
+Now, one of the issues we have with it is that it's explicitly an unstable format. So inside the specification document, it says that it can basically change on a minor version increment. And one of the issues is
+
+00:10:19.000 --> 00:10:36.000
+That if it changes, we end up in quite a bad spot rather quickly because people will send us things which maybe look a lot like valid balance changing transactions look a lot like Ethereum transactions they want to do. But subtle inconsistencies will turn into security vulnerabilities
+
+00:10:36.000 --> 00:10:54.000
+There'll be sort of valid transactions which are sort of invalid transactions. And the argument I made in this very long issue that I've wrote, apologies to those who have to read it is that there is already a canonicalized version of the FAB encoding format
+
+00:10:54.000 --> 00:11:09.000
+Which is used within persistent hash. Now, if you change the behavior of the Fab format, you change the behavior of persistent hash. And there's backwards compatibility guarantee for that. So it's probably not going to happen
+
+00:11:09.000 --> 00:11:19.000
+Which means that we should work towards stabilizing that format and work towards bringing that format into consistency with the existing spec.
+
+00:11:19.000 --> 00:11:36.000
+Because in the process of us trying to write these decoders in Rust, we ended up in a situation where we realized actually the spec and the implementation deviate in quite interesting ways, and obviously you guys can't change the implementation now because it would change the hashes generated. Yes, Kevin.
+
+00:11:36.000 --> 00:11:42.000
+Kevin, did you have a question?
+
+00:11:42.000 --> 00:11:45.000
+Maybe he's just putting his hand up.
+
+00:11:45.000 --> 00:11:52.000
+Oh, no, Kevin, you're muted.
+
+00:11:52.000 --> 00:11:57.000
+I'll just keep going.
+
+00:11:57.000 --> 00:12:10.000
+So anyway, yes. So broadly speaking, what we're asking for is ideally document the stability of FAB and whether it will at least remain consistent with persistent hash.
+
+00:12:10.000 --> 00:12:20.000
+So if you hash something and then try and serialize it and deserialize, it will actually work in the future. Then commit to a stability policy. I know it's pre 1.0, but I think it's already happened.
+
+00:12:20.000 --> 00:12:39.000
+And then we're happy to help you with this. Reconcile the existing specification with the implementation so that we can basically have a spec which is somewhat independent from the implementation so that bugs aren't copied bug for bug. And then when you fix a bug, suddenly our implementations become inconsistent
+
+00:12:39.000 --> 00:12:54.000
+And then I guess finally, optionally discuss maybe using an existing serialization format because there are advantages using someone else's format, although I appreciate there are many constraints put on by using a ZKBN
+
+00:12:54.000 --> 00:13:05.000
+And you probably don't want people implementing their own serialization formats in places like Rust, which is what we're going to be doing. So yeah, that's that's broadly the point I want to make. And I want to kind of start out a discussion on it
+
+00:13:05.000 --> 00:13:13.000
+And see what you guys think.
+
+00:13:13.000 --> 00:13:16.000
+Yeah, I agree with you. There should be love.
+
+00:13:16.000 --> 00:13:20.000
+There should be stability there, there should be versioning of the…
+
+00:13:20.000 --> 00:13:22.000
+of the FAB format.
+
+00:13:22.000 --> 00:13:24.000
+Um…
+
+00:13:24.000 --> 00:13:26.000
+And I…
+
+00:13:26.000 --> 00:13:32.000
+I wasn't aware of the persistent hash guarantees, but those make sense as well.
+
+00:13:32.000 --> 00:13:40.000
+And in this context, that seems to imply something about the others. Kevin, are you
+
+00:13:40.000 --> 00:13:43.000
+Yeah, I have internet problems here, so can you… can you hear me?
+
+00:13:43.000 --> 00:13:44.000
+Yep
+
+00:13:44.000 --> 00:13:45.000
+Yeah.
+
+00:13:45.000 --> 00:13:51.000
+Yeah, the Wi-Fi… the Wi-Fi's a little bit flaky, so I was just going to… I was just going to rewind a little bit, and I'm sorry I missed… I missed some.
+
+00:13:51.000 --> 00:13:52.000
+Um, there's actually two different issues here that we're talking about. So one is the field-aligned binary format itself.
+
+00:13:52.000 --> 00:13:59.000
+Yes.
+
+00:13:59.000 --> 00:14:03.000
+Which is the ledger's encoding of data in the ledger.
+
+00:14:03.000 --> 00:14:13.000
+Um, and the other issue, which is not… which is not spoken of anywhere, really, is that the compact compiler itself decides how to encode Compact data structures into FAB.
+
+00:14:13.000 --> 00:14:15.000
+So FAB is just really a…
+
+00:14:15.000 --> 00:14:19.000
+very, very generic format.
+
+00:14:19.000 --> 00:14:24.000
+Or blobs of bites. And the compiler itself decides how to encode data structures into FAB.
+
+00:14:24.000 --> 00:14:34.000
+Um, so a lot of the… I did read what was in the issue, and a lot of that is, um, relying very heavily on this line in the documentation for persistent hash.
+
+00:14:34.000 --> 00:14:36.000
+that it is guaranteed to be stable.
+
+00:14:36.000 --> 00:14:42.000
+And, um, I think we haven't really thought very hard about what that stability guarantee means. The intent was
+
+00:14:42.000 --> 00:14:45.000
+that it's always SHA256.
+
+00:14:45.000 --> 00:14:52.000
+And even if we change the underlying proof system of the Midnight Network, persistent hash would always be SHA256.
+
+00:14:52.000 --> 00:14:56.000
+That was… I think that that was the intent of what that line was… was…
+
+00:14:56.000 --> 00:14:59.000
+was… was trying to convey.
+
+00:14:59.000 --> 00:15:07.000
+And, um, we didn't guarantee, or we didn't intend to guarantee, that we would, between versions of the compact compiler, we would preserve the layout of
+
+00:15:07.000 --> 00:15:10.000
+structs, for instance.
+
+00:15:10.000 --> 00:15:13.000
+So we might… so we might not do that.
+
+00:15:13.000 --> 00:15:19.000
+I mean, what you're asking points to a need for us to do something like that.
+
+00:15:19.000 --> 00:15:32.000
+I'm just saying we haven't… we haven't done it yet.
+
+00:15:32.000 --> 00:15:33.000
+put… click… click… click…
+
+00:15:33.000 --> 00:15:34.000
+Sure. So I would perhaps argue that your documentation then would be widely misinterpreted, if not explicitly, I think people will sort of implicitly think
+
+00:15:34.000 --> 00:15:37.000
+Clearly. Yeah, I agree.
+
+00:15:37.000 --> 00:15:51.000
+Because they'll think if I put something in, I'll get the same hash out. And I think that assumption is going to have already bled into the smart contracts on midnight.
+
+00:15:51.000 --> 00:15:58.000
+Um, Bernard, do you want to…
+
+00:15:58.000 --> 00:16:14.000
+Yeah, yeah, it's basically just building on the point that David was making. So the field-the-line binary serialization, yeah, it would be great if that could be stabilized, which we've already spoken about a little bit, but then just also how the individual values out of a struct, for example, are packed
+
+00:16:14.000 --> 00:16:28.000
+into the serialized array of bytes after they've been filled along… after they've been FAB serialized. Like, that framing or lack of framing as it is at the moment, we're also hoping that can be stabilized somehow, because
+
+00:16:28.000 --> 00:16:44.000
+Yeah. Does the differentiation between the two things I'm talking about make sense? Just like the framing of the individual values because right now they basically have no zero padding for some values, for other values, they basically just get filled up with zeros and everything is like its natural
+
+00:16:44.000 --> 00:16:49.000
+So it takes up just as much space, sort of as it needs after its FAB
+
+00:16:49.000 --> 00:16:53.000
+serialized. And that also seems to be important if that can
+
+00:16:53.000 --> 00:16:59.000
+Yeah, fixed in some way so that deserialize can always work if the bytes are arranged in that way.
+
+00:16:59.000 --> 00:17:09.000
+Yeah, it's kind of like the framing on top of the way the FAB bits are put together, like the second half of the serialization
+
+00:17:09.000 --> 00:17:11.000
+I think I'd like to disentangle that.
+
+00:17:11.000 --> 00:17:14.000
+issue… all the talk of FAB.
+
+00:17:14.000 --> 00:17:18.000
+And ledger encodings of compact values from what you actually want to achieve.
+
+00:17:18.000 --> 00:17:26.000
+So I don't believe that what I've read is that you actually care that we standardize the encoding of values in the Midnight Ledger.
+
+00:17:26.000 --> 00:17:30.000
+Um, you just want a serialized and deserialized that is stable.
+
+00:17:30.000 --> 00:17:31.000
+or compact values.
+
+00:17:31.000 --> 00:17:35.000
+And consistent with the hash function, but I guess we could do that ourselves, obviously.
+
+00:17:35.000 --> 00:17:40.000
+Sure, yeah, yes, yeah. Well, I, well, um, it would be consistent with the hash value if you hashed the serialized.
+
+00:17:40.000 --> 00:17:43.000
+value.
+
+00:17:43.000 --> 00:17:44.000
+So I…
+
+00:17:44.000 --> 00:18:03.000
+Yeah, not forced on the ledger, just the stuff that goes in and out of the built-ins down serialization and deserialization standard library functions
+
+00:18:03.000 --> 00:18:11.000
+Okay. Do we have any more comments on this? I believe we can we can follow up on the.
+
+00:18:11.000 --> 00:18:14.000
+Uh, we can follow up from…
+
+00:18:14.000 --> 00:18:18.000
+Sorry, I cannot read and talk at the same time.
+
+00:18:18.000 --> 00:18:21.000
+Um, I'm gonna stop at something to do that.
+
+00:18:21.000 --> 00:18:29.000
+Um, you can follow up on the issue then, um, if it's clear. I think… I think we have an idea of what you guys are asking for.
+
+00:18:29.000 --> 00:18:34.000
+And…
+
+00:18:34.000 --> 00:18:35.000
+Cool. I can
+
+00:18:35.000 --> 00:18:38.000
+Unless anyone has any unanswered questions, or…
+
+00:18:38.000 --> 00:18:53.000
+Yeah, see, Edward is asking a question about how we know then what sell position in the ledger is mapped to the correct value we expect. So we're not actually talking about stuff in the ledger at the moment. It's stuff that needs to deserialize in circuit after being serialized off-chain
+
+00:18:53.000 --> 00:18:58.000
+So the specific use cases we read, for example, an Ethereum
+
+00:18:58.000 --> 00:19:14.000
+functions return values, so, like, some contract gets called on Ethereum, it has a return value, we extract that return value, and when it's extracted, it's in the ABR format from Ethereum, so we want to be able to, like, deserialize it into some intermediate struct, let's say, like, in Rust
+
+00:19:14.000 --> 00:19:29.000
+And then we want to be able to serialize it again, such that we can hash that serialized output and sign it, and have that get checked in circuit in compact, and then be deserialized at, like, circuit runtime, so that the
+
+00:19:29.000 --> 00:19:41.000
+function on the other side in midnight, when it kind of, like, consumes that sound response from the Ethereum side, that it can act on the output. So deserialize it into some struct. So we've come up with, like, a
+
+00:19:41.000 --> 00:19:56.000
+sort of like a schema specification language, which it doesn't feel nice to have to do, because it feels like it should already be specified somewhere else, potentially. So it's not about reading from cell positions on the ledger. It's assuming that we've just taken the value from
+
+00:19:56.000 --> 00:20:12.000
+serialize and passed it straight to the deserialize function. So we're trying to reproduce the behavior of the built-in standard library serialize function off-chain so that we can create bytes and serialize structures off-chain that can then be deserialized
+
+00:20:12.000 --> 00:20:20.000
+kind of, like, natively using the deserialize function. So not out of the ledger.
+
+00:20:20.000 --> 00:20:23.000
+Yeah, so I think… I think the way forward, then, is for…
+
+00:20:23.000 --> 00:20:26.000
+I think serialize and deserialize is the hook that you want.
+
+00:20:26.000 --> 00:20:29.000
+in the way forward is for us to actually specify what that encoding is.
+
+00:20:29.000 --> 00:20:32.000
+Um, inductively on Compact.
+
+00:20:32.000 --> 00:20:33.000
+compact types.
+
+00:20:33.000 --> 00:20:34.000
+Evan.
+
+00:20:34.000 --> 00:20:41.000
+Um, and then probably also version, the serialized format, so that you can tell if you have a version mismatch, and it gives us the ability
+
+00:20:41.000 --> 00:20:45.000
+to it sometime in the future, change it.
+
+00:20:45.000 --> 00:20:54.000
+Except, or at least be able to manually select a version so you can improve it, because you would probably want to be able to retain the older versions when you're
+
+00:20:54.000 --> 00:20:58.000
+Hashing stuff, as always. Hashing is always
+
+00:20:58.000 --> 00:21:05.000
+Exactly. Okay. Thank you for showing up today. I think we understand your use cases a lot better than we did when we were trying to chat.
+
+00:21:05.000 --> 00:21:10.000
+through intermediaries and stuff like that, so that's… so I'm really happy that you did that.
+
+00:21:10.000 --> 00:21:14.000
+It's great you have these
+
+00:21:14.000 --> 00:21:19.000
+All right, moving on to the next item that I also don't know who could put on here.
+
+00:21:19.000 --> 00:21:29.000
+So whoever could it please feel free to take the floor. It's maintainer status. How does one become a maintainer? Let's copy from LFDT projects. Also.
+
+00:21:29.000 --> 00:21:34.000
+Descenders.
+
+00:21:34.000 --> 00:21:36.000
+That's… that's me. Um…
+
+00:21:36.000 --> 00:21:40.000
+we have people who are, um, helping us triage issues,
+
+00:21:40.000 --> 00:21:47.000
+And, um, and committing and writing tests that are being committed to our repository, and they don't have maintainer status.
+
+00:21:47.000 --> 00:21:54.000
+And a barrier for them to get maintainer status as we have, and they actually documented how they would even go about that.
+
+00:21:54.000 --> 00:21:59.000
+Um, so I think that, uh, what we should do is we should have something that is
+
+00:21:59.000 --> 00:22:03.000
+part of our documentation, part of contributing to MD that says this is how you become a maintainer.
+
+00:22:03.000 --> 00:22:07.000
+Um, we should decide… decide what that is.
+
+00:22:07.000 --> 00:22:12.000
+Um, as the TSC vote… vote to approve it, and then we should just allow people to actually
+
+00:22:12.000 --> 00:22:16.000
+somehow obtain maintain maintainer status.
+
+00:22:16.000 --> 00:22:20.000
+Right now, the maintainers are the original people who are in the charter.
+
+00:22:20.000 --> 00:22:23.000
+as the TSC.
+
+00:22:23.000 --> 00:22:24.000
+And there's no avenue for anybody to become a maintainer.
+
+00:22:24.000 --> 00:22:39.000
+Yes.
+
+00:22:39.000 --> 00:22:40.000
+So just to explore the easiest option, why isn't this just the current maintainers vote or the steering committee votes?
+
+00:22:40.000 --> 00:22:46.000
+You are still muted.
+
+00:22:46.000 --> 00:22:52.000
+Up or down, um, based on whatever information they want to use.
+
+00:22:52.000 --> 00:22:57.000
+Why do we need a process other than that?
+
+00:22:57.000 --> 00:23:04.000
+We could. It feels… to me, it feels…
+
+00:23:04.000 --> 00:23:05.000
+Excuse me.
+
+00:23:05.000 --> 00:23:11.000
+a little bit too subjective, so if I wanted to become a maintainer of an open source project, then
+
+00:23:11.000 --> 00:23:15.000
+the barrier would be that I needed to convince some people to allow me to become one.
+
+00:23:15.000 --> 00:23:17.000
+And they could just say no.
+
+00:23:17.000 --> 00:23:24.000
+for… because I worked for the wrong organization, and they could say yes to other people because they worked for the correct organization, for instance.
+
+00:23:24.000 --> 00:23:29.000
+So I would… ideally, I would like it to be very much… I would like it to be more objective than that, that…
+
+00:23:29.000 --> 00:23:32.000
+Um, so lots of projects have…
+
+00:23:32.000 --> 00:23:37.000
+10 PRs that, you have submitted that the TSC feels have re…
+
+00:23:37.000 --> 00:23:41.000
+been high quality, and it's still… there's still some subjectiveness, obviously, there.
+
+00:23:41.000 --> 00:23:45.000
+But it's a lot easier to see if you're ticking the boxes or not.
+
+00:23:45.000 --> 00:23:54.000
+Yeah, okay, so I see the… Yeah. That's my point is that ultimately there's still subjectivity there because of that high quality barks.
+
+00:23:54.000 --> 00:23:56.000
+Um, if, if we've got…
+
+00:23:56.000 --> 00:24:02.000
+If we had 10 AI-generated or partially AI generated submissions for somebody that were
+
+00:24:02.000 --> 00:24:12.000
+but were actually not good, and we had to work really… they were useful, but not good, and we had to work really hard to get them in, then we're not going to be so enthusiastic about including that person as a maintainer.
+
+00:24:12.000 --> 00:24:17.000
+Um, but if somebody put together 3 really high quality ones.
+
+00:24:17.000 --> 00:24:22.000
+Um, that, uh, we required almost no, uh, hand holding.
+
+00:24:22.000 --> 00:24:26.000
+I think I'd be, I'd been flying the full dose with those people and so.
+
+00:24:26.000 --> 00:24:29.000
+I think the number of of
+
+00:24:29.000 --> 00:24:36.000
+Of things that a person does isn't, isn't a good indicator. It's not very objective.
+
+00:24:36.000 --> 00:24:38.000
+It is objective, but it's not very
+
+00:24:38.000 --> 00:24:45.000
+It's not very useful.
+
+00:24:45.000 --> 00:24:50.000
+Um, I prefer to have an action item on this, so that we decide on something.
+
+00:24:50.000 --> 00:24:53.000
+Just starting on something, and then…
+
+00:24:53.000 --> 00:24:59.000
+Over time, we can change it.
+
+00:24:59.000 --> 00:25:04.000
+I'm happy to take… I'm happy to take ownership of this and see what other LFDT projects that are at a similar stage in their lifecycle do.
+
+00:25:04.000 --> 00:25:08.000
+Yeah, I also think there's a…
+
+00:25:08.000 --> 00:25:12.000
+There's a little bit lack of disaster here.
+
+00:25:12.000 --> 00:25:15.000
+principle, um, that…
+
+00:25:15.000 --> 00:25:20.000
+Airing on the side of including a maintainer who may be.
+
+00:25:20.000 --> 00:25:24.000
+It may be useful to us for our convenience.
+
+00:25:24.000 --> 00:25:27.000
+It's not…
+
+00:25:27.000 --> 00:25:31.000
+Does not mean that they can…
+
+00:25:31.000 --> 00:25:35.000
+They can, uh, force something to appear in one of our releases, as long as
+
+00:25:35.000 --> 00:25:40.000
+As long as some chair of the steering committee is required to.
+
+00:25:40.000 --> 00:25:43.000
+to pull that levers, so we… we can always…
+
+00:25:43.000 --> 00:25:46.000
+kind of bullets of the process a little bit more.
+
+00:25:46.000 --> 00:25:49.000
+So that if we do get some maintainers that
+
+00:25:49.000 --> 00:25:54.000
+You know, two of them get together and agree to approve a bonus PR.
+
+00:25:54.000 --> 00:25:58.000
+That we still have the ability to prevent that from being released.
+
+00:25:58.000 --> 00:26:00.000
+So…
+
+00:26:00.000 --> 00:26:02.000
+If we can somehow reduce the
+
+00:26:02.000 --> 00:26:07.000
+damage done by having extra maintainers, then we can be a little more…
+
+00:26:07.000 --> 00:26:10.000
+Uh, free about it.
+
+00:26:10.000 --> 00:26:15.000
+And really, the more the merrier in the long run.
+
+00:26:15.000 --> 00:26:19.000
+Because, you know, it's just…
+
+00:26:19.000 --> 00:26:22.000
+You get more excitement from
+
+00:26:22.000 --> 00:26:27.000
+From a community that's full of maintainers and
+
+00:26:27.000 --> 00:26:31.000
+You know…
+
+00:26:31.000 --> 00:26:38.000
+Yeah, it's more participation.
+
+00:26:38.000 --> 00:26:45.000
+Any other points on maintainers? All right.
+
+00:26:45.000 --> 00:26:54.000
+Moving on, submitted COIPs. We have several submissions, large expression for structured event admission.
+
+00:26:54.000 --> 00:27:00.000
+Oh, yes, that's on me. I have to edit that and then ping the TSC members to…
+
+00:27:00.000 --> 00:27:11.000
+To follow up on that, we have explicit visibility modifiers for ledger fields and circuits, and language agnostic contract representation.
+
+00:27:11.000 --> 00:27:13.000
+Um…
+
+00:27:13.000 --> 00:27:24.000
+I don't know who has the 476.
+
+00:27:24.000 --> 00:27:34.000
+I'm gonna wait a little bit…
+
+00:27:34.000 --> 00:27:37.000
+Oh, I do think that's probably Kevin.
+
+00:27:37.000 --> 00:27:39.000
+I think I saw on the side.
+
+00:27:39.000 --> 00:27:41.000
+Um…
+
+00:27:41.000 --> 00:27:52.000
+I'm going to move to the language agnostic contract representation. I don't I can't remember who this was from.
+
+00:27:52.000 --> 00:27:54.000
+Rodrigo, I'm gonna say.
+
+00:27:54.000 --> 00:27:59.000
+Which I don't think we have him to defend.
+
+00:27:59.000 --> 00:28:00.000
+Um…
+
+00:28:00.000 --> 00:28:03.000
+No, we didn't tell him we were going to be.
+
+00:28:03.000 --> 00:28:04.000
+Oh, that's true. Well.
+
+00:28:04.000 --> 00:28:07.000
+Talking about a container, I mean, he can be watching the
+
+00:28:07.000 --> 00:28:10.000
+My agenda, but, um…
+
+00:28:10.000 --> 00:28:11.000
+Uh…
+
+00:28:11.000 --> 00:28:13.000
+Sure.
+
+00:28:13.000 --> 00:28:16.000
+Yeah, we've talked about this a little bit inside the…
+
+00:28:16.000 --> 00:28:19.000
+The same and
+
+00:28:19.000 --> 00:28:23.000
+Um, it's not clear…
+
+00:28:23.000 --> 00:28:25.000
+What this should be, and…
+
+00:28:25.000 --> 00:28:30.000
+At one end of the spectrum, it should be a represent… it could be a representation of
+
+00:28:30.000 --> 00:28:32.000
+The… one of the…
+
+00:28:32.000 --> 00:28:34.000
+Intermediate languages.
+
+00:28:34.000 --> 00:28:36.000
+It's in the compiler that comes before.
+
+00:28:36.000 --> 00:28:41.000
+Uh, the split to generating TypeScript and generating circuit code.
+
+00:28:41.000 --> 00:28:44.000
+On the other hand, it could be ZKR.
+
+00:28:44.000 --> 00:28:50.000
+there currently doesn't have enough information to represent the entire contract.
+
+00:28:50.000 --> 00:28:52.000
+For example, it results.
+
+00:28:52.000 --> 00:28:55.000
+Constructors, uh, leaves out.
+
+00:28:55.000 --> 00:28:57.000
+The, um…
+
+00:28:57.000 --> 00:29:00.000
+Information about the, uh…
+
+00:29:00.000 --> 00:29:04.000
+You know, the ledger, uh…
+
+00:29:04.000 --> 00:29:07.000
+Operations that you can use from a
+
+00:29:07.000 --> 00:29:13.000
+From TypeScript, but you can't use from contracts.
+
+00:29:13.000 --> 00:29:18.000
+Um, but it could be grown into something that includes everything we need, so…
+
+00:29:18.000 --> 00:29:21.000
+I think it's an interesting…
+
+00:29:21.000 --> 00:29:24.000
+Question, and…
+
+00:29:24.000 --> 00:29:29.000
+I don't know that we're at the level of maturity inside the compiler.
+
+00:29:29.000 --> 00:29:31.000
+wants to make a call on this.
+
+00:29:31.000 --> 00:29:36.000
+You know, to actually have something like this now, but if I were to do it, I would probably
+
+00:29:36.000 --> 00:29:38.000
+I would probably pick a point.
+
+00:29:38.000 --> 00:29:40.000
+Uh, before…
+
+00:29:40.000 --> 00:29:45.000
+Fantastic. And, you know, before we go off to TypeScript and Circuit.
+
+00:29:45.000 --> 00:29:48.000
+Code so that somebody could write their own backend.
+
+00:29:48.000 --> 00:29:53.000
+I think Kevin's has some opinions on this. So, Kevin.
+
+00:29:53.000 --> 00:30:04.000
+Yeah, that's… yeah, some pretty strong opinions. I, uh, I was a tech lead for the DART project when we split our compiler exactly according to this architecture, where we had a
+
+00:30:04.000 --> 00:30:07.000
+a front-end… a common front end that was shared by all the back-ends.
+
+00:30:07.000 --> 00:30:13.000
+Um, and so I have some lessons learned from that, but I do think that our project is way too early
+
+00:30:13.000 --> 00:30:17.000
+Uh, it's too… it's too early a level of maturity.
+
+00:30:17.000 --> 00:30:19.000
+for us to standardize on anything.
+
+00:30:19.000 --> 00:30:25.000
+Um, so I would invite this person who wants to build some kind of Rust backend, apparently.
+
+00:30:25.000 --> 00:30:28.000
+to go ahead and use El Noisclose, or whatever.
+
+00:30:28.000 --> 00:30:29.000
+Um, it's fairly stable.
+
+00:30:29.000 --> 00:30:31.000
+Next slide.
+
+00:30:31.000 --> 00:30:42.000
+We don't version it, so they will have to react to things like when we add new foreign curves and foreign fields, they have to… they'll have to absorb those changes.
+
+00:30:42.000 --> 00:30:48.000
+Uh, they'll get a… they'll update to a new version… to a new commit hash in Compact, and they'll find that the language has changed.
+
+00:30:48.000 --> 00:30:54.000
+And that would happen anyway, because we have… we would have… we would still have to find some way of adding those to whatever
+
+00:30:54.000 --> 00:30:59.000
+Our intermediate language was, and it would have to be versioned, and they would get a new version of it.
+
+00:30:59.000 --> 00:31:02.000
+So it doesn't really… it doesn't really buy much for us to make it an official
+
+00:31:02.000 --> 00:31:05.000
+versioned thing that we have to… have to maintain right now.
+
+00:31:05.000 --> 00:31:12.000
+Um, and then, uh, when we have people using it, we can have requirements on it. We can recognize that we are missing something we need.
+
+00:31:12.000 --> 00:31:31.000
+Or, um, and we can… and we can improve it. And then we can think about standardizing it as something that we will officially support.
+
+00:31:31.000 --> 00:31:35.000
+Yeah, I would also
+
+00:31:35.000 --> 00:31:36.000
+What also suggest, if the author actually were on the call
+
+00:31:36.000 --> 00:31:41.000
+Sure.
+
+00:31:41.000 --> 00:31:50.000
+That if they are trying to get their hands dirty with some sort of executable representation
+
+00:31:50.000 --> 00:31:54.000
+attempt to extend Zkir so that it becomes that
+
+00:31:54.000 --> 00:31:59.000
+Because that is something that we're considering doing anyway.
+
+00:31:59.000 --> 00:32:04.000
+And would be an excellent project for
+
+00:32:04.000 --> 00:32:06.000
+I don't know if you have someone who actually wants to contribute seriously to the language.
+
+00:32:06.000 --> 00:32:09.000
+Yes.
+
+00:32:09.000 --> 00:32:13.000
+That would benefit the project.
+
+00:32:13.000 --> 00:32:20.000
+And two ways. One, because we'd actually have someone additional working on this issue, but you know
+
+00:32:20.000 --> 00:32:22.000
+Just to for the, I guess the
+
+00:32:22.000 --> 00:32:23.000
+Yeah.
+
+00:32:23.000 --> 00:32:35.000
+Yeah, because it would provide, yeah, like a first implementation of the interpreter, an alternative interpreter. Oh, right. And it wouldn't duplicate any other sorts of executable representations.
+
+00:32:35.000 --> 00:32:38.000
+That you might have. So
+
+00:32:38.000 --> 00:32:46.000
+I don't know, generally my position is that we should have as few different executable formats as possible because
+
+00:32:46.000 --> 00:33:00.000
+One issue, for example, that we've also seen with JavaScript is that it is not always easy to get the executable representation to match the semantics of the representation that we use in proving
+
+00:33:00.000 --> 00:33:09.000
+And so you know we we sometimes struggle with getting the matching between JavaScript and zkir while they're separate right now
+
+00:33:09.000 --> 00:33:17.000
+Introducing another executable representation would, again, you know, have issues with that consistency.
+
+00:33:17.000 --> 00:33:23.000
+But using one representation being ZKIR, a lot of that consistency concern would dissolve
+
+00:33:23.000 --> 00:33:33.000
+Yeah, so my problem without, that's an interesting idea.
+
+00:33:33.000 --> 00:33:35.000
+That's a good idea in many ways, but…
+
+00:33:35.000 --> 00:33:38.000
+Um, we have made a lot of…
+
+00:33:38.000 --> 00:33:42.000
+decision is by the time we reach the KIR, that…
+
+00:33:42.000 --> 00:33:49.000
+You might not have, you might want not want to make. For example, if we wanted to create a JavaScript code.
+
+00:33:49.000 --> 00:33:54.000
+from our generated circuit code, it wouldn't look at all like our current JavaScript code.
+
+00:33:54.000 --> 00:33:59.000
+Because all the loops would have been unrolled, everything would be inlined. It would no longer…
+
+00:33:59.000 --> 00:34:03.000
+be a fairly close match for the source language contact.
+
+00:34:03.000 --> 00:34:08.000
+And, um, it may be a, you know, it may be that somebody
+
+00:34:08.000 --> 00:34:10.000
+has in mind, uh…
+
+00:34:10.000 --> 00:34:15.000
+Something that's really tight and small, and we've just expanded it, and that's something that's really large.
+
+00:34:15.000 --> 00:34:20.000
+Uh, you know, they want to optimize for the space of the code and not for the
+
+00:34:20.000 --> 00:34:27.000
+You know, and, uh, you know, and for good reason, I mean, oftentimes hitting something in a small amount of
+
+00:34:27.000 --> 00:34:31.000
+Space means it fits in Michigan's cache.
+
+00:34:31.000 --> 00:34:37.000
+So, yeah, I think that the problem with ZKR is it's just kind of too low level.
+
+00:34:37.000 --> 00:34:39.000
+Um, your…
+
+00:34:39.000 --> 00:34:45.000
+For this purpose for to be to be fed into arbitrary backends.
+
+00:34:45.000 --> 00:34:53.000
+But I think this is the same, the same thing that we're going to experience when we try to use EKR for cross-contract calls, for example.
+
+00:34:53.000 --> 00:34:56.000
+Is that it's unnecessarily.
+
+00:34:56.000 --> 00:34:58.000
+Um…
+
+00:34:58.000 --> 00:35:02.000
+expensive to process.
+
+00:35:02.000 --> 00:35:04.000
+I just…
+
+00:35:04.000 --> 00:35:07.000
+You know, it's huge Zikaire program.
+
+00:35:07.000 --> 00:35:11.000
+That came from a very small contract program.
+
+00:35:11.000 --> 00:35:14.000
+Because there's a glue fund rolling in everybody.
+
+00:35:14.000 --> 00:35:20.000
+So, I do think there's a need for an intermediate language at some higher level, and I agree with Kevin that
+
+00:35:20.000 --> 00:35:26.000
+It's too early, uh, for us to standardize on something, but it's not too early for somebody to take
+
+00:35:26.000 --> 00:35:28.000
+Uh, the last…
+
+00:35:28.000 --> 00:35:31.000
+Analysis passes pass, and…
+
+00:35:31.000 --> 00:35:34.000
+And write a new backend for that.
+
+00:35:34.000 --> 00:35:41.000
+and help us learn what the characteristics of those, of that intermediate language should be, and how we should version it.
+
+00:35:41.000 --> 00:35:46.000
+I mean, there is a version of sorts just in the, in the
+
+00:35:46.000 --> 00:36:02.000
+In the S-Expression representation of the past, I'm sorry, of the language.
+
+00:36:02.000 --> 00:36:09.000
+Is it just me, or did blues Kent?
+
+00:36:09.000 --> 00:36:14.000
+We lost… we lost Kent in having flaky internet here all day, so I thought it was neat, but I think it's…
+
+00:36:14.000 --> 00:36:19.000
+Ah. Yeah.
+
+00:36:19.000 --> 00:36:23.000
+Yeah, I'll just say… I'll just say, you know, um, that…
+
+00:36:23.000 --> 00:36:27.000
+this author should probably reach out with a… reach out to us.
+
+00:36:27.000 --> 00:36:29.000
+in a more direct way than…
+
+00:36:29.000 --> 00:36:30.000
+Just sending us this fully formed white proposal that we do a thing.
+
+00:36:30.000 --> 00:36:34.000
+software.
+
+00:36:34.000 --> 00:36:36.000
+Um, uh… it…
+
+00:36:36.000 --> 00:36:47.000
+reading between the lines, they want to develop a Rust backend for compact contracts, and they want to do it as an unofficial backend. They do not want to contribute it to the Minakawa project.
+
+00:36:47.000 --> 00:36:49.000
+Um, for whatever reason.
+
+00:36:49.000 --> 00:36:55.000
+Um, and they probably don't want to write it in scheme, which is why they want a JSON representation.
+
+00:36:55.000 --> 00:37:01.000
+I think that there is an avenue where they could just develop this as part of the Manukawa project. This is what… getting back to if we could make them a maintainer.
+
+00:37:01.000 --> 00:37:07.000
+They could become a maintainer, they could make this an official backend that they were contributing and supporting.
+
+00:37:07.000 --> 00:37:14.000
+Um, and the project itself would… the TSC would agree that we would have this as a supported backend.
+
+00:37:14.000 --> 00:37:21.000
+Um, if they want to develop back-end code that's not in Scheme for some reason,
+
+00:37:21.000 --> 00:37:22.000
+Okay.
+
+00:37:22.000 --> 00:37:29.000
+Um, I think that the right way to go is not JSON, but a serial… an actual binary representation of the serialized format that is fast to deserialize.
+
+00:37:29.000 --> 00:37:33.000
+And compact.
+
+00:37:33.000 --> 00:37:35.000
+And he got cut off. Do you wanna…
+
+00:37:35.000 --> 00:37:36.000
+Oh, I think so. I said everything I need to say.
+
+00:37:36.000 --> 00:37:47.000
+Continue or…
+
+00:37:47.000 --> 00:37:55.000
+Um…
+
+00:37:55.000 --> 00:37:58.000
+All right, I'm gonna ask them to watch this.
+
+00:37:58.000 --> 00:38:06.000
+Um, for the discussion, and then get, get, get to us to have more of a conversation around the… the format that they want, and
+
+00:38:06.000 --> 00:38:07.000
+And how much of an ownership? Because I think what we're taking… my takeaway is that at this time, we don't want to take the ownership of adding another backend.
+
+00:38:07.000 --> 00:38:16.000
+And Ken's back.
+
+00:38:16.000 --> 00:38:17.000
+to maintain.
+
+00:38:17.000 --> 00:38:20.000
+Okay.
+
+00:38:20.000 --> 00:38:25.000
+Um, which then would actively mean that they would become a maintainer.
+
+00:38:25.000 --> 00:38:27.000
+Um… .
+
+00:38:27.000 --> 00:38:29.000
+And if that's, that's the…
+
+00:38:29.000 --> 00:38:35.000
+task they want to take or not. Kevin?
+
+00:38:35.000 --> 00:38:42.000
+Well, if the… if the project agrees to take this as part of the project, then we would be agreeing to maintain it.
+
+00:38:42.000 --> 00:38:45.000
+Or, at some point, went to…
+
+00:38:45.000 --> 00:38:48.000
+to let it bit wrap, and then deprecate it and remove it.
+
+00:38:48.000 --> 00:38:57.000
+Um, but I… but I would be receptive to somebody who wanted to develop a different backend as part of the project to contribute it.
+
+00:38:57.000 --> 00:38:58.000
+Okay.
+
+00:38:58.000 --> 00:39:02.000
+And the advantage of… the advantage to them of it being part of the project is that they can
+
+00:39:02.000 --> 00:39:07.000
+make requests on the front end of the compiler, or even
+
+00:39:07.000 --> 00:39:22.000
+But, you know, add things to the front end of the compiler that they need.
+
+00:39:22.000 --> 00:39:27.000
+Uh, oh, uh, I skipped this one.
+
+00:39:27.000 --> 00:39:34.000
+I'm going to say…
+
+00:39:34.000 --> 00:39:40.000
+Alright, uh, Kevin, I believe the 476 is yours.
+
+00:39:40.000 --> 00:39:46.000
+I'm assuming, actually, I don't believe.
+
+00:39:46.000 --> 00:39:47.000
+476? Oh yeah, I added all these to the… I added all these to the agenda.
+
+00:39:47.000 --> 00:39:52.000
+Yes, the explosive is ultimately
+
+00:39:52.000 --> 00:39:58.000
+This was a… this was a contribution from, um, uh, an Open Zeppelin folks.
+
+00:39:58.000 --> 00:40:02.000
+Um, arising out of discussions that they had.
+
+00:40:02.000 --> 00:40:07.000
+it was a… they submitted it as a COIP a long time ago, and we
+
+00:40:07.000 --> 00:40:15.000
+Um, haven't done anything, so I just brought… put it up here as we… we should actually assign this to somebody to take a look at it.
+
+00:40:15.000 --> 00:40:22.000
+give them a response. I tend to think it's a little bit misguided. They don't like the… they don't like the export keyword, because
+
+00:40:22.000 --> 00:40:28.000
+They are building modules where they export things from a module, and they also want them exported from the contract.
+
+00:40:28.000 --> 00:40:33.000
+So they have to… every time they import a module, they have to re-export everything that they want.
+
+00:40:33.000 --> 00:40:39.000
+exported from that module, and then at the top level, they have to have a long list of exports of everything that they want exported in the contract.
+
+00:40:39.000 --> 00:40:51.000
+And they look at that as sort of a bondage and discipline thing that they have to do, and they would really like a module to just decide that if it's ever imported, it adds a bunch of exported circuits.
+
+00:40:51.000 --> 00:40:55.000
+And I think that this is a misunderstanding of what… how modules
+
+00:40:55.000 --> 00:40:59.000
+get put together and what export does.
+
+00:40:59.000 --> 00:41:05.000
+So, um, I would not… I would not want to use a library that decided that it was going to add contract endpoints on my behalf.
+
+00:41:05.000 --> 00:41:11.000
+Just because I used it. I would not do that, and I would not want the language to even allow it to do that.
+
+00:41:11.000 --> 00:41:18.000
+I wouldn't want to have to look through it and hide things that it was trying to export as contract endpoints. I would not want to do any of that.
+
+00:41:18.000 --> 00:41:20.000
+So I think that this is just kind of a…
+
+00:41:20.000 --> 00:41:26.000
+a little bit of a misunderstanding of how modules get put together and how modular software is built.
+
+00:41:26.000 --> 00:41:30.000
+Um, and that maybe there is, like, a real…
+
+00:41:30.000 --> 00:41:34.000
+need here that we could come up with to make this what they want to do easier.
+
+00:41:34.000 --> 00:41:37.000
+Like, like, export star from…
+
+00:41:37.000 --> 00:41:41.000
+some module or something like that, but I don't think that they're…
+
+00:41:41.000 --> 00:41:42.000
+private, public, and…
+
+00:41:42.000 --> 00:41:43.000
+Okay.
+
+00:41:43.000 --> 00:41:49.000
+internal modifiers is the way to go.
+
+00:41:49.000 --> 00:41:53.000
+I agree with Kevin 100%.
+
+00:41:53.000 --> 00:42:02.000
+And it doesn't have to be X point star. I mean, it's X point star is fine, um, that works. Like scheme has an export.
+
+00:42:02.000 --> 00:42:05.000
+In the export form, you can say,
+
+00:42:05.000 --> 00:42:07.000
+uh, import.
+
+00:42:07.000 --> 00:42:09.000
+So you can say export import M.
+
+00:42:09.000 --> 00:42:13.000
+And it exports all the exports of them.
+
+00:42:13.000 --> 00:42:19.000
+And I think this is this is.
+
+00:42:19.000 --> 00:42:21.000
+This takes it down from…
+
+00:42:21.000 --> 00:42:24.000
+N times M…
+
+00:42:24.000 --> 00:42:26.000
+identifiers to export to just N.
+
+00:42:26.000 --> 00:42:31.000
+The number of modules. So I think that's, like, that would be much more comfortable for
+
+00:42:31.000 --> 00:42:35.000
+for them, and they probably was… that would probably satisfy their needs.
+
+00:42:35.000 --> 00:42:37.000
+In a way that doesn't offend us our…
+
+00:42:37.000 --> 00:42:45.000
+Your information hiding sensibilities.
+
+00:42:45.000 --> 00:42:57.000
+Can I volunteer you to respond to this?
+
+00:42:57.000 --> 00:43:01.000
+Alright, I'm gonna say…
+
+00:43:01.000 --> 00:43:02.000
+Was that Kent or Kevin?
+
+00:43:02.000 --> 00:43:03.000
+You can…
+
+00:43:03.000 --> 00:43:05.000
+It was Kent.
+
+00:43:05.000 --> 00:43:06.000
+Yeah, a volunteer again, too.
+
+00:43:06.000 --> 00:43:07.000
+Yeah, go ahead. I can reach.
+
+00:43:07.000 --> 00:43:08.000
+Yeah, our volunteer accounts as well.
+
+00:43:08.000 --> 00:43:12.000
+I volunteer at Kent as well.
+
+00:43:12.000 --> 00:43:14.000
+I did not get a clear answer.
+
+00:43:14.000 --> 00:43:16.000
+Kent, K-E-M-T.
+
+00:43:16.000 --> 00:43:20.000
+Okay, wonderful.
+
+00:43:20.000 --> 00:43:24.000
+Or you just put KE close enough.
+
+00:43:24.000 --> 00:43:27.000
+No, I just… you guys are talking at the same time, and…
+
+00:43:27.000 --> 00:43:34.000
+Okay, I believe we have Rodrigo on the call, um,
+
+00:43:34.000 --> 00:43:41.000
+We discussed the language agnostic contract representation and.
+
+00:43:41.000 --> 00:43:45.000
+Um, let's see, where am I at time? Okay, you have 20 minutes.
+
+00:43:45.000 --> 00:43:52.000
+So to give you a recap, I think…
+
+00:43:52.000 --> 00:43:58.000
+We had a suggestion from Joe that it should be ZKR. We had a disagreement of Kent on that, that.
+
+00:43:58.000 --> 00:44:01.000
+We probably do need, um…
+
+00:44:01.000 --> 00:44:03.000
+some IR to do that, some IR that is not as close to ZKAR.
+
+00:44:03.000 --> 00:44:06.000
+Yes.
+
+00:44:06.000 --> 00:44:12.000
+We had conversation around maintaining, adding such.
+
+00:44:12.000 --> 00:44:15.000
+such backend and the…
+
+00:44:15.000 --> 00:44:22.000
+The point at which, like, if you consider the maturity of the project, if we are there.
+
+00:44:22.000 --> 00:44:27.000
+We would want to commit to such a standard.
+
+00:44:27.000 --> 00:44:34.000
+Um, view of it. On the other hand, we would appreciate someone taking this on and doing it so that.
+
+00:44:34.000 --> 00:44:42.000
+Uh, you would, for example, learn, hey, these are the things that I need, these are the things that, by this point in the compiler, I don
+
+00:44:42.000 --> 00:44:46.000
+Um…
+
+00:44:46.000 --> 00:44:59.000
+Yeah, that sounds good. So, currently, just to give some context, we have an SDK, a Rust SDK, that uses these here to basically build a transcript
+
+00:44:59.000 --> 00:45:05.000
+Because the Zikir currently does not provide all the things that we need.
+
+00:45:05.000 --> 00:45:07.000
+What I did in there was a suggestion from Kevin. So we use the non-disclose IR, and then you have an interpreter to build the transcript before the Z key part
+
+00:45:07.000 --> 00:45:20.000
+Awesome.
+
+00:45:20.000 --> 00:45:31.000
+But what I can do, now that we have the proposal, is try to have an implementation on the side, and then review it
+
+00:45:31.000 --> 00:45:33.000
+And build from there
+
+00:45:33.000 --> 00:45:43.000
+I think
+
+00:45:43.000 --> 00:45:44.000
+Could you guys hear me?
+
+00:45:44.000 --> 00:45:45.000
+Okay. Yeah, we, um… I mean, if you want to have a reference implementation, I think that that would be fine. I would say…
+
+00:45:45.000 --> 00:45:55.000
+Yeah.
+
+00:45:55.000 --> 00:46:00.000
+it's a matter of having.
+
+00:46:00.000 --> 00:46:07.000
+It's a matter of mingling it with the IRs that we have at the moment, because then that would make us
+
+00:46:07.000 --> 00:46:08.000
+That will force us to commit to
+
+00:46:08.000 --> 00:46:10.000
+Uh, to maintaining that.
+
+00:46:10.000 --> 00:46:11.000
+And we are not at the point that we would want to commit
+
+00:46:11.000 --> 00:46:13.000
+No, I…
+
+00:46:13.000 --> 00:46:14.000
+To that, Ken.
+
+00:46:14.000 --> 00:46:23.000
+Right, yeah, if Rodrigo is suggesting that he would contribute, say, a Rust backend or
+
+00:46:23.000 --> 00:46:29.000
+or some other tool. I think that's something we could consider supporting.
+
+00:46:29.000 --> 00:46:35.000
+Um, the, uh, and we'd be happy to consider.
+
+00:46:35.000 --> 00:46:44.000
+Supporting that. I think the only thing we're not really keen on right now is committing to a specific intermediate language or even versioning it at this point.
+
+00:46:44.000 --> 00:46:48.000
+Um, there is a, as I was pointing out earlier, there is, there is…
+
+00:46:48.000 --> 00:46:51.000
+There is a version of sorts in the sense that
+
+00:46:51.000 --> 00:46:53.000
+Um, you can always…
+
+00:46:53.000 --> 00:46:56.000
+Record what the, what the IR was.
+
+00:46:56.000 --> 00:46:59.000
+from, you know,
+
+00:46:59.000 --> 00:47:03.000
+Of the, of the intermitt language, what the safety of the language was and compare it.
+
+00:47:03.000 --> 00:47:05.000
+Let's see if it's changed. So you can always…
+
+00:47:05.000 --> 00:47:10.000
+Tell if you're, if your intermediate language has changed.
+
+00:47:10.000 --> 00:47:16.000
+Um, by recording it at the time when you did your last build.
+
+00:47:16.000 --> 00:47:19.000
+Uh…
+
+00:47:19.000 --> 00:47:21.000
+So I'm not exactly sure.
+
+00:47:21.000 --> 00:47:31.000
+What the best way to proceed is, and I'm not sure where Rodrigo, you want to take it. Um, this is something I didn't quite understand what you were suggesting. Were you suggesting that you would
+
+00:47:31.000 --> 00:47:37.000
+You would add or, you know, you would create a.
+
+00:47:37.000 --> 00:47:39.000
+a pull request.
+
+00:47:39.000 --> 00:47:42.000
+Uh, to add a new backend.
+
+00:47:42.000 --> 00:47:45.000
+Or you can clarify.
+
+00:47:45.000 --> 00:47:51.000
+Yes
+
+00:47:51.000 --> 00:47:54.000
+We have some significant trouble.
+
+00:47:54.000 --> 00:47:55.000
+Thank you.
+
+00:47:55.000 --> 00:48:02.000
+So, it is not to add a new backend, it's to extend the contract info JSON file that we currently have as artifact, and for each circuit include the body that allows any SDK in any language
+
+00:48:02.000 --> 00:48:17.000
+to interpret it if they have an interpreter for it. Currently, in a project that we have at Shielded, we are using already Rust SDK that uses these representation and it works
+
+00:48:17.000 --> 00:48:32.000
+It's just trying to get rid of the fork that we currently have and porting it upstream in a way that we can have a solution that is useful for everyone in the ecosystem
+
+00:48:32.000 --> 00:48:37.000
+If there is another SDK in Python, for example, and they want to interpret it to support
+
+00:48:37.000 --> 00:48:45.000
+a Python SDK that can call the contracts, they can just write an interpreter for it
+
+00:48:45.000 --> 00:48:49.000
+The problem is I… I see what that is. Go ahead.
+
+00:48:49.000 --> 00:48:55.000
+Sorry.
+
+00:48:55.000 --> 00:48:56.000
+workspace.
+
+00:48:56.000 --> 00:49:00.000
+So quick question, why do you want it to be with safe contracts? So for me, it's important to have separation of concern and contract info is for.
+
+00:49:00.000 --> 00:49:03.000
+internal use of the compiler mainly.
+
+00:49:03.000 --> 00:49:10.000
+And it's committing it to carry so much information and.
+
+00:49:10.000 --> 00:49:13.000
+And
+
+00:49:13.000 --> 00:49:14.000
+Okay.
+
+00:49:14.000 --> 00:49:15.000
+intertwining it with different use cases.
+
+00:49:15.000 --> 00:49:19.000
+I could achieve successfully.
+
+00:49:19.000 --> 00:49:20.000
+Okay.
+
+00:49:20.000 --> 00:49:22.000
+Down the line, I can see that design coming back and.
+
+00:49:22.000 --> 00:49:25.000
+avoiding death.
+
+00:49:25.000 --> 00:49:26.000
+Yeah, so.
+
+00:49:26.000 --> 00:49:34.000
+So, so that's, that's my question. Why does it have to be, would it be, what about if we have a feature flag, uh, that you
+
+00:49:34.000 --> 00:49:43.000
+you enable and reproduce that output that you're after only when that flag is enabled, and it would be a separate output than
+
+00:49:43.000 --> 00:49:49.000
+than contract info. Of course, you can use whatever contract info he's using right now, but.
+
+00:49:49.000 --> 00:49:50.000
+My point is to separate the concern out of
+
+00:49:50.000 --> 00:49:52.000
+It's very expensive.
+
+00:49:52.000 --> 00:49:55.000
+Out of what safe contract info is doing.
+
+00:49:55.000 --> 00:49:57.000
+Let's see.
+
+00:49:57.000 --> 00:50:14.000
+Yeah, so the main reason that I use contracting was just to reuse an artifact that was being used, but we can generate, for example, an API JSON that provides an interface so the SDKs can interact with the contractor
+
+00:50:14.000 --> 00:50:24.000
+And it could be generated and enabled by passing a flag when compiling the contract.
+
+00:50:24.000 --> 00:50:35.000
+There is no specific reason, we're just to reuse the paths that are already existed
+
+00:50:35.000 --> 00:50:36.000
+Yeah, I was just gonna say, um…
+
+00:50:36.000 --> 00:50:37.000
+Cancer, you're going to get a point.
+
+00:50:37.000 --> 00:50:43.000
+Yeah, I think the thing is we don't really want to version that.
+
+00:50:43.000 --> 00:50:45.000
+Code, so…
+
+00:50:45.000 --> 00:50:49.000
+Um…
+
+00:50:49.000 --> 00:50:52.000
+I could see something where, where we would.
+
+00:50:52.000 --> 00:50:56.000
+Where we would have a…
+
+00:50:56.000 --> 00:50:58.000
+Uh, as you say, a compiler option to produce
+
+00:50:58.000 --> 00:51:00.000
+A representation.
+
+00:51:00.000 --> 00:51:04.000
+some sort of representation of the…
+
+00:51:04.000 --> 00:51:07.000
+Contract code. By the way, the…
+
+00:51:07.000 --> 00:51:11.000
+We would presumably also have to include the constructor in there for
+
+00:51:11.000 --> 00:51:14.000
+Polar interpretation.
+
+00:51:14.000 --> 00:51:15.000
+Um…
+
+00:51:15.000 --> 00:51:16.000
+Yep
+
+00:51:16.000 --> 00:51:18.000
+And maybe some other information.
+
+00:51:18.000 --> 00:51:24.000
+Um, it seems that what we're really talking about is a new backend.
+
+00:51:24.000 --> 00:51:31.000
+We're really talking about adding a new backend, and this new backend is what you want for this new backend to do.
+
+00:51:31.000 --> 00:51:35.000
+is to produce JSON's own
+
+00:51:35.000 --> 00:51:38.000
+JSON representation of the Innervate language.
+
+00:51:38.000 --> 00:51:43.000
+Um…
+
+00:51:43.000 --> 00:51:48.000
+I…
+
+00:51:48.000 --> 00:51:54.000
+I think that if it were me using this the way I would go about it is.
+
+00:51:54.000 --> 00:51:56.000
+Um, I would just…
+
+00:51:56.000 --> 00:52:00.000
+Uh, have a project that, that pulled in the latest compiler.
+
+00:52:00.000 --> 00:52:04.000
+And, um…
+
+00:52:04.000 --> 00:52:14.000
+And capture the output of that pass, you know, so you have a modified version of passes.ss that produces that code. I mean, it's in there.
+
+00:52:14.000 --> 00:52:17.000
+Um…
+
+00:52:17.000 --> 00:52:27.000
+Let's see how much should I put this.
+
+00:52:27.000 --> 00:52:32.000
+Yeah, I think what you need is a hook.
+
+00:52:32.000 --> 00:52:36.000
+That's effectively…
+
+00:52:36.000 --> 00:52:41.000
+I don't know, don't know that we need to support a…
+
+00:52:41.000 --> 00:52:44.000
+Uh…
+
+00:52:44.000 --> 00:52:52.000
+I don't need know that we need to directly generate code, but I think you need what you need basically is a hook where you can say.
+
+00:52:52.000 --> 00:52:56.000
+All I want to get out of the compiler is…
+
+00:52:56.000 --> 00:52:59.000
+It's a intermediate language form.
+
+00:52:59.000 --> 00:53:03.000
+Um, in El Monas Lowe's.
+
+00:53:03.000 --> 00:53:05.000
+And then you can write your…
+
+00:53:05.000 --> 00:53:13.000
+You know, anybody can write their own processor for that, but, you know, using Nanopast case or whatever or pass to generate whatever they want to.
+
+00:53:13.000 --> 00:53:17.000
+I think that's the… that's probably the direction we should be heading, so give you a
+
+00:53:17.000 --> 00:53:21.000
+Give you a hook to say, I want to capture the output of
+
+00:53:21.000 --> 00:53:23.000
+of… of…
+
+00:53:23.000 --> 00:53:25.000
+such and such pass.
+
+00:53:25.000 --> 00:53:27.000
+And, um…
+
+00:53:27.000 --> 00:53:32.000
+And then you can write a scheme processor to generate whatever you want to.
+
+00:53:32.000 --> 00:53:34.000
+And whatever form you want to.
+
+00:53:34.000 --> 00:53:40.000
+This doesn't commit us to having any particular versioning, but you could put a version in it yourself.
+
+00:53:40.000 --> 00:53:44.000
+Alright, let me… in that, in that task that you add.
+
+00:53:44.000 --> 00:53:49.000
+So, maybe we can pursue it that direction, but, you know, Kevin, you have
+
+00:53:49.000 --> 00:53:53.000
+Comments?
+
+00:53:53.000 --> 00:53:58.000
+I think a way to achieve… a way to achieve… another way to achieve this is…
+
+00:53:58.000 --> 00:54:02.000
+we could add a flag to the compiler that tells it to stop after a certain pass.
+
+00:54:02.000 --> 00:54:06.000
+Um, this is… I've found this useful for testing anyway. It's nice to have.
+
+00:54:06.000 --> 00:54:07.000
+Exactly.
+
+00:54:07.000 --> 00:54:16.000
+Um, we can also, uh, add a… the ability to jump out, um, instead of S expressions, we could come up with a binary representation.
+
+00:54:16.000 --> 00:54:21.000
+Um, and we could jump out serialized
+
+00:54:21.000 --> 00:54:28.000
+IR and deserialize it, and provide, you know, a specification of what that is, and you could deserialize it.
+
+00:54:28.000 --> 00:54:33.000
+So you can… you can run from the compact repository, the compiler, up to
+
+00:54:33.000 --> 00:54:44.000
+the path that you're interested in, you can get out a binary representation, you can suck it in and remove your REST code, and you can do whatever you want with it.
+
+00:54:44.000 --> 00:54:53.000
+And correct me if I'm wrong, but wouldn't these also help, for example, supporting the cross-contract calls, let's say
+
+00:54:53.000 --> 00:54:54.000
+users or the apps build their contact
+
+00:54:54.000 --> 00:54:57.000
+Nope, we're… nope, nope.
+
+00:54:57.000 --> 00:55:08.000
+what to… well, we… like, we're already… we're already designing… we'll design something for cross-contract calls that will not be this mechanism, necessarily.
+
+00:55:08.000 --> 00:55:12.000
+there's lots and lots and lots of requirements around there.
+
+00:55:12.000 --> 00:55:19.000
+Um, so what you're… the question you should ask is maybe if… with contract… cross-contract calls land in their full glory in half a year,
+
+00:55:19.000 --> 00:55:20.000
+Could you then take that and re-architect what you're building? And the answer's probably yes.
+
+00:55:20.000 --> 00:55:34.000
+Yes.
+
+00:55:34.000 --> 00:55:44.000
+Alright, I'm gonna write as action item that Rodrigo, we're gonna wait, and you have, like, multiple options. You can decide which one would work better, and then.
+
+00:55:44.000 --> 00:55:46.000
+Um… .
+
+00:55:46.000 --> 00:55:51.000
+I personally really liked Kevin's idea, the, um, having the compiler.
+
+00:55:51.000 --> 00:55:55.000
+compile up to some point, and then you have a hook and pulling that in.
+
+00:55:55.000 --> 00:55:58.000
+Um, but…
+
+00:55:58.000 --> 00:55:59.000
+Just out of clear
+
+00:55:59.000 --> 00:56:00.000
+A mother.
+
+00:56:00.000 --> 00:56:01.000
+They took mechanism already exists or is a mechanism that will also have to be implemented
+
+00:56:01.000 --> 00:56:06.000
+Well.
+
+00:56:06.000 --> 00:56:13.000
+That would be… all of those would be implemented, so we would maintain, if you want, we would maintain the…
+
+00:56:13.000 --> 00:56:16.000
+Um…
+
+00:56:16.000 --> 00:56:23.000
+If you have, if you had a flag of the compiler up to this pass and then
+
+00:56:23.000 --> 00:56:24.000
+And we have some representation and splitting that out.
+
+00:56:24.000 --> 00:56:28.000
+telephone.
+
+00:56:28.000 --> 00:56:33.000
+Um, and then you will have the hook up to whatever you want.
+
+00:56:33.000 --> 00:56:37.000
+At least that was my understanding, Kent.
+
+00:56:37.000 --> 00:56:41.000
+Now, the plumbing's already in there, because that's what… that's how we do our unit tests.
+
+00:56:41.000 --> 00:56:48.000
+You know, we have unit tests that say test only… only through such and such pass, like infer types.
+
+00:56:48.000 --> 00:56:52.000
+So we can say, here's exactly, you know, don't bother running compiler class there.
+
+00:56:52.000 --> 00:56:55.000
+We don't want to spend the time on it. We don't… we don't need it.
+
+00:56:55.000 --> 00:57:01.000
+Um, so the hook's already in there for the test, and so it's just a matter of surfacing that hook.
+
+00:57:01.000 --> 00:57:05.000
+Uh, through the compact C command line.
+
+00:57:05.000 --> 00:57:08.000
+And, and deciding on what the
+
+00:57:08.000 --> 00:57:11.000
+How to output the, um,
+
+00:57:11.000 --> 00:57:13.000
+the Intermediate language coast.
+
+00:57:13.000 --> 00:57:19.000
+And so that's, that would be a fairly straightforward request, I think, and a fairly straightforward.
+
+00:57:19.000 --> 00:57:21.000
+Uh, thing for us to, uh…
+
+00:57:21.000 --> 00:57:32.000
+Yeah, it's weird.
+
+00:57:32.000 --> 00:57:33.000
+It's…
+
+00:57:33.000 --> 00:57:37.000
+And out of curiosity, in the user experience, would it be easy for a user compiling a contract to enable such a link
+
+00:57:37.000 --> 00:57:48.000
+Because my question here is not about the implementation and the specific use cases, just if any other SDKs
+
+00:57:48.000 --> 00:58:03.000
+to allow users to interact with the contract. If they can just have a guide that says how to compile a contract, that will generate this artifact that the SDK could use to interact with the contract. Or would it be ultra-complex
+
+00:58:03.000 --> 00:58:09.000
+Fortunately, I think by using the hook mechanism
+
+00:58:09.000 --> 00:58:15.000
+I think… I think your SDK can wrap the compiler any way it wants to and provide any user experience it wants to.
+
+00:58:15.000 --> 00:58:16.000
+No, but in this case
+
+00:58:16.000 --> 00:58:20.000
+your SDK can provide… your SDK can provide a…
+
+00:58:20.000 --> 00:58:23.000
+a…
+
+00:58:23.000 --> 00:58:26.000
+whatever compiler that generates this
+
+00:58:26.000 --> 00:58:29.000
+intermediate form, and provide any user experience you want.
+
+00:58:29.000 --> 00:58:38.000
+In this case, the SDK, we are not embedding the compiler. We call the compiler, and then we reuse our
+
+00:58:38.000 --> 00:58:45.000
+Sure, no, no, you don't have to… you can… you can require them to download and install the compiler,
+
+00:58:45.000 --> 00:58:50.000
+Um, you can invoke the compiler using the dev tools. I'm just saying that the…
+
+00:58:50.000 --> 00:58:54.000
+the user experience… you… you can provide a shell script that invokes the compiler.
+
+00:58:54.000 --> 00:58:58.000
+And you can provide any user experience you want.
+
+00:58:58.000 --> 00:59:03.000
+I would not… I would not expect that you would have, uh, like, a five-step process where the…
+
+00:59:03.000 --> 00:59:07.000
+Where the user explicitly invokes the compiler, got a named
+
+00:59:07.000 --> 00:59:15.000
+binary S-expression file somewhere, invoked another thing that read that in to generate some other thing. I would just expect that you would just
+
+00:59:15.000 --> 00:59:18.000
+provide the experience you wanted.
+
+00:59:18.000 --> 00:59:28.000
+Um, so it's very… it's very much like a Unix philosophy. We're going to provide a simple tool that lets you get an output that you can then use as an input to some other thing.
+
+00:59:28.000 --> 00:59:36.000
+And you can put them together any way you want.
+
+00:59:36.000 --> 00:59:44.000
+So, to answer to your different way would be that you would just basically compile your contract, you'll just ask.
+
+00:59:44.000 --> 00:59:49.000
+pass a flag that says Compact C.
+
+00:59:49.000 --> 00:59:51.000
+this contract up to this pass.
+
+00:59:51.000 --> 00:59:55.000
+So then that would be the output that you take, and then.
+
+00:59:55.000 --> 00:59:59.000
+you go and do whatever you want.
+
+00:59:59.000 --> 01:00:00.000
+Got it.
+
+01:00:00.000 --> 01:00:07.000
+Yeah, Kent.
+
+01:00:07.000 --> 01:00:10.000
+Oh, you're muted.
+
+01:00:10.000 --> 01:00:14.000
+Sorry, the tricky part in this process is probably
+
+01:00:14.000 --> 01:00:18.000
+Uh, taking the intermediate language and producing.
+
+01:00:18.000 --> 01:00:21.000
+Um, all the information that's embedded in it.
+
+01:00:21.000 --> 01:00:23.000
+Um…
+
+01:00:23.000 --> 01:00:30.000
+It's there's information, you know, like there's there's VM code in there, for example, that's embedded in the middle of.
+
+01:00:30.000 --> 01:00:33.000
+Of stuff. Um, there's…
+
+01:00:33.000 --> 01:00:35.000
+There may be some other things in there, so…
+
+01:00:35.000 --> 01:00:41.000
+You know, that's going to be the tricky part. I think getting a good user interface is…
+
+01:00:41.000 --> 01:00:44.000
+That's certainly possible. Everything else is doable.
+
+01:00:44.000 --> 01:00:50.000
+So that's where the tricky part is going to come in.
+
+01:00:50.000 --> 01:00:58.000
+Screen.
+
+01:00:58.000 --> 01:00:59.000
+Yeah, I think… I think the question is… the question is, could we… could we build off serialization, deserialization format for Nanopass IR?
+
+01:00:59.000 --> 01:01:06.000
+Okay, Kevin.
+
+01:01:06.000 --> 01:01:08.000
+we… we write it out, read it back in with nothing else.
+
+01:01:08.000 --> 01:01:10.000
+Okay.
+
+01:01:10.000 --> 01:01:13.000
+in a different process, and then continue the compiler. And if we can do that, then…
+
+01:01:13.000 --> 01:01:14.000
+you can build this thing. You could even upstream that to Nanopass if it doesn't exist already.
+
+01:01:14.000 --> 01:01:25.000
+Well, you can certainly do that. It was by producing FASL output.
+
+01:01:25.000 --> 01:01:29.000
+from scanning, but the…
+
+01:01:29.000 --> 01:01:35.000
+So that doesn't work if there's procedures embedded in there, for example, and I'm not even sure if there is.
+
+01:01:35.000 --> 01:01:40.000
+I'm not sure that there aren't some procedures embedded in the implementations of natives.
+
+01:01:40.000 --> 01:01:43.000
+Uh, leather things, I don't remember now.
+
+01:01:43.000 --> 01:01:47.000
+I've been in there in the past. I don't remember if they're still in there.
+
+01:01:47.000 --> 01:01:53.000
+So, it's not just the nanopass, it's the, it's the things that we carry around inside the nanopass, the
+
+01:01:53.000 --> 01:02:01.000
+But you'd have to worry about, and that might require some re-architecture so that there aren't such things.
+
+01:02:01.000 --> 01:02:04.000
+But we can't easily serialize, you know?
+
+01:02:04.000 --> 01:02:10.000
+The example, the main example being if there is a scheme procedure embedded in the IR.
+
+01:02:10.000 --> 01:02:12.000
+Um…
+
+01:02:12.000 --> 01:02:28.000
+And that can no longer be a scheme procedure. It would have to be some sort of data structure.
+
+01:02:28.000 --> 01:02:29.000
+Okay.
+
+01:02:29.000 --> 01:02:37.000
+Yes, so I posted a link in the channel just so you guys can have an idea of how we are generating it currently, the representation of it.
+
+01:02:37.000 --> 01:02:40.000
+It will be something similar
+
+01:02:40.000 --> 01:02:47.000
+So
+
+01:02:47.000 --> 01:02:53.000
+Which is the noise clause, and we serialize it to JSON
+
+01:02:53.000 --> 01:03:00.000
+For example, the Dupa expression will look if it has an N argument, so we know
+
+01:03:00.000 --> 01:03:06.000
+Those things, so I think in terms of length
+
+01:03:06.000 --> 01:03:14.000
+Quite a lot of lines, I think 500 lines, but it's just for summarizing what already exists
+
+01:03:14.000 --> 01:03:28.000
+At least from the proof of concept, we are already using it and it has been working fine. So I will try to come up with an idea and then open up a request so we can have a look at it and
+
+01:03:28.000 --> 01:03:33.000
+Then try to move into a direction that satisfies
+
+01:03:33.000 --> 01:03:37.000
+It's for the long run
+
+01:03:37.000 --> 01:03:43.000
+All right. Sounds good. And…
+
+01:03:43.000 --> 01:03:47.000
+That is good. I have one minute left. Okay.
+
+01:03:47.000 --> 01:03:52.000
+Thanks, everyone, for attending. The fact that of the day.
+
+01:03:52.000 --> 01:04:00.000
+Uh, that's apparently procreate during spring. So the first three weeks of August.
+
+01:04:00.000 --> 01:04:06.000
+You might get a bad inside your house, and they go with their buddies, and so you won't get one.
+
+01:04:06.000 --> 01:04:09.000
+Um…
+
+01:04:09.000 --> 01:04:16.000
+Yeah, and how I dealt with it is was I had, I got me a strong man. So you guys.
+
+01:04:16.000 --> 01:04:18.000
+Figure it out for yourself.
+
+01:04:18.000 --> 01:04:21.000
+All right, okay, that's the factory of the day.
+
+01:04:21.000 --> 01:04:25.000
+Thanks everyone for attending. Have a good rest of your day.
+
+01:04:25.000 --> 01:04:28.000
+All right, bye.
+
+01:04:28.000 --> 01:04:58.000
+Vibrant
+

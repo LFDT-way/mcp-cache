@@ -1,0 +1,1266 @@
+WEBVTT
+
+1
+00:03:11.310 --> 00:03:12.300
+Hendrik Ebbers (Hedera Hashgraph LLC): Hey!
+
+2
+00:03:23.350 --> 00:03:24.300
+Tayebwa Noah: Hello.
+
+3
+00:03:36.000 --> 00:03:37.710
+Robert Walworth: Hello, everybody.
+
+4
+00:03:38.290 --> 00:03:39.740
+Hendrik Ebbers (Hedera Hashgraph LLC): There we go, hello.
+
+5
+00:03:43.750 --> 00:03:49.960
+Robert Walworth: Hendrik, we missed you last time. Thought we were, gonna do your Java SDK demo.
+
+6
+00:03:50.180 --> 00:03:52.329
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh, we can do it today, if you want!
+
+7
+00:03:52.510 --> 00:03:56.340
+Robert Walworth: Yeah, I think that was, like, the only thing on the agenda, pretty much, so….
+
+8
+00:03:56.360 --> 00:03:57.279
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh, nice.
+
+9
+00:03:57.760 --> 00:03:58.460
+Robert Walworth: Yeah.
+
+10
+00:03:58.630 --> 00:04:00.770
+Robert Walworth: If… if you're down, I'm down.
+
+11
+00:04:31.920 --> 00:04:33.729
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I just posted
+
+12
+00:04:35.080 --> 00:04:41.500
+Hendrik Ebbers (Hedera Hashgraph LLC): Zinging to this meeting in some channels, maybe we wait some minutes if somebody else attempts.
+
+13
+00:04:42.840 --> 00:04:45.899
+Robert Walworth: Yeah, we usually give it, like, 4-5 minutes.
+
+14
+00:04:46.140 --> 00:04:46.920
+Hendrik Ebbers (Hedera Hashgraph LLC): Yep.
+
+15
+00:04:46.920 --> 00:04:48.309
+Robert Walworth: People filter in.
+
+16
+00:06:10.660 --> 00:06:12.679
+Robert Walworth: Yeah, maybe, like, one more minute.
+
+17
+00:06:12.700 --> 00:06:13.560
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+18
+00:07:14.480 --> 00:07:23.239
+Robert Walworth: Alright, we can probably go ahead and get started. Looks like it's a bit of a smaller crowd today, but that's okay.
+
+19
+00:07:23.630 --> 00:07:32.709
+Robert Walworth: But yeah, I mean, the only thing we have on the agenda, is your prototype demo, Hendrik, so, you good to just take it away?
+
+20
+00:07:32.950 --> 00:07:35.369
+Hendrik Ebbers (Hedera Hashgraph LLC): Well, sure, I can do that.
+
+21
+00:07:35.510 --> 00:07:37.940
+Hendrik Ebbers (Hedera Hashgraph LLC): Let me….
+
+22
+00:07:39.180 --> 00:07:41.279
+Robert Walworth: I'll let you share.
+
+23
+00:07:41.280 --> 00:07:49.509
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah. So, yeah, I have… I have two things I would like to share. Maybe we start with…
+
+24
+00:07:49.800 --> 00:07:55.599
+Hendrik Ebbers (Hedera Hashgraph LLC): … of this one. So, …
+
+25
+00:07:58.850 --> 00:08:14.799
+Hendrik Ebbers (Hedera Hashgraph LLC): I created a small presentation, which is more, I guess, like, Swiss guides, because I already discussed that with Witchard, and needed that to show it to Richard as an example. So what I did, and this is not specific to the…
+
+26
+00:08:15.200 --> 00:08:28.989
+Hendrik Ebbers (Hedera Hashgraph LLC): Java SDK, that is… that is more specific to, like, our SDKs in… in general. And… and what I did is I looked at the SDKs from a perspective of a…
+
+27
+00:08:29.060 --> 00:08:37.500
+Hendrik Ebbers (Hedera Hashgraph LLC): developer experience, like, how easy is it to understand our APIs, how…
+
+28
+00:08:37.750 --> 00:08:51.820
+Hendrik Ebbers (Hedera Hashgraph LLC): easy is it to use our APIs in a wrong way? And what can we do to make them more understandable and, not, allow
+
+29
+00:08:52.140 --> 00:09:01.870
+Hendrik Ebbers (Hedera Hashgraph LLC): to use it in a wrong way, or allow the guests to use it in a wrong way. And, so what I have here, is it readable for everything, or is it too small?
+
+30
+00:09:02.690 --> 00:09:04.689
+Robert Walworth: No, I think it's fine.
+
+31
+00:09:04.690 --> 00:09:18.900
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah. So, I mean, we don't need all the comments, I think I can join in. So, so what we see here is, like, some, code that I created with one of our SDKs, which shows a little bit, like.
+
+32
+00:09:19.600 --> 00:09:26.849
+Hendrik Ebbers (Hedera Hashgraph LLC): the worst thing you can do with our SDK. So this is, like, how wrong can you use our SDKs?
+
+33
+00:09:27.310 --> 00:09:33.640
+Hendrik Ebbers (Hedera Hashgraph LLC): And, and here we have several things, … that…
+
+34
+00:09:33.740 --> 00:09:39.399
+Hendrik Ebbers (Hedera Hashgraph LLC): are problematic from my point of view, and I think I can… do you see that when I paint?
+
+35
+00:09:40.020 --> 00:09:40.870
+Robert Walworth: Yep.
+
+36
+00:09:40.870 --> 00:09:43.770
+Hendrik Ebbers (Hedera Hashgraph LLC): Perfect, okay, good. So, …
+
+37
+00:09:44.140 --> 00:10:00.610
+Hendrik Ebbers (Hedera Hashgraph LLC): So let's start with that. This is, like, one of the most common things we do in our SDK. I'm not talking here about that this is quite Hedera-specific, and do not make that much sense from an Hyra point of perspective.
+
+38
+00:10:00.610 --> 00:10:16.490
+Hendrik Ebbers (Hedera Hashgraph LLC): The bigger problem is here that we create a client that is used later, and this client has no operator account. So it's quite easy to just create a client without an operator account.
+
+39
+00:10:16.490 --> 00:10:25.110
+Hendrik Ebbers (Hedera Hashgraph LLC): And just to see… method that… that most people call, and then set an operator account. Afterwards, why?
+
+40
+00:10:25.240 --> 00:10:40.069
+Hendrik Ebbers (Hedera Hashgraph LLC): I assume for most use cases, especially for something like the Java SDK, where it's used on the server, having an operator account is something that would totally make sense.
+
+41
+00:10:40.450 --> 00:10:49.010
+Hendrik Ebbers (Hedera Hashgraph LLC): What I'm doing now is I execute a transaction, which is an account create transaction, so just creating a new account.
+
+42
+00:10:49.280 --> 00:10:50.690
+Hendrik Ebbers (Hedera Hashgraph LLC): And…
+
+43
+00:10:51.170 --> 00:11:05.689
+Hendrik Ebbers (Hedera Hashgraph LLC): One thing I can do when creating a new account and putting in the key for an account, I'm allowed to put in a private key here, which, should be, in general, a public key.
+
+44
+00:11:05.690 --> 00:11:11.189
+Hendrik Ebbers (Hedera Hashgraph LLC): So that is one, one program that I've found, but that is only
+
+45
+00:11:11.210 --> 00:11:19.749
+Hendrik Ebbers (Hedera Hashgraph LLC): a small problem. The bigger problem is here with the flow, because what we normally do, is that we create an…
+
+46
+00:11:19.890 --> 00:11:21.220
+Hendrik Ebbers (Hedera Hashgraph LLC): transaction.
+
+47
+00:11:21.360 --> 00:11:27.029
+Hendrik Ebbers (Hedera Hashgraph LLC): Set all the values of the transaction, that is what we do here. Then.
+
+48
+00:11:27.390 --> 00:11:32.440
+Hendrik Ebbers (Hedera Hashgraph LLC): We freeze the transaction, we sign the transaction, and send it away.
+
+49
+00:11:32.900 --> 00:11:46.550
+Hendrik Ebbers (Hedera Hashgraph LLC): The problem is that the API that we have today has zero problem with signing the transaction before freeze is called. So the API just allows that, which…
+
+50
+00:11:46.880 --> 00:11:54.249
+Hendrik Ebbers (Hedera Hashgraph LLC): Will end in an error when just calling freeze on such transaction.
+
+51
+00:11:54.390 --> 00:11:58.300
+Hendrik Ebbers (Hedera Hashgraph LLC): Next to this, we could… call freeze.
+
+52
+00:11:58.430 --> 00:12:01.050
+Hendrik Ebbers (Hedera Hashgraph LLC): After a transaction has been signed.
+
+53
+00:12:01.770 --> 00:12:07.290
+Hendrik Ebbers (Hedera Hashgraph LLC): And the other thing is, we could… mutate…
+
+54
+00:12:08.060 --> 00:12:16.150
+Hendrik Ebbers (Hedera Hashgraph LLC): the transaction and the internals of the transaction after sign, end, or freeze has been called, which both
+
+55
+00:12:16.710 --> 00:12:19.740
+Hendrik Ebbers (Hedera Hashgraph LLC): Should not be possible, and …
+
+56
+00:12:20.670 --> 00:12:25.910
+Hendrik Ebbers (Hedera Hashgraph LLC): After freeze, at least, it ends in a direct error, but…
+
+57
+00:12:26.050 --> 00:12:34.659
+Hendrik Ebbers (Hedera Hashgraph LLC): That error happens at runtime, right? So you don't see it here in your code, it just happens at runtime. …
+
+58
+00:12:36.160 --> 00:12:41.840
+Hendrik Ebbers (Hedera Hashgraph LLC): Let me see, … Oh yeah, that was something… oops.
+
+59
+00:12:42.350 --> 00:12:48.990
+Hendrik Ebbers (Hedera Hashgraph LLC): Give me a second, I wanted to… to move the Zoom window away. So this is something, …
+
+60
+00:12:49.150 --> 00:13:05.629
+Hendrik Ebbers (Hedera Hashgraph LLC): I was just missing when created this, because normally, in such scenario, what you want to do is use your operator account to sign a transaction, and I do not have any API to really do that.
+
+61
+00:13:06.000 --> 00:13:15.259
+Hendrik Ebbers (Hedera Hashgraph LLC): The only thing I had is, like, store the operator account up front somewhere, and then later use it here.
+
+62
+00:13:16.120 --> 00:13:17.060
+Hendrik Ebbers (Hedera Hashgraph LLC): …
+
+63
+00:13:17.510 --> 00:13:28.599
+Hendrik Ebbers (Hedera Hashgraph LLC): Let's assume… so we had some problems here, but let's assume the API has been used up to this point in a correct way, which means, …
+
+64
+00:13:29.450 --> 00:13:41.210
+Hendrik Ebbers (Hedera Hashgraph LLC): you created a transaction, set everything, like, all the attributes, then freeze it, and then sign it. So, doing it in the right way.
+
+65
+00:13:41.210 --> 00:13:55.080
+Hendrik Ebbers (Hedera Hashgraph LLC): and then we execute it to receive a response, and out of that response, receive a received or all record, up to what you want. Independent if you work with a received or data with a record.
+
+66
+00:13:55.180 --> 00:13:59.759
+Hendrik Ebbers (Hedera Hashgraph LLC): You now have access to a lot of things
+
+67
+00:13:59.930 --> 00:14:07.869
+Hendrik Ebbers (Hedera Hashgraph LLC): that do not make any sense. So, when you have an account create transaction.
+
+68
+00:14:08.160 --> 00:14:13.550
+Hendrik Ebbers (Hedera Hashgraph LLC): In the receipt, you have things like file ID. So, and…
+
+69
+00:14:13.920 --> 00:14:28.070
+Hendrik Ebbers (Hedera Hashgraph LLC): why I know where it's coming from when going down to the protobuf, for a developer who's using the SDK and who has an account create transaction, it's just, you know.
+
+70
+00:14:28.640 --> 00:14:37.680
+Hendrik Ebbers (Hedera Hashgraph LLC): he could misinterpret it, or misuse that to have information like a fire ID, and it's not only his fire ID, right? If you…
+
+71
+00:14:37.680 --> 00:14:51.450
+Hendrik Ebbers (Hedera Hashgraph LLC): create a file, you would have an account ID in the reside that is used for a new account being created, that then is just nile, which, again, is something that, …
+
+72
+00:14:51.640 --> 00:15:07.560
+Hendrik Ebbers (Hedera Hashgraph LLC): does not make much sense for that kind of transaction. The other thing is that while here on top, we work with methods and have getters and setters, I think I never have a getter used anywhere, when it comes
+
+73
+00:15:07.560 --> 00:15:14.029
+Hendrik Ebbers (Hedera Hashgraph LLC): And that is Java only now, that is a Java problem only, or at least I have not looked into the other languages for that.
+
+74
+00:15:14.090 --> 00:15:24.869
+Hendrik Ebbers (Hedera Hashgraph LLC): to the responses, you need to do direct access. There are no getters or something for fields like that, so you really need to…
+
+75
+00:15:25.190 --> 00:15:27.850
+Hendrik Ebbers (Hedera Hashgraph LLC): Get access to those fields.
+
+76
+00:15:28.830 --> 00:15:29.600
+Hendrik Ebbers (Hedera Hashgraph LLC): …
+
+77
+00:15:29.810 --> 00:15:48.959
+Hendrik Ebbers (Hedera Hashgraph LLC): And, yeah, in the record, you have the same problem, right? So, while we work with account create transaction, I could now do, like, contract function reside contract ID, which, again, makes, from a workflow perspective, absolutely no ID… makes absolutely no sense.
+
+78
+00:15:49.770 --> 00:15:51.920
+Hendrik Ebbers (Hedera Hashgraph LLC): And, …
+
+79
+00:15:52.660 --> 00:16:09.859
+Hendrik Ebbers (Hedera Hashgraph LLC): all those is, from my point of view, when it comes to developer experience, kind of misleading, because you have way too much open API in the given scenarios that you do not use
+
+80
+00:16:10.160 --> 00:16:23.040
+Hendrik Ebbers (Hedera Hashgraph LLC): that don't make sense in those scenarios, and that allows to create different workflows and a wrong usage of the API.
+
+81
+00:16:24.490 --> 00:16:34.290
+Hendrik Ebbers (Hedera Hashgraph LLC): So, so with, with that in mind, what I did is, … let me now remove all that. …
+
+82
+00:16:35.720 --> 00:16:52.320
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, here we go. So, so with that in mind, what I did is, I created an updated, and now I need to move out a little bit, an updated model on how the flow that we do on an SDK
+
+83
+00:16:52.320 --> 00:16:56.610
+Hendrik Ebbers (Hedera Hashgraph LLC): When executing a transaction could look like.
+
+84
+00:16:57.630 --> 00:17:03.700
+Hendrik Ebbers (Hedera Hashgraph LLC): So the main difference is here that in our current SDKs.
+
+85
+00:17:06.790 --> 00:17:10.800
+Hendrik Ebbers (Hedera Hashgraph LLC): All the things we have here on top.
+
+86
+00:17:11.520 --> 00:17:14.349
+Hendrik Ebbers (Hedera Hashgraph LLC): is packed in one.
+
+87
+00:17:15.290 --> 00:17:25.220
+Hendrik Ebbers (Hedera Hashgraph LLC): class, record, however you want to call it. Why I have it put here in two, we will have a look later in… into that. And…
+
+88
+00:17:25.270 --> 00:17:35.299
+Hendrik Ebbers (Hedera Hashgraph LLC): Then, here in the bottom, while the response is more or less on this diagram, first of all, it looks same, it will… specifications will come, or special…
+
+89
+00:17:35.850 --> 00:17:50.320
+Hendrik Ebbers (Hedera Hashgraph LLC): specializations will come into it when we look into this code. I changed a little bit on this record and reside and how that works. Another thing I changed is, and when I now remove everything again, that
+
+90
+00:17:50.500 --> 00:17:59.370
+Hendrik Ebbers (Hedera Hashgraph LLC): I defined all APIs to be async first, and synchronized calls
+
+91
+00:18:00.060 --> 00:18:19.449
+Hendrik Ebbers (Hedera Hashgraph LLC): can be based on top of that, because it's always super hard to create synchronized, synchronized… no, to create async codes based on synchronized functionality, so the right way to do that is to do async and create synchronized on top.
+
+92
+00:18:19.450 --> 00:18:25.359
+Hendrik Ebbers (Hedera Hashgraph LLC): And in the Java SDK, for example, it's currently more, I guess, like, there are two different
+
+93
+00:18:25.470 --> 00:18:29.429
+Hendrik Ebbers (Hedera Hashgraph LLC): workflows, if you call it async or Synth.
+
+94
+00:18:29.900 --> 00:18:31.280
+Hendrik Ebbers (Hedera Hashgraph LLC): As an example
+
+95
+00:18:31.800 --> 00:18:50.750
+Hendrik Ebbers (Hedera Hashgraph LLC): And by doing this split here in the top, by having those two classes, I created the general transaction, which could be the account create transaction, create account transaction, that is mute-able, where you can do, like.
+
+96
+00:18:50.800 --> 00:18:58.850
+Hendrik Ebbers (Hedera Hashgraph LLC): set memo, set, … initial H bar, whatever, get those things.
+
+97
+00:18:58.900 --> 00:19:18.240
+Hendrik Ebbers (Hedera Hashgraph LLC): And then, what is freeze today? I think instead of freeze, the word pack would make more sense. Instead of calling it on the object and continue to work with this object, what this method does, it returns an immutable
+
+98
+00:19:18.730 --> 00:19:20.980
+Hendrik Ebbers (Hedera Hashgraph LLC): Object, which is this
+
+99
+00:19:20.980 --> 00:19:39.079
+Hendrik Ebbers (Hedera Hashgraph LLC): packed transaction, or frozen transaction, however you want to call it, which is immutable, which has no getters of any attributes anymore, and that can only be signed. By doing so, here, we cannot sign.
+
+100
+00:19:39.080 --> 00:19:45.870
+Hendrik Ebbers (Hedera Hashgraph LLC): And here, we cannot set attributes, which ends in an API that
+
+101
+00:19:45.870 --> 00:19:52.849
+Hendrik Ebbers (Hedera Hashgraph LLC): does not allow a wrong usage. So you can set, set, set, set, peg, sign, send.
+
+102
+00:19:53.360 --> 00:20:09.389
+Hendrik Ebbers (Hedera Hashgraph LLC): you cannot use it in a wrong direction or in a wrong way. What I added to get back from here to here is this unpack, or you could call it unfreeze, however you want to name those, which
+
+103
+00:20:09.390 --> 00:20:18.439
+Hendrik Ebbers (Hedera Hashgraph LLC): would create, if you have a PACT transaction and causes NPACT, a new instance of a transaction
+
+104
+00:20:18.440 --> 00:20:24.790
+Hendrik Ebbers (Hedera Hashgraph LLC): Where all the attributes are set, yikes, it was stored when calling this pack.
+
+105
+00:20:25.480 --> 00:20:32.589
+Hendrik Ebbers (Hedera Hashgraph LLC): Maybe we can have a look at code, how that looks like, …
+
+106
+00:20:32.700 --> 00:20:45.289
+Hendrik Ebbers (Hedera Hashgraph LLC): when I go to… to this one. So this is now a Java API, and what it does is I have this account create transaction, and you already see it here, right?
+
+107
+00:20:45.290 --> 00:20:54.650
+Hendrik Ebbers (Hedera Hashgraph LLC): And here I have an account create transaction, where I call this Wiz, whiz, whiz, and then I call this pack transaction.
+
+108
+00:20:54.750 --> 00:21:12.829
+Hendrik Ebbers (Hedera Hashgraph LLC): And that results in a packed transaction, so we do not have an account create transaction anymore. And if I do a dot here, I would not be able to call something like withKey, setKey, with initial baggage, setInitial baggage, because the API
+
+109
+00:21:12.830 --> 00:21:14.819
+Hendrik Ebbers (Hedera Hashgraph LLC): Just do not allow it.
+
+110
+00:21:14.980 --> 00:21:26.210
+Hendrik Ebbers (Hedera Hashgraph LLC): So, a user who's using our APIs for the first time would not be able to do a wrong workflow at all.
+
+111
+00:21:26.890 --> 00:21:30.469
+Hendrik Ebbers (Hedera Hashgraph LLC): And what you see here is why I said, …
+
+112
+00:21:30.940 --> 00:21:48.740
+Hendrik Ebbers (Hedera Hashgraph LLC): asynchronous calls first should be the default to make it easier. I have created next to send, which is currently more or less like the execute, send and wait, which does nothing but
+
+113
+00:21:48.820 --> 00:21:53.780
+Hendrik Ebbers (Hedera Hashgraph LLC): Calling send the asynchronous one, and wait until it's done.
+
+114
+00:21:53.780 --> 00:22:17.049
+Hendrik Ebbers (Hedera Hashgraph LLC): which results in a response, and then I could get the record by calling a query, which would result in a record. And you already see one specification here that I do not have here, like today, a generic response and a generic record. I have an account create response and an account create record.
+
+115
+00:22:17.070 --> 00:22:22.619
+Hendrik Ebbers (Hedera Hashgraph LLC): And by doing so, this account create record Has a method, like.
+
+116
+00:22:22.720 --> 00:22:36.569
+Hendrik Ebbers (Hedera Hashgraph LLC): created account, or get account, however you want to call it, but you could not call something like get contract ID, or getFile ID, because this API do not exist
+
+117
+00:22:36.600 --> 00:22:52.530
+Hendrik Ebbers (Hedera Hashgraph LLC): at all, because we work here with a concrete account create record that has… we… only this concrete information, like, that is the created account, that is… I don't know what…
+
+118
+00:22:52.590 --> 00:23:02.109
+Hendrik Ebbers (Hedera Hashgraph LLC): information… are interesting for an account create response, maybe how many HBAR has the creation costed, and so on.
+
+119
+00:23:02.680 --> 00:23:06.010
+Hendrik Ebbers (Hedera Hashgraph LLC): So maybe that as an, …
+
+120
+00:23:07.170 --> 00:23:22.460
+Hendrik Ebbers (Hedera Hashgraph LLC): first overview of the API. What I can do now is let me stop sharing that one and open the project in IntelliJ.
+
+121
+00:23:29.600 --> 00:23:33.960
+Hendrik Ebbers (Hedera Hashgraph LLC): There we have some other things in it. …
+
+122
+00:23:36.340 --> 00:23:47.649
+Hendrik Ebbers (Hedera Hashgraph LLC): Where's Zoom? Here, Zoom? … oh, I see there's a comment in the chat, … Oh! Hey, Andrew! Great to have you here.
+
+123
+00:23:49.210 --> 00:23:56.819
+Hendrik Ebbers (Hedera Hashgraph LLC): So, let's… let's have a look. So, this is my, playground where I currently work with all that.
+
+124
+00:23:56.820 --> 00:24:15.190
+Hendrik Ebbers (Hedera Hashgraph LLC): One thing I learned while doing it, another deep dive I did is into how to handle protobuf, and the more I worked with it, the more I believe that we really need to do this split between the SDK and the generated protobuf.
+
+125
+00:24:15.230 --> 00:24:20.029
+Hendrik Ebbers (Hedera Hashgraph LLC): Fights, because those should be a kind of
+
+126
+00:24:20.900 --> 00:24:32.230
+Hendrik Ebbers (Hedera Hashgraph LLC): dependencies that we have, coming from consensus node, and by having those changes, I could work in the SDK without having
+
+127
+00:24:32.510 --> 00:24:50.180
+Hendrik Ebbers (Hedera Hashgraph LLC): You know, to update any protobuf things or anything like that. I believe that this is another point. I don't have that in the slides, but that's another point that totally makes sense to do that split. So, when going into… let's open the sample here.
+
+128
+00:24:50.790 --> 00:24:57.299
+Hendrik Ebbers (Hedera Hashgraph LLC): And maybe we start from scratch, or let's create a… maybe we create a sample.
+
+129
+00:24:59.080 --> 00:25:12.269
+Hendrik Ebbers (Hedera Hashgraph LLC): a sample screen, let's just create it, and say we start from scratch here. So, one thing I did, is I, next to,
+
+130
+00:25:13.930 --> 00:25:18.969
+Hendrik Ebbers (Hedera Hashgraph LLC): Where's the problem here? Oh, it, it does… let's do it like that. …
+
+131
+00:25:20.010 --> 00:25:37.919
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, so one… another thing I did here is what I learned, that, when I started to work against, a solo-based network, which is currently quite hard for our, SDKs.
+
+132
+00:25:38.090 --> 00:25:46.949
+Hendrik Ebbers (Hedera Hashgraph LLC): I created this functionality that says, hey, here's my operator account, please create a client for this operator account, and…
+
+133
+00:25:47.580 --> 00:25:58.940
+Hendrik Ebbers (Hedera Hashgraph LLC): for this network identifier, and the network identifier is based on an SPI naming where everybody could…
+
+134
+00:25:59.230 --> 00:26:11.619
+Hendrik Ebbers (Hedera Hashgraph LLC): do implementations of configurations that are based on a name. So, this Hedera testnet is… we can have a look at that somewhere…
+
+135
+00:26:12.270 --> 00:26:20.250
+Hendrik Ebbers (Hedera Hashgraph LLC): In my configuration… Network settings…
+
+136
+00:26:21.030 --> 00:26:33.530
+Hendrik Ebbers (Hedera Hashgraph LLC): Let me check where I have an implementation here. I have two Hedera Testnet and HIRO. So here's the implementation of the configuration of the network. I couldn't be only run against one node, right? To make
+
+137
+00:26:33.530 --> 00:26:48.840
+Hendrik Ebbers (Hedera Hashgraph LLC): everything super easy. That should be more complex for a real SDK, it's more about the pattern. And then I have a unique identifier, and I can easily use that unique identifier to
+
+138
+00:26:48.930 --> 00:27:06.309
+Hendrik Ebbers (Hedera Hashgraph LLC): run against the network with that name, where I then get the full configuration, and the nice way is by using an SPI, if somebody has a custom network, or somebody is running something like a hash sphere network.
+
+139
+00:27:06.420 --> 00:27:12.380
+Hendrik Ebbers (Hedera Hashgraph LLC): You only need one jar with one glass in it that looks like this.
+
+140
+00:27:12.710 --> 00:27:27.770
+Hendrik Ebbers (Hedera Hashgraph LLC): And then… and you need to have this jar at runtime on… on your class path, or execution path when it goes to go, and things like that, and then you can dynamically route everything just by this name, and know that you have the right configuration.
+
+141
+00:27:29.030 --> 00:27:47.260
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, so let's say I have an account create transaction. So let's have a look. What can I do? I can do, like, with key, with initial balance, get key, getInitial balance. What I do not can do is sign. I do not have an API to sign here.
+
+142
+00:27:47.390 --> 00:27:57.759
+Hendrik Ebbers (Hedera Hashgraph LLC): And it don't make sense to have an API to sign here, because signing should not happen until freeze or packing the transaction has been executed.
+
+143
+00:27:58.150 --> 00:28:03.119
+Hendrik Ebbers (Hedera Hashgraph LLC): So, let's say we do… Set account memo…
+
+144
+00:28:03.510 --> 00:28:12.090
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, this new account created. We still have an account create transaction, so we could set more stuff, like…
+
+145
+00:28:13.440 --> 00:28:14.210
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh.
+
+146
+00:28:14.360 --> 00:28:19.160
+Hendrik Ebbers (Hedera Hashgraph LLC): I don't want to call set, I wanted to do with… who have a fluent API.
+
+147
+00:28:19.270 --> 00:28:28.759
+Hendrik Ebbers (Hedera Hashgraph LLC): So I could do, like, I don't know, with key, yeah, sure, we need to define the key that is used for the, …
+
+148
+00:28:29.860 --> 00:28:33.179
+Hendrik Ebbers (Hedera Hashgraph LLC): for the… How to say it, for the account.
+
+149
+00:28:33.660 --> 00:28:46.710
+Hendrik Ebbers (Hedera Hashgraph LLC): What I could do now is I could say I want to pack that transaction. And packing this transaction, as said, is what is in the current APIs called Freeze today.
+
+150
+00:28:46.790 --> 00:28:54.240
+Hendrik Ebbers (Hedera Hashgraph LLC): For sure, to do that, I need to define a client where all the gRPC stuff and things like that is coming from.
+
+151
+00:28:54.280 --> 00:29:08.799
+Hendrik Ebbers (Hedera Hashgraph LLC): And now that I have a packed transaction, I cannot call anymore with account Mimo or something like that. The only thing I can do is I can send it, and here I can do
+
+152
+00:29:08.860 --> 00:29:25.689
+Hendrik Ebbers (Hedera Hashgraph LLC): an asynchronous send, which is just calling the send function, what returns the asynchronous return type for Java, or I could say a send and wait, and best case to when calling something like that, is always to say, like.
+
+153
+00:29:26.190 --> 00:29:30.610
+Hendrik Ebbers (Hedera Hashgraph LLC): … I want to have an, you know, like.
+
+154
+00:29:30.710 --> 00:29:36.030
+Hendrik Ebbers (Hedera Hashgraph LLC): … period that I want to wait a max, or an error is thrown.
+
+155
+00:29:36.450 --> 00:29:39.330
+Hendrik Ebbers (Hedera Hashgraph LLC): And since I have sent that now.
+
+156
+00:29:39.500 --> 00:29:44.980
+Hendrik Ebbers (Hedera Hashgraph LLC): I now have a response where, for example, could get the transaction ID.
+
+157
+00:29:45.840 --> 00:29:51.290
+Hendrik Ebbers (Hedera Hashgraph LLC): That is something I could now get out of the response. I cannot get
+
+158
+00:29:51.500 --> 00:30:01.139
+Hendrik Ebbers (Hedera Hashgraph LLC): super detailed stuff here, but what I could do is I could now query for a resub. And again, I do not call the
+
+159
+00:30:01.360 --> 00:30:05.060
+Hendrik Ebbers (Hedera Hashgraph LLC): the, async call, I'd use the…
+
+160
+00:30:05.190 --> 00:30:11.370
+Hendrik Ebbers (Hedera Hashgraph LLC): Sync call, so let's say, again, we wait for 10 seconds. And now…
+
+161
+00:30:11.460 --> 00:30:29.430
+Hendrik Ebbers (Hedera Hashgraph LLC): I have next to the status, which is just the status code of the transaction and the transaction ID, I have specific APIs that are specific to the account create transaction. So I cannot access now something like a flag ID, because
+
+162
+00:30:29.430 --> 00:30:35.950
+Hendrik Ebbers (Hedera Hashgraph LLC): It don't make sense for that account type, but what I could access is a created account.
+
+163
+00:30:36.420 --> 00:30:39.989
+Hendrik Ebbers (Hedera Hashgraph LLC): And now I could store the account ID here, oh.
+
+164
+00:30:41.280 --> 00:30:46.060
+Hendrik Ebbers (Hedera Hashgraph LLC): Which isn't… account ID, …
+
+165
+00:30:46.860 --> 00:30:57.009
+Hendrik Ebbers (Hedera Hashgraph LLC): And by doing so, I really have an API that does not allow me to move in the wrong direction.
+
+166
+00:30:57.690 --> 00:31:12.690
+Hendrik Ebbers (Hedera Hashgraph LLC): And really guide the user with functionality the user can use, and only exposes things that make sense, or that… it's not even make sense, that are allowed in that case, because…
+
+167
+00:31:13.480 --> 00:31:17.429
+Hendrik Ebbers (Hedera Hashgraph LLC): Signing and then setting something is just not allowed.
+
+168
+00:31:19.100 --> 00:31:21.809
+Hendrik Ebbers (Hedera Hashgraph LLC): … Is that it's…
+
+169
+00:31:22.720 --> 00:31:34.090
+Hendrik Ebbers (Hedera Hashgraph LLC): first of all, the prototype I have so far. I did some other improvements when it comes to gRPC and things like that.
+
+170
+00:31:34.090 --> 00:31:43.460
+Hendrik Ebbers (Hedera Hashgraph LLC): But I think the most important point about making them more easy to use is we use this…
+
+171
+00:31:43.960 --> 00:31:48.860
+Hendrik Ebbers (Hedera Hashgraph LLC): You're not allowed, or you cannot break it, you cannot do it in a wrong way.
+
+172
+00:31:49.130 --> 00:31:49.920
+Hendrik Ebbers (Hedera Hashgraph LLC): Sing.
+
+173
+00:31:50.390 --> 00:31:57.190
+Hendrik Ebbers (Hedera Hashgraph LLC): That is what I wanted to show, first of all. Are there any questions on that?
+
+174
+00:31:58.910 --> 00:32:00.020
+Hendrik Ebbers (Hedera Hashgraph LLC): Or comment.
+
+175
+00:32:00.500 --> 00:32:01.490
+Hendrik Ebbers (Hedera Hashgraph LLC): Whatever.
+
+176
+00:32:04.730 --> 00:32:07.660
+Robert Walworth: No, I was gonna say, I feel like this does…
+
+177
+00:32:07.770 --> 00:32:13.260
+Robert Walworth: this implementation, like, addresses a lot of pain points that people have had. I know, …
+
+178
+00:32:13.450 --> 00:32:29.869
+Robert Walworth: at least back when, like, HIP745 came out, that's the one that allowed, … allowed you to send transactions without automatically setting, like, transaction ID, node icon ID, like, being able to pass, like, the raw bytes of a transaction between
+
+179
+00:32:29.870 --> 00:32:41.360
+Robert Walworth: like, wallets and apps, for example. Like, if an app needed to get a signature from a wallet, you know, it could send it there and, be able to get a signature and then send back.
+
+180
+00:32:41.460 --> 00:32:51.710
+Robert Walworth: that kind of use case. You know, I think something like this could… could help with that. I also believe at the time, even, that there was some…
+
+181
+00:32:51.860 --> 00:33:03.920
+Robert Walworth: … an opinion that was brought, I don't remember by who, but that was saying, basically, just like, we don't… we shouldn't even have freeze. Like, freeze doesn't make sense, it's just an extra step that….
+
+182
+00:33:03.920 --> 00:33:18.269
+Hendrik Ebbers (Hedera Hashgraph LLC): That's another point, yeah. So, I was, when I did a deep dive, I was all the time, why do I freeze at all? You know? Because you could do, like, when the first time sign is called.
+
+183
+00:33:18.860 --> 00:33:21.870
+Hendrik Ebbers (Hedera Hashgraph LLC): It's… already freezing, right?
+
+184
+00:33:22.200 --> 00:33:31.820
+Hendrik Ebbers (Hedera Hashgraph LLC): That is something else I was thinking of. For me, it was now, okay, let's do not change everything.
+
+185
+00:33:31.820 --> 00:33:45.009
+Hendrik Ebbers (Hedera Hashgraph LLC): Let's try to keep, kind of, the workflow we have, but make it more strict and more solid. I… I agree, in theory, freeze is not needed.
+
+186
+00:33:45.190 --> 00:33:45.990
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+187
+00:33:47.700 --> 00:34:00.690
+Robert Walworth: Yeah, it's kind of one of those things, I feel like, where it's… you know, how… how much do we want to let potentially a new developer shoot themselves in the foot? You know, like, maybe…
+
+188
+00:34:01.340 --> 00:34:21.239
+Robert Walworth: There's some more… some things that we should, you know, make easier for them, but also that's, like, you might have more experienced developers that may want to have, like, more manual, control and kind of have, those more, like, advanced use cases where they're passing transactions between wallets and apps and everything.
+
+189
+00:34:21.480 --> 00:34:33.659
+Robert Walworth: But yeah, I mean, I like the PAC transaction, calling it PAC as opposed to freeze. I think that kind of… at least in my head, it kind of makes more sense.
+
+190
+00:34:33.870 --> 00:34:35.269
+Robert Walworth: But, yeah, Keith?
+
+191
+00:34:38.170 --> 00:34:46.139
+Keith Kowal (Hedera Hashgraph LLC): So, I always assumed we had previous transactions to deal with the start, stop, consensus timestamps. Is that not true?
+
+192
+00:34:47.179 --> 00:35:00.469
+Robert Walworth: So, Freeze right now, it generates the transaction ID and node account IDs, for the transaction if, the user has not set them manually.
+
+193
+00:35:01.119 --> 00:35:14.609
+Robert Walworth: But basically, I think the thought was, back in the day when there was talk about, you know, potentially taking Freeze out, or just trying to figure out why we had it,
+
+194
+00:35:14.699 --> 00:35:34.869
+Robert Walworth: it would basically just be, like, yeah, kind of like what Hendrix says, like, it would happen at the first, signing of the transaction. So, a user could go in and execute, and not even have to bother, freezing or thinking of anything, anything about that. But when the client would go in, or the operator would go in and sign it, that's when all the freezing
+
+195
+00:35:34.939 --> 00:35:51.099
+Robert Walworth: would take place, i.e. the transaction ID and the node account IDs get generated. But that functionality would still be available. Like, we wouldn't take those APIs out for the user to do that. It would just kind of minimize the amount of steps.
+
+196
+00:35:51.380 --> 00:36:13.110
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, and I believe… so, as you can see, that is currently… I mean, call it freeze, call it pack, whatever, what it really does, it, yeah, it creates the client ID, and all the transaction ID, and the transaction ID is time-based, right? So, Keith, you are right when saying freeze sets a timestamp, because that is…
+
+197
+00:36:13.110 --> 00:36:21.820
+Hendrik Ebbers (Hedera Hashgraph LLC): kind of what this one does. And maybe… I don't know, maybe there are scenarios where you want to freeze.
+
+198
+00:36:21.820 --> 00:36:29.250
+Hendrik Ebbers (Hedera Hashgraph LLC): And not directly sign and send. You want to freeze and then do something else and not do the signing.
+
+199
+00:36:29.900 --> 00:36:30.640
+Hendrik Ebbers (Hedera Hashgraph LLC): So.
+
+200
+00:36:30.640 --> 00:36:44.950
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I mean, I was just running the documentation on the HSM stuff, so… I mean, that's just one example, right? But HSM, you want to freeze, send it to your HSM, sign, send it back, submit, which could take…
+
+201
+00:36:45.240 --> 00:36:48.730
+Keith Kowal (Hedera Hashgraph LLC): One second, or it could take… A long… a long time.
+
+202
+00:36:48.730 --> 00:36:49.770
+Hendrik Ebbers (Hedera Hashgraph LLC): Yep, yep, yep.
+
+203
+00:36:50.610 --> 00:36:58.940
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, yeah, maybe… maybe pack or freeze, however you want to call it, is a must, currently, for… for those use cases, yeah.
+
+204
+00:36:59.070 --> 00:37:10.710
+Hendrik Ebbers (Hedera Hashgraph LLC): So, what I assume is, a nice API would allow you to call sign, which, if it's not freezing, do freeze and then sign, like an example.
+
+205
+00:37:14.750 --> 00:37:18.250
+Keith Kowal (Hedera Hashgraph LLC): I guess my other question, Hendrik, is what…
+
+206
+00:37:18.650 --> 00:37:30.560
+Keith Kowal (Hedera Hashgraph LLC): what is being… I mean, this is great, but what is being asked for? Are we… from my understanding, you're not asking to deprecate anything, you're asking to add new functionality to all SDKs?
+
+207
+00:37:30.740 --> 00:37:46.929
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, no, so, I mean, what this is, is coming from… from a request from Richard about how can we make all that more sogged and… and better for debugger parts. And what I've shown here is nothing…
+
+208
+00:37:47.000 --> 00:38:00.269
+Hendrik Ebbers (Hedera Hashgraph LLC): we can… I mean, like, implement tomorrow and then have it. That includes a lot of change… so let's say, like, this includes, really, changes in the public API.
+
+209
+00:38:00.480 --> 00:38:18.890
+Hendrik Ebbers (Hedera Hashgraph LLC): For sure. And that's why I call this a prototype, like, a background about how could future APIs look like. This is nothing where I would say we should implement that the next two months, and change our current APIs to that.
+
+210
+00:38:20.190 --> 00:38:38.880
+Hendrik Ebbers (Hedera Hashgraph LLC): This is more like, maybe we can create an incubation project about how could future APIs look like, play with all that, figure out what would be the best API to do so, and once we know that and have a solid understanding of everything.
+
+211
+00:38:38.880 --> 00:38:47.019
+Hendrik Ebbers (Hedera Hashgraph LLC): We could create a hip to say, like, hey, we want to move our APIs in 9 months, whatever.
+
+212
+00:38:47.020 --> 00:38:52.259
+Hendrik Ebbers (Hedera Hashgraph LLC): In a, in a new major version into that direction.
+
+213
+00:38:52.740 --> 00:38:56.459
+Hendrik Ebbers (Hedera Hashgraph LLC): It's more about that. So it's really about the future.
+
+214
+00:38:59.450 --> 00:39:00.170
+Keith Kowal (Hedera Hashgraph LLC): Bolt.
+
+215
+00:39:00.330 --> 00:39:03.519
+Keith Kowal (Hedera Hashgraph LLC): Sorry, I'm just gonna put on my PM hat here. So, like.
+
+216
+00:39:04.830 --> 00:39:19.310
+Keith Kowal (Hedera Hashgraph LLC): you know, to do that kind of change, you know, I don't question, it might bring value. It will also bring disruption. So I guess my question would be, has anyone… maybe I'll turn this to Robert, have you ever heard, yes, of course we could improve the APIs, but has anyone actually
+
+217
+00:39:19.310 --> 00:39:32.690
+Keith Kowal (Hedera Hashgraph LLC): requested this, or asked for this, or… like, because, you know, we break a lot of code when we make these… if we're changing APIs, are we not going to break code, and is then that worth the pain? Is that benefit worth the pain?
+
+218
+00:39:32.690 --> 00:39:42.099
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I have seen a lot that people used it in that way, and that it don't work, and they needed to…
+
+219
+00:39:42.100 --> 00:39:52.799
+Hendrik Ebbers (Hedera Hashgraph LLC): to check it. Even I did it when I started working with the SDKs, that it was quite hard to understand, and to understand the flow, and all that. So.
+
+220
+00:39:52.800 --> 00:39:55.860
+Hendrik Ebbers (Hedera Hashgraph LLC): … I would say…
+
+221
+00:39:56.400 --> 00:40:08.709
+Hendrik Ebbers (Hedera Hashgraph LLC): I agree, it creates friction, it creates changes, destruction, totally agree on that. That's why I say, there is nothing we want to have tomorrow, this is more about
+
+222
+00:40:09.870 --> 00:40:16.159
+Hendrik Ebbers (Hedera Hashgraph LLC): we have a queen field, how could an API look like that is really as
+
+223
+00:40:16.360 --> 00:40:21.290
+Hendrik Ebbers (Hedera Hashgraph LLC): developer-friendly and good to use as possible. And…
+
+224
+00:40:21.630 --> 00:40:31.799
+Hendrik Ebbers (Hedera Hashgraph LLC): From that point of view, from my point of view, we then need to check what can we maybe port to our SDKs, what can we take without…
+
+225
+00:40:33.190 --> 00:40:46.450
+Hendrik Ebbers (Hedera Hashgraph LLC): having people that need to change everything, can some things maybe give next to other APIs? That is something we need to figure out as a next step.
+
+226
+00:40:46.910 --> 00:40:55.509
+Hendrik Ebbers (Hedera Hashgraph LLC): And I… we don't have numbers, but I would say a clear yes that those programs
+
+227
+00:40:56.910 --> 00:41:11.689
+Hendrik Ebbers (Hedera Hashgraph LLC): or that people have exactly those programs. I've seen it when I did the… at the German university, teaching half a year smart contracts and how to use our SDKs. I did some… some…
+
+228
+00:41:11.690 --> 00:41:22.099
+Hendrik Ebbers (Hedera Hashgraph LLC): workshops about how to use SDKs. I mean, if we show everything in a video, and people do it step-by-step from that video, for sure they won't have those
+
+229
+00:41:22.100 --> 00:41:33.319
+Hendrik Ebbers (Hedera Hashgraph LLC): those problems, but if you set somebody just to our SDKs and say, hey, let's try… let's play with it, try it out, people will end at exactly those problems.
+
+230
+00:41:36.050 --> 00:41:36.780
+Keith Kowal (Hedera Hashgraph LLC): So…
+
+231
+00:41:37.420 --> 00:41:44.280
+Keith Kowal (Hedera Hashgraph LLC): I'm just trying to think back, Hendrick. I also remember I struggled with freeze, and when to use Freeze, and it was very painful.
+
+232
+00:41:44.510 --> 00:42:03.039
+Keith Kowal (Hedera Hashgraph LLC): Yeah. Now, I just want to put a suggestion out there. Maybe it was that. Also, I also thought it was because, and sorry, this falls back on us, our docs were not very good around the need, like, when to freeze, stuff like that. Like, maybe there was a docs gap about why it caused a lot of confusion about the freeze functionality.
+
+233
+00:42:03.380 --> 00:42:06.089
+Keith Kowal (Hedera Hashgraph LLC): So, maybe that's something we have to address.
+
+234
+00:42:06.320 --> 00:42:19.849
+Hendrik Ebbers (Hedera Hashgraph LLC): I don't think so. I mean, that is… that's… we… I mean, let's go into the extreme, right? So, the extreme would be we do not have concrete data types, everything is
+
+235
+00:42:19.850 --> 00:42:39.540
+Hendrik Ebbers (Hedera Hashgraph LLC): generic, and we have a documentation, and you need to understand the documentation, how everything works. The other extreme is you do not need a documentation at all, because you can only use the API in the right way. I believe both things are wrong, and…
+
+236
+00:42:39.540 --> 00:42:47.800
+Hendrik Ebbers (Hedera Hashgraph LLC): I believe a good one would be having a documentation, but an API that makes…
+
+237
+00:42:47.970 --> 00:43:02.919
+Hendrik Ebbers (Hedera Hashgraph LLC): or let's say, like, an API that does not allow you to create totally wrong workflows with it. And because, especially developers, yeah, we have a documentation, AI will use it.
+
+238
+00:43:02.920 --> 00:43:12.699
+Hendrik Ebbers (Hedera Hashgraph LLC): But most developers I know, first of all, try things before they look into any external documentation, especially documentation that is
+
+239
+00:43:12.700 --> 00:43:28.100
+Hendrik Ebbers (Hedera Hashgraph LLC): not like when going… yeah, I do not have any Java doc, but that is, like, encode documentation. I assume that will be used a lot, but there it will be hard to… to define those workflows and things like that.
+
+240
+00:43:28.310 --> 00:43:34.800
+Hendrik Ebbers (Hedera Hashgraph LLC): So I don't believe that only documentation will help at that point.
+
+241
+00:43:35.450 --> 00:43:43.419
+Hendrik Ebbers (Hedera Hashgraph LLC): But I agree, it's something we need to figure out, how much change do we want to have to make these things work better.
+
+242
+00:43:47.110 --> 00:43:56.059
+Robert Walworth: Yeah, I mean, I kind of just see this as, like, a… almost like a V3, like, prototype, like… Yeah, like you said, we wouldn't try and make these…
+
+243
+00:43:56.060 --> 00:44:10.289
+Robert Walworth: you know, just out of the blue, like, we'd have to kind of… this is, like, pretty much a… I mean, not, like, a completely whole new architecture, but, like, yeah, like, the APIs we're providing, like, a lot of them are going to change, and the workflows are gonna be different, …
+
+244
+00:44:10.620 --> 00:44:20.340
+Robert Walworth: I kind of equate this, like, if we were to try and implement this, like, we'd have to implement this, but then also keep supporting what we already have for…
+
+245
+00:44:20.570 --> 00:44:25.370
+Robert Walworth: You know, a certain amount of time, 9 months a year, whatever, to…
+
+246
+00:44:25.460 --> 00:44:43.630
+Robert Walworth: kind of allow that for people to… people to switch over, but… I mean, I… I… I like it. I… I think it's… it's more intuitive, at least, like, the… just from seeing, kind of, what you've showed us here, and, yeah, I… I like the, the pack, and I also like the unpack, too, because…
+
+247
+00:44:43.630 --> 00:45:02.329
+Robert Walworth: I know in our current API, we can freeze, but then once it's frozen, it's… you can't go back the other way, which… which I think could… could be helpful. But yeah, the pack and the unpack, I think, is… I think is good, and that can… that can help, too, with those use cases, where if,
+
+248
+00:45:02.360 --> 00:45:05.369
+Robert Walworth: You know, apps and wallets want to send, …
+
+249
+00:45:05.630 --> 00:45:09.879
+Robert Walworth: Transactions between each other, they can… they can easily, …
+
+250
+00:45:10.310 --> 00:45:14.179
+Robert Walworth: The pack and unpack, I feel like, makes it, a bit more streamlined.
+
+251
+00:45:14.880 --> 00:45:22.469
+Hendrik Ebbers (Hedera Hashgraph LLC): And that is… that is a nice one, right? I can really, like, unpack, and then set something that is specific for account create.
+
+252
+00:45:22.980 --> 00:45:25.689
+Hendrik Ebbers (Hedera Hashgraph LLC): And then pack that again and continue, yeah.
+
+253
+00:45:29.480 --> 00:45:35.730
+Robert Walworth: Yeah, because, like, some of the… some of the errors and use cases we're seeing is, you know, the… the…
+
+254
+00:45:35.810 --> 00:45:51.460
+Robert Walworth: the DAP would, you know, have its own client, its own list of nodes in the network that it's using. It would generate transactions based on those nodes, it would send it to the wallet to get signed, and then the wallet would have its own separate collection of nodes.
+
+255
+00:45:51.610 --> 00:45:53.660
+Robert Walworth: And, … er…
+
+256
+00:45:53.890 --> 00:46:03.209
+Robert Walworth: Wait, no, sorry, I got that back… I got that messed up. The wallet would generate their own, you know, transaction they would want to send. You'd have those, like, node IDs, then send it back to the dApp to send.
+
+257
+00:46:03.270 --> 00:46:14.469
+Robert Walworth: To the network, but the DAP wouldn't have the same nodes anymore, and we would just get, like, a bunch of, bunch of errors. Or people would get those, like, invalid… invalid node account IDs. …
+
+258
+00:46:15.090 --> 00:46:20.230
+Robert Walworth: But, … Yeah, no, I think this is good. I like this.
+
+259
+00:46:22.980 --> 00:46:23.500
+Keith Kowal (Hedera Hashgraph LLC): Sweet.
+
+260
+00:46:23.630 --> 00:46:37.789
+Keith Kowal (Hedera Hashgraph LLC): Well, Robert, what would be the next… I mean, I would think that we would need to present this to the broader SDK team, certainly also Simi. What would be the next possible steps to explore this, as you and Hendrick suggest?
+
+261
+00:46:38.330 --> 00:46:42.580
+Hendrik Ebbers (Hedera Hashgraph LLC): I… I believe I need to…
+
+262
+00:46:42.730 --> 00:46:55.509
+Hendrik Ebbers (Hedera Hashgraph LLC): create some more, you know, like, architecture documentation about what I have created here, especially when it goes a little bit deeper. And, …
+
+263
+00:46:55.640 --> 00:47:00.700
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I have this account create transaction now working.
+
+264
+00:47:01.200 --> 00:47:09.469
+Hendrik Ebbers (Hedera Hashgraph LLC): partly working, because the query, record is not implemented. So for me.
+
+265
+00:47:09.810 --> 00:47:27.560
+Hendrik Ebbers (Hedera Hashgraph LLC): The goal is to have one transaction, and I'm most… so the API is there, but if I would call that, an error will be… will be, thrown at… at one time. So that is something I want to do, is to have, for one transaction, just everything working.
+
+266
+00:47:27.700 --> 00:47:41.199
+Hendrik Ebbers (Hedera Hashgraph LLC): And, yeah, then this could be something to add a documentation, a draft, about future SDK architecture to the SDK Hub.
+
+267
+00:47:41.230 --> 00:47:53.319
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe we can create a GitHub discussion there. We're going to… this is just a repository under GitHub slash HendrikEbbas, it's a public repo where all that is, and then start a discussion.
+
+268
+00:47:53.610 --> 00:48:11.140
+Hendrik Ebbers (Hedera Hashgraph LLC): I… I assume that that would make sense, and see what people like about it, when people maybe… because I don't know if I see everything, right? So there are so many use cases, maybe people directly see, like, oh yeah, but by doing it, like, you did it, this or that use case will not work anymore.
+
+269
+00:48:11.350 --> 00:48:22.190
+Hendrik Ebbers (Hedera Hashgraph LLC): So… so having such a discussion for some time would make sense. And… and I believe this is nothing where we need to, to hurry. This is really, like, moving
+
+270
+00:48:22.810 --> 00:48:36.919
+Hendrik Ebbers (Hedera Hashgraph LLC): To the future, maybe then next year, or at the end of this year, we can say, like, oh yeah, that is the architecture we would like to have in the future, and can then decide a plan on how we want to go forward.
+
+271
+00:48:42.340 --> 00:48:58.480
+Robert Walworth: Yeah, we still have that discussion in the SDK Hub, too, about V3. People have just kind of been posting there about things they want to see, and yeah, additional APIs we may want to add, so I think maybe…
+
+272
+00:48:58.480 --> 00:49:02.769
+Robert Walworth: We can post a link to this in… in there, and then, …
+
+273
+00:49:02.880 --> 00:49:08.140
+Robert Walworth: Yeah, I mean, maybe, Keith, we can… we can talk with Simi and… …
+
+274
+00:49:08.330 --> 00:49:16.590
+Robert Walworth: Yeah, I don't know, I mean, I guess, Hendrick, you've already talked to Richard about this too, so maybe this would be, like, … this is something we'd take to the TSC, maybe?
+
+275
+00:49:17.410 --> 00:49:21.030
+Hendrik Ebbers (Hedera Hashgraph LLC): I don't know. So, I would…
+
+276
+00:49:21.050 --> 00:49:38.479
+Hendrik Ebbers (Hedera Hashgraph LLC): I mean, this is very technical, and… and not defined. This is now, like, Hendrik's pitch. You know, let's see it like that. And I would really like to discuss this in the SDK community first, before we move anything to the TSC.
+
+277
+00:49:38.870 --> 00:49:40.040
+Hendrik Ebbers (Hedera Hashgraph LLC): Because…
+
+278
+00:49:40.050 --> 00:49:54.910
+Hendrik Ebbers (Hedera Hashgraph LLC): I like what I did, but now we need feedback and understand if all that makes sense, and so on and so on, before we move it to the TSC. I assume nobody in the TSC has any problem with us
+
+279
+00:49:54.910 --> 00:50:14.200
+Hendrik Ebbers (Hedera Hashgraph LLC): playing with possible future APIs, but as long as we do not say, like, hey, this is now the architecture we want to have defined in a document, or this is our roadmap for SDK v3 or something, I believe it's too early to go to the TSC.
+
+280
+00:50:16.060 --> 00:50:31.240
+Keith Kowal (Hedera Hashgraph LLC): Yeah, so my suggestion, Henrik, if you're going to create documentation, why don't we just start by you creating a SDK design doc for the template, and we start with that, and create the SDK design doc, then the SDK team can review.
+
+281
+00:50:31.380 --> 00:50:38.689
+Keith Kowal (Hedera Hashgraph LLC): And then everyone can look at it, provide comments and feedback, so kind of like a hip, and then go from there.
+
+282
+00:50:39.520 --> 00:50:45.800
+Hendrik Ebbers (Hedera Hashgraph LLC): We can do that. I would even have started one point earlier and created a discussion in the repo.
+
+283
+00:50:51.110 --> 00:50:52.060
+Hendrik Ebbers (Hedera Hashgraph LLC): Because the….
+
+284
+00:50:52.060 --> 00:50:52.430
+Keith Kowal (Hedera Hashgraph LLC): Yeah.
+
+285
+00:50:52.510 --> 00:51:03.199
+Hendrik Ebbers (Hedera Hashgraph LLC): the design doc would be like, okay, here's a concrete PR with a concrete design I want to have, and I believe having a discussion first would make more sense.
+
+286
+00:51:06.690 --> 00:51:07.380
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+287
+00:51:11.950 --> 00:51:17.910
+Robert Walworth: Yeah, if you… would you want a separate discussion for this, or would you want to…
+
+288
+00:51:18.380 --> 00:51:22.990
+Robert Walworth: just kind of tagged this along on the… the V3 discussion already.
+
+289
+00:51:23.220 --> 00:51:31.129
+Hendrik Ebbers (Hedera Hashgraph LLC): To be fair, I have not looked into that one. I will look… I had no idea that we have that discussion, so I will have a look into that, and…
+
+290
+00:51:31.270 --> 00:51:35.200
+Hendrik Ebbers (Hedera Hashgraph LLC): then I can decide that. Actually, I cannot say it.
+
+291
+00:51:35.200 --> 00:51:47.660
+Robert Walworth: Yeah, I don't think there's too much… it's been open for a while, but it's… it's more so people just kind of posting ideas of what they would want in a video, as opposed to actual discussion, so….
+
+292
+00:51:47.660 --> 00:51:49.040
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, okay, yeah.
+
+293
+00:51:50.310 --> 00:51:58.370
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe I create a new one and link it into that one, like, oh, here's another idea, but this is a little bit more…
+
+294
+00:51:59.090 --> 00:52:03.079
+Hendrik Ebbers (Hedera Hashgraph LLC): big and… but detailed, so I externalized it.
+
+295
+00:52:03.210 --> 00:52:04.210
+Hendrik Ebbers (Hedera Hashgraph LLC): Something like that.
+
+296
+00:52:06.540 --> 00:52:08.249
+Robert Walworth: Yeah, that sounds good.
+
+297
+00:52:08.760 --> 00:52:09.520
+Hendrik Ebbers (Hedera Hashgraph LLC): Whew!
+
+298
+00:52:12.430 --> 00:52:13.470
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay.
+
+299
+00:52:14.310 --> 00:52:18.249
+Robert Walworth: Yeah, this was awesome. No, thanks… thanks for the demo. Yeah, as I… I…
+
+300
+00:52:18.470 --> 00:52:22.689
+Robert Walworth: I like what I see so far. I think it's, I think it's good.
+
+301
+00:52:23.770 --> 00:52:30.889
+Robert Walworth: Sweet. Yeah, that's all we had on the agenda today. Does anyone else have anything they wanted to bring up?
+
+302
+00:52:32.130 --> 00:52:34.159
+Robert Walworth: I'm gonna go ahead and open the floor.
+
+303
+00:52:37.220 --> 00:52:48.039
+Keith Kowal (Hedera Hashgraph LLC): Maybe just a call-out, Robert, I think the, … no, I need to do this myself, I think the high-row hooks design proposal is out there, so maybe everyone can take a look and provide feedback.
+
+304
+00:52:49.660 --> 00:52:51.849
+Hendrik Ebbers (Hedera Hashgraph LLC): The ZHIP off for that one?
+
+305
+00:52:54.650 --> 00:52:58.919
+Keith Kowal (Hedera Hashgraph LLC): There's a… there's a high-row hook, SDK design proposal, so….
+
+306
+00:52:58.920 --> 00:53:00.550
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, okay.
+
+307
+00:53:00.550 --> 00:53:01.700
+Robert Walworth: Oh, yep,
+
+308
+00:53:02.240 --> 00:53:06.599
+Robert Walworth: Yeah, that was opened… Oh, 3 weeks ago, it looks like, yeah.
+
+309
+00:53:07.620 --> 00:53:14.810
+Robert Walworth: Yep, so we still have that, … actually, 1193 is still open too, but I think that one's approved, I just need to merge it, …
+
+310
+00:53:17.120 --> 00:53:21.899
+Robert Walworth: Yep, that's in PR in the Hub, so anyone can go take a look at that.
+
+311
+00:53:26.780 --> 00:53:29.780
+Robert Walworth: And I think that's… yeah, that's all I had.
+
+312
+00:53:32.010 --> 00:53:36.079
+Robert Walworth: Alright, thanks for joining, everyone. We'll catch you on two Mondays.
+
+313
+00:53:38.620 --> 00:53:38.990
+Hendrik Ebbers (Hedera Hashgraph LLC): Bye.
+
+314
+00:53:38.990 --> 00:53:39.340
+Keith Kowal (Hedera Hashgraph LLC): Right?
+
+315
+00:53:39.340 --> 00:53:39.780
+Robert Walworth: Yep.
+
+316
+00:53:39.780 --> 00:53:40.490
+Keith Kowal (Hedera Hashgraph LLC): Thank you.
+

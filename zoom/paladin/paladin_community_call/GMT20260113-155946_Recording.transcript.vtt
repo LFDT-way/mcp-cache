@@ -1,0 +1,354 @@
+WEBVTT
+
+1
+00:05:57.860 --> 00:06:13.540
+Matthew Whitehead (Kaleido): Hi, so, welcome to the, Paladin… first Paladin Community Call of 2026. Just a couple of us on at the moment. I will, for recording, and anyone who
+
+2
+00:06:13.950 --> 00:06:33.740
+Matthew Whitehead (Kaleido): joins in a moment, just share the antitrust notice. I realize I do need to make sure I have a kind of a copy of the full antitrust notice in the Paladin Reaper, I think, for convenience, for sharing at the head of these calls. But all these calls, are run under the Linux Foundation antitrust notice.
+
+3
+00:06:35.250 --> 00:06:40.119
+Matthew Whitehead (Kaleido): And, please abide by those.
+
+4
+00:06:40.650 --> 00:06:46.429
+Matthew Whitehead (Kaleido): I put together an agenda, so I'm using the Paladin,
+
+5
+00:06:46.620 --> 00:06:50.280
+Matthew Whitehead (Kaleido): Wiki? Oopsie lives. Yeah, okay.
+
+6
+00:06:57.360 --> 00:07:09.629
+Matthew Whitehead (Kaleido): So I'm using the Paladin Wiki for communicables. I think that is the direction going forward for LFDT projects, rather than Atlassian, or Confluent or something else, so I'm doing that. I find it a little clunky.
+
+7
+00:07:10.550 --> 00:07:27.319
+Matthew Whitehead (Kaleido): And I think this will get more and more clunky when there are multiple… when there are lots of these entries, because creating child pages requires you to have… to start manually, building out the site. So, I'll continue doing this for the foreseeable future, but, we'll have to see how it evolves.
+
+8
+00:07:27.770 --> 00:07:30.299
+Matthew Whitehead (Kaleido): And how useful it is in tracking the meetings.
+
+9
+00:07:30.560 --> 00:07:33.830
+Matthew Whitehead (Kaleido): So the agenda's quite short today.
+
+10
+00:07:33.940 --> 00:07:46.470
+Matthew Whitehead (Kaleido): quick update on V1 development work, which continues apace. I thought I'd give a quick, specific overview. I'm not going to do a demo, because I've just torn down an environment for other development work.
+
+11
+00:07:46.750 --> 00:07:59.510
+Matthew Whitehead (Kaleido): Of… specifically around some of the sequence activity distribution, I will show just a… a screenshot just to put some… put some definition on that, which should help anyone watching the video.
+
+12
+00:07:59.510 --> 00:08:08.029
+Matthew Whitehead (Kaleido): And then anything else, specifically on general PRs that we're working towards, which Anna is currently going to just, talk about the work she's doing.
+
+13
+00:08:08.190 --> 00:08:18.260
+Matthew Whitehead (Kaleido): So, quick update on V1 development work. So, this is the planning board, that we have, got under LFDC Paladin.
+
+14
+00:08:18.980 --> 00:08:32.969
+Matthew Whitehead (Kaleido): This is a nominal list of all the items that we have penciled in for needing to be addressed, decided, actioned in V1, before we… before we release. Something this is already done, so everything purple has actually been actioned.
+
+15
+00:08:32.970 --> 00:08:39.609
+Matthew Whitehead (Kaleido): there's still quite a lot to do. Some of these design discussions have been actioned in that we have designs, but we're working on…
+
+16
+00:08:40.059 --> 00:08:58.979
+Matthew Whitehead (Kaleido): the implementation, this one here, for example, is the PR that's being reviewed currently, and I'll just show a screenshot of what that is. So some of these are kind of further along. And then there are some other things we've kind of moved into the probably don't need to be in V1 bucket. We might shift some other stuff there at some point.
+
+17
+00:08:59.200 --> 00:09:01.840
+Matthew Whitehead (Kaleido): But this is how we're tracking V1.
+
+18
+00:09:02.900 --> 00:09:09.480
+Matthew Whitehead (Kaleido): And we will continue closing these out as and when we merge PRs.
+
+19
+00:09:10.270 --> 00:09:17.390
+Matthew Whitehead (Kaleido): So, just to talk specifically, because I thought it would be useful to talk specifically about one
+
+20
+00:09:17.560 --> 00:09:33.000
+Matthew Whitehead (Kaleido): or two items we're actively working, particularly where they have externals, or where they're particularly interesting, is this one. One of them here, which I've been working on. I think the name of this could do with renaming slightly. The PR is much clearer, actually, than the…
+
+21
+00:09:33.230 --> 00:09:38.449
+Matthew Whitehead (Kaleido): the issue, if I go back to the issue here, which I think has a clearer description.
+
+22
+00:09:41.670 --> 00:09:48.100
+Matthew Whitehead (Kaleido): So this, this item is about how nodes in a multi-node Paladin
+
+23
+00:09:48.580 --> 00:09:50.959
+Matthew Whitehead (Kaleido): Tell each other about information that's going on.
+
+24
+00:09:51.710 --> 00:09:57.820
+Matthew Whitehead (Kaleido): So this item particularly relates to both user experience, problem diagnosis.
+
+25
+00:09:58.300 --> 00:10:08.190
+Matthew Whitehead (Kaleido): ability to understand what's happening in your Paladin, and what's happening in other paladins, to the extent that another Paladin node should tell you about what it's doing.
+
+26
+00:10:09.730 --> 00:10:18.300
+Matthew Whitehead (Kaleido): And I think what I will mainly do here is use this diagram to talk through what the PR has added.
+
+27
+00:10:19.600 --> 00:10:23.019
+Matthew Whitehead (Kaleido): So this picture shows… shows the number of piling nodes.
+
+28
+00:10:23.170 --> 00:10:31.829
+Matthew Whitehead (Kaleido): all participating in a Paladin domain token, a notarized token.
+
+29
+00:10:31.880 --> 00:10:44.879
+Matthew Whitehead (Kaleido): specifically showing where, where, a noto transaction, only really involves two of the four notes. So, it involves the note that's the notary, and it involves the note that submitted it.
+
+30
+00:10:45.830 --> 00:10:59.320
+Matthew Whitehead (Kaleido): And this diagram, once it's finalized, will go into the docs, and it shows the information that gets persisted at a node, the information that goes on chain, and the information that gets sent to other nodes.
+
+31
+00:10:59.960 --> 00:11:07.290
+Matthew Whitehead (Kaleido): So the intent of this is to show that if a user submits a transaction to a node.
+
+32
+00:11:07.670 --> 00:11:23.390
+Matthew Whitehead (Kaleido): That will have some coordination between the originating node, and some of the terminology that we're using for the new sequencing is important here. So, we have an originating node, which is where the transaction originated, that's node 1.
+
+33
+00:11:23.860 --> 00:11:30.149
+Matthew Whitehead (Kaleido): And in this case, we have a coordinating node at node 2, so there'll always be a coordinating node, but it won't always be a different node.
+
+34
+00:11:30.340 --> 00:11:45.990
+Matthew Whitehead (Kaleido): You have domains that self-coordinate, and in this case, we have a domain which is always being coordinated by node 2, and so you have the originator on the left, the coordinator node 2, and the other two nodes are not doing anything with this transaction, even though they're participating in this domain.
+
+35
+00:11:46.440 --> 00:11:48.370
+Matthew Whitehead (Kaleido): What's domain instance, to be fair.
+
+36
+00:11:49.350 --> 00:12:08.409
+Matthew Whitehead (Kaleido): So, the notary coordinates everything, but as it does that coordinating, there's quite a lot of complexity to what it does, and it might go through several iterations. In this case, it attempts three submissions to the base ledger, two of which fail, they revert for some reason, and then the third one is successful. And while all this is going on.
+
+37
+00:12:09.180 --> 00:12:16.079
+Matthew Whitehead (Kaleido): The user who submitted their transaction, it can be very hard to determine, while it's stuck in pending, what's happened with it.
+
+38
+00:12:16.130 --> 00:12:30.879
+Matthew Whitehead (Kaleido): They don't necessarily know that there are… there are reverting transactions on the base ledger that are causing it to be delayed. They don't know that the node, the notary node has actually done anything with it, necessarily. It might have sent an assemble request to node 1, but then it might have gone quiet.
+
+39
+00:12:30.880 --> 00:12:36.930
+Matthew Whitehead (Kaleido): And it might be assembling other things as well. So, the intent of this is to help understand what's happening.
+
+40
+00:12:37.060 --> 00:12:53.229
+Matthew Whitehead (Kaleido): And to help distribute information about the base ledger transactions. So, what we see here is that the notary coordinating this transaction sends… every time it submits a public transaction, it sends out a submission with the full public transaction.
+
+41
+00:12:53.400 --> 00:12:58.569
+Matthew Whitehead (Kaleido): back to the originating node. So we can see these grey lines here going back to the originating node.
+
+42
+00:12:58.920 --> 00:13:04.220
+Matthew Whitehead (Kaleido): And that means both for the failure cases and the successful cases,
+
+43
+00:13:05.000 --> 00:13:23.449
+Matthew Whitehead (Kaleido): The, user at node 1 can query their transaction, and they can get a list of the public transaction hashes that have been involved in attempting to get their transaction, endorsed and accepted on the base ledger contract.
+
+44
+00:13:23.640 --> 00:13:35.600
+Matthew Whitehead (Kaleido): And so they can see what's been happening, and they can see if any public transactions have been attempted, and they can see the outcome of them by looking at the base ledger for those transaction hashes.
+
+45
+00:13:36.900 --> 00:13:46.529
+Matthew Whitehead (Kaleido): What we also have, though, is other activity that might happen before we even attempt to put things on the base ledger, and we're calling that a sequencing activity.
+
+46
+00:13:46.530 --> 00:14:00.870
+Matthew Whitehead (Kaleido): So the new sequencer, is a distributed sequencer, it's designed to be able to be distributed across different nodes, in the future, and we term… anything that it's doing is sequencing activity, and that activity,
+
+47
+00:14:01.060 --> 00:14:14.299
+Matthew Whitehead (Kaleido): involves several steps. Anna will talk briefly about the state machine, in a minute, and as the state machine goes through the different states for transactions, all of those things are what we call sequencing activity.
+
+48
+00:14:14.680 --> 00:14:21.850
+Matthew Whitehead (Kaleido): And what this PR starts to do is to put some of that activity… we're just starting with a minimal
+
+49
+00:14:22.050 --> 00:14:27.389
+Matthew Whitehead (Kaleido): distribution to begin with, but this PR introduces that mechanism.
+
+50
+00:14:28.070 --> 00:14:46.379
+Matthew Whitehead (Kaleido): is that the coordinator, while it is involved in sequencing a transaction, it will send some of that information back to the originator. So we get sequencing activity, and that means in the future, we might have a node that's going through several state changes for a transaction, and hasn't actually attempted a public transaction.
+
+51
+00:14:46.530 --> 00:14:52.029
+Matthew Whitehead (Kaleido): So that the originator wouldn't have public transactions to look at, but they would see that sequencing activity.
+
+52
+00:14:52.410 --> 00:15:12.390
+Matthew Whitehead (Kaleido): So they can see that sequencing is going on, they can look at that, they can understand that the coordinator's trying to, progress it, and really, really usefully, they can see who that coordinator is. So they can see that, it's node 2 is doing stuff, but I could go and talk to the administrator of node 2, or the organization running it. I've got IDs that I can correlate with them, and so we can understand what's going on.
+
+53
+00:15:12.610 --> 00:15:20.129
+Matthew Whitehead (Kaleido): And in the future, the coordinator for this notarized token might, might, might fail over to another node.
+
+54
+00:15:20.530 --> 00:15:33.610
+Matthew Whitehead (Kaleido): And so, being able to see that the dispatcher, for example, for a dispatch to the base ledger has now changed to another node, all of this is useful information in terms of diagnostics and monitoring and observability.
+
+55
+00:15:34.350 --> 00:15:43.419
+Matthew Whitehead (Kaleido): And then we've extended PTX getTransactionFull and PTX getTransactionReceiptFull to return, those bits of information.
+
+56
+00:15:43.640 --> 00:16:00.719
+Matthew Whitehead (Kaleido): They could be quite verbose, so the regular PTX get transaction, the non-full variants, don't return all of this information, because they could get quite large. But we're starting to make that available by telling the relevant nodes. You can see node 2 doesn't tell any of this to nodes 3 and 4.
+
+57
+00:16:00.780 --> 00:16:08.060
+Matthew Whitehead (Kaleido): is not relevant to Notes 3 and 4. Privacy of the activity is, is, you know, always,
+
+58
+00:16:08.430 --> 00:16:16.199
+Matthew Whitehead (Kaleido): foremost in the design of the way Palladium works. So while there might be other transactions that use the same NOTO domain instance.
+
+59
+00:16:16.200 --> 00:16:29.969
+Matthew Whitehead (Kaleido): This transaction, nothing is told in those 3 and 4 about public baseload transactions, or the sequencing activity, and that's a really important part of the design, is that only the relevant parties are given information about what's taking place.
+
+60
+00:16:32.050 --> 00:16:42.460
+Matthew Whitehead (Kaleido): Okay, I think that is, hopefully, a quick, useful summary, and the PR has a lot more detail in it, and it's currently in review,
+
+61
+00:16:45.440 --> 00:17:01.540
+Matthew Whitehead (Kaleido): I will go back briefly to what we thought we would talk about in today's call. So, yeah, summary of anything else specific. So, I think, Anna, you've been working on some improvements, I think upgradable smart contract factories.
+
+62
+00:17:01.690 --> 00:17:11.879
+Matthew Whitehead (Kaleido): And starting to delve into the state machine. Do you want to pick up an upgradeable contract first? Yeah, so this has been a piece of work,
+
+63
+00:17:12.040 --> 00:17:16.799
+Matthew Whitehead (Kaleido): I guess to make us more future-proof as we move forwards in V1, so…
+
+64
+00:17:16.890 --> 00:17:33.829
+Matthew Whitehead (Kaleido): each of the domains we have in Paladin, each one of them has a factory contract, which is responsible for when we create a domain instance, we use that factory to deploy the contract that is that domain instance on the base ledger.
+
+65
+00:17:34.040 --> 00:17:51.690
+Matthew Whitehead (Kaleido): And one of the required behaviors of that factory is that when it deploys a contract for a new domain instance, it emits an event, which is then indexed by Paladin. It includes the address, its own address.
+
+66
+00:17:51.830 --> 00:17:54.860
+Matthew Whitehead (Kaleido): Speed.
+
+67
+00:17:55.050 --> 00:18:03.430
+Matthew Whitehead (Kaleido): Can't remember the exact details, but it contains information which means that when we receive a private transaction to a contract address.
+
+68
+00:18:03.640 --> 00:18:10.779
+Matthew Whitehead (Kaleido): We can look at that and go, oh yes, this is a transaction that needs to be handled by this specific domain.
+
+69
+00:18:11.130 --> 00:18:19.129
+Matthew Whitehead (Kaleido): What that means is it's important that we don't see that contract address ever change.
+
+70
+00:18:19.390 --> 00:18:20.700
+Matthew Whitehead (Kaleido): So…
+
+71
+00:18:21.250 --> 00:18:32.090
+Matthew Whitehead (Kaleido): To be future-proof, we need to ensure that the factory itself is upgradable, so using a standard pattern behind an ERC 1967 proxy.
+
+72
+00:18:32.090 --> 00:18:46.310
+Matthew Whitehead (Kaleido): If that's upgradable, then if we need to make changes, such as a small one I've made here, noticing a little bug in the Noto factory, that we can upgrade that contract in place without changing the address.
+
+73
+00:18:46.310 --> 00:18:51.960
+Matthew Whitehead (Kaleido): So this moves all of our existing factories to an upgradable pattern by default in V1.
+
+74
+00:18:52.760 --> 00:19:01.790
+Matthew Whitehead (Kaleido): Cool, thanks, and that's going to be one? Yep. Excellent. And then I think another area was the state machine inside the sequencer, is that? Yes.
+
+75
+00:19:01.890 --> 00:19:15.779
+Matthew Whitehead (Kaleido): So this PR is really touching on just a very small part of state machine, specifically the, coordinator and originator state machines.
+
+76
+00:19:15.780 --> 00:19:22.239
+Matthew Whitehead (Kaleido): Where we noticed we had a memory leak, where once transactions reached a terminal state, so a state where we say.
+
+77
+00:19:22.300 --> 00:19:30.709
+Matthew Whitehead (Kaleido): we can't do anything more with this transaction. Either it's being confirmed on the base ledger, or it's reverted.
+
+78
+00:19:31.110 --> 00:19:36.640
+Matthew Whitehead (Kaleido): at that point, we need to remove it from memory, so this PR is…
+
+79
+00:19:36.830 --> 00:19:46.479
+Matthew Whitehead (Kaleido): Addressing some missing transitions, some missing events, which were preventing them from being cleaned up, and some…
+
+80
+00:19:47.370 --> 00:19:56.079
+Matthew Whitehead (Kaleido): initial tidy up, I think, around our heartbeating behaviour, as we track how long have transactions been in a particular state for.
+
+81
+00:19:56.170 --> 00:20:09.430
+Matthew Whitehead (Kaleido): But yeah, I think in terms of what I'm working on, this… this PR is now leading on to some more work, around the code structure of the state machines, ensuring we have
+
+82
+00:20:09.730 --> 00:20:16.570
+Matthew Whitehead (Kaleido): exactly one state machine in code that can be reused in different places, and that state machine has…
+
+83
+00:20:16.820 --> 00:20:25.589
+Matthew Whitehead (Kaleido): clean, sort of fully contained within the state machine behaviour. So I think it's this item here, is that right? I think we generally all…
+
+84
+00:20:25.740 --> 00:20:39.570
+Matthew Whitehead (Kaleido): Maybe that's a good one. One that I broke, some of the comments out of, so I've taken a bunch of comments out of that one. Do we have another item specifically around… Right at the bottom, because I made it this afternoon.
+
+85
+00:20:39.660 --> 00:20:57.849
+Matthew Whitehead (Kaleido): It might ask, it may not have… this one here. Yes. It probably doesn't yet have some start and end dates on the board. No. So I'll slot those in. Thank you. Excellent, cool, so yes, starting to refactor and make the statement a little more of a formal entity in the code.
+
+86
+00:20:58.310 --> 00:21:12.619
+Matthew Whitehead (Kaleido): Thank you, Anna. Okay, I think that recaps everything we're plowing on with for V1, actively getting towards it. We will have another on these. I guess it will be 3 weeks' time, because I think we just bumped one of these.
+
+87
+00:21:12.860 --> 00:21:18.639
+Matthew Whitehead (Kaleido): Because of the… the timing after Christmas, so I think we'll have another one in three weeks' time.
+
+88
+00:21:19.470 --> 00:21:23.349
+Matthew Whitehead (Kaleido): Thanks, everyone who watches back the recording. See you on the next one.
+

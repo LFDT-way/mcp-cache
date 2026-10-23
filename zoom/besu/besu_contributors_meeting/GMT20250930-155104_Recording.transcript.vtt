@@ -1,0 +1,1578 @@
+WEBVTT
+
+1
+00:00:38.400 --> 00:00:39.720
+Justin Florentine: Hi, everybody!
+
+2
+00:00:40.090 --> 00:00:44.270
+Justin Florentine: Welcome to another edition of the Base U Contributors Call.
+
+3
+00:00:44.590 --> 00:00:56.629
+Justin Florentine: As a reminder, we are under an antitrust notice, under the Linux Foundation. That can be found on our wiki page. This meeting is being recorded, it is being transcribed, and machine summarized.
+
+4
+00:00:56.820 --> 00:01:08.780
+Justin Florentine: So, please mute unless you are speaking. Feel free to use the raise hand functionality, if you need to get a word in, and, we'll get started.
+
+5
+00:01:10.900 --> 00:01:17.920
+Justin Florentine: So the agenda is available here on the wiki page, I'll post it here in the chat so folks have it handy.
+
+6
+00:01:19.770 --> 00:01:26.180
+Justin Florentine: Starting off with Fusaka status. Hey! We just hard forked Fusaka a few hours ago.
+
+7
+00:01:26.700 --> 00:01:28.519
+Justin Florentine: Seems to have gone well.
+
+8
+00:01:29.540 --> 00:01:34.649
+Justin Florentine: Basie's following the… following the head. Participation was steady.
+
+9
+00:01:34.940 --> 00:01:42.709
+Justin Florentine: et cetera, et cetera. I haven't looked too deeply into how things have been going, but I also haven't heard a ton of news on it, so…
+
+10
+00:01:42.910 --> 00:01:45.160
+Justin Florentine: No news is generally good news.
+
+11
+00:01:46.670 --> 00:02:05.279
+Justin Florentine: As part of that, the FSACA release, there is a bug bounty that is currently ongoing. We have not really, gotten a ton of reports in yet. Reports that we do get are being managed via our security reporting process.
+
+12
+00:02:05.360 --> 00:02:16.209
+Justin Florentine: So if anybody comes to you with a bug, that's being reported through the Fusaka, please direct it to a maintainer for proper triage and escalation.
+
+13
+00:02:19.750 --> 00:02:22.130
+Justin Florentine: Any questions on Fusaka?
+
+14
+00:02:33.400 --> 00:02:34.290
+Justin Florentine: Okay.
+
+15
+00:02:35.150 --> 00:02:36.140
+Justin Florentine: Great.
+
+16
+00:02:38.590 --> 00:02:42.340
+Justin Florentine: Next up… Sunset plan!
+
+17
+00:02:44.000 --> 00:02:49.149
+Justin Florentine: We've talked a number of times about removing both proof of work and click.
+
+18
+00:02:49.900 --> 00:02:54.239
+Justin Florentine: As a, proof of authority algorithm.
+
+19
+00:02:56.080 --> 00:03:11.049
+Justin Florentine: The opportunity is presenting itself soon to potentially start doing some of this work, specifically the deprecation and removal of Qlik. So I just wanted to open the floor for any comments, questions, or concerns about that.
+
+20
+00:03:17.940 --> 00:03:22.370
+Fabio Di Fabio: I want to say that I'm in favor of removing GLIC.
+
+21
+00:03:22.580 --> 00:03:27.370
+Fabio Di Fabio: Since it was meant for… Only testnets?
+
+22
+00:03:28.300 --> 00:03:29.959
+Fabio Di Fabio: like, girly?
+
+23
+00:03:31.140 --> 00:03:35.639
+Fabio Di Fabio: as a… Wait to avoid issue.
+
+24
+00:03:36.150 --> 00:03:39.060
+Fabio Di Fabio: on testnet using proof of work.
+
+25
+00:03:39.470 --> 00:03:44.560
+Fabio Di Fabio: And now, since Gurley is gone, actually.
+
+26
+00:03:44.720 --> 00:03:47.620
+Fabio Di Fabio: There should be no need to keep it around.
+
+27
+00:03:48.660 --> 00:03:52.110
+Fabio Di Fabio: So yes, I'm… In favor of removing it.
+
+28
+00:03:52.490 --> 00:04:01.950
+Fabio Di Fabio: Then I added, another thing to… to propose For deprecation and removal, but… I think…
+
+29
+00:04:02.850 --> 00:04:05.820
+Fabio Di Fabio: Matt, do you have something to say about Qlik?
+
+30
+00:04:06.090 --> 00:04:09.060
+Fabio Di Fabio: I saw that you were trying to speak before.
+
+31
+00:04:09.620 --> 00:04:13.199
+Matthew Whitehead (Kaleido): Yeah, sorry, Fabio, I should have, should have put my hand up.
+
+32
+00:04:13.530 --> 00:04:14.760
+Fabio Di Fabio: Sorry,
+
+33
+00:04:15.110 --> 00:04:16.370
+Fabio Di Fabio: Yeah, me too.
+
+34
+00:04:16.510 --> 00:04:21.589
+Matthew Whitehead (Kaleido): Yeah, yeah, no, don't have any concerns about Cleet coming out?
+
+35
+00:04:23.120 --> 00:04:26.140
+Matthew Whitehead (Kaleido): It… it was vaguely on our radar, but we're… we're…
+
+36
+00:04:26.380 --> 00:04:29.970
+Matthew Whitehead (Kaleido): Focusing on some of the other removal work.
+
+37
+00:04:30.140 --> 00:04:34.339
+Matthew Whitehead (Kaleido): Proof of work, I guess, is one of the ones maybe we could discuss a bit more in a moment.
+
+38
+00:04:34.590 --> 00:04:39.069
+Matthew Whitehead (Kaleido): I… I feel like there was a discussion at some point that click was being used for some…
+
+39
+00:04:39.320 --> 00:04:47.140
+Matthew Whitehead (Kaleido): development experience, maybe the developer testnet you were talking about, Fabio, so maybe we could just migrate that over to a QBFT setup if… if that's all that's…
+
+40
+00:04:47.340 --> 00:04:49.210
+Matthew Whitehead (Kaleido): The only reason that it would…
+
+41
+00:04:49.510 --> 00:04:50.760
+Matthew Whitehead (Kaleido): Be a pain to get rid of it.
+
+42
+00:04:55.560 --> 00:05:00.010
+Fabio Di Fabio: So, you mean there, there is something in the acceptance test?
+
+43
+00:05:00.300 --> 00:05:00.910
+Fabio Di Fabio: Sorry?
+
+44
+00:05:00.910 --> 00:05:09.430
+Matthew Whitehead (Kaleido): I… I… yeah, I'm struggling to remember the details, Fabio. I… I… I feel like this… it came up probably 12 months ago, which is why my memory's a bit hazy.
+
+45
+00:05:10.430 --> 00:05:12.290
+Matthew Whitehead (Kaleido): I think it was something like…
+
+46
+00:05:12.600 --> 00:05:19.649
+Matthew Whitehead (Kaleido): It was used as part of an existing test, or some sort of developer has set up.
+
+47
+00:05:19.860 --> 00:05:32.189
+Matthew Whitehead (Kaleido): easy, out of the box, run a single-node kind of setup, was referring to Clik still, but my memory's very hazy, and I think whatever that is, if we find it, we could probably just switch it to QBFT.
+
+48
+00:05:33.010 --> 00:05:34.450
+Fabio Di Fabio: Sure, sure, yes.
+
+49
+00:05:34.580 --> 00:05:35.310
+Fabio Di Fabio: I got it.
+
+50
+00:05:38.430 --> 00:05:41.730
+Gary Schulte: As part of deprecating it, we should probably,
+
+51
+00:05:42.080 --> 00:05:58.759
+Gary Schulte: make the documentation updates at the same time. We still have, on the tutorials, like on the Developer Quick Start, we still have Create-Click Network and so forth, but, I mean, we have QBFT equivalents and IBFT equivalents, but we should make sure we do the docs and remove that, so once it's gone.
+
+52
+00:05:59.290 --> 00:06:02.200
+Gary Schulte: We're not referring to a feature that doesn't exist anymore.
+
+53
+00:06:08.960 --> 00:06:11.799
+Matthew Whitehead (Kaleido): One other, just, point related to that.
+
+54
+00:06:12.990 --> 00:06:18.700
+Matthew Whitehead (Kaleido): I don't know that Qlik was in the Sunset Plan blog article,
+
+55
+00:06:18.940 --> 00:06:25.829
+Matthew Whitehead (Kaleido): is it beneficial… I know we probably won't have many enterprise users actually reliant on it, but is it beneficial to…
+
+56
+00:06:26.630 --> 00:06:30.279
+Matthew Whitehead (Kaleido): And doing a deprecation announce very soon.
+
+57
+00:06:31.040 --> 00:06:35.599
+Matthew Whitehead (Kaleido): So that by the time we've actually done the work to remove it, people have had a bit of notice.
+
+58
+00:06:38.650 --> 00:06:41.599
+Matthew Whitehead (Kaleido): Like, could it go in the next release notes straight away?
+
+59
+00:06:43.260 --> 00:06:50.720
+Fabio Di Fabio: Yeah, I agree, I agree. We… in any case, we can give… months of,
+
+60
+00:06:51.210 --> 00:06:57.210
+Fabio Di Fabio: deprecation before the removal. I don't remember if we have a standard of months.
+
+61
+00:06:57.900 --> 00:07:00.319
+Fabio Di Fabio: 3-6 months, I don't remember that.
+
+62
+00:07:00.830 --> 00:07:04.049
+Matthew Whitehead (Kaleido): Yeah, I know that the… the Sunset blog article
+
+63
+00:07:05.080 --> 00:07:10.289
+Matthew Whitehead (Kaleido): When I talked to Matt about that, his aim was that people had had 6 months' notice.
+
+64
+00:07:11.350 --> 00:07:20.750
+Matthew Whitehead (Kaleido): Which is a good… I think it's a good aim, it's a healthy aim. I think for Qlik, particularly, it's… it's not the end of the world if there's a decision to get rid of it sooner, but…
+
+65
+00:07:20.880 --> 00:07:28.029
+Matthew Whitehead (Kaleido): if we just raise a PR to get it into the… or, yeah, to get into the next release notes, at the very least, then at least that time has started ticking.
+
+66
+00:07:29.300 --> 00:07:32.819
+Fabio Di Fabio: Alright, so if anyone has something…
+
+67
+00:07:33.420 --> 00:07:37.329
+Fabio Di Fabio: We… we can also see if,
+
+68
+00:07:37.680 --> 00:07:43.020
+Fabio Di Fabio: Someone is still using it, so we can give some more months, so otherwise we can…
+
+69
+00:07:43.390 --> 00:07:48.910
+Fabio Di Fabio: If no one is using… We can, start the removal.
+
+70
+00:07:49.420 --> 00:07:51.489
+Fabio Di Fabio: Before. Yeah, okay, okay.
+
+71
+00:07:52.100 --> 00:07:57.090
+Matthew Whitehead (Kaleido): Yeah, my guess would be no one will be using it in what you would call a production system.
+
+72
+00:07:57.090 --> 00:08:14.129
+Matthew Whitehead (Kaleido): it's possible people will be using it in, like, a production pipeline as part of building out a production system. They're not running in production, but their pipeline just runs some click, you know, BESU with some tests, so that… that would… I guess, that… that kind of scenario, I could imagine. So, a bit of notice period, and maybe…
+
+73
+00:08:14.470 --> 00:08:17.349
+Matthew Whitehead (Kaleido): I don't mind dropping something into the Enterprise channel.
+
+74
+00:08:18.160 --> 00:08:22.310
+Matthew Whitehead (Kaleido): Just to, you know, try and raise awareness as widely as possible.
+
+75
+00:08:24.420 --> 00:08:25.520
+Fabio Di Fabio: Okay, I agree.
+
+76
+00:08:29.710 --> 00:08:33.470
+Justin Florentine: Great, we'll start preparing the messaging on that as soon as possible.
+
+77
+00:08:35.179 --> 00:08:35.850
+Fabio Di Fabio: Nope.
+
+78
+00:08:35.850 --> 00:08:38.250
+Matthew Whitehead (Kaleido): Can I ask about proof of work?
+
+79
+00:08:40.870 --> 00:08:41.950
+Justin Florentine: Yeah, go ahead.
+
+80
+00:08:43.330 --> 00:08:45.770
+Matthew Whitehead (Kaleido): The only thing I just wanted to ask about was,
+
+81
+00:08:46.230 --> 00:08:52.150
+Matthew Whitehead (Kaleido): Just, it would be good to have clarity amongst the group on, on, kind of, a direction for that, so…
+
+82
+00:08:52.550 --> 00:09:00.260
+Matthew Whitehead (Kaleido): We did have Banu, one of the Kodo contributors, maintainers, did start on that.
+
+83
+00:09:01.290 --> 00:09:10.439
+Matthew Whitehead (Kaleido): he's now moved on to another company, but, he did, I think, a fair chunk of the work under a PR, which I think has now been closed as,
+
+84
+00:09:11.810 --> 00:09:12.740
+Matthew Whitehead (Kaleido): Yeah, stale.
+
+85
+00:09:14.100 --> 00:09:19.940
+Matthew Whitehead (Kaleido): But certainly, we're happy to pick that up, dust it off it, and carry that on, so I just wanted to…
+
+86
+00:09:20.120 --> 00:09:26.990
+Matthew Whitehead (Kaleido): Suggest that as a way forward for proof of work, if… unless anyone's particularly keen to go and do it themselves.
+
+87
+00:09:34.370 --> 00:09:46.329
+Justin Florentine: Yeah, I don't see any problem with that. That sounds like the logical way to pick it up and continue. I'm not sure that anybody has any opinions on the… how it gets done, other than, you know, safely, obviously.
+
+88
+00:09:46.960 --> 00:09:57.909
+Matthew Whitehead (Kaleido): Yeah, while we're talking, I'll just dig out the PR and make sure it's reopened, and just drop it in the Zoom chat in case anyone's interested, because I think Barney went through quite a lot, the discussion and hashing out
+
+89
+00:09:58.040 --> 00:10:01.089
+Matthew Whitehead (Kaleido): what was needed to get rid of it?
+
+90
+00:10:15.050 --> 00:10:17.820
+Fabio Di Fabio: Okay, if… So…
+
+91
+00:10:18.900 --> 00:10:27.080
+Fabio Di Fabio: there are another… now other, observation about click and proof of work. I would like to also introduce
+
+92
+00:10:27.490 --> 00:10:29.839
+Fabio Di Fabio: Another potential deprecation.
+
+93
+00:10:30.230 --> 00:10:35.840
+Fabio Di Fabio: there's… Could not be as easy as… Click, perform work.
+
+94
+00:10:36.770 --> 00:10:40.250
+Fabio Di Fabio: Basically, I would like to see
+
+95
+00:10:40.460 --> 00:10:44.050
+Fabio Di Fabio: If it is possible to deprecate and then remove.
+
+96
+00:10:44.390 --> 00:10:51.720
+Fabio Di Fabio: support for… pre-London, fee markets.
+
+97
+00:10:53.190 --> 00:10:58.090
+Fabio Di Fabio: I mean, removing the possibility to create a block.
+
+98
+00:10:59.870 --> 00:11:05.019
+Fabio Di Fabio: To read blocks using, prolonged artworks.
+
+99
+00:11:08.330 --> 00:11:11.080
+Fabio Di Fabio: That, are still on,
+
+100
+00:11:11.290 --> 00:11:13.960
+Fabio Di Fabio: Without the base fee market.
+
+101
+00:11:15.170 --> 00:11:23.040
+Fabio Di Fabio: Why I'm, asking for that? Because now we are supporting during the transaction pool, and…
+
+102
+00:11:23.310 --> 00:11:29.870
+Fabio Di Fabio: During block creation and in the transaction pool, we are still supporting both Free markets?
+
+103
+00:11:30.870 --> 00:11:32.620
+Fabio Di Fabio: pre and post London?
+
+104
+00:11:33.670 --> 00:11:40.640
+Fabio Di Fabio: And, if there is no real, usage of, preludona.
+
+105
+00:11:41.720 --> 00:11:48.640
+Fabio Di Fabio: So there are no real network around using Prolongedon, we can get rid of that part of the code, too.
+
+106
+00:11:52.000 --> 00:11:57.140
+Fabio Di Fabio: So I don't know if anyone, in the call he's aware…
+
+107
+00:11:57.310 --> 00:12:01.750
+Fabio Di Fabio: of any network still running a pre-London artwork.
+
+108
+00:12:05.120 --> 00:12:14.010
+Matthew Whitehead (Kaleido): Hey, Fabio, yeah, so… I think we do, we do have some users on… on pre… pre-London.
+
+109
+00:12:15.140 --> 00:12:19.760
+Matthew Whitehead (Kaleido): Partly just because we have… Some quite long-running historic chains.
+
+110
+00:12:20.090 --> 00:12:31.770
+Matthew Whitehead (Kaleido): so, I can see the, the, the… I can see the motivation for removing pre-London, I think…
+
+111
+00:12:33.350 --> 00:12:46.990
+Matthew Whitehead (Kaleido): using us as an example, but I suspect there are others out there with fairly long-running pre-London chains, where they just haven't had the need to upgrade to something like Shanghai for the new EVM op code that that introduced.
+
+112
+00:12:47.610 --> 00:12:51.730
+Matthew Whitehead (Kaleido): I think it would be much more impact than…
+
+113
+00:12:51.920 --> 00:12:53.909
+Matthew Whitehead (Kaleido): Some of the other things we've talked about.
+
+114
+00:12:54.650 --> 00:13:02.659
+Matthew Whitehead (Kaleido): So I think… My initial view would be, in principle, I don't think… We'd be against it.
+
+115
+00:13:03.350 --> 00:13:10.310
+Matthew Whitehead (Kaleido): But I think it would need very careful… thought, and… and fairly…
+
+116
+00:13:10.950 --> 00:13:24.210
+Matthew Whitehead (Kaleido): fairly well thought through timelines, much more than I think, you know, I think with Cleek, like I say, I think we're fairly relaxed. I think it would need some pretty well-thought-through and very clearly communicated timelines. My guess would be…
+
+117
+00:13:24.510 --> 00:13:26.339
+Matthew Whitehead (Kaleido): That would impact people.
+
+118
+00:13:27.480 --> 00:13:34.470
+Matthew Whitehead (Kaleido): And obviously there's an up… there's an upgrade path, there's a migrate path, but it… I… I… I can say…
+
+119
+00:13:34.590 --> 00:13:40.379
+Matthew Whitehead (Kaleido): with almost certainty that some people would be affected. Some of them, you know.
+
+120
+00:13:41.270 --> 00:13:43.270
+Matthew Whitehead (Kaleido): We need to keep our… our…
+
+121
+00:13:43.680 --> 00:13:49.729
+Matthew Whitehead (Kaleido): Customers more, you know, you know, current over time, and so we're not against, in principle.
+
+122
+00:13:49.840 --> 00:13:54.889
+Matthew Whitehead (Kaleido): Needing to go through that process of helping customers migrate chains to, you know, more modern…
+
+123
+00:13:55.290 --> 00:14:01.990
+Matthew Whitehead (Kaleido): EVM setup, but it… I just… I'm just trying to highlight it would be… it would… I think it would impact quite a few people.
+
+124
+00:14:02.650 --> 00:14:07.370
+Justin Florentine: That's… that's interesting. I'm wondering, like, what would be…
+
+125
+00:14:08.030 --> 00:14:12.729
+Justin Florentine: the mindset that would say, yes, I want newer versions of Besu.
+
+126
+00:14:13.060 --> 00:14:15.879
+Justin Florentine: I want to upgrade the client software itself.
+
+127
+00:14:16.510 --> 00:14:22.780
+Justin Florentine: But I don't want to go through any of the scheduled forks that upgrade the chain.
+
+128
+00:14:23.310 --> 00:14:29.120
+Matthew Whitehead (Kaleido): Yeah, so… I… I think…
+
+129
+00:14:29.750 --> 00:14:37.009
+Matthew Whitehead (Kaleido): I think my experience of this is that… A lot of enterprise folks.
+
+130
+00:14:37.140 --> 00:14:42.980
+Matthew Whitehead (Kaleido): consider the runtime and the EVM spec quite… in quite an orthogonal fashion.
+
+131
+00:14:45.110 --> 00:14:55.189
+Matthew Whitehead (Kaleido): So if you take an example where you've got a consortium network, where you've got a bunch of different orgs running nodes in a network.
+
+132
+00:14:55.470 --> 00:15:06.350
+Matthew Whitehead (Kaleido): to upgrade the EVM spec requires some pretty careful coordination between all the parties, and they've all got to be on the right fork, set for the right future block or timestamp.
+
+133
+00:15:06.700 --> 00:15:12.740
+Matthew Whitehead (Kaleido): And that's kind of one set of stuff you have to do. To upgrade the client, to get the benefits of…
+
+134
+00:15:13.360 --> 00:15:23.820
+Matthew Whitehead (Kaleido): Maybe memory reduction, stability, CVEs, general enhancements.
+
+135
+00:15:24.210 --> 00:15:28.479
+Matthew Whitehead (Kaleido): I think they would think of that as more run-of-the-mill software.
+
+136
+00:15:28.670 --> 00:15:35.440
+Matthew Whitehead (Kaleido): management and lifecycle, which they can do out of step with other parties in the consortium.
+
+137
+00:15:35.440 --> 00:15:36.009
+Justin Florentine: That makes sense.
+
+138
+00:15:37.420 --> 00:15:39.700
+Matthew Whitehead (Kaleido): So,
+
+139
+00:15:40.130 --> 00:15:50.420
+Matthew Whitehead (Kaleido): I do think people think of them as quite orthogonal. I think there's a good case to be made that people should be pushing more to, to move along the forks.
+
+140
+00:15:50.950 --> 00:15:54.560
+Matthew Whitehead (Kaleido): But bear in mind that I think enterprise folks don't…
+
+141
+00:15:55.020 --> 00:15:57.899
+Matthew Whitehead (Kaleido): Think of forks in the same way public chain users do.
+
+142
+00:15:58.770 --> 00:16:02.430
+Matthew Whitehead (Kaleido): And very few of them will be… have been impacted.
+
+143
+00:16:03.140 --> 00:16:14.390
+Matthew Whitehead (Kaleido): by not… not being current on the forks. Very… I think some people will have been impacted by… by things like… I think SolC started compiling for Shanghai's opcodes.
+
+144
+00:16:15.760 --> 00:16:23.990
+Matthew Whitehead (Kaleido): And so some people will have migrated when Shanghai introduced No OpKid that SolC and OpenZeppelin started using by default.
+
+145
+00:16:24.710 --> 00:16:32.839
+Matthew Whitehead (Kaleido): But I think there will be a bunch of people with legacy stuff, where they're not deploying a huge number of new contracts, but they are invoking transactions quite a lot.
+
+146
+00:16:33.420 --> 00:16:34.270
+Justin Florentine: So…
+
+147
+00:16:34.320 --> 00:16:42.189
+Matthew Whitehead (Kaleido): like I say, I'm not against in principle, I just think it… I think it needs to be considered quite separately to proof of work, to click, and so on.
+
+148
+00:16:42.800 --> 00:16:47.349
+Justin Florentine: What if we, thank you for that, that's illuminating.
+
+149
+00:16:48.050 --> 00:16:59.820
+Justin Florentine: What if there was a world where, you know, Base U2601 did not support building pre-London blocks, but…
+
+150
+00:17:00.780 --> 00:17:11.210
+Justin Florentine: Block building was pluggable, and we shipped something that could be configured and could retain that older ability
+
+151
+00:17:11.430 --> 00:17:16.070
+Justin Florentine: Separate from Besu. Is that kind of a non-starter for these folks?
+
+152
+00:17:19.759 --> 00:17:28.099
+Matthew Whitehead (Kaleido): I don't think it's a non-starter, and are you referring to some of the modularity that, again, Barney started some work on, on trying to make
+
+153
+00:17:28.209 --> 00:17:29.839
+Matthew Whitehead (Kaleido): Plug-in enhancements, the menu.
+
+154
+00:17:29.840 --> 00:17:41.420
+Justin Florentine: Yeah, I'm blue-eying here. I know that there would have to be work around getting that done, but it would be an approach that would untie our hands from anybody that still needs to be on an older EVM spec.
+
+155
+00:17:42.090 --> 00:17:46.140
+Matthew Whitehead (Kaleido): Yeah, and I guess I was just thinking through, as you're talking, Justin,
+
+156
+00:17:46.590 --> 00:17:53.320
+Matthew Whitehead (Kaleido): Fabio mentioned the transaction pool, you know, some of that's got historic…
+
+157
+00:17:53.830 --> 00:18:04.360
+Matthew Whitehead (Kaleido): pre-fee, pre-London fee behaviour. One thing that I think is much more palatable is for the layered pool to stop supporting that.
+
+158
+00:18:06.470 --> 00:18:13.249
+Matthew Whitehead (Kaleido): I don't think I'd have nearly as many concerns about starting to remove support by taking it out of the lead pool.
+
+159
+00:18:13.820 --> 00:18:22.150
+Matthew Whitehead (Kaleido): Fundamentally not being able to produce blocks, I think, is a bit different, and I guess,
+
+160
+00:18:22.340 --> 00:18:31.969
+Matthew Whitehead (Kaleido): I guess you're not proposing, Fabio, to remove… you know, you've still got to have the EVM spec to be able to playback historic transactions at those specs, right? So is it just…
+
+161
+00:18:32.120 --> 00:18:36.440
+Matthew Whitehead (Kaleido): The… the flea market in the lead… layered pool that you're thinking of?
+
+162
+00:18:37.690 --> 00:18:49.600
+Fabio Di Fabio: Yes, yes, even a frontier transaction will be supported, every transaction before London will be supported, because it's already supported by.
+
+163
+00:18:49.600 --> 00:18:50.970
+Matthew Whitehead (Kaleido): is.
+
+164
+00:18:51.310 --> 00:18:54.440
+Fabio Di Fabio: fee markets?
+
+165
+00:18:55.370 --> 00:18:59.670
+Fabio Di Fabio: For, specifically for transaction pool and during block production.
+
+166
+00:19:00.480 --> 00:19:10.250
+Fabio Di Fabio: that now there… There is some code that is… dedicated… to this prolonged non-fee market.
+
+167
+00:19:10.890 --> 00:19:13.499
+Fabio Di Fabio: And there are also all the…
+
+168
+00:19:13.680 --> 00:19:16.669
+Fabio Di Fabio: duplication in the test. The tests run about
+
+169
+00:19:16.800 --> 00:19:19.400
+Fabio Di Fabio: for pre- and post-London flea markets.
+
+170
+00:19:20.210 --> 00:19:22.580
+Fabio Di Fabio: So, it's more,
+
+171
+00:19:23.830 --> 00:19:31.980
+Fabio Di Fabio: Trying to reduce the code base and the time required for tests, unique tests and acceptance tests.
+
+172
+00:19:32.650 --> 00:19:34.589
+Matthew Whitehead (Kaleido): Yeah. In terms of.
+
+173
+00:19:35.800 --> 00:19:41.969
+Fabio Di Fabio: The implementation is not… So much code that would be removed.
+
+174
+00:19:43.350 --> 00:19:47.879
+Fabio Di Fabio: It was… I… let's see, I just wanted to… to understand…
+
+175
+00:19:48.280 --> 00:19:50.749
+Fabio Di Fabio: If there was a real usage.
+
+176
+00:19:50.940 --> 00:19:51.839
+Fabio Di Fabio: or not.
+
+177
+00:19:52.110 --> 00:19:58.459
+Fabio Di Fabio: from what I understand, it seems still… Hardly, since there are…
+
+178
+00:20:01.660 --> 00:20:12.220
+Fabio Di Fabio: user using it yet, and… I don't know if they are willing, easily, to switch to another
+
+179
+00:20:12.360 --> 00:20:13.850
+Fabio Di Fabio: posting or not.
+
+180
+00:20:14.010 --> 00:20:16.180
+Matthew Whitehead (Kaleido): So I think, I think,
+
+181
+00:20:17.620 --> 00:20:24.339
+Matthew Whitehead (Kaleido): Removing it from the layered pool, I'd have fewer concerns about, because almost everyone we work with uses the sequence pool.
+
+182
+00:20:24.920 --> 00:20:27.170
+Matthew Whitehead (Kaleido): I think…
+
+183
+00:20:30.960 --> 00:20:40.240
+Matthew Whitehead (Kaleido): It's… one thing that could be started… it could start down the road of removing a bit more of it might be to…
+
+184
+00:20:42.020 --> 00:20:52.929
+Matthew Whitehead (Kaleido): to mark it as deprecated, but with no real view as to exactly when that's going to be pulled out. And maybe, maybe like a log… a log entry saying that
+
+185
+00:20:53.410 --> 00:20:57.900
+Matthew Whitehead (Kaleido): Hey, you're… you're… you're still running at Berlin.
+
+186
+00:20:59.650 --> 00:21:06.680
+Matthew Whitehead (Kaleido): you're gonna need to upgrade at some point. If we can start people thinking about what's their upgrade path look like?
+
+187
+00:21:07.460 --> 00:21:09.000
+Fabio Di Fabio: I think that's helpful.
+
+188
+00:21:09.000 --> 00:21:13.579
+Matthew Whitehead (Kaleido): But, yeah, definitely people are still going to be running chains where they produce Berlin blocks.
+
+189
+00:21:14.390 --> 00:21:15.940
+Fabio Di Fabio: I see. Okay.
+
+190
+00:21:19.590 --> 00:21:29.279
+Matthew Whitehead (Kaleido): I think if reducing test coverage, like regression coverage, I think if that's a priority to make the development process quicker and easier, I…
+
+191
+00:21:29.530 --> 00:21:39.409
+Matthew Whitehead (Kaleido): I think that's reasonable. I think having quite as much regression coverage of it, I don't feel is super critical, especially for the load pool.
+
+192
+00:21:41.700 --> 00:21:46.799
+Fabio Di Fabio: Yeah, I see, I see that I… we can, drop the support.
+
+193
+00:21:48.230 --> 00:22:03.029
+Fabio Di Fabio: In the layered pool, and… Let's say, basically, don't, give… New feature, or…
+
+194
+00:22:06.070 --> 00:22:08.610
+Fabio Di Fabio: I think only bug fixes.
+
+195
+00:22:08.850 --> 00:22:12.089
+Fabio Di Fabio: should be… Down on that, at this point.
+
+196
+00:22:12.290 --> 00:22:12.870
+Matthew Whitehead (Kaleido): Yeah.
+
+197
+00:22:14.180 --> 00:22:15.910
+Fabio Di Fabio: Okay. Okay.
+
+198
+00:22:22.130 --> 00:22:23.120
+Justin Florentine: Cool.
+
+199
+00:22:27.210 --> 00:22:35.229
+Justin Florentine: Alright, if there's nothing else to cover with regard to sunsetting older features, we can move on to…
+
+200
+00:22:35.670 --> 00:22:37.479
+Justin Florentine: Discussion of our wiki!
+
+201
+00:22:38.170 --> 00:22:38.900
+Ry Jones (The Linux Foundation): Howdy.
+
+202
+00:22:39.270 --> 00:22:40.299
+Justin Florentine: Hi, Rye.
+
+203
+00:22:40.450 --> 00:22:42.230
+Ry Jones (The Linux Foundation): I know that this is super exciting.
+
+204
+00:22:42.740 --> 00:22:53.440
+Ry Jones (The Linux Foundation): So what I did is I went and the state of the art in terms of export plugins for Confluence has gotten much better.
+
+205
+00:22:53.800 --> 00:22:57.849
+Ry Jones (The Linux Foundation): So yesterday, I did an export of the Bezu space.
+
+206
+00:22:58.260 --> 00:23:03.760
+Ry Jones (The Linux Foundation): And then I put the… The raw export over here.
+
+207
+00:23:04.100 --> 00:23:06.859
+Ry Jones (The Linux Foundation): In the Bezu ETH wiki directory.
+
+208
+00:23:07.010 --> 00:23:09.550
+Ry Jones (The Linux Foundation): So this is basically no edits.
+
+209
+00:23:10.070 --> 00:23:15.999
+Ry Jones (The Linux Foundation): And then I started, bring over a few pieces of this.
+
+210
+00:23:16.310 --> 00:23:18.560
+Ry Jones (The Linux Foundation): So that it is…
+
+211
+00:23:18.940 --> 00:23:23.269
+Ry Jones (The Linux Foundation): you know, where it needs to be. And this is part of the overall,
+
+212
+00:23:23.460 --> 00:23:27.390
+Ry Jones (The Linux Foundation): moving away from… from Confluence, which has been under discussion for a little while.
+
+213
+00:23:28.380 --> 00:23:34.740
+Ry Jones (The Linux Foundation): how can I help you? What… what… biz…
+
+214
+00:23:35.660 --> 00:23:40.880
+Ry Jones (The Linux Foundation): Do you want 100% fidelity with what exists over here before…
+
+215
+00:23:41.380 --> 00:23:46.630
+Ry Jones (The Linux Foundation): Starting to do your thing over here, or… what… How can I help you?
+
+216
+00:23:46.890 --> 00:23:49.910
+Justin Florentine: Alright, so thank you for…
+
+217
+00:23:50.440 --> 00:23:56.469
+Justin Florentine: presenting this as an open floor discussion. I'm gonna weigh in real quick, but then I want other folks to weigh in.
+
+218
+00:23:56.470 --> 00:24:08.409
+Justin Florentine: My major… it's great to hear that the state of the art has gotten better, because my problem when we tried this in the past was that the output wasn't really all that legible or usable. This looks…
+
+219
+00:24:08.410 --> 00:24:21.089
+Justin Florentine: already, a little bit better. So I don't need one-to-one fidelity or anything like that, and I fully expect there to be an opportunity here for culling and editing as we go through it.
+
+220
+00:24:21.190 --> 00:24:23.679
+Justin Florentine: As long as things are,
+
+221
+00:24:25.490 --> 00:24:39.800
+Justin Florentine: legible, and links still work. I think that's one of the big things, is that interlinking needs to really be preserved, and we can't, you know, break a lot of the paths that people have already set down, between these files.
+
+222
+00:24:39.980 --> 00:24:44.709
+Justin Florentine: That's… kind of my acceptance criteria. What do other people think?
+
+223
+00:24:55.110 --> 00:25:01.360
+Justin Florentine: I think, searchability might be a thing that we want also to make sure,
+
+224
+00:25:02.060 --> 00:25:10.999
+Justin Florentine: is usable. Not everybody can browse through a wiki. It's not the fastest way to use it. It also kind of presupposes a lot.
+
+225
+00:25:11.120 --> 00:25:19.600
+Justin Florentine: We'd rather have good search performance. I don't… I don't know exactly how that works here.
+
+226
+00:25:19.740 --> 00:25:20.300
+Justin Florentine: you know.
+
+227
+00:25:20.300 --> 00:25:20.650
+Ry Jones (The Linux Foundation): culture.
+
+228
+00:25:20.650 --> 00:25:29.330
+Justin Florentine: being able to use things like labels and tags to avoid having to really structure your data, I think is very powerful, so I would want to make sure things like that were available.
+
+229
+00:25:30.210 --> 00:25:32.840
+Ry Jones (The Linux Foundation): Gotcha. It is, so I'm just…
+
+230
+00:25:33.030 --> 00:25:35.639
+Ry Jones (The Linux Foundation): This is just the, export that I'm showing here.
+
+231
+00:25:35.910 --> 00:25:36.730
+Justin Florentine: Yep.
+
+232
+00:25:36.730 --> 00:25:39.699
+Ry Jones (The Linux Foundation): So the new home for the wiki would be over here.
+
+233
+00:25:42.680 --> 00:25:48.139
+Ry Jones (The Linux Foundation): all of the links right now are completely broken, because I just did the export. Like, I don't think this…
+
+234
+00:25:49.200 --> 00:25:55.750
+Ry Jones (The Linux Foundation): link actually goes anywhere. Yeah, so that's just because I haven't done the, the copy over.
+
+235
+00:25:57.500 --> 00:26:01.699
+Ry Jones (The Linux Foundation): As far as searching, I, I think the…
+
+236
+00:26:01.950 --> 00:26:11.069
+Ry Jones (The Linux Foundation): the searchability on the wiki on GitHub is on par with the searchability Of their other products.
+
+237
+00:26:12.830 --> 00:26:15.750
+Ry Jones (The Linux Foundation): One thing that I will point out,
+
+238
+00:26:16.090 --> 00:26:20.570
+Ry Jones (The Linux Foundation): Is that this is something that you can get cloned, right?
+
+239
+00:26:20.690 --> 00:26:25.700
+Ry Jones (The Linux Foundation): So you can… Clone the wiki here and operate on it locally.
+
+240
+00:26:25.830 --> 00:26:29.269
+Ry Jones (The Linux Foundation): using your normal tools, which is how I did all of this.
+
+241
+00:26:30.430 --> 00:26:37.150
+Ry Jones (The Linux Foundation): but the… what you're seeing here is very rough and ready.
+
+242
+00:26:38.150 --> 00:26:43.940
+Ry Jones (The Linux Foundation): So, I would not… Worry too much about what is actually on this page right now.
+
+243
+00:26:46.750 --> 00:26:52.930
+Ry Jones (The Linux Foundation): But, when I go here, let me see…
+
+244
+00:26:54.510 --> 00:26:59.660
+Ry Jones (The Linux Foundation): So, basically, this page is the page that, is the README over there.
+
+245
+00:27:00.450 --> 00:27:03.030
+Ry Jones (The Linux Foundation): And then the,
+
+246
+00:27:03.860 --> 00:27:09.429
+Ry Jones (The Linux Foundation): I guess, like, what is the minimum thing that you would need? I assume that the meeting minutes…
+
+247
+00:27:10.490 --> 00:27:13.720
+Ry Jones (The Linux Foundation): For, like, say, 2025, something of that nature.
+
+248
+00:27:14.830 --> 00:27:25.130
+Ry Jones (The Linux Foundation): to enable you to have the meeting minutes. And this… If we go into, yeah, whatever.
+
+249
+00:27:27.900 --> 00:27:33.359
+Ry Jones (The Linux Foundation): So, right now, this is not set up for org access, because I haven't done it yet.
+
+250
+00:27:34.020 --> 00:27:38.900
+Ry Jones (The Linux Foundation): But it would be the same… team, over here.
+
+251
+00:27:39.320 --> 00:27:42.930
+Ry Jones (The Linux Foundation): We would just need to… You know, pick a team, like.
+
+252
+00:27:43.250 --> 00:27:47.100
+Ry Jones (The Linux Foundation): Bezu Doc maintainers, or Bezu contributors, or everybody.
+
+253
+00:27:47.620 --> 00:27:54.109
+Ry Jones (The Linux Foundation): to have control, the ability to edit that repo. I just didn't make that change yesterday when I was running through this.
+
+254
+00:27:56.550 --> 00:27:57.370
+Justin Florentine: Okay.
+
+255
+00:28:02.220 --> 00:28:03.539
+Justin Florentine: What do people think?
+
+256
+00:28:04.510 --> 00:28:05.490
+Justin Florentine: Luis.
+
+257
+00:28:06.980 --> 00:28:10.789
+Luis Pinto: Yeah, hello, Yeah, I've…
+
+258
+00:28:11.470 --> 00:28:18.219
+Luis Pinto: I think we talked about this before in the past, is there,
+
+259
+00:28:18.260 --> 00:28:31.190
+Luis Pinto: is this the… the normal open source, the standard open source way of having the wiki in a separate repo? Because I've seen some projects which… which have…
+
+260
+00:28:31.210 --> 00:28:42.299
+Luis Pinto: Not, like, the meeting… the meeting's agenda and, and all of that, but the how-tos, or how to contribute, or how to…
+
+261
+00:28:42.560 --> 00:28:53.839
+Luis Pinto: get around the code, the BESO code, is just stored in the repo itself, in the… in the BESO repo, alongside the source code.
+
+262
+00:28:54.140 --> 00:28:57.370
+Luis Pinto: is there any…
+
+263
+00:28:57.530 --> 00:29:09.709
+Luis Pinto: what do they… what do people think about that, and is that being explored, or… Because I feel the users, the… anyone contributing outside
+
+264
+00:29:09.880 --> 00:29:20.119
+Luis Pinto: Might get a bit lost if you have to search for this wiki repo and dig through all this information that they don't need to get started on the project.
+
+265
+00:29:20.490 --> 00:29:27.599
+Luis Pinto: So… Yeah, just opening… The thoughts for that.
+
+266
+00:29:32.950 --> 00:29:38.439
+Ry Jones (The Linux Foundation): Yeah, so in this instance, I just, created
+
+267
+00:29:38.610 --> 00:29:41.570
+Ry Jones (The Linux Foundation): the repo in order to do the wiki export.
+
+268
+00:29:41.690 --> 00:29:44.310
+Ry Jones (The Linux Foundation): And I put it in this directory called wiki.
+
+269
+00:29:45.340 --> 00:29:46.820
+Ry Jones (The Linux Foundation): You're right.
+
+270
+00:29:47.020 --> 00:29:53.999
+Ry Jones (The Linux Foundation): You, you could do… Something along the lines of having it in… attached to another repo.
+
+271
+00:29:54.470 --> 00:30:01.129
+Ry Jones (The Linux Foundation): The reason that I did not do that in this case is because, you know, this is part of the effort to
+
+272
+00:30:01.860 --> 00:30:03.460
+Ry Jones (The Linux Foundation): move,
+
+273
+00:30:06.480 --> 00:30:09.050
+Ry Jones (The Linux Foundation): to move… Bezu…
+
+274
+00:30:09.420 --> 00:30:14.549
+Ry Jones (The Linux Foundation): over to its own org, so that it can be managed effectively. So this would not be…
+
+275
+00:30:15.700 --> 00:30:21.709
+Ry Jones (The Linux Foundation): I don't believe that this would be, like, removing this from these repos.
+
+276
+00:30:22.670 --> 00:30:23.670
+Ry Jones (The Linux Foundation): However.
+
+277
+00:30:23.920 --> 00:30:31.020
+Ry Jones (The Linux Foundation): if the Besu Project wanted to, you know, you have a wiki tab that's not used, or is sort of used.
+
+278
+00:30:31.310 --> 00:30:36.400
+Ry Jones (The Linux Foundation): if you wanted this to be attached to something like the Bezu repo or whatever, I'm…
+
+279
+00:30:37.070 --> 00:30:40.060
+Ry Jones (The Linux Foundation): I… tell me how I can help you. I…
+
+280
+00:30:40.760 --> 00:30:43.090
+Ry Jones (The Linux Foundation): I don't have strong feelings about it.
+
+281
+00:30:50.360 --> 00:31:10.249
+Luis Pinto: Yeah, I mean, I think I would be, happier to have, maybe, like, something, like, the things to get someone started on the project, and how to contribute, and code of conduct, and all those things. So, have those directly in the documentation alongside the source code.
+
+282
+00:31:10.390 --> 00:31:14.800
+Luis Pinto: That people can just get in very quickly,
+
+283
+00:31:15.030 --> 00:31:28.939
+Luis Pinto: And leaving those meetings, agendas, and community calls, like, more detailed information about how the project health is going.
+
+284
+00:31:29.430 --> 00:31:34.430
+Luis Pinto: In the wiki, side of things.
+
+285
+00:31:34.670 --> 00:31:45.389
+Luis Pinto: We've seen this, and I'm taking from example, RAT, which has the documentation organized like this.
+
+286
+00:31:45.650 --> 00:31:50.400
+Luis Pinto: All the get started, and all the…
+
+287
+00:31:51.420 --> 00:31:59.550
+Luis Pinto: All these useful documentation to get around quickly in the project are alongside the source code.
+
+288
+00:32:01.820 --> 00:32:09.720
+Luis Pinto: But yeah, maybe we can revisit some other time as well. I don't need to decide on this now, but just… it was just a thought, anyway.
+
+289
+00:32:18.250 --> 00:32:23.790
+Ry Jones (The Linux Foundation): Okay, well, this isn't… a decision that needs to be made today, I just wanted to…
+
+290
+00:32:24.620 --> 00:32:27.169
+Ry Jones (The Linux Foundation): Bring this up and socialize it, that we…
+
+291
+00:32:27.400 --> 00:32:29.670
+Ry Jones (The Linux Foundation): You know, this is in progress.
+
+292
+00:32:30.330 --> 00:32:33.380
+Ry Jones (The Linux Foundation): And the plan would be, at some point soon.
+
+293
+00:32:33.670 --> 00:32:37.459
+Ry Jones (The Linux Foundation): To make the Confluence Wiki read-only.
+
+294
+00:32:37.970 --> 00:32:39.790
+Ry Jones (The Linux Foundation): As soon as we're able to migrate.
+
+295
+00:32:40.090 --> 00:32:50.380
+Ry Jones (The Linux Foundation): as soon as, you know, and when I say make it read-only, I'm not talking about, you know, deleting anything or anything of that nature. You know, this… this will remain as a,
+
+296
+00:32:50.950 --> 00:32:52.180
+Ry Jones (The Linux Foundation): As an archive.
+
+297
+00:32:52.980 --> 00:32:55.159
+Ry Jones (The Linux Foundation): For at least the next year.
+
+298
+00:32:56.930 --> 00:32:58.410
+Justin Florentine: I think,
+
+299
+00:32:58.790 --> 00:33:08.040
+Justin Florentine: as far as next steps go, Rye, maybe if we, you know, try to do an extraction that preserves a lot of the links, and…
+
+300
+00:33:08.850 --> 00:33:13.640
+Justin Florentine: figure out the search problem, I think we'd be ready to move forward.
+
+301
+00:33:14.030 --> 00:33:14.740
+Ry Jones (The Linux Foundation): Okay.
+
+302
+00:33:19.520 --> 00:33:21.530
+Justin Florentine: Cool. Thanks, Ryan.
+
+303
+00:33:21.960 --> 00:33:22.970
+Ry Jones (The Linux Foundation): Thanks for having me.
+
+304
+00:33:24.790 --> 00:33:30.590
+Justin Florentine: Okay, alright, next up… Glamsterdam Planning!
+
+305
+00:33:32.330 --> 00:33:34.340
+Justin Florentine: Headliners have already been selected.
+
+306
+00:33:35.150 --> 00:33:39.350
+Justin Florentine: Alright, so we're doing EPBS and block-level access lists.
+
+307
+00:33:39.820 --> 00:33:57.030
+Justin Florentine: Besu is making some pretty good progress on block-level access lists. We have external contributors working on that, which is very exciting. They're collaborating closely with, let's see, Kareem's not here, but yes, they are collaborating very closely with maintainers.
+
+308
+00:33:57.030 --> 00:34:03.630
+Justin Florentine: And pushing a pretty major feature along, externally, so I think that's pretty awesome.
+
+309
+00:34:03.840 --> 00:34:06.149
+Justin Florentine: We should be… we should be happy with that.
+
+310
+00:34:06.610 --> 00:34:09.550
+Justin Florentine: Propose for inclusion is still open.
+
+311
+00:34:10.630 --> 00:34:22.119
+Justin Florentine: And it likely will be. So, if anybody has opinions on smaller, non-headliner EIPs that they think should be included in Glamsterdam.
+
+312
+00:34:22.920 --> 00:34:30.390
+Justin Florentine: you still have a chance to do that. If you want to make a case, if you want some of the maintainers to come forward and try to advocate for them.
+
+313
+00:34:30.570 --> 00:34:31.939
+Justin Florentine: Reach out.
+
+314
+00:34:33.600 --> 00:34:39.540
+Justin Florentine: I have my own pet issues that I'm advocating for. I think Fossil is…
+
+315
+00:34:39.730 --> 00:34:48.090
+Justin Florentine: is viable and can work there, so I will be doing my own campaigning for that. I would encourage other people to push for what issues you think
+
+316
+00:34:48.719 --> 00:34:49.810
+Justin Florentine: matter.
+
+317
+00:34:55.460 --> 00:35:00.340
+Justin Florentine: Any questions, comments, favorite EIPs you'd like to discuss?
+
+318
+00:35:07.820 --> 00:35:08.630
+Justin Florentine: Okay.
+
+319
+00:35:09.410 --> 00:35:18.450
+Justin Florentine: And then lastly, I just want to remind everybody that the project charter is still out there. We still need approvals from people.
+
+320
+00:35:18.450 --> 00:35:36.650
+Justin Florentine: If you're a maintainer, please approve it. I think that some of the Australian contributors are lacking here, and so I will make sure that I remind them to contribute. If you have questions that are keeping you from wanting to approve it, please raise them directly on the PR itself.
+
+321
+00:35:36.650 --> 00:35:39.780
+Justin Florentine: Here, I'll post a link to it again so everybody can see it.
+
+322
+00:35:41.910 --> 00:35:45.470
+Justin Florentine: But again, that remains outstanding, and…
+
+323
+00:35:46.910 --> 00:35:55.689
+David Boswell (The Linux Foundation): Yeah, thanks for pushing that forward, Justin. And yeah, as you say, if people have questions, I'm happy to try to resolve any of that. We can go back to our, you know.
+
+324
+00:35:56.090 --> 00:36:04.200
+Justin Florentine: project charter and governance experts at the Linux Foundation and get any questions answered, so feel free to, let me know if I can help with anything.
+
+325
+00:36:04.810 --> 00:36:06.410
+Justin Florentine: Will do, thank you, David.
+
+326
+00:36:06.780 --> 00:36:12.869
+David Boswell (The Linux Foundation): And I will note that I added a couple things real quick, Justin, if you reload, I put two other things on the wiki.
+
+327
+00:36:18.780 --> 00:36:22.800
+David Boswell (The Linux Foundation): And I will drop the links. One is just a FYI, and the other…
+
+328
+00:36:23.650 --> 00:36:27.790
+David Boswell (The Linux Foundation): So, the first one is an FYI, just to let you know, the…
+
+329
+00:36:27.940 --> 00:36:47.230
+David Boswell (The Linux Foundation): Annual Linux Foundation Decentralized Trust Technical Advisory Council elections will be starting mid-October. I think October 13th is the date nominations open, so just as a reminder, the Technical Advisory Council is the group of community members, that set the governance,
+
+330
+00:36:47.230 --> 00:37:08.390
+David Boswell (The Linux Foundation): that run, basically, the technical governance of the community. We've had Bezoo community members pretty consistently on the TAC in the past. Thank you, Matthew, for, you know, serving this year. So just to flag that that election's coming up, it would be great to continue to have Bezu's voice represented there, so I just wanted to let people know if that is something you might be interested in
+
+331
+00:37:08.390 --> 00:37:12.299
+David Boswell (The Linux Foundation): Doing next year that the opportunity to nominate yourself is coming up.
+
+332
+00:37:12.690 --> 00:37:14.940
+David Boswell (The Linux Foundation): And then one other quick note…
+
+333
+00:37:17.360 --> 00:37:31.769
+David Boswell (The Linux Foundation): here, I'm putting the link for this, too. And we could discuss this if people have questions or ideas, or this could just be a heads up, and we could discuss it later if there's interest, but we're planning for an in-person maintainer days in New York.
+
+334
+00:37:32.030 --> 00:37:34.980
+David Boswell (The Linux Foundation): in January, 26th and 27th.
+
+335
+00:37:35.150 --> 00:37:47.699
+David Boswell (The Linux Foundation): Pre-pandemic, this sort of maintainer, in-person maintainer event was something we did pretty frequently. We've done it a little less frequently since the pandemic, but we want to start doing these more regularly.
+
+336
+00:37:47.950 --> 00:37:53.110
+David Boswell (The Linux Foundation): So, there will be an opportunity for maintainers in the community to get together in person.
+
+337
+00:37:53.750 --> 00:38:02.800
+David Boswell (The Linux Foundation): what we do those two days is really up to the maintainers. We want this to be an event that is driven by what the maintainers are interested in, and what would be useful for them, so…
+
+338
+00:38:02.800 --> 00:38:17.419
+David Boswell (The Linux Foundation): If that is something you're interested in attending, just to let you know. Registration for that isn't open yet, but it will be soon. And then if you want to put Beisu content on the agenda, we're more than happy to work with you. And again, this could be an opportunity to do collaboration.
+
+339
+00:38:17.420 --> 00:38:24.140
+David Boswell (The Linux Foundation): With other people in the community, I know for just one example, Hiero, for example, uses Bezos, so if there's an opportunity
+
+340
+00:38:24.150 --> 00:38:42.949
+David Boswell (The Linux Foundation): that would be useful to collaborate in person with maintainers of other projects like Cairo, we could… we could do that, or if you want to educate other maintainers about Beizu, we could do that. So if there's anything you would want to put on an agenda that's Bay Zoo-related, you know, we're… we're more than happy to work with you and get those sessions on there.
+
+341
+00:38:44.740 --> 00:38:50.150
+David Boswell (The Linux Foundation): Happy to answer any questions about either the election or the maintainer days, but just wanted to share that information.
+
+342
+00:38:50.440 --> 00:38:53.960
+Justin Florentine: Thank you. With regard to maintainer days,
+
+343
+00:38:54.280 --> 00:39:00.650
+Justin Florentine: Is this an opportunity to hear more from institutional Baesu users?
+
+344
+00:39:00.820 --> 00:39:06.899
+Justin Florentine: Or is this more of a interacting with other maintainers of other LFT projects?
+
+345
+00:39:07.610 --> 00:39:23.119
+David Boswell (The Linux Foundation): That is a good question. So, the way that we've been running Maintainer Days recently is we're co-locating it along with the LFDT Member Summit, and a Member Summit is a member-only event where people in the
+
+346
+00:39:23.270 --> 00:39:31.209
+David Boswell (The Linux Foundation): member community, who are largely users of the projects that are being created, are going to meet in person. So, one note.
+
+347
+00:39:31.720 --> 00:39:48.920
+David Boswell (The Linux Foundation): What we've done previously is that any maintainer who signs up to Maintainer Days will also be able to attend Member Summit, and there will be a lot of users, Bezoo users there, so that would be something. We could also look at inviting peop- specific people to Maintainer Days, you know?
+
+348
+00:39:49.000 --> 00:40:08.170
+David Boswell (The Linux Foundation): we have a lot of flexibility on what the Maintainer Days event would be like. If you're saying it would be helpful to have a Beisu session with a certain set of people in attendance, you know, this will be in New York, we could ask, we could invite people from, you know, banks or financial services companies that are in the area to attend, so there's a lot of…
+
+349
+00:40:08.460 --> 00:40:25.260
+David Boswell (The Linux Foundation): Just to say, there's a lot of flexibility to organize maintainer days in a way that would be useful for maintainers, and then also maintainers who were there for that event could attend the member summit later in the week, where they would be able to meet, you know, organizations that are using the different projects.
+
+350
+00:40:26.740 --> 00:40:36.860
+Justin Florentine: Interesting. Okay. I'm asking because I'm interested in any type of focus group or user data that we can get on how people are using Bayesu, what they like about it.
+
+351
+00:40:36.860 --> 00:40:37.180
+David Boswell (The Linux Foundation): Yeah.
+
+352
+00:40:37.180 --> 00:40:37.495
+Justin Florentine: Right.
+
+353
+00:40:38.650 --> 00:40:51.859
+David Boswell (The Linux Foundation): So that's something, if you want to organize that, we could look at doing that at Maintainer Days and or Member Summit. You know, the schedule for Member Summit is also, you know, being developed right now, so we could look at… talk about that, too.
+
+354
+00:40:52.490 --> 00:40:53.280
+Justin Florentine: Okay.
+
+355
+00:40:53.460 --> 00:41:03.209
+David Boswell (The Linux Foundation): So maybe you could feel free to ping me on Discord. I mean, anybody who's interested is welcome to ping me on Discord and say, hey, I'm interested in running this sort of session, and then we're happy to work with you.
+
+356
+00:41:06.570 --> 00:41:08.010
+Justin Florentine: Okay, thank you.
+
+357
+00:41:14.130 --> 00:41:16.049
+Justin Florentine: Matthew, go ahead.
+
+358
+00:41:17.290 --> 00:41:18.510
+Matthew Whitehead (Kaleido): Thanks, Justin.
+
+359
+00:41:18.780 --> 00:41:24.339
+Matthew Whitehead (Kaleido): Yeah, I just wanted to mention a couple of any other business bits. I should have put them on the agenda, really, if that's alright.
+
+360
+00:41:26.210 --> 00:41:27.220
+Justin Florentine: Yeah, go nuts!
+
+361
+00:41:28.220 --> 00:41:31.770
+Matthew Whitehead (Kaleido): Yeah, so, Just a couple of…
+
+362
+00:41:32.150 --> 00:41:48.730
+Matthew Whitehead (Kaleido): status update things, just to mention. So, I've mentioned in a lot of recent community calls that the Bonsai Archive with State Proofs PR, I'm looking to get closer to merging as an experimental option.
+
+363
+00:41:48.890 --> 00:41:49.830
+Matthew Whitehead (Kaleido): I think…
+
+364
+00:41:50.430 --> 00:42:01.300
+Matthew Whitehead (Kaleido): I think I'd like to try and push on that soon to… I think partly around some discussion on the PR, and… and perhaps me…
+
+365
+00:42:01.890 --> 00:42:09.169
+Matthew Whitehead (Kaleido): having some chats. Maybe, Gary, if… if you have a bit of time, you were really helpful with the original Bonsai Archive PR,
+
+366
+00:42:09.840 --> 00:42:29.340
+Matthew Whitehead (Kaleido): And Karim, obviously, was as well. So I might… I guess it's a heads up that I'd really like to get that merged as an experimental option ASAP, just because it's… it's been hanging around a long time while I tested it against Mainnet, and it's… it's up to 10 million blocks, but that's taken quite a long time, obviously, so I.
+
+367
+00:42:29.340 --> 00:42:29.979
+Gary Schulte: Yeah.
+
+368
+00:42:29.980 --> 00:42:31.119
+Matthew Whitehead (Kaleido): Sorry, go for it.
+
+369
+00:42:31.120 --> 00:42:32.300
+Gary Schulte: Did you…
+
+370
+00:42:38.440 --> 00:42:39.739
+Matthew Whitehead (Kaleido): No, did I lose audio?
+
+371
+00:42:40.760 --> 00:42:41.940
+David Boswell (The Linux Foundation): Yeah, I didn't hear it either.
+
+372
+00:42:41.940 --> 00:42:45.369
+Ry Jones (The Linux Foundation): No, he said, could you, and then he dropped off, so I don't know.
+
+373
+00:42:45.370 --> 00:42:49.549
+Matthew Whitehead (Kaleido): I'll DM on the… I'll mention on the Zoom.
+
+374
+00:43:00.490 --> 00:43:06.849
+Matthew Whitehead (Kaleido): while we sort that, I could cover the other item just while Gary's reconnecting.
+
+375
+00:43:06.900 --> 00:43:22.329
+Matthew Whitehead (Kaleido): So, I… the other thing I just wanted to mention, Nick has joined the call, Nick Miano from… from Kaleido. I just wanted to do a mini intro, just… just so that Nick's gonna be getting involved in BESU a bit more. So you may see some activity from him.
+
+376
+00:43:22.700 --> 00:43:36.600
+Matthew Whitehead (Kaleido): on some of the PRs we have in progress, some of the POW stuff that we mentioned, and so on. So I just wanted to introduce Nick, and give people a heads up. Hopefully, you'll see his name around Discord and GitHub a little bit more.
+
+377
+00:43:41.890 --> 00:43:43.210
+Justin Florentine: Hi, Nick, welcome.
+
+378
+00:43:43.670 --> 00:43:44.949
+Nick Miano: Thanks, great to be here.
+
+379
+00:43:48.590 --> 00:43:50.239
+Matthew Whitehead (Kaleido): Hey, Gary, I think… are you back?
+
+380
+00:43:51.270 --> 00:43:55.199
+Gary Schulte: Yeah, I don't know why all of a sudden I lost my Zoom connection.
+
+381
+00:43:56.610 --> 00:43:59.539
+Matthew Whitehead (Kaleido): Yeah, so I think you were starting to say something, and then we lost you.
+
+382
+00:43:59.960 --> 00:44:10.739
+Gary Schulte: Well, I was just saying that I've been focused on elsewhere, and I can do, like, a context switch and look at some of the archive stuff that you've got working at the moment.
+
+383
+00:44:11.300 --> 00:44:17.669
+Matthew Whitehead (Kaleido): That'd be really appreciated, thank you. If I… I'll, I'll at you on… on the thread on…
+
+384
+00:44:17.930 --> 00:44:28.809
+Matthew Whitehead (Kaleido): on Discord, and if it's useful in a week or so, when you might have paged it in, to maybe chat through it on Zoom, just to kind of move things along a bit quicker than going viral with the GitHub comments, then feel free.
+
+385
+00:44:29.540 --> 00:44:30.420
+Gary Schulte: Certainly.
+
+386
+00:44:30.980 --> 00:44:31.800
+Matthew Whitehead (Kaleido): Thanks.
+
+387
+00:44:38.790 --> 00:44:44.580
+Justin Florentine: Okay, thank you for that. The floor remains open if anybody has anything else they'd like to discuss.
+
+388
+00:44:53.760 --> 00:44:54.630
+Justin Florentine: Okay.
+
+389
+00:44:59.890 --> 00:45:04.360
+Justin Florentine: Well, as always, it's been a pleasure. Thank you, everyone.
+
+390
+00:45:04.740 --> 00:45:06.950
+Justin Florentine: And, see you on the internet!
+
+391
+00:45:08.230 --> 00:45:09.060
+Gary Schulte: Thanks, Justin.
+
+392
+00:45:09.450 --> 00:45:10.319
+David Boswell (The Linux Foundation): Thanks a lot.
+
+393
+00:45:10.740 --> 00:45:11.180
+Matthew Whitehead (Kaleido): Thank you.
+
+394
+00:45:11.180 --> 00:45:11.870
+Fabio Di Fabio: My…
+

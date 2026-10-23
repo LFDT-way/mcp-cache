@@ -1,0 +1,605 @@
+WEBVTT
+
+00:09:37.000 --> 00:09:53.000
+Where… you… Um… you can provide something like, uh… a hash function or quality function, you know, there may be a set of things that the object has to satisfy in order to be considered a valid opaque type.
+
+00:09:53.000 --> 00:09:56.000
+Um, other than the ones we have built in.
+
+00:09:56.000 --> 00:10:07.000
+So we have… we build in the months for simple types, like the UN data rate and strings, but then beyond that, you'd have to be serializable, or… Uh, so that we could compare it, or it'd have to be…
+
+00:10:07.000 --> 00:10:15.000
+possible, you know, equalable.
+
+00:10:15.000 --> 00:10:18.000
+It's for the future.
+
+00:10:18.000 --> 00:10:28.000
+Yeah, just to add to that, we… Uh, we do have… I think the… The limitation there is that we need to have a runtime.
+
+00:10:28.000 --> 00:10:43.000
+representation of the type. Whatever it is. Um, and our runtime… requires serialization, and that once you have serialization, you kind of get the hash equality, and the value equality for free.
+
+00:10:43.000 --> 00:10:52.000
+Um, the… challenge we had when we looked into adding user-defined types here is.
+
+00:10:52.000 --> 00:10:55.000
+more how to let the compiler know of them.
+
+00:10:55.000 --> 00:11:01.000
+Um, and it's an API question of… At the moment, we're just outputting TypeScript.
+
+00:11:01.000 --> 00:11:08.000
+And that would require us to… ingest a snippet of TypeScript that defines this type instead.
+
+00:11:08.000 --> 00:11:14.000
+Or as well, which is not clear what the best way to do that.
+
+00:11:14.000 --> 00:11:21.000
+I don't know that we would have to adjust TypeScript, we would just have to know that there was a… there would have to be a method on it.
+
+00:11:21.000 --> 00:11:22.000
+That we could call in the generated TypeScript code.
+
+00:11:22.000 --> 00:11:33.000
+Yeah, yeah, it's more… it's more that there needs to be some typescript defining the serialization, deserialization somewhere.
+
+00:11:33.000 --> 00:11:39.000
+And it's not clear how to link that with the generated TypeScript. You're right, it's not necessary that it would ingest it, but it's…
+
+00:11:39.000 --> 00:11:43.000
+Well, I think it's just… if it's… if it's just a method call, there's no linking. There's just dynamic linking.
+
+00:11:43.000 --> 00:11:45.000
+Um… It's not just a method call, though, because it needs to have the type objects.
+
+00:11:45.000 --> 00:11:51.000
+But if… yeah, I mean, it wouldn't be…
+
+00:11:51.000 --> 00:11:57.000
+available at runtime. It needs… and in particular, if we return this type from Compact.
+
+00:11:57.000 --> 00:12:03.000
+It's not clear where Compact would get those from.
+
+00:12:03.000 --> 00:12:04.000
+So this is the descriptors in the compiler.
+
+00:12:04.000 --> 00:12:13.000
+Okay. Alright. This is good, good topic for a whiteboard sometime.
+
+00:12:13.000 --> 00:12:19.000
+Yep. Yeah, I can imagine that what the compiler generates for.
+
+00:12:19.000 --> 00:12:26.000
+A opaque type definition is a descriptor.
+
+00:12:26.000 --> 00:12:39.000
+Okay, good. Um, I'm guessing, can't put the next one on, um, should making a cross-contract, or Parisa, should making a cross-contract call implicitly disclose the contract address?
+
+00:12:39.000 --> 00:12:46.000
+and hash of the remote circuit name.
+
+00:12:46.000 --> 00:12:56.000
+Yeah, this comes from, uh… so it's… We have to do a, uh, claim contract call, and claim contract call.
+
+00:12:56.000 --> 00:13:04.000
+Uh, is declared to disclose the address. And it's declared to disclose the hash of the.
+
+00:13:04.000 --> 00:13:17.000
+circuit name. Um, every single… cross-contract call will do the same thing. It will disclose the address and hash of the circuit name.
+
+00:13:17.000 --> 00:13:24.000
+it seems a little mean to require the disclose, rather than just documenting that it's implicitly disclosing.
+
+00:13:24.000 --> 00:13:33.000
+Um, but if we decide that it should be… explicitly disclosed by the programmer, then we have a little syntactic issue, which is there's nowhere to put it on the.
+
+00:13:33.000 --> 00:13:45.000
+On the name, can put it on the address, but we can't put it on… we have no… syntactically, at present, we have no way of attaching a disclose to the name, because the name has to be a symbol.
+
+00:13:45.000 --> 00:13:52.000
+some tactically. So, my… my vote would be that.
+
+00:13:52.000 --> 00:14:01.000
+We would leave claim contract call as. Uh, something which, uh… isn't implicitly disclosing.
+
+00:14:01.000 --> 00:14:04.000
+In case somebody has… finds some use for claim contract call.
+
+00:14:04.000 --> 00:14:09.000
+I'm not sure what that would be. Um, but that we insert.
+
+00:14:09.000 --> 00:14:15.000
+discloses when we… when we… Create the call to claim contract call.
+
+00:14:15.000 --> 00:14:32.000
+And while we translate… when we translate the, uh, cross-contract call in the compiler.
+
+00:14:32.000 --> 00:14:35.000
+So, were you gonna say something, Joe?
+
+00:14:35.000 --> 00:14:47.000
+Uh, a little, like, Thomasicknesses.
+
+00:14:47.000 --> 00:14:51.000
+Thomas gave the thumbs up, so I think he already took it.
+
+00:14:51.000 --> 00:14:52.000
+Okay, so what was your… I'm sorry, Ken, what was your proposal exactly, then?
+
+00:14:52.000 --> 00:14:56.000
+Oh.
+
+00:14:56.000 --> 00:15:02.000
+My proposal is that making a cross-contract call. implicitly discloses the address.
+
+00:15:02.000 --> 00:15:10.000
+and a hash of the name. And we document that, and we don't require any explicit disclose there.
+
+00:15:10.000 --> 00:15:11.000
+Yes. I like that. I like that as well. Okay.
+
+00:15:11.000 --> 00:15:14.000
+I mean… Yep.
+
+00:15:14.000 --> 00:15:20.000
+But then… but then this does mean that if someone is calling, um,
+
+00:15:20.000 --> 00:15:29.000
+claim contract call, they cannot disclose… they have to disclose the address and the hash of the circuit name,
+
+00:15:29.000 --> 00:15:33.000
+But syntactically, they still do not have a way to disclose
+
+00:15:33.000 --> 00:15:37.000
+Um, the circuit name.
+
+00:15:37.000 --> 00:15:38.000
+Whether that's a use case that
+
+00:15:38.000 --> 00:15:46.000
+No, if there… If they're going to, uh… If they're going to call claim, contract call.
+
+00:15:46.000 --> 00:15:49.000
+Um… I mean, first of all, I don't know why they would.
+
+00:15:49.000 --> 00:15:53.000
+It may… it may even be something we shouldn't expose.
+
+00:15:53.000 --> 00:15:59.000
+Um, but if they were gonna call claim contract call, they're calling it as an ordinary function, and they can.
+
+00:15:59.000 --> 00:16:06.000
+They can wrap disclosers around the arguments. It's only because we have this syntax for calls.
+
+00:16:06.000 --> 00:16:11.000
+Uh, that we have this issue.
+
+00:16:11.000 --> 00:16:14.000
+Right, they would have to explicitly hash the name.
+
+00:16:14.000 --> 00:16:30.000
+To use that API. And then they would have to disclose the hash.
+
+00:16:30.000 --> 00:16:35.000
+Alright, sounds like we have no objections, let's… let's proceed along those lines. I think Grace has already.
+
+00:16:35.000 --> 00:16:40.000
+Proceeding that direction.
+
+00:16:40.000 --> 00:16:52.000
+Sounds good. Um, and then the last one is… Um, from a practical viewpoint, should we allow our cross-contract call to call a pure circuit?
+
+00:16:52.000 --> 00:17:00.000
+Right, we had this conversation that whether we want to allow a cross-contract call to call a pure circuit,
+
+00:17:00.000 --> 00:17:07.000
+But whether we allow it or not, I'm more interested in, is that a practical use case?
+
+00:17:07.000 --> 00:17:10.000
+for people to…
+
+00:17:10.000 --> 00:17:13.000
+to expect that from cross-contract calls.
+
+00:17:13.000 --> 00:17:16.000
+And if so…
+
+00:17:16.000 --> 00:17:18.000
+This would just be…
+
+00:17:18.000 --> 00:17:20.000
+a witness call without any…
+
+00:17:20.000 --> 00:17:22.000
+claims any contract?
+
+00:17:22.000 --> 00:17:28.000
+call claims. Um…
+
+00:17:28.000 --> 00:17:41.000
+And I see that we have, or should it be treated the same as a call to an impure circuit,
+
+00:17:41.000 --> 00:17:43.000
+bitch.
+
+00:17:43.000 --> 00:17:44.000
+Sure. Joe?
+
+00:17:44.000 --> 00:17:52.000
+Yeah. I was just gonna say that, yeah, like, treating it the same as, like, going from an indoor circuit, where we do the whole.
+
+00:17:52.000 --> 00:18:02.000
+I mean, clinical call, I don't even know if that would make sense, but if it introduces any additional overhead besides what the original pure circuit.
+
+00:18:02.000 --> 00:18:06.000
+Would, I would say that we should not do it.
+
+00:18:06.000 --> 00:18:15.000
+Um, because if, like. I wouldn't want to, like, yeah, add an additional group burden where we don't actually.
+
+00:18:15.000 --> 00:18:43.000
+Need it. Um… And furthermore, I guess, like, is this even a valid use case? It's a reasonable question, because… I mean, it would… It seems that if… so if both… contracts, like, the contract… the original contract decliner and the contract user, if they know that this function is going to be shared, then there's always a way to factor out a pure circuit.
+
+00:18:43.000 --> 00:18:49.000
+Um, so the situation that we would need to consider is where… is whether.
+
+00:18:49.000 --> 00:18:58.000
+Um, a contract, say, definer, or provider. does not know that a contract producer wants to use the cure circuit in the future.
+
+00:18:58.000 --> 00:19:05.000
+Um, yeah, like, because there's, yeah, there's always a way that you could factor it out, and so you could make the argument that it shouldn't even be.
+
+00:19:05.000 --> 00:19:15.000
+Like, in a contract. Um, there is a way to define top-level pure circuits, right? Like, those are not necessarily defined as… yeah, okay.
+
+00:19:15.000 --> 00:19:24.000
+Um, so yeah, I would say that it's not even really a valid use case.
+
+00:19:24.000 --> 00:19:31.000
+Kent.
+
+00:19:31.000 --> 00:19:40.000
+At present, um… purity is, uh… an optional declaration.
+
+00:19:40.000 --> 00:19:48.000
+And you can call something… you can… you can omit the pure label on the contract declaration.
+
+00:19:48.000 --> 00:19:53.000
+Um…
+
+00:19:53.000 --> 00:19:57.000
+And… and treat it as a pure… as an impure circuit.
+
+00:19:57.000 --> 00:20:05.000
+So, we have to decide… If we're gonna… if we're gonna… outlaw calls to pure circuits.
+
+00:20:05.000 --> 00:20:15.000
+cross-contract calls to Pure Circuits. Then we would have to, um, maybe change, uh… change around how we do things.
+
+00:20:15.000 --> 00:20:24.000
+And… and I guess the reason I'm feeling uncomfortable with all of this is that I would like for us to keep these contracts at arm's length.
+
+00:20:24.000 --> 00:20:29.000
+And not understand how their circuits are implemented, and whether even necessarily.
+
+00:20:29.000 --> 00:20:41.000
+You know, uh, know whether they're pure. Um, we might insist they're pure, in which case it'll get checked, and presumably we have to check it at runtime, as well as at compile time, if we have.
+
+00:20:41.000 --> 00:21:00.000
+Uh, any kind of dynamic code loading. Um… So, I feel uncomfortable with… Uh, outlying falls to Peer circus, because we don't know that they are, and… And also for debugging purposes. It may be pure right now because I took out the ledger right.
+
+00:21:00.000 --> 00:21:05.000
+For testing. But I still want to test it without the ledger rate.
+
+00:21:05.000 --> 00:21:10.000
+So, anyway, I'll let somebody else talk.
+
+00:21:10.000 --> 00:21:20.000
+I guess I'm next. Um, I was… I was just going to flip it around and say that, um, we should think about the implementation model, so the… what we're proposing that we do.
+
+00:21:20.000 --> 00:21:31.000
+Um, as a first cut of this implementation, is that you… When you make a cross-contract call, you get the binary ZKIR representation of the circuit you're calling from somewhere in the ledger.
+
+00:21:31.000 --> 00:21:39.000
+And you interpret that binary representation, that ZKII representation, um, in a little sandbox CKIR interpreter.
+
+00:21:39.000 --> 00:21:46.000
+Um, and so, Pure Circuits don't have. such as the KII representation, so ergo, they can't be called.
+
+00:21:46.000 --> 00:21:52.000
+And the way that I would actually make this into a language feature is I would say that contracts have an interface.
+
+00:21:52.000 --> 00:21:55.000
+And pure circuits do not appear in the contract interface.
+
+00:21:55.000 --> 00:22:03.000
+Um, so there's a contract declaration implicitly defines maybe a named interface with that same name.
+
+00:22:03.000 --> 00:22:07.000
+And the pure circuits are not in that interface.
+
+00:22:07.000 --> 00:22:14.000
+Um, so making sure that programmers understand that in some way is kind of… is kind of something for us to start out from an ergonomic standpoint, but that's the way that I would think about it.
+
+00:22:14.000 --> 00:22:18.000
+semantically. Um, Anjay.
+
+00:22:18.000 --> 00:22:21.000
+So, what is expected to happen, then,
+
+00:22:21.000 --> 00:22:33.000
+If there is a contract interface which is impl… where a circuit appears there and is implemented in a pure fashion.
+
+00:22:33.000 --> 00:22:37.000
+Uh, so, like, for example, for the e…
+
+00:22:37.000 --> 00:22:40.000
+ERC20-like tokens.
+
+00:22:40.000 --> 00:22:47.000
+the interface defines, uh, constants which are returned by,
+
+00:22:47.000 --> 00:22:50.000
+actually pure functions.
+
+00:22:50.000 --> 00:22:53.000
+Um, so…
+
+00:22:53.000 --> 00:22:54.000
+in, uh, DEX ca…
+
+00:22:54.000 --> 00:22:57.000
+So then I would say… then I would say that.
+
+00:22:57.000 --> 00:23:03.000
+then I would say that because they appear in the interface, we must generate ZKIR for them.
+
+00:23:03.000 --> 00:23:04.000
+Makes sense.
+
+00:23:04.000 --> 00:23:13.000
+So that we can interpret them.
+
+00:23:13.000 --> 00:23:21.000
+Yeah, so I think… the whole discussion around purity changes when we have cross-contract calls.
+
+00:23:21.000 --> 00:23:27.000
+Because it used to be, well, if it's a pure function, there is no point in having this on-chain.
+
+00:23:27.000 --> 00:23:34.000
+Because it cannot possibly touch state. There is point to having pure.
+
+00:23:34.000 --> 00:23:40.000
+Uh, functions on-chain in some cases. if there's another contract interacting with them.
+
+00:23:40.000 --> 00:23:47.000
+And I think Andy highlighted one of those, which is, well, you know, if you have a contract wanting to return a constant in there.
+
+00:23:47.000 --> 00:23:53.000
+Maybe that constant depends on the address, for example, but you still want it to be dynamically callable.
+
+00:23:53.000 --> 00:24:04.000
+Um, if something else might be… Maybe you want to have a contract that just provides something as a library feature, like verifying a certain type of signature.
+
+00:24:04.000 --> 00:24:13.000
+And that doesn't necessarily interact with state. Um, so I think we might need to revisit this… Uh, this notion of purity a little bit.
+
+00:24:13.000 --> 00:24:23.000
+I don't exactly know… Well, we do, like, there's just… there's a conflict here because we still… don't necessarily want to put all circuits on chain.
+
+00:24:23.000 --> 00:24:27.000
+But maybe purity is not the right filter for that.
+
+00:24:27.000 --> 00:24:35.000
+Um… One… one comment I would have is there is a technicality here which might make this tricky and might make it not work.
+
+00:24:35.000 --> 00:24:42.000
+Uh, with the ledger directly. Which is the ledger expects there is always a transcript.
+
+00:24:42.000 --> 00:24:56.000
+Um, so even if there is an empty… call, it still needs to be… Uh, it still needs to have a transcript associated with it. I don't think there's actually a problem, if that is the empty transcript.
+
+00:24:56.000 --> 00:24:59.000
+But I'm not sure how much of the tooling.
+
+00:24:59.000 --> 00:25:10.000
+right now is set up to allow that. Or if there'll be something that blows up.
+
+00:25:10.000 --> 00:25:18.000
+But I guess… I guess my conclusion would be, uh, yes, I think it makes sense to only call things that have ZKIR.
+
+00:25:18.000 --> 00:25:27.000
+But it might not be… I don't think it makes sense anymore to say that only pure circuits have CKIO attached.
+
+00:25:27.000 --> 00:25:34.000
+of the impure circuits, right?
+
+00:25:34.000 --> 00:25:41.000
+Ant.
+
+00:25:41.000 --> 00:25:45.000
+I think you're still muted.
+
+00:25:45.000 --> 00:25:49.000
+Sorry, to Joe's point, if there is a routine.
+
+00:25:49.000 --> 00:25:55.000
+That is pure. It could be made available. in the same, you know, as a module.
+
+00:25:55.000 --> 00:26:06.000
+a separate module, or… Uh, you know, in the same module as the contract declaration, for example, that somebody publishes.
+
+00:26:06.000 --> 00:26:09.000
+Um, the pure circuits could be made available there.
+
+00:26:09.000 --> 00:26:15.000
+Um, and we could simply say… we could… we could stick with the notion that.
+
+00:26:15.000 --> 00:26:21.000
+only impure circuits are allowed to be in the interface.
+
+00:26:21.000 --> 00:26:27.000
+I like that better than… Um, and I like… and I think that we end up with a.
+
+00:26:27.000 --> 00:26:39.000
+Yeah, we end up with a runtime check. Uh, to verify that it is indeed not pure, um… Um… I… In other words, that it has a CKIR.
+
+00:26:39.000 --> 00:26:45.000
+Um… I don't know what other criteria we could actually use.
+
+00:26:45.000 --> 00:26:51.000
+for saying, uh, we want to generate a ZKR for something other than.
+
+00:26:51.000 --> 00:27:03.000
+Other than some… you know, I don't know, hacky declaration. I think it's better, you know, if somebody's gonna go through the trouble of saying, hey, create me ZKR for this, even though I don't… it doesn't appear that I… you should.
+
+00:27:03.000 --> 00:27:07.000
+Then they might as well just put the thing in a separate library, a separate module.
+
+00:27:07.000 --> 00:27:15.000
+And… and make it available separately.
+
+00:27:15.000 --> 00:27:19.000
+Thanks. Thomas, your hand is still up. Are you…
+
+00:27:19.000 --> 00:27:21.000
+No, no, I'm just not used to Zoom.
+
+00:27:21.000 --> 00:27:24.000
+Okay, Joe?
+
+00:27:24.000 --> 00:27:36.000
+Yeah, um… I guess, and maybe this question was already answered, Kevin, um… But… so if we're attempting to move to this, like.
+
+00:27:36.000 --> 00:27:47.000
+Long term, this only interpreting ZKIR. Um, for execution sort of thing, uh, what… would be the plan for pure circuits.
+
+00:27:47.000 --> 00:27:52.000
+How would you get the code to execute those?
+
+00:27:52.000 --> 00:27:56.000
+Your first circuits are no different in this regard.
+
+00:27:56.000 --> 00:27:57.000
+Um…
+
+00:27:57.000 --> 00:28:04.000
+Uh… Yeah, I think we're along… I think we're a long way from that, though, so it's… Like, it feels like clearly we would have to generate ZKIR for everything.
+
+00:28:04.000 --> 00:28:12.000
+If we… if we actually did get there, but I don't know if we're going to get there or not. That's… I think that's pretty speculative right now.
+
+00:28:12.000 --> 00:28:21.000
+Um, yeah, and I guess more so. I get the sense, uh… from this conversation that, yeah.
+
+00:28:21.000 --> 00:28:25.000
+We would need, like, another whiteboard or brainstorming session to actually.
+
+00:28:25.000 --> 00:28:31.000
+Um… decide what it is that we expect contracts to provide.
+
+00:28:31.000 --> 00:28:38.000
+Um, because if… If the point of contracts is to provide, uh.
+
+00:28:38.000 --> 00:28:44.000
+Like, let's… to be deployed and use the services, which are stateful services in some way.
+
+00:28:44.000 --> 00:28:49.000
+Then… we might expect or require that, you know.
+
+00:28:49.000 --> 00:28:54.000
+Or allow them to export certain functionality, like impure circuits.
+
+00:28:54.000 --> 00:28:59.000
+Um, pure circuits are useful when you want to provide, maybe, let's say, some sort of library.
+
+00:28:59.000 --> 00:29:06.000
+function. Um, some functions that are stateless, you know, for calculating different hashes of things and stuff like that.
+
+00:29:06.000 --> 00:29:13.000
+Um, and so we might need another structure, um, some sort of language structure that provides.
+
+00:29:13.000 --> 00:29:28.000
+you know, just library-type functions as interfaces. Um, but I think, yeah, getting really specific about what we expect contract… the functionality we expect contracts to provide when they're deployed on-chain.
+
+00:29:28.000 --> 00:29:38.000
+is a conversation, um, that's worth having. Um, because right now, it seems a little fuzzy. Like, sometimes they provide… I mean, maybe if we can do cross-contract calls, then they're providing some sort of library function.
+
+00:29:38.000 --> 00:29:45.000
+If they can only export witnesses, or sorry, interior circuits, then they're behaving a robotic services.
+
+00:29:45.000 --> 00:29:51.000
+Um, so… Yeah, I think that that's worth its own conversation, or Spike.
+
+00:29:51.000 --> 00:29:55.000
+So it's a really define and get very specific about.
+
+00:29:55.000 --> 00:29:57.000
+What we expect of contracts.
+
+00:29:57.000 --> 00:30:07.000
+There's a… there's a language design space there. Um… One answer is we can just say that if they're exported, then… They are potentially called from.
+
+00:30:07.000 --> 00:30:20.000
+from not only TypeScript, but other contracts. Um, the, um… I'd like to count this module point. When this discussion actually came up.
+
+00:30:20.000 --> 00:30:29.000
+Internally on Slack. Um… A couple weeks ago, and my first inclination was that, why would you make the cross-contract call to a pure circuit? You could just import.
+
+00:30:29.000 --> 00:30:39.000
+if you had the source code available, you could just import it. And, um, in order to make that actually work right now, you can import from a file, but it has to be… it has to contain a single module declaration.
+
+00:30:39.000 --> 00:30:44.000
+And you would need to have a, potentially, um.
+
+00:30:44.000 --> 00:30:51.000
+awful language feature where you could import a file, and it was treated as if it had a single module declaration.
+
+00:30:51.000 --> 00:31:01.000
+Um, without explicitly having a single module declaration. Otherwise, you can't.
+
+00:31:01.000 --> 00:31:06.000
+Yeah, if a contractor find a pure circuit at the top of.
+
+00:31:06.000 --> 00:31:12.000
+Um, you know, at the top of the file, then wouldn't also importing the file that contains the contract work.
+
+00:31:12.000 --> 00:31:17.000
+So I just say, like, I factor all my pure circuits into the outside module.
+
+00:31:17.000 --> 00:31:23.000
+It needs to… right now… right now, the way that we've implemented the import from file means it has to have a single module declaration.
+
+00:31:23.000 --> 00:31:32.000
+And so that… so unless that was a single module declaration, and if it was a single module declaration, then it's not a contract anymore. It has to export some stuff.
+
+00:31:32.000 --> 00:31:39.000
+So it doesn't quite work right now.
+
+00:31:39.000 --> 00:31:48.000
+Okay, I think… I mean, I think the conclusion here is that there is some design work to be done, but lots of this is speculative.
+
+00:31:48.000 --> 00:31:56.000
+Um… So, um… I don't… I don't know the answer.
+
+00:31:56.000 --> 00:32:05.000
+to the actual question.
+
+00:32:05.000 --> 00:32:19.000
+Is there anything else that we should discuss while we're here?
+
+00:32:19.000 --> 00:32:26.000
+Okay, that sounds like a no. So, we get, uh, 27 minutes back. Sorry I was late again.
+
+00:32:26.000 --> 00:32:31.000
+Um, happy hacking, everybody!
+
+00:32:31.000 --> 00:32:32.000
+Thanks, guys.
+
+00:32:32.000 --> 00:33:02.000
+Well, guys.
+

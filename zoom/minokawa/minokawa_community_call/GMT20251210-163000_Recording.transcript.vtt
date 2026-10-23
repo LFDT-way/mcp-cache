@@ -1,0 +1,1730 @@
+WEBVTT
+
+1
+00:00:40.960 --> 00:00:42.120
+Andrey Venuto: Hey, guys.
+
+2
+00:00:43.110 --> 00:00:44.439
+Kent Dybvig: Hey, how you doing?
+
+3
+00:00:45.650 --> 00:00:46.320
+Kevin Millikin: Hello?
+
+4
+00:01:09.820 --> 00:01:11.940
+Andrey Venuto: Back to the agenda for today, Kevi.
+
+5
+00:01:17.160 --> 00:01:24.699
+Kevin Millikin: Well, it's not… it's not necessarily packed, I just put some detail under… under the… under the items as… as a…
+
+6
+00:01:25.030 --> 00:01:27.400
+Kevin Millikin: Context, and maybe a proposal.
+
+7
+00:01:30.690 --> 00:01:33.769
+Kevin Millikin: I don't know if it'll take very long, it's more, like, informational.
+
+8
+00:01:46.290 --> 00:01:49.199
+Kevin Millikin: As usual, giving people 2 or 3 minutes.
+
+9
+00:03:06.840 --> 00:03:13.169
+Kevin Millikin: Alright, I'm gonna go ahead and start. I did expect Tom or Andre, but maybe they're… maybe they're not coming.
+
+10
+00:03:13.750 --> 00:03:16.589
+Kevin Millikin: The agenda should be on the screen.
+
+11
+00:03:16.780 --> 00:03:23.470
+Kevin Millikin: The first thing I wanted to, tell you about is the Compact 0.27 release.
+
+12
+00:03:23.470 --> 00:03:24.710
+Kent Dybvig: So.
+
+13
+00:03:24.710 --> 00:03:43.409
+Kevin Millikin: This was the first release that we made since we moved repositories, and I had to debug a little bit of issues with our release actions. It's all sorted. The release builds. I've made a release candidate RC.1 build. RC0 was given to, to Lesh to test.
+
+14
+00:03:43.820 --> 00:03:45.550
+Kevin Millikin: And,
+
+15
+00:03:46.260 --> 00:04:00.390
+Kevin Millikin: That all works. We are holding the release until the MS2 release, so the MS2 release, is when we announce and turn on the, preview and pre-prod environments.
+
+16
+00:04:00.790 --> 00:04:11.900
+Kevin Millikin: And this release is going out simultaneously with that, because otherwise people will have a compiler in their hands that they can't actually use. Using it will break and produce contracts that won't work on TestNet 02.
+
+17
+00:04:14.960 --> 00:04:30.809
+Kevin Millikin: the people have been clamoring, apparently, for a, a version of this that they can try out, a public version that they can try out. These are partners who want to have access to it, and, the… specifically the Lace Wallet wants to… wants to try to debug their stuff.
+
+18
+00:04:31.180 --> 00:04:47.309
+Kevin Millikin: So, my proposal is for a very short-term workaround to, DevTools not being able to handle this, and it being a major breaking release for the network, is that I've just… I'm going to publish the release binaries
+
+19
+00:04:47.410 --> 00:04:59.270
+Kevin Millikin: in the release repository in a subdirectory that the dev tools won't see, so they won't be a release. They won't be a release, they'll actually be committed, and this is short-term, because they're big files, so eventually I'll just remove them as well.
+
+20
+00:05:00.430 --> 00:05:06.769
+Kevin Millikin: the… So that's… that's basically that.
+
+21
+00:05:07.000 --> 00:05:09.450
+Kevin Millikin: Does anyone have any questions about that?
+
+22
+00:05:10.790 --> 00:05:15.450
+Kent Dybvig: So you say you're not gonna commit But that doesn't say…
+
+23
+00:05:16.690 --> 00:05:18.150
+Kent Dybvig: I don't know what that means.
+
+24
+00:05:18.720 --> 00:05:19.250
+Kevin Millikin: Pardon me?
+
+25
+00:05:19.720 --> 00:05:22.710
+Kent Dybvig: I don't know what not's committing, so it's not going in the…
+
+26
+00:05:23.660 --> 00:05:24.579
+Kevin Millikin: No, it will be committed.
+
+27
+00:05:25.090 --> 00:05:25.600
+Kent Dybvig: Okay.
+
+28
+00:05:25.600 --> 00:05:30.389
+Kevin Millikin: It's not a release, it's not a release. It's not a release. Okay. It's… it's… yes, it's committed as…
+
+29
+00:05:30.970 --> 00:05:44.139
+Kevin Millikin: binaries in the repository, they're all 20 plus megabytes. There's 3 zip files. I don't really want big files like that in the GitHub repository, and we shouldn't have them, so I will remove them at some point in the future.
+
+30
+00:05:44.480 --> 00:05:47.970
+Kent Dybvig: Okay, so you'll destructively remove them from the repo at some point.
+
+31
+00:05:48.420 --> 00:05:49.080
+Kevin Millikin: Alright.
+
+32
+00:05:49.340 --> 00:05:51.010
+Kent Dybvig: Otherwise, they stay forever, yeah.
+
+33
+00:05:51.010 --> 00:05:54.320
+Kevin Millikin: Yeah, I know. I don't know what else to do.
+
+34
+00:05:54.610 --> 00:05:58.049
+Kent Dybvig: I know, we had the same problem with Shay Scheme and the boot files, and…
+
+35
+00:05:58.450 --> 00:06:04.029
+Kent Dybvig: And the… the repo just got, you know, got up to over a trillion by… Yes.
+
+36
+00:06:04.220 --> 00:06:04.750
+Kent Dybvig: Yeah.
+
+37
+00:06:05.190 --> 00:06:23.260
+Kevin Millikin: Yes, so I… I honestly, believed that somebody else in the org was going to handle releasing these artifacts, and only found out, like, within the last week or so that I was expected to be responsible for that, and I don't have the ability to host them anywhere else, and I'm not going to waste a lot of time with
+
+38
+00:06:23.290 --> 00:06:26.189
+Kevin Millikin: Yeah. Nonsense trying to figure out where to put these so people can get them.
+
+39
+00:06:26.960 --> 00:06:28.130
+Kevin Millikin: So they're going there.
+
+40
+00:06:28.620 --> 00:06:30.220
+Kent Dybvig: Yeah, makes sense.
+
+41
+00:06:30.840 --> 00:06:38.480
+Kevin Millikin: the… I want to talk a little bit about a future short-term support for how we'll handle multiple ledger versions.
+
+42
+00:06:39.800 --> 00:06:49.670
+Kevin Millikin: So that there will be two different environments, and eventually three, and possibly more. They will be called preview and pre-production.
+
+43
+00:06:50.190 --> 00:07:02.579
+Kevin Millikin: And, they will, they'll launch with the same, ledger version, but they will eventually diverge. And so, so Preview will have a newer Ledger version than pre-production in general.
+
+44
+00:07:03.440 --> 00:07:20.519
+Kevin Millikin: So we need to sort out how we'll support multiple ledger versions, and we talked a little bit before, I believe, about trying to make the compiler actually support both of them. So there would be a flag you could pass to the compiler that would tell it whether you're compiling for preview or preprod or some other environment, and it would be a sensible default for that flag.
+
+45
+00:07:20.750 --> 00:07:29.640
+Kevin Millikin: I think that's the better user experience, but I don't know how much work it is for us to get there, or if we just wanna… if we just wanna try to get there right now.
+
+46
+00:07:30.380 --> 00:07:34.169
+Kevin Millikin: So, what I'm proposing is that we handle this in the short term.
+
+47
+00:07:34.340 --> 00:07:39.140
+Kevin Millikin: with multiple release branch… branches. So we have different release channels.
+
+48
+00:07:39.660 --> 00:07:46.229
+Kevin Millikin: There… I've created a release slash pre-prod branch for the 0.27 release.
+
+49
+00:07:46.450 --> 00:07:50.870
+Kevin Millikin: And then eventually there can be a release slash preview branch.
+
+50
+00:07:53.790 --> 00:08:02.019
+Kevin Millikin: the preview versions are going to be given alpha designations, I think. They're alpha releases. That's the alpha release channel.
+
+51
+00:08:02.200 --> 00:08:04.869
+Kevin Millikin: And I'm proposing… this is…
+
+52
+00:08:04.990 --> 00:08:07.640
+Kevin Millikin: I'm proposing that the,
+
+53
+00:08:08.220 --> 00:08:19.309
+Kevin Millikin: We call them alpha, and we use the patch version number from whatever version they were cut off of main, so we can correlate them to a commit at main.
+
+54
+00:08:22.110 --> 00:08:24.080
+Kevin Millikin: the,
+
+55
+00:08:24.240 --> 00:08:31.249
+Kevin Millikin: Because we'll have multiple release branches, we'll have to be aware that bug fixes need to be cherry-picked to all the affected release branches.
+
+56
+00:08:32.630 --> 00:08:43.719
+Kevin Millikin: If this persists… if this state persists when mainnet is spun up, then I'm suggesting that the, the pre-prod releases become beta releases, so we'll have an alpha channel and a beta channel.
+
+57
+00:08:45.040 --> 00:08:48.750
+Kevin Millikin: And then language versions can also be tagged alpha and beta.
+
+58
+00:08:49.390 --> 00:08:56.909
+Kevin Millikin: And I think to make all this work, we need to update the dev tools, or at least test that they handle versions appropriately.
+
+59
+00:08:57.270 --> 00:09:06.730
+Kevin Millikin: Where appropriately, I would interpret as the most, like, the compact latest, the default for compact update is the most recent stable version.
+
+60
+00:09:07.300 --> 00:09:13.300
+Kevin Millikin: Perhaps we hide alpha versions by default, and you have to pass a flag to see them in the list.
+
+61
+00:09:14.270 --> 00:09:25.430
+Kevin Millikin: And then we probably add shortcut, commands to compact update preprod and Compact Update Preview that will update you to the appropriate latest version for that environment.
+
+62
+00:09:28.090 --> 00:09:30.250
+Kevin Millikin: So that's my… that's a proposal.
+
+63
+00:09:30.430 --> 00:09:31.360
+Kevin Millikin: Comments?
+
+64
+00:09:34.370 --> 00:09:42.140
+Andrey Venuto: So, Kevin, I don't know what was the decision on this, but we are not supporting Testnet anymore, right? This is the first
+
+65
+00:09:42.550 --> 00:09:45.910
+Andrey Venuto: Compact version, and we won't support testnet no more.
+
+66
+00:09:46.010 --> 00:09:48.149
+Andrey Venuto: updates on TestNet, right?
+
+67
+00:09:48.150 --> 00:09:52.779
+Kevin Millikin: That's the… that's the plan. We still have a release slash testnet branch.
+
+68
+00:09:53.290 --> 00:10:04.950
+Kevin Millikin: That is on Ledger 4, so conceivably we could push a bug fix and make a release from that branch. I think it's currently broken because we haven't updated our GitHub actions after the repository move.
+
+69
+00:10:04.970 --> 00:10:13.429
+Kevin Millikin: We know how to… we know how to fix it. But the plan is no, we are not supporting Testnet O2 anymore. In fact, I think TestNet 02 is being turned off sooner
+
+70
+00:10:13.480 --> 00:10:17.119
+Kevin Millikin: Rather than later. So it's a matter of weeks before it's gone anyway.
+
+71
+00:10:21.940 --> 00:10:24.190
+Kevin Millikin: Any other questions or comments?
+
+72
+00:10:25.530 --> 00:10:29.170
+Kent Dybvig: So, I know that some tools have problems with these…
+
+73
+00:10:30.110 --> 00:10:40.520
+Kent Dybvig: With things like 0.28.0-alpha being considered more recent than 0.28.0.
+
+74
+00:10:42.550 --> 00:10:45.649
+Kent Dybvig: I don't have a suggestion for how to deal with this, but…
+
+75
+00:10:45.920 --> 00:11:02.710
+Kent Dybvig: It's always a little tricky, especially as things like RPM and other package managers will say, oh, you already have a later version, you have the alpha, you know, this one that's marked 0.28.0 alpha. That must be later, because it has more stuff after it.
+
+76
+00:11:03.040 --> 00:11:05.570
+Kent Dybvig: Then 0.28.0.0.
+
+77
+00:11:06.250 --> 00:11:12.439
+Kevin Millikin: I do understand that. I think the one thing we are concerned about is our own dev tools.
+
+78
+00:11:13.010 --> 00:11:16.379
+Kevin Millikin: It's using some Rust library for…
+
+79
+00:11:16.550 --> 00:11:19.990
+Kevin Millikin: decided… for comparing version numbers and sorting them.
+
+80
+00:11:20.220 --> 00:11:26.959
+Kevin Millikin: I'm hoping that it actually does the right thing. If it doesn't, we'll have to implement the right thing. If it doesn't, we'll have to implement the right thing.
+
+81
+00:11:27.960 --> 00:11:40.619
+Kevin Millikin: Casey White is, I introduced him a while ago, he's joining the team, and he's finally available for us to work, and so he might… so he might be, working on updating DevTools in the short term, like this week and next week.
+
+82
+00:11:41.430 --> 00:11:45.830
+Kevin Millikin: So I think we need… yeah, I think we need to make sure that our DevTools works.
+
+83
+00:11:46.410 --> 00:11:47.210
+Kevin Millikin: Correctly.
+
+84
+00:11:49.880 --> 00:11:52.470
+Kasey: So there are rust ones left by Lucas, right?
+
+85
+00:11:52.880 --> 00:11:56.980
+Kevin Millikin: Yes, exactly. Oh, Casey's here. Hey, hi, Casey. Hi, Casey. Hey.
+
+86
+00:11:56.980 --> 00:11:59.529
+Kasey: Yeah, it took me a few to join because of Zoom and everything.
+
+87
+00:11:59.530 --> 00:12:04.280
+Kevin Millikin: Yeah, of course. First time's always a bit of a pain. The,
+
+88
+00:12:04.520 --> 00:12:16.460
+Kevin Millikin: Yes, these are… these are the Rust tools written by Lucas, and it's relatively a small amount of Rust code, and you'll… it's well-structured, and you'll see that it's easy to… easy to modify and change. Yeah.
+
+89
+00:12:17.760 --> 00:12:23.200
+Kevin Millikin: The… this alpha naming is consistent with the Ledger's version naming.
+
+90
+00:12:23.820 --> 00:12:24.390
+Kent Dybvig: Okay.
+
+91
+00:12:27.270 --> 00:12:34.779
+Kevin Millikin: I think… I think long-term we want to investigate if we can have a single compiler release that supports multiple ledger versions.
+
+92
+00:12:34.860 --> 00:12:48.829
+Kevin Millikin: the ledger is on 6.1 right now, and there's a 6.2 release that's coming, and will eventually go on to preview. Thomas Kerber has prepared a update to the compiler that handles that.
+
+93
+00:12:49.080 --> 00:12:55.479
+Kevin Millikin: And, one thing that seems pretty easy to support, it's got a different version of the printZKIR pass.
+
+94
+00:12:55.950 --> 00:13:08.439
+Kevin Millikin: And we could have… we could have conditional code in there that checks a flag, or we could even have… fork it and have a completely separate pass, throw the old one away when it… when it gets… when it's done.
+
+95
+00:13:10.970 --> 00:13:17.579
+Kevin Millikin: I'm not sure how to handle the changes that he's made to the standard library, so we'd have to have different versions of the standard library.
+
+96
+00:13:17.920 --> 00:13:21.959
+Kevin Millikin: For the different, for the different ledger versions.
+
+97
+00:13:22.680 --> 00:13:30.510
+Kevin Millikin: And what I'm even less sure about is that we have to handle, building using two different…
+
+98
+00:13:30.890 --> 00:13:38.299
+Kevin Millikin: ledger versions, which I think mostly affects the ZKIR binary that generates prover and verifier keys.
+
+99
+00:13:45.120 --> 00:13:52.850
+Kevin Millikin: And we could conceivably solve that by building two different binaries and dispatching towards the one that we intended. I'm not sure how best to handle that.
+
+100
+00:13:55.000 --> 00:14:00.340
+Kent Dybvig: There might also be interest Differences with the compact runtime?
+
+101
+00:14:01.740 --> 00:14:13.329
+Kevin Millikin: there will be a different… there will be a different runtime version, so you'll have to… so if we supported this with a flag, the flag would have to select a different runtime version, and there might be even a different runtime API.
+
+102
+00:14:14.270 --> 00:14:14.830
+Kent Dybvig: Yeah.
+
+103
+00:14:17.850 --> 00:14:25.389
+Kent Dybvig: Yeah, I'm thinking… I'm definitely the JavaScript code generation would have to change, and the runtime code that supports it, yeah.
+
+104
+00:14:25.570 --> 00:14:26.640
+Kevin Millikin: Yep, yep.
+
+105
+00:14:27.950 --> 00:14:32.570
+Kent Dybvig: Yeah, I don't think anything there is not doable, and in many ways, it's easier than
+
+106
+00:14:33.460 --> 00:14:36.440
+Kent Dybvig: Handling, you know, maintaining separate forks.
+
+107
+00:14:37.340 --> 00:14:37.960
+Kevin Millikin: Yes.
+
+108
+00:14:38.950 --> 00:14:44.899
+Kevin Millikin: Yeah, yeah, the… having separate… having separate branches is easy to set up initially. It's an ongoing cost.
+
+109
+00:14:45.260 --> 00:14:46.110
+Kent Dybvig: Yes.
+
+110
+00:14:46.240 --> 00:14:46.960
+Kevin Millikin: Yeah.
+
+111
+00:14:48.700 --> 00:14:57.249
+Kevin Millikin: Yeah, I don't know how difficult this would be. The… I'm hoping that when I say the short term, it's very short. Like, we can get this sorted out.
+
+112
+00:14:57.420 --> 00:14:59.140
+Kevin Millikin: In January, for instance.
+
+113
+00:15:00.340 --> 00:15:07.770
+Kevin Millikin: Anyway, that's… that's it for that. If there's more questions or comments afterwards, we can… we can talk about it.
+
+114
+00:15:07.890 --> 00:15:10.200
+Kevin Millikin: Prusa wants us to settle on the keywords.
+
+115
+00:15:12.020 --> 00:15:13.580
+Kevin Millikin: And there's a doc linked here.
+
+116
+00:15:13.580 --> 00:15:17.370
+Parisa Ataei: Do you want to finish the rest of the things that you have, and then we'll sort.
+
+117
+00:15:17.370 --> 00:15:34.779
+Kevin Millikin: Sure, I'll just… yeah, I'll just, yeah, I'll just quickly, I'll just quickly skip through the rest. So, so, we had these annoying settings on the Compact Export Repository that, if you made minor changes to a PR after it was approved, it required re-approval, which sometimes wasted a 24-hour cycle to get somebody to
+
+118
+00:15:35.370 --> 00:15:42.960
+Kevin Millikin: to approve a simple typo fix or whatever. Or even a merge from main or a suggestion that the reviewer themselves have made.
+
+119
+00:15:43.130 --> 00:15:46.190
+Kevin Millikin: That should be… that should be gone.
+
+120
+00:15:46.490 --> 00:16:06.150
+Kevin Millikin: And we also had this setting that all comments had to be resolved, and since you can resolve the comments yourself, it just required you to go through and click through and resolve on all of them, which was just busy work. So those should both be fixed. If they pop up again, let me know. I've told SRE that they seem to be okay, but we'll reopen the bug, and they'll take a look if it's not.
+
+121
+00:16:06.970 --> 00:16:24.810
+Kevin Millikin: And I did want to have a little bit of a… I'm not entirely sure what the answer to this is. I want to have a little bit of a discussion about how we're going to work when we transfer the Compact repository to the Linux Foundation. So that is apparently going to happen very soon.
+
+122
+00:16:24.980 --> 00:16:36.010
+Kevin Millikin: there's still… there's still legal discussions about IT. I think that Bob is, like, just, smashing his hand on the table and getting… getting people to disagree.
+
+123
+00:16:37.890 --> 00:16:48.110
+Kevin Millikin: So, the goal is that we eventually transfer all of our work, publicly to the LFDT-minakawa org compact repository.
+
+124
+00:16:48.350 --> 00:16:50.150
+Kevin Millikin: And that's where we do our work.
+
+125
+00:16:50.250 --> 00:16:58.010
+Kevin Millikin: The… Shielded SRE will help us transfer the repository to LFDT.
+
+126
+00:16:59.870 --> 00:17:07.759
+Kevin Millikin: it should be named Compact. I don't know if they can rename when they transfer. If not, we can create a shielded tech Compact repository.
+
+127
+00:17:07.890 --> 00:17:14.909
+Kevin Millikin: We already have a Midnight Network one that… with that name, that's our public releases, so we can't really change that easily.
+
+128
+00:17:15.780 --> 00:17:17.810
+Kevin Millikin: The…
+
+129
+00:17:18.520 --> 00:17:38.359
+Kevin Millikin: In any case, I think we need to maintain a fork or a mirror of the LFDT repository, ourselves, at least for a while, because I'm fully convinced that all of our GitHub actions will break as soon as we transfer the repository, and the reason that will happen is because they use Midnight Network secrets.
+
+130
+00:17:38.840 --> 00:17:42.389
+Kevin Millikin: So we'll need help from SRE to reconstitute those.
+
+131
+00:17:42.780 --> 00:17:48.469
+Kevin Millikin: those actions, so what we'll have is an external repository, just public, with a broken CI.
+
+132
+00:17:48.990 --> 00:17:55.090
+Kevin Millikin: And that's an important thing to fix, and that we can't make releases from. And that's also important to fix.
+
+133
+00:17:56.710 --> 00:18:01.430
+Kevin Millikin: In the short term, I don't know how we actually continue to work.
+
+134
+00:18:01.920 --> 00:18:03.310
+Kevin Millikin: One…
+
+135
+00:18:03.650 --> 00:18:21.829
+Kevin Millikin: the one solution for us that's pretty easy is that we continue to make PRs in the… in our fork of the repository, say that's Compact Export, where we have a working CI and where we can make releases. And when we commit a PR there, we also,
+
+136
+00:18:21.950 --> 00:18:29.649
+Kevin Millikin: create a corresponding PR on the, the public Minneakawa.
+
+137
+00:18:29.820 --> 00:18:31.370
+Kevin Millikin: Or a repository.
+
+138
+00:18:32.200 --> 00:18:38.810
+Kevin Millikin: So we're working in the model of working internally in a private repository and throwing source code over the wall.
+
+139
+00:18:39.110 --> 00:18:49.280
+Kevin Millikin: To me, we don't want to be doing that for very long. That's not… that's not the way that I want to be working. But that is a… but that is a way that we could work.
+
+140
+00:18:50.400 --> 00:18:52.560
+Kevin Millikin: Another way that we could work more open.
+
+141
+00:18:52.720 --> 00:19:03.469
+Kevin Millikin: in the… in the external repository, the public repository, but then we would import code to the… to our fork, so that we could have CI.
+
+142
+00:19:03.650 --> 00:19:05.560
+Kevin Millikin: And be able to release it.
+
+143
+00:19:07.960 --> 00:19:09.739
+Kevin Millikin: Ideas? Suggestions?
+
+144
+00:19:12.280 --> 00:19:31.520
+Mark: Not a suggestion per se, but I would wait until… regardless of which option we choose, until at least the 19th, have a stable version, etc. Yeah, we have a lot of priorities in getting this out of the door, so I would definitely wait at least until that date.
+
+145
+00:19:31.940 --> 00:19:33.739
+Kevin Millikin: Bob… Bob doesn't want us to wait.
+
+146
+00:19:34.110 --> 00:19:39.769
+Kevin Millikin: I talked to Bob… I talked to Bob yesterday, and he explicitly does not want us to wait. We've waited long enough.
+
+147
+00:19:39.900 --> 00:19:50.420
+Kevin Millikin: Compact is the only… Compact is the only midnight repository that is not open sourced, and it was, in some sense, one of the most important ones to open source, so nobody can see it yet.
+
+148
+00:19:51.080 --> 00:20:13.680
+Kevin Millikin: And, his feeling is that we wait till the 19th, because that's the MS2 release, and then we'll be waiting until after the holidays, and then at the end of January is the next MS3 release, and so we'll be waiting until after that, and then Mainnet is at the end of February, and we'll be waiting until after that, and we really can't wait that long. There's never going… there's never going to be a good time.
+
+149
+00:20:14.080 --> 00:20:21.099
+Kevin Millikin: And there… and there's never going to be a time when our SRE is not overloaded. So… so Bob's… Bob's,
+
+150
+00:20:21.360 --> 00:20:25.070
+Kevin Millikin: answer is, more or less tear the mandate off and just do a no.
+
+151
+00:20:25.650 --> 00:20:34.649
+Kevin Millikin: And I think that the LFGT is very, very eager for this to happen as well. This is dragging out longer than their timelines expected.
+
+152
+00:20:35.750 --> 00:20:36.200
+Mark: Fair.
+
+153
+00:20:36.200 --> 00:20:36.900
+Kevin Millikin: tent.
+
+154
+00:20:38.520 --> 00:20:42.209
+Kent Dybvig: Is it possible that we could just set up, like, a…
+
+155
+00:20:44.020 --> 00:20:46.629
+Kent Dybvig: A job that watches the repo.
+
+156
+00:20:46.930 --> 00:20:50.260
+Kent Dybvig: on some server, Makes a full copy of it.
+
+157
+00:20:51.310 --> 00:20:53.769
+Kent Dybvig: You know, so we don't really have two copies.
+
+158
+00:20:53.930 --> 00:20:56.649
+Kent Dybvig: Except while all the tests are being run.
+
+159
+00:20:59.020 --> 00:21:00.390
+Kevin Millikin: That's a possibility.
+
+160
+00:21:05.240 --> 00:21:11.279
+Kent Dybvig: I don't want to get in a situation where we can get these things out of sync, and we have to manually…
+
+161
+00:21:13.060 --> 00:21:18.860
+Kent Dybvig: merge… I mean… Every time you try to clone something, you…
+
+162
+00:21:20.330 --> 00:21:26.940
+Kent Dybvig: that's… that's instantaneous, right? But every time you try to… you have a mirror fork or something like that, and you try to merge it.
+
+163
+00:21:27.600 --> 00:21:30.690
+Kent Dybvig: You end up having to do Extra work.
+
+164
+00:21:40.180 --> 00:21:45.199
+Kent Dybvig: It's probably more work for the SRE, the very folks we can't get to spend time on it.
+
+165
+00:21:45.970 --> 00:21:54.610
+Kevin Millikin: Yeah, I think that it also feels like it would be sort of a very bespoke, one-time-only solution for them to set up, that, in general, they wouldn't
+
+166
+00:21:56.480 --> 00:21:57.670
+Kevin Millikin: Yeah.
+
+167
+00:22:06.420 --> 00:22:08.770
+Kevin Millikin: Yeah, I think that's a good point.
+
+168
+00:22:09.630 --> 00:22:28.520
+Kevin Millikin: I think one thing is we want to be in this state for a very short period of time. And another thing to recognize is that as soon as we do transfer the repository, we have a public repository, and we can start doing work we want to do there. Like, we can create projects there, we can track issues there, people can send us bug reports there.
+
+169
+00:22:28.660 --> 00:22:35.730
+Kevin Millikin: So, regardless of where we put the code and how we handle moving it back and forth, we will have that public repository.
+
+170
+00:22:37.420 --> 00:22:40.089
+Kevin Millikin: Okay, that's enough of that.
+
+171
+00:22:41.150 --> 00:22:50.269
+Kevin Millikin: I'll talk to SRE, I'll try to set up something. I'll try to create some clear documentation about what we're actually… how we're actually using it, and try to make it
+
+172
+00:22:50.390 --> 00:22:52.950
+Kevin Millikin: As painless as possible for us.
+
+173
+00:22:53.840 --> 00:22:55.530
+Kevin Millikin: Barisa, keywords.
+
+174
+00:23:00.450 --> 00:23:05.130
+Parisa Ataei: Do you mind, going into that doc that I linked?
+
+175
+00:23:06.310 --> 00:23:11.120
+Kevin Millikin: I can't see my screen, and I don't… did I… is it on screen?
+
+176
+00:23:11.120 --> 00:23:12.030
+Parisa Ataei: Yes. Is it ice cream?
+
+177
+00:23:12.030 --> 00:23:18.139
+Kevin Millikin: Oh, wow, that's amazing. Yeah, I wasn't sure if I was sharing a tab or a window. Okay, yes, this is the document.
+
+178
+00:23:18.960 --> 00:23:31.410
+Parisa Ataei: Yep. Okay, so I have a list of keywords. The ones for JavaScript that are the first half are coming from the ECMA 2026… no, 25.
+
+179
+00:23:31.550 --> 00:23:35.609
+Parisa Ataei: I have no idea the naming why it's 262. Anyways.
+
+180
+00:23:35.730 --> 00:23:45.039
+Parisa Ataei: There are a couple of things. So there are keyword… there are reserved words based on context. For example, await is one of them.
+
+181
+00:23:45.360 --> 00:23:53.789
+Parisa Ataei: that we can… We can decide if we want to have them as reserved or not.
+
+182
+00:23:55.420 --> 00:23:59.570
+Parisa Ataei: Anyone who wants to jump in as I'm going through this, feel free to jump in.
+
+183
+00:24:00.340 --> 00:24:08.919
+Kevin Millikin: I think we should reserve all of the reserved words and future reserve words. I don't know why enum is listed twice. That's probably a bug in the original source.
+
+184
+00:24:10.190 --> 00:24:10.630
+Parisa Ataei: Yep.
+
+185
+00:24:10.630 --> 00:24:15.000
+Kevin Millikin: I don't… I don't think we need to res… I don't think we need to reserve arguments in eval.
+
+186
+00:24:17.380 --> 00:24:22.399
+Kevin Millikin: I think we should reserve all district mode.
+
+187
+00:24:22.590 --> 00:24:23.820
+Kevin Millikin: Reserve words.
+
+188
+00:24:26.920 --> 00:24:32.469
+Parisa Ataei: So you said we don't need to reserve arguments on eval. Did I get that right?
+
+189
+00:24:36.240 --> 00:24:49.360
+Parisa Ataei: All right, and then, there are some more conditional reserve words that it's, is based on the context, and those are as async from getMeta of setTarget.
+
+190
+00:24:51.730 --> 00:24:59.979
+Kevin Millikin: Right, so, so I think those, if we ever wanted to use those keywords, they would probably be contextual keywords for us as well.
+
+191
+00:25:00.300 --> 00:25:04.129
+Kevin Millikin: But we should consider what they would look like.
+
+192
+00:25:04.300 --> 00:25:08.179
+Kevin Millikin: And if we want to reserve them or not. So this one is not clear.
+
+193
+00:25:09.120 --> 00:25:12.009
+Kent Dybvig: We already have of and as.
+
+194
+00:25:15.300 --> 00:25:15.920
+Kevin Millikin: Right.
+
+195
+00:25:24.260 --> 00:25:35.210
+Parisa Ataei: And then… one second… Then there are some keywords that are future keywords from older, specs.
+
+196
+00:25:35.720 --> 00:25:36.600
+Parisa Ataei: Nope.
+
+197
+00:25:37.110 --> 00:25:44.450
+Kevin Millikin: So this was, they just dumped in all of the Java keywords when they called it JavaScript, in case they wanted them.
+
+198
+00:25:44.560 --> 00:25:49.770
+Kevin Millikin: And, so they didn't make sense in the JavaScript context, and they're not anymore.
+
+199
+00:25:51.360 --> 00:25:52.210
+Parisa Ataei: Alright.
+
+200
+00:25:53.230 --> 00:25:55.909
+Parisa Ataei: And then, if you keep going down…
+
+201
+00:25:59.040 --> 00:26:10.680
+Parisa Ataei: Okay, and then for the TypeScript one, I went to the code base, disregard the link that I have, because, consider the two links that I have from main and the latest release that I have.
+
+202
+00:26:10.680 --> 00:26:19.509
+Parisa Ataei: And on their main branch, they have some contextual keywords that are not included in the latest release that they have.
+
+203
+00:26:21.180 --> 00:26:39.299
+Parisa Ataei: So, the first thing is, do we want the contextual keywords to also be contextual and not necessarily reserve them at this time? And the second question would be, if we do want to, unconditionally reserve them right now, do we want to reserve them from
+
+204
+00:26:39.730 --> 00:26:42.250
+Parisa Ataei: The main branch that they have.
+
+205
+00:26:43.110 --> 00:26:45.289
+Kevin Millikin: I would say probably not.
+
+206
+00:26:45.450 --> 00:26:52.049
+Kevin Millikin: I don't… I don't think we're… I don't think we have any idea of using any of these keywords,
+
+207
+00:26:52.390 --> 00:27:01.299
+Kevin Millikin: Or any plan for how we would do it. So it would be in a… in some future breaking language version anyway that we would introduce them, so I would say no.
+
+208
+00:27:02.100 --> 00:27:05.380
+Parisa Ataei: Okay, so that is now two contextual keywords.
+
+209
+00:27:07.030 --> 00:27:07.640
+Parisa Ataei: In general.
+
+210
+00:27:07.640 --> 00:27:19.800
+Kevin Millikin: That is… that is noted of this list. Well, we… well, contextual keyword… the point of contextual keywords is that they're not reserved at all. They're not really reserved. It's just that they can appear in certain contexts. So, they're not reserved words.
+
+211
+00:27:23.730 --> 00:27:29.350
+Parisa Ataei: Okay, and then if you click on, either of the links, either the main one or… yep.
+
+212
+00:27:32.340 --> 00:27:34.590
+Parisa Ataei: And if you search for keyboards.
+
+213
+00:27:39.710 --> 00:27:45.920
+Parisa Ataei: Okay. Okay, well… Yeah, we can go… and if you go up a little bit…
+
+214
+00:27:46.580 --> 00:27:52.749
+Parisa Ataei: Actually, try keyword… yeah, right there, right there, just go up,
+
+215
+00:27:53.240 --> 00:27:56.590
+Parisa Ataei: Where you are in… yeah, yeah, keep going, keep going.
+
+216
+00:27:57.250 --> 00:28:10.240
+Parisa Ataei: Okay, so they have the reservoirs that it starts right there at line 140, it goes brake case, catch, blah blah blah, and then after that, they have the strict mode.
+
+217
+00:28:10.490 --> 00:28:11.930
+Parisa Ataei: reservoirs.
+
+218
+00:28:12.620 --> 00:28:13.200
+Kevin Millikin: Yep.
+
+219
+00:28:13.510 --> 00:28:14.230
+Parisa Ataei: I'm assuming.
+
+220
+00:28:14.230 --> 00:28:14.839
+Kevin Millikin: we would…
+
+221
+00:28:16.370 --> 00:28:32.579
+Kevin Millikin: So… so, given JavaScript, we've already… we've already said that we would… I mean, the previous list from JavaScript has already included some of these words, and said… and we've said no to some of these. So I think what we need to do now is go… is zip these two lists together and see which ones
+
+222
+00:28:32.620 --> 00:28:47.859
+Kevin Millikin: We haven't yet made a decision on, and that probably is easier to do offline. But, in general, I would say yes to all of the reserve words, and yes to all of the strict mode reserve words, and no to the contextual keywords.
+
+223
+00:28:49.110 --> 00:28:49.890
+Parisa Ataei: Alright.
+
+224
+00:28:51.190 --> 00:29:01.270
+Parisa Ataei: Okay, so then I will have a final list of all the words that we want to reserve, and I'll send that in… in…
+
+225
+00:29:02.280 --> 00:29:06.640
+Parisa Ataei: Languages, somewhere, yeah, topic languages, to finalize it.
+
+226
+00:29:26.650 --> 00:29:27.310
+Kevin Millikin: Okay.
+
+227
+00:29:28.030 --> 00:29:29.099
+Kevin Millikin: Does that sound right?
+
+228
+00:29:30.030 --> 00:29:30.950
+Kevin Millikin: Kit.
+
+229
+00:29:31.510 --> 00:29:35.380
+Kent Dybvig: Well, can I go back to that, original document? Just click on that doc.
+
+230
+00:29:35.990 --> 00:29:36.400
+Kevin Millikin: This one.
+
+231
+00:29:36.400 --> 00:29:37.399
+Kent Dybvig: Or glow, yeah.
+
+232
+00:29:37.680 --> 00:29:41.540
+Kent Dybvig: Which… Okay, so we said…
+
+233
+00:29:43.040 --> 00:29:47.390
+Kent Dybvig: Yes to the reserve, future reserve, restricted… okay, not…
+
+234
+00:29:50.530 --> 00:29:52.790
+Kent Dybvig: Oh, there's reserve warrants.
+
+235
+00:29:55.760 --> 00:29:57.559
+Kent Dybvig: Okay, can we go up a little bit?
+
+236
+00:30:00.170 --> 00:30:03.540
+Kent Dybvig: Okay, so…
+
+237
+00:30:08.100 --> 00:30:09.089
+Kent Dybvig: We have…
+
+238
+00:30:09.230 --> 00:30:19.060
+Kent Dybvig: right now, I think I like this… the idea of, you know, we're not reserving things that aren't contextual, but we have some contextual ones already that are
+
+239
+00:30:19.430 --> 00:30:21.480
+Kent Dybvig: That are reserved.
+
+240
+00:30:22.380 --> 00:30:27.050
+Kent Dybvig: Completely.
+
+241
+00:30:27.560 --> 00:30:28.339
+Kent Dybvig: For app.
+
+242
+00:30:28.550 --> 00:30:32.839
+Kent Dybvig: as and of, for example. You can't use them anywhere because they're used
+
+243
+00:30:32.960 --> 00:30:38.069
+Kent Dybvig: They're contextually available, or they're used contextually in a couple of places.
+
+244
+00:30:38.450 --> 00:30:40.979
+Kevin Millikin: Do we want to relax that?
+
+245
+00:30:42.380 --> 00:30:44.060
+Kevin Millikin: In general, I would say yes.
+
+246
+00:30:44.920 --> 00:30:52.160
+Kevin Millikin: In general, I would say yes. We don't have to do it at this time, and it would be, I guess, a non-breaking change if we ever did that.
+
+247
+00:30:54.120 --> 00:31:04.530
+Kent Dybvig: the actual… part of the reason we actually reserved them was because of… the naives,
+
+248
+00:31:05.160 --> 00:31:09.540
+Kent Dybvig: Mechanisms for the, the,
+
+249
+00:31:09.850 --> 00:31:13.049
+Kent Dybvig: the IDEs, like the legal studio.
+
+250
+00:31:13.180 --> 00:31:18.760
+Kent Dybvig: To just give them… give a list of keywords that were… that were appropriately marked.
+
+251
+00:31:19.070 --> 00:31:24.150
+Kent Dybvig: It seems like it would go hand-in-hand with a switch to a real LSP server.
+
+252
+00:31:26.310 --> 00:31:26.680
+Kevin Millikin: Yes.
+
+253
+00:31:26.680 --> 00:31:29.430
+Kent Dybvig: So that would be a good option to revisit this.
+
+254
+00:31:30.020 --> 00:31:32.589
+Kevin Millikin: Yeah, yes, an LSP server can do semantic.
+
+255
+00:31:32.700 --> 00:31:38.439
+Kevin Millikin: piloting… Or language-specific highlighting.
+
+256
+00:31:39.190 --> 00:31:39.710
+Kent Dybvig: Yeah.
+
+257
+00:31:40.430 --> 00:31:44.329
+Kevin Millikin: Yeah, I agree. I think… I think no change for now is what I would… is what I would say.
+
+258
+00:31:45.920 --> 00:31:51.749
+Kent Dybvig: So, we aren't planning to reserve any of the contextual words that we don't already have reserved.
+
+259
+00:31:52.330 --> 00:31:54.669
+Kent Dybvig: So we're not adding to the problem now.
+
+260
+00:31:55.770 --> 00:31:57.820
+Kevin Millikin: I… that's… that's what I said.
+
+261
+00:31:58.030 --> 00:32:03.979
+Kevin Millikin: Yeah. I don't know, I… Does any… does anybody have any disagreement with any of that?
+
+262
+00:32:04.350 --> 00:32:05.249
+Kent Dybvig: No, I like that.
+
+263
+00:32:05.890 --> 00:32:06.420
+Kevin Millikin: Okay.
+
+264
+00:32:08.810 --> 00:32:16.680
+Kevin Millikin: I was gonna color them red and green, for yes and no, but then I realized that not everybody could see that anyway, so I didn't do it.
+
+265
+00:32:17.810 --> 00:32:24.819
+Kevin Millikin: Okay, thank you, Parisa, for putting together the lists.
+
+266
+00:32:25.420 --> 00:32:29.550
+Kevin Millikin: Is there any, anything else we should talk about?
+
+267
+00:32:34.460 --> 00:32:35.500
+Kevin Millikin: Anybody?
+
+268
+00:32:36.890 --> 00:32:40.719
+⟣ €₥ℵ∪ℓ: I think there's a few questions from the OpenZeppelin team.
+
+269
+00:32:41.040 --> 00:32:41.710
+Kevin Millikin: Yep.
+
+270
+00:32:42.970 --> 00:32:52.479
+⟣ €₥ℵ∪ℓ: So… we were just wondering if, there's any feedback or update on the… Docs restructure, PR…
+
+271
+00:32:52.900 --> 00:32:58.379
+Kevin Millikin: No, so I honestly haven't had a chance to even look at it.
+
+272
+00:32:58.490 --> 00:33:04.500
+Kevin Millikin: like I said before, in general, I like it. I wanted to look at the details, and I haven't done it.
+
+273
+00:33:05.610 --> 00:33:20.389
+Kevin Millikin: We… I don't know if you know this, but we don't have a docs team anymore, temporarily, so there's been personnel changes at Shielded, and we no longer have a dedicated docs team. It's being handled, more by the individual engineering teams.
+
+274
+00:33:20.510 --> 00:33:28.089
+Kevin Millikin: And by the Midnight Foundation DevRel. So there's just been some restructuring of the way that the docs are… are managed as well.
+
+275
+00:33:28.200 --> 00:33:31.969
+Kevin Millikin: So that's caused a little bit of chaos, unfortunately.
+
+276
+00:33:33.160 --> 00:33:33.640
+⟣ €₥ℵ∪ℓ: Gotcha.
+
+277
+00:33:33.640 --> 00:33:39.859
+Kevin Millikin: So, yeah, so I'm sorry, I'm sorry, but no, I haven't… I haven't had a chance to… to… to do anything there.
+
+278
+00:33:40.360 --> 00:33:44.600
+Kent Dybvig: Yeah, I'm playing… I'm trying to get onto the… on… and…
+
+279
+00:33:44.810 --> 00:33:51.560
+Kent Dybvig: spend January, or a good chunk of January on Docs, so that'll be a good time for me to look at it.
+
+280
+00:33:52.160 --> 00:33:53.480
+Kevin Millikin: Yeah, I mean, the thing to keep in mind.
+
+281
+00:33:53.480 --> 00:33:54.829
+Kent Dybvig: A lot of our fights still…
+
+282
+00:33:55.450 --> 00:34:18.570
+Kevin Millikin: Yeah, the thing to keep in mind is that OpenZeppelin is, contracted to help us with improving our docs, specifically our API docs, like our standard library docs, and our ledger API docs, and the compact runtime JavaScript docs. They're really spartan, and they don't… they don't have, they're not… they're not very well formatted. They're monolithic single documents, they're not very navigable.
+
+283
+00:34:18.570 --> 00:34:20.569
+Kevin Millikin: So they're gonna help improve that.
+
+284
+00:34:20.699 --> 00:34:38.130
+Kevin Millikin: But also language reference. I think there's also, we talked about a missing document, which is the, like, the… more like the Rust book. The… the… it's the compact book that… that you could read from front to back and run compact, rather than the sort of dry spec language in the reference.
+
+285
+00:34:43.100 --> 00:34:45.829
+⟣ €₥ℵ∪ℓ: A couple more things… Yeah. Yeah.
+
+286
+00:34:46.300 --> 00:34:49.239
+⟣ €₥ℵ∪ℓ: Let's see… There you go.
+
+287
+00:34:49.980 --> 00:34:53.050
+⟣ €₥ℵ∪ℓ: Oh, Iskander had a question…
+
+288
+00:34:53.230 --> 00:34:58.619
+⟣ €₥ℵ∪ℓ: Will there ever be an API in Compact to get the…
+
+289
+00:34:58.780 --> 00:35:08.929
+⟣ €₥ℵ∪ℓ: block timestamp inside of a circuit, or any, like… Yeah, timestamp kind of thing.
+
+290
+00:35:09.830 --> 00:35:10.420
+Kevin Millikin: No.
+
+291
+00:35:11.010 --> 00:35:20.740
+Kevin Millikin: Gotcha. So the… so the reason… so the reason… so the reason for that, is that the, that is part… well, I… let me relax that. Maybe.
+
+292
+00:35:20.880 --> 00:35:29.850
+Kevin Millikin: So the… so right now, you can compare that the block time on-chain is greater than or less than a certain time, and that's available.
+
+293
+00:35:29.950 --> 00:35:45.969
+Kevin Millikin: The reason we haven't given you the ability to use the exact block time is that that is part of the ledger's public state, and a transaction will fail if the ledger public state that it uses does not match exactly, on-chain what it saw off-chain.
+
+294
+00:35:46.060 --> 00:36:02.940
+Kevin Millikin: So if you run your transaction off-chain with private data, and you get a particular block timestamp, which has a resolution of a second, and then you run your transaction on-chain, and you see any different timestamp at all, your transaction will fail. So you can't practically make a transaction that will succeed
+
+295
+00:36:03.310 --> 00:36:06.490
+Kevin Millikin: using the exact block time. It just doesn't fit in the Midnight Model.
+
+296
+00:36:07.010 --> 00:36:12.440
+Kevin Millikin: So we need… so we need to do… we need to provide… we do understand that we need to provide a notion of time.
+
+297
+00:36:13.170 --> 00:36:30.370
+Kevin Millikin: We don't know what the answer for it is yet. And it's also, it's one of those things that is not actually a language feature. It is a midnight ledger feature that is exposed through the language, so it's really, like, the ledger team is the people that you would want to interact with to figure out how you would do that.
+
+298
+00:36:31.240 --> 00:36:38.389
+⟣ €₥ℵ∪ℓ: Okay, yeah, I think it would be helpful if we could set up a meeting to kind of better understand this new paradigm.
+
+299
+00:36:38.690 --> 00:36:44.370
+⟣ €₥ℵ∪ℓ: It was definitely different than what most developers are used to from the EVM ecosystem.
+
+300
+00:36:44.510 --> 00:36:46.690
+⟣ €₥ℵ∪ℓ: So, we could,
+
+301
+00:36:47.010 --> 00:36:52.949
+⟣ €₥ℵ∪ℓ: If we could set up a meeting and get a better understanding of that, we could also use that to improve the docs as well.
+
+302
+00:36:53.370 --> 00:37:06.399
+Kevin Millikin: Yep, and the situation right now is not very good, because when a transaction fails, you don't get very detailed feedback from the contract library about why the transaction fails, just that it did.
+
+303
+00:37:06.790 --> 00:37:10.949
+Kevin Millikin: So it'd be… it'd be great if it could actually say failed, because the time was different.
+
+304
+00:37:12.600 --> 00:37:19.960
+⟣ €₥ℵ∪ℓ: Who would we need to talk to to set up a meeting with the Ledger team to talk more about this?
+
+305
+00:37:20.250 --> 00:37:22.250
+Andrey Venuto: I can coordinate that, you know.
+
+306
+00:37:23.380 --> 00:37:24.700
+⟣ €₥ℵ∪ℓ: Okay, great, yeah.
+
+307
+00:37:25.090 --> 00:37:28.119
+⟣ €₥ℵ∪ℓ: Oops, let me write that down really quick.
+
+308
+00:37:38.520 --> 00:37:49.799
+⟣ €₥ℵ∪ℓ: Let's see, there's a couple of feature requests from Iskander. Unfortunately, he's not able to create issues on the GitHub repo, so…
+
+309
+00:37:50.070 --> 00:37:51.839
+⟣ €₥ℵ∪ℓ: We're having to do this, like, weird…
+
+310
+00:37:51.950 --> 00:37:57.069
+⟣ €₥ℵ∪ℓ: feature request in Slack kind of thing. I'm not sure if you saw this.
+
+311
+00:37:57.290 --> 00:37:58.120
+⟣ €₥ℵ∪ℓ: I didn't see…
+
+312
+00:37:58.120 --> 00:38:07.439
+Kevin Millikin: I… I did see that. Let me… let me, try to remember to investigate and get… get access so you guys can commit issues. I don't know why that… I don't know why that is in that situation.
+
+313
+00:38:08.630 --> 00:38:09.750
+Kevin Millikin: Yeah.
+
+314
+00:38:09.970 --> 00:38:10.710
+Kevin Millikin: Damn.
+
+315
+00:38:12.720 --> 00:38:30.280
+⟣ €₥ℵ∪ℓ: Yeah, if you ever… if you have the time, it's regarding the user configurable formatter options feature request. I think everything's in Slack, whenever you have time to take a look at it. And there's also another one on stricter TypeScript types.
+
+316
+00:38:30.440 --> 00:38:31.490
+⟣ €₥ℵ∪ℓ: For a compact.
+
+317
+00:38:32.610 --> 00:38:33.730
+Kevin Millikin: What was the first one? Oh, the first one?
+
+318
+00:38:34.960 --> 00:38:39.210
+⟣ €₥ℵ∪ℓ: user configurable formatter options. So, right now.
+
+319
+00:38:39.360 --> 00:38:49.330
+⟣ €₥ℵ∪ℓ: the compact formatter, everything's, like, hard-coded. I think, for example, like, the length is hard-coded to 100 and, like, line 25 or something.
+
+320
+00:38:49.900 --> 00:39:05.059
+Kevin Millikin: The answer to that is, not really. I think line length is the only thing that we might change. So, the formatter is intended to be an opinionated formatter, and there's one and only one way to format compact code, which is the one defined by the formatter.
+
+321
+00:39:05.490 --> 00:39:18.299
+Kevin Millikin: If you wanted something different, you'd have to implement your own formatter. So I… we are… we… it is… it is a very early version of the formatter, and we are very, very open to feedback on things that are formatted badly.
+
+322
+00:39:18.650 --> 00:39:22.629
+Kevin Millikin: And our answer would be to just fix them in the formatter.
+
+323
+00:39:22.860 --> 00:39:26.710
+Kevin Millikin: So we're happy to hear that. I think line length is the only thing that we would actually
+
+324
+00:39:27.040 --> 00:39:29.079
+Kevin Millikin: Probably consider configurable.
+
+325
+00:39:30.470 --> 00:39:37.849
+Kent Dybvig: And in fact, I've got my nose into that right now. This is what I've been working on, fixing some formatting issues.
+
+326
+00:39:39.230 --> 00:39:42.159
+Kent Dybvig: So if you had any feedback right now, it would be very timely.
+
+327
+00:39:44.080 --> 00:39:55.359
+⟣ €₥ℵ∪ℓ: Let's see if he has any feedback… Nothing specifically… I think the…
+
+328
+00:39:56.800 --> 00:40:05.409
+⟣ €₥ℵ∪ℓ: The issue was more… different teams have, like, different preferences of, like, line length, tab width, that kind of thing, so it would be nice if we could have, like, a…
+
+329
+00:40:05.670 --> 00:40:14.950
+⟣ €₥ℵ∪ℓ: like, a configuration, or a compact.toml, or a formatter.toml file, where we could specify some of these things that are more, like.
+
+330
+00:40:15.290 --> 00:40:20.359
+⟣ €₥ℵ∪ℓ: Team, opinionated lines, and… Widths and stuff like that.
+
+331
+00:40:22.450 --> 00:40:35.030
+Kevin Millikin: My answer is those teams have to give up arguing about formatting. I think line length is a very practical concern, that there's some environments where you know that you want it formatted shorter or longer.
+
+332
+00:40:35.180 --> 00:40:37.399
+Kevin Millikin: Even Tablet, I would say no.
+
+333
+00:40:38.160 --> 00:40:46.399
+⟣ €₥ℵ∪ℓ: I'll see if he has any, like, specific, like, oh, like, 100 line length is too small, or something like that, if he has any more specific.
+
+334
+00:40:46.770 --> 00:40:58.940
+⟣ €₥ℵ∪ℓ: issues there. The last one is the stricter TypeScript types for compact vectors. So, Iskander pointed out that, you can define
+
+335
+00:40:59.040 --> 00:41:06.830
+⟣ €₥ℵ∪ℓ: a vector2 field type, but in type… the generated TypeScript artifact.
+
+336
+00:41:06.990 --> 00:41:08.690
+⟣ €₥ℵ∪ℓ: file,
+
+337
+00:41:09.030 --> 00:41:17.839
+⟣ €₥ℵ∪ℓ: there's no compile time, checks in the length of that compact vector. In TypeScript, it's,
+
+338
+00:41:19.740 --> 00:41:24.819
+⟣ €₥ℵ∪ℓ: Let's see… Any length… it's an any length array, instead of a…
+
+339
+00:41:25.230 --> 00:41:34.849
+⟣ €₥ℵ∪ℓ: strict, like, two-length array as defined in Compact. He was wondering if… That can be… Made stricter at all.
+
+340
+00:41:38.100 --> 00:41:49.450
+Kevin Millikin: It would… it would be possible. I think that… so one thing is that you would get, stricter checking up to a certain size, but you wouldn't get stricter checking for
+
+341
+00:41:49.580 --> 00:41:52.249
+Kevin Millikin: For… the length is not part of the type.
+
+342
+00:41:53.590 --> 00:42:00.659
+Kevin Millikin: So you could… so his trick was to find a bunch of tuple types that had fixed lengths and aliases for them.
+
+343
+00:42:01.420 --> 00:42:06.500
+Kevin Millikin: I'm… I'm not sure. The…
+
+344
+00:42:06.710 --> 00:42:14.860
+Kevin Millikin: you would still have runtime checks, because the… you… you can call… you can… witnesses can be implemented in JavaScript, for instance.
+
+345
+00:42:15.000 --> 00:42:25.440
+Kevin Millikin: So we have to know… we can't… we can't trust that you have used TypeScript to check your code. We have to have runtime checks to enforce our types. In general.
+
+346
+00:42:26.730 --> 00:42:40.810
+Kevin Millikin: there's a limited amount that we can do. You have to just recognize that the JavaScript and TypeScript have a different type system than Compact, and so we're effectively calling into a foreign language with a different type system, and we have to make checks at the boundaries.
+
+347
+00:42:41.730 --> 00:42:51.070
+Kevin Millikin: I am receptive to the idea of getting better static checking in TypeScript, and I think we, in general, are.
+
+348
+00:42:51.690 --> 00:43:02.980
+Kevin Millikin: this is the kind of thing that would be, when we get our open source repository, would be a great thing to create a COIP, a compact improvement proposal, with a concrete suggestion of what we could do.
+
+349
+00:43:05.440 --> 00:43:14.420
+⟣ €₥ℵ∪ℓ: Okie dokie… let's see… Oh, another question you had was, whenever we define a module file.
+
+350
+00:43:14.800 --> 00:43:18.180
+⟣ €₥ℵ∪ℓ: And it's not… it's not a top-level…
+
+351
+00:43:18.640 --> 00:43:27.900
+⟣ €₥ℵ∪ℓ: compact file. He was just wondering why the compiler still generates an empty TypeScript… Artifact file for…
+
+352
+00:43:28.170 --> 00:43:34.759
+⟣ €₥ℵ∪ℓ: These modules, yeah, we just… I guess he just wants to know, like, what's the purpose of…
+
+353
+00:43:35.020 --> 00:43:37.930
+⟣ €₥ℵ∪ℓ: These files that are basically empty.
+
+354
+00:43:39.940 --> 00:43:43.589
+Kent Dybvig: I… I need more context on that, because I'm not aware of that problem.
+
+355
+00:43:44.930 --> 00:43:48.990
+⟣ €₥ℵ∪ℓ: Gotcha. Yeah, I think he has, an example…
+
+356
+00:43:49.230 --> 00:43:52.130
+⟣ €₥ℵ∪ℓ: He has an example in the file that I'm looking at, I'm not sure if he…
+
+357
+00:43:52.250 --> 00:43:54.609
+⟣ €₥ℵ∪ℓ: dumped this in the Slack already, but…
+
+358
+00:43:54.780 --> 00:43:57.320
+⟣ €₥ℵ∪ℓ: I can do that after the meeting.
+
+359
+00:44:00.460 --> 00:44:06.220
+Kent Dybvig: I could see if you have an IT module file and you run the compiler on it.
+
+360
+00:44:09.760 --> 00:44:10.950
+Kent Dybvig: directly.
+
+361
+00:44:12.300 --> 00:44:18.569
+Kent Dybvig: Then you would get that, but if you… if you import it from somewhere else, there shouldn't be anything generated for that.
+
+362
+00:44:19.190 --> 00:44:20.240
+Kent Dybvig: module.
+
+363
+00:44:21.620 --> 00:44:26.340
+Kent Dybvig: Maybe there's some confusion over whether you need to compile modules.
+
+364
+00:44:26.770 --> 00:44:29.520
+Kent Dybvig: Before you use them. You don't need to.
+
+365
+00:44:30.670 --> 00:44:31.410
+⟣ €₥ℵ∪ℓ: Oh, okay.
+
+366
+00:44:31.410 --> 00:44:33.729
+Kent Dybvig: They're always imported as source.
+
+367
+00:44:35.160 --> 00:44:40.859
+⟣ €₥ℵ∪ℓ: Gotcha, gotcha. Yeah, I can write that down. We've just been compiling, like.
+
+368
+00:44:41.060 --> 00:44:47.040
+⟣ €₥ℵ∪ℓ: Every file in our file tree, like, no matter whether it's a module or a top-level file.
+
+369
+00:44:47.040 --> 00:44:50.269
+Kent Dybvig: Okay, well, that would do it then, for sure. Okay, now I understand.
+
+370
+00:44:50.430 --> 00:44:55.130
+Kent Dybvig: Oh, you just… maybe you can put your modules in a different…
+
+371
+00:44:56.460 --> 00:45:03.570
+Kent Dybvig: directory and not compile those, because they're… we have to have the source code for those, and…
+
+372
+00:45:04.500 --> 00:45:08.200
+Kent Dybvig: Having the TypeScript code for them doesn't help the compiler at all.
+
+373
+00:45:09.560 --> 00:45:18.220
+Kent Dybvig: So, we suck in the source code, and… and because we… we do inlining of every helper… helper function,
+
+374
+00:45:19.540 --> 00:45:25.260
+Kent Dybvig: you know, We would need… we need something, either source or something very close to source anyway.
+
+375
+00:45:28.910 --> 00:45:31.999
+⟣ €₥ℵ∪ℓ: Would it be possible to…
+
+376
+00:45:32.680 --> 00:45:38.520
+⟣ €₥ℵ∪ℓ: Change the compiler in such a way that it kind of auto-detects whether a file is just,
+
+377
+00:45:38.820 --> 00:45:48.659
+⟣ €₥ℵ∪ℓ: Like, a module file, for example, or a top-level file, so, like, if it goes to compile a module file, it just skips that, and just,
+
+378
+00:45:49.580 --> 00:45:51.289
+⟣ €₥ℵ∪ℓ: Oh, there isn't any…
+
+379
+00:45:51.440 --> 00:45:56.649
+Kent Dybvig: I mean, it certainly could say if it would… if it would be producing something empty.
+
+380
+00:45:56.880 --> 00:46:04.970
+Kent Dybvig: Don't produce anything, but that may be confusing to some users who Don't realize why that's happening.
+
+381
+00:46:05.380 --> 00:46:13.699
+Kent Dybvig: There's no… there's nothing that distinguishes a module file from any other file, except that it happens to have a single module declaration on it. It could…
+
+382
+00:46:14.260 --> 00:46:17.760
+Kent Dybvig: We could say, okay, if you have a single module declaration in your file.
+
+383
+00:46:18.570 --> 00:46:21.720
+Kent Dybvig: It's not gonna generate any code. We could say, hey.
+
+384
+00:46:22.170 --> 00:46:24.589
+Kent Dybvig: Don't do anything with it.
+
+385
+00:46:26.260 --> 00:46:28.139
+Kent Dybvig: Maybe he'd run the parser over it.
+
+386
+00:46:31.390 --> 00:46:32.180
+Kent Dybvig: Yeah.
+
+387
+00:46:33.460 --> 00:46:36.090
+Kent Dybvig: It's possible. I still want to confuse.
+
+388
+00:46:36.850 --> 00:46:42.090
+Kent Dybvig: Users, for what sounds like a tooling Issue.
+
+389
+00:46:44.070 --> 00:46:53.750
+Kevin Millikin: It does sound like a bit of a tooling issue. Files that have a single module are special in some sense, because those are the only ones you can import from the file.
+
+390
+00:46:54.800 --> 00:46:59.519
+Kevin Millikin: And so, we could consider just having a different extension for them or something.
+
+391
+00:46:59.830 --> 00:47:04.579
+Kevin Millikin: And then the compiler wouldn't compile files with that extension, but you could still import them.
+
+392
+00:47:06.900 --> 00:47:09.220
+⟣ €₥ℵ∪ℓ: I think we still want to, like, check the…
+
+393
+00:47:09.950 --> 00:47:13.760
+⟣ €₥ℵ∪ℓ: Like, syntax and stuff, whenever we run the compiler on those files.
+
+394
+00:47:14.350 --> 00:47:17.739
+⟣ €₥ℵ∪ℓ: I'm not sure if that would be skipped as well.
+
+395
+00:47:18.740 --> 00:47:26.619
+Kent Dybvig: I would be willing to say, you know, to have it say, if it has a single module in it, that, we don't… that we just run
+
+396
+00:47:27.110 --> 00:47:31.289
+Kent Dybvig: the parts of the compiler that make sense. There's some things we can't really do.
+
+397
+00:47:31.410 --> 00:47:34.560
+Kent Dybvig: Because, you know, especially if the module has type parameters.
+
+398
+00:47:35.020 --> 00:47:39.599
+Kent Dybvig: any generic parameters. We won't be able to actually compile it very deeply.
+
+399
+00:47:48.030 --> 00:47:50.329
+⟣ €₥ℵ∪ℓ: Yep, okay, that's it from us.
+
+400
+00:47:53.860 --> 00:48:07.240
+Kevin Millikin: It's clear from all these questions that we really, really, really desperately need a public repository where you can actually file issues like this, and we can discuss them and capture that discussion, with the people who actually have the context.
+
+401
+00:48:10.090 --> 00:48:12.980
+Kevin Millikin: Okay, thank you. Is there anything else?
+
+402
+00:48:15.600 --> 00:48:17.449
+Seba: Yeah, on my side.
+
+403
+00:48:18.140 --> 00:48:21.299
+Seba: As you all know, the token is now live.
+
+404
+00:48:21.850 --> 00:48:27.619
+Seba: That means that, sharing the work we're doing with the community is no longer
+
+405
+00:48:28.200 --> 00:48:34.279
+Seba: optional. It is required for us to all keep our jobs and have a token live and grow.
+
+406
+00:48:34.610 --> 00:48:39.459
+Seba: if there is anything about Compact, the language.
+
+407
+00:48:39.800 --> 00:48:41.809
+Seba: Anything at all we can share this week?
+
+408
+00:48:42.000 --> 00:48:45.319
+Seba: Of course, every week went forward after that, but especially this week.
+
+409
+00:48:45.820 --> 00:48:49.309
+Seba: Please let me know, because people are…
+
+410
+00:48:49.670 --> 00:48:52.580
+Seba: having their night tokens thaw every day.
+
+411
+00:48:52.700 --> 00:49:02.010
+Seba: So literally every single day, there's people looking at Twitter, saying, I just received X amount of money, am I going to sell? They open Twitter, they scroll through their feed, and they decide.
+
+412
+00:49:02.650 --> 00:49:07.570
+Seba: So anything at all we can have every day is, makes a really big difference.
+
+413
+00:49:09.220 --> 00:49:17.679
+Kevin Millikin: We have a new release coming out whenever MS2 is released, and it has support for unshielded tokens.
+
+414
+00:49:17.840 --> 00:49:18.790
+Kevin Millikin: Native.
+
+415
+00:49:19.460 --> 00:49:33.909
+Kevin Millikin: That's one thing that we should hype. It also has selective import from modules and renaming, which, yes, modules has. And so now you have that in Compact, and that's another… that's another improvement.
+
+416
+00:49:34.220 --> 00:49:35.230
+Kevin Millikin: for users.
+
+417
+00:49:37.160 --> 00:49:43.479
+Seba: Okay, if you have, release notes or anything at all, even just sending me the release notes so I know when it's there.
+
+418
+00:49:43.730 --> 00:49:50.140
+Seba: I can call the tweets, I can do the videos, I can do whatever, I just need to know when something happens.
+
+419
+00:49:50.690 --> 00:49:59.429
+Kevin Millikin: Yeah, I'm working on the release notes now, I'll send them to you. In general, is that the channel that you want? Is that we just reach out to you on Slack, let you know?
+
+420
+00:50:00.210 --> 00:50:02.129
+Seba: I think it's probably easiest for you.
+
+421
+00:50:02.740 --> 00:50:07.559
+Kevin Millikin: Okay. Because, you know, if you're talking to another engineer, I know exactly what all these things mean.
+
+422
+00:50:08.170 --> 00:50:11.820
+Seba: So I can… Do all that translation work for you.
+
+423
+00:50:12.680 --> 00:50:21.139
+Kevin Millikin: Yeah, I… yeah, thanks, thanks for that. I agree. We need to be shouting about what we're doing louder than we have been. We need to hype this more.
+
+424
+00:50:22.740 --> 00:50:23.560
+Kevin Millikin: Okay.
+
+425
+00:50:23.740 --> 00:50:24.899
+Kevin Millikin: Is there anything else?
+
+426
+00:50:28.830 --> 00:50:29.630
+Kevin Millikin: Alright.
+
+427
+00:50:29.940 --> 00:50:32.059
+Kevin Millikin: If not, thanks, everybody.
+
+428
+00:50:32.440 --> 00:50:33.630
+Kevin Millikin: Happy hacking?
+
+429
+00:50:35.440 --> 00:50:36.680
+⟣ €₥ℵ∪ℓ: Thanks, everyone. Bye.
+
+430
+00:50:36.680 --> 00:50:37.470
+Andrey Venuto: Thank you.
+
+431
+00:50:37.470 --> 00:50:38.370
+Kasey: She goes.
+
+432
+00:50:39.330 --> 00:50:40.210
+Mark: Thanks, Kevin.
+

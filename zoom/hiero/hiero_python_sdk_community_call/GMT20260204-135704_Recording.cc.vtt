@@ -1,0 +1,2189 @@
+WEBVTT
+
+00:07:24.000 --> 00:07:31.000
+I guess we'll just do a brief overview, since I know you guys are pretty familiar with what's going on in the Python SDK already.
+
+00:07:31.000 --> 00:07:35.000
+I don't think there would be anything new that I need to tell you guys.
+
+00:07:35.000 --> 00:07:42.000
+Um, but I'll just give it, like, another minute or two, see if we get anybody else, and then…
+
+00:07:42.000 --> 00:07:47.000
+If we don't get anybody else, are you guys okay to postpone?
+
+00:07:47.000 --> 00:07:50.000
+Uh, for next time?
+
+00:07:50.000 --> 00:07:55.000
+Uh, feel free to type it in the chat, or just do a thumbs up if you can't talk, no worries.
+
+00:07:55.000 --> 00:07:57.000
+Okay, uh…
+
+00:07:57.000 --> 00:08:00.000
+Alright. Um…
+
+00:08:00.000 --> 00:08:03.000
+So I'll just… I'll wait until about, like, 9.06.
+
+00:08:03.000 --> 00:08:07.000
+In the meantime, were there any questions anybody had?
+
+00:08:07.000 --> 00:08:13.000
+Uh, congratulations to Manish on becoming a maintainer. Super awesome.
+
+00:08:13.000 --> 00:08:16.000
+And…
+
+00:08:16.000 --> 00:08:18.000
+Of course, uh…
+
+00:08:18.000 --> 00:08:25.000
+Aditya, did you have any questions, or Manish, was there anything that you wanted to bring up?
+
+00:08:25.000 --> 00:08:34.000
+Again, if you can't talk, feel free to type it in chat, no problem, or just put a thumbs up if you're good to go and there's nothing that you'd like to address.
+
+00:08:34.000 --> 00:08:37.000
+Um, about the only thing…
+
+00:08:37.000 --> 00:08:40.000
+Okay, um…
+
+00:08:40.000 --> 00:08:41.000
+No, that's fine, Aditya, thank you for being here.
+
+00:08:41.000 --> 00:08:44.000
+Nothing from my side.
+
+00:08:44.000 --> 00:08:50.000
+I'm going to assume that you're, uh, good to go if you didn't have anything to bring up.
+
+00:08:50.000 --> 00:08:54.000
+So, I guess I will just give it another minute.
+
+00:08:54.000 --> 00:08:57.000
+Or so, um…
+
+00:08:57.000 --> 00:09:01.000
+If not, then we'll just con… oh, hi, Sophie!
+
+00:09:01.000 --> 00:09:08.000
+We were just discussing maybe postponing the meeting, since everybody here is pretty familiar with what's going on in the SDK.
+
+00:09:08.000 --> 00:09:13.000
+Um, I don't think we're gonna have anybody else. I've been here for a little bit.
+
+00:09:13.000 --> 00:09:17.000
+So far, it's just been me, uh, Aditya, and Manish.
+
+00:09:17.000 --> 00:09:23.000
+was that okay with you, or was there anything that you wanted to bring up with the SDK?
+
+00:09:23.000 --> 00:09:27.000
+Um, we have, like, a really urgent problem with the release.
+
+00:09:27.000 --> 00:09:30.000
+Okay.
+
+00:09:30.000 --> 00:09:33.000
+Um, but to do the release…
+
+00:09:33.000 --> 00:09:36.000
+We need to fit.
+
+00:09:36.000 --> 00:09:42.000
+The versioning of the project?
+
+00:09:42.000 --> 00:09:44.000
+Um…
+
+00:09:44.000 --> 00:09:48.000
+Yeah, basically, this is the issue.
+
+00:09:48.000 --> 00:09:54.000
+that right now, we force users to use specific
+
+00:09:54.000 --> 00:09:58.000
+Uh, package versions.
+
+00:09:58.000 --> 00:10:02.000
+And we tell them that they can't use 3.14.
+
+00:10:02.000 --> 00:10:05.000
+Um, there's a reason for that, I think…
+
+00:10:05.000 --> 00:10:10.000
+Some time ago, I tried to do 3.14, and then…
+
+00:10:10.000 --> 00:10:13.000
+Um, it failed, like, the…
+
+00:10:13.000 --> 00:10:17.000
+I feel like the, um…
+
+00:10:17.000 --> 00:10:20.000
+you know, like, a URL check or something.
+
+00:10:20.000 --> 00:10:22.000
+From the security team, so…
+
+00:10:22.000 --> 00:10:26.000
+this… this test was just, like, not running, so I…
+
+00:10:26.000 --> 00:10:28.000
+I couldn't make it work at the time.
+
+00:10:28.000 --> 00:10:30.000
+Um, but because of this…
+
+00:10:30.000 --> 00:10:33.000
+But we currently do a new release, because…
+
+00:10:33.000 --> 00:10:39.000
+If we update the protobuf, and we set it to, like, a new version and everything like this,
+
+00:10:39.000 --> 00:10:46.000
+Um, people that use other packages, not just the Python SDK, like, let's say you're making, like, an AI,
+
+00:10:46.000 --> 00:10:50.000
+tool, or whatever, and I'm gonna be importing a certain AI package.
+
+00:10:50.000 --> 00:10:53.000
+Maybe it required some other things.
+
+00:10:53.000 --> 00:10:56.000
+So then you can't use the new release?
+
+00:10:56.000 --> 00:10:59.000
+So I think, like, if we have this, we're gonna break…
+
+00:10:59.000 --> 00:11:02.000
+We're gonna have to break users.
+
+00:11:02.000 --> 00:11:07.000
+So, Manesh has been working on a pull request, but I think we need to talk about, like,
+
+00:11:07.000 --> 00:11:12.000
+Um, how comfortable do we want to be?
+
+00:11:12.000 --> 00:11:15.000
+with the versions that are being selected.
+
+00:11:15.000 --> 00:11:18.000
+So, one of the questions that I have, like, for Manish is…
+
+00:11:18.000 --> 00:11:25.000
+Um, like, in the versions that you've selected?
+
+00:11:25.000 --> 00:11:31.000
+Have you been able to research, like, which of them have, like, no known security threats and stuff like that?
+
+00:11:31.000 --> 00:11:35.000
+So we would have to, like, avoid them.
+
+00:11:35.000 --> 00:11:37.000
+Um, because I noticed, like, some of these are, like,
+
+00:11:37.000 --> 00:11:40.000
+very different to what…
+
+00:11:40.000 --> 00:11:42.000
+There currently is.
+
+00:11:42.000 --> 00:11:49.000
+So, I just want to check, like, if these are all safe, and then if they are all deemed to be safe, like, possibly things you could choose.
+
+00:11:49.000 --> 00:11:54.000
+And I think we need to just check if the project itself builds at each of the edges.
+
+00:11:54.000 --> 00:11:59.000
+But I don't know, I was gonna… I wanted to hear, like, Manish's thought, but basically, this is the problem that we have.
+
+00:11:59.000 --> 00:12:02.000
+I think… I think it's not…
+
+00:12:02.000 --> 00:12:07.000
+a good idea to do a new release until we resolve this.
+
+00:12:07.000 --> 00:12:22.000
+Um, but we're kind of learning as we're going, so we need to figure out, do we need to add some more workflows, or…
+
+00:12:22.000 --> 00:12:26.000
+Manish, my question for you would also be…
+
+00:12:26.000 --> 00:12:31.000
+The addition that you have here, uh, with the greater than and equals to,
+
+00:12:31.000 --> 00:12:35.000
+Does that solve a majority?
+
+00:12:35.000 --> 00:12:43.000
+of the dependency issues for users, or are they still encountering a lot of errors?
+
+00:12:43.000 --> 00:12:50.000
+I think it solves the majority of the problem, but, uh, like, I'm totally not sure about that.
+
+00:12:50.000 --> 00:12:59.000
+I have, like, selected them, uh… Uh, like, the last version which got the CVE.
+
+00:12:59.000 --> 00:13:00.000
+So, like, they are one more above that. So, like… I'm also not sure about if this will cover everything for the user.
+
+00:13:00.000 --> 00:13:14.000
+Or something.
+
+00:13:14.000 --> 00:13:18.000
+Yeah, so I think protop 7, for example, doesn't exist.
+
+00:13:18.000 --> 00:13:25.000
+Yeah, right, so it's just, like, Manage is just adding, like, a few major versions to it, which I think is reasonable enough.
+
+00:13:25.000 --> 00:13:31.000
+We… we don't know yet if, like, they're gonna be safe releases and stuff, but I guess…
+
+00:13:31.000 --> 00:13:37.000
+I guess we need to give people the flexibility and then exclude them later if we need to.
+
+00:13:37.000 --> 00:13:43.000
+Um, and then, so I noticed it's… so some of the things where you move to optional,
+
+00:13:43.000 --> 00:13:48.000
+dependencies, I think this would need to be just very careful with.
+
+00:13:48.000 --> 00:13:57.000
+Um, everything's a lot easier if you just have them in, like, the core dependencies, because everyone, like, builds the project in the same way.
+
+00:13:57.000 --> 00:14:04.000
+But this can be helpful if you have, like, project conflicts and stuff, and not all of those things are essential.
+
+00:14:04.000 --> 00:14:11.000
+Um, and then if we do do this, like, we are changing the way things are done, so we would have to document it, like, a lot.
+
+00:14:11.000 --> 00:14:15.000
+to tell people how to actually install.
+
+00:14:15.000 --> 00:14:19.000
+All of these things, so we need, like, a README entry or something.
+
+00:14:19.000 --> 00:14:24.000
+And, like, a note in the new release or something saying, like, um…
+
+00:14:24.000 --> 00:14:29.000
+Yeah, to install this, and to install everything, you're gonna have to do, like, the…
+
+00:14:29.000 --> 00:14:32.000
+optional flags and everything like that.
+
+00:14:32.000 --> 00:14:36.000
+Manish, how are you thinking of handling…
+
+00:14:36.000 --> 00:14:37.000
+the ocean backwards.
+
+00:14:37.000 --> 00:14:47.000
+Yeah, I… Actually, like, the optional are mostly needed for, like, the testing, and I think, so for the example purposes.
+
+00:14:47.000 --> 00:14:52.000
+So, I think, like, adding it to the documentation will be fine.
+
+00:14:52.000 --> 00:14:57.000
+Yeah, okay.
+
+00:14:57.000 --> 00:15:02.000
+Um, it's not possible to add, like, a warning, right? Like, this is not installed.
+
+00:15:02.000 --> 00:15:04.000
+use this…
+
+00:15:04.000 --> 00:15:06.000
+commands to install it.
+
+00:15:06.000 --> 00:15:14.000
+Uh, like, we… then we, like, need to update the example and the test to check if.
+
+00:15:14.000 --> 00:15:15.000
+Yeah.
+
+00:15:15.000 --> 00:15:18.000
+the dependencies… install on, uh, not.
+
+00:15:18.000 --> 00:15:23.000
+Like, that can be, like, an extra additional step we can add.
+
+00:15:23.000 --> 00:15:33.000
+Are we able to test it? Um, kind of like similarly to when we do dry runs for the, um, the workflows.
+
+00:15:33.000 --> 00:15:35.000
+Would we be able to…
+
+00:15:35.000 --> 00:15:39.000
+quote-unquote, dry run this to see…
+
+00:15:39.000 --> 00:15:48.000
+What kind of errors it does cause, and then just document them in the PR and update the README as needed.
+
+00:15:48.000 --> 00:15:55.000
+Because I noticed that for… I say this because of my issues with Windows for the other SDKs,
+
+00:15:55.000 --> 00:16:01.000
+I've noticed not every user encounters the same error, especially when it comes to Windows.
+
+00:16:01.000 --> 00:16:02.000
+Some of them are…
+
+00:16:02.000 --> 00:16:04.000
+Oh, we might need to win those build flows, right, Angie?
+
+00:16:04.000 --> 00:16:15.000
+Yep, yes, you're definitely going to need those, because I can already tell that some of these are probably going to cause issues, especially for our Windows 10 users. Windows 11?
+
+00:16:15.000 --> 00:16:20.000
+I'm not sure, to be quite honest with everybody. I…
+
+00:16:20.000 --> 00:16:26.000
+don't have a Windows 11 operating system, so as of now, I'm just operating off of what I know for 10.
+
+00:16:26.000 --> 00:16:40.000
+Uh, and if there are going to be, uh, build errors, we are definitely going to want to update the README at a certain point if there are too many, we may want to section off the README.
+
+00:16:40.000 --> 00:16:46.000
+And the way that we have for the website, where we have separate setup guides.
+
+00:16:46.000 --> 00:16:47.000
+Yeah, um…
+
+00:16:47.000 --> 00:16:49.000
+Big…
+
+00:16:49.000 --> 00:16:57.000
+Yeah, so do you mean, like, right now, this is, like, the thing for the project, but have you had to, like, install additional things, or different?
+
+00:16:57.000 --> 00:16:58.000
+thing, somehow.
+
+00:16:58.000 --> 00:17:06.000
+So, not necessarily anything different, it's just in the way that we go about it, so I think on a Mac
+
+00:17:06.000 --> 00:17:13.000
+book, you're able to use Homebrew, so you would do, like, homebrew install, and then, like, high test, for example.
+
+00:17:13.000 --> 00:17:16.000
+on a Windows machine,
+
+00:17:16.000 --> 00:17:25.000
+Homebrew doesn't work, but unfortunately, a couple of the other commands that documentation sites are listing do not work as well, so users…
+
+00:17:25.000 --> 00:17:28.000
+On Windows machines, when they install PyTest,
+
+00:17:28.000 --> 00:17:36.000
+It's not as easy as it is on… compared to other operating systems, because Windows does not resolve paths
+
+00:17:36.000 --> 00:17:40.000
+correctly, so it tends to lead…
+
+00:17:40.000 --> 00:17:45.000
+basically tends to lead users down a rabbit hole, so to speak.
+
+00:17:45.000 --> 00:17:50.000
+Um, so I do know off the top of my head, PyTest is definitely the ones Windows…
+
+00:17:50.000 --> 00:17:53.000
+one of the ones Windows users struggle with.
+
+00:17:53.000 --> 00:17:55.000
+Beyond that, um, looking…
+
+00:17:55.000 --> 00:17:58.000
+Okay. I think we should…
+
+00:17:58.000 --> 00:18:04.000
+We should write this down. Should we write this down on the Linux Discord?
+
+00:18:04.000 --> 00:18:07.000
+stuff that we need to do, right? Um…
+
+00:18:07.000 --> 00:18:09.000
+Uh, yeah…
+
+00:18:09.000 --> 00:18:11.000
+We can…
+
+00:18:11.000 --> 00:18:15.000
+I just don't know, because we haven't…
+
+00:18:15.000 --> 00:18:17.000
+I don't know, maybe…
+
+00:18:17.000 --> 00:18:23.000
+test it first, because I don't know if people in the Linux dashboard would try to…
+
+00:18:23.000 --> 00:18:28.000
+like, help us solve it, which is good. I'm not saying that's bad.
+
+00:18:28.000 --> 00:18:31.000
+I just… I…
+
+00:18:31.000 --> 00:18:35.000
+I wouldn't know how to go about it, if they had any other…
+
+00:18:35.000 --> 00:18:49.000
+further questions? Because I haven't tested it before, and I have some of these dependencies already installed, so I won't encounter the same errors as before, and I don't have screenshots of them either.
+
+00:18:49.000 --> 00:18:55.000
+Um, but… yeah, I guess go ahead and post something in the Discord, just because…
+
+00:18:55.000 --> 00:19:03.000
+We… with the amount of new people that we're having, we're bound to have somebody with a Windows computer who is going to run into these dependency issues.
+
+00:19:03.000 --> 00:19:09.000
+Worst comes to worse, I'll just have them, uh, ping me directly, and I'll work through it with them.
+
+00:19:09.000 --> 00:19:13.000
+But I think for now, yeah, we can go ahead and post something in there.
+
+00:19:13.000 --> 00:19:20.000
+I think, oh, maybe I'll put them on the Zoom chat and then copy them over afterwards, so I don't do, like, one individual message, so…
+
+00:19:20.000 --> 00:19:21.000
+Okay.
+
+00:19:21.000 --> 00:19:25.000
+Both actions, what we need to do is update the README.
+
+00:19:25.000 --> 00:19:35.000
+with instructions, Manish, right? Instructions on how to install, like, the groups, the dependency groups.
+
+00:19:35.000 --> 00:19:36.000
+Yeah.
+
+00:19:36.000 --> 00:19:37.000
+That has to be super, super clear, super easy.
+
+00:19:37.000 --> 00:19:39.000
+Uh, yeah.
+
+00:19:39.000 --> 00:19:42.000
+instructions.
+
+00:19:42.000 --> 00:19:43.000
+Yeah. Um…
+
+00:19:43.000 --> 00:19:47.000
+Um, depending on what you are doing, depending on what you want.
+
+00:19:47.000 --> 00:19:52.000
+And then, what else do we need to take action to with, like, um…
+
+00:19:52.000 --> 00:19:58.000
+We need to have, like, a Windows setup.
+
+00:19:58.000 --> 00:20:02.000
+guides to explain to users how to install these packages?
+
+00:20:02.000 --> 00:20:09.000
+Yes, that's the other thing. So for the README, we have to decide on how do we want…
+
+00:20:09.000 --> 00:20:16.000
+to do this in the terms, do we want to section it off like we do for the website, where we have separate
+
+00:20:16.000 --> 00:20:25.000
+Setup guides, or did we want to leave it as is and just maybe make, like, a custom section for…
+
+00:20:25.000 --> 00:20:28.000
+Each operating system is set up.
+
+00:20:28.000 --> 00:20:33.000
+I personally am on the side of just having separate documentation.
+
+00:20:33.000 --> 00:20:34.000
+Yeah, just keep that separate, yeah.
+
+00:20:34.000 --> 00:20:36.000
+Just because… Yeah.
+
+00:20:36.000 --> 00:20:41.000
+I feel like it just makes it easier, and it's clear, and nobody's getting confused about things that…
+
+00:20:41.000 --> 00:20:44.000
+are needed for, like, other operating systems and stuff like that.
+
+00:20:44.000 --> 00:20:51.000
+Okay, so let's assume, um, we have the existing documentation for Mac, so we could just, like, leave it
+
+00:20:51.000 --> 00:20:52.000
+Okay.
+
+00:20:52.000 --> 00:20:56.000
+Is that just to, like, reduce the task, or just be creating a Windows one?
+
+00:20:56.000 --> 00:20:58.000
+Um, yeah, yeah.
+
+00:20:58.000 --> 00:20:59.000
+Sorry.
+
+00:20:59.000 --> 00:21:01.000
+Yeah, in the long term, we wouldn't need a microphone. Um…
+
+00:21:01.000 --> 00:21:02.000
+Yeah.
+
+00:21:02.000 --> 00:21:04.000
+And then… what else do we need?
+
+00:21:04.000 --> 00:21:06.000
+So…
+
+00:21:06.000 --> 00:21:09.000
+There's a workflow…
+
+00:21:09.000 --> 00:21:14.000
+There's a workflow that tests.
+
+00:21:14.000 --> 00:21:22.000
+Oh man, trying to find these workflows, uh, workflow…
+
+00:21:22.000 --> 00:21:25.000
+is gonna be…
+
+00:21:25.000 --> 00:21:28.000
+Do you know what the name is? You probably… oh, there it is.
+
+00:21:28.000 --> 00:21:30.000
+Uh… which one?
+
+00:21:30.000 --> 00:21:32.000
+Oh, okay.
+
+00:21:32.000 --> 00:21:40.000
+This one, so this is the one… so it was really easy to update this to just 3.4, or 3.14, you just add it in.
+
+00:21:40.000 --> 00:21:41.000
+Okay.
+
+00:21:41.000 --> 00:21:48.000
+Um, and then that automatically tests.
+
+00:21:48.000 --> 00:21:53.000
+if all the unit tests and the integration tests pass?
+
+00:21:53.000 --> 00:21:59.000
+And you can kind of install all these things, um…
+
+00:21:59.000 --> 00:22:04.000
+for that. So I think we just need to update PR check tests.
+
+00:22:04.000 --> 00:22:09.000
+Let me write that down.
+
+00:22:09.000 --> 00:22:18.000
+So, Action 3 updates, PR check, test, YAML to include Python 3.40.
+
+00:22:18.000 --> 00:22:19.000
+Um…
+
+00:22:19.000 --> 00:22:23.000
+I think, what is the issue with the Windows setup?
+
+00:22:23.000 --> 00:22:31.000
+So, right now, the issue with Windows setup is that for certain dependencies, um, they do not…
+
+00:22:31.000 --> 00:22:38.000
+install properly, especially, uh, like, for example, when you hit NPM install, it installs everything.
+
+00:22:38.000 --> 00:22:44.000
+But, unfortunately, when we're running similar kinds of commands like that,
+
+00:22:44.000 --> 00:22:46.000
+On Windows, it's not installing
+
+00:22:46.000 --> 00:22:51.000
+Everything that we need, users are encountering path resolution errors,
+
+00:22:51.000 --> 00:22:56.000
+They're encountering operating system breaking changes and stuff like that, so…
+
+00:22:56.000 --> 00:23:04.000
+We've come to the conclusion that it is better to create separate documentation files, especially because Windows also has
+
+00:23:04.000 --> 00:23:08.000
+OS 11. Um, so those users are going to encounter
+
+00:23:08.000 --> 00:23:13.000
+a different set of errors all on their own when they are trying to set this up.
+
+00:23:13.000 --> 00:23:15.000
+Um, so we felt…
+
+00:23:15.000 --> 00:23:19.000
+it best to kind of consolidate the documentation, or…
+
+00:23:19.000 --> 00:23:31.000
+so to speak, separated out, where there's a straightforward guide for anybody using Windows, there'll be a straightforward guide for anybody using Mac, and then there will be a guide for Linux, sorry.
+
+00:23:31.000 --> 00:23:33.000
+Uh, when we get there. But…
+
+00:23:33.000 --> 00:23:39.000
+As of right now, Aditya, to answer it plain and simple, it's just a lot of users, when they're setting it up.
+
+00:23:39.000 --> 00:23:43.000
+they're running into a lot of errors, um, so…
+
+00:23:43.000 --> 00:23:45.000
+we felt it best.
+
+00:23:45.000 --> 00:23:47.000
+I'll go ahead.
+
+00:23:47.000 --> 00:23:49.000
+No, sorry, I was…
+
+00:23:49.000 --> 00:23:52.000
+distracted. Um, and it says, we do have UV…
+
+00:23:52.000 --> 00:23:55.000
+And even piping stool.
+
+00:23:55.000 --> 00:24:09.000
+Yeah, so I had issues with UV. Um, I run a Windows 10. Uh, the way that I had to go about installing UV, I think Sophie, you were part of this with me when we were first doing this.
+
+00:24:09.000 --> 00:24:18.000
+Um, we had all kinds of issues trying to set it up on my machine. We tried it through Ubuntu, Git Bash, PowerShell.
+
+00:24:18.000 --> 00:24:26.000
+this command prompt, almost every terminal I can possibly think of, and it just was not installing, so I had to go in…
+
+00:24:26.000 --> 00:24:37.000
+I think I had to install, uh, Chocolaty, and then Chocolatily let me get UV, and then UV allowed me to do pip install, and so forth.
+
+00:24:37.000 --> 00:24:39.000
+So, for lack of a better…
+
+00:24:39.000 --> 00:24:42.000
+a word, it's basically…
+
+00:24:42.000 --> 00:24:57.000
+Dependencies require another thing, but then that other thing requires another thing, but then that other thing requires something else, so it's be… it's kind of like a domino effect, where you just… you're having one required dependency after another on Windows.
+
+00:24:57.000 --> 00:25:09.000
+Which is… it's an unfortunate experience, because it just makes it a little harder to get started. Uh, so that is why we are wanting to do our best to document everything that we possibly can every…
+
+00:25:09.000 --> 00:25:13.000
+error they could potentially encounter. That way, they can have
+
+00:25:13.000 --> 00:25:19.000
+an easier onboarding process as compared to some of our other Windows users.
+
+00:25:19.000 --> 00:25:24.000
+Does that help answer your question?
+
+00:25:24.000 --> 00:25:29.000
+Um, if you're typing, or… I know you can't speak, I'll keep an eye out on the chat, um…
+
+00:25:29.000 --> 00:25:32.000
+But I think Sophie… oh, okay, wait.
+
+00:25:32.000 --> 00:25:35.000
+and Meg.
+
+00:25:35.000 --> 00:25:41.000
+Yes, I have heard of Winget, I've had issues with Winget on my system for…
+
+00:25:41.000 --> 00:25:45.000
+whatever reason, I come into path resolution errors,
+
+00:25:45.000 --> 00:25:47.000
+Um, yeah.
+
+00:25:47.000 --> 00:25:51.000
+So, Adhi, like, do you use Windows 11?
+
+00:25:51.000 --> 00:25:58.000
+Yeah, do you… are you on Mac?
+
+00:25:58.000 --> 00:26:00.000
+Hello. Hello, am I audible?
+
+00:26:00.000 --> 00:26:01.000
+Hi!
+
+00:26:01.000 --> 00:26:07.000
+Hi!
+
+00:26:07.000 --> 00:26:08.000
+your Windows 11?
+
+00:26:08.000 --> 00:26:10.000
+So yeah, I'm in Windows 11.
+
+00:26:10.000 --> 00:26:11.000
+Yeah, right, right.
+
+00:26:11.000 --> 00:26:23.000
+Okay, so I'm Windows 10, so for… that's good, though, so if WingGet works for you, it tells me right there that the Windows 11 users are gonna have a much easier time compared to Windows 10.
+
+00:26:23.000 --> 00:26:30.000
+Um, so I will keep that in mind. Um, I may want to possibly update the…
+
+00:26:30.000 --> 00:26:31.000
+Oh, sorry, go ahead.
+
+00:26:31.000 --> 00:26:36.000
+No. Thank you, like, tracking manager for the Windows is pretty much, uh.
+
+00:26:36.000 --> 00:26:42.000
+what to say, it's broken, because in Linux, we… I have a single command for every package.
+
+00:26:42.000 --> 00:26:46.000
+Enlighten Max, we have Humbri, so we can download each and every.
+
+00:26:46.000 --> 00:26:49.000
+Dependency easily. Windows is just broken, so I must say that Visa.
+
+00:26:49.000 --> 00:26:52.000
+Yeah.
+
+00:26:52.000 --> 00:26:56.000
+of our window setup that use Linux HD.
+
+00:26:56.000 --> 00:27:03.000
+Yes, I… I have had to end up using Linux for certain things. Uh, I have…
+
+00:27:03.000 --> 00:27:07.000
+or… I think I have Ubuntu, I'm sorry. I have Ubuntu.
+
+00:27:07.000 --> 00:27:11.000
+On here, it's, like, the WSL, uh, integration.
+
+00:27:11.000 --> 00:27:16.000
+And I've had to use that for some of the installs, I…
+
+00:27:16.000 --> 00:27:27.000
+been able to kind of get lucky with that, in a sense. I could use it to get around the errors and install it, and then go back to PowerShell and rerun it, and that seems to…
+
+00:27:27.000 --> 00:27:29.000
+kind of, like, kick-started, almost.
+
+00:27:29.000 --> 00:27:33.000
+But, yes, I do see what you're saying. Windows is definitely broken.
+
+00:27:33.000 --> 00:27:49.000
+Bye. Like, means, uh… with the CPP… sorry, the C++ SDK, I was having pretty much hard time with it.
+
+00:27:49.000 --> 00:27:52.000
+Yeah…
+
+00:27:52.000 --> 00:27:53.000
+Yeah, okay.
+
+00:27:53.000 --> 00:27:54.000
+But every setup… I had no clue how to do that, so…
+
+00:27:54.000 --> 00:27:57.000
+Can't believe you guys had to use, like, VStudio 2022.
+
+00:27:57.000 --> 00:27:58.000
+Oh, yes, we…
+
+00:27:58.000 --> 00:28:01.000
+But I hear you guys.
+
+00:28:01.000 --> 00:28:14.000
+Yes, but on the other hand, it's, you know, it's good that we're surfacing some of these errors sooner than later, especially with the good first issue initiative bringing in so many people. You know, I don't want
+
+00:28:14.000 --> 00:28:22.000
+Windows setup to be something that deters them away from working on this. It is very possible to do on Windows, it's just…
+
+00:28:22.000 --> 00:28:30.000
+It's an unfortunate experience that it's a little bit harder compared to somebody who would be using a Mac system, but I do see what you're saying.
+
+00:28:30.000 --> 00:28:37.000
+I struggled with so many issues with C++, I am actually still working through the issues with C++.
+
+00:28:37.000 --> 00:28:43.000
+Unfortunately, Solo is not working for Windows users. It is, um, it's…
+
+00:28:43.000 --> 00:28:46.000
+Killing port forwarding for some reason.
+
+00:28:46.000 --> 00:28:51.000
+So, I do have somebody looking into that from the solo team.
+
+00:28:51.000 --> 00:28:57.000
+Um, so if you are still experiencing with issues with C++, don't worry, you're not alone.
+
+00:28:57.000 --> 00:28:58.000
+I, again, I do have somebody looking on it, I'm just… I'm waiting for them. I have not heard anything back from them yet.
+
+00:28:58.000 --> 00:29:03.000
+So random.
+
+00:29:03.000 --> 00:29:10.000
+Um, and then the same with JavaScript. I'm not sure if you've tried building JavaScript on your Windows machine.
+
+00:29:10.000 --> 00:29:13.000
+If you do, um…
+
+00:29:13.000 --> 00:29:23.000
+Yes, they're… basically, I'm coming to the realization that a majority of the SDKs are just… they're not set up for Windows, and…
+
+00:29:23.000 --> 00:29:30.000
+On one hand, it is unfortunate, because it… there is no documentation clearly outlining the setup process for Windows, but on the other hand,
+
+00:29:30.000 --> 00:29:35.000
+It's a good thing, because a majority of people, it seems like, that do this kind of work,
+
+00:29:35.000 --> 00:29:42.000
+have a MacBook, so there hasn't really been a need for this kind of documentation to be present.
+
+00:29:42.000 --> 00:29:50.000
+However, with the onboarding of all these new contributors, people coming out of uni, we are noticing that there are certain people
+
+00:29:50.000 --> 00:29:59.000
+quite a few, actually, who are using Windows systems, but it's a good thing because it's ultimately help us surface some of the
+
+00:29:59.000 --> 00:30:05.000
+issues we've been, uh, trying to tackle, uh, for these last couple of weeks for…
+
+00:30:05.000 --> 00:30:15.000
+I know this is a Python SDKS call, but for the website, we… they also had issues just setting up on Windows the script that they have in JSON.
+
+00:30:15.000 --> 00:30:23.000
+It's not Windows compatible. When you do NPM install, it doesn't install everything. It turns out that you need
+
+00:30:23.000 --> 00:30:28.000
+to install Tailwind CSS something-something, uh, differently.
+
+00:30:28.000 --> 00:30:34.000
+I can't remember what the exact annotation for that is, uh, cross-ENV has to be installed separately.
+
+00:30:34.000 --> 00:30:42.000
+And RIMAF also needs to be installed separately. These are the dependencies that do not come combined with NPM install.
+
+00:30:42.000 --> 00:30:50.000
+It's unfortunate, because most Windows users, their thinking is that NPM install does do everything, but it…
+
+00:30:50.000 --> 00:30:55.000
+It doesn't, but it's also kind of good because it's given us a window
+
+00:30:55.000 --> 00:31:00.000
+of light into what's really going on, how can we fix this, so…
+
+00:31:00.000 --> 00:31:05.000
+We were fortunate, we were able to fix that website issue pretty quickly, so we have a separate guide.
+
+00:31:05.000 --> 00:31:08.000
+Windows users can get set up.
+
+00:31:08.000 --> 00:31:10.000
+Um, super easily now.
+
+00:31:10.000 --> 00:31:15.000
+We are still keeping an eye out, just in case there are any other issues Windows users encounter, but…
+
+00:31:15.000 --> 00:31:22.000
+As of right now, things seem to be pretty good so far, um, but back to the JavaScript one, if…
+
+00:31:22.000 --> 00:31:31.000
+you end up installing that on their… on your computer, please let me know if you run into any issues. I am working, uh, with one of the JavaScript maintainers.
+
+00:31:31.000 --> 00:31:43.000
+Right now, to try to fix those Windows issues. So, even if it's a path resolution issue, if it's a bug that you find, or just an error that you've not seen before,
+
+00:31:43.000 --> 00:31:47.000
+Um, let me know, um, that way we can kind of…
+
+00:31:47.000 --> 00:31:53.000
+maybe make a group of the three of us to outline what's going on with Windows, uh, specifically.
+
+00:31:53.000 --> 00:31:55.000
+in the Java SDK.
+
+00:31:55.000 --> 00:31:58.000
+But, yeah, that's kind of a brief…
+
+00:31:58.000 --> 00:31:59.000
+Well, I shouldn't say brief, sorry, it took so long, but kind of an overview with what's going on with the SDKs for Windows right now.
+
+00:31:59.000 --> 00:32:04.000
+Yeah, I heard that other problem as well.
+
+00:32:04.000 --> 00:32:07.000
+I'm still working through them.
+
+00:32:07.000 --> 00:32:10.000
+Hoping to have some of them resolved soon.
+
+00:32:10.000 --> 00:32:16.000
+And keep an eye out for the HIRO website, because when those issues are resolved, the HIRO website
+
+00:32:16.000 --> 00:32:21.000
+will be the go-to place to learn how we did it and get some more information on it.
+
+00:32:21.000 --> 00:32:22.000
+So… but yeah, that's…
+
+00:32:22.000 --> 00:32:24.000
+It's super great.
+
+00:32:24.000 --> 00:32:26.000
+Great work that you're doing, Angie.
+
+00:32:26.000 --> 00:32:27.000
+Thank you, thank you.
+
+00:32:27.000 --> 00:32:31.000
+Yeah, it's not good to just kind of, like, let these things…
+
+00:32:31.000 --> 00:32:35.000
+slide when no one noticing, or no one doing anything about it.
+
+00:32:35.000 --> 00:32:36.000
+Yeah…
+
+00:32:36.000 --> 00:32:42.000
+Um, so back to the release, I was just, uh, thinking, like, okay, so we need to make sure that Python 3.14 is here.
+
+00:32:42.000 --> 00:32:50.000
+Um, I'm just checking, like, so what does this do? It sets up Python, it installs, it builds the projects, basically.
+
+00:32:50.000 --> 00:32:55.000
+So… we might have to change this flag, Manish, this…
+
+00:32:55.000 --> 00:32:59.000
+Line 45, possibly?
+
+00:32:59.000 --> 00:33:00.000
+I think that will include everything.
+
+00:33:00.000 --> 00:33:02.000
+Uh, no, I think, like, that works.
+
+00:33:02.000 --> 00:33:08.000
+Yeah, um, or maybe should we split it in two so that the user can see that you would
+
+00:33:08.000 --> 00:33:10.000
+like, have to…
+
+00:33:10.000 --> 00:33:17.000
+maybe do it in stages, depending on what you would do. I don't know, but I think this workflow kind of…
+
+00:33:17.000 --> 00:33:22.000
+does everything anyway, um, right? Do we need to test the new build?
+
+00:33:22.000 --> 00:33:29.000
+Oh, no, actually, I was thinking if we need, like, a minimum and maximum build.
+
+00:33:29.000 --> 00:33:30.000
+Because it doesn't…
+
+00:33:30.000 --> 00:33:33.000
+Uh, we can, like, try for the minimum one.
+
+00:33:33.000 --> 00:33:37.000
+Yeah, is… would that be, like, a workflow that…
+
+00:33:37.000 --> 00:33:42.000
+only triggers in certain contexts, like, only triggers if it's, like, on a certain
+
+00:33:42.000 --> 00:33:45.000
+release branch or something?
+
+00:33:45.000 --> 00:33:51.000
+Because, yeah, if you are doing all of these, have you tested that they all work yet?
+
+00:33:51.000 --> 00:33:53.000
+at, like, the lower bound.
+
+00:33:53.000 --> 00:33:55.000
+And that the higher… higher…
+
+00:33:55.000 --> 00:33:58.000
+possible balance.
+
+00:33:58.000 --> 00:34:05.000
+I think, like, uh, you should, like, uh, add a… A workflow for that as well.
+
+00:34:05.000 --> 00:34:11.000
+Yeah, I don't know how that would work. I assume you'd have to maybe test the middle range as well? I don't know, like…
+
+00:34:11.000 --> 00:34:14.000
+Maybe there's a way of just figuring out which combinations of things would
+
+00:34:14.000 --> 00:34:23.000
+would break, but maybe that's just too much. Maybe the easiest thing is just do minimum, max, add it.
+
+00:34:23.000 --> 00:34:29.000
+Um, Aditya, you have your hand up, go ahead.
+
+00:34:29.000 --> 00:34:33.000
+Uh, it looks like I have one lost me. Why do we use the version?
+
+00:34:33.000 --> 00:34:39.000
+Here, why can't you just write name order depth, and we just go ahead?
+
+00:34:39.000 --> 00:34:41.000
+Sorry, Ade, would you…?
+
+00:34:41.000 --> 00:34:42.000
+Could I interrupt you? Is it possible that you could…
+
+00:34:42.000 --> 00:34:44.000
+They will only require, because… I guess if…
+
+00:34:44.000 --> 00:34:50.000
+speak either a little bit slower or a little bit louder, because I think your mic is just really quiet.
+
+00:34:50.000 --> 00:34:51.000
+Yes, you're… oh, sorry.
+
+00:34:51.000 --> 00:34:53.000
+Um, your audio isn't great, it's really hard to hear you.
+
+00:34:53.000 --> 00:34:55.000
+Yeah.
+
+00:34:55.000 --> 00:35:02.000
+Yeah, if you want, uh, please feel free to type it in chat if you can't change your settings, or maybe if it's an internet issue, it…
+
+00:35:02.000 --> 00:35:07.000
+We just want to make sure that we understand clearly what you're asking so we can provide you a good answer.
+
+00:35:07.000 --> 00:35:10.000
+Yeah, or just louder is fine.
+
+00:35:10.000 --> 00:35:11.000
+Oh, was…
+
+00:35:11.000 --> 00:35:13.000
+Why do we require the versions?
+
+00:35:13.000 --> 00:35:22.000
+Um, so basically, this is not working for some of our Python SDK users. So we've done a really good job at attracting SDK developers,
+
+00:35:22.000 --> 00:35:25.000
+But our SDK users are having problems.
+
+00:35:25.000 --> 00:35:29.000
+Because we are forcing them to have certain…
+
+00:35:29.000 --> 00:35:33.000
+Package versions, and quite often, when you're building an app,
+
+00:35:33.000 --> 00:35:35.000
+You're using things
+
+00:35:35.000 --> 00:35:42.000
+you're using many things, not just the Python SDK, you're using, like, an AI tool, you're using some other things.
+
+00:35:42.000 --> 00:35:52.000
+And then what that means is that they might conflict, one tool might require you to have protob 6.5, this one requires you to have a protop 6.33.
+
+00:35:52.000 --> 00:35:55.000
+And so you… you can't use…
+
+00:35:55.000 --> 00:35:58.000
+You can't use the new version, you can't use this version.
+
+00:35:58.000 --> 00:36:02.000
+So we're trying to make a new release.
+
+00:36:02.000 --> 00:36:07.000
+But in this new release, we want to make sure that it's user-friendly for the SDK users.
+
+00:36:07.000 --> 00:36:12.000
+So it's really good that we're having SDK users now coming into the project.
+
+00:36:12.000 --> 00:36:16.000
+And now they're creating their own issues, and they're letting us know, like, what's… what's
+
+00:36:16.000 --> 00:36:18.000
+what they need. So…
+
+00:36:18.000 --> 00:36:24.000
+Um, I love that, but we need to be careful, because this is… this is, like, an easy way to break people if…
+
+00:36:24.000 --> 00:36:29.000
+If, um, the project doesn't build, or something like that.
+
+00:36:29.000 --> 00:36:37.000
+Yeah. Any other questions?
+
+00:36:37.000 --> 00:36:41.000
+Okay, got it. Um, okay, so…
+
+00:36:41.000 --> 00:36:46.000
+So that means…
+
+00:36:46.000 --> 00:36:53.000
+manage your UK creating the workflow to test the minimum and max builds?
+
+00:36:53.000 --> 00:36:56.000
+Uh, yeah, I can go ahead and create the workflow.
+
+00:36:56.000 --> 00:37:02.000
+I don't know how to trigger that. Maybe it would only be on workflow.
+
+00:37:02.000 --> 00:37:06.000
+I don't want it to run all the time, right?
+
+00:37:06.000 --> 00:37:16.000
+Yeah, we can, like… Uh, use it, uh… Or, like, when the pull request is raised, or something like that?
+
+00:37:16.000 --> 00:37:19.000
+Um…
+
+00:37:19.000 --> 00:37:24.000
+Or, like, only when this file changes? I don't know if that's possible.
+
+00:37:24.000 --> 00:37:29.000
+Yeah. Um… Yeah, I should, like, check for that.
+
+00:37:29.000 --> 00:37:31.000
+Yeah, okay.
+
+00:37:31.000 --> 00:37:36.000
+Um, okay, nice. So, then the other issue with making a release
+
+00:37:36.000 --> 00:37:38.000
+is…
+
+00:37:38.000 --> 00:37:51.000
+finding out how safe it really is.
+
+00:37:51.000 --> 00:37:54.000
+Okay, I have, like, way too many things.
+
+00:37:54.000 --> 00:37:58.000
+going on on my computer at the moment.
+
+00:37:58.000 --> 00:38:02.000
+Um, so I didn't really expect…
+
+00:38:02.000 --> 00:38:06.000
+are released to take such a long time, but it has.
+
+00:38:06.000 --> 00:38:10.000
+Basically, what this has meant is our changelog entry is absolutely huge.
+
+00:38:10.000 --> 00:38:15.000
+Um, they have never seen something like this before.
+
+00:38:15.000 --> 00:38:24.000
+And some sections are better than others and things. Um, I think if you're a user thinking of upgrading to this latest version, you're gonna get very scared.
+
+00:38:24.000 --> 00:38:29.000
+You'll get very scared, because there's so many things that have happened, and it's hard to see, like, what…
+
+00:38:29.000 --> 00:38:33.000
+is actually possibly going to…
+
+00:38:33.000 --> 00:38:38.000
+what's actually, like, a source code change? What's, like, a documentation change?
+
+00:38:38.000 --> 00:38:45.000
+Um… and stuff like that. So… and also what could possibly break whatever
+
+00:38:45.000 --> 00:38:47.000
+thing you have.
+
+00:38:47.000 --> 00:38:49.000
+So…
+
+00:38:49.000 --> 00:38:54.000
+I was wondering if I have to…
+
+00:38:54.000 --> 00:38:57.000
+refactor these entries.
+
+00:38:57.000 --> 00:39:02.000
+And categorize them into, like, um, source code.
+
+00:39:02.000 --> 00:39:04.000
+changes or additions?
+
+00:39:04.000 --> 00:39:08.000
+Example changes and additions, test changes, so then people…
+
+00:39:08.000 --> 00:39:14.000
+No, okay, there's all these changes that have happened to the source code, these are the things that can…
+
+00:39:14.000 --> 00:39:20.000
+you know, change the functionality, all these other things are just probably doc changes.
+
+00:39:20.000 --> 00:39:23.000
+I don't necessarily want to do that, because then…
+
+00:39:23.000 --> 00:39:26.000
+I lose all the history. Right now, we can see who…
+
+00:39:26.000 --> 00:39:30.000
+added all of these lines and… and everything.
+
+00:39:30.000 --> 00:39:33.000
+Um, so that's one issue, like…
+
+00:39:33.000 --> 00:39:35.000
+How do we actually present?
+
+00:39:35.000 --> 00:39:38.000
+The unreleased content?
+
+00:39:38.000 --> 00:39:39.000
+And then, um, when we make a new release, yeah?
+
+00:39:39.000 --> 00:39:48.000
+Uh, so, like, uh, for every changes in, uh, change log, we do have their parts, right?
+
+00:39:48.000 --> 00:39:57.000
+So, why can't we just…
+
+00:39:57.000 --> 00:40:01.000
+Yeah, in the changelog, we have addition, we have changes…
+
+00:40:01.000 --> 00:40:04.000
+We have fixed it.
+
+00:40:04.000 --> 00:40:05.000
+But there's hundreds of lines.
+
+00:40:05.000 --> 00:40:14.000
+I will get my seat. Yeah, yeah, so, like, our miniser is that we can't categorize the payload, right?
+
+00:40:14.000 --> 00:40:17.000
+Yeah, the…
+
+00:40:17.000 --> 00:40:19.000
+The original categories for changes and things don't work really well when you have, like, a really, really big changeup.
+
+00:40:19.000 --> 00:40:33.000
+Okay, so, uh, means, why can't we just do in the… What do you say? In smaller chunks, like, we can release of first half in, uh, like, a minor release bill, the second half in the minor release.
+
+00:40:33.000 --> 00:40:43.000
+And then make a business. Or…
+
+00:40:43.000 --> 00:40:49.000
+Um, yeah, so I was trying to figure out how I can engineer a release.
+
+00:40:49.000 --> 00:40:53.000
+It's where I separate out, like, I don't know, the dogs.
+
+00:40:53.000 --> 00:40:59.000
+From the rest of it, or something, so then people could upgrade to version 0.1.11.
+
+00:40:59.000 --> 00:41:02.000
+in, like, a much less risky way.
+
+00:41:02.000 --> 00:41:05.000
+And it's done, like, over two releases, not one.
+
+00:41:05.000 --> 00:41:12.000
+But… there's actually no way of doing that.
+
+00:41:12.000 --> 00:41:14.000
+Um…
+
+00:41:14.000 --> 00:41:17.000
+As far as I…
+
+00:41:17.000 --> 00:41:28.000
+figure it out. Let me try and show you.
+
+00:41:28.000 --> 00:41:37.000
+As you can only go back a certain number of commits, you can only go back… your release can only be, like, 10 commits back.
+
+00:41:37.000 --> 00:41:38.000
+So… the idea that I can release something in December 27th content is just…
+
+00:41:38.000 --> 00:41:43.000
+Oh, yes.
+
+00:41:43.000 --> 00:41:45.000
+not something available, so…
+
+00:41:45.000 --> 00:41:48.000
+We are forced to do the entire release.
+
+00:41:48.000 --> 00:41:51.000
+Basically, I think.
+
+00:41:51.000 --> 00:41:55.000
+Um, in the future, maybe we can work from branches and things, but…
+
+00:41:55.000 --> 00:42:01.000
+Yeah, so let's say we were looking for, like, the recent 3-hour thing. This is pretty nice that they…
+
+00:42:01.000 --> 00:42:03.000
+kind of January's release note.
+
+00:42:03.000 --> 00:42:10.000
+Um, but, you know, as a new user, you are so scared of this. So many things.
+
+00:42:10.000 --> 00:42:12.000
+Um…
+
+00:42:12.000 --> 00:42:15.000
+Yeah, I was…
+
+00:42:15.000 --> 00:42:18.000
+maybe another idea I had is, like, to…
+
+00:42:18.000 --> 00:42:25.000
+Rob had this idea, um, he found the breaking change that we didn't pick up on.
+
+00:42:25.000 --> 00:42:31.000
+By posting the difference between 0.1.10 and 0.1.11.
+
+00:42:31.000 --> 00:42:36.000
+I'm pushing that through an AI.
+
+00:42:36.000 --> 00:42:38.000
+Um…
+
+00:42:38.000 --> 00:42:44.000
+Yeah, I don't know if it's possible to, like, prompt an AI or something, but…
+
+00:42:44.000 --> 00:42:45.000
+Yeah, making these new releases kind of like the… the… the…
+
+00:42:45.000 --> 00:42:48.000
+I've been experiencing.
+
+00:42:48.000 --> 00:42:53.000
+the focus at the moment, and it's also not going to be…
+
+00:42:53.000 --> 00:42:56.000
+there's not much that we can do to…
+
+00:42:56.000 --> 00:42:59.000
+fix things.
+
+00:42:59.000 --> 00:43:00.000
+All we can do is kind of, like, test.
+
+00:43:00.000 --> 00:43:13.000
+Like, you are right. Uh, so, uh, sorry to interrupt, like… We are just comparing the versions from the previous analog to this analog, okay?
+
+00:43:13.000 --> 00:43:14.000
+Yeah.
+
+00:43:14.000 --> 00:43:15.000
+And, uh, AI you are talking about is just looking for the latest analog, which is.
+
+00:43:15.000 --> 00:43:24.000
+I guess it's for, uh, it's of 100, uh, 800 lines, I guess, or 1,000 lives.
+
+00:43:24.000 --> 00:43:27.000
+Um, yeah, when you make a new release,
+
+00:43:27.000 --> 00:43:31.000
+When you try and install it, I don't know if I can see it here.
+
+00:43:31.000 --> 00:43:37.000
+You can… you should be able to see what code has changed.
+
+00:43:37.000 --> 00:43:38.000
+Um… yeah, I don't know how to do that.
+
+00:43:38.000 --> 00:43:42.000
+Right.
+
+00:43:42.000 --> 00:43:51.000
+Do you know how to do that, Manish? I have seen it hundreds of times, and then I can't remember how to…
+
+00:43:51.000 --> 00:43:52.000
+How do you see it?
+
+00:43:52.000 --> 00:44:00.000
+Let's say we go through the AI, like, we will do… we will, uh, we will feed the AI, our channelog, and we expect it to write the briefing changes.
+
+00:44:00.000 --> 00:44:04.000
+So, uh, most of our work is done by the core rabbit.
+
+00:44:04.000 --> 00:44:07.000
+But I guess it's not persistent with our code base, right?
+
+00:44:07.000 --> 00:44:10.000
+It's only involved whenever a full request or a.
+
+00:44:10.000 --> 00:44:21.000
+Uh, or an issue is generated. Uh, sorry, ma'am.
+
+00:44:21.000 --> 00:44:24.000
+Um, yeah, we don't push the changelog.
+
+00:44:24.000 --> 00:44:27.000
+into CodeRabbit, we have to post…
+
+00:44:27.000 --> 00:44:29.000
+the code's difference.
+
+00:44:29.000 --> 00:44:30.000
+And then, basically, all us Code Rabbit to find…
+
+00:44:30.000 --> 00:44:34.000
+Oh, yeah.
+
+00:44:34.000 --> 00:44:38.000
+what broke, or what…
+
+00:44:38.000 --> 00:44:40.000
+you know, hasn't been tested.
+
+00:44:40.000 --> 00:44:41.000
+We need to… we need to make extra sure that the next release is safe.
+
+00:44:41.000 --> 00:44:47.000
+Okay. Oh, yeah, yeah.
+
+00:44:47.000 --> 00:44:48.000
+So…
+
+00:44:48.000 --> 00:44:49.000
+Your symptoms.
+
+00:44:49.000 --> 00:44:55.000
+Um, we can't just, like, release what we have in, like, a more better organized way.
+
+00:44:55.000 --> 00:44:58.000
+We also have to check.
+
+00:44:58.000 --> 00:45:01.000
+what we have is safe, and check that there's been no breaking changes, or if there has, that we have backwards compatibility in place.
+
+00:45:01.000 --> 00:45:12.000
+So, uh, one thing I'm not getting, like, if we… our CICD pipeline is working, and the test, the… whatever workflows we have right now, whenever a PR is raised.
+
+00:45:12.000 --> 00:45:20.000
+So, we do check that. So, why don't we rely on those, like, if they are… they are not breaking, this means that.
+
+00:45:20.000 --> 00:45:29.000
+Whenever there will be released, that also won't work.
+
+00:45:29.000 --> 00:45:36.000
+Yeah, I mean, I think that's a good thing to do, like, how can we test that a new release is actually safe?
+
+00:45:36.000 --> 00:45:39.000
+The issue that we have is our tests.
+
+00:45:39.000 --> 00:45:43.000
+Currently, they just test things that we wanted to test.
+
+00:45:43.000 --> 00:45:46.000
+things that we thought would be a problem.
+
+00:45:46.000 --> 00:45:48.000
+Right? Things that we were checking.
+
+00:45:48.000 --> 00:45:50.000
+But it is hard for us to…
+
+00:45:50.000 --> 00:45:54.000
+understand what users are actually using.
+
+00:45:54.000 --> 00:45:59.000
+And what might have broken for them.
+
+00:45:59.000 --> 00:46:05.000
+So, we can try and improve our, like, unit tests and integration tests, which will always run on new releases.
+
+00:46:05.000 --> 00:46:08.000
+And that's going to check, like, if…
+
+00:46:08.000 --> 00:46:12.000
+if anything that we were expecting broke.
+
+00:46:12.000 --> 00:46:16.000
+But it won't necessarily pick up on the things that…
+
+00:46:16.000 --> 00:46:18.000
+users need.
+
+00:46:18.000 --> 00:46:24.000
+So we always kind of have, like, that blind spot of trying to make our tests as best as possible.
+
+00:46:24.000 --> 00:46:26.000
+Um…
+
+00:46:26.000 --> 00:46:29.000
+We could definitely have, like, extra checks.
+
+00:46:29.000 --> 00:46:34.000
+When there's a new release, but the problem is, like, what would those tests look like?
+
+00:46:34.000 --> 00:46:38.000
+So, yeah, I opened that for discussion.
+
+00:46:38.000 --> 00:46:41.000
+Um, when we make a new release, we can definitely run, like,
+
+00:46:41.000 --> 00:46:45.000
+new workflows and things, but…
+
+00:46:45.000 --> 00:46:49.000
+all the workflows that we have will probably, like, already run.
+
+00:46:49.000 --> 00:46:55.000
+On that new release, so it would just be, like, what additional workflows
+
+00:46:55.000 --> 00:46:56.000
+So, um, yeah, I don't know if you guys have any ideas.
+
+00:46:56.000 --> 00:46:57.000
+Is there a way to…
+
+00:46:57.000 --> 00:47:01.000
+run, like, a workflow that will check…
+
+00:47:01.000 --> 00:47:03.000
+the dependency…
+
+00:47:03.000 --> 00:47:08.000
+I'm trying to think of the word, like, dependency correctness in this sense.
+
+00:47:08.000 --> 00:47:16.000
+making sure that it's still supported, making sure that if the version is not supported, that…
+
+00:47:16.000 --> 00:47:32.000
+it logs something letting us know, hey, this needs to be changed, this SHA has either been outdated, or maybe it's changed, maybe the location of this is not correct anymore.
+
+00:47:32.000 --> 00:47:36.000
+I'm not sure if that would be doable, it would… it was just…
+
+00:47:36.000 --> 00:47:39.000
+would be something that I…
+
+00:47:39.000 --> 00:47:44.000
+Personally, I would want to check, especially when it comes to updating these dependencies.
+
+00:47:44.000 --> 00:47:48.000
+My thinking is that if there is…
+
+00:47:48.000 --> 00:47:51.000
+isn't away, or if there was…
+
+00:47:51.000 --> 00:47:56.000
+No testing done to ensure the dependencies are compatible. Can we get
+
+00:47:56.000 --> 00:47:59.000
+maybe, like, a workflow to do this.
+
+00:47:59.000 --> 00:48:01.000
+And then just let us know if…
+
+00:48:01.000 --> 00:48:05.000
+it is, or if it isn't, and then we'll go from there.
+
+00:48:05.000 --> 00:48:13.000
+Not necessarily maybe giving it the ability to change the dependency, more or less just making us aware, possibly?
+
+00:48:13.000 --> 00:48:19.000
+Yeah, so, Manish, maybe, like, the minimum and maximum bill that we were talking about.
+
+00:48:19.000 --> 00:48:22.000
+maybe…
+
+00:48:22.000 --> 00:48:27.000
+Maybe the trigger for that could be if you change Pi project.
+
+00:48:27.000 --> 00:48:31.000
+But maybe the second trigger could be…
+
+00:48:31.000 --> 00:48:34.000
+If there's a tag for a new version.
+
+00:48:34.000 --> 00:48:36.000
+Or something.
+
+00:48:36.000 --> 00:48:38.000
+And then I think…
+
+00:48:38.000 --> 00:48:41.000
+Yeah, like a new release.
+
+00:48:41.000 --> 00:48:50.000
+Yeah, but I think… yeah, yeah, because sometimes you don't change PI project, you just do a new release.
+
+00:48:50.000 --> 00:48:52.000
+And then the workflow…
+
+00:48:52.000 --> 00:48:53.000
+Yeah, okay, let's write that down.
+
+00:48:53.000 --> 00:49:02.000
+I think, like, that can be done.
+
+00:49:02.000 --> 00:49:07.000
+Is there any other workflow that we can make?
+
+00:49:07.000 --> 00:49:11.000
+or a new release.
+
+00:49:11.000 --> 00:49:16.000
+Is it possible to prompt Code Rabbit on a new release?
+
+00:49:16.000 --> 00:49:25.000
+It may be. We'd have to update the instructions and test it. I don't see why not, but it's not something I've tried before.
+
+00:49:25.000 --> 00:49:32.000
+Okay. That might be, like, the best thing to work on.
+
+00:49:32.000 --> 00:49:36.000
+Oh, can Copilot do that?
+
+00:49:36.000 --> 00:49:43.000
+So Copilot is flaky, because Copilot only applies to people that have
+
+00:49:43.000 --> 00:49:46.000
+take the co-pilot box.
+
+00:49:46.000 --> 00:49:47.000
+Okay.
+
+00:49:47.000 --> 00:49:48.000
+It's an individual decision.
+
+00:49:48.000 --> 00:49:51.000
+Whereas, uh, Code Rabbit is…
+
+00:49:51.000 --> 00:49:54.000
+applicable to everybody.
+
+00:49:54.000 --> 00:49:56.000
+Okay.
+
+00:49:56.000 --> 00:50:02.000
+Yeah, I think Code Rabbit, uh, would be a great addition. We would just have to figure out how to…
+
+00:50:02.000 --> 00:50:05.000
+um, prompted, I guess, to…
+
+00:50:05.000 --> 00:50:07.000
+take a look at these.
+
+00:50:07.000 --> 00:50:12.000
+other idea I had, um, for the next…
+
+00:50:12.000 --> 00:50:17.000
+The lease is maybe doing releases, like, minor, like, every…
+
+00:50:17.000 --> 00:50:21.000
+Every couple of months, maybe? That way…
+
+00:50:21.000 --> 00:50:31.000
+It reduces, like, the amount of changes in their… in the sense that there aren't going to be, like, a hundred changes all at once. Maybe there's just, like, a select few.
+
+00:50:31.000 --> 00:50:32.000
+Is that something we would want to do?
+
+00:50:32.000 --> 00:50:34.000
+Yeah.
+
+00:50:34.000 --> 00:50:39.000
+That's the… that's the optimal way, like, I'm a fan of doing things, like, every couple weeks.
+
+00:50:39.000 --> 00:50:40.000
+Okay.
+
+00:50:40.000 --> 00:50:45.000
+Um, the issues that we run into Christmas…
+
+00:50:45.000 --> 00:50:46.000
+Uh, yes.
+
+00:50:46.000 --> 00:50:52.000
+And normally, normally we need two maintainers to do a release, because we need, like, another one to approve it.
+
+00:50:52.000 --> 00:50:58.000
+And… and everything, so, yeah.
+
+00:50:58.000 --> 00:50:59.000
+A sh…
+
+00:50:59.000 --> 00:51:01.000
+But now we have 3 main components, so I think…
+
+00:51:01.000 --> 00:51:07.000
+I think, like, going forward, most of our releases should be probably every two weeks, and then we won't have this massive problem.
+
+00:51:07.000 --> 00:51:09.000
+That often.
+
+00:51:09.000 --> 00:51:15.000
+Yeah, I'd say every… every two or, uh, three, just in case there's a week where maybe somebody…
+
+00:51:15.000 --> 00:51:17.000
+I can't get to it, but…
+
+00:51:17.000 --> 00:51:21.000
+Yeah, as frequently as possible would be my…
+
+00:51:21.000 --> 00:51:22.000
+Suggestion?
+
+00:51:22.000 --> 00:51:31.000
+Yeah. Um, I actually, with these changes, I don't know if we manage, like, for example, do you still think we need to do a zero point…
+
+00:51:31.000 --> 00:51:35.000
+2…
+
+00:51:35.000 --> 00:51:38.000
+So, like, I think, like, it should be, like, 0.2, because, like, we have a lot of changes.
+
+00:51:38.000 --> 00:51:42.000
+Yeah.
+
+00:51:42.000 --> 00:51:52.000
+Yeah. Okay, to just warn people as well. But also, like, I think we have a lot of changes, but also we have really sophisticated changes like that.
+
+00:51:52.000 --> 00:51:58.000
+like, we've changed, for example, how nodes work, and…
+
+00:51:58.000 --> 00:52:04.000
+the TLS and things, we haven't just added, like, functionality to transactions, we've changed the way…
+
+00:52:04.000 --> 00:52:05.000
+some of the CoreLogic books.
+
+00:52:05.000 --> 00:52:08.000
+Yeah.
+
+00:52:08.000 --> 00:52:16.000
+Okay. Um, alright. I'm gonna paste all these into the Linux chat, then.
+
+00:52:16.000 --> 00:52:20.000
+I think, like, it's good if everyone kind of stays…
+
+00:52:20.000 --> 00:52:25.000
+up-to-date with what the actions are.
+
+00:52:25.000 --> 00:52:33.000
+Um, Angie, I guess you… you're quite busy, right? You don't have availability to check, like, the Windows
+
+00:52:33.000 --> 00:52:39.000
+build or create, like, a Windows workflow or something to complement Manisha's PR.
+
+00:52:39.000 --> 00:52:47.000
+Uh, I can try and see what I come up with. I don't know if I'll encounter the same issues as…
+
+00:52:47.000 --> 00:52:50.000
+say, a new Windows user, just because…
+
+00:52:50.000 --> 00:52:53.000
+I already have some of the dependencies.
+
+00:52:53.000 --> 00:52:54.000
+Okay.
+
+00:52:54.000 --> 00:52:56.000
+But… yeah.
+
+00:52:56.000 --> 00:52:58.000
+So, I don't know… I think Aditya…
+
+00:52:58.000 --> 00:53:00.000
+You have to create, like, a…
+
+00:53:00.000 --> 00:53:05.000
+virtual environment, and they just started from scratch, but that sounds painful, yeah, I agree with you.
+
+00:53:05.000 --> 00:53:10.000
+On Windows, creating a virtual environment is not as much
+
+00:53:10.000 --> 00:53:20.000
+It's not as appealing as it is on a MacBook. I would love to do it on a MacBook. It's so much quicker, it's so much faster, and it's so much easier.
+
+00:53:20.000 --> 00:53:23.000
+On Windows, it's doable, it's just…
+
+00:53:23.000 --> 00:53:28.000
+It's a painstaking process, so to speak.
+
+00:53:28.000 --> 00:53:41.000
+So, I'm thinking it may actually be better to have a brand new Windows user, or just maybe a Windows user that doesn't have all of these dependencies quite yet.
+
+00:53:41.000 --> 00:53:49.000
+Because I would like to see what kind of errors they run into now with this new, um, version released.
+
+00:53:49.000 --> 00:53:52.000
+Again, I can try it, I just don't know if I would…
+
+00:53:52.000 --> 00:53:57.000
+be able to provide as much insight, because I have some of these already.
+
+00:53:57.000 --> 00:53:58.000
+Um, but…
+
+00:53:58.000 --> 00:54:00.000
+might not be able to do it.
+
+00:54:00.000 --> 00:54:01.000
+Um, yeah.
+
+00:54:01.000 --> 00:54:09.000
+I will… I'll follow what Manish is doing, I'll keep an eye on it, I'll see if there's a way that I can…
+
+00:54:09.000 --> 00:54:15.000
+If not, I think a DTIA, uh, maybe…
+
+00:54:15.000 --> 00:54:23.000
+better suited, just because I don't believe he has all of the dependencies yet. I'll reach out to him and ask him and see what he has.
+
+00:54:23.000 --> 00:54:29.000
+Because I am not sure how far into the Python SDK setup process he's gotten.
+
+00:54:29.000 --> 00:54:35.000
+I would say pretty far. I have seen a few of his pull requests, so if not him…
+
+00:54:35.000 --> 00:54:40.000
+Um, maybe it would just be him and I trying to come up with something.
+
+00:54:40.000 --> 00:54:46.000
+But he is on a Windows 11, so he may have an easier time spinning up a virtual environment on there.
+
+00:54:46.000 --> 00:54:50.000
+Yep. Okay, um…
+
+00:54:50.000 --> 00:54:55.000
+So, basically, Manesh, I think we are kind of riding on…
+
+00:54:55.000 --> 00:55:00.000
+your PR. Um, I can try and work on the code rabbit.
+
+00:55:00.000 --> 00:55:03.000
+investigation.
+
+00:55:03.000 --> 00:55:07.000
+for the release.
+
+00:55:07.000 --> 00:55:12.000
+Um, and just other things that are important for the SDK at the moment are these
+
+00:55:12.000 --> 00:55:18.000
+prompt things, but I know we're all busy, and we probably won't be able to work on them at least for a long time.
+
+00:55:18.000 --> 00:55:24.000
+But I think this is, like, a nice new focus, because I've noticed that pull requests are actually…
+
+00:55:24.000 --> 00:55:27.000
+increasing, they're not decreasing.
+
+00:55:27.000 --> 00:55:32.000
+Um, and what's happening now is, like, people are getting more and more experienced.
+
+00:55:32.000 --> 00:55:35.000
+So instead of, like, submitting…
+
+00:55:35.000 --> 00:55:37.000
+just good fuzz issues.
+
+00:55:37.000 --> 00:55:44.000
+We have quite a few pull requests that are actually intermediate or advanced.
+
+00:55:44.000 --> 00:55:48.000
+And each of them can easily, like, take 5 hours to, like, review.
+
+00:55:48.000 --> 00:55:52.000
+So we kind of have, like, we have a problem, um…
+
+00:55:52.000 --> 00:55:56.000
+This is why I think that this is quite important.
+
+00:55:56.000 --> 00:56:02.000
+I know, Adit, you, like, Adit just left. Adit's been waiting already a couple of weeks, I think.
+
+00:56:02.000 --> 00:56:05.000
+For his?
+
+00:56:05.000 --> 00:56:07.000
+PR? Um…
+
+00:56:07.000 --> 00:56:12.000
+But yeah, there's just… there's just not enough time, so…
+
+00:56:12.000 --> 00:56:13.000
+Um, I…
+
+00:56:13.000 --> 00:56:15.000
+Yeah, key priorities, I would say let's do a release.
+
+00:56:15.000 --> 00:56:24.000
+Um, there's prompt Code Rabbit, and then if anyone has free time, we gotta do reviews, but I think this is just gonna keep growing and growing and growing.
+
+00:56:24.000 --> 00:56:31.000
+Because we, we, um, we're not fast enough yet.
+
+00:56:31.000 --> 00:56:35.000
+So we're just gonna have to get used to… we might have to increase, like, the…
+
+00:56:35.000 --> 00:56:41.000
+number of concurrent issues you can work on.
+
+00:56:41.000 --> 00:56:44.000
+Maybe because some people, like, have…
+
+00:56:44.000 --> 00:56:48.000
+done everything they can, they're waiting for feedback.
+
+00:56:48.000 --> 00:56:55.000
+And, you know, they're stuck from working on another issue, so that's just something to think about.
+
+00:56:55.000 --> 00:57:02.000
+Um, and the other thing to think about is, like, what are we gonna do with the changelog for the next version?
+
+00:57:02.000 --> 00:57:13.000
+Are we gonna, like… I… it's really easy for new starters in the C++ SDK and the website SDK, because they don't require change loads.
+
+00:57:13.000 --> 00:57:18.000
+Oh, yes, I remember we had been debating this.
+
+00:57:18.000 --> 00:57:23.000
+Uh… I am on the side of…
+
+00:57:23.000 --> 00:57:29.000
+If we're going to keep the changelog, I would say just limiting it to source changes.
+
+00:57:29.000 --> 00:57:38.000
+The documentation changes, yes, they are important, but they're, in my opinion, they're a little bit more user-facing in the sense that…
+
+00:57:38.000 --> 00:57:43.000
+Users can see the documentation, they don't necessarily need to
+
+00:57:43.000 --> 00:57:50.000
+be aware that it's been updated. It is nice for us to know that it's been updated, this way we have the most current info.
+
+00:57:50.000 --> 00:57:53.000
+For those users who are getting started?
+
+00:57:53.000 --> 00:58:03.000
+But, um, yeah, if we're on the side of keeping it, I would say to just limit it to maybe, uh, source changes.
+
+00:58:03.000 --> 00:58:06.000
+Manish, what do you think?
+
+00:58:06.000 --> 00:58:11.000
+Oh, agree? Okay. Um, so, Sophie, um, what do you think?
+
+00:58:11.000 --> 00:58:21.000
+Thought you had said you were on the side of Source, is that right? Or did you want it to include just a bit more?
+
+00:58:21.000 --> 00:58:28.000
+Um… yeah, source is maybe most essential.
+
+00:58:28.000 --> 00:58:30.000
+Yeah, definitely, uh, for sure.
+
+00:58:30.000 --> 00:58:35.000
+Um, like, as useful to know what's changed in tasks, but as useful for us.
+
+00:58:35.000 --> 00:58:37.000
+Yeah, yeah.
+
+00:58:37.000 --> 00:58:40.000
+more than… more than anything, to, like,
+
+00:58:40.000 --> 00:58:43.000
+be able to look back.
+
+00:58:43.000 --> 00:58:46.000
+In time, I've noticed that…
+
+00:58:46.000 --> 00:58:50.000
+Okay, this is what happened in the Python SDK, we're gonna lose that knowledge.
+
+00:58:50.000 --> 00:58:53.000
+Especially if our releases take 2 months.
+
+00:58:53.000 --> 00:58:57.000
+we're gonna… in two months' time, we're gonna be like…
+
+00:58:57.000 --> 00:59:06.000
+Um, what actually changed in that? Like, because people, when they… when they, um, download the new release, they're gonna see difference. They're gonna see, like,
+
+00:59:06.000 --> 00:59:10.000
+what 0.110 had, and what 0.11 has.
+
+00:59:10.000 --> 00:59:15.000
+Um, they're gonna see maybe, like, tons of changes to tests, tons of changes to examples, docs.
+
+00:59:15.000 --> 00:59:19.000
+And they… they have no guidance.
+
+00:59:19.000 --> 00:59:22.000
+It's, like, what that meant at all.
+
+00:59:22.000 --> 00:59:24.000
+Um…
+
+00:59:24.000 --> 00:59:28.000
+So, I think, like, end users, they want to know…
+
+00:59:28.000 --> 00:59:37.000
+what are they going to get impacted by, but they also kind of want to have, like, this safety, like, oh, all these other things that aren't really related to the source code changes.
+
+00:59:37.000 --> 00:59:41.000
+Right? I wasn't expecting, like, test ABC to be changed.
+
+00:59:41.000 --> 00:59:46.000
+I'm seeing tons of changes to test AVT, but you guys told me you only change
+
+00:59:46.000 --> 00:59:49.000
+you know, um…
+
+00:59:49.000 --> 00:59:51.000
+Freddy sauce.
+
+00:59:51.000 --> 00:59:54.000
+So, like, maybe…
+
+00:59:54.000 --> 00:59:57.000
+maybe… I don't know…
+
+00:59:57.000 --> 01:00:00.000
+I'm not sure with that yet.
+
+01:00:00.000 --> 01:00:05.000
+Um, but yeah, the changelook conflicts and stuff is pretty… pretty annoying.
+
+01:00:05.000 --> 01:00:07.000
+Also, when you create a new release,
+
+01:00:07.000 --> 01:00:10.000
+GitHub automatically generates
+
+01:00:10.000 --> 01:00:13.000
+changes, but it doesn't do it that well.
+
+01:00:13.000 --> 01:00:21.000
+So let me show you what happens.
+
+01:00:21.000 --> 01:00:28.000
+So, if I do 0.11, let's say,
+
+01:00:28.000 --> 01:00:31.000
+for the recent commit.
+
+01:00:31.000 --> 01:00:36.000
+is going to generate these release notes, but it doesn't do it from our changelog entry.
+
+01:00:36.000 --> 01:00:46.000
+It does it from the way that people labeled their most recent commit, because we squashed their entire PR into their most recent commit.
+
+01:00:46.000 --> 01:00:53.000
+Um, so… I don't know about you, but I'm pretty bad at naming my commits, my final commit.
+
+01:00:53.000 --> 01:00:56.000
+that well.
+
+01:00:56.000 --> 01:01:00.000
+Uh, or it's the title, actually, I don't know.
+
+01:01:00.000 --> 01:01:02.000
+But you're gonna see…
+
+01:01:02.000 --> 01:01:07.000
+all of these hundreds of lines of changes anyway, and the release notes, unless I delete them.
+
+01:01:07.000 --> 01:01:13.000
+But then I have to separate the source code changes from the other ones and not delete them.
+
+01:01:13.000 --> 01:01:17.000
+So I don't really see, like, a way around…
+
+01:01:17.000 --> 01:01:23.000
+the massive amounts of information.
+
+01:01:23.000 --> 01:01:29.000
+Does that happen if you do this more frequently, or is that only happening because…
+
+01:01:29.000 --> 01:01:32.000
+We just did something very large.
+
+01:01:32.000 --> 01:01:39.000
+Yeah, if you look at the previous releases, what I've done is I've actually reorganized the thing manually.
+
+01:01:39.000 --> 01:01:40.000
+Yeah.
+
+01:01:40.000 --> 01:01:46.000
+Like, I look at, like, the entire list, and I split it up into, like, these are the new features, these are the fixes.
+
+01:01:46.000 --> 01:01:49.000
+These are the workflow things and the docs.
+
+01:01:49.000 --> 01:01:50.000
+Okay.
+
+01:01:50.000 --> 01:01:53.000
+Um, and sometimes I have to rename some of these, because that…
+
+01:01:53.000 --> 01:02:02.000
+Like, sometimes it looks like I've changed the source code thing, but actually it was an example, but the person didn't, like, label it correctly, if that makes sense.
+
+01:02:02.000 --> 01:02:03.000
+Yeah.
+
+01:02:03.000 --> 01:02:11.000
+So sometimes it reads really scary, like, refactored token associate transaction.
+
+01:02:11.000 --> 01:02:14.000
+And so, I…
+
+01:02:14.000 --> 01:02:17.000
+that kind of thing happens.
+
+01:02:17.000 --> 01:02:23.000
+through the automatic system of GitHub, because…
+
+01:02:23.000 --> 01:02:28.000
+Because it's doing it by the title, and we're not as good as titles as we are with changelog entries.
+
+01:02:28.000 --> 01:02:30.000
+For example.
+
+01:02:30.000 --> 01:02:35.000
+Um, yeah, so I don't really have a good solution. But anyway, we're out of time.
+
+01:02:35.000 --> 01:02:38.000
+Yes, we are, um…
+
+01:02:38.000 --> 01:02:43.000
+Okay, so this was a pretty good discussion. I guess we will pick this up, um, next time.
+
+01:02:43.000 --> 01:02:47.000
+when we meet back up again in two weeks.
+
+01:02:47.000 --> 01:02:53.000
+For now, I do think we have some pretty good, um, action points, definitely. Manish, we will keep an eye out.
+
+01:02:53.000 --> 01:02:58.000
+Uh, for your PR, I will see if Aditya…
+
+01:02:58.000 --> 01:03:02.000
+Um, is able to spin up the virtual environment.
+
+01:03:02.000 --> 01:03:06.000
+Uh, beyond that, I think we're
+
+01:03:06.000 --> 01:03:08.000
+pretty much good to go.
+
+01:03:08.000 --> 01:03:11.000
+Yep, I'll do some Code Rabbit prompting.
+
+01:03:11.000 --> 01:03:12.000
+Thanks, Randy!
+
+01:03:12.000 --> 01:03:15.000
+Thank you very much.
+
+01:03:15.000 --> 01:03:17.000
+Thanks, everyone. Bye!
+
+01:03:17.000 --> 01:03:21.000
+Thanks,
+

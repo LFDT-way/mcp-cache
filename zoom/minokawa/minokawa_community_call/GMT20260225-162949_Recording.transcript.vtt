@@ -1,0 +1,598 @@
+WEBVTT
+
+1
+00:00:16.079 --> 00:00:16.939
+Kevin Millikin (Shielded Technologies): Where do we go.
+
+2
+00:00:19.150 --> 00:00:20.020
+Miguel Ambrona: Hello, Kevin.
+
+3
+00:00:39.720 --> 00:00:41.760
+Kevin Millikin (Shielded Technologies): Hi, Sophie, welcome to our call.
+
+4
+00:00:44.130 --> 00:00:45.429
+Sophie Bulloch: Hi, good morning.
+
+5
+00:00:51.150 --> 00:00:54.970
+Kevin Millikin (Shielded Technologies): I typically wait 3 minutes before I start, just to give people a chance to arrive.
+
+6
+00:02:34.600 --> 00:02:36.520
+Kevin Millikin (Shielded Technologies): Winning just one more minute.
+
+7
+00:03:22.870 --> 00:03:40.680
+Kevin Millikin (Shielded Technologies): Okay. I did get the agenda out this week. It was… it was a little bit late, I apologize again. The, we've been pretty busy, head down, working towards the next release. We're branching for that on Wednesday of next week.
+
+8
+00:03:41.160 --> 00:03:59.360
+Kevin Millikin (Shielded Technologies): And so we need to get work in that we want to go out in that release. This is likely the version that will be called Compact 1.0. So I think what we'll do is we'll release it as 0.30, and then when we're ready to have a Compact 1.0 release, we'll just
+
+9
+00:03:59.560 --> 00:04:01.719
+Kevin Millikin (Shielded Technologies): rename this one.
+
+10
+00:04:01.830 --> 00:04:12.379
+Kevin Millikin (Shielded Technologies): It obviously involves making some different bits from the release branch so that it reports the right version numbers, and we'll have to sort out how exactly we do that.
+
+11
+00:04:14.270 --> 00:04:30.509
+Kevin Millikin (Shielded Technologies): And then one other announcement, Kent and I have… well, I have volunteered Kent and me to give a, deep dive talk, which is part of a LFDT series of deep dives. These can be, like, 2 or 3 hours long, and we'll go into…
+
+12
+00:04:30.560 --> 00:04:36.570
+Kevin Millikin (Shielded Technologies): Much detail about how the compiler is implemented and how we use the,
+
+13
+00:04:36.920 --> 00:04:43.189
+Kevin Millikin (Shielded Technologies): the intermediate languages as interfaces, the ZKIR and Impact intermediate languages.
+
+14
+00:04:43.920 --> 00:04:45.760
+Kevin Millikin (Shielded Technologies): Or languages.
+
+15
+00:04:46.540 --> 00:04:58.630
+Kevin Millikin (Shielded Technologies): That was… originally, we were going to shoot for a March date to give that talk, and we've let it slip into April so that we can have time to focus on the Compact 1.0 stuff that we're doing.
+
+16
+00:04:58.840 --> 00:05:03.940
+Kevin Millikin (Shielded Technologies): So, I think that's news to Ken. It's now slipping into April.
+
+17
+00:05:05.320 --> 00:05:09.840
+Kevin Millikin (Shielded Technologies): Is there any other announcements that anyone wants to… to make?
+
+18
+00:05:16.060 --> 00:05:32.870
+Kevin Millikin (Shielded Technologies): Okay, I'll get to the agenda. We didn't have any agenda items, but as usual, we can add them during the meeting. Sophie Bullock has popped in, and I'll just introduce Sophie really quick. Sophie is working on the HyRow Python SDK LFDT project.
+
+19
+00:05:32.890 --> 00:05:41.039
+Kevin Millikin (Shielded Technologies): And, they have done a lot of work to, create good first issues to attract contributors to their project.
+
+20
+00:05:41.180 --> 00:05:46.700
+Kevin Millikin (Shielded Technologies): And one of the really appealing things is that creating these issues for us takes some time.
+
+21
+00:05:46.800 --> 00:05:52.349
+Kevin Millikin (Shielded Technologies): Sometimes more time than just implementing whatever the issue is ourselves.
+
+22
+00:05:52.530 --> 00:06:05.000
+Kevin Millikin (Shielded Technologies): And the Python… the Hiero Python SDK has done a ton of automation. They've created templates for issues that are really easy to create, and then they have some very friendly and helpful bots that
+
+23
+00:06:05.010 --> 00:06:13.790
+Kevin Millikin (Shielded Technologies): help people who are coming to the project to contribute. Sophie, do you want to just take the… take the microphone and talk… tell us a little bit?
+
+24
+00:06:15.990 --> 00:06:21.860
+Sophie Bulloch: Yeah, hi, everyone. Yes, my name is Sophie. Thank you for the introduction, that's… that's very…
+
+25
+00:06:22.080 --> 00:06:23.599
+Sophie Bulloch: Very much the case.
+
+26
+00:06:24.180 --> 00:06:30.269
+Sophie Bulloch: Hiro is another project inside the LFDT, and
+
+27
+00:06:30.820 --> 00:06:33.030
+Sophie Bulloch: You know, for… for a while.
+
+28
+00:06:33.220 --> 00:06:40.979
+Sophie Bulloch: playing around with Hacktoberfest, I realized how many new starters you could… you could actually get through the good first issue system.
+
+29
+00:06:41.260 --> 00:06:46.710
+Sophie Bulloch: So, that's… that was the trigger to start to automate quite a lot of the
+
+30
+00:06:46.880 --> 00:06:53.750
+Sophie Bulloch: they maintain a pipeline, and yeah, what Kevin said is that we… we really have got a lot of automations now.
+
+31
+00:06:53.980 --> 00:06:57.849
+Sophie Bulloch: I would say they are, maybe mostly
+
+32
+00:06:58.080 --> 00:07:02.220
+Sophie Bulloch: V0s or V1s, you know, they…
+
+33
+00:07:03.300 --> 00:07:06.989
+Sophie Bulloch: They, they work. They've been battle-tested.
+
+34
+00:07:08.080 --> 00:07:13.829
+Sophie Bulloch: Mostly, you know, they can always be improved, but actually improving them
+
+35
+00:07:14.120 --> 00:07:17.920
+Sophie Bulloch: Is, is a job in itself.
+
+36
+00:07:18.320 --> 00:07:22.809
+Sophie Bulloch: Because they're all written right now as independent scripts.
+
+37
+00:07:23.010 --> 00:07:35.439
+Sophie Bulloch: And if you want to refactor them, some of them have the same triggers, you know, physically improving it is… is a challenge in itself to architect the whole system, so right now we have a whole bunch of independent scripts.
+
+38
+00:07:35.680 --> 00:07:41.700
+Sophie Bulloch: That are triggered. Because it's open source, it doesn't really cost us unless we're using, like, our own
+
+39
+00:07:42.200 --> 00:07:47.960
+Sophie Bulloch: runners and things like that. But, if you like, I can share my screen to sort of introduce.
+
+40
+00:07:50.320 --> 00:07:51.270
+Kevin Millikin (Shielded Technologies): Yes, please.
+
+41
+00:07:53.840 --> 00:07:58.390
+Sophie Bulloch: Yeah, right now, I can't overcome the existing screen share.
+
+42
+00:07:58.860 --> 00:08:04.010
+Kevin Millikin (Shielded Technologies): I have to figure out how to stop it. I'm not used to the Zoom platform. Okay, I think I did.
+
+43
+00:08:05.340 --> 00:08:07.660
+Sophie Bulloch: Great, yeah, so, I will just link…
+
+44
+00:08:09.320 --> 00:08:15.229
+Sophie Bulloch: These are the workflows, these are the YAML, triggers. So, for example.
+
+45
+00:08:15.520 --> 00:08:24.599
+Sophie Bulloch: This is our auto-assignment bot, which will, if you comment, assign, you will get automatically Added to the issue.
+
+46
+00:08:25.060 --> 00:08:33.659
+Sophie Bulloch: Most of the times, our YAML files call the logic script. Auto-assignment can have its perils.
+
+47
+00:08:34.000 --> 00:08:40.589
+Sophie Bulloch: Some people will try and assign to 6 issues at a time. So we have checks and things in place.
+
+48
+00:08:41.669 --> 00:08:47.090
+Sophie Bulloch: So, that's in the workflows, and then inside the script, we have, like, the…
+
+49
+00:08:47.380 --> 00:08:49.640
+Sophie Bulloch: the logic, so I think the assignment check.
+
+50
+00:08:49.920 --> 00:08:56.919
+Sophie Bulloch: is going to check if you're, like, a spam user and stuff like that, so… that's what I mean, that they've been battle-tested,
+
+51
+00:08:57.190 --> 00:09:03.220
+Sophie Bulloch: You know, maybe Maybe the overall architecture and stuff could… could be… could be improved?
+
+52
+00:09:03.660 --> 00:09:10.090
+Sophie Bulloch: Workflows that have really helped us with new startups is checking, like, verified commits.
+
+53
+00:09:11.190 --> 00:09:21.509
+Sophie Bulloch: So this one is going to post if your pull request has unverified commits, and it will help you find which commit is unverified. So that's been new.
+
+54
+00:09:21.720 --> 00:09:22.890
+Sophie Bulloch: Helpful one.
+
+55
+00:09:23.670 --> 00:09:26.990
+Sophie Bulloch: We actually don't have a DCO,
+
+56
+00:09:29.000 --> 00:09:35.370
+Sophie Bulloch: a DCO one, because that's part of our general workflow checks.
+
+57
+00:09:36.410 --> 00:09:41.489
+Sophie Bulloch: So… we will notify people of DCO fails anyway.
+
+58
+00:09:42.680 --> 00:09:50.510
+Sophie Bulloch: Sorry, I wasn't exactly sure what I would talk about today, so… Yosemite.
+
+59
+00:09:50.510 --> 00:10:03.130
+Kevin Millikin (Shielded Technologies): This is… this is very good. One thing that we, that I really like is that when people comment that they want to assign a first issue to themselves, they get assigned a mentor, a named mentor.
+
+60
+00:10:03.220 --> 00:10:10.640
+Kevin Millikin (Shielded Technologies): And I think that that's, super helpful. And then another thing that I think is interesting is that you ask them to describe their approach.
+
+61
+00:10:10.990 --> 00:10:19.689
+Kevin Millikin (Shielded Technologies): Which is just a really good first check that they're actually going in the right direction, and that the thing that they send you is going to be what you're… what you're expecting.
+
+62
+00:10:20.960 --> 00:10:26.829
+Sophie Bulloch: Yeah, and we have actually had maybe a couple of open clawbots pop around that have been creating pull requests.
+
+63
+00:10:27.010 --> 00:10:42.060
+Sophie Bulloch: In a kind of automated way, so now we're strictly closing them, and things like that. So, yeah. I mean, we have all the things that a new starter could need, so we have a step-by-step guide on how to set up. Even though we have documentation for this, we still, like.
+
+64
+00:10:42.550 --> 00:10:46.630
+Sophie Bulloch: Give them, like, a one-page summary, because sometimes it's overwhelming reading, like.
+
+65
+00:10:46.880 --> 00:10:51.710
+Sophie Bulloch: And separate documentations. So just make it really easy for people.
+
+66
+00:10:52.530 --> 00:11:00.450
+Sophie Bulloch: And we have, like, common, frequently asked questions, we assign a mentor, and we even have, like, a plan and things in place, but…
+
+67
+00:11:00.570 --> 00:11:03.459
+Sophie Bulloch: Yeah, so that works really well.
+
+68
+00:11:03.630 --> 00:11:08.709
+Sophie Bulloch: So it really helped me as, like, a single active maintainer to be able to onboard.
+
+69
+00:11:09.200 --> 00:11:16.120
+Sophie Bulloch: over 100 developers, and now… now I'm not the only maintainer. This approach has helped us to grow to…
+
+70
+00:11:16.230 --> 00:11:19.409
+Sophie Bulloch: To another maintainer and 5 more committers?
+
+71
+00:11:19.850 --> 00:11:32.149
+Sophie Bulloch: You know, I don't know how relevant that would be for, like, a new scripting language and things, but, yeah, there's definitely things that can be done to automate anything that's kind of annoying in the
+
+72
+00:11:32.420 --> 00:11:37.699
+Sophie Bulloch: in the maintainer process, we also have an AI reviewer and an AI planner.
+
+73
+00:11:38.080 --> 00:11:39.590
+Sophie Bulloch: I don't know how much…
+
+74
+00:11:39.820 --> 00:11:45.469
+Sophie Bulloch: They will understand of compiling a new language, but, yeah, that's also helped as well.
+
+75
+00:11:48.090 --> 00:11:49.140
+Kevin Millikin (Shielded Technologies): Thank you, Soti.
+
+76
+00:11:49.140 --> 00:12:03.889
+Andrey Venuto: I have one question for Sophie, if I may. So, Sophie, thanks for the presentation. If we want to implement something, like, similar, what do you think are, like, the initial steps or the starting point,
+
+77
+00:12:04.070 --> 00:12:08.390
+Andrey Venuto: do we have to understand the needs? What we want to automate? We want to make this, like.
+
+78
+00:12:09.020 --> 00:12:13.740
+Andrey Venuto: We want to implement some of the automations, and we would like to understand some of the starting points you would suggest.
+
+79
+00:12:16.000 --> 00:12:16.930
+Sophie Bulloch: Yes.
+
+80
+00:12:18.540 --> 00:12:30.609
+Sophie Bulloch: In terms of starting point, I was creating… so I think the first key step is to, understand what kind of contributions you want.
+
+81
+00:12:31.450 --> 00:12:37.210
+Sophie Bulloch: Because this is going to narrow down… How much?
+
+82
+00:12:37.450 --> 00:12:39.780
+Sophie Bulloch: And what your automation needs to look like.
+
+83
+00:12:39.890 --> 00:12:47.759
+Sophie Bulloch: So we have… we allow for issues to have different difficulties. So we have issues that are good fast issues, beginner issues, intermediate.
+
+84
+00:12:48.430 --> 00:12:54.789
+Sophie Bulloch: And if you don't have all of those, then that will, like, reduce the amount of automation that you have.
+
+85
+00:12:55.360 --> 00:12:59.750
+Sophie Bulloch: So, for us, the first priority was to get a lot of new starters.
+
+86
+00:12:59.940 --> 00:13:05.069
+Sophie Bulloch: So for us, we had to really focus on creating really good first issues.
+
+87
+00:13:05.380 --> 00:13:11.720
+Sophie Bulloch: And the way we did that, we had some guidelines, so some documentation that outlined what a good first issue is.
+
+88
+00:13:13.420 --> 00:13:20.540
+Sophie Bulloch: We have a template, so when you want to create an issue in the Python SDK, it doesn't take 30 minutes to create a really good issue.
+
+89
+00:13:21.010 --> 00:13:26.030
+Sophie Bulloch: you can just go… sorry, I've been playing…
+
+90
+00:13:26.240 --> 00:13:28.300
+Sophie Bulloch: This is incredibly slow at the moment.
+
+91
+00:13:28.660 --> 00:13:37.089
+Sophie Bulloch: Yeah, you can just create a new… new issue, and, that already eliminates a lot of work.
+
+92
+00:13:37.630 --> 00:13:42.419
+Sophie Bulloch: That's a really easy way to sort of automate the issue creation process. It has all of the…
+
+93
+00:13:42.530 --> 00:13:49.619
+Sophie Bulloch: pre-filled content for new starters to make sure that they're meeting workflow and things like that. And the things that I need to edit is just…
+
+94
+00:13:49.840 --> 00:13:52.319
+Sophie Bulloch: Here's the issue description, and so on, so…
+
+95
+00:13:52.600 --> 00:13:59.069
+Sophie Bulloch: If good for the issues is something that you would want to do, or beginner issues or something, creating some really good guidelines based on that.
+
+96
+00:14:01.920 --> 00:14:12.400
+Sophie Bulloch: I think good for us issues are great because they help you to learn the workflow, so the DCO signing, the GPG key signing, can be really difficult for developers in the beginning.
+
+97
+00:14:12.870 --> 00:14:16.880
+Sophie Bulloch: So it's just a way to get them through that and not have to focus on
+
+98
+00:14:17.120 --> 00:14:19.119
+Sophie Bulloch: On other parts of that.
+
+99
+00:14:19.780 --> 00:14:30.299
+Sophie Bulloch: Other than that, the auto-assignment is a great start, but you might not need it for a while. I think just creating the guidelines and the template
+
+100
+00:14:30.610 --> 00:14:38.969
+Sophie Bulloch: It's probably the easiest way to do it, and maybe the verified commits. The auto-assignment is a little bit more complicated, because there are some edge cases.
+
+101
+00:14:39.390 --> 00:14:45.720
+Sophie Bulloch: Where it can be misused, so I would recommend, like, any templates and the verified commits. Kevin?
+
+102
+00:14:47.010 --> 00:15:04.809
+Kevin Millikin (Shielded Technologies): I'm just gonna say, I really like the auto-assign because it actually encourages the person to interact with us first through the issue. I've seen on other projects where the first interaction you get from somebody who wants to do a good first issue is a PR, which is sometimes completely going in the wrong direction, and then it's hard to bring them back from that.
+
+103
+00:15:04.900 --> 00:15:08.880
+Kevin Millikin (Shielded Technologies): Where interacting in the issue is a better… a better experience for everybody.
+
+104
+00:15:11.370 --> 00:15:21.590
+Sophie Bulloch: Yeah, that will have that benefit. We actually also have an automation which you can take, which will remind people if they don't have a pull request linked.
+
+105
+00:15:21.830 --> 00:15:28.810
+Sophie Bulloch: to, and if they're not assigned. So that's another way to look at it as well. Yep, so there's so many things.
+
+106
+00:15:29.380 --> 00:15:34.389
+Sophie Bulloch: you can do… I think you could look and see, like, the issues that we've closed and see
+
+107
+00:15:34.540 --> 00:15:38.910
+Sophie Bulloch: see how some of these things have fed and stuff like that, so I think…
+
+108
+00:15:40.180 --> 00:15:43.189
+Sophie Bulloch: Probably, this one was initially rejected.
+
+109
+00:15:43.320 --> 00:15:45.260
+Sophie Bulloch: Because they weren't assigned.
+
+110
+00:15:45.950 --> 00:15:48.110
+Sophie Bulloch: They didn't have the signing.
+
+111
+00:15:48.620 --> 00:15:51.209
+Sophie Bulloch: Completed, they didn't pass the checks.
+
+112
+00:15:53.900 --> 00:16:02.049
+Sophie Bulloch: Okay, yeah, and then this is something I really actually, like, once you complete an issue, it recommends you the same issue, or one level higher.
+
+113
+00:16:02.230 --> 00:16:15.310
+Sophie Bulloch: Because what we found, we were actually dropping around 80% of our contributors. They would complete an issue, they would feel really happy, and then they would forget to kind of join for the next issue, or they would not find one.
+
+114
+00:16:15.420 --> 00:16:19.819
+Sophie Bulloch: So this is a really nice way to get that feedback loop going faster.
+
+115
+00:16:22.970 --> 00:16:34.680
+Sophie Bulloch: Yeah, definitely the auto-automation, I can send that to you as well. One of the other contributors in the Python… sorry, in Hiru in general, has worked on that auto-assignment bot.
+
+116
+00:16:34.920 --> 00:16:37.919
+Sophie Bulloch: And has tried to streamline it a bit more, you know.
+
+117
+00:16:38.670 --> 00:16:41.109
+Sophie Bulloch: Hardcode less things and everything.
+
+118
+00:16:41.290 --> 00:16:51.880
+Sophie Bulloch: So, I actually think that auto-assign bot is probably quite good, but it's not one that we're using in the Python SDK right now. But I can send over that one as well.
+
+119
+00:16:53.000 --> 00:17:01.640
+Kevin Millikin (Shielded Technologies): Thank you. I think we'd appreciate that. One other thing that I think we should emulate from the Hiero Python SDK is that there's a directory of
+
+120
+00:17:01.760 --> 00:17:13.400
+Kevin Millikin (Shielded Technologies): of SDK developer-facing documentation that is, really helpful. So lots of questions are just answered by pointing to the relevant doc.
+
+121
+00:17:13.520 --> 00:17:17.530
+Kevin Millikin (Shielded Technologies): That has consistent and high-quality answers, and we should try to emulate that.
+
+122
+00:17:19.650 --> 00:17:23.300
+Sophie Bulloch: For sure, one of the, first bots that we made was this one.
+
+123
+00:17:23.450 --> 00:17:27.460
+Sophie Bulloch: So, if any of the checks that we run fail.
+
+124
+00:17:27.569 --> 00:17:37.439
+Sophie Bulloch: then we just link them to all the documentations to fix that, and that works really well. We hardly have to explain the signing things and stuff like that anymore.
+
+125
+00:17:38.320 --> 00:17:40.079
+Sophie Bulloch: Yep, so all of this is…
+
+126
+00:17:40.690 --> 00:17:50.210
+Sophie Bulloch: mostly located in our docs for developers, so they've been quite well battle-tested. I've had feedback that they're not the most user-friendly.
+
+127
+00:17:50.800 --> 00:17:54.879
+Sophie Bulloch: But they… they do seem to work. So, yeah, feel free to…
+
+128
+00:17:55.390 --> 00:17:57.460
+Sophie Bulloch: I'll check out these sort of links as well.
+
+129
+00:18:00.660 --> 00:18:11.460
+Kevin Millikin (Shielded Technologies): Thank you very much, Sophie. So I would say for us, we're in early days, but we should already start thinking about how we're going to grow the project, sort of, sustainably.
+
+130
+00:18:11.520 --> 00:18:25.920
+Kevin Millikin (Shielded Technologies): How we… how we can possibly do that. One of the… I mentioned last week that we're going to be filing quarterly reports with the LFDC TAC, Technical Advisory Committee, and one of the things that they really look for is,
+
+131
+00:18:25.980 --> 00:18:39.759
+Kevin Millikin (Shielded Technologies): is, like, is the project on a healthy growth trajectory, or is the project dying? And one thing that… what helps there is to have people coming on as maintainers, especially people who are not paid by Shielded technologies.
+
+132
+00:18:40.120 --> 00:18:45.449
+Kevin Millikin (Shielded Technologies): So we should… we should start thinking about how we're going to actually make that happen.
+
+133
+00:18:48.350 --> 00:18:55.439
+Sophie Bulloch: Oh, sure. This… this is a way that has worked. So, good first issues is the entry point.
+
+134
+00:18:55.690 --> 00:18:59.299
+Sophie Bulloch: Quickly progress to beginner issues once the workflow is understood.
+
+135
+00:18:59.860 --> 00:19:07.589
+Sophie Bulloch: They spend about a month on that before progressing to intermediate issues, and advanced issues maybe are the standard ones that you guys would work on.
+
+136
+00:19:08.290 --> 00:19:22.909
+Sophie Bulloch: But in that way, they have, like, clear goals, clear entry points, clear ways of, like, progression, and it ultimately works. I think 50% of our issues in the Python SDK now completed are advanced or intermediate.
+
+137
+00:19:24.430 --> 00:19:31.690
+Sophie Bulloch: And I think 40% of our contributors have 3 or more years of experience, based on their GitHub account.
+
+138
+00:19:31.950 --> 00:19:39.679
+Sophie Bulloch: We still have a lot of new users, so that's definitely part of it, that, you know, you might want somebody around to help manage and things, but…
+
+139
+00:19:40.140 --> 00:19:45.509
+Sophie Bulloch: Yeah, that system has worked to build our contributor base, committed base, and maintain a.
+
+140
+00:19:51.350 --> 00:19:53.710
+Kevin Millikin (Shielded Technologies): Excellent. Are there any questions or comments?
+
+141
+00:19:57.120 --> 00:20:05.280
+Kevin Millikin (Shielded Technologies): I think… I think one thing that we, as a project specifically, should think about is, cooling issues, turning the compact
+
+142
+00:20:05.450 --> 00:20:15.669
+Kevin Millikin (Shielded Technologies): toolchain into a real SDK, by building out some of the things we've discussed, like LSP server, profiling tools, testing tools, things like that.
+
+143
+00:20:15.860 --> 00:20:25.789
+Kevin Millikin (Shielded Technologies): Those are more approachable for third-party contributors than jumping in and contributing to the compiler, for instance.
+
+144
+00:20:29.620 --> 00:20:33.000
+Kevin Millikin (Shielded Technologies): Cool. Anything else for the agenda?
+
+145
+00:20:34.870 --> 00:20:36.010
+Kevin Millikin (Shielded Technologies): anybody.
+
+146
+00:20:37.680 --> 00:20:44.139
+Kevin Millikin (Shielded Technologies): Excellent. We'll take some time back. Sophie, thanks for… thanks for explaining to us, stop… stepping in. We really…
+
+147
+00:20:44.390 --> 00:20:45.410
+Kevin Millikin (Shielded Technologies): Appreciate it.
+
+148
+00:20:45.730 --> 00:20:50.730
+Kevin Millikin (Shielded Technologies): And thank you, everybody. As I always say, happy hacking.
+
+149
+00:20:52.020 --> 00:20:52.770
+Kent Dybvig: Excellent.
+

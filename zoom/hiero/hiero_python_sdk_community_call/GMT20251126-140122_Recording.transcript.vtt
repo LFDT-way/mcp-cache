@@ -1,0 +1,2150 @@
+WEBVTT
+
+1
+00:02:16.720 --> 00:02:17.980
+Sophie Bulloch: Hi, Manish!
+
+2
+00:02:26.560 --> 00:02:27.300
+Manish Dait: Hi.
+
+3
+00:04:19.790 --> 00:04:27.109
+Sophie Bulloch: So I, forgot to tell other people about this meeting today. It looks like Nadine isn't able to attend.
+
+4
+00:04:31.590 --> 00:04:36.400
+Sophie Bulloch: Should we get started now? Is there anything that you want to talk about, Manish?
+
+5
+00:04:36.940 --> 00:04:45.500
+Manish Dait: Yes, yes, so, I was, like, working, with the token update transaction, and…
+
+6
+00:04:45.660 --> 00:04:54.880
+Manish Dait: Like, we previously updated, some of the transaction to use, both the public and private key.
+
+7
+00:04:55.400 --> 00:05:05.869
+Manish Dait: the token update transaction, like, currently it just supports the private key, so I'm thinking, like, should we also update this to use both of them?
+
+8
+00:05:08.620 --> 00:05:11.410
+Sophie Bulloch: Can you give me the link to it? Do you want to share?
+
+9
+00:05:11.410 --> 00:05:11.780
+Manish Dait: Yes.
+
+10
+00:05:11.780 --> 00:05:12.450
+Sophie Bulloch: green, or…
+
+11
+00:05:12.450 --> 00:05:14.509
+Manish Dait: Yeah, I can, I can share my screen.
+
+12
+00:05:34.910 --> 00:05:38.200
+Manish Dait: Yeah, so… does my screen visible?
+
+13
+00:05:38.200 --> 00:05:38.810
+Sophie Bulloch: Yep.
+
+14
+00:05:39.750 --> 00:05:52.029
+Manish Dait: So, like, here, it is using the private keys, but in the other SDKs, like JS and Java SDK, they are using… they are supporting both of the keys.
+
+15
+00:05:52.220 --> 00:05:52.940
+Manish Dait: So…
+
+16
+00:05:52.940 --> 00:05:53.860
+Sophie Bulloch: Yeah, I'm kidding.
+
+17
+00:05:55.340 --> 00:06:02.290
+Manish Dait: So, does it, like, worth to, also update this to use both of them?
+
+18
+00:06:03.860 --> 00:06:08.000
+Sophie Bulloch: Yeah, I think that makes sense. Why else… why else in the SDK do we just…
+
+19
+00:06:09.080 --> 00:06:11.570
+Sophie Bulloch: I assume we do that in other places too, right?
+
+20
+00:06:12.130 --> 00:06:12.959
+Manish Dait: Yeah, yeah.
+
+21
+00:06:13.290 --> 00:06:16.560
+Sophie Bulloch: We have just a certain kind of pee.
+
+22
+00:06:16.720 --> 00:06:19.039
+Sophie Bulloch: So, token update, transaction.
+
+23
+00:06:20.720 --> 00:06:22.539
+Manish Dait: I think.
+
+24
+00:06:22.540 --> 00:06:26.349
+Sophie Bulloch: In transaction, we… Have that as well.
+
+25
+00:06:27.040 --> 00:06:27.900
+Manish Dait: Yes.
+
+26
+00:06:33.320 --> 00:06:33.805
+Sophie Bulloch: E.
+
+27
+00:06:36.130 --> 00:06:39.150
+Sophie Bulloch: And we have loads of optional public gates.
+
+28
+00:06:45.730 --> 00:06:49.960
+Sophie Bulloch: I assume that's more like the typing than us actually…
+
+29
+00:06:53.070 --> 00:06:56.189
+Sophie Bulloch: You know, converting the things correctly and stuff.
+
+30
+00:06:56.850 --> 00:06:57.540
+Manish Dait: Yes.
+
+31
+00:07:00.690 --> 00:07:03.899
+Sophie Bulloch: Yeah, wow, there's a lot of files that we have, public keys.
+
+32
+00:07:05.520 --> 00:07:07.110
+Sophie Bulloch: Instead of just key.
+
+33
+00:07:09.720 --> 00:07:12.600
+Sophie Bulloch: Do you think we should create, like, a key class?
+
+34
+00:07:12.920 --> 00:07:21.220
+Manish Dait: Yes, I think, like, we can create a superclass for the… both the keys, and can put, common methods, such as
+
+35
+00:07:21.460 --> 00:07:24.230
+Manish Dait: Like, to proto, or from port proto.
+
+36
+00:07:24.450 --> 00:07:33.469
+Manish Dait: In that… In order to, like, make it similar to what the Java and JS SDK do.
+
+37
+00:07:36.680 --> 00:07:42.009
+Sophie Bulloch: Yeah, obviously we're going to have a problem with, like, you know, if people put the wrong
+
+38
+00:07:42.720 --> 00:07:44.570
+Sophie Bulloch: Keys in on things, because, like, it's…
+
+39
+00:07:44.770 --> 00:07:55.090
+Sophie Bulloch: One thing that I don't understand too well is, like, if you pass… a…
+
+40
+00:07:57.300 --> 00:08:01.509
+Sophie Bulloch: If you pass something that you think is a…
+
+41
+00:08:02.280 --> 00:08:04.700
+Sophie Bulloch: Public key, but it's actually a private key?
+
+42
+00:08:06.180 --> 00:08:24.119
+Manish Dait: Actually, it is like, when we create the proto object, it just gets converted to the public key, so, like, if it is public key, it is just set as the public key, and if it is private key, then it is just converted to the public key and passed to the proto.
+
+43
+00:08:24.510 --> 00:08:31.700
+Sophie Bulloch: Yeah, so if we're converting to public keys, are there… Any instances where…
+
+44
+00:08:36.179 --> 00:08:37.989
+Sophie Bulloch: That will cause an error.
+
+45
+00:08:38.480 --> 00:08:53.789
+Manish Dait: I think, the only instance is, like, when we sign the transaction, it should just use the private key instead of the public key. That's the only place.
+
+46
+00:08:56.960 --> 00:09:00.470
+Sophie Bulloch: Because when we convert to public key.
+
+47
+00:09:03.550 --> 00:09:05.640
+Sophie Bulloch: Some key types, you can't actually know.
+
+48
+00:09:05.640 --> 00:09:06.030
+Manish Dait: Yeah.
+
+49
+00:09:06.030 --> 00:09:07.860
+Sophie Bulloch: For a public key, right? Like…
+
+50
+00:09:07.860 --> 00:09:08.540
+Manish Dait: Yeah.
+
+51
+00:09:09.740 --> 00:09:13.320
+Sophie Bulloch: That… that's just something that… I assume we'll…
+
+52
+00:09:13.600 --> 00:09:17.589
+Manish Dait: That will cause an error. A weakness, yeah, it'll just be like…
+
+53
+00:09:18.040 --> 00:09:24.710
+Sophie Bulloch: we can't really do much about that in the SDK, it's more like we trust the users to
+
+54
+00:09:26.200 --> 00:09:31.509
+Sophie Bulloch: kind of use it correctly, but that… that's something that I don't under… I don't know enough about, like, if…
+
+55
+00:09:32.710 --> 00:09:39.159
+Sophie Bulloch: If we pass a private key, it gets converted to a public key, or if we pass a public key and it
+
+56
+00:09:39.400 --> 00:09:40.390
+Sophie Bulloch: It gets.
+
+57
+00:09:40.600 --> 00:09:48.150
+Sophie Bulloch: like, remains a public key, is that actually going to cause any issues if the public and the private keys are not distinguishable?
+
+58
+00:09:49.080 --> 00:09:50.160
+Manish Dait: Yeah.
+
+59
+00:09:51.390 --> 00:09:56.099
+Sophie Bulloch: Yeah, that goes… I think that goes beyond me. I mean, I was working on the…
+
+60
+00:09:56.380 --> 00:10:00.689
+Sophie Bulloch: key classes a long, long time ago, so I don't remember it that well, but…
+
+61
+00:10:01.070 --> 00:10:06.939
+Sophie Bulloch: I'm pretty sure the ED25519 keys… Have the same…
+
+62
+00:10:07.870 --> 00:10:11.130
+Sophie Bulloch: They look exactly the same if they're a private and a public key.
+
+63
+00:10:11.770 --> 00:10:15.990
+Manish Dait: Yes, yes, the encoded, keys look the same.
+
+64
+00:10:21.150 --> 00:10:21.970
+Sophie Bulloch: Yeah.
+
+65
+00:10:22.160 --> 00:10:28.690
+Sophie Bulloch: I think the JavaScript SDK also does key encoding slightly differently.
+
+66
+00:10:29.620 --> 00:10:31.810
+Sophie Bulloch: To us, and also…
+
+67
+00:10:34.190 --> 00:10:40.450
+Sophie Bulloch: Yeah, I mean, I think they use slightly different ways to use the algorithm and stuff, so I don't know whether it's worth…
+
+68
+00:10:41.960 --> 00:10:48.619
+Sophie Bulloch: checking… With somebody who might know a little bit more about that, but… I mean…
+
+69
+00:10:49.130 --> 00:10:54.380
+Sophie Bulloch: In principle, having a key… a super key class is useful.
+
+70
+00:10:55.530 --> 00:10:59.130
+Sophie Bulloch: And it would be good for users to be able to pass private or public keys.
+
+71
+00:10:59.490 --> 00:11:07.130
+Sophie Bulloch: And I think if we have a superclass like this, it shouldn't really… It shouldn't really change.
+
+72
+00:11:07.900 --> 00:11:14.510
+Sophie Bulloch: it shouldn't really cause too many errors, but, like, I'm just thinking about, like, those edge cases where it's possible
+
+73
+00:11:15.020 --> 00:11:16.659
+Sophie Bulloch: That something could…
+
+74
+00:11:16.910 --> 00:11:23.899
+Sophie Bulloch: could go wrong, so I don't really know how that would be tested, but yeah, maybe we could, like, open up an issue to create, like, a super key class.
+
+75
+00:11:24.490 --> 00:11:25.160
+Sophie Bulloch: Oh.
+
+76
+00:11:25.510 --> 00:11:28.510
+Sophie Bulloch: Do you know, do you know if the script SDK has it?
+
+77
+00:11:29.100 --> 00:11:30.380
+Sophie Bulloch: key cause.
+
+78
+00:11:31.950 --> 00:11:35.540
+Manish Dait: I think, JS SDK has the key class.
+
+79
+00:11:37.980 --> 00:11:39.190
+Manish Dait: So…
+
+80
+00:11:42.610 --> 00:11:47.249
+Sophie Bulloch: Or is it something that they're just creating, like, per… per transaction, or…
+
+81
+00:11:49.910 --> 00:11:53.169
+Manish Dait: actually, I don't get it.
+
+82
+00:11:58.830 --> 00:12:07.740
+Sophie Bulloch: Yeah, I would say if we were going to open up an issue for, like, a super key class, we would just have to learn what happens if you try and cause some edge cases.
+
+83
+00:12:08.420 --> 00:12:09.430
+Manish Dait: Yes, yes.
+
+84
+00:12:10.910 --> 00:12:16.309
+Sophie Bulloch: Do we have any users asking us to allow, like, different types of keys?
+
+85
+00:12:17.240 --> 00:12:26.270
+Manish Dait: No, I, there is, like, no new issue regarding, to, support the both keys. It was just only,
+
+86
+00:12:26.680 --> 00:12:31.059
+Manish Dait: The first issue that came for the token create transaction class.
+
+87
+00:12:32.790 --> 00:12:33.500
+Sophie Bulloch: Yeah.
+
+88
+00:12:34.800 --> 00:12:41.180
+Sophie Bulloch: So, contract create, contract info, all the contracts are typed with public key as well.
+
+89
+00:12:49.920 --> 00:12:54.559
+Sophie Bulloch: We definitely have way more optional public keys than private keys.
+
+90
+00:12:54.710 --> 00:12:57.239
+Sophie Bulloch: Dude, those private key token updates.
+
+91
+00:12:59.870 --> 00:13:07.410
+Sophie Bulloch: Yeah… I mean, I guess with these, we should… we should just do key, because… making it… yeah, okay.
+
+92
+00:13:09.190 --> 00:13:12.859
+Sophie Bulloch: What about the chunking one that you are working on?
+
+93
+00:13:13.210 --> 00:13:24.680
+Manish Dait: I think it was, it is completed, like, I'm just, testing it, with several test cases now, and then I will just, mark it for the review.
+
+94
+00:13:26.010 --> 00:13:33.490
+Sophie Bulloch: Would you, would you mind, like, explaining, what, like, what you learned about the proto for chunking, and, like, why you created it?
+
+95
+00:13:33.710 --> 00:13:34.230
+Sophie Bulloch: And…
+
+96
+00:13:34.670 --> 00:13:41.249
+Sophie Bulloch: links, just… like, it will just really help me when reviewing, because I have to study, like.
+
+97
+00:13:41.400 --> 00:13:43.269
+Sophie Bulloch: Each of these transactions.
+
+98
+00:13:44.540 --> 00:13:45.460
+Manish Dait: organic.
+
+99
+00:13:45.460 --> 00:13:46.670
+Sophie Bulloch: Yeah, great.
+
+100
+00:14:04.740 --> 00:14:09.869
+Manish Dait: So, like, I was testing with, the example that we have, so…
+
+101
+00:14:10.310 --> 00:14:16.569
+Manish Dait: It was the topic message submit transaction, and, like, it is causing,
+
+102
+00:14:16.680 --> 00:14:40.199
+Manish Dait: or giving the status of, maximum or too long transaction, something like that, when we pass the string, which has a byte length of, like, 1024 bytes, then I just, do, like, look at the proto, so what we can do, and other transaction, and there I found that there is a chunking information that we
+
+103
+00:14:40.200 --> 00:14:48.449
+Manish Dait: Put into the… topics, so… what I have done is that, in the topic…
+
+104
+00:14:50.080 --> 00:14:52.960
+Manish Dait: Submit message transaction, that, here.
+
+105
+00:14:53.400 --> 00:15:10.859
+Manish Dait: So, it is like, basically, it takes the message, and then, there are, like, how many chunks we are going to send, and what is the maximum size of the chunk. So, by default, it is 1024 byte, and…
+
+106
+00:15:10.970 --> 00:15:16.230
+Manish Dait: 20 chunks are the maximum chunks that we can set, so…
+
+107
+00:15:16.520 --> 00:15:23.960
+Manish Dait: First, I just, initialize these, two variables in that, and… Then, like…
+
+108
+00:15:24.530 --> 00:15:38.970
+Manish Dait: I refer the JS SDK, in which, like, it just calculates the number of chunks that is required for the message that we have based on the length of the message, so I created a function.
+
+109
+00:15:39.130 --> 00:15:48.199
+Manish Dait: That, basically calculates, the, required chunks that we have, and there is, like, other mass… other function which validates
+
+110
+00:15:49.180 --> 00:15:54.280
+Manish Dait: If the maximum number of chunks that we are going to send, and the…
+
+111
+00:15:54.470 --> 00:16:01.289
+Manish Dait: Current… the required chunks are less than or greater than, and it just raises the error, so…
+
+112
+00:16:01.810 --> 00:16:03.300
+Manish Dait: Yeah, it is, like, here.
+
+113
+00:16:04.290 --> 00:16:08.719
+Manish Dait: So, it basically first calculates what is the required chunks, and…
+
+114
+00:16:09.120 --> 00:16:16.189
+Manish Dait: Then it checks that if it is in the range of the maximum chunk we have, otherwise it will just raise an error.
+
+115
+00:16:16.320 --> 00:16:20.299
+Manish Dait: And then I have just, add…
+
+116
+00:16:20.950 --> 00:16:27.000
+Manish Dait: Several fields here. So, first field is that, what is the total number of chunks that we have?
+
+117
+00:16:27.100 --> 00:16:35.949
+Manish Dait: And then there is the initial ID, so in the proto, I think… If I can…
+
+118
+00:16:47.670 --> 00:17:05.160
+Manish Dait: Yeah. So, in the protoburf, basically, we have a chunk information that, basically is to send when we, send a chunk message to the topic, a message submit transaction, and it has, like, the initial ID. So, this is the ID,
+
+119
+00:17:05.339 --> 00:17:23.719
+Manish Dait: That is, like, the primary ID, or the base ID of the transaction that we are going to send, and there… there is the total number of the chunks that are currently in the messages, and this is the, like, number of sequence. So, it is the first chunk, then second chunk, and that's how.
+
+120
+00:17:24.349 --> 00:17:33.440
+Manish Dait: So… Then it comes to the… I have just, Override the freeze.
+
+121
+00:17:34.050 --> 00:17:34.600
+Manish Dait: Sorry, Mike.
+
+122
+00:17:35.150 --> 00:17:38.190
+Sophie Bulloch: Is this an extension to topic message submit?
+
+123
+00:17:38.190 --> 00:17:39.420
+Manish Dait: Yes, yes, yes, yes, yes.
+
+124
+00:17:39.950 --> 00:17:42.460
+Sophie Bulloch: So there was, like, an error that you couldn't pass large.
+
+125
+00:17:42.460 --> 00:17:43.180
+Manish Dait: Yes.
+
+126
+00:17:43.180 --> 00:17:44.810
+Sophie Bulloch: It's just you adding chunking.
+
+127
+00:17:46.870 --> 00:17:51.010
+Sophie Bulloch: Where is the… I was looking for the protobar for it, so does that mean.
+
+128
+00:17:51.010 --> 00:17:51.400
+Manish Dait: Yeah, yeah.
+
+129
+00:17:51.400 --> 00:17:56.720
+Sophie Bulloch: It's inside topic, message, submit, transaction.
+
+130
+00:17:56.720 --> 00:17:57.450
+Manish Dait: and…
+
+131
+00:18:04.790 --> 00:18:08.340
+Sophie Bulloch: Yeah, okay, that, yeah, topic ID, message, chunk of info.
+
+132
+00:18:09.510 --> 00:18:17.130
+Manish Dait: So, that is the topic chunk. Currently, like, I don't have the link to the Hedira protobuf, so I need to just find it out.
+
+133
+00:18:17.240 --> 00:18:21.890
+Manish Dait: So here, it just passed the chunking information, and it just takes…
+
+134
+00:18:22.400 --> 00:18:29.550
+Manish Dait: Like, the initial ID, the total num… the total number of chunks, and the number… the data sequence number per second.
+
+135
+00:18:30.500 --> 00:18:42.370
+Manish Dait: And I have just, like, override the freeze method, so what it does is, like, first check if any transaction bytes are set. If they are set, it just returns self.
+
+136
+00:18:42.500 --> 00:18:53.469
+Manish Dait: And then it just looks for the transaction ID. If it is not set, then it just set the transaction ID, and this will be, like, the base transaction ID.
+
+137
+00:18:55.780 --> 00:19:04.279
+Manish Dait: And, this, transaction IDs basically holds the list of the transaction ID that, are required for, like.
+
+138
+00:19:04.410 --> 00:19:09.139
+Manish Dait: For, like, each chunk, we are going to call the topic message transaction again and again.
+
+139
+00:19:09.570 --> 00:19:20.959
+Manish Dait: So, this will, like, create an array, that will have, like, the different transaction IDs, so that we can use it when we will build the body.
+
+140
+00:19:20.960 --> 00:19:35.290
+Manish Dait: So it uses, like, a current valid start time, and then iterates for the number of chunks that, that are required to be sent. And, if for the first
+
+141
+00:19:35.360 --> 00:19:46.029
+Manish Dait: chunk, it just set the transaction ID to the base transaction ID, and here it also set the initial transaction ID that we have to set for the chunking information.
+
+142
+00:19:47.140 --> 00:19:53.970
+Manish Dait: And, otherwise, if it is, like, not the first chunk, then it will calculate a new,
+
+143
+00:19:54.250 --> 00:20:05.740
+Manish Dait: valid start by adding some, amount of, by extending the nanoseconds or seconds, and then create a new transaction ID.
+
+144
+00:20:05.900 --> 00:20:25.890
+Manish Dait: And add it to the array list, and then it calls, the freeze with method for… with the, like, the super class freeze with method, and which, like, in turns builds the body. So, for first, like, for first iteration, it will…
+
+145
+00:20:26.430 --> 00:20:41.370
+Manish Dait: Just come here and just build the body, and if the total chunk size is greater than the first index, or it is greater than the one, then only it is going to add the chunky information, otherwise it will just return
+
+146
+00:20:41.860 --> 00:20:47.349
+Manish Dait: The transaction body without the chunking information, and then…
+
+147
+00:20:48.520 --> 00:20:54.280
+Manish Dait: I have also override the execute method, so in this, first, it validates that
+
+148
+00:20:54.780 --> 00:21:00.730
+Manish Dait: The required chunks and the maximum number of chunks that are allowed to set are,
+
+149
+00:21:00.910 --> 00:21:03.830
+Manish Dait: Less than or equal to that.
+
+150
+00:21:05.100 --> 00:21:21.769
+Manish Dait: And if the required chunk is, like, a single chunk we have to send, then it will just call it one… for one time, and for the multiple chunk, it will just create a response array, and for the number of times, or the number of chunks, it will just
+
+151
+00:21:22.030 --> 00:21:34.989
+Manish Dait: increment the index number for the… to keep the track of the sequence, like, for the first sequence, second sequence, and then it will…
+
+152
+00:21:35.130 --> 00:21:42.009
+Manish Dait: get the IDs from the array list that we have stored.
+
+153
+00:21:42.500 --> 00:21:51.239
+Manish Dait: And, set it to the new transaction ID for the transaction, and it will create the previous
+
+154
+00:21:51.240 --> 00:22:03.599
+Manish Dait: if there is any previous transaction body bytes, or signature map that is set, it will just clear it and call the freeze-read transaction. But, since there is the check here for…
+
+155
+00:22:03.830 --> 00:22:10.569
+Manish Dait: that will check if the transaction IDs are already generated or not. It will, like.
+
+156
+00:22:10.870 --> 00:22:15.439
+Manish Dait: Just go… it will just keep this entire thing and just call the…
+
+157
+00:22:15.690 --> 00:22:19.959
+Manish Dait: Super method on the transaction class, and…
+
+158
+00:22:21.230 --> 00:22:23.369
+Manish Dait: Yeah, and then it will, like.
+
+159
+00:22:23.610 --> 00:22:27.270
+Manish Dait: Sign the transaction, and get the response.
+
+160
+00:22:27.390 --> 00:22:42.480
+Manish Dait: By calling the class execute method, and then append the response to the response array. And, finally, it will just return the first index… the response of the first index.
+
+161
+00:22:42.480 --> 00:22:47.460
+Manish Dait: So, like, this is similar to what the JS SDK has done, so I just…
+
+162
+00:22:47.530 --> 00:22:53.399
+Manish Dait: Mimic it here, and this signing function basically saves the…
+
+163
+00:22:54.030 --> 00:23:04.049
+Manish Dait: Signing keys that we have used to sign the transaction, so it can be the submit key that we use to sign the transaction, to use it later.
+
+164
+00:23:04.270 --> 00:23:11.430
+Manish Dait: Whilst, executing the multiple chunk transaction, so that's… that's all.
+
+165
+00:23:14.040 --> 00:23:20.300
+Sophie Bulloch: Oh, I just realized, Priyanshu and Angie… Oh, here as well, hi!
+
+166
+00:23:20.610 --> 00:23:21.740
+Priyanshu Yadav: Hello?
+
+167
+00:23:24.570 --> 00:23:30.420
+Sophie Bulloch: Marnish has been guiding us through his new transaction functionality that he's creating.
+
+168
+00:23:30.660 --> 00:23:34.259
+Sophie Bulloch: Enabling chunking for topic message submits.
+
+169
+00:23:35.750 --> 00:23:38.010
+Angelina Ceppaluni: Oh, that's cool. Awesome.
+
+170
+00:23:40.990 --> 00:23:48.379
+Sophie Bulloch: Manish, what does it mean when it, like, when it returns a first response? Like, what… what is the expected response in that case?
+
+171
+00:23:48.880 --> 00:23:51.690
+Manish Dait: So, so it will be, like,
+
+172
+00:23:53.740 --> 00:24:04.069
+Manish Dait: So it will be, like, the normal response that we get when we submit a message, which contains the topic message chunk. Not the topic message chunk, but, like.
+
+173
+00:24:04.530 --> 00:24:11.309
+Manish Dait: actually, it will contain the transaction IDs, for the response, the status,
+
+174
+00:24:11.440 --> 00:24:14.569
+Manish Dait: If the message is successfully sent or not.
+
+175
+00:24:14.890 --> 00:24:29.729
+Manish Dait: So that's what the response that is sending. And the first response means the, the base, the transaction ID, or the base transaction ID that we use, as the initial transaction ID, so…
+
+176
+00:24:29.730 --> 00:24:30.170
+Sophie Bulloch: Yep.
+
+177
+00:24:30.170 --> 00:24:38.880
+Manish Dait: we just return that as the first response. So, based on that transaction ID, we can just fetch the topic message.
+
+178
+00:24:39.110 --> 00:24:44.140
+Manish Dait: By using, like, by… yes.
+
+179
+00:24:44.270 --> 00:24:48.110
+Manish Dait: Based on that, we can, like, called,
+
+180
+00:24:48.640 --> 00:24:54.199
+Manish Dait: I think it is topic, submit, a query, or something, like, to just…
+
+181
+00:24:55.120 --> 00:24:58.640
+Manish Dait: Validate that if the transaction has been completed or not.
+
+182
+00:25:00.830 --> 00:25:03.940
+Sophie Bulloch: Okay, and then, so how do you test it? Do you create, like, a very long…
+
+183
+00:25:03.940 --> 00:25:06.620
+Manish Dait: Yeah, yeah. I have, like, A very long message.
+
+184
+00:25:06.620 --> 00:25:08.449
+Sophie Bulloch: It's double fail, and then…
+
+185
+00:25:08.610 --> 00:25:14.760
+Manish Dait: Yes, so… I have, like, created an integration test,
+
+186
+00:25:17.340 --> 00:25:25.930
+Manish Dait: Yeah, so here, I have just copied from the Java SDK, so it is like a large content.
+
+187
+00:25:26.580 --> 00:25:32.929
+Sophie Bulloch: Yeah, I thought you learned some Latin.
+
+188
+00:25:34.230 --> 00:25:41.569
+Manish Dait: And, I, like, just… Create a simple message, so… that… create a topic.
+
+189
+00:25:43.540 --> 00:25:51.080
+Manish Dait: Topic, and… yeah, it just creates a topic here, and it, has an, like, message list, so…
+
+190
+00:25:51.440 --> 00:25:54.790
+Manish Dait: To, like, terminate the loop.
+
+191
+00:25:55.090 --> 00:25:57.640
+Manish Dait: like, Yeah.
+
+192
+00:25:58.440 --> 00:26:08.899
+Manish Dait: to, like, terminate the loop here, when we just, like, get the single message content, I just take here a message list, and these are, like.
+
+193
+00:26:09.140 --> 00:26:18.210
+Manish Dait: the… the functions that are called when the message is received, or some error is occur, and…
+
+194
+00:26:18.830 --> 00:26:21.460
+Manish Dait: In the topic message query, I just passed…
+
+195
+00:26:22.410 --> 00:26:38.850
+Manish Dait: the ID, and this enable chunking is important to… if, like, there is a large message, we have to just enable the chunking, or otherwise it will, like, not give us the full content, or the content will be, like, jumbled.
+
+196
+00:26:39.110 --> 00:26:40.020
+Manish Dait: -Oh.
+
+197
+00:26:40.640 --> 00:26:48.529
+Manish Dait: And… yeah, that's, yeah, this is, some timeout here to, like, ensure…
+
+198
+00:26:48.870 --> 00:26:52.950
+Manish Dait: That if… if the message fails to, like, receive
+
+199
+00:26:53.200 --> 00:26:58.179
+Manish Dait: In, like, 120 seconds, just, raise some…
+
+200
+00:26:58.550 --> 00:27:08.950
+Manish Dait: error, so that we can just identify that the test has been failed. Otherwise, we can just assert if the first message
+
+201
+00:27:09.150 --> 00:27:19.910
+Manish Dait: Content is equal to the big content. And, like, that is also the second transaction, by using the topic info, so it basically checks for the number of sequence.
+
+202
+00:27:26.600 --> 00:27:32.869
+Manish Dait: Yeah, so… you're, like… It is just created a…
+
+203
+00:27:34.050 --> 00:27:37.389
+Manish Dait: a long text with a string of the A's, with
+
+204
+00:27:37.730 --> 00:27:43.209
+Manish Dait: Like, 1024 multiplied by 14, that will just result into 14 chunks, and…
+
+205
+00:27:43.590 --> 00:28:02.090
+Manish Dait: we just submit the message, and for the, like, first time, we just call the topic info query, it will just contain the sequence number, that… that… it, like, tells us how many chunks are there in the message. So, for the first time, it will be 0.
+
+206
+00:28:02.190 --> 00:28:06.780
+Manish Dait: But when we, like, send the… Message,
+
+207
+00:28:07.220 --> 00:28:16.349
+Manish Dait: it will be, like, 14 chunks that will be the new chunks that are gone there, so it will be, like, 14. So, that is one test that I have added.
+
+208
+00:28:18.730 --> 00:28:23.880
+Sophie Bulloch: Awesome, yeah, it looks, looks very thorough, looks very well thought out as well, yeah.
+
+209
+00:28:24.190 --> 00:28:26.580
+Sophie Bulloch: Thanks for explaining that, I will…
+
+210
+00:28:26.830 --> 00:28:31.579
+Sophie Bulloch: be able to… yeah, because when somebody creates a pull request, I have to study.
+
+211
+00:28:32.060 --> 00:28:40.530
+Sophie Bulloch: everything from scratch that you are submitting. So, if you create chunking, I need to look at the proto, and I need to basically think about
+
+212
+00:28:41.060 --> 00:28:45.169
+Sophie Bulloch: How would I create it myself? Like, what are you doing and stuff, so…
+
+213
+00:28:45.750 --> 00:28:59.120
+Sophie Bulloch: just being explained how everything links together makes… makes everything so much easier, and yeah, I think I've understood, like, the key… the key ideas is it's going to be a matter of, like, does it work? Is it reasonable? Yeah, so I appreciate that, Manage.
+
+214
+00:28:59.850 --> 00:29:01.539
+Manish Dait: Yeah, thanks, thanks.
+
+215
+00:29:01.920 --> 00:29:07.240
+Sophie Bulloch: What kind of things are you thinking on working on next? Do you… do you have, like, a… Strategy.
+
+216
+00:29:07.240 --> 00:29:07.790
+Manish Dait: Yeah.
+
+217
+00:29:07.790 --> 00:29:08.529
+Sophie Bulloch: You want to do?
+
+218
+00:29:08.530 --> 00:29:10.470
+Manish Dait: I'm, I'm, like,
+
+219
+00:29:10.750 --> 00:29:25.520
+Manish Dait: looking on the hooks implementation from the different SDK, and I think I'll work on them, but, there, like, there will be, like, other changes that, I'd like to add to the SDK as well.
+
+220
+00:29:26.620 --> 00:29:36.149
+Manish Dait: So… Like, there is some class called as create contract flow, in the other SDKs.
+
+221
+00:29:36.300 --> 00:29:55.079
+Manish Dait: And, like, there are some methods missing in the account ID as well, so I'll just create up issues for that, and, like, they are kind of, like, good first issues, so the newcomers or the contributors can just, contribute to the project.
+
+222
+00:29:56.570 --> 00:30:00.609
+Sophie Bulloch: Awesome. Actually, yeah, about the workflow, so I have a question, so…
+
+223
+00:30:00.880 --> 00:30:07.199
+Sophie Bulloch: Sorry, I realize I'm talking too much, so I will… So, in, in the…
+
+224
+00:30:07.310 --> 00:30:12.890
+Sophie Bulloch: In the PR that you submitted, We got co-pilot.
+
+225
+00:30:13.230 --> 00:30:23.329
+Sophie Bulloch: on board to give some feedback, because it's a really big pull request. Can I get, like, your feedback on how… how useful did you find, like, the…
+
+226
+00:30:23.520 --> 00:30:24.060
+Sophie Bulloch: Yeah.
+
+227
+00:30:24.060 --> 00:30:36.930
+Manish Dait: It was, like, really useful, so… I, like, do a lot of typos and, like, spelling mistakes in writing the comments and all the stuff, and it's, like, really helpful.
+
+228
+00:30:37.400 --> 00:30:40.919
+Manish Dait: Also, it, like, identify where the… there is, like.
+
+229
+00:30:41.160 --> 00:30:47.429
+Manish Dait: new line or intent is needed, so it is, like, useful.
+
+230
+00:30:49.910 --> 00:30:53.020
+Sophie Bulloch: Awesome, because, I think Priy, Priyanshu.
+
+231
+00:30:53.210 --> 00:30:59.400
+Sophie Bulloch: actually suggested the idea of, hey, you could have AI look at reviews.
+
+232
+00:31:02.240 --> 00:31:08.879
+Sophie Bulloch: that will save lots and lots of time for, like, an initial review, which I thought was a brilliant idea. I told Hendrik within, like.
+
+233
+00:31:09.230 --> 00:31:12.319
+Sophie Bulloch: 2 minutes, so Hendrik, please, I need… I need an
+
+234
+00:31:14.160 --> 00:31:22.119
+Sophie Bulloch: And he was the one who enabled this feature, but… So, it's like this…
+
+235
+00:31:23.250 --> 00:31:31.320
+Sophie Bulloch: this thing, you have to, like, actually request the review, and I don't think I can actually request the co-pilot review. So, for example…
+
+236
+00:31:32.630 --> 00:31:39.319
+Sophie Bulloch: for example, if I try and type in Copilot, I… yeah, I don't… I don't get anything, so I think there's, like, some permission.
+
+237
+00:31:39.530 --> 00:31:43.959
+Sophie Bulloch: That we need to work through. And then also, in settings, I don't have…
+
+238
+00:31:44.520 --> 00:31:51.900
+Sophie Bulloch: all the ability to add automation? Because ideally, like, everything would be, in my opinion, everything would be, like.
+
+239
+00:31:52.300 --> 00:31:55.639
+Sophie Bulloch: Copilot reviewed Lite in the beginning.
+
+240
+00:31:55.900 --> 00:32:06.179
+Sophie Bulloch: Instead of having to request it every time, because then somebody could have submitted a pull request, and, like, 3 hours later, they get their first review, and it could have just been, like, in the first…
+
+241
+00:32:06.820 --> 00:32:20.439
+Sophie Bulloch: 5 to 10 minutes. So that's kind of where we are. I think the co-pilot thing could be a really good thing. And, Priyansha, you suggested another service which looks really good, and you mentioned it's actually, like, free for…
+
+242
+00:32:21.830 --> 00:32:23.239
+Priyanshu Yadav: Score Revit.
+
+243
+00:32:24.110 --> 00:32:27.100
+Sophie Bulloch: Code, yeah, Code… Code Rabbit AI.
+
+244
+00:32:28.410 --> 00:32:29.050
+Sophie Bulloch: Yeah.
+
+245
+00:32:29.050 --> 00:32:38.360
+Priyanshu Yadav: So, like, I think right now the Hendrik only can run the Copilot wallopard, so you and me can't run this on the PRs, or any other contributor.
+
+246
+00:32:38.510 --> 00:32:49.359
+Priyanshu Yadav: So, yeah, it's the thing. That's why we are not able to run Copilot on every PR. So Hendrik has the, like, administration pass to run Copilot, so it needs that.
+
+247
+00:32:50.600 --> 00:32:51.990
+Priyanshu Yadav: To run that workflow.
+
+248
+00:32:53.760 --> 00:33:00.850
+Sophie Bulloch: Yeah, I'm gonna try and talk with them and see if we can work something out to either do, like, the Code Rabbit, or do the GitHub.
+
+249
+00:33:00.850 --> 00:33:01.190
+Priyanshu Yadav: Hmm.
+
+250
+00:33:01.190 --> 00:33:06.730
+Sophie Bulloch: Have you… have you tried CodePilot and compared it to, like, Code Rabbit before, Brian Shu?
+
+251
+00:33:07.350 --> 00:33:17.449
+Priyanshu Yadav: Yeah, I tried both, but for me, like, CodeRabbit is, like, much better than Copilot, but it's fine, like, we can have both, like, it's fine to us.
+
+252
+00:33:17.570 --> 00:33:22.449
+Priyanshu Yadav: So, like, both works fine. There are some minor things they take care of.
+
+253
+00:33:22.710 --> 00:33:26.560
+Priyanshu Yadav: But yeah, they, like, looks me fine, like, Google Pilot is also good.
+
+254
+00:33:28.190 --> 00:33:28.930
+Sophie Bulloch: Okay.
+
+255
+00:33:30.020 --> 00:33:40.420
+Sophie Bulloch: Yeah, definitely gonna want to do that. So, I've been very vocal about how we've had so many new starters, so if you just look at the
+
+256
+00:33:41.160 --> 00:33:44.439
+Sophie Bulloch: New releases that have happened.
+
+257
+00:33:44.740 --> 00:33:47.149
+Sophie Bulloch: for Python SDK.
+
+258
+00:33:48.030 --> 00:33:49.790
+Sophie Bulloch: And you just see, like.
+
+259
+00:33:50.160 --> 00:33:56.249
+Sophie Bulloch: This one, we had, 5 new starters, but, like, the one before, we had so many.
+
+260
+00:33:56.810 --> 00:34:02.990
+Sophie Bulloch: We've done, like, 3 releases in a month, so there's actually a lot of people involved.
+
+261
+00:34:03.720 --> 00:34:12.989
+Sophie Bulloch: Read more… This race is so long, right? We have so many new contributors and everything.
+
+262
+00:34:13.139 --> 00:34:20.989
+Sophie Bulloch: So I think we're definitely at, like, 40 plus new contributors. That one had, like, 17…
+
+263
+00:34:21.409 --> 00:34:26.940
+Sophie Bulloch: 0.19 has, like, fifth… 17, or something like this again.
+
+264
+00:34:27.219 --> 00:34:34.269
+Sophie Bulloch: So we have so many new starters, and then… so the issue for me is, like, we have so many…
+
+265
+00:34:34.800 --> 00:34:38.380
+Sophie Bulloch: I have to create so many issues to keep up with you guys.
+
+266
+00:34:38.500 --> 00:34:43.499
+Sophie Bulloch: And then you guys create so many pull requests, which is great to see.
+
+267
+00:34:43.780 --> 00:34:46.520
+Sophie Bulloch: So now we need to get smarter on how
+
+268
+00:34:46.960 --> 00:34:51.749
+Sophie Bulloch: How can we still have, like, good… Feedback and everything.
+
+269
+00:34:51.980 --> 00:35:00.099
+Sophie Bulloch: So, one of the questions is how you've been finding the co-pilot, but another thing is, what have you thought about, like, the…
+
+270
+00:35:00.860 --> 00:35:02.000
+Sophie Bulloch: the bots.
+
+271
+00:35:04.450 --> 00:35:17.160
+Sophie Bulloch: So, there's a bot for the workflow bot. Has this been, helpful at all? That's something that I wanted to ask, and we have another one, which is, like, your commits aren't verified.
+
+272
+00:35:18.000 --> 00:35:20.719
+Sophie Bulloch: if I could get some feedback on that, I don't know.
+
+273
+00:35:21.550 --> 00:35:25.019
+Sophie Bulloch: What your thoughts are. Does it actually help you solve the issues?
+
+274
+00:35:28.760 --> 00:35:36.849
+Priyanshu Yadav: I think it's fine, like, the first PR, the person pulls, he should be with just once it notifies key, okay, you should be taking care of these guides.
+
+275
+00:35:37.060 --> 00:35:40.310
+Priyanshu Yadav: And you should be looking on these guides if you face any issue.
+
+276
+00:35:40.440 --> 00:35:45.379
+Priyanshu Yadav: today itself, I mentioned a person, he was, like, filling with DCO signs.
+
+277
+00:35:45.500 --> 00:35:54.419
+Priyanshu Yadav: So, yeah. So it's very useful for… maybe that's useful for them. Sometimes I also see, like, I also get 4. So, for me, it's useful.
+
+278
+00:35:56.900 --> 00:35:57.820
+Sophie Bulloch: Yeah.
+
+279
+00:35:58.120 --> 00:36:01.580
+Sophie Bulloch: Angie, do you have any, like, views on that? I know that
+
+280
+00:36:01.840 --> 00:36:06.589
+Sophie Bulloch: I have one of the things that you wanted to talk about, which is, like, the workflows.
+
+281
+00:36:06.790 --> 00:36:10.309
+Sophie Bulloch: So that's on my list, as well. Do you…
+
+282
+00:36:11.030 --> 00:36:17.760
+Sophie Bulloch: Want to talk about… are you able to talk about, like, the bots and the… Workflows?
+
+283
+00:36:25.910 --> 00:36:28.040
+Sophie Bulloch: Managed as I think, bots are great.
+
+284
+00:36:28.950 --> 00:36:40.739
+Sophie Bulloch: Okay, I'm not sure if Angie's able to speak currently, but when… whenever you are, Angie, send a message. She is traveling at the moment. Okay, I will try and bring up the issues that you wanted to discuss as well.
+
+285
+00:36:41.570 --> 00:36:55.190
+Sophie Bulloch: Yeah, so what I… I think these… the bots and the GitHub co-pilot will free up a lot of time, and that will help us to improve our review process, so we can really give, like, better feedback.
+
+286
+00:36:56.410 --> 00:37:00.170
+Sophie Bulloch: I've created a new issue to create a bot.
+
+287
+00:37:00.770 --> 00:37:05.200
+Sophie Bulloch: To help provide feedback if you have a merge conflict. So, like.
+
+288
+00:37:05.380 --> 00:37:11.329
+Sophie Bulloch: Quite often, this happens, and it's actually quite complicated to solve. It's not always the same process.
+
+289
+00:37:11.760 --> 00:37:15.389
+Sophie Bulloch: So I thought that this could be a really useful one to work on, but it's…
+
+290
+00:37:15.520 --> 00:37:19.240
+Sophie Bulloch: I had… I created the two previous bots.
+
+291
+00:37:19.520 --> 00:37:35.219
+Sophie Bulloch: And Nadine and Manish had to jump in and help through some of it, because, it's actually quite hard to test and make sure everything was working, so I think this one is a little bit difficult, but that would be a great thing, I think, to work on.
+
+292
+00:37:38.930 --> 00:37:41.240
+Sophie Bulloch: With that, okay, so,
+
+293
+00:37:41.740 --> 00:37:49.329
+Sophie Bulloch: In terms of community broader questions, Angie wants to talk about, or wanted to talk about
+
+294
+00:37:49.650 --> 00:37:54.680
+Sophie Bulloch: triggering workflows. So currently, when you submit a pull request.
+
+295
+00:37:55.660 --> 00:37:58.710
+Sophie Bulloch: You have some workflows that don't run.
+
+296
+00:37:59.060 --> 00:38:02.779
+Sophie Bulloch: So you have, like, the title checks that run, and…
+
+297
+00:38:03.580 --> 00:38:11.919
+Sophie Bulloch: These kind of, like, more basic checks that run, but you don't have the, solo tests run, you don't have the examples run.
+
+298
+00:38:12.940 --> 00:38:22.310
+Sophie Bulloch: And Angie wanted to know if there was a way to be able to approve your own workflows, or to make it easier
+
+299
+00:38:22.770 --> 00:38:24.840
+Sophie Bulloch: to run, so that you get feedback.
+
+300
+00:38:25.520 --> 00:38:31.160
+Sophie Bulloch: on that. My personal view is, I don't know how to do that without doing it safely.
+
+301
+00:38:32.240 --> 00:38:41.579
+Sophie Bulloch: Because the workflows give, quite a lot of permissions to the codes that you're submitting.
+
+302
+00:38:42.150 --> 00:38:44.889
+Sophie Bulloch: to run. I don't know, Manish, what do you think about
+
+303
+00:38:45.900 --> 00:38:50.679
+Sophie Bulloch: That, like, is there a way to… Help users, like, request
+
+304
+00:38:50.970 --> 00:38:55.699
+Sophie Bulloch: The workflow feedback, like, the solo test feedback, any faster?
+
+305
+00:38:56.470 --> 00:39:00.140
+Manish Dait: I think I'll need to do some research on that.
+
+306
+00:39:04.790 --> 00:39:05.530
+Sophie Bulloch: Yeah.
+
+307
+00:39:06.180 --> 00:39:14.629
+Sophie Bulloch: You can… I explained to Angie, you can actually run these on your own fork, on your own repo, like, when you…
+
+308
+00:39:14.920 --> 00:39:25.120
+Sophie Bulloch: When you… when you create a pull request, it pushes to your origin, and then it will actually run these behind the scenes, so you can always look at the results there.
+
+309
+00:39:26.120 --> 00:39:28.969
+Sophie Bulloch: You don't necessarily need to look at them here.
+
+310
+00:39:29.240 --> 00:39:35.049
+Sophie Bulloch: But yeah, maybe that's something to think about, like, do we need all the workflows to…
+
+311
+00:39:35.850 --> 00:39:40.370
+Sophie Bulloch: run with permission? Is there anything that we can leave open?
+
+312
+00:39:40.780 --> 00:39:48.080
+Sophie Bulloch: The other community question was… Examples?
+
+313
+00:39:49.350 --> 00:40:00.540
+Sophie Bulloch: So, currently, our examples are really… heavily, like, Exemplified.
+
+314
+00:40:01.280 --> 00:40:04.560
+Sophie Bulloch: So they have, like, lots and lots of detail.
+
+315
+00:40:05.080 --> 00:40:11.099
+Sophie Bulloch: For example, in token burn transaction, we don't only explain how to burn a transaction.
+
+316
+00:40:11.640 --> 00:40:13.570
+Sophie Bulloch: Right, we could just have this.
+
+317
+00:40:14.510 --> 00:40:16.129
+Sophie Bulloch: Actually, maybe just this.
+
+318
+00:40:17.180 --> 00:40:20.540
+Sophie Bulloch: But we actually have all kinds of other things. We have, like, mint.
+
+319
+00:40:20.700 --> 00:40:26.320
+Sophie Bulloch: the NFT, and we have, like, create the NFT, set up the client.
+
+320
+00:40:27.420 --> 00:40:38.520
+Sophie Bulloch: all these other things that maybe are… is… maybe confuses people, I don't know if anyone has any thoughts on that. Do we need to change the way that our examples are done to make them, like.
+
+321
+00:40:39.070 --> 00:40:40.290
+Sophie Bulloch: Dryer?
+
+322
+00:40:41.080 --> 00:40:47.260
+Sophie Bulloch: Shorter? Do we like this longer style? Is there, like, a middle point? What… what would you…
+
+323
+00:40:47.650 --> 00:40:53.060
+Sophie Bulloch: Yeah, does anyone have any ideas on that, what we can do to, like, make things Easier, maybe?
+
+324
+00:40:54.210 --> 00:40:55.490
+Sophie Bulloch: or clearer.
+
+325
+00:41:01.360 --> 00:41:05.690
+Priyanshu Yadav: So, like, I have to look around this. It's from NIO to me.
+
+326
+00:41:13.800 --> 00:41:18.649
+Sophie Bulloch: Oh, okay, Angie says, can you repeat that?
+
+327
+00:41:19.550 --> 00:41:22.980
+Sophie Bulloch: And did you say something as well, Priyanshik? Because I missed… I think I missed it.
+
+328
+00:41:24.640 --> 00:41:28.120
+Priyanshu Yadav: So, it's new to me, so I have to look in this file.
+
+329
+00:41:28.120 --> 00:41:29.900
+Sophie Bulloch: Oh, these are new to you, yeah.
+
+330
+00:41:29.900 --> 00:41:30.600
+Priyanshu Yadav: Okay.
+
+331
+00:41:30.880 --> 00:41:36.480
+Sophie Bulloch: So right now, the method that we've been using is… our examples are end-to-end.
+
+332
+00:41:37.310 --> 00:41:42.889
+Sophie Bulloch: And what that means is, like, okay, you want to burn a… burn an NFT?
+
+333
+00:41:43.380 --> 00:41:47.430
+Sophie Bulloch: Then, we are going to make sure that you can just run.
+
+334
+00:41:47.910 --> 00:41:50.929
+Sophie Bulloch: all of it, and it will burn the NFT.
+
+335
+00:41:51.730 --> 00:42:00.450
+Sophie Bulloch: The problem is, when we burn an NFT, it won't work unless you have an NFT to burn.
+
+336
+00:42:01.320 --> 00:42:05.300
+Sophie Bulloch: And so that then means, like, okay, we first need to create the NFT,
+
+337
+00:42:05.850 --> 00:42:17.230
+Sophie Bulloch: And you need to then mint the NFT so that you can then burn it. So if you want to be able to just click run to burn the NFT, you need to have all these previous steps.
+
+338
+00:42:17.500 --> 00:42:21.249
+Sophie Bulloch: And obviously, you need, like, a Hedera account and everything to…
+
+339
+00:42:21.530 --> 00:42:24.979
+Sophie Bulloch: run these transactions. So that's why our examples are…
+
+340
+00:42:26.410 --> 00:42:31.750
+Sophie Bulloch: Longer than might look like we… That would be ideal.
+
+341
+00:42:32.470 --> 00:42:48.720
+Sophie Bulloch: The other argument we had is, like, these kinds of examples are pretty nice for AIs to learn how to burn NFTs, right? If you want to ask, like, ChatGPT, help me to burn an NFT on the Hedera network using Python?
+
+342
+00:42:49.700 --> 00:42:59.129
+Sophie Bulloch: it will, based on this, if it reads this, it might start to, like, suggest, okay, you probably will need to have the NFT first, and then, you know, mint it.
+
+343
+00:42:59.570 --> 00:43:04.379
+Sophie Bulloch: So that's… that's the current thinking. I… I… I'm personally, I think I'm okay with this.
+
+344
+00:43:05.550 --> 00:43:13.330
+Sophie Bulloch: I don't know whether it's worth adding, like, maybe we can refactor some of the examples to have, like, longer dark strings to explain
+
+345
+00:43:14.180 --> 00:43:20.420
+Sophie Bulloch: why we are taking so many steps, but I don't have any particularly
+
+346
+00:43:21.250 --> 00:43:25.930
+Sophie Bulloch: I think good ideas on that, but it's just kind of like a discussion if anyone has…
+
+347
+00:43:26.420 --> 00:43:28.449
+Sophie Bulloch: Any feedback? Angie, you've put your hand up.
+
+348
+00:43:30.320 --> 00:43:31.490
+Angelina Ceppaluni: Can you hear me?
+
+349
+00:43:32.130 --> 00:43:33.310
+Sophie Bulloch: Yes, perfect.
+
+350
+00:43:33.590 --> 00:43:34.800
+Angelina Ceppaluni: Okay, I'm…
+
+351
+00:43:34.960 --> 00:43:45.919
+Angelina Ceppaluni: It's… I'm sure you guys are aware it's Thanksgiving tomorrow, so forgive me for all of the noise behind me. I just got home from the store, so if you hear… if you can't hear me, please let me know.
+
+352
+00:43:46.240 --> 00:43:50.280
+Angelina Ceppaluni: But I'm wondering, for the amount of…
+
+353
+00:43:50.780 --> 00:44:06.359
+Angelina Ceppaluni: I would say steps that you have to go through just to be able to burn an NFT. Would a video tutorial be useful for those who don't have NFTs and don't want to go through all the steps, and they can just kind of watch the tutorial, and then when it comes time to burning
+
+354
+00:44:06.530 --> 00:44:24.709
+Angelina Ceppaluni: That would be the part that they focus on. I'm wondering if maybe we would be able to kind of do tutorial videos for some of these things, just to kind of help people in terms of understanding, especially those who are more visual learners and like to see the whole flow of everything.
+
+355
+00:44:24.960 --> 00:44:38.879
+Angelina Ceppaluni: It might help them to tie things together, make it easier, versus having to go through every step, especially for those people who don't have NFTs and are relatively new to it and are more or less trying to practice.
+
+356
+00:44:41.790 --> 00:44:45.920
+Sophie Bulloch: Yeah… I, I, I like that.
+
+357
+00:44:46.290 --> 00:44:49.370
+Sophie Bulloch: just thinking, like, how that would work. So, one of the…
+
+358
+00:44:49.780 --> 00:44:54.880
+Sophie Bulloch: ideas is, like, creating, I could move things into a Jupyter notebook.
+
+359
+00:44:56.070 --> 00:45:05.679
+Sophie Bulloch: Where, instead of having, like, all this code, you could just click, okay, I want to run just this section and see what happens. I want to just run this section.
+
+360
+00:45:06.340 --> 00:45:10.720
+Sophie Bulloch: Run this section, or just run the burn section.
+
+361
+00:45:12.810 --> 00:45:24.760
+Sophie Bulloch: So then, ideally, like, even from the website, it's possible that you could just run that. I… I don't know how we would do that, because I imagine we… we are going to need, like.
+
+362
+00:45:24.880 --> 00:45:32.579
+Sophie Bulloch: a super Hedera Portal account that already has NFTs created, and…
+
+363
+00:45:33.080 --> 00:45:41.680
+Sophie Bulloch: and things like that, so that you can just run the parts of the function that you want. I don't know if anyone has any experience, like, creating
+
+364
+00:45:42.480 --> 00:45:44.160
+Sophie Bulloch: these Jupyter notebooks.
+
+365
+00:45:44.960 --> 00:45:48.950
+Sophie Bulloch: styles Maybe that could be a good step forward, we could…
+
+366
+00:45:49.280 --> 00:45:51.719
+Sophie Bulloch: We could do, and yeah, with then…
+
+367
+00:45:51.980 --> 00:45:54.009
+Sophie Bulloch: Then that means we could just easily…
+
+368
+00:45:54.520 --> 00:45:59.169
+Sophie Bulloch: Put, like, a video, like, instead of having a doc string or something, we could just have, like.
+
+369
+00:45:59.620 --> 00:46:03.809
+Sophie Bulloch: This, you know, this does this, because of that, and…
+
+370
+00:46:05.110 --> 00:46:07.650
+Sophie Bulloch: Actually, we could maybe even link to, like.
+
+371
+00:46:08.060 --> 00:46:11.579
+Sophie Bulloch: I'm sure there's, like, Hedera documentations that explain to you.
+
+372
+00:46:11.910 --> 00:46:17.210
+Sophie Bulloch: how to burn an NFT as well, so we could… maybe it's a good thing
+
+373
+00:46:17.430 --> 00:46:20.030
+Sophie Bulloch: I'm just thinking aloud to, to, like…
+
+374
+00:46:20.500 --> 00:46:26.140
+Sophie Bulloch: Standardize our example module docstrings to link.
+
+375
+00:46:26.630 --> 00:46:28.830
+Sophie Bulloch: Information that already exists.
+
+376
+00:46:31.320 --> 00:46:32.840
+Angelina Ceppaluni: And also put videos.
+
+377
+00:46:32.840 --> 00:46:34.130
+Sophie Bulloch: Susan? Yep.
+
+378
+00:46:34.530 --> 00:46:35.470
+Angelina Ceppaluni: Oh, sorry.
+
+379
+00:46:37.460 --> 00:46:38.710
+Sophie Bulloch: No, Angie, after you.
+
+380
+00:46:39.000 --> 00:46:47.009
+Angelina Ceppaluni: I'm wondering if we would be able to put in some kind of link to the Hedera playground.
+
+381
+00:46:47.170 --> 00:46:48.139
+Angelina Ceppaluni: for that.
+
+382
+00:46:49.040 --> 00:46:54.240
+Angelina Ceppaluni: So, like, I know Hendrik told me a little bit about it, I haven't…
+
+383
+00:46:54.430 --> 00:46:59.300
+Angelina Ceppaluni: been able to do too much with it yet, I just haven't had the time.
+
+384
+00:46:59.630 --> 00:47:04.260
+Angelina Ceppaluni: But I'm looking over a few, and it does seem as though it goes over…
+
+385
+00:47:04.620 --> 00:47:13.070
+Angelina Ceppaluni: how to create tokens. It doesn't seem like it's an NFT, more… it would just be, like, your typical token.
+
+386
+00:47:13.670 --> 00:47:22.080
+Angelina Ceppaluni: But I'm wondering if we could potentially do, like, a link to that somehow, where people could run it
+
+387
+00:47:22.330 --> 00:47:28.549
+Angelina Ceppaluni: Through the playground, as opposed to going through gas fees and transactional fees and everything.
+
+388
+00:47:28.860 --> 00:47:31.940
+Sophie Bulloch: Yeah. Is that… Yeah, I mean, ideally.
+
+389
+00:47:31.940 --> 00:47:32.560
+Angelina Ceppaluni: even skin.
+
+390
+00:47:32.950 --> 00:47:37.320
+Sophie Bulloch: Needing your own account, that would be… That'd be pretty nice.
+
+391
+00:47:38.090 --> 00:47:46.239
+Sophie Bulloch: Yeah, I mean, maybe we should just keep… keep talking about this, because it… it does look like we're going to need to research about, like, the…
+
+392
+00:47:46.640 --> 00:47:55.339
+Sophie Bulloch: the playground, we need to research Jupyter Notebooks, we need to research… is there such a thing as, like, a super Hediro Portal account that we could just feed with
+
+393
+00:47:55.750 --> 00:47:58.979
+Sophie Bulloch: semi-unlimited age bars,
+
+394
+00:47:59.440 --> 00:48:06.629
+Sophie Bulloch: Yeah, I don't know if that's possible, but yeah, I think we do need to probably improve the user-friendliness of the examples.
+
+395
+00:48:07.370 --> 00:48:13.739
+Sophie Bulloch: Like, they're pretty nice in many ways, but it can… Can be improved.
+
+396
+00:48:15.450 --> 00:48:17.929
+Angelina Ceppaluni: Yeah, let me…
+
+397
+00:48:18.340 --> 00:48:27.079
+Angelina Ceppaluni: I will ask Hendrik about that, because I know that those testnat accounts, they're funded with something, I just don't know…
+
+398
+00:48:27.430 --> 00:48:30.039
+Angelina Ceppaluni: I can't remember what they are.
+
+399
+00:48:30.270 --> 00:48:32.290
+Angelina Ceppaluni: I wanna say it's, like.
+
+400
+00:48:33.510 --> 00:48:40.429
+Angelina Ceppaluni: like, tiny, tiny bars, I think it's what I'm calling it. I could be saying that completely wrong.
+
+401
+00:48:40.430 --> 00:48:43.110
+Sophie Bulloch: Yeah, like, testnet HBOs?
+
+402
+00:48:43.710 --> 00:48:51.130
+Angelina Ceppaluni: Yeah, the… I just… I don't know… there's HBAR, but then I know there's, like, one other…
+
+403
+00:48:51.310 --> 00:48:57.710
+Angelina Ceppaluni: It's, like, minibar or something? I'm probably saying that so completely wrong.
+
+404
+00:48:58.180 --> 00:49:15.640
+Angelina Ceppaluni: But I think they may run off of, like, testnet HBAR, so we could have users directed here, and they could use those testnet funds to try to run some of these transactions, especially the burn, transaction, to see how that
+
+405
+00:49:15.760 --> 00:49:17.030
+Angelina Ceppaluni: would work.
+
+406
+00:49:17.330 --> 00:49:22.239
+Angelina Ceppaluni: But I can… I can reach out to him and see if that's something we can do.
+
+407
+00:49:23.730 --> 00:49:30.319
+Sophie Bulloch: Yeah, let's, I'll write this down to just keep… keep trying to work on examples over time.
+
+408
+00:49:31.010 --> 00:49:36.439
+Sophie Bulloch: Now, I think now that we've created pretty nice examples in the sense that most of them can now just be run.
+
+409
+00:49:37.460 --> 00:49:41.420
+Sophie Bulloch: Before… before, like, the examples wouldn't necessarily…
+
+410
+00:49:41.620 --> 00:49:45.560
+Sophie Bulloch: Work, just when you ran the script, it was just an illustration.
+
+411
+00:49:45.740 --> 00:49:50.949
+Sophie Bulloch: So, we've advanced a lot with the examples, but yeah, I think we can… we can improve them as well.
+
+412
+00:49:52.230 --> 00:50:02.039
+Sophie Bulloch: Okay, so next on the list is, we had a community idea of a Linux Foundation LFX mentorship.
+
+413
+00:50:02.500 --> 00:50:08.139
+Sophie Bulloch: And we have ongoing issues that talk about the Google Summer of Code.
+
+414
+00:50:08.580 --> 00:50:12.750
+Sophie Bulloch: So I'll just show you here, there is… a developer…
+
+415
+00:50:13.220 --> 00:50:15.579
+Sophie Bulloch: Quite a while back, that's saying, hey.
+
+416
+00:50:15.900 --> 00:50:21.290
+Sophie Bulloch: We should start discussing participating in Google Summer Code, And,
+
+417
+00:50:21.620 --> 00:50:28.079
+Sophie Bulloch: we had the idea of LFX mentorship as well, since, you know, the LFDT is…
+
+418
+00:50:28.430 --> 00:50:30.870
+Sophie Bulloch: like, part of the Linux Foundation.
+
+419
+00:50:31.780 --> 00:50:34.149
+Sophie Bulloch: And we've just started.
+
+420
+00:50:34.840 --> 00:50:38.029
+Sophie Bulloch: Talking about the idea and learning about what that would…
+
+421
+00:50:38.390 --> 00:50:43.979
+Sophie Bulloch: require, and if we would actually be able to support that. So, as far as I understand, we need to have
+
+422
+00:50:44.590 --> 00:50:53.980
+Sophie Bulloch: You need to have, like, a mentee, and the mentee, will be assigned.
+
+423
+00:50:54.530 --> 00:51:02.030
+Sophie Bulloch: A project that is, like, 100 to 300 hours, so it's, like, these massive projects.
+
+424
+00:51:03.160 --> 00:51:07.890
+Sophie Bulloch: And based on that, from what I was told, is that you…
+
+425
+00:51:08.420 --> 00:51:12.290
+Sophie Bulloch: Meet up with them once a week or so online.
+
+426
+00:51:12.630 --> 00:51:17.400
+Sophie Bulloch: And you… you just help them to resolve, like, this… this bigger issue.
+
+427
+00:51:17.770 --> 00:51:24.359
+Sophie Bulloch: I understand that there's a small step… A small payment for the mentees.
+
+428
+00:51:24.480 --> 00:51:29.420
+Sophie Bulloch: to help them with that. I'm not sure if the LFDT will be able to give us
+
+429
+00:51:29.870 --> 00:51:32.599
+Sophie Bulloch: Right, budget to be able to… to do that?
+
+430
+00:51:33.820 --> 00:51:40.800
+Sophie Bulloch: And we have to apply to be able to host one of these these schemes.
+
+431
+00:51:41.410 --> 00:51:53.579
+Priyanshu Yadav: No, no, nothing would be there. The Bazetwala part would be shorted by LFX itself. We have to just list the project on the LFX portal, and the payments would be given by LFX only.
+
+432
+00:51:54.440 --> 00:51:58.669
+Priyanshu Yadav: Okay, so LFX already has the…
+
+433
+00:51:58.980 --> 00:52:00.060
+Sophie Bulloch: money.
+
+434
+00:52:01.990 --> 00:52:05.440
+Sophie Bulloch: IT system to… to do it, we just need to…
+
+435
+00:52:05.670 --> 00:52:10.130
+Sophie Bulloch: Create an application of, like, a project idea for a mentee.
+
+436
+00:52:10.130 --> 00:52:11.640
+Priyanshu Yadav: Yeah. Yeah.
+
+437
+00:52:12.690 --> 00:52:13.760
+Sophie Bulloch: Okay, bye.
+
+438
+00:52:16.460 --> 00:52:21.700
+Sophie Bulloch: And then, do you know… so I assume we're only allowed to have, like, one mentee at a time?
+
+439
+00:52:22.560 --> 00:52:25.019
+Sophie Bulloch: Or do you know if that's more open?
+
+440
+00:52:26.260 --> 00:52:43.509
+Priyanshu Yadav: So, it depends on the projects, how many projects we have going to be listing, like, 2, 3, or 4, 5. Depends on our mentor's availability. So, every project can have one or two mentees, depending on if the one mentee can do that work or not, depending on the difficulty of the work.
+
+441
+00:52:43.880 --> 00:52:50.820
+Priyanshu Yadav: And this is kind of the parameters and metrics we would be using to analyze things, so… depending on that.
+
+442
+00:52:51.110 --> 00:52:52.620
+Priyanshu Yadav: So yeah, up to you.
+
+443
+00:52:53.200 --> 00:52:53.920
+Sophie Bulloch: Okay.
+
+444
+00:52:54.490 --> 00:53:05.700
+Sophie Bulloch: I mean, I was talking with Angie about this a little bit, slightly, that I personally would like to work on creating some kind of training.
+
+445
+00:53:06.930 --> 00:53:13.589
+Sophie Bulloch: scheme for the Hiero Python SDK. I assume that's less technical than would usually
+
+446
+00:53:14.320 --> 00:53:18.739
+Sophie Bulloch: be wanted by, like, one of the LFX mentorships.
+
+447
+00:53:19.460 --> 00:53:27.759
+Sophie Bulloch: But that's something that definitely comes to my mind. Is there anything else, like, Manish or Angie, do you think that there's something in the…
+
+448
+00:53:29.630 --> 00:53:34.300
+Sophie Bulloch: the, project right now, that…
+
+449
+00:53:35.360 --> 00:53:41.599
+Sophie Bulloch: Suggests that this… we could have, like, a big piece of work to… Challenge a new mentee.
+
+450
+00:53:43.290 --> 00:53:45.479
+Sophie Bulloch: We get, we get some ideas going?
+
+451
+00:53:47.830 --> 00:53:55.750
+Angelina Ceppaluni: I would say work with the Proto Buffs. I think a good challenge for them would probably be to…
+
+452
+00:53:55.970 --> 00:54:05.270
+Angelina Ceppaluni: try to create something of its entirety on their own. I'm not exactly sure, like, specifically what that would entail.
+
+453
+00:54:05.390 --> 00:54:09.769
+Angelina Ceppaluni: So, I… I'm trying to think of an example,
+
+454
+00:54:10.370 --> 00:54:14.810
+Angelina Ceppaluni: like, a mini… I'll just do, like, a mini challenge. I guess the…
+
+455
+00:54:14.900 --> 00:54:28.300
+Angelina Ceppaluni: First part of that would be to try to create a protobuf on their own, and then if they run into issues at that point, they'd reach out to the mentee, and the mentee would be there to assist them through the rest of the process.
+
+456
+00:54:28.350 --> 00:54:36.680
+Angelina Ceppaluni: But I think there's definitely a challenge to be had in terms of the area of protobufs, for sure. I think that would be something…
+
+457
+00:54:36.830 --> 00:54:50.419
+Angelina Ceppaluni: very beneficial to mentees, especially because protobufs do make up a very good amount of the SDK, so having a very thorough understanding of that would probably be very beneficial for them.
+
+458
+00:54:50.830 --> 00:55:00.290
+Angelina Ceppaluni: Prayush, Manish, does anybody else have any ideas? I'm trying to think of other ones.
+
+459
+00:55:04.790 --> 00:55:12.319
+Priyanshu Yadav: To me, like, we can just create some issues around, like, multiple issues, and we can pile up them in our project itself.
+
+460
+00:55:12.440 --> 00:55:25.530
+Priyanshu Yadav: And we can assign that to that mentee, simply the person who would be becoming the mentee, and the mentor can take care around that mentee, so it would be easy to bifurcate the work of them, so…
+
+461
+00:55:25.930 --> 00:55:26.650
+Priyanshu Yadav: Yeah.
+
+462
+00:55:30.600 --> 00:55:34.709
+Sophie Bulloch: So, I realize Manage said, I also think the same Manage for… for which one?
+
+463
+00:55:38.660 --> 00:55:47.890
+Manish Dait: I think, like, creating the issues, into, like, some difficult issues into a chunk will be great for that.
+
+464
+00:55:54.150 --> 00:55:58.199
+Sophie Bulloch: Yeah, I… I mean, with the Proto Buffs, I…
+
+465
+00:55:58.330 --> 00:56:02.010
+Sophie Bulloch: I imagine, we might need some training.
+
+466
+00:56:03.210 --> 00:56:04.280
+Sophie Bulloch: T…
+
+467
+00:56:04.280 --> 00:56:07.340
+Angelina Ceppaluni: Me too. Right there with you.
+
+468
+00:56:07.340 --> 00:56:09.380
+Sophie Bulloch: To mentor someone and just, like.
+
+469
+00:56:09.930 --> 00:56:13.849
+Priyanshu Yadav: Yeah, like, this mentorship program bring… sorry?
+
+470
+00:56:13.970 --> 00:56:28.630
+Priyanshu Yadav: So, these mentorship program brings contribute, like, one, like, 15 days before it starts, so it's very hard to train around them, around protobufs. So, it would be very, like, we should be initially starting with the
+
+471
+00:56:28.690 --> 00:56:38.939
+Priyanshu Yadav: Like, some base, like, not easy one, but, medium to high-level difficulty, so the contributor can, like, understand around the things.
+
+472
+00:56:39.230 --> 00:56:46.350
+Priyanshu Yadav: So, for once, the more contributors come and they go working with things, we can start with protobufs also.
+
+473
+00:56:47.010 --> 00:56:50.599
+Priyanshu Yadav: So we can put ProtoWeb in the Phase 2, or, like.
+
+474
+00:56:50.860 --> 00:57:10.010
+Priyanshu Yadav: next mentorship term, because these mentorship terms goes, like, three… three times in a year, so this, like, January term would be the term one, so we can apply with two or three projects. Then there would be a summer term also, then there would be a, like, in September, there would be third term. So we would be continuing getting new mentees.
+
+475
+00:57:10.760 --> 00:57:13.909
+Priyanshu Yadav: So for that, that's the thing I was mentioning.
+
+476
+00:57:14.320 --> 00:57:19.250
+Sophie Bulloch: I mean, I think Manish might know more about this, but, I was looking at
+
+477
+00:57:19.640 --> 00:57:25.640
+Sophie Bulloch: the Python SDK compared to the JavaScript SDK for token associate, token associate, that kind of thing, and…
+
+478
+00:57:25.870 --> 00:57:27.890
+Sophie Bulloch: I noticed that they have…
+
+479
+00:57:28.270 --> 00:57:40.449
+Sophie Bulloch: They have, like, everything's very similar, but they also have, like, a little bit more support, so quite often they will also have from protobuf methods, they have, like, checksums, they have
+
+480
+00:57:40.820 --> 00:57:56.640
+Sophie Bulloch: things that I think we're starting to do, but we… we… when we created the transactions, we were like, okay, what's the essentials? Let's just get this started, and they've… they've added more things at the time. So I can definitely imagine that there's work to do to, like.
+
+481
+00:57:56.970 --> 00:57:59.509
+Sophie Bulloch: Aim to create more, more parity.
+
+482
+00:58:00.050 --> 00:58:02.320
+Sophie Bulloch: With the JavaScript SDK?
+
+483
+00:58:02.670 --> 00:58:07.770
+Sophie Bulloch: Manage, is that, like, your impression as well? Do you think we could actually have, like.
+
+484
+00:58:08.040 --> 00:58:11.130
+Sophie Bulloch: 100 hours of content worth of work.
+
+485
+00:58:11.130 --> 00:58:12.720
+Manish Dait: yeah, yeah.
+
+486
+00:58:12.950 --> 00:58:16.109
+Manish Dait: I actually think, like, there will be, like,
+
+487
+00:58:16.310 --> 00:58:29.900
+Manish Dait: various new implementations and methods that, are, like, not currently in the Python SDK, which, we can… we can, like, find in the JavaScript SDK. Also, like.
+
+488
+00:58:30.410 --> 00:58:33.480
+Manish Dait: Currently, there are some new,
+
+489
+00:58:33.930 --> 00:58:40.360
+Manish Dait: Transactions, or the entities that, they are creating.
+
+490
+00:58:40.830 --> 00:58:43.530
+Manish Dait: So, yeah, yeah, there will be, like,
+
+491
+00:58:44.140 --> 00:58:48.030
+Manish Dait: some content for the mentee program.
+
+492
+00:58:49.550 --> 00:59:04.810
+Sophie Bulloch: Okay, yeah, maybe that's… maybe that's the, like, most natural thing to do, so then we're going to have to go through all the transactions and figure out… figure out what's missing compared to the JavaScript SDK, type them all up, and then create some kind of scheme of work, so…
+
+493
+00:59:05.740 --> 00:59:11.790
+Sophie Bulloch: I imagine that's going to require a few more conversations to… to get right.
+
+494
+00:59:12.330 --> 00:59:19.149
+Sophie Bulloch: Yeah, I don't know if you guys have any, like, spare time, we could maybe, like.
+
+495
+00:59:19.320 --> 00:59:28.689
+Sophie Bulloch: divide up, like, one person just looks at the token transactions and have a look and compare them to the JavaScript SDK.
+
+496
+00:59:30.170 --> 00:59:33.820
+Sophie Bulloch: list all the findings? Maybe we could,
+
+497
+00:59:34.070 --> 00:59:40.360
+Sophie Bulloch: This is my computer? Yeah, okay. Maybe we could… Create, like, a discussion?
+
+498
+00:59:41.590 --> 00:59:53.240
+Sophie Bulloch: Possibly, where we add, like, ideas… for, like…
+
+499
+00:59:53.480 --> 00:59:57.310
+Sophie Bulloch: Achieving higher functionality for existing transactions.
+
+500
+00:59:58.350 --> 01:00:00.640
+Sophie Bulloch: parity with other SDKs?
+
+501
+01:00:03.640 --> 01:00:10.560
+Sophie Bulloch: Because I know if you create a good first issue, like, there's a lot of documentation to do, but maybe we could just add a chat like this?
+
+502
+01:00:11.260 --> 01:00:16.159
+Sophie Bulloch: And we could say, here is the space to describe
+
+503
+01:00:17.280 --> 01:00:24.229
+Sophie Bulloch: For any transaction or query, That currently is missing.
+
+504
+01:00:24.650 --> 01:00:26.930
+Sophie Bulloch: functionality compared…
+
+505
+01:00:27.970 --> 01:00:34.210
+Sophie Bulloch: to the JavaScript SDK, or the Go SDK, or Java, or, you know, whatever it is, we could…
+
+506
+01:00:34.440 --> 01:00:43.900
+Sophie Bulloch: We could maybe do something like that to just informally… work together to… To start going through them.
+
+507
+01:00:44.960 --> 01:00:47.520
+Sophie Bulloch: Yeah, it was a big…
+
+508
+01:00:47.740 --> 01:00:51.339
+Sophie Bulloch: big amount of work to get one person to do it. Angie, you've got your hand up.
+
+509
+01:00:52.900 --> 01:01:06.309
+Angelina Ceppaluni: I'm wondering if it would be a good idea to find just one SDK, and then use that as a basis for the rest of them. So, for example, if the JavaScript SDK has all the
+
+510
+01:01:06.540 --> 01:01:17.310
+Angelina Ceppaluni: like, the higher functionality and existing transactional work that we're looking for at Dev Horn. I'm wondering if it would be a good idea to try to
+
+511
+01:01:17.470 --> 01:01:24.729
+Angelina Ceppaluni: maybe mirror that same thing for the SDKs of Python and Java and all that.
+
+512
+01:01:25.670 --> 01:01:30.710
+Sophie Bulloch: Okay, maybe we can just start with, like, token transactions? Or any token transaction?
+
+513
+01:01:31.880 --> 01:01:35.960
+Sophie Bulloch: That is not at parity with the JavaScript SDK?
+
+514
+01:01:37.080 --> 01:01:45.389
+Angelina Ceppaluni: Do we have a token transaction in mind that's not up to par with the JavaScript SDK?
+
+515
+01:01:45.390 --> 01:01:46.220
+Sophie Bulloch: No.
+
+516
+01:01:46.220 --> 01:01:52.289
+Angelina Ceppaluni: I don't… I don't… haven't looked very much at the other SDKs, so I'm not sure off the top of my head.
+
+517
+01:01:54.070 --> 01:02:04.810
+Sophie Bulloch: Oh, yeah, what we need to do is we need to go through the Python SDK, look at all the transactions we have, compare them to the JavaScript SDK for that transaction, and, like, list, hey, we're missing from proto in this.
+
+518
+01:02:04.810 --> 01:02:05.390
+Angelina Ceppaluni: Okay.
+
+519
+01:02:06.750 --> 01:02:17.510
+Sophie Bulloch: Yeah, maybe we can work on that, like, together. I'll just put this here to see if we do get some traction from the community that is able to help with that, and then that way, I think we could end up supporting
+
+520
+01:02:18.200 --> 01:02:20.170
+Sophie Bulloch: A mentee.
+
+521
+01:02:21.150 --> 01:02:24.650
+Sophie Bulloch: Because we need… we need to just… Get.
+
+522
+01:02:24.920 --> 01:02:29.030
+Sophie Bulloch: All the work that has to be done for them, and that…
+
+523
+01:02:30.140 --> 01:02:34.049
+Sophie Bulloch: I can try and do some of it, but I also have to do some of, like, the reviews.
+
+524
+01:02:34.470 --> 01:02:42.089
+Sophie Bulloch: some of the bots, some of the training and stuff, so… I'll need some help with that, so I'll just create that there and see.
+
+525
+01:02:42.580 --> 01:02:47.340
+Sophie Bulloch: See if anybody is able to find something, we can go through it systematically.
+
+526
+01:02:49.450 --> 01:03:06.970
+Angelina Ceppaluni: if that would be a good task, for mentees, in terms of helping them get familiar with the SDKs, having them go through it to see what's missing, and then letting us know. And then from there, we can kind of work with them and help them out to make it
+
+527
+01:03:07.250 --> 01:03:13.990
+Angelina Ceppaluni: Similar to, I guess, the Java SDK, or JavaScript SDK, if that's gonna be our basis.
+
+528
+01:03:15.550 --> 01:03:23.770
+Sophie Bulloch: Yeah, I think that's great. We need to see if we are allowed to do that with the LFX application. Maybe we actually need to be quite detailed and…
+
+529
+01:03:24.440 --> 01:03:29.700
+Sophie Bulloch: And everything, but yeah, yeah, I think that's the case. We've completely overrun, so…
+
+530
+01:03:30.090 --> 01:03:38.360
+Sophie Bulloch: So I appreciate everyone, all your ideas. So we've definitely got some challenges, right? We've got scaling challenges, we've got new transactions to do, we have…
+
+531
+01:03:38.930 --> 01:03:49.559
+Sophie Bulloch: parity to solve, we have the workflows and everything. It's a good time to be involved with the Python SDK, but… but, yeah. Also, we're gonna need to be…
+
+532
+01:03:50.140 --> 01:03:59.140
+Sophie Bulloch: work… work more together and, be a little bit smarter with how we work through everything. So, yeah, I appreciate everyone coming in today.
+
+533
+01:03:59.850 --> 01:04:02.919
+Sophie Bulloch: And, yeah, see you next week!
+
+534
+01:04:04.240 --> 01:04:05.590
+Sophie Bulloch: Thank you very much.
+
+535
+01:04:06.250 --> 01:04:08.149
+Angelina Ceppaluni: Bye, everybody. Have a good one.
+
+536
+01:04:08.150 --> 01:04:09.850
+Priyanshu Yadav: Thank you, thank you for joining.
+
+537
+01:04:09.850 --> 01:04:11.119
+Manish Dait: Hi, thank you.
+

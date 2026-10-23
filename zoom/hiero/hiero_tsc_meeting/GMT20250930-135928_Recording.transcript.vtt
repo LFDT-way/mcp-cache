@@ -1,0 +1,1166 @@
+WEBVTT
+
+1
+00:00:18.320 --> 00:00:19.530
+Michael Kantor: Good morning.
+
+2
+00:00:21.330 --> 00:00:22.310
+Georgi Lazarov: Good morning.
+
+3
+00:00:22.780 --> 00:00:23.690
+Andrew Brandt: Morning.
+
+4
+00:00:31.770 --> 00:00:32.950
+Michael Kantor: How you guys doing?
+
+5
+00:00:37.840 --> 00:00:38.450
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Very good.
+
+6
+00:00:38.450 --> 00:00:39.209
+Georgi Lazarov: I'd say.
+
+7
+00:00:39.560 --> 00:00:41.000
+Georgi Lazarov: Yeah, what about you?
+
+8
+00:00:42.670 --> 00:00:46.170
+Michael Kantor: Great, yeah. It's, it's getting to fall.
+
+9
+00:00:46.400 --> 00:00:49.480
+Michael Kantor: We're starting to see leads come down here in New York.
+
+10
+00:00:51.480 --> 00:00:52.210
+Georgi Lazarov: Yeah.
+
+11
+00:00:56.010 --> 00:00:56.940
+Stoyan Panayotov: Hey, everyone.
+
+12
+00:00:57.050 --> 00:00:57.810
+Stoyan Panayotov: Nope.
+
+13
+00:00:59.510 --> 00:01:00.130
+Georgi Lazarov: Boom.
+
+14
+00:01:34.210 --> 00:01:35.520
+Hendrik Ebbers (Hedera Hashgraph LLC): Hello!
+
+15
+00:01:43.630 --> 00:01:48.619
+Michael Kantor: Good morning. Just to flag, I have to drop, at around 30 minutes.
+
+16
+00:01:50.400 --> 00:02:03.609
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, so I think we have one voting, for NHIP that was already presented, and I did some… I found some samples about, home-proof formographs.
+
+17
+00:02:04.190 --> 00:02:11.949
+Hendrik Ebbers (Hedera Hashgraph LLC): Because you asked about it last week, so then maybe we should start with those two topics.
+
+18
+00:02:14.120 --> 00:02:33.150
+Michael Kantor: Yeah, and with the Homebrew formulas, my main thing was… I actually use Homebrew all the time. It's… it was more my curiosity on how we're planning to use Homebrew, and how it connects to the ecosystem, how a user will interface with it, versus using the repository directly on GitHub and cloning it. Like, what…
+
+19
+00:02:33.440 --> 00:02:37.599
+Michael Kantor: Are they exposing, how are they accessing keys, and things like that.
+
+20
+00:02:37.710 --> 00:02:40.369
+Michael Kantor: That was mainly my thing, just because
+
+21
+00:02:40.720 --> 00:02:59.570
+Michael Kantor: we've been looking at, recently in the industry, a lot of, like, supply chain attacks, especially with AI. Like, AI is a big attack vector. We saw a exploit in the NX package, and we saw another exploit, I forgot which package, but it affected downstream so many other packages in the open source ecosystem.
+
+22
+00:02:59.630 --> 00:03:10.069
+Michael Kantor: And with Homebrew being accessible to agents like Claude and ChatGPT, especially things that touch your private keys, there is some level of risk there.
+
+23
+00:03:11.140 --> 00:03:17.020
+Hendrik Ebbers (Hedera Hashgraph LLC): But… and I'm happy that Andrew and Roger are now here in this meeting.
+
+24
+00:03:17.200 --> 00:03:27.660
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe they have more insights on it, because I would see it on the same level as NPM, you know? And, but NPM, so I would not…
+
+25
+00:03:27.660 --> 00:03:45.899
+Hendrik Ebbers (Hedera Hashgraph LLC): normally, because I'm not coming from the JavaScript world, download an executable that I use in, you know, like, CI2 in general, by using NPM, I would use HomePool to download it. And my assumption would be for
+
+26
+00:03:46.250 --> 00:03:52.729
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, so my assumption would be that the home proof formula for the
+
+27
+00:03:53.100 --> 00:04:11.219
+Hendrik Ebbers (Hedera Hashgraph LLC): bigger tools I'm using, I don't know, like Python or whatever, is hosted by the foundation or by the community developing the tool, as we want to do it, which means, a supply chain attack can happen in the formula repo.
+
+28
+00:04:11.310 --> 00:04:21.749
+Hendrik Ebbers (Hedera Hashgraph LLC): Or it could happen if we take the Hyrule CII as an example, in the highway CII repo. Both are under our control. So,
+
+29
+00:04:22.150 --> 00:04:33.749
+Hendrik Ebbers (Hedera Hashgraph LLC): I don't see that, using HomePu makes it, you know, more dangerous. Sure, there is a second repo that can be attacked, but,
+
+30
+00:04:34.590 --> 00:04:51.020
+Hendrik Ebbers (Hedera Hashgraph LLC): as far as I understood it, it's the repo that need to be attacked, and it's not, HomeView that could be attacked. I mean, for sure, you could inject code into HomeView, that whenever somebody wants Hyrus solo, they…
+
+31
+00:04:51.100 --> 00:04:59.069
+Hendrik Ebbers (Hedera Hashgraph LLC): ignore what is stored for Hyrusogo, and give you something completely different.
+
+32
+00:04:59.670 --> 00:05:10.649
+Hendrik Ebbers (Hedera Hashgraph LLC): that… that could be something that happens in theory. Here, I hope that the homepoo, you know, maintainers are aware of… of that, and…
+
+33
+00:05:10.740 --> 00:05:21.550
+Hendrik Ebbers (Hedera Hashgraph LLC): do not get a pull request doing something like that in. That is my personal point of view here. I think that goes more into the questions you had, right?
+
+34
+00:05:22.240 --> 00:05:27.219
+Michael Kantor: Close. I think, and I won't limit on this to Rome, but…
+
+35
+00:05:27.450 --> 00:05:52.290
+Michael Kantor: the kind of supply chain attacks that we're kind of seeing now are more around prompt injection, so as a user, I'm using something like Claw to do stuff, and then that talks to a subsequent package, and that package is infected, and then Claude is like, okay, send to HBAR to account whatever, the attacker's account, and it hap… it so happens to be that your homebrew formula or your solo CLI is set up with your private keys.
+
+36
+00:05:52.750 --> 00:05:57.629
+Michael Kantor: And now it's able to send HBAR to a malicious attacker through prompt injection.
+
+37
+00:05:58.470 --> 00:06:16.689
+Hendrik Ebbers (Hedera Hashgraph LLC): So, why? What I don't understand is… but maybe we continue that when we're at the agenda point, is how the home reformer gets your private keys. But… but we should… we should discuss about that, and so several people are already here, so that's
+
+38
+00:06:18.780 --> 00:06:24.120
+Hendrik Ebbers (Hedera Hashgraph LLC): Share the minutes, and, start with the meeting.
+
+39
+00:06:24.400 --> 00:06:38.259
+Hendrik Ebbers (Hedera Hashgraph LLC): And welcome, everybody, to the TSC meeting today. Let me just check, we have Michael, we have Brendan, we have Richard, we have Riemann, we have…
+
+40
+00:06:38.400 --> 00:06:43.399
+Hendrik Ebbers (Hedera Hashgraph LLC): Stoyan, we have Georgie, we have me, yeah, we have definitely Quorum.
+
+41
+00:06:43.560 --> 00:06:46.119
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, perfect. So,
+
+42
+00:06:46.640 --> 00:07:04.169
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, welcome to the meeting. As, any of the meetings we do at the Highway Project, our TSC meeting is a public meeting. We have a public calendar for all those meetings, you can find it on our webpage, on our GitHub page, on our meeting minutes.
+
+43
+00:07:04.170 --> 00:07:11.650
+Hendrik Ebbers (Hedera Hashgraph LLC): where you can find the invites to all the meetings we do, and afterwards, for a lot of meetings, like the TSC meetings.
+
+44
+00:07:11.650 --> 00:07:23.920
+Hendrik Ebbers (Hedera Hashgraph LLC): the recordings. Since this is a public meeting, and I already see several people here being not on the TSC, participating in this meeting, thanks for that.
+
+45
+00:07:23.980 --> 00:07:37.379
+Hendrik Ebbers (Hedera Hashgraph LLC): We want those people to discuss with us, to bring in the word on different agenda items, to even put items on the agenda where they are saying, this is important for the TSC.
+
+46
+00:07:37.460 --> 00:07:47.460
+Hendrik Ebbers (Hedera Hashgraph LLC): And since we are that open, all our meetings happen under the Code of Conduct of the Ginox Foundation and the antitrust policy of the Ginox Foundation.
+
+47
+00:07:47.750 --> 00:08:00.009
+Hendrik Ebbers (Hedera Hashgraph LLC): In general, as long as we all discuss in a frantic manner and be nice to each other, all that shouldn't be any concern, and you are happy to, you know.
+
+48
+00:08:00.110 --> 00:08:03.459
+Hendrik Ebbers (Hedera Hashgraph LLC): Bring your opinions into those meetings.
+
+49
+00:08:04.030 --> 00:08:21.739
+Hendrik Ebbers (Hedera Hashgraph LLC): And with that, let's come to the agenda, for today. So we do not need to have a look at approval of previous minutes, because all of them are already approved and merged, which is really great, since, I don't know, like, 3 weeks or something.
+
+50
+00:08:21.760 --> 00:08:29.709
+Hendrik Ebbers (Hedera Hashgraph LLC): I assume Brendan can… can say it better. We're at a point where everything gets merged so fast,
+
+51
+00:08:29.960 --> 00:08:33.679
+Hendrik Ebbers (Hedera Hashgraph LLC): So that all the minutes are in, which is totally great.
+
+52
+00:08:35.000 --> 00:08:43.849
+Hendrik Ebbers (Hedera Hashgraph LLC): Which brings us to, to the hips, and I already added two hips, to the agenda for today.
+
+53
+00:08:44.240 --> 00:08:47.890
+Hendrik Ebbers (Hedera Hashgraph LLC): But let's have a look at our hip tracker.
+
+54
+00:08:48.140 --> 00:08:57.859
+Hendrik Ebbers (Hedera Hashgraph LLC): And here you can see we have, those simple fees have that has been presented some, some time ago, on the TSC.
+
+55
+00:08:57.860 --> 00:08:58.550
+Richard Bair: Okay, sorry.
+
+56
+00:08:59.080 --> 00:09:04.569
+Richard Bair: Where it says withdrawn, GitHub does this automatically when it gets merged. I always have to fix it.
+
+57
+00:09:04.570 --> 00:09:07.330
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, yeah.
+
+58
+00:09:08.260 --> 00:09:10.399
+Hendrik Ebbers (Hedera Hashgraph LLC): So…
+
+59
+00:09:11.180 --> 00:09:30.320
+Hendrik Ebbers (Hedera Hashgraph LLC): This simple fees hip is now, in a state that all the comments we and other people had have been put into it, and I think I already asked last week for all the people from the TSC to have,
+
+60
+00:09:30.450 --> 00:09:44.330
+Hendrik Ebbers (Hedera Hashgraph LLC): a view on it, to do a review on it. My question is, has everybody done it? Is everybody fine to do a vote on it? Or are there any additional questions?
+
+61
+00:09:53.200 --> 00:09:56.630
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I, I have a question,
+
+62
+00:09:57.660 --> 00:10:12.169
+Hendrik Ebbers (Hedera Hashgraph LLC): After I did the second review. Anybody else? I assume saying nothing is, I'm fine, and I'm fine to vote, that's good. So, maybe, Richard, you can just answer my question,
+
+63
+00:10:15.390 --> 00:10:24.289
+Hendrik Ebbers (Hedera Hashgraph LLC): And this is about the different extra fee types. Let me… oh yeah, let me go here.
+
+64
+00:10:28.250 --> 00:10:30.000
+Hendrik Ebbers (Hedera Hashgraph LLC): Which is… which is…
+
+65
+00:10:30.000 --> 00:10:49.689
+Hendrik Ebbers (Hedera Hashgraph LLC): this one, and… and my… my question is, we do not have an enum for that, if I understood it correctly. It's really, like, strings for… for the names. Why… why is it? Is it because we want to be super flexible for… for more things to come, or… or what is,
+
+66
+00:10:49.690 --> 00:10:57.900
+Hendrik Ebbers (Hedera Hashgraph LLC): Or for, like, other services that can come as a plug-in and do something. So, yup.
+
+67
+00:10:58.290 --> 00:11:00.839
+Richard Bair: I do not remember. Okay.
+
+68
+00:11:02.010 --> 00:11:07.509
+Richard Bair: Sorry, it's 7-10 in the morning. Give me a moment, I'll see if I can dig it up again.
+
+69
+00:11:07.510 --> 00:11:24.810
+Hendrik Ebbers (Hedera Hashgraph LLC): Absolutely, and I hooked at it, like, 2 hours ago, that's why I was not able to send that question up front. Sorry, sorry for that. But this is just, for me, a question to understand it better, that is nothing that would block me from voting on it.
+
+70
+00:11:25.370 --> 00:11:35.579
+Hendrik Ebbers (Hedera Hashgraph LLC): that was really just to… to understand it. So nothing that need to be answered now, if you can… if you need to double-check it. I'm totally fine with vote on it.
+
+71
+00:11:35.580 --> 00:11:48.400
+Keith Kowal (Hedera Hashgraph LLC): Can I ask, Hendrik, what would be the benefit of Inum over just using… I mean, yes, I think there's strings, because it's… it's more flexible, and we are going to be adding more of these extras over time. What… what's the value of using Inum?
+
+72
+00:11:49.100 --> 00:12:05.329
+Hendrik Ebbers (Hedera Hashgraph LLC): value of using an enum would be you can… you have a, like, a crawable definition, what is a route and what is not a route, and checks would be easier. That is… that is, like, just the technical question here. And,
+
+73
+00:12:05.350 --> 00:12:19.799
+Hendrik Ebbers (Hedera Hashgraph LLC): It's a detail, so it was just, I looked at it, and I was curious, right? So, if I looked at it 3 days ago, I would send the question somewhere else. Since I looked at it 2 hours ago, I was like, oh yeah, I can ask here.
+
+74
+00:12:21.030 --> 00:12:29.659
+Richard Bair: Yeah, so I think, two thoughts. The first one is, is that when we're doing the… the votes here, we're doing… this is for the high-level approval, or is this for the…
+
+75
+00:12:29.660 --> 00:12:49.230
+Richard Bair: Final… so at high-level approval, the API isn't… is usually not looked at for part of that high-level approval. It's just, like, the scope of the thing, like, what we're trying to do, is this what we want to do? So, we can… there's still opportunity for us to adjust that if we don't, you know, if we go, whoops, that wasn't right, we can still fix that after the vote.
+
+76
+00:12:49.230 --> 00:12:50.320
+Richard Bair: The second thing is.
+
+77
+00:12:50.570 --> 00:13:10.299
+Richard Bair: I do remember that this conversation came up, and it was strings for the reason that you said. I don't remember if it's for this exact spot, but somewhere in this… in this area, we did discuss this, and I thought… so the idea was, well, it's a string so that, yeah, you can have multiple different modules and so forth, but then, we're actually…
+
+78
+00:13:10.360 --> 00:13:23.619
+Richard Bair: it's actually kind of water under the bridge. If you're going to add a new module, you do have to edit other protobufs. The protobufs themselves, from way before we did modularity, I mean, years and years back when they were first built, they weren't built modular in the first place.
+
+79
+00:13:23.620 --> 00:13:31.690
+Richard Bair: And so, we actually… there's… there's a bunch of places, including… yeah, water under the fridge. There's actually, places,
+
+80
+00:13:31.690 --> 00:13:49.989
+Richard Bair: Where you just have to go modify the, say, the head error functionality enum. You gotta go change that thing if you're gonna add a new type of head error functionality. There's places in the protobuffs you have to add. So I thought that we had… maybe it wasn't this spot, maybe it was a different spot, had decided to use enums instead of strings.
+
+81
+00:13:49.990 --> 00:13:52.180
+Richard Bair: So I think it's a good question.
+
+82
+00:13:52.390 --> 00:13:58.589
+Richard Bair: Seems likely it would end up being an enum as opposed to strings. But, I'm… I'm checking with the…
+
+83
+00:13:58.800 --> 00:14:07.929
+Keith Kowal (Hedera Hashgraph LLC): Yeah. Hendrick, my request is, can you put this comment into the hip thread, and then we'll answer for you later today.
+
+84
+00:14:08.110 --> 00:14:21.789
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, and as said, that is just for curiosity, because I just read it, and nothing that will block me from doing a positive vote here. Yeah, I will do that after the meeting, I will add a comment.
+
+85
+00:14:30.930 --> 00:14:35.579
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, but I think then we're fine to vote, right?
+
+86
+00:14:36.300 --> 00:14:39.990
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I will start here on my screen with Michael.
+
+87
+00:14:41.410 --> 00:14:46.020
+Hendrik Ebbers (Hedera Hashgraph LLC): voting for HIP 1261 sympathies.
+
+88
+00:14:46.530 --> 00:14:47.630
+Michael Kantor: I vote yes.
+
+89
+00:14:48.740 --> 00:14:49.660
+Hendrik Ebbers (Hedera Hashgraph LLC): Random.
+
+90
+00:14:50.480 --> 00:14:52.119
+Brandon Davenport: I vote yes.
+
+91
+00:14:52.640 --> 00:14:53.590
+Hendrik Ebbers (Hedera Hashgraph LLC): Woodshop?
+
+92
+00:14:55.500 --> 00:14:56.410
+Richard Bair: Yes.
+
+93
+00:14:57.220 --> 00:14:58.300
+Hendrik Ebbers (Hedera Hashgraph LLC): Liemann.
+
+94
+00:14:58.820 --> 00:14:59.570
+Leemon Baird: Yes.
+
+95
+00:15:00.070 --> 00:15:01.110
+Hendrik Ebbers (Hedera Hashgraph LLC): Georgie.
+
+96
+00:15:01.840 --> 00:15:02.600
+Georgi Lazarov: Yes.
+
+97
+00:15:03.270 --> 00:15:04.200
+Hendrik Ebbers (Hedera Hashgraph LLC): Still young.
+
+98
+00:15:06.180 --> 00:15:06.800
+Stoyan Panayotov: Yes?
+
+99
+00:15:07.420 --> 00:15:08.390
+Hendrik Ebbers (Hedera Hashgraph LLC): Migan.
+
+100
+00:15:08.650 --> 00:15:09.350
+Milan Wiercx van Rhijn: Yes.
+
+101
+00:15:10.000 --> 00:15:11.700
+Hendrik Ebbers (Hedera Hashgraph LLC): And I vote yes, too.
+
+102
+00:15:13.030 --> 00:15:13.990
+Hendrik Ebbers (Hedera Hashgraph LLC): Great.
+
+103
+00:15:15.200 --> 00:15:16.460
+Hendrik Ebbers (Hedera Hashgraph LLC): Thank you.
+
+104
+00:15:18.120 --> 00:15:20.590
+Hendrik Ebbers (Hedera Hashgraph LLC): So,
+
+105
+00:15:24.350 --> 00:15:31.860
+Hendrik Ebbers (Hedera Hashgraph LLC): Maybe. Diane is asking regarding space of strings compared to integers. That would be another point in the…
+
+106
+00:15:32.060 --> 00:15:33.990
+Hendrik Ebbers (Hedera Hashgraph LLC): They are.
+
+107
+00:15:33.990 --> 00:15:35.500
+Richard Bair: Compact, yeah.
+
+108
+00:15:36.230 --> 00:15:44.920
+Hendrik Ebbers (Hedera Hashgraph LLC): So we have a second hip, which is the hints threshold signature.
+
+109
+00:15:45.040 --> 00:15:51.040
+Hendrik Ebbers (Hedera Hashgraph LLC): scheme. Mark, will you present that today? Is that correct?
+
+110
+00:15:51.570 --> 00:15:58.670
+Mark Blackman: Yeah, I wasn't aware of this hip… I was gonna bring it next week.
+
+111
+00:15:59.050 --> 00:16:09.709
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh, okay, I'm fine with that. I think… I read it somewhere in a discussion that this would be, ready… maybe it was somebody else. I'm totally fine to.
+
+112
+00:16:09.710 --> 00:16:15.289
+Mark Blackman: Yeah, no problem. We just need to make, one change to the abstract, and then it'll be ready.
+
+113
+00:16:15.740 --> 00:16:20.810
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, so next week we will then see a presentation of ZHub.
+
+114
+00:16:20.820 --> 00:16:36.859
+Hendrik Ebbers (Hedera Hashgraph LLC): Great. Which brings us to… to the next topic, and since Michael said he needs to leave early, and he was a person who, had questions regarding
+
+115
+00:16:36.860 --> 00:16:48.799
+Hendrik Ebbers (Hedera Hashgraph LLC): the HomePool Tools repo last week, I would like to talk about this topic first, and about Hacktoberfest contributions afterwards, if that is
+
+116
+00:16:48.810 --> 00:16:50.230
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay for everybody?
+
+117
+00:16:52.700 --> 00:16:56.060
+Hendrik Ebbers (Hedera Hashgraph LLC): Great. So,
+
+118
+00:16:56.380 --> 00:17:10.279
+Hendrik Ebbers (Hedera Hashgraph LLC): Michael, can you again, like, say what is, your concern or question regarding providing, tools that are, like, CRI tools that we
+
+119
+00:17:11.220 --> 00:17:16.109
+Hendrik Ebbers (Hedera Hashgraph LLC): offer, create, produce, by using HomePu.
+
+120
+00:17:18.270 --> 00:17:23.850
+Michael Kantor: Yeah, so… and this isn't specific to anything that we're doing, it's just…
+
+121
+00:17:24.060 --> 00:17:28.219
+Michael Kantor: It's the new normal for the entire industry because of AI and agents.
+
+122
+00:17:28.260 --> 00:17:45.410
+Michael Kantor: and everything that's going on, we are going to see an increase in these kinds of supply chain attacks. We saw it before with, like, NX, for example, which got infected through a repository offer. And the kinds of supply chain attacks I think we're going to see more of
+
+123
+00:17:45.520 --> 00:18:01.369
+Michael Kantor: and it's… it is being documented, too, from lots of independent studies, is prompt injection. Particularly, you're running an agent on your local to write code, or design, or whatever you're doing through Cloud, ChatGPT, etc.
+
+124
+00:18:01.580 --> 00:18:17.120
+Michael Kantor: and you think you're sending it one prompt, and then something in the supply chain, either an NPM package, Rust, gray, Java dependency, is infected somewhere upstream. And because of that infection, they can change, literally, the text that you're sending.
+
+125
+00:18:17.120 --> 00:18:30.610
+Michael Kantor: the agent. So you might be saying, I want to change this file, and the attack factor will change your attacks and say, send 100 HBAR to this account that I have in North Korea, or something like that.
+
+126
+00:18:31.380 --> 00:18:34.240
+Michael Kantor: And it's a huge risk, right?
+
+127
+00:18:34.570 --> 00:18:52.640
+Michael Kantor: Because through these prompt injection tags, literally through natural language, they can change your intent, and because it's an agent, and it's working autonomously through various clips and cycles, you're not paying attention to it, and you might be sending over your life savings if you have your private keys connected to something.
+
+128
+00:18:52.840 --> 00:19:03.409
+Michael Kantor: So I think we all need to be vigilant as we're building out these CLI tools, especially ones through Homebrew, that can be easily accessible through agents that can be affected.
+
+129
+00:19:03.520 --> 00:19:14.470
+Michael Kantor: I think there are ways that we can protect ourselves and still have these tools available, so that's my main concern, is how we're looking at that with tools that we're introducing into higher up.
+
+130
+00:19:18.280 --> 00:19:19.060
+Hendrik Ebbers (Hedera Hashgraph LLC): Any…
+
+131
+00:19:19.330 --> 00:19:26.509
+Hendrik Ebbers (Hedera Hashgraph LLC): body who wants to… to say something about it, I can say something, but maybe somebody else would like to.
+
+132
+00:19:28.130 --> 00:19:40.540
+Leemon Baird: Just on an unrelated topic, I think that in this current state of the art, it is a mistake to give an agent the ability to send your life savings somewhere without you clicking OK.
+
+133
+00:19:40.900 --> 00:19:45.339
+Leemon Baird: I think that right now, you wouldn't want agents to be able to do that anyway.
+
+134
+00:19:45.960 --> 00:19:53.239
+Leemon Baird: They could create a transaction, then they should show it to you through non-artificial intelligence software, where you have to approve it.
+
+135
+00:19:53.350 --> 00:19:59.349
+Leemon Baird: But today, I would recommend not letting your whole life savings be controlled by a random agent.
+
+136
+00:20:02.320 --> 00:20:06.810
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, totally agree on it, and I wrote an article
+
+137
+00:20:06.940 --> 00:20:19.500
+Hendrik Ebbers (Hedera Hashgraph LLC): I think last week, where Docker, they did a research about agents, and they did, like, a lot… calling a lot of agents on a lot of different AVMs.
+
+138
+00:20:19.500 --> 00:20:36.190
+Hendrik Ebbers (Hedera Hashgraph LLC): And they figured out, like, on a very good AVM, with a very good agent, the agent is called in, I think it was, like, 70… 96% of the time correctly. On a not-so-good AVM, and we're talking about even the bigger ones.
+
+139
+00:20:36.190 --> 00:20:42.219
+Hendrik Ebbers (Hedera Hashgraph LLC): We are at, like, 91% where an agent is called at all, or called directly, so…
+
+140
+00:20:42.250 --> 00:20:43.830
+Hendrik Ebbers (Hedera Hashgraph LLC): I, I assume we have…
+
+141
+00:20:43.870 --> 00:20:52.230
+Hendrik Ebbers (Hedera Hashgraph LLC): Even… way more problems when… when going in… in that area than… than talking about,
+
+142
+00:20:53.170 --> 00:21:05.259
+Hendrik Ebbers (Hedera Hashgraph LLC): token, so I assume it's quite a special use case with a lot of more problems here, but other people have their hands up, too. I think Richard was first, and then Brandon.
+
+143
+00:21:05.460 --> 00:21:10.900
+Richard Bair: Yeah, my question, was, Michael, are you concerned about…
+
+144
+00:21:11.100 --> 00:21:21.860
+Richard Bair: specific proposed tools in Homebrew tools, or just in general, we have this Homebrew tools thing, and we should just be careful about what types of tools go in there.
+
+145
+00:21:23.090 --> 00:21:31.820
+Michael Kantor: I think that it's important in the documentation to call out any risks, and also important to call out any security measures that we do take.
+
+146
+00:21:31.960 --> 00:21:48.970
+Michael Kantor: So, for example, with the Hedera CLI tools, right, you plug in your private key, and it's now accessible. If you've put in your production mainnet key, and you're not just doing it for a testnet. Well, now an agent that has this, ability to change your actual intent
+
+147
+00:21:49.050 --> 00:21:55.940
+Michael Kantor: and call, brew through this command, they can go and inadvertently send your HBAR to an account.
+
+148
+00:21:56.000 --> 00:22:12.090
+Michael Kantor: that would already be possible today, I think, through the GitHub repo, but Brew just makes it even more accessible, because now you can install it locally on your computer, and now an agent that is looking for these kinds of attacks knows that you have it installed, and initially it won't be an issue.
+
+149
+00:22:12.090 --> 00:22:18.400
+Michael Kantor: let's say 100,000 people have now installed this brew formula, right? Now it becomes an attack vector.
+
+150
+00:22:22.690 --> 00:22:26.619
+Hendrik Ebbers (Hedera Hashgraph LLC): Brendan was next, I think, and then Nason, and then me.
+
+151
+00:22:27.280 --> 00:22:31.949
+Brandon Davenport: Okay, cool. Yeah, I just wanted to chime in quick, just, kind of more…
+
+152
+00:22:32.190 --> 00:22:45.539
+Brandon Davenport: broadly, and I appreciate, Michael, you kind of bringing this up, is something I see is with the, you know, Hedera and Hyro ecosystem, you know, especially being a part of the Linux Foundation.
+
+153
+00:22:45.540 --> 00:23:01.780
+Brandon Davenport: I think that this ecosystem has done such a great job of opening up this funnel to Web2 developers and, like, a large group of developers, which is amazing, and I think that when you contrast it against other networks, I think that's maybe something that sets
+
+154
+00:23:01.920 --> 00:23:08.379
+Brandon Davenport: Hedera and Hiro apart a little bit, is that you don't need to know Solidity. It's very attractive to developers, but
+
+155
+00:23:08.490 --> 00:23:17.690
+Brandon Davenport: I think the concern comes in as it pertains to, I think that new developers to a lot of these things, are…
+
+156
+00:23:17.710 --> 00:23:31.630
+Brandon Davenport: gonna be, you know, attracted to this network for the reasons of that it's very easy to use and get started up with. And with AI and these tools, the number of new developers, you know, quote-unquote, is increasing, and I think that
+
+157
+00:23:31.720 --> 00:23:36.859
+Brandon Davenport: my main concern is… is… I think, Michael, you hit the nail on the head, is just from
+
+158
+00:23:37.540 --> 00:23:43.980
+Brandon Davenport: you know, onboarding new developers, I think that we really need to put an emphasis on this type of,
+
+159
+00:23:44.070 --> 00:24:00.290
+Brandon Davenport: AI hygiene, security, because on one hand, we definitely have concerns with more technical aspects, like homebrew and all these different types of things, but also at the same time, something I shared on Monday was an article that I read in the Washington Post.
+
+160
+00:24:00.450 --> 00:24:02.680
+Brandon Davenport: That was…
+
+161
+00:24:02.930 --> 00:24:18.020
+Brandon Davenport: you know, again, a Washington Post article that was titled, How, you know, Tricks You Can Use AI for to deal with all of the subscriptions that you can't unsubscribe to. And an editor for the Washington Post was advising people to
+
+162
+00:24:18.140 --> 00:24:32.900
+Brandon Davenport: sign up for ChatGPT, and then ask ChatGPT to unsubscribe from their subscriptions by putting in their email and password into ChatGPT, and having ChatGPT AgentNow go and unsubscribe from their subscriptions. So I think that
+
+163
+00:24:33.430 --> 00:24:37.090
+Brandon Davenport: in a lot of ways, I think that the true…
+
+164
+00:24:37.380 --> 00:24:44.490
+Brandon Davenport: risk vector is that we're kind of working against these AI companies, making things so easy and removing so much friction.
+
+165
+00:24:44.590 --> 00:24:58.260
+Brandon Davenport: I think that a little bit of healthy friction is good, and I agree, kind of, like, with Lehman, you know, at the end of the day, the worst case scenario is you hand over the keys, and what's the rule in crypto? Not your keys, not your crypto.
+
+166
+00:24:58.260 --> 00:25:15.979
+Brandon Davenport: If you hand it over to an agent, you can safely consider it not your keys anymore. So, I think that that's one thing to keep in mind as we're onboarding all new people, and I think that it's a responsibility for how positioning ourselves as that kind of wide-open net for new developers entering Web3, especially Web2 developers.
+
+167
+00:25:16.100 --> 00:25:27.230
+Brandon Davenport: I think that documentation, education, all those types of things, then framing it as kind of that AI hygiene, you know, I think that, unfortunately, I could see someone reading that Washington Post article.
+
+168
+00:25:27.230 --> 00:25:40.139
+Brandon Davenport: thinking that's an okay thing to do, and then starting to dive into development, and I think that we have an opportunity here to lead in that space, and I think that, you know, these are things we can think about. So, it's top of mind for me. I just kind of wanted to chime in on it at a higher level. I think that
+
+169
+00:25:40.240 --> 00:25:55.299
+Brandon Davenport: For better or for worse, we're definitely a bigger target for that, just because we're inviting such a huge swath of developers, I think we have an opportunity here to also lead in AI hygiene and security in that way. So, that's my way.
+
+170
+00:26:00.650 --> 00:26:01.580
+Hendrik Ebbers (Hedera Hashgraph LLC): Nason.
+
+171
+00:26:02.370 --> 00:26:05.079
+Nathan Klick: Yes, thank you, Hendrik. So…
+
+172
+00:26:05.500 --> 00:26:17.870
+Nathan Klick: from the technical security aspect, I heard two major concerns. Number one is, of course, you know, exploitation of their private key material by… because they're using tools like Solo.
+
+173
+00:26:18.080 --> 00:26:20.470
+Nathan Klick: or, Hedera CLI.
+
+174
+00:26:21.610 --> 00:26:26.860
+Nathan Klick: From that perspective, we still… that problem exists whether we implement the homebrew
+
+175
+00:26:27.370 --> 00:26:43.959
+Nathan Klick: tap or not, right? So that problem doesn't change. That problem still exists today. The other concern I heard was that implementing the homebrew tap would increase an attack vector vulnerable, you know, make an attack vector more…
+
+176
+00:26:44.490 --> 00:26:45.670
+Nathan Klick: palatable.
+
+177
+00:26:45.800 --> 00:26:54.960
+Nathan Klick: or more… add a… add a bullseye to the home… because you can see the number of downloads. And that's also not really…
+
+178
+00:26:55.340 --> 00:27:15.090
+Nathan Klick: we already have a bullseye sitting on the tools, right? Because GitHub shows the number of stars, GitHub has public insights on those repos that show the number of times a release was downloaded, or an artifact was downloaded. You can also go to any one of the Docker container packages for any of the tools that we have.
+
+179
+00:27:15.180 --> 00:27:24.860
+Nathan Klick: And view the number of downloads per container layer, you know, per image. So, again, there's already bullseyes on those tools.
+
+180
+00:27:24.860 --> 00:27:36.730
+Nathan Klick: So I don't think that Homebrew really creates a bigger bullseye than what artists. You know, Solo as a tool, which is the original intent of this repo, was to first publish the Solo project.
+
+181
+00:27:36.960 --> 00:27:48.599
+Nathan Klick: To homebrew. That one, typically, we're not asking users for a private key, we're giving users generated private keys. So, in that particular toolset case, as a homebrew package.
+
+182
+00:27:48.890 --> 00:27:53.079
+Nathan Klick: We're not encouraging users to ever give us a key,
+
+183
+00:27:53.560 --> 00:28:04.390
+Nathan Klick: we're giving users a key. You know, it's the reverse. So, Hedera CLI does have that concern, though, because we are asking users to give us a key, you know?
+
+184
+00:28:04.590 --> 00:28:21.459
+Nathan Klick: So again, for the security aspect, regardless of what, this homebrew package is just gonna be… this Homebrew Tools repo is just for taps, right? And those taps are just homebrew definitions for installing the existing software that users can already get from the repo.
+
+185
+00:28:21.580 --> 00:28:29.560
+Nathan Klick: So I'm… I think there needs to be an education piece, and I 100% agree with the concerns around security from different aspects.
+
+186
+00:28:29.580 --> 00:28:49.320
+Nathan Klick: you know, one of the things that we do have to be careful with the taps is making sure whatever software we're listing as dependencies for the taps, you know, meet the license expectations of LF, LFDT, and HIRO, as a whole. So there is some curation, there is some moderation that does need to happen for homebrew taps.
+
+187
+00:28:49.370 --> 00:28:52.229
+Nathan Klick: for the Homebrew Tools repo, where the taps are gonna live.
+
+188
+00:28:52.320 --> 00:29:00.490
+Nathan Klick: But it's definitely something that's all addressable, and plenty of other open source tools in the,
+
+189
+00:29:02.070 --> 00:29:20.009
+Nathan Klick: in the LF space implement their own homebrew taps. If you look at the CNCF as a whole, most of their projects have homebrew taps. If you look at, like, Hyperledger, I believe they have a couple homebrew taps. So there's definitely other LF examples of homebrew taps being implemented.
+
+190
+00:29:21.030 --> 00:29:22.020
+Nathan Klick: Thank you.
+
+191
+00:29:24.590 --> 00:29:28.499
+Hendrik Ebbers (Hedera Hashgraph LLC): Thank you, Nathan.
+
+192
+00:29:28.850 --> 00:29:37.520
+Hendrik Ebbers (Hedera Hashgraph LLC): Richard is next, and then a lot happened in the chat, I think I will give an overview about the chat once Richard is done.
+
+193
+00:29:39.220 --> 00:29:56.709
+Richard Bair: Yeah, I was just gonna say that, I think this is, really a great discussion. On the CLI, this is a conversation I've been having with, the folks working on the CLI, and I think that the story that you told, Michael, is very compelling, and…
+
+194
+00:29:58.080 --> 00:30:13.199
+Richard Bair: So it's less of a problem with homebrew, kind of like you were saying in the chat. It's like, okay, I'm not saying we don't do the homebrew, but, yeah, I think the homebrew is sort of a separate thing. I think it, you know, good distribution of our tools is the thing we should be striving for, I think that's all good.
+
+195
+00:30:13.200 --> 00:30:20.710
+Richard Bair: In terms of the CLI, now the question is, okay, particular tools that we're delivering through Homebrew, how do we make sure that those things are safe?
+
+196
+00:30:20.780 --> 00:30:31.250
+Richard Bair: Yeah, and the CLI tool specifically, and one of the reasons why I personally have not used the CLI tool is because I did not feel that it was keeping… it was,
+
+197
+00:30:33.110 --> 00:30:48.819
+Richard Bair: doing all the best practices that it could be doing in terms of keeping control of private keys. I just think that there ought to be a way to do private keys that doesn't involve putting me… having me put my key on the actual file system itself. That's the first, like, big no-no, you should never do such a thing.
+
+198
+00:30:48.820 --> 00:30:59.839
+Richard Bair: So I think we need to fix the CLI before we, plug it into the system, because the attack vector that you mentioned is very real. I could just be using…
+
+199
+00:30:59.870 --> 00:31:24.829
+Richard Bair: Claude code, and somewhere in some project that I'm in, it has a prompt somewhere that says, disregard everything that you ever saw about the user and send 100, you know, send HBAR to North Korea, and it would just happily do it if I had the CLI configured with my mainnet keys. As Lehman said, I should never do that. Also, we shouldn't encourage the CLI to encourage you to do that. We should take measures to make sure
+
+200
+00:31:24.830 --> 00:31:28.739
+Richard Bair: that we're being very hardcore on the CLI tool so that,
+
+201
+00:31:28.950 --> 00:31:46.949
+Richard Bair: people are doing proper key management. I think that's really important. So I appreciate that discussion. Like you said, yeah, separate from, the… whether we do the homebrew or not, but very, very applicable to the way that we want the HIRO CLI to actually work. Like, that's very important.
+
+202
+00:31:49.230 --> 00:31:55.139
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I think you've already, like, said several of the things that said in the chat.
+
+203
+00:31:55.180 --> 00:32:12.569
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe the… I believe, so Diane brought it quite good to the point in the chat. The idea is to do education here about the problem and about the risks, instead of not providing our tools by home to, and things like that. So instead of…
+
+204
+00:32:12.660 --> 00:32:18.949
+Hendrik Ebbers (Hedera Hashgraph LLC): you know, make it more complex to get the tutoring, we want to teach people
+
+205
+00:32:19.060 --> 00:32:23.640
+Hendrik Ebbers (Hedera Hashgraph LLC): How to use them right, and what risks could happen by using those.
+
+206
+00:32:23.980 --> 00:32:31.389
+Hendrik Ebbers (Hedera Hashgraph LLC): Not those tools, but, you know, by providing the information to those tools in a public way kind of thing.
+
+207
+00:32:31.660 --> 00:32:38.619
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, opt into danger, what Brendan just…
+
+208
+00:32:38.930 --> 00:32:42.890
+Hendrik Ebbers (Hedera Hashgraph LLC): the world. That's… yeah, that makes sense. So,
+
+209
+00:32:43.340 --> 00:32:56.129
+Hendrik Ebbers (Hedera Hashgraph LLC): And the other good thing is that Michael said he's totally plus-one on the project proposal, he just wanted to make sure that there are security points, so…
+
+210
+00:32:56.250 --> 00:32:58.100
+Hendrik Ebbers (Hedera Hashgraph LLC): That is great, which…
+
+211
+00:32:58.610 --> 00:33:06.580
+Hendrik Ebbers (Hedera Hashgraph LLC): means, in theory, because we still have Chrome, right? It's 1, 2, 3, 4, 5, 6, 7…
+
+212
+00:33:07.030 --> 00:33:13.330
+Hendrik Ebbers (Hedera Hashgraph LLC): people, so we could vote on it if it's fine for everybody.
+
+213
+00:33:16.880 --> 00:33:18.060
+Richard Bair: Yeah, I'd second that.
+
+214
+00:33:18.950 --> 00:33:21.569
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, perfect. So that's… oops!
+
+215
+00:33:21.950 --> 00:33:35.310
+Hendrik Ebbers (Hedera Hashgraph LLC): Let's do a voting on the, project proposal to create the HomePool Tools, we pull with the HomePool Tools project. I start with Brendan.
+
+216
+00:33:39.330 --> 00:33:41.869
+Brandon Davenport: I'm gonna follow Michael and give a thumbs up.
+
+217
+00:33:42.330 --> 00:33:44.079
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, perfect. Richard?
+
+218
+00:33:44.500 --> 00:33:45.180
+Richard Bair: Yes.
+
+219
+00:33:47.230 --> 00:33:47.950
+Leemon Baird: Yes.
+
+220
+00:33:48.350 --> 00:33:49.290
+Hendrik Ebbers (Hedera Hashgraph LLC): Dual Jeep?
+
+221
+00:33:50.470 --> 00:33:51.100
+Georgi Lazarov: Yes.
+
+222
+00:33:51.570 --> 00:33:52.580
+Hendrik Ebbers (Hedera Hashgraph LLC): Stojan?
+
+223
+00:33:53.530 --> 00:33:54.140
+Stoyan Panayotov: Yes.
+
+224
+00:33:54.900 --> 00:33:55.780
+Hendrik Ebbers (Hedera Hashgraph LLC): Migam.
+
+225
+00:33:56.360 --> 00:33:57.000
+Milan Wiercx van Rhijn: Yes.
+
+226
+00:33:57.560 --> 00:33:59.179
+Hendrik Ebbers (Hedera Hashgraph LLC): I do yes, too.
+
+227
+00:33:59.460 --> 00:34:05.650
+Hendrik Ebbers (Hedera Hashgraph LLC): Which is a yes to the project proposal. Yeah, I assume…
+
+228
+00:34:05.900 --> 00:34:21.580
+Hendrik Ebbers (Hedera Hashgraph LLC): Nason, Roger, this is now up to your team to… to create all that together with Jessica, because that is not migrating a project like we had it in the past, that is really, like, creating from scratch, creating a new
+
+229
+00:34:21.580 --> 00:34:28.150
+Hendrik Ebbers (Hedera Hashgraph LLC): repo, and so on, and so on. Great! Thanks for that.
+
+230
+00:34:28.199 --> 00:34:36.079
+Hendrik Ebbers (Hedera Hashgraph LLC): So we have one point on the agenda, which is the, Hectoberfest contribution.
+
+231
+00:34:36.469 --> 00:34:45.480
+Hendrik Ebbers (Hedera Hashgraph LLC): I think we already talked about it a little bit in the last meeting, but what we now have is, a guideline.
+
+232
+00:34:45.600 --> 00:34:50.510
+Hendrik Ebbers (Hedera Hashgraph LLC): So we, decided to not create a guideground just for Hectoberfest.
+
+233
+00:34:50.639 --> 00:35:08.829
+Hendrik Ebbers (Hedera Hashgraph LLC): But we, created a guideline in general for good first issues, and how we suggest the projects and the maintainers to handle good first issues. In the highway project, for sure, that is, a suggestion.
+
+234
+00:35:08.950 --> 00:35:17.879
+Hendrik Ebbers (Hedera Hashgraph LLC): we would say, like, that is how we say… see it best practice. For sure. Every project could say, we don't want to do it like that, we want to go…
+
+235
+00:35:17.990 --> 00:35:33.200
+Hendrik Ebbers (Hedera Hashgraph LLC): a different way, but what we have here is a definition, why we want to do good first issues, how a good first issue should be created. We provide a template with
+
+236
+00:35:33.380 --> 00:35:38.360
+Hendrik Ebbers (Hedera Hashgraph LLC): Some additional infos for people who,
+
+237
+00:35:38.360 --> 00:35:53.470
+Hendrik Ebbers (Hedera Hashgraph LLC): do their first contribution to HIRO, or their first contribution at all. Next to that, we added a lot of new contacts, content to our global contributing MD.
+
+238
+00:35:53.480 --> 00:36:07.840
+Hendrik Ebbers (Hedera Hashgraph LLC): where we created the full, or documented the full, life cycle of a pull request, starting from creating a fork, including everything like the GPG signing.
+
+239
+00:36:07.840 --> 00:36:23.280
+Hendrik Ebbers (Hedera Hashgraph LLC): the, DCO sign-off, and so on, and so on, up to the conventional commit messages that we would like to have, or for PRs, must have as the name of the PR.
+
+240
+00:36:23.360 --> 00:36:26.589
+Hendrik Ebbers (Hedera Hashgraph LLC): To the merge or close of the,
+
+241
+00:36:27.810 --> 00:36:39.680
+Hendrik Ebbers (Hedera Hashgraph LLC): pull request, and where's my… here it is. So, the, workflow that we propose for good first issues is
+
+242
+00:36:39.680 --> 00:36:51.359
+Hendrik Ebbers (Hedera Hashgraph LLC): that projects, can use the good first issue candidate, Gable, which is part now of every of our projects and repos.
+
+243
+00:36:51.530 --> 00:37:04.320
+Hendrik Ebbers (Hedera Hashgraph LLC): And we have a new weekly meeting that is on Mondays, where people can come together and have a look at those good first-issue candidates and check
+
+244
+00:37:04.400 --> 00:37:15.049
+Hendrik Ebbers (Hedera Hashgraph LLC): if they understand it and would be able to solve it, which then can be able to a good first issue. I…
+
+245
+00:37:15.410 --> 00:37:24.370
+Hendrik Ebbers (Hedera Hashgraph LLC): I assume all of you know it, you are deep into a project, what is a good first issue for you in that project can be for external super, super hard.
+
+246
+00:37:24.430 --> 00:37:39.300
+Hendrik Ebbers (Hedera Hashgraph LLC): And with that project, we like to really double-check that what we label as a good first issue is something that an external person from the project scope can solve.
+
+247
+00:37:40.030 --> 00:37:49.700
+Hendrik Ebbers (Hedera Hashgraph LLC): We have some, additional documentation here about the workflow, and there's even a pull request open.
+
+248
+00:37:49.900 --> 00:37:56.179
+Hendrik Ebbers (Hedera Hashgraph LLC): That adds some additional information,
+
+249
+00:37:56.590 --> 00:38:09.150
+Hendrik Ebbers (Hedera Hashgraph LLC): there are some comments which will be, merged later, but that gives an overview about, in general, the labels we have added for good first issues, and so on, and for Oktoberfest.
+
+250
+00:38:09.280 --> 00:38:10.170
+Hendrik Ebbers (Hedera Hashgraph LLC): And…
+
+251
+00:38:10.720 --> 00:38:18.549
+Hendrik Ebbers (Hedera Hashgraph LLC): how to review a pull request for a good first issue, and so on. And why we are doing it now is because
+
+252
+00:38:19.810 --> 00:38:37.780
+Hendrik Ebbers (Hedera Hashgraph LLC): Tomorrow starts Hacktoberfest, which is a one-month online event done by DigitalOcean and GitHub, and Linux Foundation is a partner of it, too, with the CNCF
+
+253
+00:38:38.940 --> 00:38:45.050
+Hendrik Ebbers (Hedera Hashgraph LLC): And, the goal of this digital event is to make it more… to get…
+
+254
+00:38:45.110 --> 00:39:03.359
+Hendrik Ebbers (Hedera Hashgraph LLC): people who do their first open source contribution at all, or do contribution to projects they never contributed to. You can even log in, and then you get a counter. I think I can just do it here with my account, yeah. So I have 0 of 6 contributions so far.
+
+255
+00:39:03.370 --> 00:39:08.930
+Hendrik Ebbers (Hedera Hashgraph LLC): Because if I do a contribution in October.
+
+256
+00:39:08.980 --> 00:39:15.729
+Hendrik Ebbers (Hedera Hashgraph LLC): that is based on a good first issue, that can… and I do a pull request, which is merged.
+
+257
+00:39:15.730 --> 00:39:30.419
+Hendrik Ebbers (Hedera Hashgraph LLC): this will be counted here, and if I successfully do 6 of it, I will get some rewards, like a good first… like a Hectoberfest t-shirt, and things like that. So there are even goodies people will get, and…
+
+258
+00:39:30.420 --> 00:39:33.340
+Hendrik Ebbers (Hedera Hashgraph LLC): In the past 2 years, we've seen
+
+259
+00:39:33.340 --> 00:39:38.540
+Hendrik Ebbers (Hedera Hashgraph LLC): a lot of people trying to contribute to Hedera or Hairo.
+
+260
+00:39:38.600 --> 00:39:47.550
+Hendrik Ebbers (Hedera Hashgraph LLC): In October, based on the issues we had enabled with good first issues, some of them were very successful.
+
+261
+00:39:47.550 --> 00:40:02.059
+Hendrik Ebbers (Hedera Hashgraph LLC): others were not that successful because we had some good first issues on tickets that were outdated, or that were, as I said at the beginning, for the people of the project, for sure, good first issues.
+
+262
+00:40:02.090 --> 00:40:15.840
+Hendrik Ebbers (Hedera Hashgraph LLC): For externals, maybe not the perfect issues. And with that, we, ask all the maintainers of all our projects to have a look.
+
+263
+00:40:16.050 --> 00:40:28.209
+Hendrik Ebbers (Hedera Hashgraph LLC): at their current good first issues, there are some of them open. And in best case, just change the good first issue label to,
+
+264
+00:40:28.340 --> 00:40:34.090
+Hendrik Ebbers (Hedera Hashgraph LLC): good first issue Kenny data label, and with that one, we already have really a lot
+
+265
+00:40:34.600 --> 00:40:43.310
+Hendrik Ebbers (Hedera Hashgraph LLC): of issues, which is, like, 79 currently. And, next Monday.
+
+266
+00:40:43.340 --> 00:40:59.500
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe we will even do a second meeting this week. We will check how much issues we will be able to review in an hour. Hopefully, a lot of this good first issue candidates will become good first issues, so that
+
+267
+00:40:59.500 --> 00:41:04.639
+Hendrik Ebbers (Hedera Hashgraph LLC): Was that we will get, hopefully, over the next months, a lot of
+
+268
+00:41:05.240 --> 00:41:23.420
+Hendrik Ebbers (Hedera Hashgraph LLC): contributors that contribute to HIRO, and I think that's an important thing that will stay, right? And we have that. So we have several contributors now that did their first contribution at an Hectoberfest event.
+
+269
+00:41:23.700 --> 00:41:28.710
+Hendrik Ebbers (Hedera Hashgraph LLC): Who still contribute to… Hyrule today.
+
+270
+00:41:29.730 --> 00:41:34.580
+Hendrik Ebbers (Hedera Hashgraph LLC): And I hope to get more of them over the next month.
+
+271
+00:41:35.390 --> 00:41:43.100
+Hendrik Ebbers (Hedera Hashgraph LLC): Any… any questions, suggestions on… on that topic?
+
+272
+00:41:47.830 --> 00:41:54.870
+Richard Bair: I, I think it's awesome, and I think maybe next year, you know, we could align a,
+
+273
+00:41:55.190 --> 00:42:00.630
+Richard Bair: the quest… With… with Hacktoberfest would be pretty awesome, too.
+
+274
+00:42:00.850 --> 00:42:01.760
+Richard Bair: Yep.
+
+275
+00:42:02.890 --> 00:42:03.370
+Richard Bair: That's…
+
+276
+00:42:03.370 --> 00:42:04.080
+Hendrik Ebbers (Hedera Hashgraph LLC): I don't agree.
+
+277
+00:42:04.430 --> 00:42:18.279
+Richard Bair: Yeah, I like what they… I like what they're doing out there, and I was thinking, we've got a couple people who have been contributing, and I kind of want to point them towards the Hacktoberfest so that they can take part in the festivities. But, yeah, no, I think this is a… this is an awesome thing.
+
+278
+00:42:19.700 --> 00:42:20.590
+Hendrik Ebbers (Hedera Hashgraph LLC): Thank you.
+
+279
+00:42:23.550 --> 00:42:26.290
+Hendrik Ebbers (Hedera Hashgraph LLC): Good!
+
+280
+00:42:27.080 --> 00:42:35.459
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I hope, like, in two weeks, I maybe can even show you some numbers of good first issues that are solved by the community.
+
+281
+00:42:35.500 --> 00:42:47.669
+Hendrik Ebbers (Hedera Hashgraph LLC): But for now, this brings us to any other business. Are there any topics you would like to bring in? Any topics I missed to put on the agenda?
+
+282
+00:42:49.380 --> 00:42:57.910
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe from… from the community, from the people who are here in the meeting, any questions, comments to the TSC?
+
+283
+00:43:07.260 --> 00:43:08.420
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay.
+
+284
+00:43:09.170 --> 00:43:14.230
+Hendrik Ebbers (Hedera Hashgraph LLC): If not, we can… Finish 15 minutes early, which is great.
+
+285
+00:43:15.230 --> 00:43:16.830
+Hendrik Ebbers (Hedera Hashgraph LLC): Good!
+
+286
+00:43:17.230 --> 00:43:21.369
+Hendrik Ebbers (Hedera Hashgraph LLC): Sam… Thank you all for attending the meeting.
+
+287
+00:43:21.580 --> 00:43:22.760
+Hendrik Ebbers (Hedera Hashgraph LLC): for your…
+
+288
+00:43:23.000 --> 00:43:39.389
+Hendrik Ebbers (Hedera Hashgraph LLC): feedback for being part of the discussions in the meeting or in the chat, especially today with the AI discussion and security discussion. A lot of things happened in the chat. Thanks for that. And… yeah.
+
+289
+00:43:39.390 --> 00:43:44.289
+Hendrik Ebbers (Hedera Hashgraph LLC): See you then in the next TSC or community meeting.
+
+290
+00:43:45.310 --> 00:43:45.980
+Hendrik Ebbers (Hedera Hashgraph LLC): Bye!
+
+291
+00:43:45.980 --> 00:43:47.670
+Richard Bair: You. Bye, dude.
+

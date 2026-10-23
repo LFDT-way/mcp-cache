@@ -1,0 +1,1434 @@
+WEBVTT
+
+1
+00:00:14.700 --> 00:00:15.840
+Parisa Ataei: Hey, Jonathan.
+
+2
+00:00:15.960 --> 00:00:16.600
+Jonathan Sobel: Hi there.
+
+3
+00:00:16.600 --> 00:00:17.320
+Parisa Ataei: gone.
+
+4
+00:00:17.480 --> 00:00:18.290
+Jonathan Sobel: Alright.
+
+5
+00:00:24.120 --> 00:00:29.469
+Jonathan Sobel: I just saw email that said there were build failures for Compact.
+
+6
+00:00:31.310 --> 00:00:41.679
+Jonathan Sobel: And it said that it was because, our account wasn't paid up to run the builds and stuff, and I go, what's going on? Why's the… why are we…
+
+7
+00:00:42.020 --> 00:00:52.490
+Jonathan Sobel: What is that? I got emailed, like, from GitHub, and it said, you know, workflow failures, and then I looked harder, and I realized it was for my fork of the compact repo.
+
+8
+00:00:52.490 --> 00:00:53.380
+Parisa Ataei: Oh!
+
+9
+00:00:53.380 --> 00:01:05.589
+Jonathan Sobel: that when I fork it, it then tries to also do all the workflows, so all the builds and internal releases and compiling for every platform and everything it was doing on my GitHub account also.
+
+10
+00:01:07.580 --> 00:01:10.450
+Jonathan Sobel: Because I can't open PRs directly, right? I have to…
+
+11
+00:01:10.450 --> 00:01:11.380
+Parisa Ataei: Yeah.
+
+12
+00:01:11.380 --> 00:01:21.389
+Jonathan Sobel: I'm not a maintainer, so I have to have the fork. And so, on the fork one, it also forks absolutely all the workflow and action stuff, and it was trying to run all of that on my account.
+
+13
+00:01:22.030 --> 00:01:22.979
+Parisa Ataei: Oh, jeez.
+
+14
+00:01:22.980 --> 00:01:24.340
+Jonathan Sobel: I have now disabled that.
+
+15
+00:01:25.790 --> 00:01:28.739
+Parisa Ataei: Oh, good, at least you can disable it on your end.
+
+16
+00:01:29.170 --> 00:01:36.839
+Jonathan Sobel: Yeah, it can just go in and say, do not do any actions on this repo. I don't want any automated actions at all on my fork of it.
+
+17
+00:01:37.680 --> 00:01:45.989
+Parisa Ataei: Yeah, you would think that, like, I don't know, like, I feel like the automated settings is just so not the user wants, oftentimes.
+
+18
+00:01:46.240 --> 00:01:55.639
+Jonathan Sobel: Yeah, it ought to do a, I would like to fork the… one of the options to fork this repo ought to be fork and disable actions. It should not be the default thing to say…
+
+19
+00:01:55.640 --> 00:01:56.060
+Parisa Ataei: Yeah.
+
+20
+00:01:56.060 --> 00:02:01.840
+Jonathan Sobel: I'm forking some public repo, and I would also like to do all their builds, and all their scans, and all, you know.
+
+21
+00:02:02.620 --> 00:02:03.290
+Jonathan Sobel: Anyway.
+
+22
+00:02:03.290 --> 00:02:03.810
+Parisa Ataei: Yep.
+
+23
+00:02:04.260 --> 00:02:05.230
+Parisa Ataei: Oh, wow.
+
+24
+00:02:06.020 --> 00:02:12.430
+Jonathan Sobel: Telling Paris I can't. I texted you also, there was this sort of, oh my gosh, what's happening? Compact C build is failing.
+
+25
+00:02:13.050 --> 00:02:13.719
+Jonathan Sobel: Huh.
+
+26
+00:02:13.970 --> 00:02:14.620
+Kent Dybvig: complex.
+
+27
+00:02:14.620 --> 00:02:24.260
+Jonathan Sobel: But it's because I forked the repo, and it therefore cloned all of the actions, and all of the release stuff, and all of the builds to run on my account also.
+
+28
+00:02:26.430 --> 00:02:26.980
+Jonathan Sobel: M.
+
+29
+00:02:26.980 --> 00:02:28.270
+Kent Dybvig: Shouldn't have forked it, then.
+
+30
+00:02:28.480 --> 00:02:30.790
+Jonathan Sobel: I have to, I'm not a maintainer.
+
+31
+00:02:32.350 --> 00:02:34.050
+Jonathan Sobel: It's the only way I can open PRs.
+
+32
+00:02:37.330 --> 00:02:42.229
+Kent Dybvig: I think I pushed a… An update to this.
+
+33
+00:02:43.700 --> 00:02:44.740
+Parisa Ataei: Oh.
+
+34
+00:02:44.740 --> 00:02:51.669
+Kent Dybvig: I meant to, anyway. I tried to, I should say. So I'm using my headset, I'm back in the…
+
+35
+00:02:51.770 --> 00:02:58.350
+Kent Dybvig: Dark Ages, because… Apparently, I had too many meetings, and my AirPods ran out of juice.
+
+36
+00:02:59.680 --> 00:03:01.870
+Kent Dybvig: It was probably the call with my…
+
+37
+00:03:02.510 --> 00:03:07.130
+Kent Dybvig: 30-minute call with my wife earlier today that pushed it over the edge.
+
+38
+00:03:08.740 --> 00:03:22.880
+Andrzej Kopeć: Yeah, this is why, when buying a new headset for me, I kind of look for ones with hot swappable butter in it, specifically so I can early load the headset, you know, as we can.
+
+39
+00:03:23.730 --> 00:03:25.040
+Andrzej Kopeć: In seconds.
+
+40
+00:03:27.580 --> 00:03:33.659
+Parisa Ataei: Hold on, I'm trying…
+
+41
+00:03:37.740 --> 00:03:44.679
+Kent Dybvig: It's not important, anyway. It's mostly just for Jonathan's benefit,
+
+42
+00:03:46.330 --> 00:03:49.170
+Kent Dybvig: Phase 2 and Phase 3 have been swapped again.
+
+43
+00:03:49.740 --> 00:03:52.740
+Kent Dybvig: We need to fight it.
+
+44
+00:03:54.660 --> 00:03:55.890
+Jonathan Sobel: I thought we'd…
+
+45
+00:03:56.310 --> 00:03:59.099
+Kent Dybvig: I thought we had them convinced, but…
+
+46
+00:04:01.670 --> 00:04:05.360
+Kent Dybvig: Anyway, Bob's aware. I made him aware earlier.
+
+47
+00:04:05.740 --> 00:04:11.499
+Kent Dybvig: Fianluca's aware… Jin Local pointed out to me.
+
+48
+00:04:11.770 --> 00:04:15.819
+Kent Dybvig: Bob's aware we're gonna get it fixed. I told him it's literally impossible.
+
+49
+00:04:16.850 --> 00:04:29.769
+Jonathan Sobel: Yeah, Gavin said that it seems to have come through as a, take what we proposed and just drop from it the fact that what's delivered is a MIP, and instead of delivering the MIP, we deliver the entire working implementation.
+
+50
+00:04:30.140 --> 00:04:30.690
+Kent Dybvig: Yep.
+
+51
+00:04:31.230 --> 00:04:32.140
+Kent Dybvig: Okay. Yeah.
+
+52
+00:04:32.420 --> 00:04:36.360
+Jonathan Sobel: That's not just a drop a word. Yeah.
+
+53
+00:04:37.130 --> 00:04:40.389
+Kent Dybvig: Yeah, well, isn't it quiet? There was a little more explanation in there. It said.
+
+54
+00:04:40.510 --> 00:04:51.419
+Kent Dybvig: it said, private state is needed for blah blah blah blah blah, and I didn't… he just splashed it up for a minute, I didn't memorize. And,
+
+55
+00:04:52.360 --> 00:04:57.759
+Kent Dybvig: Dynamic discovery, there are workarounds for dynamic discovery, which they didn't specify.
+
+56
+00:04:57.960 --> 00:05:13.589
+Kent Dybvig: And I said to Gianluca that my belief is you can't have ARC20 without dynamic discovery, but you can have it without witnesses, because we already have private data, and private state… as good a private state management as we've ever had, so…
+
+57
+00:05:13.800 --> 00:05:16.440
+Jonathan Sobel: ERC20 does not require a private state.
+
+58
+00:05:16.440 --> 00:05:24.950
+Kent Dybvig: No, of course not. But they can get an augmented ERC20 with private data through contract argument and return values.
+
+59
+00:05:25.060 --> 00:05:27.580
+Kent Dybvig: So it's already better than ERC20.
+
+60
+00:05:28.040 --> 00:05:35.980
+Kent Dybvig: But only if they have dynamic discovery, so they're really asking for the wrong thing, and…
+
+61
+00:05:36.100 --> 00:05:40.820
+Kent Dybvig: They need to understand that While inconvenient sometimes.
+
+62
+00:05:41.880 --> 00:05:45.410
+Kent Dybvig: They don't need the witnesses to get private data.
+
+63
+00:05:47.580 --> 00:05:53.220
+Kent Dybvig: Anyway, it's… It's like I've had this… Discussion, no.
+
+64
+00:05:54.820 --> 00:05:59.220
+Kent Dybvig: Well, for Nancy and Luca, they're… they're always… Doing this.
+
+65
+00:06:01.070 --> 00:06:02.590
+Kent Dybvig: Swapped back and forth.
+
+66
+00:06:06.780 --> 00:06:11.170
+Parisa Ataei: Well done. There's something weird with my Emax. Okay, here we go.
+
+67
+00:06:11.780 --> 00:06:18.709
+Parisa Ataei: Is this working? I think so. Okay. So is that, that's…
+
+68
+00:06:20.390 --> 00:06:23.439
+Parisa Ataei: Oh my god, I cannot multitask for the life of me. Okay.
+
+69
+00:06:24.910 --> 00:06:28.439
+Parisa Ataei: So that's, that's, that's the update on the Q3, Phase 2…
+
+70
+00:06:28.680 --> 00:06:29.160
+Kent Dybvig: Yeah, you can…
+
+71
+00:06:29.160 --> 00:06:30.150
+Parisa Ataei: Okay.
+
+72
+00:06:30.150 --> 00:06:31.470
+Kent Dybvig: Mark that one off now.
+
+73
+00:06:31.810 --> 00:06:32.590
+Parisa Ataei: Okay.
+
+74
+00:06:35.010 --> 00:06:42.879
+Parisa Ataei: Oh, before I start, folks, is there anything on your mind that you would like to discuss before I go ahead with the agenda?
+
+75
+00:06:44.740 --> 00:06:50.260
+Parisa Ataei: Going once, going twice… All right.
+
+76
+00:06:50.570 --> 00:07:04.409
+Parisa Ataei: So the first thing I have is a discussion around committing to ZKERv3, and apologies for spamming multiple people. I probably spammed multiple people on different threads.
+
+77
+00:07:04.620 --> 00:07:13.250
+Parisa Ataei: So, Thomas is asking… Thomas wants us to commit to ZKR and its stability.
+
+78
+00:07:13.430 --> 00:07:18.640
+Parisa Ataei: The question is, Is there anything…
+
+79
+00:07:18.800 --> 00:07:21.280
+Parisa Ataei: That is stopping us to do that.
+
+80
+00:07:23.210 --> 00:07:33.600
+Parisa Ataei: I guess the second question is, have we communicated the risk of this switch to, to management and possibly Midnight Foundation?
+
+81
+00:07:34.490 --> 00:07:39.159
+Parisa Ataei: Because my understanding is that it's… it's not as tested.
+
+82
+00:07:39.350 --> 00:07:46.260
+Parisa Ataei: as CKRV2, which then could possibly mean, we break a bunch of stuff.
+
+83
+00:07:48.610 --> 00:07:57.189
+Joseph Denman: I'd say that's an accurate assessment. CK HIRP3 is basically… testing is basically limited to the test that we have in the compiler.
+
+84
+00:07:59.150 --> 00:08:01.500
+Joseph Denman: And in the short term.
+
+85
+00:08:02.310 --> 00:08:08.610
+Joseph Denman: I think the best assurances that we could get, that it works correctly, is by…
+
+86
+00:08:09.600 --> 00:08:19.779
+Joseph Denman: Really, changing the new compact end-to-end repo, which we've used for our composable contracts testing to use ZKIR V3, as well.
+
+87
+00:08:20.020 --> 00:08:25.669
+Joseph Denman: But even that, just by virtue of the fact that it's much younger, it's much less battle-tested.
+
+88
+00:08:30.460 --> 00:08:30.990
+Kent Dybvig: So…
+
+89
+00:08:31.830 --> 00:08:38.699
+Kent Dybvig: I don't know what it means to commit. Did he explain what he means by committing to it? I mean, we're definitely committing to…
+
+90
+00:08:38.890 --> 00:08:43.019
+Kent Dybvig: To polishing it up and making sure that it works, but… does it…
+
+91
+00:08:43.429 --> 00:08:48.880
+Kent Dybvig: You mean commit to it and to the exclusion of maintaining the V2?
+
+92
+00:08:52.920 --> 00:08:59.889
+Parisa Ataei: He just said that until the team is willing to commit to ZK or V3 stability, let me…
+
+93
+00:09:00.530 --> 00:09:01.530
+Parisa Ataei: Follow up.
+
+94
+00:09:01.530 --> 00:09:02.519
+Kent Dybvig: Okay, yeah, I saw that.
+
+95
+00:09:02.920 --> 00:09:03.640
+Kent Dybvig: Okay.
+
+96
+00:09:04.310 --> 00:09:11.920
+Joseph Denman: Sounds like he's concerned about the, like, for example, for example, professional, semantic versioning.
+
+97
+00:09:12.430 --> 00:09:18.700
+Joseph Denman: No, you know, wild… Or, incoherent.
+
+98
+00:09:19.180 --> 00:09:21.570
+Joseph Denman: versioning updates.
+
+99
+00:09:23.160 --> 00:09:32.329
+Kent Dybvig: Yeah, I think… I think he's right, and he's… that was in the context of… of not removing the, experimental flag for the proof server build.
+
+100
+00:09:32.500 --> 00:09:40.589
+Kent Dybvig: So… Yeah, I think that's… I think that we're not ready to… To say we're…
+
+101
+00:09:40.930 --> 00:09:45.860
+Kent Dybvig: Oh man, that is… Nevertheless, I think for…
+
+102
+00:09:46.640 --> 00:09:51.660
+Kent Dybvig: what we're delivering to the Midnight Foundation, I think it's,
+
+103
+00:09:52.440 --> 00:09:57.889
+Kent Dybvig: you know, we're gonna… we're gonna still have the CKRV3 feature flag.
+
+104
+00:09:58.170 --> 00:10:00.760
+Kent Dybvig: That you have to use, if you want to use.
+
+105
+00:10:01.180 --> 00:10:06.700
+Kent Dybvig: ZKara V3, and you're going to have to run a ZKara V3 proof server in order to
+
+106
+00:10:07.250 --> 00:10:09.900
+Kent Dybvig: Create the proofs when you use that flag.
+
+107
+00:10:10.730 --> 00:10:21.009
+Kent Dybvig: And we should… We should, sometime early in the quarter, develop a plan for making CKRv3 the default.
+
+108
+00:10:21.200 --> 00:10:24.630
+Kent Dybvig: And having approved… having it be the default, the proof server, and…
+
+109
+00:10:25.180 --> 00:10:29.819
+Kent Dybvig: The semantic versioning, Joe mentioned is one thing, and… and just more testing.
+
+110
+00:10:30.920 --> 00:10:34.960
+Kent Dybvig: This is the other. And it would probably have to maintain for a while.
+
+111
+00:10:35.810 --> 00:10:39.690
+Kent Dybvig: a feature ZKRV2 flag.
+
+112
+00:10:40.380 --> 00:10:43.080
+Kent Dybvig: So that… We have a fallback.
+
+113
+00:10:43.320 --> 00:10:45.589
+Kent Dybvig: If we break things.
+
+114
+00:10:50.240 --> 00:10:51.220
+Joseph Denman: But is…
+
+115
+00:10:52.980 --> 00:10:58.390
+Joseph Denman: So I've been a little bit, I guess we don't have me go… oh, sorry, go ahead, Jonathan, your hand's off.
+
+116
+00:10:58.390 --> 00:11:03.979
+Jonathan Sobel: I was just gonna say, I mean, this conversation they were having that brought this up was the need for events.
+
+117
+00:11:04.080 --> 00:11:05.190
+Jonathan Sobel: and events.
+
+118
+00:11:05.730 --> 00:11:07.730
+Jonathan Sobel: require ZKRv3.
+
+119
+00:11:08.250 --> 00:11:25.519
+Parisa Ataei: Events does not require ZKRv3. The implementation is in ZKRv3, so if you try it without ZKRv3, you're gonna get an error that you have to enable the flag, and my reason for that was that I don't want to double work
+
+120
+00:11:25.740 --> 00:11:39.109
+Parisa Ataei: on a ZKR that I know is gonna be deprecated soon. And my assumption, that was my fault. I had an assumption that, like, we're gonna move to ZKRv3 fully by the end of this quarter.
+
+121
+00:11:40.740 --> 00:11:43.029
+Jonathan Sobel: So I think that means that the…
+
+122
+00:11:43.670 --> 00:11:54.939
+Jonathan Sobel: The assertion that it is less tested is true, but it also means it's the only thing tested with events. And so we're quickly getting to a place where V3 is, in fact, the tested thing for various new features.
+
+123
+00:11:55.200 --> 00:12:00.960
+Jonathan Sobel: And I think that was probably the pressure for, can we just say, that's it, we're switching to it?
+
+124
+00:12:01.520 --> 00:12:17.739
+Parisa Ataei: So, I think there are two different testing. There's the testing on the compiler side of, like, what we are generating. Is that what I expected? And then I think there's testing on ZKR side. I have absolutely no idea what the testing on ZKR side itself, contains.
+
+125
+00:12:17.960 --> 00:12:19.790
+Parisa Ataei: Joe?
+
+126
+00:12:22.750 --> 00:12:27.220
+Joseph Denman: I was just gonna ask, and I've been a little tapped out of the…
+
+127
+00:12:27.370 --> 00:12:31.569
+Joseph Denman: CKR, V3 changes, and of what Kevin's been working on, but…
+
+128
+00:12:31.770 --> 00:12:39.510
+Joseph Denman: I was… my understanding was that support for, like, Sec P stuff was only added to ZKIRv3.
+
+129
+00:12:40.030 --> 00:12:45.200
+Joseph Denman: And so, if that is a deliverable in Q2,
+
+130
+00:12:45.320 --> 00:12:52.080
+Joseph Denman: All the cryptographic primitives, then we kind of have an obligation to support ZKIRV3.
+
+131
+00:12:57.640 --> 00:13:02.319
+Kent Dybvig: Yes, that's accurate. SECB support requires
+
+132
+00:13:02.550 --> 00:13:18.779
+Kent Dybvig: ZKRv3. And so if you want to use the SECP primitives, if you want to use the ECDSA USB-CX port that the crypto team is creating, then you are going to need to use the ZKRv3 feature flag.
+
+133
+00:13:19.940 --> 00:13:21.259
+Kent Dybvig: On the other hand.
+
+134
+00:13:21.830 --> 00:13:34.499
+Kent Dybvig: since it's not inherently required for events, it would be nice if we didn't require it for events, so that it's only affecting, for now, the people who, require the SECP support.
+
+135
+00:13:35.530 --> 00:13:37.510
+Kent Dybvig: And then we can move.
+
+136
+00:13:37.920 --> 00:13:39.120
+Kent Dybvig: deliberately.
+
+137
+00:13:39.380 --> 00:13:48.450
+Kent Dybvig: But not immediately to… To having CKRFP3 be the default instead of, The exception.
+
+138
+00:13:49.860 --> 00:13:59.709
+Jonathan Sobel: what would happen if we switched V3 to the default, but still leave it possible to enable V2, so that anyone that runs into a problem can use the flag to fall back?
+
+139
+00:14:01.030 --> 00:14:06.849
+Kent Dybvig: What's gonna happen is we won't have a proof server, because Thomas is not going to create one until he's satisfied that
+
+140
+00:14:07.290 --> 00:14:09.680
+Kent Dybvig: He's not gonna create… he's not gonna…
+
+141
+00:14:11.920 --> 00:14:16.119
+Kent Dybvig: Okay, let me put it this way. Yes, we could do that. It's going to…
+
+142
+00:14:16.390 --> 00:14:19.820
+Kent Dybvig: Set up a situation where the ledger
+
+143
+00:14:20.270 --> 00:14:23.589
+Kent Dybvig: Code, build a proof server for… server.
+
+144
+00:14:23.880 --> 00:14:24.910
+Kent Dybvig: is…
+
+145
+00:14:25.530 --> 00:14:35.630
+Kent Dybvig: requiring the ZKRv3 feature flag, but giving you ZKRV2 as default, and the compiler's going to be opposite. And I think those should be coordinated changes.
+
+146
+00:14:37.410 --> 00:14:41.440
+Jonathan Sobel: But it sounded like Thomas is waiting for us to say.
+
+147
+00:14:41.680 --> 00:14:45.979
+Jonathan Sobel: we're ready to go. And he wasn't gonna do that until he got a go-ahead from us.
+
+148
+00:14:47.290 --> 00:14:51.000
+Kent Dybvig: I have a feeling it's a little stronger than that, but we should talk to him about it.
+
+149
+00:14:51.000 --> 00:14:51.590
+Jonathan Sobel: Okay.
+
+150
+00:14:52.030 --> 00:14:55.329
+Kent Dybvig: I have a feeling he's more concerned about it just not being stable yet.
+
+151
+00:14:55.780 --> 00:15:05.880
+Kent Dybvig: And we haven't committed to making it stable yet, and it's true that we're still pushing features to it. So, I mean, we're just making changes to it the other day.
+
+152
+00:15:06.070 --> 00:15:07.650
+Kent Dybvig: For the SECP support.
+
+153
+00:15:09.700 --> 00:15:13.069
+Kent Dybvig: Just… just to… just earlier in the week, maybe Monday.
+
+154
+00:15:18.330 --> 00:15:24.150
+Parisa Ataei: Would it be fair to say that this is something that we should resolve early in Q3?
+
+155
+00:15:24.380 --> 00:15:25.510
+Parisa Ataei: Yes.
+
+156
+00:15:26.700 --> 00:15:27.040
+Joseph Denman: But…
+
+157
+00:15:27.040 --> 00:15:27.620
+Kent Dybvig: Yeah.
+
+158
+00:15:27.620 --> 00:15:34.239
+Joseph Denman: How can we… how can we do that if the cryptographic primitives are part of the Q2 deliverables?
+
+159
+00:15:36.520 --> 00:15:45.210
+Kent Dybvig: Oh, remember, the Q2 deliverables are… Or… Not going into a release.
+
+160
+00:15:45.530 --> 00:15:48.689
+Kent Dybvig: They're going into a release, but they're not…
+
+161
+00:15:48.960 --> 00:15:58.579
+Kent Dybvig: it's not a release that we're gonna suggest that everybody move to, just that they can use for testing. So I think as long as it remains, here's something that
+
+162
+00:15:58.730 --> 00:16:03.770
+Kent Dybvig: To, you know… You can use to test with.
+
+163
+00:16:05.930 --> 00:16:10.150
+Kent Dybvig: I don't think it… it's… it's important,
+
+164
+00:16:10.450 --> 00:16:17.520
+Kent Dybvig: that it'd be trivial to test with the cryptographic perimeters with that. I think it's fair to require people to use the
+
+165
+00:16:17.790 --> 00:16:18.840
+Kent Dybvig: the flags.
+
+166
+00:16:19.630 --> 00:16:23.359
+Kent Dybvig: But it would be nice if they don't have to do that for events, if possible.
+
+167
+00:16:23.980 --> 00:16:29.419
+Joseph Denman: So they'll have the flags, but they won't have a proof server unless…
+
+168
+00:16:29.420 --> 00:16:38.230
+Kent Dybvig: No, that's not true. They can build their own proof server. They can… they can get the… they can pull down the ledger sources, they can build their own proof server with the… with the… the flag.
+
+169
+00:16:38.710 --> 00:16:46.579
+Kent Dybvig: We could choose to run a separate proof server, I don't know if that's a decision that anybody's willing to make at this point.
+
+170
+00:16:47.110 --> 00:16:52.050
+Kent Dybvig: But we've already been telling people they should run their own proof servers, and eventually.
+
+171
+00:16:52.400 --> 00:16:55.470
+Kent Dybvig: Eventually, you know, Bob has said.
+
+172
+00:16:55.640 --> 00:17:01.490
+Kent Dybvig: that we're not gonna leave the guarded phase of mainnet until… the…
+
+173
+00:17:02.110 --> 00:17:09.089
+Kent Dybvig: You know, until people are running… until the… not the partners, but the, the nodes are running…
+
+174
+00:17:09.930 --> 00:17:14.980
+Kent Dybvig: or the node operators, I'm not sure what the… what the situation is. Maybe the node operators are running…
+
+175
+00:17:15.410 --> 00:17:20.609
+Kent Dybvig: Proof servers in, in, TEEs.
+
+176
+00:17:22.150 --> 00:17:26.929
+Joseph Denman: What I'm saying is, I mean, yeah, like, anyone can always, I guess, like, build their own
+
+177
+00:17:27.560 --> 00:17:33.949
+Joseph Denman: you know, component using the source code, right? I guess what I'm saying is we won't have a Docker image published.
+
+178
+00:17:34.330 --> 00:17:35.800
+Kent Dybvig: No, I don't think so.
+
+179
+00:17:36.450 --> 00:17:38.359
+Kent Dybvig: Okay. I think they'll have to build their own.
+
+180
+00:17:38.730 --> 00:17:40.589
+Kent Dybvig: But they're… I think they've been…
+
+181
+00:17:41.490 --> 00:17:47.150
+Kent Dybvig: You know, these are a handful of people who are waiting for SecB support if they have to go through an extra couple of hoops.
+
+182
+00:17:47.610 --> 00:17:52.160
+Kent Dybvig: They'll go through the extra couple of hoops, and expect us to fix that.
+
+183
+00:17:52.390 --> 00:17:55.599
+Kent Dybvig: by the end of Q3, I would hope, I would think.
+
+184
+00:17:56.490 --> 00:17:57.130
+Joseph Denman: Okay.
+
+185
+00:17:57.550 --> 00:18:04.139
+Joseph Denman: So then the path forward is really just to add CK IRB2 support for events.
+
+186
+00:18:04.700 --> 00:18:05.680
+Kent Dybvig: Defense, yeah.
+
+187
+00:18:09.510 --> 00:18:14.979
+Parisa Ataei: Kent, I don't know if your hand is up from before, I'm assuming so. Jonathan, go ahead.
+
+188
+00:18:14.980 --> 00:18:23.219
+Jonathan Sobel: I was… I was going to suggest that we proactively schedule something with the ledger people to make a coordinated plan for this.
+
+189
+00:18:42.180 --> 00:18:43.900
+Parisa Ataei: Anyone volunteering?
+
+190
+00:18:44.120 --> 00:18:52.729
+Parisa Ataei: Or… Well, I guess I have no idea, like, what's in store for us in Q3.
+
+191
+00:18:57.260 --> 00:19:00.570
+Kent Dybvig: More than enough, but we have to get rid of some of the technical debt, too, so…
+
+192
+00:19:00.570 --> 00:19:01.210
+Parisa Ataei: Yeah.
+
+193
+00:19:01.800 --> 00:19:16.589
+Kent Dybvig: We can't build on what we have. We have to… we have to clean it up, and this is part of the cleanup. Having to have both CKR V2 and V3 support code in our compiler is a pain. The sooner we get off of that, the better.
+
+194
+00:19:17.090 --> 00:19:23.449
+Kent Dybvig: And there are various other things we've got to do, so Joe suggested You know, the first sprint.
+
+195
+00:19:23.840 --> 00:19:26.959
+Kent Dybvig: Probably needs to be a technical debt sprint,
+
+196
+00:19:27.450 --> 00:19:30.290
+Kent Dybvig: We need to start working on architecture of…
+
+197
+00:19:30.770 --> 00:19:35.539
+Kent Dybvig: Of some of these pieces, we have a basic…
+
+198
+00:19:36.640 --> 00:19:40.859
+Kent Dybvig: We don't have an architecture yet for the dynamic cross-country calls.
+
+199
+00:19:41.230 --> 00:19:42.839
+Kent Dybvig: So…
+
+200
+00:19:43.480 --> 00:19:47.719
+Kent Dybvig: We've committed to that, but we need to architect it. So there won't be a lot of coding.
+
+201
+00:19:48.060 --> 00:19:54.699
+Kent Dybvig: To be done in the first few weeks, because there's design work to be done first for the statement of work items.
+
+202
+00:19:55.110 --> 00:19:58.950
+Kent Dybvig: So that'll be a good time for us to, you know, is that relative quiet?
+
+203
+00:19:59.210 --> 00:20:00.529
+Kent Dybvig: To do some cleanup.
+
+204
+00:20:00.800 --> 00:20:04.660
+Kent Dybvig: And… You know.
+
+205
+00:20:05.450 --> 00:20:15.089
+Kent Dybvig: if you look at the… if you looked at the exec p support, the PRS for that, there's a lot of stuff in there that's got to-dos and other things like that, so…
+
+206
+00:20:15.650 --> 00:20:18.549
+Kent Dybvig: You know, we have quite a… quite a bit of cleanup to do.
+
+207
+00:20:21.460 --> 00:20:22.130
+Parisa Ataei: Okay.
+
+208
+00:20:23.330 --> 00:20:27.530
+Parisa Ataei: I'm gonna volunteer myself or Kevin to follow up on this.
+
+209
+00:20:29.720 --> 00:20:30.910
+Parisa Ataei: Okay.
+
+210
+00:20:35.020 --> 00:20:43.720
+Parisa Ataei: I will circle back with people saying that we will give them support for events on ZKRB2 then, and then…
+
+211
+00:20:43.850 --> 00:20:53.090
+Parisa Ataei: We're just kicking this down the road for next week, and then tell them that, yeah, you just have to build the proof server locally, see?
+
+212
+00:20:53.250 --> 00:20:57.079
+Parisa Ataei: What happens with that for SECP?
+
+213
+00:20:58.830 --> 00:21:10.800
+Parisa Ataei: Okay, moving on to the release schedule, I just, Sinead asked me to share this with, with… on the release channel, so I want to be… make sure that we are on the same page.
+
+214
+00:21:10.800 --> 00:21:21.100
+Parisa Ataei: So, the release schedule is that we have a security bug fix that is going in, and that will happen tomorrow. We will release 0.31.1.
+
+215
+00:21:21.620 --> 00:21:34.570
+Parisa Ataei: And then next week, we will release 0.33.0, which is a compact seed that supports only Ledger 9, and that would be…
+
+216
+00:21:34.610 --> 00:21:49.800
+Parisa Ataei: potentially the… all the features that we have promised for a statement of work of Q2, so events will go in, I think composable contracts, the phase one, is going in. I'm assuming SECP is part of that.
+
+217
+00:21:50.290 --> 00:21:51.650
+Parisa Ataei: And then…
+
+218
+00:21:51.970 --> 00:22:01.569
+Parisa Ataei: The week after that, we will release 0.32, which is the last release of the compiler that supports only Ledger 8.
+
+219
+00:22:04.170 --> 00:22:05.960
+Parisa Ataei: Any objections?
+
+220
+00:22:10.070 --> 00:22:11.009
+Kent Dybvig: No, that's good.
+
+221
+00:22:11.010 --> 00:22:11.620
+Parisa Ataei: Okay.
+
+222
+00:22:14.220 --> 00:22:22.280
+Parisa Ataei: And then, so I'm moving on to following up on COIP2 discussion, which is composable contracts.
+
+223
+00:22:22.690 --> 00:22:29.600
+Parisa Ataei: I should not, I should stop calling it that. Contract-to-contract calls?
+
+224
+00:22:30.330 --> 00:22:31.980
+Parisa Ataei: Okay. Alright.
+
+225
+00:22:31.980 --> 00:22:33.589
+Jonathan Sobel: This is the,
+
+226
+00:22:35.370 --> 00:22:55.080
+Jonathan Sobel: The updates we discussed last week, at last week's meeting, about, getting rid of the… introducing the idea of interfaces and all, and going back to language that is more consistent with the rest of the reference manual, where they are simply contract types, and the syntax looks like declaring enums or structs, you just declare contracts.
+
+227
+00:22:55.240 --> 00:23:03.160
+Jonathan Sobel: And I went through and rewrote everything into that kind of language. It did, in fact, shorten it some and simplify it some, because…
+
+228
+00:23:03.410 --> 00:23:08.249
+Jonathan Sobel: It's just types, and things have types, and you have contract types, and…
+
+229
+00:23:08.520 --> 00:23:15.140
+Jonathan Sobel: And it all fits, the, and so, if people would like to move forward with this, then…
+
+230
+00:23:15.310 --> 00:23:23.819
+Jonathan Sobel: I opened a PR for it, and I'm happy to have that merged in. The only thing possibly worth discussing is there's no good
+
+231
+00:23:23.990 --> 00:23:37.230
+Jonathan Sobel: Unless we introduced a new keyword, like has type, or satisfies, or something like that, then I still end up with the word implements for that declaration that's on the screen, that was on the screen right there for a minute.
+
+232
+00:23:37.230 --> 00:23:37.720
+Parisa Ataei: Sorry.
+
+233
+00:23:37.720 --> 00:23:41.569
+Jonathan Sobel: It says, you know, this contract implements this type.
+
+234
+00:23:41.920 --> 00:23:47.199
+Jonathan Sobel: There's no other good word for that without coming up with an entirely new keyword.
+
+235
+00:23:47.630 --> 00:23:51.999
+Jonathan Sobel: The more obvious thing to say would be, has type, but that's not a reserved word right now.
+
+236
+00:23:54.310 --> 00:23:54.850
+Kent Dybvig: Yeah.
+
+237
+00:23:55.770 --> 00:23:59.229
+Kent Dybvig: But it… Yeah, I think it's fine.
+
+238
+00:24:02.180 --> 00:24:08.009
+Jonathan Sobel: I started to use instance of, but that's not actually the right thing. A value is an instance of a type, and this is really…
+
+239
+00:24:08.010 --> 00:24:08.380
+Kent Dybvig: Yeah.
+
+240
+00:24:08.380 --> 00:24:09.659
+Jonathan Sobel: Is a subtype of.
+
+241
+00:24:10.120 --> 00:24:16.690
+Kent Dybvig: So if you really want to be COBOL-esque, you could say, this contract has type.
+
+242
+00:24:17.640 --> 00:24:26.569
+Kent Dybvig: Such and such. And this… is not valid in any other con… context, in Compact, so…
+
+243
+00:24:26.800 --> 00:24:31.310
+Kent Dybvig: Everything that follows it is just decoration and doesn't have to be reserved.
+
+244
+00:24:31.410 --> 00:24:34.929
+Kent Dybvig: Of course, it'll confuse It'll confuse highlighters.
+
+245
+00:24:36.760 --> 00:24:39.330
+Kent Dybvig: Who will then… highlight.
+
+246
+00:24:39.510 --> 00:24:44.179
+Kent Dybvig: All those other words as if they're keywords, or not highlight them in that context.
+
+247
+00:24:45.950 --> 00:24:54.190
+Kent Dybvig: But I don't… I don't suggest we do that. I think just implement this nice and simple and short, and so what if it's usually used with interfaces, it can be used with types.
+
+248
+00:24:55.890 --> 00:25:03.040
+Kent Dybvig: And we could even put a little verbiage in the implements thing to say, you know, you can view the type as a kind of interface.
+
+249
+00:25:03.560 --> 00:25:04.510
+Kent Dybvig: And…
+
+250
+00:25:04.730 --> 00:25:22.340
+Jonathan Sobel: Which I did. I said, when it's being… in fact, the paragraph before says, when you're using a contract type to describe an interface in the… and this is not syntax interface, but it is, in the colloquial sense, an interface for something. Yeah. And when you're wanting to do that, then here's the syntax to do it. So I think it's actually fine as it is.
+
+251
+00:25:22.600 --> 00:25:23.490
+Kent Dybvig: Yeah, good.
+
+252
+00:25:24.260 --> 00:25:29.440
+Kent Dybvig: I should look at it, too, make sure that our front end actually implements what the Quape says it's supposed to, so…
+
+253
+00:25:29.880 --> 00:25:35.790
+Jonathan Sobel: Okay. Other than that, this also includes the stuff on, that we talked about with…
+
+254
+00:25:36.070 --> 00:25:53.149
+Jonathan Sobel: recursion, saying the effects of recursion are undefined, and it includes the information on, disclose. That when you make a cross-contract call, you have to make sure that the arguments are disclosed, because you don't know what the called thing is going to do with them.
+
+255
+00:25:54.140 --> 00:26:01.180
+Kent Dybvig: Okay, two things. One is, Joe's actually implemented check, a check for that, so you can actually now say it is an error, dynamic error.
+
+256
+00:26:02.190 --> 00:26:08.000
+Kent Dybvig: To do recursive contracts. Oh, maybe you can leave it the way it is, and…
+
+257
+00:26:08.620 --> 00:26:13.039
+Kent Dybvig: Because we may change that if… if we get ledger support for recursive calls.
+
+258
+00:26:13.380 --> 00:26:20.930
+Jonathan Sobel: What it currently says is the compiler may signal an error statically, or it may be a runtime error in certain circumstances.
+
+259
+00:26:21.590 --> 00:26:24.329
+Kent Dybvig: The compiler pretty much can't signal an error.
+
+260
+00:26:24.700 --> 00:26:33.789
+Kent Dybvig: In general, right? Because it doesn't know about… if there's an A calls B, calls back to A, that it can't know that. It has no access to B's call.
+
+261
+00:26:34.040 --> 00:26:35.420
+Kent Dybvig: When it's compiling A.
+
+262
+00:26:35.560 --> 00:26:40.740
+Kent Dybvig: But, yeah, I think maybe leaving it undefined's better, because we might actually decide you know.
+
+263
+00:26:41.160 --> 00:26:45.899
+Kent Dybvig: Sometime in the next month or two, we might figure out how to actually support them and…
+
+264
+00:26:46.280 --> 00:26:48.019
+Kent Dybvig: We don't want to inviolate it.
+
+265
+00:26:48.210 --> 00:26:55.890
+Kent Dybvig: If you care, and I don't think you probably should, you also have to disclose
+
+266
+00:26:56.500 --> 00:27:03.030
+Kent Dybvig: Witnesses that are involved in conditional execution of that… of a cross-contract call.
+
+267
+00:27:03.700 --> 00:27:07.040
+Kent Dybvig: Just like you would for any other disclosure.
+
+268
+00:27:07.810 --> 00:27:12.430
+Kent Dybvig: And you would actually also have to disclose the contract address.
+
+269
+00:27:12.680 --> 00:27:18.650
+Kent Dybvig: If it… If it came in through, like, a circuit argument or something like that.
+
+270
+00:27:20.110 --> 00:27:22.359
+Kent Dybvig: If you pulled it out of ledger, you wouldn't have to do that.
+
+271
+00:27:22.510 --> 00:27:25.359
+Kent Dybvig: Because it's already been disclosed when it got put in the ledger.
+
+272
+00:27:25.600 --> 00:27:28.800
+Kent Dybvig: I don't think those are necessary. I think the arguments are more interesting.
+
+273
+00:27:30.130 --> 00:27:36.140
+Jonathan Sobel: The example of using a contract as a value farther down the page actually has it disclosing the contract address.
+
+274
+00:27:36.590 --> 00:27:37.180
+Kent Dybvig: Okay.
+
+275
+00:27:37.180 --> 00:27:39.709
+Jonathan Sobel: Somewhere, it wasn't… maybe it was farther up the page, wherever.
+
+276
+00:27:39.710 --> 00:27:40.330
+Kent Dybvig: Yeah.
+
+277
+00:27:40.440 --> 00:27:43.259
+Kent Dybvig: Yeah, and I think that's… I think that's fair.
+
+278
+00:27:43.390 --> 00:27:46.930
+Kent Dybvig: To leave it kind of implicit there, because…
+
+279
+00:27:47.320 --> 00:27:53.500
+Joseph Denman: So, one thing that I did notice about the current front-end compiler behavior is that if you attempt to
+
+280
+00:27:54.650 --> 00:27:55.850
+Joseph Denman: Actually.
+
+281
+00:27:58.220 --> 00:28:02.249
+Joseph Denman: Wait a second, no, this is actually correct. I was gonna say that it…
+
+282
+00:28:02.470 --> 00:28:06.719
+Joseph Denman: The compiler will force you to disclose, a contract
+
+283
+00:28:06.930 --> 00:28:13.119
+Joseph Denman: That you're calling a function on, or a circuit on, even if that contract is an argument.
+
+284
+00:28:13.440 --> 00:28:15.430
+Joseph Denman: And I was gonna say that that…
+
+285
+00:28:15.990 --> 00:28:22.409
+Joseph Denman: doesn't sound right, because circuit arguments are private, but then I remembered that we have the claims in the ledger, so…
+
+286
+00:28:22.590 --> 00:28:26.359
+Joseph Denman: Regardless, yeah, of whether or not, you know, it's…
+
+287
+00:28:26.600 --> 00:28:30.050
+Joseph Denman: You're reading it from the ledger, it ends up in the ledger, the address does.
+
+288
+00:28:30.450 --> 00:28:32.640
+Kent Dybvig: Oh, it ends up in the transcript, right?
+
+289
+00:28:32.640 --> 00:28:40.010
+Joseph Denman: Yeah, yeah. But the second thing that I wanted to say, in the restriction section about witnesses.
+
+290
+00:28:40.190 --> 00:28:43.799
+Joseph Denman: You had 3 restrictions, and the third was about witnesses?
+
+291
+00:28:44.560 --> 00:28:51.500
+Joseph Denman: I'm not sure… yeah, okay. So, a contract that declares witnesses is unable to satisfy any contract type.
+
+292
+00:28:52.000 --> 00:28:56.799
+Joseph Denman: So, one thing to consider here is whether
+
+293
+00:28:58.290 --> 00:29:01.130
+Joseph Denman: This… this might be too tight of a restriction.
+
+294
+00:29:01.310 --> 00:29:11.599
+Joseph Denman: Because if a contract implements some circuits that do not call witnesses, but it declares witnesses, and in the circuits that do not.
+
+295
+00:29:12.210 --> 00:29:14.560
+Joseph Denman: Appear in the contract type.
+
+296
+00:29:15.000 --> 00:29:23.820
+Joseph Denman: use witnesses, should we even really care? Because from the perspective of the caller, it's never calling a circuit that calls a witness.
+
+297
+00:29:24.420 --> 00:29:30.620
+Joseph Denman: You know, and I can imagine that you wouldn't necessarily want to,
+
+298
+00:29:30.720 --> 00:29:41.860
+Joseph Denman: You have to remove all of the circuits that call witnesses from the colleague, because you might want to do other things, like test witness behavior, or use it for debugging, or something like that.
+
+299
+00:29:41.970 --> 00:29:47.279
+Joseph Denman: So, I don't know that it should necessarily be an error if the contract defines any witness.
+
+300
+00:29:47.380 --> 00:29:52.679
+Joseph Denman: It should be an error if the contract defines a witness inside of the circuits,
+
+301
+00:29:53.230 --> 00:29:55.350
+Joseph Denman: You know, better defined in the interface.
+
+302
+00:29:57.000 --> 00:30:04.099
+Jonathan Sobel: I initially put in the most restrictive thing, but yeah, Kent has mentioned since that maybe that isn't necessary. What does the compiler do right now?
+
+303
+00:30:04.400 --> 00:30:04.850
+Kent Dybvig: Nothing.
+
+304
+00:30:04.850 --> 00:30:13.579
+Joseph Denman: It'll throw a runtime error, but only if the circuit actually attempts to access a witness.
+
+305
+00:30:13.780 --> 00:30:24.259
+Joseph Denman: So, if you have a callee contract, and you call a circuit that doesn't call a witness, then you're golden, even if the contract defines a witness itself.
+
+306
+00:30:24.720 --> 00:30:29.230
+Jonathan Sobel: Okay, that's a… that's a great relaxation, because that…
+
+307
+00:30:29.390 --> 00:30:45.869
+Jonathan Sobel: It would mean that it could do the thing Kemp described, where you could say, I have these other circuits in here, and they have witnesses, and I need them for other things I do with this, but this little slice of it that I use to implement this type over here, doesn't use any.
+
+308
+00:30:46.070 --> 00:30:46.920
+Joseph Denman: Exactly.
+
+309
+00:30:48.140 --> 00:30:50.769
+Jonathan Sobel: So, if everyone's comfortable with it, I can relax that.
+
+310
+00:30:56.090 --> 00:30:57.749
+Jonathan Sobel: Okay, will do.
+
+311
+00:30:59.760 --> 00:31:00.360
+Kent Dybvig: So…
+
+312
+00:31:00.780 --> 00:31:08.449
+Kent Dybvig: I just want to point out also that Joe has also implemented a check to make sure that the
+
+313
+00:31:10.810 --> 00:31:13.710
+Kent Dybvig: The hash of the verifier key matches.
+
+314
+00:31:14.440 --> 00:31:16.580
+Kent Dybvig: so that…
+
+315
+00:31:17.060 --> 00:31:24.339
+Kent Dybvig: And that actually eliminates the one worry we had about this feature, which is that if the ledger fields don't line up.
+
+316
+00:31:25.040 --> 00:31:30.400
+Kent Dybvig: That you could corrupt the ledger by providing a different contract that was…
+
+317
+00:31:30.680 --> 00:31:34.900
+Kent Dybvig: That had the same circuits, but, possibly had different
+
+318
+00:31:35.110 --> 00:31:37.729
+Kent Dybvig: Ledger layouts that they were dealing with.
+
+319
+00:31:38.260 --> 00:31:45.830
+Kent Dybvig: Because if they have… if they do have different ledger layouts, the verifier keys won't match. So that's really cool. So…
+
+320
+00:31:46.580 --> 00:31:50.839
+Kent Dybvig: We've… thwarted a potential problem there with Joseph.
+
+321
+00:31:51.240 --> 00:31:52.340
+Kent Dybvig: Error check.
+
+322
+00:31:52.590 --> 00:31:56.770
+Joseph Denman: It's a guard against incorrect uses of polymorphism.
+
+323
+00:31:58.980 --> 00:32:01.620
+Joseph Denman: unsupported uses of polymorphism, I'll say.
+
+324
+00:32:01.920 --> 00:32:02.500
+Kent Dybvig: Yeah.
+
+325
+00:32:07.250 --> 00:32:08.010
+Parisa Ataei: Excellent.
+
+326
+00:32:12.810 --> 00:32:16.630
+Parisa Ataei: Okay, we have MIPS 22.
+
+327
+00:32:20.950 --> 00:32:30.579
+Jonathan Sobel: This is one that Ben pointed out, that someone submitted as a midnight problem statement, and it's actually really well written. I recommend that everyone read it.
+
+328
+00:32:30.690 --> 00:32:43.240
+Jonathan Sobel: It's… it is very carefully a problem statement, it's not proposing a solution, but it says it would be really great to have a representation of compiled contracts that is standardized, such that I could…
+
+329
+00:32:43.720 --> 00:32:52.560
+Jonathan Sobel: have other things besides our TypeScript, our JavaScript TypeScript target. And this person went and tried to do this with, a Rust
+
+330
+00:32:53.290 --> 00:32:55.190
+Jonathan Sobel: Execution target of some kind.
+
+331
+00:32:55.300 --> 00:32:57.800
+Jonathan Sobel: And said, hey, there's no spec for this.
+
+332
+00:32:58.340 --> 00:33:08.499
+Jonathan Sobel: I think we end up needing something a lot like this to do the dynamic code execution anyway, because as it's become more and more evident, the…
+
+333
+00:33:08.580 --> 00:33:24.820
+Jonathan Sobel: The ZKIR that would end up in the ledger is just for circuits that have proofs, which means we don't have any for pure circuits, we don't have any… there's a lot that isn't there, and so it's kind of nice that this thing lays… it's a pretty good statement of, we need…
+
+334
+00:33:24.890 --> 00:33:35.059
+Jonathan Sobel: In addition to things like the contractinfo.json, we need some standard representation of a compiled contract. Maybe we end up disagreeing with it, but it's a nice,
+
+335
+00:33:35.190 --> 00:33:43.230
+Jonathan Sobel: stake in the ground proposal. It also asserts that we have no spec for contractinfo.json that says what it contains.
+
+336
+00:33:43.420 --> 00:33:54.929
+Jonathan Sobel: And if that's a useful thing we would like people to be able to rely on, then we ought to specify it clearly. Because I know Seba was asking about tooling, for instance, that could process that.
+
+337
+00:33:59.230 --> 00:34:00.380
+Joseph Denman: That's kinda cool.
+
+338
+00:34:01.400 --> 00:34:07.069
+Joseph Denman: They're retargeting Rust, I assume, using some form of claw, then… We should…
+
+339
+00:34:07.970 --> 00:34:10.249
+Joseph Denman: See if someone can retarget it to WASM.
+
+340
+00:34:11.370 --> 00:34:12.479
+Joseph Denman: Just for fun.
+
+341
+00:34:13.520 --> 00:34:16.110
+Joseph Denman: Portable executable representation would be.
+
+342
+00:34:16.440 --> 00:34:23.540
+Joseph Denman: I mean, if ever we decided to go in a direction that wasn't executable ZKIR, then WASM is basically the…
+
+343
+00:34:24.230 --> 00:34:26.510
+Joseph Denman: Should be, should be the alternative.
+
+344
+00:34:26.940 --> 00:34:32.049
+Joseph Denman: For safe execution of untrusted code in a browser environment.
+
+345
+00:34:38.440 --> 00:34:48.190
+Jonathan Sobel: Anyway, I just kind of wanted to point this out to people. I think it's a fairly nice statement of the problem that's related to stuff that we're talking about for Q3.
+
+346
+00:34:49.639 --> 00:34:54.210
+Jonathan Sobel: And from someone who actually Tried to make use of.
+
+347
+00:34:54.480 --> 00:35:01.299
+Jonathan Sobel: Some of this stuff, which means they'd be an interesting person to loop in and, and say, hey, what about this?
+
+348
+00:35:01.510 --> 00:35:08.539
+Jonathan Sobel: Would this meet your needs? Would, you know, what other thoughts do you have? Because it gives us a perspective coming from a different place.
+
+349
+00:35:16.710 --> 00:35:21.299
+Parisa Ataei: Okay, I did add that to the agenda, so people will have a link to it.
+
+350
+00:35:21.480 --> 00:35:29.220
+Parisa Ataei: If you go and read it… Okay, that's that.
+
+351
+00:35:29.360 --> 00:35:32.580
+Parisa Ataei: Any other thing that folks have to discuss?
+
+352
+00:35:36.200 --> 00:35:39.289
+Parisa Ataei: Go lungs, going twice… okay.
+
+353
+00:35:40.090 --> 00:35:44.999
+Parisa Ataei: Okay, with that, you are gonna get 25 minutes back.
+
+354
+00:35:45.450 --> 00:35:52.080
+Parisa Ataei: And, hopefully you're not too tired from in the middle of the week. Okay.
+
+355
+00:35:52.560 --> 00:35:55.099
+Parisa Ataei: All right, folks, thanks for attending.
+
+356
+00:35:55.100 --> 00:35:55.850
+Kent Dybvig: Thank you.
+
+357
+00:35:55.850 --> 00:35:56.520
+Parisa Ataei: Bye.
+
+358
+00:35:56.850 --> 00:35:57.410
+Kent Dybvig: Bye.
+

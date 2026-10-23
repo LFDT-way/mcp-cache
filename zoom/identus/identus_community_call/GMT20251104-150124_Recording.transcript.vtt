@@ -1,0 +1,2450 @@
+WEBVTT
+
+1
+00:00:25.920 --> 00:00:27.090
+Yurii Shynbuiev: Hello, Javi.
+
+2
+00:00:28.790 --> 00:00:29.770
+Javier Ribó: Hello!
+
+3
+00:00:32.780 --> 00:00:34.069
+Yurii Shynbuiev: Have a note ticker.
+
+4
+00:00:35.450 --> 00:00:37.330
+Yurii Shynbuiev: I guess we can keep it.
+
+5
+00:00:37.580 --> 00:00:39.129
+Javier Ribó: Kick it out if you want.
+
+6
+00:00:39.860 --> 00:00:42.050
+Yurii Shynbuiev: It's up to you. You are the host.
+
+7
+00:00:46.260 --> 00:00:47.470
+Yurii Shynbuiev: Hi, Roberto.
+
+8
+00:00:50.270 --> 00:00:50.870
+Javier Ribó: icon.
+
+9
+00:00:51.450 --> 00:00:52.230
+Roberto Carvajal: Hey, Reds.
+
+10
+00:00:53.490 --> 00:00:55.649
+Javier Ribó: I cannot take it out, so… Hello!
+
+11
+00:00:59.350 --> 00:01:00.640
+Roberto Carvajal: Hey!
+
+12
+00:01:00.910 --> 00:01:01.750
+Yurii Shynbuiev: Bye, Jim.
+
+13
+00:01:02.810 --> 00:01:04.060
+Javier Ribó: Yes, finally.
+
+14
+00:01:04.530 --> 00:01:05.689
+Yurii Shynbuiev: What was the topic?
+
+15
+00:01:09.800 --> 00:01:11.530
+Roberto Carvajal: Good, good, good to see you guys.
+
+16
+00:01:13.340 --> 00:01:19.419
+Javier Ribó: Cool, so let me try sharing my screen as we usually do, and we will run the usual presentation.
+
+17
+00:01:20.110 --> 00:01:27.150
+Javier Ribó: So, reminder, reminder, sorry, let me just stop sharing for a while.
+
+18
+00:01:43.420 --> 00:01:51.129
+Javier Ribó: Yeah, as we always say, we start by the antitrust policy notice and code of conduct, so please comply and read those
+
+19
+00:01:51.470 --> 00:01:55.809
+Javier Ribó: Trust policies, if you… if you want to be participating in these calls.
+
+20
+00:01:56.480 --> 00:02:03.540
+Javier Ribó: Then, today, we are going to have the usual agenda. We are going to have a little bit more of content today.
+
+21
+00:02:03.620 --> 00:02:19.739
+Javier Ribó: First, we will have Gonzalo introduce or reintroduce the Swift SDK issuance and how he's planned to achieve that. Then, we recently made a big release, that is the 2.16 release, and we will introduce the changes that were…
+
+22
+00:02:20.140 --> 00:02:33.959
+Javier Ribó: That got out during that release. We are also planning to establish the goals and scope for the next release, 2.17, which will involve all the components, and then I'm going to be talking at the end about…
+
+23
+00:02:34.350 --> 00:02:45.539
+Javier Ribó: the SDKTS roadmap about improving type safety, and then introducing a couple of packages that we are going to be including in the SDKTS repository.
+
+24
+00:02:46.590 --> 00:02:50.580
+Javier Ribó: Cool. So having that said, I guess the floor is for Gonzalo.
+
+25
+00:02:52.570 --> 00:02:54.229
+Javier Ribó: Sorry if he joined already?
+
+26
+00:02:58.410 --> 00:02:59.860
+Javier Ribó: Okay, not yet.
+
+27
+00:03:04.260 --> 00:03:14.730
+Javier Ribó: Well, let's do something. We'll call… we'll call Gonzalo out on Slack, and then whenever he joins, we can go back on Slide, and then get back to SDK and Drift.
+
+28
+00:03:15.880 --> 00:03:21.860
+Javier Ribó: Cool, so around this, I am not going to go in detail on what has been released and whatnot.
+
+29
+00:03:22.110 --> 00:03:30.590
+Javier Ribó: Then… everything can be either found by going into this link, where every single change is listed in there.
+
+30
+00:03:30.720 --> 00:03:37.730
+Javier Ribó: Or also in the TypeScript SDK case, which is a big breaking change for version 6 to version 7.
+
+31
+00:03:38.130 --> 00:03:41.510
+Javier Ribó: We added a specific entry in the documentation website.
+
+32
+00:03:42.550 --> 00:03:45.659
+Javier Ribó: That is talking about every single breaking change.
+
+33
+00:03:45.770 --> 00:03:49.730
+Javier Ribó: I do not foresee many people having problems, because…
+
+34
+00:03:50.180 --> 00:03:57.839
+Javier Ribó: Some libraries that were exposed were not strictly needed, if you didn't go to use the core directly.
+
+35
+00:03:59.380 --> 00:04:06.289
+Javier Ribó: So, yeah, and for Swift, no changes. Kotlin, no changes for now. Kotlin is a little bit… a little bit on pause.
+
+36
+00:04:07.490 --> 00:04:13.060
+Javier Ribó: I'm not sure if somebody else wants to talk about the cloud agent or the mediator?
+
+37
+00:04:13.750 --> 00:04:15.860
+Javier Ribó: Which I am a little bit less aware of.
+
+38
+00:04:16.769 --> 00:04:22.419
+Yurii Shynbuiev: Oh, there is nothing special. Cloud Agent contains a fix that we made for…
+
+39
+00:04:22.529 --> 00:04:39.629
+Yurii Shynbuiev: with revocation list cryptography, to support AD25519 suit as well, and a couple of upgrades and bug fixes. Same with the mediator. It's a version 1
+
+40
+00:04:39.729 --> 00:04:48.539
+Yurii Shynbuiev: 0.2.0. I missed one zero in this stuff, and it supports, also, Mongol connection string, and,
+
+41
+00:04:48.759 --> 00:04:52.889
+Yurii Shynbuiev: Some upgrades and bug fixes as well.
+
+42
+00:04:53.939 --> 00:04:54.749
+Yurii Shynbuiev: Yep.
+
+43
+00:04:55.110 --> 00:04:57.810
+Javier Ribó: That is a very good one, actually, the mediator.
+
+44
+00:04:57.810 --> 00:05:02.459
+Yurii Shynbuiev: In Ruli's notes, we also introduced the Neopreism component.
+
+45
+00:05:02.610 --> 00:05:09.619
+Yurii Shynbuiev: Because, we invested some time into this component as well.
+
+46
+00:05:10.680 --> 00:05:20.939
+Yurii Shynbuiev: And in the next release, we are considering to deprecate the Prism node in favor of Neoprism to make setup more lighter.
+
+47
+00:05:23.110 --> 00:05:25.570
+Javier Ribó: Cool, so we, we are going to start…
+
+48
+00:05:25.890 --> 00:05:30.039
+Javier Ribó: We are going to start seeing new Prism in replacement for the other one, I guess.
+
+49
+00:05:30.630 --> 00:05:36.279
+Yurii Shynbuiev: Yep, yep. Right now, we can just recommend you to use Neo Prism as a standalone.
+
+50
+00:05:36.460 --> 00:05:50.049
+Yurii Shynbuiev: application, for instance, as a DID resolver or DIDRegistrar, and in the next milestone release, we will adapt it better into the Docker files and technology stack.
+
+51
+00:05:51.800 --> 00:05:53.619
+Javier Ribó: Cool. Great job, guys.
+
+52
+00:05:55.860 --> 00:06:01.200
+Javier Ribó: Awesome. I guess we can now… we can now go to the next release, goals and scope.
+
+53
+00:06:01.810 --> 00:06:19.370
+Javier Ribó: As we are getting close to the end of the year, it comes to start finishing and completing the VDR catalyst proposal and making sure that we have every single implementation and workshop and session organized. I think we are soon going to be organizing a session
+
+54
+00:06:20.310 --> 00:06:28.459
+Javier Ribó: on the community call, or in another date, but organized by the foundation, I guess? Or how do you guys want to plan?
+
+55
+00:06:28.860 --> 00:06:30.270
+Javier Ribó: the proposal.
+
+56
+00:06:30.510 --> 00:06:31.270
+Javier Ribó: Thing.
+
+57
+00:06:35.630 --> 00:06:39.540
+Yurii Shynbuiev: I guess it might be a part of community call,
+
+58
+00:06:39.860 --> 00:06:45.300
+Yurii Shynbuiev: Javi, and if it's not enough, we can organize it wider.
+
+59
+00:06:45.300 --> 00:06:46.220
+Javier Ribó: Yeah, I think that's.
+
+60
+00:06:46.220 --> 00:06:47.490
+Yurii Shynbuiev: with the community goal.
+
+61
+00:06:47.800 --> 00:06:50.169
+Javier Ribó: As soon as it's recorded, it's okay.
+
+62
+00:06:50.470 --> 00:06:51.120
+Yurii Shynbuiev: Yes.
+
+63
+00:06:52.060 --> 00:06:52.760
+Javier Ribó: Cool.
+
+64
+00:06:53.550 --> 00:07:01.209
+Javier Ribó: So, on VCDM 2.0, this is something that we probably have in our scope.
+
+65
+00:07:01.710 --> 00:07:11.070
+Javier Ribó: But with all the things that we need to make, I don't foresee being our top priority. It's basically implementing the new
+
+66
+00:07:11.070 --> 00:07:25.000
+Javier Ribó: verifiable credential data model on the SDKs, and making sure all of them comply with it. I think Swift is already capable, if not already, very soon, it's going to be capable of handling those.
+
+67
+00:07:25.970 --> 00:07:27.830
+Javier Ribó: Then…
+
+68
+00:07:28.000 --> 00:07:37.070
+Javier Ribó: I also made sure that we are specific about ongoing TypeScript SDK improvement and maintenance, which I will talk about later.
+
+69
+00:07:37.450 --> 00:07:54.620
+Javier Ribó: support presented in the mediator, that's with exclamation marks, but I guess that we can either start the discussion in here as a GitHub discussion, and participate on the decision making, and see stuff like that. And then…
+
+70
+00:07:54.950 --> 00:07:59.910
+Javier Ribó: Yeah, general maintenance, I would say, bugs, documentation improvements, and stuff like that.
+
+71
+00:08:00.610 --> 00:08:02.850
+Javier Ribó: So, yeah, that's…
+
+72
+00:08:02.850 --> 00:08:03.270
+Roberto Carvajal: What?
+
+73
+00:08:03.270 --> 00:08:04.990
+Javier Ribó: That's it. Yeah, sorry.
+
+74
+00:08:05.260 --> 00:08:10.939
+Roberto Carvajal: Sarah, question. So, what's the, Prism Leader Mediator, feature?
+
+75
+00:08:12.370 --> 00:08:14.739
+Roberto Carvajal: Can you elaborate a little bit on…
+
+76
+00:08:14.740 --> 00:08:17.809
+Fábio Pinheiro: So the… Our mediator? I can talk about that.
+
+77
+00:08:18.040 --> 00:08:26.399
+Fábio Pinheiro: So the mediator currently is, like, supporting the… it's using the peer for communication.
+
+78
+00:08:26.770 --> 00:08:40.959
+Fábio Pinheiro: So, the goal there is just to add… and it's basically done, it's not tested, but the goal there is to use the Prisma for communication, so without having any DIT peer. So…
+
+79
+00:08:41.549 --> 00:08:46.159
+Fábio Pinheiro: the user, basically the identity that is sending DITCOM message is the deep peer.
+
+80
+00:08:49.420 --> 00:08:56.250
+Javier Ribó: But Fabio, in case this deed was for a Web3 wallet, do we expect this deed to be signing every single message?
+
+81
+00:09:00.630 --> 00:09:04.859
+Fábio Pinheiro: So the… that is the goal for the mediator, to support Deep Peer.
+
+82
+00:09:05.120 --> 00:09:10.950
+Fábio Pinheiro: In the communication. So, basically, it's over, and it's, basically, this is over.
+
+83
+00:09:11.340 --> 00:09:14.910
+Javier Ribó: I understand, but from my side, with the website HUD wearing?
+
+84
+00:09:16.290 --> 00:09:23.310
+Javier Ribó: I'm thinking that… I cannot ask the user to sign every single message with their Web3 wallet.
+
+85
+00:09:23.880 --> 00:09:29.150
+Gonçalo Frade: No, it's support. It doesn't… it doesn't mean it doesn't support peer deed anymore.
+
+86
+00:09:30.390 --> 00:09:34.560
+Gonçalo Frade: It still supports PR Deed, but also supports PrismDeat, right? Then?
+
+87
+00:09:35.690 --> 00:09:48.999
+Roberto Carvajal: Okay, yeah, but he's asking, like, okay, in order to sign any messages that go through DITCOM with PrismD, you need access to the private key to sign every communication, basically.
+
+88
+00:09:49.360 --> 00:09:54.019
+Roberto Carvajal: And access to the private key, or the interface to access that.
+
+89
+00:09:54.420 --> 00:09:57.300
+Roberto Carvajal: I think on a Web3 wallet is…
+
+90
+00:09:57.690 --> 00:09:59.599
+Roberto Carvajal: You know, that you need to either…
+
+91
+00:09:59.720 --> 00:10:04.720
+Roberto Carvajal: do a biometric or something, or a pin, or something to access that and get it running, right?
+
+92
+00:10:04.750 --> 00:10:08.169
+Gonçalo Frade: I don't know. It's the same, that's the same for Pierre Diet.
+
+93
+00:10:08.890 --> 00:10:13.129
+Fábio Pinheiro: So there's… the discussions on… on there is that the…
+
+94
+00:10:13.330 --> 00:10:18.370
+Fábio Pinheiro: for me, personally, I would like to have on my DID peer, DID Prisma.
+
+95
+00:10:18.860 --> 00:10:23.109
+Roberto Carvajal: Basically, the identity that I am, or that I use for everything.
+
+96
+00:10:23.520 --> 00:10:41.920
+Fábio Pinheiro: to have that, a key there, that I can use it without having, like, to put my mnemonic key, and just generate that private key, and I want some key that I can just use it, like, a simple key. So it would be, like, stored in the wallet, but not really encrypted.
+
+97
+00:10:42.720 --> 00:10:46.420
+Fábio Pinheiro: In the sense that as the other keys are encrypted.
+
+98
+00:10:46.930 --> 00:10:52.359
+Fábio Pinheiro: So that is my opinion. So I would like to have some key there that I can use it.
+
+99
+00:10:52.470 --> 00:10:56.419
+Fábio Pinheiro: Like, that kicking doesn't need to be generated from the…
+
+100
+00:10:57.020 --> 00:11:02.959
+Fábio Pinheiro: from the… the mnemon key? Can we just… some key generated on the… on the device and stored on the device?
+
+101
+00:11:02.960 --> 00:11:04.200
+Roberto Carvajal: Yeah.
+
+102
+00:11:04.200 --> 00:11:04.880
+Fábio Pinheiro: Two heads up.
+
+103
+00:11:04.880 --> 00:11:13.580
+Gonçalo Frade: and Prism did support, octet curves now. So ED255019 and X25519.
+
+104
+00:11:13.580 --> 00:11:20.860
+Javier Ribó: Okay, I see, so we basically do the same that we are doing now. We only use the Web3 wallet to create the transaction and submit it.
+
+105
+00:11:21.040 --> 00:11:25.110
+Gonçalo Frade: Yeah, it's the same way it works. Also, the mediator…
+
+106
+00:11:25.240 --> 00:11:29.359
+Gonçalo Frade: The mediator doesn't sign keys, doesn't sign the…
+
+107
+00:11:29.360 --> 00:11:36.889
+Roberto Carvajal: No, no, no, the mediator doesn't, but every peer that connects to each other and every payload, it has to be signed, right?
+
+108
+00:11:37.210 --> 00:11:39.930
+Roberto Carvajal: And that's, like, I think Havis was asking.
+
+109
+00:11:40.240 --> 00:11:46.880
+Gonçalo Frade: Yes, but the media… so, but that's already done with peer data, right? It's just, like, supporting now
+
+110
+00:11:47.270 --> 00:11:54.710
+Gonçalo Frade: the resolution of prison… if you use other methods like prison did, right?
+
+111
+00:11:54.800 --> 00:11:59.479
+Roberto Carvajal: It's not supported, so you might not want to use peer.
+
+112
+00:12:00.110 --> 00:12:02.050
+Gonçalo Frade: peer method, right? You might want to
+
+113
+00:12:03.080 --> 00:12:06.610
+Gonçalo Frade: And this will be supported, but the rest is completely the same.
+
+114
+00:12:06.910 --> 00:12:07.520
+Fábio Pinheiro: Yep.
+
+115
+00:12:07.660 --> 00:12:11.489
+Gonçalo Frade: On the web wallet, or on the web mobile, or so on, it's completely the same.
+
+116
+00:12:13.140 --> 00:12:20.899
+Fábio Pinheiro: So, basically, the feature on the mediator is just a resolver. So, you could use, like, didPier, we did Prisma, doesn't matter who is who.
+
+117
+00:12:20.900 --> 00:12:21.560
+Javier Ribó: Yeah.
+
+118
+00:12:21.560 --> 00:12:23.750
+Fábio Pinheiro: It is over, to resolve the document.
+
+119
+00:12:24.320 --> 00:12:25.080
+Roberto Carvajal: Okay.
+
+120
+00:12:25.400 --> 00:12:30.890
+Roberto Carvajal: Alright, so my only observation is that…
+
+121
+00:12:31.520 --> 00:12:39.350
+Roberto Carvajal: This here is disposable for a reason, in order to keep it, you know, untied to your…
+
+122
+00:12:39.500 --> 00:12:44.600
+Roberto Carvajal: basic identities. No, we should keep it very private, like, even if it gets leaked.
+
+123
+00:12:44.910 --> 00:12:50.770
+Roberto Carvajal: It doesn't really matter. There's no association back to you, and it's basically a…
+
+124
+00:12:51.190 --> 00:13:00.680
+Roberto Carvajal: Encrypted channel that a random key gets generated, and once the connection gets established, everything goes through there, and then you can switch to another channel, or whatever.
+
+125
+00:13:01.030 --> 00:13:07.079
+Roberto Carvajal: And then, right, so using PRIST… depends how you use Prism did in order.
+
+126
+00:13:07.080 --> 00:13:14.919
+Javier Ribó: Hold on, hold on. Hold on, I know where you are going, but in our case, whenever we are generating a key, it has entropy.
+
+127
+00:13:15.250 --> 00:13:22.679
+Javier Ribó: So it is not going to be generating a wrong key. Like, it has a derivation path, and each key that we generate is enough.
+
+128
+00:13:23.180 --> 00:13:24.110
+Gonçalo Frade: And, like…
+
+129
+00:13:24.110 --> 00:13:26.410
+Shailesh Patil (IOG Singapore Pte. Ltd): No, I think it's not wrong.
+
+130
+00:13:26.410 --> 00:13:33.389
+Gonçalo Frade: Like PRDs, right, it can be the same for, like, for example, every new connection.
+
+131
+00:13:33.550 --> 00:13:36.310
+Gonçalo Frade: Right? We have a new period.
+
+132
+00:13:37.240 --> 00:13:37.790
+Roberto Carvajal: Yes.
+
+133
+00:13:37.790 --> 00:13:42.089
+Gonçalo Frade: All the SDKs work, right? Every new connection, they create a new peer lead.
+
+134
+00:13:42.090 --> 00:13:43.540
+Javier Ribó: Random one, yes.
+
+135
+00:13:43.540 --> 00:13:44.399
+Gonçalo Frade: Around the one.
+
+136
+00:13:44.400 --> 00:13:44.880
+Roberto Carvajal: Yes.
+
+137
+00:13:44.880 --> 00:13:45.350
+Gonçalo Frade: Hello.
+
+138
+00:13:45.350 --> 00:13:49.589
+Roberto Carvajal: Are we doing the same for present deeds, or are we reusing the same present deed?
+
+139
+00:13:49.590 --> 00:13:49.950
+Gonçalo Frade: the…
+
+140
+00:13:49.950 --> 00:13:51.930
+Roberto Carvajal: It's feature.
+
+141
+00:13:51.930 --> 00:13:59.140
+Gonçalo Frade: Right now, on the SDKs, we don't do that, but if you use PrismD on your side, you can do that with PrismD.
+
+142
+00:14:00.480 --> 00:14:04.099
+Shailesh Patil (IOG Singapore Pte. Ltd): But I think, go on, sorry, Robert.
+
+143
+00:14:04.430 --> 00:14:05.850
+Roberto Carvajal: No, go ahead.
+
+144
+00:14:06.130 --> 00:14:08.209
+Shailesh Patil (IOG Singapore Pte. Ltd): No, what I was saying that.
+
+145
+00:14:08.210 --> 00:14:08.930
+Gonçalo Frade: I, I shouldn't…
+
+146
+00:14:08.930 --> 00:14:10.190
+Shailesh Patil (IOG Singapore Pte. Ltd): But, for example, if it…
+
+147
+00:14:10.190 --> 00:14:26.269
+Gonçalo Frade: Just one thing before you, Shosh, that I think might be confusing. This was the… this is a resolver on the mediator, right? We didn't do any changes on the SDK. The SDK is, at least for now, it's not going to start using PrisonD for lead-com communication, okay?
+
+148
+00:14:26.770 --> 00:14:32.050
+Gonçalo Frade: So, everything remains the same, right? Just the prison… now the mediator.
+
+149
+00:14:32.300 --> 00:14:37.710
+Gonçalo Frade: can resolve prison deeds and can support prison deeds, so you can do the same for with prison deeds.
+
+150
+00:14:38.020 --> 00:14:39.470
+Shailesh Patil (IOG Singapore Pte. Ltd): I see.
+
+151
+00:14:39.480 --> 00:14:40.150
+Roberto Carvajal: Okay.
+
+152
+00:14:40.640 --> 00:14:42.060
+Fábio Pinheiro: So then we're…
+
+153
+00:14:43.460 --> 00:14:52.479
+Yurii Shynbuiev: Sorry for interrupting you. I guess that we have to properly elaborate this feature in,
+
+154
+00:14:52.480 --> 00:15:07.049
+Yurii Shynbuiev: all components that we're going to use. And theoretically, we need to start this implementation from the mediator, but at the same time, each SDK and even cloud agent should have this
+
+155
+00:15:07.160 --> 00:15:10.740
+Yurii Shynbuiev: option to use Prism Git for communication.
+
+156
+00:15:11.160 --> 00:15:11.800
+Yurii Shynbuiev: which also.
+
+157
+00:15:11.800 --> 00:15:12.800
+Gonçalo Frade: Sure, that's true, that's.
+
+158
+00:15:12.800 --> 00:15:14.039
+Shailesh Patil (IOG Singapore Pte. Ltd): Number of other components.
+
+159
+00:15:14.670 --> 00:15:21.019
+Gonçalo Frade: Sure, but it's not there now. That's what I'm saying. There's nothing like that now on the SDKs.
+
+160
+00:15:21.020 --> 00:15:26.560
+Yurii Shynbuiev: So, no, I wanted to clarify high-level picture, how it's going to work, and why do we…
+
+161
+00:15:27.200 --> 00:15:28.760
+Yurii Shynbuiev: Okay, and the plan is…
+
+162
+00:15:28.760 --> 00:15:29.679
+Jon Bauer (Good Future, LLC): that dark food.
+
+163
+00:15:29.680 --> 00:15:31.999
+Yurii Shynbuiev: Mediator, and then proceed with the light component.
+
+164
+00:15:32.000 --> 00:15:44.620
+Shailesh Patil (IOG Singapore Pte. Ltd): I also don't see any advantage of, to be honest, using PrismDate, because we should keep the identity deed separate and keep the communication date separate. I don't know why we are mixing it, really.
+
+165
+00:15:44.620 --> 00:15:49.650
+Fábio Pinheiro: I mean, you are opinionated about that. My perspective is that
+
+166
+00:15:50.000 --> 00:15:54.830
+Fábio Pinheiro: I want to… imagine that I want to build a service, like, that provides credentials.
+
+167
+00:15:54.970 --> 00:16:02.560
+Fábio Pinheiro: I want my identity to be something well known. I don't want to change my identity each time I open a connection, so…
+
+168
+00:16:02.630 --> 00:16:20.610
+Fábio Pinheiro: I'm… I'm this guy, I'm this peer, I'm this deed prism, I don't change my identity, so I… when I generate… because I want to build some trust on my identity. I don't want to be changing every single time. So when I send a message, I'm okay, I'm sending you the credential. I'm using the deed.
+
+169
+00:16:20.830 --> 00:16:35.160
+Fábio Pinheiro: That I'm managing. I don't care who… what the wallet is using. It can be Deep Peer, or it can be Deep Prismo, or any other DIT, but the message that I'm sending, I'm trying to sign with my identity that I manage.
+
+170
+00:16:35.300 --> 00:16:42.049
+Fábio Pinheiro: And I did pre… did… Prisma, I can manage. That did peer, I cannot manage, it's static. So…
+
+171
+00:16:42.270 --> 00:16:43.420
+Fábio Pinheiro: That is my…
+
+172
+00:16:43.420 --> 00:16:45.190
+Shailesh Patil (IOG Singapore Pte. Ltd): But they,
+
+173
+00:16:45.190 --> 00:16:47.460
+Gonçalo Frade: You can achieve the same with the message.
+
+174
+00:16:47.780 --> 00:17:01.580
+Gonçalo Frade: You can achieve the same with the message saying, okay, so I'm… my identity, it's like a protocol, let's say a protocol that we create in DITCOM, that now it's identity protocol, and then the message, you say, okay, so this is my DIT.
+
+175
+00:17:02.310 --> 00:17:07.330
+Gonçalo Frade: That is a prison bid. And I use this PRD just to communicate with this person.
+
+176
+00:17:07.540 --> 00:17:08.210
+Fábio Pinheiro: Oh, wow.
+
+177
+00:17:08.210 --> 00:17:22.590
+Jon Bauer (Good Future, LLC): You can add that at the application level, like, to me, the less correlation risk, the better, and I just don't see what's wrong with… I understand if you want reputation, but reputation should be an application choice, and you can do that with…
+
+178
+00:17:23.250 --> 00:17:29.209
+Jon Bauer (Good Future, LLC): Any number of ways, but the protocol… the underlying protocol should be as non-correlatable as possible.
+
+179
+00:17:30.730 --> 00:17:31.429
+Jon Bauer (Good Future, LLC): My opinion.
+
+180
+00:17:31.440 --> 00:17:49.959
+Roberto Carvajal: Yeah. Oh, I think that there's use case for both. Like, if you want to build some sort of social network where you need reputation, and you need to, like, like, some people, well, on Blue Skies and others, they just publish their public key on their profile, and that's how can you.
+
+181
+00:17:51.560 --> 00:17:55.199
+Jon Bauer (Good Future, LLC): You have the choice to build that. If you, if you…
+
+182
+00:17:55.200 --> 00:17:55.810
+Roberto Carvajal: Right, right, right.
+
+183
+00:17:55.810 --> 00:17:58.130
+Jon Bauer (Good Future, LLC): At the protocol level, you don't have the choice to do both.
+
+184
+00:17:58.130 --> 00:18:04.260
+Gonçalo Frade: The reality is the only difference is PRD can be mostly resolved by its own.
+
+185
+00:18:04.300 --> 00:18:19.270
+Gonçalo Frade: and Prism deeds, if you're going to follow the specs, it's more hard to resolve, because you need access to the Cardano database and so on. But you can… you can do the same folds on… with both deeds, deed methods, without a problem.
+
+186
+00:18:19.270 --> 00:18:26.629
+Gonçalo Frade: Okay? The peer deed can be your identity, Fabio. Nothing… nothing says the peer deed cannot be your identity.
+
+187
+00:18:27.640 --> 00:18:29.650
+Fábio Pinheiro: Yeah, but it's not manageable.
+
+188
+00:18:30.050 --> 00:18:31.510
+Gonçalo Frade: It is manageable, though.
+
+189
+00:18:31.510 --> 00:18:33.129
+Fábio Pinheiro: It's static, it's static.
+
+190
+00:18:33.310 --> 00:18:39.240
+Gonçalo Frade: Yeah, it's static, but it can be your identity. Being static doesn't mean it cannot be your identity.
+
+191
+00:18:40.080 --> 00:18:43.079
+Fábio Pinheiro: Being cited sometimes is a feature, not a problem.
+
+192
+00:18:43.300 --> 00:18:51.539
+Javier Ribó: I don't think a PR did… hold on, Fabio, I don't think a PRD is a valid identifier. It is a unique… a unique…
+
+193
+00:18:52.100 --> 00:18:54.439
+Javier Ribó: Number, unique…
+
+194
+00:18:54.830 --> 00:19:00.549
+Javier Ribó: session ID, or whatever it is, because every single time we create a new one that has no correlation.
+
+195
+00:19:00.690 --> 00:19:02.080
+Shailesh Patil (IOG Singapore Pte. Ltd): Yeah, exactly.
+
+196
+00:19:02.080 --> 00:19:04.360
+Javier Ribó: time? Yes, I agree with that.
+
+197
+00:19:04.360 --> 00:19:05.979
+Gonçalo Frade: But that's, that's what we do.
+
+198
+00:19:06.130 --> 00:19:25.849
+Javier Ribó: hold on, I understand. But at the same time, whenever we are creating the keys in Apollo, we are having this derivation path, and over creating this public key, we are hashing, we are adding random data into it, so I doubt that this is not a strong enough solution to not be able to correlate.
+
+199
+00:19:27.690 --> 00:19:35.619
+Gonçalo Frade: Sure, but what I mean is… it doesn't matter, right? That's our fault. Both methods can achieve the same.
+
+200
+00:19:35.800 --> 00:19:36.360
+Javier Ribó: No, of course.
+
+201
+00:19:36.360 --> 00:19:47.849
+Gonçalo Frade: the biggest difference is the prison deeds can… you can update, private keys. You can update the… you… you can, you can.
+
+202
+00:19:47.850 --> 00:19:49.909
+Roberto Carvajal: Yeah, you can… you can manage that.
+
+203
+00:19:49.910 --> 00:19:51.769
+Gonçalo Frade: You can manage these things, right?
+
+204
+00:19:51.770 --> 00:19:53.089
+Roberto Carvajal: Yeah, yeah, yeah, yeah. Which…
+
+205
+00:19:53.090 --> 00:19:53.560
+Javier Ribó: Which…
+
+206
+00:19:53.560 --> 00:19:53.889
+Gonçalo Frade: I agree.
+
+207
+00:19:53.890 --> 00:19:54.430
+Javier Ribó: Thank you.
+
+208
+00:19:54.640 --> 00:20:01.409
+Gonçalo Frade: Which is not possible with the PR deed, right? But in other way around, PRISMD is way more difficult to resolve.
+
+209
+00:20:01.730 --> 00:20:02.290
+Fábio Pinheiro: If you're like.
+
+210
+00:20:02.290 --> 00:20:02.840
+Gonçalo Frade: Beautiful.
+
+211
+00:20:02.840 --> 00:20:03.350
+Roberto Carvajal: out.
+
+212
+00:20:03.350 --> 00:20:22.810
+Shailesh Patil (IOG Singapore Pte. Ltd): But Gonzalo, there is one more thing, okay, that's fine. It is updatable and everything. So that means either you have to, as a user, you need to use same date, or if you are to keep on changing the date, you need to keep on publishing those dates, and you need to keep on paying for that. So I don't think… But that's a more advantage.
+
+213
+00:20:22.810 --> 00:20:24.170
+Shailesh Patil (IOG Singapore Pte. Ltd): But, anyway.
+
+214
+00:20:24.610 --> 00:20:26.520
+Gonçalo Frade: Shavish, like, that's his choice.
+
+215
+00:20:26.520 --> 00:20:27.040
+Shailesh Patil (IOG Singapore Pte. Ltd): Thank you.
+
+216
+00:20:27.040 --> 00:20:35.699
+Gonçalo Frade: It doesn't really matter, right? So the thing is, let's say tomorrow we add this feature to the SDKs, right?
+
+217
+00:20:35.880 --> 00:20:45.889
+Gonçalo Frade: When we add these features to the SDKs, this will be a choice from the user to do it the way we do, or not, to do with PRD.clusion did.
+
+218
+00:20:46.210 --> 00:20:51.200
+Shailesh Patil (IOG Singapore Pte. Ltd): Yeah, I agree. Okay, but do we think that this is something,
+
+219
+00:20:51.440 --> 00:20:55.389
+Shailesh Patil (IOG Singapore Pte. Ltd): going to add more user base for identities, or, like, does this…
+
+220
+00:20:55.390 --> 00:21:05.119
+Gonçalo Frade: I don't know, I don't know, but there are some use… I can see some use cases where PrismDeat would be more useful than a peer did, for example.
+
+221
+00:21:05.120 --> 00:21:06.420
+Shailesh Patil (IOG Singapore Pte. Ltd): Right? I can see…
+
+222
+00:21:06.420 --> 00:21:07.389
+Roberto Carvajal: Where do you want to…
+
+223
+00:21:07.390 --> 00:21:08.850
+Shailesh Patil (IOG Singapore Pte. Ltd): Dan, yes, definitely, yeah.
+
+224
+00:21:08.850 --> 00:21:12.389
+Roberto Carvajal: When you want to correlate, and when you want to have
+
+225
+00:21:12.830 --> 00:21:26.220
+Roberto Carvajal: that feature, then purely is not enough. Like, you need… if you want to back up your communication channel with somebody else by your identity, then yes, it makes total sense to use
+
+226
+00:21:26.370 --> 00:21:29.310
+Roberto Carvajal: Presently, instead of here, the…
+
+227
+00:21:29.310 --> 00:21:40.959
+Javier Ribó: But also think that whenever we are talking about correlation, but looking at the mediator side, what's the point of having this correlation discussion if at the end of the day, you are still calling an endpoint?
+
+228
+00:21:41.600 --> 00:21:42.930
+Javier Ribó: And has a specific URL.
+
+229
+00:21:42.930 --> 00:21:54.949
+Roberto Carvajal: So, that… okay, so that's… that's another question that I had is, so, why… why the mediator has to resolve that bit in order to work?
+
+230
+00:21:55.260 --> 00:21:57.749
+Roberto Carvajal: I don't think they've been there, do they?
+
+231
+00:21:57.750 --> 00:21:59.849
+Gonçalo Frade: Service of… to get the service.
+
+232
+00:22:00.860 --> 00:22:05.920
+Roberto Carvajal: I don't know how to get the service endpoint, okay, yeah, yeah, yeah, to get the victim endpoints, alright.
+
+233
+00:22:05.920 --> 00:22:06.360
+Gonçalo Frade: Nope.
+
+234
+00:22:06.360 --> 00:22:10.549
+Roberto Carvajal: where it's embedded into the PRD.
+
+235
+00:22:11.060 --> 00:22:18.219
+Roberto Carvajal: Right? It's not on the… on the… it's not… it's not on the full document, so… so yeah, you need the full…
+
+236
+00:22:18.570 --> 00:22:31.140
+Roberto Carvajal: the payload in order to get the services from a DP. Okay. And for that, you need the infrastructure or calling an API endpoint. So either you resolve it yourself, or use a service, an API or something, right?
+
+237
+00:22:31.710 --> 00:22:34.600
+Gonçalo Frade: Yeah, I also have a doubt, Fabio. I think…
+
+238
+00:22:34.970 --> 00:22:41.259
+Gonçalo Frade: Currently, the DITCOM SDK libraries that exist, just work with peer did.
+
+239
+00:22:44.660 --> 00:22:46.569
+Shailesh Patil (IOG Singapore Pte. Ltd): Yeah, most likely.
+
+240
+00:22:46.890 --> 00:22:47.790
+Javier Ribó: Not really.
+
+241
+00:22:47.790 --> 00:22:52.809
+Roberto Carvajal: wouldn't… Hold on. If we use the long div…
+
+242
+00:22:53.430 --> 00:22:57.450
+Roberto Carvajal: Or are we deprecating long bids, right? Because that…
+
+243
+00:22:57.650 --> 00:23:00.600
+Roberto Carvajal: Basically, we'll have those services right there.
+
+244
+00:23:00.770 --> 00:23:04.570
+Roberto Carvajal: Without the need to have the resolver into the mediator.
+
+245
+00:23:07.640 --> 00:23:13.269
+Javier Ribó: But Gonzalo, the Mercury libraries that we created need two or three things.
+
+246
+00:23:13.270 --> 00:23:14.910
+Gonçalo Frade: A secret.
+
+247
+00:23:15.450 --> 00:23:20.310
+Javier Ribó: A secret resolver, and a deed resolver, or something like that.
+
+248
+00:23:20.850 --> 00:23:25.069
+Gonçalo Frade: No, it has a Secret Resolver, it doesn't have a deed resolver in it.
+
+249
+00:23:25.840 --> 00:23:27.080
+Gonçalo Frade: I guess not.
+
+250
+00:23:27.080 --> 00:23:29.159
+Javier Ribó: Mine has, for sure.
+
+251
+00:23:29.910 --> 00:23:34.740
+Gonçalo Frade: The mercury? Yes, but the DITCOM Mercury, it doesn't, I think.
+
+252
+00:23:35.500 --> 00:23:39.049
+Javier Ribó: I think it does. Well, anyway, let's…
+
+253
+00:23:39.050 --> 00:23:40.649
+Gonçalo Frade: That's easy to check, always.
+
+254
+00:23:40.650 --> 00:23:48.659
+Javier Ribó: It is a feature that we introduced, there is no need to, like, Yeah, like, we're in Jewish.
+
+255
+00:23:49.050 --> 00:23:57.610
+Gonçalo Frade: I'm with the impression that… So there's a secret resolver wrapper, right?
+
+256
+00:23:58.700 --> 00:24:01.169
+Gonçalo Frade: And indeed resolver as well.
+
+257
+00:24:01.330 --> 00:24:02.220
+Gonçalo Frade: Seems.
+
+258
+00:24:02.840 --> 00:24:04.979
+Gonçalo Frade: Yes, there's a Budid resolver as well.
+
+259
+00:24:04.980 --> 00:24:06.980
+Javier Ribó: That's what I remember, yeah.
+
+260
+00:24:06.980 --> 00:24:09.549
+Gonçalo Frade: At least on mine, there's also a digital resolver.
+
+261
+00:24:10.200 --> 00:24:12.600
+Gonçalo Frade: But I built this library, I don't know if those…
+
+262
+00:24:12.600 --> 00:24:23.070
+Javier Ribó: But I think I remember that we tried changing it at some point, and I think we found a problem in the libraries itself, but we may be wrong.
+
+263
+00:24:23.340 --> 00:24:33.079
+Gonçalo Frade: Yeah, maybe. I don't know. But yeah, if we… if both… if all the libraries have the resolver thing, yeah, so forget what I did, what I asked.
+
+264
+00:24:33.080 --> 00:24:35.510
+Javier Ribó: what you did. Fantastic.
+
+265
+00:24:35.920 --> 00:24:36.250
+Javier Ribó: better.
+
+266
+00:24:36.250 --> 00:24:38.520
+Fábio Pinheiro: version that you were going to ask, Roberta?
+
+267
+00:24:38.830 --> 00:24:39.720
+Fábio Pinheiro: Before…
+
+268
+00:24:39.720 --> 00:24:40.320
+Roberto Carvajal: What?
+
+269
+00:24:40.790 --> 00:24:42.230
+Fábio Pinheiro: No, no.
+
+270
+00:24:42.430 --> 00:24:48.869
+Roberto Carvajal: Yeah, it's about the… why the mediator needs to resolve, and then Gonzal said, yeah, to get the service.
+
+271
+00:24:49.000 --> 00:24:50.120
+Roberto Carvajal: the endpoints.
+
+272
+00:24:50.710 --> 00:24:56.220
+Roberto Carvajal: To communicate, to parse and communicate each channel, basically, each peer.
+
+273
+00:24:57.120 --> 00:25:03.460
+Roberto Carvajal: So, but, if we use the long dick, then it's…
+
+274
+00:25:03.640 --> 00:25:04.930
+Fábio Pinheiro: Right there.
+
+275
+00:25:06.300 --> 00:25:11.640
+Javier Ribó: Yeah, but the process of resolving it is the coding and getting the JSON object, basically.
+
+276
+00:25:12.750 --> 00:25:13.330
+Roberto Carvajal: Yeah.
+
+277
+00:25:15.800 --> 00:25:16.500
+Roberto Carvajal: Yep.
+
+278
+00:25:16.680 --> 00:25:18.350
+Roberto Carvajal: Yeah, I was just…
+
+279
+00:25:18.630 --> 00:25:29.010
+Roberto Carvajal: Thinking or trying to work around the limit… the extra complexity of having to add the resolver to the mediator and connect it to the mediator.
+
+280
+00:25:29.350 --> 00:25:32.410
+Roberto Carvajal: I mean, sorry, it's the mediator connected to the resolver.
+
+281
+00:25:33.260 --> 00:25:37.989
+Roberto Carvajal: because that's a whole, you know, extra infrastructure and all that.
+
+282
+00:25:38.280 --> 00:25:44.269
+Roberto Carvajal: But, I think it has a valid use case. I do think it has a valid use case.
+
+283
+00:25:44.450 --> 00:25:52.059
+Roberto Carvajal: When you do want to correlate, and when you need to… Especially for public entities, like…
+
+284
+00:25:52.260 --> 00:25:54.019
+Roberto Carvajal: Because that's the other thing, like…
+
+285
+00:25:54.450 --> 00:25:58.909
+Roberto Carvajal: When you are an organization or a public entity.
+
+286
+00:25:59.280 --> 00:26:06.530
+Roberto Carvajal: You need your communications to be… Easily distinguishable and… and correlated.
+
+287
+00:26:06.630 --> 00:26:09.890
+Roberto Carvajal: Right? When you are talking person to person.
+
+288
+00:26:10.000 --> 00:26:15.500
+Roberto Carvajal: Maybe it appears the best thing for privacy and all that, but there are legit use cases for organizations.
+
+289
+00:26:15.500 --> 00:26:15.859
+Javier Ribó: I don't know.
+
+290
+00:26:15.860 --> 00:26:16.620
+Roberto Carvajal: Dude.
+
+291
+00:26:16.620 --> 00:26:25.810
+Javier Ribó: But it doesn't matter, like, again, from my opinion, the fact that we create deeds that are not correlated, that are present deeds, depends.
+
+292
+00:26:25.950 --> 00:26:35.019
+Javier Ribó: on using the hardened derivation, or not using the hardened derivation. If we use the hardened derivation, which is, in my opinion, the one that we are using.
+
+293
+00:26:35.260 --> 00:26:44.690
+Javier Ribó: then you cannot… you cannot correlate two deeds, because you know the… the path. That's what happens in Cardano, right? That you can see.
+
+294
+00:26:45.360 --> 00:26:51.710
+Javier Ribó: The different addresses, but it depends on the hardening options, let's say.
+
+295
+00:26:51.710 --> 00:26:54.049
+Roberto Carvajal: Okay, so Prison has the two options.
+
+296
+00:26:54.410 --> 00:26:55.360
+Javier Ribó: I'm, like…
+
+297
+00:26:55.360 --> 00:26:58.599
+Gonçalo Frade: Oh, it's, like, the keys, that's around the keys.
+
+298
+00:26:58.600 --> 00:26:59.500
+Roberto Carvajal: Yes, right.
+
+299
+00:26:59.500 --> 00:27:10.979
+Gonçalo Frade: itself. So the PRD, what we use right now, right? We have logic, and the AD2509 and X255019, they are hardened.
+
+300
+00:27:11.680 --> 00:27:12.540
+Gonçalo Frade: Okay.
+
+301
+00:27:13.740 --> 00:27:16.340
+Gonçalo Frade: So they cannot be correlated, as well.
+
+302
+00:27:16.670 --> 00:27:33.600
+Gonçalo Frade: But that's around the key, right? We can do that for SEC P256K1, and for the ED2556, and for the X255, right? But when we create a deed, we create with those keys, right? The deed will not know this is ardent or not.
+
+303
+00:27:34.100 --> 00:27:37.480
+Shailesh Patil (IOG Singapore Pte. Ltd): But deed itself is correlated, right, in this case.
+
+304
+00:27:37.480 --> 00:27:38.120
+Gonçalo Frade: No. Huh?
+
+305
+00:27:38.120 --> 00:27:38.620
+Javier Ribó: Why?
+
+306
+00:27:38.620 --> 00:27:39.370
+Gonçalo Frade: Oh, cool.
+
+307
+00:27:40.820 --> 00:27:43.330
+Gonçalo Frade: on the… on this information, right? The information…
+
+308
+00:27:43.330 --> 00:27:43.760
+Shailesh Patil (IOG Singapore Pte. Ltd): Yeah.
+
+309
+00:27:43.760 --> 00:27:45.559
+Gonçalo Frade: It's the boat, is the public keys.
+
+310
+00:27:45.790 --> 00:27:52.590
+Gonçalo Frade: And what you harden is not a public keys, it's… well, you can, but it's the private keys that you harden.
+
+311
+00:27:52.920 --> 00:28:01.549
+Javier Ribó: Of course, but if you harden the private key and you generate a public key, you cannot recover the other public keys from that public key.
+
+312
+00:28:02.140 --> 00:28:03.209
+Gonçalo Frade: No, you cannot.
+
+313
+00:28:03.490 --> 00:28:07.890
+Javier Ribó: So, that's hardening, yeah, that is the explanation of hardening.
+
+314
+00:28:09.390 --> 00:28:12.160
+Gonçalo Frade: Well, it could never recover all their public keys.
+
+315
+00:28:12.570 --> 00:28:19.039
+Roberto Carvajal: Okay, so hold on, let me rewind a little bit and make sure I understand this. When I create a…
+
+316
+00:28:19.350 --> 00:28:20.610
+Roberto Carvajal: Prism Wallet.
+
+317
+00:28:20.750 --> 00:28:28.080
+Roberto Carvajal: Right? And I… Create the seed phrase, and assign a seat phrase, and it creates our master key.
+
+318
+00:28:28.330 --> 00:28:29.040
+Roberto Carvajal: Right?
+
+319
+00:28:29.040 --> 00:28:29.779
+Javier Ribó: I need to check.
+
+320
+00:28:29.780 --> 00:28:30.669
+Roberto Carvajal: in a po…
+
+321
+00:28:30.670 --> 00:28:31.529
+Javier Ribó: I know what you're.
+
+322
+00:28:31.530 --> 00:28:39.029
+Roberto Carvajal: Yeah, from that moment on, If I ask the SDK, hey, create me
+
+323
+00:28:39.160 --> 00:28:48.950
+Roberto Carvajal: did Prism, right? My first did Prism, because I know that it's a difference between the master seat phrase key that gets everything else deviated from.
+
+324
+00:28:49.150 --> 00:28:56.359
+Roberto Carvajal: And I asked that thing, hey, through the SDK, of course, hey, give me a bit prism, because I want to use this one for…
+
+325
+00:28:56.360 --> 00:28:57.020
+Gonçalo Frade: Depends.
+
+326
+00:28:57.610 --> 00:29:02.920
+Gonçalo Frade: It really depends, so… We don't have that full right now, right?
+
+327
+00:29:03.060 --> 00:29:06.559
+Gonçalo Frade: But, for example, you can pass your own derivation path.
+
+328
+00:29:07.010 --> 00:29:14.420
+Roberto Carvajal: Yes. That's an option now, and I remember there was a bug that it always was zero, so it was always the same.
+
+329
+00:29:14.570 --> 00:29:17.270
+Gonçalo Frade: Yes, and now it sucks, right?
+
+330
+00:29:17.270 --> 00:29:17.880
+Roberto Carvajal: And now it's…
+
+331
+00:29:17.880 --> 00:29:36.599
+Gonçalo Frade: You can pass, you can pass the derivation path, right? We don't have that functionality inserted right now, right? We have… we have a functionality for the peer deed, right? That will always, will always, increase the index of the derivation path for the peer deed, okay?
+
+332
+00:29:36.910 --> 00:29:41.830
+Gonçalo Frade: But… For PrismD, right now, we don't have anything like that.
+
+333
+00:29:41.830 --> 00:29:46.330
+Javier Ribó: Well, Gonzalo, it's the opposite. We have derivation paths imprisonedly.
+
+334
+00:29:47.280 --> 00:29:51.909
+Javier Ribó: And we don't have on the peer deeds. PRD is totally random, there is no derivation pattern.
+
+335
+00:29:51.910 --> 00:30:00.640
+Roberto Carvajal: Yeah, okay. So that's… so that's the breadcrumb that hives back any bit present created by the SDK back to your
+
+336
+00:30:00.920 --> 00:30:02.920
+Roberto Carvajal: Master key, basically.
+
+337
+00:30:03.070 --> 00:30:05.080
+Gonçalo Frade: Huh. On your… on the wallet.
+
+338
+00:30:05.500 --> 00:30:10.680
+Gonçalo Frade: Also, also because the normal, normal, the, the normal…
+
+339
+00:30:10.820 --> 00:30:17.669
+Gonçalo Frade: ED25519 and X25519, that is the most used on DITCOM.
+
+340
+00:30:17.990 --> 00:30:24.739
+Gonçalo Frade: AIDS… They are, they have randomness already on it.
+
+341
+00:30:25.020 --> 00:30:25.810
+Gonçalo Frade: Right?
+
+342
+00:30:26.160 --> 00:30:27.370
+Gonçalo Frade: So…
+
+343
+00:30:27.750 --> 00:30:42.079
+Gonçalo Frade: actually, what we use for the derivation path that we don't use on this case, right? 4825509 and X25509, what we use is based on the Cardano CPI.
+
+344
+00:30:42.280 --> 00:30:43.390
+Gonçalo Frade: Let's CYP.
+
+345
+00:30:43.610 --> 00:30:44.510
+Gonçalo Frade: Okay?
+
+346
+00:30:45.440 --> 00:31:02.840
+Gonçalo Frade: So, because… because this is not FIP's normal thing. Normally, 825519 is not a hard-nered wallet, it's not a hard-nered key, so you cannot create a hard-nered wallet with it. You need… there's, like, a CIP for it, and, like, there's some notifications on this.
+
+347
+00:31:02.840 --> 00:31:03.560
+Roberto Carvajal: scope.
+
+348
+00:31:04.090 --> 00:31:09.079
+Roberto Carvajal: So we currently cannot create uncorrelated bit prisms.
+
+349
+00:31:10.460 --> 00:31:14.279
+Gonçalo Frade: Yes, at the moment, they are not related at all.
+
+350
+00:31:14.930 --> 00:31:17.699
+Gonçalo Frade: They are all built on randomness.
+
+351
+00:31:18.190 --> 00:31:24.070
+Gonçalo Frade: You just create a new one, right? And you know, the mediator as it is yours.
+
+352
+00:31:24.070 --> 00:31:30.040
+Javier Ribó: Remember, the first thing that I said is that, in my opinion, they did already have enough entropy.
+
+353
+00:31:31.340 --> 00:31:44.999
+Javier Ribó: This is because whenever we are creating the public keys for that deed, it has HMAC, it has hashing, it has some static values, but other dynamic values that are random. So, in my opinion, it is enough random.
+
+354
+00:31:45.210 --> 00:31:53.849
+Gonçalo Frade: Also, also, there is one thing we are forgetting, okay? They are related, not in the SDK, but they are related on the mediator.
+
+355
+00:31:54.920 --> 00:32:03.050
+Gonçalo Frade: Okay? Okay, so… When you register… first… the first step you do for the mediator, right, is you register your deed.
+
+356
+00:32:03.280 --> 00:32:12.770
+Gonçalo Frade: Right? And then… and then you register like Shao did, I don't remember what it's called, right? But every deed you created, you register as yours as well.
+
+357
+00:32:15.180 --> 00:32:17.519
+Roberto Carvajal: Okay, let me rephrase the question then.
+
+358
+00:32:17.590 --> 00:32:20.570
+Gonçalo Frade: If I create two different prisms.
+
+359
+00:32:20.570 --> 00:32:24.940
+Roberto Carvajal: Yeah, one for you, and one for Javi, and we have a… communication channel.
+
+360
+00:32:27.140 --> 00:32:31.430
+Roberto Carvajal: Is this… if there's a third person involved.
+
+361
+00:32:31.680 --> 00:32:37.349
+Roberto Carvajal: Can, by reading the public key from both of those prisons, can they know?
+
+362
+00:32:37.510 --> 00:32:46.270
+Roberto Carvajal: That those two did present belong to the same originally… original, wallet, or were created by the same original…
+
+363
+00:32:46.270 --> 00:32:49.249
+Gonçalo Frade: Yes, yes, if the public keys are equal.
+
+364
+00:32:50.180 --> 00:32:50.500
+Roberto Carvajal: Yeah.
+
+365
+00:32:52.320 --> 00:32:53.249
+Fábio Pinheiro: No, you can…
+
+366
+00:32:53.250 --> 00:32:56.250
+Roberto Carvajal: In this case, they will not be equal, right? So you cannot correlate
+
+367
+00:32:57.210 --> 00:33:01.760
+Roberto Carvajal: We cannot coordinate two different prisons, say, oh, these two belong to the same.
+
+368
+00:33:02.310 --> 00:33:21.090
+Gonçalo Frade: No, no, no, that's not… that's not completely true, right? The public key… one of the public keys can be equal. The deed can be different, and one of the public keys can be equal. Like, private and public keys, they are a pair, right? When you have one, you have another. Like, they are not different, they don't differ.
+
+369
+00:33:21.240 --> 00:33:24.479
+Gonçalo Frade: Right? The public key is always created from the private key.
+
+370
+00:33:25.350 --> 00:33:26.040
+Roberto Carvajal: Yes.
+
+371
+00:33:26.240 --> 00:33:29.420
+Gonçalo Frade: They don't… they don't differ, right? So…
+
+372
+00:33:30.130 --> 00:33:36.569
+Gonçalo Frade: Right now, you can… for example, if you have a deed that has multiple private keys, right?
+
+373
+00:33:38.250 --> 00:33:39.630
+Javier Ribó: Gonzalo.
+
+374
+00:33:39.630 --> 00:33:40.170
+Gonçalo Frade: One…
+
+375
+00:33:40.170 --> 00:33:51.400
+Javier Ribó: Don't complicate it. The point is that you cannot know that this deed was created using the same master seat, or public key, or whatever, and you cannot do that.
+
+376
+00:33:53.010 --> 00:33:53.400
+Gonçalo Frade: Okay.
+
+377
+00:33:53.400 --> 00:33:54.040
+Roberto Carvajal: So…
+
+378
+00:33:54.040 --> 00:33:54.870
+Javier Ribó: No.
+
+379
+00:33:54.870 --> 00:33:56.439
+Fábio Pinheiro: No, you cannot, console.
+
+380
+00:33:56.640 --> 00:34:02.389
+Fábio Pinheiro: You… what you are saying is, with the deed itself has information there that you can correlate.
+
+381
+00:34:02.760 --> 00:34:03.800
+Gonçalo Frade: No, what I'm saying…
+
+382
+00:34:03.800 --> 00:34:08.370
+Fábio Pinheiro: If you start from different… different paths on the… on the…
+
+383
+00:34:08.830 --> 00:34:14.460
+Roberto Carvajal: But they have a different deviation part, then it's not relatable.
+
+384
+00:34:14.469 --> 00:34:20.369
+Gonçalo Frade: You have a different deviation path, right, for all the keys. It's not relatable. Now, if you went.
+
+385
+00:34:20.370 --> 00:34:20.690
+Roberto Carvajal: Okay.
+
+386
+00:34:20.690 --> 00:34:24.620
+Gonçalo Frade: One… one… just one single public key.
+
+387
+00:34:25.530 --> 00:34:28.979
+Gonçalo Frade: That are… that are… that are in two different deeds.
+
+388
+00:34:29.090 --> 00:34:33.339
+Gonçalo Frade: You can rewrite those two different deeds are from the same person.
+
+389
+00:34:33.810 --> 00:34:34.449
+Roberto Carvajal: Yeah.
+
+390
+00:34:35.010 --> 00:34:37.090
+Roberto Carvajal: Because you're reusing the public key.
+
+391
+00:34:37.090 --> 00:34:37.969
+Gonçalo Frade: Exacto.
+
+392
+00:34:38.409 --> 00:34:41.699
+Roberto Carvajal: That makes sense. But normally… yeah, of course, but normally…
+
+393
+00:34:41.699 --> 00:34:43.389
+Gonçalo Frade: That's what I'm saying. That's what I'm saying.
+
+394
+00:34:43.389 --> 00:34:46.909
+Roberto Carvajal: If you create this DID with a different… Ha.
+
+395
+00:34:47.439 --> 00:34:49.189
+Roberto Carvajal: They won't be card labeled.
+
+396
+00:34:50.110 --> 00:34:56.480
+Gonçalo Frade: And even so, you can never… you can never get the… what is the seed from the public key, right? So that's…
+
+397
+00:34:56.480 --> 00:35:01.679
+Roberto Carvajal: Yeah, of course, of course, yeah, yeah, yeah. But the thing is, okay, so then later.
+
+398
+00:35:02.520 --> 00:35:13.160
+Roberto Carvajal: Then, then, then, if that is true, then basically prism deeds can be used, like… it peer.
+
+399
+00:35:14.090 --> 00:35:22.229
+Roberto Carvajal: For our correlatable, you know, new communication channels, because they are… there will be different keys that cannot be correlatable back to the origin.
+
+400
+00:35:22.400 --> 00:35:22.770
+Javier Ribó: Yeah.
+
+401
+00:35:22.770 --> 00:35:23.250
+Roberto Carvajal: Or wallet.
+
+402
+00:35:23.250 --> 00:35:36.310
+Javier Ribó: As Gonzalo is saying, the mediator needs to know who you are, and then you will have sub-deeds, or children deeds, which you will use with each communication, and…
+
+403
+00:35:37.040 --> 00:35:45.350
+Javier Ribó: I don't know, like, at the end of the day, the mediator is a database that needs to store your identity and who you are, so the mediator can…
+
+404
+00:35:45.350 --> 00:35:50.929
+Roberto Carvajal: But wouldn't be… wouldn't the mediator treat you like a new… like, if you… if you connect… No.
+
+405
+00:35:50.930 --> 00:35:53.190
+Gonçalo Frade: No, because the message that you sent?
+
+406
+00:35:53.740 --> 00:36:09.190
+Gonçalo Frade: So, you always have a deed, right, that connects a pure deed that connects… To the mediator, I see. And when you send the new deeds, right, you send with this deed that you are connected to the mediator.
+
+407
+00:36:09.190 --> 00:36:14.740
+Fábio Pinheiro: Yeah, that's why… So, you have one bid for the mediator, and another for…
+
+408
+00:36:14.890 --> 00:36:17.900
+Roberto Carvajal: For the communi… direct to the other person.
+
+409
+00:36:18.100 --> 00:36:18.690
+Gonçalo Frade: Yes.
+
+410
+00:36:18.690 --> 00:36:23.599
+Roberto Carvajal: But you wrote through the mediator using the same DID on every connection that you sent out.
+
+411
+00:36:23.600 --> 00:36:24.210
+Gonçalo Frade: Good luck to you.
+
+412
+00:36:24.210 --> 00:36:34.919
+Fábio Pinheiro: But that is the application that was designed like that. You can register in the mediator with every single bit. So, you guys are discussing things that
+
+413
+00:36:35.440 --> 00:36:40.770
+Fábio Pinheiro: it's, like, because of the implementation, it's implementation details. It's not, like.
+
+414
+00:36:41.230 --> 00:36:45.339
+Fábio Pinheiro: a problem of the mediator or something like that. It's like.
+
+415
+00:36:45.340 --> 00:36:46.019
+Roberto Carvajal: Yeah, yeah, yeah.
+
+416
+00:36:46.020 --> 00:36:46.619
+Fábio Pinheiro: Did you feel?
+
+417
+00:36:46.620 --> 00:36:47.509
+Roberto Carvajal: it that way.
+
+418
+00:36:47.510 --> 00:36:53.470
+Fábio Pinheiro: If you trust the mediator to keep your message, maybe you trust the mediator to also not… not to…
+
+419
+00:36:54.110 --> 00:36:58.489
+Fábio Pinheiro: To say those… all those deeds are registered by the same person, or something like that.
+
+420
+00:36:58.490 --> 00:37:05.900
+Gonçalo Frade: Yeah, yeah. But in the same way, you can, you can register, all the deeds.
+
+421
+00:37:06.380 --> 00:37:18.060
+Gonçalo Frade: for the… you can just achieve mediation with all the deeds, right? You don't register them on one, but you register them as one, always.
+
+422
+00:37:18.490 --> 00:37:31.780
+Gonçalo Frade: You know? But then, you need to ask the mediator, like, for all the message, like, all the deeds, right, in separate… multiple API calls, in separate it.
+
+423
+00:37:32.090 --> 00:37:36.040
+Gonçalo Frade: And that's not performance, right? Performance-wise, that's not good.
+
+424
+00:37:37.440 --> 00:37:45.900
+Javier Ribó: Well, guys, sorry to… sorry to interrupt. I'm going to suggest that… that we not… that we try not getting stuck in this specific point about.
+
+425
+00:37:45.900 --> 00:37:48.459
+Roberto Carvajal: Yeah, we… We can move forward.
+
+426
+00:37:48.460 --> 00:37:49.060
+Javier Ribó: Yep.
+
+427
+00:37:49.060 --> 00:37:49.500
+Gonçalo Frade: Yep.
+
+428
+00:37:49.500 --> 00:37:54.349
+Javier Ribó: And if we have time at the end, we, yeah, feel free to stay, and we continue talking about it.
+
+429
+00:37:55.510 --> 00:38:09.609
+Javier Ribó: Awesome, what else? Okay, so type safety. So many people manifested that we don't have, like, full type safety in the TypeScript SDK, and I partially agree on that.
+
+430
+00:38:09.830 --> 00:38:28.679
+Javier Ribó: So, how we are going to transition to be a more type-safe SDK is by making sure that not only at build time, or at compile time, that we have type safety, but after at runtime. Because on JavaScript, especially on JavaScript, if you are passing an object, and then
+
+431
+00:38:29.450 --> 00:38:48.099
+Javier Ribó: You are not using types? Well, it doesn't matter, actually. In JavaScript, there is no types, literally, so you can pass any object whenever, so it is worth validating that whenever at build time or at compile time we wanted to have something typed, at runtime, we know for sure it is properly done.
+
+432
+00:38:48.310 --> 00:38:58.930
+Javier Ribó: And then, how I propose that we do this in two or three phases. First, identify the areas where we need to improve the types, which are not going to be a lot.
+
+433
+00:38:59.330 --> 00:39:17.910
+Javier Ribó: And then the biggest amount of work, in my opinion, is identifying where we need to have stronger validation, so making sure that the string is a string, the number is a number, and so on. And then implement it in very small tickets that anyone could pick up, or yeah, we can explore automation and stuff like that.
+
+434
+00:39:19.950 --> 00:39:20.510
+Roberto Carvajal: Oop.
+
+435
+00:39:21.060 --> 00:39:25.959
+Javier Ribó: Yeah, that's… that's one of the two things. And then, on the following…
+
+436
+00:39:26.720 --> 00:39:38.689
+Javier Ribó: I recently had… well, recently, like, today, I shared with the team my intentions to… to try and share these community projects with… with Identus. One is the Identus React one.
+
+437
+00:39:39.090 --> 00:39:47.330
+Javier Ribó: that helps you build identity products with the SDK by using React hooks and React-friendly
+
+438
+00:39:47.860 --> 00:39:53.660
+Javier Ribó: Code, and it allows you to do everything that a niche where a verifier, or a holder requires.
+
+439
+00:39:54.090 --> 00:39:58.059
+Javier Ribó: in a Web3, in a React application.
+
+440
+00:39:58.850 --> 00:40:12.439
+Javier Ribó: And then the other one is the offline first agent that is already available, and it is an implementation of the agent that runs entirely in a browser, that stores everything in the browser, and it's basically using 100% of Identos.
+
+441
+00:40:12.980 --> 00:40:28.999
+Javier Ribó: I think it will make a lot more sense whenever the VDR is completed, because it will be a very decentralized approach to do everything directly on the blockchain, and you will no longer need a middle… a middleman to tell you if something is valid or not.
+
+442
+00:40:29.170 --> 00:40:44.640
+Javier Ribó: This anyway requires big changes in the SDK, like moving to workspaces, which may seem like a small change, but Elaine and myself have already tried moving to workspaces, and first of all, moving to YARN, and it is not so simple.
+
+443
+00:40:45.270 --> 00:40:50.950
+Javier Ribó: So then, first of all, we will prepare the SDK for having new packages as soon as this is done.
+
+444
+00:40:51.160 --> 00:40:57.079
+Javier Ribó: We will explore bringing the React one, and then last one, probably the offline first.
+
+445
+00:40:59.150 --> 00:41:00.300
+Javier Ribó: Cool.
+
+446
+00:41:02.200 --> 00:41:05.099
+Javier Ribó: I guess we are done for…
+
+447
+00:41:06.360 --> 00:41:15.209
+Javier Ribó: for today, we can either continue… I'm not sure if you guys have questions about the roadmap or the projects that… are we still using the projects?
+
+448
+00:41:16.550 --> 00:41:18.110
+Javier Ribó: That's maybe a question for them.
+
+449
+00:41:18.350 --> 00:41:20.820
+Gonçalo Frade: Weren't we going to talk about Dolphine?
+
+450
+00:41:22.240 --> 00:41:25.800
+Roberto Carvajal: Yeah, Goltano needs to present his slide, right?
+
+451
+00:41:25.800 --> 00:41:26.400
+Javier Ribó: Oh, yes.
+
+452
+00:41:26.400 --> 00:41:27.120
+Roberto Carvajal: snap?
+
+453
+00:41:27.120 --> 00:41:28.440
+Javier Ribó: That's true, Gonzamo.
+
+454
+00:41:29.350 --> 00:41:31.600
+Gonçalo Frade: Oh, you already passed it. Sorry.
+
+455
+00:41:32.190 --> 00:41:36.859
+Gonçalo Frade: Sorry about that. Cool. Let me share, then.
+
+456
+00:41:37.240 --> 00:41:41.810
+Gonçalo Frade: I think I can… Can you let me share, please?
+
+457
+00:41:41.810 --> 00:41:43.780
+Javier Ribó: No, yes, of course.
+
+458
+00:41:45.350 --> 00:41:46.780
+Gonçalo Frade: Thank you.
+
+459
+00:41:46.780 --> 00:41:47.500
+Javier Ribó: Can you?
+
+460
+00:41:48.960 --> 00:41:50.210
+Gonçalo Frade: Yeah, cuckoo.
+
+461
+00:41:50.480 --> 00:41:52.010
+Gonçalo Frade: So, yeah.
+
+462
+00:41:53.880 --> 00:42:06.969
+Gonçalo Frade: I already found an error that I have to fix on the documentation. Yeah, but I will present this with your documentation, right? So this is part of the SDK documentation already?
+
+463
+00:42:07.110 --> 00:42:10.700
+Gonçalo Frade: And, so what is this? This is basically…
+
+464
+00:42:11.040 --> 00:42:14.750
+Gonçalo Frade: the Swift SDK can now issue
+
+465
+00:42:15.560 --> 00:42:19.970
+Gonçalo Frade: with JWT and SDJWT credentials, okay?
+
+466
+00:42:20.360 --> 00:42:26.229
+Gonçalo Frade: So… Right now, we have this API, right, with the claim builder.
+
+467
+00:42:26.860 --> 00:42:46.380
+Gonçalo Frade: And this API, basically, this is on the Edge Agent SDK, right? And basically, you can pass the issuerD, and it will get the… the… well, this is not correct, you already, talked with me, and it's right, but you will get the first key, right? But…
+
+468
+00:42:46.450 --> 00:42:51.280
+Gonçalo Frade: But in the future, I'm going to change this to just get the proper key.
+
+469
+00:42:51.620 --> 00:42:52.940
+Gonçalo Frade: Daiswansky?
+
+470
+00:42:53.610 --> 00:42:54.470
+Gonçalo Frade: So…
+
+471
+00:42:54.750 --> 00:43:04.839
+Gonçalo Frade: how does this work, right? This is very similar for both, right? So this is pretty cool, how it works. Let's say, issue a laboratory CJWT credential, right?
+
+472
+00:43:04.960 --> 00:43:11.919
+Gonçalo Frade: So, right now, with this, let's say, we have the edge engine in here, right? The…
+
+473
+00:43:12.390 --> 00:43:16.759
+Gonçalo Frade: We can pass the type that we require, right?
+
+474
+00:43:16.880 --> 00:43:30.249
+Gonçalo Frade: Let's say VCJWT, right? And now we have all these, this is like a DSL, right? So we can pass this. So let's say we enter W3C V2 context claim, right?
+
+475
+00:43:30.250 --> 00:43:40.999
+Gonçalo Frade: We want a W3C issuer claim that has the issuerD string. This can be an object as well, so it can be formatted like this, right? But it needs an ID.
+
+476
+00:43:41.230 --> 00:44:01.149
+Gonçalo Frade: Because the issuer claim always needs an ID. W3C type claim, right? You can add other type of claims that are JSON. Strings, numbers, bool, you can add objects, you can add arrays, you can add everything, just like an JSON, right? But it's all typed.
+
+477
+00:44:01.150 --> 00:44:01.990
+Gonçalo Frade: Okay?
+
+478
+00:44:02.400 --> 00:44:12.090
+Gonçalo Frade: You can add the W3C credential subject claim, right? Where you add the ID, right, the subject ID, the name.
+
+479
+00:44:12.090 --> 00:44:23.950
+Gonçalo Frade: Right? I also added, like, let's say this university degree, I added the grades, it's an object claim, and inside there is, like, the grades for each, for each subject, right?
+
+480
+00:44:24.030 --> 00:44:33.360
+Gonçalo Frade: I had the claim that says if it is approved or not, right? I had a claim with an array of professors, right?
+
+481
+00:44:33.620 --> 00:44:37.890
+Gonçalo Frade: And then it creates this object, right? This JWT credential.
+
+482
+00:44:37.890 --> 00:44:38.550
+Fábio Pinheiro: Right.
+
+483
+00:44:38.550 --> 00:44:41.480
+Gonçalo Frade: This comes as a credential, but it's always there.
+
+484
+00:44:41.960 --> 00:44:42.779
+Gonçalo Frade: Tamil what?
+
+485
+00:44:44.710 --> 00:44:47.310
+Gonçalo Frade: Okay, I don't guess, I guess you were not muted.
+
+486
+00:44:47.420 --> 00:44:51.250
+Gonçalo Frade: And then you can see in here the paywall that he created, right?
+
+487
+00:44:51.520 --> 00:45:00.780
+Gonçalo Frade: this is the JSON, right? As you can see, like, the context, you didn't… you didn't need to add… this is… this is obliged by… by the specification.
+
+488
+00:45:00.970 --> 00:45:02.749
+Gonçalo Frade: of VCDM 2.0.
+
+489
+00:45:02.860 --> 00:45:05.869
+Gonçalo Frade: Right? That he needs to have these con… these…
+
+490
+00:45:06.220 --> 00:45:16.459
+Gonçalo Frade: string, and it needs to be the first one, so it already takes care of this. It takes care of the subject, it takes care of the issuer, right?
+
+491
+00:45:16.840 --> 00:45:32.359
+Gonçalo Frade: it takes care of every single thing that you need. You need the type, right? This is also on the specification, the type needs to be like this. As you see, you just added. You can add other types, if you want, right? The API allows for that, right? It's all there, and you create these.
+
+492
+00:45:33.330 --> 00:45:39.459
+Gonçalo Frade: Now, how this differs… Like, what do we need to do?
+
+493
+00:45:40.450 --> 00:45:45.110
+Gonçalo Frade: to just make this an SDJWT, where you can have these clausible fields.
+
+494
+00:45:45.260 --> 00:45:45.990
+Gonçalo Frade: Right?
+
+495
+00:45:46.870 --> 00:45:52.250
+Gonçalo Frade: So, for example, the… on V2, right?
+
+496
+00:45:52.320 --> 00:46:11.629
+Gonçalo Frade: The context cannot be disclosable, the W3C issue cannot be disclosable, the type cannot be disclosable, the subject cannot be disposable, right? The credential schema and the credential status cannot be disclosable, right? So…
+
+497
+00:46:12.240 --> 00:46:15.539
+Gonçalo Frade: How do… what would defer in these?
+
+498
+00:46:16.300 --> 00:46:26.390
+Gonçalo Frade: to issue SDJWT with disposable… with disposable variables, right? Let's say we want to make the name, your name, disposable.
+
+499
+00:46:26.600 --> 00:46:27.320
+Gonçalo Frade: Right?
+
+500
+00:46:27.510 --> 00:46:30.590
+Gonçalo Frade: So, this would be just… this.
+
+501
+00:46:31.110 --> 00:46:34.959
+Gonçalo Frade: As you see, it's all the same, but what is disposable?
+
+502
+00:46:35.700 --> 00:46:38.369
+Gonçalo Frade: As just a field that says disposable true.
+
+503
+00:46:40.220 --> 00:46:41.010
+Gonçalo Frade: Right?
+
+504
+00:46:41.750 --> 00:46:52.710
+Gonçalo Frade: And when… and in here, you can see, like, okay, so the name is disposable, the objects… the… the grades object is disposable.
+
+505
+00:46:53.020 --> 00:46:58.219
+Gonçalo Frade: The… if it is approved or not, is this causal, and the professor's array is disposable.
+
+506
+00:46:58.370 --> 00:47:05.730
+Gonçalo Frade: And… If you go to the… to the example output of SDJWT, right, it's there?
+
+507
+00:47:06.490 --> 00:47:11.380
+Gonçalo Frade: And, as you can see, All the disposable fields.
+
+508
+00:47:12.890 --> 00:47:17.289
+Gonçalo Frade: are… Are… are the… are hidden, right?
+
+509
+00:47:17.620 --> 00:47:21.030
+Gonçalo Frade: As the SDJWT says, right?
+
+510
+00:47:21.280 --> 00:47:32.469
+Gonçalo Frade: And if you… if you… after the order refills the claims, right? I even have in here, I guess, the SDJWT thing, or not.
+
+511
+00:47:33.250 --> 00:47:34.299
+Gonçalo Frade: I can put.
+
+512
+00:47:35.020 --> 00:47:41.410
+Gonçalo Frade: So… I can even get in here, right?
+
+513
+00:47:41.700 --> 00:47:42.490
+Gonçalo Frade: Oops.
+
+514
+00:47:42.840 --> 00:47:49.109
+Gonçalo Frade: Go in here… Let me just… Copy these now.
+
+515
+00:47:53.880 --> 00:47:57.700
+Gonçalo Frade: And as you see, like… what I showed?
+
+516
+00:48:00.140 --> 00:48:02.260
+Gonçalo Frade: And… whoa.
+
+517
+00:48:03.170 --> 00:48:07.649
+Gonçalo Frade: Oh, it doesn't… it doesn't edit the disposable fields.
+
+518
+00:48:08.270 --> 00:48:10.229
+Gonçalo Frade: In here, let me… ugh.
+
+519
+00:48:10.600 --> 00:48:11.510
+Gonçalo Frade: Damn it.
+
+520
+00:48:11.630 --> 00:48:14.499
+Gonçalo Frade: I need to fix this as well.
+
+521
+00:48:15.220 --> 00:48:27.300
+Gonçalo Frade: It's not… he added me the three dots in here, so I don't have the disposable fields in here. Okay, cool, nice, nice to know. I can show you guys in the…
+
+522
+00:48:27.560 --> 00:48:38.070
+Gonçalo Frade: index codes. So… I can show you guys, because we have actually a test in here.
+
+523
+00:48:38.700 --> 00:48:41.290
+Gonçalo Frade: For the example cases, right?
+
+524
+00:48:44.510 --> 00:48:46.860
+Gonçalo Frade: And… Okay, shh.
+
+525
+00:48:55.230 --> 00:48:56.120
+Gonçalo Frade: Damn.
+
+526
+00:48:57.530 --> 00:49:01.929
+Gonçalo Frade: Let's just run these… Gonna be very fast.
+
+527
+00:49:02.050 --> 00:49:04.540
+Gonçalo Frade: As you see, it's the code I just presented.
+
+528
+00:49:04.740 --> 00:49:05.510
+Gonçalo Frade: Right.
+
+529
+00:49:15.340 --> 00:49:19.860
+Gonçalo Frade: It is very fast. Done. Now you have the…
+
+530
+00:49:20.220 --> 00:49:29.720
+Gonçalo Frade: credential in here, the SDGWT credential, right? And if we add anything here with everything, you can see all the disclosures, claims, as you…
+
+531
+00:49:30.050 --> 00:49:44.100
+Gonçalo Frade: as you've given, right? So basically, anyone can create easily a W3C credential in here, issue it in the SDK, right? And it will be, like, W3C…
+
+532
+00:49:44.100 --> 00:49:55.260
+Gonçalo Frade: Validated, we have validations for WTC credentials, right? So it will tell you, for example, if you don't have the type correct, or if you don't have the context correct.
+
+533
+00:49:55.270 --> 00:49:59.459
+Gonçalo Frade: Right? It will show up as an error.
+
+534
+00:50:00.320 --> 00:50:01.230
+Gonçalo Frade: India?
+
+535
+00:50:01.510 --> 00:50:03.510
+Gonçalo Frade: This is it. This is all…
+
+536
+00:50:03.850 --> 00:50:06.869
+Gonçalo Frade: All the SDK issues, now credentials.
+
+537
+00:50:07.020 --> 00:50:15.630
+Gonçalo Frade: with Disclosable, for example, if I, if I added this in here, in the… In the JWT.
+
+538
+00:50:15.910 --> 00:50:16.720
+Gonçalo Frade: Right?
+
+539
+00:50:19.360 --> 00:50:29.310
+Gonçalo Frade: It just basically ignores the disposable part, because JWT doesn't have disposability, right?
+
+540
+00:50:30.410 --> 00:50:37.090
+Gonçalo Frade: So, we do work for any kind of, of credential.
+
+541
+00:50:42.530 --> 00:50:51.650
+Gonçalo Frade: And… there you go… There we go. It will work for any kind of credential, as you see.
+
+542
+00:50:55.650 --> 00:51:01.449
+Yurii Shynbuiev: So, Gonzala, does it mean that everyone can issue credentials from the Apple Watch?
+
+543
+00:51:02.390 --> 00:51:03.020
+Gonçalo Frade: Yes?
+
+544
+00:51:05.550 --> 00:51:09.120
+Gonçalo Frade: Yes, you can issue credentials on the Apple Watch, you can issue.
+
+545
+00:51:09.120 --> 00:51:09.700
+Yurii Shynbuiev: apologies.
+
+546
+00:51:09.700 --> 00:51:11.460
+Gonçalo Frade: from the Mac, anywhere.
+
+547
+00:51:12.890 --> 00:51:22.430
+Gonçalo Frade: Yeah, that is it, right? You can even, like, I didn't add it, because I didn't feel like, since we don't have VDR, it's not necessary, right?
+
+548
+00:51:23.210 --> 00:51:30.140
+Gonçalo Frade: But, for example, we can add unknown credits with this API, and it will create the unknown credits credential without
+
+549
+00:51:31.130 --> 00:51:32.040
+Gonçalo Frade: a niche.
+
+550
+00:51:33.030 --> 00:51:33.840
+Gonçalo Frade: Okay.
+
+551
+00:51:34.750 --> 00:51:39.609
+Gonçalo Frade: It will create the new credential without a niche, which is pretty cool.
+
+552
+00:51:40.080 --> 00:51:44.020
+Gonçalo Frade: Okay. But right now, we don't have VDR to post the…
+
+553
+00:51:44.180 --> 00:51:53.680
+Gonçalo Frade: the metadata of, of an inquiry's credential, so it's… it's not useful at all, so it's not needed. But yeah, this is it.
+
+554
+00:51:54.990 --> 00:52:01.790
+Fábio Pinheiro: On your DSL, you have, like, on the array, you have a string.
+
+555
+00:52:02.700 --> 00:52:05.490
+Fábio Pinheiro: And the string of a key that makes no sense.
+
+556
+00:52:05.820 --> 00:52:07.789
+Gonçalo Frade: Yeah, I know, but normally…
+
+557
+00:52:07.790 --> 00:52:10.620
+Fábio Pinheiro: Another method for… without that term?
+
+558
+00:52:10.620 --> 00:52:14.739
+Gonçalo Frade: No, I have, right? But the tests don't allow it.
+
+559
+00:52:14.970 --> 00:52:21.470
+Gonçalo Frade: It's the test thing, I think, right? Normally, you have this, alright, one…
+
+560
+00:52:24.130 --> 00:52:29.570
+Gonçalo Frade: Alright, element claim, right? And then it has a string and so on, right?
+
+561
+00:52:30.480 --> 00:52:36.780
+Gonçalo Frade: But… but it was not working, right? And I didn't just…
+
+562
+00:52:37.560 --> 00:52:41.820
+Gonçalo Frade: I think I was losing time already, so I just gave it like this.
+
+563
+00:52:43.290 --> 00:52:44.850
+Fábio Pinheiro: I don't like it like that.
+
+564
+00:52:45.120 --> 00:52:53.120
+Gonçalo Frade: Yeah, I don't see it as well, but… it always needs a key, because it's used as an object, right?
+
+565
+00:52:53.540 --> 00:52:58.240
+Gonçalo Frade: If it is not array, the key is just, like, ignored, so it doesn't.
+
+566
+00:52:58.240 --> 00:53:02.919
+Fábio Pinheiro: Why don't you create another, another class that doesn't have the key?
+
+567
+00:53:03.790 --> 00:53:05.099
+Fábio Pinheiro: Just have the building.
+
+568
+00:53:06.660 --> 00:53:10.339
+Gonçalo Frade: just repetition, I think. I don't think it's really needed.
+
+569
+00:53:10.340 --> 00:53:12.820
+Fábio Pinheiro: Life safety. But okay, you decide.
+
+570
+00:53:13.390 --> 00:53:18.170
+Gonçalo Frade: Yeah, well… yeah, I just think it's not really needed.
+
+571
+00:53:18.380 --> 00:53:21.069
+Gonçalo Frade: We can have it like this. It's okay.
+
+572
+00:53:21.770 --> 00:53:26.299
+Gonçalo Frade: I could also put it like this, I could also put it like this, you know?
+
+573
+00:53:28.650 --> 00:53:32.249
+Gonçalo Frade: And then I just could just do this.
+
+574
+00:53:33.550 --> 00:53:37.929
+Fábio Pinheiro: So, what happens if it has two keys the same? Does it report error nicely?
+
+575
+00:53:37.930 --> 00:53:39.330
+Gonçalo Frade: Yeah, it imports an error.
+
+576
+00:53:39.540 --> 00:53:42.790
+Gonçalo Frade: It doesn't allow, for it to happen.
+
+577
+00:53:43.890 --> 00:53:44.830
+Gonçalo Frade: Okay.
+
+578
+00:53:45.240 --> 00:53:56.220
+Gonçalo Frade: So, all these validations are done, we even have a validation in here that is… Operations…
+
+579
+00:53:56.620 --> 00:54:01.400
+Gonçalo Frade: So, we even have, like, this validation, right? It verifies, like, the object.
+
+580
+00:54:01.760 --> 00:54:02.740
+Gonçalo Frade: Itself?
+
+581
+00:54:03.870 --> 00:54:22.359
+Gonçalo Frade: So, if it is not codable, it already gives you an error. I don't know if I gave you… I don't know if John or Robert already knew, but Swift already handles VCDM 2.0, VCDM 1.0 and 1.1, right?
+
+582
+00:54:22.700 --> 00:54:28.110
+Gonçalo Frade: And, yeah, you can already use these new,
+
+583
+00:54:29.610 --> 00:54:39.530
+Gonçalo Frade: new verifiable credential, type, right? That is specific to VCDM, right? And you can add all that you need.
+
+584
+00:54:39.820 --> 00:54:46.760
+Gonçalo Frade: And then you can also have the envelopes that are basically…
+
+585
+00:54:50.230 --> 00:54:51.080
+Gonçalo Frade: Peaceful.
+
+586
+00:54:52.400 --> 00:54:53.940
+Gonçalo Frade: No, not this one.
+
+587
+00:55:00.120 --> 00:55:01.189
+Gonçalo Frade: Why is that?
+
+588
+00:55:01.700 --> 00:55:03.859
+Gonçalo Frade: Sorry, I bet.
+
+589
+00:55:04.170 --> 00:55:09.940
+Gonçalo Frade: This one, right? So, this is an envelope now, right? Just like the specifications.
+
+590
+00:55:10.170 --> 00:55:17.959
+Gonçalo Frade: it's an envelope with what the SDK gives, but, like, you can always… it's, it's with,
+
+591
+00:55:18.540 --> 00:55:29.439
+Gonçalo Frade: generics and stuff, so you can always give your own objects, to them do stuff. So, for example, if you want, you can always do, like, the…
+
+592
+00:55:29.550 --> 00:55:39.300
+Gonçalo Frade: let's say the default envelope, right? You can always get the VC, right? And then you can decode as…
+
+593
+00:55:39.580 --> 00:55:43.920
+Gonçalo Frade: let's say… your own VC.
+
+594
+00:55:44.190 --> 00:55:47.729
+Gonçalo Frade: John VC Object.
+
+595
+00:55:48.500 --> 00:55:51.430
+Gonçalo Frade: Right? And it will try to decode it with that.
+
+596
+00:55:51.940 --> 00:55:53.640
+Yurii Shynbuiev: Gonzalo, 3 minutes.
+
+597
+00:55:54.580 --> 00:55:56.050
+Gonçalo Frade: Cool, I'm done.
+
+598
+00:56:01.980 --> 00:56:06.310
+Javier Ribó: Very nice, beautiful, beautiful meeting. You see, you see how…
+
+599
+00:56:06.910 --> 00:56:14.200
+Javier Ribó: what it takes to fill in the hour. Some of us were concerned that we maybe have difficulties filling the hour from now on.
+
+600
+00:56:14.640 --> 00:56:17.490
+Javier Ribó: But I think that we want,
+
+601
+00:56:18.000 --> 00:56:24.380
+Javier Ribó: Let's see, also, Fabio made a post on Discord around scheduling the meetings bi-weekly.
+
+602
+00:56:24.510 --> 00:56:32.140
+Javier Ribó: Or leaving them as it is, so if any of you want to give feedback or comment your opinions, then please feel free
+
+603
+00:56:32.280 --> 00:56:34.050
+Javier Ribó: You are more than welcome to.
+
+604
+00:56:35.010 --> 00:56:37.130
+Javier Ribó: To bring your points to the table.
+
+605
+00:56:38.920 --> 00:56:41.529
+Javier Ribó: And that will be it for today, I guess.
+
+606
+00:56:41.840 --> 00:56:43.729
+Shailesh Patil (IOG Singapore Pte. Ltd): Okay, great.
+
+607
+00:56:44.290 --> 00:56:45.180
+Javier Ribó: Awesome.
+
+608
+00:56:45.180 --> 00:56:46.630
+Gonçalo Frade: Thank you, guys.
+
+609
+00:56:46.630 --> 00:56:47.330
+Shailesh Patil (IOG Singapore Pte. Ltd): Thank you.
+
+610
+00:56:47.330 --> 00:56:47.809
+Roberto Carvajal: Thank you.
+
+611
+00:56:48.330 --> 00:56:48.920
+Fábio Pinheiro: Right.
+
+612
+00:56:49.230 --> 00:56:50.050
+Roberto Carvajal: Bye-bye.
+

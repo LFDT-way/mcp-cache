@@ -1,0 +1,202 @@
+WEBVTT
+
+1
+00:00:25.580 --> 00:00:28.540
+Robert Andersen: Hello, hello, this is April the 7th.
+
+2
+00:00:28.560 --> 00:00:47.390
+Robert Andersen: 2026, and I am making this mostly for documentation purposes, so this will be a quick video. And so, what has happened over the last two weeks since the last update is that with the Identity Bot project, we are…
+
+3
+00:00:48.070 --> 00:00:57.249
+Robert Andersen: Creating A lot of architectural… making a lot of architectural decisions about how exactly to…
+
+4
+00:00:58.020 --> 00:01:05.299
+Robert Andersen: structure the functionality for the different items, or for the menu items that are on the identity agent, so…
+
+5
+00:01:05.410 --> 00:01:14.989
+Robert Andersen: One example is… We need little modules like a port manager, because every time a identity agent
+
+6
+00:01:16.000 --> 00:01:23.009
+Robert Andersen: is spawned, or somebody creates one, or launches one. We've found with other testing that
+
+7
+00:01:23.510 --> 00:01:35.560
+Robert Andersen: Some of the ports may already be taken, and then… or a previous instance of the identity agent application may already be running, and we might need to kill that.
+
+8
+00:01:35.940 --> 00:01:38.039
+Robert Andersen: So, we have… we have to…
+
+9
+00:01:39.820 --> 00:01:58.479
+Robert Andersen: install things such as a port manager that kills the previous version or instance of the application, and then restarts it, and then also that there are sub, ports that are used for the carry protocol, or the authentication manager, or…
+
+10
+00:01:58.780 --> 00:02:02.579
+Robert Andersen: Just various different things that we are adding as managers, so…
+
+11
+00:02:03.230 --> 00:02:07.500
+Robert Andersen: We had to add a port manager to manage the ports. Pretty simple.
+
+12
+00:02:07.720 --> 00:02:10.850
+Robert Andersen: And then, how exactly do we have…
+
+13
+00:02:11.420 --> 00:02:14.970
+Robert Andersen: The other functionalities work within the app.
+
+14
+00:02:15.280 --> 00:02:24.729
+Robert Andersen: Such as, let me… make, give you some more examples. So, we were…
+
+15
+00:02:24.870 --> 00:02:31.450
+Robert Andersen: Or I was trying to figure out exactly what the best way is to structure The watching service?
+
+16
+00:02:32.300 --> 00:02:36.559
+Robert Andersen: So, we came up with this concept of blind watchers.
+
+17
+00:02:36.690 --> 00:02:37.840
+Robert Andersen: And…
+
+18
+00:02:38.020 --> 00:02:47.480
+Robert Andersen: I don't know how novel it is, but it's a little bit different from the traditional carry protocol. So, a blind service, or a blind
+
+19
+00:02:47.960 --> 00:02:55.600
+Robert Andersen: Watcher essentially views Well, here, why don't I just read the… Description that we have.
+
+20
+00:03:00.410 --> 00:03:09.500
+Robert Andersen: It is a trusted execution environment hardened, so hardware-backed, Black Box Watcher, and…
+
+21
+00:03:10.070 --> 00:03:17.269
+Robert Andersen: What they do in that black box… so it's a provider that provides a black box, and all it does is watch
+
+22
+00:03:18.180 --> 00:03:26.000
+Robert Andersen: and witness and monitor root AIDs, so identity agents that have root AIDs.
+
+23
+00:03:26.190 --> 00:03:43.549
+Robert Andersen: and then it monitors that within the secure enclave, and then it provides validation to anyone else who wants to know that a root AID is associated with any given relationship AID. So, we…
+
+24
+00:03:44.100 --> 00:03:51.469
+Robert Andersen: I thought a lot about how to implement the relationship AID, and really what this comes down to is…
+
+25
+00:03:51.580 --> 00:03:58.770
+Robert Andersen: When you have your identity agent that… Manages your entire digital life.
+
+26
+00:03:59.190 --> 00:04:15.290
+Robert Andersen: If you use one root AID, then you can be tracked. There's a layer of privacy that does not exist due to the de-anonymization, because, yeah, you may not know what a single AID is, but when you use it for everything, then people can
+
+27
+00:04:15.550 --> 00:04:18.679
+Robert Andersen: De-anonymize it, essentially, and figure out who you are.
+
+28
+00:04:18.990 --> 00:04:34.750
+Robert Andersen: But in order to ensure that you do have the anonymity and the privacy, then we issue, or an identity agent issues, a new AID for every single contact, every single relationship, and potentially every even
+
+29
+00:04:35.410 --> 00:04:37.630
+Robert Andersen: Interaction or transaction.
+
+30
+00:04:38.130 --> 00:04:39.290
+Robert Andersen: And…
+
+31
+00:04:39.440 --> 00:04:49.389
+Robert Andersen: that is… how that works is, it was… I mean, it's pretty easy, you just create a new AID, but then the problem is, how do you prove a credential
+
+32
+00:04:49.570 --> 00:04:56.100
+Robert Andersen: from a root AID to a newly spawned relationship AID, as I call them.
+
+33
+00:04:56.280 --> 00:05:00.770
+Robert Andersen: And… how do you prove the credential and the relation without
+
+34
+00:05:01.010 --> 00:05:10.230
+Robert Andersen: revealing the underlying root AID. So that's why we implemented… when I say we, I mean me and AI agents. I've been working on this. So…
+
+35
+00:05:10.780 --> 00:05:15.620
+Robert Andersen: That's why we implemented the blind watcher, and…
+
+36
+00:05:16.200 --> 00:05:20.650
+Robert Andersen: It's just a hardware-backed, trusted execution environment watcher that…
+
+37
+00:05:20.840 --> 00:05:30.249
+Robert Andersen: It doesn't have any idea who the root AID is, it just keeps track of and watches the root AID with any given
+
+38
+00:05:31.520 --> 00:05:38.620
+Robert Andersen: spontaneously created relationship AID, and it validates that they are real without knowing anything. So.
+
+39
+00:05:39.340 --> 00:05:44.779
+Robert Andersen: It seems like it's a beautiful setup, and that it works really nicely, but…
+
+40
+00:05:45.010 --> 00:05:50.220
+Robert Andersen: We still have to put that in practice, because we have to create that server, and…
+
+41
+00:05:51.050 --> 00:05:53.359
+Robert Andersen: It will be a required
+
+42
+00:05:54.710 --> 00:06:03.429
+Robert Andersen: service provider service. So, that's an example of the type of stuff that we've been facing, and…
+
+43
+00:06:04.170 --> 00:06:06.599
+Robert Andersen: Right now, we are just in the process of
+
+44
+00:06:07.430 --> 00:06:12.830
+Robert Andersen: On, milestone 8 out of 38, 39,
+
+45
+00:06:13.470 --> 00:06:16.239
+Robert Andersen: Mile… 39 milestones, we've done 9.
+
+46
+00:06:16.490 --> 00:06:19.149
+Robert Andersen: So, I'm architecting all remaining
+
+47
+00:06:20.120 --> 00:06:26.129
+Robert Andersen: 30 milestones. Some, I guess, we might be a little bit further ahead, but… so I've got about another
+
+48
+00:06:27.210 --> 00:06:31.760
+Robert Andersen: 25 to 30 milestones that I have to architect, and that's what I'm working on.
+
+49
+00:06:31.900 --> 00:06:48.469
+Robert Andersen: So I'm not even building stuff, that's why I was creating video recordings of all this, but I'm not, because it's pretty boring to watch me architect stuff, even though I probably should. Anyway, that's it for today, I just wanted to add a little update, and…
+
+50
+00:06:49.280 --> 00:06:54.560
+Robert Andersen: with all the questions that we've got, I think we've answered all the questions, so I'm gonna end the session.
+

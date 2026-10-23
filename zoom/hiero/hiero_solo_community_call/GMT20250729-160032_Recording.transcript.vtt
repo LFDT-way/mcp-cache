@@ -1,0 +1,846 @@
+WEBVTT
+
+1
+00:00:13.520 --> 00:00:14.580
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Oh! Hi!
+
+2
+00:00:16.580 --> 00:00:17.240
+Andrew Brandt: Hello!
+
+3
+00:00:19.380 --> 00:00:20.840
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Hey, Jeremy, how are you?
+
+4
+00:00:20.840 --> 00:00:21.560
+Andrew Brandt: Jeremy.
+
+5
+00:00:23.780 --> 00:00:24.770
+Jeromy Cannon (Solo Lead): Hi,
+
+6
+00:00:31.040 --> 00:00:40.790
+Jeromy Cannon (Solo Lead): I guess I can maybe do another post inside of via the discord.
+
+7
+00:00:49.360 --> 00:00:59.230
+Jeromy Cannon (Solo Lead): Let's see, let's see, let me see if I can share the the invite copy, invite, link.
+
+8
+00:01:14.770 --> 00:01:15.160
+Alex (Hedera): Hello!
+
+9
+00:01:15.160 --> 00:01:25.990
+Jeromy Cannon (Solo Lead): And the Hello! I don't know. I guess if somebody already posted one of those other Pyro channels
+
+10
+00:01:28.120 --> 00:01:29.459
+Jeromy Cannon (Solo Lead): what's that called.
+
+11
+00:01:30.473 --> 00:01:33.589
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): The higher general channel is the only other one that would.
+
+12
+00:01:33.760 --> 00:01:38.930
+Jeromy Cannon (Solo Lead): No, I was well, okay, but I was thinking, we are slack internal slack channel.
+
+13
+00:01:39.060 --> 00:01:41.809
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Oh, yeah, I can post it there.
+
+14
+00:01:41.810 --> 00:01:44.570
+Jeromy Cannon (Solo Lead): Is it? Pound? Hyro. Oh, yeah, here we go.
+
+15
+00:01:45.690 --> 00:01:46.500
+Jeromy Cannon (Solo Lead): Yeah.
+
+16
+00:03:52.840 --> 00:03:55.180
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): I'm gonna step away for a minute I'll be listening.
+
+17
+00:04:30.653 --> 00:04:34.220
+Jeromy Cannon (Solo Lead): Let's see. So we have.
+
+18
+00:04:34.500 --> 00:04:36.790
+Jeromy Cannon (Solo Lead): Oh, we have Alex here, hey, Alex!
+
+19
+00:04:38.700 --> 00:04:39.430
+Jeromy Cannon (Solo Lead): Ta-da!
+
+20
+00:04:41.730 --> 00:04:42.700
+Alex (Hedera): Hello! Hello!
+
+21
+00:04:42.960 --> 00:04:43.850
+Jeromy Cannon (Solo Lead): Hello!
+
+22
+00:04:51.050 --> 00:04:56.710
+Jeromy Cannon (Solo Lead): Okay. Well, I'm guessing that y'all just join to listen in, or you all have agenda items.
+
+23
+00:05:01.150 --> 00:05:11.039
+Andrew Brandt: I joined to here mostly to listen in, but also to kind of get an understanding of how reasonable it would be to add, a docker published up to solo releases.
+
+24
+00:05:12.060 --> 00:05:17.520
+Jeromy Cannon (Solo Lead): Oh, well, I didn't technically even look at his code.
+
+25
+00:05:17.620 --> 00:05:19.270
+Jeromy Cannon (Solo Lead): Nathan did, though.
+
+26
+00:05:20.456 --> 00:05:24.519
+Jeromy Cannon (Solo Lead): Let me see. So the action I think it's coming.
+
+27
+00:05:24.520 --> 00:05:32.449
+Andrew Brandt: I guess I wasn't specifically looking for like, oh, yes, you know it. It's a hundred percent feasible by changing these 3 lines, or whatever I was more looking at a
+
+28
+00:05:32.900 --> 00:05:36.360
+Andrew Brandt: it it shouldn't be that hard, right like I haven't.
+
+29
+00:05:36.360 --> 00:05:54.988
+Jeromy Cannon (Solo Lead): No, I mean we I mean, depending on what I mean, like assuming that we integrated his code into ours, which I don't know, I haven't really looked at it, you know, as a starting point, anyway. Then theoretically, let's just say theoretically, because there, there's concerns there, too.
+
+30
+00:05:55.700 --> 00:06:08.800
+Jeromy Cannon (Solo Lead): that it would be like there would be a github step inside of probably our deployment action. And it would just yeah, it would just basically in there, it would
+
+31
+00:06:08.850 --> 00:06:29.539
+Jeromy Cannon (Solo Lead): run. It would use, I guess, the the most up to date version of solo that we just got through publishing. So like Mpmjs and Jfrog. And then it would pull that, and then it would, you know, run the the docker, container build process and then it would publish the artifact to, you know, depending on how we have it configured
+
+32
+00:06:29.770 --> 00:06:33.070
+Jeromy Cannon (Solo Lead): wherever we're publishing our containers to.
+
+33
+00:06:33.750 --> 00:06:52.209
+Jeromy Cannon (Solo Lead): You know our hierarch containers, like, you know, because we probably follow process a lot of times, because I'm part of the the release engineering team. Then. Nathan's you know, my manager Nathan, for those listening to the call that don't have any background. What we typically do is we're the guinea pigs. You know this, Andrew, because you're probably.
+
+34
+00:06:52.210 --> 00:06:52.830
+Andrew Brandt: Oh yes!
+
+35
+00:06:53.140 --> 00:07:18.079
+Jeromy Cannon (Solo Lead): So so our repos end up being the guinea pig. So sometimes we end up with doing things the right way, the best way, or the way that we really wanted to do in the future. But maybe not. All the other repos are doing it. So yeah, so I don't know. I know we publish our containers to a repository, maybe more than one, and I don't know if it would be
+
+36
+00:07:18.080 --> 00:07:30.840
+Jeromy Cannon (Solo Lead): the same or not. But you know, whatever the future direction is, is usually probably the direction we go. But if we if we went down that approach, then yeah, that's what we would do as far as the amount of work you know, I think part of it is is
+
+37
+00:07:30.840 --> 00:07:53.389
+Jeromy Cannon (Solo Lead): is the place that you know we would publish to already ready for us. Would that need some setup? And then who has access course? Nathan probably could. But maybe, or or your team Andrea Roger, you'll probably also have access. But somebody would go in there and and probably make sure that we have what we need to publish to that repository.
+
+38
+00:07:53.390 --> 00:08:03.869
+Jeromy Cannon (Solo Lead): And then, once those requirements are met, then we would probably, you know, just have to go in there and and enhance the ci pipeline for the workflow. Probably using the existing
+
+39
+00:08:03.890 --> 00:08:23.899
+Jeromy Cannon (Solo Lead): workflow at a top level, but maybe depending on how complex it is, it might add a new reusable workflow. Or it might just be. If it's just a job or 2 or a step or 2, I mean, then it can maybe go into whatever existing and workflows reusable or the main workflow. So does that help.
+
+40
+00:08:24.650 --> 00:08:26.533
+Andrew Brandt: Yeah, that that certainly helps
+
+41
+00:08:26.910 --> 00:08:27.530
+Jeromy Cannon (Solo Lead): Yeah.
+
+42
+00:08:28.170 --> 00:08:31.070
+Andrew Brandt: Yeah, thanks. Thanks for the information on that. I I think it.
+
+43
+00:08:31.250 --> 00:08:36.869
+Andrew Brandt: You know we can chat about it at some other point. If this is a direction we want to go, but it doesn't seem like
+
+44
+00:08:37.049 --> 00:08:47.430
+Andrew Brandt: adding a new workflow. That runs every time we do a new publish and just kind of build a docker image, release a docker image is a lot of overhead.
+
+45
+00:08:47.710 --> 00:09:16.649
+Jeromy Cannon (Solo Lead): No, and and we actually one of our projects or repos that has that that is intended to be public. It's just not polished enough to be publicly visible. Is the the solo containers pack repo. And so the the hash graph solo containers repo, which is private right now, just because we there's some stuff in there like like settings and things like that. From a security perspective
+
+46
+00:09:17.188 --> 00:09:34.170
+Jeromy Cannon (Solo Lead): that need to be updated as well as like. Read me's and things like that, and pipelines locked up, and and things like that. But that one already does build docker containers. So so yeah, we have one that you know. So our team is capable of working on that. So.
+
+47
+00:09:34.830 --> 00:09:37.879
+Andrew Brandt: Perfect. Yeah, that's that's all I had for this call. Thanks.
+
+48
+00:09:38.210 --> 00:09:40.349
+Jeromy Cannon (Solo Lead): Yeah, cool. Let's see.
+
+49
+00:09:41.100 --> 00:09:46.550
+Jeromy Cannon (Solo Lead): Oh, Matt, join. I think Matt's just listening into. Probably I don't know if you have any topics, Matt.
+
+50
+00:09:50.060 --> 00:09:53.360
+Matt Riben (Hashgraph Foundry Inc. (DBA Hashgraph)): So sorry we were asking about any topics. I don't have any topics.
+
+51
+00:09:53.560 --> 00:10:03.681
+Jeromy Cannon (Solo Lead): Okay, let's see, is there anything that I wanted to discuss?
+
+52
+00:10:05.020 --> 00:10:28.100
+Jeromy Cannon (Solo Lead): yeah. So I guess just at a high level for anybody who wants to to kind of like. Understand? You know a little bit more about solo this, maybe listening to the recording later. This is our second community meeting. You know, as we get more of an audience, or or if you want to post, we have a discord solo channel
+
+53
+00:10:28.845 --> 00:10:32.674
+Jeromy Cannon (Solo Lead): and you can always reach out through to us.
+
+54
+00:10:33.810 --> 00:10:42.149
+Jeromy Cannon (Solo Lead): through the discord. Channel is a great way it's it's the here. Let me share my screen. And this is public. So
+
+55
+00:10:42.430 --> 00:10:47.270
+Jeromy Cannon (Solo Lead): zoom share screen.
+
+56
+00:10:47.620 --> 00:10:59.359
+Jeromy Cannon (Solo Lead): Yeah. So this is the the the Linux Foundation. Now, it doesn't like I'm gonna do hover over it. I don't know. Like maybe I could do that. Oh, there you go! Linux Foundation decentralized trust.
+
+57
+00:11:00.022 --> 00:11:20.959
+Jeromy Cannon (Solo Lead): I think I found the invite by Googling and doing some research, but it's posted in a couple of places. But if you have trouble, doing it if you know of a way to reach out to us. For example, if if I mean, I wouldn't want a whole lot of people doing it. But if you need to.
+
+58
+00:11:22.250 --> 00:11:25.690
+Jeromy Cannon (Solo Lead): then you can go into the solar repo
+
+59
+00:11:26.194 --> 00:11:35.569
+Jeromy Cannon (Solo Lead): and if you have no other way of of reaching out to us, maybe create an issue. It looks like we have the discussions. Tab. No, no, it's not yet started yet. Okay.
+
+60
+00:11:36.980 --> 00:11:57.009
+Jeromy Cannon (Solo Lead): so so yeah, I just pop an issue in there. Just say, I need some help and and and just ask maybe for the for the hiro solo discord invite, and we'll get you in there. It's not solo specific. But this is our channel here. It's called pound solo. And I think if you're navigating, it's underneath. I think there's a Hiro
+
+61
+00:11:57.320 --> 00:12:00.489
+Jeromy Cannon (Solo Lead): group somewhere.
+
+62
+00:12:00.980 --> 00:12:08.709
+Jeromy Cannon (Solo Lead): I think it's called Hiro. There's a lot of channels in here, and they're kind of like collected so
+
+63
+00:12:09.080 --> 00:12:14.510
+Jeromy Cannon (Solo Lead): I believe, is underneath the hierarch one, but since I favored it, it might have moved it
+
+64
+00:12:14.850 --> 00:12:21.779
+Jeromy Cannon (Solo Lead): and out of there. So because it may only show one. But yeah, so this is the solar channel doesn't have a lot of a lot of volume yet.
+
+65
+00:12:22.660 --> 00:12:36.609
+Jeromy Cannon (Solo Lead): But one of the things that we we are trying to do at the moment. For quarter 3 is, make the application a lot more friendly for the users. And so
+
+66
+00:12:36.740 --> 00:12:47.259
+Jeromy Cannon (Solo Lead): it's a you know. We kind of started off with the quick start. Single deploy, which is brand new and we've been, you know, polishing that it's still got a little bit more polish to do.
+
+67
+00:12:47.712 --> 00:12:52.080
+Jeromy Cannon (Solo Lead): But it's already, you know, doing a little bit for us, it it will
+
+68
+00:12:52.190 --> 00:12:59.020
+Jeromy Cannon (Solo Lead): consolidate. And and we've been trying to get the readmes updated as a top priority. So anytime we find
+
+69
+00:12:59.601 --> 00:13:06.470
+Jeromy Cannon (Solo Lead): issues. With that, we try to make that a a priority. Let's see. So if I do.
+
+70
+00:13:06.790 --> 00:13:08.820
+Jeromy Cannon (Solo Lead): actually, Maine's probably a good one.
+
+71
+00:13:09.942 --> 00:13:12.180
+Jeromy Cannon (Solo Lead): But we we release version it
+
+72
+00:13:13.145 --> 00:13:21.199
+Jeromy Cannon (Solo Lead): and whatever version, if you were like, for example, to choose an old version, you know, it's kind of like the list is cached.
+
+73
+00:13:21.350 --> 00:13:27.080
+Jeromy Cannon (Solo Lead): So if you go to like latest domain, then you can get, you know, a more up to date list.
+
+74
+00:13:27.520 --> 00:13:35.141
+Jeromy Cannon (Solo Lead): And so from there you can go into docs, and then we have this wonderful
+
+75
+00:13:36.010 --> 00:13:40.690
+Jeromy Cannon (Solo Lead): cli commands, which gives you the full list of all of our commands.
+
+76
+00:13:41.360 --> 00:14:03.960
+Jeromy Cannon (Solo Lead): and we got this new one here called Quick Start single. And it really doesn't have that many options. These are more like global options. But really, you just you just run. You know this command right here. This one's actually not ready yet. But I had not commented it out, but it won't do anything yet. But yeah, so this this one right here will basically stand up a
+
+77
+00:14:04.560 --> 00:14:08.990
+Jeromy Cannon (Solo Lead): probably need to add a little bit more notes there, because it stands up the
+
+78
+00:14:09.360 --> 00:14:19.089
+Jeromy Cannon (Solo Lead): the sorry my brain is slowing down for a second. It stands at one consensus node with the the network with the solo chart
+
+79
+00:14:19.830 --> 00:14:48.819
+Jeromy Cannon (Solo Lead): solar deployment chart, and then from there it will stand up a mirror, node and explorer, and a relay, and it will set the port forward on all those it'll set 502, 11, which is the Grpc port for the consensus node. It will set the mirror node ingress controller, which what that does is, it'll basically do 8,081, and it will give you the Grpc. The rest the rest, Java, the web, 3,
+
+80
+00:14:48.820 --> 00:14:56.309
+Jeromy Cannon (Solo Lead): all underneath one port, and and that ingress controller does the redirects to the proper pod handle
+
+81
+00:14:56.928 --> 00:15:10.209
+Jeromy Cannon (Solo Lead): component. I guess you say component. If you wanted to pull kubernetes lingo out of it. And then I it will set 75, 46 for the relay, and 80 80 for the explorer.
+
+82
+00:15:10.830 --> 00:15:32.339
+Jeromy Cannon (Solo Lead): and it'll do that automatically. And then it does this nice little sys out dump at the end where it tells you the the namespace, the deployment. It'll tell you the ports that it opened up. It'll tell you the versions of the charts installed. It'll tell you the versions of the of the you know the mirror node, and all that stuff that you install the consensus node. I believe it's supposed to consist.
+
+83
+00:15:32.597 --> 00:15:43.690
+Jeromy Cannon (Solo Lead): But it just gives you really nice dump at the end. That tells you all the information. Oh, and there was a recent enhancement that went in this in Maine. I don't know. I don't think it's in 41 dot 0 yet.
+
+84
+00:15:43.690 --> 00:16:02.120
+Jeromy Cannon (Solo Lead): but it will also create some keys for you automatically, and I think even on our team he actually mashed it to the local node. So there's some pre-existing local node keys that when you start up local node it'll automatically give you some keys to use.
+
+85
+00:16:02.120 --> 00:16:13.739
+Jeromy Cannon (Solo Lead): So what Evo did was he went in there and enhanced the quick start command to automatically give you those same keys and it dumps it to Sys out at the end so that the user can see all those keys.
+
+86
+00:16:15.230 --> 00:16:17.980
+Jeromy Cannon (Solo Lead): So that's pretty cool. So that's pretty exciting.
+
+87
+00:16:18.588 --> 00:16:29.689
+Jeromy Cannon (Solo Lead): And we have like, just a a really huge backlog of a lot more stuff to do as far as you know what we can do for the user.
+
+88
+00:16:30.103 --> 00:16:45.266
+Jeromy Cannon (Solo Lead): But yeah, the one of the things being done right now is the examples folder. So that's being cleaned up. Previously we had a lot of stuff commingled in there like Alex, who is on the call was doing some performance testing of of some of the
+
+89
+00:16:45.610 --> 00:17:12.899
+Jeromy Cannon (Solo Lead): the hash graph work that we do. And so he was using that in his early days. Since then he's kind of moved into his own repo. But some of that basic stuff was in there and then. I was testing that we could deploy to Gke correctly, and so I had stuck some stuff in there, and then there's like an address book for where we modified it's like you'd stand up the the network, and then you would, because it wasn't
+
+90
+00:17:12.900 --> 00:17:17.629
+Jeromy Cannon (Solo Lead): the mirror node correctly, like all of the nodes in the address book because of some gaps.
+
+91
+00:17:17.859 --> 00:17:21.910
+Jeromy Cannon (Solo Lead): and we would use Yocli to modify it. And so I kind of like bundled that up.
+
+92
+00:17:22.000 --> 00:17:46.840
+Jeromy Cannon (Solo Lead): And so there's and so what what the team is doing now is is, we're going back into that examples folder. And we're making it so that every one of the folders within the examples folder will be self-contained, and that will at some point. Once we get it all there, it'll even like we'll zip it up and make it part of the release artifacts. And so that way, because a lot of times people will just like, I just want to go and download this one
+
+93
+00:17:46.840 --> 00:18:04.510
+Jeromy Cannon (Solo Lead): folder. They don't want all of the repo, and so, and some people like would zip it up and pass it to somebody else. So we're just going to like zip it up and add it as a release artifact. But we need what we're trying to do is make it so that each one of those examples folders completely standalone with no other dependencies outside of that folder.
+
+94
+00:18:05.092 --> 00:18:15.237
+Jeromy Cannon (Solo Lead): Because it's not that way right now. So so that's that work is being worked on in layers, cause there's there's quite a few little
+
+95
+00:18:16.110 --> 00:18:27.789
+Jeromy Cannon (Solo Lead): task in order to accomplish the the long term vision. But the 1st layer of just getting all those examples running independently and and removing the ones that are not relevant, that that's already underway.
+
+96
+00:18:28.317 --> 00:18:33.372
+Jeromy Cannon (Solo Lead): And I think it might even be putting the finishing touches on that 1st part.
+
+97
+00:18:34.160 --> 00:18:46.455
+Jeromy Cannon (Solo Lead): so that's 1 of the things we're doing. And then we're we're taking notes where a lot of, because internally at hashgraph. We are. We're we're doing a lot of
+
+98
+00:18:47.511 --> 00:19:13.189
+Jeromy Cannon (Solo Lead): you know, drinking our own champagne where we're we're using solo to do a lot of our testing a lot of the teams are. And and so, as all these different repos and teams are using solo for all these different scenarios, we're getting tons of feedback user feedback in a way. And and so you know that that feedback is allowing us to quickly figure out, like, you know
+
+99
+00:19:13.190 --> 00:19:22.359
+Jeromy Cannon (Solo Lead): new documentation that we need to add documentation. That's a little bit out of date or documentation that has gaps just all kinds of things.
+
+100
+00:19:22.747 --> 00:19:38.480
+Jeromy Cannon (Solo Lead): We had some developer advocates. Go in and take a look at it. And they had really really good feedback. Of how you know things that we could do to make this just really, really a smooth experience for end users.
+
+101
+00:19:38.480 --> 00:20:00.880
+Jeromy Cannon (Solo Lead): that, you know, especially if they don't have a lot of information, information and knowledge about Kubernetes and helm and docker, and like, just, you know, all these different things. And so it was really, really valid and and one of the cool things that I think it was. I think it was was it?
+
+102
+00:20:01.020 --> 00:20:08.509
+Jeromy Cannon (Solo Lead): Was it Raphael or Giuseppe? I think it was Giuseppe. Maybe he was. He was saying that basically if we can make it so that it's like a black box
+
+103
+00:20:09.383 --> 00:20:10.509
+Jeromy Cannon (Solo Lead): and that.
+
+104
+00:20:10.520 --> 00:20:32.150
+Jeromy Cannon (Solo Lead): you know, essentially, they just run a command. And someone does this magic. And they don't need to know that it's even using Kubernetes, or or docker, or any of that stuff, or you know, we install some stuff on the machine, whatever that's fine. But they don't really have to know anything about it. And the way that they interacted in it with. It doesn't
+
+105
+00:20:32.150 --> 00:20:55.120
+Jeromy Cannon (Solo Lead): require them to know anything about it, and doesn't really suggest that we're using these technologies, even necessarily. And and I thought that was like really kind of valuable feedback and so there was a lot of comments in some of these things. So I am not gonna go over them now. But there was just a lot of a lot of great feedback, and some of the things that were discussed. Actually, we already had in our backlog, like about
+
+106
+00:20:55.120 --> 00:21:17.763
+Jeromy Cannon (Solo Lead): anywhere from 30, depending on the feedback that we're getting and who we're getting it from it. Could, it was anywhere from like 30% to like 60 or 70% of the suggestions that they had we already had in our backlog. And and many of those things might be even get done in in Q. 3. Some of them might be in Q. 4, and then some of them might be a little bit further down down the backlog list. But
+
+107
+00:21:18.200 --> 00:21:24.153
+Jeromy Cannon (Solo Lead): yeah, so so a lot of exciting things, especially from a user perspective and solo.
+
+108
+00:21:24.700 --> 00:21:34.650
+Jeromy Cannon (Solo Lead): you know, one of the things that we that we're. It may not be this release, because we're kind of holding it out until it's like a major shift, all at the same time.
+
+109
+00:21:35.103 --> 00:21:40.939
+Jeromy Cannon (Solo Lead): Because it it's it's pretty drastic except for quick start. Quick starts already underneath the new format.
+
+110
+00:21:41.440 --> 00:21:46.839
+Jeromy Cannon (Solo Lead): And I think Block node. But nobody's really using block node yet, because except the block node team, because it's
+
+111
+00:21:47.560 --> 00:21:54.049
+Jeromy Cannon (Solo Lead): underneath development. But if we go to actually, if I use this so that
+
+112
+00:21:54.180 --> 00:21:57.850
+Jeromy Cannon (Solo Lead): people who are watching can see that the link is actually here.
+
+113
+00:21:59.340 --> 00:22:04.240
+Jeromy Cannon (Solo Lead): So if you click on this, it'll oh, that's interesting.
+
+114
+00:22:06.620 --> 00:22:08.150
+Jeromy Cannon (Solo Lead): I don't know why that didn't work.
+
+115
+00:22:08.550 --> 00:22:13.769
+Jeromy Cannon (Solo Lead): Maybe if it's a let me click it. Let me see again our ledger solo issues.
+
+116
+00:22:14.300 --> 00:22:16.690
+Jeromy Cannon (Solo Lead): Oh, why does it show issues? I think that's broke.
+
+117
+00:22:16.980 --> 00:22:18.380
+Jeromy Cannon (Solo Lead): I think it should be late.
+
+118
+00:22:21.100 --> 00:22:25.550
+Jeromy Cannon (Solo Lead): Yeah, that's a bug. Let me make a note of that.
+
+119
+00:22:29.150 --> 00:22:30.240
+Jeromy Cannon (Solo Lead): see?
+
+120
+00:22:31.390 --> 00:22:42.820
+Jeromy Cannon (Solo Lead): So that was that's a solo- solo link. And really, Hello, okay,
+
+121
+00:22:51.290 --> 00:22:52.140
+Jeromy Cannon (Solo Lead): oops.
+
+122
+00:22:53.240 --> 00:22:57.369
+Jeromy Cannon (Solo Lead): Oregon is good. So if you go to
+
+123
+00:22:59.090 --> 00:23:05.450
+Jeromy Cannon (Solo Lead): oh, I know where it is. So go to code and then go to.
+
+124
+00:23:05.660 --> 00:23:08.470
+Jeromy Cannon (Solo Lead): So there's a mains that's good. So they're docs.
+
+125
+00:23:09.080 --> 00:23:13.549
+Jeromy Cannon (Solo Lead): And then we go underneath design, and then we go to architecture.
+
+126
+00:23:13.810 --> 00:23:15.980
+Jeromy Cannon (Solo Lead): and then we go to system.
+
+127
+00:23:16.350 --> 00:23:27.829
+Jeromy Cannon (Solo Lead): And so this was the one I was wanting to talk about. So just so that you all know this is here. This is kind of like a restructuring of all of the commands.
+
+128
+00:23:28.456 --> 00:23:35.724
+Jeromy Cannon (Solo Lead): And we're kind of like this is a little bit broke right now, I think. We have a Pr to fix it.
+
+129
+00:23:36.730 --> 00:23:45.180
+Jeromy Cannon (Solo Lead): but the the block node, and then you essentially have this list of of hang on. Let's go in here, and probably just look at it like this.
+
+130
+00:23:45.740 --> 00:23:47.679
+Jeromy Cannon (Solo Lead): Be easier because it's broke.
+
+131
+00:23:48.040 --> 00:23:55.209
+Jeromy Cannon (Solo Lead): Yeah, so you can't see it's not showing that stuff correctly. I think you have to add an escape. But some stuff was messing up.
+
+132
+00:23:55.300 --> 00:24:24.020
+Jeromy Cannon (Solo Lead): So we created consistency so it'd be basically 3 levels deep to be like solo block node list or solo consensus node list but we're trying to align the commands. So like, you know that like an ad, you know, there's add, and then there's destroy but some of them there's they're kind of inconsistent right now. And they're also they're not
+
+133
+00:24:24.270 --> 00:24:28.060
+Jeromy Cannon (Solo Lead): 3 levels deep. There were a lot of them were only 2 levels deep.
+
+134
+00:24:29.152 --> 00:24:40.080
+Jeromy Cannon (Solo Lead): So that's this is kind of like a a larger change, because some of them are a little bit confusing as to like how the old command would map to the new command.
+
+135
+00:24:40.420 --> 00:25:06.390
+Jeromy Cannon (Solo Lead): And so we'll have to update all the readme. And and then somebody that's just gonna be jumping between. This is going to be pretty big. So I don't know if this is going to be 42 or 43 depending on how long before it's ready. Then, you know, we'll try and do it so that this new structure hits at the same time, so that it's not multiple releases that it's spread across.
+
+136
+00:25:06.901 --> 00:25:16.850
+Jeromy Cannon (Solo Lead): But not all of these commands will be there. If you're looking at this page on day one. I mean, this is the long term final vision. This is not like day one
+
+137
+00:25:17.806 --> 00:25:26.110
+Jeromy Cannon (Solo Lead): so so the existing commands we're gonna try to map over into this new structure, and that's what will be in the upcoming release.
+
+138
+00:25:26.320 --> 00:25:28.009
+Jeromy Cannon (Solo Lead): Either, you know.
+
+139
+00:25:28.600 --> 00:25:51.719
+Jeromy Cannon (Solo Lead): in the next release or 2, probably depending on how fast we have to roll stuff out between those 2 times. A large amount of the work is already done, but some of the the only a small amount of the weren't mapping over correctly. And so in order to map it over to the new structure, it requires a little bit more invasive set of changes.
+
+140
+00:25:52.329 --> 00:25:58.769
+Jeromy Cannon (Solo Lead): And so that that's why it's still being worked. Otherwise we'd probably have it rolled out this week.
+
+141
+00:26:00.700 --> 00:26:07.310
+Jeromy Cannon (Solo Lead): So yeah. And and there's there's a lot of you know, feel free to to peruse this at your own leisure.
+
+142
+00:26:07.500 --> 00:26:23.600
+Jeromy Cannon (Solo Lead): But there's a lot of new, you know. This commands in here of, you know, trying to think down the road future vision. And there's gonna be things missing, I mean, the other day we were going back, going found some stuff that was missing, and so I think there's I don't know if it got finished and got added, but I don't think it did
+
+143
+00:26:24.461 --> 00:26:29.789
+Jeromy Cannon (Solo Lead): and in fact, I think I have something that that that Jean was
+
+144
+00:26:30.120 --> 00:26:37.890
+Jeromy Cannon (Solo Lead): blagging, that I put in my to do list to go back. And he asked that this be updated with what what we discussed. So
+
+145
+00:26:38.390 --> 00:26:44.520
+Jeromy Cannon (Solo Lead): but there, there's more diagrams in here, too. This is also our our
+
+146
+00:26:44.740 --> 00:26:52.070
+Jeromy Cannon (Solo Lead): long term vision of the the code base which does right now. A lot of the existing stuff was underneath
+
+147
+00:26:52.190 --> 00:26:54.889
+Jeromy Cannon (Solo Lead): core, and I think commands
+
+148
+00:26:55.925 --> 00:27:10.010
+Jeromy Cannon (Solo Lead): and underneath the new structure it won't, though, those eventually those 2 folders worth of code will just be absorbed and restructured into into the into a newer model.
+
+149
+00:27:10.361 --> 00:27:39.909
+Jeromy Cannon (Solo Lead): And so, like cli. You see, this is like the cli application. This is essentially what we have today. But long term, you know, we we want to create other layers. You know, I think they said the next one might be this rest Api layer. And so we want to have this Api layer facade layer to kind of be between, so that the rest Api layer could call this. But that would be completely reusable, for like a Github action or an electron application, or something like that
+
+150
+00:27:40.588 --> 00:27:44.340
+Jeromy Cannon (Solo Lead): and it would just be a library that they could just, you know.
+
+151
+00:27:45.040 --> 00:27:51.720
+Jeromy Cannon (Solo Lead): import depending that or require, I guess, depending on whether using classic or module.
+
+152
+00:27:52.500 --> 00:27:53.590
+Jeromy Cannon (Solo Lead): Js.
+
+153
+00:27:55.144 --> 00:28:02.830
+Jeromy Cannon (Solo Lead): but yeah, this is, this is just like, you know, a lot of a lot of work. So. But some of it's already kind of underway.
+
+154
+00:28:09.120 --> 00:28:10.279
+Jeromy Cannon (Solo Lead): Let's see.
+
+155
+00:28:15.200 --> 00:28:20.019
+Jeromy Cannon (Solo Lead): a lot of this is for the developer, so I don't know that
+
+156
+00:28:20.590 --> 00:28:23.540
+Jeromy Cannon (Solo Lead): it's appropriate, and some of it's not done yet.
+
+157
+00:28:23.960 --> 00:28:39.460
+Jeromy Cannon (Solo Lead): but I mostly just wanted to mention this presentation layer because that would be impactful to the user and if anybody's listening to this call, just know that it's here feel free to to comment so that we can improve it.
+
+158
+00:28:40.000 --> 00:28:45.270
+Jeromy Cannon (Solo Lead): And yeah, as it's kind of notice is not completely done. So
+
+159
+00:28:46.870 --> 00:28:50.519
+Jeromy Cannon (Solo Lead): okay, and let's see, is there anything else? I wanna say?
+
+160
+00:28:56.470 --> 00:29:06.020
+Jeromy Cannon (Solo Lead): Examples? Yeah. So solo is rapidly improving with a very small team.
+
+161
+00:29:06.400 --> 00:29:09.750
+Jeromy Cannon (Solo Lead): We have been getting a little bit of
+
+162
+00:29:10.080 --> 00:29:17.170
+Jeromy Cannon (Solo Lead): contributions not. Not a whole lot. We get
+
+163
+00:29:17.790 --> 00:29:22.220
+Jeromy Cannon (Solo Lead): some usually around. Read me stuff or typos.
+
+164
+00:29:25.240 --> 00:29:28.876
+Jeromy Cannon (Solo Lead): So so that's kind of what we've been getting
+
+165
+00:29:29.440 --> 00:29:35.260
+Jeromy Cannon (Solo Lead): One of them was really good, though, you know, it was pointing out recently that we had the wrong
+
+166
+00:29:36.320 --> 00:29:38.240
+Jeromy Cannon (Solo Lead): think. It was kind.
+
+167
+00:29:38.380 --> 00:29:49.409
+Jeromy Cannon (Solo Lead): We'd actually, we use the version number of the container, the docker container instead of the version number of the kind application oops. And so
+
+168
+00:29:49.770 --> 00:30:05.448
+Jeromy Cannon (Solo Lead): she she I think you know, she welcome to volunteer to fix it for us. So that was fantastic. That was pretty. That was, I think, one of our best contributions yet. From the non hashgraph employee.
+
+169
+00:30:06.480 --> 00:30:13.180
+Jeromy Cannon (Solo Lead): so yeah. And then, as far as inter interactions with non hashgraph employees.
+
+170
+00:30:13.839 --> 00:30:34.320
+Jeromy Cannon (Solo Lead): right now, they typically reach out to us through discord. Through through this channel that I was demonstrating earlier or they reach out to us through hashgraph by I mean sorry the solar repo by, and usually creating like an issue we've had several times where people did that
+
+171
+00:30:35.091 --> 00:30:40.869
+Jeromy Cannon (Solo Lead): and so right now I think those are the 2 ways of reaching out to us.
+
+172
+00:30:41.380 --> 00:30:55.529
+Jeromy Cannon (Solo Lead): I think somebody reached out to email. But I don't know how. I think I think maybe Hendrick looped us in through an email or something like that. So but yeah, I think discord or pull, or issues are great ways to reach out to us for right now.
+
+173
+00:30:56.450 --> 00:31:11.219
+Jeromy Cannon (Solo Lead): and we do support the the forking process. So if you want to contribute, and you're not already, you know, underneath the the higher ledger org. Then you can use the Fork fork process and create a pull. Request that way.
+
+174
+00:31:11.892 --> 00:31:19.509
+Jeromy Cannon (Solo Lead): And it will show up on our radar pretty rapidly, because I keep. I try to keep this list pretty small.
+
+175
+00:31:20.881 --> 00:31:22.939
+Jeromy Cannon (Solo Lead): For our outstanding pull request.
+
+176
+00:31:23.170 --> 00:31:31.220
+Jeromy Cannon (Solo Lead): So so, yeah, and then the other thing, too, is is that we're not on, you know. So
+
+177
+00:31:31.600 --> 00:31:41.630
+Jeromy Cannon (Solo Lead): our checked in version of solo, we don't want to be newer than the mainnet, because Mainnet is stable.
+
+178
+00:31:41.930 --> 00:31:55.820
+Jeromy Cannon (Solo Lead): but a lot of teams within hashgraph specifically will want to use newer versions that are like in testnet or preview net or not even off of the main branch of consensus node
+
+179
+00:31:56.314 --> 00:32:01.329
+Jeromy Cannon (Solo Lead): and so we fell a bit behind. We're in the process of catching back up
+
+180
+00:32:02.378 --> 00:32:25.849
+Jeromy Cannon (Solo Lead): and and we we've got a process that isn't fully ironed out where we can go in and kick off an action. And and basically put in the version that, we want to to run the the the build for so like, if we want to do main. And then we put in the version, and then it would go in there. And it would. It would basically run a build against that.
+
+181
+00:32:26.388 --> 00:32:35.960
+Jeromy Cannon (Solo Lead): That's that's the idea. I was testing it the other day, and I think it's it's working. I think it had the same error messages as as me coming in here and doing it this way.
+
+182
+00:32:36.668 --> 00:32:51.140
+Jeromy Cannon (Solo Lead): But yeah, we're we're right now. I got it. I got up to 63.9 in the process of getting it to 64.1. It's surfacing some stuff. And then mainly, I think we're calling the main ramp 65
+
+183
+00:32:51.669 --> 00:32:56.400
+Jeromy Cannon (Solo Lead): and I understand, like there are going to be community members also who will want to run newer versions.
+
+184
+00:32:56.460 --> 00:32:57.949
+Jeromy Cannon (Solo Lead): And so
+
+185
+00:32:57.980 --> 00:33:22.240
+Jeromy Cannon (Solo Lead): that is very understandable, because they probably want to once they get their applications. And they're kind of stable, and they want to keep them stable, then they'll probably want to test them out in like preview net and and testnet. And so those will have newer versions that yet haven't rolled the mainnet, but they want to make sure the app works. And so that same type of you know theory that we, you know we have to do with
+
+186
+00:33:22.240 --> 00:33:29.319
+Jeromy Cannon (Solo Lead): the hashgraph employees running all these repos. And eventually we'll have more community members that are not hashgraph employees or or contractors.
+
+187
+00:33:29.320 --> 00:33:30.830
+Jeromy Cannon (Solo Lead): That's the idea.
+
+188
+00:33:30.920 --> 00:33:38.399
+Jeromy Cannon (Solo Lead): Then they'll be able to to use these newer versions, and and so we'll try to stay a little bit more up to date and and catch all that
+
+189
+00:33:38.972 --> 00:33:42.399
+Jeromy Cannon (Solo Lead): but we haven't got it there at this moment. So
+
+190
+00:33:42.660 --> 00:33:45.119
+Jeromy Cannon (Solo Lead): but yeah, we in this one right here
+
+191
+00:33:45.500 --> 00:33:59.449
+Jeromy Cannon (Solo Lead): and I this one. I don't intend to merge because it's some of these are versions are are newer than main net, and the the other changes. I'll go in there and and separate them into separate prs that that need to check in but yeah, like,
+
+192
+00:33:59.950 --> 00:34:01.620
+Jeromy Cannon (Solo Lead): yeah, see, all of these.
+
+193
+00:34:01.810 --> 00:34:13.044
+Jeromy Cannon (Solo Lead): Actually, I have one of my machine where I was updating the relay to 70, because the the relay went to 70, I think, a few days ago. And so I'll I need to update that. But
+
+194
+00:34:14.830 --> 00:34:19.499
+Jeromy Cannon (Solo Lead): yeah. So so yeah, I guess that's a good topic to brought up
+
+195
+00:34:20.870 --> 00:34:25.440
+Jeromy Cannon (Solo Lead): alright. We still have the same people on the call. I think we do.
+
+196
+00:34:26.400 --> 00:34:33.460
+Jeromy Cannon (Solo Lead): Yeah. So same people. So anybody have any other things. If not, I guess I'll go ahead and end the meeting early.
+
+197
+00:34:34.699 --> 00:34:42.149
+Jeromy Cannon (Solo Lead): cause I was just kinda rambling, but I think it was appropriate topics.
+
+198
+00:34:42.690 --> 00:34:46.289
+Andrew Brandt: Yeah, nothing from my side. Thanks for sharing all this, Jeremy really appreciate it.
+
+199
+00:34:46.520 --> 00:34:48.429
+Jeromy Cannon (Solo Lead): Yeah, you're welcome. You're welcome for sure.
+
+200
+00:34:50.030 --> 00:35:12.190
+Jeromy Cannon (Solo Lead): Okay? Well, maybe as I polish up, you know. Quick, start a little bit more and fix some more bugs that we recently found in docs or stuff like that. Then maybe we'll do some more in depth. Walkthroughs on things, you know, like, you know, either quick start deployments or various docs and things like that in case somebody's watching these recordings.
+
+201
+00:35:12.802 --> 00:35:32.430
+Jeromy Cannon (Solo Lead): And yeah, I mean, for for if if y'all right now, you're my audience, and so you could think of things, too, that you might want to see and maybe I could do some some demos, or or some discussion about some of those things, so that you can learn a little bit more about solo that must be more useful for you too.
+
+202
+00:35:35.400 --> 00:35:36.689
+Andrew Brandt: Alright! Thanks everyone.
+
+203
+00:35:36.940 --> 00:35:39.100
+Jeromy Cannon (Solo Lead): Alright, thank you. You have a good day.
+
+204
+00:35:39.560 --> 00:35:40.729
+Alex (Hedera): Thank you. Bye.
+
+205
+00:35:40.990 --> 00:35:41.730
+Jeromy Cannon (Solo Lead): Bye.
+
+206
+00:36:21.610 --> 00:36:24.980
+Nathan Klick (Hashgraph Foundry Inc. (DBA Hashgraph)): Well, hey, Roger? I guess everybody wrapped up already.
+
+207
+00:36:25.700 --> 00:36:27.659
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): They just hung up, yeah.
+
+208
+00:36:27.660 --> 00:36:32.360
+Nathan Klick (Hashgraph Foundry Inc. (DBA Hashgraph)): Sorry I was on another call for the fact document. So.
+
+209
+00:36:33.000 --> 00:36:36.979
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Are you free now to hop over to a non recorded zoom?
+
+210
+00:36:36.980 --> 00:36:38.060
+Nathan Klick (Hashgraph Foundry Inc. (DBA Hashgraph)): Yes, let's do.
+
+211
+00:36:38.380 --> 00:36:38.940
+Roger Barker (Hashgraph Foundry Inc. (DBA Hashgraph)): Okay.
+

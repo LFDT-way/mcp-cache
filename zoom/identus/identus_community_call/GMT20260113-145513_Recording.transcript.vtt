@@ -1,0 +1,574 @@
+WEBVTT
+
+1
+00:05:20.200 --> 00:05:21.010
+Fábio Pinheiro: Pete?
+
+2
+00:05:25.970 --> 00:05:26.940
+Javier Ribó: Hello?
+
+3
+00:05:27.740 --> 00:05:28.939
+Fábio Pinheiro: Are you presenting?
+
+4
+00:05:29.940 --> 00:05:30.490
+Javier Ribó: Yep.
+
+5
+00:05:31.090 --> 00:05:31.800
+Fábio Pinheiro: There we go.
+
+6
+00:06:12.400 --> 00:06:13.440
+Javier Ribó: Hello.
+
+7
+00:06:14.990 --> 00:06:16.090
+Shailesh Patil (IOG Singapore Pte. Ltd): Hello!
+
+8
+00:06:16.880 --> 00:06:17.409
+Fábio Pinheiro: Hey, buddy.
+
+9
+00:06:17.410 --> 00:06:22.209
+Javier Ribó: Let's wait, let's wait a couple more minutes, and then, yeah, I guess we can get started.
+
+10
+00:06:24.390 --> 00:06:24.990
+Shailesh Patil (IOG Singapore Pte. Ltd): Who?
+
+11
+00:07:01.530 --> 00:07:02.660
+Gonçalo Frade: Hey, John.
+
+12
+00:07:11.770 --> 00:07:12.330
+Jon Bauer (Good Future, LLC): Boom.
+
+13
+00:07:24.030 --> 00:07:29.900
+Javier Ribó: Cool. Hello, everyone. Hope we all had a great Christmas. I'm not sure if it's the…
+
+14
+00:07:30.460 --> 00:07:37.039
+Javier Ribó: I think it's not the first community call, if not, yeah, to… I hope that we all had a good Christmas.
+
+15
+00:07:37.160 --> 00:07:41.150
+Javier Ribó: And, good entry for this 2026.
+
+16
+00:07:41.780 --> 00:07:50.900
+Javier Ribó: As a reminder, as always, to try and comply with the antitrust policy notice and the Code of Conduct, which I'm going to show on the following slides.
+
+17
+00:07:52.840 --> 00:08:00.529
+Javier Ribó: And as usual, we will start with an agenda. We have a couple of things to present today.
+
+18
+00:08:00.910 --> 00:08:07.489
+Javier Ribó: And then each person will be presenting his part. And then at the end, we either have
+
+19
+00:08:07.730 --> 00:08:16.360
+Javier Ribó: some open time for reviewing the issues that are important together. If there's nothing, we can just have some open discussion.
+
+20
+00:08:16.730 --> 00:08:18.820
+Javier Ribó: And see where it lands.
+
+21
+00:08:21.030 --> 00:08:25.989
+Javier Ribó: Awesome. So, the agenda, there is the first section for announcements.
+
+22
+00:08:26.210 --> 00:08:44.100
+Javier Ribó: The first one, Pat is going to be talking and introducing the new integration, or the new adding that we made to the Cloud Agent, which is one of his old pet projects, which now has been integrated in Hyperledger Identos.
+
+23
+00:08:44.470 --> 00:08:51.560
+Javier Ribó: And then second, we are going to be introducing a Rust library that, for now, is going to be a private library.
+
+24
+00:08:51.670 --> 00:09:00.129
+Javier Ribó: Until we feel comfortable to make it public, but we aim to start replacing small components of the SDK, like, it could be…
+
+25
+00:09:01.370 --> 00:09:07.630
+Javier Ribó: dependency or something to export or to manage prism deeds.
+
+26
+00:09:08.140 --> 00:09:14.439
+Javier Ribó: And then we would reuse this same implementation on Neopresium, and probably on TypeScript SDK 2.
+
+27
+00:09:16.040 --> 00:09:19.509
+Javier Ribó: And as I've said, they open discussions at the end.
+
+28
+00:09:21.090 --> 00:09:28.169
+Javier Ribó: Cool, I think… Is Pat here? Yes. Okay, so, flur is yours, buddy.
+
+29
+00:09:28.820 --> 00:09:29.360
+Pat L.: Yep.
+
+30
+00:09:29.510 --> 00:09:30.840
+Pat L.: Okay, thanks, Avi.
+
+31
+00:09:32.020 --> 00:09:36.000
+Pat L.: Okay, so I'll try to share my… well, I cannot share the screen.
+
+32
+00:09:36.670 --> 00:09:39.310
+Pat L.: Or maybe you can just go to the…
+
+33
+00:09:39.960 --> 00:09:42.189
+Pat L.: Maybe I can, yeah, I can, I can talk, talk.
+
+34
+00:09:42.190 --> 00:09:44.470
+Javier Ribó: To which link you want me to open? The first one?
+
+35
+00:09:44.470 --> 00:09:57.339
+Pat L.: the PR. So… so last year, before Christmas, before the end of the year, so we… we made some changes to the cloud agent, and that change is to
+
+36
+00:09:57.440 --> 00:10:02.230
+Pat L.: Support multiple… Prism Node backend, so right now.
+
+37
+00:10:02.560 --> 00:10:10.690
+Pat L.: That PI is already merged, so right now, the Clarity is able to use preset node as is, as before.
+
+38
+00:10:11.280 --> 00:10:17.090
+Pat L.: as a DIT resolver and DIT, Operation Publishing.
+
+39
+00:10:17.300 --> 00:10:23.669
+Pat L.: So that is already supported, but this one, this one brings a support for Neopreism as well. So…
+
+40
+00:10:23.870 --> 00:10:29.740
+Pat L.: If you want to try it out, replacing presume node. So, Neo Prism is ready to do that.
+
+41
+00:10:30.020 --> 00:10:36.620
+Pat L.: and… We… we already integrate as part of the integration test.
+
+42
+00:10:36.720 --> 00:10:42.559
+Pat L.: So, every action that's running on the CI is using the OpryZoom, by the way.
+
+43
+00:10:43.080 --> 00:10:46.980
+Pat L.: Yep, and yeah, Javi, can you go to the slide?
+
+44
+00:10:47.720 --> 00:10:51.099
+Pat L.: And we have… I have the link to the documentation.
+
+45
+00:10:51.390 --> 00:10:52.070
+Pat L.: Yep.
+
+46
+00:10:52.250 --> 00:10:58.360
+Pat L.: So, the documentation portal is also updated to… to document How?
+
+47
+00:10:58.730 --> 00:11:07.040
+Pat L.: how the configuration should look like to be able to use Neo Brazium. So, whatever you used before will continue to work.
+
+48
+00:11:07.230 --> 00:11:11.999
+Pat L.: But if you want to opt in, so… so we… we have to do some kind of,
+
+49
+00:11:12.300 --> 00:11:13.870
+Pat L.: Blackboard compatible.
+
+50
+00:11:14.150 --> 00:11:26.269
+Pat L.: configuration, so your infrastructure will continue to work, but if you want to opt-in, then you can configure the node backend variable, and then there's some examples here showing you how to…
+
+51
+00:11:26.400 --> 00:11:31.600
+Pat L.: How to configure the… the agent, so have a new OP system running.
+
+52
+00:11:31.870 --> 00:11:38.790
+Pat L.: and configure the agent, and you're good to go. And the migration guide, there is a migration at the very bottom.
+
+53
+00:11:39.710 --> 00:11:48.859
+Pat L.: So, the migration should be seamless, so if you are already running Prism Node, just switch to the new… to the new config, and then you should be good to go.
+
+54
+00:11:49.460 --> 00:12:01.080
+Pat L.: And yeah, that's it. The change is not released, by the way, so this change will come for the next release, as soon as we release it. So, yep.
+
+55
+00:12:02.290 --> 00:12:05.010
+Javier Ribó: That is an awesome feature. Well done.
+
+56
+00:12:06.980 --> 00:12:08.050
+Javier Ribó: Okay.
+
+57
+00:12:08.570 --> 00:12:15.999
+Javier Ribó: Any questions so far about the implementation? I think part of the team is already aware of these changes, so I don't expect…
+
+58
+00:12:16.560 --> 00:12:18.200
+Javier Ribó: Big amount of questions.
+
+59
+00:12:20.700 --> 00:12:27.219
+Javier Ribó: Let's jump onto the next item that we have in the bucket. As we have talked.
+
+60
+00:12:27.540 --> 00:12:31.520
+Javier Ribó: We are going to be introducing, for now, an internal library.
+
+61
+00:12:31.830 --> 00:12:41.049
+Javier Ribó: That at some point, we intend to make public, and the reason is because it's going to be helping other libraries and implementations.
+
+62
+00:12:41.400 --> 00:12:48.329
+Javier Ribó: To… to perform, and to not have code duplicity and have to implement it in every single language.
+
+63
+00:12:48.610 --> 00:12:53.190
+Javier Ribó: In terms of TypeScript, speaking about my main area.
+
+64
+00:12:53.470 --> 00:13:01.810
+Javier Ribó: I would consider that… We would not… have a full… edge agent implementation in Rust.
+
+65
+00:13:02.090 --> 00:13:07.730
+Javier Ribó: But instead, I think that there is a lot of functionality that TypeScript SDK can benefit from.
+
+66
+00:13:07.880 --> 00:13:14.709
+Javier Ribó: at the same time that Neoprism and other future implementations of the agent or the nodes.
+
+67
+00:13:14.910 --> 00:13:21.920
+Javier Ribó: that require shared functionality, we will not have to, like, to code that in two languages.
+
+68
+00:13:22.100 --> 00:13:29.589
+Javier Ribó: The objective is not to replace the SDKs at all, but to… To try and benefit them.
+
+69
+00:13:29.800 --> 00:13:30.750
+Javier Ribó: In a way.
+
+70
+00:13:31.760 --> 00:13:51.740
+Javier Ribó: Then, I personally tried thinking… well, not thinking, but checking on the TypeScript SDK, the three things that are more important, or that are currently using WebAssembly, are the DITCOM library, the unencouraged implementation, and JW implementation, which is used internally by the SDK.
+
+71
+00:13:53.080 --> 00:13:58.699
+Javier Ribó: If we could, at some point, merge all these three
+
+72
+00:13:59.250 --> 00:14:10.790
+Javier Ribó: not merge, but bundle all this functionality into a single WebAssembly binary, it would be a lot easier to manage from our side, and less heavy as a WebAssembly package.
+
+73
+00:14:11.660 --> 00:14:17.830
+Javier Ribó: Then, as a migration path, of course, we are not going to be doing heavy refactors.
+
+74
+00:14:18.070 --> 00:14:21.730
+Javier Ribó: Neither this Rust library is going to be our main objective.
+
+75
+00:14:22.050 --> 00:14:25.209
+Javier Ribó: So do not expect, like, everything shifting to Rust.
+
+76
+00:14:26.020 --> 00:14:30.019
+Javier Ribó: But… yeah, that's more or less what we are planning.
+
+77
+00:14:31.800 --> 00:14:37.160
+Javier Ribó: I'm not sure if, Pat, you want to cover anything else in here, but I think the overall idea is…
+
+78
+00:14:38.220 --> 00:14:39.339
+Javier Ribó: is correct.
+
+79
+00:14:40.500 --> 00:14:41.340
+Pat L.: Yeah.
+
+80
+00:14:41.640 --> 00:14:43.819
+Pat L.: Yeah, not much to add, but,
+
+81
+00:14:43.980 --> 00:14:46.900
+Pat L.: So it's, I think my…
+
+82
+00:14:47.160 --> 00:14:52.180
+Pat L.: my… my plan for… at least from my side, I would try to…
+
+83
+00:14:52.510 --> 00:15:01.920
+Pat L.: split Neopresso into smaller components, and trying to migrate those into this new… this new repo, Rust repo.
+
+84
+00:15:02.050 --> 00:15:02.680
+Pat L.: Yep.
+
+85
+00:15:02.680 --> 00:15:03.310
+Javier Ribó: Yep.
+
+86
+00:15:05.510 --> 00:15:20.449
+Javier Ribó: I think, you know, that one thing that we defined at the beginning, the building blocks, it would be great if this new ROS library would respect the building blocks, in the sense that if it belongs to cryptography, we know it's Apollo.
+
+87
+00:15:20.850 --> 00:15:25.550
+Javier Ribó: If it's the resolution, we know it's something called Castor, and stuff like that.
+
+88
+00:15:25.930 --> 00:15:29.760
+Javier Ribó: I mean, it's not strictly mandatory, but I think it would be nice.
+
+89
+00:15:32.990 --> 00:15:33.970
+Javier Ribó: Awesome.
+
+90
+00:15:34.360 --> 00:15:37.759
+Javier Ribó: I think that's all for the scheduled agenda.
+
+91
+00:15:38.730 --> 00:15:41.080
+Javier Ribó: I'm not sure if you guys have…
+
+92
+00:15:41.680 --> 00:15:48.319
+Javier Ribó: Any open issue that you wanted to review, or any open discussion that you guys may have?
+
+93
+00:15:51.580 --> 00:16:06.799
+Fábio Pinheiro: So, I have a question about the libraries. So, you mentioned that it's going to be private, but my understanding was that basically what Pat mentioned, he wants to move some of the functionality that already is in now Prisma out to a library part of it?
+
+94
+00:16:06.800 --> 00:16:07.510
+Javier Ribó: Correct.
+
+95
+00:16:08.410 --> 00:16:10.740
+Fábio Pinheiro: So… I mean, at some point.
+
+96
+00:16:10.740 --> 00:16:11.220
+Javier Ribó: Pointed me.
+
+97
+00:16:11.220 --> 00:16:14.619
+Fábio Pinheiro: But it needs to be public, so now Prisma can use it.
+
+98
+00:16:15.060 --> 00:16:17.989
+Javier Ribó: At some point, it needs to be public 100%.
+
+99
+00:16:18.250 --> 00:16:18.980
+Fábio Pinheiro: Okay.
+
+100
+00:16:20.100 --> 00:16:30.879
+Javier Ribó: Like, for development, we can't rely on the installing a Rust package from a GitHub repository, and as soon as you got access, you should be able to fetch it.
+
+101
+00:16:31.180 --> 00:16:35.420
+Javier Ribó: But, yeah, in a future, of course, this library needs to be made public.
+
+102
+00:16:36.570 --> 00:16:39.150
+Fábio Pinheiro: Okay, I was just trying to understand that. Yeah, yeah.
+
+103
+00:16:44.960 --> 00:16:45.890
+Javier Ribó: Cool.
+
+104
+00:16:46.030 --> 00:16:50.259
+Javier Ribó: I personally don't have any open…
+
+105
+00:16:51.040 --> 00:16:53.730
+Javier Ribó: items. I'm kind of working now…
+
+106
+00:16:54.220 --> 00:17:02.190
+Javier Ribó: on TypeScript SDK to… yeah, after Christmas, there was a bunch of PRs that were open, so doing a little bit of housecleaning.
+
+107
+00:17:02.370 --> 00:17:08.280
+Javier Ribó: And yeah, that's pretty much it for today. I'm not sure if…
+
+108
+00:17:08.530 --> 00:17:11.420
+Javier Ribó: If you guys from community have any extra topic.
+
+109
+00:17:19.690 --> 00:17:28.210
+Fábio Pinheiro: One of the things that we need to upgrade, to update, yeah, and clean up is the… the project board in… in Identus.
+
+110
+00:17:28.770 --> 00:17:29.679
+Javier Ribó: Yes, let me…
+
+111
+00:17:29.680 --> 00:17:33.279
+Fábio Pinheiro: I was trying to update some of the tickets in there.
+
+112
+00:17:34.480 --> 00:17:39.619
+Fábio Pinheiro: We, we… Me, me and…
+
+113
+00:17:40.070 --> 00:17:49.059
+Fábio Pinheiro: Elaine, it's all… we're trying to make a new board, but we need to update this one in the meantime. There is a lot of tickets in there that needs to be updated.
+
+114
+00:17:49.060 --> 00:17:49.820
+Javier Ribó: Yeah.
+
+115
+00:17:50.940 --> 00:18:02.590
+Fábio Pinheiro: So, the no status and backlog doesn't really matter at this… right now, because we have everything in one board, but the things that is, like, on planning and those stuff, those tickets should be.
+
+116
+00:18:03.710 --> 00:18:04.290
+Javier Ribó: He is.
+
+117
+00:18:04.290 --> 00:18:10.650
+Fábio Pinheiro: Some of the tickets are on with no status. I think it's already then, so I was… I'm pinging people to…
+
+118
+00:18:11.120 --> 00:18:13.660
+Fábio Pinheiro: To try to move those tickets to them.
+
+119
+00:18:15.130 --> 00:18:15.930
+Javier Ribó: Okay.
+
+120
+00:18:16.410 --> 00:18:19.870
+Fábio Pinheiro: So everyone should check the GitHub notifications.
+
+121
+00:18:21.030 --> 00:18:23.810
+Fábio Pinheiro: Because… We need to update this form.
+
+122
+00:18:30.500 --> 00:18:31.340
+Javier Ribó: Okay.
+
+123
+00:18:32.940 --> 00:18:35.380
+Javier Ribó: Look, this is done, for sure.
+
+124
+00:18:37.630 --> 00:18:43.229
+Fábio Pinheiro: Yeah, so just write a comment and close the tickets, but we can do it afterwards.
+
+125
+00:18:43.230 --> 00:18:47.680
+Gonçalo Frade: a lot of these things, because I also did a lot of things for the campy.
+
+126
+00:18:48.160 --> 00:18:48.830
+Fábio Pinheiro: Yeah.
+
+127
+00:18:48.830 --> 00:18:53.339
+Javier Ribó: Yes, of course, this is coming from all the repositories, I see why it's so bloated.
+
+128
+00:18:53.340 --> 00:19:00.530
+Fábio Pinheiro: Yeah, basically we need to update the tickets on the repositories, because I'm seeing those tickets being there and not being updated.
+
+129
+00:19:00.800 --> 00:19:01.769
+Javier Ribó: Yeah, I see.
+
+130
+00:19:02.540 --> 00:19:05.369
+Javier Ribó: Well, thanks for pointing that out.
+
+131
+00:19:06.900 --> 00:19:08.639
+Javier Ribó: Okay, cool.
+
+132
+00:19:13.250 --> 00:19:18.940
+Javier Ribó: Cool, cool, I'm… myself, I don't have anything… Anything additional?
+
+133
+00:19:21.290 --> 00:19:25.199
+Javier Ribó: So, I guess if not, we can just have a quick
+
+134
+00:19:25.650 --> 00:19:31.689
+Javier Ribó: community call early January, and then… call for… Longer ones in the future.
+
+135
+00:19:32.700 --> 00:19:34.960
+Fábio Pinheiro: Yeah, no, that sounds great.
+
+136
+00:19:36.310 --> 00:19:38.449
+Fábio Pinheiro: Awesome, guys. I've got more stuff to show.
+
+137
+00:19:39.430 --> 00:19:45.620
+Javier Ribó: Cool. I hope we all have a great afternoon, great evening, great morning, whatever it is on your time zone.
+
+138
+00:19:45.990 --> 00:19:47.560
+Javier Ribó: And catch up next week.
+
+139
+00:19:48.440 --> 00:19:49.749
+Javier Ribó: Thanks a lot, guys.
+
+140
+00:19:50.130 --> 00:19:50.710
+Jon Bauer (Good Future, LLC): Thank you.
+
+141
+00:19:50.710 --> 00:19:51.300
+Pat L.: Cute.
+
+142
+00:19:51.300 --> 00:19:52.970
+Fábio Pinheiro: Thank you. Thank you.
+
+143
+00:19:53.750 --> 00:19:54.300
+Roberto Carvajal: Bye.
+

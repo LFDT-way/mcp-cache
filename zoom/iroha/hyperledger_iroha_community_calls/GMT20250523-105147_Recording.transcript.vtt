@@ -1,0 +1,434 @@
+WEBVTT
+
+1
+00:03:45.260 --> 00:03:52.419
+Dmitri Venger: Hello, guys, let's wait for rest of the community to join us.
+
+2
+00:08:53.030 --> 00:08:56.750
+Dmitri Venger: Hey, guys, let's wait for another minute or so. Then we can start
+
+3
+00:09:34.060 --> 00:09:40.160
+Dmitri Venger: right, guys. So 1st of all, thank you very much for for joining in the call.
+
+4
+00:09:42.099 --> 00:09:52.380
+Dmitri Venger: Today I will walk you through the hyperledger roast new release candidate, which is 2.0.
+
+5
+00:09:52.960 --> 00:10:00.930
+Dmitri Venger: We have shipped this one on May the 8th things that
+
+6
+00:10:01.090 --> 00:10:05.580
+Dmitri Venger: are on the plate today. So 1st of all.
+
+7
+00:10:06.527 --> 00:10:10.049
+Dmitri Venger: We make our Api crystal clear.
+
+8
+00:10:11.101 --> 00:10:14.949
+Dmitri Venger: Second, we squeeze out every bit of performance.
+
+9
+00:10:16.550 --> 00:10:35.319
+Dmitri Venger: 3, rd we expose the right metrics, so you can monitor the monitor defect, monitor it effectively. And the 4, th we streamline the developer experience with unified tooling and finally ensure our peer-to-peer network is rock solid.
+
+10
+00:10:37.230 --> 00:10:50.889
+Dmitri Venger: So let's dive in 1st of all, guys. We formally separated fungible assets Apis from non-fungible ones.
+
+11
+00:10:52.240 --> 00:10:57.959
+Dmitri Venger: Now, the visible tokens operation. Now, life under asset fungible.
+
+12
+00:10:58.090 --> 00:11:01.900
+Dmitri Venger: while nft use its assets non-fungible.
+
+13
+00:11:02.210 --> 00:11:06.869
+Dmitri Venger: This basically, this step reduces confusion.
+
+14
+00:11:07.150 --> 00:11:12.350
+Dmitri Venger: tightens type safety and lets each asset class evolve
+
+15
+00:11:12.450 --> 00:11:17.519
+Dmitri Venger: on its own. You will find a detailed immigration guide in our changelog.
+
+16
+00:11:19.190 --> 00:11:29.050
+Dmitri Venger: Second second point that I would like to cover is to avoid unbounded wait time in low traffic periods.
+
+17
+00:11:29.530 --> 00:11:32.700
+Dmitri Venger: We added automatic, empty block.
+
+18
+00:11:33.771 --> 00:11:41.070
+Dmitri Venger: Ceiling and it means that after a short timeout, with no new transactions.
+
+19
+00:11:41.570 --> 00:11:57.020
+Dmitri Venger: Iraq means emits 0 transaction block. This kind of this feature guarantees that downstream system see regular block commits even during during lows.
+
+20
+00:12:00.730 --> 00:12:04.829
+Dmitri Venger: Next one next box a bunch of things.
+
+21
+00:12:05.080 --> 00:12:10.110
+Dmitri Venger: Are they more of a kind of related to unified cli and was builders.
+
+22
+00:12:11.510 --> 00:12:18.409
+Dmitri Venger: So we developed tooling and we filled gaps in our cli by adding comments
+
+23
+00:12:19.362 --> 00:12:27.480
+Dmitri Venger: into a cli such as Aroja transaction transaction get alongside account.
+
+24
+00:12:27.580 --> 00:12:34.880
+Dmitri Venger: asset, block and transaction queries. Therefore no more custom scripts will be needed.
+
+25
+00:12:35.390 --> 00:12:41.790
+Dmitri Venger: Also, we merged all binaries into one Aroja executable.
+
+26
+00:12:42.460 --> 00:12:49.830
+Dmitri Venger: basically what it means that simply run Aroja transaction submits or Iroha wasn't built
+
+27
+00:12:50.050 --> 00:12:55.280
+Dmitri Venger: and share flags and help make the interface predictable.
+
+28
+00:12:56.420 --> 00:13:03.060
+Dmitri Venger: On the Wasm side. The new release flag produces fully optimized contract binaries.
+
+29
+00:13:03.220 --> 00:13:09.539
+Dmitri Venger: small in size, quicker to start up and better suited for the production environment.
+
+30
+00:13:12.444 --> 00:13:17.389
+Dmitri Venger: As for observability and performance.
+
+31
+00:13:20.060 --> 00:13:29.210
+Dmitri Venger: So visibility and efficiency go hand in hand. As you probably know. Now, we've optimized our telemetry types in both the
+
+32
+00:13:29.370 --> 00:13:33.029
+Dmitri Venger: kind of on-chain schemas and client libraries.
+
+33
+00:13:33.360 --> 00:13:39.249
+Dmitri Venger: so you can hook into Prometheus or open telemetry with confidence. Now.
+
+34
+00:13:40.313 --> 00:13:46.520
+Dmitri Venger: with test rates. Now it works fine also a new block. Commit time.
+
+35
+00:13:46.710 --> 00:13:52.879
+Dmitri Venger: Goch lets you track proposal to commit latency across your network
+
+36
+00:13:53.280 --> 00:14:00.210
+Dmitri Venger: under the hood transaction. Hash hash is now live in in a compact format
+
+37
+00:14:00.560 --> 00:14:24.210
+Dmitri Venger: that basically slashes memory use usage by about threefold. So we had this problem a while for a while, and now I think we have successfully solved it, and our core storage only writes each block once that dramatically basically, this dramatically reduces the reducing the
+
+38
+00:14:24.400 --> 00:14:30.880
+Dmitri Venger: disk. I/O during block imports and node startup.
+
+39
+00:14:32.390 --> 00:14:37.819
+Dmitri Venger: Now let's talk a little bit about the networking and and stability.
+
+40
+00:14:39.200 --> 00:14:47.470
+Dmitri Venger: 1st of all, nodes that drop offline, now automatically retry connections, using exponential back off
+
+41
+00:14:47.650 --> 00:14:52.059
+Dmitri Venger: with jitter continuing until the peers come back.
+
+42
+00:14:52.420 --> 00:14:56.680
+Theophilus: The Health States of Mali and Niger Republic.
+
+43
+00:14:56.800 --> 00:14:58.080
+Theophilus: Sorry guys.
+
+44
+00:14:58.080 --> 00:14:59.140
+Dmitri Venger: And you mute.
+
+45
+00:14:59.140 --> 00:15:06.433
+Theophilus: Or are we going to still continue to bow to the colonial powers who use.
+
+46
+00:15:07.160 --> 00:15:09.370
+Dmitri Venger: Can you please unmute.
+
+47
+00:15:09.870 --> 00:15:12.760
+Theophilus: Yeah. Jeremiah.
+
+48
+00:15:19.260 --> 00:15:20.070
+Dmitri Venger: Okay.
+
+49
+00:15:20.596 --> 00:15:23.259
+William Richter: Yeah, I think most everybody please go ahead, you know.
+
+50
+00:15:28.240 --> 00:15:28.560
+Dmitri Venger: Voice.
+
+51
+00:15:28.560 --> 00:15:28.970
+Theophilus: To that.
+
+52
+00:15:28.970 --> 00:15:31.990
+Dmitri Venger: Who is? Who is the the fellows?
+
+53
+00:15:31.990 --> 00:15:32.750
+Dmitri Venger: Can you please go?
+
+54
+00:15:32.750 --> 00:15:33.250
+Dmitri Venger: Good.
+
+55
+00:15:44.130 --> 00:15:44.720
+Dmitri Venger: Hold a second
+
+56
+00:15:51.410 --> 00:15:54.380
+Dmitri Venger: cool. Sorry. Sorry about that.
+
+57
+00:15:56.340 --> 00:16:02.680
+Dmitri Venger: Yeah. Let's talk about network and scalability. So we finally, we've pardoned.
+
+58
+00:16:03.230 --> 00:16:13.969
+Dmitri Venger: We've hardened network the resilience resilience. So now notes that drop offline. Now automatically retry connections.
+
+59
+00:16:14.180 --> 00:16:20.739
+Dmitri Venger: using exponential back off with Jitter. As I said, continue until their peers come back.
+
+60
+00:16:21.030 --> 00:16:27.970
+Dmitri Venger: Also. Our peer-to-p logs now include precise timestamps for every connection, attempt
+
+61
+00:16:28.080 --> 00:16:40.550
+Dmitri Venger: failure and back off, making it far easier to trace and debug network issues. I know that some of you have been struggling with this, so now that that should be solved.
+
+62
+00:16:40.710 --> 00:16:49.019
+Dmitri Venger: combined with the new sample config options for turning reconnection behavior.
+
+63
+00:16:49.616 --> 00:16:57.879
+Dmitri Venger: Those updates keep your network gossip flowing smoothly, and it's supposed to minimize orphan notes as well
+
+64
+00:16:59.790 --> 00:17:03.020
+Dmitri Venger: those kind of the major things that we have
+
+65
+00:17:03.160 --> 00:17:08.569
+Dmitri Venger: delivered as parts of the current current release.
+
+66
+00:17:09.030 --> 00:17:13.359
+Dmitri Venger: What is on the horizon? We have
+
+67
+00:17:13.940 --> 00:17:16.720
+Dmitri Venger: a few large things coming up
+
+68
+00:17:17.240 --> 00:17:22.679
+Dmitri Venger: 1st of all with finalizing transaction fees support.
+
+69
+00:17:23.220 --> 00:17:32.200
+Dmitri Venger: This will allow you to configure peer operation fees, enabling sustainable network economies in helping deter spam.
+
+70
+00:17:32.350 --> 00:17:36.419
+Dmitri Venger: We are working on the optimal fees model now
+
+71
+00:17:36.590 --> 00:17:52.339
+Dmitri Venger: with plan to land and flexible on-chain fee schedule in the next release candidate. And again, it will open up a great deal of opportunities for using Euroha 2 on the kind of commercial commercial scale.
+
+72
+00:17:53.060 --> 00:18:03.290
+Dmitri Venger: Second, interesting thing that we are investing our time in is basically hub chain research, which is underway.
+
+73
+00:18:04.666 --> 00:18:17.530
+Dmitri Venger: We have identified 3 potential directions when we can take it. And now we're exploring the architectures that lets multiple networks interconnect via hubchain
+
+74
+00:18:18.120 --> 00:18:35.900
+Dmitri Venger: facilitating cross-chain asset transfer and share sharely early prototypes are running in our labs and we will share details, benchmarks and details. Doc, soon. So please stay tuned.
+
+75
+00:18:36.600 --> 00:18:42.889
+Dmitri Venger: Finally, we are continuing kind of working on documentation updates across the board.
+
+76
+00:18:43.280 --> 00:18:48.259
+Dmitri Venger: expanding tutorials, polishing our Api referencing
+
+77
+00:18:48.480 --> 00:18:52.689
+Dmitri Venger: and adding guided migration walkthrough from
+
+78
+00:18:53.425 --> 00:18:57.100
+Dmitri Venger: release candidate one to the current one.
+
+79
+00:18:57.390 --> 00:19:02.289
+Dmitri Venger: This is kind of ongoing work, and we never stopped working on our documentation.
+
+80
+00:19:02.450 --> 00:19:08.449
+Dmitri Venger: As always, community contributions here are hugely appreciated. So, guys, please do take a look at the
+
+81
+00:19:08.570 --> 00:19:25.429
+Dmitri Venger: documentation when you're playing around with the Roja, and if you spot gaps or have ideas for examples, you know what we can approve. Please do ping us in the chat, and we always will be happy to take into consideration your your opinions.
+
+82
+00:19:25.870 --> 00:19:42.750
+Dmitri Venger: So guys, basically, that's it. Thank you again for your time and your kind of ongoing feedback in our chats again, we are working hard to make the Euroha blockchain one of the best blockchain products out there.
+
+83
+00:19:43.425 --> 00:19:52.920
+Dmitri Venger: And yeah, we are excited for you to test the new release 2.0. And we look forward to your thoughts on this upcoming features.
+
+84
+00:19:53.426 --> 00:19:59.490
+Dmitri Venger: So yeah, let's open up questions. We'll open up the floor for the questions, if you have any.
+
+85
+00:20:00.730 --> 00:20:02.490
+Dmitri Venger: or you can write them in the chat.
+
+86
+00:20:07.040 --> 00:20:25.579
+Dmitri Venger: Okay? If there's 80 on the version, 3 release date aside from V. 3 soon, which is vague. If you are, if we are talking about Sora, v. 3. That will be based on on the Rocha. As I said, we are. We're basically working on
+
+87
+00:20:25.760 --> 00:20:28.119
+Dmitri Venger: are 3 different options.
+
+88
+00:20:28.688 --> 00:20:35.860
+Dmitri Venger: For the hub chain. We need to pick the one that will better suit the community needs.
+
+89
+00:20:36.372 --> 00:20:38.789
+Dmitri Venger: So I believe it will take
+
+90
+00:20:39.060 --> 00:20:48.059
+Dmitri Venger: around a few months. Sorry a few weeks, so we will need still to take executive decision on on which architecture we are going to adopt.
+
+91
+00:20:48.340 --> 00:20:54.249
+Dmitri Venger: We will make the the announcement in the community in the community channel, so everyone will know
+
+92
+00:20:54.440 --> 00:20:57.779
+Dmitri Venger: what architecture and how it's gonna work.
+
+93
+00:20:57.920 --> 00:21:02.259
+Dmitri Venger: And again, we'll be more than welcome to hear your thoughts on on that.
+
+94
+00:21:02.550 --> 00:21:07.710
+Dmitri Venger: And the actual implementation will take perhaps a month, maybe less.
+
+95
+00:21:08.040 --> 00:21:18.309
+Dmitri Venger: until we'll roll out to the test net. And again, everyone will be more than welcome to participate. In the testnet.
+
+96
+00:21:23.370 --> 00:21:25.099
+Dmitri Venger: Any more questions, guys.
+
+97
+00:21:29.020 --> 00:21:34.560
+Dmitri Venger: yeah, cool. So thank you very much. Guys, thank you for joining the call.
+
+98
+00:21:39.450 --> 00:21:50.099
+Dmitri Venger: No, I said, I said that we need to set up the test net will be quite straightforward. Now we need to. 1st of all, we need to. To figure out what
+
+99
+00:21:51.530 --> 00:22:05.019
+Dmitri Venger: kind of what architecture we are going to use what's direction we're going to adopt. So I believe we will be able to to deliver the thing like in maybe one month and a half or so.
+
+100
+00:22:06.400 --> 00:22:20.179
+Dmitri Venger: Yes. So about the about the good question about the blockchain explorer. It's done. It's usable. I can resend all the information to the community in the community chat. So you can play around with this one.
+
+101
+00:22:22.522 --> 00:22:31.820
+Dmitri Venger: Okay, any explanation on the repackaging store? Now, I would like to retreat. Guys. So this call it's mainly about Iroha.
+
+102
+00:22:32.080 --> 00:22:39.770
+Dmitri Venger: but not with Sora. But if you require a little bit more information about the the recent changes.
+
+103
+00:22:39.820 --> 00:23:02.790
+Dmitri Venger: We will be more than happy to to address your questions. Please do not hesitate. Send your questions in the chat, and we will pick them up immediately, and you'll get full explanation why we've done this, and how it's going to work. But have no fear. If everything was tested and you haven't lost any any of your tokens.
+
+104
+00:23:03.483 --> 00:23:04.350
+Dmitri Venger: So yeah.
+
+105
+00:23:05.034 --> 00:23:09.940
+Dmitri Venger: It's merely. It's merely a kind of you know.
+
+106
+00:23:11.130 --> 00:23:20.499
+Dmitri Venger: way to to improve the usability of the network right now. So if you're concerned about your funds, your coins, they're all there.
+
+107
+00:23:20.740 --> 00:23:25.510
+Dmitri Venger: Perhaps the representations are different. But no one had lost anything.
+
+108
+00:23:26.392 --> 00:23:47.179
+Dmitri Venger: So, yeah, guys, thank you very much. And yeah, I will be sending. I will be sending the the summer of this call in the emails. And please keep tunes to our next monthly call, and I will be happy to to see you there. Cheers, guys! Thank you very much. Talk to you later. Bye-bye.
+

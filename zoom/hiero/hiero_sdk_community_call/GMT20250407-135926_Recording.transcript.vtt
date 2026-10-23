@@ -1,0 +1,1542 @@
+WEBVTT
+
+1
+00:00:36.840 --> 00:00:38.009
+Rob Walworth: Just kind of stuff.
+
+2
+00:00:38.770 --> 00:00:43.870
+Rob Walworth: So like what the kind of development process looks like for Tck tests.
+
+3
+00:00:44.650 --> 00:00:49.990
+Rob Walworth: But yeah, I'm I'm I'm good to start whenever no, when when we're good.
+
+4
+00:00:49.990 --> 00:00:52.689
+Jessica Gonzalez (The Linux Foundation): Thank you. Yeah. Go ahead. The floor is yours.
+
+5
+00:00:52.690 --> 00:00:53.520
+Rob Walworth: Alright cool.
+
+6
+00:00:54.290 --> 00:00:56.530
+Rob Walworth: Let me go ahead and share here.
+
+7
+00:00:58.280 --> 00:00:59.055
+Rob Walworth: Alright.
+
+8
+00:01:00.610 --> 00:01:12.859
+Rob Walworth: so Tck tests right now are kind of as we are kind of going through and doing the initial development for all of the tests. They're kind of divided into 2 phases right now.
+
+9
+00:01:13.500 --> 00:01:17.100
+Rob Walworth: Actually, I can go ahead and kind of show you
+
+10
+00:01:17.600 --> 00:01:23.127
+Rob Walworth: what's the issues in the repo look like at the moment?
+
+11
+00:01:24.308 --> 00:01:31.170
+Rob Walworth: so a lot of the tests right now are divided up like, I said, into kind of 2 phases. So we have our our document phase, which is basically just
+
+12
+00:01:31.490 --> 00:01:47.290
+Rob Walworth: going through and actually creating a markdown file to contain all the tests. And you know just all the information about the tests in a markdown file. And then we actually go through and implement it. So the implementation.
+
+13
+00:01:48.010 --> 00:01:50.339
+Rob Walworth: Let me go in here really quick.
+
+14
+00:01:54.190 --> 00:01:57.290
+Rob Walworth: where are we at here?
+
+15
+00:01:58.960 --> 00:02:01.149
+Rob Walworth: Sorry one second, I think, when the
+
+16
+00:02:01.580 --> 00:02:05.270
+Rob Walworth: when we migrate everything over to Hiro kinda
+
+17
+00:02:05.770 --> 00:02:07.309
+Rob Walworth: screw some stuff up here so you can.
+
+18
+00:02:07.310 --> 00:02:08.820
+Jessica Gonzalez (The Linux Foundation): You know, scramble something.
+
+19
+00:02:08.820 --> 00:02:09.130
+Rob Walworth: Yeah.
+
+20
+00:02:09.523 --> 00:02:10.289
+Jessica Gonzalez (The Linux Foundation): No worries.
+
+21
+00:02:11.626 --> 00:02:17.799
+Rob Walworth: Okay? So so yeah, we have the implementation of the tests in the tck itself oops
+
+22
+00:02:19.639 --> 00:02:24.908
+Rob Walworth: and then we're tracking the work done in each of the Sdks as well for
+
+23
+00:02:25.479 --> 00:02:35.559
+Rob Walworth: their implementation of the Json Rpc endpoint there. So basically, whenever we start work on a
+
+24
+00:02:36.539 --> 00:02:52.907
+Rob Walworth: on a particular request type. The 1st part we do is is the documentation. Let me show you actually here. I can kind of show you what I just to kind of start coming up with here. So this is just an example. So I'm using account create, because it's, you know, pretty simple.
+
+25
+00:02:53.613 --> 00:03:11.479
+Rob Walworth: this obviously doesn't encompass. You know, all the tests we have for account create again, just kinda showing you what the what the process looks like here. But yeah, so we have currently a kind of template. Right here, which I think I went over last time. Just
+
+26
+00:03:11.569 --> 00:03:18.159
+Rob Walworth: kind of showing exactly what kind of information we're looking for in these test specifications.
+
+27
+00:03:18.864 --> 00:03:44.479
+Rob Walworth: You know. So a lot of links to to mirror node, we have description of the design, the description of of the test kind of what we're looking to test the Json Rpc. Information. So that would be the method. Name any of the parameters here. I can kind of just go go back over here. So so in this case, for account create, we have, you know, the method name being create account. We have all our parameters.
+
+28
+00:03:45.489 --> 00:03:55.459
+Rob Walworth: the type we expect them to be if they're required, or optional, and then any other description or or notes that may be pertinent.
+
+29
+00:03:55.869 --> 00:03:59.829
+Rob Walworth: and then our output parameters as well. So output parameters is basically what
+
+30
+00:04:00.149 --> 00:04:23.469
+Rob Walworth: the Tck is expecting to receive back from the SDK server. So in this instance, we're creating account. We want the account Id, and then the the status of the of the submission. And then we go into the actual test themselves. So I think again kind of described this last time, but depending on
+
+31
+00:04:23.599 --> 00:04:46.511
+Rob Walworth: how the SDK kind of provides its Apis for a particular request type. We could either find property tests here, which is basically just if if the SDK more or less just provides getters and setters for the different protobuf fields. For the request.
+
+32
+00:04:47.169 --> 00:05:11.987
+Rob Walworth: you know we'll be looking mostly at property tests here. So that's individual tests for each of the properties that is provided in the protobus. So in the create account instance, you know, we have key. We have initial balance, and so on and so forth through with all these. But in the instance of something like transfer transaction here, let me, I can kind of open this up and kind of show you more about what I'm talking about. So in the actual SDK,
+
+33
+00:05:12.789 --> 00:05:20.187
+Rob Walworth: we provide. Actually, I can. I can open this up, too, and just kinda kind of show you
+
+34
+00:05:20.759 --> 00:05:21.949
+Rob Walworth: the
+
+35
+00:05:22.139 --> 00:05:31.991
+Rob Walworth: since transfer transactions a bit more like convoluted. So in in the sense of like you, when you provide a a transaction to it, each of the each of the
+
+36
+00:05:32.759 --> 00:06:02.259
+Rob Walworth: or, yeah. Sorry. Provide a transfer to it. Each of those values in the transfer have or all. There's a couple of different values in the transfer, depending on you know what what kind of transfer you're looking to do. So. H. Bar transfer, for instance, right here you only have an account id and amount easy peasy, or or an Evm address, but token transfer, for example, you know you have a token, id add on top of that or nft. You have an nft, Id. Add on top of that
+
+37
+00:06:02.566 --> 00:06:09.313
+Rob Walworth: or a decimal amount, and then you also get to approve transfers here. So there's a lot of kind of different
+
+38
+00:06:10.119 --> 00:06:15.179
+Rob Walworth: kind of different ways to provide a transfer. So in the case of
+
+39
+00:06:15.519 --> 00:06:23.423
+Rob Walworth: transfer transaction, we more test by the by the methods that the SDK provides?
+
+40
+00:06:24.359 --> 00:06:29.999
+Rob Walworth: so I can actually just go ahead and show you the markdown for that here. So
+
+41
+00:06:30.169 --> 00:06:41.649
+Rob Walworth: you saw the add H bar transfer function, the SDK, so we have tests for that. Add token, transfer. This is all. These are all tests that. Just test this function pretty much.
+
+42
+00:06:44.403 --> 00:07:08.776
+Rob Walworth: yeah. So all the way down add Nft everything. But that's just, you know, again, that's it. It depends on kind of the different Api, or how the Apis are provided in the SDK, so I think most of them will be more or less just testing individual properties. And there might be there might be a couple that are more
+
+43
+00:07:09.799 --> 00:07:14.439
+Rob Walworth: like function tests. Does that make sense? Does anyone have any questions on that?
+
+44
+00:07:18.629 --> 00:07:19.619
+Rob Walworth: Alright cool?
+
+45
+00:07:20.511 --> 00:07:46.429
+Rob Walworth: So yeah. So for kind of just going through the example. Here again, the actual account create is, you know, there's there's more tests here. But just kinda as I'm gonna be walking you through here, I'm gonna kind of go through the code as well. Just gonna provide a few tests here. So basic basic test for just testing it. Testing the key. You know, just we want to test to see if it creates an account with a valid Ed. 2, 5, 5, 1, 9. Public key.
+
+46
+00:07:46.629 --> 00:07:53.299
+Rob Walworth: Pretty simple. So we go through. We, you know, come up with a name like what the test is doing the test number.
+
+47
+00:07:53.519 --> 00:07:57.389
+Rob Walworth: And then we look at our inputs. The inputs are basically
+
+48
+00:07:57.509 --> 00:08:10.819
+Rob Walworth: looking at the input parameters up here. And which of these parameters are we going to be setting? So in the case of just testing, just simple account, create the valid Ed. 2, 5, 5, 1, 9, public key. All we're going to be looking to do is set the key here.
+
+49
+00:08:11.428 --> 00:08:19.509
+Rob Walworth: With a valid Ed, 2, 5, 5, 1, 9, which we can get from the SDK itself. I'll show you kind of how that works in a moment.
+
+50
+00:08:20.879 --> 00:08:26.089
+Rob Walworth: And then the expected response. And in this case it's pretty simple. The account creation succeeds.
+
+51
+00:08:26.644 --> 00:08:28.569
+Rob Walworth: And then we have another
+
+52
+00:08:29.359 --> 00:08:34.879
+Rob Walworth: column over here, just to keep track of what tests are actually implemented or or not.
+
+53
+00:08:35.779 --> 00:08:49.939
+Rob Walworth: So yeah, so simple one for key, you know, we can go down to initial balance. Here, too, creates an account with initial balance, creates an account with no initial balance again, just, you know, going back up to the input properties up here. So now we're looking at initial balance.
+
+54
+00:08:51.179 --> 00:08:53.509
+Rob Walworth: So you know.
+
+55
+00:08:53.659 --> 00:09:07.789
+Rob Walworth: create an account initial balance. We just set it to a hundred and then create an account. No initial balance at 0, and then our expected response. We accepted the account to be created with the amount of initial balance that we provided to it.
+
+56
+00:09:08.469 --> 00:09:28.299
+Rob Walworth: Pretty simple. And then, yeah, we, you know, have examples of what the Json looks like right here. So coming up with these tests coming up with this Markdown file is is the 1st step. Once. We kind of get our our test planned out in this. You know, we usually put that up for a Pr
+
+57
+00:09:29.249 --> 00:09:42.289
+Rob Walworth: just going kind of going back to the issues here. So this would just be, you know, the document. Step right here. So document our test. Put a Pr, you know. Get them approved, so on and so forth. Next we go to the implementation.
+
+58
+00:09:42.789 --> 00:09:44.409
+Rob Walworth: And this is
+
+59
+00:09:44.789 --> 00:09:59.994
+Rob Walworth: kind of what the implementation files look like. So again, we use the the Mocha test framework for Javascript. So basically, how we divide up the tests is based on
+
+60
+00:10:01.029 --> 00:10:09.234
+Rob Walworth: well, based on, you know, the again, kind of the properties or functions that the way we divide up the test in the markdown file.
+
+61
+00:10:09.829 --> 00:10:17.329
+Rob Walworth: but the way we kind of divide it out and organize. It is with these, describe blocks here. So these describe blocks, basically just
+
+62
+00:10:17.649 --> 00:10:20.479
+Rob Walworth: designate a given sort of suite of tests.
+
+63
+00:10:20.883 --> 00:10:30.579
+Rob Walworth: So the you know, 1st one we do at the top for whatever request we're trying to test. Go ahead and add a describe block for that. So in this case account create
+
+64
+00:10:31.300 --> 00:10:43.739
+Rob Walworth: we had our time out here just to make sure that you know Tck, or like any tests, you know, if it were to have like a a connection or network hangup of some sort, you know. We're not just hanging for for minutes on end.
+
+65
+00:10:44.169 --> 00:10:54.428
+Rob Walworth: And then we have our before before each and after each year. So these are basically things that you would want to happen before each test were to run. So
+
+66
+00:10:55.029 --> 00:11:05.139
+Rob Walworth: here we just have our setting the operator. So basically, like the establishing, like the the client for the SDK, so we provide our
+
+67
+00:11:05.239 --> 00:11:14.129
+Rob Walworth: account, Id, and account private key from our env file. We just go ahead and grab that here and set it. And actually underneath the hood. I can show you this, too.
+
+68
+00:11:14.509 --> 00:11:24.179
+Rob Walworth: underneath the hood. We can see this just stack or puts everything into a Json. Rpc. Request here and sends it over.
+
+69
+00:11:25.058 --> 00:11:41.731
+Rob Walworth: So our our main, you know, kind of network interaction methods. We have our setup method. We have a reset method which basically just kind of tears everything down. There's more info about this in the
+
+70
+00:11:42.539 --> 00:11:47.519
+Rob Walworth: in the repo we have Markdown files describing it. So you can go ahead and look at those.
+
+71
+00:11:47.759 --> 00:11:53.466
+Rob Walworth: But yeah. Basically, so in here we set our operator account Id and our private key.
+
+72
+00:11:54.239 --> 00:11:58.143
+Rob Walworth: and then the client should be good to go should be ready to go ahead and and start
+
+73
+00:11:59.759 --> 00:12:01.759
+Rob Walworth: submitting and interacting with the network.
+
+74
+00:12:02.693 --> 00:12:11.129
+Rob Walworth: So the test that we came up with in our markdown file, we had one test for key 2 for initial balance, so we can go ahead and look at those here.
+
+75
+00:12:12.619 --> 00:12:14.409
+Rob Walworth: So if we're creating a key.
+
+76
+00:12:15.031 --> 00:12:30.929
+Rob Walworth: well, let me back up a little bit here. So I guess so. You know, with within our kind of account, create test suite. Here we go ahead and create another suite. With another. Describe block here, just for key. So again, it just kind of gives, like further
+
+77
+00:12:30.929 --> 00:12:47.599
+Rob Walworth: further division and kind of organization to our tests. So when they get print out, a terminal should be easier to follow. This verify only account create function is basically just a a helper function that we use to
+
+78
+00:12:48.635 --> 00:12:51.179
+Rob Walworth: kind of wrap the
+
+79
+00:12:51.804 --> 00:13:01.154
+Rob Walworth: I guess sort of tck validation in in just one easy function that we can call so this is something that
+
+80
+00:13:01.879 --> 00:13:05.849
+Rob Walworth: it will be called after. After we do our account create
+
+81
+00:13:06.269 --> 00:13:21.729
+Rob Walworth: and basically just go go ahead and and verifies that the account was created successfully. So we have a couple services here. So we have our consensus info client, which basically I can go ahead and show you this.
+
+82
+00:13:21.879 --> 00:13:30.749
+Rob Walworth: Basically, just some helper functions that actually use the the Js SDK itself to, you know. Just help us do like
+
+83
+00:13:31.069 --> 00:13:34.397
+Rob Walworth: like in this one, like an account balance? Query, if
+
+84
+00:13:35.292 --> 00:13:58.929
+Rob Walworth: you know, we have a test that influences an accounts balance. We can just go ahead and call this and verify that the balance is is what we want it, or for editing some other, you know. Parameter of an account. We, you know, do this get account? Info? Does an account. Info query, you know, sort of same thing. So this is all interaction with the consensus node. We have a mirror node client as well.
+
+85
+00:13:59.848 --> 00:14:06.909
+Rob Walworth: Which has all of the the mirror node rest Apis kind of
+
+86
+00:14:07.309 --> 00:14:15.439
+Rob Walworth: organized here. So again, it kind of looks the same way. It's it's more just a matter of what kind of node you're interacting with.
+
+87
+00:14:15.976 --> 00:14:20.129
+Rob Walworth: So again, if you wanted to get the balance of an account
+
+88
+00:14:20.299 --> 00:14:28.719
+Rob Walworth: could do get account data, here it goes ahead and and does this mirror node api, and gets the info back.
+
+89
+00:14:29.825 --> 00:14:46.464
+Rob Walworth: And yep, so base. So we use those to to verify that whatever transaction we're testing has the proper influence or state change, or whatever on the on the network? And
+
+90
+00:14:47.029 --> 00:15:03.939
+Rob Walworth: yep. So we just use these sort of expect calls, say, like, okay, like, we expect this account, Id, whichever one we created to you know, equal equal the account id of that account. so pretty pretty simple test in in this instance.
+
+91
+00:15:06.359 --> 00:15:15.089
+Rob Walworth: but yeah, so actually going into the test itself. So we have. We have the name we came up with. This. It call is actually what defines a test.
+
+92
+00:15:15.717 --> 00:15:30.799
+Rob Walworth: So so it'd be like, okay, so the test it creates an account with a valid E. Ed. 2, 5, 5, 1, 9, public key. So to create that account, we need our public key. So we go ahead and query
+
+93
+00:15:31.909 --> 00:15:49.679
+Rob Walworth: the SDK for or well, we requested to generate a key for us. This is another kind of utility method that should be provided by the Sdks to help generate keys and kind of test their functionality as well. Again, that's
+
+94
+00:15:49.959 --> 00:15:55.069
+Rob Walworth: we have more documentation on that in in the repo. If you want to check that out.
+
+95
+00:15:55.658 --> 00:16:06.399
+Rob Walworth: But we go ahead and we get. We generate a key. We get the response back with the key, and then we go ahead and plug that key into our our create account. Call here
+
+96
+00:16:07.509 --> 00:16:18.749
+Rob Walworth: because, looking back at the at the docs, all all we needed for this test was just a valid E, 2, 5, 5, 1, 9, public key. So that's all we're providing here.
+
+97
+00:16:19.539 --> 00:16:32.677
+Rob Walworth: So we go ahead and do that request. And then we call our our verification function here. That does the the querying for the consensus or queries, the consensus node and queries the mirror node, just to make sure everything
+
+98
+00:16:33.309 --> 00:16:36.509
+Rob Walworth: kind of propagates through the network correctly. And everything is
+
+99
+00:16:36.789 --> 00:16:38.269
+Rob Walworth: how it how it should be.
+
+100
+00:16:40.019 --> 00:16:44.749
+Rob Walworth: So we have that for key. We have that for our initial balance test here as well.
+
+101
+00:16:45.089 --> 00:16:48.499
+Rob Walworth: So again, we kind of have a simple little verification function.
+
+102
+00:16:49.040 --> 00:16:57.889
+Rob Walworth: Feed in our our account. Whatever our account. Id, where the initial balances that we're testing, we verify that we expect our initial balance to equal
+
+103
+00:16:58.199 --> 00:17:09.939
+Rob Walworth: the balance that we get back from the consensus node with an account info query. We expect the initial balance to equal the the initial balance. We get back from the mirror node as well.
+
+104
+00:17:11.809 --> 00:17:28.459
+Rob Walworth: So again, like pretty pretty simple. And you know, if if everything on the on the network is working properly. You know all that information is propagating, and the the transaction is reaches consensus and is applied to state. Then you know this, this should all be kosher
+
+105
+00:17:29.849 --> 00:17:33.269
+Rob Walworth: But yeah. So again, so kind of
+
+106
+00:17:33.389 --> 00:17:38.119
+Rob Walworth: kind of these tests look the same initially, we still need our our key to generate
+
+107
+00:17:38.229 --> 00:17:52.089
+Rob Walworth: or generated key to create the account. Every account needs a key, and then we have our initial balance here. So for this 1st test, we had 100. If we go back in the docs. Yep, so we have initial balance, 100 here.
+
+108
+00:17:52.969 --> 00:17:58.769
+Rob Walworth: And then we just go ahead and throw that in our in our parameters, as well for the create account.
+
+109
+00:17:59.889 --> 00:18:07.969
+Rob Walworth: And then our verification function. That kind of does the verifies the state change on the, on the network.
+
+110
+00:18:09.809 --> 00:18:17.969
+Rob Walworth: That's our 1st one and then the create an account with no initial bounce, pretty much pretty much copy paste just changing this 100 to 0.
+
+111
+00:18:18.919 --> 00:18:26.309
+Rob Walworth: and yeah, just doing the create account and then verifying that the account was created with 0 balance
+
+112
+00:18:27.639 --> 00:18:29.079
+Rob Walworth: were there.
+
+113
+00:18:29.189 --> 00:18:44.779
+Rob Walworth: That's pretty much all I had. Were there any questions on any implementation details here, any kind of questions about how the how the code is organized, or I mean, just about like anything.
+
+114
+00:18:50.220 --> 00:18:56.029
+Sophie Bulloch: So it does seem really well organized. How did you kind of reach this this desired format?
+
+115
+00:18:57.940 --> 00:18:58.530
+Rob Walworth: Yeah,
+
+116
+00:18:59.410 --> 00:19:02.350
+Rob Walworth: So I think one of the
+
+117
+00:19:02.800 --> 00:19:08.009
+Rob Walworth: one of the main things I think we wanted to figure out 1st was how
+
+118
+00:19:08.680 --> 00:19:26.149
+Rob Walworth: how we wanted everything to. Be kind of documented and organized. And yeah, I think one of the one of the bigger decisions that we came to was just like, really like thinking, we we wanted to kind of separate the
+
+119
+00:19:26.836 --> 00:19:35.370
+Rob Walworth: documentation organization or the documentation, the implementation because we really, I feel like we really wanted to focus on
+
+120
+00:19:35.580 --> 00:19:44.869
+Rob Walworth: spending the time to really come up. Come up with and think of good tests that, you know, test a lot of
+
+121
+00:19:45.030 --> 00:19:53.449
+Rob Walworth: ways, the, you know, a request could be handled on the network, or any sort of like a corner case. That
+
+122
+00:19:54.130 --> 00:19:57.640
+Rob Walworth: you know, may not be thought of immediately, but you know it's
+
+123
+00:19:57.810 --> 00:20:02.200
+Rob Walworth: again. It's like you give yourself enough time to sort of think through.
+
+124
+00:20:03.230 --> 00:20:04.909
+Rob Walworth: You know every
+
+125
+00:20:05.190 --> 00:20:34.063
+Rob Walworth: everything that could, every different state, or whatever that may be on the network. It's like, there's there's a lot of different things that like, you know, we want to test for. So I think, kind of dividing up those steps between documentation implementation. Was big. And then you know, from going from documentation to code is is pretty simple, I see, you know. Account create is very
+
+126
+00:20:34.680 --> 00:20:37.989
+Rob Walworth: simple requests, and you don't really need much
+
+127
+00:20:39.550 --> 00:20:42.261
+Rob Walworth: you don't really need much setup for it.
+
+128
+00:20:42.900 --> 00:20:50.270
+Rob Walworth: But in the case of like like transfer transaction, for example, like, you know, if you're looking to test to
+
+129
+00:20:50.390 --> 00:21:06.020
+Rob Walworth: or test like a token transfer or something. It's like, well, you need to create a token. You need to create 2 accounts. You need to make sure those accounts are associated to token. So there's like a lot more like steps involved there.
+
+130
+00:21:06.280 --> 00:21:17.930
+Rob Walworth: But for for the most part, once we have the documentation approved and good the the actual implementation itself is.
+
+131
+00:21:18.100 --> 00:21:42.586
+Rob Walworth: it's pretty pretty simple. You just kind of go go down, go through each test. You have all the inputs there and it's just a matter of kind of figuring out what you need to do. To get to that state that you're looking to test, which again, is like, for a lot of tests are pretty similar, which makes these like before each and after each blocks here like really nice?
+
+132
+00:21:43.571 --> 00:21:51.150
+Rob Walworth: but yeah, it it it kinda kind of streamlines that process for us. Yeah.
+
+133
+00:21:56.740 --> 00:21:58.020
+Rob Walworth: Any other questions.
+
+134
+00:22:04.070 --> 00:22:09.770
+Rob Walworth: Cool. Well, thank you. For letting me share, I will hand it back to Jessica.
+
+135
+00:22:09.770 --> 00:22:15.700
+Jessica Gonzalez (The Linux Foundation): Thank you, Rob. All right. So if there's no questions, I think.
+
+136
+00:22:16.439 --> 00:22:27.079
+Hendrik Ebbers: There was nothing else in the agenda unless Hendrik. Do you have anything that you wanna talk about? Or do you have anything.
+
+137
+00:22:27.080 --> 00:22:30.199
+Jessica Gonzalez (The Linux Foundation): Sure he's like Alexa. Order.
+
+138
+00:22:30.520 --> 00:22:33.731
+Hendrik Ebbers: Somebody is. Oh, it was you so?
+
+139
+00:22:34.680 --> 00:22:52.960
+Hendrik Ebbers: What I would like to do, and that's great to to have Rob here, because I think he has the most insights is. So we created this this document regarding next steps we want to do to get the different, or in general all projects, but starting with the sdks
+
+140
+00:22:52.970 --> 00:23:10.320
+Hendrik Ebbers: to get them more vendor, neutral, unprinted, and so on without breaking changes of the users. Right? And that is something I would like to discuss and and maybe use this meeting to find the general
+
+141
+00:23:10.380 --> 00:23:30.190
+Hendrik Ebbers: code points. The general Apis that for that we that we need to deprecate because there are hedera specific and need to create more generic, a more general approach. Additional Apis for those functionalities.
+
+142
+00:23:31.980 --> 00:23:38.330
+Hendrik Ebbers: To be more open to to any and and support any Hiro based network.
+
+143
+00:23:38.956 --> 00:24:03.260
+Hendrik Ebbers: I already had like work with with Rob and see me, and so on. Meetings regarding what could be the places. Maybe we can use that meeting, and that's a question to to rob. And maybe I see even so to the people working on sdks contributing to us to case to. We find those
+
+144
+00:24:03.550 --> 00:24:05.560
+Hendrik Ebbers: pieces in the code.
+
+145
+00:24:06.342 --> 00:24:16.239
+Hendrik Ebbers: Correct them, and then afterwards we can define for each and every praise how it could be repraised in future by a new Api.
+
+146
+00:24:16.780 --> 00:24:18.259
+Hendrik Ebbers: Does that make sense.
+
+147
+00:24:22.940 --> 00:24:25.600
+Jessica Gonzalez (The Linux Foundation): That makes sense to me.
+
+148
+00:24:26.560 --> 00:24:33.318
+Rob Walworth: Yeah, I think we've kind of had like a couple discussions about this. I think I know you kind of came up with a
+
+149
+00:24:34.615 --> 00:24:46.689
+Rob Walworth: like a not necessarily like a Poc, but kind of like a you documented kind of what you thought. You may want it to look like like the new Apis.
+
+150
+00:24:48.200 --> 00:24:53.960
+Rob Walworth: I don't know if you want to kind of go over that, or or what.
+
+151
+00:24:54.370 --> 00:24:57.480
+Hendrik Ebbers: Me let me share it.
+
+152
+00:24:59.010 --> 00:25:03.139
+Hendrik Ebbers: So let me share my screen.
+
+153
+00:25:15.630 --> 00:25:20.215
+Hendrik Ebbers: Why is it? It's this one word here. Okay, so
+
+154
+00:25:21.370 --> 00:25:25.850
+Hendrik Ebbers: there are several pieces we we have so far, so
+
+155
+00:25:26.340 --> 00:25:40.710
+Hendrik Ebbers: one piece is what I did with Rob some weeks ago in the Hierarchas project we created a
+
+156
+00:25:42.070 --> 00:25:44.432
+Hendrik Ebbers: a text document.
+
+157
+00:25:45.870 --> 00:25:55.670
+Hendrik Ebbers: regarding how things should be renamed, and and how things things or code can be re-implemented to be
+
+158
+00:25:56.250 --> 00:26:11.370
+Hendrik Ebbers: not hedera specific, the most prominent one. This is like client for mainnet, client, for testnet, which do not make that much sense anymore when it comes to to hyro, and not only hedera
+
+159
+00:26:12.136 --> 00:26:24.790
+Hendrik Ebbers: for that explicit one we already have, or I already created, a Poc. How how it can look like in future to make it easy
+
+160
+00:26:24.890 --> 00:26:33.189
+Hendrik Ebbers: to still use in. In that case, itera mainnet and not give anybody the mute, you know, to to
+
+161
+00:26:33.560 --> 00:26:37.322
+Hendrik Ebbers: configure a full address book, put in all the
+
+162
+00:26:37.930 --> 00:26:55.420
+Hendrik Ebbers: Ips and things like that, because that is definitely not what we want. But, on the other hand, be that flexible, flexible, that in theory each and any higher based network can be supported by the sdks. And I know that there are multiple places.
+
+163
+00:26:56.062 --> 00:27:14.670
+Hendrik Ebbers: Where creating new Apis is needed. And so if all agree. I would like to use this meeting to to discuss those places, and maybe already start discussing how how it can be handled in future.
+
+164
+00:27:20.760 --> 00:27:28.565
+Rob Walworth: Yeah, I, I think that sounds good to me. I think we have most of the most of the SDK team here, too. So
+
+165
+00:27:29.330 --> 00:27:31.760
+Rob Walworth: provide insights and stuff.
+
+166
+00:27:33.410 --> 00:27:39.479
+Hendrik Ebbers: That's that's that's what what I was hoping so, and maybe what we can do is
+
+167
+00:27:40.180 --> 00:27:42.430
+Hendrik Ebbers: to make direct use of it.
+
+168
+00:27:42.710 --> 00:27:51.319
+Hendrik Ebbers: because we now have when going to repositories and search for SDK.
+
+169
+00:27:52.440 --> 00:28:03.519
+Hendrik Ebbers: We now have the SDK collaboration hub as an repository on oh, and maybe it makes sense to talk about this repository, and I'm
+
+170
+00:28:03.900 --> 00:28:06.979
+Hendrik Ebbers: I'm just seeing Rob. Is that coming for you from you?
+
+171
+00:28:07.710 --> 00:28:08.880
+Rob Walworth: Yeah, yeah, it.
+
+172
+00:28:08.880 --> 00:28:34.480
+Hendrik Ebbers: Oh, no, I I haven't looked at that. I I need to read it. So. So we now have this SDK collaboration hub, which is a language and so programming language, and SDK independent repository for SDK. Contributors that we want to use as Rob written it down here to generate
+
+173
+00:28:34.750 --> 00:28:58.348
+Hendrik Ebbers: or to provide general higher SDK documentation, to provide proposals that need or should be implemented in best way in each and every SDK, and to provide guideline and best practices. And I think what what we now would like to discuss goes into this guidelines and best practices.
+
+174
+00:28:59.200 --> 00:29:10.270
+Hendrik Ebbers: section, because it's about, you know what are the best practices to move the SDK now to to an area where it's hedera independent
+
+175
+00:29:10.580 --> 00:29:25.150
+Hendrik Ebbers: and what we can do is we can just create an issue. Right? I I think it makes sense to create an issue for what we want to do and say, that is a blank issue, which is
+
+176
+00:29:26.820 --> 00:29:39.220
+Hendrik Ebbers: move higher sdks to more vendor, neutral and unbranded together.
+
+177
+00:29:41.985 --> 00:30:04.790
+Hendrik Ebbers: So mostly all sdks that can be found at Hiro transferred from hit. Do up, therefore, but
+
+178
+00:30:04.890 --> 00:30:13.199
+Hendrik Ebbers: are still quite specific for endeavor and provide.
+
+179
+00:30:13.740 --> 00:30:27.479
+Hendrik Ebbers: That only makes sense when used with the Hedewa network.
+
+180
+00:30:28.740 --> 00:30:46.140
+Hendrik Ebbers: We need to provide more generic replacements for those functionalities, and Apis
+
+181
+00:30:46.660 --> 00:30:52.440
+Hendrik Ebbers: in general. We do not want to rake.
+
+182
+00:30:53.130 --> 00:31:03.459
+Hendrik Ebbers: Oh, I use us, therefore no public Api should be removed.
+
+183
+00:31:03.580 --> 00:31:04.284
+Hendrik Ebbers: Now.
+
+184
+00:31:07.880 --> 00:31:22.450
+Hendrik Ebbers: Alt Api, that is, hedera specific should be duplicated, and mark for future. We.
+
+185
+00:31:26.190 --> 00:31:36.808
+Rob Walworth: So I know there's a discussion in this repo going on right now about coming up with like a deprecation policy.
+
+186
+00:31:37.380 --> 00:31:38.230
+Rob Walworth: And.
+
+187
+00:31:38.230 --> 00:31:39.960
+Hendrik Ebbers: This, in this we pull.
+
+188
+00:31:40.220 --> 00:31:41.130
+Rob Walworth: Yeah.
+
+189
+00:31:42.140 --> 00:31:43.110
+Hendrik Ebbers: Oh!
+
+190
+00:31:44.050 --> 00:31:45.449
+Rob Walworth: So it makes sense.
+
+191
+00:31:45.740 --> 00:31:46.250
+Rob Walworth: Yeah.
+
+192
+00:31:46.250 --> 00:31:59.410
+Hendrik Ebbers: That's another point. Do we want to have discussions per repo? Or are we still like that small that we would like to have discussions only on the high level.
+
+193
+00:31:59.680 --> 00:32:04.859
+Hendrik Ebbers: From my point of view it would make sense to have all discussions still in one place.
+
+194
+00:32:06.410 --> 00:32:19.359
+Rob Walworth: Yeah, I think maybe this was opened here just because I think, Simi was thinking mostly about sdks first.st But yeah, I I think this could apply to. You know, a bunch of different repos as well.
+
+195
+00:32:20.340 --> 00:32:37.769
+Hendrik Ebbers: Yeah, it's it's not that, you know. But what we could do is I could now easily. We move not. We move move that to the top level and then disable discussions here. But I don't want to do that, because Henrik thinks it's a good idea. That's that's why
+
+196
+00:32:37.890 --> 00:32:49.829
+Hendrik Ebbers: this is a question in the yeah to all of you. So what what do you think? Should we have just one place for Github discussions regarding high? Or should we have multiple places.
+
+197
+00:32:52.320 --> 00:33:02.040
+Rob Walworth: Yeah, I I think it's a matter of, because again, it's it's the SDK collaboration hub. So it's like we want people to come here, and you know.
+
+198
+00:33:02.632 --> 00:33:15.419
+Rob Walworth: feel free to collaborate. So I don't know if if we disable discussions here, there's most of the collaboration then going to be taking in taking place in Prs and issues.
+
+199
+00:33:15.690 --> 00:33:16.500
+Hendrik Ebbers: Yeah.
+
+200
+00:33:16.500 --> 00:33:42.589
+Jessica Gonzalez (The Linux Foundation): I think. I think we should leave it open because there's gonna be discussions that are applicable for the top level and some that are gonna be specific to the this particular repo where you were saying earlier about the moving the main conversation. It it makes sense to move the vendor vendor neutralization to the top level. Because, we have other repos that we are tracking. As well.
+
+201
+00:33:45.150 --> 00:33:46.219
+Jessica Gonzalez (The Linux Foundation): Go ahead, Keith.
+
+202
+00:33:48.140 --> 00:33:53.660
+Keith Kowal (Hedera Hashgraph LLC): I want to back up a few steps. What are we talking about? Deprecating the sdks? I mean, because deprecation
+
+203
+00:33:54.460 --> 00:34:16.039
+Keith Kowal (Hedera Hashgraph LLC): potentially has massive impact across the entire hedera ecosystem. So what are we talking about? Deprecating? Because I, what I want to avoid is, there cannot be decisions about deprecation just kind of discussed within the SDK group that the rest of the Hedera community is not aware of. You deprecate features and break tons of people that that can't be the what happens.
+
+204
+00:34:16.040 --> 00:34:22.629
+Hendrik Ebbers: That's that's why we have discussions with Ed's team, and the idea is, if we
+
+205
+00:34:23.304 --> 00:34:31.550
+Hendrik Ebbers: mark something for deprecation, it will stay up to like 9 months before we remove it as an example.
+
+206
+00:34:32.600 --> 00:34:41.006
+Rob Walworth: Yeah, I think that's kind of part of what this discussion here on the screen is is meant to kinda flesh out a little bit, too.
+
+207
+00:34:41.679 --> 00:35:04.320
+Rob Walworth: yeah, I mean, it's not many people have participated. I just threw something out there just to kind of get the conversation started. But yeah, I think that's kind of what we want to figure out. Because, yeah, I I agree, Keith, I don't want things to be deprecated. And then for it to break people whenever it gets removed, especially if, like, you know, we're talking about something like their client for mainnet or for test net functions like
+
+208
+00:35:04.540 --> 00:35:11.700
+Rob Walworth: a lot of people use those. So yeah, that would, that would be a big one. That's 1 we need to be careful with.
+
+209
+00:35:12.510 --> 00:35:13.180
+Keith Kowal (Hedera Hashgraph LLC): Well, that is.
+
+210
+00:35:13.180 --> 00:35:38.220
+Keith Kowal (Hedera Hashgraph LLC): and I think this ties into probably the other point that I think we've been discussing internally. But I wanted to raise. This is a great example of where a change to me in my mind and, I would argue, needs a hip, because hips are our way to communicate to the entire community about changes that we want to propose that have impact across the entire community. And you know, that's our mechanism. So to me, like a change like a deprecation would need a hip.
+
+211
+00:35:38.700 --> 00:35:43.760
+Hendrik Ebbers: Yes, if it's on the server. Yes, but we never did some hips like that for sdks.
+
+212
+00:35:48.080 --> 00:35:53.469
+Hendrik Ebbers: So for sdks it just don't exist so far I don't know is, see me here.
+
+213
+00:35:54.110 --> 00:36:03.429
+Hendrik Ebbers: No, maybe Rob Rob can can say that I mean, is there a hip for SDK version? 2. As an example. Rob, do you? Do you know that.
+
+214
+00:36:04.476 --> 00:36:07.360
+Rob Walworth: I I joined the team after V 2 was out, so I don't know.
+
+215
+00:36:07.942 --> 00:36:13.209
+Hendrik Ebbers: Yeah, but so I think we never had hips for that.
+
+216
+00:36:14.150 --> 00:36:16.489
+Hendrik Ebbers: as far as I know, and.
+
+217
+00:36:16.490 --> 00:36:21.489
+Keith Kowal (Hedera Hashgraph LLC): I would say. That's probably immaterial, Hendrick. We need a hip, but I mean we need the hip is.
+
+218
+00:36:21.490 --> 00:36:22.110
+Hendrik Ebbers: Anyone, knew.
+
+219
+00:36:22.110 --> 00:36:29.850
+Keith Kowal (Hedera Hashgraph LLC): We have within the hedera community to communicate these kind of massive changes that affect potentially every customer on the network.
+
+220
+00:36:30.070 --> 00:36:36.600
+Hendrik Ebbers: But then you need to recreate the hip process because the hip process is currently for the server and protobuf.
+
+221
+00:36:37.000 --> 00:36:44.299
+Hendrik Ebbers: So if if you want that change. You need to start with hip 0 and change hip 0, including the sdks.
+
+222
+00:36:45.510 --> 00:36:54.730
+Hendrik Ebbers: So I mean, I don't make it hip because I don't know. I want to create whatever. So country hips are not for that.
+
+223
+00:36:55.340 --> 00:36:58.999
+Hendrik Ebbers: If we want to do that, that means that we need to change hips.
+
+224
+00:37:03.500 --> 00:37:08.970
+Hendrik Ebbers: That's why we currently have all those discussions trying to to find a good way.
+
+225
+00:37:09.090 --> 00:37:15.830
+Hendrik Ebbers: how we can make that happen to not break people, you know. And if having a hip
+
+226
+00:37:16.140 --> 00:37:19.380
+Hendrik Ebbers: is is the way we want to do that.
+
+227
+00:37:19.620 --> 00:37:29.609
+Hendrik Ebbers: then I'm not saying I'm against creating a hip. I'm I'm just saying this is not as things happened in the past, or as it was anywhere.
+
+228
+00:37:31.630 --> 00:37:47.609
+Keith Kowal (Hedera Hashgraph LLC): So. So my understanding is that we would use an application hip. We would. This would be an application hip. It would follow the application hip process. But yes, we would use the hip application hip process to communicate changes, not major changes to the sdks to the entire community.
+
+229
+00:37:47.780 --> 00:37:50.270
+Hendrik Ebbers: Is there is there any example for that, Keith?
+
+230
+00:37:50.630 --> 00:37:56.979
+Hendrik Ebbers: Do you do? Maybe I don't know it right? So that's why we discuss it here. We want to make it correct.
+
+231
+00:37:57.090 --> 00:38:02.379
+Hendrik Ebbers: but I don't know any any example where, where we have something like that.
+
+232
+00:38:07.120 --> 00:38:07.719
+Keith Kowal (Hedera Hashgraph LLC): I need to.
+
+233
+00:38:07.720 --> 00:38:11.949
+Keith Kowal (Hedera Hashgraph LLC): I'm looking at. Hip 3, 2, 3, the C. SDK,
+
+234
+00:38:12.450 --> 00:38:17.459
+Keith Kowal (Hedera Hashgraph LLC): I I mean, I think there has been, especially on development of new sdks. We've used tips.
+
+235
+00:38:19.630 --> 00:38:21.580
+Ivaylo N: Do you make hips about the sdks
+
+236
+00:38:22.520 --> 00:38:29.353
+Ivaylo N: because we have, do do you? Do you mean hips about the sdks? Because we have, I think?
+
+237
+00:38:31.400 --> 00:38:34.820
+Ivaylo N: yes, 7, 4, 5, Ivanka said.
+
+238
+00:38:35.710 --> 00:38:37.159
+Hendrik Ebbers: 7, 4, 5.
+
+239
+00:38:37.890 --> 00:38:38.620
+Ivaylo N: Yeah.
+
+240
+00:38:45.390 --> 00:38:51.209
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I mean, I've not done the research, Henrik. But I think there's lots of examples of hips that are specific to the sdks.
+
+241
+00:39:01.700 --> 00:39:27.399
+Keith Kowal (Hedera Hashgraph LLC): And I'll also say that this is. This is, if we think there's gaps in the hip process that don't address this, then. Okay, we should address those gaps. But to me again, I think it's a great topic deprecation because deprecation has massive impact across the entire community. That that impact needs to be communicated well ahead of time. So what's the tools or mechanisms that you're going to use to communicate those massive changes to the hedera community?
+
+242
+00:39:27.400 --> 00:39:36.499
+Keith Kowal (Hedera Hashgraph LLC): I would say it's a hip, I mean, because that's the process we've already have and established. That's the way that we communicate to the entire community about big changes we want to make.
+
+243
+00:39:36.660 --> 00:39:50.980
+Keith Kowal (Hedera Hashgraph LLC): I mean, the alternative is, you have to develop an entire new process to communicate to the entire community. That seems like unnecessary when it's just easier to use the hip, and if there's gaps in the hip process to to address those gaps.
+
+244
+00:39:51.120 --> 00:40:15.249
+Hendrik Ebbers: So. So the question, Keith, is, how would you? So? So let's assume we make. Let's let's just take my issue right? So the one I took it, which is like connect to Mainnet or to Mainnet to Testnet, where you just have currently those those methods in the Sdks. I don't even know if they exist in all, but they exist in some. So
+
+245
+00:40:15.420 --> 00:40:24.150
+Hendrik Ebbers: we want to duplicate them, provide new functionality. That does more, I guess the same, but is more open.
+
+246
+00:40:25.230 --> 00:40:34.069
+Hendrik Ebbers: What we can do for sure is, take what is part of this issue, because that already creates an an idea how it can look
+
+247
+00:40:35.090 --> 00:40:39.990
+Hendrik Ebbers: even what technologies can be used for for the different SDK languages
+
+248
+00:40:40.210 --> 00:40:44.670
+Hendrik Ebbers: and create more gas and hip out of this
+
+249
+00:40:46.850 --> 00:40:49.099
+Hendrik Ebbers: out of this issue, right? So this.
+
+250
+00:40:49.230 --> 00:40:53.689
+Hendrik Ebbers: the the text of the issue? Yeah, you don't have user stories. But
+
+251
+00:40:54.764 --> 00:41:09.379
+Hendrik Ebbers: you need to add the user stories and things like that, and that in general the content of this issue would be the hip. But where to write when? I mean, if an hip is voted on right.
+
+252
+00:41:09.480 --> 00:41:25.619
+Hendrik Ebbers: and and even if implemented, then it belongs to, as far as I know, to a version of consensus node right? And there was no risk where we see or even started to discuss.
+
+253
+00:41:25.840 --> 00:41:30.369
+Hendrik Ebbers: Version 47 of the Java SDK
+
+254
+00:41:30.580 --> 00:41:33.010
+Hendrik Ebbers: is now ready with this and this hips.
+
+255
+00:41:33.270 --> 00:41:38.350
+Hendrik Ebbers: That is that is why I'm saying it. You know the the process is a different one.
+
+256
+00:41:38.710 --> 00:41:57.320
+Hendrik Ebbers: So I have no idea how to say we create an hip, and then this hip is approved, and this hip gives an idea about the functionality. I I'm totally fine with that. And if we want to do that within hip, we we can do that within hip
+
+257
+00:41:57.803 --> 00:42:21.789
+Hendrik Ebbers: what I'm missing. And and this is where my critic comes from, where I'm saying I don't know if Hip is the right one how to say now it's deprecated, then it will be replaced, and so on, and you cannot write it in a hip, because when you write it in a hip, Zip is not approved by the Tsc. Zip is not approved by
+
+258
+00:42:22.220 --> 00:42:28.770
+Hendrik Ebbers: by the Hedera Council, and so on, and so on. You do you understand what I mean that. So it's not
+
+259
+00:42:28.880 --> 00:42:31.839
+Hendrik Ebbers: really fitting to to what we need here.
+
+260
+00:42:34.400 --> 00:42:45.769
+Keith Kowal (Hedera Hashgraph LLC): No, actually, I'm not quite following. I mean, I think there was the good example of hit 47, 45, just looking at it, which was written by the SDK team implemented by the SDK team.
+
+261
+00:42:45.920 --> 00:42:57.270
+Keith Kowal (Hedera Hashgraph LLC): I you know what were the challenges with that hip? I I would. You know which is an application hip, application hips, typically follow a bit of a different process than what we're calling like like the core hip.
+
+262
+00:42:57.270 --> 00:43:06.459
+Hendrik Ebbers: So so, Keith, can you tell me what version of the rust SDK supports the sip, and what version of the rust? SDK? Don't?
+
+263
+00:43:07.670 --> 00:43:22.190
+Hendrik Ebbers: That's what I'm talking about. And and that is, that is the missing connections. Now we have here in hip. This hip describes what is test technically needed right. So how the Api should look like, what are the user stories
+
+264
+00:43:22.850 --> 00:43:27.850
+Hendrik Ebbers: makes sense for me? And and we can do that. The problem that I'm seeing is.
+
+265
+00:43:28.170 --> 00:43:33.460
+Hendrik Ebbers: then we have the sip. Then the Tsc. Will vote on the sip.
+
+266
+00:43:33.660 --> 00:43:36.880
+Hendrik Ebbers: So we're good with that hip. But
+
+267
+00:43:37.670 --> 00:43:45.000
+Hendrik Ebbers: when is the hip final? Is the hip final when we have implemented is the hip final when the odd apis are removed.
+
+268
+00:43:45.240 --> 00:43:47.130
+Hendrik Ebbers: this is a final, when
+
+269
+00:43:47.920 --> 00:43:56.589
+Hendrik Ebbers: each and every SDK has implemented. What if the python SDK, which is coming from the community, says we don't care about that.
+
+270
+00:43:57.080 --> 00:44:02.429
+Hendrik Ebbers: So there were too many things coming from from from the hip process.
+
+271
+00:44:03.067 --> 00:44:06.039
+Hendrik Ebbers: That are missing on this use case that we have.
+
+272
+00:44:09.950 --> 00:44:21.430
+Keith Kowal (Hedera Hashgraph LLC): Okay, we should discuss those those gaps. But I mean, I don't really see what what I don't see. What you're describing is I'm still trying to follow what it is you're describing. Okay, I I guess I want to come back to the original problem. I I think again.
+
+273
+00:44:21.810 --> 00:44:33.399
+Keith Kowal (Hedera Hashgraph LLC): if we can we agree that any kind of deprecations to the SDK is a massive change, and that massive change needs to be communicated very broadly to the entire cared air community, and so, therefore.
+
+274
+00:44:33.400 --> 00:44:38.550
+Hendrik Ebbers: Removal, I would say yes on a removal, not on a duplication.
+
+275
+00:44:38.980 --> 00:45:03.829
+Keith Kowal (Hedera Hashgraph LLC): I just want to call it the hips. Also provide another purpose in my experience. Hips, you know, kind of kind of force. The the requester of a feature to really kind of sit down and think about what they're asking for. I think sometimes the problem with issues is that maybe you know, they can be very short. Maybe we think we understand what the person's asking for. But actually, it turns out, after we do engineering work, it's not correct.
+
+276
+00:45:03.930 --> 00:45:16.079
+Keith Kowal (Hedera Hashgraph LLC): You know, the hip process really forces as a process forces people to kind of really think through their user stories, what they're asking for, what the potential impacts are. Again, I'll just use your example, Hendrick, about.
+
+277
+00:45:16.140 --> 00:45:35.359
+Keith Kowal (Hedera Hashgraph LLC): you know, wanting to like feeling like, there's there's specific stuff about testnet and mainnet. Yeah, I mean, that's true, right. But there's also all of the underlying frameworks about address book, and how we get the addresses, like all of that, would have to be thought through as well like, it's not just changing an Api. It's about changing everything about.
+
+278
+00:45:35.370 --> 00:45:58.940
+Keith Kowal (Hedera Hashgraph LLC): you know, in what you're talking about. I think there would be impact on hedera consensus nodes. I think how we do node ids, how we do nodes because this has been a big hot topic recently, like there's so much stuff in there that this is why it really takes, I think, in a proposal, it requires some thinking and in depth about what the user really wants. Before we turn that into a design, Doc.
+
+279
+00:46:00.420 --> 00:46:01.630
+Hendrik Ebbers: Okay. But
+
+280
+00:46:02.330 --> 00:46:21.180
+Hendrik Ebbers: and that is what we did. I mean, I agree with you. That is what we did. That is why we created prototypes. That is why a lot of people discussed it, including the the X team, including, I don't know, like the engineering and and the outcome is the issue. And I'm
+
+281
+00:46:21.580 --> 00:46:35.559
+Hendrik Ebbers: I'm fine with creating a hip out of that issue. But this do not solve any additional problem we have today. Then I would have a hip. People will say, Yeah, that totally makes sense. We vote on it plus one boom
+
+282
+00:46:35.790 --> 00:47:03.780
+Hendrik Ebbers: voted. Ts, Tsc. Has voted on the hip, and we're good. But now still nobody knows. When will this happen? When will the deprecation happen? When will things that are deprecated be removed in future? And that is what I'm saying that is all. Not part of the hip process. And why I don't. I am thinking, if we create a hip, yeah, we can use it as part of the process, but we cannot just say, Oh, yeah, we have hip, and we're good with it.
+
+283
+00:47:04.240 --> 00:47:09.889
+May Chan: I think that that makes sense. So basically, the hip is the initial part of
+
+284
+00:47:10.000 --> 00:47:20.870
+May Chan: the entire process of, say, deprecation here, where the community is notified in this public and accepted way, and then, once the hip becomes accepted.
+
+285
+00:47:21.130 --> 00:47:27.169
+May Chan: Now, when you need to actually execute on the decision, there is perhaps
+
+286
+00:47:27.570 --> 00:47:38.839
+May Chan: a repo, or a discussion, or another document, or some other part of this procedure that actually tracks the implementation of the deprecation and the decisions in the hip.
+
+287
+00:47:39.050 --> 00:47:43.110
+Hendrik Ebbers: Yeah. And and that need to be done like for each and every. SDK, right?
+
+288
+00:47:44.200 --> 00:47:46.960
+Keith Kowal (Hedera Hashgraph LLC): So so I would just say like, I think
+
+289
+00:47:47.020 --> 00:48:09.610
+Keith Kowal (Hedera Hashgraph LLC): I mean, I guess where I'm confused, Hendrick, is that you're like I just sent through the lip to hip 991. If you go through hip 991, please tell me looking at that hip when you know, we just have a 1 line in there about when it was released in release 59.5, you know. That's the only mention in the entire hip document about, you know, when it was implemented. So I mean, again, if if in an SDK hip.
+
+290
+00:48:09.670 --> 00:48:34.970
+Keith Kowal (Hedera Hashgraph LLC): yeah, maybe we need a new line in there that says, Okay, this was the hip. It was approved, and then we implemented it in the rust. Go, Javascript Java sdks on, you know, for these releases. And you're right. Maybe it doesn't get implemented into the python community. SDK, I mean, I accept that. But you know, I just don't think I think we're talking about one line in the hip about when it was implemented. If we look at the current process.
+
+291
+00:48:36.320 --> 00:48:44.110
+Hendrik Ebbers: Okay, so that one something like that would make sense. So the point is.
+
+292
+00:48:44.768 --> 00:49:02.769
+Hendrik Ebbers: we have N. Sdks, and it's not only one. So what we need to do is like, oh, it's deprecation or deprecation, let's say, like we have Java SDK. Deprecation happened on version whatever, and code removed on version whatever. So we need
+
+293
+00:49:02.770 --> 00:49:21.270
+Hendrik Ebbers: for each and every. SDK, we need 2 versions right? And if we can use the hips and afterwards change all those metadata in in the top of those hips, and add all those informations into a hip.
+
+294
+00:49:21.380 --> 00:49:23.369
+Hendrik Ebbers: We could do it like that.
+
+295
+00:49:23.800 --> 00:49:27.759
+Hendrik Ebbers: I'm just don't know if that is the best place to do it.
+
+296
+00:49:30.240 --> 00:49:32.070
+May Chan: It is a very public place.
+
+297
+00:49:32.180 --> 00:49:46.179
+May Chan: and it is a place that people would look to if they needed information on things so like. The alternative is, if you don't put it in something like a hip, then when you deprecate this information, this this function.
+
+298
+00:49:46.190 --> 00:50:02.700
+May Chan: where would someone look to find out where it's been deprecated, or where would someone look to say where which sdks are the sdks where this has been implemented? Maybe a hip is the actual best place, and you just have to keep it updated as
+
+299
+00:50:03.040 --> 00:50:08.449
+May Chan: as changes are made as as it's implemented across various sdks.
+
+300
+00:50:08.710 --> 00:50:22.976
+Rob Walworth: Or or we could just keep a doc in the SDK hub that this hip just links to. And then so we don't have to bother updating the hip. But maybe maybe if the A. Doc in in the SDK hub is easier to manage and update
+
+301
+00:50:23.660 --> 00:50:26.250
+Rob Walworth: you know, they'd they'd still be able to get that information from here.
+
+302
+00:50:26.650 --> 00:50:53.580
+Hendrik Ebbers: Because it even includes, like the Tck, then it includes. When do the sdks fulfill the tck, and that is key. That is my problem. Right? So it's not about writing and hip it's about we have a different kind of lifecycle, meta information and everything that we have like this, where we added something new and not replaced, something on
+
+303
+00:50:54.310 --> 00:50:57.570
+Hendrik Ebbers: Mainnet. Right? That is, that is.
+
+304
+00:50:57.840 --> 00:51:01.559
+Hendrik Ebbers: for that. Hips are working great. And
+
+305
+00:51:02.040 --> 00:51:04.970
+Hendrik Ebbers: if we want to do that for the sdks.
+
+306
+00:51:05.480 --> 00:51:18.849
+Hendrik Ebbers: Yes, we need to add a lot of new metadata. Find new information, or do as as Rob said, have another hub, another whatever for the sdks to keep track on it.
+
+307
+00:51:23.151 --> 00:51:26.840
+Hendrik Ebbers: I still think it's important like to have.
+
+308
+00:51:26.990 --> 00:51:33.770
+Rob Walworth: Implementation details somewhere, you know whether whether that's in the hip which I've I've
+
+309
+00:51:34.040 --> 00:51:50.681
+Rob Walworth: never seen like implementation. Those really like in the sense of like what you know. For SDK specific like what Apis might be added, what ones might be updated any sort of well, I I guess we have some here. But
+
+310
+00:51:51.060 --> 00:51:54.120
+Hendrik Ebbers: This is now one example, but you normally never see that in it. Here.
+
+311
+00:51:54.120 --> 00:51:55.060
+Rob Walworth: Right, right, yeah.
+
+312
+00:51:55.060 --> 00:52:04.340
+Hendrik Ebbers: All hips I looked into don't have this code. And so so, Keith, you found a good one, because I've never seen something like that in a hip.
+
+313
+00:52:04.500 --> 00:52:07.137
+Hendrik Ebbers: and that is where I'm coming from, you know.
+
+314
+00:52:08.650 --> 00:52:35.889
+Keith Kowal (Hedera Hashgraph LLC): So again, I think the pipeline we're on for the Sdks and the the path that I think 95% of SDK work follows is that there's a hip, and often, like the hip is, you know, the hip is like hip 9, 9, 1 or something, and the hip will say, Hey, we need some work in the SDK, and then there'll be a design, Doc, done by Rob and team. And then there is an implementation based on the design, Doc, I'm not proposing anything different. I'm just saying that if you want to make a major change to the sdks, you should write it up in a hip.
+
+315
+00:52:35.890 --> 00:52:46.050
+Keith Kowal (Hedera Hashgraph LLC): we should, you know, accept it and think that. Yes, this is something we want to do. There should be an SDK design, Doc. Per the what Rob has proposed and been working on
+
+316
+00:52:46.050 --> 00:53:01.248
+Keith Kowal (Hedera Hashgraph LLC): that that's written up for that, and that can be linked to the hip. No problem. And then we should implement based on the SDK design doc. So I think we just follow the standard process. That again, we that's what we do for 95% of our work today. That's the process we follow.
+
+317
+00:53:01.560 --> 00:53:05.680
+Keith Kowal (Hedera Hashgraph LLC): And I, I think we for for major changes, we should continue that process.
+
+318
+00:53:05.680 --> 00:53:18.629
+Hendrik Ebbers: And where I I disagree is so far it was always something. And it's the same here, right? Something changes on consensus node, and that impacts sdks.
+
+319
+00:53:18.870 --> 00:53:19.850
+Hendrik Ebbers: So
+
+320
+00:53:20.180 --> 00:53:43.799
+Hendrik Ebbers: that is what so and that makes maybe 90% of the sdks, right? But the other 10%. And that is the percentage that we touch. So we do not touch how transaction works, what kind of transaction we have, what properties we have in a transaction that is all coming by in hip and came by hip in in the past, because protobuf is
+
+321
+00:53:43.800 --> 00:53:57.309
+Hendrik Ebbers: part of it. Consensus node changes and and based on that, the sdks need to to implement it. But what I have never seen, and you now pointed me at least to one
+
+322
+00:53:57.310 --> 00:54:07.499
+Hendrik Ebbers: is where and and I mean, Rob said, the same as that's the main SDK developer, right? That you really see like how it should be done in an SDK.
+
+323
+00:54:07.560 --> 00:54:23.700
+Hendrik Ebbers: That was. That was my my critique with the hips. So if we say we now create hips that are totally different to all hips we had so far, and it will be like that. We can use a hip process for that as just to make that clear. I don't want to.
+
+324
+00:54:25.110 --> 00:54:27.270
+Hendrik Ebbers: How to say to
+
+325
+00:54:28.610 --> 00:54:38.499
+Hendrik Ebbers: not not use it, or or try to get rid of it. Absolutely. Not for me. It didn't make sense so far based on that. It's always used in a different way.
+
+326
+00:54:38.700 --> 00:54:39.680
+Hendrik Ebbers: So
+
+327
+00:54:39.780 --> 00:54:58.709
+Hendrik Ebbers: one question to Keith and Rob maybe, does it make sense to have one hip for all the duplications regarding vendor and branding removal? Or would it be for each and every code point like I would create issues, one hip.
+
+328
+00:55:04.260 --> 00:55:10.389
+Keith Kowal (Hedera Hashgraph LLC): I I mean I I think it could be. I mean, we're just talking about changing the word hedera to Hiro. I mean, that could be just one.
+
+329
+00:55:10.760 --> 00:55:25.809
+Hendrik Ebbers: Yeah, that is, that is one. But then we have, like, yeah, we really need to remove Apis and add new. Or, 1st of all, add new Apis, deprecate others, and then in in some future remove the old ones. So is that one.
+
+330
+00:55:25.810 --> 00:55:40.329
+Keith Kowal (Hedera Hashgraph LLC): To me to me any any change of any Api has massive impact across. So I 1st of all, I mean, I would say, we need a hip at the very minimum. Or we need a document that describes what? Exactly what? Apis, we're proposing to change.
+
+331
+00:55:40.330 --> 00:55:40.900
+Keith Kowal (Hedera Hashgraph LLC): Yeah. And then
+
+332
+00:55:40.900 --> 00:55:48.430
+Keith Kowal (Hedera Hashgraph LLC): I think we'd have to walk through each one and look at the impact of that. Because if you're talking about like changing an Api that breaks everyone.
+
+333
+00:55:48.530 --> 00:55:53.149
+Keith Kowal (Hedera Hashgraph LLC): then yeah, that needs real thought and communication. If it's an Api that
+
+334
+00:55:53.400 --> 00:55:57.029
+Keith Kowal (Hedera Hashgraph LLC): I don't know, nobody uses. Okay, we can maybe approach it differently.
+
+335
+00:55:57.370 --> 00:56:13.009
+Hendrik Ebbers: Okay? And and that was my initial idea for today to create that document. But but that makes sense. So we create that document somewhere like in an issue or somewhere, correcting all the things where we think need to be changed.
+
+336
+00:56:13.520 --> 00:56:18.680
+Hendrik Ebbers: And then we can discuss this all that one hip do we make multiple hips out of it?
+
+337
+00:56:19.370 --> 00:56:27.999
+Keith Kowal (Hedera Hashgraph LLC): But but I would just say, Hendrik, as well as that. I think you can't just look at it in terms of Api. I mean again, if you want to address a 3rd party network.
+
+338
+00:56:28.640 --> 00:56:39.399
+Keith Kowal (Hedera Hashgraph LLC): I think there's a lot more implications that we have to talk through across the entire network. So I just think, like it's. That's why, again, we need to discuss each one, because some of them might be much deeper than you think.
+
+339
+00:56:39.680 --> 00:56:40.919
+Hendrik Ebbers: Give me a sample.
+
+340
+00:56:44.400 --> 00:56:45.120
+Keith Kowal (Hedera Hashgraph LLC): Well.
+
+341
+00:56:45.710 --> 00:56:55.730
+Keith Kowal (Hedera Hashgraph LLC): I mean, have we talked through yet? How if someone's to deploy an alternative Hiro network? And they wanted to have like, you know they want to have their own mainnet
+
+342
+00:56:56.170 --> 00:57:06.040
+Keith Kowal (Hedera Hashgraph LLC): like, you know, we how would? How would the SDK talk to that cause? You know today the SDK when it starts up. It has hard coded values for our our network. So there's not.
+
+343
+00:57:06.040 --> 00:57:25.200
+Hendrik Ebbers: No, no, no, yeah. But even today, Keith. So even today, you can overwrite that other. Otherwise solo would not work. So even today you could in an SDK create your own custom address book like with those are the Ips of the nodes, and so on. Sdks already allows that
+
+344
+00:57:26.095 --> 00:57:48.260
+Hendrik Ebbers: so the in many places it's like the functionality is already there. But it's way. Comp, very, very complex, and the idea is to make the usage of that more easy and deprecate the this is only hedera ways, because and I
+
+345
+00:57:48.380 --> 00:57:56.690
+Hendrik Ebbers: be coming to what you said. I do not see such a point where in the sdks goes that deep that it's so complex.
+
+346
+00:57:57.090 --> 00:57:58.860
+Hendrik Ebbers: I think that.
+
+347
+00:57:58.860 --> 00:58:05.399
+May Chan: I think his point wasn't that the functionality was important, but more like if you had to add in
+
+348
+00:58:05.600 --> 00:58:20.080
+May Chan: functionality that affects the use of Mainnet, for example, in this there are other factors to take into consideration that are not just isolated within the SDK. You have to look at the implications across other networks and things like that
+
+349
+00:58:20.390 --> 00:58:25.270
+May Chan: correct? So it's not the specific example. It's more just like you asked for an example of
+
+350
+00:58:27.320 --> 00:58:30.760
+May Chan: Why, you would need to put in more, more context.
+
+351
+00:58:31.120 --> 00:58:46.339
+Keith Kowal (Hedera Hashgraph LLC): Yeah. And just to zoom up again again, I think that's why this is. It best starts with something like a hit process. Because, you know, in the hit process, we define a section for user stories. I mean, I think this would call out for okay, I, as a developer, want to set up an alternative higher network. This is what I want. The
+
+352
+00:58:46.340 --> 00:58:47.600
+Keith Kowal (Hedera Hashgraph LLC): no, no, no, no, no, no!
+
+353
+00:58:47.600 --> 00:58:48.190
+Keith Kowal (Hedera Hashgraph LLC): Look like.
+
+354
+00:58:48.190 --> 00:58:59.440
+Hendrik Ebbers: That has nothing to do with the sdks. What the example you just saying. I, as a user, want to set up a a custom home network. Nothing to do with an SDK. You don't use an SDK to set up a a network.
+
+355
+00:59:00.160 --> 00:59:03.880
+Hendrik Ebbers: so that is nothing that would be in a hip for the sdks.
+
+356
+00:59:04.740 --> 00:59:08.419
+Keith Kowal (Hedera Hashgraph LLC): Yeah. But but at the end of the day you want. Okay, so start with.
+
+357
+00:59:08.420 --> 00:59:08.960
+Hendrik Ebbers: Connect you.
+
+358
+00:59:08.960 --> 00:59:25.970
+Keith Kowal (Hedera Hashgraph LLC): You. You create your own. I mean, I we don't. You create the user story that you think is appropriate. But it just to say that we need a document that I think outlines that user story. Because, again, I think this is just like we need the the users to request these features to like. Well, articulate what it is, the changes they want, and then we can take them from there.
+
+359
+00:59:25.970 --> 00:59:27.199
+Hendrik Ebbers: Yes, but you.
+
+360
+00:59:27.360 --> 00:59:37.479
+Hendrik Ebbers: You talk about what you said is more about solo and mirror, node, and whatever. And we 1st of all want to concentrate on on the sdks
+
+361
+00:59:37.780 --> 00:59:47.430
+Hendrik Ebbers: and make the sdks that the sdks work with any highway network that is deployed somewhere. And
+
+362
+00:59:47.690 --> 01:00:12.950
+Hendrik Ebbers: this does not include user stories regarding I want to set up in highway network, the user story would be, I want to connect to the highway based network Foo. So the SDK needs functionality to connect to any network. I can already say that is already present in the SDK, so it's really more about removing
+
+363
+01:00:13.210 --> 01:00:16.320
+Hendrik Ebbers: exactly what we see here on screen this one
+
+364
+01:00:17.420 --> 01:00:20.879
+Hendrik Ebbers: and make the other way more prominent.
+
+365
+01:00:24.890 --> 01:00:32.280
+Keith Kowal (Hedera Hashgraph LLC): Okay, I I think that's great. I I mean that that if that's the user story, that's the user story. So I just think that we need that kind of articulation. I would argue.
+
+366
+01:00:33.570 --> 01:00:38.469
+Hendrik Ebbers: Yeah, I I think Rob agrees. If I say we can
+
+367
+01:00:38.630 --> 01:00:42.050
+Hendrik Ebbers: work on that and and have something like that
+
+368
+01:00:43.770 --> 01:00:47.720
+Hendrik Ebbers: quite fast ready, because it's not that much right?
+
+369
+01:00:48.390 --> 01:00:53.160
+Hendrik Ebbers: The impact. The impact is back a big to developers. I totally agree on that.
+
+370
+01:00:53.350 --> 01:00:56.309
+Hendrik Ebbers: But it's not that much that need to
+
+371
+01:00:56.910 --> 01:00:59.399
+Hendrik Ebbers: to be changed from a technical point of view.
+
+372
+01:01:02.400 --> 01:01:15.119
+Hendrik Ebbers: Okay, but but we already over time over time. So, yeah, I think best is, if like, Rob and I create something. And and then we bring it to
+
+373
+01:01:15.330 --> 01:01:21.039
+Hendrik Ebbers: to this community like in 2 weeks, or something. Does that make sense?
+
+374
+01:01:23.700 --> 01:01:28.081
+Hendrik Ebbers: Okay, Rob and Keith, give thumbs up. That's good, perfect.
+
+375
+01:01:28.480 --> 01:01:31.879
+Jessica Gonzalez (The Linux Foundation): Put it in the agenda for the next minutes.
+
+376
+01:01:32.090 --> 01:01:33.470
+Hendrik Ebbers: Yeah, makes sense.
+
+377
+01:01:37.390 --> 01:01:38.120
+Hendrik Ebbers: Good.
+
+378
+01:01:41.520 --> 01:01:47.319
+Jessica Gonzalez (The Linux Foundation): Awesome anything else that anybody wants to bring in before we close.
+
+379
+01:01:51.600 --> 01:01:52.680
+Jessica Gonzalez (The Linux Foundation): All right.
+
+380
+01:01:53.010 --> 01:01:58.930
+Jessica Gonzalez (The Linux Foundation): Okay. So then we will prepare the minutes for. And the next 2 weeks, and see you next time.
+
+381
+01:01:59.770 --> 01:02:00.680
+Hendrik Ebbers: Okay.
+
+382
+01:02:00.680 --> 01:02:01.190
+Jessica Gonzalez (The Linux Foundation): Thank you.
+
+383
+01:02:01.190 --> 01:02:01.760
+Keith Kowal (Hedera Hashgraph LLC): Thank you.
+
+384
+01:02:02.070 --> 01:02:02.520
+Rob Walworth: Thanks.
+
+385
+01:02:02.520 --> 01:02:03.190
+Jessica Gonzalez (The Linux Foundation): I.
+

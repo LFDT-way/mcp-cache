@@ -1,0 +1,726 @@
+WEBVTT
+
+1
+00:00:55.250 --> 00:00:56.520
+David Enyeart (International Business Machines Corporation): Hello guys.
+
+2
+00:00:56.860 --> 00:00:57.650
+YOAV TOCK: Bye.
+
+3
+00:01:00.670 --> 00:01:01.590
+Tatsuya Sato (Hitachi, Ltd.): Hi guys.
+
+4
+00:01:23.362 --> 00:01:29.410
+David Enyeart (International Business Machines Corporation): Be honest, I forgot to send a reminder about this meeting, so I didn't get any other agenda topics, but I can share
+
+5
+00:01:29.790 --> 00:01:31.710
+David Enyeart (International Business Machines Corporation): what I have so far.
+
+6
+00:01:32.880 --> 00:01:34.370
+David Enyeart (International Business Machines Corporation): Let me share the screen.
+
+7
+00:01:43.360 --> 00:01:45.100
+David Enyeart (International Business Machines Corporation): Okay, can you see it.
+
+8
+00:01:45.510 --> 00:01:46.240
+Tatsuya Sato (Hitachi, Ltd.): Yes.
+
+9
+00:01:47.350 --> 00:01:52.921
+David Enyeart (International Business Machines Corporation): Okay, so we have 3 maintainers. So that's good, at least.
+
+10
+00:01:53.550 --> 00:01:56.830
+David Enyeart (International Business Machines Corporation): so this should be pretty quick. But I just wanted to mention.
+
+11
+00:01:57.224 --> 00:02:06.060
+David Enyeart (International Business Machines Corporation): We have a couple of releases out. So we did a fabric, 2, 5, 11 release, and a fabric. Ca, 1, 5, 15. Release in the past couple of weeks.
+
+12
+00:02:06.310 --> 00:02:11.760
+David Enyeart (International Business Machines Corporation): The fabric release did have one important bug fix around gossip, especially when
+
+13
+00:02:12.475 --> 00:02:27.779
+David Enyeart (International Business Machines Corporation): one of the certificates expires from one of the peers. If that organization didn't update the certificate in time, and then it actually did expire. It can cause a problem on other peers. Their other peers are not able to clear that
+
+14
+00:02:28.020 --> 00:02:34.070
+David Enyeart (International Business Machines Corporation): expired cert from memory, and it can't connect to that peer again, even if they do update the certificate. So
+
+15
+00:02:34.200 --> 00:02:38.949
+David Enyeart (International Business Machines Corporation): I think that's a pretty significant fix. And then, of course, we have our usual
+
+16
+00:02:39.150 --> 00:02:44.539
+David Enyeart (International Business Machines Corporation): dependency updates things like dependency vulnerabilities that were also fixed
+
+17
+00:02:46.410 --> 00:02:51.360
+David Enyeart (International Business Machines Corporation): in the fabric. Ca, release. I think. The only noteworthy thing was that
+
+18
+00:02:51.470 --> 00:02:56.669
+David Enyeart (International Business Machines Corporation): there's been this compatibility setting called fabric Ca server, compatibility mode
+
+19
+00:02:57.180 --> 00:03:08.730
+David Enyeart (International Business Machines Corporation): it used to be defaulted to true, which means it ran in a old, it it fell. It fell back to an old mode, where it allowed for an old authorization, token, or authentication token
+
+20
+00:03:09.110 --> 00:03:14.480
+David Enyeart (International Business Machines Corporation): on client requests that is now defaulted to false, which means
+
+21
+00:03:14.830 --> 00:03:19.469
+David Enyeart (International Business Machines Corporation): clients need to use the updated authentication token.
+
+22
+00:03:19.610 --> 00:03:28.080
+David Enyeart (International Business Machines Corporation): This should not be a big deal for most people, because this change was made in clients like way back in 2,019. So a long, long time ago.
+
+23
+00:03:28.450 --> 00:03:33.049
+David Enyeart (International Business Machines Corporation): But we realized this setting that we intended to set
+
+24
+00:03:33.210 --> 00:03:38.799
+David Enyeart (International Business Machines Corporation): never got set on one of the one of the prior releases. It probably should have been set in 1 5 0,
+
+25
+00:03:39.220 --> 00:03:40.549
+David Enyeart (International Business Machines Corporation): couple years ago.
+
+26
+00:03:41.487 --> 00:03:42.642
+David Enyeart (International Business Machines Corporation): But anyways,
+
+27
+00:03:44.070 --> 00:03:53.809
+David Enyeart (International Business Machines Corporation): Mark realized that. And so we did a new release around that there's also additional logging around this. In case anybody does have issues they can see what the issue is.
+
+28
+00:03:53.940 --> 00:03:59.860
+David Enyeart (International Business Machines Corporation): But if somebody does have an issue, they could just have to set this setting back to true in their environment, and they should be okay.
+
+29
+00:04:00.810 --> 00:04:07.190
+David Enyeart (International Business Machines Corporation): So we did this because it has a more secure posture, more secure authentication mechanism
+
+30
+00:04:07.300 --> 00:04:14.800
+David Enyeart (International Business Machines Corporation): between the clients and the fabric. Ca, server, any questions about the releases.
+
+31
+00:04:19.089 --> 00:04:27.419
+David Enyeart (International Business Machines Corporation): Okay, in terms of new work. So maybe you saw in a fabric repository. There's a a set of new
+
+32
+00:04:27.530 --> 00:04:46.659
+David Enyeart (International Business Machines Corporation): pull requests around batch handling and chain code. So there's ability now to do batch rights and batch reads. So that's between the chain code container and the peer. It used to be. If you did like. If you wrote 100 different keys, those would go one at a time to the peer through a different interaction
+
+33
+00:04:46.770 --> 00:04:50.729
+David Enyeart (International Business Machines Corporation): which caused a performance issue. If you're running a whole lot of keys.
+
+34
+00:04:50.980 --> 00:04:58.910
+David Enyeart (International Business Machines Corporation): So the behavior now you can control as the chain code developer, you can use this. Start right, batch and finish right batch
+
+35
+00:04:59.329 --> 00:05:06.500
+David Enyeart (International Business Machines Corporation): if you want to batch up some calls you can do as many calls as you like this way as long as it doesn't exceed Grpc limits, of course.
+
+36
+00:05:06.930 --> 00:05:13.909
+David Enyeart (International Business Machines Corporation): which I think the default is 100 MB, so you can write a whole lot of keys before having concerns about that.
+
+37
+00:05:15.266 --> 00:05:22.429
+David Enyeart (International Business Machines Corporation): And then, similarly, for the reads, you used to just do one get state at a time, and each of those get states would interact
+
+38
+00:05:22.550 --> 00:05:24.919
+David Enyeart (International Business Machines Corporation): between the chain code and the peer
+
+39
+00:05:25.560 --> 00:05:37.299
+David Enyeart (International Business Machines Corporation): containers. And so if you're doing a lot of those again, that can be a performance issue. So you can now call multiple, get, do multiple get states in one call with, get multiple states.
+
+40
+00:05:38.850 --> 00:05:44.440
+David Enyeart (International Business Machines Corporation): So these are new features. We'll probably do a 3.1 release. I'll talk to
+
+41
+00:05:44.740 --> 00:05:49.639
+David Enyeart (International Business Machines Corporation): the contributor of these. Make sure he's okay with that, and doesn't have anything else planned.
+
+42
+00:05:49.920 --> 00:05:54.410
+David Enyeart (International Business Machines Corporation): If not, we'll go ahead and do this 3.1 release to to get those out there.
+
+43
+00:05:58.460 --> 00:06:02.959
+David Enyeart (International Business Machines Corporation): Any other comments about new releases or timing of that?
+
+44
+00:06:09.040 --> 00:06:15.780
+David Enyeart (International Business Machines Corporation): Okay? The last item I have on the agenda is the Annual Review. So we do this once a year with
+
+45
+00:06:15.930 --> 00:06:21.870
+David Enyeart (International Business Machines Corporation): what used to be called the Hyperledger Foundation. Now it's the Linux Foundation decentralized trust.
+
+46
+00:06:22.786 --> 00:06:31.660
+David Enyeart (International Business Machines Corporation): We did the Annual Review a couple of weeks ago in one of the tack meetings in Lf decentralized trust. So I'll just pull that up. I can
+
+47
+00:06:32.020 --> 00:06:33.949
+David Enyeart (International Business Machines Corporation): go through some of the highlights of that.
+
+48
+00:06:35.550 --> 00:06:47.680
+David Enyeart (International Business Machines Corporation): Basically, we had a pretty good year in 2024, a lot of commits. This is for the entire ecosystem. So all the hyper ledger fabric repositories and the hyper ledger fabric labs.
+
+49
+00:06:48.090 --> 00:07:05.730
+David Enyeart (International Business Machines Corporation): So 1,600 commits was a lot of activity across 373 contributors. This is I think all interaction. So that's pull requests, issues, con even comments get included into that among committers. I think we did have like 100 plus committers, which is pretty good
+
+50
+00:07:07.009 --> 00:07:12.989
+David Enyeart (International Business Machines Corporation): we had a little bit better diversity than we've had in the past, so we had the top 5 people
+
+51
+00:07:13.510 --> 00:07:16.959
+David Enyeart (International Business Machines Corporation): contributed 52% of code activities.
+
+52
+00:07:18.200 --> 00:07:29.229
+David Enyeart (International Business Machines Corporation): But we did still have a lot of Ibm centricity. So 80% of code activities were performed by Ibm. We'd like to increase that diversity.
+
+53
+00:07:30.313 --> 00:07:37.120
+David Enyeart (International Business Machines Corporation): Fortunately, we did increase the Maintainer diversity. So we have 5 of 9 maintainers
+
+54
+00:07:37.991 --> 00:07:40.400
+David Enyeart (International Business Machines Corporation): for core fabric or from Ibm.
+
+55
+00:07:40.550 --> 00:07:44.300
+David Enyeart (International Business Machines Corporation): So it's a little bit more diverse than it used to be, which is good news
+
+56
+00:07:44.977 --> 00:07:49.580
+David Enyeart (International Business Machines Corporation): Sato-san. You were part of that. So thank you for your efforts in the past year.
+
+57
+00:07:50.110 --> 00:07:54.820
+David Enyeart (International Business Machines Corporation): And we also brought on Fedora as a Maintainer last year.
+
+58
+00:07:59.800 --> 00:08:15.819
+David Enyeart (International Business Machines Corporation): Project adoption. Basically, what I say here is that we don't maintain a adopters file in the core repository. But what we talked about in the Tac meeting was that we could at least have a running discussion thread in the fabric repository
+
+59
+00:08:16.409 --> 00:08:22.179
+David Enyeart (International Business Machines Corporation): and point people to that. So that if any adopters want to talk about their implementations
+
+60
+00:08:22.480 --> 00:08:31.190
+David Enyeart (International Business Machines Corporation): and make that public. They can go ahead and do that in the discussions thread. I think that's a good compromise wasn't something that I thought we should maintain
+
+61
+00:08:31.470 --> 00:08:33.230
+David Enyeart (International Business Machines Corporation): in the repository proper.
+
+62
+00:08:38.030 --> 00:08:42.239
+David Enyeart (International Business Machines Corporation): Okay, in terms of our project goals for the last year and for the next year
+
+63
+00:08:42.380 --> 00:08:46.049
+David Enyeart (International Business Machines Corporation): I think we met a lot of our goals in 2024
+
+64
+00:08:47.771 --> 00:09:02.409
+David Enyeart (International Business Machines Corporation): we did shift a lot of users to the new Lts. Release. I guess I shouldn't say new. I think this came out in 2023 2 dot 5. But we did shift a lot of users up to 2.5, which is good, because that's what we maintain actively
+
+65
+00:09:03.392 --> 00:09:14.119
+David Enyeart (International Business Machines Corporation): and also we'd like users to move to the new gateway. Sdks. I think we've seen a little bit of progress on that, but I think there are still a lot of existing users on the legacy sdks
+
+66
+00:09:17.044 --> 00:09:21.539
+David Enyeart (International Business Machines Corporation): we did provide maintenance releases at least quarterly. We still do that
+
+67
+00:09:22.354 --> 00:09:28.649
+David Enyeart (International Business Machines Corporation): the big news, I guess. Last year was we released fabric version 3.0 with the bft support.
+
+68
+00:09:29.251 --> 00:09:33.829
+David Enyeart (International Business Machines Corporation): So that was really good to get that out there. I know that was baking for a long time.
+
+69
+00:09:35.120 --> 00:09:40.230
+David Enyeart (International Business Machines Corporation): I haven't heard too much feedback about bft. Hopefully, some people in the community are trying it out.
+
+70
+00:09:42.930 --> 00:09:47.579
+David Enyeart (International Business Machines Corporation): And, like I said earlier, we did increase the diversity of the Maintainers, which was good.
+
+71
+00:09:48.640 --> 00:10:04.910
+David Enyeart (International Business Machines Corporation): Other accomplishments. We did finish this transition to Github actions. We used to be on azure pipelines. We did most of that, I think, the prior year, but there was a couple lingering Ci workflows that were on azure pipeline. So we finally got that all finished.
+
+72
+00:10:05.727 --> 00:10:17.512
+David Enyeart (International Business Machines Corporation): It's really nice to have everything in github actions. In terms of the workflows and the issues and pull requests and everything. So it's nice to have all that together. Also the
+
+73
+00:10:19.258 --> 00:10:25.900
+David Enyeart (International Business Machines Corporation): the packages that are there. I guess that's 1 of the next points. We are
+
+74
+00:10:26.450 --> 00:10:39.300
+David Enyeart (International Business Machines Corporation): keeping our docker hub images for legacy users that are pulling down from there. But we're also pushing new images to the Github container registry again, so that everything's available right there in Github.
+
+75
+00:10:42.246 --> 00:10:46.300
+David Enyeart (International Business Machines Corporation): We did finish this practitioner exam last year.
+
+76
+00:10:46.670 --> 00:10:49.949
+David Enyeart (International Business Machines Corporation): and there's also a training course
+
+77
+00:10:50.130 --> 00:10:53.490
+David Enyeart (International Business Machines Corporation): that goes with that. So that's good for new people
+
+78
+00:10:53.620 --> 00:10:56.410
+David Enyeart (International Business Machines Corporation): trying to get certified in the hyperledger fabric.
+
+79
+00:10:58.090 --> 00:11:03.819
+David Enyeart (International Business Machines Corporation): And we did create or improve our open Ssf. Scorecard
+
+80
+00:11:06.290 --> 00:11:10.049
+David Enyeart (International Business Machines Corporation): I can show where that is for the recording.
+
+81
+00:11:11.880 --> 00:11:16.880
+David Enyeart (International Business Machines Corporation): If you go to the fabric repository, I believe there's a link on the readme
+
+82
+00:11:17.390 --> 00:11:19.960
+David Enyeart (International Business Machines Corporation): open Ssf. Scorecard right here.
+
+83
+00:11:22.249 --> 00:11:30.329
+David Enyeart (International Business Machines Corporation): So we have 10 in most categories, which is good. There's a couple categories that we have zeros, in which means we basically haven't implemented these yet for the
+
+84
+00:11:30.660 --> 00:11:39.019
+David Enyeart (International Business Machines Corporation): repository. I think we will do the signed releases this year. That's been kind of encouraged from the
+
+85
+00:11:39.230 --> 00:11:46.669
+David Enyeart (International Business Machines Corporation): Lftt Tac members. That was something that just came in in the past month or so, I believe.
+
+86
+00:11:48.207 --> 00:11:50.270
+David Enyeart (International Business Machines Corporation): The PIN dependencies.
+
+87
+00:11:52.056 --> 00:12:00.189
+David Enyeart (International Business Machines Corporation): I don't. We do PIN for the go dependencies which did not get picked up by the scorecard automatically.
+
+88
+00:12:00.777 --> 00:12:07.840
+David Enyeart (International Business Machines Corporation): But there's other dependencies that we got dinged on here, and from what I could tell, it's still acceptable. It was things like
+
+89
+00:12:08.410 --> 00:12:14.040
+David Enyeart (International Business Machines Corporation): some things in the Ci pipeline and things like that. And I do like to use the latest
+
+90
+00:12:14.150 --> 00:12:18.290
+David Enyeart (International Business Machines Corporation): dependencies for Ci. So I don't think that's really an issue.
+
+91
+00:12:20.470 --> 00:12:24.635
+David Enyeart (International Business Machines Corporation): And, Sas, we have turned. We have not turned on the
+
+92
+00:12:26.070 --> 00:12:30.510
+David Enyeart (International Business Machines Corporation): I forget what it's called in Github, but there's a default go
+
+93
+00:12:30.700 --> 00:12:38.150
+David Enyeart (International Business Machines Corporation): static analysis tool, which we have run in the past, and we get get nothing but false positives. So that's been turned off. But
+
+94
+00:12:38.460 --> 00:12:45.190
+David Enyeart (International Business Machines Corporation): we do run that at Major milestones, at least, so we don't run it every night, but we do run it at Major Milestones.
+
+95
+00:12:46.040 --> 00:12:49.920
+David Enyeart (International Business Machines Corporation): but we get pretty good scores in all the other areas.
+
+96
+00:12:51.360 --> 00:12:59.929
+David Enyeart (International Business Machines Corporation): and we'll be rolling out the scorecard to some of the other repositories as well. To make sure we have good coverage. So things like fabric. Ca.
+
+97
+00:13:01.350 --> 00:13:05.470
+David Enyeart (International Business Machines Corporation): let's see, where'd it go?
+
+98
+00:13:09.060 --> 00:13:17.519
+David Enyeart (International Business Machines Corporation): I mentioned here fabric. Ca, fabric, chain code, go and fabric gateway, I think would be the next candidates. For running this scorecard on.
+
+99
+00:13:21.630 --> 00:13:28.109
+David Enyeart (International Business Machines Corporation): Let's see the other goals. We'll continue the maintenance releases, of course, on 2.5 and 3.0.
+
+100
+00:13:32.100 --> 00:13:38.080
+David Enyeart (International Business Machines Corporation): And again, we'll continue to encourage other contributors to step up and
+
+101
+00:13:38.430 --> 00:13:42.759
+David Enyeart (International Business Machines Corporation): encourage those contributors to also become maintainers if they desire.
+
+102
+00:13:47.520 --> 00:13:49.698
+David Enyeart (International Business Machines Corporation): Alright, I think that sums it up.
+
+103
+00:13:50.340 --> 00:13:54.799
+David Enyeart (International Business Machines Corporation): But I did want to ask you guys, do you have any other goals that you'd like to write down for this year?
+
+104
+00:13:58.270 --> 00:14:00.799
+David Enyeart (International Business Machines Corporation): I know it's fabric itself is
+
+105
+00:14:01.160 --> 00:14:06.886
+David Enyeart (International Business Machines Corporation): pretty much in a maintenance mode A lot of the key. Features are there, and stable
+
+106
+00:14:08.130 --> 00:14:10.640
+David Enyeart (International Business Machines Corporation): Not a whole lot of churn in terms of new features.
+
+107
+00:14:12.720 --> 00:14:16.950
+YOAV TOCK: I'm I'm basically doing some you know, clean up stuff.
+
+108
+00:14:17.760 --> 00:14:20.950
+YOAV TOCK: And I pushed a Pr to the protos.
+
+109
+00:14:22.160 --> 00:14:26.025
+YOAV TOCK: a repository. And I I removed
+
+110
+00:14:26.830 --> 00:14:29.639
+YOAV TOCK: stuff that we had removed from fabric already.
+
+111
+00:14:30.220 --> 00:14:33.399
+YOAV TOCK: But it doesn't compile because there was a missing file.
+
+112
+00:14:34.040 --> 00:14:38.160
+YOAV TOCK: Is there a way, or what is the what is the correct way to do it?
+
+113
+00:14:38.720 --> 00:14:42.400
+YOAV TOCK: To remove that station server from the proto?
+
+114
+00:14:44.470 --> 00:14:44.980
+YOAV TOCK: Oh.
+
+115
+00:14:44.980 --> 00:14:46.810
+David Enyeart (International Business Machines Corporation): Is that the one in.
+
+116
+00:14:48.810 --> 00:14:49.850
+YOAV TOCK: Yeah, this.
+
+117
+00:14:49.850 --> 00:14:51.290
+David Enyeart (International Business Machines Corporation): Let me go! Look again!
+
+118
+00:14:52.340 --> 00:14:53.210
+YOAV TOCK: Yeah.
+
+119
+00:14:56.780 --> 00:14:58.840
+YOAV TOCK: we'll remove exactly this one.
+
+120
+00:14:59.470 --> 00:15:03.269
+David Enyeart (International Business Machines Corporation): Was it just because the checks failed?
+
+121
+00:15:03.560 --> 00:15:07.240
+YOAV TOCK: Yeah, the text fails. It says there's a missing file, and it does not allow that.
+
+122
+00:15:09.600 --> 00:15:20.179
+David Enyeart (International Business Machines Corporation): Okay, yeah. So I think we can force merge this because this one was never used in a release. So it's not really a backward compatibility issue. That's what those checks are checking for, to make sure that there's no backward regressions.
+
+123
+00:15:20.611 --> 00:15:24.640
+David Enyeart (International Business Machines Corporation): In this case it was never in a release. So I think we're okay with that.
+
+124
+00:15:24.740 --> 00:15:26.990
+David Enyeart (International Business Machines Corporation): What I suggested and what.
+
+125
+00:15:26.990 --> 00:15:29.949
+YOAV TOCK: It was never. It was never in 2.5 something.
+
+126
+00:15:30.760 --> 00:15:34.860
+David Enyeart (International Business Machines Corporation): Well, it was never used, it was never.
+
+127
+00:15:34.860 --> 00:15:36.230
+YOAV TOCK: Is never used, that is.
+
+128
+00:15:36.230 --> 00:15:38.819
+David Enyeart (International Business Machines Corporation): The yeah. The signature was there.
+
+129
+00:15:39.643 --> 00:15:43.180
+David Enyeart (International Business Machines Corporation): But it was never actually used by any implementations.
+
+130
+00:15:44.200 --> 00:15:48.240
+David Enyeart (International Business Machines Corporation): and so removing it will not cause a compatibility issue is what I'm saying.
+
+131
+00:15:49.020 --> 00:15:52.800
+David Enyeart (International Business Machines Corporation): Yeah. So I think it's okay to remove it. So we'll have to force merge this
+
+132
+00:15:53.465 --> 00:15:59.140
+David Enyeart (International Business Machines Corporation): but there are references in this buff, dot yaml file
+
+133
+00:15:59.370 --> 00:16:04.150
+David Enyeart (International Business Machines Corporation): that I was suggesting as part of this pull request, if you could also get rid of those.
+
+134
+00:16:04.370 --> 00:16:06.150
+David Enyeart (International Business Machines Corporation): So let me show you.
+
+135
+00:16:06.750 --> 00:16:13.420
+David Enyeart (International Business Machines Corporation): That's a root of the repository.
+
+136
+00:16:14.280 --> 00:16:14.890
+YOAV TOCK: Okay.
+
+137
+00:16:14.890 --> 00:16:21.229
+David Enyeart (International Business Machines Corporation): There's and the station there's like 5 references that can be removed here.
+
+138
+00:16:21.540 --> 00:16:22.160
+YOAV TOCK: Okay, I'll see.
+
+139
+00:16:22.160 --> 00:16:27.860
+YOAV TOCK: So just do that update the pull request and then we'll go ahead and force merge that.
+
+140
+00:16:28.170 --> 00:16:29.180
+YOAV TOCK: Okay, cool.
+
+141
+00:16:29.180 --> 00:16:29.810
+David Enyeart (International Business Machines Corporation): Yeah.
+
+142
+00:16:30.310 --> 00:16:30.940
+YOAV TOCK: Thanks.
+
+143
+00:16:36.060 --> 00:16:38.750
+David Enyeart (International Business Machines Corporation): Okay. But yeah, we'll we're keeping up with the
+
+144
+00:16:39.250 --> 00:16:45.759
+David Enyeart (International Business Machines Corporation): dependencies is kind of the big thing for all these releases. Because we have production users that we need to keep things up to date for
+
+145
+00:16:46.767 --> 00:16:55.670
+David Enyeart (International Business Machines Corporation): but then, you know, we'll have these little features like this, I think. Come in, but I don't think we're planning any major features, as far as I know, 1st part of this year at least.
+
+146
+00:16:57.440 --> 00:17:03.220
+YOAV TOCK: Okay, when, when just for out of curiosity, when we generate new protos.
+
+147
+00:17:03.640 --> 00:17:07.949
+YOAV TOCK: right it it it kind of cascades to generating the
+
+148
+00:17:08.950 --> 00:17:11.499
+YOAV TOCK: the Pbs in the other repositories
+
+149
+00:17:11.859 --> 00:17:16.889
+YOAV TOCK: in the actual Go and Java and Nodejs right, and then.
+
+150
+00:17:16.890 --> 00:17:24.959
+David Enyeart (International Business Machines Corporation): Generatings get by the bindings get generated automatically, and then we can go update fabric repository to use those new bindings.
+
+151
+00:17:25.800 --> 00:17:32.210
+YOAV TOCK: And then and then how? How do we kind of do regression tests to to check that? Actually, it works
+
+152
+00:17:33.020 --> 00:17:38.789
+YOAV TOCK: by virtue of the Pr. In the fabric repository that picks up the that version.
+
+153
+00:17:38.790 --> 00:17:39.760
+David Enyeart (International Business Machines Corporation): That's right.
+
+154
+00:17:40.400 --> 00:17:40.810
+YOAV TOCK: I see.
+
+155
+00:17:40.810 --> 00:17:48.809
+David Enyeart (International Business Machines Corporation): So the just the regular Pr checks and unit tests and integration tests assuming those integration tests pass.
+
+156
+00:17:49.380 --> 00:17:54.829
+David Enyeart (International Business Machines Corporation): I don't expect any issues, because our integration test suite is pretty comprehensive at this point.
+
+157
+00:17:55.130 --> 00:18:00.380
+YOAV TOCK: Yeah, and this will be picked up only by 3 dots something. And above right?
+
+158
+00:18:01.770 --> 00:18:03.010
+David Enyeart (International Business Machines Corporation): That's right. Yeah.
+
+159
+00:18:03.380 --> 00:18:07.189
+YOAV TOCK: Unless we like, do something and backport it.
+
+160
+00:18:09.290 --> 00:18:12.359
+David Enyeart (International Business Machines Corporation): Did we even have the attestation in 2 5? I forget.
+
+161
+00:18:12.750 --> 00:18:13.970
+YOAV TOCK: I don't know. I can check.
+
+162
+00:18:13.970 --> 00:18:17.790
+David Enyeart (International Business Machines Corporation): I think. I thought most of those bft things.
+
+163
+00:18:18.490 --> 00:18:21.760
+David Enyeart (International Business Machines Corporation): I think initially they they got in, but then we removed them.
+
+164
+00:18:22.010 --> 00:18:25.070
+David Enyeart (International Business Machines Corporation): and we made sure that they were only in 3.0.
+
+165
+00:18:27.910 --> 00:18:34.009
+David Enyeart (International Business Machines Corporation): So yeah, we can. We can get this going and then make sure everything's good before the 3 dot one release.
+
+166
+00:18:34.360 --> 00:18:36.959
+YOAV TOCK: Okay, and we'll have things cleaned up for that. Yeah.
+
+167
+00:18:42.150 --> 00:18:48.020
+David Enyeart (International Business Machines Corporation): Okay. Satosan. Any other thoughts on like goals for this year? Anything else you want to focus on.
+
+168
+00:18:49.225 --> 00:18:59.849
+Tatsuya Sato (Hitachi, Ltd.): Not yet. But as I mentioned in the previous meeting, I'm currently working on enhancing sample with Bfd order
+
+169
+00:19:00.040 --> 00:19:02.540
+Tatsuya Sato (Hitachi, Ltd.): to increase user feedback
+
+170
+00:19:03.231 --> 00:19:14.300
+Tatsuya Sato (Hitachi, Ltd.): for this feature, for example, I will added the support for Vfd order in testing it to our Kubernetes and so on.
+
+171
+00:19:14.410 --> 00:19:18.439
+Tatsuya Sato (Hitachi, Ltd.): I plan to continue, make this improvement.
+
+172
+00:19:20.370 --> 00:19:26.069
+David Enyeart (International Business Machines Corporation): Okay, thank you. Yeah. I saw some of those pull requests already. So that's that's good to see.
+
+173
+00:19:31.390 --> 00:19:33.819
+Tatsuya Sato (Hitachi, Ltd.): Oh, this is one task.
+
+174
+00:19:34.090 --> 00:19:34.780
+Tatsuya Sato (Hitachi, Ltd.): Yeah.
+
+175
+00:19:35.530 --> 00:19:36.400
+David Enyeart (International Business Machines Corporation): Yeah, okay.
+
+176
+00:19:38.056 --> 00:19:43.319
+David Enyeart (International Business Machines Corporation): Alright, I think that's it. Any other items for this week this month?
+
+177
+00:19:47.940 --> 00:19:51.730
+David Enyeart (International Business Machines Corporation): Okay, thanks, guys, we'll catch you next time.
+
+178
+00:19:53.330 --> 00:19:53.810
+Tatsuya Sato (Hitachi, Ltd.): Thank you.
+
+179
+00:19:53.810 --> 00:19:54.389
+YOAV TOCK: Thank you.
+
+180
+00:19:54.390 --> 00:19:55.200
+David Enyeart (International Business Machines Corporation): See ya bye.
+
+181
+00:19:55.200 --> 00:19:56.530
+Tatsuya Sato (Hitachi, Ltd.): Thank you. Bye-bye.
+

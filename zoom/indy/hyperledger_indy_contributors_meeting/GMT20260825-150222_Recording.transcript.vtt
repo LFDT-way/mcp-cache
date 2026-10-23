@@ -1,0 +1,314 @@
+WEBVTT
+
+1
+00:01:10.780 --> 00:01:12.180
+Kim: Greetings!
+
+2
+00:01:14.130 --> 00:01:14.840
+Lynn Bendixsen (Indicio): Hello.
+
+3
+00:01:16.480 --> 00:01:17.799
+Kim: How are you today, Lynn?
+
+4
+00:01:19.920 --> 00:01:20.930
+Lynn Bendixsen (Indicio): Doing alright.
+
+5
+00:01:25.610 --> 00:01:31.590
+Kim: Give me a sec here to get the… Get it set up here.
+
+6
+00:01:37.160 --> 00:01:38.050
+Lynn Bendixsen (Indicio): Excellent.
+
+7
+00:02:33.790 --> 00:02:34.780
+Kim: Right.
+
+8
+00:02:35.990 --> 00:02:39.499
+Kim: I'm just making a copy of Lost.
+
+9
+00:02:39.800 --> 00:02:44.470
+Kim: Meetings… Notes, and then we can get started here.
+
+10
+00:02:47.750 --> 00:02:54.999
+Kim: Welcome to the August 25th, 2026 Indy Contributors Call.
+
+11
+00:02:55.900 --> 00:03:03.079
+Kim: We are managed by the Linux Foundation Antitrust Policy.
+
+12
+00:03:03.640 --> 00:03:10.449
+Kim: And… the Linux Foundation… Decentralized identity code of conduct.
+
+13
+00:03:13.750 --> 00:03:20.000
+Kim: If you have any questions about that, let me paste the link in the channel here.
+
+14
+00:03:28.690 --> 00:03:29.490
+Kim: Nope.
+
+15
+00:03:32.260 --> 00:03:38.550
+Kim: Alright, let me bring up one more link here before I share my screen.
+
+16
+00:03:51.020 --> 00:04:01.379
+Kim: Sharing the screen… Hey, on the agenda today, we just have the Ubuntu 2204 upgrade.
+
+17
+00:04:01.710 --> 00:04:04.620
+Kim: Do you have anything else you want to talk about today, Lynn?
+
+18
+00:04:07.510 --> 00:04:08.130
+Lynn Bendixsen (Indicio): Nope.
+
+19
+00:04:09.210 --> 00:04:10.090
+Kim: Okay, awesome.
+
+20
+00:04:10.250 --> 00:04:19.939
+Kim: So, as part of the Ubuntu 2204 upgrade, what I'm doing is I'm moving forward to a Docker implementation only.
+
+21
+00:04:20.360 --> 00:04:27.540
+Kim: And what this looks like is…
+
+22
+00:04:28.300 --> 00:04:42.120
+Kim: Indy Plenum produces Docker images, and then IndyNode will produce Docker images based off of Indy Plenum's images. This simplifies the release workflow.
+
+23
+00:04:42.120 --> 00:04:51.940
+Kim: Instead of creating Debian packages, there's a lot of overhead getting the Debian packages working correctly, and the tooling seems to be falling out of support.
+
+24
+00:04:52.850 --> 00:04:57.040
+Kim: And so this should simplify our deployment methodology.
+
+25
+00:04:57.190 --> 00:04:59.160
+Kim: What I'm showing here…
+
+26
+00:04:59.970 --> 00:05:14.620
+Kim: is, in my local environment, I've got the, the build working. It creates a base image, and then the production image for Indy Plenum, and then it runs through the tests, and we can see that all the tests are passing.
+
+27
+00:05:14.820 --> 00:05:23.520
+Kim: And then this will move over into… The IndyNode environment.
+
+28
+00:05:24.160 --> 00:05:34.819
+Kim: I actually don't remember where I left off on this. I think it's still work in progress. I think I'm working on getting the actions triggered right now.
+
+29
+00:05:37.100 --> 00:05:47.359
+Kim: And then hopefully we'll have an IndyNode and Indy Platinum build based off of Ubuntu in a Docker container, and then we'll move on to the testing phase.
+
+30
+00:05:51.740 --> 00:05:53.230
+Kim: Any questions, Lynn?
+
+31
+00:05:55.090 --> 00:06:05.990
+Lynn Bendixsen (Indicio): Yeah, so… I think you said last time that the… the upgrade from 20.04 to 2204 is gonna have to be…
+
+32
+00:06:06.800 --> 00:06:14.120
+Lynn Bendixsen (Indicio): manual this time. It sounds like the reason is because we have to switch to Docker containers.
+
+33
+00:06:14.510 --> 00:06:15.630
+Kim: Exactly.
+
+34
+00:06:15.630 --> 00:06:28.279
+Lynn Bendixsen (Indicio): And so what about future upgrades? Well, we… there's a… there's a feature in Indy where you can trigger an upgrade from a remote location, and it will automatically update itself. Will that…
+
+35
+00:06:28.420 --> 00:06:33.339
+Lynn Bendixsen (Indicio): be able to happen in the future? Will all upgrades from here on out have to be manual?
+
+36
+00:06:33.800 --> 00:06:38.080
+Kim: I'm trying to, make it so that…
+
+37
+00:06:38.480 --> 00:06:40.909
+Kim: We can send a signal
+
+38
+00:06:41.250 --> 00:06:45.439
+Kim: to the Docker container to stop processing.
+
+39
+00:06:45.650 --> 00:06:47.050
+Kim: To, to exit?
+
+40
+00:06:47.400 --> 00:07:02.539
+Kim: And then if your Docker image is configured to be off of the latest image, on restart Kubernetes or Docker, I'm hoping that it will gather the latest image.
+
+41
+00:07:04.390 --> 00:07:13.610
+Kim: based on the repository that you're configured to access, and that would be the upgrade mechanism for the Docker environment.
+
+42
+00:07:14.020 --> 00:07:18.489
+Kim: Is to trigger a, a stop.
+
+43
+00:07:18.660 --> 00:07:25.999
+Kim: And then, rely on Kubernetes or Docker to fetch the latest image on startup.
+
+44
+00:07:32.300 --> 00:07:37.759
+Lynn Bendixsen (Indicio): Okay, so… Hopefully, latest image is a…
+
+45
+00:07:37.870 --> 00:07:42.439
+Lynn Bendixsen (Indicio): is configurable as well, so you can get whatever image you want, I guess, for…
+
+46
+00:07:42.810 --> 00:07:45.489
+Lynn Bendixsen (Indicio): So that your whole, your whole,
+
+47
+00:07:46.550 --> 00:07:50.719
+Lynn Bendixsen (Indicio): Make sure your whole network is in agreement with whatever image.
+
+48
+00:07:50.720 --> 00:08:00.029
+Kim: Yeah, so likely for your network, you would want to set up a Docker repository, and then have whatever image you want deployed labeled as latest.
+
+49
+00:08:01.680 --> 00:08:03.999
+Kim: In that Docker repository.
+
+50
+00:08:05.550 --> 00:08:09.649
+Kim: Then that would give you the control to determine
+
+51
+00:08:09.890 --> 00:08:14.249
+Kim: What image is being deployed on your, in your environment?
+
+52
+00:08:18.650 --> 00:08:26.550
+Kim: There still needs to be some testing done on that process to ensure that we have a reliable way to manage that.
+
+53
+00:08:27.060 --> 00:08:29.839
+Kim: But that's the direction I'm looking at.
+
+54
+00:08:31.920 --> 00:08:32.740
+Lynn Bendixsen (Indicio): Okay.
+
+55
+00:08:36.750 --> 00:08:44.130
+Lynn Bendixsen (Indicio): Sounds like it's gonna be a several-month upgrade when we finally get to upgrading the… the networks.
+
+56
+00:08:51.030 --> 00:08:54.800
+Lynn Bendixsen (Indicio): But, that's… that's where it is, so… all good.
+
+57
+00:08:55.800 --> 00:08:59.440
+Lynn Bendixsen (Indicio): I think that's… All the questions I have for now.
+
+58
+00:09:00.280 --> 00:09:06.499
+Kim: I'm hoping that, as part of the upgrade process, we could do it in place using Docker Compose.
+
+59
+00:09:07.090 --> 00:09:11.450
+Kim: So that we don't have to go through a several-month-long process.
+
+60
+00:09:11.720 --> 00:09:19.350
+Kim: Let me just point the Docker Compose configuration to use the same data storage path.
+
+61
+00:09:19.910 --> 00:09:22.360
+Kim: As the previous install.
+
+62
+00:09:24.010 --> 00:09:30.650
+Kim: But it would still require, a manual process on each of the servers.
+
+63
+00:09:43.080 --> 00:09:50.659
+Lynn Bendixsen (Indicio): Yeah, that's the part that's the hard part, is the manual part, where we have to coordinate all the different node operators, and…
+
+64
+00:09:51.270 --> 00:09:56.340
+Lynn Bendixsen (Indicio): And, helped them to get through the… I think.
+
+65
+00:09:56.340 --> 00:10:03.080
+Kim: I think there would be a manual process… oh, there's gonna be a manual process regardless, because you're upgrading your OS level, too.
+
+66
+00:10:05.560 --> 00:10:08.380
+Lynn Bendixsen (Indicio): Well, there's… there's scripts that can run that will…
+
+67
+00:10:08.920 --> 00:10:19.209
+Lynn Bendixsen (Indicio): That will make it so the OS doesn't require an upgrade, but it… we're not doing that anyway, so it doesn't matter. But there's… I think there's scripts that'll upgrade from 20 to 22.
+
+68
+00:10:20.440 --> 00:10:21.680
+Lynn Bendixsen (Indicio): Without.
+
+69
+00:10:22.300 --> 00:10:29.450
+Lynn Bendixsen (Indicio): without requiring you to manually install a new server, but I could be wrong on that, I guess.
+
+70
+00:10:29.720 --> 00:10:36.789
+Lynn Bendixsen (Indicio): When we were going from 16 to 20, there was no path, right? There was no…
+
+71
+00:10:37.020 --> 00:10:41.490
+Lynn Bendixsen (Indicio): easy path, anyway. It was quite complex, and so that one had to be manual.
+
+72
+00:10:42.810 --> 00:10:50.409
+Lynn Bendixsen (Indicio): But we were told at the time that the future ones would not be as difficult. I guess that was not quite true, but that's okay.
+
+73
+00:10:52.430 --> 00:10:59.189
+Kim: So, that's the status update. I'm in the process of getting the IndyNode builds worked out.
+
+74
+00:11:09.530 --> 00:11:10.320
+Kim: Okay.
+
+75
+00:11:10.920 --> 00:11:11.880
+Kim: Thanks for…
+
+76
+00:11:11.880 --> 00:11:12.650
+Lynn Bendixsen (Indicio): Who knows?
+
+77
+00:11:13.430 --> 00:11:16.909
+Kim: Thanks for coming to the Indy Contributors Call, we'll see everyone in two weeks.
+
+78
+00:11:17.840 --> 00:11:18.560
+Lynn Bendixsen (Indicio): Bye.
+

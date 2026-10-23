@@ -1,0 +1,606 @@
+WEBVTT
+
+1
+00:02:19.440 --> 00:02:20.480
+Andrzej Kopeć: Hello.
+
+2
+00:04:01.550 --> 00:04:04.709
+Andrey Venuto: Hey guys, so, are we waiting on Kevin? Is that right?
+
+3
+00:04:05.770 --> 00:04:06.840
+Joseph Denman: Think so.
+
+4
+00:04:07.050 --> 00:04:07.760
+Andrey Venuto: Okay.
+
+5
+00:04:08.710 --> 00:04:10.109
+Andrey Venuto: Let me ping him.
+
+6
+00:04:18.750 --> 00:04:20.769
+Kent Dybvig: I pinged him, I haven't heard back yet.
+
+7
+00:04:27.970 --> 00:04:32.780
+Andrey Venuto: Well, I think… I think we can start, if we have anything to discuss,
+
+8
+00:04:34.340 --> 00:04:38.950
+Andrey Venuto: I don't have the agenda, but… maybe…
+
+9
+00:04:39.500 --> 00:04:44.190
+Andrey Venuto: I don't know, does anyone have any topics that they want to discuss? Let me start with… from there.
+
+10
+00:04:49.340 --> 00:04:53.929
+Andrey Venuto: Iskander, OpenZeppelin, guys, do you have anything that you want to raise?
+
+11
+00:04:56.530 --> 00:05:02.359
+Iskander - OZ: I was just, I remember the most important thing is just the ECDC, nothing.
+
+12
+00:05:03.220 --> 00:05:04.950
+Iskander - OZ: Urgent than this.
+
+13
+00:05:06.790 --> 00:05:13.290
+Iskander - OZ: I mean, there's just another issue, but I think it's the wallet side, not anything related to compact, so…
+
+14
+00:05:13.970 --> 00:05:14.720
+Andrey Venuto: Okay.
+
+15
+00:05:16.590 --> 00:05:19.730
+Andrey Venuto: Well, let's wait maybe a minute or two more.
+
+16
+00:05:19.930 --> 00:05:26.920
+Andrey Venuto: if Kevin… Doesn't show up, and we have no extra topics, we can just, like, end the meeting here.
+
+17
+00:05:29.610 --> 00:05:36.439
+Kent Dybvig: Oh, I have… I have an issue that's come up a couple of times in some old tickets that we were…
+
+18
+00:05:36.600 --> 00:05:40.549
+Kent Dybvig: that we got forwarded to the GitHub repo, which is…
+
+19
+00:05:40.830 --> 00:05:43.149
+Kent Dybvig: What we should be doing about…
+
+20
+00:05:43.960 --> 00:05:54.499
+Kent Dybvig: Circuits that get too large because we have, say, nested loops, and the compiler ends up taking a really long time.
+
+21
+00:05:54.710 --> 00:05:57.070
+Kent Dybvig: Or apparently hangs.
+
+22
+00:05:57.370 --> 00:06:02.579
+Kent Dybvig: When it's pretty clear that we're never going to be able to create a circuit out of it.
+
+23
+00:06:03.050 --> 00:06:08.079
+Kent Dybvig: We have this arbitrary limit on…
+
+24
+00:06:09.580 --> 00:06:16.480
+Kent Dybvig: I'm not sure what anymore, where the arbitrary limit is, even if it exists anymore. I think… I think our… we have a limit of…
+
+25
+00:06:16.700 --> 00:06:26.109
+Kent Dybvig: a really large arbitrary limit on the size of a vector, which is… I don't remember… do you remember, Parisa, like, 4 megabytes or something like that?
+
+26
+00:06:26.720 --> 00:06:32.109
+Kent Dybvig: But of course, if you just nest loops 10 times, that 4 megabytes becomes a lot more…
+
+27
+00:06:32.900 --> 00:06:46.660
+Kent Dybvig: And, there are times when it's pretty clear that we're going to exceed the circuit size, or it should be pretty clear that we're going to exceed the reasonable circuit size, and what should we do about that?
+
+28
+00:06:48.020 --> 00:07:00.059
+Kent Dybvig: Joe suggested what we could do is just spit out a status message every now and then, or possibly we talked about, if you hit the interrupt key in the compiler, it'll tell you what it's working on.
+
+29
+00:07:00.410 --> 00:07:03.790
+Kent Dybvig: If it's still… if it's still responsive.
+
+30
+00:07:04.810 --> 00:07:11.839
+Kent Dybvig: But I think it would be nice if we… if we had some notion of…
+
+31
+00:07:12.440 --> 00:07:14.930
+Kent Dybvig: Of, this is just too big.
+
+32
+00:07:15.450 --> 00:07:19.160
+Kent Dybvig: If we could have the compiler
+
+33
+00:07:19.530 --> 00:07:22.860
+Kent Dybvig: Terminate with a reasonable message and a reasonable amount of time.
+
+34
+00:07:24.040 --> 00:07:31.780
+Kent Dybvig: when it's producing something that's clearly not gonna… for which we're not gonna be able to create a circuit. Is there any hope that we can do that?
+
+35
+00:07:32.950 --> 00:07:42.419
+Joseph Denman: Seems like the… I don't know, like, the real question here is whether or not any contract could be written that has a circuit size so large.
+
+36
+00:07:42.980 --> 00:07:47.430
+Joseph Denman: that would even be feasible to use. I mean, like, you know, it's…
+
+37
+00:07:48.010 --> 00:08:00.789
+Joseph Denman: I don't have an example per se, but is there a contract that would take, I don't know, 12 hours, let's say, to compile, that you could ever reasonably hope to create a proof for that would be useful?
+
+38
+00:08:01.590 --> 00:08:03.930
+Joseph Denman: I mean, that would be the…
+
+39
+00:08:04.260 --> 00:08:06.130
+Joseph Denman: The case that we're cutting off.
+
+40
+00:08:06.950 --> 00:08:10.179
+Joseph Denman: And I guess there is, like, the 80-20 rule.
+
+41
+00:08:10.430 --> 00:08:15.110
+Joseph Denman: You know, design your system so that it supports 80% of use cases.
+
+42
+00:08:16.710 --> 00:08:31.489
+Joseph Denman: Maybe even in… maybe if we did have, like, a set upper bound, then we would have an override flag for that behavior, or something like that, so that you could support the 20% of use cases that just have massive circuits.
+
+43
+00:08:38.710 --> 00:08:44.209
+Kent Dybvig: Russ, do you have any opinion on this? I know you've… I think you've waited in the past that you don't like having an arbitrary limit.
+
+44
+00:08:47.410 --> 00:08:49.310
+Thomas Kerber: Yeah, I…
+
+45
+00:08:50.500 --> 00:08:55.640
+Thomas Kerber: I mean, I think that the problem with an arbitrary limit is it's not clear what it should be to me.
+
+46
+00:08:56.010 --> 00:09:02.180
+Thomas Kerber: And you can make a case that… Larger circuits are useful.
+
+47
+00:09:02.680 --> 00:09:11.119
+Thomas Kerber: Like, just as, you know, just as an example, our SRS is based off the Filecoin SRS.
+
+48
+00:09:11.440 --> 00:09:20.129
+Thomas Kerber: Which goes up to 2 to the 25 parameters. So, that's also interesting, because that's an absolute upper bound of what we can support on-chain.
+
+49
+00:09:20.670 --> 00:09:26.360
+Thomas Kerber: In that anything larger than that, you flat out will not be able to create proofs for.
+
+50
+00:09:26.790 --> 00:09:30.310
+Thomas Kerber: However.
+
+51
+00:09:30.660 --> 00:09:42.809
+Thomas Kerber: It's that… that's not very useful because… or it's not very useful with what we have right now, because we can't estimate the size in terms of constraints of a circuit at the compiler level very easily.
+
+52
+00:09:44.270 --> 00:09:44.930
+Kent Dybvig: Yeah.
+
+53
+00:09:44.930 --> 00:09:54.610
+Thomas Kerber: But, like, the reason I bring it up is, you know, the reason that this SRS exists is because Filecoin exists, and because they use proofs that are that large.
+
+54
+00:09:54.970 --> 00:09:57.850
+Thomas Kerber: Now, do we want to support them on midnight?
+
+55
+00:09:58.680 --> 00:10:00.230
+Thomas Kerber: Probably not.
+
+56
+00:10:00.800 --> 00:10:04.950
+Thomas Kerber: Might someone want to do something crazy enough to need that large proofs?
+
+57
+00:10:06.070 --> 00:10:07.180
+Thomas Kerber: Maybe.
+
+58
+00:10:08.420 --> 00:10:10.070
+Thomas Kerber: Probably not anytime soon.
+
+59
+00:10:11.470 --> 00:10:15.659
+Kent Dybvig: And I will say also that the compiler,
+
+60
+00:10:15.860 --> 00:10:23.239
+Kent Dybvig: Can go through a phase where it generates something really large, and then through optimization, smashes it down to almost nothing.
+
+61
+00:10:24.400 --> 00:10:26.979
+Kent Dybvig: And I don't know how we would…
+
+62
+00:10:27.110 --> 00:10:34.660
+Kent Dybvig: You know, we could… we'd have to wait until the optimization phase to make a definitive call, no matter what.
+
+63
+00:10:35.600 --> 00:10:38.539
+Kent Dybvig: Because a lot of things can collapse.
+
+64
+00:10:40.290 --> 00:10:43.929
+Kent Dybvig: And by that time, the compiler may have already taken the 12 hours.
+
+65
+00:10:46.260 --> 00:10:48.480
+Joseph Denman: So, really, it's…
+
+66
+00:10:48.480 --> 00:10:48.950
+Thomas Kerber: No.
+
+67
+00:10:48.950 --> 00:10:50.410
+Joseph Denman: a question…
+
+68
+00:10:50.810 --> 00:11:10.139
+Joseph Denman: of how long you want the compiler to run. It's like, it's not so much a question as to how big you want… I mean, I guess that's a separate question of how big you want the circuit produced to be, but if that's dependent on later optimizations that could occur after you run for your 12 hours.
+
+69
+00:11:11.080 --> 00:11:12.080
+Joseph Denman: then…
+
+70
+00:11:12.350 --> 00:11:25.419
+Joseph Denman: you know, that's kind of a moot point. So maybe the question is just, yeah, is do we want an upper bound on how long the compiler would run before it reaches that optimization stage, if we can't predict ahead of time how big a circuit will be?
+
+71
+00:11:26.320 --> 00:11:33.009
+Kent Dybvig: Yeah, I've never… I never implemented such a thing in Shea Scheme, and I would be hesitant to implement such a thing in…
+
+72
+00:11:33.740 --> 00:11:38.500
+Kent Dybvig: Here, the only thing I would implement would be a limit based on on…
+
+73
+00:11:38.500 --> 00:11:41.130
+Joseph Denman: It's true, but this is a different domain, right?
+
+74
+00:11:41.800 --> 00:11:45.379
+Kent Dybvig: Yeah, but I don't think it's a different domain in the sense of…
+
+75
+00:11:45.700 --> 00:11:53.630
+Kent Dybvig: maybe it's just taking forever for it to generate something that's gonna still get optimized down to nothing, and I don't think it's our job to…
+
+76
+00:11:54.030 --> 00:12:00.949
+Kent Dybvig: to thwart the compiler in those cases. I think it could be our job to thwart the compiler and give a decent error message when
+
+77
+00:12:01.390 --> 00:12:06.919
+Kent Dybvig: We know we're not going to be able to generate a circuit that's… that's feasible.
+
+78
+00:12:07.560 --> 00:12:09.860
+Kent Dybvig: So…
+
+79
+00:12:10.010 --> 00:12:10.569
+Joseph Denman: But cancer…
+
+80
+00:12:10.570 --> 00:12:17.270
+Kent Dybvig: It's a different… it's a different question, right? And I don't think… I think that, you know, everybody always has the interrupt key, or the kill.
+
+81
+00:12:17.770 --> 00:12:23.270
+Kent Dybvig: the kill command. So, they can always… they can always terminate the process if they get bored.
+
+82
+00:12:25.570 --> 00:12:32.400
+Thomas Kerber: It comes to my mind, because you mentioned, Shay's game,
+
+83
+00:12:33.010 --> 00:12:38.339
+Thomas Kerber: This is actually quite close to, like, the problem with macro expansion.
+
+84
+00:12:40.040 --> 00:12:45.559
+Thomas Kerber: Because it's essentially the same thing. Like, we are… we are just unrolling everything, and that's part of the issue.
+
+85
+00:12:45.890 --> 00:12:51.729
+Thomas Kerber: So I'm curious, like, surely you thought about this while designing Shay's scheme as well?
+
+86
+00:12:51.920 --> 00:12:56.099
+Thomas Kerber: of what do you do with runaway macroexpansion? And I guess
+
+87
+00:12:56.440 --> 00:13:01.989
+Thomas Kerber: Is it just the conclusion that you came to, okay, people can kill it if they need to?
+
+88
+00:13:02.870 --> 00:13:13.539
+Kent Dybvig: Oh, yeah, exactly, because the macroexpander is Turing complete. You can write whatever you want to in it. You should be able to write whatever you want to in it, and if it takes, you know, it takes a long time.
+
+89
+00:13:14.350 --> 00:13:18.520
+Kent Dybvig: And then you have various tracing tools,
+
+90
+00:13:19.260 --> 00:13:26.910
+Kent Dybvig: you know, you can trace your macros as they get expanded. We don't have so much visibility into it as that in our case.
+
+91
+00:13:28.950 --> 00:13:35.409
+Kent Dybvig: We could actually, we could actually gather some statistics.
+
+92
+00:13:36.430 --> 00:13:45.429
+Kent Dybvig: I mentioned in an earlier meeting that we could print some information whenever you hit a keyboard interrupt, and then ask you if you want to continue or quit.
+
+93
+00:13:47.870 --> 00:13:59.989
+Kent Dybvig: it could be a different signal, but regardless, it could be… could be interesting to say, okay, you hit CTRL-C while this thing's running, and the console is directed to a,
+
+94
+00:14:00.630 --> 00:14:05.829
+Kent Dybvig: You know, the… you know, we're running on a… we're running on a TTY instead of…
+
+95
+00:14:05.970 --> 00:14:10.149
+Kent Dybvig: Going to a file, then… We can say,
+
+96
+00:14:10.380 --> 00:14:17.409
+Kent Dybvig: All right, we're gonna first… first we're gonna print some information. We are working… we are currently in past such and such. We have…
+
+97
+00:14:17.610 --> 00:14:24.030
+Kent Dybvig: you know, some… Number of million,
+
+98
+00:14:25.160 --> 00:14:29.510
+Kent Dybvig: you know, of some things, right?
+
+99
+00:14:29.770 --> 00:14:34.059
+Kent Dybvig: Expressions and sub-expressions, and
+
+100
+00:14:34.520 --> 00:14:42.219
+Kent Dybvig: You know, we could… we could try to give some information that would give some insight, so that somebody, when they get… when they interrupt, they're not just frustrated that
+
+101
+00:14:42.350 --> 00:14:54.820
+Kent Dybvig: it died, and they don't really have a clue why. We simply tell them, you know, we inlined, and it… and this has got to be a thousand lines of code, or a hundred million lines of code, or something like that.
+
+102
+00:14:58.070 --> 00:15:03.559
+Kent Dybvig: And if it reports that it's 10 lines of code and it's still hanging, then they probably have a bug on their hands.
+
+103
+00:15:09.170 --> 00:15:11.260
+Kent Dybvig: So we could think about something like that.
+
+104
+00:15:17.780 --> 00:15:24.110
+Kent Dybvig: It's a little more, you know, it's not just the compiler, it's also ZKAR.
+
+105
+00:15:25.070 --> 00:15:29.990
+Kent Dybvig: The herb prints some status information while it's running, so…
+
+106
+00:15:31.570 --> 00:15:37.729
+Kent Dybvig: Not my favorite thing for tools to do, but it is doing it, so maybe it's not as important there.
+
+107
+00:15:49.300 --> 00:15:51.650
+Kent Dybvig: Still, even for that, it would be useful.
+
+108
+00:15:51.970 --> 00:16:00.300
+Kent Dybvig: if the scheme process that invoked ZKR process to catch the interrupt and report what it handed to ZKIR
+
+109
+00:16:01.160 --> 00:16:04.790
+Kent Dybvig: If you're wondering why ZKR is taking a long time.
+
+110
+00:16:04.980 --> 00:16:07.629
+Kent Dybvig: It's because we handed it something huge.
+
+111
+00:16:16.100 --> 00:16:17.090
+Andrey Venuto: Andy, go ahead.
+
+112
+00:16:19.100 --> 00:16:20.580
+Andrzej Kopeć: So, for…
+
+113
+00:16:21.110 --> 00:16:31.850
+Andrzej Kopeć: B… for large circuits, that probably take hours to even compile, and to… can take a long time to prove.
+
+114
+00:16:32.170 --> 00:16:37.579
+Andrzej Kopeć: Or kind of ideas,
+
+115
+00:16:37.920 --> 00:16:41.799
+Andrzej Kopeć: Related to… let's prove that the…
+
+116
+00:16:42.050 --> 00:16:53.350
+Andrzej Kopeć: state of that chain in that particular block, followed the consensus rules from, what I witnessed, tend to be large circuits.
+
+117
+00:16:53.820 --> 00:16:58.489
+Andrzej Kopeć: With, with expensive, proofs to, to compute.
+
+118
+00:17:06.660 --> 00:17:09.430
+Joseph Denman: Yeah, I… I mean, there could be…
+
+119
+00:17:10.920 --> 00:17:16.370
+Joseph Denman: There could be circuits that you would only want to call one time.
+
+120
+00:17:17.390 --> 00:17:33.950
+Joseph Denman: And it was very important to call it one time. Maybe I'm misunderstanding what you're saying, but, you know, like, even if it takes, say, 12 hours to make a proof, what have you, if it were really important, and you wanted to do it one time, that's still kind of a valid use case, right?
+
+121
+00:17:34.990 --> 00:17:38.360
+Andrzej Kopeć: Yes, exactly. I mean,
+
+122
+00:17:39.330 --> 00:17:43.909
+Andrzej Kopeć: Very specific example of such circuit is,
+
+123
+00:17:44.100 --> 00:18:00.810
+Andrzej Kopeć: Methril, but adopted to not be a set of, ad hoc threshold signatures, but, where the certificates are proven via zero knowledge. And for…
+
+124
+00:18:01.500 --> 00:18:09.169
+Andrzej Kopeć: Cardano in particular, the… the circuit talk, I don't know…
+
+125
+00:18:09.540 --> 00:18:17.940
+Andrzej Kopeć: 10 to 12 hours, something along those lines. I mean, there was still room for improvements, when it comes to…
+
+126
+00:18:18.190 --> 00:18:23.979
+Andrzej Kopeć: Optimization, but still, it was a very large or a very expensive, circuit.
+
+127
+00:18:27.740 --> 00:18:32.160
+Andrzej Kopeć: And in such case, there is a certain…
+
+128
+00:18:33.330 --> 00:18:43.999
+Andrzej Kopeć: There is a certain margin up to how much time can be spent on proving it, because of the value to the rest of the community.
+
+129
+00:19:00.170 --> 00:19:02.190
+Andrey Venuto: Anyone else, any other topics?
+
+130
+00:19:11.590 --> 00:19:19.620
+Joseph Denman: Well, I don't know if we reached consensus on that particular topic, but Kent, are you leaning a particular way on this?
+
+131
+00:19:20.160 --> 00:19:22.260
+Joseph Denman: Sounds like there are trade-offs on both sides.
+
+132
+00:19:22.820 --> 00:19:27.730
+Kent Dybvig: Yeah, I think I'm leaning towards… You know, I think…
+
+133
+00:19:27.950 --> 00:19:30.739
+Kent Dybvig: where Thomas is, we probably don't…
+
+134
+00:19:31.020 --> 00:19:38.499
+Kent Dybvig: We probably don't cut it off based on the proof size, but… and we probably don't cut it off based on compile time either.
+
+135
+00:19:38.920 --> 00:19:43.090
+Kent Dybvig: But we might, we should consider,
+
+136
+00:19:44.550 --> 00:19:49.500
+Kent Dybvig: Some way for somebody to get some information out of the compiler, either a tracing mode.
+
+137
+00:19:51.070 --> 00:19:55.509
+Kent Dybvig: It's more than just tracing passes, but actually is giving statistics about
+
+138
+00:19:55.670 --> 00:19:58.620
+Kent Dybvig: The size of the programs coming out of different passes.
+
+139
+00:19:59.160 --> 00:20:08.510
+Kent Dybvig: So that if you do kill it and restart it, you can get that information, or we always gather the information, and we… we spit it out when you hit a keyboard interrupt.
+
+140
+00:20:10.430 --> 00:20:14.249
+Kent Dybvig: Which might be a less frustrating thing if somebody is… is…
+
+141
+00:20:14.530 --> 00:20:17.699
+Kent Dybvig: already waited for 2 hours. They don't wanna… they don't wanna…
+
+142
+00:20:17.850 --> 00:20:20.259
+Kent Dybvig: Restart it with the tracing mode on.
+
+143
+00:20:21.320 --> 00:20:25.249
+Kent Dybvig: And, I'll wait another 2 hours to get that feedback.
+
+144
+00:20:28.690 --> 00:20:35.099
+Kent Dybvig: So, let's, let's, let's consider these options, and, create an issue out of it, and,
+
+145
+00:20:35.520 --> 00:20:41.169
+Kent Dybvig: I don't think it's… I don't think it's a super high priority, but it's something we should… should mull over and try to…
+
+146
+00:20:42.150 --> 00:20:43.790
+Kent Dybvig: Try to come up with something.
+
+147
+00:20:55.480 --> 00:20:58.439
+Kent Dybvig: I don't have anything else. Does anybody else have anything else?
+
+148
+00:21:01.690 --> 00:21:05.929
+Kent Dybvig: All right, let's call it, and thanks, everybody, for attending.
+
+149
+00:21:06.300 --> 00:21:07.400
+Andrey Venuto: Thank you.
+
+150
+00:21:07.400 --> 00:21:08.170
+Kent Dybvig: Goodbye.
+
+151
+00:21:08.190 --> 00:21:09.120
+Andrey Venuto: Bye it.
+

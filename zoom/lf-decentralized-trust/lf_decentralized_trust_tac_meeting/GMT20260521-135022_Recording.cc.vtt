@@ -1,0 +1,518 @@
+WEBVTT
+
+00:22:48.000 --> 00:23:09.000
+But then I will stop with I will have a second phase about technical, more technical details. So maybe after this, I can take already questions. As a roadmap for the project, for the next month. We are getting ready to finalize the API and to get V1 ready
+
+00:23:09.000 --> 00:23:29.000
+With versioning and compatibility guarantees, we will proceed also with external security audit of the cryptographic implementation and the rest of the components. And of course, establishing automated release process, semantic versioning
+
+00:23:29.000 --> 00:23:38.000
+What is necessary to have a stable project that runs well for the in the future.
+
+00:23:38.000 --> 00:23:51.000
+In a second phase, we will expand the token SDK on three-dimension, the expansion of the networks that the token SDK can deal with
+
+00:23:51.000 --> 00:24:12.000
+As I told you, there is already a community effort to bring in the EVM support. So EVM-based networks support. We have another mentorship program that is targeting a new privacy implementation for a new privacy
+
+00:24:12.000 --> 00:24:35.000
+Sorry, a new token driver, we call it token driver. So a new privacy technology for the token SDK tokens, mentorship that has been accepted. So I'm very happy about that. He will add the new twist to the privacy technology
+
+00:24:35.000 --> 00:24:52.000
+In the open source, and also to push even more strongly on the post-quantum security, so to bring to the open source version of the token SDK more and more post-quantum support
+
+00:24:52.000 --> 00:25:12.000
+In the long run, of course, we want the token SDK to be used more and more by deployments to see the token SDK alive in more deployments, and to integrate the other privacy technologies that the consortium will make available
+
+00:25:12.000 --> 00:25:35.000
+With this, maybe I'll take the chance to take some questions, and after Arun, I have technical, more technical slides where I can go into the details, some of the details, not many because to be mindful of the timing, but I have slides also to answer technical questions after
+
+00:25:35.000 --> 00:25:38.000
+Angelo?
+
+00:25:38.000 --> 00:25:39.000
+Yeah.
+
+00:25:39.000 --> 00:25:50.000
+I don't see any question from anyone.
+
+00:25:50.000 --> 00:26:18.000
+No, then I guess I'll continue with the technical part. You probably have seen this slide in previous webinars that we have done presenting the work on the token SDK and so on. It's a slide that delivers quickly the or gives hopefully a quick understanding of what we mean with enterprise privacy.
+
+00:26:18.000 --> 00:26:40.000
+On the left-hand side, we have a model where the ledger is essentially revealing everything to everyone who anyone who has access to the ledger will see for each and every transaction what has happened. And you can have both from a ledger that is UTXO based at the
+
+00:26:40.000 --> 00:27:02.000
+You can essentially derive a view that is account-based because you can identify the parties who own something and derive the total amount that each party is owning in the system. Of course, this is helpful. Such a ledger is helpful because it can allow parties, this trusting party
+
+00:27:02.000 --> 00:27:04.000
+Come together and
+
+00:27:04.000 --> 00:27:24.000
+And bootstrap quickly in business activity. But of course it's not privacy mindful and the fact it leaks business information that might give an advantage to might give an advantage to advantage to third party
+
+00:27:24.000 --> 00:27:40.000
+That's also why in the literature then, or also in the real world, you start seeing models where the ledger is obfuscated. So it contains what is necessary in order to verify that the transactions are correct
+
+00:27:40.000 --> 00:27:55.000
+Correct can mean many things, but it must mean at least that only authorized parties can introduce new tokens in the system, and only the rightful owner can spend existing
+
+00:27:55.000 --> 00:28:06.000
+existing tokens. Very broadly can be understood as two fundamental invariants of a token-based system
+
+00:28:06.000 --> 00:28:21.000
+This, unfortunately, is not enough because in many enterprise context, we need to have, oftentimes it's by law, we need to have parties in the system that needs to have
+
+00:28:21.000 --> 00:28:43.000
+visibility over certain transactions. This visibility might happen in multiple ways might be an offline visibility. So after the fact, an auditor might come and decide to inspect a certain transaction or can be on when the transaction are flying
+
+00:28:43.000 --> 00:29:10.000
+that the order can intervene and see what's inside the transaction and so on. The most important thing, there must be a mechanism. A privacy mechanism compatible with the fact that there are entities that under certain circumstances and the circumstances must be decided by the use case, can have access to the actual information of what's behind the obfuscated ledger.
+
+00:29:10.000 --> 00:29:34.000
+So keeping this on delivering this enterprise privacy at the maximum speed brought us to a few decisions in the token SDK. The biggest one is that it's UTXO model. The UTXO model is the model that allows us to achieve
+
+00:29:34.000 --> 00:29:51.000
+The best of in class in terms of privacy guarantees and performance. This is very crucial. I think you had a question about supporting the supporting the
+
+00:29:51.000 --> 00:30:10.000
+The account model. The account model is something that can be derived, it can be built on top of the UTXO model. But if we look at the ledger, the ledger will be UTXO in order to go at the maximum speed and speed… I'm talking the speed that Fabric X
+
+00:30:10.000 --> 00:30:27.000
+can achieve. Since day one, the token SDK was designed to have multiple privacy levels. So and even customizable privacy levels. So a third party can come with its own driver
+
+00:30:27.000 --> 00:30:43.000
+That delivers its own privacy mechanism. We supported from day one auditability of the system. So it's possible to define in the context of your privacy boundaries auditability policies
+
+00:30:43.000 --> 00:31:00.000
+We had support for fungible and we have support for fungible and non-fungible tokens, support for interoperability, and key management via wallets that give us the flexibility to switch
+
+00:31:00.000 --> 00:31:19.000
+identity providers. The definition, the token SDK also adopted a very simple definition of token that was dictated by two main main driver
+
+00:31:19.000 --> 00:31:49.000
+First, simplicity. Of course, that's always a very good. It's always a good driver. Second are the complexity of the 0 knowledge proofs. So the more complex is your definition of token, the more complexity you have in the 0 proof, the slower, the slower you go. So we identified in this definition of a token the best the best compromise so far for for what we need. So a token is essentially a
+
+00:31:49.000 --> 00:32:17.000
+It contains a definition of an owner, and an owner can be many things depending on the type of identity that one wants can be a simple public key, can be an anonymous credential, can be even a script, a la Bitcoin or even more complex than that. A type that represents you can understand it as a denomination, but it's really a string so it can contain even a JSON
+
+00:32:17.000 --> 00:32:35.000
+JSON structure and a quantity. So a quantity that signal the amount of value stored in that token. So with respect to this definition, tokens are fungible with respect to the same type and therefore they can be merged and split
+
+00:32:35.000 --> 00:32:51.000
+If they have different type, they cannot be merged in any way. So it's simple, but it's very flexible. The way we achieved. So this is a view over the stack of the token SDK
+
+00:32:51.000 --> 00:33:14.000
+We have, I guess also Enrique, this will help responding to some of your or your question. So applications will be built on top of the token, what we call the token API. And the token API and many of the services built on top of the token API, they are agnostic to the backend.
+
+00:33:14.000 --> 00:33:34.000
+And to the actual privacy technology. So the token avi that the token SDK offers is essentially a language, an agnostic language that is agnostic with respect to the backend and to the privacy
+
+00:33:34.000 --> 00:33:54.000
+And allows the developer to talk about token operations in a very generic way that then is instantiated once the application decides the type of privacy and the backend that one wants to use
+
+00:33:54.000 --> 00:34:12.000
+We achieve this by introducing the concept of a token request that is a generic container of actions and their actions and their metadata. So this can be filled in many ways. Our generic containers
+
+00:34:12.000 --> 00:34:27.000
+They talk about operations over tokens. They are equipped with metadata that are visible, that are visible only to certain parties in the system and allows
+
+00:34:27.000 --> 00:34:44.000
+The metadata allows who possesses them to understand or the obfuscate the content of the action sections. An anchor makes sure that all the actions and metadata stay together
+
+00:34:44.000 --> 00:35:02.000
+There's no possibility to mix and match. So to avoid this kind of attacks. So once we have an API that language of the token request, so a generic language of that token, then
+
+00:35:02.000 --> 00:35:12.000
+We can translate the toggle request to the target network that we need
+
+00:35:12.000 --> 00:35:28.000
+So for fabric E this will mean to build a read-write set. For EVM-based networks, this will be invoke an EVM smart contract that an EVM smart contract living in
+
+00:35:28.000 --> 00:35:46.000
+In the target network for all for what it means to have to support non-fabric networks, so to EVM-based networks, for instance, Fabric X is also supports EVM. So that's
+
+00:35:46.000 --> 00:36:09.000
+One could go to that route to go to FabricX via EVM as well. The EVM ecosystem. We have full documentation in the token SDK about even a design document that presents how the integration will happen and in general, what it means to write a network driver
+
+00:36:09.000 --> 00:36:12.000
+For the token SDK
+
+00:36:12.000 --> 00:36:29.000
+I think Eric, there will be answers to your questions also in this slide to give an idea of what it means to build a token transaction, the life cycle of a token transaction. So at the very beginning
+
+00:36:29.000 --> 00:36:57.000
+Let me say this before I present the slide. We wanted to have a framework that gave us the flexibility of that was also very close to the very close to the business processes so that it would speak a language that was easier, that was easier for the domain experts
+
+00:36:57.000 --> 00:37:17.000
+As well, and was not only about the complexity of crypto, but the zero-knowledge proof, secure environment, whatever it is. So in many a business process is a first class citizen in the context of the token SDK. And most of the time
+
+00:37:17.000 --> 00:37:35.000
+You will have in your application a business process that defines how parties interact in order to collect a token transaction that applies that performs certain operations
+
+00:37:35.000 --> 00:37:55.000
+On either existing tokens, or even creating new tokens. And the beauty of the this meta language that is provided by the token API is that you can have multiple actions applied atomically at the same at the same time
+
+00:37:55.000 --> 00:38:00.000
+So in this business process that the token SDK
+
+00:38:00.000 --> 00:38:22.000
+The token SDK is full, it contains many examples of business processes to assemble this token transaction. The party communicates, talk to each other, share secrets. We use the smart client as the infrastructure for this interactive protocol, but Firefly could be definitely another way to run this interactive protocol
+
+00:38:22.000 --> 00:38:45.000
+They come to an agreement on what they want to do, and they will go to the in the case of Fabric, they will go to the endorsers of the chain code and say, hey, please, would you endorse our transaction? The chain code in a privacy preservative setting, the chain code will only see zero knowledge proof, so it will not be able to understand the content of the transaction
+
+00:38:45.000 --> 00:39:01.000
+You will be able to assess the validity of the transaction. The endorsers come back with the endorsement for who is familiar with Fabric, and at this point, the fabric transaction can be formed and submitted to the ordering
+
+00:39:01.000 --> 00:39:18.000
+To the ordering service. You don't need to have necessarily so a simple way to replace the fabric chain code and keeping the same fabric backend or to switch to fabric X instead of having the the the so-called the fabric peer
+
+00:39:18.000 --> 00:39:34.000
+You will have other application nodes that run the token SDK, and there are equipped with the secret keys that can be used to endorse a transaction for a given namespace
+
+00:39:34.000 --> 00:39:53.000
+So actually, this kind of flexibility allowed us very quickly to embed the new programming model of Fabric X or in — actually, this is the Fabric X programming model. So endorsers that are part of
+
+00:39:53.000 --> 00:40:15.000
+The application space and can be fully customized, so we don't have to rely anymore on a monolithic fabric pair like it was for vanilla fabric. And a very similar model as presented in the design for DUM can be used also to
+
+00:40:15.000 --> 00:40:37.000
+Interface, the token SDK with EVM-based network with an approver-based mechanism. So you will have again approvers that will validate the zero-knowledge proof. So it's not the entire network that does validate the zero-knowledge proof. It's only a subset of the networks that does that
+
+00:40:37.000 --> 00:41:06.000
+They give the OK, and then the smart contract will check that the signatures of the approvers are in place and it will update the internal state to represent the latest changes on the token. So the very first embedding of the EVM-based DLTs that we will deliver to the token SDK. The most complex one is where the smart contract
+
+00:41:06.000 --> 00:41:23.000
+Verifies directly that zero knowledge proofs. There you have to keep in mind that that will cause, of course, if one goes that route, there will be problems in latency and efficiency there
+
+00:41:23.000 --> 00:41:41.000
+Okay, to summarize, I'm here to present you a framework for managing tokens on permission and blockchains. It has three core design principles, privacy, compliance, and performance
+
+00:41:41.000 --> 00:42:00.000
+Performance means two things, not only throughput, but also latency. So we want to have hundreds of thousands of transactions per second that are finalized in less than two seconds, something like that, or as fast as possible
+
+00:42:00.000 --> 00:42:21.000
+We, the framework was used already in deployments by central banks. Bank of France is one of the sponsors as well of this infrastructure. The token SDK is network agnostic was from day one was designed with the enterprise privacy in mind
+
+00:42:21.000 --> 00:42:36.000
+We already have a community standard, we already support many community standards, very good enough for now test coverage, an active development with a community that is building up
+
+00:42:36.000 --> 00:42:46.000
+And that's it for my presentation.
+
+00:42:46.000 --> 00:42:47.000
+Okay, Angelo
+
+00:42:47.000 --> 00:42:50.000
+I think I can stop sharing here and then take questions. Yeah
+
+00:42:50.000 --> 00:42:58.000
+Thanks a lot, everyone.
+
+00:42:58.000 --> 00:43:01.000
+Henry.
+
+00:43:01.000 --> 00:43:07.000
+Hey, um, so, I have two questions, um…
+
+00:43:07.000 --> 00:43:09.000
+One is about…
+
+00:43:09.000 --> 00:43:12.000
+I think you called it drivers.
+
+00:43:12.000 --> 00:43:14.000
+to get connections
+
+00:43:14.000 --> 00:43:18.000
+two projects like Beaso and Tyrone, and you had it, like, um…
+
+00:43:18.000 --> 00:43:23.000
+community effort, community work on one of those.
+
+00:43:23.000 --> 00:43:25.000
+slides. So here, my…
+
+00:43:25.000 --> 00:43:27.000
+interest is…
+
+00:43:27.000 --> 00:43:33.000
+Um, how you see that community work, if you say, yeah, it's in theory possible to do so, but
+
+00:43:33.000 --> 00:43:39.000
+So this will not be part of the project, just to, you know, like, no brain, just to understand
+
+00:43:39.000 --> 00:43:40.000
+Yeah.
+
+00:43:40.000 --> 00:43:41.000
+how you see it.
+
+00:43:41.000 --> 00:43:44.000
+And the other point is, um…
+
+00:43:44.000 --> 00:43:50.000
+the name of it. So, here, my question is, is it the plier?
+
+00:43:50.000 --> 00:43:54.000
+as a plan, to name it HyperajaToken…
+
+00:43:54.000 --> 00:43:58.000
+SDK, because I believe it's…
+
+00:43:58.000 --> 00:44:06.000
+too generic and broad name for that. So is it that you currently check if that name is possible, or is it…
+
+00:44:06.000 --> 00:44:10.000
+that you're searching for a different name.
+
+00:44:10.000 --> 00:44:11.000
+Yeah, and
+
+00:44:11.000 --> 00:44:12.000
+Those are my two questions.
+
+00:44:12.000 --> 00:44:34.000
+Yeah, absolutely. Andrik, thanks a lot for the question. Let me start from the latter. The name was a very it was generic on purpose because we were searching for a better name, and we are having ping pongs with the lawyers, both from Ibm and from Lftt to to double check what is available. So
+
+00:44:34.000 --> 00:44:54.000
+We haven't found yet, or we don't have yet confirmation on at least one of the names that we agreed upon. So the name will definitely change will not stay with the Hyperledger token SDK that I agree with you seems too generic and might even be misleading
+
+00:44:54.000 --> 00:45:10.000
+So we don't want that and that will change soon. That's something that it's more in the vein of other projects that are on LFTD. Okay
+
+00:45:10.000 --> 00:45:30.000
+For the first question, for the first question, we want to embed this directly in the repo. So the EVM compatibility driver will be inside the token SDK and will be built there in the project. We have already
+
+00:45:30.000 --> 00:45:39.000
+The first PR with the design that we are discussing and it will be part a core element of the token SDK.
+
+00:45:39.000 --> 00:45:54.000
+Just to clarify, I think I said wrongly that the IBM lawyer are involved, but there is no involvement from the IBM lawyers. Sorry for the misleading there.
+
+00:45:54.000 --> 00:45:58.000
+Sure. Thank you, Erica. Thank you, Andrik. Enrique, please.
+
+00:45:58.000 --> 00:46:06.000
+Cool. Uh, well, first of all, uh, very well done. I did think that was an amazing presentation, so thanks for coming so prepared, Angelo.
+
+00:46:06.000 --> 00:46:12.000
+Maybe a few points from me of clarity. I did put some points on the PR, so you can answer them afterwards.
+
+00:46:12.000 --> 00:46:13.000
+Yeah.
+
+00:46:13.000 --> 00:46:20.000
+One thing is, your first slide is really that around… you've kind of incubated this, like, in the labs around permission blockchains.
+
+00:46:20.000 --> 00:46:27.000
+Is there any reason why you focus so much? Obviously, it's fabric, permissioned, of course,
+
+00:46:27.000 --> 00:46:32.000
+But as you're opening up to other chains, standards, otherologies,
+
+00:46:32.000 --> 00:46:40.000
+Are there any assumptions or design decisions or architectural decisions that you've made that only fit in permission networks?
+
+00:46:40.000 --> 00:46:49.000
+that couldn't work in, for example, public permissionless networks. So, I'd like to see your thoughts on that, and then I have a few other points.
+
+00:46:49.000 --> 00:47:06.000
+Yeah, yeah, absolutely. Thanks a lot, Eric for the question. No, the design, I would say the design doesn't limit the there is nothing that prevents the token SDK to be used against the mainnet, Ethereum main
+
+00:47:06.000 --> 00:47:36.000
+That's, with the simplest model that I was saying before, there is a network, there are a subset of the network, maybe if you think about the CDBC in a context of a CDBC, there will be nodes, what I call the provers, some approvers belonging to the, some approvers belonging to the central bank, others to major banks of the country, they will be in charge of verifying the zero-enge proof
+
+00:47:36.000 --> 00:47:53.000
+And then the smart contract will be used to store the tokens on the ledger. Of course, there one has to take in consideration gas prices. There are different considerations, right? The one has to run when going to a public
+
+00:47:53.000 --> 00:48:14.000
+to a public mainnet, we started with permission because this was the natural environment for the enterprise applications that we had in mind, but it ended up, the design ended up to be flexible enough to not limit the type of backend
+
+00:48:14.000 --> 00:48:33.000
+To the extent that if you want, you can even run the token SDK against a database. And this was, it's not present anymore because Orion was discontinued, but we had even an integration with the database directly there. So the design is quite flexible from that point of view
+
+00:48:33.000 --> 00:48:41.000
+Okay, um, I'll let Rama jump in. I'll have another question, I'll let him jump in a second.
+
+00:48:41.000 --> 00:48:42.000
+Hey, Angelo. Uh…
+
+00:48:42.000 --> 00:48:43.000
+Thank you, Erica. Yeah, Rama, please. And Arun.
+
+00:48:43.000 --> 00:48:51.000
+Well, you may have guessed my questions a bit about interoperability. You mentioned that in a few places in the presentation and in the
+
+00:48:51.000 --> 00:48:58.000
+the dog. I'm just wondering, uh, do you see, like, if you have use cases involving, uh,
+
+00:48:58.000 --> 00:49:01.000
+moving a token, moving a FAP token from a…
+
+00:49:01.000 --> 00:49:03.000
+uh… fabric…
+
+00:49:03.000 --> 00:49:06.000
+chain to, uh, Bezu…
+
+00:49:06.000 --> 00:49:10.000
+based Ethereum chain, or in the future, maybe some other kind of
+
+00:49:10.000 --> 00:49:17.000
+DLT. Uh, do you see that, uh, interoperability for asset transfer or, let's say, for swaps?
+
+00:49:17.000 --> 00:49:19.000
+As a concern for the…
+
+00:49:19.000 --> 00:49:23.000
+Tokenistic project, or do you see that as something that
+
+00:49:23.000 --> 00:49:26.000
+other interop projects should be taken care of.
+
+00:49:26.000 --> 00:49:41.000
+A good point. I would say my personal opinion is that we should also contain the token SDK, make sure that it does few things very well and make sure that applications can build
+
+00:49:41.000 --> 00:50:10.000
+So the applications can use interoperability frameworks that establish the protocols for communication and use for one of the legs of the operations, the token SDK, whatever is needed. It might not be needed everywhere, the token SDK should not impose necessarily the protocols should absorb the protocols that will come from the community proposed
+
+00:50:10.000 --> 00:50:31.000
+Changes, especially for privacy preserving swaps among chains and so on, and we have ideas on how to run these protocols in a privacy-preserving way. But definitely should not dictate how an exchange should be done, should be able to absorb
+
+00:50:31.000 --> 00:50:57.000
+the innovations from the community, that's definitely… and it's also what comes what what was in our experience with the engagement with the banks. So they built at the end an application that used it and heterogeneous networks and frameworks. And thanks to Cacti, they managed to put together everything. So that was a very, very good
+
+00:50:57.000 --> 00:51:08.000
+Lesson learned to stay from the token SDK side as lean as possible. So what we will absorb what is strictly necessary, the rest will be left to this frameworks. Yeah.
+
+00:51:08.000 --> 00:51:12.000
+Got it. Thanks.
+
+00:51:12.000 --> 00:51:14.000
+Arun, please.
+
+00:51:14.000 --> 00:51:26.000
+Cool. Thanks, Angelo. This question is for me to further understand the direction in which project team would like to move. For instance, so far in the presentation, I came across two set of
+
+00:51:26.000 --> 00:51:33.000
+areas that the project has touched. Like, one area is
+
+00:51:33.000 --> 00:51:42.000
+the token transaction semantics, right? Like the
+
+00:51:42.000 --> 00:51:43.000
+Yeah.
+
+00:51:43.000 --> 00:51:50.000
+The low-level toolkit itself. The other direction that I saw, or, like, other areas that you presented, it kind of touches the
+
+00:51:50.000 --> 00:51:59.000
+operational abstraction, like maybe issuance, transfer audit in wallet, like, so how does the
+
+00:51:59.000 --> 00:52:04.000
+Like, how do we differentiate this from architecture? Like, where does the project
+
+00:52:04.000 --> 00:52:07.000
+team move towards
+
+00:52:07.000 --> 00:52:16.000
+With rest to others you have in mind already, other architectures or let me make sure I understood your question.
+
+00:52:16.000 --> 00:52:29.000
+Yes, so, for me, I'm trying to say if the project… should we think this project to be primarily as like domain specific framework, such as like it's providing everything related to token
+
+00:52:29.000 --> 00:52:36.000
+On top of a DLT, or should we think of this as a developer toolkit that they can use
+
+00:52:36.000 --> 00:52:42.000
+And then they should still be consuming something outside of this for operations.
+
+00:52:42.000 --> 00:53:01.000
+Beautiful, yeah, indeed Arun. Definitely. It's a toolkit. It's not the end of the story. If you build your app, when you build an application, the token SDK doesn't give you everything. It gives you what is necessary to handle your tokens with privacy, compliance and performance
+
+00:53:01.000 --> 00:53:18.000
+The rest, how this application is taking the input, how it's orchestrating the business processes, that it's all up to the application. The token SDK helps you up to the what counts, what matters for the token SDK
+
+00:53:18.000 --> 00:53:41.000
+It's not a solution for everything, and I think this also plays well in the terms of the ecosystem, right? So if you have built already an application with Hyperledger Firefly, and you want to have that maybe is facing fabric, you can introduce the token SDK to get that kind of privacy and compliance
+
+00:53:41.000 --> 00:54:02.000
+So the token SDK, the token SDK delivers. Or you might… I still have my possibility to even integrate it with Paladin, but we will see, or you have to anyway, work the rest of your stack if you are developing an application. Yeah, we want to be as focused as possible
+
+00:54:02.000 --> 00:54:22.000
+On delivering a token framework for UTXO, that's still it's a design choice that I don't think we are going to change in the coming in the short time because it's the core of it's what makes possible to have privacy and high performance
+
+00:54:22.000 --> 00:54:35.000
+At the same time, so we want to deliver these fundamentals at the best possible, in the best possible way, the rest, the application will do.
+
+00:54:35.000 --> 00:54:36.000
+Thank you.
+
+00:54:36.000 --> 00:54:38.000
+Hope I answered your question.
+
+00:54:38.000 --> 00:54:48.000
+Yes, and I also saw one on layered architecture diagram that you presented in one of the slides. It would be nice to have that captured along with the proposal.
+
+00:54:48.000 --> 00:54:51.000
+Yeah.
+
+00:54:51.000 --> 00:54:54.000
+You mean to embed this stack inside the proposal
+
+00:54:54.000 --> 00:54:55.000
+Yes.
+
+00:54:55.000 --> 00:55:03.000
+Oh, definitely, absolutely. I will absorb this in the proposal
+
+00:55:03.000 --> 00:55:04.000
+Enrique, please
+
+00:55:04.000 --> 00:55:13.000
+Yeah, just a small one, um, because, yeah, it's… the name is token, but for now, but there's a lot of components here, right? Identity, storage…
+
+00:55:13.000 --> 00:55:18.000
+interrupt. Where does the layer sit of, um…
+
+00:55:18.000 --> 00:55:27.000
+kind of indexing and coin selection, and how programmable is that layer? So if I want to come and build my own token standards based on UTXO,
+
+00:55:27.000 --> 00:55:32.000
+Um, which layers do I need to modify in order to be able to track
+
+00:55:32.000 --> 00:55:44.000
+those, uh, nodes associated with my tokens, my balances, etc. Is this solved as a pluggable layer in the stack, or is it something I have to do outside of the SDK?
+
+00:55:44.000 --> 00:55:58.000
+Yeah, the index, I think you had a question as well on the proposal. I saw that part. Keep in mind that the ledger in a privacy preserving context, the ledger might not have information, might only store commitments
+
+00:55:58.000 --> 00:55:59.000
+Yep.
+
+00:55:59.000 --> 00:56:17.000
+So, the indexer per se cannot work just looking at the ledger and assigning or putting tokens in buckets. Nothing might be understandable. So from our… but you are right to mention the concept of indexer, because we have to have
+
+00:56:17.000 --> 00:56:37.000
+We must have in the token SDK stack such an indexer and this part of the storage service. It's the storage service that in conjunction, the storage service keeps track of the private information that have been stored so far and that are derived from the transaction
+
+00:56:37.000 --> 00:56:52.000
+That particular instance of the stack participated in assembling. So it's all the randomness that was sampling during the assembling of a transaction in a specific business process. And this allows
+
+00:56:52.000 --> 00:57:01.000
+The storage service to make the tokens available to the rest of the rest of the rest of the stack
+
+00:57:01.000 --> 00:57:18.000
+With respect to… so, in a sense, the storage service is our indexer, it's our privacy preserving indexer. So the storage service is able to make available everything that is visible to that specific instance of the token SDK that stores
+
+00:57:18.000 --> 00:57:35.000
+Contains in a nutshell. With respect to the token definition, as long as you stay in owner type and quantity, you can do whatever you want. If you want to introduce
+
+00:57:35.000 --> 00:57:45.000
+At a 4th dimension to the token. That's for us right now we don't see this as a viable solution because it will introduce only more complexity. So far we managed to stay in these 3 components and achieve all the goals, functional and all the functional and non-functional requirements that we received from
+
+00:57:45.000 --> 00:58:05.000
+From the
+

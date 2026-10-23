@@ -1,0 +1,978 @@
+WEBVTT
+
+1
+00:00:31.250 --> 00:00:32.350
+George Ţebrean (Web3 Labs): Hi! Everyone.
+
+2
+00:00:49.770 --> 00:00:52.139
+Nischal Sharma (Web3 Labs): Hey! Hi! Hi! George! Hi! Angelina!
+
+3
+00:00:53.480 --> 00:00:54.080
+Angelina Ceppaluni: And
+
+4
+00:01:14.860 --> 00:01:16.060
+Angelina Ceppaluni: Hi!
+
+5
+00:01:18.400 --> 00:01:21.459
+George Ţebrean (Web3 Labs): Okay and sharing my screen.
+
+6
+00:01:24.380 --> 00:01:33.740
+Angelina Ceppaluni: And Julius also mentioned. There's a bug with Web 3 J. Unit deploying the smart contracts with external libraries.
+
+7
+00:01:36.080 --> 00:01:42.190
+George Ţebrean (Web3 Labs): Yep, yep, we'll mention that that was written by me
+
+8
+00:01:43.610 --> 00:01:54.510
+George Ţebrean (Web3 Labs): and those I mean. And it was related to an issue that we discussed it last time, and which was bringed up by Julius. But we'll get to it soon.
+
+9
+00:01:59.960 --> 00:02:01.859
+George Ţebrean (Web3 Labs): Okay, I guess we can start
+
+10
+00:02:04.110 --> 00:02:15.604
+George Ţebrean (Web3 Labs): few goals and objectives since last call. We agreed internally on between the Maintainers like me initial.
+
+11
+00:02:16.480 --> 00:02:20.950
+George Ţebrean (Web3 Labs): and also with Connor to remove the Hyper Ledger
+
+12
+00:02:21.610 --> 00:02:25.490
+George Ţebrean (Web3 Labs): from the hyperledger web, 2 J. Name.
+
+13
+00:02:25.730 --> 00:02:32.100
+George Ţebrean (Web3 Labs): and to stand back with only with Web 3 J.
+
+14
+00:02:32.390 --> 00:02:53.460
+George Ţebrean (Web3 Labs): Because it's simpler. And most of the users that was were with us since the beginning. They know. Work 2 J, as work 2 j, not as high hyper ledger web, 2 J, and this created a bit of confusion. So yeah, that's it. We will drop the Hyper Ledger and we'll stand with the web. 2 J.
+
+15
+00:02:53.720 --> 00:03:00.519
+George Ţebrean (Web3 Labs): I don't know exactly when this process will start. I guess I only need to ask David again.
+
+16
+00:03:00.770 --> 00:03:05.339
+George Ţebrean (Web3 Labs): and most, and also maybe to. I need to ask why?
+
+17
+00:03:05.460 --> 00:03:09.450
+George Ţebrean (Web3 Labs): To help us with the repository naming. What do you think, Nisha?
+
+18
+00:03:11.205 --> 00:03:18.689
+Nischal Sharma (Web3 Labs): Yeah, I think they have contacted their lawyer, I guess I I'm not sure. Yeah. But the process started. I guess.
+
+19
+00:03:18.690 --> 00:03:19.190
+George Ţebrean (Web3 Labs): Yeah,
+
+20
+00:03:19.930 --> 00:03:27.670
+George Ţebrean (Web3 Labs): but also like, I, I will send them a reminder in order to just to keep us updated
+
+21
+00:03:27.940 --> 00:03:29.370
+George Ţebrean (Web3 Labs): to see where we are.
+
+22
+00:03:29.530 --> 00:03:38.970
+George Ţebrean (Web3 Labs): and to know when we'll need to update again all the references in for the pipe in the pipelines in order to build build them correctly.
+
+23
+00:03:39.900 --> 00:03:40.820
+Nischal Sharma (Web3 Labs): Yeah, yeah.
+
+24
+00:03:41.838 --> 00:03:45.910
+George Ţebrean (Web3 Labs): The next item is the dynamic gas provider.
+
+25
+00:03:46.380 --> 00:03:54.560
+George Ţebrean (Web3 Labs): I wrote this last evening. I thought that it was merged, but I found today morning that we might have an issue
+
+26
+00:03:56.297 --> 00:04:02.879
+George Ţebrean (Web3 Labs): and we need to look into it. Did you find anything so far, initially regarding this.
+
+27
+00:04:02.880 --> 00:04:03.820
+Nischal Sharma (Web3 Labs): Oh.
+
+28
+00:04:04.560 --> 00:04:16.789
+Nischal Sharma (Web3 Labs): no. So basically, the pipeline is failing. For Eth estimate gas. And we and we haven't changed any code related to Eth estimate gas.
+
+29
+00:04:16.980 --> 00:04:37.919
+Nischal Sharma (Web3 Labs): And so basically dynamic gas provider uses this Api or to get the dynamic gas limit. So this so pipeline for like basically, 2 tests are failing. One is related to each estimate gas and the other is dynamic gas provider one, or because it internally use the same
+
+30
+00:04:38.904 --> 00:04:42.375
+Nischal Sharma (Web3 Labs): code. So yeah, I'm not sure like, why
+
+31
+00:04:43.200 --> 00:04:53.200
+Nischal Sharma (Web3 Labs): it is basically failing, because locally, it's working fine. And we are getting this null pointer exception. And I like, I.
+
+32
+00:04:53.400 --> 00:05:01.579
+Nischal Sharma (Web3 Labs): So I created one more branch for integration test, fix, and where I am checking for null and blank values.
+
+33
+00:05:01.830 --> 00:05:07.129
+Nischal Sharma (Web3 Labs): but like it is not reaching that only it is not fixing that.
+
+34
+00:05:07.880 --> 00:05:08.200
+George Ţebrean (Web3 Labs): Okay.
+
+35
+00:05:08.200 --> 00:05:09.250
+Nischal Sharma (Web3 Labs): Sure right now.
+
+36
+00:05:09.250 --> 00:05:16.060
+George Ţebrean (Web3 Labs): Did you try locally to run any transaction with the dynamic gases? Provider.
+
+37
+00:05:16.720 --> 00:05:17.750
+Nischal Sharma (Web3 Labs): Yeah, yeah, so, yeah.
+
+38
+00:05:17.750 --> 00:05:18.650
+George Ţebrean (Web3 Labs): Fingertip.
+
+39
+00:05:19.210 --> 00:05:21.410
+Nischal Sharma (Web3 Labs): Yeah, that that is working fine. Yeah.
+
+40
+00:05:21.980 --> 00:05:23.619
+George Ţebrean (Web3 Labs): So we can find, okay.
+
+41
+00:05:23.790 --> 00:05:30.070
+Nischal Sharma (Web3 Labs): Yup. I tested on, I think, sepulia, but it's working fine dynamic gas provider and all those things.
+
+42
+00:05:30.180 --> 00:05:36.759
+George Ţebrean (Web3 Labs): Do you have any best instance? I think we are using? No, I think we're not.
+
+43
+00:05:37.500 --> 00:05:41.250
+George Ţebrean (Web3 Labs): So. We are using the impeded one right for the.
+
+44
+00:05:41.250 --> 00:05:43.390
+Nischal Sharma (Web3 Labs): Oh, I need to check this.
+
+45
+00:05:43.390 --> 00:05:45.590
+George Ţebrean (Web3 Labs): I have it here. One second.
+
+46
+00:05:48.690 --> 00:05:49.750
+George Ţebrean (Web3 Labs): Yeah, we're using.
+
+47
+00:05:49.750 --> 00:05:50.579
+Nischal Sharma (Web3 Labs): Be soon.
+
+48
+00:05:51.400 --> 00:05:55.410
+George Ţebrean (Web3 Labs): Okay. So maybe it will be useful to try to run this on vessel.
+
+49
+00:05:55.740 --> 00:05:59.170
+George Ţebrean (Web3 Labs): And also maybe Bess, who got a bit behind
+
+50
+00:05:59.380 --> 00:06:08.340
+George Ţebrean (Web3 Labs): because we haven't updated the version since a long time, and maybe that's why the You. The unit version, is failing.
+
+51
+00:06:09.100 --> 00:06:14.230
+Nischal Sharma (Web3 Labs): But then it should like feel in local also right like via lean pipeline.
+
+52
+00:06:14.840 --> 00:06:16.170
+George Ţebrean (Web3 Labs): That's correct.
+
+53
+00:06:17.840 --> 00:06:26.859
+George Ţebrean (Web3 Labs): Maybe something deprecated. Because, if you remember, also, the there is that the Sarah Integration test that is failing most of the time in the pipeline.
+
+54
+00:06:26.860 --> 00:06:35.060
+Nischal Sharma (Web3 Labs): Yeah, I have. Yeah. And also, I've disabled those base of privacy test, because it's no more required. Yeah, yeah.
+
+55
+00:06:35.060 --> 00:06:37.059
+George Ţebrean (Web3 Labs): And that's correct. So that's fine.
+
+56
+00:06:38.680 --> 00:06:42.970
+Nischal Sharma (Web3 Labs): So yeah, let's see, we need to. Yeah, investigate more into this.
+
+57
+00:06:43.620 --> 00:06:50.140
+George Ţebrean (Web3 Labs): I will try with Pesu once, like I will deploy a pesu version the same version we are using.
+
+58
+00:06:50.760 --> 00:06:54.350
+Nischal Sharma (Web3 Labs): And try to make a transaction, using that.
+
+59
+00:06:56.520 --> 00:07:00.509
+George Ţebrean (Web3 Labs): Okay, okay, that that might work.
+
+60
+00:07:01.290 --> 00:07:01.780
+George Ţebrean (Web3 Labs): No.
+
+61
+00:07:01.780 --> 00:07:02.940
+Nischal Sharma (Web3 Labs): Yeah, I think because.
+
+62
+00:07:02.940 --> 00:07:12.460
+George Ţebrean (Web3 Labs): Please look in the web. 2 J. You need to see the exact version that we're using, because I'm not sure if we sing the best versions all over the libraries
+
+63
+00:07:14.080 --> 00:07:14.599
+George Ţebrean (Web3 Labs): is good to me.
+
+64
+00:07:14.600 --> 00:07:15.919
+George Ţebrean (Web3 Labs): You could double check.
+
+65
+00:07:17.140 --> 00:07:18.080
+Nischal Sharma (Web3 Labs): Thank you. Yeah.
+
+66
+00:07:22.470 --> 00:07:26.060
+George Ţebrean (Web3 Labs): Okay, so actually, this is in
+
+67
+00:07:29.070 --> 00:07:33.900
+George Ţebrean (Web3 Labs): in progress, cool.
+
+68
+00:07:34.090 --> 00:07:39.830
+George Ţebrean (Web3 Labs): So this or
+
+69
+00:07:55.300 --> 00:08:01.109
+George Ţebrean (Web3 Labs): another goal that was achieved was this linear PC Apis.
+
+70
+00:08:01.410 --> 00:08:06.159
+George Ţebrean (Web3 Labs): which were added by initial last week, and these are merged
+
+71
+00:08:07.070 --> 00:08:12.889
+George Ţebrean (Web3 Labs): also, I see I've seen some tests in the pull request. So yeah, everything looked good to me
+
+72
+00:08:13.580 --> 00:08:17.339
+George Ţebrean (Web3 Labs): anything you you would like to add on this initial or.
+
+73
+00:08:17.775 --> 00:08:32.150
+Nischal Sharma (Web3 Labs): Yeah. So basically, with this, pr, we have added all the linear Apis. So it is. Linear eth, estimate. Sorry linear estimate gas, and then linear. Get proof.
+
+74
+00:08:32.370 --> 00:08:40.180
+Nischal Sharma (Web3 Labs): And then the execution status these 3 apas, and we will be like.
+
+75
+00:08:40.850 --> 00:08:46.029
+Nischal Sharma (Web3 Labs): Oh, like, yeah. Publishing blog post for this, too.
+
+76
+00:08:47.500 --> 00:08:49.150
+George Ţebrean (Web3 Labs): Okay, this sounds great.
+
+77
+00:08:49.570 --> 00:08:51.610
+George Ţebrean (Web3 Labs): Yeah. I think it would be the 1st
+
+78
+00:08:51.730 --> 00:08:56.220
+George Ţebrean (Web3 Labs): blog post for this year, right? Because we haven't published since a long time.
+
+79
+00:08:56.970 --> 00:08:57.360
+Nischal Sharma (Web3 Labs): Yeah.
+
+80
+00:08:57.410 --> 00:09:01.130
+George Ţebrean (Web3 Labs): Have you published anything while I was away?
+
+81
+00:09:01.790 --> 00:09:06.020
+Nischal Sharma (Web3 Labs): Yeah, we wrote few, I think, related to Ens.
+
+82
+00:09:06.990 --> 00:09:07.650
+George Ţebrean (Web3 Labs): Okay.
+
+83
+00:09:07.650 --> 00:09:10.620
+Nischal Sharma (Web3 Labs): Yeah. Ens and Gn. Lens.
+
+84
+00:09:11.430 --> 00:09:21.390
+Nischal Sharma (Web3 Labs): But I'm not sure, like one was related to challenge. We haven't published that, and I think, related to ens. We have published few via Blog Post.
+
+85
+00:09:21.940 --> 00:09:30.059
+George Ţebrean (Web3 Labs): Okay, next one is the open Api. This one has a really slow progress.
+
+86
+00:09:30.360 --> 00:09:32.989
+George Ţebrean (Web3 Labs): I faced one issue that was
+
+87
+00:09:33.500 --> 00:09:42.759
+George Ţebrean (Web3 Labs): fixed. I mean, this was 1st seen in Tj. It was fixed with a pull request which was upgrading the Gradle version.
+
+88
+00:09:43.370 --> 00:10:03.939
+George Ţebrean (Web3 Labs): But after that I've seen the same issue occurring while I was trying to generate the open Api project with the Cli. But after, like I did an investigation, I figure out, figure out that the templates for the open Api in the Cli weren't updated since a long time.
+
+89
+00:10:04.050 --> 00:10:22.860
+George Ţebrean (Web3 Labs): and we are run. We were running one of all the web, 2 J. Version for the open, a pay templates, templates, and locally I upgraded that version. I run some tests, and then it was passing this point. But right now I'm facing another issue for
+
+90
+00:10:23.020 --> 00:10:26.629
+George Ţebrean (Web3 Labs): and on that issue what I can see is that
+
+91
+00:10:27.220 --> 00:10:36.609
+George Ţebrean (Web3 Labs): the running command for the open Api server module is not working at all like it's failing to execute.
+
+92
+00:10:37.090 --> 00:10:41.970
+George Ţebrean (Web3 Labs): and I don't know when this ever worked, because I
+
+93
+00:10:42.960 --> 00:10:53.249
+George Ţebrean (Web3 Labs): to took a look to the old repositories and to I mean to the old, old branches, and that method wasn't updated since
+
+94
+00:10:53.380 --> 00:10:55.430
+George Ţebrean (Web3 Labs): 2019.
+
+95
+00:10:55.990 --> 00:10:58.010
+George Ţebrean (Web3 Labs): So there are like 5 years.
+
+96
+00:10:58.160 --> 00:11:05.770
+George Ţebrean (Web3 Labs): And also what I could see is that in order to run that command and to execute it as a greater task.
+
+97
+00:11:05.870 --> 00:11:07.750
+George Ţebrean (Web3 Labs): There was. There
+
+98
+00:11:08.530 --> 00:11:19.509
+George Ţebrean (Web3 Labs): was some code in the build, build, Gradle, some tasks, that which were, and those and that task were implying some moderate tasks which.
+
+99
+00:11:19.910 --> 00:11:32.969
+George Ţebrean (Web3 Labs): or responsible for building the wrappers, and so on. But from what I see that code was comment commented out in 2020. So since then we are not longer running this open Api.
+
+100
+00:11:33.040 --> 00:11:55.029
+George Ţebrean (Web3 Labs): so I will try, like, maybe, till the next contributor call to see if I can fix this test else. Most probably I will propose to create a new open Api project from scratch, maybe using a bit of spring boot in order to make it fancier.
+
+101
+00:11:55.290 --> 00:11:56.204
+George Ţebrean (Web3 Labs): and
+
+102
+00:11:57.930 --> 00:12:07.989
+George Ţebrean (Web3 Labs): just one second Nishu to finish my idea to make it a bit fancier, and also to be more server reliable. Yeah, that's it, please, Nisha.
+
+103
+00:12:08.890 --> 00:12:17.939
+Nischal Sharma (Web3 Labs): Yeah. So like, I'm like, I'm what I'm thinking, if you want to like, start from scratch, what about like we can propose a project
+
+104
+00:12:18.170 --> 00:12:24.260
+Nischal Sharma (Web3 Labs): for intern, like mentorship or project for hyperledger.
+
+105
+00:12:24.870 --> 00:12:27.180
+George Ţebrean (Web3 Labs): Yeah, this might be good idea.
+
+106
+00:12:29.180 --> 00:12:34.510
+George Ţebrean (Web3 Labs): but what I was thinking for interns were actually to generate the Kotlin wrappers.
+
+107
+00:12:36.460 --> 00:12:37.719
+Nischal Sharma (Web3 Labs): Oh, okay! Oh.
+
+108
+00:12:37.720 --> 00:12:46.319
+George Ţebrean (Web3 Labs): In order to continue, because, like we started last, I mean last internship. We started to generate the Android libraries.
+
+109
+00:12:47.190 --> 00:12:57.780
+George Ţebrean (Web3 Labs): and after I was thinking that maybe too good to give them the Kotlin wrappers, because the wrapper code is already in there. I mean, it's not Link code, is Java code.
+
+110
+00:12:58.070 --> 00:13:01.700
+George Ţebrean (Web3 Labs): but it would be and easier for Menti to do it.
+
+111
+00:13:02.200 --> 00:13:05.590
+George Ţebrean (Web3 Labs): And we can focus on other things.
+
+112
+00:13:06.490 --> 00:13:08.960
+Nischal Sharma (Web3 Labs): By the way, can we propose like 2 projects?
+
+113
+00:13:09.550 --> 00:13:10.200
+Nischal Sharma (Web3 Labs): It's.
+
+114
+00:13:13.740 --> 00:13:15.160
+George Ţebrean (Web3 Labs): Yeah, I like, I like, how we do
+
+115
+00:13:15.160 --> 00:13:17.130
+George Ţebrean (Web3 Labs): really hard to get. We should try.
+
+116
+00:13:18.800 --> 00:13:20.010
+George Ţebrean (Web3 Labs): Okay.
+
+117
+00:13:27.680 --> 00:13:31.989
+Nischal Sharma (Web3 Labs): Because I think open Api can be a good 6 month project.
+
+118
+00:13:31.990 --> 00:13:32.940
+George Ţebrean (Web3 Labs): Oh, for sure!
+
+119
+00:13:32.940 --> 00:13:39.640
+Nischal Sharma (Web3 Labs): Wrappers or, yeah, generating wrappers, I think, like in turn, we'll be able to do in like 2, 3 months.
+
+120
+00:13:40.090 --> 00:13:40.660
+Nischal Sharma (Web3 Labs): I guess.
+
+121
+00:13:43.130 --> 00:13:45.659
+George Ţebrean (Web3 Labs): Okay, let's see here, membership
+
+122
+00:14:26.380 --> 00:14:27.510
+George Ţebrean (Web3 Labs): opportune.
+
+123
+00:14:32.310 --> 00:14:37.779
+George Ţebrean (Web3 Labs): Yeah. And that's pretty much it about the open Api, I will see where I can get with it.
+
+124
+00:14:39.590 --> 00:14:41.540
+George Ţebrean (Web3 Labs): and also maybe.
+
+125
+00:14:42.450 --> 00:14:49.360
+George Ţebrean (Web3 Labs): but definitely. To go to go with this for the internship, we will need to start a new project from scratch, because
+
+126
+00:14:49.530 --> 00:14:53.810
+George Ţebrean (Web3 Labs): this is this from here is quite complex. I mean, we could ask
+
+127
+00:14:55.270 --> 00:14:57.829
+George Ţebrean (Web3 Labs): a mentee to try to fix it.
+
+128
+00:14:58.080 --> 00:15:04.910
+George Ţebrean (Web3 Labs): But the thing is that it's kind of complex. There are a lot of libraries.
+
+129
+00:15:06.280 --> 00:15:12.040
+George Ţebrean (Web3 Labs): It involves also groovy, and it's hard to find the mentee which knows groovy.
+
+130
+00:15:13.820 --> 00:15:14.490
+George Ţebrean (Web3 Labs): So maybe.
+
+131
+00:15:14.490 --> 00:15:15.440
+Nischal Sharma (Web3 Labs): Yeah, I think.
+
+132
+00:15:15.440 --> 00:15:20.150
+George Ţebrean (Web3 Labs): Start a new project, but also we easy and sweet. One more.
+
+133
+00:15:21.500 --> 00:15:25.589
+Nischal Sharma (Web3 Labs): Yeah, I think it will be easier for him to like from starting from scratch.
+
+134
+00:15:26.300 --> 00:15:28.450
+Nischal Sharma (Web3 Labs): And a good learning, I think.
+
+135
+00:15:29.930 --> 00:15:31.170
+Nischal Sharma (Web3 Labs): Opportunity. Yeah.
+
+136
+00:15:35.140 --> 00:15:39.252
+George Ţebrean (Web3 Labs): Okay. Next item, it was this
+
+137
+00:15:39.960 --> 00:15:46.759
+George Ţebrean (Web3 Labs): transaction with the empty revert. Reason. Let me see if I can.
+
+138
+00:15:49.510 --> 00:15:56.229
+George Ţebrean (Web3 Labs): This was brought up by Julius I. In the last call I took a look into.
+
+139
+00:15:56.810 --> 00:16:02.340
+George Ţebrean (Web3 Labs): and what I discovered is that we are not able to
+
+140
+00:16:03.570 --> 00:16:09.610
+George Ţebrean (Web3 Labs): deploy this smart contracts on the evm test
+
+141
+00:16:09.840 --> 00:16:22.559
+George Ţebrean (Web3 Labs): with the any node type, no matter if it's embedded or so on. If the smart contract smart contract has external dependencies like external libraries from open Zeppelin.
+
+142
+00:16:23.590 --> 00:16:27.929
+George Ţebrean (Web3 Labs): I thought this was fixed, and I know that
+
+143
+00:16:28.180 --> 00:16:53.339
+George Ţebrean (Web3 Labs): we recently merged this kind of Pr. Which was able to build in properly smart contracts with external libraries, but it seems that using it in here in Web 2 J. You need is not working properly. So we need to take a look also at this, because nowadays smart contracts are are quite complex, and we.
+
+144
+00:16:53.840 --> 00:17:02.819
+George Ţebrean (Web3 Labs): without supporting this type of smart contracts with external libraries, where, I mean.
+
+145
+00:17:03.570 --> 00:17:10.470
+George Ţebrean (Web3 Labs): we are not able to use this any longer, and it's kind of pointless to have it if we are not able to use it.
+
+146
+00:17:13.980 --> 00:17:15.580
+Nischal Sharma (Web3 Labs): Oh, yeah, makes sense.
+
+147
+00:17:18.030 --> 00:17:29.680
+George Ţebrean (Web3 Labs): Okay? And also one more. Let's let me add the point mentioned here by Julius.
+
+148
+00:17:34.810 --> 00:17:36.260
+George Ţebrean (Web3 Labs): Let me update.
+
+149
+00:18:04.370 --> 00:18:15.040
+George Ţebrean (Web3 Labs): Okay, so during the co-generation of the wrapper class to create the string method for the struct.
+
+150
+00:18:15.550 --> 00:18:16.789
+George Ţebrean (Web3 Labs): From what I see.
+
+151
+00:18:37.860 --> 00:18:51.000
+George Ţebrean (Web3 Labs): if I remember well, I mean, we have structs like the right now we have them as a type references, and also we have them as an object. Internal, static object declared in the Java wrappers.
+
+152
+00:18:55.570 --> 00:18:59.232
+Nischal Sharma (Web3 Labs): Is it like this? Going to be straightforward
+
+153
+00:19:00.700 --> 00:19:04.550
+Nischal Sharma (Web3 Labs): like a push, like overriding to string in that.
+
+154
+00:19:04.550 --> 00:19:11.440
+George Ţebrean (Web3 Labs): It should it should, I mean I don't know exactly. I worked before with the type references
+
+155
+00:19:12.520 --> 00:19:13.500
+George Ţebrean (Web3 Labs): clause.
+
+156
+00:19:14.370 --> 00:19:29.570
+George Ţebrean (Web3 Labs): so I don't know exactly what attributes and how the attributes can be represented in there. But I don't see to be much. I mean to be to have more than a 2 string override method in there, and maybe a bit of
+
+157
+00:19:32.490 --> 00:19:36.323
+George Ţebrean (Web3 Labs): well, I maybe we need to work a bit
+
+158
+00:19:37.860 --> 00:19:43.629
+George Ţebrean (Web3 Labs): the Roper generation class like to add in there. The 2 string method.
+
+159
+00:19:45.740 --> 00:19:46.719
+Angelina Ceppaluni: Is there another?
+
+160
+00:19:46.720 --> 00:19:47.350
+Nischal Sharma (Web3 Labs): Again.
+
+161
+00:19:48.210 --> 00:19:49.579
+George Ţebrean (Web3 Labs): Please. Yeah, yeah. Go on.
+
+162
+00:19:49.760 --> 00:20:08.449
+Angelina Ceppaluni: Sorry I was another issue related to structs. I'm assuming that the this that Julius mentioned would probably be something that's added on to that because I'm doing research for the struct. So I can look into this for him as well, and see if this is doable.
+
+163
+00:20:09.540 --> 00:20:16.560
+George Ţebrean (Web3 Labs): Okay. Can you please tell me the? Because also we are at the end of the agenda.
+
+164
+00:20:17.080 --> 00:20:20.830
+Angelina Ceppaluni: Yeah, give me one second, and I can send a link for the one I have.
+
+165
+00:20:21.020 --> 00:20:21.890
+George Ţebrean (Web3 Labs): Okay.
+
+166
+00:20:22.925 --> 00:20:23.670
+Angelina Ceppaluni: Jen
+
+167
+00:20:57.880 --> 00:20:58.730
+Angelina Ceppaluni: and
+
+168
+00:21:10.930 --> 00:21:16.290
+Angelina Ceppaluni: I posted it in the Zoom chat in case anybody needed it.
+
+169
+00:21:17.940 --> 00:21:23.199
+Angelina Ceppaluni: Oh, it's never 2,003 or 2 0 0 3.
+
+170
+00:21:23.870 --> 00:21:32.040
+Angelina Ceppaluni: I was reading this, and I didn't know if what Julius and posted would correspond to this.
+
+171
+00:21:40.930 --> 00:21:47.620
+George Ţebrean (Web3 Labs): Okay, this was done before this one, and thanks for bringing it up, we can close it.
+
+172
+00:21:48.720 --> 00:21:59.739
+George Ţebrean (Web3 Labs): This is the support for the dynamic structs, because in here, like as you care from Quant was mentioning.
+
+173
+00:22:00.584 --> 00:22:06.649
+George Ţebrean (Web3 Labs): You can. Okay. Look from Quant was mentioning
+
+174
+00:22:07.830 --> 00:22:35.410
+George Ţebrean (Web3 Labs): before we. It was mandatory to have to extend or static, struct or dynamic struct and to create your own class, your own struct class, and to go with that further in your smart contract in order to can interact with. But now we can use the type reference as a dynamic object, and just to just create the struct and to go by, and this support was added.
+
+175
+00:22:35.520 --> 00:22:44.850
+George Ţebrean (Web3 Labs): That's why I mentioned before that we take. We need to take a look at this type reference to see how to implement the to stream method.
+
+176
+00:22:46.470 --> 00:22:47.230
+Angelina Ceppaluni: Okay.
+
+177
+00:22:48.940 --> 00:22:49.980
+Angelina Ceppaluni: Thank you.
+
+178
+00:22:51.110 --> 00:22:52.569
+George Ţebrean (Web3 Labs): Yeah, no worries, thank you.
+
+179
+00:23:00.600 --> 00:23:03.460
+George Ţebrean (Web3 Labs): Do you know initially in which version we release this.
+
+180
+00:23:03.820 --> 00:23:05.679
+George Ţebrean (Web3 Labs): I guess it was 48.
+
+181
+00:23:06.830 --> 00:23:09.739
+Nischal Sharma (Web3 Labs): Yeah, it was 4, 12 0. Yeah, I guess. Yeah.
+
+182
+00:23:09.740 --> 00:23:16.450
+George Ţebrean (Web3 Labs): Oh, okay, great, nice.
+
+183
+00:23:22.570 --> 00:23:25.629
+George Ţebrean (Web3 Labs): And also the
+
+184
+00:23:29.370 --> 00:23:32.240
+George Ţebrean (Web3 Labs): where it did. I think I lost it. Not here.
+
+185
+00:23:34.530 --> 00:23:37.059
+George Ţebrean (Web3 Labs): This one, I mean, it's like.
+
+186
+00:23:37.860 --> 00:23:44.539
+George Ţebrean (Web3 Labs): it's like in between a good 1st issue, and like a medium issue.
+
+187
+00:23:54.230 --> 00:23:57.140
+Nischal Sharma (Web3 Labs): I think we can assign it to Angelina, or if she wants.
+
+188
+00:23:57.140 --> 00:23:57.610
+Angelina Ceppaluni: Yeah.
+
+189
+00:23:57.610 --> 00:23:58.479
+Nischal Sharma (Web3 Labs): On this year.
+
+190
+00:23:58.480 --> 00:24:00.520
+George Ţebrean (Web3 Labs): Would you like Angelina to take a look at.
+
+191
+00:24:00.900 --> 00:24:02.069
+Angelina Ceppaluni: Of course. Yeah.
+
+192
+00:24:02.480 --> 00:24:09.830
+George Ţebrean (Web3 Labs): Okay. And also just let us know if you have not not myself. Sorry if you have any question.
+
+193
+00:24:10.950 --> 00:24:11.730
+Angelina Ceppaluni: Of course.
+
+194
+00:24:12.770 --> 00:24:15.980
+George Ţebrean (Web3 Labs): Right? Who can I remove? Okay.
+
+195
+00:24:19.600 --> 00:24:22.749
+Angelina Ceppaluni: So a, and then CEPP.
+
+196
+00:24:23.630 --> 00:24:25.580
+George Ţebrean (Web3 Labs): A, t.
+
+197
+00:24:25.580 --> 00:24:29.200
+Angelina Ceppaluni: E, yep, e, as in like Edward.
+
+198
+00:24:29.860 --> 00:24:30.789
+Angelina Ceppaluni: Yeah, I think.
+
+199
+00:24:30.790 --> 00:24:31.510
+George Ţebrean (Web3 Labs): Basic theory.
+
+200
+00:24:31.510 --> 00:24:32.195
+Angelina Ceppaluni: Yeah.
+
+201
+00:24:33.100 --> 00:24:39.295
+Angelina Ceppaluni: Sorry. My last name is Italian. If it's any consolation, I don't remember how to spell it. Sometimes.
+
+202
+00:24:39.640 --> 00:24:40.920
+George Ţebrean (Web3 Labs): Oh, okay.
+
+203
+00:24:43.330 --> 00:24:44.410
+Angelina Ceppaluni: Sorry about that.
+
+204
+00:24:46.630 --> 00:24:49.550
+George Ţebrean (Web3 Labs): Okay. Okay, okay.
+
+205
+00:24:57.040 --> 00:25:03.159
+George Ţebrean (Web3 Labs): I think you are not edit organization. And because of that, I'm not able to assign you.
+
+206
+00:25:05.659 --> 00:25:10.420
+Angelina Ceppaluni: Oh, I put a comment in it, does it? Let you.
+
+207
+00:25:10.420 --> 00:25:12.070
+George Ţebrean (Web3 Labs): Can you assign it to yourself.
+
+208
+00:25:12.500 --> 00:25:17.610
+Angelina Ceppaluni: No, it doesn't let me. I tried, but it I don't have that option.
+
+209
+00:25:18.010 --> 00:25:23.580
+George Ţebrean (Web3 Labs): Okay, let me check here in settings if I can add you here.
+
+210
+00:25:24.170 --> 00:25:26.830
+George Ţebrean (Web3 Labs): Branches, members.
+
+211
+00:25:28.670 --> 00:25:30.970
+George Ţebrean (Web3 Labs): Oh, great one second.
+
+212
+00:25:45.170 --> 00:25:55.190
+George Ţebrean (Web3 Labs): It's good that this is one time, so nobody can steal. It admins maintainers, organization access.
+
+213
+00:26:02.490 --> 00:26:08.729
+George Ţebrean (Web3 Labs): Hmm, object, is that it add people.
+
+214
+00:26:09.100 --> 00:26:10.280
+Angelina Ceppaluni: Is that? How.
+
+215
+00:26:10.520 --> 00:26:11.010
+George Ţebrean (Web3 Labs): Oops!
+
+216
+00:26:11.010 --> 00:26:18.040
+Angelina Ceppaluni: The green that right there. I think that's I've never done it. So I'm not sure. I just thought maybe that would work.
+
+217
+00:26:18.410 --> 00:26:20.100
+George Ţebrean (Web3 Labs): Okay, we can try it.
+
+218
+00:26:22.247 --> 00:26:24.190
+Angelina Ceppaluni: You can do.
+
+219
+00:26:24.570 --> 00:26:29.570
+George Ţebrean (Web3 Labs): I'm not able to find you. That's kind of strange, because.
+
+220
+00:26:34.100 --> 00:26:35.000
+George Ţebrean (Web3 Labs): No.
+
+221
+00:26:35.000 --> 00:26:43.180
+Angelina Ceppaluni: And when I put my email in there, I wonder if I can find it by email unless you have to go into the organization and directly do it.
+
+222
+00:26:45.870 --> 00:26:47.989
+George Ţebrean (Web3 Labs): Let's let me try this.
+
+223
+00:26:51.758 --> 00:26:54.230
+Nischal Sharma (Web3 Labs): You can comment on that. Angelina. Maybe.
+
+224
+00:26:54.230 --> 00:26:54.750
+Angelina Ceppaluni: There!
+
+225
+00:26:54.750 --> 00:26:55.890
+Nischal Sharma (Web3 Labs): We will able to.
+
+226
+00:26:57.630 --> 00:27:04.719
+George Ţebrean (Web3 Labs): Or maybe I can add you by mail on this, not this one where it was the issue one second.
+
+227
+00:27:09.630 --> 00:27:10.520
+Angelina Ceppaluni: There I am!
+
+228
+00:27:11.760 --> 00:27:13.539
+Angelina Ceppaluni: Oh, I was there!
+
+229
+00:27:15.710 --> 00:27:17.359
+George Ţebrean (Web3 Labs): Oh, okay, okay, that's great.
+
+230
+00:27:17.360 --> 00:27:18.129
+Angelina Ceppaluni: There you go!
+
+231
+00:27:18.930 --> 00:27:19.610
+George Ţebrean (Web3 Labs): Nice.
+
+232
+00:27:22.780 --> 00:27:26.630
+George Ţebrean (Web3 Labs): Okay? So you need to comment first, st to be able to find you after.
+
+233
+00:27:27.746 --> 00:27:28.133
+Angelina Ceppaluni: Okay.
+
+234
+00:27:28.920 --> 00:27:29.690
+Angelina Ceppaluni: Okay.
+
+235
+00:27:31.240 --> 00:27:32.500
+George Ţebrean (Web3 Labs): Okay?
+
+236
+00:27:35.150 --> 00:27:41.169
+George Ţebrean (Web3 Labs): Oh, I mean that. I think that's all from our side, Angelina. Do we have any topic or.
+
+237
+00:27:42.160 --> 00:27:44.320
+Angelina Ceppaluni: No, that was it for me. Thank you.
+
+238
+00:27:44.550 --> 00:27:49.800
+George Ţebrean (Web3 Labs): Okay, wait. Then I will stop sharing.
+
+239
+00:27:53.520 --> 00:27:55.069
+George Ţebrean (Web3 Labs): Okay, in this case, I guess.
+
+240
+00:27:55.070 --> 00:27:57.309
+Nischal Sharma (Web3 Labs): So, yeah, nothing from my side. Too late.
+
+241
+00:27:57.690 --> 00:28:03.419
+George Ţebrean (Web3 Labs): Okay, then we can hear each other on discord. If anything else. We see you next time.
+
+242
+00:28:05.080 --> 00:28:05.540
+Nischal Sharma (Web3 Labs): Yep.
+
+243
+00:28:05.540 --> 00:28:06.400
+Angelina Ceppaluni: Bye, have a good day.
+
+244
+00:28:07.740 --> 00:28:09.180
+George Ţebrean (Web3 Labs): Thank you, you, too. Bye.
+

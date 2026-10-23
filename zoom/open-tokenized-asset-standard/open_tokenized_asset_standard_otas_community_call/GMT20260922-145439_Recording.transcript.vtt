@@ -1,0 +1,990 @@
+WEBVTT
+
+1
+00:00:14.840 --> 00:00:25.200
+Sean Bohan (The Linux Foundation): Welcome, everyone, to the September 22nd, 2026 Open Tokenized Asset Standard Community Call. As with all Linux Foundation calls, this is held under the Linux Foundation antitrust policy.
+
+2
+00:00:25.200 --> 00:00:45.680
+Sean Bohan (The Linux Foundation): These meetings involve participation by industry competitors, and it is the intention of the Linux Foundation to conduct all of its activities in accordance with applicable antitrust and competition laws. It is therefore extremely important that attendees adhere to meeting agendas, be aware of and not participate in any activities that are prohibited under applicable U.S, state, federal, or foreign antitrust and competition laws. Examples of these actions…
+
+3
+00:00:46.280 --> 00:01:11.070
+Sean Bohan (The Linux Foundation): There are prohibited at Linux Foundation Meetings and in connection with the LF activities are described in the Linux Foundation antitrust policy, available at Linuxfoundation.org slash antitrust dash policy. If you have any questions about these matters, please contact your company counsel, or if you're a member of the Linux Foundation, contact Andrew Updagrov of the firm Gesmer Updagrov LLP, which provides legal counsel to the Linux Foundation. In addition, this is held on the Linux Foundation Code of Conduct, which can best be summed up as be excellent to each other, and we're going to get a ton of work done.
+
+4
+00:01:11.090 --> 00:01:13.600
+Sean Bohan (The Linux Foundation): And I'm gonna turn it over to Mukul. Mukul, you're up.
+
+5
+00:01:16.230 --> 00:01:19.870
+Mukul: Yes, so am I audible?
+
+6
+00:01:20.250 --> 00:01:20.970
+Mukul: Okay.
+
+7
+00:01:22.830 --> 00:01:29.899
+Mukul: Tom, actually, I can't find how to present VS Code for some reason, and not the entire screen, too.
+
+8
+00:01:29.900 --> 00:01:30.340
+Sean Bohan (The Linux Foundation): Hang on.
+
+9
+00:01:30.770 --> 00:01:33.280
+Sean Bohan (The Linux Foundation): Let me, let me stop sharing, now give it a shot.
+
+10
+00:01:42.260 --> 00:01:46.510
+Mukul: No, I can… I can present a tab, but somehow I can't see the…
+
+11
+00:01:46.690 --> 00:01:49.920
+Mukul: Entire screen present, or the VS Code present.
+
+12
+00:01:49.920 --> 00:01:57.580
+Sean Bohan (The Linux Foundation): Hang on one sec, Mukul, I'm seeing the white paper. I just had the GitHub up a second ago, if you want to try again. It may be running a little slow on your side.
+
+13
+00:01:58.770 --> 00:01:59.550
+Mukul: Okay.
+
+14
+00:02:01.250 --> 00:02:05.449
+Mukul: You can see my white paper, right, for GitHub screen.
+
+15
+00:02:06.930 --> 00:02:21.900
+Sean Bohan (The Linux Foundation): Right now, I'm not seeing anything. It was up there for a second, and it came back down. And for those just joining us while we get Mukul screen up and running, in the chat, I just posted links to this agenda, the GitHub for OTAS, our Discord, the OTAS meeting reminder.
+
+16
+00:02:21.900 --> 00:02:33.179
+Sean Bohan (The Linux Foundation): where the community agendas are, as well as the mailing list, and Mukul, you just started sharing, and we can see your GitHub right now, you're on the whitepaper page, and…
+
+17
+00:02:33.180 --> 00:02:33.500
+Mukul: True.
+
+18
+00:02:33.500 --> 00:02:34.470
+Sean Bohan (The Linux Foundation): You're good to go.
+
+19
+00:02:36.170 --> 00:02:37.020
+Mukul: Okay, okay.
+
+20
+00:02:37.600 --> 00:02:43.330
+Sean Bohan (The Linux Foundation): Mukul just dropped again. I don't know what's up. Give me a second, Mukul, and I can pull up the white paper.
+
+21
+00:02:43.640 --> 00:02:44.530
+Sean Bohan (The Linux Foundation): I'll do it.
+
+22
+00:02:44.830 --> 00:02:46.040
+Mukul: Oh, okay.
+
+23
+00:02:46.040 --> 00:02:46.750
+Sean Bohan (The Linux Foundation): Nope, not a problem.
+
+24
+00:02:46.750 --> 00:02:48.829
+Mukul: Sorry, I don't know what's wrong.
+
+25
+00:02:49.030 --> 00:02:51.910
+Sean Bohan (The Linux Foundation): Not… not. No sorries allowed. We got this.
+
+26
+00:02:52.340 --> 00:02:57.700
+Sean Bohan (The Linux Foundation): Let me share my screen, and Mukul, I'll drive if you want to just tell me where to go.
+
+27
+00:02:57.880 --> 00:03:02.640
+Sean Bohan (The Linux Foundation): So we're in… not the TSC, we want this.
+
+28
+00:03:04.840 --> 00:03:13.580
+Mukul: Yeah, so for those who don't know, we now have 3 branches. Main, white paper B01 and White Paper B02.
+
+29
+00:03:13.600 --> 00:03:31.709
+Mukul: Whitepaper V01, we are now moving on to whitepaper V0.2 branch. Right now, all the… so, active branch and default branch is main branch, we are pushing all the changes to main, and then we'll roll out, the changes to the whitepaper V02 as a release.
+
+30
+00:03:31.710 --> 00:03:38.330
+Mukul: As we maintained V1 separately, so we are maintaining V2 brand separately, so…
+
+31
+00:03:38.640 --> 00:03:47.130
+Mukul: Right now, we have had a few changes, to the whitepaper based on the discussions we have had so far.
+
+32
+00:03:47.380 --> 00:04:01.020
+Mukul: For example, from… we had a PR from… PR from MyStern Labs team, for, for adding permission Asset Standard pass and address balances to the standard survey in Section 4.
+
+33
+00:04:01.090 --> 00:04:11.010
+Mukul: So, this, came from a collaborator, her name was Maria, she worked at Meisson Labs, Meissen Labs side. So, our coverage had,
+
+34
+00:04:11.300 --> 00:04:18.209
+Mukul: I mean, they had some updates in June, July, so they made that changes in the white paper.
+
+35
+00:04:18.690 --> 00:04:20.589
+Mukul: Also,
+
+36
+00:04:21.310 --> 00:04:40.540
+Mukul: we repositioned the closed-loop token as, for the fit for in-app value with a pass, permission Asset Standard as a successor for regulated assets, and we made those changes in the white paper. Secondly, a contributor called Ramvaz, in the discussions.
+
+37
+00:04:40.640 --> 00:04:50.380
+Mukul: basically suggested some of the things, which I, mostly agreed with. So… This discussion was,
+
+38
+00:04:54.260 --> 00:04:58.239
+Mukul: Yeah, you can go to main discussion. Welcome to White Paper Discussion.
+
+39
+00:04:58.240 --> 00:05:01.410
+Sean Bohan (The Linux Foundation): Oh, here we go. Sorry, I wasn't sure which one you did. There you go.
+
+40
+00:05:01.560 --> 00:05:04.850
+Mukul: Yeah, and go to the bottom.
+
+41
+00:05:05.500 --> 00:05:08.589
+Mukul: Okay, yeah, no, last one, last one.
+
+42
+00:05:08.590 --> 00:05:10.040
+Sean Bohan (The Linux Foundation): Not a meat, sorry.
+
+43
+00:05:10.860 --> 00:05:11.669
+Mukul: Yes, that's wrong.
+
+44
+00:05:11.670 --> 00:05:12.620
+Sean Bohan (The Linux Foundation): Boss, there you go.
+
+45
+00:05:13.700 --> 00:05:28.559
+Mukul: Yeah, just the same person. Correct. So, yeah, he made some suggestions. I… I could see how the… some of the confusions can, arise, because his point was that it wasn't clear where…
+
+46
+00:05:28.560 --> 00:05:47.150
+Mukul: OTAS actually applies versus, each chain's native mechanisms. We had a CAN transfer function, for instance, which reads like an EVM function, so a reader could conclude OTAS only starts halfway through the flow. So we did two things. We labeled each step in the flow with the OTAS interface.
+
+47
+00:05:47.150 --> 00:05:56.890
+Mukul: exercises, and we added a new subsection, 5.4, so, on how a raw on-chain token becomes an OTAS object in the first place.
+
+48
+00:05:56.890 --> 00:06:15.989
+Mukul: Either natively, because it was issued to confirm, or by observation, where tooling reads the chain and infers it. We also renamed the pre-trade check to pre-settlement check, as it makes sense, except at one place where we are… we were talking about ERC3643 standard.
+
+49
+00:06:16.000 --> 00:06:29.279
+Mukul: Also, we have Amit. He recommended some really important things, which we pushed in the PR about the differences in technical and legal finality, and so on. He pointed out
+
+50
+00:06:29.280 --> 00:06:45.279
+Mukul: We made a different section for distinguishing between them, and mentioning the legal finality is also an aspect, and it depends on jurisdiction, and the point of irrevocabulary and the point of final settlement aren't…
+
+51
+00:06:45.290 --> 00:06:47.849
+Mukul: Always, at the same moment, so…
+
+52
+00:06:47.890 --> 00:07:01.850
+Mukul: That was good. We, introduced an intermediary committed state, so the revocabulary boundary and the legal finality essentially have, somewhere to attach, and to be…
+
+53
+00:07:01.860 --> 00:07:09.980
+Mukul: clear OTAS expresses which moment governs, it doesn't make, the legal determination, obviously. So…
+
+54
+00:07:10.310 --> 00:07:14.770
+Mukul: these were some of the changes in the recent version, so I had a…
+
+55
+00:07:15.560 --> 00:07:21.150
+Mukul: Add something to… a program to show, basically, so, I'll…
+
+56
+00:07:21.670 --> 00:07:25.909
+Mukul: I'll try to present Sean. I think that would be better.
+
+57
+00:07:28.780 --> 00:07:29.990
+Sean Bohan (The Linux Foundation): Sorry, Micul, where do you need me to go?
+
+58
+00:07:29.990 --> 00:07:33.860
+Sarvesh Naidu: Yeah, do you have access to… I mean, not access, but can you present at the moment?
+
+59
+00:07:34.830 --> 00:07:35.400
+Sean Bohan (The Linux Foundation): Let's try it.
+
+60
+00:07:35.400 --> 00:07:37.750
+Mukul: That's what… Yeah.
+
+61
+00:07:39.440 --> 00:07:45.620
+Mukul: Oh, somehow I can't see my VS Code here, and not the entire screen, just the Windows and Chrome tabs.
+
+62
+00:07:50.240 --> 00:07:52.120
+Sean Bohan (The Linux Foundation): Hang on one sec, let's see…
+
+63
+00:07:53.210 --> 00:07:56.380
+Sean Bohan (The Linux Foundation): You are a co-host, you have full privileges,
+
+64
+00:08:02.230 --> 00:08:14.329
+Sean Bohan (The Linux Foundation): I'm happy to keep driving if you can be more, give me better direction. That's on… this is a me problem, not a you problem. I'll try to find out what's going on with our Zoom, but we just did a session a little while ago, and we didn't have an issue, so…
+
+65
+00:08:15.070 --> 00:08:18.670
+Sean Bohan (The Linux Foundation): Mukul, do you want me to try to show my screen again? You can tell me where to go.
+
+66
+00:08:20.160 --> 00:08:28.230
+Mukul: Mmm… I haven't… we can't run the program on GitHub, right?
+
+67
+00:08:28.230 --> 00:08:30.389
+Sean Bohan (The Linux Foundation): program. Let's…
+
+68
+00:08:30.990 --> 00:08:34.970
+Sarvesh Naidu: Wait, so don't you see your desktops? Desktop 1 and 2?
+
+69
+00:08:35.700 --> 00:08:37.309
+Sarvesh Naidu: Like, when you do a share?
+
+70
+00:08:39.640 --> 00:08:40.350
+Sarvesh Naidu: Because there are…
+
+71
+00:08:40.350 --> 00:08:43.190
+Mukul: Chrome, Tabs, and Windows.
+
+72
+00:08:43.960 --> 00:08:47.940
+Sarvesh Naidu: You see application windows, but if you go a little higher, you should be able to see
+
+73
+00:08:48.200 --> 00:08:50.290
+Sarvesh Naidu: desktops as well, right? No?
+
+74
+00:08:50.430 --> 00:08:55.280
+Sarvesh Naidu: Because that's one thing I can see, and that's the one thing that you haven't said you can see.
+
+75
+00:08:55.630 --> 00:08:59.539
+Sarvesh Naidu: I can see browser tabs, as you can see the application windows.
+
+76
+00:09:00.320 --> 00:09:03.539
+Sarvesh Naidu: But I do see entire screen as well.
+
+77
+00:09:03.820 --> 00:09:06.240
+Sarvesh Naidu: And under that, I have my two desktops.
+
+78
+00:09:07.380 --> 00:09:11.220
+Mukul: Yeah, I don't see entire screen as it does usually,
+
+79
+00:09:11.340 --> 00:09:14.850
+Sarvesh Naidu: But again, I think, are you running it from your browser, or are you running it.
+
+80
+00:09:14.850 --> 00:09:17.409
+Mukul: Yeah, I'm running it from a browser today.
+
+81
+00:09:17.410 --> 00:09:20.430
+Sarvesh Naidu: Okay, that's why. Maybe. The app allows you to.
+
+82
+00:09:20.430 --> 00:09:24.070
+Mukul: Usually, I do… Okay, that makes sense.
+
+83
+00:09:24.530 --> 00:09:26.329
+Sarvesh Naidu: Yeah, but if you can act… if you can log in.
+
+84
+00:09:26.330 --> 00:09:28.609
+Mukul: Could be something… okay.
+
+85
+00:09:28.760 --> 00:09:29.460
+Mukul: Oh, it's…
+
+86
+00:09:29.460 --> 00:09:30.370
+Sarvesh Naidu: You can just, you know…
+
+87
+00:09:30.370 --> 00:09:31.599
+Mukul: Can I rejoin?
+
+88
+00:09:31.920 --> 00:09:34.740
+Sarvesh Naidu: Yeah, try doing that in a few, if that works for you.
+
+89
+00:09:36.010 --> 00:09:36.700
+Mukul: Okay.
+
+90
+00:10:03.990 --> 00:10:06.229
+Sean Bohan (The Linux Foundation): We'll give Mukul 1…
+
+91
+00:10:06.770 --> 00:10:11.869
+Sean Bohan (The Linux Foundation): We'll give Mukul a little more time. But, if you see my note in the chat, we don't have time to do…
+
+92
+00:10:12.000 --> 00:10:26.870
+Sean Bohan (The Linux Foundation): live introductions on this call while we're waiting for Mukul to rejoin us, but if you'd like to introduce yourself on chat, feel free. There's no obligation, obviously, but if you'd like to talk about what you're interested in in OTAS and where you're working, that'd be great.
+
+93
+00:10:28.680 --> 00:10:31.409
+Sean Bohan (The Linux Foundation): I'll give Mukul another second to rejoin.
+
+94
+00:11:09.590 --> 00:11:12.959
+Sean Bohan (The Linux Foundation): Hey, Mukul's back, alright. Welcome back, Mukul.
+
+95
+00:11:14.580 --> 00:11:16.530
+Mukul: Hello, Hanuk.
+
+96
+00:11:17.820 --> 00:11:24.120
+Mukul: Yeah, I see the entire screen now, but yeah, I think that would do, presenting a screen.
+
+97
+00:11:25.580 --> 00:11:27.170
+Sean Bohan (The Linux Foundation): Alright, let's go for it.
+
+98
+00:11:32.970 --> 00:11:34.299
+Mukul: You can see my screen?
+
+99
+00:11:34.510 --> 00:11:37.499
+Sean Bohan (The Linux Foundation): Hang on one sec,
+
+100
+00:11:47.440 --> 00:11:48.950
+Sean Bohan (The Linux Foundation): Come on, come on…
+
+101
+00:11:50.440 --> 00:11:54.840
+Sean Bohan (The Linux Foundation): There's a little bit of delay last time, and then we would see your screen, so we'll give it another second.
+
+102
+00:11:54.840 --> 00:11:55.729
+Mukul: Everything about it.
+
+103
+00:11:58.180 --> 00:12:10.629
+Sean Bohan (The Linux Foundation): is… here we go, Mukul started screen sharing. We can see your desktop, and now we see the Zoom interface, and now we can see OTAS Suite, you're pulling up the README. All right, cool. You're good to go. Go for it, Mukul.
+
+104
+00:12:10.630 --> 00:12:28.919
+Mukul: Okay, got it. So, I had a demo of a simulation between Ethereum and SUI for E2E. We had that in the agenda. So, to start with, in a scenario, when a bank tokenizes a bond on one chain and another institution tokenizes cash on a different chain.
+
+105
+00:12:28.940 --> 00:12:48.620
+Mukul: Those two systems have no common language for who may hold the asset while transfer was refused, or when the trade is actually final. So, OTAS is essentially a shared language at the seams, right? So, this, runs basically a white paper flow A at the end of
+
+106
+00:12:48.720 --> 00:12:54.550
+Mukul: Here we have the reference flow. My entire screen is presented, right? You can see everything.
+
+107
+00:12:54.870 --> 00:13:03.680
+Mukul: Okay I hope… So here we mentioned some of the reference flows, right? In the…
+
+108
+00:13:06.420 --> 00:13:07.209
+Mukul: What is it?
+
+109
+00:13:08.660 --> 00:13:12.139
+Sean Bohan (The Linux Foundation): So right now, Mukul, you're scrolling down the white paper for us, this is great.
+
+110
+00:13:12.520 --> 00:13:28.409
+Mukul: Yeah, perfect. So, this one… so we are demoing this flow right now, reference flows, cross-real DVP of Tokenized sovereign bond against a tokenized deposit. So, we mentioned this in the white paper. So, this essentially runs a tokenized sovereign bond on an
+
+111
+00:13:28.410 --> 00:13:32.829
+Mukul: Ethereum-style rail delivered against a tokenized commercial bank deposit on a
+
+112
+00:13:32.830 --> 00:13:51.539
+Mukul: SUI-style field. So, it follows flow, flow's own numbering from A1 to A6 entirely, and names the OTAS interface at each step, then two, more scenarios where a sanctions revocation and a leg trans… Flow leg that never confirms. So, the…
+
+113
+00:13:51.780 --> 00:14:01.720
+Mukul: two rays are in process simulators of the two enforcement models, mirroring the solidity and mirroring the solidity and move references in the repo.
+
+114
+00:14:01.790 --> 00:14:14.130
+Mukul: The interfaces, state machine, and the reason codes are real. The consensus and networkings are not, wiring it to the real, local EVM node and SUI local net…
+
+115
+00:14:14.130 --> 00:14:23.270
+Mukul: Changes the transport, not entirely the seams, but obviously it has different factors, because chains have different, factors, so this is a simulation.
+
+116
+00:14:23.280 --> 00:14:26.809
+Mukul: Oh, so… Can just run it.
+
+117
+00:14:27.050 --> 00:14:30.530
+Mukul: In the script. Okay, so…
+
+118
+00:14:32.200 --> 00:14:42.819
+Mukul: To explain it, so before anything else, both, counterparty system read each token's capability manifest, what kind of token this is, and what it can do.
+
+119
+00:14:42.820 --> 00:14:58.610
+Mukul: both look at what the manifest also records, where, each of these, descriptions come from. Some behaviors are, cane observed, tooling resolved them from on-chain state, others are issuer declared. So, this came up in our, one of the discussion here.
+
+120
+00:14:58.670 --> 00:15:04.389
+Mukul: Privacy versus composability one. And it's an important, discussion.
+
+121
+00:15:06.950 --> 00:15:20.629
+Mukul: we discuss here privacy versus composability, and what kind of transfers, or what kind of tokens could be accessed, and how much of the information could be accessed, so that we could, conform it, and so on. So,
+
+122
+00:15:21.580 --> 00:15:40.480
+Mukul: The bond is, mixed mapping, and it's, valid only as if, as of the anchor block, it was read at, because a proxy upgrade could invalidate it, later. The deposit was issued to confirm here, so it's, native, it's PES policy, so he has a,
+
+123
+00:15:40.550 --> 00:15:45.640
+Mukul: ZUI has… has PES policy permission Asset,
+
+124
+00:15:47.550 --> 00:15:54.539
+Mukul: storage, is readable before anyone submits a request. So, and look at the not…
+
+125
+00:15:54.790 --> 00:16:05.780
+Mukul: not conformable from the chain, from the state, chain state alone. Naming those as the point. Absent from a manifest is not the same as absent from the token.
+
+126
+00:16:05.780 --> 00:16:15.970
+Mukul: off-chain enforcement can exist with nothing observable on-chain at all. That's exactly what probing live ERC3643 deployment showed us here.
+
+127
+00:16:16.000 --> 00:16:17.230
+Mukul: So…
+
+128
+00:16:17.460 --> 00:16:36.909
+Mukul: Downstream, both of these are the same kind of OTAS object, only the… only the provenance differs. So, how much… how much corroboration a declared behavior needs before a counterparty relies on it is still open in the draft, and I'd, like to, see more discussions or more observations here.
+
+129
+00:16:36.910 --> 00:16:42.150
+Mukul: Moving forward, but… but this is a solid start right now, I think.
+
+130
+00:16:42.440 --> 00:16:56.409
+Mukul: Now, so we look at the A2 section here, identity section, so both parties prove eligibility, KYC, sanctions, clearance, through verifiable credentials. The important part is what does not move. No names, no documents, no personal data.
+
+131
+00:16:56.450 --> 00:17:09.060
+Mukul: a hash and a Boolean cross this seam, and the audit trail records a party hash. So that's what keeps this compatible with GDPR and with bank secrecy expectations from the start.
+
+132
+00:17:09.270 --> 00:17:15.139
+Mukul: We look at the compliance interface, so…
+
+133
+00:17:15.400 --> 00:17:33.569
+Mukul: both reals are asked the same question, may this transfer proceed? And both answer in the same vocabulary. Now, look at the binding column, because this is the part people misread, because we also saw that in one of the discussions. Can transfer here is, and…
+
+134
+00:17:33.870 --> 00:17:45.080
+Mukul: in this compliance pre-setting check, can transfer here is an OTAS interface convention, not the ERC3643 function, as I mentioned.
+
+135
+00:17:45.150 --> 00:18:04.320
+Mukul: So OTAS doesn't supply the rule engine, it supplies the query shape and the result vocabulary engine. So, it's a pre-settlement check, not a pre-trade, in the… in that sense. It runs across the trade, after the… it runs after the trade is agreed and before anything logs, so…
+
+136
+00:18:04.320 --> 00:18:10.589
+Mukul: A blocking condition is knowable before capital is committed, rather than at settlement.
+
+137
+00:18:10.670 --> 00:18:15.740
+Mukul: So… What else? So…
+
+138
+00:18:16.440 --> 00:18:18.909
+Mukul: We look at the settlement interface.
+
+139
+00:18:19.040 --> 00:18:36.059
+Mukul: So the coordinator references both legs, essentially, in one instruction, and declares the cash leg, trust year, which is commercial bank deposit. So, we are explicit that this settles in bank money, not central bank money, then
+
+140
+00:18:36.060 --> 00:18:45.879
+Mukul: look at what each leg declares about, finality. The Ethereum leg is probabilistic, and, at depth 12,
+
+141
+00:18:45.960 --> 00:18:47.819
+Mukul: And
+
+142
+00:18:48.010 --> 00:19:01.970
+Mukul: settle-looking transfer, there carries reorganization risk that, essentially decays with depth. The SWIL, I just, is completely deterministic, same instruction, two different finality models, so…
+
+143
+00:19:01.970 --> 00:19:09.729
+Mukul: Each leg declares its model rather than anyone assuming Atomicity delivered it. So, we…
+
+144
+00:19:10.800 --> 00:19:15.199
+Mukul: Yeah, if we look at the A5s, so…
+
+145
+00:19:15.810 --> 00:19:35.429
+Mukul: once the coordinator holds both the, like, state, the instruction moves to committed state, as was proposed by Amit, and so on, committed state, which is enqueued, but, will not be lost and no longer revocable by a participant, that, transition is the revocability boundary. So…
+
+146
+00:19:35.520 --> 00:19:45.340
+Mukul: Why a separate state at all? So, FMI principle 8, which we have attached, and are, references, basically at the end of the…
+
+147
+00:19:45.540 --> 00:19:58.040
+Mukul: white paper, rules that distinguish the point after which an instruction may no longer be revoked from the point at which settlement is final. So, autonomicity answers neither, because legal finality is legally defined movement that
+
+148
+00:19:58.170 --> 00:20:09.409
+Mukul: Depends on the governing jurisdiction, and its, insolvency law is usually established by a seasoned, legal opinion and so on, so it's…
+
+149
+00:20:09.410 --> 00:20:22.710
+Mukul: rarely harmonized across boundaries. So, each leg declares which rulebook governs and which moment it anchors. OTAS carries the declaration it does not to make legal determination that stays with the operator and the jurisdiction completely.
+
+150
+00:20:22.780 --> 00:20:26.970
+Mukul: So, see…
+
+151
+00:20:32.850 --> 00:20:47.280
+Mukul: Here we have specific scenarios where buyer's sanction credential is revoked midday, or cash leg state is not held before timeout, and what happens in those scenarios? If that happens, it gets aborted, and if the
+
+152
+00:20:47.280 --> 00:20:56.400
+Mukul: Resettlement check denies because of the sanction, then they have to revoke and the sanction hit, and so on, so that's there.
+
+153
+00:20:56.590 --> 00:20:59.569
+Mukul: You see…
+
+154
+00:21:00.720 --> 00:21:17.270
+Mukul: Again, I haven't mentioned this yet. So the secret is when the secret was revealed, both legs release and both Rails showed the new position, one suddenly worth naming at release, the receiver's eligibility checked again. If
+
+155
+00:21:17.540 --> 00:21:25.009
+Mukul: someone's clearance laps between committed and settled, they still cannot take delivery. So, that was the obvious one.
+
+156
+00:21:25.800 --> 00:21:27.510
+Mukul: And…
+
+157
+00:21:29.850 --> 00:21:41.890
+Mukul: Yeah, as I mentioned here, same trade, but the buyer's sanction clearance is revoked midday. Both, rails now return sanction hit, and nothing lost, no money actually moves. So,
+
+158
+00:21:42.510 --> 00:21:45.339
+Mukul: And similarly, in the CE scenario.
+
+159
+00:21:45.480 --> 00:21:57.109
+Mukul: the trade is agreed, but the cash-like state is never held before the timeout. The whole instruction revolves to about it, and the dealer's bonds come back in full, so…
+
+160
+00:21:57.310 --> 00:22:15.209
+Mukul: which is a million minus the $100,000 that, settled in scenario 8. The invariant is that one that matters most, nothing settles alone, so either both legs complete, or the both are undone. That's, principle risk eliminated by construction.
+
+161
+00:22:18.280 --> 00:22:33.900
+Mukul: Yeah, that's, very… every team exercised in one run. Modeling, identity, compliance, settlement, events, two rails with, generally different designs, registries and balances on one policy-gated approval request on the other.
+
+162
+00:22:33.900 --> 00:22:42.469
+Mukul: One shared language, and separately the same conformance vectors run against both models and produce identical reason codes.
+
+163
+00:22:42.860 --> 00:23:02.759
+Mukul: So, just what makes the protocol agnosticism claim fallsible rather than rhetorical. So, what I… what we should try to do is make the scenarios and test it on the testnets, so see how they respond when the variables are increased, and when…
+
+164
+00:23:02.810 --> 00:23:15.050
+Mukul: the actual Chia testnits are involved, so could do that. Can also try to implement, some of the checks, with OSCAL moving forward. So.
+
+165
+00:23:15.250 --> 00:23:23.230
+Mukul: right now, we have tried to, establish this as a JSON, because it, reads easily, and,
+
+166
+00:23:23.430 --> 00:23:30.679
+Mukul: It's, easier to test, but maybe simulating it with the more…
+
+167
+00:23:31.080 --> 00:23:36.340
+Mukul: Broader language might be, ideal, for the next try.
+
+168
+00:23:38.040 --> 00:23:49.390
+Sean Bohan (The Linux Foundation): Hey, Mukul, we've got a question in chat from Michael. While ETH and SUI are great for this, how much composability is available here, outside of these two chains? What about transactions within a banking perimeter?
+
+169
+00:23:51.010 --> 00:23:58.080
+Mukul: Right, so… For example, if more chains or more platforms are involved, right, Michael?
+
+170
+00:24:00.000 --> 00:24:01.370
+Michael Santore: Yeah, exactly.
+
+171
+00:24:02.270 --> 00:24:05.140
+Mukul: Right, so… I mean, we could…
+
+172
+00:24:05.140 --> 00:24:05.510
+Sarvesh Naidu: This is…
+
+173
+00:24:05.510 --> 00:24:05.920
+Mukul: Come on.
+
+174
+00:24:05.920 --> 00:24:06.650
+Sarvesh Naidu: Go ahead.
+
+175
+00:24:06.650 --> 00:24:22.449
+Mukul: Yeah, no, we could do this for Solana as well, but as we said, the debate between permission and privacy and confidentiality is quite different, so we could use some hashes to verify whether,
+
+176
+00:24:22.620 --> 00:24:36.710
+Mukul: essentially check whether the… something was accessible or not, but it can't… certain scenarios can't be 100%, executed, because, somehow the trust platform, the trust layer has to be
+
+177
+00:24:36.710 --> 00:24:46.539
+Mukul: more clear… clear and cleaner, because we can't really… suppose on some chain, the token is entirely private, and the…
+
+178
+00:24:46.550 --> 00:24:55.080
+Mukul: It's exchange transaction, or suppose they are buying bond, which is public, so that could be disputed, because
+
+179
+00:24:55.210 --> 00:24:58.330
+Mukul: We can't completely see how that,
+
+180
+00:24:58.700 --> 00:25:09.640
+Mukul: how that goes, right? So, yeah, there are some boundaries to it, but we can't completely attest towards if, both the parties were
+
+181
+00:25:09.950 --> 00:25:14.960
+Mukul: equal participants, or equally accessible to everything. Sarveshoots saying something.
+
+182
+00:25:15.130 --> 00:25:22.809
+Sarvesh Naidu: No, I think that's where I was going as well. It might be… initially, we might not be able to, unless, you know, the,
+
+183
+00:25:23.050 --> 00:25:33.129
+Sarvesh Naidu: these tokens expose better, functionalities, but at this point, I think going with Sui and,
+
+184
+00:25:33.950 --> 00:25:37.779
+Sarvesh Naidu: One of the EVM chains, in this case ETH, might be a good option.
+
+185
+00:25:37.900 --> 00:25:52.459
+Sarvesh Naidu: as and when, you know, this starts growing, and we have a bigger community, there'll be a lot more understanding of how we can do this. But this is a good start, to be honest, Michael, I mean, if that makes sense.
+
+186
+00:25:52.810 --> 00:25:59.620
+Sarvesh Naidu: And then, obviously, you know, I mean, more the people who have worked on different chains can pretty much
+
+187
+00:25:59.760 --> 00:26:03.120
+Sarvesh Naidu: You know, comment on this and take it, you know?
+
+188
+00:26:05.360 --> 00:26:06.550
+Mukul: Right, right, true.
+
+189
+00:26:10.470 --> 00:26:15.429
+Mukul: yeah, actually, that was pretty much it.
+
+190
+00:26:15.430 --> 00:26:22.390
+Sarvesh Naidu: Okay, so what I'm thinking is, right, this is… this is great, Mukul. What we should try and do is, since Haris and Maria both are from
+
+191
+00:26:22.990 --> 00:26:25.370
+Sarvesh Naidu: The Meisten…
+
+192
+00:26:25.370 --> 00:26:26.430
+Mukul: my son laughed. Right.
+
+193
+00:26:26.430 --> 00:26:31.360
+Sarvesh Naidu: Yeah, and they are very, very close to… to the whole,
+
+194
+00:26:32.820 --> 00:26:36.079
+Sarvesh Naidu: and, how these things work.
+
+195
+00:26:36.080 --> 00:26:36.470
+Mukul: Right.
+
+196
+00:26:36.470 --> 00:26:48.810
+Sarvesh Naidu: step would be collaborating with them, you working on the ETH portion of it, us coming up with an entire workflow in a architectural format, and then we can
+
+197
+00:26:48.870 --> 00:27:07.959
+Sarvesh Naidu: start doing some kind of a high level on this, on how the specs will look like, what is it that we are getting from here, and what are we trying to do, and then, you know, the building blocks can come later, but at least on a high level, putting an architecture workflow around this might be a good start.
+
+198
+00:27:09.220 --> 00:27:28.989
+Mukul: Yeah, yes, generally, I agree for that, because we could try to make this… because we mentioned some of these flows, right? So, we could, initially simulate those, and make them, and later move them to testnet. So, for the SWI part, obviously, we could use, help from Aishin Labs team, and I think there'd be…
+
+199
+00:27:29.000 --> 00:27:37.250
+Mukul: I think that would be perfect. Also, we probably have to We haven't really spent the…
+
+200
+00:27:37.320 --> 00:27:39.399
+Mukul: Time on identity, and…
+
+201
+00:27:39.470 --> 00:27:57.489
+Mukul: compliance yet. We initially started well with compliance. Michael contributed, well to it, but we probably should work on compliance and identity side as well, because identity is quite a complex part, right? So we… even I'm not clear about it, so the…
+
+202
+00:27:57.490 --> 00:28:08.679
+Sarvesh Naidu: It's okay. I was expecting, a little more traction from, a few other folks who are not here, but maybe what we can do is.
+
+203
+00:28:08.680 --> 00:28:28.239
+Sarvesh Naidu: Wait, working heavily on the compliance side over here, if I can help. That'd be awesome, Michael. I mean, this is a community, so the more the merrier, man, and just pick it up, just, you know, just like how Mukul is doing, we'd be more than happy for you to kind of chime in and see what you can do, or help us, you know, take this forward.
+
+204
+00:28:28.540 --> 00:28:32.320
+Sarvesh Naidu: So… you know, Up to you.
+
+205
+00:28:32.320 --> 00:28:33.050
+Mukul: Alright.
+
+206
+00:28:33.770 --> 00:28:40.609
+Haris Katimertzis: Of course, you can share the GitHub repo with us, like, the code, and of course, happy to help.
+
+207
+00:28:40.750 --> 00:28:42.620
+Haris Katimertzis: In this part, the move part.
+
+208
+00:28:43.020 --> 00:28:44.840
+Sarvesh Naidu: Awesome, Haris. Thank you so much, yeah?
+
+209
+00:28:45.670 --> 00:28:52.539
+Mukul: Right, so what we… what I'll do is I'll try to set up a task suite for this scenario. Yeah.
+
+210
+00:28:52.680 --> 00:29:07.560
+Mukul: the flow across the DVP of Tokenized sovereign bonds against Tokenized deposits as a… either as a example repo or a scenario repo. So, in general, what do you think? This should be an example, or a sample, or a…
+
+211
+00:29:08.250 --> 00:29:10.270
+Mukul: infra of this sort.
+
+212
+00:29:13.330 --> 00:29:20.400
+Sarvesh Naidu: I would let everybody chime in as well. For me, I think it is more of a scenario.
+
+213
+00:29:20.400 --> 00:29:39.389
+Sarvesh Naidu: But again, it should be under one of the five pillars that we mentioned, right? So, let's say this comes under settlement pillar, correct me if I'm wrong, right? So, if that's what we are going to have, we could have a settlement under which we can have our source code and everything, and samples, examples, so that it is easier to…
+
+214
+00:29:39.390 --> 00:29:44.259
+Sarvesh Naidu: you know, for people to go see it. Anybody can have…
+
+215
+00:29:44.310 --> 00:29:59.220
+Sarvesh Naidu: So, as we said, it's all going to be independent from each pillar, or people could pull in everything, correct? So, this will ideally give us a good understanding of how we can, separate every module.
+
+216
+00:29:59.280 --> 00:30:04.779
+Sarvesh Naidu: and if needed, add them as a single OTAS module in itself.
+
+217
+00:30:06.940 --> 00:30:07.719
+Mukul: Very typical.
+
+218
+00:30:07.970 --> 00:30:09.890
+Sarvesh Naidu: Does that make sense, Mukul?
+
+219
+00:30:09.890 --> 00:30:27.530
+Mukul: Sure. Yeah, I mean, this demo sort of has all the four layers, but it is, I mean, primary, the more complete part, the settlement part, and we can't say complete, but more developed part. We have some work on compliance as well, but…
+
+220
+00:30:27.530 --> 00:30:33.270
+Mukul: So, for example, we talked about this CAN transfer hook, so we have some work done on the compliance part.
+
+221
+00:30:33.290 --> 00:30:39.919
+Mukul: But, I mean, it should be probably more mature work for identity, or for compliance, or for some other.
+
+222
+00:30:39.920 --> 00:30:47.589
+Sarvesh Naidu: And we should try to kind of make it more, generic, where it is easily
+
+223
+00:30:47.590 --> 00:31:03.239
+Sarvesh Naidu: more of… like, it's, like, more like an interface implementation rather than implementation in the specific code. This way, it's like, hey, I'm having a placeholder for compliance here, but my compliance is actually a separate module which you need to pull in.
+
+224
+00:31:03.490 --> 00:31:21.770
+Sarvesh Naidu: Right? Because at the end of the day, that's how people will work. People would want to work on settlement, they might have their own compliance engine to build this, but they could still use the OTAS interface to build their implementations on how this can transfer, or whichever those functions that you're saying. This way, ideally.
+
+225
+00:31:22.130 --> 00:31:24.880
+Sarvesh Naidu: You know, we can still manage the entire flow.
+
+226
+00:31:25.070 --> 00:31:26.340
+Sarvesh Naidu: If that makes sense.
+
+227
+00:31:27.230 --> 00:31:28.570
+Mukul: Right, yes.
+
+228
+00:31:29.090 --> 00:31:34.949
+Sarvesh Naidu: Right? We can have more discussions on this, but I think we're going in the right track here.
+
+229
+00:31:34.970 --> 00:31:51.920
+Sarvesh Naidu: But, yeah, let's start with the code, sharing, at least, within GitHub. And, guys, if there is any specific, request on how we want to set this up, please, by all means, you know, let us know.
+
+230
+00:31:52.260 --> 00:32:03.570
+Sarvesh Naidu: And then we can, we can, you know, kind of set those things accordingly. Since we don't own everything, we are expecting community to kind of chime in where and when they can.
+
+231
+00:32:08.490 --> 00:32:09.460
+Sarvesh Naidu: Awesome.
+
+232
+00:32:09.840 --> 00:32:12.620
+Sarvesh Naidu: Alright, this was good, I think we're already 5 minutes over.
+
+233
+00:32:12.860 --> 00:32:15.560
+Sarvesh Naidu: Does anyone have any other questions, guys?
+
+234
+00:32:19.090 --> 00:32:30.080
+Sean Bohan (The Linux Foundation): If you've got questions, you can do them right now, or I'm gonna share the links again to our Discord and the mailing list. If you'd like to join the mailing list, you can put a question in there, and everyone's gonna see it.
+
+235
+00:32:30.080 --> 00:32:39.749
+Sean Bohan (The Linux Foundation): I just reposted it again, along with a link to the GitHub, and I will post a link to the white paper in case those who are on the call want to check it out.
+
+236
+00:32:39.970 --> 00:32:52.840
+Sarvesh Naidu: Sean, just a quick question. Now that we have something like a working understanding of how these things are, and the GitHub source and everything, how can we make sure that we publish this within the mailing list that goes out? Can we do that?
+
+237
+00:32:53.190 --> 00:33:07.320
+Sean Bohan (The Linux Foundation): Yeah, we can. We just don't have a lot of folks, currently subscribed to the mailing list, but the more we can add, yeah, and quite frankly, I think just publishing it to the mailing list anyway is important, so that there's a history there. When someone new joins, they can look and see the previous discussions.
+
+238
+00:33:07.320 --> 00:33:07.710
+Sarvesh Naidu: Exactly.
+
+239
+00:33:07.710 --> 00:33:08.949
+Sean Bohan (The Linux Foundation): Yeah, that'd be great.
+
+240
+00:33:09.620 --> 00:33:27.900
+Sarvesh Naidu: Yeah, I'm thinking, now that we're doing the GitHub and, I mean, not the GitHub, but the source, and we're trying to get more scenario-specific, that might be a good idea. Obviously, you know, once we have a lot more clarity on compliance and all the other things, maybe that'll, you know, push the…
+
+241
+00:33:28.310 --> 00:33:29.520
+Sarvesh Naidu: Envelope even further.
+
+242
+00:33:30.920 --> 00:33:31.520
+Sean Bohan (The Linux Foundation): Awesome.
+
+243
+00:33:31.770 --> 00:33:35.939
+Sarvesh Naidu: Awesome. Alright, thank you so much, guys, I really appreciate your time. Have a nice day.
+
+244
+00:33:36.500 --> 00:33:39.069
+Sean Bohan (The Linux Foundation): Have a great day, everybody. Thank you. Oh, this will be posted.
+
+245
+00:33:39.070 --> 00:33:39.840
+Mukul: Thank you, everyone.
+
+246
+00:33:39.840 --> 00:33:42.030
+Sean Bohan (The Linux Foundation): Like, an hour or two. Bye, guys.
+
+247
+00:33:42.310 --> 00:33:42.670
+Sarvesh Naidu: Yep.
+

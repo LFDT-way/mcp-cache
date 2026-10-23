@@ -1,0 +1,1350 @@
+WEBVTT
+
+1
+00:03:37.180 --> 00:03:39.590
+Brandon Davenport: Good morning! Everybody!
+
+2
+00:03:41.640 --> 00:03:42.100
+Michael Garber: Morning.
+
+3
+00:03:43.810 --> 00:03:44.560
+Michael Kantor: Again.
+
+4
+00:04:04.690 --> 00:04:05.820
+Hendrik Ebbers (Hedera Foundation): Hello.
+
+5
+00:04:45.960 --> 00:04:51.140
+Hendrik Ebbers (Hedera Foundation): so let me ping all the people that the Tsc starts.
+
+6
+00:06:20.130 --> 00:06:29.020
+Hendrik Ebbers (Hedera Foundation): Okay, so how many are we from the Tsc, 1, 2, 3, 4 5.
+
+7
+00:06:29.120 --> 00:06:30.930
+Hendrik Ebbers (Hedera Foundation): That's that's good.
+
+8
+00:06:34.300 --> 00:06:44.271
+Hendrik Ebbers (Hedera Foundation): So welcome to the Tsc. Meeting. Let me find my window. Here we go. Welcome to the Tsc. Meeting.
+
+9
+00:06:45.120 --> 00:06:56.329
+Hendrik Ebbers (Hedera Foundation): If you're here for the 1st time. This is a meeting of the Technical Steering Committee of the Hiro Project at the Renox Foundation Decentralized Trust.
+
+10
+00:06:56.720 --> 00:07:03.976
+Hendrik Ebbers (Hedera Foundation): We are an open source project under the Linux Foundation and in in the Tsc meetings.
+
+11
+00:07:05.010 --> 00:07:07.470
+Hendrik Ebbers (Hedera Foundation): the Technical Steering Committee is
+
+12
+00:07:09.280 --> 00:07:36.790
+Hendrik Ebbers (Hedera Foundation): discussing several topics like, for example, today, we will have a lot a look at some improvement proposals for the highway network, and, like any other meeting, we do use this as a public meeting, which means everybody is welcome to join our meetings, not only the Tsc meeting, but every meeting we do under the Hiro project. We have a public calendar. You can
+
+13
+00:07:37.640 --> 00:07:57.900
+Hendrik Ebbers (Hedera Foundation): find links to it on our web page or in the meeting minutes, as you can see. So today, this as an example, is the 1st meeting in a row of 3. If you so, I'm I'm located in Germany. That is why my time might be totally different to to your time. But
+
+14
+00:07:58.508 --> 00:08:00.549
+Hendrik Ebbers (Hedera Foundation): working on your time zone.
+
+15
+00:08:00.970 --> 00:08:08.139
+Hendrik Ebbers (Hedera Foundation): so feel free to join any of those meetings. If you missed meetings. The meetings will be recorded like this meeting is.
+
+16
+00:08:08.270 --> 00:08:13.059
+Hendrik Ebbers (Hedera Foundation): and if you go in the calendar back in time, like one week.
+
+17
+00:08:13.240 --> 00:08:16.630
+Hendrik Ebbers (Hedera Foundation): you have a link to the recording of the meeting.
+
+18
+00:08:17.510 --> 00:08:33.630
+Hendrik Ebbers (Hedera Foundation): So if you miss a meeting because you're on vacation, or whatever you can do a rewatch of it. And since it's public, one important thing is that the meeting happens on the code of conduct of the Renox Foundation.
+
+19
+00:08:33.730 --> 00:08:41.310
+Hendrik Ebbers (Hedera Foundation): which means you please ask question, please contribute to those meetings, but do it in a in a friendly manner.
+
+20
+00:08:41.409 --> 00:08:43.360
+Hendrik Ebbers (Hedera Foundation): And and then we're all good.
+
+21
+00:08:43.520 --> 00:08:50.750
+Hendrik Ebbers (Hedera Foundation): And next to the code of conduct, the meeting happens under the antitrust policies of the Minox Foundation.
+
+22
+00:08:50.950 --> 00:08:58.089
+Hendrik Ebbers (Hedera Foundation): Okay, so let's start with the meeting. We have a quite interesting agenda today. We have
+
+23
+00:08:58.380 --> 00:09:13.540
+Hendrik Ebbers (Hedera Foundation): 2 hips on our timeline. We would like to have a look at. I see, Mark is here, Mark, is it again you who will present those hips? Or is it somebody else.
+
+24
+00:09:15.777 --> 00:09:24.690
+Richard Bair: I will present the smart contract throttling hip at least. Mark, I don't know if you wanted to do the generalized schedule contract call, or I can do that. One.
+
+25
+00:09:25.590 --> 00:09:29.549
+Mark Blackman: Yeah, I wasn't involved with that one. So if you could do it, it'd be great.
+
+26
+00:09:29.550 --> 00:09:30.820
+Richard Bair: Okay. Sounds good.
+
+27
+00:09:30.820 --> 00:09:31.380
+Hendrik Ebbers (Hedera Foundation): Thanks.
+
+28
+00:09:31.870 --> 00:09:41.949
+Hendrik Ebbers (Hedera Foundation): Then maybe we just directly start with the smart contract swallowing topic. Richard and I will stop sharing, and and you can share your screen.
+
+29
+00:09:41.950 --> 00:09:59.240
+Richard Bair: Alright sounds good. So we're not in intending to. I think this is the 1st time that we've brought both of these to the Tsc, so I do not intend us to vote on it today, in any event, because you need some time to read through this and look at these things.
+
+30
+00:09:59.589 --> 00:10:13.899
+Richard Bair: I'm gonna start with just a quick look at the hip itself. And then I have a diagram that I created that where I can kind of explain more precisely what this precise, smart contract throttling talks about. So
+
+31
+00:10:14.765 --> 00:10:29.094
+Richard Bair: this is the the hip. There have been no comments on it. So I'm not sure if people have had a chance to look at it or not. It's a reasonable length. It's not terribly long. The whole point on this is
+
+32
+00:10:30.170 --> 00:10:37.150
+Richard Bair: to increase the amount of gas per second, that we're able to execute
+
+33
+00:10:40.440 --> 00:10:45.459
+Richard Bair: to something closer to what the system is actually able to achieve.
+
+34
+00:10:45.880 --> 00:11:00.210
+Richard Bair: So the best way to describe this is that gas is a very crude method for measuring 2 things. One is the amount of computation
+
+35
+00:11:00.390 --> 00:11:03.719
+Richard Bair: that a thing takes.
+
+36
+00:11:04.090 --> 00:11:07.850
+Richard Bair: And the second thing is how much you had to pay for it.
+
+37
+00:11:08.320 --> 00:11:23.970
+Richard Bair: And I say that it's crude, because depending. There are several aspects to payment for things in an Evm. One is, let's say you have an add OP code, or you have a multiply OP code, or you have a divide opcode.
+
+38
+00:11:24.080 --> 00:11:45.469
+Richard Bair: These are pure computation opcodes, and they have some amount of gas that's associated with them, and the purpose for that gas is to represent the amount of computation that was done by those things. But they're like, I say, they're crude. They're not ultra precise, and
+
+39
+00:11:46.240 --> 00:12:15.529
+Richard Bair: which is okay. Having a crude metric would be okay if they were if every OP. Code was consistently priced, based on its relative cost to each other. But it's not. Some things are super low, like 3 gas to do an ad and other things are low, but should be higher like, say, doing a cacac hash on the node.
+
+40
+00:12:15.530 --> 00:12:25.560
+Richard Bair: So the way that you determine whether a sort of what the real cost of the gas is is that you create a smart contract.
+
+41
+00:12:25.560 --> 00:12:51.819
+Richard Bair: and in that smart contract. You execute the same OP. Code over and over and over again, and then you measure the amount of wall clock time that it took to execute that contract, and then you do that a whole lot of times to work out all of the sort of small variances, and you can figure out what the gas per second is for that OP code. So like, let's say, for example, that I do the add OP code. And let's say that that add opcode is
+
+42
+00:12:51.820 --> 00:13:15.694
+Richard Bair: 3 gas, but when I measure it I measure it at about 20 nanoseconds per opcode invocation. So I I know that if I. If I've got 20 nanoseconds then and there's a billion of those per second. So if we've got you know a billion, let's see a couple more zeros divided by 20. Gosh! That's like 50 million
+
+43
+00:13:16.470 --> 00:13:40.810
+Richard Bair: 50 million of of those per second. And of course it's 3 gas. So that gives me 150 million gas per second. That's what I could do with an add OP. Code. But then I take another opcode. Let's say that it's the S load. This is the one that loads state from well load state into the Evm that OP. Code, if you're doing like a cold load, is something on the order of 20,000 gas.
+
+44
+00:13:40.810 --> 00:13:51.809
+Richard Bair: So let's say that I can do that in. I don't know a hundred nanoseconds all right. So if I go back to, you know, a billion nanoseconds
+
+45
+00:13:52.270 --> 00:14:13.570
+Richard Bair: per second, and I divide that by what did I say? 100 nanoseconds sure and divide that by 100 nanoseconds. That's 10 million. Okay, I can do 10 million s. Loads per second, let's say, and if each one of those is 20,000 gas, then I multiply that by 20,000. And wow, I just had 200
+
+46
+00:14:13.770 --> 00:14:16.030
+Richard Bair: 1 billion gas per second.
+
+47
+00:14:16.520 --> 00:14:34.490
+Richard Bair: So you can see how if you're measuring based on gas per second. Sometimes you get a smaller number, sometimes you get a larger number, and it totally depends on what is the actual performance for the thing. Times the amount of gas per second, that it is that tells you your maximum gas per second.
+
+48
+00:14:34.760 --> 00:14:46.290
+Richard Bair: Unfortunately, we have to set the gas throttle on our system low enough so that the worst case scenario is safe.
+
+49
+00:14:46.700 --> 00:14:53.060
+Richard Bair: So maybe I can do 150 or 200 or 300 million gas per second for a standard contract.
+
+50
+00:14:53.120 --> 00:15:09.780
+Richard Bair: but I have to limit it to 15 million gas per second, because a bad guy could come along and write a contract that just did the worst opcode which is Kachak Hashing. He could just do that hash code, or that opcode over and over and over again that precompile over and over and over again.
+
+51
+00:15:09.800 --> 00:15:31.739
+Richard Bair: and if he did so, then the network would only be able to do, you know, maybe 30 or 40 million gas per second, and since our throttle is at, you know, it would be at like 200 million, they could abuse the network and and make it unavailable to anybody they could do a denial of service. So because of that, we have to choose a gas per second throttle. That is low enough.
+
+52
+00:15:32.030 --> 00:15:34.730
+Richard Bair: That it.
+
+53
+00:15:34.920 --> 00:15:41.900
+Richard Bair: you know, to to preserve the network, even though we have ton, more capacity. The same is true for Tps numbers.
+
+54
+00:15:42.180 --> 00:15:52.519
+Richard Bair: because we have to figure okay, the minimum gas per per contract multiplied by the Tps. You know what? What's our safety margin? And so forth.
+
+55
+00:15:52.780 --> 00:16:04.060
+Richard Bair: Now we wanted to answer the question. We wanted to answer 2 questions. One question was, okay in our code base today in our code base today, what's the actual maximum tps that we could fire up smart contracts with.
+
+56
+00:16:04.430 --> 00:16:29.230
+Richard Bair: and it turns out it's over 10 K. Tps, I mean, we have the throttle set at 300 Tps on Hedera, but it could be higher now, it doesn't do us any good to make it higher, because 15 million gas, if you took 15 million gas. By the way, the term intrinsic gas price is the amount of gas that the minimum gas that any contract call uses just to start the contract up.
+
+57
+00:16:29.230 --> 00:16:46.339
+Richard Bair: And that's that's I don't remember the numbers 20,000 or 21,000, something like that. So I'll just say 20,000 is like 750. So at 15 million gas per second, literally the highest that we could make the thing with 750. But we always have a safety margin in play, plus, we wanted to preserve space in the
+
+58
+00:16:46.340 --> 00:17:00.209
+Richard Bair: on the machine for being able to do non contract calls. So contracts didn't consume all of the available resources. So that's why, we're at 300. We took 7 50, which was the maximum that you could do. Divide it by 2. That's kind of a safe number. So
+
+59
+00:17:00.250 --> 00:17:30.179
+Richard Bair: 300 is what it's set to. But if we were to just say, forget about the gas per second throttle, if we just took off the throttles entirely. How how quickly you know, how much time does it really take to start up? The Evm. Turns out? Not very much time at all, and we could easily do 10,000 per second. So that's an interesting number. If you're trying to optimize the amount of utility for your system, knowing that you can get up to those sorts of numbers. You go. Okay, that's interesting. It's not useful because of our gas throttle. But it's interesting.
+
+60
+00:17:30.220 --> 00:17:32.690
+Richard Bair: The second thing we wanted to do is we wanted to say, Okay.
+
+61
+00:17:33.420 --> 00:17:41.570
+Richard Bair: if you're going to try to benchmark what the performance of your system is from an Evm perspective, everything matters in terms of how?
+
+62
+00:17:41.820 --> 00:18:05.110
+Richard Bair: What? What type of contract are you executing? Because, just like I said, you know, there are certain OP codes that you execute that will get you hundreds of millions of gas per second. Certain OP. Codes you can execute. That'll get you tens of millions of gas per second. We even have OP. Codes that we've executed that got us over a billion gas per second. But the question is, what contract are we measuring to see what we can really do. So what we did was we
+
+63
+00:18:05.130 --> 00:18:22.410
+Richard Bair: we talked to the Heliswap team and said, Hey, you guys have a uniswap port. Let's run that thing on our network and just see what our our throughput is. And we have roughly doing real swaps. Okay? So the point was.
+
+64
+00:18:22.410 --> 00:18:48.929
+Richard Bair: we're not messing around. We're not picking some synthetic benchmark. We're going to take uniswap, and we're going to just say which which both saucer swap and heli swap reports of Uniswap, v. 2, and we'll just say, you know what I am going to just run swaps on this thing in a liquidity pool. How many swaps per second can I get? And if we take all the throttles off, we're finding somewhere on the order of a thousand plus. Now we did a bunch of
+
+65
+00:18:48.930 --> 00:19:13.169
+Richard Bair: performance. You know, speculative performance work that got that even higher, substantially error. But just in terms of what we could do today. Just take the throttles off. We could do like a thousand Tps 1,000 swaps per second, which is a huge number. You should go check out what the performance of all a bunch of other chains are 1,000 swaps per second is very good. And there's a lot of things that we can do to improve this. But
+
+66
+00:19:13.170 --> 00:19:29.499
+Richard Bair: let's say, 1,000 swabs per second. Okay, good. And how much gas per second does that turn out to be? Turns out to be somewhere between 150 to 300 million gas per second. So in real world utility, we could see somewhere around a 10 x improvement on gas per second on the network.
+
+67
+00:19:30.293 --> 00:19:35.360
+Richard Bair: If we just had a solution to this problem of.
+
+68
+00:19:35.460 --> 00:19:41.420
+Richard Bair: we throttle by gas per second. But gas is a crude measure of what is actually safe on the network
+
+69
+00:19:42.170 --> 00:19:56.379
+Richard Bair: that okay, so that's the background. And that's the whole story behind this hit. Instead of using gas for throttling, we will make our own measurement. So let me let me switch to a different
+
+70
+00:19:57.140 --> 00:19:58.440
+Richard Bair: guy here.
+
+71
+00:19:59.060 --> 00:20:11.020
+Richard Bair: So this is a very high level, very high level view on the consensus node. So what happens is a user submits a transaction, any type of transaction to the network.
+
+72
+00:20:11.160 --> 00:20:34.429
+Richard Bair: And we, the 1st thing we do is we on a particular node. So they submitted to a particular node, and the 1st thing that we do is we do pre check, and in precheck we do a variety of things. One thing is that we check to make sure that the payer exists, that the transaction was signed by the payer, and that the payer has sufficient funds for that transaction. We do all those sorts of checks upfront.
+
+73
+00:20:34.540 --> 00:20:37.850
+Richard Bair: There's other checks that we do as well, but that's like a principal one.
+
+74
+00:20:38.040 --> 00:20:46.300
+Richard Bair: But another check that we do is we check the throttle. And we say, Okay, do I have enough capacity to accept this transaction into the network?
+
+75
+00:20:46.350 --> 00:20:59.220
+Richard Bair: And the way that it works is that we've got of all the nodes in the network, you know, 32 nodes. Each node gets an even share of the throttle capacity. So if we say 10 K. Tps, it means that each node gets.
+
+76
+00:20:59.220 --> 00:21:19.249
+Richard Bair: you know, 1 30 seconds of 10 K. Tps. That's what they each individually get. So each node is doing its own pre check. It looks at it, and it says, Do I have enough throttle space for this? Now our throttles also have, like a bursting capacity to it, and like it's smoothed out over, you know, depending on the throttle bucket, you know. 10 seconds, 15 seconds, 3 seconds whatever
+
+77
+00:21:19.250 --> 00:21:31.159
+Richard Bair: depending on on which type of thing it is. But we have some some kind of pre check that we do there. Where we check the throttle. We refer to this as the front end throttle, or the ingest throttle.
+
+78
+00:21:31.400 --> 00:21:55.730
+Richard Bair: We use the same term for for the same, for the same place where we check that throttle. Now, once it's past that if it passes precheck, we go to gossip. Gossip goes to all the other consensus nodes in the network, and it also each, each transaction that it receives ends up going into the hash graph as part of an event. In that, you know, the events get sorted, we get consensus, and then it it creates around.
+
+79
+00:21:56.090 --> 00:22:04.910
+Richard Bair: So in each round we have a bunch of events. Each event has a bunch of transactions. Those get passed to the execution. Execution, then, is going to check
+
+80
+00:22:04.980 --> 00:22:26.899
+Richard Bair: throttles, and these are called our back end throttles and oops. I forgot my little guy. There we go back end throttles. We also fire up the Evm. And do all the transaction handling, staking rewards. You know, fees. All that kind of stuff happens here. Execution then creates blocks which then get sent out to block nodes and mirror nodes. Okay?
+
+81
+00:22:27.190 --> 00:22:54.210
+Richard Bair: So if the key point is that there's 2 different throttles. There's a front end throttle. There's a back end throttle, and this is why it matters. If you're a user and you submit a transaction to the front here. If your if your transaction is going to be throttled, you would like it to be throttled here because you don't pay for that transaction. The transaction gets submitted and you go. Well, I guess I hit a throttle too bad. I'll try again later. No, no charge.
+
+82
+00:22:54.380 --> 00:23:04.740
+Richard Bair: If your transaction were to go through this whole system and come back to execution and get throttled, you still have to pay for a portion of that transaction.
+
+83
+00:23:04.910 --> 00:23:07.800
+Richard Bair: and the reason is that if that were not the case.
+
+84
+00:23:07.900 --> 00:23:34.840
+Richard Bair: then an attacker could just wait for the network to become busy or raise the level of work on the network to the point where the back end throttles would be busy, and then they could just send an infinite number of transactions in here that would all fail on this back end throttle, and the whole network would have been doing all of this work. It's sticking things in blocks that are stored forever, and it's doing all of that for free. That would be bad.
+
+85
+00:23:34.840 --> 00:23:40.859
+Richard Bair: So the the general rule is that if your transaction stops at precheck you don't get charged.
+
+86
+00:23:40.860 --> 00:24:05.409
+Richard Bair: If your transaction goes to gossip you will be charged, you'll be charged enough to cover the cost of the bandwidth that the network used to gossip, you'll be charged to cover the cost of basic consensus and basic execution, and to store the thing inside of a block and export. It turns out about the price of a crypto transfer, right? Because we do all that stuff in a crypto transfer. So that's about your minimum price.
+
+87
+00:24:05.690 --> 00:24:34.189
+Richard Bair: So that's why the difference between front and back end is important. Okay, for normal transactions like the crypto transfer. This is easy, because we all know every consensus node knows what its share of the throttle bucket is when something comes in it can do the pre-check. Life is good. You're going to get charged here. In fact, we don't even run that back end throttle for the user transaction. There's a little longer story there, but you're not going to get charged for crypto transfer on the back end. It's just going to
+
+88
+00:24:34.390 --> 00:24:36.199
+Richard Bair: find out on the front end. It's right away.
+
+89
+00:24:36.630 --> 00:24:44.560
+Richard Bair: Evm is a different story. We have no way of knowing at the time that we hit the pre-check. Whether or not
+
+90
+00:24:45.040 --> 00:24:52.330
+Richard Bair: you are going to end up getting throttled on the back end, because, of course, the amount of gas that's used by a smart contract.
+
+91
+00:24:52.890 --> 00:25:07.480
+Richard Bair: It's totally a function of the amount of work that you are doing right and who knows what it is? I don't know, execute your call. There's state. There's, you know, OP. Codes. We execute them. Then we figure out how much gas it is.
+
+92
+00:25:07.480 --> 00:25:18.200
+Richard Bair: even if you were to pre run the contract. That's no guarantee that that's what's gonna happen when you get to the back end. Because when you pre run the contract, there's certain state that you're executing with.
+
+93
+00:25:18.200 --> 00:25:38.349
+Richard Bair: Meanwhile, this is an asynchronous system. There's a whole pile of other transactions that are already being gossiped already going through consensus already being executed, and they could change the state of your smart contract, so that by the time your contract, your contract call, actually got its turn to execute for real state could be different in that contract. The amount of gas you use could be different. So
+
+94
+00:25:38.350 --> 00:25:52.529
+Richard Bair: there's just no way to be able to properly throttle on the front end. And that's actually what we ended up creating the back end throttle, for, in the 1st place, was for the Evm. So there is always a possibility, and this is unique to us relative to ethereum.
+
+95
+00:25:52.530 --> 00:26:22.003
+Richard Bair: There's the possibility that you will pay for a contract call, even though, your contract wasn't actually executed. It'll be a low cost, but it's a real cost. So that's just something to keep in mind is that with smart contracts there's no way for us to perfectly pre check it and and apply the throttle. So it just has to go through the system, and if it turns out that the system is super busy. You will pay for a smart contract. Call a little, you know. Crypto transfer worth. But
+
+96
+00:26:22.901 --> 00:26:31.338
+Richard Bair: even if it wasn't your fault right? And that's honestly that's sort of unfortunate. I wish that there was a great solution to that. I haven't found one.
+
+97
+00:26:32.570 --> 00:26:49.979
+Richard Bair: The way that ethereum avoids, it is by not having fair ordering right. The rule on assembling the block is that you do pre-execute those transactions, then you know exactly how much gas they use, and then you know what you can stick into a block.
+
+98
+00:26:50.180 --> 00:27:03.550
+Richard Bair: But the only way that that can work is if you're able to reorder the items. So the the non-fair ordering makes it work well for that, whereas in our case fair ordering hashgraph has no idea how much gas that thing is going to use either.
+
+99
+00:27:03.720 --> 00:27:19.430
+Richard Bair: Now, in order to try to smooth this out a bit, what we did is we created this rule that said, if you submit an Evm transaction. So every evm transaction has a gas limit associated with it. Like you, the user say how much your gas, the maximum gases you're willing to pay for this thing.
+
+100
+00:27:19.630 --> 00:27:36.830
+Richard Bair: and that's a nice little helper for you as the user, because that way, if your transaction somehow runs wild, you can still get it terminated without paying an arm and a leg. You can say, you know, what's my Max? Sometimes we call it Max gas, but it's technically the gas limit for this transaction.
+
+101
+00:27:37.100 --> 00:27:49.220
+Richard Bair: Now, what we did was we said, Okay, we will do as much pre-checking as we can do. This is what we do today, we'll do as much pre-checking as we can do. What we'll do is when you send us a transaction. We'll look at the gas limit.
+
+102
+00:27:49.220 --> 00:28:08.709
+Richard Bair: and we'll say, Can I let that through my throttles? And if I can, I let it through? But because a bad guy could say, I'm going to use 15 million gas, but they'd actually only use 20,000 gas on the back end. They could exhaust your throttles and not allow anybody else to run any smart contract calls for a very low price because they just do them
+
+103
+00:28:08.710 --> 00:28:32.210
+Richard Bair: minimum, you know, because if you charged them based on the minimum, that's why we came up with this 80% rule which is totally incompatible with any other ethereum network. It's our own invention. But the way that it works is that we say, well, if you tell me you're going to use 10 million gas, then by the time we get to execution, I'm either going to charge you for the gas that you used, or I'm going to charge you for 80% of that 10 million
+
+104
+00:28:32.380 --> 00:28:34.310
+Richard Bair: which would be 8 million gas
+
+105
+00:28:35.050 --> 00:28:37.869
+Richard Bair: one way or the other. That's what you're going to get charged.
+
+106
+00:28:38.320 --> 00:28:41.344
+Richard Bair: And it's unfortunate, because,
+
+107
+00:28:42.110 --> 00:28:58.649
+Richard Bair: you know, it's always a little squishy in terms of how much gas you're going to use. And so people just set their gas limit to be artificially high, based on what they're willing to pay. And it goes through the thing, and then they pay 80% of it, even if they didn't use hardly any of it.
+
+108
+00:28:58.650 --> 00:29:26.850
+Richard Bair: And we see this all the time, because when you're doing your gas measuring. It's like, sometimes it's 200,000 gas, sometimes it's 300,000 gas. Sometimes it's 400,000 gas, and you don't want this thing to fail. So you just set it to 500,000 gas, and then you just, you know, suck up the cost. And there's 2 problems with that one. Well, you as the developer user, you're getting charged more than what you actually use. And the second thing is
+
+109
+00:29:27.870 --> 00:29:43.310
+Richard Bair: we actually end up doing less work per second than we could do, because again, people are using more of that gas throttle, they're paying for it, but they're using more of it that they need, which is sort of unfortunate. We don't get as much work per second that we could get okay.
+
+110
+00:29:44.490 --> 00:29:51.120
+Richard Bair: all that as background. What this hit proposes is that we eliminate the gas per second throttle entirely.
+
+111
+00:29:51.260 --> 00:29:55.600
+Richard Bair: We won't use it on the front end. We won't use it on the back end. We just get rid of it entirely.
+
+112
+00:29:55.870 --> 00:30:17.599
+Richard Bair: Instead, what we do is we create a new table of values that are based on actual measurement. We do this approach that I mentioned, where we run a particular OP. Code or system contractor precompile, essentially in a tight loop, measure its wall clock time measure the number of times that we executed that thing, and once we have that number that gives us some idea of
+
+113
+00:30:17.690 --> 00:30:32.969
+Richard Bair: what our gas per second is, we measure it on representative hardware, which is what we do for all the other throttles that we have. Like our 10 K. Tps, throttle all these throttles, we, we benchmark it on representative hardware. We figure out what the numbers are. We pick a conservative value.
+
+114
+00:30:33.240 --> 00:30:47.600
+Richard Bair: And then, you know, with some buffer and padding. And we say, okay, that is going to be the operational cost or Ops cost for this opcode, precompile or system contract. Call.
+
+115
+00:30:47.870 --> 00:30:50.600
+Richard Bair: Now that we have a more accurate
+
+116
+00:30:50.980 --> 00:30:54.559
+Richard Bair: value that tells us how much that thing is is
+
+117
+00:30:55.300 --> 00:31:01.219
+Richard Bair: actually worth. Then we set a throttle based on that instead of gas per second.
+
+118
+00:31:01.620 --> 00:31:13.169
+Richard Bair: and then, because there is no way to pre-check that on the front end we just remove the front end check for Evm entirely, and we just do the Ops throttle on the back end.
+
+119
+00:31:13.670 --> 00:31:33.390
+Richard Bair: And this is what's meant by precise, smart contract throttling instead of this crude gas measurement. We'll do it by what we actually measure the cost of these things are. And then when we get to execution, that's where we'll do the throttling. Now. Under normal circumstances, we should what we should see. Number one.
+
+120
+00:31:33.700 --> 00:32:00.549
+Richard Bair: that 80% charge that we do disappears. So we become more ethereum. Compatible people can just they can set the gas limit up to whatever the maximum configured for the network is per con per transaction, which currently we would probably on hedera. I mean, it's outside of Hiro. But probably Hedera would leave it at 15 million, maybe Hedera raises it to 30 million. There's a proposal in ethereum to have a gas limit per transaction of 30 million gas. I think
+
+121
+00:32:00.550 --> 00:32:05.090
+Richard Bair: so. You know we'll pick some number. Hedera will pick some number for that thing.
+
+122
+00:32:05.090 --> 00:32:31.380
+Richard Bair: but there will be some configured limit per transaction, so no one transaction is going to show up and say, I'm going to use 15 million gas or 30 million gas, there will be some limit. So even if people were using 15 million gas. It passes through all these things we go to execute. We start executing. They can use, however many, you know, up until that 15 million gas, and then their transaction concludes.
+
+123
+00:32:31.920 --> 00:33:01.159
+Richard Bair: and maybe that 15 million gas used, you know, 300,000 OP. Cost. Maybe it used 30 million OP. Cost. Who knows? Since those 2 things are sort of decoupled from each other. And again, we will charge based on gas exactly like we do today. But we'll throttle on the back end based on the actual Ops cost. So what we would anticipate is again that 80% charge goes away. So anybody who's using smart contract calls today will be happy with that.
+
+124
+00:33:01.160 --> 00:33:19.590
+Richard Bair: The second thing is that because our capacity is so much larger for executing smart contracts than what we are able to do today. The likelihood, in the near term at least, that we encounter these back end throttles is not very high. So and the reason is because there's just not, I mean
+
+125
+00:33:19.720 --> 00:33:44.639
+Richard Bair: 300 million, you know, gas per second or 150 million gas per second is a very big number, and so you'd have to have really high load in order to exhaust that. So for a while nobody will ever see any sort of throttling happen on the back end at all. And then, of course, we're always working on improving our performance to try to get that number higher and higher, and then we'll have sharding and all the other things in order to scale that load out.
+
+126
+00:33:45.007 --> 00:34:05.600
+Richard Bair: But but we should be aware, as a Tsc. In this feature there is a point where, when the network becomes sufficiently saturated, smart contracts will start being throttled on the back end. And if that happens, then you know there is some cost to your contract being throttled, and you have to submit again.
+
+127
+00:34:05.610 --> 00:34:35.380
+Richard Bair: Fortunately the price is very low. So again, it's like the cost of a crypto transfer. Basically. So what that would mean is like if your typical smart contract invocation was, say, somewhere between 2 and 5 cents and a failed one was, you know, point 0 0 1 cent dollars. Then you're you're just looking at a fraction of what would be the overall cost. So retry isn't super expensive. It's not like, gonna
+
+128
+00:34:35.380 --> 00:34:49.839
+Richard Bair: blow up your business. It's irritating because you have to see what happened and then say, Oh, fine! Submit a new one. Try it again, but it's not it's not the end of the world. So that that's the long and the short of it.
+
+129
+00:34:50.100 --> 00:35:13.879
+Richard Bair: We remove the 80% thing and become more like ethereum compatible. Fewer, fewer differences that developers have to know about. We still have the back end throttle, which is no different than today. So that problem still exists, we are able to run way more gas per second. If you, if you were thinking about the sustainability of the network. For example, on hedera. Then
+
+130
+00:35:13.880 --> 00:35:20.919
+Richard Bair: you could say, All right. How much is gas for those who don't know. Gas is currently priced at
+
+131
+00:35:20.920 --> 00:35:23.119
+Richard Bair: point 7 zeros.
+
+132
+00:35:24.330 --> 00:35:25.900
+Richard Bair: 8 5 2.
+
+133
+00:35:26.040 --> 00:35:40.589
+Richard Bair: That's how many Usd per gas. So if you were looking at, what if we actually executed 150 million gas per second. That'd be somewhere around 12 and a half cents 12.7 8 cents
+
+134
+00:35:40.590 --> 00:36:01.949
+Richard Bair: per second, 86,400 seconds per day. That'd be 1.1 million per day, 365 days. You get the point. That's a that's good revenue, you know, which is good for the sustainability of the network. So I think, this particular feature is really exciting to me. It unlocks way more on chain computation.
+
+135
+00:36:01.950 --> 00:36:19.699
+Richard Bair: It gets us closer to ethereum compatibility. It unlocks performance at least an order of magnitude higher than what we can do today. It unlocks use cases that we couldn't do today, you know, defi use cases which currently would be limited at maybe.
+
+136
+00:36:20.046 --> 00:36:36.689
+Richard Bair: You know, based on the normal gas that they use, they would normally be limited to somewhere around 60 Tps today they'd be able to go up into the hundreds and hundreds of Tpss, even like normal swaps at a thousand. Those sorts of things become reasonable. And
+
+137
+00:36:37.437 --> 00:36:47.349
+Richard Bair: yeah, it's it's a little bit irritating. If you're the network owner, do you have to figure out what's the cost for each one of these opcodes because you have to have representative hardware. You have to run all these
+
+138
+00:36:48.354 --> 00:36:55.709
+Richard Bair: tests on them to figure out what the values are. But you know, that's the that's that's the work that we do for hedera
+
+139
+00:36:55.870 --> 00:37:07.550
+Richard Bair: that hash graph. So we'll take care of all that. But at the sort of architecture level. This allows us to to really unlock the capabilities of the system far beyond what we're able to do today.
+
+140
+00:37:07.950 --> 00:37:11.800
+Richard Bair: That's all I got to say I had any questions, or thoughts or concerns.
+
+141
+00:37:15.480 --> 00:37:22.810
+Alex Popowycz: Hey, hey, Richard? In terms of the actual calculation of
+
+142
+00:37:23.040 --> 00:37:29.630
+Alex Popowycz: the unit. Yeah. The new unit of measure to replace gas, the Ops per second, yeah.
+
+143
+00:37:29.630 --> 00:37:30.260
+Richard Bair: Lost!
+
+144
+00:37:30.950 --> 00:37:31.839
+Alex Popowycz: Well, I'm sorry.
+
+145
+00:37:32.030 --> 00:37:33.419
+Richard Bair: Ops. Cost is what.
+
+146
+00:37:33.420 --> 00:37:39.319
+Alex Popowycz: Yeah, the app cost there. Where is that being
+
+147
+00:37:39.740 --> 00:37:45.500
+Alex Popowycz: measured in real time to replace gas?
+
+148
+00:37:45.710 --> 00:37:48.200
+Alex Popowycz: And is that something that
+
+149
+00:37:49.960 --> 00:37:59.390
+Alex Popowycz: over time, you know, once we, you know, demonstrate it's its utility. Does that go then, contributed back to basic.
+
+150
+00:38:00.350 --> 00:38:15.216
+Richard Bair: Right, so it it would not get contributed back to base. So I'll go backwards on that only because ethereum has no need for this Ops cost. It doesn't factor in anywhere there. So the way that Bay Sue works is that they have
+
+151
+00:38:15.790 --> 00:38:20.210
+Richard Bair: there's this base. There's this class that represents the evm.
+
+152
+00:38:20.460 --> 00:38:25.220
+Richard Bair: and it's non-final which worked out good for us because we were able to subclass it.
+
+153
+00:38:25.420 --> 00:38:41.789
+Richard Bair: And in that subclass we added in our own. It's a pretty small class. So we're not talking about a huge delta from Evm. It was actually very minor amount of changes that we had to make to to this in order to make it work. Basically, what they do is they have a method that in a loop
+
+154
+00:38:41.900 --> 00:38:43.570
+Richard Bair: takes an opcode.
+
+155
+00:38:43.660 --> 00:38:54.120
+Richard Bair: does a switch on it invokes the OP code updates, gas. And what we did was we just inserted into this the ability to do our Ops code check as well.
+
+156
+00:38:54.130 --> 00:39:19.359
+Richard Bair: So it essentially, we're doing. We're metering 2 things. We're metering gas, and we're metering Ops cost there, there, you know, that has to be done carefully in order to keep performance up, because now you're doing, you know, 2 different meters instead of one, there is a cost to it. But but it wasn't like a huge delta to basis. It's very small. And we didn't have to change the core basic classes at all.
+
+157
+00:39:19.790 --> 00:39:20.630
+Richard Bair: So.
+
+158
+00:39:21.710 --> 00:39:33.290
+Alex Popowycz: So so as a result, you are, you're outputting those 2 metrics simultaneously out of the out of the Evm as implemented in in hedera
+
+159
+00:39:34.388 --> 00:39:39.710
+Alex Popowycz: and and then using, you know, since you're doing both
+
+160
+00:39:40.536 --> 00:39:48.140
+Alex Popowycz: but we'll get rid of the the throttle for the gas limit. Throttle that
+
+161
+00:39:48.540 --> 00:39:55.080
+Alex Popowycz: this is the second one just used to ease the transition to.
+
+162
+00:39:55.840 --> 00:40:05.129
+Richard Bair: So we we charge based on the amount of gas you use. But we throttle based on the actual limit of what we can do.
+
+163
+00:40:05.970 --> 00:40:07.239
+Richard Bair: The Ops cost.
+
+164
+00:40:09.610 --> 00:40:11.430
+Alex Popowycz: And then how? What's the
+
+165
+00:40:11.840 --> 00:40:18.540
+Alex Popowycz: correlation there? I mean, it's obviously if if we're one to one, then you wouldn't need both right.
+
+166
+00:40:18.750 --> 00:40:19.440
+Alex Popowycz: Yup, but if it.
+
+167
+00:40:19.440 --> 00:40:26.469
+Alex Popowycz: if it's if if it's variable, then that's why you need both one for charging and one for throttling.
+
+168
+00:40:26.580 --> 00:40:39.360
+Richard Bair: That's right. And the reason that we have to charge on gas. So so the the other option would be that we just didn't do the Ops cost at all. We just kept using gas. But what we did was we said we created our own gas schedule
+
+169
+00:40:39.360 --> 00:41:03.310
+Richard Bair: so we could say, yeah. Ethereum says it's 3 gas per OP. Code. But for us it's 1 gas prop code and ethereum says it's 20,000 gas for that. But it's actually only 1,500 gas for us, and so on, so forth. We could do that. But there's a big problem with that from compatibility perspective. If you're a smart contract developer and you create smart contracts. You are using your development tool chain, which often includes
+
+170
+00:41:03.310 --> 00:41:12.139
+Richard Bair: other tool always includes other tools outside of hedera. And that tool chain is going to estimate how much your gas, how much gas you're going to use.
+
+171
+00:41:12.140 --> 00:41:25.390
+Richard Bair: and then you would run it on Henar, and it would be like wildly different the amount of gas you used, and that would break all kinds of people. So we have no choice but to to use gas.
+
+172
+00:41:25.430 --> 00:41:44.280
+Richard Bair: the official ethereum gas schedule for the whatever particular hard fork we're on as the gas schedule for our network, we have to charge on that. But it turns out that that works in our favor because our Ops cost will allow us to do lots of gas per second, and we get to charge for that. So we get to charge that
+
+173
+00:41:45.180 --> 00:41:46.510
+Richard Bair: Milan.
+
+174
+00:41:47.010 --> 00:41:48.719
+Milan Wiercx van Rhijn: Yeah, hey, Richard?
+
+175
+00:41:49.630 --> 00:42:10.212
+Milan Wiercx van Rhijn: 1st of all, I'm a little over my head. Yeah, I think it's a it's an excellent excellent direction of this, because, you know, I I, as you also mentioned, like one of the issues, is being like estimating gas, you know, and and also the estimation of doing so could what could vary widely? And then the, you know,
+
+176
+00:42:10.680 --> 00:42:37.689
+Milan Wiercx van Rhijn: then mostly the decision that will be made is like, okay, we'll estimate it just higher, because what does it matter? Right? I mean, it's still the cost is low, but that would also mean that we would reserve like a lot of gas which could then be utilized normally, if we don't have that, 80% could utilize for other smart contract executions or other network services. Obviously, so I really love this. You know, really, I love this direction.
+
+177
+00:42:38.087 --> 00:42:53.519
+Milan Wiercx van Rhijn: What? I yeah. And you know, for example, I remember talk had some discussions with some people about this 50 million guest limit, which is currently the guest throttle, if I remember correctly, on the Hedera network 50 million guests per second
+
+178
+00:42:53.953 --> 00:43:06.219
+Milan Wiercx van Rhijn: and just checking, for example, and maybe maybe my estimates. Maybe that's already adjusted. But I remember, like Bonzo and and sauces both had about around 1 million gas
+
+179
+00:43:06.220 --> 00:43:23.659
+Milan Wiercx van Rhijn: that was used. And I think the estimation was just below 1 million gas, which will then in turn gives you not a lot of Tps, obviously so, yeah, I think this is an excellent direction. And you know, I'll have another deep look on the on the hip.
+
+180
+00:43:24.137 --> 00:43:40.379
+Milan Wiercx van Rhijn: Also, my question was like, if we're going a different we're adjusting this then how will it work in terms of like reservation of other network services, or like.
+
+181
+00:43:40.910 --> 00:44:03.429
+Milan Wiercx van Rhijn: if there's like, if there's a lot of smart contracts, executions within a second, is there like one preference over another? Or is it yeah, how does it work? Maybe just just for me? Maybe maybe I've missed it somewhere else that I can read up to just just that. I I kinda get how. That's
+
+182
+00:44:03.580 --> 00:44:04.510
+Milan Wiercx van Rhijn: how that will work.
+
+183
+00:44:05.210 --> 00:44:29.930
+Richard Bair: Yeah, you bet. So yeah, no. Totally makes sense. So what we did. And again, this is like, Okay, Hiro hat off. Hedera had on. So what we did for configuring the hedera network, because any network, any any network, could take the Hiro configurations, and they can tweak how they do this. But the way that we did it on hedera was that we said we're gonna reserve half of the second for
+
+184
+00:44:29.930 --> 00:44:45.280
+Richard Bair: sort of smart contracts, and that way, if the smart contract was completely loaded with the worst case attack possible, we would still have half a second available to do all the other normal transactions.
+
+185
+00:44:45.810 --> 00:45:03.889
+Richard Bair: and the smart contracts and other transactions. They do share some throttle buckets so like. If you were to execute one of the smart contracts. It takes away some of the 10,000 tps that's available for people and so forth. So it all kinda balances out. Now, what we have done in our just, you know.
+
+186
+00:45:03.890 --> 00:45:29.749
+Richard Bair: amongst all of us friends on this publicly recorded video is that we set up our performance networks and we run 15 million gas per second in 10 ktps simultaneously. So we know that we're able to to have both of those things run flat out today. What I'm what I would expect us to do for hedera is the same thing. When we get to Ops per second, we will choose Ops costs
+
+187
+00:45:29.940 --> 00:45:40.029
+Richard Bair: for these things such that we could run that throttle flat out and still do all of our normal crypto transfers and everything else. That's kind of what I'm anticipating.
+
+188
+00:45:40.030 --> 00:45:51.199
+Milan Wiercx van Rhijn: Excellent. And so, and I imagine this would also feed right into the Hyro hooks, that those become more predictable as well, because those are more like they're more sizable as function as well.
+
+189
+00:45:51.650 --> 00:46:03.730
+Richard Bair: Exactly. In fact, I I really wanted to get this hip out before hooks so that we could really unlock it, because your hooks are interesting, but if you're limited to, you know.
+
+190
+00:46:03.870 --> 00:46:29.050
+Richard Bair: 300 tps for hooks, then any accounts that are using hooks are not going to be able to to have very much Tps. Maybe they don't need it, but aggregate, you know, if a lot of people were using hooks and bring down the overall Tps of the network. If you put this thing in place, then that's no longer an issue, and you'll be able to run a high number of basic crypto transfers with hooks, it should still be in good shape.
+
+191
+00:46:29.300 --> 00:46:36.380
+Milan Wiercx van Rhijn: Excellent. Well, great work I'm I'll be diving more into it. But thank you for the presentation, and definitely great direction.
+
+192
+00:46:36.690 --> 00:46:38.460
+Richard Bair: You bet. Keith.
+
+193
+00:46:39.780 --> 00:46:42.229
+Keith Kowal: Yeah, thanks, Richard, that was great presentation.
+
+194
+00:46:42.700 --> 00:47:02.139
+Keith Kowal: just from a docs perspective, do we? I mean, what does what do Evm developers need to know about this. If anything I mean is the message to Evm developers, just, you know, you know, get, you know, use the appropriate amount of gas you'll be charged for gas. Is there anything else we need to be telling them.
+
+195
+00:47:02.510 --> 00:47:21.320
+Richard Bair: Yes, we have it down here in the how to teach this section so definitely, we would want to let them know that there's no more of this 80% minimum charge. Of course, even if you don't tell them that they will just be pleasantly surprised, and everything will be great because they'll get charged less. But that's a good sort of thing that we can. We can share with people.
+
+196
+00:47:21.585 --> 00:47:39.339
+Richard Bair: This is the main thing that they have to really be concerned about. We have to make sure that it's documented that when the network is under load, your transaction can fail with a specific error that indicates that it was throttled. And it'll cost you this little amount. You just have to resubmit your transaction. That's the main thing that they have to be aware of.
+
+197
+00:47:39.490 --> 00:47:58.479
+Richard Bair: Outside of that, the other 2 things are. Again. It's like performance gains. It's like, well, this is all just good and we'll also want to publish what the Ops costs are, so that people will be able to look at it and and get some idea of what they're they're
+
+198
+00:47:59.760 --> 00:48:01.410
+Richard Bair: you know. Ha, ha!
+
+199
+00:48:02.270 --> 00:48:18.519
+Richard Bair: What impact they have on the throttle system. But honestly, I don't think anybody's gonna pay too much attention to that part. I think it's pretty much going to be, hey? Everything's faster, and they go yay, everything costs you less. Yay. And oh, by the way, you have to deal with this Boo. But okay, it's no different than today.
+
+200
+00:48:18.840 --> 00:48:21.650
+Richard Bair: So I think that's basically the story. Alex.
+
+201
+00:48:22.690 --> 00:48:25.690
+Alex Popowycz: Yeah, I I was just curious whether there's
+
+202
+00:48:25.950 --> 00:48:41.879
+Alex Popowycz: a future. And I'm raising is just for consideration for include, including capabilities that would maybe, offer us opportunities in the future. And and what I'm getting at is
+
+203
+00:48:41.980 --> 00:49:09.800
+Alex Popowycz: we talk about about having evm or ethereum compatibility, which obviously is important. But if there's a an option to indicate that I don't need to be, quote unquote ethereum compatible you know, just as in the indication of the contract, saying that, yeah, no, I'm going to go. Just do everything native up cost, not do gas, etc, etc, that I indicate in my contract that this is
+
+204
+00:49:10.090 --> 00:49:20.739
+Alex Popowycz: not, you know, ethereum compatible, or however we want to indicate it, that this is, say, hedera tuned whatever nomenclature want to use and
+
+205
+00:49:21.470 --> 00:49:35.580
+Alex Popowycz: potentially remove our need to do any sort of gas calculations. Just do everything natively up cost for for that contract, and potentially even gain some more efficiencies and performance.
+
+206
+00:49:36.970 --> 00:49:38.240
+Richard Bair: Yeah, I.
+
+207
+00:49:38.240 --> 00:49:44.059
+Alex Popowycz: Like v. 1 v. One versus v. 2. Right, or something like that, as a. As a header in the in the contract.
+
+208
+00:49:44.380 --> 00:50:02.885
+Richard Bair: Yeah, I think you know, I mean, I wouldn't preclude it and say that they could never happen. I I don't think that we're close to that in terms of you know the the advantage that we have and the demand on the market side to be ethereum compatible is really high. And the reason, for example, we had a customer who,
+
+209
+00:50:03.290 --> 00:50:32.059
+Richard Bair: you know, got a 3rd party contractor to work on all their stuff. That contractor never worked on hedera before, but he knew Evm, and so make everything work. But if if you wanted to have a specific like native tune thing, there's a lot of. There's a lot of things that we could change in order to make it practical. There would be a big investment on tooling in order to replace a lot of the tooling that exists here in world. So there'd be a lot into it. But it's certainly, you know, not technically impossible. Something.
+
+210
+00:50:32.060 --> 00:50:45.230
+Alex Popowycz: I I. The only reason raised. It is just thoughts of if there's any things that would be good to do now, just from a future proofing, even if it's not if it's a
+
+211
+00:50:45.420 --> 00:50:49.250
+Alex Popowycz: kind of a a dead end. Entry point
+
+212
+00:50:49.630 --> 00:50:56.389
+Alex Popowycz: that we which might be more difficult to do if we try to do it later.
+
+213
+00:50:56.500 --> 00:50:59.811
+Alex Popowycz: If if it doesn't matter, then then that's
+
+214
+00:51:00.990 --> 00:51:04.240
+Alex Popowycz: we we can just dismiss that. But it just just a thought.
+
+215
+00:51:04.760 --> 00:51:09.460
+Richard Bair: Yeah. As far as I know, we're not boxing ourselves in any corners there. We should be okay.
+
+216
+00:51:09.975 --> 00:51:32.310
+Richard Bair: Another thought. By the way. for those on the call one of the things, and then we could should probably go to the the next step but one of the other things that I'm really interested in is this idea of developers running their own relay and enhancing the relay so that it has the ability to sign and submit transactions on behalf of the the the user.
+
+217
+00:51:32.480 --> 00:51:51.330
+Richard Bair: And this obviously wouldn't be used by a retail user who's using the system. But for you know, if you're like a saucer swapper decks or something like that, and and you're sending the transactions. Then having some kind of a back end like a relay that you run, that you, host, or you have a 3rd party host on your behalf
+
+218
+00:51:51.500 --> 00:51:58.919
+Richard Bair: that has a signing key advantage to that with in combination with block nodes. Is that
+
+219
+00:51:59.432 --> 00:52:10.289
+Richard Bair: that relay could be watching the throughput of the system by just observing the block stream, and it could anticipate what the network load looks like.
+
+220
+00:52:10.290 --> 00:52:29.610
+Richard Bair: and make all kinds of decisions like, should I submit my transaction? Now? Should I wait to submit my transaction? Do I submit my transaction, and if it fails, I create and submit a new one automatically. You know there are ways of making the sort of the developer pain that I talked about with execution kind of go away, and the
+
+221
+00:52:29.610 --> 00:52:56.130
+Richard Bair: and the probability of running a transaction that doesn't work get reduced or or not depending on, because you may. You may say I want to wait for the network to quiet down before I run my transaction. Or you may say, dude. I'm going to compete for my transaction to be executed, and I'm willing to pay for a few throttled transactions in order to get mine in. You can make those sorts of decisions, maybe encode it in a relay. And that way every developer in the world doesn't have to.
+
+222
+00:52:56.130 --> 00:53:07.853
+Richard Bair: you know. Do all of that work themselves, write all that logic we can bundle it up in something like the Json Rpc. Relay, have people run their own relay, and then it handles all these. So there! There are other things like that.
+
+223
+00:53:08.360 --> 00:53:12.840
+Richard Bair: Alex, that we can do in order to make this really smooth for users as well.
+
+224
+00:53:13.100 --> 00:53:14.229
+Alex Popowycz: Right, right, right.
+
+225
+00:53:14.960 --> 00:53:15.360
+Richard Bair: Cool.
+
+226
+00:53:15.360 --> 00:53:16.270
+Alex Popowycz: Okay. Cool.
+
+227
+00:53:16.650 --> 00:53:19.559
+Richard Bair: Alright, I think we should jump to the next
+
+228
+00:53:20.880 --> 00:53:24.040
+Richard Bair: hip, which, let me bring it up
+
+229
+00:53:24.860 --> 00:53:30.079
+Richard Bair: is the generally smart contract. So this is a really cool one.
+
+230
+00:53:30.781 --> 00:53:34.840
+Richard Bair: Let me pull that guy out. Share that screen.
+
+231
+00:53:36.020 --> 00:53:44.359
+Richard Bair: This one's relatively straightforward and super powerful.
+
+232
+00:53:44.550 --> 00:53:54.220
+Richard Bair: So this one comes from little Tarzan and Michael Tinker. And the idea was, we have
+
+233
+00:53:54.838 --> 00:54:21.431
+Richard Bair: scheduled transactions. We would like 2 things. One is, I would like, you know, we. We want our schedule transaction to be able to call smart contracts. That's great. But the really cool thing is a give a contract. The ability to create scheduled transactions. So this involves adding a new system contract that would allow the
+
+234
+00:54:22.290 --> 00:54:47.996
+Richard Bair: smart contract service to schedule future smart contract calls in in that smart contract service, and the idea that you could have a contract sort of invoke another contract has some really interesting powers and abilities. So there's a few of them that are here listed in user stories, rebalancing of defi positions, vesting claims, dow automation.
+
+235
+00:54:48.470 --> 00:55:14.070
+Richard Bair: you could even imagine a like a a defi system that is like I'm gonna do a certain number of or or or any type of smart contract where it's like I have a big backlog of work. I need to do like a million things. I can't do a million things in a single contract call, so I'll do 10 things, and then I'll schedule another call into myself, do 10 things, schedule a call into myself, do 10 things
+
+236
+00:55:14.070 --> 00:55:28.720
+Richard Bair: and sort of give you this ability to really write, you know, autonomous smart contracts, if you will, and there's no other network that we're aware of that's doing something like this. It's really a very special
+
+237
+00:55:28.720 --> 00:55:56.049
+Richard Bair: capability. That we would be exposing. That would unlock totally new use cases that you can't do on on any other network that we're aware of. So the the system contract Api is defined here you have a chance to go and review this and check it out. But essentially, you're you're able to schedule a call and and delete a schedule. And there's this call here is interesting. So
+
+238
+00:55:57.162 --> 00:56:06.339
+Richard Bair: as with everything there need to be throttles and stuff to prevent a smart contract from, say, using up all the available capacity of the system.
+
+239
+00:56:06.683 --> 00:56:28.980
+Richard Bair: And also to prevent any other transactions coming from the outside world of being executed. We don't want any, no matter how many smart contracts using this feature. We don't want to make it so that they can, you know, edge out all the normal contracts for being able to execute, or all the normal transactions from being able to execute. So what we do is scheduled services today is that there's a certain number of
+
+240
+00:56:28.980 --> 00:56:51.670
+Richard Bair: transactions per second that we allow you to schedule. And basically we have, you could think of it as like a bucket for each second. You know, we don't actually create a bucket for every second. But you can say virtually, there's a bucket for every second, and there's a certain capacity for that second. And so you can. If there's capacity in there, you can put your transaction in it. Otherwise it's in the following second.
+
+241
+00:56:51.670 --> 00:57:10.779
+Richard Bair: and we don't make a guarantee that that actual wall clock second is when this thing's gonna execute, because, of course, your consensus time and wall clock. Time might be separate from each other. But we just say that on or after that second and consensus time will execute your your transaction as best we can. So
+
+242
+00:57:10.890 --> 00:57:38.669
+Richard Bair: so we have some basically limit to how many you can do per second. And this call allows you to check whether there's room in that second. So basically the contract can do various smart things. It can have some logic that says, Hey, is there room in that second, because I would like to execute in that second. Yes, there is. Okay. I'm gonna schedule my call in that second.
+
+243
+00:57:38.720 --> 00:58:01.030
+Richard Bair: Or it could say, is there room in that second? No, there's not room in that second. Okay, try the next second. No, no room. Try the next one, no room, and it can have a loop, and it could try every single one. Or it could have logic that said, Okay, try that second. Well, that second is not available. Okay, try the next second. No, that was not available. Okay, try a power of 2 farther seconds. Okay, try farther. So you can do back off
+
+244
+00:58:01.308 --> 00:58:27.570
+Richard Bair: it just depends on the logic of the transaction. Or it could also say, I'm gonna check the next 5 seconds for my optimal second, if none of them are available. Then forget about it. I won't schedule a call. All of that is available to the smart contract. It can decide exactly what policy it wants to use by using this has scheduled capacity. Figure out, you know, is that is that a second that I am going to schedule? Do I want to schedule it. What what can I do? And then it can call the schedule call. And of course each one of these things will have
+
+245
+00:58:27.570 --> 00:58:31.253
+Richard Bair: an Ops cost associated with it as well. Assuming that the other
+
+246
+00:58:31.590 --> 00:58:39.029
+Richard Bair: hit passes. And and some, you know, gas associated or sorry. Yeah. A gas cost associated with each one of these different calls.
+
+247
+00:58:39.354 --> 00:59:08.900
+Richard Bair: And then you have these other variants here that allow you to specify. You know who who the sender is gonna be so in in a smart contract call you have the sender, you know who's the sender. You and you can specify who the sender is gonna be, is it gonna be the contract? Is it? Gonna be the person who called this contract? Whatever? And then you also have this execute call and sender signature option, which is you know, we, I'm gonna schedule this this transaction.
+
+248
+00:59:09.220 --> 00:59:32.639
+Richard Bair: But it doesn't execute unless it's been, you know, like, like normal schedule transactions, unless it gets signed by a 3rd party, and if it gets signed by a 3rd party, then we'll go ahead and execute the call. So, anyway, just a few variants of what these methods are. You can dig into this to understand better those details, and then there's some little examples, but it's a fairly small hip
+
+249
+00:59:33.218 --> 01:00:00.449
+Richard Bair: the primary point. Here is just that from inside of a contract you can schedule the con. Your contract, or another contract to be invoked, and you can use a sort of arbitrary policy for what to do if the second that you're trying to schedule for is busy and you could use or hunt for the second that you want, and using whatever your approach is, and then schedule your contract call.
+
+250
+01:00:02.380 --> 01:00:03.710
+Richard Bair: and that's this hip.
+
+251
+01:00:10.620 --> 01:00:14.980
+Richard Bair: If no questions, then that's what we got.
+
+252
+01:00:25.049 --> 01:00:40.139
+Richard Bair: Michael, you asked, are these diagrams published anywhere? No, of course not. Just made it up this morning, but I was thinking of trying to put that into the hip, so we'll at least have that diagram in the hip. We do have a number of architecture diagrams that we need to document.
+
+253
+01:00:41.200 --> 01:00:41.755
+Richard Bair: But
+
+254
+01:00:42.720 --> 01:00:45.579
+Brandon Davenport: Yeah, I would definitely throw those in the hip. Those are great.
+
+255
+01:00:45.790 --> 01:00:48.292
+Richard Bair: Yeah, it's very helpful for understanding how it works.
+
+256
+01:00:49.750 --> 01:00:52.800
+Richard Bair: Okay, so let's it back over to you and.
+
+257
+01:00:53.140 --> 01:00:58.279
+Hendrik Ebbers (Hedera Foundation): Good thanks for all those introductions.
+
+258
+01:01:00.332 --> 01:01:05.349
+Hendrik Ebbers (Hedera Foundation): So let me share the agenda again.
+
+259
+01:01:09.030 --> 01:01:13.879
+Hendrik Ebbers (Hedera Foundation): So the next point we have on the roadmap
+
+260
+01:01:14.220 --> 01:01:21.169
+Hendrik Ebbers (Hedera Foundation): is the initial backward compatibility, guideline, which are that that you created as
+
+261
+01:01:23.330 --> 01:01:47.930
+Hendrik Ebbers (Hedera Foundation): per request for the government's doc. And and this is especially to ask people one more time to to have a look at that and and review it, so that we, as a Tsc. Can vote on that one in the near future, do you want to give again a short overview about what it contains with chat.
+
+262
+01:01:51.550 --> 01:01:56.130
+Richard Bair: Boy. It's the Richard show today. Okay.
+
+263
+01:01:56.710 --> 01:01:59.370
+Richard Bair: we did a whole session on this one a couple of weeks ago.
+
+264
+01:02:02.070 --> 01:02:03.220
+Hendrik Ebbers (Hedera Foundation): So I'm sick.
+
+265
+01:02:03.220 --> 01:02:18.979
+Milan Wiercx van Rhijn: I think, a question that I more had. I think it's also in that discussion. Fred is what is? And I think we mentioned also, we touched upon it lightly last week is, where do we place these documents like? Is there? You know, in a in a way, I thought, is this.
+
+266
+01:02:19.150 --> 01:02:25.970
+Milan Wiercx van Rhijn: perhaps maybe I'm totally wrong. Is this like a is this a a process type hip?
+
+267
+01:02:26.090 --> 01:02:32.740
+Milan Wiercx van Rhijn: Or, you know, I was still kind of trying to figure out, where? Where could we place the where do? How do we make sure? That's a actionable.
+
+268
+01:02:33.030 --> 01:02:52.073
+Richard Bair: So my feeling was that this sort of thing is more in line with the charter than in line with sort of the hips. And so the the home for this thing was in the governance repo where the charter lives. Because this is like governance related as opposed to
+
+269
+01:02:53.130 --> 01:03:02.519
+Richard Bair: say, a feature on the network, or a way of using the network. So my my feeling was that this would be more of a a governance, Doc that went in this region.
+
+270
+01:03:07.760 --> 01:03:22.169
+Milan Wiercx van Rhijn: Okay? And and so is, is it an idea as well to together with that, maybe to have, like a sub folder, that we have similar documents like that that we created that becomes more structured. That is like, I don't know.
+
+271
+01:03:22.410 --> 01:03:26.870
+Milan Wiercx van Rhijn: I don't know how you would call it, but a a guidelines folder or something.
+
+272
+01:03:26.870 --> 01:03:29.020
+Richard Bair: Or a policy for something like that.
+
+273
+01:03:29.020 --> 01:03:52.359
+Hendrik Ebbers (Hedera Foundation): Yeah, we should start with something like that. I agree on on that, Megan. So currently, it's all in the root, maybe have start with like, oh, there are guidelines, you know, and and start. Put it in the guidelines folder, and maybe have them in the Readme. Md. Listed as the 1st step. All of that. Would that be good enough as an initial step?
+
+274
+01:03:56.760 --> 01:03:58.570
+Hendrik Ebbers (Hedera Foundation): Oh, I got, says hands up.
+
+275
+01:04:00.310 --> 01:04:26.869
+Alex Popowycz: Oh, yeah, no. But I think it's something along the lines of Amelia is asking around this being a a normative document. In so much that we're expecting this to be applicable to all the projects under Hiro. And if so, what is the oversight? Expectation around oversight and enforcement meaning.
+
+276
+01:04:27.360 --> 01:04:36.509
+Alex Popowycz: Even if we don't do it proactively. If say, from a community perspective, things get raised. Oh, there's a breaking change and Project X didn't follow these guidelines.
+
+277
+01:04:36.650 --> 01:04:42.075
+Alex Popowycz: Is there an expectation that we
+
+278
+01:04:43.380 --> 01:04:48.429
+Alex Popowycz: it takes any sort of action associated with that?
+
+279
+01:04:50.280 --> 01:05:00.230
+Alex Popowycz: So I know that that as you're highlighting there. It's it's currently scoped to these particular repos.
+
+280
+01:05:01.109 --> 01:05:03.720
+Alex Popowycz: But you know it, it
+
+281
+01:05:04.330 --> 01:05:07.799
+Alex Popowycz: potentially could go expand further. But the point being, is that.
+
+282
+01:05:08.120 --> 01:05:16.112
+Alex Popowycz: What? What is then the reaction of the Tsc. If there's a
+
+283
+01:05:17.190 --> 01:05:33.909
+Alex Popowycz: a breaking change, or that does not conform with the because we talk about a guidelines, but the language in here says must right, and you know, is is inheriting those words that are very prescriptive.
+
+284
+01:05:36.120 --> 01:05:50.579
+Richard Bair: Yeah, I think. That's the intent of it is that if if these particular projects and maybe we end up expanding this some someday, so that any of our mature projects fall under the same kind of guidelines.
+
+285
+01:05:50.962 --> 01:06:06.789
+Richard Bair: You know, if if they're not behaving according to these policies, then we would need to have a discussion with those maintainers, because that that is the role of the Tsc is to provide that sort of technical oversight for these projects and part of that technical oversight compatibility.
+
+286
+01:06:06.820 --> 01:06:25.530
+Richard Bair: So we would have responsibility to to provide oversight and make sure that these projects are are behaving correctly in that way. And the reason that's important is because in general we don't want the Tsc. To be too bossy. Right? We want the maintainers of these projects to be able to maintain their projects.
+
+287
+01:06:25.640 --> 01:06:50.419
+Richard Bair: But I think this is one of those places where the integrity of the entire Hiro projects can be undermined by. There are certain maintainer behaviors that can undermine the integrity of the entire Hiro Project experiment, and some of those would be if maintainers are acting unethically, or you know, if they are
+
+288
+01:06:50.801 --> 01:07:03.478
+Richard Bair: not, not not listening to the other Maintainers. And there's Inter Maintainer fight. All that kind of stuff could happen. But also, I think, breaking a policy like this could really undermine the rest of our project. So it's important to
+
+289
+01:07:03.990 --> 01:07:10.710
+Alex Popowycz: Okay, I I no, no disagreement. It was just trying to understand from a Tc perspective.
+
+290
+01:07:10.880 --> 01:07:29.430
+Alex Popowycz: If if there is deemed to be, or escalated some sort of violation, you know. However, we want to term it of of these principles, or these items that we say must right? And and how do we even
+
+291
+01:07:29.550 --> 01:07:37.680
+Alex Popowycz: determine that? For example, where it says all changes must be evaluated? Okay, how do we know that that was done. If it's a must.
+
+292
+01:07:38.390 --> 01:07:41.619
+Hendrik Ebbers (Hedera Foundation): So, my Richard, do you want to say something.
+
+293
+01:07:41.860 --> 01:08:01.481
+Richard Bair: I was just gonna say, in that particular case, I think all we do is we just define the policy. And then that's what they have to do, and if they don't do it, then we have a conversation with them. I don't think that we need any them to fill out reports or anything, because reports can be fabricated, or whatever it doesn't, it doesn't do it, doesn't, you know, significantly advance us. And I want to avoid any sort of heavy handed, you know.
+
+294
+01:08:02.305 --> 01:08:14.119
+Richard Bair: sort of process it. It's really just we lay it down the expectation, and then they abide by the expectation, and if it turns out that they didn't, then we have a conversation with them. That's the way that I.
+
+295
+01:08:14.400 --> 01:08:33.049
+Hendrik Ebbers (Hedera Foundation): Yeah. And and I would. So from my point of view, the big picture comes together. When we have, for example, defined like what are graduated project from for us. What are incubating projects and things like that? Right? Because then we could say something like, Okay, those routes are
+
+296
+01:08:33.229 --> 01:08:48.759
+Hendrik Ebbers (Hedera Foundation): must, or we defined for projects in credit rated state, and if a project that is in credit rated state like don't care, and always, you know, do breaking changes, then we, as a Tsc
+
+297
+01:08:48.800 --> 01:09:05.970
+Hendrik Ebbers (Hedera Foundation): need to, or it's a must, then to move it back to incubation. That is, that is my point of view here, and and then it would not even be this, then it would be like all projects in the graduated state, need to follow those rules. If you
+
+298
+01:09:06.380 --> 01:09:15.189
+Hendrik Ebbers (Hedera Foundation): break those woods. I mean, if you break them one, you can talk right, but if you don't care and break them often, then you need to go back to to incubation.
+
+299
+01:09:15.710 --> 01:09:18.400
+Hendrik Ebbers (Hedera Foundation): That that would be my my point of view. Here.
+
+300
+01:09:19.710 --> 01:09:26.119
+Alex Popowycz: Yeah, yeah, again, it's just understanding what expectations there are
+
+301
+01:09:26.370 --> 01:09:42.820
+Alex Popowycz: with this or similar documents. And just to clarify that when we say guidelines, guidelines are generally, hey? We think this is a good practice if you, if you follow it. Great if you don't no big deal right?
+
+302
+01:09:43.374 --> 01:10:02.940
+Alex Popowycz: But if it's a a standard, or a practice, or a policy or or no a procedure, then, that that has a different sort of weight, or and a different set of obligations on the Tsc. To ensure that the projects under its authority
+
+303
+01:10:03.180 --> 01:10:09.761
+Alex Popowycz: are, are are compliant, or at least there's a mechanism to
+
+304
+01:10:10.780 --> 01:10:15.259
+Alex Popowycz: affect that compliance, you know, either proactively or reactively.
+
+305
+01:10:17.921 --> 01:10:24.950
+Alex Popowycz: It's just it's just clarifying. When we're creating these you know, these documents, these.
+
+306
+01:10:25.100 --> 01:10:38.249
+Alex Popowycz: you know again, whether they're guidelines, policies. What have you that? We have one consistencies, so that the community knows how to interpret that and what to expect from the Tsc.
+
+307
+01:10:38.850 --> 01:10:54.829
+Hendrik Ebbers (Hedera Foundation): Yeah. So I I think we in the same folder or in the same org. We now have those guidelines regarding what is the committer. What is the Maintainer? How is the voting of all that work? And I believe we matched
+
+308
+01:10:55.250 --> 01:11:22.350
+Hendrik Ebbers (Hedera Foundation): 90%, maybe on how the reality is right. And and that's why I like to call it guideline, because maybe in I don't know. Some months we come back and say, Oh, Jessica has now introduced this great voting mechanism for for Github. So now we change our guideline and say, Hey, please do it with that. And if then a project for the 1st 3 months still do it in the, you know, like
+
+309
+01:11:22.870 --> 01:11:44.750
+Hendrik Ebbers (Hedera Foundation): odd way of doing it. I think it's fine. That's why I would call it guiding line, you know. And and if we really see, everything works and everything is great, then we can say, Yeah, that's now now a must that is now the baseline of of what needs to be done. But I don't like to directly start with that on day one, because
+
+310
+01:11:45.310 --> 01:11:46.203
+Hendrik Ebbers (Hedera Foundation): you know,
+
+311
+01:11:46.650 --> 01:11:58.159
+Alex Popowycz: That's a fair point. I mean, I think that's a that's a good way of looking at it. That we this is this is the practice we want to see across the code base
+
+312
+01:11:58.500 --> 01:12:09.869
+Alex Popowycz: deploy this as a a statement of intent, you know, through as a guideline but then say, revisit it in 6 months, or whatever period of time to say. If we're seeing that
+
+313
+01:12:10.050 --> 01:12:19.910
+Alex Popowycz: these practices are are being followed, adopted. Then we can maybe elevate it. To say that this is more normative.
+
+314
+01:12:22.700 --> 01:12:23.310
+Hendrik Ebbers (Hedera Foundation): Yep.
+
+315
+01:12:23.550 --> 01:12:48.169
+Hendrik Ebbers (Hedera Foundation): Agree on that. I think that is good. Okay, we already way over time, since some of the Tsc. Are still here. I would like to open one link for 1 min. So I started an issue where I tried to correct like, Oh, is there a typo in the charter? Or is there something that maybe need to change? Because if we do this charter change?
+
+316
+01:12:48.270 --> 01:12:53.679
+Hendrik Ebbers (Hedera Foundation): And if we find additional small things, we should correct and do everything in once.
+
+317
+01:12:54.364 --> 01:12:55.940
+Hendrik Ebbers (Hedera Foundation): So if you have
+
+318
+01:12:56.430 --> 01:13:10.890
+Hendrik Ebbers (Hedera Foundation): something you think should be changed, I share the link here. Please add it to this issue so that we have a a point where we can correct all those things I assume Megan is quite good in in in that.
+
+319
+01:13:10.890 --> 01:13:27.799
+Milan Wiercx van Rhijn: Yeah, that also reminds me that probably that's made for next week's agenda for the the election in September that we are really square on that, because the the charter, you know, is a little bit taken up on that piece.
+
+320
+01:13:27.800 --> 01:13:32.150
+Hendrik Ebbers (Hedera Foundation): Yeah, exactly. That's even like the Tsc chair that we need to do. I
+
+321
+01:13:32.550 --> 01:13:40.060
+Hendrik Ebbers (Hedera Foundation): found like something that might be changed there, too. But I I agree we should move that topic forward to yeah.
+
+322
+01:13:40.250 --> 01:13:41.420
+Hendrik Ebbers (Hedera Foundation): And Jessica.
+
+323
+01:13:42.010 --> 01:14:04.789
+Jessica Gonzalez (The Linux Foundation): Yep. So I posted another one that we have pending review. I brought that up with the legal team. They approve the changes, and all we need to do is go ahead and submit this change. But before we do that I noticed that we have the charter in both the hyro repo and the governance repo. So do we need to get rid of one.
+
+324
+01:14:05.000 --> 01:14:16.359
+Hendrik Ebbers (Hedera Foundation): Yeah, that is that this one is what what Richard did, and he did it on on the higher. We point, not on the government repos. So what we should do where I agree with you is we should drink it.
+
+325
+01:14:16.510 --> 01:14:21.859
+Hendrik Ebbers (Hedera Foundation): But I think we should not just merge this pull request.
+
+326
+01:14:21.860 --> 01:14:26.639
+Jessica Gonzalez (The Linux Foundation): We do a similar pull request in the other one. I can go ahead and create it. If you guys want.
+
+327
+01:14:26.930 --> 01:14:36.439
+Hendrik Ebbers (Hedera Foundation): Yeah, that that would be fine, and then we can correct here and check if we want to do all of that in once, or do it in multiple.
+
+328
+01:14:37.004 --> 01:14:48.570
+Jessica Gonzalez (The Linux Foundation): I think. For the extra changes that you have there, I might need to, just for reassurance. I might need to go again to the legal team, but they've been very fast at responding. Well, this time.
+
+329
+01:14:48.570 --> 01:15:04.200
+Hendrik Ebbers (Hedera Foundation): That is, and that is great. So, Jessica, the idea here was the legal team is slow. So let's correct, and just go once to them. If you already got approval from the legal team for the other things, we shouldn't wait and and move that forward.
+
+330
+01:15:05.090 --> 01:15:16.670
+Jessica Gonzalez (The Linux Foundation): Okay? So I I should just copy the pull request into the right repo. And I'm gonna remove the linking hiero. But link to the governance one. Okay, sounds good. Thank you.
+
+331
+01:15:16.670 --> 01:15:18.139
+Hendrik Ebbers (Hedera Foundation): Okay, thank you.
+
+332
+01:15:18.900 --> 01:15:24.089
+Hendrik Ebbers (Hedera Foundation): So I think, Jessica, we should switch to the next meeting. Otherwise people think it won't happen right.
+
+333
+01:15:24.865 --> 01:15:25.639
+Jessica Gonzalez (The Linux Foundation): Okay.
+
+334
+01:15:25.640 --> 01:15:26.290
+Jessica Gonzalez (The Linux Foundation): Okay.
+
+335
+01:15:26.290 --> 01:15:27.190
+Jessica Gonzalez (The Linux Foundation): Everybody. Thank you.
+
+336
+01:15:27.190 --> 01:15:29.319
+Hendrik Ebbers (Hedera Foundation): Thank you all to see you bye.
+
+337
+01:15:30.440 --> 01:15:31.290
+Milan Wiercx van Rhijn: Bye, bye.
+

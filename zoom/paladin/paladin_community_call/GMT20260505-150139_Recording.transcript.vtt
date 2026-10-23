@@ -1,0 +1,490 @@
+WEBVTT
+
+1
+00:01:33.760 --> 00:01:35.949
+Matthew Whitehead (Kaleido): Good morning, good afternoon. Hi, Schneic Cup.
+
+2
+00:01:40.440 --> 00:01:41.590
+Sankalp Sharma: Hi, Matthew.
+
+3
+00:03:37.620 --> 00:03:41.699
+Matthew Whitehead (Kaleido): Okay, so it's, it's now 5 past,
+
+4
+00:03:42.230 --> 00:03:53.560
+Matthew Whitehead (Kaleido): I think we'll kick off… it might… might be a short call, depending on if we have others join. I have put an agenda, brief agenda together for, today's call.
+
+5
+00:03:53.760 --> 00:03:58.480
+Matthew Whitehead (Kaleido): sunk up, yeah, feel free, if you've got any questions, I'm just going to skim down this.
+
+6
+00:03:59.960 --> 00:04:09.080
+Matthew Whitehead (Kaleido): isn't able to join us today, one of the other lead maintainers, working on partly at the moment. So this is really just a quick, skim down what's, what's,
+
+7
+00:04:10.450 --> 00:04:13.950
+Matthew Whitehead (Kaleido): what's been happening since the last call.
+
+8
+00:04:14.040 --> 00:04:31.229
+Matthew Whitehead (Kaleido): So, plans are continuing, for V1, release, and indeed, one thing we'll be aiming to do this week is hopefully cut a release candidate. We've not managed to do that for V1 yet. We're several weeks, probably… probably a month or two out from V1, at least, but
+
+9
+00:04:32.120 --> 00:04:40.150
+Matthew Whitehead (Kaleido): We are hoping to… color release candidate shortly, and I'm just also bringing up the tab.
+
+10
+00:04:41.010 --> 00:04:45.999
+Matthew Whitehead (Kaleido): for the, V1 board, where we're doing our planning here.
+
+11
+00:04:46.180 --> 00:04:52.690
+Matthew Whitehead (Kaleido): So… Anna is working on, a number of things,
+
+12
+00:04:53.280 --> 00:04:59.879
+Matthew Whitehead (Kaleido): Particularly, one of the last bits of key function around, the new distributed sequencer.
+
+13
+00:05:00.000 --> 00:05:07.290
+Matthew Whitehead (Kaleido): Specifically the ability to rotate, or elect a new coordinator.
+
+14
+00:05:07.810 --> 00:05:24.559
+Matthew Whitehead (Kaleido): For the distributed sequencer, should one of the… one of the… the currently coordinating party, fail over that. That really, at the moment, is only applicable to private, Pente domain, privacy group domains,
+
+15
+00:05:24.560 --> 00:05:36.510
+Matthew Whitehead (Kaleido): Because, notarized tokens, or issuer-backed tokens such as NOTO, are all coordinated by the notary currently, and there's only support for one notary currently.
+
+16
+00:05:36.750 --> 00:05:49.459
+Matthew Whitehead (Kaleido): and, zero-knowledge domains, such as Zeto, are coordinated, self-coordinated, effectively, by individual parties. So, Anna's doing some work, particularly around privacy group domains and coordination,
+
+17
+00:05:50.350 --> 00:05:51.699
+Matthew Whitehead (Kaleido): And,
+
+18
+00:05:51.840 --> 00:06:07.629
+Matthew Whitehead (Kaleido): I'm helping her just get as many of the things prepped for V1 as possible, including our first release candidate. One thing that, is worth highlighting, which I think happened, again, I'm just pulling up…
+
+19
+00:06:09.130 --> 00:06:16.160
+Matthew Whitehead (Kaleido): a relevant tab. So if I go to…
+
+20
+00:06:17.920 --> 00:06:35.470
+Matthew Whitehead (Kaleido): here. One thing that we did since the last call, I think, is that we had been doing a lot of work under a branch that we called V1 Develop, and so this branch here was being used to develop a lot of those key V1 things over the last 6 months, including the distributed sequencer,
+
+21
+00:06:36.050 --> 00:06:38.790
+Matthew Whitehead (Kaleido): That got merged into Maine.
+
+22
+00:06:39.250 --> 00:06:47.640
+Matthew Whitehead (Kaleido): two or three weeks back, we've merged a huge amount of code into main, but it means now that the main branch for Paladin is,
+
+23
+00:06:47.640 --> 00:07:01.999
+Matthew Whitehead (Kaleido): V1 ready, barring, barring the issues on the board, and we can cut release candidates from V… from main, ready for V1. And that's a real, really big step towards, releasing Paladin V1.
+
+24
+00:07:03.220 --> 00:07:06.770
+Matthew Whitehead (Kaleido): So that rebating happened.
+
+25
+00:07:07.050 --> 00:07:14.420
+Matthew Whitehead (Kaleido): Main new features since, since, since that. I think the main…
+
+26
+00:07:14.700 --> 00:07:19.310
+Matthew Whitehead (Kaleido): features would probably be… so I'd bring these up.
+
+27
+00:07:20.030 --> 00:07:22.739
+Matthew Whitehead (Kaleido): That has to be closed.
+
+28
+00:07:24.060 --> 00:07:28.449
+Matthew Whitehead (Kaleido): So we have a number of things. We have, I'll live in a couple of these PRs.
+
+29
+00:07:28.910 --> 00:07:38.239
+Matthew Whitehead (Kaleido): We have… I think these would be the main ones. So, chain transaction ordering.
+
+30
+00:07:38.370 --> 00:07:42.930
+Matthew Whitehead (Kaleido): It was one of the big ones, that's gone in since the last community call.
+
+31
+00:07:43.380 --> 00:07:49.409
+Matthew Whitehead (Kaleido): I can't remember if Anna included diagrams, I don't think she did.
+
+32
+00:07:49.950 --> 00:07:57.619
+Matthew Whitehead (Kaleido): We do have diagrams around some of the coordination logic, and I do wonder if…
+
+33
+00:07:58.790 --> 00:08:03.869
+Matthew Whitehead (Kaleido): It would take a moment for me to just pull up the latest docs.
+
+34
+00:08:15.210 --> 00:08:17.879
+Matthew Whitehead (Kaleido): Just trying to remember if the latest doctor will have…
+
+35
+00:08:18.540 --> 00:08:26.350
+Matthew Whitehead (Kaleido): The latest… okay, yeah, so because we've mentioned to V1, this whole section of the docs is now available on the main docs build.
+
+36
+00:08:26.880 --> 00:08:31.510
+Matthew Whitehead (Kaleido): And… There are…
+
+37
+00:08:32.280 --> 00:08:40.809
+Matthew Whitehead (Kaleido): Yeah, there are diagrams in here which we'll be iterating on, ready for V1, around the way that transactions are.
+
+38
+00:08:42.880 --> 00:08:59.000
+Matthew Whitehead (Kaleido): sequenced, and the dependency change that build up as they're sequenced, the dependency change between transactions. Now, I think, yeah, we'll be evolving these diagrams for V1, but these kind of show at a high level.
+
+39
+00:08:59.170 --> 00:09:01.620
+Matthew Whitehead (Kaleido): what I think these main…
+
+40
+00:09:02.340 --> 00:09:08.050
+Matthew Whitehead (Kaleido): some of these main new PRs we've been working towards. So, chain transaction ordering is really, I think, a part of…
+
+41
+00:09:08.530 --> 00:09:10.670
+Matthew Whitehead (Kaleido): If I go down to the…
+
+42
+00:09:11.070 --> 00:09:15.799
+Matthew Whitehead (Kaleido): data flows, I think it'll be this one. I'll just zoom in on this for a second.
+
+43
+00:09:16.130 --> 00:09:20.070
+Matthew Whitehead (Kaleido): So,
+
+44
+00:09:20.710 --> 00:09:28.459
+Matthew Whitehead (Kaleido): when transactions are submitted to a node… a Paladin node, it's possible that the way those transactions resolve
+
+45
+00:09:28.990 --> 00:09:50.240
+Matthew Whitehead (Kaleido): is one of two, kind of results in a successful case. So it could be a base ledger transaction on the public-based ledger, but it could also be a new Paladin transaction, so TX1 here, to complete TX1. Actually, no, Paladin decides it needs to create TX2, a separate Paladin transaction, and those are change transactions.
+
+46
+00:09:50.620 --> 00:09:57.700
+Matthew Whitehead (Kaleido): And, if you combine that concept, with…
+
+47
+00:09:59.470 --> 00:10:01.750
+Matthew Whitehead (Kaleido): this diagram I was showing here.
+
+48
+00:10:02.230 --> 00:10:04.819
+Matthew Whitehead (Kaleido): Where… where you not only have
+
+49
+00:10:05.290 --> 00:10:14.399
+Matthew Whitehead (Kaleido): A chain of transactions in a graph where the top-level transactions build dependencies, but actually those chained ones underneath also have
+
+50
+00:10:14.700 --> 00:10:19.740
+Matthew Whitehead (Kaleido): A chain of dependencies, and they must be kept in order as well.
+
+51
+00:10:20.260 --> 00:10:31.290
+Matthew Whitehead (Kaleido): you can see how some of the complexity around these big, big PRs that have gone in. So, one of the big PRs was Anna's around maintaining correct ordering on those chain transactions.
+
+52
+00:10:31.890 --> 00:10:51.489
+Matthew Whitehead (Kaleido): And, supporting that was a PR I put in around… again, I don't think I did any diagrams here yet, but specifically around making the grapher, which is the thing that effectively implements this picture, making that grapher a discrete standalone package within Paladin.
+
+53
+00:10:51.520 --> 00:10:56.040
+Matthew Whitehead (Kaleido): And that kind of comprises two things. The graph maintains these… these…
+
+54
+00:10:56.040 --> 00:11:15.360
+Matthew Whitehead (Kaleido): relationships, as they… as they evolve over time. And then there is separately a new package called a dependency tracker, which the graphi uses. So, if you kind of imagine each of these lines here being a dependency chain, or a dependency, yeah, a dependency, I think we called it a dependency chain.
+
+55
+00:11:15.400 --> 00:11:25.170
+Matthew Whitehead (Kaleido): The whole picture here is managed by something that's called a dependency tracker, which maintains the arrows, effectively, in this, and the graph is the package that builds that.
+
+56
+00:11:25.630 --> 00:11:36.410
+Matthew Whitehead (Kaleido): So that's a lot of the work that's gone in the grapha, and the grapha's replaced some of the previous components that aren't, aren't used now for maintaining those, those chains.
+
+57
+00:11:37.230 --> 00:11:41.009
+Matthew Whitehead (Kaleido): So, just going back to…
+
+58
+00:11:41.270 --> 00:11:46.669
+Matthew Whitehead (Kaleido): Now, I just wanted to touch on a couple of those things, because there's been quite a lot of big
+
+59
+00:11:46.830 --> 00:11:50.340
+Matthew Whitehead (Kaleido): function work going in, ready for V1.
+
+60
+00:11:50.670 --> 00:12:04.479
+Matthew Whitehead (Kaleido): Java SDK Mentoring Project, that, I think, is due to close out in May in terms of, a candidate being selected to proceed with the Java SDK. We've had several people expressing interest, if I open the link…
+
+61
+00:12:08.460 --> 00:12:27.850
+Matthew Whitehead (Kaleido): We have had a number of these comments here from individuals who have expressed an interest and have been asking questions about it. And as you can see, we've had quite a lot of people chipping in, and Rye has been effectively pointing them at the application process, and so on. So, there's been a lot of interest in people building out JR for SDK.
+
+62
+00:12:28.600 --> 00:12:35.430
+Matthew Whitehead (Kaleido): That will start, I believe, in June, once, at the end of May, a candidate's been selected, and
+
+63
+00:12:37.290 --> 00:12:42.470
+Matthew Whitehead (Kaleido): the timeline for that is, I think, 6 months. I think that's the length of the mentoring projects.
+
+64
+00:12:43.700 --> 00:12:49.070
+Matthew Whitehead (Kaleido): That would be a really useful addition to the Golang SDK we have and the TypeScript SDK.
+
+65
+00:12:49.930 --> 00:12:55.089
+Matthew Whitehead (Kaleido): Then, yeah, I've given a quick update on the board. We have…
+
+66
+00:12:55.540 --> 00:12:57.789
+Matthew Whitehead (Kaleido): Couple of versions of this, I think.
+
+67
+00:12:58.400 --> 00:13:16.799
+Matthew Whitehead (Kaleido): I ended up with a couple of different variants of the planning board. I'm just going to scroll up here. I think, actually, this planning board's probably the most useful one. A lot of the things that have not been done yet are bugs, so, you know, we have some functions still that Anna's working on, but a lot of these are bugs. This is one of the ones that Anna's working on related to
+
+68
+00:13:18.650 --> 00:13:30.849
+Matthew Whitehead (Kaleido): basing more of the function on the block number that the base ledger's on as a constant, effectively using the base ledger block as a clock, if you like, for Paladin.
+
+69
+00:13:30.930 --> 00:13:43.509
+Matthew Whitehead (Kaleido): And this coordinator selection, based on block number, and this epoch signing, which is partly based on block number. These two are the things that I think I'll probably just drag those in here, because these are now active.
+
+70
+00:13:45.110 --> 00:13:52.589
+Matthew Whitehead (Kaleido): And a lot of the rest of the bugs, and you may have seen just a minute ago when I opened that, one of the things I'm working on is just,
+
+71
+00:13:53.250 --> 00:14:01.160
+Matthew Whitehead (Kaleido): Starting to look at… The… Docs.
+
+72
+00:14:01.510 --> 00:14:06.499
+Matthew Whitehead (Kaleido): And check how we're looking for docs. Do a bit of an overhaul or a review of the docs.
+
+73
+00:14:06.570 --> 00:14:11.009
+Matthew Whitehead (Kaleido): You can see that if we… if we look in the docs I opened up earlier,
+
+74
+00:14:11.010 --> 00:14:27.059
+Matthew Whitehead (Kaleido): one of these has a big TBD around… I think it's the state machine. Yeah, so there's a big TBC here about documenting the internal state machine, updating some of these… these graph… these diagrams based on the new logic, and so on and so on. So… and that's a bit of my work here.
+
+75
+00:14:29.830 --> 00:14:39.990
+Matthew Whitehead (Kaleido): Right, so that was just a quick, quick update on where we are with Paladin as we approach V1. Sankal, I don't know if you have questions about any of that, or if you want to just mention anything that you're, you're particularly interested in at the moment in Paladin?
+
+76
+00:14:41.040 --> 00:14:42.550
+Sankalp Sharma: Yeah, so…
+
+77
+00:14:43.190 --> 00:14:50.599
+Sankalp Sharma: you know, I am looking at Paradigm as a project from architectural perspective. We are trying to architect solutions
+
+78
+00:14:51.010 --> 00:14:55.689
+Sankalp Sharma: Some of them, related to some banking integrations.
+
+79
+00:14:56.440 --> 00:15:01.839
+Sankalp Sharma: And, yeah, we've been able to set it up ourselves and, you know, make it work.
+
+80
+00:15:02.070 --> 00:15:09.340
+Sankalp Sharma: What I'm interested in is to know what particular privacy domain Fits better for our purpose.
+
+81
+00:15:09.760 --> 00:15:13.270
+Sankalp Sharma: For example, for tokenized assets or deposits.
+
+82
+00:15:13.570 --> 00:15:22.290
+Sankalp Sharma: should be, Zetto or Pente that I should rather be looking towards for most of the workflows to be done.
+
+83
+00:15:22.570 --> 00:15:23.819
+Sankalp Sharma: Making use of.
+
+84
+00:15:24.140 --> 00:15:27.170
+Sankalp Sharma: And, I'm not sure if,
+
+85
+00:15:27.350 --> 00:15:37.130
+Sankalp Sharma: if it's better to, you know, for… what is more practical to use? Is Zetto gonna be performance, oriented,
+
+86
+00:15:37.290 --> 00:15:42.300
+Sankalp Sharma: Is it going to give us performance in terms of the number of transactions that it can hold, or.
+
+87
+00:15:42.750 --> 00:15:45.820
+Sankalp Sharma: Okay, but does it overcomplicate the workflows?
+
+88
+00:15:46.100 --> 00:15:52.989
+Sankalp Sharma: For a use case. So I'm just trying to get my head around how to architect solutions in this regard.
+
+89
+00:15:53.250 --> 00:16:02.609
+Matthew Whitehead (Kaleido): Understood. Yeah, yeah, that's really good. Thank you for the background, and, and the kind of… the overview of what you're looking at. I think,
+
+90
+00:16:02.750 --> 00:16:16.730
+Matthew Whitehead (Kaleido): Yeah, I think, typically, for… For tokenizing assets, tokenizing deposits,
+
+91
+00:16:16.940 --> 00:16:23.260
+Matthew Whitehead (Kaleido): again, it will depend on a number of things. I think, typically, we see that Rather than take…
+
+92
+00:16:23.670 --> 00:16:29.850
+Matthew Whitehead (Kaleido): Pente privacy groups and put, you know, ERC20s inside a privacy group, or ERC1400s within a privacy group.
+
+93
+00:16:30.020 --> 00:16:38.300
+Matthew Whitehead (Kaleido): I think it typically, for a tokenized asset, or, something like a CBDC, or a bond kind of financial instrument.
+
+94
+00:16:38.970 --> 00:16:43.560
+Matthew Whitehead (Kaleido): that NOTO and Zeto are the… as token implementations.
+
+95
+00:16:44.260 --> 00:16:53.750
+Matthew Whitehead (Kaleido): Are, are, the two domains we'd recommend for directly implementing those, those, kind of tokenized assets.
+
+96
+00:16:54.190 --> 00:17:01.800
+Matthew Whitehead (Kaleido): Zito compared to Noto, they do have trade-offs, obviously. Some industries, or some users
+
+97
+00:17:02.170 --> 00:17:17.989
+Matthew Whitehead (Kaleido): are in the position where they need NOTO, they need a notarized, issuer-backed domain so that they can have the correct amount of visibility of private data to the correct parties, and are able to show, like, a regulator.
+
+98
+00:17:18.560 --> 00:17:21.679
+Matthew Whitehead (Kaleido): Information about the chain.
+
+99
+00:17:22.160 --> 00:17:27.839
+Matthew Whitehead (Kaleido): Zito might be used much more for… For cash.
+
+100
+00:17:29.250 --> 00:17:39.510
+Matthew Whitehead (Kaleido): Where you don't necessarily have those regulatory requirements. It does come with… It does come with, performance…
+
+101
+00:17:39.750 --> 00:17:42.490
+Matthew Whitehead (Kaleido): differences to Noto?
+
+102
+00:17:43.300 --> 00:17:54.219
+Matthew Whitehead (Kaleido): we don't have… we don't have solid performance data yet on… on how they compare. It depends, but do you have ideas for what kind of performance you're likely to be needing in your… in your…
+
+103
+00:17:54.340 --> 00:17:55.500
+Matthew Whitehead (Kaleido): scenarios.
+
+104
+00:17:57.050 --> 00:18:03.169
+Sankalp Sharma: I imagine it'd be a few hundred thousands, per day of transactions.
+
+105
+00:18:03.570 --> 00:18:04.360
+Matthew Whitehead (Kaleido): Okay.
+
+106
+00:18:05.300 --> 00:18:09.159
+Sankalp Sharma: Yeah, and I'm not sure if the proving capability
+
+107
+00:18:09.430 --> 00:18:12.970
+Sankalp Sharma: in Paladin as of today, can it be horizontally scaled or not?
+
+108
+00:18:13.110 --> 00:18:16.200
+Sankalp Sharma: adding more, compute to the ZK proving.
+
+109
+00:18:18.010 --> 00:18:34.369
+Matthew Whitehead (Kaleido): Yeah, so, the… the… the… the palding node itself, Currently, Currently, does that breathe in?
+
+110
+00:18:36.860 --> 00:18:49.059
+Matthew Whitehead (Kaleido): It can use, it can use, ZK-compliant private key material that can be pluggable.
+
+111
+00:18:49.340 --> 00:18:57.830
+Matthew Whitehead (Kaleido): So the actual key material for the zero-knowledge proofs can be… can be made pluggable, but the… the proofs themselves are generated,
+
+112
+00:18:58.050 --> 00:19:04.129
+Matthew Whitehead (Kaleido): In Paladin, so currently there's no intrinsic horizontal scalability of that.
+
+113
+00:19:04.790 --> 00:19:13.929
+Matthew Whitehead (Kaleido): But it is a growing space, and looking at performance of Zito is something that we will be coming to at some point.
+
+114
+00:19:14.990 --> 00:19:20.709
+Matthew Whitehead (Kaleido): So, I think it's… I think the main thing for us is it's useful… useful as a data point, the kind of…
+
+115
+00:19:20.710 --> 00:19:36.609
+Matthew Whitehead (Kaleido): the kind of transaction rates that you are likely to require in your scenario, as we kind of spend more time on ZT. I suspect post-3-1 will give it a lot more attention in terms of how they can compare performance-wise.
+
+116
+00:19:38.750 --> 00:19:39.500
+Sankalp Sharma: Okay.
+
+117
+00:19:40.680 --> 00:19:41.580
+Sankalp Sharma: God.
+
+118
+00:19:45.330 --> 00:19:55.210
+Matthew Whitehead (Kaleido): Cool, okay, thank you, yeah, thank you for sharing that. That's, that's, really, really interesting to, to hear people's different interests in Paladin at the moment.
+
+119
+00:19:58.760 --> 00:20:10.929
+Matthew Whitehead (Kaleido): Okay, so, yeah, given that it's a fairly quiet call this week, just a couple of us, I think, unless there's anything else particularly, Sank up, we'll call it there. We'll have a catch-up on the next community call.
+
+120
+00:20:11.600 --> 00:20:15.539
+Matthew Whitehead (Kaleido): And it won't be long after that that we'll be starting to think about V1 proper.
+
+121
+00:20:20.420 --> 00:20:28.150
+Matthew Whitehead (Kaleido): Okay. Thank you very much for joining. Thanks, Enko. And, I will, catch you and any others who join next month.
+
+122
+00:20:28.750 --> 00:20:30.050
+Sankalp Sharma: Thank you. Thank you.
+

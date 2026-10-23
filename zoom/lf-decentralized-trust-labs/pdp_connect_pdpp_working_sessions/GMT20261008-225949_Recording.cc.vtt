@@ -1,0 +1,899 @@
+WEBVTT
+
+00:03:18.000 --> 00:03:21.000
+Well, hello Tim.
+
+00:03:21.000 --> 00:03:22.000
+Oh, hey, Art.
+
+00:03:22.000 --> 00:03:24.000
+Might just be you and me.
+
+00:03:24.000 --> 00:03:26.000
+Am I
+
+00:03:26.000 --> 00:03:27.000
+That's all good.
+
+00:03:27.000 --> 00:03:29.000
+I think
+
+00:03:29.000 --> 00:03:30.000
+That he might join
+
+00:03:30.000 --> 00:03:32.000
+Who?
+
+00:03:32.000 --> 00:03:33.000
+I think Palad said he might jump in. We'll see.
+
+00:03:33.000 --> 00:03:42.000
+Okay, no worries. Um, I think you just go through some of the changes, because this is all going to be recorded on YouTube. It's a bad time, I think, like, in APAC, this is like…
+
+00:03:42.000 --> 00:03:48.000
+7am Singapore time, so it's not a great time.
+
+00:03:48.000 --> 00:03:52.000
+Cool. Yeah, that makes sense. I'll just jump into it.
+
+00:03:52.000 --> 00:03:53.000
+Cool.
+
+00:03:53.000 --> 00:04:04.000
+I'm just going to drop a link to the engineers in case they do want to jump in
+
+00:04:04.000 --> 00:04:08.000
+Okay
+
+00:04:08.000 --> 00:04:14.000
+If you are watching from the recording, thank you for joining us.
+
+00:04:14.000 --> 00:04:18.000
+I lost my screen share. Here we go.
+
+00:04:18.000 --> 00:04:24.000
+So I'm just going to jump in. This is the formal review update for PDPP
+
+00:04:24.000 --> 00:04:27.000
+Mostly through September, we held
+
+00:04:27.000 --> 00:04:33.000
+comment period on the first draft of V0.1 and
+
+00:04:33.000 --> 00:04:41.000
+I'm going to be going through some of the changes that we made to the protocol. They're still all available for comment
+
+00:04:41.000 --> 00:04:47.000
+So we've responded to a lot of the feedback and made some other changes, and those
+
+00:04:47.000 --> 00:04:50.000
+Those changes are also available for comment.
+
+00:04:50.000 --> 00:05:08.000
+In the last session, we talked about governance and conformance that was led by art. There should be a recording and some notes if you want to check that out as well. And then we've because we've had so much great feedback and there are so many changes, we
+
+00:05:08.000 --> 00:05:15.000
+aiming for the end of October, for when we will lock the first version of the protocol.
+
+00:05:15.000 --> 00:05:16.000
+And shortly after that, the governance program will go live.
+
+00:05:16.000 --> 00:05:21.000
+I'll be back in two seconds.
+
+00:05:21.000 --> 00:05:27.000
+Okay, so currently every change that we're making that I'm going to talk about today
+
+00:05:27.000 --> 00:05:30.000
+is a pull request in GitHub
+
+00:05:30.000 --> 00:05:41.000
+And you can look through PR number 374 as a good entry point. It links to all of the other changes and gives a short description of each change
+
+00:05:41.000 --> 00:05:51.000
+The changes are open for about a week, so that contributors can comment, maintainers have time to review, and then
+
+00:05:51.000 --> 00:05:55.000
+We hope to ship most of these, if not all of them
+
+00:05:55.000 --> 00:05:59.000
+Over the next few weeks.
+
+00:05:59.000 --> 00:06:05.000
+Most of the changes fall into one of three categories
+
+00:06:05.000 --> 00:06:08.000
+The first one is really about
+
+00:06:08.000 --> 00:06:10.000
+Taking a close look at
+
+00:06:10.000 --> 00:06:16.000
+Personal data owners, and what consent they actually want to give
+
+00:06:16.000 --> 00:06:19.000
+Another one is
+
+00:06:19.000 --> 00:06:23.000
+Exactly when apps request
+
+00:06:23.000 --> 00:06:32.000
+data or query into data, making sure that they understand what they're getting and what they're working with, so that it's properly useful to them
+
+00:06:32.000 --> 00:06:48.000
+And we understand that we can't solve every problem in this first version of the spec. And so we're carving out places and making space for the protocol to grow in a healthy way over time and for profiles to be created that hook in
+
+00:06:48.000 --> 00:06:51.000
+On top of the core spec.
+
+00:06:51.000 --> 00:06:56.000
+So, there are about a dozen changes that I'll run through. Some of them will
+
+00:06:56.000 --> 00:07:01.000
+Probably more interesting than others. Some of them are basically bug fixes, for lack of a better word
+
+00:07:01.000 --> 00:07:08.000
+But the first one is about making sure that the user can
+
+00:07:08.000 --> 00:07:15.000
+Narrow consent if what an app is requesting is more than they want to share
+
+00:07:15.000 --> 00:07:26.000
+So I may have required fields as a client application and I need those to be provided by the user in order for me to fulfill some useful purpose for that user.
+
+00:07:26.000 --> 00:07:33.000
+But even in that scenario, the user may still be uncomfortable with sharing, so they can indicate that
+
+00:07:33.000 --> 00:07:48.000
+They do not want to grant access to all of the data that I'm requesting access to. Maybe a subset of that that could cause the grant to be rejected. But then as the client, I would see that perhaps I could make a different request
+
+00:07:48.000 --> 00:07:52.000
+or communicate some messaging to the user and try again
+
+00:07:52.000 --> 00:07:54.000
+And
+
+00:07:54.000 --> 00:08:02.000
+Just bundled into this is a little bit of a bug fix to ensure that clients are very explicit when they're asking for
+
+00:08:02.000 --> 00:08:12.000
+More than a specific set of fields, if you want to grant access… if you want access to all fields, then you need to indicate that.
+
+00:08:12.000 --> 00:08:16.000
+Okay, so moving on to the next change
+
+00:08:16.000 --> 00:08:18.000
+Every grant
+
+00:08:18.000 --> 00:08:28.000
+Could actually have multiple purposes. So, for example, if a music application wants your listing history to give you recommendations
+
+00:08:28.000 --> 00:08:39.000
+And also, separately wants to do some AI training on your data. Those are different purposes. And even if it's one UI to the user and one consent flow
+
+00:08:39.000 --> 00:08:41.000
+There could be
+
+00:08:41.000 --> 00:08:58.000
+Different grants that are created, and maybe they're configured slightly differently by the user, and maybe later the user decides to revoke one of them, but not both of them. And so this is to better align GDPR and just to give the user a little bit more control
+
+00:08:58.000 --> 00:09:12.000
+Moving on to another couple of pull requests. We were thinking about use cases where the subject of the data or the owner of the data may be different from the person who's granting access to the data.
+
+00:09:12.000 --> 00:09:22.000
+And so we created something called a grantor and grants can contain granters, which is just a list of who is actually providing
+
+00:09:22.000 --> 00:09:25.000
+The consent here, if it's different from the subject
+
+00:09:25.000 --> 00:09:29.000
+And then how you confirm
+
+00:09:29.000 --> 00:09:42.000
+The authority of that person to share the data is a little bit of a separate question, and this leads into a larger topic around how do you provide verifiable evidence
+
+00:09:42.000 --> 00:09:55.000
+of the provenance of data or the authority of somebody over data and etc. And I'll talk about that a little bit more with some other changes, but the short version is
+
+00:09:55.000 --> 00:10:10.000
+We are trying to create, like, an envelope where evidence that can be verified can go into the grant, and then into the records of the data, and then how that's verified is a little bit
+
+00:10:10.000 --> 00:10:12.000
+It's left
+
+00:10:12.000 --> 00:10:21.000
+up to certain profiles, the protocol isn't supposed… isn't meant to dictate exactly how that should work, or at least there should be different options.
+
+00:10:21.000 --> 00:10:37.000
+Tim, uh, just a quick question on that one, because I think this relates to a potential live implementation that we have, where we need mothers to be able to grant access to their children's medical records for the purposes of administering proactive healthcare.
+
+00:10:37.000 --> 00:10:41.000
+Like, obviously, like, like.
+
+00:10:41.000 --> 00:10:46.000
+How do you get, or is the protocol silent on it? But basically like
+
+00:10:46.000 --> 00:11:03.000
+A child, a child can't, especially like if it's a newborn child, can't be like, hey mom, consent, and like click a button on a screen. Like, how would that work within this framework of the mother being the grantor? Are there default grantors, or are there any rules like that that we should set up?
+
+00:11:03.000 --> 00:11:07.000
+At this stage, there are no rules about
+
+00:11:07.000 --> 00:11:10.000
+Like, how would you map
+
+00:11:10.000 --> 00:11:13.000
+the legal
+
+00:11:13.000 --> 00:11:22.000
+Power of attorney of someone within a certain jurisdiction into a PDP conformant server. But the protocol basically says
+
+00:11:22.000 --> 00:11:32.000
+If you have some way to express, this is the grantor and this is their relationship to the subject, and
+
+00:11:32.000 --> 00:11:35.000
+Here is verifiable evidence
+
+00:11:35.000 --> 00:11:40.000
+There's a place for that evidence to be attached. And then
+
+00:11:40.000 --> 00:11:46.000
+In order to actually facilitate the verification process, like defining that mechanism
+
+00:11:46.000 --> 00:11:51.000
+We… I think we would need another profile, like a separate
+
+00:11:51.000 --> 00:12:00.000
+small specification to say, okay, we're going to use DIDs, or we're going to use, you know, a ZK-based
+
+00:12:00.000 --> 00:12:07.000
+proof. Here's exactly how that verification technology can be used in this context
+
+00:12:07.000 --> 00:12:09.000
+And so the protocol
+
+00:12:09.000 --> 00:12:13.000
+Probably can't solve for all of those right away, but
+
+00:12:13.000 --> 00:12:29.000
+Like, the very first implementation, or the very first trial of that can set out some profile saying, hey, we're going to use the DID for this, and here's the kind of data that we're working with for evidence, and here's how the mechanism will work
+
+00:12:29.000 --> 00:12:37.000
+And I think subsequent profiles for different technologies or different domains
+
+00:12:37.000 --> 00:12:42.000
+Could probably sort of build on the previous ones. That's the current thinking
+
+00:12:42.000 --> 00:12:45.000
+Okay, cool, cool, cool.
+
+00:12:45.000 --> 00:12:49.000
+Thank you.
+
+00:12:49.000 --> 00:12:59.000
+So moving forward, this one is pretty straightforward. If a data source has consent text defined within it, like within its schema
+
+00:12:59.000 --> 00:13:15.000
+And that happens to be, let's say, in English, but not all users for… who are relevant for that data source are English-speaking. There's just a place now where the data source maintainer can define, here's the same language, but in Spanish
+
+00:13:15.000 --> 00:13:27.000
+And because this is specific to the data source, this is going to go into the source declaration that defines the data source from the perspective of the server, the resource server that's serving that data.
+
+00:13:27.000 --> 00:13:32.000
+But basically, this is unopinionated
+
+00:13:32.000 --> 00:13:38.000
+Or it's not original invention by us, we're using language tags that follow the IETF
+
+00:13:38.000 --> 00:13:46.000
+Standard for how language tags should be defined, and then there's an RFC 4647, which basically
+
+00:13:46.000 --> 00:13:58.000
+says that servers can use users' preferred language tags. So there shouldn't be anything controversial here, but we just wanted to make sure that this wasn't a gap.
+
+00:13:58.000 --> 00:14:05.000
+And now, moving on to the next change, we recognized while thinking about
+
+00:14:05.000 --> 00:14:19.000
+Sort of as more data sources are included over time into PvP servers, there may be cases where you might have two instances of the same data source for the same individual
+
+00:14:19.000 --> 00:14:28.000
+And we just want to make sure that when that happens, the specific instance is linked to the record
+
+00:14:28.000 --> 00:14:29.000
+And
+
+00:14:29.000 --> 00:14:34.000
+So that's the first piece of this. And then the next piece of this is
+
+00:14:34.000 --> 00:14:38.000
+More of a privacy fix. So if
+
+00:14:38.000 --> 00:14:51.000
+Two different applications separately request data for an individual. They shouldn't be able to compare the IDs that they get in that data and say, oh, we've matched on the ID so we can
+
+00:14:51.000 --> 00:14:53.000
+We can assume that this is the same person
+
+00:14:53.000 --> 00:15:00.000
+So now we're allowing for IDs to be different by default specifically
+
+00:15:00.000 --> 00:15:03.000
+Each application should get its own ID for the data
+
+00:15:03.000 --> 00:15:14.000
+In some cases, owners may have reasons to disclose like a universally identifier, for example, this is my state
+
+00:15:14.000 --> 00:15:24.000
+Driver's license DID, this is who I am. But that's not the default
+
+00:15:24.000 --> 00:15:30.000
+Okay, so the next change here is
+
+00:15:30.000 --> 00:15:46.000
+This is really to help applications. So if you are a finance application or a medical application and you're getting data and you don't actually know that it's stale, you might end up giving your users bad advice. So these applications should have some way of knowing
+
+00:15:46.000 --> 00:15:52.000
+How up-to-date is the data that you're getting, that I'm getting?
+
+00:15:52.000 --> 00:15:54.000
+Like, this is
+
+00:15:54.000 --> 00:16:01.000
+I use one of multiple pieces where we just want to make sure that the client application has an accurate picture
+
+00:16:01.000 --> 00:16:15.000
+This is rounded to the nearest hour in terms of, like, the freshness time because we think that that is sufficient and doesn't like leak too much information
+
+00:16:15.000 --> 00:16:30.000
+And there's another pull request here, number 391, which extends this idea beyond simple data access to what if you're accessing over MCP tools, what if you are doing a search, which is like an optional
+
+00:16:30.000 --> 00:16:39.000
+You know, extension that you could add on to your PDP server, then the search results should also express if the data is fresh or if not
+
+00:16:39.000 --> 00:16:44.000
+how stale it is
+
+00:16:44.000 --> 00:16:48.000
+Moving on to the next change here
+
+00:16:48.000 --> 00:16:51.000
+So this is really about
+
+00:16:51.000 --> 00:17:06.000
+applications that not only read data just in time or on demand, but are syncing data, if there's a use case where there's a lot of data, the application needs to continuously sync it over
+
+00:17:06.000 --> 00:17:12.000
+There was just a bug fix here where if the application was granted access
+
+00:17:12.000 --> 00:17:21.000
+Starting from some time in the past, they didn't have a cursor that they could pass in order to start syncing from the very beginning
+
+00:17:21.000 --> 00:17:33.000
+And there are some other smaller fixes, like if there's a delay in getting the records, we want to make sure that that actually comes through the next time they sync and it isn't lost.
+
+00:17:33.000 --> 00:17:36.000
+Yeah, so probably nothing to
+
+00:17:36.000 --> 00:17:39.000
+Disputable in here.
+
+00:17:39.000 --> 00:17:42.000
+Cool.
+
+00:17:42.000 --> 00:17:50.000
+The next change here is related to the discussion we had just a moment ago about
+
+00:17:50.000 --> 00:18:02.000
+Evidence, we were talking about it from the standpoint of how do you establish authority of somebody to grant access to their child's data, for example. But this is actually more general
+
+00:18:02.000 --> 00:18:08.000
+What if you want to establish evidence of the provenance of the data? And I think
+
+00:18:08.000 --> 00:18:13.000
+This came from some community feedback, so thank you for that.
+
+00:18:13.000 --> 00:18:15.000
+There are specific
+
+00:18:15.000 --> 00:18:23.000
+Mechanisms mentioned in PR number 373, which are a little bit less of a formal
+
+00:18:23.000 --> 00:18:37.000
+Proposal going straight into the core spec, but they're sketches that sort of map out these are, like, directionally some choices that could be made about what's the first mechanism that we want to support, and how would that work
+
+00:18:37.000 --> 00:18:39.000
+So I think that's a good
+
+00:18:39.000 --> 00:18:51.000
+Top… like, if you're interested in this topic, go take a look at that PR and feel free to leave some comments and have some discussion with us about that.
+
+00:18:51.000 --> 00:18:55.000
+Okay, so moving on to the next one, I think we've just got a few more here.
+
+00:18:55.000 --> 00:18:57.000
+A data source
+
+00:18:57.000 --> 00:18:59.000
+wants to
+
+00:18:59.000 --> 00:19:01.000
+Send a user record
+
+00:19:01.000 --> 00:19:03.000
+And
+
+00:19:03.000 --> 00:19:13.000
+Maybe the complete record is not available at the time. So this is another bug fix. Basically, we don't want to
+
+00:19:13.000 --> 00:19:19.000
+overwrite some fields if they're missing in another update
+
+00:19:19.000 --> 00:19:22.000
+Sorry, this is just a little bit of a technical
+
+00:19:22.000 --> 00:19:24.000
+Issue.
+
+00:19:24.000 --> 00:19:28.000
+But I'm having some trouble articulating clearly, but
+
+00:19:28.000 --> 00:19:46.000
+Before records were basically full snapshots, so when those were transmitted, it could potentially erase some data. So this is just adding a little bit of resilience to the process of data being collected.
+
+00:19:46.000 --> 00:19:50.000
+Okay, so we're thinking ahead a little bit about
+
+00:19:50.000 --> 00:19:56.000
+What kinds of roles does a PPP server play and what roles could they play in the future?
+
+00:19:56.000 --> 00:20:03.000
+And one idea was that data could be written back into a user's resource server
+
+00:20:03.000 --> 00:20:10.000
+from a client. So that would be a different kind of client than an accessor, and
+
+00:20:10.000 --> 00:20:25.000
+We're not really defining how that would work, but we want to make sure that different kinds of roles and different kinds of tokens can be created in the future. And so this is just sort of in the theme of creating space for extensions
+
+00:20:25.000 --> 00:20:30.000
+And improvements to the protocol
+
+00:20:30.000 --> 00:20:34.000
+new kinds of tokens will be… it will be possible to add those in.
+
+00:20:34.000 --> 00:20:48.000
+Or for privacy reasons, we also decided that client applications should not be allowed to get tokens that don't expire ever. So they're going to have to use a refresh token.
+
+00:20:48.000 --> 00:20:50.000
+to renew that
+
+00:20:50.000 --> 00:20:54.000
+Even if it's a number of days or
+
+00:20:54.000 --> 00:21:01.000
+You know, months. Eventually, it will have to expire. And this is just a standard practice
+
+00:21:01.000 --> 00:21:07.000
+I think the others are just sort of simple bug fixes
+
+00:21:07.000 --> 00:21:11.000
+Yeah, and the same theme of extensibility
+
+00:21:11.000 --> 00:21:14.000
+We want to be able to
+
+00:21:14.000 --> 00:21:24.000
+Support other authorization protocols besides just OAuth. So we discussed this a little bit in some of our September working sessions, and we just
+
+00:21:24.000 --> 00:21:35.000
+short up how that… how the protocol expresses its relationship to authorization protocols so that it's possible to support that in the future
+
+00:21:35.000 --> 00:21:46.000
+There is a section in the core protocol that outlines topics that are still open questions that we may solve for within PDP and that's section 12
+
+00:21:46.000 --> 00:22:02.000
+Through PR377. And the collection profile is a separate spec from the core spec, which defines a way for data connectors to basically be plugins into a runtime
+
+00:22:02.000 --> 00:22:13.000
+back in source data into a resource server. And that is now fully owned by the Data Connectors repo, so it hasn't gone away, but it has relocated, and you can find it there.
+
+00:22:13.000 --> 00:22:18.000
+Under the PDP, excuse me, PDP connect.org in GitHub
+
+00:22:18.000 --> 00:22:29.000
+And we added some diagrams and cleaned up some copy in the spec, so just some quality of life improvements.
+
+00:22:29.000 --> 00:22:38.000
+Ai training is something that we've been thinking about, like, what is the right way to model AI training?
+
+00:22:38.000 --> 00:22:42.000
+It's a little bit of a special kind of permission because
+
+00:22:42.000 --> 00:22:57.000
+Once your data has trained an AI model, that's just out there in the world, revoking access is different than untraining a model. And so we're still sort of working out exactly
+
+00:22:57.000 --> 00:23:00.000
+What the right
+
+00:23:00.000 --> 00:23:08.000
+Solution is for AI training, or to what extent AI training needs its own solution, but one
+
+00:23:08.000 --> 00:23:18.000
+One, I would say more open question that's in draft right now, or at least we'll have a PR landing in the next day or two, is about this question of
+
+00:23:18.000 --> 00:23:20.000
+If a user changes their mind
+
+00:23:20.000 --> 00:23:34.000
+Today, they can revoke the grant. Great requests will be denied for data, but what if the client application already has the data and the user changes their mind and revokes the grant
+
+00:23:34.000 --> 00:23:41.000
+Can you somehow have the user opt out of AI training at that point in time
+
+00:23:41.000 --> 00:23:54.000
+There are retention policies in PDP, but if the retention policy that the user agreed to is 60 days, but 2 days after the grant was created, they want to revoke
+
+00:23:54.000 --> 00:24:00.000
+their consent. There isn't really a solution for that. And if we want a solution
+
+00:24:00.000 --> 00:24:04.000
+One path is, we could do what Australia does
+
+00:24:04.000 --> 00:24:14.000
+In their consumer data rights, which is that the server would push a notification to the client saying the user has withdrawn consent
+
+00:24:14.000 --> 00:24:22.000
+But that is a little bit… that depends on the client reliably receiving that push.
+
+00:24:22.000 --> 00:24:29.000
+So if their server has downtime or something, we can't really guarantee that consent has been withdrawn from the client's perspective.
+
+00:24:29.000 --> 00:24:33.000
+Another option is sort of taken from the security
+
+00:24:33.000 --> 00:24:37.000
+domain, which is this idea of provisioning
+
+00:24:37.000 --> 00:24:54.000
+leases. So, if you have a grant, that's good for 6 months to access data, maybe once a day or every four hours, you actually need to go refresh a lease with the server against that grant so that you can continue to
+
+00:24:54.000 --> 00:24:56.000
+Access the data
+
+00:24:56.000 --> 00:24:58.000
+And
+
+00:24:58.000 --> 00:25:07.000
+This could probably be applied to other things besides just AI training, any kind of reason to have consent withdrawn
+
+00:25:07.000 --> 00:25:16.000
+could potentially support this, but this is, I would say, a little bit of a novel application of the lease pattern
+
+00:25:16.000 --> 00:25:36.000
+And so this is something that would benefit from discussion. It's not 100% for sure whether this would go into B0.1, but this seems like a good opportunity to just invite some discussion. So there should be a pull request up this week if you want to check that out.
+
+00:25:36.000 --> 00:25:49.000
+And then there are some things that we just can't get in in this version. And a lot of these came from feedback. We've basically looked at all these different topics
+
+00:25:49.000 --> 00:26:01.000
+and made sure that there's nothing in the spec that's blocking them from being solved or addressed later on. In some cases, we've made some minor changes to sort of set up the possibility to solve for
+
+00:26:01.000 --> 00:26:06.000
+subgrants or changing app ownership or derivative data.
+
+00:26:06.000 --> 00:26:11.000
+And I think they could potentially be fast follows in future versions of the protocol
+
+00:26:11.000 --> 00:26:15.000
+I just wanted to call out that
+
+00:26:15.000 --> 00:26:23.000
+These have all been considered and like will likely be revisited in the future.
+
+00:26:23.000 --> 00:26:28.000
+Just to recap a couple of the key points across all these changes
+
+00:26:28.000 --> 00:26:31.000
+I would say some of the most important ones are
+
+00:26:31.000 --> 00:26:41.000
+With this version of PvP, the owner really gets to narrow the consent that they give, even if it means that the client application isn't getting what they want.
+
+00:26:41.000 --> 00:26:45.000
+Different consent requests can
+
+00:26:45.000 --> 00:26:53.000
+involve multiple purposes, and we are trying to respect the user by creating a different grant for each purpose.
+
+00:26:53.000 --> 00:27:08.000
+And then finally, for privacy reasons, apps are getting unique identifiers for each individual so that they can't collude and they can't try to discover information about users that they shouldn't
+
+00:27:08.000 --> 00:27:19.000
+So, like I said, you can go to the pull request 374 in the PDP repo and leave comments, read through these changes, jump into the Discord server
+
+00:27:19.000 --> 00:27:29.000
+All of that is amazing. Thanks for all the contributions over the open comment period. It's been really, really awesome to see everybody
+
+00:27:29.000 --> 00:27:33.000
+coming into this problem and supporting this project.
+
+00:27:33.000 --> 00:27:40.000
+And that watch out in October for V0.1 to lock.
+
+00:27:40.000 --> 00:27:41.000
+And I guess
+
+00:27:41.000 --> 00:27:46.000
+Tim, one question that did come up in just one call that I just heard immediately before this one was.
+
+00:27:46.000 --> 00:27:48.000
+Um…
+
+00:27:48.000 --> 00:27:58.000
+Does the standard set any protections or guardrails? Or how does the standard work in relation to once the data is in the recipient application?
+
+00:27:58.000 --> 00:28:02.000
+Do we make any guarantees at the resource?
+
+00:28:02.000 --> 00:28:13.000
+server or at the authorization server level that ensures that data is only used for that specific purpose that's defined by the user.
+
+00:28:13.000 --> 00:28:17.000
+Yeah, I mean, there are physical limits to what the protocol can do there.
+
+00:28:17.000 --> 00:28:19.000
+So
+
+00:28:19.000 --> 00:28:27.000
+Like, for whatever part of it is within the server's control, like you're making a query for data to the server
+
+00:28:27.000 --> 00:28:29.000
+Of course, the server is going to
+
+00:28:29.000 --> 00:28:32.000
+enforce the rules associated with the grant
+
+00:28:32.000 --> 00:28:36.000
+But for whatever happens in the client
+
+00:28:36.000 --> 00:28:43.000
+The server doesn't have control over that, so the best that we can do is basically make the client
+
+00:28:43.000 --> 00:28:52.000
+Be explicit about what it's agreeing to. And that comes in in a few different places in PDP
+
+00:28:52.000 --> 00:28:57.000
+The client can and should attach terms and conditions in their privacy policy
+
+00:28:57.000 --> 00:29:00.000
+They should express what the retention
+
+00:29:00.000 --> 00:29:08.000
+policy is for the data. And so, if a client says, I'm only going to keep your data for 30 days
+
+00:29:08.000 --> 00:29:11.000
+And they don't, and the user
+
+00:29:11.000 --> 00:29:20.000
+Wants to litigate against that like I'm not a lawyer. Maybe, maybe the fact that it's attributed through the grant is
+
+00:29:20.000 --> 00:29:24.000
+you know, supportive for the user.
+
+00:29:24.000 --> 00:29:29.000
+So unfortunately, yeah, we can't guarantee everything, but we try to
+
+00:29:29.000 --> 00:29:33.000
+at least put it all in the contract, you know, defined as the grant.
+
+00:29:33.000 --> 00:29:38.000
+And so, like, if a user's like, I don't want my data used for AI training.
+
+00:29:38.000 --> 00:29:42.000
+There's no, like, like.
+
+00:29:42.000 --> 00:29:45.000
+Other than that agreement.
+
+00:29:45.000 --> 00:29:52.000
+There's no, like, verifiable way for that user to ensure that their data isn't used for AI training.
+
+00:29:52.000 --> 00:29:56.000
+Right. Like on a technical level
+
+00:29:56.000 --> 00:30:02.000
+Maybe there are some specific kinds of integrations that you could set up
+
+00:30:02.000 --> 00:30:05.000
+Maybe a server could verify that
+
+00:30:05.000 --> 00:30:15.000
+The data was consumed using some specific program in a TE that created a proof, but I would say that's pretty advanced
+
+00:30:15.000 --> 00:30:18.000
+And so it's pretty hard to guarantee that at this stage
+
+00:30:18.000 --> 00:30:27.000
+Okay, and is there prospects for that in terms of, like, have we drafted this standard around that in standard in such a way that…
+
+00:30:27.000 --> 00:30:38.000
+Say, for instance, we wanted to put in like Providence checks or something like that later on that could be layered in on top of it, or is that not within the scope of this project? Like, how are you thinking about that?
+
+00:30:38.000 --> 00:30:41.000
+Yeah, definitely.
+
+00:30:41.000 --> 00:30:45.000
+I mean, the easy thing, luckily, the first step is pretty easy. It's just
+
+00:30:45.000 --> 00:30:52.000
+If you're going to do providence checks, we're gonna have to check something, like some kind of proof, or there needs to be some
+
+00:30:52.000 --> 00:30:58.000
+trace of Providence with some signatures, like, whatever the technical
+
+00:30:58.000 --> 00:31:04.000
+You know, shape of that is doesn't really matter. The protocol is sort of leaving a place for that
+
+00:31:04.000 --> 00:31:05.000
+Mm-hmm.
+
+00:31:05.000 --> 00:31:15.000
+evidence to get dropped in. And then the harder part can come a little bit later, which is, well, how do you actually verify that? How do you
+
+00:31:15.000 --> 00:31:19.000
+Like, what are the technical mechanisms to get that proof?
+
+00:31:19.000 --> 00:31:31.000
+And then, like, I guess there was another point that was raised in the Discord in relation to should we be more opinionated in terms of the data structure to support interoperability between data platforms? Do you want to just comment on that briefly?
+
+00:31:31.000 --> 00:31:38.000
+Yeah, and this has come up in some of the previous sessions as well. I think
+
+00:31:38.000 --> 00:31:46.000
+And maybe just to sort of reflect, or to recap the idea, it's that data portability has suffered in some
+
+00:31:46.000 --> 00:31:55.000
+Small part or large part due to the fact that nobody speaks the same language in terms of the shape of the data. If you want to import
+
+00:31:55.000 --> 00:32:02.000
+photos from one platform to another, the schema might be completely different. So that doesn't just work
+
+00:32:02.000 --> 00:32:03.000
+And
+
+00:32:03.000 --> 00:32:05.000
+I think
+
+00:32:05.000 --> 00:32:10.000
+with… we thought about this a lot, like, should PDP mandate some sort of
+
+00:32:10.000 --> 00:32:17.000
+common schema for a photo, or for an email, or for a tax return
+
+00:32:17.000 --> 00:32:22.000
+I think that could work for certain kinds of data, for certain
+
+00:32:22.000 --> 00:32:27.000
+Large platforms in particular, but the long tail of
+
+00:32:27.000 --> 00:32:34.000
+Unique kinds of data of smaller platforms
+
+00:32:34.000 --> 00:32:47.000
+It just gets harder and harder to standardize all of that, and I think the more that you try, the more you lose some of the nuance of, like, in this platform, you get this other extra data, or it's maybe richer in certain ways
+
+00:32:47.000 --> 00:32:52.000
+And so that's one reason why we chose not to force
+
+00:32:52.000 --> 00:33:04.000
+Normalizing the data into standard. Another is we live in the… in a world where AI is becoming more and more prominent, and AI actually handles sort of arbitrary
+
+00:33:04.000 --> 00:33:15.000
+Schemas very well, and it's kind of a trivial task for AI to say, take my photos from this platform and reshape them to fit this platform
+
+00:33:15.000 --> 00:33:19.000
+And so if we get adoption with AI first.
+
+00:33:19.000 --> 00:33:23.000
+Then we can maybe think about how do we take the next step. But
+
+00:33:23.000 --> 00:33:26.000
+There's actually nothing stopping
+
+00:33:26.000 --> 00:33:34.000
+Anybody from defining their schemas in terms of schema.org schemas, or some convention, or maybe
+
+00:33:34.000 --> 00:33:45.000
+Maybe like in the market using common schemas will win certain use cases as data portability finds new life
+
+00:33:45.000 --> 00:33:55.000
+It's just a different kind of digital world that we're in than we were maybe 20 years ago. So I think it's just a little bit too early to say we have to have
+
+00:33:55.000 --> 00:34:00.000
+common schemas. And maybe one last point on this is
+
+00:34:00.000 --> 00:34:09.000
+The Digital Markets Act actually enables gatekeepers to build sort of bespoke integrations between platforms
+
+00:34:09.000 --> 00:34:19.000
+And I think that is making it harder to justify using common schemas, because there's already a path around that. So I think the point
+
+00:34:19.000 --> 00:34:25.000
+Maybe to sum up the point here, it's like, how can we lower the friction
+
+00:34:25.000 --> 00:34:38.000
+At the supply… on the supply side, the data source is getting the data out is, like, the hard first step. Okay, now how can we do interesting things with it? I think we can still solve that. It'll just be maybe a second step
+
+00:34:38.000 --> 00:34:55.000
+Okay, cool. Thank you for answering those questions. Those are the ones at the top of my mind. Anything that you would want to reflect on based on any of the changes that you made to the standard?
+
+00:34:55.000 --> 00:35:01.000
+There is a lot to learn from other standards that are out there, and I think
+
+00:35:01.000 --> 00:35:13.000
+I feel really good about the fact that PDP sort of from the beginning has tried to be composable with what already exists and what people are working on already
+
+00:35:13.000 --> 00:35:20.000
+There are already places in the spec where other standards that are relatively new could
+
+00:35:20.000 --> 00:35:24.000
+Could fit well with PDP
+
+00:35:24.000 --> 00:35:33.000
+C2PA, I think is one kind of evidence that could drop in to PDP. So I think we should continue to
+
+00:35:33.000 --> 00:35:36.000
+prioritize composability. I think
+
+00:35:36.000 --> 00:35:40.000
+That just buys us a lot of power in the protocol.
+
+00:35:40.000 --> 00:35:42.000
+I think there's also
+
+00:35:42.000 --> 00:35:52.000
+A lot more scope to what a protocol like this can do and can become than the core of PDP should solve. So this
+
+00:35:52.000 --> 00:36:07.000
+strategy of keeping the core protocol relatively small, and then allowing for a lot of extensions to hook into it through profiles and whatever other, you know, specs that can layer on top of that
+
+00:36:07.000 --> 00:36:10.000
+I think that's like a good way to architect
+
+00:36:10.000 --> 00:36:19.000
+PDP conformant servers that fit different use cases. And if a profile
+
+00:36:19.000 --> 00:36:26.000
+It just wins, like, across every use case. That can later be adopted into the core spec.
+
+00:36:26.000 --> 00:36:27.000
+Mmm.
+
+00:36:27.000 --> 00:36:29.000
+I think
+
+00:36:29.000 --> 00:36:34.000
+We want to be sort of intentional about where we ossify
+
+00:36:34.000 --> 00:36:39.000
+And where we create flexibility and leave space for growth.
+
+00:36:39.000 --> 00:36:43.000
+And I think that's a hard thing to solve for, but
+
+00:36:43.000 --> 00:36:48.000
+So far, so good, hopefully.
+
+00:36:48.000 --> 00:37:15.000
+Okay, perfect. Awesome. I think that's it, Tim. Let's wrap this and give folks time back, but I think this is really great. And so the next steps here are for any further feedback to be rolled in over the next couple weeks, lock the standard, and then we can work on actually getting folks to adopt it. If there's anybody who's watching this on YouTube who hasn't already, say that they support on the go to PDPP.dev and say that they support the PDPP principles, please do so.
+
+00:37:15.000 --> 00:37:20.000
+Um, but thank you so much for your work, Tim, and we will stay in touch with the community.
+
+00:37:20.000 --> 00:37:22.000
+All right, likewise. Thanks, Art
+
+00:37:22.000 --> 00:37:25.000
+Thanks, bye.
+

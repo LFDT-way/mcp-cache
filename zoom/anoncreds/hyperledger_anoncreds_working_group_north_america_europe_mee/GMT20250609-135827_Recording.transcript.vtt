@@ -1,0 +1,1774 @@
+WEBVTT
+
+1
+00:00:12.640 --> 00:00:14.640
+Stephen Curran: Hey! Sarah and Jeet.
+
+2
+00:00:15.110 --> 00:00:19.170
+Mike Lodder: Can you tell me where the code is? Because I'd like to look at it.
+
+3
+00:00:19.310 --> 00:00:22.400
+Mike Lodder: to give you a better opinion on it?
+
+4
+00:00:22.400 --> 00:00:23.770
+Stephen Curran: Yeah, I will
+
+5
+00:00:24.050 --> 00:00:30.869
+Stephen Curran: alright welcome to the June 9th and our credits working group meeting. I imagine a few people will listen afterwards
+
+6
+00:00:31.080 --> 00:00:36.229
+Stephen Curran: from different places. So we will go ahead and do this formally, even though there's only a few of us here.
+
+7
+00:00:36.767 --> 00:00:56.930
+Stephen Curran: Oh, more showing up, though. I want to talk about some an oncriz. v. 1 revocation improvements. Addressing the No phone, home issue and more. And then, as we have time, talk with Mike about the Google's lip zk, library, and more on what's happening with that
+
+8
+00:00:58.647 --> 00:01:02.220
+Stephen Curran: I am recording, and I'll let people know where the recording is
+
+9
+00:01:03.167 --> 00:01:16.040
+Stephen Curran: reminder. This is a Linux foundation, Europe, no Linux Foundation meeting. So the Linux Foundation and Trust policy is in effect, and this is an Lfd meeting. So the Lftt code of conduct is in effect
+
+10
+00:01:16.770 --> 00:01:25.819
+Stephen Curran: alright. I got a presentation, so I'll just go ahead and go through that we can jump in and discuss as we go.
+
+11
+00:01:26.200 --> 00:01:48.983
+Stephen Curran: but I'll go ahead with this and and take notes. This intended to be a discussion as much so so lots of things going on with in the community about no phone home. Nophonehome.com is available. And lots of discussion. For example, on the Ccg mailing list about it right now.
+
+12
+00:01:49.850 --> 00:02:07.849
+Stephen Curran: the summary is that tracking should not happen when using verifiable credentials, and that holders and verifiers must not contact the issuer with identifiable data about the holder during a presentation flow, so could be the holder could be the verifier
+
+13
+00:02:07.980 --> 00:02:14.020
+Stephen Curran: calling back to the issuer with identifiable data about the about the holder.
+
+14
+00:02:14.570 --> 00:02:23.849
+Stephen Curran: So that's a no, no. And the reason this is a really big issue right now, and where most people are raising it is with Mdl. And the Mdl.
+
+15
+00:02:25.280 --> 00:02:35.730
+Stephen Curran: the Mdl. Spec. Which has a mode where the verifier can contact the issuer directly, and
+
+16
+00:02:36.380 --> 00:02:40.179
+Stephen Curran: it's a it's kind of an odd one in that mode.
+
+17
+00:02:41.110 --> 00:02:47.210
+Stephen Curran: There, there's a should be implemented and can be used
+
+18
+00:02:47.400 --> 00:02:50.999
+Stephen Curran: to turn on on and off this capability
+
+19
+00:02:51.484 --> 00:02:58.180
+Stephen Curran: for tracking issuers, and seems to even imply that it might even be possible to do it on a per
+
+20
+00:02:59.003 --> 00:03:11.740
+Stephen Curran: issuer, or portion of the population which is weird. So obviously when when you're using open, I openid for openid connect type.
+
+21
+00:03:12.457 --> 00:03:20.389
+Stephen Curran: functionality, which is what this is that really leaves it open makes it really easy for the issue, or to track who is doing what?
+
+22
+00:03:20.730 --> 00:03:23.690
+Stephen Curran: Where, and that's what we're trying to avoid.
+
+23
+00:03:25.590 --> 00:03:35.660
+Stephen Curran: for revocation makes no phone home hard somewhere, real, near near real time data needs to be put published.
+
+24
+00:03:35.790 --> 00:03:36.730
+Stephen Curran: and
+
+25
+00:03:36.900 --> 00:03:48.949
+Stephen Curran: either the holder or the verifier or both need to retrieve that data, such that they can verify the revocation status of a credential, and that that makes it pretty hard.
+
+26
+00:03:52.180 --> 00:04:19.660
+Stephen Curran: it can be okay in certain circumstances, and that's what the folks, especially at W. 3 C. Talk about the people that did bitless status, which is as long if the holder and or verifier retrieve a file with no Api, and how you do a just file retrieval with an Api that's obviously open to question. You could obviously implement it as an Api. But, there's no special identifiers going in. You're just
+
+27
+00:04:19.959 --> 00:04:30.730
+Stephen Curran: conceptually retrieving a file covering a large enough population. So the issuer is then, unable to tell why the file is being retrieved which holder is of interest.
+
+28
+00:04:31.443 --> 00:04:35.790
+Stephen Curran: And per. This note, this links to the
+
+29
+00:04:37.300 --> 00:04:51.029
+Stephen Curran: the bit status list, bit string status list. Spec. A herd size 131,000 or larger is okay. So there you go. That gives us a metric to look at of of when it is okay.
+
+30
+00:04:51.370 --> 00:04:57.230
+Stephen Curran: So comments on that. Sam, any. That's more or less it for no phone home.
+
+31
+00:05:03.120 --> 00:05:03.960
+Stephen Curran: Okay?
+
+32
+00:05:04.915 --> 00:05:17.009
+Stephen Curran: Just a reminder how revocation in an on Creds works the issuer creates and publishes a Cred. Def. A. Rev. Reg definition, or a Rev. Reg. We'll call it, and a tails file
+
+33
+00:05:18.424 --> 00:05:23.640
+Stephen Curran: over time. They will add more Rev. Regs. As we'll talk about
+
+34
+00:05:24.328 --> 00:05:38.680
+Stephen Curran: the issuer sends in the Vc. A reveredge id plus an index within that Revocation Registry to the in the Vc. For that Vc. So there is both a reveredge
+
+35
+00:05:39.390 --> 00:05:45.780
+Stephen Curran: for the Vc. And an index within that to give a unique indicator for the Vc.
+
+36
+00:05:46.732 --> 00:05:53.779
+Stephen Curran: And unique identifier, the holder retrieves the tails file associated with the reveredge.
+
+37
+00:05:55.002 --> 00:06:08.160
+Stephen Curran: The issuer from time whenever necessary. The issuer revokes Vcs. By publishing the the indices of the revoked credentials in Rev. Entries
+
+38
+00:06:08.990 --> 00:06:10.960
+Stephen Curran: for a given timestamp.
+
+39
+00:06:11.070 --> 00:06:22.850
+Stephen Curran: and included with that is, an accumulator, and we'll get to that in a bit. During presentation the holder retrieves the reveredge, a reveredge entry and its associated timestamp.
+
+40
+00:06:22.980 --> 00:06:26.449
+Stephen Curran: and then it generates a non revocation proof.
+
+41
+00:06:26.800 --> 00:06:37.320
+Stephen Curran: using the reveredge entry and the tails file and its index for the Vc. And we'll talk about that once a little more detail in the next one.
+
+42
+00:06:38.170 --> 00:06:41.204
+Stephen Curran: and finally the verifier retrieves the
+
+43
+00:06:42.920 --> 00:06:55.439
+Stephen Curran: reveredge entry that was used by the holder. It does that, so it gets the accumulator, and it also needs a public key, and it uses the that combination to verify the proof.
+
+44
+00:06:57.530 --> 00:06:58.340
+Stephen Curran: Okay.
+
+45
+00:06:58.530 --> 00:07:09.889
+Stephen Curran: tails file. This is the one that's usually a bit of a mystery. So I'll just go into a little more detail. Tails, files are a series of related numbers points on a curve, and there's 1
+
+46
+00:07:10.520 --> 00:07:19.120
+Stephen Curran: entry per credential in a tails file. So if tails file, if a river edge has 3,000
+
+47
+00:07:19.920 --> 00:07:26.810
+Stephen Curran: 3,000 credentials in in the Revocation registry, then the tails file contains 3,000 points.
+
+48
+00:07:28.413 --> 00:07:31.180
+Stephen Curran: The red branch entries contained.
+
+49
+00:07:31.890 --> 00:07:39.870
+Stephen Curran: as mentioned. An accumulator along with the list of revoke credentials.
+
+50
+00:07:40.510 --> 00:07:53.679
+Stephen Curran: and the accumulator is more or less, and I don't want to get into the exact details, but a product of all the non revoked points. So multiply all the non revoked points together, you get the accumulator
+
+51
+00:07:54.660 --> 00:08:04.809
+Stephen Curran: to create a non revocation proof. The holder creates a witness, and the witness is a product of all the non revoked points excluding their own.
+
+52
+00:08:05.210 --> 00:08:24.110
+Stephen Curran: So they have to have the tails file because they need all the points they need. A list of all of the non, or all of the revoked credentials, or all of the non-roped, whichever they they need to list. The status of all of the credentials at that given at a given timestamp
+
+53
+00:08:25.901 --> 00:08:28.629
+Stephen Curran: once they do that, they generate a proof
+
+54
+00:08:29.110 --> 00:08:38.850
+Stephen Curran: using the holder's point and the witness. And they demonstrate that that basically can produce the accumulator without revealing the holder's point.
+
+55
+00:08:39.490 --> 00:08:45.660
+Stephen Curran: or they're indexed. So there's no linkable data revealed, and the verifier then.
+
+56
+00:08:46.150 --> 00:08:54.030
+Stephen Curran: knowing the timestamp that the holder used can grab the accumulator and verify the proof, so that more or less is what happens.
+
+57
+00:08:57.360 --> 00:09:14.709
+Stephen Curran: the complications with an oncreds are 2 in indie and and historically, because Indie, of course, was the 1st implementation. Reveredge entries are deltas, meaning each entry contains only the list of updated
+
+58
+00:09:16.120 --> 00:09:25.550
+Stephen Curran: changed changes. The list of credentials that changed their status since the last reverage entry.
+
+59
+00:09:25.770 --> 00:09:31.590
+Stephen Curran: And as a result of that, there's actually a server, a ledger side calculation done
+
+60
+00:09:31.950 --> 00:09:38.230
+Stephen Curran: so when you query the ledger and say, Give me the updates. From from this time to this time.
+
+61
+00:09:38.973 --> 00:09:52.849
+Stephen Curran: The indie is actually going through all of the ones. All of the Rev. Reg. Entries that occurred between those 2 times, and giving you a a full list from between those
+
+62
+00:09:53.895 --> 00:10:01.980
+Stephen Curran: checked did. Webbh and others are now using Rev. Reg entries being each one is a full state.
+
+63
+00:10:02.280 --> 00:10:16.590
+Stephen Curran: essentially a bit list of the Revocation statuses. So when you retrieve it from checked or hedera, or did Webbh? You're actually getting the full state, so there's no need to do a calculation on the ledger side.
+
+64
+00:10:16.910 --> 00:10:22.700
+Stephen Curran: and you then have the full state of all the credentials, which is what the holder needs.
+
+65
+00:10:24.213 --> 00:10:32.200
+Stephen Curran: Reveredges are very are small and of a fixed size per Rev. Edge. So the constraint
+
+66
+00:10:32.430 --> 00:10:35.479
+Stephen Curran: practically is the size of the tails file. So
+
+67
+00:10:35.780 --> 00:10:41.929
+Stephen Curran: generally most are using 3 k. Or less credential leverage sizes
+
+68
+00:10:42.496 --> 00:10:50.619
+Stephen Curran: because that 3 K produces a 760 kB file, and that is as big as a mobile
+
+69
+00:10:52.020 --> 00:10:54.880
+Stephen Curran: A mobile app a mobile wallet
+
+70
+00:10:55.607 --> 00:11:02.220
+Stephen Curran: would want to handle at any given time. So that's how we got to 3 K. Credential sizes.
+
+71
+00:11:02.390 --> 00:11:16.240
+Stephen Curran: And so, as a result, a large volume, Issuer has to create many, many reverendages. They pre allocate to prevent intermittent slowdown, so generally in Acapi and so on. You occupy
+
+72
+00:11:16.750 --> 00:11:36.169
+Stephen Curran: behind the scenes creates 2 2 river edges at the start uses up one as soon as one gets used up it switches over to the other one and then generates a new one. So there's always one ahead of time, so that in the middle of a flow you don't have to stop and generate a new
+
+73
+00:11:36.500 --> 00:11:43.590
+Stephen Curran: revocation registry and generate the tails file, and that's because the tails file takes some time to generate.
+
+74
+00:11:46.230 --> 00:11:47.080
+Stephen Curran: Okay.
+
+75
+00:11:48.690 --> 00:12:02.740
+Stephen Curran: those. So that's where we are. So the proposal I've got. Oh, yeah, this is just a quick review of the current reality. So you create a deaf, you create a Rev range. You issue credentials over time.
+
+76
+00:12:03.240 --> 00:12:06.980
+Stephen Curran: over time. You also revoke credentials.
+
+77
+00:12:08.980 --> 00:12:21.490
+Stephen Curran: after you've revoked one or more credentials, you might do it after every credent, ever after every replication, you might do it on a daily basis or a periodic basis. A Rev. Entry is produced.
+
+78
+00:12:23.730 --> 00:12:32.160
+Stephen Curran: Again you you do and do more revocations. You do another Rev. Reg. Entry. You're still on the very 1st Revocation registry.
+
+79
+00:12:32.730 --> 00:12:39.999
+Stephen Curran: then you run out of credentials in your 1st one. So you create a second one, and you start issuing credentials from your second one.
+
+80
+00:12:41.260 --> 00:12:53.240
+Stephen Curran: Now, when you do a revocation, you may have to update, create 2 Rev. Branch entries, one for each of them, depending on where the revocations have occurred.
+
+81
+00:12:53.960 --> 00:12:54.970
+Stephen Curran: 3.
+
+82
+00:12:55.070 --> 00:12:59.750
+Stephen Curran: Now you're doing 3 overtime time passes.
+
+83
+00:12:59.900 --> 00:13:02.500
+Stephen Curran: You have a hundred 50 Rev. Ridges.
+
+84
+00:13:02.660 --> 00:13:06.089
+Stephen Curran: and you've got a hundred 50 Rev. Reg. Entries.
+
+85
+00:13:06.942 --> 00:13:32.710
+Stephen Curran: When you revoke credentials. Now, obviously, it's not quite a hundred 50, because presumably the distribution is such that not every you know there's not one or more revocations per entry. But you get the idea. It's ugly. There's lots of stuff happening, and that's at 150 times 3,000 is 450,000 credentials. So not that big a population. If we're talking a, you know.
+
+86
+00:13:32.770 --> 00:13:38.010
+Stephen Curran: driver's license, or or number of residents in a jurisdiction or something like that.
+
+87
+00:13:43.290 --> 00:14:01.700
+Stephen Curran: Okay. In addition to those many, many rights, we have a phone home problem in that, the holder is retrieving a revered entry. This, that is one in 3,000. So what? Much less than the one in 131,000 that is considered okay for phone home.
+
+88
+00:14:02.070 --> 00:14:05.560
+Stephen Curran: So that's that's where we got to
+
+89
+00:14:07.380 --> 00:14:29.920
+Stephen Curran: So I got an idea for mitigations of these things, and came up with 3 things in talking to folks, so no changes to the cryptography in a non-creds. We still want to keep the same mechanism. We're doing. So we don't want to radically change what the holder is doing, what the verifier is doing what the issue is doing. They're largely going to be the same.
+
+90
+00:14:30.130 --> 00:14:38.970
+Stephen Curran: And these are viable things that I think, given the community given knowledge to the implementers, they will be interested to make things better.
+
+91
+00:14:39.280 --> 00:14:42.699
+Stephen Curran: things that are constrained to a subset.
+
+92
+00:14:44.360 --> 00:14:50.610
+Stephen Curran: So number one is combining reverend entries. This is the the
+
+93
+00:14:50.870 --> 00:14:55.542
+Stephen Curran: most. This is the no phone home issuing one. So
+
+94
+00:14:56.420 --> 00:15:12.239
+Stephen Curran: viable for any anon. Creds at the did at the did method level. So did Webbh is actually doing some different things than other did methods. And it's relatively easy. This change would be at that same level and and pretty straightforward.
+
+95
+00:15:12.370 --> 00:15:19.300
+Stephen Curran: So define at the Rev. Reg definition level a combined Rev. Reg entry id.
+
+96
+00:15:19.570 --> 00:15:23.070
+Stephen Curran: and that basically consists of the reverence
+
+97
+00:15:23.930 --> 00:15:29.759
+Stephen Curran: entry id plus an index of which replication registry. This is
+
+98
+00:15:33.360 --> 00:15:42.899
+Stephen Curran: The combined reveredge entry contains a compressed bit list of all the credentials within all the reveredges
+
+99
+00:15:43.180 --> 00:15:47.909
+Stephen Curran: within that combined entry. So if we have
+
+100
+00:15:48.670 --> 00:16:03.099
+Stephen Curran: a hundred 50 Rev. Regis revocation registries in the combined one we would have 450,000 bits, which equivalent, which is about 56 kb, maximum
+
+101
+00:16:05.160 --> 00:16:15.079
+Stephen Curran: per for the file. So that's uncompressed. 56 kb. Is uncompressed. If you use a compressed bit list, it's actually going to be much smaller than that.
+
+102
+00:16:16.430 --> 00:16:19.349
+Stephen Curran: You also need an array of accumulators.
+
+103
+00:16:20.508 --> 00:16:33.359
+Stephen Curran: Which is just 32 Byte times the number of red bridges, so that, again, is 150 times 32 is pretty small. So the the size of each revered entry is much smaller.
+
+104
+00:16:33.510 --> 00:16:35.379
+Stephen Curran: It's a reasonable size.
+
+105
+00:16:38.820 --> 00:16:43.540
+Stephen Curran: We would basically do an additional object retrieval.
+
+106
+00:16:47.060 --> 00:16:53.160
+Stephen Curran: It did, Webbh. So we have to get our list of entries. But
+
+107
+00:16:53.330 --> 00:16:57.590
+Stephen Curran: but it would be a 1 time retrieval. You would not need to do it repeatedly.
+
+108
+00:16:59.990 --> 00:17:24.689
+Stephen Curran: But there's still the problem of if you have more than 450 kilobits, or more than a you know, 450,000 population of more than 450,000. You still have to deal with multiple combined revis. So you still have that complexity that you're going to need to create more than one of these if you have a very large population.
+
+109
+00:17:26.960 --> 00:17:31.109
+Stephen Curran: so the picture would then now look like this.
+
+110
+00:17:32.770 --> 00:17:46.760
+Stephen Curran: Even when you have 2, you still only have a single file. When you have 3, you only have a single file. When you have 150 Rev. Reg definitions, you still only have a single file. So that's the obvious benefit of this. Instead of having
+
+111
+00:17:47.442 --> 00:17:55.200
+Stephen Curran: to to create a hundred 50 files and store them and make them available for retrieval. You still have just one
+
+112
+00:18:02.550 --> 00:18:10.179
+Stephen Curran: So how do we? How do we achieve that as a community? So what we want to do is is
+
+113
+00:18:10.350 --> 00:18:20.649
+Stephen Curran: formalize what the mechanism is, how it would work. We plan to do that at the did Webbh level to demonstrate exactly how it could be done.
+
+114
+00:18:22.007 --> 00:18:31.619
+Stephen Curran: Implemented at the did method level, as I say, so that that lessens the impact in Acapi and Credo itself. What
+
+115
+00:18:33.860 --> 00:18:36.649
+Stephen Curran: from the did method handling
+
+116
+00:18:36.790 --> 00:18:45.659
+Stephen Curran: the impact on Acapi or Credo should be pretty minimal. They should get the same thing. They got without this optimization.
+
+117
+00:18:48.218 --> 00:18:52.530
+Stephen Curran: Obviously, the issuer process gets updated.
+
+118
+00:18:52.720 --> 00:18:59.799
+Stephen Curran: And so we're publishing combined. Rev edges on at the did method, level
+
+119
+00:19:00.470 --> 00:19:09.639
+Stephen Curran: holder and verifier impact should be minimal. It should really just impact the handling on the issuer side, the holder verifier impact.
+
+120
+00:19:09.960 --> 00:19:13.779
+Stephen Curran: This does resolve the phone home issue, basically
+
+121
+00:19:14.485 --> 00:19:19.870
+Stephen Curran: for the majority for small river edges. The
+
+122
+00:19:19.990 --> 00:19:26.820
+Stephen Curran: the community, the size of river edge would be retrieved for the entire population.
+
+123
+00:19:26.920 --> 00:19:32.660
+Stephen Curran: but even for a large one it would still be, you know, 450 K. Or whatever we decide it should be.
+
+124
+00:19:33.730 --> 00:19:43.280
+Stephen Curran: and and as well. It's much easier to manage and publish all of the files associated with it. Fewer files, fewer ledger transactions.
+
+125
+00:19:44.370 --> 00:19:45.819
+Stephen Curran: any comments.
+
+126
+00:19:46.020 --> 00:19:48.560
+Stephen Curran: I've talked a lot, and I didn't pause.
+
+127
+00:19:50.440 --> 00:19:55.359
+Mike Lodder: Steven, did you talk about other ways to compress it as well that you and I discussed.
+
+128
+00:19:55.360 --> 00:19:56.620
+Stephen Curran: That'll come next.
+
+129
+00:19:56.620 --> 00:19:59.060
+Stephen Curran: Okay, yeah. I didn't want to spoil the party.
+
+130
+00:20:02.928 --> 00:20:06.419
+Stephen Curran: The one thing I was wondering is for implementers.
+
+131
+00:20:07.175 --> 00:20:13.739
+Stephen Curran: Are you. Would you be interested in in adding this to your implementation? If the you know, if we
+
+132
+00:20:14.070 --> 00:20:17.030
+Stephen Curran: blazed a trail, would there be interest.
+
+133
+00:20:17.830 --> 00:20:18.910
+Mike Lodder: Talking about mine.
+
+134
+00:20:20.885 --> 00:20:24.039
+Stephen Curran: You're not using. Are you using an on creds? One.
+
+135
+00:20:24.040 --> 00:20:27.547
+Mike Lodder: No, so I I guess I'm trying to figure out who you're talking to.
+
+136
+00:20:27.710 --> 00:20:32.470
+Stephen Curran: Yeah, I'm more the other folks on the call of of whether they would.
+
+137
+00:20:34.980 --> 00:20:42.710
+Adrian Ross: Yeah, it seems like a a good idea. I would like to hear the other possible ways to do as well, but.
+
+138
+00:20:42.710 --> 00:20:43.980
+Stephen Curran: Yeah, okay.
+
+139
+00:20:44.940 --> 00:20:49.549
+Adrian Ross: It would at least increase it from 3,000, which has always been an issue. So yeah.
+
+140
+00:20:49.550 --> 00:20:52.900
+Stephen Curran: Yes, that's a tricky one. I'll get to that in a bit.
+
+141
+00:20:53.280 --> 00:20:57.930
+Sam Curren (TelegramSam): Steven. I apologize for the Meta question. Can you drop the link to these slides somewhere?
+
+142
+00:20:57.930 --> 00:20:59.840
+Sam Curren (TelegramSam): Oh, sorry about that.
+
+143
+00:20:59.840 --> 00:21:03.930
+Sam Curren (TelegramSam): I missed it if you did it earlier. I want links out of it is why I'm asking.
+
+144
+00:21:03.930 --> 00:21:09.829
+Stephen Curran: Yeah, yeah, I, that's usually one of the 1st things I do when there we go
+
+145
+00:21:14.210 --> 00:21:15.010
+Stephen Curran: cool.
+
+146
+00:21:21.420 --> 00:21:27.108
+Stephen Curran: Okay, okay. So as I say, that gets us down to
+
+147
+00:21:28.190 --> 00:21:35.899
+Stephen Curran: one. And I could say, big file for each Rev. Reg. Entry. But it's actually not that big. It's going to be under 50 k.
+
+148
+00:21:36.820 --> 00:21:45.560
+Stephen Curran: In the vast majority, and and we could even make it larger. We, you know, don't have to stop at 150 go even larger than that, but
+
+149
+00:21:46.608 --> 00:21:49.520
+Stephen Curran: still pretty small retrieval.
+
+150
+00:21:51.072 --> 00:21:58.330
+Stephen Curran: This is the second one that came up when I was talking about this, andrew mentioned that the
+
+151
+00:21:59.210 --> 00:22:03.190
+Stephen Curran: current tails file contains G, 2 entries.
+
+152
+00:22:03.470 --> 00:22:11.529
+Stephen Curran: and there is a mechanism that can be done to compress those by 50%.
+
+153
+00:22:13.430 --> 00:22:16.310
+Stephen Curran: Basically, it is a trade off between.
+
+154
+00:22:17.048 --> 00:22:30.009
+Stephen Curran: How big the file is that you're retrieving, and how long it takes you to decompress the points you need. The uncompressed points to be used, but they can be calculated.
+
+155
+00:22:30.380 --> 00:22:45.049
+Stephen Curran: And so it's a trade off my guess that when a decision was made to do this in 2016. The the mobile processing time was a a different calculation, but I think in this day and age
+
+156
+00:22:45.150 --> 00:22:55.020
+Stephen Curran: oh, and and from what I've heard of how long it takes to do the calculation. It would be a reasonable thing to cut the size
+
+157
+00:22:55.580 --> 00:23:03.180
+Stephen Curran: by 50% of the tails file. Now, this is not a massive change. Because it's really either.
+
+158
+00:23:03.650 --> 00:23:10.410
+Mike Lodder: That that was only a very small part of it. Steven. The real part was the library at the time, didn't support compression.
+
+159
+00:23:10.410 --> 00:23:12.040
+Stephen Curran: Okay, that's the only reason.
+
+160
+00:23:12.040 --> 00:23:12.819
+Mike Lodder: Oh, really.
+
+161
+00:23:13.380 --> 00:23:14.430
+Stephen Curran: Interesting.
+
+162
+00:23:14.930 --> 00:23:16.030
+Stephen Curran: Okay.
+
+163
+00:23:17.682 --> 00:23:29.010
+Stephen Curran: anyway, we could now change the tails file format so that the so that there could be detection, that it's being used.
+
+164
+00:23:29.150 --> 00:23:33.262
+Stephen Curran: and so when you retrieve the tails, file you
+
+165
+00:23:35.390 --> 00:23:46.066
+Stephen Curran: decompress it, so the holder retrieves it and decompress it. Recall that only the holder needs it. The verifier doesn't get it. So we we are again still limited by the
+
+166
+00:23:47.000 --> 00:23:49.800
+Stephen Curran: The mobile wallet.
+
+167
+00:23:50.280 --> 00:23:51.460
+Stephen Curran: Well, but they.
+
+168
+00:23:51.460 --> 00:24:00.299
+Mike Lodder: The only thing about this, though, Steven is, you'll have to decompress the points you're interested in, the rest you can leave alone, so you don't have to decompress all of them in the file.
+
+169
+00:24:00.300 --> 00:24:02.069
+Stephen Curran: Oh, that's interesting.
+
+170
+00:24:04.140 --> 00:24:09.969
+Stephen Curran: Yeah. So that could speed up times. But then you have to decompress each time you present.
+
+171
+00:24:10.730 --> 00:24:11.340
+Mike Lodder: Yep.
+
+172
+00:24:11.550 --> 00:24:12.270
+Stephen Curran: Trade off.
+
+173
+00:24:14.290 --> 00:24:16.160
+Mike Lodder: It's not that big of a deal. Trust me.
+
+174
+00:24:16.160 --> 00:24:16.580
+Stephen Curran: Yeah.
+
+175
+00:24:16.580 --> 00:24:17.030
+Mike Lodder: It'd be great.
+
+176
+00:24:17.030 --> 00:24:34.539
+Stephen Curran: Update issuers to use the new format. And that results in bigger revs, so basically for the same size file, we'd get to a 6,000 credentials per reveredge, still not massive, still not getting into population size, but a heck of a lot better than 3 K.
+
+177
+00:24:34.750 --> 00:24:38.909
+Stephen Curran: Or just smaller files. So the file isn't as large.
+
+178
+00:24:39.453 --> 00:24:45.629
+Stephen Curran: If we assuming we go for larger ones, we go for 6,000 in the same size file.
+
+179
+00:24:46.256 --> 00:24:51.730
+Stephen Curran: We get better heard privacy with verifiers. This is the thing that
+
+180
+00:24:51.870 --> 00:24:57.380
+Stephen Curran: change I mentioned before of the larger red bridge entries has no impact on
+
+181
+00:24:57.868 --> 00:25:05.540
+Stephen Curran: the herd. Privacy with verifiers, they are still a 1 in 3,000 or one in the size of the Rev. Reg.
+
+182
+00:25:07.180 --> 00:25:08.419
+Stephen Curran: And again,
+
+183
+00:25:09.600 --> 00:25:15.682
+Stephen Curran: would significantly, it would have the number of Rev. Reg. Resources. We're dealing with the number of
+
+184
+00:25:16.410 --> 00:25:18.840
+Stephen Curran: revocation registries. We're creating
+
+185
+00:25:20.860 --> 00:25:31.470
+Stephen Curran: for this. Obviously, the revocation rate and all that would be the same for any given use case, so the number of entries you produce would stay the same, and so on.
+
+186
+00:25:31.970 --> 00:25:33.540
+Stephen Curran: So thoughts on that one.
+
+187
+00:25:40.237 --> 00:25:47.950
+Adrian Ross: We would have to do testing on our side to, you know, see the implications. But if it is as minimal
+
+188
+00:25:48.220 --> 00:25:53.810
+Adrian Ross: as Mike's saying, then definitely another viable choice, and maybe in combination.
+
+189
+00:25:55.007 --> 00:26:00.180
+Stephen Curran: Do you know how big? How many credentials you're using for reverence.
+
+190
+00:26:02.250 --> 00:26:08.200
+Adrian Ross: Right now we do it the exact same way that you're doing it. 3,000 per beverage. So.
+
+191
+00:26:08.850 --> 00:26:09.610
+Stephen Curran: Yeah.
+
+192
+00:26:11.010 --> 00:26:17.529
+Stephen Curran: 7, 768 K. Seems to be for a mobile. You don't want to get a lot larger than that.
+
+193
+00:26:19.540 --> 00:26:20.470
+Stephen Curran: Okay?
+
+194
+00:26:23.760 --> 00:26:36.320
+Stephen Curran: Second interesting one is, use the same tails file for all the revocation registries. This also is evidently a possibility. So it's still on a you know, on a
+
+195
+00:26:36.600 --> 00:26:37.450
+Stephen Curran: per
+
+196
+00:26:37.740 --> 00:26:47.600
+Stephen Curran: credential type, and obviously it would need to be the same size. But you would generate the tails, file once for a reverence
+
+197
+00:26:47.850 --> 00:26:53.509
+Stephen Curran: and then reuse it for each additional revocation register you create
+
+198
+00:26:53.750 --> 00:26:59.400
+Stephen Curran: for for that given credit, credential type. So it has to be the same issuer.
+
+199
+00:26:59.600 --> 00:27:09.499
+Stephen Curran: presumably for convenience and for for management, you would, you would do it for each credential cred. Def.
+
+200
+00:27:10.403 --> 00:27:16.540
+Stephen Curran: So you're not changing too much. But but essentially you put the same tails file in each reveredge. Definition
+
+201
+00:27:17.306 --> 00:27:38.330
+Stephen Curran: issuer and holder. Just use the tails file reference, so they make no change. There's no change at all there, and it just is how the issuer generates the rev. It says, oh, I've already got a tails file, so I'm going to reuse it. And and obviously in generating the accumulator, the issuer must use the same
+
+202
+00:27:38.750 --> 00:27:39.930
+Stephen Curran: tails. File
+
+203
+00:27:42.686 --> 00:27:54.459
+Stephen Curran: again. The the impact here is all on the issue, or pretty much little impact on the holder. Unless they happen to have multiple credentials of the same type. They're not gonna have.
+
+204
+00:27:54.650 --> 00:27:56.419
+Stephen Curran: you know, multiple.
+
+205
+00:27:56.660 --> 00:28:03.469
+Stephen Curran: They're gonna have the same sales file. They won't have to retrieve it multiple times, but that's fairly unlikely in in
+
+206
+00:28:04.040 --> 00:28:05.920
+Stephen Curran: typical use cases.
+
+207
+00:28:06.645 --> 00:28:15.655
+Stephen Curran: But the bigger is much faster. Revocation, registration creation on the issue where they they
+
+208
+00:28:17.020 --> 00:28:25.260
+Stephen Curran: basically creating a Rev. Reg is just moving some data around or generating an identifier for the Rev, almost. That's about it.
+
+209
+00:28:25.965 --> 00:28:34.220
+Stephen Curran: and publishing it out. They don't have to spend time calculating each of the points for the tails file that they produce.
+
+210
+00:28:40.090 --> 00:28:42.630
+Stephen Curran: not earth shattering, but interesting.
+
+211
+00:28:43.980 --> 00:28:45.400
+Mike Lodder: Just optimizations.
+
+212
+00:28:45.980 --> 00:28:46.813
+Mike Lodder: The process.
+
+213
+00:28:47.430 --> 00:28:48.040
+Stephen Curran: Yeah.
+
+214
+00:28:51.920 --> 00:28:54.239
+Stephen Curran: Well, that's the last exciting one, I'm afraid.
+
+215
+00:28:56.450 --> 00:29:02.960
+Stephen Curran: And it's not that exciting. It's the 1st one, I think is the no phone home one that that really is the most interesting.
+
+216
+00:29:06.490 --> 00:29:18.290
+Stephen Curran: I did have other. No phone home mitigations that I wanted to make sure people were aware of. Verifiers should not ask for revocation if it's not needed.
+
+217
+00:29:18.580 --> 00:29:26.530
+Stephen Curran: and holders should not send it. If it's not requested that those are 2 big ones there,
+
+218
+00:29:29.910 --> 00:29:35.006
+Stephen Curran: verifiers should allow flexibility in the freshness of the non revocation.
+
+219
+00:29:35.730 --> 00:29:37.709
+Stephen Curran: Make the 2 part
+
+220
+00:29:38.291 --> 00:29:50.169
+Stephen Curran: as old as is applicable to the use case for a verifier. So if you're okay with it hasn't been revoked in the last month, then ask for that, so that
+
+221
+00:29:50.720 --> 00:29:53.039
+Stephen Curran: you don't have to.
+
+222
+00:29:54.100 --> 00:29:57.039
+Stephen Curran: You don't you? You don't need to go, get.
+
+223
+00:29:57.340 --> 00:30:05.229
+Stephen Curran: or or you would have on hand all of the Rev. Edges that are likely to be used, and the holder is less likely to need to get a new
+
+224
+00:30:05.340 --> 00:30:10.390
+Stephen Curran: beverage entry in order to respond, they could say, Oh, I've already got that one, so I can just respond.
+
+225
+00:30:11.130 --> 00:30:13.330
+Mike Lodder: Might have to be a little careful with this.
+
+226
+00:30:13.960 --> 00:30:19.440
+Mike Lodder: I'd love to see a study done on cause. Imagine someone was just issued.
+
+227
+00:30:21.010 --> 00:30:21.360
+Stephen Curran: Yeah.
+
+228
+00:30:21.360 --> 00:30:24.809
+Mike Lodder: They're gonna only have the the latest instead of the oldest.
+
+229
+00:30:25.080 --> 00:30:29.210
+Stephen Curran: They can still use any of them in the range. Just make that.
+
+230
+00:30:29.210 --> 00:30:29.630
+Mike Lodder: Agreement.
+
+231
+00:30:29.630 --> 00:30:30.410
+Stephen Curran: Wider.
+
+232
+00:30:30.640 --> 00:30:31.690
+Mike Lodder: But they won't have it.
+
+233
+00:30:32.410 --> 00:30:34.779
+Stephen Curran: Yes, they will still have to retrieve it.
+
+234
+00:30:35.859 --> 00:30:55.090
+Stephen Curran: But it it makes it. The the thing to do is the next one, and this is what this one allows is holders can retrieve reverence data at times other than when presenting. So you don't have this correspondence between. Oh, I'm presenting. Therefore I've got to go call the issuer to get the file.
+
+235
+00:30:55.090 --> 00:31:02.659
+Mike Lodder: Let me, let me maybe clear it up with an example. Let's say the verifier requests you can pick any of these time periods, one through 5.
+
+236
+00:31:02.870 --> 00:31:07.000
+Mike Lodder: I was just issued, so I have only
+
+237
+00:31:07.700 --> 00:31:11.639
+Mike Lodder: the freshness at time. Period 5. I don't have 1, 2, 3, or 4.
+
+238
+00:31:12.460 --> 00:31:13.010
+Stephen Curran: Yeah.
+
+239
+00:31:13.510 --> 00:31:17.490
+Mike Lodder: I can't go back and say, Give me one before that, because that wasn't issued before then. So
+
+240
+00:31:18.020 --> 00:31:23.499
+Mike Lodder: just I'd like to see a study of how often that could happen. And if it's a correlating factor.
+
+241
+00:31:24.340 --> 00:31:25.500
+Stephen Curran: Oh, I see!
+
+242
+00:31:26.830 --> 00:31:29.969
+Mike Lodder: Because I can't go back because I wasn't.
+
+243
+00:31:30.230 --> 00:31:30.830
+Stephen Curran: Yeah.
+
+244
+00:31:34.580 --> 00:31:35.180
+Mike Lodder: There's something.
+
+245
+00:31:35.180 --> 00:31:39.720
+Stephen Curran: Finally, 3rd parties could cache the reveredge data for the communities.
+
+246
+00:31:41.065 --> 00:31:44.189
+Stephen Curran: So this is sort of that idea that
+
+247
+00:31:44.970 --> 00:32:02.890
+Stephen Curran: somebody could contact the issuer to retrieve all the reveredge files now, because they don't have to get one per reveredge. They're really just getting one file that they hold on hand, and then the holders and or the verifiers
+
+248
+00:32:03.140 --> 00:32:14.559
+Stephen Curran: could retrieve that data from the 3rd party that's holding it, whoever whoever that might be, and it could even be the verifiers could hold it, could
+
+249
+00:32:14.880 --> 00:32:18.670
+Stephen Curran: could provide the reveredge entries for the holders.
+
+250
+00:32:19.050 --> 00:32:33.380
+Stephen Curran: and that gives them another place, since they already are interacting with the verifier. It would not be surprising for the holder to interact with the verifier. And again, if they're lost in the crowd, if they're large enough that doesn't expose any additional data. In fact, it
+
+251
+00:32:33.580 --> 00:32:38.169
+Stephen Curran: you know, the data they're gonna provide in the proof is going to be higher than that
+
+252
+00:32:38.550 --> 00:32:40.740
+Stephen Curran: by using the verifier.
+
+253
+00:32:43.150 --> 00:32:45.000
+Sam Curren (TelegramSam): Can I ask a question about the
+
+254
+00:32:45.510 --> 00:32:48.140
+Sam Curren (TelegramSam): 131,072.
+
+255
+00:32:48.140 --> 00:32:48.655
+Stephen Curran: Yeah.
+
+256
+00:32:49.170 --> 00:32:54.730
+Sam Curren (TelegramSam): So I went and read the stuff the I'm wondering if
+
+257
+00:32:54.890 --> 00:33:01.250
+Sam Curren (TelegramSam): there's a consideration of a timing attack to reduce the the surface space there.
+
+258
+00:33:02.080 --> 00:33:08.199
+Sam Curren (TelegramSam): So the issuer obviously knows when a credential was issued. And I'm I'm wondering if there are.
+
+259
+00:33:10.790 --> 00:33:16.720
+Sam Curren (TelegramSam): you know you could look at time, you know in the it only works in the near field, meaning
+
+260
+00:33:16.830 --> 00:33:28.950
+Sam Curren (TelegramSam): like a timing attack, only works like in relative proximity to when it was issued. But we have a lot of these flows that we promote in the community where, like, Hey, if I'm going to guide you through this process where I need a credential, and if you don't have one, I'm going to tell you where to go. Get it.
+
+261
+00:33:29.220 --> 00:33:34.089
+Sam Curren (TelegramSam): Yeah. And then if you're gonna go get it, you're gonna come back, presumably some portion.
+
+262
+00:33:34.296 --> 00:33:35.330
+Stephen Curran: And present it right away.
+
+263
+00:33:35.330 --> 00:33:37.369
+Sam Curren (TelegramSam): And immediately present it right away.
+
+264
+00:33:37.370 --> 00:33:38.340
+Stephen Curran: Oh, interesting!
+
+265
+00:33:38.340 --> 00:33:46.299
+Sam Curren (TelegramSam): And so in the long term, I don't know that it's an issue, because, given a sufficient number of issuances, then it's
+
+266
+00:33:46.600 --> 00:33:51.130
+Sam Curren (TelegramSam): you you're lost in the blur. But I think timing attacks
+
+267
+00:33:51.780 --> 00:34:02.519
+Sam Curren (TelegramSam): take that number down to like really small right? They might be like it might be like 5 within the past couple of minutes, and and that's that's a different.
+
+268
+00:34:02.980 --> 00:34:10.670
+Sam Curren (TelegramSam): a different thing. So I think, given enough time that the you know the although I didn't realize I was more likely to die by asteroid impact than lightning strikes. So now.
+
+269
+00:34:11.036 --> 00:34:12.134
+Stephen Curran: Sorry about that.
+
+270
+00:34:12.500 --> 00:34:19.269
+Sam Curren (TelegramSam): But but but the I think I think that it is ignoring a little bit some of the the practical sort of
+
+271
+00:34:19.570 --> 00:34:35.979
+Sam Curren (TelegramSam): yeah correlations, and I don't know that that's a solvable timing. Attacks are like really hard to solve without time, right? So it might need to be that that we just either add some caution or some acknowledgment of the issue.
+
+272
+00:34:36.750 --> 00:34:39.720
+Sam Curren (TelegramSam): For a timing attack in order to to make the
+
+273
+00:34:39.830 --> 00:34:41.670
+Sam Curren (TelegramSam): that, you know. Sort of the lightning strike
+
+274
+00:34:41.670 --> 00:34:43.870
+Sam Curren (TelegramSam): can't really hide time, can you?
+
+275
+00:34:43.870 --> 00:34:49.070
+Sam Curren (TelegramSam): You? Well, you just have to wait an indeterminate amount of time which.
+
+276
+00:34:49.070 --> 00:34:49.869
+Mike Lodder: Sure, but I can't.
+
+277
+00:34:49.870 --> 00:34:52.920
+Mike Lodder: It's really can't lie about. When I presented right or.
+
+278
+00:34:52.920 --> 00:34:57.310
+Sam Curren (TelegramSam): Well when it was yeah, you can't, because it's like right now, right? And so
+
+279
+00:34:57.500 --> 00:35:02.900
+Sam Curren (TelegramSam): the only way to do it is to wait an indetermined amount of time, which is a super crappy user experience. You're like.
+
+280
+00:35:02.900 --> 00:35:03.220
+Stephen Curran: Yeah.
+
+281
+00:35:03.220 --> 00:35:12.289
+Sam Curren (TelegramSam): Great. We randomly picked a number for you. And you're gonna have to wait like 15 and a half days to present this that sucks. Right? Yeah. So I don't know that it's fixable. But I think that.
+
+282
+00:35:12.290 --> 00:35:14.509
+Mike Lodder: It is, but I don't think we want to do it.
+
+283
+00:35:15.710 --> 00:35:17.730
+Sam Curren (TelegramSam): Well, I wonder if we just acknowledge it?
+
+284
+00:35:18.070 --> 00:35:21.100
+Mike Lodder: That's probably the best thing to do is say, here's a potential.
+
+285
+00:35:21.600 --> 00:35:22.520
+Sam Curren (TelegramSam): Right.
+
+286
+00:35:23.550 --> 00:35:42.129
+Sam Curren (TelegramSam): We just acknowledge that like this, the the population size and making the population size bigger doesn't fix the timing attack as big as you want, because if you're only considering the things in the last 5 min, then that's that's kind of the deal there, right? So I think what we do is we acknowledge that, and it could affect
+
+287
+00:35:42.470 --> 00:35:58.889
+Sam Curren (TelegramSam): architectural decisions and ecosystems like, let's try and get people credentials in advance of them, actually needing them, so that the time is more variable. Instead of relying on the fact that we're going to send people to go get one right away. And I think that that's helpful.
+
+288
+00:35:59.180 --> 00:36:02.219
+Mike Lodder: So, Sam, like you're right in that
+
+289
+00:36:03.020 --> 00:36:06.489
+Mike Lodder: timing is an issue. The other thing that's an issue is location.
+
+290
+00:36:07.430 --> 00:36:12.849
+Mike Lodder: So if I continually use the same IP address here, that's another vector of attack.
+
+291
+00:36:13.100 --> 00:36:14.330
+Sam Curren (TelegramSam): It is so.
+
+292
+00:36:14.330 --> 00:36:21.340
+Sam Curren (TelegramSam): People don't want to do that directly, like I'm a verifier. I don't want to have to tour my my requests right.
+
+293
+00:36:21.340 --> 00:36:34.489
+Mike Lodder: Right. So what I mean is, there's really only 2 ways to solve these, but I don't think they're worth it. The 1st is the issuer. If they're want to be helpful, they could issue what I call covered traffic credentials.
+
+294
+00:36:34.900 --> 00:36:39.550
+Mike Lodder: They're kind of just dummy credentials that could be presented with the real one.
+
+295
+00:36:40.515 --> 00:36:50.879
+Mike Lodder: But again, that takes a lot of work just to issue it. And then the verifier has to somehow figure out which is the real one, or you know, anyway.
+
+296
+00:36:50.880 --> 00:36:55.789
+Sam Curren (TelegramSam): Of the issuers are is kind of a nonstarter, because all it takes is a misbehaving issuer, right?
+
+297
+00:36:55.790 --> 00:36:56.150
+Sam Curren (TelegramSam): Correct.
+
+298
+00:36:56.150 --> 00:37:00.499
+Sam Curren (TelegramSam): So mitigations in the hand of the verifier or their holder are much more effective.
+
+299
+00:37:01.320 --> 00:37:04.749
+Mike Lodder: Well, that's why I mean it. It's just too much work.
+
+300
+00:37:05.080 --> 00:37:05.920
+Sam Curren (TelegramSam): Sure, but.
+
+301
+00:37:05.920 --> 00:37:07.850
+Mike Lodder: For very little benefit. So that's why.
+
+302
+00:37:07.850 --> 00:37:14.749
+Sam Curren (TelegramSam): Here's my main point, though, is that if we surface this and and perhaps suggest things like, listen.
+
+303
+00:37:14.990 --> 00:37:31.269
+Sam Curren (TelegramSam): issue credentials in advance of people actually needing them, and ideally, not systematically, in advance of when people need them. Then then the timing tech largely goes away. If I have a population, let's say, I'm a student, a university, and I go through some exercise to issue credentials to all of my students. Right
+
+304
+00:37:31.380 --> 00:37:35.450
+Sam Curren (TelegramSam): then everyone has roughly the same time within the population.
+
+305
+00:37:35.960 --> 00:37:55.770
+Sam Curren (TelegramSam): which means that then the request time from a particular verifier doesn't point to any individual student, because the time is not really a factor there. If I rely in my architectural implementation or my user experience design on getting credentials on demand immediately before presentation.
+
+306
+00:37:55.940 --> 00:38:07.490
+Sam Curren (TelegramSam): Now, I'm amplifying the possibility of of this of this detection and location. You're right. The location you kind of have to solve separately a little, but but that's my.
+
+307
+00:38:07.490 --> 00:38:11.369
+Mike Lodder: The point is, there's things that you just can't hide without a lot of work. So time is.
+
+308
+00:38:11.370 --> 00:38:14.650
+Sam Curren (TelegramSam): Not that much work, not that much work to like
+
+309
+00:38:14.820 --> 00:38:18.479
+Sam Curren (TelegramSam): issue credentials in advance of people needing them when you can. That's my point.
+
+310
+00:38:18.480 --> 00:38:19.880
+Mike Lodder: Can be, but.
+
+311
+00:38:19.880 --> 00:38:25.740
+Stephen Curran: Can be like, I'm thinking, the user interface or the user experience that's gonna be interesting.
+
+312
+00:38:26.340 --> 00:38:37.079
+Sam Curren (TelegramSam): Well in in the obviously there's times where, like you have to make it work, even if there's a privacy risk. My my point is is that if you're thinking about deployment of a system.
+
+313
+00:38:38.010 --> 00:38:47.809
+Sam Curren (TelegramSam): one of the considerations for privacy is the time at which you deploy, you issue the credentials, and so the ability to to handle that differently if you can.
+
+314
+00:38:48.030 --> 00:39:09.099
+Sam Curren (TelegramSam): will increase the privacy of your system. But there's no discussion of that. And so, having some some commentary. And maybe it's commentary not specific to to a noncreds, but just generally some commentary about population size for privacy and the impact of time and location on those things is important.
+
+315
+00:39:12.342 --> 00:39:29.900
+Sam Curren (TelegramSam): I think that's I think that's helpful. I think that if if you have people that are designing credential systems that have some language they can point to that says like, Oh, listen, you know, if we can do this, we should, I think, can influence system design in a in a broad scale. And this is not specific to a non creds. To be very clear.
+
+316
+00:39:30.840 --> 00:39:35.009
+Mike Lodder: I would just group all of these into one thing called observation attacks.
+
+317
+00:39:36.920 --> 00:39:39.380
+Mike Lodder: Yeah. And whatever you want to call it.
+
+318
+00:39:39.380 --> 00:39:51.469
+Sam Curren (TelegramSam): And possible mitigations. I mean, you could even have like a declaration of the issue. And maybe you don't comment on mitigation, and someone else does or whatever. But that's my point is that I think just not talking about it is probably not. The answer.
+
+319
+00:39:52.500 --> 00:39:53.340
+Mike Lodder: I agree.
+
+320
+00:39:55.470 --> 00:39:59.799
+Stephen Curran: Sam, the what you talked about made me think about.
+
+321
+00:40:00.590 --> 00:40:03.200
+Stephen Curran: If somebody else is holding these
+
+322
+00:40:05.080 --> 00:40:16.499
+Stephen Curran: and you get into ugliness where the holder gets issued a credential immediately goes in and retrieves a cached one. So they're not contacting the issuer. They're contacting somebody else.
+
+323
+00:40:17.200 --> 00:40:20.710
+Stephen Curran: but because they're in a new Rev. Reg.
+
+324
+00:40:21.000 --> 00:40:27.469
+Stephen Curran: Maybe there's that new one's never been published in an entry, or or it was just published.
+
+325
+00:40:27.820 --> 00:40:30.709
+Stephen Curran: and now they can't even produce a revocation.
+
+326
+00:40:31.460 --> 00:40:34.960
+Stephen Curran: They can't even produce one, because they're they're
+
+327
+00:40:35.130 --> 00:40:39.340
+Stephen Curran: particular definitions, not in the in the cache file.
+
+328
+00:40:40.750 --> 00:40:49.390
+Stephen Curran: So you even so, you're by by saying you're not going back to the issuer each time you're not, you're making it even more complicated.
+
+329
+00:40:50.080 --> 00:40:57.420
+Stephen Curran: So you can't even hide what the the problem you were doing by using this technique, this 3rd party.
+
+330
+00:40:57.670 --> 00:40:58.610
+Stephen Curran: ugly.
+
+331
+00:41:00.360 --> 00:41:02.430
+Mike Lodder: Well, that's why I was saying, there's
+
+332
+00:41:03.670 --> 00:41:06.689
+Mike Lodder: there's observation attacks right? There's just
+
+333
+00:41:07.050 --> 00:41:08.849
+Mike Lodder: it's kind of hard to get around it.
+
+334
+00:41:08.850 --> 00:41:09.500
+Stephen Curran: Yeah.
+
+335
+00:41:09.780 --> 00:41:14.920
+Mike Lodder: And so at what point do you say? It's good enough, I mean.
+
+336
+00:41:15.940 --> 00:41:26.761
+Mike Lodder: So there's all sorts of attacks right? There's homogeneity attacks where, like all individuals that are coming, have the same credential, or maybe some same sensitive value. And they're just collecting those.
+
+337
+00:41:27.680 --> 00:41:35.410
+Mike Lodder: there's inference attacks like I said. They're all same location or same time, or you know, anyway. Well.
+
+338
+00:41:35.410 --> 00:41:38.670
+Sam Curren (TelegramSam): And I think it's careful to differentiate between
+
+339
+00:41:38.920 --> 00:41:43.669
+Sam Curren (TelegramSam): mitigating these with cryptography or math, or other things versus.
+
+340
+00:41:43.670 --> 00:41:44.080
+Mike Lodder: So.
+
+341
+00:41:44.080 --> 00:41:49.930
+Sam Curren (TelegramSam): Practice, and and most of most of the observability attacks are are practice mitigations correct?
+
+342
+00:41:49.930 --> 00:42:04.699
+Sam Curren (TelegramSam): And so I think that but we should not discard them in the discussion. Obviously, like, when we're talking about the cryptography, there's value there. But we should not discard the real helpfulness of practice mitigations as part of that process.
+
+343
+00:42:04.700 --> 00:42:11.580
+Mike Lodder: To me to me. Most of the mitigation, Sam, are not cryptographic problems at all like you said. They're operational.
+
+344
+00:42:11.980 --> 00:42:18.669
+Sam Curren (TelegramSam): Totally. Yeah. So for example, in this, in this email between Steven and Manu, right.
+
+345
+00:42:18.930 --> 00:42:28.089
+Sam Curren (TelegramSam): I think that picking the probability of something, and you know, a probability of death by a couple of unlikely things is, I think, a useful metric.
+
+346
+00:42:28.530 --> 00:42:29.130
+Sam Curren (TelegramSam): But I
+
+347
+00:42:29.130 --> 00:42:37.089
+Sam Curren (TelegramSam): I think, yeah. And and I don't know that we need to solve this here. I wonder where the right place is to actually like. Talk about
+
+348
+00:42:37.440 --> 00:42:43.019
+Sam Curren (TelegramSam): some of these issues so that people can reference them, and then do ideally intelligent things with it.
+
+349
+00:42:43.020 --> 00:42:55.270
+Mike Lodder: Well, I I think, like you said, it's a good I it's just a good start to say, here's what I'm calling the possible observation problems that could happen, that credentials of any form do not solve.
+
+350
+00:42:55.840 --> 00:43:09.590
+Sam Curren (TelegramSam): Yes, yes, anytime you have a population which happens with any sort of revocation, because, like, I'm unaware of any of the mechanisms, they don't have a population right? Anytime you have any. A population of any kind.
+
+351
+00:43:10.080 --> 00:43:16.229
+Sam Curren (TelegramSam): You have to be careful of the limiting factor of the population. Size and observations. Attacks are huge for that.
+
+352
+00:43:17.140 --> 00:43:17.820
+Mike Lodder: Yeah.
+
+353
+00:43:18.820 --> 00:43:21.580
+Stephen Curran: Sam. One interesting thing that just occurs to me
+
+354
+00:43:21.920 --> 00:43:33.909
+Stephen Curran: is, for your particular problem that you just raised, which is, I'm using my credential right after is, make it the practice that every holder immediately retrieves the river edge
+
+355
+00:43:34.020 --> 00:43:35.409
+Stephen Curran: all the time.
+
+356
+00:43:36.470 --> 00:43:37.350
+Stephen Curran: So that
+
+357
+00:43:37.570 --> 00:43:45.299
+Stephen Curran: that's the typical behavior is they always do it, and then the issuer has no idea whether they're going to use it or not at any particular point.
+
+358
+00:43:45.590 --> 00:43:46.149
+Stephen Curran: that actually.
+
+359
+00:43:46.570 --> 00:43:47.029
+Stephen Curran: It's all been.
+
+360
+00:43:47.030 --> 00:43:53.680
+Sam Curren (TelegramSam): If you have an architecture that does not require the verifier to retrieve the reveredge, meaning it can be passed by the holder.
+
+361
+00:43:53.810 --> 00:43:55.289
+Sam Curren (TelegramSam): Then that's really good.
+
+362
+00:43:55.910 --> 00:43:58.629
+Sam Curren (TelegramSam): If you, if the if the sorry I may have.
+
+363
+00:43:58.630 --> 00:44:00.010
+Stephen Curran: Oh, I see!
+
+364
+00:44:00.010 --> 00:44:04.049
+Sam Curren (TelegramSam): Verifier also has to retrieve the Rev. Reg. That's actually the primary.
+
+365
+00:44:05.000 --> 00:44:08.569
+Sam Curren (TelegramSam): The holder retrieving the Rev. Reg. Is a problem. And you're right. So that's a good.
+
+366
+00:44:08.570 --> 00:44:09.600
+Stephen Curran: You're right.
+
+367
+00:44:09.960 --> 00:44:10.640
+Sam Curren (TelegramSam): But
+
+368
+00:44:12.860 --> 00:44:35.170
+Sam Curren (TelegramSam): I really think it's just a discussion. And and I think that you know, we have sort of some best practices that have been like adopted into browsers like, Hey, your Ssl. Certs expired. Technically, the credential was, the cert wasn't really compromised. We just consider bad if it's expired right? And so one of these things that we could consider
+
+369
+00:44:35.510 --> 00:44:40.499
+Sam Curren (TelegramSam): is that if you use a credential immediately after issuance.
+
+370
+00:44:41.380 --> 00:44:46.340
+Sam Curren (TelegramSam): the issuer is going to know where you used it like. That's just a practice that exists.
+
+371
+00:44:46.660 --> 00:44:47.370
+Mike Lodder: I would say.
+
+372
+00:44:47.370 --> 00:44:49.059
+Sam Curren (TelegramSam): If you're gonna do that or not, what's that.
+
+373
+00:44:49.220 --> 00:44:50.310
+Mike Lodder: How would they know?
+
+374
+00:44:50.900 --> 00:44:56.109
+Sam Curren (TelegramSam): Because if they're going to check revocation of the credential, then it's an observability attack.
+
+375
+00:44:57.100 --> 00:44:59.359
+Sam Curren (TelegramSam): If I if I come to Mike, I get a credential.
+
+376
+00:44:59.970 --> 00:45:06.240
+Sam Curren (TelegramSam): I then present that to Steve and Steve reaches out to Mike to grab the Revocation Registry, or from a resource that that
+
+377
+00:45:06.240 --> 00:45:07.260
+Sam Curren (TelegramSam): I can watch
+
+378
+00:45:07.260 --> 00:45:13.569
+Sam Curren (TelegramSam): you. You can now immediately know where where I presented that credential because of just the observability.
+
+379
+00:45:13.770 --> 00:45:15.150
+Stephen Curran: Potentially.
+
+380
+00:45:17.010 --> 00:45:25.510
+Sam Curren (TelegramSam): Knowledge that that's like probably gonna happen because we can't solve the time issue without a bad ux, like just having common knowledge that this is a thing.
+
+381
+00:45:25.510 --> 00:45:26.180
+Mike Lodder: Well.
+
+382
+00:45:26.300 --> 00:45:34.910
+Mike Lodder: so that could be true. If it's the 1st credential. What if the verifiers seen other people from the same issuer? So they've already downloaded the river edge right.
+
+383
+00:45:34.910 --> 00:45:43.960
+Sam Curren (TelegramSam): It does. That is true. So if it's the same. Rev. Reg, and you're not the 1st person in that's good. But again, they're going to want to make sure that the Rev. Reg. Is fresh enough.
+
+384
+00:45:44.610 --> 00:45:45.180
+Mike Lodder: Yeah, but.
+
+385
+00:45:45.180 --> 00:45:45.620
+Stephen Curran: Miles.
+
+386
+00:45:45.620 --> 00:45:50.129
+Mike Lodder: I don't think you can relate it as much as you might think, but it is a valid point.
+
+387
+00:45:50.590 --> 00:45:51.370
+Sam Curren (TelegramSam): Yeah. But if they know.
+
+388
+00:45:51.370 --> 00:45:51.849
+Stephen Curran: One more.
+
+389
+00:45:51.850 --> 00:45:54.940
+Sam Curren (TelegramSam): They know that the flow is to get then present.
+
+390
+00:45:55.640 --> 00:46:06.640
+Sam Curren (TelegramSam): They don't even have to just the fact that, like it happened within 60 seconds of each other, or even 10 min of each other, means that their population size is down to like 4. Now.
+
+391
+00:46:07.250 --> 00:46:15.330
+Stephen Curran: But Sam, one more, which is that verifiers do not check revocation status on anything
+
+392
+00:46:16.020 --> 00:46:20.410
+Stephen Curran: issued within a certain time range. They know when it was issued, so they.
+
+393
+00:46:20.410 --> 00:46:20.920
+Sam Curren (TelegramSam): Oh, that is.
+
+394
+00:46:20.920 --> 00:46:25.530
+Stephen Curran: Oh, this was issued within the last 5 min. Okay, I'm not gonna worry about verification.
+
+395
+00:46:25.530 --> 00:46:28.000
+Sam Curren (TelegramSam): How do they know it was issued in the last 5 min.
+
+396
+00:46:28.000 --> 00:46:31.620
+Stephen Curran: It's in the. It's the issue time, is there? Isn't it?
+
+397
+00:46:31.620 --> 00:46:32.989
+Mike Lodder: Like not every time.
+
+398
+00:46:32.990 --> 00:46:37.329
+Stephen Curran: No, that would be terrible. Never mind. Sorry you're right. That would be terrible.
+
+399
+00:46:37.580 --> 00:46:38.680
+Stephen Curran: Never mind.
+
+400
+00:46:38.680 --> 00:46:40.639
+Sam Curren (TelegramSam): Let's replace one problem with another one. Isn't that what.
+
+401
+00:46:40.640 --> 00:46:42.689
+Stephen Curran: Yeah, exactly. Sorry. That's not.
+
+402
+00:46:42.690 --> 00:46:46.920
+Sam Curren (TelegramSam): That actually would be excellent except except presenting that is super unique. Right?
+
+403
+00:46:46.920 --> 00:46:48.169
+Stephen Curran: Yeah, exactly. Yeah.
+
+404
+00:46:48.170 --> 00:47:01.020
+Sam Curren (TelegramSam): Yeah, so I. And it may be that because we can't solve the time problem without just waiting now subsequent uses of the credential, I don't think are are obviously subject to this, because it's an indeterminate amount of time before.
+
+405
+00:47:01.020 --> 00:47:02.180
+Sam Curren (TelegramSam): Yeah, yeah.
+
+406
+00:47:02.180 --> 00:47:25.939
+Sam Curren (TelegramSam): right? But it might just need to be that we have this like known practice, that if you are going to present a credential that you obtain in a flow in in sort of a you know not real time, but like as as part of the you, you acquired a credential that you then issue as part of the same flow, that the issuer of the credential will will know where you're using it this 1st time
+
+407
+00:47:26.400 --> 00:47:33.360
+Sam Curren (TelegramSam): like that may just be a thing that we have to make well understood. And there's not a good way around it
+
+408
+00:47:34.010 --> 00:47:54.129
+Sam Curren (TelegramSam): unless you have the capability of pre issuing credentials to people before they have. Now, there's all sorts of problems with that. That's a its own kind of ux challenge. I'm thinking of your lawyer example, Steven, if you're like, listen, everyone go sign up for this, and we're gonna we're gonna like, we're gonna offer this period where you can go get your credential where no one's accepting it yet
+
+409
+00:47:54.260 --> 00:47:55.460
+Sam Curren (TelegramSam): right
+
+410
+00:47:55.730 --> 00:48:13.370
+Sam Curren (TelegramSam): then. And then you turn on for this initial population size. Then you turn on verification within the ecosystem, I mean, turn on. You allow verification within the ecosystem. Now, anyone who had it issued prior to verification. Turning on is is protected from the from the time attack.
+
+411
+00:48:13.700 --> 00:48:34.699
+Sam Curren (TelegramSam): Because you've split the issuance in the in the presentation. That's what I mean by making people aware of this sort of a thing. Because if you're again, this is a thickness of tinfoil hat issue, if if you care a lot about that. You're going to design your system practices differently to prevent from timing and network attacks in the sense that you could.
+
+412
+00:48:35.030 --> 00:48:43.360
+Sam Curren (TelegramSam): you could literally use tor, or something similar to obfuscate the requester of the of the particular asset.
+
+413
+00:48:43.490 --> 00:49:01.520
+Sam Curren (TelegramSam): so that you can't do network attacks either as part of that or location attacks. But anyway, that's I like the the thinking of what happened with this sufficient population size. But there needs to be an asterisk there that talks about observability attacks.
+
+414
+00:49:01.770 --> 00:49:09.029
+Stephen Curran: Yep, excellent, alright! Well, that's about all we have time for.
+
+415
+00:49:09.230 --> 00:49:10.680
+Mike Lodder: So we'll leave it at that.
+
+416
+00:49:11.872 --> 00:49:21.660
+Stephen Curran: What I'm gonna do is keep reaching out to the community that I know is using it on creds and seeing about the interest in
+
+417
+00:49:22.566 --> 00:49:23.899
+Stephen Curran: applying this
+
+418
+00:49:24.824 --> 00:49:31.830
+Stephen Curran: in various places. As I say, I I suspect we're just gonna do this and did web. Vh, just because it's not hard.
+
+419
+00:49:32.614 --> 00:49:43.129
+Stephen Curran: And then we'll look at see about if others want to take a look at that for checked or hedera, or or other implementations.
+
+420
+00:49:43.130 --> 00:49:46.990
+Sam Curren (TelegramSam): The the discussion part that I'm really interested in Stephen is anticipated. Rollout. Time.
+
+421
+00:49:47.260 --> 00:50:02.100
+Sam Curren (TelegramSam): If you're doing something that did web, vh? Then it's then it's it's bundled with the adoption of, Did web. Vh, if you're going to modify a system in play, I'm very curious about the anticipated rollout time for the folks you talk to, so that might be worth asking them about. When you, when you reach out.
+
+422
+00:50:04.130 --> 00:50:13.102
+Stephen Curran: well, the one we know and the the changing, the com, the size of the tails file the doing, the compression
+
+423
+00:50:14.420 --> 00:50:18.189
+Stephen Curran: worth doing? Or is that more complicated in the community.
+
+424
+00:50:19.220 --> 00:50:21.269
+Sam Curren (TelegramSam): It's only to me a rollout issue.
+
+425
+00:50:21.510 --> 00:50:24.530
+Stephen Curran: Yeah, exactly. It's a. It's a tough one. It's a.
+
+426
+00:50:24.530 --> 00:50:29.230
+Sam Curren (TelegramSam): Everyone has to have the ability to decompress the file before you can actually publish one at all, or else the things
+
+427
+00:50:29.560 --> 00:50:43.960
+Sam Curren (TelegramSam): break, which means that if if someone's like no, absolutely we can, our entire ecosystem or community can can roll this out, and in 30 days or something, then awesome. And or it's paired with something that forces adoption.
+
+428
+00:50:43.960 --> 00:50:44.320
+Stephen Curran: Yeah.
+
+429
+00:50:45.012 --> 00:50:49.480
+Sam Curren (TelegramSam): If if not, then I think it's never going to succeed, because.
+
+430
+00:50:49.480 --> 00:50:49.860
+Stephen Curran: Yeah.
+
+431
+00:50:49.860 --> 00:50:55.169
+Sam Curren (TelegramSam): Getting confirmation. That the whole community is ready to decompress those files is is very hard.
+
+432
+00:50:55.170 --> 00:51:08.959
+Stephen Curran: On the other hand, ecosystems are, you know, there's not a lot of places where the multiple wallets are being used in the same place. I don't know about that. I'd have to look, but that that's where it comes into. How big the ecosystem.
+
+433
+00:51:11.340 --> 00:51:24.319
+Sam Curren (TelegramSam): Yes, it's how big is the ecosystem, and how and how and and can you verify deployment? Yeah of of the update? Because if the answer is, they can verify, and it'll happen pretty quick because they compare with something else. I think it's a great move.
+
+434
+00:51:24.570 --> 00:51:25.630
+Stephen Curran: Yeah, yeah.
+
+435
+00:51:25.630 --> 00:51:42.230
+Sam Curren (TelegramSam): If if it's very loose and you have no idea who's using the technology, then it's then it's really hard. And you're always gonna be questioning whether now's the right time to roll it out or not versus risking a a significant number of the population just suddenly unable to use the technology.
+
+436
+00:51:42.230 --> 00:51:43.799
+Stephen Curran: Yeah. Yeah. Got it.
+
+437
+00:51:44.650 --> 00:51:48.599
+Stephen Curran: Okay, all right. Thanks. All.
+
+438
+00:51:48.860 --> 00:51:49.530
+Sam Curren (TelegramSam): Also. Thank you.
+
+439
+00:51:49.530 --> 00:51:50.240
+Stephen Curran: Discussion.
+
+440
+00:51:50.490 --> 00:51:51.929
+Sam Curren (TelegramSam): For the work of the presentation.
+
+441
+00:51:52.180 --> 00:51:52.890
+Stephen Curran: See ya.
+
+442
+00:51:53.400 --> 00:51:55.030
+Adrian Ross: Yeah great Presentation.
+
+443
+00:51:56.630 --> 00:51:57.220
+Stephen Curran: Right.
+

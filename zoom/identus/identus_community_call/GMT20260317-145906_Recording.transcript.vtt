@@ -1,0 +1,486 @@
+WEBVTT
+
+1
+00:01:12.740 --> 00:01:14.180
+Javi Ribó: Hello, hello!
+
+2
+00:01:18.070 --> 00:01:18.920
+Jon Bauer (Good Future, LLC): Hello.
+
+3
+00:02:19.950 --> 00:02:23.689
+Javi Ribó: Let's wait a couple more minutes, and we'll get started.
+
+4
+00:03:03.570 --> 00:03:04.400
+Allain Magyar: Hello?
+
+5
+00:03:06.440 --> 00:03:08.439
+Javi Ribó: Hello! Good morning!
+
+6
+00:03:13.810 --> 00:03:27.449
+Javi Ribó: Cool. I guess that we can kind of get started while the other people join. I will start with the usual slides. The antitrust policy notice and the Code of Conduct, which I guess all the members have.
+
+7
+00:03:27.870 --> 00:03:31.479
+Javi Ribó: Complied with forever, but it's still important to mention it.
+
+8
+00:03:32.300 --> 00:03:37.359
+Javi Ribó: Today, we are going to be having,
+
+9
+00:03:37.570 --> 00:03:52.779
+Javi Ribó: relatively packed agenda, in the sense that it's going to be a lot focused, or mainly focused on the TypeScript SDK, some changes that we plan doing, and what the roadmap looks like for the next months.
+
+10
+00:03:55.870 --> 00:03:57.010
+Javi Ribó: then…
+
+11
+00:03:57.610 --> 00:04:07.499
+Javi Ribó: Yeah, we'll be taking the lead today, so if at any point you guys have any questions, just stop me, and I will be happy to answer them.
+
+12
+00:04:08.680 --> 00:04:24.910
+Javi Ribó: So, the first one is introduction, or the… yeah, the introduction of version 8 of the SDK. We are basically going to be removing a bunch of imports that are more related to the core, but we are going to be structuring them in a more meaningful way, so…
+
+13
+00:04:25.060 --> 00:04:40.650
+Javi Ribó: the imports, it's not that they are blowing away, and we… you do not have any way to import them, but they are in a different location. So now everything that is DITCOM-related goes in the DITCOM plugin, and so on. Same for anon credits, and…
+
+14
+00:04:40.690 --> 00:04:47.420
+Javi Ribó: That's going to be a breaking change, but in my opinion, not many people is going to be affected by it.
+
+15
+00:04:48.000 --> 00:04:55.460
+Javi Ribó: Just because it's… pretty much Like, internals that are being affected.
+
+16
+00:04:56.860 --> 00:05:10.739
+Javi Ribó: Then, the next change that we are also going to be doing as part of the version 8 is going to be around the… the repository structure, which is going to be a workspace. This means that DITCOM
+
+17
+00:05:11.000 --> 00:05:23.309
+Javi Ribó: will be JOM package, Anand Credit JWE for WebAssembly-related stuff, and Rust packages. These will be, like, standalone packages inside.
+
+18
+00:05:23.570 --> 00:05:30.109
+Javi Ribó: domain and protos that currently are inside the SDK also will be coming separate projects, and…
+
+19
+00:05:30.390 --> 00:05:35.890
+Javi Ribó: the end result is the SDK will have everything bundled, so it's just internal… internal use.
+
+20
+00:05:37.040 --> 00:05:40.270
+Javi Ribó: We are also going to be preparing,
+
+21
+00:05:41.090 --> 00:05:57.199
+Javi Ribó: A migration guide for every single line that changed, and it's no longer… like, every single import that is no longer applicable will be listed in this page, and it will be making migration a lot simpler than… than if it… if we didn't have anything around that.
+
+22
+00:05:59.390 --> 00:06:09.529
+Javi Ribó: Then, why are we doing those changes on converting the repository to the workspaces? It's because, until now, extending the SDK would mean
+
+23
+00:06:09.640 --> 00:06:12.490
+Javi Ribó: bloating the SDK with more functionality.
+
+24
+00:06:13.240 --> 00:06:18.069
+Javi Ribó: And instead, what we want to try and do now is to…
+
+25
+00:06:18.950 --> 00:06:25.660
+Javi Ribó: To add functionality in a way that scales, and we still keep the separation of concerns.
+
+26
+00:06:28.000 --> 00:06:36.529
+Javi Ribó: then potential ideas or projects that we are going to end up merging. The first one is Identus React. This will contain
+
+27
+00:06:36.650 --> 00:06:43.800
+Javi Ribó: yeah, a series of dependencies that are intended for React developers that want to build
+
+28
+00:06:44.210 --> 00:06:54.330
+Javi Ribó: their systems behind the SDK, so it basically exposes the same functionality to… of the SDK, but in React-friendly components. We'll check later a slide about it.
+
+29
+00:06:55.680 --> 00:07:08.959
+Javi Ribó: Then, new adding to the Identos SDK, over the time, we did not have any standard storage for the SDK, and now this is intending to solve it, so we…
+
+30
+00:07:09.550 --> 00:07:16.760
+Javi Ribó: We are going to provide one single Identus SDK package that bundles everything that you need to run the SDK.
+
+31
+00:07:19.230 --> 00:07:29.720
+Javi Ribó: The third package and the fourth package are just… yeah, we need to understand the roadmap and the timelines, so it's going to be around, 3 months, but…
+
+32
+00:07:29.720 --> 00:07:46.859
+Javi Ribó: The event is PrismDeat is going to be the utility library that will talk to the specification. So, we'll talk to the protobufs, and it will be able to create, publish, and resolve PRISMDs in a seamless way, and then the reason why I think…
+
+33
+00:07:47.270 --> 00:07:54.490
+Javi Ribó: it's a good idea to have it as a standalone project, is because you may not need the whole SDK to build just that.
+
+34
+00:07:55.380 --> 00:08:02.500
+Javi Ribó: And the Aventus VDR is another huge milestone on the SDKs, because it's what's preventing us from building
+
+35
+00:08:02.970 --> 00:08:17.399
+Javi Ribó: an offline-first approach for digital credentials. Still, the Identus VDR cannot be considered, like, offline, but offline in the sense that you only need Cardano blockchain to make it function.
+
+36
+00:08:18.060 --> 00:08:20.779
+Javi Ribó: And you are not interacting with…
+
+37
+00:08:20.940 --> 00:08:32.269
+Javi Ribó: middlemen that tell you what is true, what is false. You can verify things by checking the transactions yourself and resolving the presumed deeds by yourself.
+
+38
+00:08:32.780 --> 00:08:39.640
+Javi Ribó: Then this component is mainly going to be used for 2 or 3 things. The first one is the revocation registry.
+
+39
+00:08:40.200 --> 00:08:45.810
+Javi Ribó: The… that's basically going to allow us to issue a credential, and then…
+
+40
+00:08:46.750 --> 00:08:57.029
+Javi Ribó: check if that credential has been revoked by the issuer in a decentralized way. So we will not have an endpoint, but we will have a transaction that is worth checking to verify that.
+
+41
+00:09:02.940 --> 00:09:20.789
+Javi Ribó: The other thing that we are probably going to be doing is, despite… we are not prioritizing Anam credits, but this credential definition type of object, or a schema type of object, will also potentially be stored in the VDR, and we will have a way to fetch them from
+
+42
+00:09:21.160 --> 00:09:22.520
+Javi Ribó: from the VDR.
+
+43
+00:09:24.100 --> 00:09:33.200
+Javi Ribó: Going back to the first package, this is a quick introduction of how things will work in a close feature, or how we
+
+44
+00:09:33.770 --> 00:09:44.389
+Javi Ribó: plan to integrate this Identos React package, so the only thing that you will need to do is to wrap up your application, or the component where you want the Identos logic.
+
+45
+00:09:44.800 --> 00:09:54.490
+Javi Ribó: inside an agent provider, and then you will be able to run these… these hooks on the right, like, use PrismDid, use PeerDid, and there is tons of
+
+46
+00:09:55.070 --> 00:10:01.100
+Javi Ribó: Hooks like that, like useAgent, start agent, and functions that are extremely easy to use.
+
+47
+00:10:02.740 --> 00:10:06.950
+Javi Ribó: Yeah, I think that's all for that.
+
+48
+00:10:07.180 --> 00:10:12.089
+Javi Ribó: For the storages, as I said, we are basically going to be porting
+
+49
+00:10:12.460 --> 00:10:18.619
+Javi Ribó: the storage that we already used on Trust Zero Idento Storage?
+
+50
+00:10:19.180 --> 00:10:25.360
+Javi Ribó: And we will keep the storage implementations as a separate project and as a separate dependency.
+
+51
+00:10:26.200 --> 00:10:43.139
+Javi Ribó: then what this brings is, for browsers, the ability to optionally set up a password to encrypt sensitive data. Like, imagine that you have either a browser application with Identos or an Electron app, you will be able to securely store data.
+
+52
+00:10:44.120 --> 00:10:53.799
+Javi Ribó: And in case there was some unwanted access to the database, then it will be totally encrypted and safer than if it's plain text.
+
+53
+00:10:54.490 --> 00:11:00.629
+Javi Ribó: And then, on the backend, we also allow people to configure their encryption key, despite
+
+54
+00:11:01.340 --> 00:11:11.499
+Javi Ribó: On the back-end storages, you can configure MongoDB, and MongoDB being a remote service that is protected already, you still have the ability to encrypt your own database.
+
+55
+00:11:14.100 --> 00:11:16.040
+Javi Ribó: That's for the storage.
+
+56
+00:11:16.850 --> 00:11:22.710
+Javi Ribó: Then, the third package, as I said, is… for presumed deed management.
+
+57
+00:11:23.160 --> 00:11:31.160
+Javi Ribó: So, we are going to be creating the specification type of protographs from this package?
+
+58
+00:11:31.750 --> 00:11:38.529
+Javi Ribó: And this package is the library that will enable in a feature full deed management, meaning that
+
+59
+00:11:38.930 --> 00:11:41.770
+Javi Ribó: You cover the whole life cycle of…
+
+60
+00:11:42.220 --> 00:11:53.249
+Javi Ribó: of the present deed. Creating the deed, updating its keys, or DITCOM services, or stuff like that. Not DITCOM services, but DID services.
+
+61
+00:11:54.600 --> 00:12:10.510
+Javi Ribó: And then… yeah, the reason why we consider that it should be a separate package is because potentially it can be used in places where using the whole SDK doesn't make sense, and it's just a standalone package that helps you create stuff.
+
+62
+00:12:12.500 --> 00:12:18.349
+Javi Ribó: So for example, if a Cardano wallet would want to integrate
+
+63
+00:12:18.650 --> 00:12:26.009
+Javi Ribó: creating PrismDs on their wallet, they would use this package, and not the whole SDK that is for digital identity, if that makes sense.
+
+64
+00:12:27.730 --> 00:12:44.949
+Javi Ribó: And then the third one is the standalone VDR and the driver implementation for Cardano that will work in two ways. Still, this is a very early stage for the TypeScript implementation, but I think things are starting to make sense.
+
+65
+00:12:45.640 --> 00:12:53.780
+Javi Ribó: On Node, we configure the VDR either with a remote API or a Cardano Node infrastructure, so you can configure it in your own way.
+
+66
+00:12:54.140 --> 00:13:13.250
+Javi Ribó: And then on the browser, we will allow to, like, dip the resolution of the files by public infrastructure, which means, like, BlockFrost or Cardano public infrastructure, and write operations. We probably will be supporting SIP30 and any Cardano wallet using metadata.
+
+67
+00:13:13.810 --> 00:13:18.360
+Javi Ribó: Because the VDR entries at the end are an extension of the current protobufs.
+
+68
+00:13:18.660 --> 00:13:21.189
+Javi Ribó: And this should allow us to…
+
+69
+00:13:21.840 --> 00:13:23.360
+Javi Ribó: To use it on the edge.
+
+70
+00:13:23.890 --> 00:13:32.240
+Javi Ribó: So… to run identus, you will probably need like, to be…
+
+71
+00:13:35.610 --> 00:13:41.850
+Javi Ribó: To be specific, I think just two services. You will need to run the offline first, Website?
+
+72
+00:13:42.130 --> 00:13:43.860
+Javi Ribó: And probably Neopreism.
+
+73
+00:13:46.980 --> 00:13:48.010
+Javi Ribó: And that's it.
+
+74
+00:13:49.870 --> 00:13:57.079
+Javi Ribó: That's… that's been a pretty intense speech. I've been for almost 50 minutes in a row talking.
+
+75
+00:13:57.830 --> 00:14:02.639
+Javi Ribó: Was it more or less clear, or do you guys want to talk about any point?
+
+76
+00:14:07.180 --> 00:14:09.109
+Javi Ribó: I see many people joined.
+
+77
+00:14:10.740 --> 00:14:15.630
+Javi Ribó: I don't know, if you guys have any questions, feel free to… to raise them.
+
+78
+00:14:22.000 --> 00:14:24.790
+Javi Ribó: Awesome. Well, I guess if there's not…
+
+79
+00:14:24.970 --> 00:14:27.850
+Javi Ribó: Not much more, I think we can jump to…
+
+80
+00:14:31.140 --> 00:14:37.609
+Javi Ribó: to see if there's any open GitHub question or GitHub issue that you guys have opened.
+
+81
+00:14:39.970 --> 00:14:46.739
+Javi Ribó: I've been extremely focused on the version 8.0 and making all these changes happen.
+
+82
+00:14:47.140 --> 00:14:51.550
+Javi Ribó: So I don't really have anything… anything to discuss today.
+
+83
+00:14:55.780 --> 00:14:59.430
+Pat L.: Hey, Harvey, so this version 8 is going to…
+
+84
+00:15:00.050 --> 00:15:02.890
+Pat L.: You remember our discussion, right? That we…
+
+85
+00:15:03.020 --> 00:15:05.090
+Pat L.: Should be able to sign… oh.
+
+86
+00:15:05.340 --> 00:15:12.229
+Pat L.: to issue with the insertion key, so this will be included in the new version, right? In VH?
+
+87
+00:15:12.230 --> 00:15:23.679
+Javi Ribó: I mean, probably, yes. If you need it now, we can also do a 7. For you, and then migrate it to 8.0 when it's time.
+
+88
+00:15:25.300 --> 00:15:27.269
+Pat L.: Okay, okay.
+
+89
+00:15:27.380 --> 00:15:28.350
+Pat L.: Yeah, thank you.
+
+90
+00:15:28.620 --> 00:15:35.279
+Javi Ribó: Anyway, the changes for U for 8.0 are not very big.
+
+91
+00:15:36.000 --> 00:15:38.809
+Javi Ribó: Like, it is something that we need to document.
+
+92
+00:15:39.570 --> 00:15:46.280
+Javi Ribó: But it is not a huge breaking change. As I was explaining earlier, like, It's more…
+
+93
+00:15:46.910 --> 00:15:50.120
+Javi Ribó: Changes in the way that we are exporting the package.
+
+94
+00:15:50.360 --> 00:15:51.930
+Javi Ribó: Rather than…
+
+95
+00:15:52.360 --> 00:16:01.269
+Javi Ribó: Stuff like that. So if… you may have imported a dependency from Anand Greg's from the SDK directly, and now you need to import it from the SDK plugins.
+
+96
+00:16:02.060 --> 00:16:05.910
+Javi Ribó: But the functionality and the interface is not changing a lot.
+
+97
+00:16:06.610 --> 00:16:08.020
+Pat L.: Okay, yeah.
+
+98
+00:16:08.210 --> 00:16:09.010
+Pat L.: Things.
+
+99
+00:16:10.480 --> 00:16:16.199
+Javi Ribó: Then maybe for the ones that joined after, we are…
+
+100
+00:16:16.470 --> 00:16:21.869
+Javi Ribó: basically going to be integrated in the following packages in the SDK in the long term.
+
+101
+00:16:24.610 --> 00:16:31.980
+Javi Ribó: And here's a small… representation of how it would look on TypeScript and React.
+
+102
+00:16:33.720 --> 00:16:43.240
+Javi Ribó: And also bringing back a very easy-to-use storage for the SDK that got lost over time and was a community-maintained project.
+
+103
+00:16:45.080 --> 00:16:54.940
+Javi Ribó: And the last one for maintaining presented-related operations in a separate project, so web wallets on Cardano can start implementing on their own.
+
+104
+00:16:55.600 --> 00:17:02.770
+Javi Ribó: And then… the VDR implementation, which, Pat, I'm sure that you are very familiar with that.
+
+105
+00:17:05.540 --> 00:17:08.310
+Javi Ribó: It's a pretty huge amount, like, a…
+
+106
+00:17:08.530 --> 00:17:19.739
+Javi Ribó: Pretty big milestone, so do not expect everything to come up in the next months, but yeah, we'll do our best to start bringing these new packages, back to life.
+
+107
+00:17:26.349 --> 00:17:34.250
+Javi Ribó: Awesome. Well, again, if anyone… anybody else has any additional questions or topics, I think that…
+
+108
+00:17:35.030 --> 00:17:38.220
+Javi Ribó: We are potentially going to close the call.
+
+109
+00:17:38.560 --> 00:17:39.900
+Javi Ribó: Right now.
+
+110
+00:17:46.360 --> 00:17:48.560
+Javi Ribó: Are you sure a deck, maybe?
+
+111
+00:17:48.850 --> 00:17:49.890
+Javi Ribó: on the call.
+
+112
+00:17:53.090 --> 00:17:54.120
+Javi Ribó: What loan…
+
+113
+00:18:01.870 --> 00:18:06.730
+Javi Ribó: Awesome. So, yeah, that's all for today. I hope that…
+
+114
+00:18:07.070 --> 00:18:10.210
+Javi Ribó: And then coming weeks, we can showcase
+
+115
+00:18:10.470 --> 00:18:12.979
+Javi Ribó: A little bit more about the functionality.
+
+116
+00:18:14.120 --> 00:18:17.979
+Javi Ribó: Of these packages, and also showcase the new docs.
+
+117
+00:18:18.940 --> 00:18:28.100
+Javi Ribó: website updates, that… yeah. There is no way we can add so many packages if our documentation doesn't step up and clarify
+
+118
+00:18:28.510 --> 00:18:29.690
+Javi Ribó: Couple of things.
+
+119
+00:18:32.250 --> 00:18:35.809
+Javi Ribó: Thank you, guys, and I guess that, yeah, see you next week.
+
+120
+00:18:36.030 --> 00:18:37.059
+Pat L.: Yeah, thank you.
+
+121
+00:18:37.280 --> 00:18:39.559
+Javi Ribó: Thank you. Bye. Bye-bye.
+

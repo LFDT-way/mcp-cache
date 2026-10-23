@@ -1,0 +1,2186 @@
+WEBVTT
+
+1
+00:00:58.130 --> 00:00:59.220
+Weijia Zhang (Wanchain): Hey, Meredith.
+
+2
+00:00:59.800 --> 00:01:00.790
+Marelize Kriel: Hello, Rita.
+
+3
+00:01:01.300 --> 00:01:06.949
+Weijia Zhang (Wanchain): Hey, hey, good to have you. Yeah, wow, your PR is so extensive. Wow.
+
+4
+00:01:07.790 --> 00:01:20.609
+Marelize Kriel: Well, I remember it is quite a bit of time that we forked off from the public repo and added a few thingies in. But most of it is fixes, like things that we did not
+
+5
+00:01:20.760 --> 00:01:25.230
+Marelize Kriel: pick up and needed to fix before we go public again.
+
+6
+00:01:26.290 --> 00:01:31.030
+Weijia Zhang (Wanchain): Okay. Yeah, this is great. This is definitely great yeah
+
+7
+00:01:31.190 --> 00:01:44.119
+Weijia Zhang (Wanchain): Let me share. I think Tim is joining as well. So let's see. I think maybe it'd be good for you to walk through the PR. And our team has looked at it.
+
+8
+00:01:44.120 --> 00:01:56.120
+Marelize Kriel: Big, like maybe through the change log. It is not a PR that I thought like one should actually review in depth because it went through our whole pipeline issue for issue.
+
+9
+00:01:56.510 --> 00:02:08.489
+Marelize Kriel: was reviewed issue for issue and then just one big final overview because it's it's like I say it's a combination of of it's merging a fork back kind of thing
+
+10
+00:02:08.710 --> 00:02:25.880
+Marelize Kriel: To walk through the code, you'll get very lost, I think. The changelog says basically all the little fixes, and the major things is the, is the type 2 transactions, the… the IP712 data.
+
+11
+00:02:26.060 --> 00:02:38.320
+Marelize Kriel: And while there's Azir key vault in there, which I don't know if it belongs in there, but it's in there. That's sort of those. I can share my screen, maybe.
+
+12
+00:02:38.930 --> 00:02:39.980
+Weijia Zhang (Wanchain): Yeah. Yeah. So.
+
+13
+00:02:43.690 --> 00:02:55.039
+Weijia Zhang (Wanchain): Well, this way. Also, do you have this AWS Cloud HSM supported here? I know Azure. Azure key is there. AWS is there?
+
+14
+00:02:55.930 --> 00:02:57.010
+Weijia Zhang (Wanchain): resistant.
+
+15
+00:02:57.280 --> 00:03:16.940
+Marelize Kriel: Because it is here, because it's a propriety solution, you can almost say. It doesn't work with the PKCS11 of hardware or soft HSM, which is what we test with. It needs extra code, you can almost say, right?
+
+16
+00:03:17.120 --> 00:03:22.279
+Marelize Kriel: to make Azir work. So this is not a solution that I believe should even
+
+17
+00:03:22.470 --> 00:03:27.990
+Marelize Kriel: kind of be in the air, because it's not the hardware. Pkcs. 11 signing.
+
+18
+00:03:28.190 --> 00:03:33.639
+Marelize Kriel: of any or crypto of any. It is using their propriety solution.
+
+19
+00:03:33.790 --> 00:03:39.789
+Marelize Kriel: So even though they use HSMs, it is sort of hidden from us, right?
+
+20
+00:03:39.790 --> 00:03:40.210
+Weijia Zhang (Wanchain): Yeah, but.
+
+21
+00:03:40.210 --> 00:03:43.580
+Marelize Kriel: AWS Cloud HSM should work.
+
+22
+00:03:43.700 --> 00:03:46.959
+Marelize Kriel: If you plug it in and you configure it correctly.
+
+23
+00:03:47.090 --> 00:03:57.779
+Marelize Kriel: it should work. And I think this is something we can test. Now, maybe when we merge this in in Maine, if you have aws set up.
+
+24
+00:03:58.050 --> 00:04:09.640
+Marelize Kriel: I can go dig out my documentation docs on it. It was just setting up the Hw. The Hsm. Cluster, which we set up with this one Hsm. For testing.
+
+25
+00:04:10.040 --> 00:04:19.420
+Marelize Kriel: And I think you can pay only when you use. So you can shut it down and not use it and start it up again.
+
+26
+00:04:19.769 --> 00:04:38.639
+Marelize Kriel: And this Signore should work like that. There's one thing where you have to… they only have one slot, right? So again, the cloud option. So they have one slot. So your username, your PIN for your HSM is your…
+
+27
+00:04:38.720 --> 00:04:47.039
+Marelize Kriel: user and password combined. It is something that's a little strange. And then they give you this standard slot name.
+
+28
+00:04:47.140 --> 00:04:48.210
+Marelize Kriel: Label.
+
+29
+00:04:48.450 --> 00:04:55.510
+Marelize Kriel: And after that it's because Cs. 11. Once you set up your cloud Hsm. Client with the signature with the certificates.
+
+30
+00:04:55.910 --> 00:05:13.659
+Marelize Kriel: That depends on your machine, whether it's Linux or whether it's Windows, it should work. And I think that's definitely worth something to test again. Hopefully they even fix most of the management API stuff, which we had to manually create our keys or
+
+31
+00:05:13.930 --> 00:05:31.280
+Marelize Kriel: Because if you create keys with the PKCS11, which is now the hardware language, because it's a cluster, there was issues to distribute the key to all the HSMs in the cluster, unless you use their API, their UI, their management
+
+32
+00:05:31.540 --> 00:05:44.340
+Marelize Kriel: application which we didn't like it. This is a few years back, but we wrote some scripts around it to make it work, anyway, but there was no code in our signer that needed to change
+
+33
+00:05:44.480 --> 00:05:47.209
+Marelize Kriel: to work with aws cloud. That's them.
+
+34
+00:05:48.390 --> 00:06:08.139
+Weijia Zhang (Wanchain): Oh, that is good news because when I asked my developers, they were saying that Well, first, same is the cloud hsm is actually not a software-based HSM. It's the hardware-based HSM. So it relies on the hardware HSM they are using underneath the cloud HSM.
+
+35
+00:06:08.170 --> 00:06:16.609
+Weijia Zhang (Wanchain): So that's 1 thing. The second thing they were saying that well, you still need some. They did not see it in the version one that that
+
+36
+00:06:16.890 --> 00:06:25.939
+Weijia Zhang (Wanchain): Originally there, they did not see the AWS over there, so they said that there needs to be a module built to it. But what you are saying is that this VR, yeah.
+
+37
+00:06:26.370 --> 00:06:41.250
+Marelize Kriel: Oh, it's not this Pr. It's in like what's already there for you. You can plug it in as long as you set up your awh your cloud Hsm. Client on your machine. Would you? What if it helps? I can dig up my old
+
+38
+00:06:41.330 --> 00:06:56.239
+Marelize Kriel: Remember, these clients will be old now. You're going to have to get the latest version. But it is actually just following AWH Cloud SSM's documentation I can send you mine, right? Like that we made a long time ago.
+
+39
+00:06:56.240 --> 00:06:56.860
+Weijia Zhang (Wanchain): Oh, okay.
+
+40
+00:06:56.870 --> 00:07:05.160
+Marelize Kriel: Just a cloud that just am setting up your client on your machine. And then from there on, and obviously you can test.
+
+41
+00:07:05.600 --> 00:07:06.650
+Marelize Kriel: And.
+
+42
+00:07:07.050 --> 00:07:11.860
+Marelize Kriel: Well, soft HSM, you can set up soft HSM to mimic.
+
+43
+00:07:12.020 --> 00:07:31.569
+Marelize Kriel: using this username and PIN as the PIN, which is what we did for our tests, but otherwise it should. It should work, and I will walk with you if there's a problem. You just need certificates set up for your client and and little things like that, but not even without Pr. It should work.
+
+44
+00:07:32.470 --> 00:07:34.479
+Weijia Zhang (Wanchain): Oh, cool, that is very cool, yeah.
+
+45
+00:07:34.480 --> 00:07:52.490
+Weijia Zhang (Wanchain): Yeah. So we then, other than that, we kind of tested it. It went through the test several multiple tests. It went through well, except that the soft HSM version 2, you need to install it separately, right? Separated. Yeah, you need to install that.
+
+46
+00:07:52.490 --> 00:07:55.010
+Weijia Zhang (Wanchain): So my question is that
+
+47
+00:07:55.010 --> 00:08:16.680
+Weijia Zhang (Wanchain): So actually, we propose that we accept this PR as is, then when you have issues, we can log issues rather than reviewing these 288 files at this time, the team was saying they're so comprehensive, so there's no way they can go through every code, but they say, just accept this as is, because we want the test already.
+
+48
+00:08:16.680 --> 00:08:21.279
+Weijia Zhang (Wanchain): Take it as is, and then we find issues, then we log issues on top of this.
+
+49
+00:08:21.280 --> 00:08:24.159
+Weijia Zhang (Wanchain): So that's the thinking. Are we okay with that?
+
+50
+00:08:24.560 --> 00:08:34.940
+Marelize Kriel: Yeah, I think so. I just want to go to Signari. Oh, this is the wrong board. Maybe I'll just ask Signari. I just want to see to show you like we have a discussions open.
+
+51
+00:08:35.419 --> 00:08:36.470
+Marelize Kriel: And.
+
+52
+00:08:36.780 --> 00:08:38.150
+Marelize Kriel: from our review.
+
+53
+00:08:38.630 --> 00:08:51.659
+Marelize Kriel: So, there was a lot of issues here, which we now addressed, right? You can see the little check marks. There's a few of them coming back, so I want to make discussions like this in our repo in Smoot.
+
+54
+00:08:51.720 --> 00:09:00.929
+Marelize Kriel: To bring these issues over, we don't have to address all of them, but just that we tell your team what we are aware of.
+
+55
+00:09:01.170 --> 00:09:12.969
+Marelize Kriel: Like things like this, like the PKCS11 slot pin is still in the data stored in plain text in the database. Which I want to get the creeps about, but
+
+56
+00:09:12.970 --> 00:09:14.400
+Weijia Zhang (Wanchain): Okay.
+
+57
+00:09:14.400 --> 00:09:15.249
+Marelize Kriel: No, thank you.
+
+58
+00:09:15.250 --> 00:09:16.970
+Weijia Zhang (Wanchain): Bye, Lindsay. Yeah, thanks.
+
+59
+00:09:16.970 --> 00:09:34.409
+Marelize Kriel: like that to bring it over. So that is one task that I will do next. If we get once that is, it doesn't matter whether when it get merged, but I will make that in here a new discussion with all those old issues. I don't. I don't suggest you spend like
+
+60
+00:09:35.030 --> 00:09:46.010
+Marelize Kriel: All your time now on that like it's it's things that we left because it was a bigger bigger issues than just quick bug fixes. Oops, wrong one.
+
+61
+00:09:46.490 --> 00:09:51.919
+Marelize Kriel: and what to see other. Oh, yeah, the other thing is for issues.
+
+62
+00:09:52.050 --> 00:09:53.810
+Marelize Kriel: We have templates.
+
+63
+00:09:54.010 --> 00:09:57.530
+Marelize Kriel: What the… what the issue…
+
+64
+00:09:57.640 --> 00:10:05.879
+Marelize Kriel: How can I show you this? Where is it? It is in this ignore. It would be an ignore.
+
+65
+00:10:06.270 --> 00:10:07.260
+Marelize Kriel: repo.
+
+66
+00:10:07.760 --> 00:10:08.540
+Marelize Kriel: Good.
+
+67
+00:10:09.970 --> 00:10:13.460
+Marelize Kriel: Just want to show you if it is. Is it in Github?
+
+68
+00:10:14.670 --> 00:10:17.009
+Marelize Kriel: Yeah, so we have issue templates.
+
+69
+00:10:17.240 --> 00:10:19.359
+Marelize Kriel: for bugs, for features.
+
+70
+00:10:19.470 --> 00:10:30.320
+Marelize Kriel: That sort of does it for you automatically, so if you go click in GitHub and say New Issue, it fills in that the stuff is for you already.
+
+71
+00:10:30.640 --> 00:10:43.570
+Marelize Kriel: What is the issues is not so such a big thing for us, but the, or the pull request template even, it's more the releases because our releases is now going to come from smooth repo, right?
+
+72
+00:10:43.840 --> 00:10:47.910
+Marelize Kriel: So we, we would like to… that to be…
+
+73
+00:10:48.710 --> 00:10:58.400
+Marelize Kriel: Why is it not in your issue template? A release checklist that, sorry, that has a little list of things that needs to be done before you release.
+
+74
+00:10:58.400 --> 00:11:13.560
+Marelize Kriel: Has an actual process of, you know, you first create the release branch from your development branch It's very GitHub flow, Git flow, what they call Git flow. But just that we have a formal process that because
+
+75
+00:11:13.560 --> 00:11:27.059
+Marelize Kriel: Adara is now going to rely on Signari releases out of Smoot. We just want a process. So I'm not sure if you want me to bring this over for Smoot.
+
+76
+00:11:27.060 --> 00:11:34.680
+Marelize Kriel: You don't even have to maybe put it in a Pr. Just for you in a draft for you to review. You don't have to merge it. Just have a look.
+
+77
+00:11:34.750 --> 00:11:41.709
+Marelize Kriel: and see if you like it, and if it, if it, if it's close to to Linux or
+
+78
+00:11:41.960 --> 00:11:51.319
+Marelize Kriel: close to the standards that's supposed to come from Lfdt. I don't know. Do they have anything that they that they give.
+
+79
+00:11:51.800 --> 00:11:53.019
+Marelize Kriel: Or not really.
+
+80
+00:11:54.660 --> 00:12:00.680
+Weijia Zhang (Wanchain): The, what, what exactly do you, do you mean? The, they, they, okay.
+
+81
+00:12:00.680 --> 00:12:01.950
+Marelize Kriel: Release templates?
+
+82
+00:12:01.950 --> 00:12:03.730
+Weijia Zhang (Wanchain): Yeah, no, yeah.
+
+83
+00:12:03.730 --> 00:12:04.790
+Marelize Kriel: Peter's.
+
+84
+00:12:05.280 --> 00:12:10.390
+Weijia Zhang (Wanchain): Yeah, those we need to ask them specific, right? Because here's the challenge.
+
+85
+00:12:10.730 --> 00:12:30.190
+Weijia Zhang (Wanchain): The smooth project, we don't, we as maintainers, we don't control the governance of that smooth repo. So I'm not sure if the release process was we have that right or not. If not, we can. I need to ask for that right to handle the release.
+
+86
+00:12:30.250 --> 00:12:39.650
+Weijia Zhang (Wanchain): And then in terms of release template process, there is a release process on that one. I can take it out and I send that to you.
+
+87
+00:12:39.730 --> 00:12:58.349
+Weijia Zhang (Wanchain): Let's just follow that rule. That should be fine. But I think we do not have that those all kind of privilege right now with the GitHub we have. I need to request for that as well. Yeah, but I'm happy to review these releases. And then as the maintainers, we can all approve it and send that.
+
+88
+00:12:58.630 --> 00:13:00.629
+Weijia Zhang (Wanchain): Yeah, just follow the process.
+
+89
+00:13:00.870 --> 00:13:14.450
+Marelize Kriel: We had one of our juniors, create these that they've, that they link into GitHub, but they are actually just Git flows, right? So this is, I can send you to GitHub's, releases.
+
+90
+00:13:15.230 --> 00:13:18.289
+Marelize Kriel: Come on. This is just normal GitHub docs.
+
+91
+00:13:18.500 --> 00:13:22.490
+Marelize Kriel: Right? So it is just following their release process.
+
+92
+00:13:22.660 --> 00:13:31.000
+Marelize Kriel: So it's not something Adara came up with. We just put it in templates that it can, that it's automatic when you create the issue, it fills in the templates for you.
+
+93
+00:13:31.350 --> 00:13:33.300
+Marelize Kriel: But if if
+
+94
+00:13:33.520 --> 00:13:41.069
+Marelize Kriel: like, I say, if the Linux Foundation has their own process, we will slot in with it as long as we feel there is a process.
+
+95
+00:13:41.510 --> 00:13:49.370
+Weijia Zhang (Wanchain): Yeah, yeah, they is supposed to. I think one chain is using AI now for release checking.
+
+96
+00:13:49.690 --> 00:13:50.829
+Weijia Zhang (Wanchain): No, no.
+
+97
+00:13:50.830 --> 00:14:00.619
+Marelize Kriel: And we also like, oh, we, we incorporate trying to automate as much as we, we can. Our stuff is kind of a little bit complex, so we still need our DevOps teams.
+
+98
+00:14:00.810 --> 00:14:07.089
+Marelize Kriel: team to to do these things. Not they're also using all using Aoi and
+
+99
+00:14:07.260 --> 00:14:11.649
+Marelize Kriel: Like I say, I'm learning from AI more than it's learning from me at the moment, so.
+
+100
+00:14:11.650 --> 00:14:14.070
+Weijia Zhang (Wanchain): Yeah.
+
+101
+00:14:14.070 --> 00:14:33.189
+Marelize Kriel: It is, especially with things like this. So like you say, you can just ask Claude or something to set you up, use Gitflow as the basis maybe, and set up a procedure for you to review. Like I said, it doesn't need to come from Adara. It can even come from Claude.
+
+102
+00:14:34.000 --> 00:14:40.760
+Marelize Kriel: Yeah, yeah. And then it's just another another feature here. So I just want to replace the references.
+
+103
+00:14:40.920 --> 00:14:45.650
+Marelize Kriel: Before we make a release, because this… once we merge this PR,
+
+104
+00:14:45.920 --> 00:14:48.550
+Marelize Kriel: We want to kind of make a new release.
+
+105
+00:14:48.900 --> 00:14:55.699
+Marelize Kriel: And then I just thought, like, we must remove all Hyperledger labs references before we do that release.
+
+106
+00:14:56.650 --> 00:14:57.730
+Weijia Zhang (Wanchain): Okay, cool, cool.
+
+107
+00:14:57.950 --> 00:15:05.089
+Marelize Kriel: Ms. Abbott And that's where it stands. It's discussions, the 2 issues and the pull request.
+
+108
+00:15:06.590 --> 00:15:21.519
+Weijia Zhang (Wanchain): Okay, yeah, I think this is good. Yeah. And I have some additional things that I want. We grab this PR, we're going to accept it, merge it. I noticed that the soft HSM is not included over there and they need to install it, right?
+
+109
+00:15:21.640 --> 00:15:23.199
+Weijia Zhang (Wanchain): And, we…
+
+110
+00:15:23.200 --> 00:15:32.059
+Marelize Kriel: It's because it, I don't know. It is a bit of an issue to install it on your local machine.
+
+111
+00:15:32.200 --> 00:15:48.300
+Marelize Kriel: We tried to dockerize it, and the docker image is so old that they made for soft HSM. If you feel like it is worth it to rather run all these things out of a soft HSM docker, and you want to put in the effort to make it work.
+
+112
+00:15:48.780 --> 00:15:51.450
+Marelize Kriel: We haven't even thrown it at Claude, maybe we should.
+
+113
+00:15:51.600 --> 00:16:05.729
+Marelize Kriel: If that's better, we always just, follow the steps and make sure we have a soft HSM on our machine to emulate the hardware, because it is… there's a… you have to have a wrapper if you want to use the Docker, image.
+
+114
+00:16:05.910 --> 00:16:09.220
+Marelize Kriel: It's not nice, but you can look at it if you want.
+
+115
+00:16:09.750 --> 00:16:16.779
+Weijia Zhang (Wanchain): Okay. Yeah. And I think I specifically mentioned a soft HSM because our team
+
+116
+00:16:16.900 --> 00:16:27.959
+Weijia Zhang (Wanchain): has modified soft Hsm. Version 2 to be able to do the Pqc. Pqc. Post quantum
+
+117
+00:16:27.960 --> 00:16:39.300
+Weijia Zhang (Wanchain): cryptography over there. So we were able to be successfully compile the code and then generate the key for that. So I think it's working.
+
+118
+00:16:39.330 --> 00:16:49.739
+Weijia Zhang (Wanchain): And I want to put it here. And in order to put it here, I need to have the SoftHSM's version 2's source code over here, and then put the modification there as well.
+
+119
+00:16:50.070 --> 00:16:52.580
+Weijia Zhang (Wanchain): And then, yeah, yeah. Or maybe you can.
+
+120
+00:16:52.580 --> 00:16:55.760
+Marelize Kriel: Are you going to fork it under smooth or?
+
+121
+00:16:55.920 --> 00:17:04.789
+Weijia Zhang (Wanchain): Yeah, that's what I was thinking, because if we modify it, then we need to have the modified version, right? So, and then we can…
+
+122
+00:17:04.790 --> 00:17:10.449
+Marelize Kriel: Back to them, who's the company that does it? Sekiro or something?
+
+123
+00:17:11.319 --> 00:17:17.540
+Marelize Kriel: suggested back to them. If we're adding something that's useful in the new world.
+
+124
+00:17:19.230 --> 00:17:20.170
+Weijia Zhang (Wanchain): Oh, yeah.
+
+125
+00:17:20.170 --> 00:17:22.359
+Marelize Kriel: Yes. Open DNS SEC.
+
+126
+00:17:25.899 --> 00:17:32.479
+Weijia Zhang (Wanchain): Okay, what's the… I do not know which company actually is in charge of SoftHSM, yeah. Did you see…
+
+127
+00:17:32.480 --> 00:17:34.239
+Marelize Kriel: Open DNS SICK.
+
+128
+00:17:34.830 --> 00:17:35.830
+Weijia Zhang (Wanchain): Oh, okay.
+
+129
+00:17:36.290 --> 00:17:39.979
+Marelize Kriel: You can, you can find on the, on the GitHub repo.
+
+130
+00:17:40.420 --> 00:17:46.060
+Marelize Kriel: The people, I just want to see how 3 weeks ago, it's not too bad, they're still updated, they're still live.
+
+131
+00:17:48.190 --> 00:17:54.079
+Marelize Kriel: So if if you, if maybe it's worth it to contribute back to them if if it's quantum.
+
+132
+00:17:54.870 --> 00:17:56.740
+Marelize Kriel: Audit Ml. Kim.
+
+133
+00:17:57.060 --> 00:18:00.320
+Marelize Kriel: They're also adding some things I see still.
+
+134
+00:18:01.140 --> 00:18:01.710
+Marelize Kriel: Okay.
+
+135
+00:18:01.710 --> 00:18:02.650
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+136
+00:18:04.560 --> 00:18:05.000
+Marelize Kriel: Oh, great.
+
+137
+00:18:05.000 --> 00:18:05.500
+Weijia Zhang (Wanchain): Okay, I.
+
+138
+00:18:05.520 --> 00:18:12.579
+Marelize Kriel: That's awesome. I didn't understand what your issue was with SoftHSM. I thought maybe it was just that you have to run it local.
+
+139
+00:18:13.550 --> 00:18:30.600
+Weijia Zhang (Wanchain): Yeah, we kind of thinking at least we make it work and see if there are certain things we agree. This is what I'm thinking. It's just like we put the PQC enabled soft HSM over the V2 over there. And then maybe we need to expand the API a little bit.
+
+140
+00:18:30.600 --> 00:18:34.429
+Weijia Zhang (Wanchain): And so that we can say you can sign a quantum field this way.
+
+141
+00:18:34.430 --> 00:18:37.540
+Weijia Zhang (Wanchain): And then we can expand this.
+
+142
+00:18:37.760 --> 00:18:40.480
+Weijia Zhang (Wanchain): This, scenario.
+
+143
+00:18:40.760 --> 00:18:47.710
+Weijia Zhang (Wanchain): And it's V2 with quantum possibility over there. But I think Tim also mentioned there's still a problem over there. I just…
+
+144
+00:18:47.840 --> 00:19:04.659
+Weijia Zhang (Wanchain): Did not get it clear. Yeah, yeah, yeah. So this still some compilation. Look at the compilation process is huge because you need to manually link the share object, a lot of tedious things over there. It's not all the code. Yeah.
+
+145
+00:19:04.660 --> 00:19:07.269
+Marelize Kriel: 11 for you. It's not nice.
+
+146
+00:19:07.280 --> 00:19:10.589
+Weijia Zhang (Wanchain): Yeah, yeah. So these things need to be kind of
+
+147
+00:19:10.740 --> 00:19:18.550
+Weijia Zhang (Wanchain): kind of resolve the first.st So so this is what I'm thinking. Maybe we add the source code over here and then start building things over there.
+
+148
+00:19:18.990 --> 00:19:20.389
+Weijia Zhang (Wanchain): Is this okay for you?
+
+149
+00:19:20.390 --> 00:19:22.210
+Marelize Kriel: 144 issues.
+
+150
+00:19:23.080 --> 00:19:25.889
+Marelize Kriel: You know, they have a backlog.
+
+151
+00:19:26.370 --> 00:19:30.290
+Weijia Zhang (Wanchain): Oh, and then… And when was the last day they updated?
+
+152
+00:19:30.710 --> 00:19:35.839
+Marelize Kriel: Well, the last one was opened last month, so they're very active, looks like.
+
+153
+00:19:35.840 --> 00:19:36.220
+Weijia Zhang (Wanchain): Okay.
+
+154
+00:19:36.490 --> 00:19:49.559
+Marelize Kriel: SoftHSM is used in pretty much anyone that integrates with hardware uses it for testing. It's the only thing that's sort of nice and stable and have a lot of things implemented and tested to oblivion.
+
+155
+00:19:50.470 --> 00:19:51.240
+Weijia Zhang (Wanchain): Okay.
+
+156
+00:19:51.810 --> 00:20:03.160
+Weijia Zhang (Wanchain): Okay, that's good. Okay, so I'll ask him to do some work on there to streamline the compilation ports and tell me the issues, the exact issues. And then I think the whole thing is working fine.
+
+157
+00:20:03.390 --> 00:20:10.560
+Weijia Zhang (Wanchain): Okay, the third thing is that we need to have an announcement, right? We need to write a blog for this.
+
+158
+00:20:10.560 --> 00:20:18.249
+Marelize Kriel: pushing on on this side. Carla is our person there. They also want to announce something out of my.
+
+159
+00:20:18.250 --> 00:20:18.880
+Weijia Zhang (Wanchain): Oh.
+
+160
+00:20:19.060 --> 00:20:31.459
+Marelize Kriel: You can tell me and Carla can tell me and I'll help write up or review or whatever, but I agree, like once we maybe make a release in Signaria, a new release, we do an announcement.
+
+161
+00:20:32.460 --> 00:20:42.279
+Weijia Zhang (Wanchain): We can write and start writing now. So who should be the one write the first draft? Do you think you can do it or I should do it or who carla can do it?
+
+162
+00:20:42.860 --> 00:20:48.510
+Marelize Kriel: Carla's not going to do it. She's overloaded with so much things because it's constantly.
+
+163
+00:20:48.640 --> 00:20:58.690
+Marelize Kriel: banks asking… she can't keep producing content for banks, for our clients and stuff. I don't think she's going to write a blog for SmoothNote.
+
+164
+00:20:59.300 --> 00:21:02.679
+Weijia Zhang (Wanchain): Okay, so either you or me.
+
+165
+00:21:02.680 --> 00:21:03.490
+Marelize Kriel: Yeah, it's.
+
+166
+00:21:03.490 --> 00:21:10.809
+Weijia Zhang (Wanchain): It's me or you who should buy the first one? Me or you? Do you want to try the first one or?
+
+167
+00:21:10.810 --> 00:21:23.430
+Marelize Kriel: Okay, let me write something up and I'll share with you. Do you want to do something in the repo itself, like having a block section or do you want to do offline?
+
+168
+00:21:23.910 --> 00:21:24.590
+Marelize Kriel: And…
+
+169
+00:21:24.590 --> 00:21:25.060
+Weijia Zhang (Wanchain): Oh.
+
+170
+00:21:25.060 --> 00:21:28.240
+Marelize Kriel: Yeah, by email, just mail docs around.
+
+171
+00:21:28.830 --> 00:21:30.929
+Weijia Zhang (Wanchain): It's up to you, the,
+
+172
+00:21:30.930 --> 00:21:31.400
+Marelize Kriel: Google Doc.
+
+173
+00:21:31.400 --> 00:21:31.920
+Weijia Zhang (Wanchain): To be honest.
+
+174
+00:21:31.920 --> 00:21:33.330
+Marelize Kriel: Jesus. Say it, Doc.
+
+175
+00:21:34.030 --> 00:21:38.930
+Weijia Zhang (Wanchain): It's up to you. It's up to you. Whatever you think is the easier way you can do it.
+
+176
+00:21:39.470 --> 00:21:42.170
+Marelize Kriel: Where do you intend to post this blog?
+
+177
+00:21:42.770 --> 00:21:53.039
+Weijia Zhang (Wanchain): Oh, it's easy. It needs to go through LFDT. I think I, yeah, they help out. We work with at least two or three of them already. Three of them, in fact.
+
+178
+00:21:53.040 --> 00:22:03.620
+Weijia Zhang (Wanchain): They're putting the merge of this harmonia with smooth. We can write a similar one. Don't make it too long. I think this will be a good one. This will be one.
+
+179
+00:22:03.980 --> 00:22:06.490
+Marelize Kriel: Can you share your screen and show me?
+
+180
+00:22:07.340 --> 00:22:10.999
+Marelize Kriel: What the format is, and where you're looking.
+
+181
+00:22:11.000 --> 00:22:17.129
+Weijia Zhang (Wanchain): Oh, I sent you the document with the links over there.
+
+182
+00:22:17.810 --> 00:22:18.370
+Marelize Kriel: Alright, al.
+
+183
+00:22:18.370 --> 00:22:18.850
+Weijia Zhang (Wanchain): Good day.
+
+184
+00:22:18.850 --> 00:22:23.159
+Marelize Kriel: Sorry that's Carlos. No, my stuff is not loading.
+
+185
+00:22:23.280 --> 00:22:24.720
+Marelize Kriel: You did?
+
+186
+00:22:25.380 --> 00:22:38.700
+Weijia Zhang (Wanchain): I did. I did. I sent you the annual report and the annual report, they say that, well, Weijia, you did not have the link for the for the blog. So I added the blog over there. Oh, I see.
+
+187
+00:22:39.260 --> 00:22:40.300
+Marelize Kriel: Let's see.
+
+188
+00:22:41.320 --> 00:22:45.099
+Marelize Kriel: Oh, this is still oh, the the Armania Mitch. Okay.
+
+189
+00:22:46.690 --> 00:22:50.040
+Marelize Kriel: I hope Carla looked here.
+
+190
+00:22:50.150 --> 00:22:50.759
+Marelize Kriel: I…
+
+191
+00:22:50.760 --> 00:22:53.180
+Weijia Zhang (Wanchain): Okay.
+
+192
+00:22:53.910 --> 00:22:59.890
+Marelize Kriel: So how do we give it to them? In what format? Markdown or a document?
+
+193
+00:23:00.520 --> 00:23:01.080
+Marelize Kriel: Or how…
+
+194
+00:23:01.080 --> 00:23:01.920
+Weijia Zhang (Wanchain): Uhhh… I.
+
+195
+00:23:02.060 --> 00:23:02.600
+Marelize Kriel: Web?
+
+196
+00:23:03.950 --> 00:23:12.090
+Weijia Zhang (Wanchain): Oh, it's… I think we can do… you can… we can have a doc… a document for them.
+
+197
+00:23:12.430 --> 00:23:13.020
+Marelize Kriel: Since they don.
+
+198
+00:23:13.020 --> 00:23:13.660
+Weijia Zhang (Wanchain): Yeah, mostly.
+
+199
+00:23:13.660 --> 00:23:19.479
+Marelize Kriel: This is where you… Because, I mean, how often is this going to happen, right? It's not…
+
+200
+00:23:19.480 --> 00:23:29.169
+Weijia Zhang (Wanchain): No, as long as we are, when we are ready, we give that to them. They are looking for this kind of content. No problem. Yeah.
+
+201
+00:23:29.170 --> 00:23:29.500
+Marelize Kriel: Okay.
+
+202
+00:23:29.500 --> 00:23:32.409
+Weijia Zhang (Wanchain): Yeah. So I think as soon as possible. Yeah.
+
+203
+00:23:33.380 --> 00:23:38.539
+Marelize Kriel: So you don't want to wait for a release. It's independent of the release.
+
+204
+00:23:38.540 --> 00:23:41.089
+Weijia Zhang (Wanchain): Independent of the release. Yeah, independent.
+
+205
+00:23:41.090 --> 00:23:46.230
+Marelize Kriel: This is almost a year old, too. Okay, yeah, 10 months. Okay, yes.
+
+206
+00:23:47.140 --> 00:23:50.320
+Marelize Kriel: I'll I'll write up something and and share with you.
+
+207
+00:23:50.910 --> 00:24:01.059
+Weijia Zhang (Wanchain): Yeah, if you have Google, I don't want to say that. Yeah, this is recorded. I don't want to say it. You choose a way that's appropriate. Okay.
+
+208
+00:24:01.060 --> 00:24:01.589
+Marelize Kriel: Yes, s.
+
+209
+00:24:01.590 --> 00:24:10.430
+Weijia Zhang (Wanchain): Yeah, they what? In fact, the the Lfdt. Has a has a has something like any document should be open. So
+
+210
+00:24:14.940 --> 00:24:16.589
+Weijia Zhang (Wanchain): So you just do whatever.
+
+211
+00:24:16.900 --> 00:24:20.130
+Marelize Kriel: In the lowest. Oh, okay. Sorry, my dog barked.
+
+212
+00:24:20.850 --> 00:24:36.610
+Weijia Zhang (Wanchain): Yeah, well, what I'm saying is that there's a documentation rule for LFDT, which is that all the documents should be open, which means that when you make modification, it needs to be recorded on the GitHub or something like that.
+
+213
+00:24:36.910 --> 00:24:37.610
+Weijia Zhang (Wanchain): -Hu.
+
+214
+00:24:37.790 --> 00:24:40.470
+Marelize Kriel: All right, so there is a GitHub where this is.
+
+215
+00:24:41.130 --> 00:24:41.810
+Weijia Zhang (Wanchain): And.
+
+216
+00:24:43.330 --> 00:24:45.009
+Weijia Zhang (Wanchain): Is there a link over there?
+
+217
+00:24:45.010 --> 00:24:46.180
+Marelize Kriel: No, not.
+
+218
+00:24:47.420 --> 00:24:48.239
+Marelize Kriel: Jason, please.
+
+219
+00:24:48.240 --> 00:24:57.600
+Weijia Zhang (Wanchain): That's in the, if you look at the governance, in the SUMU website repo, there's a governance there, it mentioned the process over there.
+
+220
+00:25:06.060 --> 00:25:07.960
+Marelize Kriel: Governance.
+
+221
+00:25:08.240 --> 00:25:09.290
+Marelize Kriel: Code.
+
+222
+00:25:11.980 --> 00:25:14.380
+Weijia Zhang (Wanchain): In the governance, there's a charter.
+
+223
+00:25:15.650 --> 00:25:18.000
+Marelize Kriel: Can you share your screen?
+
+224
+00:25:18.000 --> 00:25:18.420
+Weijia Zhang (Wanchain): Yes.
+
+225
+00:25:18.420 --> 00:25:19.770
+Marelize Kriel: Yeah, you're looking.
+
+226
+00:25:19.770 --> 00:25:22.410
+Weijia Zhang (Wanchain): Yeah, yeah, let me, let me, let me show you the screen.
+
+227
+00:25:28.000 --> 00:25:31.079
+Marelize Kriel: Oh, I'm probably in the wrong repo. I see now.
+
+228
+00:25:31.930 --> 00:25:35.329
+Weijia Zhang (Wanchain): Do you see that the smooth technical charter that this
+
+229
+00:25:35.450 --> 00:25:38.839
+Weijia Zhang (Wanchain): Charter. And then there's a documentation, I believe.
+
+230
+00:25:41.180 --> 00:25:43.239
+Weijia Zhang (Wanchain): Oh, vision of scope.
+
+231
+00:25:55.680 --> 00:25:58.210
+Marelize Kriel: No, this is not. There's not much here.
+
+232
+00:25:58.820 --> 00:25:59.450
+Marelize Kriel: That's a.
+
+233
+00:25:59.450 --> 00:26:01.909
+Weijia Zhang (Wanchain): Yeah, it's just that,
+
+234
+00:26:02.160 --> 00:26:05.040
+Weijia Zhang (Wanchain): Look at this. This one.
+
+235
+00:26:05.350 --> 00:26:14.820
+Weijia Zhang (Wanchain): Yeah, this documentation will be received and made available by the project under the Queen. All these are open source, but available at
+
+236
+00:26:15.300 --> 00:26:20.029
+Weijia Zhang (Wanchain): this based on this. So this is the documentation governance.
+
+237
+00:26:21.420 --> 00:26:25.139
+Marelize Kriel: Creative Commons. Okay, that's licensing.
+
+238
+00:26:25.800 --> 00:26:34.990
+Marelize Kriel: So, okay. We make the doc first in Google Doc, but you're probably going to make a PR somewhere into government.
+
+239
+00:26:34.990 --> 00:26:35.320
+Weijia Zhang (Wanchain): Yes.
+
+240
+00:26:35.790 --> 00:26:36.790
+Marelize Kriel: Yeah, okay.
+
+241
+00:26:41.050 --> 00:26:44.149
+Marelize Kriel: So we're just gonna dump it here, you mean? Or…
+
+242
+00:26:45.520 --> 00:27:03.099
+Weijia Zhang (Wanchain): Yeah, we can dump it here or we can send it to to David directly and then he's going to kind of release it. We probably don't need to I'm not sure if this is blog, it belongs to documentation. Suddenly when I read this, I suddenly this come to my mind.
+
+243
+00:27:03.190 --> 00:27:05.750
+Weijia Zhang (Wanchain): Is a blog belong to documentation?
+
+244
+00:27:06.350 --> 00:27:07.130
+Marelize Kriel: No.
+
+245
+00:27:07.610 --> 00:27:08.010
+Weijia Zhang (Wanchain): Okay.
+
+246
+00:27:08.010 --> 00:27:10.670
+Marelize Kriel: Licenses doesn't belong to a block.
+
+247
+00:27:11.090 --> 00:27:19.860
+Marelize Kriel: But we can make a directory under governance called blocks. It's just that we have a history maybe and make markup.
+
+248
+00:27:19.860 --> 00:27:20.210
+Weijia Zhang (Wanchain): Oh!
+
+249
+00:27:20.210 --> 00:27:24.050
+Marelize Kriel: Files that we can copy. I don't know. I didn't know there was a governance.
+
+250
+00:27:24.160 --> 00:27:27.529
+Marelize Kriel: This is easier than Google Docs, don't you think?
+
+251
+00:27:28.380 --> 00:27:38.889
+Weijia Zhang (Wanchain): Yeah, yeah, yeah. Okay, yeah, we can. But we have very limited rights with governance repo. I probably need to ask more for that. Very limited.
+
+252
+00:27:38.890 --> 00:27:40.390
+Marelize Kriel: Make a pull request into it.
+
+253
+00:27:40.390 --> 00:27:46.849
+Weijia Zhang (Wanchain): For request, probably yes, but make a directory approve it or we need to write it.
+
+254
+00:27:46.850 --> 00:27:50.440
+Marelize Kriel: No, if you can make a pull request, you can make a directory in the pull request.
+
+255
+00:27:51.360 --> 00:27:54.169
+Weijia Zhang (Wanchain): Oh, okay, okay. I think, yeah, that, that.
+
+256
+00:27:54.490 --> 00:27:57.660
+Marelize Kriel: It's already a pull request. Create maintainers file.
+
+257
+00:28:00.380 --> 00:28:03.630
+Marelize Kriel: Must we approve that? And just But…
+
+258
+00:28:05.070 --> 00:28:05.800
+Weijia Zhang (Wanchain): Yeah, sure.
+
+259
+00:28:05.970 --> 00:28:11.349
+Weijia Zhang (Wanchain): I think the question is whether have I ever merged it? Maybe it's we need right to.
+
+260
+00:28:11.350 --> 00:28:16.890
+Marelize Kriel: I'll approve it. You can merge it. It's just adding our three names, which is good.
+
+261
+00:28:17.580 --> 00:28:18.350
+Weijia Zhang (Wanchain): Okay.
+
+262
+00:28:19.450 --> 00:28:20.210
+Weijia Zhang (Wanchain): Yep.
+
+263
+00:28:20.470 --> 00:28:25.019
+Weijia Zhang (Wanchain): Okay, let's try this one then. I create this one that's, approved.
+
+264
+00:28:25.020 --> 00:28:27.539
+Marelize Kriel: Mitch, can you Mitch, can you see a Mitch button?
+
+265
+00:28:27.540 --> 00:28:29.139
+Weijia Zhang (Wanchain): Yeah, yeah, okay, let me see.
+
+266
+00:28:29.710 --> 00:28:32.109
+Weijia Zhang (Wanchain): Try to see where we can merge in.
+
+267
+00:28:32.500 --> 00:28:35.210
+Marelize Kriel: No, you can't. They need to mention this one.
+
+268
+00:28:36.750 --> 00:28:37.270
+Marelize Kriel: Oh, I.
+
+269
+00:28:37.270 --> 00:28:37.969
+Weijia Zhang (Wanchain): I don't.
+
+270
+00:28:37.970 --> 00:28:41.739
+Marelize Kriel: For you, you can see a merge button of the two approvals.
+
+271
+00:28:41.920 --> 00:28:48.339
+Marelize Kriel: One approving review. Wait! Wait! Got one approving review by reviewers with right access.
+
+272
+00:28:48.890 --> 00:28:51.080
+Marelize Kriel: So, yeah, yeah.
+
+273
+00:28:51.720 --> 00:29:00.849
+Weijia Zhang (Wanchain): I don't, I don't have that right. Okay, so we need to ask right to approve it. I think fine, as long as you, we can have a pull request, and right, yeah.
+
+274
+00:29:00.850 --> 00:29:06.829
+Marelize Kriel: Okay, so I'll make it in here and then we can, if we want to get it merged, we can contact.
+
+275
+00:29:07.030 --> 00:29:08.330
+Marelize Kriel: Yeah. Ryan.
+
+276
+00:29:08.330 --> 00:29:15.059
+Weijia Zhang (Wanchain): Yeah, yeah. Or I can ask him for a ride for less. Well, for 3 of us. Yeah.
+
+277
+00:29:15.190 --> 00:29:15.940
+Weijia Zhang (Wanchain): Yeah.
+
+278
+00:29:16.360 --> 00:29:17.620
+Weijia Zhang (Wanchain): Okay, so that's good.
+
+279
+00:29:17.620 --> 00:29:29.890
+Marelize Kriel: set it up for a reason like that. We must also maybe put something into our own Smoot reference that anything that gets released into main needs at least, like.
+
+280
+00:29:30.070 --> 00:29:36.560
+Marelize Kriel: 3 approvals, or something like that, and release branches that you can put up rules on that.
+
+281
+00:29:36.900 --> 00:29:42.569
+Marelize Kriel: Just just to make sure that you don't break into our software with reducing.
+
+282
+00:29:42.570 --> 00:29:43.420
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+283
+00:29:43.550 --> 00:29:51.130
+Weijia Zhang (Wanchain): Yeah. Yeah, yeah, yeah. And that's why we run the test already on the PR that you just submitted. Yeah, we run the test for that.
+
+284
+00:29:51.280 --> 00:30:11.180
+Weijia Zhang (Wanchain): Okay, I think that's good. So you will you will write that first draft and then I'll add this new thing. Yeah, so I'm going to add the like a future work I'm thinking adding the quantum there as well and then adding the a little bit on the soft HSMV2 modifications to say that yes, this can be a piece.
+
+285
+00:30:11.720 --> 00:30:17.209
+Weijia Zhang (Wanchain): PQC ready with some modification. And then we can think about contributing back to the…
+
+286
+00:30:17.210 --> 00:30:18.170
+Marelize Kriel: No, definitely.
+
+287
+00:30:18.720 --> 00:30:19.560
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+288
+00:30:21.340 --> 00:30:23.399
+Marelize Kriel: I think they'll appreciate that alert.
+
+289
+00:30:23.710 --> 00:30:26.390
+Marelize Kriel: I I we I did.
+
+290
+00:30:26.510 --> 00:30:37.829
+Marelize Kriel: Long time ago, five years ago, I worked a little bit with those people, also to put something back into SoftHSM and they were, they were amazing, like really sharp and,
+
+291
+00:30:37.940 --> 00:30:48.420
+Marelize Kriel: more focused on security than soft HSM, but they were great, to be honest. I'm glad to see that the project is still alive.
+
+292
+00:30:49.200 --> 00:30:55.619
+Weijia Zhang (Wanchain): Oh, okay, that's good. Yeah, yeah. And I do see, because the HSM is important, right, but with
+
+293
+00:30:56.430 --> 00:31:04.500
+Weijia Zhang (Wanchain): With quantum coming in, I think the HSM chip is going to be a long time to make that PQC ready, the hardware.
+
+294
+00:31:04.500 --> 00:31:15.810
+Marelize Kriel: No, they're already making, they're already producing these things. They started in the end of 2025 to put all these new nest algorithms.
+
+295
+00:31:15.850 --> 00:31:27.310
+Marelize Kriel: From the day NIST was approved, I think it was in October 2025, they approved this certain algorithm. There was this massive project coming out where they started manufacturing hardware.
+
+296
+00:31:27.310 --> 00:31:36.060
+Marelize Kriel: You cannot wait, Weijia. We also focused on AI, and AI is going to make the whole quantum progress go faster.
+
+297
+00:31:36.300 --> 00:31:42.469
+Marelize Kriel: So I think we're going to be shocked with quantum being at our doorstep very soon.
+
+298
+00:31:42.800 --> 00:31:46.160
+Marelize Kriel: We just hope that the people people running those big.
+
+299
+00:31:46.330 --> 00:31:49.400
+Marelize Kriel: Chains and everything, they, they are.
+
+300
+00:31:49.520 --> 00:31:53.880
+Marelize Kriel: up to speed to to have a way to switch fast.
+
+301
+00:31:54.760 --> 00:32:10.300
+Weijia Zhang (Wanchain): Oh, really? Because that was surprising because I know the age and the free scale, I think now it's called the NXP was the company they have been working on this. And last time when I did the research. They were saying they're still behind on these PQCs.
+
+302
+00:32:11.770 --> 00:32:12.110
+Marelize Kriel: Okay.
+
+303
+00:32:12.110 --> 00:32:15.510
+Weijia Zhang (Wanchain): So when you say hardware, which, what company? Are you aware of any company?
+
+304
+00:32:15.510 --> 00:32:19.370
+Marelize Kriel: I'm making notes here that I can send you some of the documentation that I read.
+
+305
+00:32:19.640 --> 00:32:24.180
+Marelize Kriel: hardware implementations. Yeah, I know they
+
+306
+00:32:25.100 --> 00:32:39.690
+Marelize Kriel: quantum. I don't think we have to be afraid that the hardware is going to lag behind, for especially not Hsms like, if you, if you talk about the clouds at least, which have normal lunars.
+
+307
+00:32:39.800 --> 00:32:45.899
+Marelize Kriel: Tails, Luna's hardware that they work with and stuff, those people are all very, very, very,
+
+308
+00:32:46.910 --> 00:32:50.929
+Marelize Kriel: already expecting quantum to be here tomorrow.
+
+309
+00:32:51.250 --> 00:33:03.539
+Marelize Kriel: And normally they were the ones that takes years after cryptography has come out, the HSMs only catch up. But I was quite surprised with the quantum stuff that they're not lagging behind.
+
+310
+00:33:04.250 --> 00:33:14.970
+Weijia Zhang (Wanchain): Oh, okay. Okay. Yeah, let me know, because I know Freescale was the leader in this area. And as far as I know, they do not have that chip yet.
+
+311
+00:33:15.080 --> 00:33:15.659
+Marelize Kriel: Oh, wow.
+
+312
+00:33:15.660 --> 00:33:16.130
+Weijia Zhang (Wanchain): Yeah, okay.
+
+313
+00:33:16.400 --> 00:33:17.200
+Marelize Kriel: So you will see.
+
+314
+00:33:17.200 --> 00:33:20.940
+Weijia Zhang (Wanchain): Okay, we still used to be more rural, so I…
+
+315
+00:33:21.130 --> 00:33:28.310
+Weijia Zhang (Wanchain): Yeah, in fact, local here in Austin. So I think that's good. I think good to see that.
+
+316
+00:33:28.310 --> 00:33:30.509
+Marelize Kriel: Are they local in Austin? Oh, okay.
+
+317
+00:33:30.510 --> 00:33:34.380
+Weijia Zhang (Wanchain): Motorola used to be big in Austin, yeah.
+
+318
+00:33:34.490 --> 00:33:36.010
+Weijia Zhang (Wanchain): Yeah. Okay.
+
+319
+00:33:36.530 --> 00:33:38.860
+Weijia Zhang (Wanchain): Yeah, it, yeah, it, it's, it's.
+
+320
+00:33:38.860 --> 00:33:42.099
+Marelize Kriel: You never know what China is doing. You never know what Japan is doing.
+
+321
+00:33:42.100 --> 00:33:55.339
+Weijia Zhang (Wanchain): Oh, true. I was only thinking about US companies. I pay attention to this because I think two weeks ago, Trump just signed a post-quantum executive order.
+
+322
+00:33:55.350 --> 00:34:04.080
+Weijia Zhang (Wanchain): And then they mentioned several companies, including IBM and then NXP, other things. And I thought it was still behind.
+
+323
+00:34:06.100 --> 00:34:11.269
+Marelize Kriel: Maybe America, because they're so… Busy killing everyone. I don't know.
+
+324
+00:34:11.270 --> 00:34:14.710
+Weijia Zhang (Wanchain): Okay, okay, at this moment.
+
+325
+00:34:14.710 --> 00:34:20.880
+Marelize Kriel: Before we get banned. No, I was just joking, like, I'm glad.
+
+326
+00:34:20.880 --> 00:34:21.670
+Weijia Zhang (Wanchain): Joking, joking.
+
+327
+00:34:21.670 --> 00:34:26.810
+Marelize Kriel: As quantum aware, this America is leader in the world.
+
+328
+00:34:27.440 --> 00:34:28.809
+Marelize Kriel: Yeah. Big leader.
+
+329
+00:34:29.860 --> 00:34:36.949
+Marelize Kriel: And Korea. Korea. Korea is also quite good with coming up with the latest chips.
+
+330
+00:34:37.739 --> 00:34:53.820
+Marelize Kriel: Yeah. Oh, there has been a good… Being the first, I remember them being the first in one of the chips for quantum computers. And one guy even bought a whole quantum computer in his garage. So things has to be kept so cold.
+
+331
+00:34:54.260 --> 00:35:01.149
+Marelize Kriel: It's here. The quantum world is here. If you can bolt it in your basement.
+
+332
+00:35:01.740 --> 00:35:02.770
+Weijia Zhang (Wanchain): Wow, wow.
+
+333
+00:35:02.770 --> 00:35:04.480
+Marelize Kriel: A mini, a mini one.
+
+334
+00:35:04.590 --> 00:35:12.240
+Marelize Kriel: the concept right? If you can already create a concept like that for everyday person, then
+
+335
+00:35:12.680 --> 00:35:14.899
+Marelize Kriel: It is really, really close.
+
+336
+00:35:16.230 --> 00:35:17.160
+Weijia Zhang (Wanchain): Yeah, I mean.
+
+337
+00:35:17.480 --> 00:35:29.919
+Weijia Zhang (Wanchain): Rene, And one of the things that here, here, this is, I'm talking about the blog continuing life. So Rene, one thing can be added is the the quantum soft Hsm. And then we can say scenario.
+
+338
+00:35:30.080 --> 00:35:42.289
+Weijia Zhang (Wanchain): It has the capability to expand to PQC. And then one thing, okay, in terms of the use case, right? One thing is kind of very, very possible is that we
+
+339
+00:35:42.470 --> 00:35:55.629
+Weijia Zhang (Wanchain): have this, we have a service. User can sign with quantum, with HSM, soft HSM, the quant with PQC enabled, they sign it, and they need to verify
+
+340
+00:35:55.760 --> 00:35:57.440
+Weijia Zhang (Wanchain): that,
+
+341
+00:35:57.820 --> 00:36:05.529
+Weijia Zhang (Wanchain): that signature or that sign message with ZKP. So basically, you sign it, you prove, you generate ZKP.
+
+342
+00:36:05.530 --> 00:36:09.459
+Marelize Kriel: Who's going to build this circuit? Do you have a circuit?
+
+343
+00:36:09.460 --> 00:36:20.939
+Weijia Zhang (Wanchain): No, not yet. Okay. Yeah, yeah, not yet. But as far as I know, that's why the team was researching on SP1.
+
+344
+00:36:21.120 --> 00:36:32.500
+Weijia Zhang (Wanchain): As P1 is allowing you to generally approve by writing Rust code. You don't need to, yeah, that's why Tim was looking.
+
+345
+00:36:32.500 --> 00:36:33.160
+Marelize Kriel: Okay.
+
+346
+00:36:33.350 --> 00:36:39.960
+Marelize Kriel: Okay, so, and then you got the circuits, and then, oh, do you mean to validate in solidity, or…
+
+347
+00:36:39.960 --> 00:36:40.650
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+348
+00:36:40.650 --> 00:36:41.690
+Marelize Kriel: Okay.
+
+349
+00:36:41.870 --> 00:36:42.429
+Marelize Kriel: They don'.
+
+350
+00:36:42.430 --> 00:36:43.140
+Weijia Zhang (Wanchain): It is.
+
+351
+00:36:43.140 --> 00:36:46.930
+Marelize Kriel: Pre compiles out for some of the algorithms.
+
+352
+00:36:47.260 --> 00:36:52.530
+Marelize Kriel: To, to verify some signatures, like, for Bezu anyway, I think there's one out.
+
+353
+00:36:52.780 --> 00:37:00.309
+Marelize Kriel: Yeah, these things is, you know, they, they are unfortunately very gas hungry, even for a small verifier.
+
+354
+00:37:00.620 --> 00:37:01.490
+Marelize Kriel: And.
+
+355
+00:37:02.690 --> 00:37:08.970
+Marelize Kriel: Well, no, no, no, they made it for sorry for signature verification. They didn't make it to to verify.
+
+356
+00:37:09.110 --> 00:37:18.159
+Marelize Kriel: a snark proof that should be stable also that like not be be tied to what exactly is inside the the circuits. Right?
+
+357
+00:37:18.470 --> 00:37:23.550
+Marelize Kriel: So they, yeah, okay, that, that's interesting, like, maybe.
+
+358
+00:37:23.550 --> 00:37:32.309
+Weijia Zhang (Wanchain): Yeah, yeah. So so this is what this has us brainstorming on the use cases right? Because when you build this one, we need to have use cases.
+
+359
+00:37:32.630 --> 00:37:43.999
+Weijia Zhang (Wanchain): And then the… What do you think? These kind of use cases, you mentioned Basu. I know Basu has been working on work, have been working on that. And LFDT has a quantum
+
+360
+00:37:44.270 --> 00:37:56.819
+Weijia Zhang (Wanchain): Quantum kind of a focus already. This year, I think. Who? Who has a quantum? FFDT. LFDT, sorry, LFDT. The NASA Foundation did…
+
+361
+00:37:57.000 --> 00:38:01.270
+Weijia Zhang (Wanchain): Decentralized trust, the one that holds the smooth in in.
+
+362
+00:38:01.830 --> 00:38:07.899
+Weijia Zhang (Wanchain): You know, Hart and Montgomery was leading the quantum work with LFDT.
+
+363
+00:38:08.030 --> 00:38:13.100
+Weijia Zhang (Wanchain): Hardin Montgomery, the CTO of LFDT, is leading that.
+
+364
+00:38:13.300 --> 00:38:15.570
+Weijia Zhang (Wanchain): So, so I'm one…
+
+365
+00:38:16.470 --> 00:38:18.870
+Marelize Kriel: Yeah, the name rings a bell.
+
+366
+00:38:18.870 --> 00:38:28.739
+Weijia Zhang (Wanchain): Oh, no, you should know him. He's the CTO of LFDT. And of course, FDD is kind of the…
+
+367
+00:38:28.740 --> 00:38:32.770
+Marelize Kriel: Don't worry, my tongue also knocks. I just say line this one.
+
+368
+00:38:32.770 --> 00:38:37.390
+Weijia Zhang (Wanchain): Yeah, then this one, the LFDT, yeah, yeah. They're hosting smooth.
+
+369
+00:38:37.520 --> 00:38:54.410
+Weijia Zhang (Wanchain): So he's leading the quantum research effort for LFDT. So one thing that can be done is that this moose will incorporate soft HSM V2. It can use HSM to sign.
+
+370
+00:38:54.590 --> 00:38:57.010
+Weijia Zhang (Wanchain): Quantum, messages.
+
+371
+00:38:57.120 --> 00:39:02.629
+Weijia Zhang (Wanchain): And then you can use GKP to generate Approved for that.
+
+372
+00:39:03.270 --> 00:39:04.280
+Weijia Zhang (Wanchain): Message.
+
+373
+00:39:04.570 --> 00:39:09.339
+Weijia Zhang (Wanchain): And then you only have Omtian validated to verify validated.
+
+374
+00:39:09.340 --> 00:39:17.710
+Marelize Kriel: It generates absolute contracts as well, but there is, that is already available. I mean, I remember we're trying to do it for Corda signatures.
+
+375
+00:39:17.920 --> 00:39:25.710
+Marelize Kriel: So it's just going through the steps. That sounds like a good use case to me, to be honest, right?
+
+376
+00:39:26.210 --> 00:39:29.539
+Weijia Zhang (Wanchain): Yeah, yeah, yes, that's now signature.
+
+377
+00:39:29.540 --> 00:39:33.789
+Marelize Kriel: How far are they? Or how active are they with their quantum research?
+
+378
+00:39:34.020 --> 00:39:35.569
+Marelize Kriel: for the Linings Foundation.
+
+379
+00:39:36.540 --> 00:39:55.389
+Weijia Zhang (Wanchain): Well, last time Hart presented one is more on the theoretical level. They don't have a quantum team, right? The technical team are based on the companies like Adera, OneChain. So Hart is just point out the direction. He doesn't have a
+
+380
+00:39:55.410 --> 00:39:58.410
+Weijia Zhang (Wanchain): Engineers working with him. He is. Yeah.
+
+381
+00:39:58.470 --> 00:40:02.650
+Weijia Zhang (Wanchain): So I, when you ask me, he only do the research and, and
+
+382
+00:40:02.980 --> 00:40:08.300
+Weijia Zhang (Wanchain): and the kind of big pictures. He doesn't do the real research, so it should come from us, to be honest.
+
+383
+00:40:08.930 --> 00:40:09.690
+Marelize Kriel: Right.
+
+384
+00:40:09.910 --> 00:40:10.940
+Marelize Kriel: Yeah, okay.
+
+385
+00:40:11.330 --> 00:40:18.549
+Marelize Kriel: And then how would you think of taking the use case a little bit further? How would you bring that into
+
+386
+00:40:18.820 --> 00:40:21.810
+Marelize Kriel: To smoot, would it be,
+
+387
+00:40:23.320 --> 00:40:41.270
+Marelize Kriel: linking into a sort of a user operation, use case, where you have a module that does validation. How would you… how would you switch over to quantum signatures from… you're still having Ethereum signatures in the background anyway?
+
+388
+00:40:41.500 --> 00:40:42.360
+Marelize Kriel: I'm.
+
+389
+00:40:42.360 --> 00:40:42.800
+Weijia Zhang (Wanchain): Yes.
+
+390
+00:40:42.800 --> 00:40:43.279
+Marelize Kriel: for your basic.
+
+391
+00:40:43.280 --> 00:40:43.670
+Weijia Zhang (Wanchain): Yeah.
+
+392
+00:40:43.990 --> 00:40:48.369
+Marelize Kriel: How would you? How would you switch over and make that your use case?
+
+393
+00:40:49.540 --> 00:40:57.790
+Weijia Zhang (Wanchain): Yeah, so a couple of things. First, we're thinking about building like PQC applications on-chain.
+
+394
+00:40:57.880 --> 00:41:10.140
+Weijia Zhang (Wanchain): So in the future, you can, when you send transaction, you don't, before we merge it, before the migration of PQC chain, right? You start…
+
+395
+00:41:10.440 --> 00:41:12.890
+Weijia Zhang (Wanchain): One thing to protect your accounts.
+
+396
+00:41:13.340 --> 00:41:25.560
+Weijia Zhang (Wanchain): So then you can say that in the future, I'm not going to send any regular transaction without quantum signature. So you will rely on sending the transaction to
+
+397
+00:41:25.770 --> 00:41:28.429
+Weijia Zhang (Wanchain): Smart contract, they are PQC enabled.
+
+398
+00:41:28.690 --> 00:41:30.089
+Weijia Zhang (Wanchain): So you, you build.
+
+399
+00:41:30.090 --> 00:41:32.769
+Marelize Kriel: So you're using smart accounts, sorry, that is the user operator.
+
+400
+00:41:32.770 --> 00:41:33.320
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+401
+00:41:33.320 --> 00:41:33.840
+Marelize Kriel: But I'.
+
+402
+00:41:33.840 --> 00:41:34.290
+Weijia Zhang (Wanchain): Yah.
+
+403
+00:41:34.290 --> 00:41:36.370
+Marelize Kriel: But there's EIPs out for that.
+
+404
+00:41:36.480 --> 00:41:50.129
+Marelize Kriel: This is also where we looked at where we would… what we would do eventually, and you have your validator module that sits before, you know, before anything gets, executed. Your account is now a smart contract.
+
+405
+00:41:50.140 --> 00:41:58.779
+Marelize Kriel: So, it can have a validator module, and… but your original transaction is still signed by Ethereum, so it's a double… double up.
+
+406
+00:41:59.180 --> 00:41:59.910
+Marelize Kriel: Unfortunate.
+
+407
+00:41:59.910 --> 00:42:00.649
+Weijia Zhang (Wanchain): Yeah. Okay.
+
+408
+00:42:00.650 --> 00:42:08.569
+Marelize Kriel: Interesting to see how we can get rid of that. Once you, I don't know. You will have to, you know.
+
+409
+00:42:08.920 --> 00:42:14.199
+Marelize Kriel: Not sure if you will ever get the chain needs to move right.
+
+410
+00:42:14.590 --> 00:42:15.090
+Marelize Kriel: Okay.
+
+411
+00:42:15.090 --> 00:42:17.020
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+412
+00:42:17.530 --> 00:42:33.050
+Weijia Zhang (Wanchain): Yeah, but the thing is that I think that hacking the account is… I don't think the hacker will be able to hack the chain itself. That's what we believe. Before the migration, hacker may come in to hack the account.
+
+413
+00:42:33.120 --> 00:42:46.569
+Weijia Zhang (Wanchain): Therefore, if you have an account with big money, big asset, you may want to start signing with quantum, and then sending quantum-enabled transactions, and so that it cannot be hacked.
+
+414
+00:42:46.630 --> 00:42:56.669
+Weijia Zhang (Wanchain): The wallet won't be hacked. That's what the idea. And then you have smart account, you have smart contract to handle that. And then at least.
+
+415
+00:42:56.760 --> 00:43:01.609
+Weijia Zhang (Wanchain): handling of the asset is done kind of in PQC level.
+
+416
+00:43:01.950 --> 00:43:03.380
+Weijia Zhang (Wanchain): So, but…
+
+417
+00:43:03.380 --> 00:43:15.989
+Marelize Kriel: For us, it's also everything goes through the smart account, so you put your validating module in there and nothing gets past it. So it is safe in that sense, but Ethereum will need to fork underneath.
+
+418
+00:43:16.090 --> 00:43:21.080
+Marelize Kriel: And you will still have double validation always until the the change.
+
+419
+00:43:21.820 --> 00:43:30.300
+Weijia Zhang (Wanchain): Yeah, and this validator, if it can handle the ZKP-based PQC, that would be pretty good actually.
+
+420
+00:43:31.820 --> 00:43:38.519
+Marelize Kriel: Yes, I haven't thought that through completely. It would be the most optimized.
+
+421
+00:43:39.140 --> 00:43:39.760
+Marelize Kriel: Yeah.
+
+422
+00:43:39.760 --> 00:43:40.320
+Weijia Zhang (Wanchain): Yes.
+
+423
+00:43:40.510 --> 00:43:45.679
+Marelize Kriel: I mean, what the pre-compiles that I spoke about is not looking at the ZKP part.
+
+424
+00:43:46.080 --> 00:43:53.060
+Marelize Kriel: As long as the ZKP is not more expensive than the pre-compile, which I doubt it would be.
+
+425
+00:43:54.220 --> 00:43:58.069
+Marelize Kriel: It would at least be, you know, it wouldn't go bigger if…
+
+426
+00:43:58.190 --> 00:44:02.640
+Marelize Kriel: Yeah, I don't know. The quantum signatures is also not getting bigger like.
+
+427
+00:44:04.210 --> 00:44:04.910
+Marelize Kriel: Well, I.
+
+428
+00:44:04.910 --> 00:44:05.639
+Weijia Zhang (Wanchain): Yeah, I…
+
+429
+00:44:05.640 --> 00:44:06.940
+Marelize Kriel: Oh, yeah.
+
+430
+00:44:07.110 --> 00:44:23.930
+Weijia Zhang (Wanchain): Yeah, and that's the team was looking at the, I haven't got the data. They are looking at different quantum mechanism to see the size of the quantum signature as well. They're comparing the hash base or lattice based trying different things on that. So yeah, yeah.
+
+431
+00:44:23.930 --> 00:44:33.529
+Marelize Kriel: But that is pretty, once you decide on your algorithm, that doesn't flunk. So once you fix it, your signature is not going to get more expensive.
+
+432
+00:44:34.120 --> 00:44:37.639
+Marelize Kriel: If you don't change your hash or does it.
+
+433
+00:44:39.440 --> 00:44:40.230
+Marelize Kriel: I don't know.
+
+434
+00:44:41.460 --> 00:44:42.230
+Marelize Kriel: I don't think.
+
+435
+00:44:42.230 --> 00:44:42.830
+Weijia Zhang (Wanchain): Yeah.
+
+436
+00:44:44.530 --> 00:44:53.020
+Marelize Kriel: That's the whole thing about like a signature scheme. It's like your verification cost must not go up.
+
+437
+00:44:53.190 --> 00:44:54.780
+Marelize Kriel: Because you're harsh.
+
+438
+00:44:54.780 --> 00:44:55.450
+Weijia Zhang (Wanchain): Right, yeah.
+
+439
+00:44:55.450 --> 00:44:56.150
+Marelize Kriel: That's just.
+
+440
+00:44:56.150 --> 00:44:56.860
+Weijia Zhang (Wanchain): Yes.
+
+441
+00:44:57.530 --> 00:45:05.099
+Marelize Kriel: So we will see if the quantum signatures, especially the lattice ones, I know is going to be very differently.
+
+442
+00:45:05.250 --> 00:45:14.840
+Marelize Kriel: So then it becomes like we almost have to have 0 knowledge proof rather here, because you never know what you're going to sign.
+
+443
+00:45:15.010 --> 00:45:17.229
+Marelize Kriel: and whether it can go bigger.
+
+444
+00:45:18.820 --> 00:45:25.610
+Weijia Zhang (Wanchain): Yeah, yeah. And also, there's also a possibility of privacy as well, right? It's, sometimes they just…
+
+445
+00:45:25.880 --> 00:45:28.880
+Weijia Zhang (Wanchain): They just don't want to review.
+
+446
+00:45:29.380 --> 00:45:32.779
+Weijia Zhang (Wanchain): The… the… even the account address and the asset.
+
+447
+00:45:32.900 --> 00:45:42.590
+Weijia Zhang (Wanchain): the amount of asset. So so there is a well, Zkp is not just for kind of making the footprint smaller on chain. It's also to making.
+
+448
+00:45:42.590 --> 00:45:47.250
+Marelize Kriel: The problem with that is, is, is, we just like, how do you use that again? Right?
+
+449
+00:45:47.800 --> 00:46:05.149
+Marelize Kriel: You still need your public input in your Zkp. To to verify against, and if you make everything so private that you can't use it after you proved it. It's also a problem. But yeah, Zkps are ultimately for privacy originally.
+
+450
+00:46:06.390 --> 00:46:24.029
+Weijia Zhang (Wanchain): Yeah, yeah. Well, we'll brainstorm on that one because it could be that the privacy is that while they're still on upchain there's still some information revealed but at least on chain there won't be any information revealed. I think that'll be good enough.
+
+451
+00:46:24.040 --> 00:46:29.290
+Weijia Zhang (Wanchain): But when you have this service, right, you still need to send Some information over there.
+
+452
+00:46:30.110 --> 00:46:31.330
+Weijia Zhang (Wanchain): to the service.
+
+453
+00:46:31.780 --> 00:46:32.470
+Marelize Kriel: Yes.
+
+454
+00:46:33.100 --> 00:46:41.469
+Weijia Zhang (Wanchain): Yeah. And then we can, with smoother, we can build that kind of infrastructure at least to provide that proof.
+
+455
+00:46:42.250 --> 00:47:00.910
+Marelize Kriel: I think there's a lot of input that we can still give them, especially with the ZKP, it gets interesting of like, sure, I can, if it's just about proving that the signature is valid, sure. But if you want to prove that what I have signed is also
+
+456
+00:47:01.310 --> 00:47:05.850
+Marelize Kriel: I also need to know what I have to sign so that I can act on it.
+
+457
+00:47:06.000 --> 00:47:14.990
+Marelize Kriel: then a Zkp becomes your stuff is not so private anymore, because you need to add public parameters that you're verifying against that you can use.
+
+458
+00:47:15.130 --> 00:47:21.670
+Marelize Kriel: So there's a there's a lot of, I think, avenues that one could do research still on how to use.
+
+459
+00:47:21.900 --> 00:47:31.709
+Marelize Kriel: The new signature scheme, not just the things they're already done with smart accounts, because that is sort of laid out the way Ethereum proposed to switch over if it happens tomorrow.
+
+460
+00:47:33.210 --> 00:47:34.250
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+461
+00:47:34.530 --> 00:47:41.360
+Weijia Zhang (Wanchain): Yeah, we're still looking at that, and I think these, in terms of what to reveal, what not to reveal, it's just mainly for the
+
+462
+00:47:41.530 --> 00:47:43.900
+Weijia Zhang (Wanchain): for the core chain application.
+
+463
+00:47:43.900 --> 00:47:44.580
+Marelize Kriel: Yes.
+
+464
+00:47:44.820 --> 00:47:45.980
+Weijia Zhang (Wanchain): Yeah, so…
+
+465
+00:47:47.890 --> 00:47:56.010
+Marelize Kriel: Yeah, we also in our new smart contract repo, which is now more publicly faced.
+
+466
+00:47:56.230 --> 00:47:57.810
+Marelize Kriel: with facets.
+
+467
+00:47:58.000 --> 00:48:05.420
+Marelize Kriel: Having a diamond structure, so our contracts are smaller and stuff. We're also reviewing our interoperability.
+
+468
+00:48:05.760 --> 00:48:07.600
+Marelize Kriel: that we're bringing through.
+
+469
+00:48:07.750 --> 00:48:13.019
+Marelize Kriel: So our connector contracts and using the Ea spec. All those things is going to come up.
+
+470
+00:48:13.170 --> 00:48:24.759
+Marelize Kriel: before the end of the year. Again, looking at at public eips. I don't like any of the 2 that the team brought up here like we must look at them, and we must assess them.
+
+471
+00:48:25.060 --> 00:48:37.880
+Marelize Kriel: But, and then, like, what we always have used was the EA spec, and, like, to see where that fits in, still have a place in the public space and so on. So, we're also going to have to come back to EA.
+
+472
+00:48:38.020 --> 00:48:43.359
+Marelize Kriel: at the moment. That is not our focus, though, or interop. But it's not not currently.
+
+473
+00:48:44.600 --> 00:48:59.620
+Weijia Zhang (Wanchain): Okay, yeah, yeah, the EA, yeah, we can come back and revisit that one because there's also ECM Foundation also has a kind of new branch called ECM Institute. I think the…
+
+474
+00:48:59.730 --> 00:49:02.420
+Weijia Zhang (Wanchain): There'll be some work on that on enterprises as well.
+
+475
+00:49:02.420 --> 00:49:03.769
+Marelize Kriel: Institute, that's not.
+
+476
+00:49:03.770 --> 00:49:04.210
+Weijia Zhang (Wanchain): Yah.
+
+477
+00:49:04.630 --> 00:49:07.570
+Marelize Kriel: very original.
+
+478
+00:49:07.570 --> 00:49:12.559
+Weijia Zhang (Wanchain): Is it Ethereum institution or something like that?
+
+479
+00:49:13.150 --> 00:49:16.779
+Marelize Kriel: For interop, or or in general, or or what.
+
+480
+00:49:16.780 --> 00:49:21.020
+Weijia Zhang (Wanchain): Well, I feel it's similar to the
+
+481
+00:49:21.130 --> 00:49:34.169
+Weijia Zhang (Wanchain): to EAs, because it was initiated by… well, it was sponsored by… Joe Lubin. Joe Lubin was the sponsor of EA, right? So probably… I think eventually it's going to be similar.
+
+482
+00:49:34.680 --> 00:49:35.480
+Weijia Zhang (Wanchain): You know.
+
+483
+00:49:36.630 --> 00:49:37.790
+Marelize Kriel: Oof.
+
+484
+00:49:38.080 --> 00:49:38.670
+Marelize Kriel: Full name.
+
+485
+00:49:38.670 --> 00:49:40.149
+Weijia Zhang (Wanchain): So, yeah.
+
+486
+00:49:40.470 --> 00:49:41.880
+Marelize Kriel: And this is notes, not.
+
+487
+00:49:41.880 --> 00:49:46.930
+Weijia Zhang (Wanchain): I do not know much yet. I haven't paid attention to that yet, but maybe, yeah.
+
+488
+00:49:46.930 --> 00:49:52.199
+Marelize Kriel: Vip's that they sent to me, and I don't know. I didn't like any of them.
+
+489
+00:49:52.940 --> 00:49:58.609
+Marelize Kriel: I'm oh, I haven't looked. But this is what we're going to look at in the future.
+
+490
+00:49:59.180 --> 00:50:01.620
+Marelize Kriel: Alongside the EA speak.
+
+491
+00:50:03.220 --> 00:50:04.230
+Marelize Kriel: The CCIP.
+
+492
+00:50:04.230 --> 00:50:04.840
+Weijia Zhang (Wanchain): Okay.
+
+493
+00:50:06.780 --> 00:50:09.610
+Marelize Kriel: That's it. The the 1st one is not
+
+494
+00:50:10.010 --> 00:50:19.579
+Marelize Kriel: I don't. I have to go through the process and write it up and push back. But this is currently the other 2 that stands with the Ea spec for us.
+
+495
+00:50:20.660 --> 00:50:24.020
+Weijia Zhang (Wanchain): Okay, let me take time to look at these, yeah.
+
+496
+00:50:24.270 --> 00:50:25.030
+Weijia Zhang (Wanchain): Oh.
+
+497
+00:50:26.070 --> 00:50:36.820
+Weijia Zhang (Wanchain): Okay, I think we… Yeah, I also update the review document as they send it to LADT TAC.
+
+498
+00:50:37.000 --> 00:50:37.990
+Weijia Zhang (Wanchain): Ahhh.
+
+499
+00:50:38.280 --> 00:50:43.580
+Weijia Zhang (Wanchain): Technical Architecture Committee, and they are reviewing that. I think, I hope they improve it.
+
+500
+00:50:43.700 --> 00:51:00.559
+Weijia Zhang (Wanchain): quickly with the changes we made. And then, so just to wrap it up, I'm going to accept this PR. And then you'll be working on the first draft of the blog for the scenario, and then I'll edit it.
+
+501
+00:51:02.240 --> 00:51:12.490
+Weijia Zhang (Wanchain): Right. And then we can also look at other things as well. The GKP experiment a little bit and then bug fixes for this.
+
+502
+00:51:12.600 --> 00:51:16.589
+Weijia Zhang (Wanchain): And then build the possible use case for this.
+
+503
+00:51:18.020 --> 00:51:24.480
+Marelize Kriel: As. And just to to say again, you sort of fixed on that. Sb, one for your Zk piece.
+
+504
+00:51:24.700 --> 00:51:35.610
+Marelize Kriel: you… because there's a… there are more than one. One you can write in C++, which is your LLVM, I think, and then there's one you write in Rust, which I think is the SP1.
+
+505
+00:51:36.110 --> 00:51:39.860
+Marelize Kriel: Yeah. Yeah. Okay. So, so you kind of stick with that one.
+
+506
+00:51:40.650 --> 00:51:52.430
+Weijia Zhang (Wanchain): Yeah, we are looking at the Rust-based SP1, but we have no, I do not think they have achieved that yet, but they're looking at that right now.
+
+507
+00:51:54.690 --> 00:51:58.330
+Marelize Kriel: I'll also have a look, because I'm a bit outdated on what this…
+
+508
+00:51:58.690 --> 00:52:08.680
+Marelize Kriel: what you could. I would not write any of this. I would not even write the solidity contract. Something needs to generate it from a human readable programming language.
+
+509
+00:52:08.950 --> 00:52:14.190
+Marelize Kriel: That's sort of where I feel once you put your foot down, otherwise you're gonna.
+
+510
+00:52:14.880 --> 00:52:17.520
+Marelize Kriel: waste development power at the moment.
+
+511
+00:52:18.610 --> 00:52:19.490
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+512
+00:52:22.060 --> 00:52:25.310
+Weijia Zhang (Wanchain): Okay, anything you want.
+
+513
+00:52:25.310 --> 00:52:29.179
+Marelize Kriel: In what circuits they already played with quantum algorithms?
+
+514
+00:52:29.520 --> 00:52:35.590
+Marelize Kriel: like, if somebody has already done that work for us, it's no, it's also no point to redo it.
+
+515
+00:52:37.200 --> 00:52:37.870
+Weijia Zhang (Wanchain): Yes.
+
+516
+00:52:38.830 --> 00:52:43.350
+Weijia Zhang (Wanchain): Okay, yeah. Anything else? Tim, do you think, do you have anything else?
+
+517
+00:52:44.900 --> 00:52:45.910
+Temujin Louie (Wanchain): Nope, nothing.
+
+518
+00:52:46.740 --> 00:52:47.470
+Weijia Zhang (Wanchain): Okay.
+
+519
+00:52:47.910 --> 00:52:55.940
+Weijia Zhang (Wanchain): Thank you, Meredith. This is this grade. There were 280 vowel changes. That's huge.
+
+520
+00:52:55.940 --> 00:53:06.530
+Marelize Kriel: It's actually a bad thing, but it is a fork being merged back and anything coming later will be maximum 10 to 20 files, nothing more.
+
+521
+00:53:06.920 --> 00:53:14.339
+Weijia Zhang (Wanchain): You know, when I asked our team, hey, what is your review progress with this, this PR, this PR?
+
+522
+00:53:14.340 --> 00:53:22.199
+Marelize Kriel: Being merged back. It is not something. And look at the change log and go deep dive if you want to.
+
+523
+00:53:22.790 --> 00:53:26.659
+Weijia Zhang (Wanchain): The other team was saying, there's no way we can go through the 200.
+
+524
+00:53:26.660 --> 00:53:27.529
+Marelize Kriel: No, no, no.
+
+525
+00:53:27.530 --> 00:53:30.030
+Weijia Zhang (Wanchain): So yeah, yeah, yeah. It's not that bad.
+
+526
+00:53:30.030 --> 00:53:30.770
+Marelize Kriel: Yeah, sure.
+
+527
+00:53:31.130 --> 00:53:34.740
+Weijia Zhang (Wanchain): But at least they did a test. Okay, so.
+
+528
+00:53:35.240 --> 00:53:36.270
+Marelize Kriel: Thank you.
+
+529
+00:53:36.440 --> 00:53:38.899
+Weijia Zhang (Wanchain): Thank you. Yeah, yeah.
+
+530
+00:53:39.180 --> 00:53:40.080
+Weijia Zhang (Wanchain): Okay,
+
+531
+00:53:40.080 --> 00:53:51.429
+Marelize Kriel: I will make that for the second issue. Just make the small Pr to replace module names, so it does not changes anything other than renaming the module to
+
+532
+00:53:51.590 --> 00:53:54.679
+Marelize Kriel: Away from Hyperledger Labs, which is archived.
+
+533
+00:53:55.310 --> 00:54:09.859
+Weijia Zhang (Wanchain): Okay, yeah, there's one thing I want to, maybe a small thing I wanted to point out, though. I think that in the first page I mentioned that this is a hyperledger project and then they also have people's name over there. So I just want to make sure that this is all
+
+534
+00:54:09.980 --> 00:54:12.789
+Weijia Zhang (Wanchain): Oh, okay, everything. Yeah, yeah, yeah.
+
+535
+00:54:13.320 --> 00:54:19.309
+Marelize Kriel: I'll do a full scrape of the repo and take out all the Hyperledger references.
+
+536
+00:54:19.880 --> 00:54:20.730
+Weijia Zhang (Wanchain): Okay, okay.
+
+537
+00:54:21.150 --> 00:54:22.420
+Weijia Zhang (Wanchain): Cool, cool.
+
+538
+00:54:23.070 --> 00:54:23.869
+Marelize Kriel: Thank you. Thank you.
+
+539
+00:54:23.870 --> 00:54:25.980
+Weijia Zhang (Wanchain): Okay, yeah.
+
+540
+00:54:26.830 --> 00:54:30.670
+Weijia Zhang (Wanchain): Yeah, okay. Well, thank you. This is great work. Yeah, yeah, well.
+
+541
+00:54:30.670 --> 00:54:32.719
+Marelize Kriel: I'll speak to an email. Thanks, Vij.
+
+542
+00:54:33.270 --> 00:54:35.030
+Weijia Zhang (Wanchain): Okay, okay, thank you.
+
+543
+00:54:35.030 --> 00:54:36.040
+Marelize Kriel: Bye-bye.
+
+544
+00:54:36.040 --> 00:54:36.840
+Weijia Zhang (Wanchain): Bye bye by.
+
+545
+00:54:37.060 --> 00:54:37.720
+Temujin Louie (Wanchain): Bye bye.
+
+546
+00:54:38.500 --> 00:54:39.600
+Weijia Zhang (Wanchain): Bye bye, bye.
+

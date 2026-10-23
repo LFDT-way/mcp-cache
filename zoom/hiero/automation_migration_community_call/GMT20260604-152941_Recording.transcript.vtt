@@ -1,0 +1,926 @@
+WEBVTT
+
+1
+00:01:30.280 --> 00:01:31.960
+Sophie Bulloch: Hi, Jessie!
+
+2
+00:01:35.930 --> 00:01:36.770
+Jessie Ssebuliba: Hello.
+
+3
+00:02:20.840 --> 00:02:23.360
+Sophie Bulloch: Hi, Angie!
+
+4
+00:02:27.510 --> 00:02:28.380
+Angelina Ceppaluni: Bye!
+
+5
+00:02:47.240 --> 00:02:51.009
+Sophie Bulloch: Sorry, I probably have to be on mobile for at least half an hour.
+
+6
+00:02:52.310 --> 00:02:53.860
+Sophie Bulloch: Yeah.
+
+7
+00:02:54.470 --> 00:03:05.970
+Angelina Ceppaluni: That's fine. This is… this is usually just a half an hour anyway, so… and today it might be a bit shorter, just depends on how… who we'll have and how many people.
+
+8
+00:03:06.080 --> 00:03:13.420
+Angelina Ceppaluni: Because I think most of everyone here is kind of familiar, so… with that being said, it might just be…
+
+9
+00:03:13.670 --> 00:03:23.110
+Angelina Ceppaluni: something that we discuss in terms of what people want to see for their repos. But I'll give it another minute, see if anybody…
+
+10
+00:03:23.560 --> 00:03:26.659
+Angelina Ceppaluni: Joins in, and then if not, we'll get started.
+
+11
+00:04:45.210 --> 00:04:49.250
+Angelina Ceppaluni: Okay, I think we'll go ahead and get started.
+
+12
+00:04:49.590 --> 00:04:54.370
+Angelina Ceppaluni: Welcome, everybody. Thank you so much for joining today.
+
+13
+00:04:55.830 --> 00:05:08.440
+Angelina Ceppaluni: Today we are here to kind of just discuss the automation, migration, the process of that, and also to share the kind of roadmap approach that we are looking to take.
+
+14
+00:05:10.210 --> 00:05:22.600
+Angelina Ceppaluni: Let me go ahead and share my screen. I'll go ahead and share that document with everyone. So, for those of you who probably know, this has been floating around. I've been using it just to try to gauge…
+
+15
+00:05:22.690 --> 00:05:32.220
+Angelina Ceppaluni: Ideas, feedback, comments, questions from maintainers in terms of what they feel as though would help them out, in their website overall.
+
+16
+00:05:32.740 --> 00:05:35.970
+Angelina Ceppaluni: Just give me one moment, I'll go ahead and share this.
+
+17
+00:05:36.790 --> 00:05:45.890
+Angelina Ceppaluni: Okay… And then, can everyone see it? Should say something like automation… Roadmap? Okay, thank you.
+
+18
+00:05:45.950 --> 00:06:04.229
+Angelina Ceppaluni: So coming down here, some of this, most people will notice is adopted from what Sophie has shared. Thank you so much, Sophie. So there will be kind of a double presence of this, so you may see some of this from me, and then some of this from what Sophie is working on as well.
+
+19
+00:06:04.490 --> 00:06:19.399
+Angelina Ceppaluni: For… on the side of it that I will be doing, this will just kind of be what I call, pick your own, in the sense that you don't need to have every aspect here. If you feel as though maybe there's something that is…
+
+20
+00:06:19.400 --> 00:06:29.600
+Angelina Ceppaluni: on your mind, and you say, I don't think we really need this right now, but hey, I definitely think we need this right now, please feel free to let me know that. I will…
+
+21
+00:06:29.600 --> 00:06:40.719
+Angelina Ceppaluni: aptly create, individual kind of roadmap automation documents for each SDK, that way we can kind of keep it together on what each SDK is expecting
+
+22
+00:06:40.850 --> 00:06:43.169
+Angelina Ceppaluni: In terms of the automation process.
+
+23
+00:06:43.230 --> 00:06:49.180
+Angelina Ceppaluni: So, coming down here, the first thing I wanted to kind of share was the docs phase.
+
+24
+00:06:49.180 --> 00:07:10.130
+Angelina Ceppaluni: So, the way this would work, would be similar to what we've seen in C++ so far, where when you submit a pull request, you automatically are greeted with that dashboard that says, hey, here's your PR status, and it'll tell the user, if their commit is GPG sign, if it's presenting any merge conflicts, if there are.
+
+25
+00:07:10.130 --> 00:07:16.419
+Angelina Ceppaluni: underlying things that need to be addressed in terms of maybe it's a DCO, or…
+
+26
+00:07:16.810 --> 00:07:22.439
+Angelina Ceppaluni: Maybe if there is a test failure, we can always optimize the workflow for something like that.
+
+27
+00:07:22.520 --> 00:07:39.880
+Angelina Ceppaluni: So, to kind of give everybody just a visual of what I'm referring to, for those who haven't seen it in C++ yet, Rob has done a wonderful job of doing this. Unfortunately, I do not believe he was able to make it today, but he will be one of the ones that will have a hand in assisting with this process.
+
+28
+00:07:39.930 --> 00:07:58.569
+Angelina Ceppaluni: So, here we have an instant actions deployed by our GitHub Actions. It gives a friendly little message saying, hello, I'm your helper dashboard. Think of me as your live scoreboard, in the sense with every commit, it will automatically update the scoreboard to make sure that it's
+
+29
+00:07:58.570 --> 00:08:00.579
+Angelina Ceppaluni: Keeping your information up to date.
+
+30
+00:08:00.650 --> 00:08:16.539
+Angelina Ceppaluni: So, it does also check for a linked issue, so this is one of the, kind of, features we wanted to implement as part of Phase 1 and 2. I will come back to this in a moment, but focusing on just the documentation alone.
+
+31
+00:08:16.540 --> 00:08:22.369
+Angelina Ceppaluni: So here, we have the user, they went ahead and successfully…
+
+32
+00:08:22.670 --> 00:08:26.979
+Angelina Ceppaluni: assigned off their commits, they have a proper GPG signature.
+
+33
+00:08:27.020 --> 00:08:44.349
+Angelina Ceppaluni: The alternative side to this would be, for example, if maybe someone does the DCO, but hey, you're missing GPG, instead of it having a checkmark like we see, the user would be presented with an X, and then they would have a one-line description for
+
+34
+00:08:44.350 --> 00:08:52.870
+Angelina Ceppaluni: needing assistance with GPD signing, use this link, and then it would appear similar to what we kind of have here, where it's linked
+
+35
+00:08:52.870 --> 00:09:00.259
+Angelina Ceppaluni: to another document, whether it be in the SDK hub or in the repository SDK in general.
+
+36
+00:09:00.570 --> 00:09:07.799
+Angelina Ceppaluni: So that was kind of the overall approach for the documentation, phase. This wasn't too, too…
+
+37
+00:09:07.890 --> 00:09:26.759
+Angelina Ceppaluni: complex. We kind of wanted to make this as simple as we possibly could, not only for maintainers, but especially for the contributors. We want to reduce your overhead and try to make review as quick and flawless as we possibly can, so this is definitely kind of one of those two birds in one stone feel.
+
+38
+00:09:27.540 --> 00:09:41.999
+Angelina Ceppaluni: Moving on from the documentation phase, before I move on, actually, please let me know if you have any questions, comments, or just ideas about this in general. Feel free to raise your hand, leave a comment, or just come off of mute.
+
+39
+00:09:42.130 --> 00:09:57.970
+Angelina Ceppaluni: But moving down to Phase 1, so some of this, again, we've just seen in C++. You'll notice I did put where these items are, so if you're someone who's more visual and you just need to see what it's doing in kind of, like, a real time.
+
+40
+00:09:57.970 --> 00:10:08.820
+Angelina Ceppaluni: Feel free to visit those repositories. They give an excellent overview and kind of a demonstration of what you can expect to see from that respected bot,
+
+41
+00:10:09.120 --> 00:10:19.460
+Angelina Ceppaluni: action. So, again, here we've seen the board for reporting. We have the PR title check, so this is the workflow that you've seen.
+
+42
+00:10:19.460 --> 00:10:36.619
+Angelina Ceppaluni: In Python, you've probably also seen this in other repositories. It's that little thing that says PR title check. It basically just checks to make sure that your title is meeting the conventions that are set up in that repository, SDK, website, wherever you're working. The next
+
+43
+00:10:36.620 --> 00:10:41.749
+Angelina Ceppaluni: options we kind of wanted to consider. These aren't set in stone, these are
+
+44
+00:10:41.750 --> 00:10:59.210
+Angelina Ceppaluni: more suggestions, would be bought PR cleaning. So, for Python, I'm sure most of you have also noticed that if there's a PR, and after a certain amount of days, I believe it's about 7 to 10, if there is no PR activity, the PR is automatically closed.
+
+45
+00:10:59.210 --> 00:11:04.150
+Angelina Ceppaluni: This is also helping us to reduce, overhead, because we don't want to be…
+
+46
+00:11:04.150 --> 00:11:15.359
+Angelina Ceppaluni: reviewing work, especially if something came up and the contributor can't take it on. We want to be able to give that issue out to the community and give that to someone who has the ability and the time to work on it.
+
+47
+00:11:15.430 --> 00:11:16.979
+Angelina Ceppaluni: So again.
+
+48
+00:11:17.420 --> 00:11:28.999
+Angelina Ceppaluni: this coming down to our issue cleanup, so this kind of does the same thing as our PR cleaning would. Essentially, you have an automatic unassign of the contributor.
+
+49
+00:11:29.000 --> 00:11:42.220
+Angelina Ceppaluni: If there is no activity done on the issue, if they haven't submitted a PR, they didn't comment on it, or have just basically not given us any indication that they are still working on it, at that point, it is automatically closed.
+
+50
+00:11:42.740 --> 00:11:54.220
+Angelina Ceppaluni: Most of you, again, have already seen a lot of this. It is in Python, so the use of the slash assign command, if there are individuals here from the…
+
+51
+00:11:54.520 --> 00:12:03.019
+Angelina Ceppaluni: a Java SDK, or, I'm sorry, from the JavaScript SDK, then at that point, you can use the slash assign, and then…
+
+52
+00:12:03.320 --> 00:12:09.200
+Angelina Ceppaluni: You are able to have… or give the contributor the ability to essentially assign themselves.
+
+53
+00:12:12.130 --> 00:12:13.360
+Angelina Ceppaluni: And then…
+
+54
+00:12:13.960 --> 00:12:30.820
+Angelina Ceppaluni: A few of these other commands we've already seen, so again, they just follow that same approach. If they commented slash help, slash assign, even slash unassign, then at that point, that triggers the bot to say, hey, this user is requesting to be unassigned, and the bot will automatically do it.
+
+55
+00:12:34.460 --> 00:12:40.840
+Angelina Ceppaluni: And then, give me one moment, I had one quick thing come up that I just have to… okay, we're all set. All right.
+
+56
+00:12:41.160 --> 00:12:45.449
+Angelina Ceppaluni: So now, we come down to Phase 2.
+
+57
+00:12:45.820 --> 00:13:03.840
+Angelina Ceppaluni: This is more for the issue progression side of things, so for those of you who are aware, we had the, I know the name has changed a little bit, some of us refer to it as the GFI Initiative, some of us refer to it as the IPI Initiative. So this Phase 2 kind of…
+
+58
+00:13:03.840 --> 00:13:20.549
+Angelina Ceppaluni: works on that initiative. For Python, we partly have some of these things implemented in the sense that it does implement or emit a welcome and confirmation message saying, hey, thanks for working on this issue, it's been assigned to you.
+
+59
+00:13:20.550 --> 00:13:32.989
+Angelina Ceppaluni: Feel free to get started, submit a PR, things like that. And then the other thing, I know it's not mentioned here, is the use of Code Rabbit for this. So, when a user is assigned to the issue.
+
+60
+00:13:32.990 --> 00:13:47.099
+Angelina Ceppaluni: at that point, maybe, for example, if it's something new that they're taking on, if it's maybe a new intermediate issue and they haven't done something of this scale before, you can implement or deploy Code Rabbit simply by saying, at Code Rabbit plan.
+
+61
+00:13:47.100 --> 00:13:56.259
+Angelina Ceppaluni: From there, that triggers an automatic plan and implementation of what the contributor can expect to follow to kind of complete the issue effectively.
+
+62
+00:13:57.060 --> 00:13:58.020
+Angelina Ceppaluni: So…
+
+63
+00:13:58.050 --> 00:14:05.340
+Angelina Ceppaluni: what we have thought of is trying to possibly check the age of a GitHub account. For example, is it…
+
+64
+00:14:05.340 --> 00:14:20.100
+Angelina Ceppaluni: older than X amount of days or X amount of weeks? How many contributions does this person have? Do they have quite a few? Are they a pretty prominent member of the community in general? And if they're not a prominent member, maybe they're
+
+65
+00:14:20.100 --> 00:14:31.359
+Angelina Ceppaluni: prominence somewhere else. We want to give that as an exception, so maybe you have an older GitHub account, but maybe you're just new to HIRO and you don't have any contributions.
+
+66
+00:14:31.360 --> 00:14:43.909
+Angelina Ceppaluni: We don't want to let that interfere. We want to say, hey, okay, yes, you don't have contributions here, but you have them there, therefore that makes you an added candidate, for issue claiming and things like that.
+
+67
+00:14:44.290 --> 00:14:57.780
+Angelina Ceppaluni: So that was kind of the overall general direction of what we wanted to move forward. That's why we have that in place. Some of these will come with questions, so these questions are here specifically for the maintainers.
+
+68
+00:14:57.780 --> 00:15:05.750
+Angelina Ceppaluni: Because we want to know what your limits are. If you're the kind of person that wants to see a contributor having a…
+
+69
+00:15:05.930 --> 00:15:24.659
+Angelina Ceppaluni: fairly decent-aged GitHub account, and you want to see them have a fair, decent amount of work across, maybe GitHub or an organization in general, we want to know what are your limits, what do you want to see, what are your counts, and how… how restrictive or how lenient do you want to be in these respects?
+
+70
+00:15:25.480 --> 00:15:33.639
+Angelina Ceppaluni: Coming down here, again, these are just the kind of final, nitpicks of this last Phase 2.
+
+71
+00:15:34.000 --> 00:15:53.039
+Angelina Ceppaluni: So, again, you'll see here that some of these already have kind of an implementation across the organization, so some of these bots are implemented in Enterprise Java as well, and they are in the website, so for those of you who have seen the website, the website, if you're looking and you don't see it right away.
+
+72
+00:15:53.040 --> 00:16:00.909
+Angelina Ceppaluni: We need to wait for GitHub maintainers, so the PRs are there, we're just waiting for their approval, but please feel free to visit the PRs for this.
+
+73
+00:16:01.050 --> 00:16:16.460
+Angelina Ceppaluni: We have quite a few good ones that are going to be helping us out a lot in that respect, so thank you to those individuals. I'm not sure if those individuals are on the call, I can't quite see at the moment, but thank you. So, coming back to the bots, however…
+
+74
+00:16:16.990 --> 00:16:29.789
+Angelina Ceppaluni: There is also an idea of floating around bot-created good first issues. There have been a few discussions, a couple of maintainers thought this would be a good idea, essentially to reduce
+
+75
+00:16:29.790 --> 00:16:49.009
+Angelina Ceppaluni: the amount of overhead of making sure that they need to have issues in place, especially when the weekend comes around. A lot of contributors, you know, sometimes will do this in their free time, so they may be working on these things, maybe on a Saturday or Sunday. If they come in and they don't see any good first issues, they might be a little bit deterred from working on the repo in general.
+
+76
+00:16:49.010 --> 00:17:06.910
+Angelina Ceppaluni: So we don't… we kind of want to mitigate that, and we also want to make sure that there is an abundance of work. We want there to be things that people feel they can work on, feel as though they can tackle and claim, things like that. So this is kind of, again, a two birds with one stone kind of feel.
+
+77
+00:17:06.970 --> 00:17:23.949
+Angelina Ceppaluni: So for the Enterprise Java, I'll go ahead and demonstrate this one really quickly. We did have two flows presented in this. The other workflow is a kind of linked issue enforcer, so I'll get into what that means here in a moment.
+
+78
+00:17:24.290 --> 00:17:26.200
+Angelina Ceppaluni: Just give me one second…
+
+79
+00:17:27.579 --> 00:17:33.969
+Angelina Ceppaluni: I accidentally closed this tab, and I should not have, that was my bad. Alrighty, so if I come down here…
+
+80
+00:17:34.890 --> 00:17:46.169
+Angelina Ceppaluni: So, the first thing we went ahead and we added were the issue moderator flows. I believe some of you have probably seen this in action. So, this is a dual workflow kind of, approach.
+
+81
+00:17:46.170 --> 00:17:55.720
+Angelina Ceppaluni: So, in a sense, you have your moderate new issues, so this is going to automatically be triggered when a contributor submits something
+
+82
+00:17:55.720 --> 00:18:12.909
+Angelina Ceppaluni: as an issue. Suppose it doesn't matter, it could be an intermediate, beginner, advanced, it automatically will go into a locked state, so it locks the contributor's access to kind of commenting, or contributing, or just kind of interacting with the issue in general, but temporarily.
+
+83
+00:18:12.910 --> 00:18:30.059
+Angelina Ceppaluni: So then, at that point, this also serves to give maintainers some time to say, hey, we need to know if this issue is really needed right now, or maybe, yeah, it's needed, but we can probably put it as, like, a future milestone, or maybe a future kind of goal.
+
+84
+00:18:30.370 --> 00:18:47.419
+Angelina Ceppaluni: So, this is also solving the other issue that we ran into with Python. We had a contributor come in, they're trying to assign themselves issues, trying to claim issues, and they essentially cannot, because the bot does not recognize that they have completed issues.
+
+85
+00:18:47.420 --> 00:19:03.499
+Angelina Ceppaluni: as the issues they worked on were missing the adequate labels. Our bots are done, are doing issue counts mostly by labels, so if a user is completing work that's not labeled properly, it essentially is a ghost issue to the bot in the sense that it's just never seen.
+
+86
+00:19:03.500 --> 00:19:11.579
+Angelina Ceppaluni: So, those were kind of the problems we really wanted to get out of the way, and especially make it fair for everyone.
+
+87
+00:19:12.230 --> 00:19:34.629
+Angelina Ceppaluni: So, at this point, once the issue has been deemed acceptable by a maintainer, committer, just someone from the appropriate approving team, at that point, you come into the approved issues. The nuance with this, or the slight thing with this, is please ensure that you have the approved label preset in your repository that it's already created before
+
+88
+00:19:34.630 --> 00:19:39.449
+Angelina Ceppaluni: This is merged. This way, when you do slap an approved label on there.
+
+89
+00:19:39.450 --> 00:19:43.839
+Angelina Ceppaluni: the bot will automatically be triggered. This is done by label trigger.
+
+90
+00:19:44.220 --> 00:19:53.159
+Angelina Ceppaluni: So once it's added, the bot will automatically unlock that issue, and then whoever sees it is more than welcome to claim it, as long as they are meeting the respected
+
+91
+00:19:53.250 --> 00:20:05.149
+Angelina Ceppaluni: PR or SDK requirements set forth by a maintainer. The next issue, or next, I'm sorry, workflow that I wanted to show was the linked issue enforcer.
+
+92
+00:20:05.170 --> 00:20:23.019
+Angelina Ceppaluni: Before I get into that, I just want to kind of show you what the locking, essentially, or temporary locking would look like. So this person, they've come in and submitted an issue to our Enterprise Java team. We have not had the time yet to review it, so as of right now, our bot has just put a pending review label on it.
+
+93
+00:20:23.260 --> 00:20:36.810
+Angelina Ceppaluni: From… at a glance, it seems okay, but we do need to do extra research, making sure this is something we need right now, and that it does, in fact, follow our milestones and our goals, that we are striving towards. So…
+
+94
+00:20:37.180 --> 00:20:38.310
+Angelina Ceppaluni: From here.
+
+95
+00:20:38.500 --> 00:20:57.679
+Angelina Ceppaluni: You'll see it already adds the pending label for you as soon as it's created. It gives you a nice little message saying, thanks for your submission, please keep an eye out from the approval from our team, and then once it's approved, at that point, a user can work on it. So I'll show you the alternative approved approach as well.
+
+96
+00:20:57.800 --> 00:21:15.770
+Angelina Ceppaluni: So, coming back to just that first workflow, this is the temporary lock feature that I was discussing. So, I cannot comment, I can't comment, assign, I can't reach out to contributors or maintainers if I use these fields. However, this view is subject to me, because I…
+
+97
+00:21:16.120 --> 00:21:26.620
+Angelina Ceppaluni: I have certain permissions, so, for those of you wondering, are the contributors going to be able to do this? No, they will not be able to interact with a majority of these things here.
+
+98
+00:21:26.620 --> 00:21:39.220
+Angelina Ceppaluni: This is just going to be dependent on their org permissions, but a majority of them are in their… are interaction level, so having this lock, we have found is working for us so far.
+
+99
+00:21:39.460 --> 00:21:57.559
+Angelina Ceppaluni: Then I will go back and I'll show off the approved side, just so that you can kind of see what happens. So, here we had another team member, they submitted something. This is not subject to format, so even if there's description missing or items missing.
+
+100
+00:21:57.840 --> 00:22:06.400
+Angelina Ceppaluni: That's okay. We didn't want to be too restrictive. We kind of just wanted to limit the interaction. We're not being so,
+
+101
+00:22:06.770 --> 00:22:11.829
+Angelina Ceppaluni: I should say, I'm trying to think of the word, adamant on formatting at the moment.
+
+102
+00:22:11.830 --> 00:22:34.470
+Angelina Ceppaluni: So, they've come in, they submitted an issue, they went in and they approved it, so this is one of our team members, so they have this ability. They had an approved label, and they get this little nice message saying, hey, this has been approved by our team. At that point, it's unlocked, and I can come down here and comment assigned. I'm not going to do this, it is assigned to someone, and they're working on it, but I'm just letting you know that at that point, a contributor…
+
+103
+00:22:34.470 --> 00:22:40.609
+Angelina Ceppaluni: Is more than welcome to go in and leave any kind of comments, questions, requests that they feel are needed.
+
+104
+00:22:40.640 --> 00:22:45.989
+Angelina Ceppaluni: The next one that I wanted to come out and show you was the linked issue enforcer.
+
+105
+00:22:46.420 --> 00:22:49.059
+Angelina Ceppaluni: Just want to make sure that that's reading correctly.
+
+106
+00:22:49.750 --> 00:22:54.729
+Angelina Ceppaluni: So this one, essentially, will come in and just close PRs.
+
+107
+00:22:54.770 --> 00:23:06.599
+Angelina Ceppaluni: So, this one was… it's pretty straightforward in the sense that if a user submits a PR, and there is no linked issue to it, the bot is automatically closing it, and will give them a message saying, hey.
+
+108
+00:23:06.600 --> 00:23:22.639
+Angelina Ceppaluni: Thank you for submission. However, this is not linked to an issue right now. At this time, the PR will be closed. Once an issue is linked, the PR will be opened again, and at that point, we can continue PR reviews, and the contributor can continue working to make their respective changes.
+
+109
+00:23:22.680 --> 00:23:32.870
+Angelina Ceppaluni: So I'm gonna try to see if I can just get a quick little example of what that would look like. I believe we probably have one from the other day, if I'm not… yep.
+
+110
+00:23:33.900 --> 00:23:40.780
+Angelina Ceppaluni: So this is just gonna be that user-facing side, the maintainer-facing side of what they'll see. So…
+
+111
+00:23:40.980 --> 00:23:52.549
+Angelina Ceppaluni: Again, it was closed for the following reason. It's not linked to anything, and then it advises before you reopen this, please make sure that you're assigned and that it's linked, and then at that point.
+
+112
+00:23:52.550 --> 00:24:02.300
+Angelina Ceppaluni: The user will be able to go in, it'll be unlocked for them, or a maintainer will reopen it if needed, and then they are able to continue, kind of.
+
+113
+00:24:02.300 --> 00:24:03.410
+Angelina Ceppaluni: Working.
+
+114
+00:24:03.800 --> 00:24:23.079
+Angelina Ceppaluni: So, this is kind of just, the overview. Sophie, I did see your hand. Just give me one second, I just want to wrap up, the rest of this, and then I'll get to questions and comments. So, these were kind of just a slight few demos. Please feel free to reach out to me,
+
+115
+00:24:23.530 --> 00:24:36.950
+Angelina Ceppaluni: And I believe Rob should be here, I thought… saw his name pop up as well. He has done, again, an excellent job of demonstrating that C++ dashboard, so that is something that we feel as though would be very helpful.
+
+116
+00:24:36.950 --> 00:24:54.709
+Angelina Ceppaluni: But please do let us know what you would like to see, if you find any of these bots helpful. Not every single one of these bots has an implementation, so if that is what you're looking for and you want to see kind of a demo of it, just let me know, and I'll try to create something for you, so you can get a feel for how that would look in real time.
+
+117
+00:24:54.850 --> 00:25:03.610
+Angelina Ceppaluni: But, okay, so now we're down to the questions. I'll go ahead and come back, here. Sophie, you had your hand up first. Go ahead.
+
+118
+00:25:05.090 --> 00:25:10.889
+Sophie Bulloch: Yeah, actually, I've been listening intently, but I don't have a question, but I would like to talk about the…
+
+119
+00:25:11.110 --> 00:25:12.490
+Sophie Bulloch: the workflow app.
+
+120
+00:25:13.270 --> 00:25:14.570
+Sophie Bulloch: And the mentorship.
+
+121
+00:25:16.910 --> 00:25:17.950
+Sophie Bulloch: Okay.
+
+122
+00:25:18.250 --> 00:25:23.579
+Sophie Bulloch: But, you know, anyone else have a question for us? Because I think I'll take this slightly differently.
+
+123
+00:25:28.130 --> 00:25:33.459
+Angelina Ceppaluni: Don't believe so, I'm not seeing anything in chat, so if you wanna go ahead and go for it.
+
+124
+00:25:33.800 --> 00:25:38.699
+Sophie Bulloch: Okay, I'm on mobile, so apologies, I'm not able to screen share.
+
+125
+00:25:38.910 --> 00:25:48.149
+Sophie Bulloch: Andy, by any chance, do you have, like, the draft that I initially sent you, with which has, like, a config on it? It's okay if you don't.
+
+126
+00:25:48.390 --> 00:25:49.839
+Angelina Ceppaluni: I believe so. I believe so.
+
+127
+00:25:50.400 --> 00:25:54.760
+Angelina Ceppaluni: So… Let me find that.
+
+128
+00:26:42.410 --> 00:26:47.889
+Sophie Bulloch: Angie, maybe while you have a look for it, I'll just kind of get started.
+
+129
+00:26:47.890 --> 00:26:48.210
+Angelina Ceppaluni: Okay.
+
+130
+00:26:49.330 --> 00:26:57.899
+Sophie Bulloch: Yeah, so clearly we've… we've all… lots of us have seen the benefit at Hieru of more maintainer-based automations.
+
+131
+00:26:58.020 --> 00:27:05.029
+Sophie Bulloch: And we're still collecting, like, new ideas, new perspectives, and… We have different preferences.
+
+132
+00:27:05.300 --> 00:27:11.170
+Sophie Bulloch: So, we have been approved for a Linux Foundation mentorship.
+
+133
+00:27:12.330 --> 00:27:22.819
+Sophie Bulloch: And, the mentee is called Fazan, who has the GitHub name, Cheesecake, and will be working on that until November time, I believe.
+
+134
+00:27:23.330 --> 00:27:25.810
+Sophie Bulloch: From, from, June to November.
+
+135
+00:27:26.290 --> 00:27:33.250
+Sophie Bulloch: mid-June, and… What we are going to do is…
+
+136
+00:27:34.600 --> 00:27:38.160
+Sophie Bulloch: Facilitate the… the creation of an app.
+
+137
+00:27:38.590 --> 00:27:56.299
+Sophie Bulloch: So, the idea would be, once we define exactly what workflows and things that you've been working on, Angie and Rob has been working on, the idea would be, okay, let's take these ideas, and then, let's write it down in a easily configurable way.
+
+138
+00:27:57.190 --> 00:28:05.170
+Sophie Bulloch: So right now, what you have to do when you want to use workflows is you need to copy a YAML file
+
+139
+00:28:05.480 --> 00:28:10.389
+Sophie Bulloch: And have the script logic, and, that's great, but…
+
+140
+00:28:11.110 --> 00:28:21.140
+Sophie Bulloch: When we, offer lots of different repositories and lots of different functionalities, we're now dealing with lots of different workflows, and they're all slightly different.
+
+141
+00:28:21.140 --> 00:28:35.729
+Sophie Bulloch: Some people might want to auto-close issues in 7 days, some people might want to auto-close issues in 30 days. So, if you kind of scroll down here, it's my very rough attempt to kind of, like, frame this as a config.
+
+142
+00:28:35.800 --> 00:28:38.390
+Sophie Bulloch: In the way I would see it is…
+
+143
+00:28:38.760 --> 00:28:44.659
+Sophie Bulloch: This app, okay, the workflows themselves might change, but in the app, you can kind of just…
+
+144
+00:28:44.810 --> 00:28:46.439
+Sophie Bulloch: Create one YAML,
+
+145
+00:28:46.900 --> 00:29:00.850
+Sophie Bulloch: in your repository, and inside that, you can add in your, guide documents, you can, if you scroll down a little bit, Angie, you can, enable the C++
+
+146
+00:29:01.100 --> 00:29:05.889
+Sophie Bulloch: Reports dashboard, you can set that as true, or if you don't want it, you can set it as false.
+
+147
+00:29:06.200 --> 00:29:14.120
+Sophie Bulloch: And you can opt in to issue progression, you can opt in to automatic issue assignment, or you could also opt out.
+
+148
+00:29:14.380 --> 00:29:33.679
+Sophie Bulloch: you can change the requirements, the prerequisites, so, for example, I would suggest, if you do want to enable or to assign, you probably want to offer some guards. So, yeah, so that's basically what the mentorship will be creating, this kind of, like, baseline for a…
+
+149
+00:29:33.890 --> 00:29:38.430
+Sophie Bulloch: single YAML config in each repository.
+
+150
+00:29:38.780 --> 00:29:46.809
+Sophie Bulloch: And… all of the workflow logic is held in the single HIRO repository.
+
+151
+00:29:47.270 --> 00:29:55.819
+Sophie Bulloch: What we would need to do is, you know, attend these calls, have all these conversations with maintainers to get really clear on what they want.
+
+152
+00:29:56.250 --> 00:30:05.029
+Sophie Bulloch: The way that I'm going with at the moment is we want to provide, basically, the full functionality of the C++ and Python and Java, but…
+
+153
+00:30:05.340 --> 00:30:12.910
+Sophie Bulloch: I want to allow it all to be separated, chunked out, so that users can opt in and opt out.
+
+154
+00:30:13.090 --> 00:30:15.400
+Sophie Bulloch: That, that's it.
+
+155
+00:30:22.320 --> 00:30:29.220
+Angelina Ceppaluni: Awesome. Thank you so much, for sharing that. I imagine we'll probably have some overlap,
+
+156
+00:30:29.430 --> 00:30:30.850
+Angelina Ceppaluni: In terms of these.
+
+157
+00:30:31.100 --> 00:30:41.480
+Angelina Ceppaluni: coming up in the next few weeks, but I'll go ahead and, stop it here, just because I believe that
+
+158
+00:30:41.480 --> 00:30:52.779
+Angelina Ceppaluni: That's it for that last part of the document. So, given everything that we've, shared here, we kind of demonstrated and presented, I know most of you are
+
+159
+00:30:53.130 --> 00:30:55.840
+Angelina Ceppaluni: Familiar with a lot of these in the workflows.
+
+160
+00:30:55.840 --> 00:31:19.879
+Angelina Ceppaluni: But my questions to you, and questions that I ask you to take back to your team for your respective repositories is, of these workflows, of the topics and things that Sophie and I have discussed here, what do you feel will help you the most in your repository? What helps… what would help you the most on the issue progression side? What helps you the most on the PR kind of
+
+161
+00:31:19.880 --> 00:31:30.739
+Angelina Ceppaluni: review side, I know the Code Rabbit was missing from that document, I will be sure to add it. So, if Code Rabbit is one of the things that you feel you need, let us know.
+
+162
+00:31:30.910 --> 00:31:42.499
+Angelina Ceppaluni: At that point, we will reach out to Jessica, and we'll get that, set up for you, and then any specific SDK instructions will be done through corresponding, CodeRabbit YAML files.
+
+163
+00:31:42.730 --> 00:31:48.289
+Angelina Ceppaluni: But these are just kind of things that we want to get people thinking about, kind of…
+
+164
+00:31:48.520 --> 00:31:50.960
+Angelina Ceppaluni: Make them aware of, and just…
+
+165
+00:31:50.990 --> 00:32:02.639
+Angelina Ceppaluni: Present an overall idea of how can we help you either speed up review if this is your goal, or how can we help you make sure that there's enough work to go around if this is one of your goals.
+
+166
+00:32:02.670 --> 00:32:17.639
+Angelina Ceppaluni: So, please do let us know. This document is open to interpretation. It is editable, so if there… please even feel free to leave questions on it. I believe that I did have the feature set up, so you're more than welcome to leave a comment.
+
+167
+00:32:17.640 --> 00:32:27.719
+Angelina Ceppaluni: write a little review, or just even suggest an idea for a bot that you've seen. We also have the linked issue, but I know I didn't demo that,
+
+168
+00:32:27.880 --> 00:32:31.099
+Angelina Ceppaluni: on the Python side, but that is in Python as well.
+
+169
+00:32:31.330 --> 00:32:32.230
+Angelina Ceppaluni: So
+
+170
+00:32:32.570 --> 00:32:48.940
+Angelina Ceppaluni: Again, please feel free to share your ideas, even if you have them here. Post them in chat, raise your hand, or come off of mute. I'll go ahead and kind of stay silent for a minute, just to give anyone an opportunity that would like to share something, or just present a question.
+
+171
+00:32:56.420 --> 00:32:57.250
+Angelina Ceppaluni: Okay.
+
+172
+00:32:58.030 --> 00:33:17.370
+Angelina Ceppaluni: I don't see any questions, so I'm assuming that those demos were pretty helpful. Again, please let me know if you want to see live demos of any of these. I'm happy to work on them. Some of them are live as of now, so feel free to poke around the organization and kind of check those out.
+
+173
+00:33:17.610 --> 00:33:35.060
+Angelina Ceppaluni: But beyond that, I think if we're good to go, then I think we can kind of wrap up this meeting a bit early. I noticed Sophie had to drop, so I don't believe she had anything much more she wanted to add to this topic, but if there is, please feel free to do so now.
+
+174
+00:33:35.180 --> 00:33:37.050
+Angelina Ceppaluni: Oh, Rob, go ahead.
+
+175
+00:33:38.150 --> 00:33:49.989
+Rob Walworth: Hey, yeah, so sorry I joined a little late, I didn't see the whole demo, but I think you hit on most things that I think would be immediately useful. Has it been decided where…
+
+176
+00:33:50.480 --> 00:33:56.880
+Rob Walworth: these workflows are going to live. Are we gonna start with, like, a Hyro Hackers repo?
+
+177
+00:33:57.130 --> 00:34:04.109
+Rob Walworth: Or somewhere else, just curious where we can maybe…
+
+178
+00:34:04.220 --> 00:34:07.270
+Rob Walworth: Check in on the progress on… on this stuff.
+
+179
+00:34:09.380 --> 00:34:17.419
+Angelina Ceppaluni: So, as of right now, I noticed a majority of them seem to be kind of spread out between C++, Python.
+
+180
+00:34:17.530 --> 00:34:36.780
+Angelina Ceppaluni: and now Enterprise Java. Given that, what I'll probably end up doing is trying to track this, kind of how we do with the HIPS, where we have the Epic issue, but I'll put that in maybe the SDK hub, just so that we can kind of see it across
+
+181
+00:34:37.000 --> 00:34:52.739
+Angelina Ceppaluni: what we currently have now. If, at any point, the automation does span to the Hyro Hackers, at that point, I'll probably consider migrating all of it over to Hyro Hackers, just because I believe at that point, Hyro Hackers would probably have
+
+182
+00:34:52.739 --> 00:34:59.539
+Angelina Ceppaluni: a majority, or at least be aiming for that. So my initial plan was kind of just to…
+
+183
+00:34:59.910 --> 00:35:15.680
+Angelina Ceppaluni: maybe keep it all in the website. I've been using the website as kind of like a testing ground, just because there's not too, too much traction with it, given that we have the redesign right now. So I've kind of just been using that as more or less a testing playground.
+
+184
+00:35:15.680 --> 00:35:28.140
+Angelina Ceppaluni: But if that is a bit too complicated, and it's a bit hard to keep track of, just let me know, and I'll go ahead and try to make something a little more centered in the SDK Hub that we can kind of follow together.
+
+185
+00:35:30.100 --> 00:35:41.360
+Rob Walworth: I guess my understanding was, if we're gonna have a mentee work on this, like, there's gonna be, like, one repo that they're probably going to work in primarily, and then…
+
+186
+00:35:42.170 --> 00:35:45.769
+Rob Walworth: The, kind of, end objective was that any…
+
+187
+00:35:46.070 --> 00:35:55.260
+Rob Walworth: repo that would want to use these workflows would end up just, connecting to this one centralized repo somehow. Is…
+
+188
+00:35:55.640 --> 00:36:02.270
+Rob Walworth: That's still, like, the ultimate plan, or are we, like… is that still so far away, we're not even, like, really…
+
+189
+00:36:02.610 --> 00:36:05.450
+Rob Walworth: Like, thinking about that at the moment.
+
+190
+00:36:06.200 --> 00:36:22.149
+Angelina Ceppaluni: I believe that's the plan on Sophie's side. So, Sophie and I are kind of doing, like, a dual approach to this. So, the way I'm approaching this, it's gonna be kind of like a pick-your-own. So, in the sense that the document I shared earlier
+
+191
+00:36:22.380 --> 00:36:35.319
+Angelina Ceppaluni: maintainers are going to be able to come in and just pick which bots they want. They don't necessarily need to have all of them implemented. What Sophie is working on is kind of an implementation of all of that within an app.
+
+192
+00:36:35.520 --> 00:36:45.499
+Angelina Ceppaluni: I don't know how long that necessarily would take. I do believe that all of the development for the app port part of this will be done in Hierohackers.
+
+193
+00:36:45.500 --> 00:36:56.700
+Angelina Ceppaluni: But the parts of this that are done on my side would most likely just be centered in either the website or SDK Hub, if need be. I haven't…
+
+194
+00:36:56.870 --> 00:37:09.989
+Angelina Ceppaluni: solidified anything concrete with her. I know work for that mentorship doesn't begin until the 15th, so I am not certain how much of this she has solidified. This has just come to be my understanding.
+
+195
+00:37:09.990 --> 00:37:20.600
+Angelina Ceppaluni: She explained to me yesterday that the app would take a bit of time, and that it would be difficult, especially given all the security and permissions she's going to run into.
+
+196
+00:37:20.600 --> 00:37:24.460
+Angelina Ceppaluni: So, for now, the kind of approach we've seen
+
+197
+00:37:24.460 --> 00:37:44.370
+Angelina Ceppaluni: started taking is just to implement what I'm calling as, like, the pick-your-own, and then further down the line, we can kind of either remove some of that, or just add the app on top of it as well, depending on any security and permission issues that she runs into.
+
+198
+00:37:45.670 --> 00:37:53.009
+Angelina Ceppaluni: Does that kind of answer your question a little bit? I can reach out to her and kind of see if we can get something a little bit more concrete.
+
+199
+00:37:56.210 --> 00:38:01.570
+Rob Walworth: Yeah, so I guess, like, it… it sounds like… I guess what I'm thinking is, like, I don't…
+
+200
+00:38:01.990 --> 00:38:15.140
+Rob Walworth: necessarily know if we want to, like, duplicate work. Like, if we already have, like, a lot of bots written in, like, Python, C++, like… or we're not, like, rewriting them in the website, right? Like, we're taking what we already have, and then just…
+
+201
+00:38:15.520 --> 00:38:18.409
+Rob Walworth: Maybe adding, like, a configuration layer on top.
+
+202
+00:38:18.540 --> 00:38:21.970
+Rob Walworth: To be able to turn off and on, like, what… what…
+
+203
+00:38:22.490 --> 00:38:24.570
+Rob Walworth: a maintainer one. And then, like.
+
+204
+00:38:24.700 --> 00:38:28.140
+Rob Walworth: A maintainer of any other repo could come into the website.
+
+205
+00:38:28.810 --> 00:38:31.509
+Rob Walworth: And I guess for now, just, like.
+
+206
+00:38:32.110 --> 00:38:36.920
+Rob Walworth: Cop… copy-paste, like, all the workflows, and then just, like, change their configuration file.
+
+207
+00:38:37.090 --> 00:38:40.760
+Rob Walworth: Is that kind of what… what that's gonna look like for the time being?
+
+208
+00:38:41.340 --> 00:38:46.769
+Angelina Ceppaluni: Yeah, so that's kind of the approach that a majority of what
+
+209
+00:38:46.770 --> 00:39:08.089
+Angelina Ceppaluni: I've been doing is… so, for example, for the Enterprise Java repo, that same approach was taken from the website. So I made the workflow originally in the website, and then when it worked in the website, I just copy and pasted it into Enterprise Java, and then updated it depending on the runner names and the…
+
+210
+00:39:08.410 --> 00:39:19.930
+Angelina Ceppaluni: any kind of configurations that Enterprise Java would have. So, the majority of these workflows are essentially reusable in the sense that it's really just easy for a maintainer to go in.
+
+211
+00:39:19.930 --> 00:39:32.839
+Angelina Ceppaluni: copy and paste whatever bot logic they need, and then implement that into their own SDK with the necessary, suggested changes for the runners and any other configurations that they might have.
+
+212
+00:39:32.850 --> 00:39:36.580
+Angelina Ceppaluni: So, as of right now, I know Sophie's approach is a bit…
+
+213
+00:39:36.970 --> 00:39:52.469
+Angelina Ceppaluni: different, in the sense that it's not going to be a copy-paste, it'll be kind of like an app that you can essentially just turn on and off. But she did tell me there were, some kind of issues with that, and that she's running into, permission
+
+214
+00:39:52.730 --> 00:39:58.280
+Angelina Ceppaluni: Instances and issues. So, as of this moment, I think she's still working on them.
+
+215
+00:39:58.280 --> 00:40:03.520
+Angelina Ceppaluni: So, what we have elected to do was just kind of move forward with the picking of
+
+216
+00:40:03.520 --> 00:40:23.060
+Angelina Ceppaluni: the bots that the maintainers need, and then if the mentorship is able to develop this app and are able to get bypassed from the permissions and security issues at that point, we could consider implementing the app. It would just be if the maintainer wants to, and if they find it valuable.
+
+217
+00:40:29.310 --> 00:40:31.460
+Angelina Ceppaluni: Does that help answer your question a bit?
+
+218
+00:40:32.370 --> 00:40:33.960
+Rob Walworth: Yeah, yeah, sounds good.
+
+219
+00:40:34.650 --> 00:40:43.870
+Angelina Ceppaluni: Okay, feel free, if you have any other questions, just feel free to message me in Discord, and I'll work with her so we can kind of get a better understanding.
+
+220
+00:40:43.870 --> 00:40:55.210
+Angelina Ceppaluni: But for right now, we wanted… we didn't want to make this too, too complicated, especially with the issue progression initiative being across the board. This was kind of just a way to…
+
+221
+00:40:55.320 --> 00:40:59.379
+Angelina Ceppaluni: Help out the maintainers and make sure contributors are
+
+222
+00:40:59.630 --> 00:41:06.499
+Angelina Ceppaluni: Getting the adequate necessities of work that they're wanting to work on and get reviews in an adequate timeframe.
+
+223
+00:41:06.750 --> 00:41:19.009
+Angelina Ceppaluni: But, if there are any other questions, from anyone else, I know a few people have left us. If there are no questions, then I think we can go ahead and conclude it here.
+
+224
+00:41:23.280 --> 00:41:24.840
+Angelina Ceppaluni: Okay. Thanks, EG.
+
+225
+00:41:25.090 --> 00:41:29.110
+Angelina Ceppaluni: Yeah, not a problem. Thank you, Rob. Thank you so much, Rob, for joining.
+
+226
+00:41:32.230 --> 00:41:35.970
+Angelina Ceppaluni: Noah, you came off mute, was there something you wanted to add?
+
+227
+00:41:36.880 --> 00:41:38.109
+Tayebwa Noah: Not really.
+
+228
+00:41:39.070 --> 00:41:39.650
+Angelina Ceppaluni: Okay.
+
+229
+00:41:39.870 --> 00:41:52.050
+Angelina Ceppaluni: Then if that's the case, thank you everybody so much for joining. I hope you have a wonderful day, night, evening, morning, wherever you are in the world today, and I look forward to seeing you guys again in the next meeting.
+
+230
+00:41:53.110 --> 00:41:53.610
+Tayebwa Noah: Bye.
+
+231
+00:41:53.610 --> 00:41:54.280
+Angelina Ceppaluni: Bye!
+

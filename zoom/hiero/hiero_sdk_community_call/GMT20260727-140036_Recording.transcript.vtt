@@ -1,0 +1,1074 @@
+WEBVTT
+
+1
+00:06:27.380 --> 00:06:30.059
+Keith Kowal (Hedera Hashgraph LLC): Hi, Al. Sorry, sorry I'm late.
+
+2
+00:06:34.590 --> 00:06:35.909
+sophiie: Hello, good morning!
+
+3
+00:06:37.400 --> 00:06:42.030
+Keith Kowal (Hedera Hashgraph LLC): Did you guys already start, or were you waiting?
+
+4
+00:06:44.710 --> 00:06:45.300
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+5
+00:06:45.600 --> 00:06:52.600
+Keith Kowal (Hedera Hashgraph LLC): Okay, again, apologies for being late, I got distracted. So why don't we get started?
+
+6
+00:06:53.240 --> 00:07:01.919
+Keith Kowal (Hedera Hashgraph LLC): Maybe, maybe I can just kick off just quickly, with some… Discussions…
+
+7
+00:07:02.570 --> 00:07:11.559
+Keith Kowal (Hedera Hashgraph LLC): Did anyone else… so I wanted to talk a little bit about some new proposals in the SDK Collaboration Hub. Did anyone else have any, things they wanted to discuss?
+
+8
+00:07:17.390 --> 00:07:18.240
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+9
+00:07:22.190 --> 00:07:38.480
+Keith Kowal (Hedera Hashgraph LLC): So let me just share my screen. So in the SDK Collaboration Hub, there's a couple of new proposals in there. And in fact, I just… I was actually a little bit late to this call, because I was just actually doing a new PR to update one of the proposals.
+
+10
+00:07:39.110 --> 00:07:42.900
+Keith Kowal (Hedera Hashgraph LLC): So, if you look in the SDK Collaboration Hub,
+
+11
+00:07:43.290 --> 00:07:49.609
+Keith Kowal (Hedera Hashgraph LLC): The new proposals we have are one around account balance query deprecation.
+
+12
+00:07:49.830 --> 00:07:53.869
+Keith Kowal (Hedera Hashgraph LLC): And then a new proposal around adding,
+
+13
+00:07:54.050 --> 00:08:04.200
+Keith Kowal (Hedera Hashgraph LLC): this account balance query mirror node migration. I think we should treat them as two separate proposals, and maybe I can speak to both. So,
+
+14
+00:08:04.750 --> 00:08:16.800
+Keith Kowal (Hedera Hashgraph LLC): So the first is account balance query deprecation. As I said, I just… that's why I was a little bit late. I was actually just updating, this issue with the new PR.
+
+15
+00:08:17.500 --> 00:08:35.650
+Keith Kowal (Hedera Hashgraph LLC): So basically, the background for this is that, the consensus notice decided to… we are deprecating the account balance query. For those of you not familiar with that, that's a free query that, people can make regarding the balance of an account.
+
+16
+00:08:35.650 --> 00:08:40.319
+Keith Kowal (Hedera Hashgraph LLC): And, you know, we've had a lot of communication around this. The…
+
+17
+00:08:40.340 --> 00:08:53.060
+Keith Kowal (Hedera Hashgraph LLC): we want to move this out of the consensus node and move this to the mirror node. So if people want to know the accounts balance query, they can still get that information, but they would ping a mirror node REST API.
+
+18
+00:08:53.680 --> 00:09:08.259
+Keith Kowal (Hedera Hashgraph LLC): So basically, this proposal takes… goes through and, proposed… it just… and… oh, sorry, I just… one other thing I should say, is that on the… we have a timeline for when this… this account balance query deprecation
+
+19
+00:09:08.310 --> 00:09:20.740
+Keith Kowal (Hedera Hashgraph LLC): We are slowly, like, scaling it down, but the current proposal is that it will be fully deprecated on September 1st, 2026. And that's what's been publicly communicated. There's a blog post on this.
+
+20
+00:09:21.050 --> 00:09:40.179
+Keith Kowal (Hedera Hashgraph LLC): So basically, this proposal in the SDK Collaboration Hub just takes us through the deprecation of that query, and so it kind of walks through. So, the idea is, basically, there's kind of a couple of changes. One is…
+
+21
+00:09:40.230 --> 00:09:51.180
+Keith Kowal (Hedera Hashgraph LLC): Just that when someone tries… after the deprecation, when someone tries to ping the account bounce query, they're just gonna get back an error message saying, like, this has been replaced in the mirror node.
+
+22
+00:09:51.600 --> 00:10:11.039
+Keith Kowal (Hedera Hashgraph LLC): The other one is, and it's broken into stages, is that not all, but some of the SDKs today have a ping functionality, and that ping functionality today uses the account balance query. So this, in this PR, we basically talk about substituting account balance query for,
+
+23
+00:10:11.040 --> 00:10:27.250
+Keith Kowal (Hedera Hashgraph LLC): another one, which I just was making the change to, if you want to ping a node for its health status. Yeah, so stage one is for those nodes, for those SDKs that support the ping functionality, it's about replacing
+
+24
+00:10:27.250 --> 00:10:29.159
+Keith Kowal (Hedera Hashgraph LLC): Replacing it with a…
+
+25
+00:10:29.510 --> 00:10:44.059
+Keith Kowal (Hedera Hashgraph LLC): replacing it, and then the stage two is deprecating the account balance query in the SDK, and replacing it. And so when someone does that, they get a message, which says,
+
+26
+00:10:45.510 --> 00:10:49.090
+Keith Kowal (Hedera Hashgraph LLC): Where's the… where's the message?
+
+27
+00:10:52.200 --> 00:10:53.080
+Keith Kowal (Hedera Hashgraph LLC): It's pain.
+
+28
+00:10:58.650 --> 00:10:59.460
+Keith Kowal (Hedera Hashgraph LLC): Alright.
+
+29
+00:11:02.180 --> 00:11:05.579
+Keith Kowal (Hedera Hashgraph LLC): It was… it's somewhere in there. So basically,
+
+30
+00:11:05.670 --> 00:11:22.369
+Keith Kowal (Hedera Hashgraph LLC): Yeah, so this is this SDK… this is this propo… this, SDK Collaboration Hub proposal. Is there any questions or comments on this? As I said, I need to get this PR approved and in, and that will update the proposal, but, because we are looking to execute this in
+
+31
+00:11:22.560 --> 00:11:27.460
+Keith Kowal (Hedera Hashgraph LLC): September, so it's, on a higher timeline urgency.
+
+32
+00:11:34.220 --> 00:11:37.600
+Keith Kowal (Hedera Hashgraph LLC): Any questions or comments about this proposal?
+
+33
+00:11:39.990 --> 00:11:48.119
+Angelina Ceppaluni: No questions specifically for me, just a thank you. I saw a post about that, so I'm glad there's something in motion for it.
+
+34
+00:11:50.770 --> 00:11:58.170
+Keith Kowal (Hedera Hashgraph LLC): Yeah Just… just trying to find out, that, that, peace.
+
+35
+00:11:58.540 --> 00:12:04.919
+Keith Kowal (Hedera Hashgraph LLC): I'll have to make sure that that error's still there. Okay, so… oh, I think, I think it's an error message.
+
+36
+00:12:05.120 --> 00:12:16.479
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I guess it's just, yeah, the account balance query is no longer supported. Please use the mirror node. Okay, so the other proposal that I put up in the SDK Collaboration Hub, is…
+
+37
+00:12:18.430 --> 00:12:25.839
+Keith Kowal (Hedera Hashgraph LLC): The… as I said… so, as I said, we're adding support in the mirror node for this. So…
+
+38
+00:12:26.200 --> 00:12:35.339
+Keith Kowal (Hedera Hashgraph LLC): You know, we could still have account balance query functionality in the SDKs, but it would be from the mirror node.
+
+39
+00:12:35.340 --> 00:12:51.199
+Keith Kowal (Hedera Hashgraph LLC): Now, there are some, like, you know, you could ask the question, well, why didn't we just keep the same query, account balance query, and just, like, redo the backend? So instead of looking at the cassette node, it looks at the mirror node? Well, there are some kind of differences on, like, in terms of…
+
+40
+00:12:51.200 --> 00:12:55.190
+Keith Kowal (Hedera Hashgraph LLC): Takes a little bit longer to ping it from the mirror node than from the consensus node.
+
+41
+00:12:55.190 --> 00:13:05.009
+Keith Kowal (Hedera Hashgraph LLC): So there was reasons why we wanted to hard deprecate the current one, and then introduce this new one, which I'm proposing to call MirrorNode Account Balance Query.
+
+42
+00:13:05.010 --> 00:13:21.909
+Keith Kowal (Hedera Hashgraph LLC): Well, why do we call it mirror node account balance query? Well, maybe in the future, this, we can have also similar functionality from the block node. So maybe in the future, we also have something called, like, block node account balance query. That's kind of the idea behind the naming structure, even though I realize it's quite long.
+
+43
+00:13:22.520 --> 00:13:38.159
+Keith Kowal (Hedera Hashgraph LLC): So, but basically, it… this… this new proposal would do the exact same thing as the, as the… as the… the current account balance query, but just instead of from the, from the consensus node, it would get the information from the mirror node.
+
+44
+00:13:38.160 --> 00:13:50.769
+Keith Kowal (Hedera Hashgraph LLC): Now, I'm actually just having some people from the Hiero team review this PR. It's possible. I have a few more tweaks to it, make to it. I probably shouldn't have reached it so fast. So…
+
+45
+00:13:50.770 --> 00:14:02.410
+Keith Kowal (Hedera Hashgraph LLC): I will let everyone know, I'll ping you, Sophia, and Angelina, when this proposal kind of looks good, and of course, you guys are welcome to review it and provide your own comments and feedback on this one.
+
+46
+00:14:03.760 --> 00:14:08.840
+Keith Kowal (Hedera Hashgraph LLC): I do think, like, this is one of the problems with having their proposals in the folders, is that
+
+47
+00:14:09.120 --> 00:14:21.759
+Keith Kowal (Hedera Hashgraph LLC): you know, we almost have to do all of this while it's in the PR stage, because, like, once it's merged in, well, how do you leave comments and questions about this kind of document? It's already in the… in the quote-unquote code.
+
+48
+00:14:22.180 --> 00:14:29.899
+Keith Kowal (Hedera Hashgraph LLC): So part of me thinks, like, these should actually just be issues and not be actual files, because it does make it…
+
+49
+00:14:30.670 --> 00:14:47.649
+Keith Kowal (Hedera Hashgraph LLC): I don't know, do you guys have any ideas or thoughts about this working pattern? Because I… A, I want these documents to be published so everyone can read them and stuff, but I do want, like, it'd be better if we could have used the GitHub framework for leaving questions or comments or suggestions for edits, which is hard to do when it's already merged.
+
+50
+00:14:49.980 --> 00:14:50.980
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+51
+00:14:51.480 --> 00:14:59.690
+Angelina Ceppaluni: My thoughts, would probably be to make use of the discussion boards, if there are any outlying questions, or just
+
+52
+00:14:59.770 --> 00:15:13.060
+Angelina Ceppaluni: further questions in general that people use, or would have. Some of the SDKs seem to use the discussion boards, as well as the website, just to kind of get a bit more of a community input.
+
+53
+00:15:16.540 --> 00:15:26.949
+Keith Kowal (Hedera Hashgraph LLC): Okay, that's a great suggestion. Okay, so I will create a… I'll start a discussion for both of these proposals, and that's a place where we… everyone can leave comments and questions and stuff like that.
+
+54
+00:15:27.330 --> 00:15:30.079
+Keith Kowal (Hedera Hashgraph LLC): In terms of this actual proposal itself.
+
+55
+00:15:30.320 --> 00:15:35.149
+Keith Kowal (Hedera Hashgraph LLC): Any questions or comments about… about querying the mirror node?
+
+56
+00:15:44.230 --> 00:15:50.380
+Keith Kowal (Hedera Hashgraph LLC): Okay, well then, I'll let you… like I said, I'll kick off discussions, and let everyone read them, and can have the conversations there.
+
+57
+00:15:50.790 --> 00:15:51.630
+Keith Kowal (Hedera Hashgraph LLC): Bum.
+
+58
+00:15:52.180 --> 00:15:55.640
+Keith Kowal (Hedera Hashgraph LLC): I guess the other topic I wanted to follow up on was,
+
+59
+00:15:55.810 --> 00:16:07.350
+Keith Kowal (Hedera Hashgraph LLC): on the last TSC meeting, I mean, Sophie, I think you raised some great comments and feedback. I think the one thing I wanted to check in on… I know that there has been issues with,
+
+60
+00:16:07.900 --> 00:16:17.120
+Keith Kowal (Hedera Hashgraph LLC): I know you guys have struggled with the GitHub maintainers not being responsive to some of the changes that you need. I think it's a lot around the AI changes and stuff.
+
+61
+00:16:17.370 --> 00:16:34.459
+Keith Kowal (Hedera Hashgraph LLC): I just wondered how things are going, like, are you getting responses that you need from the GitHub maintainers team as you try to maintain the Python repo, or are you still having problems where you don't, like, you can't get the changes you need, or you can't get communication about stuff that you need approvals on?
+
+62
+00:16:41.980 --> 00:16:45.759
+Angelina Ceppaluni: She can answer this. I don't know if she's able to come off of mute.
+
+63
+00:16:46.290 --> 00:17:03.399
+Angelina Ceppaluni: The biggest issue that we had, in terms of the GitHub maintainers and the automation mostly came about from the website. We didn't notice too much of kind of an overhead in terms of the buildup of automation PRs in the Python SDK, as it seems as though
+
+64
+00:17:03.400 --> 00:17:06.840
+Angelina Ceppaluni: The maintainers and apparently committers
+
+65
+00:17:06.839 --> 00:17:26.140
+Angelina Ceppaluni: do have the authority to go in and approve the automation flows, especially if there are Dependapot PRs. Those were the other things that we had issues with, especially when the Dependapot would try to update the versions of Next.js, Swiper, TypeScript, things like that. It would mostly include
+
+66
+00:17:26.550 --> 00:17:29.760
+Angelina Ceppaluni: require a GitHub maintainer approval.
+
+67
+00:17:29.760 --> 00:17:50.109
+Angelina Ceppaluni: Initially, we didn't understand why at first, especially because majority of the SDKs, if not all, didn't seem to have this kind of requirement. It did seem as though maintainers and committers were able to go in and approve any kind of automation PRs that are created, dependable PRs that are created, and things like that.
+
+68
+00:17:50.360 --> 00:18:06.210
+Angelina Ceppaluni: So I'm guessing our… from what I can understand, is that when we brought this up to them last week, they kind of got the perspective of, okay, this is becoming quite a hindrance. I had also mentioned to them
+
+69
+00:18:06.210 --> 00:18:17.060
+Angelina Ceppaluni: that if the PRs were not going to be approved, that I would be holding off on automation for the website, and I think that comment kind of
+
+70
+00:18:17.060 --> 00:18:29.269
+Angelina Ceppaluni: triggered something in them, because when that meeting did conclude, we did notice that the code owner's file PR was modified, and at that point, the maintainers of the website, myself.
+
+71
+00:18:29.270 --> 00:18:40.430
+Angelina Ceppaluni: Sophie and I believe Daniel, we were finally able to go in and merge the work that had been underlying from the GitHub maintainers from the past couple of months.
+
+72
+00:18:40.430 --> 00:18:55.440
+Angelina Ceppaluni: So, we are working, pretty fairly well at this point. With that adjustment, we have been able to kind of go ahead and get our versions updated. We've been able to merge all the new and incoming Dependabot PRs and things like that.
+
+73
+00:18:55.700 --> 00:18:56.700
+Angelina Ceppaluni: So…
+
+74
+00:18:56.700 --> 00:19:16.039
+Angelina Ceppaluni: I don't think there was too, too much of an overhead in terms of the SDK side, just because, again, this wasn't mostly something we had seen in the Python SDK and Java, things like that. It was more or so just on the website side of things, but I don't know if Sophie has, maybe a little bit more, or…
+
+75
+00:19:16.220 --> 00:19:18.389
+Angelina Ceppaluni: Bob, maybe I might be missing something.
+
+76
+00:19:18.900 --> 00:19:24.859
+Angelina Ceppaluni: But that was just the perspective that, we had gathered so far.
+
+77
+00:19:24.860 --> 00:19:41.060
+Angelina Ceppaluni: But as of this moment, we are working pretty well. We've gotten… again, we've got a lot of that work merged, so we are down to a couple PRs, and from this point, we are going to continue with our automation, seeing as how we do have the authority to kind of get these things merged.
+
+78
+00:19:43.240 --> 00:19:48.600
+Angelina Ceppaluni: Oh, I saw she came off of mute, okay. I don't know if maybe there was something I forgot you wanted to add, Sophie.
+
+79
+00:19:48.600 --> 00:19:58.950
+sophiie: No, that's right. It's just because they created the code owners in the website that was routing everything to themselves, but they…
+
+80
+00:19:59.380 --> 00:20:01.349
+sophiie: We don't know how to contact them.
+
+81
+00:20:01.480 --> 00:20:04.400
+sophiie: But the Python SDK as code owners has…
+
+82
+00:20:05.870 --> 00:20:09.920
+sophiie: I think that was created by us, and we just decided to put maintainers.
+
+83
+00:20:10.240 --> 00:20:11.689
+sophiie: If I can maintain it on it.
+
+84
+00:20:13.260 --> 00:20:19.950
+Keith Kowal (Hedera Hashgraph LLC): Okay, okay, that's great news. I just wanted to make sure that on the SDK side, nobody was blocked on anything.
+
+85
+00:20:20.240 --> 00:20:31.389
+Keith Kowal (Hedera Hashgraph LLC): And I understand there's another bunch of… so, and I guess I was… I did remember the conversation with the website, but I thought maybe also the Python Python stuff was blocked, but I'm glad to hear that it's not.
+
+86
+00:20:32.470 --> 00:20:33.190
+Keith Kowal (Hedera Hashgraph LLC): Well…
+
+87
+00:20:33.190 --> 00:20:35.840
+sophiie: Can't contact them, really.
+
+88
+00:20:36.170 --> 00:20:39.630
+sophiie: But… we haven't really needed to in the Python.
+
+89
+00:20:40.860 --> 00:20:48.860
+sophiie: Sometimes they do block RPRs, like their request changes on some of the automations, and then they are very hard to get a second review from.
+
+90
+00:20:51.480 --> 00:21:09.299
+Keith Kowal (Hedera Hashgraph LLC): Yeah, okay, I mean, I think after the TSC meeting, I also escalated this issue internally, so I think we're gonna work to improve that. You know, I think broadly, you know, as you suggested, we have to have a greater diversity of committers, maintainers, and co-owners, but in the short term.
+
+91
+00:21:09.300 --> 00:21:14.189
+Keith Kowal (Hedera Hashgraph LLC): how we make sure that they're more responsive to requests is something that I think we're escalating.
+
+92
+00:21:15.000 --> 00:21:15.820
+Keith Kowal (Hedera Hashgraph LLC): Umphed.
+
+93
+00:21:16.420 --> 00:21:20.139
+Keith Kowal (Hedera Hashgraph LLC): On that tangent, Ishma, I did have one other issue.
+
+94
+00:21:20.560 --> 00:21:32.469
+Keith Kowal (Hedera Hashgraph LLC): So I think, you know, we've been having a lot of back and forth on… so I think as everyone here knows, Hashgraph leverages LimeChain, to maintain SDKs.
+
+95
+00:21:32.570 --> 00:21:50.160
+Keith Kowal (Hedera Hashgraph LLC): And, you know, LimeChain, like any company, has employee turnover, or employees switch roles, and so that's created some kind of complexity around, I would say, maybe conflict with how, you know, that kind of employer-employee relationship then merges with
+
+96
+00:21:50.160 --> 00:22:06.469
+Keith Kowal (Hedera Hashgraph LLC): committer and maintainer relationships. So… but, you know, I think we've been working through that issue, and then most… more recently, I just wanted to make sure I shared with you guys, last week, I did put up, you know, we kind of agreed to a pattern, which I think
+
+97
+00:22:06.740 --> 00:22:11.240
+Keith Kowal (Hedera Hashgraph LLC): tries to follow our code owner's rules, where
+
+98
+00:22:11.660 --> 00:22:22.929
+Keith Kowal (Hedera Hashgraph LLC): You know, we do want, we do want new committers and new maintainers to be making meaningful contributions to the repos that we are adding them to.
+
+99
+00:22:22.930 --> 00:22:33.519
+Keith Kowal (Hedera Hashgraph LLC): So if you look at these recent, there's been recently a set of votes where we wanted to add some new… some of our newer LimeChain colleagues as commit or maintainers for some of the repos.
+
+100
+00:22:33.610 --> 00:22:35.400
+Keith Kowal (Hedera Hashgraph LLC): So you can see that,
+
+101
+00:22:35.680 --> 00:22:45.460
+Keith Kowal (Hedera Hashgraph LLC): in here, you know, I think we tried to specify what contribu… what meaningful contributions they've made, and then we have put these… all of this to a vote.
+
+102
+00:22:45.460 --> 00:22:55.820
+Keith Kowal (Hedera Hashgraph LLC): to the existing committers and maintainers for a given repo. So, obviously, if they don't think… if the existing committers and maintainers don't feel like these people are ready to be committers and maintainers, they can…
+
+103
+00:22:55.820 --> 00:22:57.139
+Keith Kowal (Hedera Hashgraph LLC): You know, not vote.
+
+104
+00:22:57.210 --> 00:23:15.810
+Keith Kowal (Hedera Hashgraph LLC): or vote no. But that is the process we are trying to follow. I realize there's probably still room for improvement on this. In particular, I think there's probably room for improvement on some of our governing language of Hiero that needs to be brought to the TSC. But I just wanted to bring it to everyone's attention that there has been recently three…
+
+105
+00:23:15.810 --> 00:23:26.230
+Keith Kowal (Hedera Hashgraph LLC): We added… We added, two LimeChain members to the JavaScript repo, and then…
+
+106
+00:23:26.340 --> 00:23:28.749
+Keith Kowal (Hedera Hashgraph LLC): yeah, JavaScript, I think…
+
+107
+00:23:29.000 --> 00:23:34.689
+Keith Kowal (Hedera Hashgraph LLC): And then also to the TCK, and to the one member to the Go SDK.
+
+108
+00:23:36.350 --> 00:23:51.029
+Keith Kowal (Hedera Hashgraph LLC): Yeah, so I just wanted to kind of… I don't know if there's any questions or comments about that, or… I know it's maybe not ideal from an open source perspective, but, you know, I think we're trying to deal with the two situations.
+
+109
+00:23:54.250 --> 00:24:09.629
+Angelina Ceppaluni: My only question, initially comes from the C++ SDK. Over the weekend, I did have a couple of people reach out to me regarding C++. I understand Rob has kind of taken a step back from this for a little bit.
+
+110
+00:24:09.630 --> 00:24:27.960
+Angelina Ceppaluni: However, the committers, maintainers, people contributing have brought it to my attention that there are PRs in there, and issues in there that now have multiple PRs, even though they've already been solved. There are PRs in there that are still waiting for reviews.
+
+111
+00:24:28.310 --> 00:24:39.269
+Angelina Ceppaluni: I have not been able to take a more thorough look into the C++ SDK. I guess my only question for this is, is there a plan to kind of,
+
+112
+00:24:39.510 --> 00:24:52.790
+Angelina Ceppaluni: appoint someone to the C++ SDK as somebody who can be a maintainer or committer. If not, I am happy to do so, I just wasn't sure if maybe I should ask the question initially.
+
+113
+00:24:52.790 --> 00:25:01.010
+Angelina Ceppaluni: Especially because I didn't want to overstep on anyone that had maybe already put a plan in place to kind of take care of some of this.
+
+114
+00:25:03.320 --> 00:25:11.219
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I think that's a great question. Okay, so first of all, I will go back to Rob, maybe he's just not, because, yeah, we will need…
+
+115
+00:25:11.940 --> 00:25:23.279
+Keith Kowal (Hedera Hashgraph LLC): You know, that was part of our conflict as well, is that, you know, I guess, in the first pass, I don't know, some of you may have seen a PR I put together, you know, I wanted to make our Lime Chain members,
+
+116
+00:25:23.550 --> 00:25:31.309
+Keith Kowal (Hedera Hashgraph LLC): you know, have a role as committed, for, let's say, the C++ SDK,
+
+117
+00:25:31.520 --> 00:25:42.370
+Keith Kowal (Hedera Hashgraph LLC): you know, just so that they could approve PRs and review them and approve them, but yeah, I understand the conflict that makes, because they didn't actually have ever contributed to those repos, so it doesn't really make sense.
+
+118
+00:25:42.680 --> 00:25:49.120
+Keith Kowal (Hedera Hashgraph LLC): I do want to raise one issue for discussion, because I raised this in one of the governance issues and get your guys' feedback.
+
+119
+00:25:49.460 --> 00:25:51.480
+Keith Kowal (Hedera Hashgraph LLC): I mean, there is…
+
+120
+00:25:51.600 --> 00:26:02.860
+Keith Kowal (Hedera Hashgraph LLC): I mean, I think we have to recognize that through the SDKs, we do have a… there is a security threat, in that it is possible that a malicious person
+
+121
+00:26:02.860 --> 00:26:12.890
+Keith Kowal (Hedera Hashgraph LLC): could, you know, make valuable contributions to an SDK, could, you know, make themselves, you know, apply and become a committer or maintainer.
+
+122
+00:26:13.040 --> 00:26:30.610
+Keith Kowal (Hedera Hashgraph LLC): and then very easily, could approve a PR, which basically just drains funds, into their own account. Like, you know, every transaction, while you think the transaction is doing XYZ, you know, actually the transaction is just… you know, the conflict here is, like.
+
+123
+00:26:30.840 --> 00:26:40.629
+Keith Kowal (Hedera Hashgraph LLC): The SDKs are in Hiero, but they do interact with the Hedera network, like, we accept them straight off, and there is… on the Hedera network, there is billions of dollars.
+
+124
+00:26:40.720 --> 00:26:58.380
+Keith Kowal (Hedera Hashgraph LLC): So, what does that mean? And so, you know, one of the proposals I put forth in the governance repo is, like, well, it means that probably, like a lot of other open source projects, if you want to be a committer and maintainer, there has to be some additional security vetting to make sure that we actually know that you're a real person.
+
+125
+00:26:58.390 --> 00:27:06.390
+Keith Kowal (Hedera Hashgraph LLC): And that we know something about you. Like, you know, in this case, you know, we've had this great relationship with Sophia and Angelina, and I've met Sophia, and we know she's a real person.
+
+126
+00:27:07.660 --> 00:27:18.000
+Keith Kowal (Hedera Hashgraph LLC): So, I think that's where I'm struggling a bit, is just, like, I really want people from the community to become commuters and maintainers in the SDK repos, but then at the same time, like, we…
+
+127
+00:27:18.630 --> 00:27:26.529
+Keith Kowal (Hedera Hashgraph LLC): We have to recognize that there is a security threat. Like, there is a real genuine reason why a malicious person might try to do something.
+
+128
+00:27:26.730 --> 00:27:37.230
+Keith Kowal (Hedera Hashgraph LLC): And, you know, I think the comment I got is, well, anyone can be malicious, including people at Hashgraph or LimeChain, and that's certainly true. The thing is, like, we know, like, if I was to be a malicious maintainer.
+
+129
+00:27:37.440 --> 00:27:44.829
+Keith Kowal (Hedera Hashgraph LLC): they know everything about me. Like, I would be in jail tomorrow, because, like, they know my address, they know they've met me, they, like, know everything about me.
+
+130
+00:27:44.940 --> 00:27:52.459
+Keith Kowal (Hedera Hashgraph LLC): So that's something that I'm personally struggling with a bit. I wonder if there's any comments or feedback on this issue.
+
+131
+00:27:56.820 --> 00:28:02.650
+sophiie: I think there are good open source principles that… can be… Lyndon?
+
+132
+00:28:02.790 --> 00:28:05.099
+sophiie: That will help to improve the security.
+
+133
+00:28:07.270 --> 00:28:11.940
+sophiie: I understand that you need to add more resources to the SDKs?
+
+134
+00:28:14.300 --> 00:28:23.979
+sophiie: But if they're only coming from LimeChain, there's… you know, you've… you guys chose to donate the codebase and manage it in an open source way.
+
+135
+00:28:24.340 --> 00:28:29.410
+sophiie: I think there are some open source principles that we'll be able to
+
+136
+00:28:29.550 --> 00:28:33.489
+sophiie: help reduce some of that risk, and I think over time we can improve it further.
+
+137
+00:28:37.190 --> 00:28:37.530
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+138
+00:28:37.530 --> 00:28:42.340
+Angelina Ceppaluni: Well, my only comment, was to…
+
+139
+00:28:42.350 --> 00:29:05.160
+Angelina Ceppaluni: I guess to stay focused on those that we know well enough, and we've seen them on camera. We may not have been able to either meet them in person, we may not know that many personal details about them, or too much about them, but we know them well enough, we've seen them on camera, we know that they're a real person, they're active in the community, and
+
+140
+00:29:05.160 --> 00:29:16.880
+Angelina Ceppaluni: I also like to take into account, the DCO and the GPG signing. I have found that that is kind of, like, a very good, verifiable way to make sure that
+
+141
+00:29:16.880 --> 00:29:29.169
+Angelina Ceppaluni: one, whoever is submitting code is actually a who. They are a person, they have a name, whether they are attending a university, they're employed at Lime Chain, they're doing this as a hobby, or…
+
+142
+00:29:29.280 --> 00:29:46.519
+Angelina Ceppaluni: what have you. I like having that kind of solid baseline and understanding that if I go back and I look at a PR that they've submitted, that I know that they're real based upon the fact that there's an email associated with the GPG, with the signing.
+
+143
+00:29:46.720 --> 00:29:58.150
+Angelina Ceppaluni: Of whatever they've submitted, and that kind of gives me a bit more comfort allocating that kind of person as the maintainer or committer, rather than, as you said, someone who we have to
+
+144
+00:29:58.270 --> 00:30:07.799
+Angelina Ceppaluni: Kind of security vet, or feel as though we may have to security vet just because we may not know them very well, or have not seen a lot of work that they've been doing throughout the community.
+
+145
+00:30:10.350 --> 00:30:21.840
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I guess the question I would have, Angelina, is that… yeah, I think, like… but that's where, you know, you mentioned open source best practices, like GPG keys and stuff like that. I guess my thought is…
+
+146
+00:30:22.030 --> 00:30:37.460
+Keith Kowal (Hedera Hashgraph LLC): You know, on the Hedera network, there are… like, you could do a hack… you know, I don't know if any of you realize, we just had a hack last week where $9 million were stolen. Like, with the SDKs, you could potentially do a hack that actually steals a lot more money than that.
+
+147
+00:30:37.460 --> 00:30:42.920
+Keith Kowal (Hedera Hashgraph LLC): So what would be a… what would a person be willing to do if they could do a hack… orchestrate a hack
+
+148
+00:30:42.920 --> 00:30:57.580
+Keith Kowal (Hedera Hashgraph LLC): that, you know, stole, like, $30 million or $40 million. Because, you know, you could do this in the SDKs, right? Because there's a lot of power to misform transactions and, like, change a transaction from, you know, a check account balance to, like.
+
+149
+00:30:58.030 --> 00:31:01.420
+Keith Kowal (Hedera Hashgraph LLC): Transfer every dollar from someone's account into my account.
+
+150
+00:31:01.640 --> 00:31:12.670
+Keith Kowal (Hedera Hashgraph LLC): So, like, what would a North Korean state actor be willing to do to steal $40 million? I mean, they probably would be willing to appear on camera, or to have a GitHub history.
+
+151
+00:31:12.670 --> 00:31:23.819
+Keith Kowal (Hedera Hashgraph LLC): I mean, I… again, I don't think this is a solution, and I think we want to be, like, very, you know, open source… we want to have open source best principles, but that is the scale of risk, just to consider.
+
+152
+00:31:25.120 --> 00:31:31.320
+sophiie: Yeah, I mean, right now, in the SDKs, you don't have… you don't have signed releases, and they can be done by anyone.
+
+153
+00:31:31.640 --> 00:31:32.970
+sophiie: Who's the maintainer?
+
+154
+00:31:33.260 --> 00:31:37.350
+sophiie: So, if you have a malicious maintainer, you know.
+
+155
+00:31:37.940 --> 00:31:41.750
+sophiie: There's no one overseeing that, other than their identity.
+
+156
+00:31:42.410 --> 00:31:45.309
+sophiie: That you have personally verified?
+
+157
+00:31:45.930 --> 00:31:52.430
+sophiie: You know, my thoughts are, like, even just requiring that you need to have assigned Release.
+
+158
+00:31:53.000 --> 00:31:55.530
+sophiie: By more than one person?
+
+159
+00:31:55.870 --> 00:32:03.609
+sophiie: And that each merge commit needs at least two views. That's… that's a big help, because at least you get more than two eyeballs.
+
+160
+00:32:03.750 --> 00:32:05.060
+sophiie: on the issue.
+
+161
+00:32:05.530 --> 00:32:13.940
+sophiie: You don't have to panic so much about one person. You still need to, you know, be aware of what's going on and things, and check the releases, but…
+
+162
+00:32:14.140 --> 00:32:17.130
+sophiie: If you have a process in mind to stop.
+
+163
+00:32:17.730 --> 00:32:21.379
+sophiie: Bad releases, that… that would also be helpful.
+
+164
+00:32:23.350 --> 00:32:38.739
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I agree. Like, that could be another way we approach it, is we don't… we don't necessarily trust a single maintainer or committer, but we… we do a lot of additional vetting before we send out a release. Yeah, we could do that. It's just, like, that brings up the struggles of…
+
+165
+00:32:39.020 --> 00:32:40.969
+Keith Kowal (Hedera Hashgraph LLC): For the community SDKs.
+
+166
+00:32:41.280 --> 00:32:48.450
+Keith Kowal (Hedera Hashgraph LLC): Yeah, that's an interesting challenge, so… Okay, I mean, I never thought we were gonna solve it in this call, I just thought I'd just raise some of the issues that have been coming up.
+
+167
+00:32:48.930 --> 00:32:54.289
+sophiie: Yeah, I mean, if it's identity verification, the main issue that, for you, Keith, is the…
+
+168
+00:32:54.460 --> 00:32:57.609
+sophiie: We will have to declare who maintainers are already.
+
+169
+00:32:57.920 --> 00:33:04.789
+sophiie: I don't know if you need to have, like, an address database or passport database?
+
+170
+00:33:05.260 --> 00:33:10.610
+sophiie: that Hashgraph would control, but, you know, it's not like…
+
+171
+00:33:10.770 --> 00:33:19.749
+sophiie: we don't know the names of the maintainers, we do the GPG key signing and things, so I think, sort of, that can be improved. Otherwise, I think you are risking
+
+172
+00:33:19.960 --> 00:33:24.140
+sophiie: This easily becoming, like, two vendors' products,
+
+173
+00:33:26.680 --> 00:33:29.609
+sophiie: Because there's no openness to the system.
+
+174
+00:33:30.440 --> 00:33:31.890
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I understand.
+
+175
+00:33:33.470 --> 00:33:43.739
+Keith Kowal (Hedera Hashgraph LLC): Okay, maybe, we can just break it, like, Mustafa or Dosi, is there any updates you guys want to give on any SDK work you're doing right now?
+
+176
+00:33:46.090 --> 00:33:49.469
+Mustafa Uzun: from the Java, GS, and Go.
+
+177
+00:33:49.820 --> 00:33:57.689
+Mustafa Uzun: Not in concrete, we are currently working on the issues that are on backwalk, and most of them are
+
+178
+00:33:58.280 --> 00:34:01.200
+Mustafa Uzun: Tech depths, so yeah, nothing new from us.
+
+179
+00:34:08.330 --> 00:34:10.300
+Keith Kowal (Hedera Hashgraph LLC): Dosi, any updates from you?
+
+180
+00:34:12.840 --> 00:34:24.580
+Dosi Kolev: No, we're just, actively working on the issues, creating new ones, and yeah, like, we were overseeing the…
+
+181
+00:34:25.139 --> 00:34:28.530
+Dosi Kolev: Account balance query deprecation, and yeah.
+
+182
+00:34:32.030 --> 00:34:37.140
+Keith Kowal (Hedera Hashgraph LLC): Okay, Sophia, Angelina, yeah, updates on the Python SDK, or I see you already have your hands up.
+
+183
+00:34:38.730 --> 00:34:45.679
+sophiie: Yeah, another area that we are, we made some progress on is we have stricter
+
+184
+00:34:46.600 --> 00:34:49.009
+sophiie: Branch protection rules?
+
+185
+00:34:49.139 --> 00:34:51.119
+sophiie: than the average repo at Hiero?
+
+186
+00:34:51.949 --> 00:35:02.089
+sophiie: So, for example, if you do a new merge domain, it needs to be all updated, and that means it stops conflicts and things like that, but…
+
+187
+00:35:02.740 --> 00:35:08.580
+sophiie: But, also, we have, like, this AI that basically broadcasts
+
+188
+00:35:08.940 --> 00:35:13.270
+sophiie: major or critical issues on every PR within 2 minutes.
+
+189
+00:35:13.440 --> 00:35:14.929
+sophiie: We got attacked.
+
+190
+00:35:15.200 --> 00:35:16.839
+sophiie: Maybe 6 months back?
+
+191
+00:35:17.950 --> 00:35:21.710
+sophiie: And Code Rabbit picked it up.
+
+192
+00:35:22.330 --> 00:35:28.919
+sophiie: In 2 minutes, so… I think that's another defense against, kind of, this rogue maintainer threat.
+
+193
+00:35:29.460 --> 00:35:37.970
+sophiie: I think there's lots of things that we can do to sort of chip away at the problem. We can sort of improve it over time, and relying
+
+194
+00:35:38.370 --> 00:35:41.050
+sophiie: Just on identity verification.
+
+195
+00:35:41.860 --> 00:35:46.860
+sophiie: It's obviously a very useful part of it, but doesn't handle all kinds of risks.
+
+196
+00:35:47.360 --> 00:35:52.470
+sophiie: For example, you know, you could argue the people that are most familiar with the codebase
+
+197
+00:35:52.640 --> 00:35:54.970
+sophiie: Could also be the most dangerous.
+
+198
+00:35:55.140 --> 00:35:59.589
+sophiie: Ones, even if you know… Who their identity is.
+
+199
+00:36:01.400 --> 00:36:08.829
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I… actually, can we just circle back on an issue you said before? Because something I did notice as we looked at the different SDKs was that, like.
+
+200
+00:36:09.050 --> 00:36:24.359
+Keith Kowal (Hedera Hashgraph LLC): committers and maintainers have almost the same rights in most cases. Like, we haven't… we didn't actually create a difference between committers and maintainers. So, I agree with what you just said, like, AI could be a great level of protection, but at the same time, if a malicious committer
+
+201
+00:36:24.360 --> 00:36:41.089
+Keith Kowal (Hedera Hashgraph LLC): has full rights to, let's say, change the AI, then I would think that a committer could, you know, if they were doing a real attack, they would first, like, update the… whatever kind of AI or whatever safeguards we had in place for branch protection, they would first pick… change those.
+
+202
+00:36:41.180 --> 00:36:50.979
+Keith Kowal (Hedera Hashgraph LLC): then they would implement the hack. So it's just to say, like, one thought I had recently as I was looking at stuff, it's like, should we have more of a separation of rights between maintainers and committers?
+
+203
+00:36:52.540 --> 00:36:58.440
+sophiie: So the… because we have… we required two… two approvals, one person can't do that.
+
+204
+00:36:58.870 --> 00:37:00.640
+sophiie: In the Python SDK.
+
+205
+00:37:02.900 --> 00:37:03.520
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+206
+00:37:03.660 --> 00:37:12.119
+Keith Kowal (Hedera Hashgraph LLC): Okay, so that's the protection on that. You mean, like, to do a code level, like, to change the AI or something, you need two layers, two, two approvals.
+
+207
+00:37:13.280 --> 00:37:14.160
+Angelina Ceppaluni: Correct.
+
+208
+00:37:16.610 --> 00:37:17.150
+sophiie: Yeah, two.
+
+209
+00:37:17.150 --> 00:37:17.790
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+210
+00:37:23.910 --> 00:37:29.459
+sophiie: We also have two sources of AI. We have Copilot, and we have Code Rabbit. One is…
+
+211
+00:37:29.640 --> 00:37:34.939
+sophiie: just a setting inherent in GitHub, and the other one is a YAML file.
+
+212
+00:37:38.410 --> 00:37:39.020
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+213
+00:37:41.670 --> 00:37:44.389
+sophiie: I, I, you know, we could always talk about
+
+214
+00:37:44.530 --> 00:37:47.730
+sophiie: Changing the maintainer versus committer commissions?
+
+215
+00:37:48.870 --> 00:37:54.159
+sophiie: Yeah, I think that's another conversation to have.
+
+216
+00:37:55.320 --> 00:38:06.519
+sophiie: But I… at least I'm… I'm surprised at the level of risk-taking, from my opinion that I see in Hiero, with a lot of these OpenSSF scorecards being, like, 5 or 6.
+
+217
+00:38:07.040 --> 00:38:08.070
+sophiie: And nope.
+
+218
+00:38:08.820 --> 00:38:18.069
+sophiie: No, real advanced branch protection for security-sensitive projects that you have said could, you know, involve millions.
+
+219
+00:38:18.200 --> 00:38:19.490
+sophiie: In losses.
+
+220
+00:38:20.200 --> 00:38:27.810
+sophiie: For me, you know, I really… I think it created a PR at some point, where you wanted to make them security sensitive, and I…
+
+221
+00:38:27.980 --> 00:38:35.239
+sophiie: would really agree if that's the case, to make them security sensitive, but, you know, if that's the case, I think you would need, like, a broader set of
+
+222
+00:38:35.830 --> 00:38:39.359
+sophiie: measures for it to truly feel safe.
+
+223
+00:38:44.540 --> 00:38:57.649
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I think for a lot of the other repos, we put a lot of weight on the automated testing, is the ultimate… before we cut a release, we do a ton of testing. Like, that's certainly true for Consensus Node, or for MirrorNode, or for JSON RPC Relay.
+
+224
+00:38:57.800 --> 00:38:58.920
+Keith Kowal (Hedera Hashgraph LLC): It's just…
+
+225
+00:38:59.150 --> 00:39:07.289
+Keith Kowal (Hedera Hashgraph LLC): And then, obviously, we have the TCK for the SDKs, but yeah, I think that we've put more of the reliance there.
+
+226
+00:39:07.440 --> 00:39:08.980
+Keith Kowal (Hedera Hashgraph LLC): But, sort of engine you have your hands on.
+
+227
+00:39:08.980 --> 00:39:12.770
+sophiie: You're allowed to merge un-updated.
+
+228
+00:39:13.380 --> 00:39:17.780
+sophiie: Beta branches to the side branch in the consensus nodes.
+
+229
+00:39:17.950 --> 00:39:30.190
+sophiie: So you could get bugs down the line, because WebPR just interacts with another one in a strange way that you don't notice, and it could, in theory, pass through the existing tests.
+
+230
+00:39:32.930 --> 00:39:53.090
+Keith Kowal (Hedera Hashgraph LLC): Yes, at the same time, though, sometimes when we're doing security fixes, we actually branch to a private repo, and then we're… we're doing kind of weird things with branches. So I'm not an expert on this one. I would say, like, it's a great point. I would think there's probably a reason why we don't have more branch protection, but I, again, I'm not the expert, so it's a good topic we can raise.
+
+231
+00:39:53.090 --> 00:39:55.720
+sophiie: Yeah, there's… there's no conversation about that. I mean.
+
+232
+00:39:55.820 --> 00:40:08.680
+sophiie: if we are able to truly agree on what security sensitive means, I think we kind of agree on the big picture perspective that we would want to have some trusted infrastructure, and I think we just have slightly different perspectives.
+
+233
+00:40:09.020 --> 00:40:15.040
+sophiie: As to what would be most important in that, but perhaps our opinions are all quite valid as well.
+
+234
+00:40:17.400 --> 00:40:17.970
+Keith Kowal (Hedera Hashgraph LLC): Yup.
+
+235
+00:40:18.700 --> 00:40:20.970
+Keith Kowal (Hedera Hashgraph LLC): Angelina, did you have something to add?
+
+236
+00:40:21.130 --> 00:40:22.479
+Keith Kowal (Hedera Hashgraph LLC): I see your hand is up.
+
+237
+00:40:23.060 --> 00:40:30.700
+Angelina Ceppaluni: Oh, just, a more or less question, I guess, for the Java maintainers, if they are alright with,
+
+238
+00:40:30.720 --> 00:40:49.629
+Angelina Ceppaluni: us kind of doing a SDK cleanup. I did notice that some of the work in there is quite older, so just wanted to make sure that it was okay if some of that was closed, maybe refactored, just to kind of bring it to a more up-to-date light, especially, given that there are things that are
+
+239
+00:40:49.630 --> 00:41:04.409
+Angelina Ceppaluni: a bit over a year old, maybe 2 years, depending from the last thing that I've seen, so I just kind of wanted to make sure that it was more or less okay with them, and that if there are any issues, that they are more than welcome to reach out and just let me know.
+
+240
+00:41:04.520 --> 00:41:09.059
+Angelina Ceppaluni: If there's something that they disagree with, or just have more of an input on.
+
+241
+00:41:10.200 --> 00:41:15.269
+Mustafa Uzun: Yeah, actually, on Java SDK, we are currently working on those.
+
+242
+00:41:15.970 --> 00:41:18.730
+Mustafa Uzun: All issues and tech devs, and…
+
+243
+00:41:19.180 --> 00:41:22.350
+Mustafa Uzun: Looking if there needs to be work to be done, but yeah.
+
+244
+00:41:22.610 --> 00:41:25.619
+Mustafa Uzun: If you want to work on something, you're welcome.
+
+245
+00:41:26.200 --> 00:41:27.630
+Angelina Ceppaluni: Oh, thank you.
+
+246
+00:41:35.430 --> 00:41:40.919
+Keith Kowal (Hedera Hashgraph LLC): Okay, also, I see Ivaylo joined, I don't… Ivaylo, do you have any updates on any of the SDKs?
+
+247
+00:41:42.680 --> 00:41:49.010
+Ivaylo Georgiev: Well, currently not big updates, only… only…
+
+248
+00:41:49.260 --> 00:41:56.690
+Ivaylo Georgiev: Depending both, changes, PR reviews… on unit tests… Nothing major.
+
+249
+00:41:59.540 --> 00:42:00.170
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+250
+00:42:02.530 --> 00:42:08.340
+Keith Kowal (Hedera Hashgraph LLC): And any other updates, Sophia or Angelina on the Python SDK, or any issues you guys are running into?
+
+251
+00:42:11.590 --> 00:42:19.659
+Angelina Ceppaluni: Nothing in terms of any issues. We're still in the process of just waiting for a few more of those hips.
+
+252
+00:42:19.660 --> 00:42:32.500
+Angelina Ceppaluni: Then once they're approved and unblocked, we will work on adding those in. We did have a few dependency updates, and there has been a significant amount of work done to the TCK module.
+
+253
+00:42:32.500 --> 00:42:33.280
+Angelina Ceppaluni: So…
+
+254
+00:42:33.460 --> 00:42:45.930
+Angelina Ceppaluni: If anyone is interested, please feel free to take a look at those PRs, and we do have open issues, but beyond that, I don't think there was anything else, unless, Sophie, I maybe am missing something?
+
+255
+00:42:57.400 --> 00:42:58.440
+sophiie: I think you're under…
+
+256
+00:42:58.850 --> 00:42:59.510
+Angelina Ceppaluni: Yep.
+
+257
+00:43:01.670 --> 00:43:18.169
+Keith Kowal (Hedera Hashgraph LLC): Okay. Okay, so I just want to, yeah, thank you, everyone, for your time. I just want to recap, so I… there are… I'm going to circle back on the C++ SDK and see how we can get things moving, and maybe how we can even, get some new committers or maintainers added.
+
+258
+00:43:18.380 --> 00:43:23.440
+Keith Kowal (Hedera Hashgraph LLC): And then I think for the other topics, yeah, let's continue the discussions about,
+
+259
+00:43:23.640 --> 00:43:37.160
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I think the… I think the committer-maintainer one is an interesting one that I want to follow up on about, again, how to… I think… because, again, I think if we create more separation between committers and maintainers, then I'd be much more comfortable with adding
+
+260
+00:43:37.160 --> 00:43:46.089
+Keith Kowal (Hedera Hashgraph LLC): new committers, even if they weren't, like, 100% security vetted, because we kind of limit what they can and can't… like, they can approve PRs, but they can't…
+
+261
+00:43:46.090 --> 00:43:54.359
+Keith Kowal (Hedera Hashgraph LLC): you know, they can't approve releases or something like that. So, I think let's continue that discussion, and maybe when Hendrik is back, we can still follow up with him.
+
+262
+00:43:54.540 --> 00:44:01.360
+Keith Kowal (Hedera Hashgraph LLC): Yeah, but I think it's been a great discussion. Did anyone else have anything else for today's meeting?
+
+263
+00:44:04.610 --> 00:44:05.889
+Angelina Ceppaluni: I'm all set. Thank you.
+
+264
+00:44:06.730 --> 00:44:21.300
+Keith Kowal (Hedera Hashgraph LLC): Oh, and the other one was, yeah, I will add… I will add the two discussions about the two SDK Collaboration Hub proposals, and I will finalize that one on the deprecation today. I'll try to get that PR approved, so we can finalize that proposal for feedback and comments.
+
+265
+00:44:24.780 --> 00:44:28.230
+Keith Kowal (Hedera Hashgraph LLC): Awesome. Okay, well, thank you, everyone, for your time today, I really appreciate it.
+
+266
+00:44:29.630 --> 00:44:30.660
+Mustafa Uzun: Thank you, bye.
+
+267
+00:44:30.660 --> 00:44:31.340
+Dosi Kolev: Bye, right.
+
+268
+00:44:32.050 --> 00:44:32.969
+sophiie: Thank you, Bonsai?
+

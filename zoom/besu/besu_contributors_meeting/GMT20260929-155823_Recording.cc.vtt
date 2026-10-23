@@ -1,0 +1,1394 @@
+WEBVTT
+
+00:03:24.000 --> 00:03:28.000
+Hi, everybody.
+
+00:03:28.000 --> 00:03:30.000
+Hello.
+
+00:03:30.000 --> 00:03:33.000
+Alright.
+
+00:03:33.000 --> 00:03:42.000
+Greetings
+
+00:03:42.000 --> 00:04:12.000
+Give people another minute to join.
+
+00:04:15.000 --> 00:04:45.000
+Alright, I'm gonna top off my coffee, and then we'll get started.
+
+00:04:47.000 --> 00:04:49.000
+Okay.
+
+00:04:49.000 --> 00:05:07.000
+All right, all right, all right, welcome everybody to the September edition of the Base U Community Contributor Call. I am your host, Justin Florentine. Welcome to the call. This is as usual, under an antitrust policy, the details of which can be found.
+
+00:05:07.000 --> 00:05:15.000
+on our website and the meeting agenda, which I will post in the chat here for folks to reference.
+
+00:05:15.000 --> 00:05:25.000
+Uh, this meeting is being recorded, transcribed, and machine summarized. Uh, please mute unless you're speaking, and if you have a question, use the raise hand feature.
+
+00:05:25.000 --> 00:05:38.000
+Uh, we have a somewhat light agenda today, but it sounds like we've got a guest from Swirls Labs that wants to talk to us about something, so we're going to do that at the end, so basically they can have the most amount of time.
+
+00:05:38.000 --> 00:05:46.000
+The first two items that I'd like to kind of just get in front of people is.
+
+00:05:46.000 --> 00:05:49.000
+a couple of API issues.
+
+00:05:49.000 --> 00:06:00.000
+So the first one is GraphQL API. I'd love to start hearing from users as to how useful it is and.
+
+00:06:00.000 --> 00:06:17.000
+How often is it being used? What's it being used for, etc. Why is it better or worse than the RPC, the JSON RPC API, etc. There is only one other client that fully supports the GraphQL API.
+
+00:06:17.000 --> 00:06:24.000
+The GraphQL API is not actually well specified from an Ethereum perspective.
+
+00:06:24.000 --> 00:06:29.000
+So this is one of those sort of organic pseudo standards that has emerged.
+
+00:06:29.000 --> 00:06:41.000
+It is a source of technical debt. It is, you know, rarely reviewed for updating our completeness, and we would like to deprecate it.
+
+00:06:41.000 --> 00:07:05.000
+We think that there is a not insignificant cost savings in doing so, and we are skeptical that the value it provides is worth that cost. So consider this the opening salvo as far as that discussion is concerned. These things do take a lot of time. We're not planning on deprecating it unilaterally or immediately.
+
+00:07:05.000 --> 00:07:13.000
+But we do want to hear a strong case being made for keeping it in there and continuing to pay that cost.
+
+00:07:13.000 --> 00:07:20.000
+Um, does anybody have any immediate feedback on that?
+
+00:07:20.000 --> 00:07:28.000
+You know, known users, known applications that really care about GraphQL, etc.
+
+00:07:28.000 --> 00:07:30.000
+Matthew, go ahead. I was hoping you would chime in on this one.
+
+00:07:30.000 --> 00:07:41.000
+Hi, Justin. Yeah, it's interesting. Yeah, we don't, I don't think we really hear of many people using it.
+
+00:07:41.000 --> 00:07:52.000
+It very rarely gets mentioned in relation to kind of, you know, interfacing with with Besu and
+
+00:07:52.000 --> 00:08:05.000
+I don't know that we have exploited it at all in any kind of Web3 tooling at all. I think the JSON RPC interface is pretty much what everyone kind of goes by. Again, like you say, partly for the standardization
+
+00:08:05.000 --> 00:08:15.000
+making that a bit easier. But yeah, that's kind of a two cents from me. I think Garland wants to kind of chip in as well.
+
+00:08:15.000 --> 00:08:22.000
+Go ahead Gun. Welcome to the call.
+
+00:08:22.000 --> 00:08:29.000
+Yeah, yeah, yeah, thank you. So if I'm correct, we're talking about the graph based indexing capabilities here, right, on top of the RPC.
+
+00:08:29.000 --> 00:08:40.000
+Yes, the GraphQL remote RPC interface, that's right.
+
+00:08:40.000 --> 00:08:56.000
+So I think I agree with Matthew there on the general RPCs, nobody expects anything additional because whatever throughput expectations or, you know, DAP expectations they have, they are fulfilled by the standard RPC layer itself on top of HTTPS.
+
+00:08:56.000 --> 00:09:05.000
+It don't require additional GraphQL-based layer or wrapper unless it provides security. We though have heard in some cases that.
+
+00:09:05.000 --> 00:09:12.000
+Enterprises or certain fintech institutions, they prefer some sort of
+
+00:09:12.000 --> 00:09:19.000
+You know, security layer on top of the RPC, but that does not.
+
+00:09:19.000 --> 00:09:20.000
+Yeah.
+
+00:09:20.000 --> 00:09:23.000
+We do not expect the capabilities that GraphQL might have to offer here. They simply look at something like Envoy or other capabilities attached to it.
+
+00:09:23.000 --> 00:09:40.000
+Thank you for that. Yeah, that makes sense. And honestly, I find GraphQL to be a little bit of a design mismatch for the Ethereum domain.
+
+00:09:40.000 --> 00:09:51.000
+Yeah, yeah, true, because if you enable this and then integrate it into your project, then you pretty much become tied up with this new interface programming, which you cannot simply switch to another EVM or another network. You become incompatible directly.
+
+00:09:51.000 --> 00:09:53.000
+Yeah.
+
+00:09:53.000 --> 00:10:01.000
+Thank you.
+
+00:10:01.000 --> 00:10:02.000
+Okay.
+
+00:10:02.000 --> 00:10:10.000
+Okay, that's good. I would encourage folks to reach out to any of your users, customers, et cetera, and you know.
+
+00:10:10.000 --> 00:10:18.000
+get their opinions on it as well. And like I said, this is just kind of the start of that conversation.
+
+00:10:18.000 --> 00:10:21.000
+Cool. So speaking of APIs…
+
+00:10:21.000 --> 00:10:36.000
+Somebody reached out to me with a notion of, wait, oh, do I have the link here? A interest in starting to standardize our tracing APIs.
+
+00:10:36.000 --> 00:10:39.000
+Traces are an interesting, interesting.
+
+00:10:39.000 --> 00:10:42.000
+interesting artifact of
+
+00:10:42.000 --> 00:10:49.000
+I shouldn't call it an artifact, but it's an interesting subdomain of Ethereum.
+
+00:10:49.000 --> 00:11:09.000
+where the output can be used for lots of interesting things. I see Gary just joined. This is also an area that people that run L2s, specifically ZK L2s are interested in. They like to see what exactly was run through the EBM, what was touched, what was.
+
+00:11:09.000 --> 00:11:13.000
+affected, etc.
+
+00:11:13.000 --> 00:11:22.000
+And right now, you know, I can share my screen here. Why not?
+
+00:11:22.000 --> 00:11:36.000
+One second… This was submitted by a community user detailing some of the differences between BASU's tracing and other clients.
+
+00:11:36.000 --> 00:11:45.000
+Okay, what they're trying to do is sort of bring back parity-style traces and standardize on them, and potentially even.
+
+00:11:45.000 --> 00:11:47.000
+expand on a tracing.
+
+00:11:47.000 --> 00:11:53.000
+domain or namespace, rather, in the API.
+
+00:11:53.000 --> 00:12:01.000
+Um, they're trying to put together a working group to further discuss these, and, you know…
+
+00:12:01.000 --> 00:12:16.000
+Design the work, and make sure that it's a useful, useful to the users. I myself am spread pretty thin. I would love to participate in this, but I don't really have the capacity.
+
+00:12:16.000 --> 00:12:29.000
+So I wanted to put this out here as kind of an open call to the community for anybody that is particularly interested in tracing to maybe participate in these working groups or at least help us form
+
+00:12:29.000 --> 00:12:39.000
+opinions as we participate in those working groups. It's very early times here. I will post actually this link.
+
+00:12:39.000 --> 00:12:47.000
+Here in the chat, and then I'll add it to the meeting agenda for history…
+
+00:12:47.000 --> 00:12:58.000
+And yeah, again, early times, but I think it's a, it's a valuable, it's a valuable thing to have standardized tracing.
+
+00:12:58.000 --> 00:13:02.000
+For, uh, where we're going as Ethereum.
+
+00:13:02.000 --> 00:13:11.000
+Gary, hi
+
+00:13:11.000 --> 00:13:16.000
+It's hot off the presses.
+
+00:13:16.000 --> 00:13:17.000
+That's fine.
+
+00:13:17.000 --> 00:13:22.000
+Hey, how you doing, Justin? This is the first I've seen of that, so that's super interesting. I wonder, I'm on mobile, so I can't read your screen. But I'm wondering what the output of this working group would be, because I would hope that it would be an EIP and a
+
+00:13:22.000 --> 00:13:43.000
+champion in order to get some consensus around this, because we have we have this mess of tracing because we have parity style and we have guest style tracing over the years that just kind of developed as part of individual clients, and when you don't take that into account,
+
+00:13:43.000 --> 00:13:44.000
+More standards.
+
+00:13:44.000 --> 00:13:52.000
+the entire ecosystem of execution clients, you end up with that whole XKCD comment, you know, there's 17 competing standards, now there's 18 competing standards. So, um, I would hope that the outcome of this would be, like, consensus around
+
+00:13:52.000 --> 00:14:07.000
+that tracing should look like based on all the existing stakeholders that are using tracing and the product would be an EIP and a champion to get that through ACD. Because it's not a consensus affecting, you know, it's not a hard fork, uh, necessary.
+
+00:14:07.000 --> 00:14:14.000
+implementation, but it's definitely something that we want to have consensus among the execution clients on.
+
+00:14:14.000 --> 00:14:16.000
+Okay.
+
+00:14:16.000 --> 00:14:31.000
+I updated the meeting agenda with a link to the page that I shared, and I will send it to you directly as well.
+
+00:14:31.000 --> 00:14:32.000
+You know…
+
+00:14:32.000 --> 00:14:39.000
+Any other questions, comments, concerns?
+
+00:14:39.000 --> 00:14:41.000
+Okay.
+
+00:14:41.000 --> 00:15:03.000
+Uh, great, um, and that's kind of all I had on the agenda. Um, the floor is open, I understand, um, somebody from, uh, Swirled Labs from, uh, wanted to make a presentation.
+
+00:15:03.000 --> 00:15:04.000
+Ah!
+
+00:15:04.000 --> 00:15:05.000
+Hi, Justin. My name is Edward. I'm from Hashgraph, formerly Swirls Labs. We've changed our name about a year ago.
+
+00:15:05.000 --> 00:15:09.000
+Okay, so Hedera.
+
+00:15:09.000 --> 00:15:10.000
+Is that correct?
+
+00:15:10.000 --> 00:15:11.000
+Great. Thanks.
+
+00:15:11.000 --> 00:15:12.000
+No, so
+
+00:15:12.000 --> 00:15:13.000
+That's a couple names ago, right?
+
+00:15:13.000 --> 00:15:22.000
+Hedera is the governing council, and Hashgraph is now the development team, like the labs.
+
+00:15:22.000 --> 00:15:24.000
+Ah, okay.
+
+00:15:24.000 --> 00:15:35.000
+So yeah, we were Swirl's labs, but we changed our name to Hashgraph. It's very confusing. There's like 10 different forms of Hashgraph online. The Hashgraph group
+
+00:15:35.000 --> 00:15:39.000
+So I understand the complexity there of
+
+00:15:39.000 --> 00:15:45.000
+But yes, I'm here and I would love to present Clipper
+
+00:15:45.000 --> 00:15:53.000
+Okay, great. You have the floor. I don't know if I need to grant you permission to share or if you can do that.
+
+00:15:53.000 --> 00:15:59.000
+Let me see here
+
+00:15:59.000 --> 00:16:00.000
+All right.
+
+00:16:00.000 --> 00:16:01.000
+I got your screen.
+
+00:16:01.000 --> 00:16:04.000
+All right, so I've got my screen shared
+
+00:16:04.000 --> 00:16:09.000
+Just before I get started, I was wondering if I could
+
+00:16:09.000 --> 00:16:16.000
+Get a feel for the audience. Has anybody heard of Clipper yet?
+
+00:16:16.000 --> 00:16:17.000
+Not yet.
+
+00:16:17.000 --> 00:16:20.000
+Okay.
+
+00:16:20.000 --> 00:16:25.000
+Great. Then I'll be speaking to the lowest common denominator.
+
+00:16:25.000 --> 00:16:34.000
+Okay, so Clipper is I love the XKCD comment. There are 14 competing standards.
+
+00:16:34.000 --> 00:16:45.000
+Let's write a universal standard that unites them all. Now there's 15 competing standards. And Clipper is yet another interledger protocol
+
+00:16:45.000 --> 00:16:59.000
+So hopefully my goal with the presentation today is to motivate why. Get your feedback and explain what we're doing, how we're doing it, and why we're excited about it.
+
+00:16:59.000 --> 00:17:01.000
+Okay
+
+00:17:01.000 --> 00:17:06.000
+So Clipper was just released
+
+00:17:06.000 --> 00:17:21.000
+From Hedera to the LFDT and turning over the trademark and the copyright and logo and all that. We're standing up a lab on our way to becoming a project
+
+00:17:21.000 --> 00:17:31.000
+And we're very excited to welcome anybody that's interested in participating and growing Clipper and improving it and
+
+00:17:31.000 --> 00:17:34.000
+Oh, working on it.
+
+00:17:34.000 --> 00:17:35.000
+Okay.
+
+00:17:35.000 --> 00:17:41.000
+So let me get to my slideshow here
+
+00:17:41.000 --> 00:17:47.000
+And this is an LFDT slide deck. So
+
+00:17:47.000 --> 00:17:55.000
+We just turn it over and I am in charge of building the lab and facilitating the community.
+
+00:17:55.000 --> 00:18:07.000
+So bear with me as I learn. This is my first time interacting at this level with the LFDT. I've been a developer for Hashgraph and on the consensus node side
+
+00:18:07.000 --> 00:18:14.000
+And have not had to operate at the LFTT level. So I'm cutting my teeth.
+
+00:18:14.000 --> 00:18:16.000
+Okay.
+
+00:18:16.000 --> 00:18:17.000
+So I'm going to present
+
+00:18:17.000 --> 00:18:24.000
+We're a friendly crowd.
+
+00:18:24.000 --> 00:18:30.000
+I'm staring at the slides, so feel free to just speak up and interject.
+
+00:18:30.000 --> 00:18:43.000
+I'm going to explain my perception of the interledger communication problem, the various solutions and approaches categorically. And then the Clipper architecture.
+
+00:18:43.000 --> 00:18:55.000
+I don't have the full slide deck built out, and we probably don't have enough time to go through it anyway. I'm intending that for a 90 minute webinar deep dive in November
+
+00:18:55.000 --> 00:19:08.000
+If anybody is further interested in Clipper and wants to speak to me more directly, my name is my email is Edward at hashgraph.com
+
+00:19:08.000 --> 00:19:09.000
+But we'll go through the architecture and then hopefully we have time for a demo at the end. It shouldn't take too long.
+
+00:19:09.000 --> 00:19:16.000
+I am not.
+
+00:19:16.000 --> 00:19:19.000
+How many minutes do I have?
+
+00:19:19.000 --> 00:19:23.000
+to occupy
+
+00:19:23.000 --> 00:19:24.000
+Okay.
+
+00:19:24.000 --> 00:19:26.000
+Uh, the floor is yours, honestly. We're scheduled for the hour, um, so you're looking at 43 minutes right now.
+
+00:19:26.000 --> 00:19:28.000
+Wow. All right.
+
+00:19:28.000 --> 00:19:37.000
+Hopefully, I don't take that long, but if there's active discussion or feedback, that would be welcome. Thank you.
+
+00:19:37.000 --> 00:19:40.000
+Okay.
+
+00:19:40.000 --> 00:19:44.000
+So the Interledger communication problem
+
+00:19:44.000 --> 00:19:55.000
+You've got two networks and there are different types of ledgers. And let's say the left-hand side is a Besu network and the right-hand side is a hiero network.
+
+00:19:55.000 --> 00:20:07.000
+Besu is, of course, Ethereum based and data format and takes Ethereum or ETH as currency and a Hiro network
+
+00:20:07.000 --> 00:20:13.000
+as a data format and takes HBAR as currency.
+
+00:20:13.000 --> 00:20:21.000
+There are different consensus mechanisms, and there's really no internal way to send data between the two ledgers.
+
+00:20:21.000 --> 00:20:30.000
+So we're having to solve all of those types of problems. And I'm sure many of you are familiar with different interledger solutions
+
+00:20:30.000 --> 00:20:34.000
+or use them. And so there's a variety of approaches.
+
+00:20:34.000 --> 00:20:39.000
+So data format is one problem.
+
+00:20:39.000 --> 00:20:46.000
+Getting the payment for remote execution of the transactions that you send across is another.
+
+00:20:46.000 --> 00:20:54.000
+Getting the transaction to actually send between the two ledgers, how you do that
+
+00:20:54.000 --> 00:21:03.000
+And then translating trust between the ledgers. How do you get to trust the data that's being sent so you don't have fraud?
+
+00:21:03.000 --> 00:21:15.000
+Finally, you want an architecture for your protocol that is scalable and extensible to multiple ledger types.
+
+00:21:15.000 --> 00:21:20.000
+So the major approaches have been build a third layer type.
+
+00:21:20.000 --> 00:21:24.000
+One that's designed for interledger communication
+
+00:21:24.000 --> 00:21:29.000
+and you have essentially oracles that monitor the source chain on the left
+
+00:21:29.000 --> 00:21:45.000
+Submit data to the interledger ledger. And then push state changes to the destination ledger on the right. And you deploy smart contracts on either side to help with the process
+
+00:21:45.000 --> 00:21:50.000
+Use oracles to monitor chain state and
+
+00:21:50.000 --> 00:21:53.000
+So on and so forth
+
+00:21:53.000 --> 00:22:02.000
+As has been recent in the news, this is very error-prone. The fellows that tend to build the interledger solutions
+
+00:22:02.000 --> 00:22:08.000
+And the reliance on oracles or oracles are a huge attack vector
+
+00:22:08.000 --> 00:22:14.000
+And not everybody does their due diligence in performing these things, so
+
+00:22:14.000 --> 00:22:20.000
+You're diluting the trust model by adding yet another trustable entity in the middle.
+
+00:22:20.000 --> 00:22:29.000
+And you're creating a greater attack surface for hijacking assets. So I'm sure we've all heard of the layer 0 exploits.
+
+00:22:29.000 --> 00:22:33.000
+And there's other exploits in attacking oracles.
+
+00:22:33.000 --> 00:22:35.000
+So
+
+00:22:35.000 --> 00:22:39.000
+This is one approach.
+
+00:22:39.000 --> 00:22:45.000
+Another approach is to go straight for the oracles, take the ledger out of the middle, just monitor chain state
+
+00:22:45.000 --> 00:22:57.000
+On the source ledger, generate a standardized report format. And then on the destination ledger, have a contract that accumulates reports
+
+00:22:57.000 --> 00:23:04.000
+And then, once you've reached the threshold number of of independent reports, you can
+
+00:23:04.000 --> 00:23:08.000
+you know, execute the transaction that you want on the remote ledger.
+
+00:23:08.000 --> 00:23:17.000
+Again, this has failure scenarios where people can attack the oracles or emulate the oracles. And this has happened as well.
+
+00:23:17.000 --> 00:23:26.000
+This would be the Chainlink model. I'm not saying Chainlink was attacked, but just that oracles in general tend to be an attack vector, and you're relying on
+
+00:23:26.000 --> 00:23:38.000
+Whoever is standing up the Oracle system to do their due diligence and have secure process in place, redundancy and so on and so forth.
+
+00:23:38.000 --> 00:23:49.000
+Let me get to white clients. White clients are basically let's proxy the consensus trust layer from one network to another.
+
+00:23:49.000 --> 00:23:52.000
+Verify that trust layer
+
+00:23:52.000 --> 00:24:05.000
+And then process the data, verify that there's certain state is true or not true on the source ledger. And that is all done inside smart contracts in the destination ledger
+
+00:24:05.000 --> 00:24:14.000
+Here in the light clients, because you're relying on the trust of the source ledger, their consensus mechanism and state proof protocols
+
+00:24:14.000 --> 00:24:25.000
+You're not really trusting any intermediary. So your relays that monitor the chain state and then send the data forward are
+
+00:24:25.000 --> 00:24:28.000
+trustless. You know, basically
+
+00:24:28.000 --> 00:24:35.000
+Your ledger is not trusting their observations because what it's providing is an actual proof
+
+00:24:35.000 --> 00:24:40.000
+A state proof that their source chain state is the way it is.
+
+00:24:40.000 --> 00:24:44.000
+And my clients are complex beasts.
+
+00:24:44.000 --> 00:24:48.000
+But they still rely on
+
+00:24:48.000 --> 00:24:50.000
+smart contracts to be deployed
+
+00:24:50.000 --> 00:25:01.000
+And there's not much way getting around that unless the ledgers themselves incorporate the light client implementations into their own
+
+00:25:01.000 --> 00:25:07.000
+implementation of the ledger. That kind of gets to native integrations.
+
+00:25:07.000 --> 00:25:16.000
+Which is what Clipper is hoping to push for going from a like client model to inspiring the different ledgers to adopt
+
+00:25:16.000 --> 00:25:22.000
+A standardized communication protocol that they would implement natively so that the
+
+00:25:22.000 --> 00:25:35.000
+Each network has components that are willing to communicate with each other, exchange bundles of data and facilitate state proof progression
+
+00:25:35.000 --> 00:25:37.000
+Automatically
+
+00:25:37.000 --> 00:25:51.000
+And if the native chains implement those standardized protocols, we kind of get rid of this third party perspective of needing to trust another implementation or another
+
+00:25:51.000 --> 00:25:54.000
+Mechanism here
+
+00:25:54.000 --> 00:26:04.000
+So Clipper is a way to approach the hybrid picture between light clients and native integrations.
+
+00:26:04.000 --> 00:26:10.000
+It's got some design principles I'll go over here in just a second.
+
+00:26:10.000 --> 00:26:12.000
+Okay.
+
+00:26:12.000 --> 00:26:23.000
+So again, comparing these approaches in the intermediate ledger case, the destination ledger cannot see or trust the source ledger.
+
+00:26:23.000 --> 00:26:27.000
+and must completely trust the 3rd party intermediate ledger.
+
+00:26:27.000 --> 00:26:37.000
+In the Oracle-based solutions, the destination ledger cannot see or trust the source ledger and must completely trust the third party oracles.
+
+00:26:37.000 --> 00:26:42.000
+With like clients, we do see the consensus mechanism being proxied
+
+00:26:42.000 --> 00:26:47.000
+And this is done with the help of deployed smart contracts
+
+00:26:47.000 --> 00:26:51.000
+And then in native integrations
+
+00:26:51.000 --> 00:27:07.000
+you know, the ledgers are going to trust each other directly and natively implement the translation of trust and the translation of data formats necessary to communicate with each other.
+
+00:27:07.000 --> 00:27:14.000
+So this is a run through of the Clipper architecture, and these are the design principles behind Clipper.
+
+00:27:14.000 --> 00:27:22.000
+It is a messaging protocol, and that means any effort to do asset management is left to the application layer.
+
+00:27:22.000 --> 00:27:29.000
+We're just focused on transferring data between the ledgers and making sure the data gets there.
+
+00:27:29.000 --> 00:27:39.000
+We do want to preserve ABFT semantics. So if the destination and the source ledgers are asynchronous Byzantine fault tolerant
+
+00:27:39.000 --> 00:27:51.000
+The in-order message handling preserves that as well as the eventual message delivery. So you can have an arbitrary amount of time in between message deliveries.
+
+00:27:51.000 --> 00:28:02.000
+But that the message will eventually get there. And what that means is you can't time a message out because that could be an attack vector.
+
+00:28:02.000 --> 00:28:18.000
+The clipper should be modular and scalable, so extensibility to arbitrary consensus, state proof and data formats without needing to rework existing implementations.
+
+00:28:18.000 --> 00:28:34.000
+And then the goal is to inspire native integration. If it's a good enough standard and there's enough economic activity using the reference implementations, then a ledger might be inspired to go ahead and adopt the implementation natively
+
+00:28:34.000 --> 00:28:38.000
+And make it part of their ledgers protocols.
+
+00:28:38.000 --> 00:28:40.000
+Okay.
+
+00:28:40.000 --> 00:28:49.000
+And then one of the other things that Clipper tries to do is make sure that we have a mechanism of facilitating remote execution
+
+00:28:49.000 --> 00:29:00.000
+By compensating the relays and paying for the remote execution. So there's a methodology for facilitating payments.
+
+00:29:00.000 --> 00:29:13.000
+And that's not transfer of assets. This is paying for the execution of the protocol, just getting the data across and the handling of the execution of the transaction on the remote side
+
+00:29:13.000 --> 00:29:22.000
+So in component diagram pictures here, the each ledger has their own Clipper service.
+
+00:29:22.000 --> 00:29:30.000
+Which is either deployed as a smart contract to that ledger or written as a native service or smart contract.
+
+00:29:30.000 --> 00:29:33.000
+And the Clipper service is responsible
+
+00:29:33.000 --> 00:29:40.000
+for communicating between all of the on-chain components and routing messages
+
+00:29:40.000 --> 00:29:48.000
+Updating state and bookkeeping in the communication between different ledgers
+
+00:29:48.000 --> 00:29:55.000
+Of course, we want our applications to be able to send and receive messages, and they do that directly to the Clipper service.
+
+00:29:55.000 --> 00:30:04.000
+The Clipper applications are completely unaware of state proofs or any of the consensus mechanisms or trust
+
+00:30:04.000 --> 00:30:10.000
+The Clipper application basically trusts the Clipper service, and the Clipper service is written to to
+
+00:30:10.000 --> 00:30:15.000
+hide all those details
+
+00:30:15.000 --> 00:30:19.000
+Once the Clipper service receives a message
+
+00:30:19.000 --> 00:30:27.000
+It will put it on an outgoing message queue in destination to a particular ledger. We call these channels
+
+00:30:27.000 --> 00:30:40.000
+So the Clipper service will update the state of the channel and a channel indicates that it's an intended communication for a specific Clipper service on a specific remote ledger.
+
+00:30:40.000 --> 00:30:54.000
+So if Ledger X can speak to ledger Y and ledger Z, those will be two different channels. You can also have multiple channels between Ledger X and Ledger Y.
+
+00:30:54.000 --> 00:31:06.000
+Since the channel state is on chain, you need some entity that is going to scrape the on-chain state from the Clipper service, looking at the different channels
+
+00:31:06.000 --> 00:31:16.000
+and then bundling up that data in order to exchange it with similar endpoints on the remote side. So we call these Clipper endpoints
+
+00:31:16.000 --> 00:31:33.000
+A Clipper endpoints are tailored to specific ledgers, and they're designed to monitor the chain state and know how to submit transactions to that ledger. So this is the kind of the fluidity here
+
+00:31:33.000 --> 00:31:35.000
+Clipper endpoints insulate
+
+00:31:35.000 --> 00:31:39.000
+specific chain state. I see a raised hand, Justin.
+
+00:31:39.000 --> 00:31:56.000
+Yeah, um, so yeah, this is… for me, this is kind of the… one of the most important parts here, where I want to understand how we're not just reinventing a bridge. So, for instance, the Clipper endpoints are the same color as the ledger, but they are outside of the ledger.
+
+00:31:56.000 --> 00:32:01.000
+In this diagram. So, like, what
+
+00:32:01.000 --> 00:32:10.000
+How is that not just a bridge, I guess, is my question. To me, I see those endpoints being an off-chain end.
+
+00:32:10.000 --> 00:32:15.000
+entity that still requires trust.
+
+00:32:15.000 --> 00:32:25.000
+So even with like clients where they're considered to be bridgeless, there's no trust of the relay Because the trust is in the state proof
+
+00:32:25.000 --> 00:32:36.000
+This is basically a light client model where these are relays, the trust is in the state proof, and I'll get that to that in the next slide.
+
+00:32:36.000 --> 00:32:38.000
+You know.
+
+00:32:38.000 --> 00:32:43.000
+what people call a bridge can vary from person to person.
+
+00:32:43.000 --> 00:32:46.000
+And a bridge
+
+00:32:46.000 --> 00:32:50.000
+You know, if we consider layer 0 a bridge
+
+00:32:50.000 --> 00:32:57.000
+or wormhole or any of those where they have a full ledger in between.
+
+00:32:57.000 --> 00:33:02.000
+And they have custody of assets. That's one form of bridge.
+
+00:33:02.000 --> 00:33:10.000
+And then someone might consider just the relay in a light client, like IBC's light client's bridges
+
+00:33:10.000 --> 00:33:14.000
+But in terms of trust
+
+00:33:14.000 --> 00:33:21.000
+You're not trusting the bridge. You do need somebody to pump the data back and forth.
+
+00:33:21.000 --> 00:33:26.000
+There's no getting around that. Like, ledgers were not designed themselves to communicate across ledgers
+
+00:33:26.000 --> 00:33:39.000
+They're all walled gardens, and you need something, some sort of compute to introspect state and ship it up and bundle it and send it to the other side.
+
+00:33:39.000 --> 00:33:47.000
+So, the responsibility of these Clipper endpoints is to monitor source chain state, and it's to construct state proofs
+
+00:33:47.000 --> 00:33:49.000
+of the data
+
+00:33:49.000 --> 00:33:54.000
+In the native state proof format of the source ledger.
+
+00:33:54.000 --> 00:33:56.000
+And to
+
+00:33:56.000 --> 00:34:12.000
+What happens is these endpoints, they sync with each other and exchange bundles. You know, the teal guy has something for the orange guy on the right and the orange guy on the right has something for the teal guy on the left. They exchange bundles
+
+00:34:12.000 --> 00:34:23.000
+What happens is the receiving Clipper endpoint wraps that bundle, treats it as opaque bytes because it's a data format and a state proof format that it doesn't understand.
+
+00:34:23.000 --> 00:34:29.000
+wraps it in a transaction and submits it to the Clipper service in the destination ledger
+
+00:34:29.000 --> 00:34:44.000
+And the Clipper service doesn't speak the foreign ledger data format or the state proof format. So it calls the verifier contract and says, hey, I've got this bundle of data, can you check that it state proof checks out
+
+00:34:44.000 --> 00:34:49.000
+And can you hand me back the data in a data format I understand?
+
+00:34:49.000 --> 00:34:50.000
+So the trust here is in the implementation of the verifier contracts that they are able to properly and validate the state proofs from the source ledger
+
+00:34:50.000 --> 00:35:01.000
+Okay.
+
+00:35:01.000 --> 00:35:06.000
+and translate the data to the destination letters data format. Gary.
+
+00:35:06.000 --> 00:35:10.000
+Okay.
+
+00:35:10.000 --> 00:35:11.000
+You're on mute.
+
+00:35:11.000 --> 00:35:19.000
+Oh, I heard Justin pipe in there if you want to have a follow-up, Justin.
+
+00:35:19.000 --> 00:35:21.000
+Yeah, um…
+
+00:35:21.000 --> 00:35:28.000
+I'm wondering about what you're handling synchrony, because, you know, I…
+
+00:35:28.000 --> 00:35:43.000
+On the Ethereum side, there's certainly no guarantee about the inclusion of any particular bundle. Fossil is coming and that will give us some bounds around executable transactions that should be included, but it's certainly not like single slot.
+
+00:35:43.000 --> 00:35:55.000
+guarantees of inclusion. So how is Clipper handling, like, periods of peak traffic, or periods of, you know, adversarial conditions where bundles aren't being included cross-ledger?
+
+00:35:55.000 --> 00:36:02.000
+Yeah, that gets a little bit deeper than this current presentation level of detail.
+
+00:36:02.000 --> 00:36:04.000
+But
+
+00:36:04.000 --> 00:36:07.000
+So in
+
+00:36:07.000 --> 00:36:13.000
+I'm assuming that the execution model is basically single threaded. It is for Hairo.
+
+00:36:13.000 --> 00:36:17.000
+That only one
+
+00:36:17.000 --> 00:36:23.000
+Thread space executes at a time in order to modify state. And that gives a kind of
+
+00:36:23.000 --> 00:36:28.000
+guarantee that state changes are not being done in parallel.
+
+00:36:28.000 --> 00:36:36.000
+So when a Clipper application calls the Clipper service, it's in the same thread space and the update of the queue
+
+00:36:36.000 --> 00:36:42.000
+is in the same thread space. So the queue is first come, first serve in order
+
+00:36:42.000 --> 00:36:49.000
+And then things are bundled up in order so things can't get out of order. And there's a running hash
+
+00:36:49.000 --> 00:36:56.000
+across all the messages in the queue to guarantee that the order is preserved on the receiving side. So
+
+00:36:56.000 --> 00:37:07.000
+The clipper endpoints are not able to reorder the messages. The receiving Clipper service validates that the running hash checks off that it left off
+
+00:37:07.000 --> 00:37:24.000
+It resumes from the point of the last message it had received when it processes a bundle. And then every message that's in the bundle is in order and that the running hash advances properly and derives the state proven expectation of the result of the running hash at the end of processing
+
+00:37:24.000 --> 00:37:26.000
+the messages in the bundle.
+
+00:37:26.000 --> 00:37:30.000
+Because that address your question, Gary, or
+
+00:37:30.000 --> 00:37:45.000
+I mean, it sounds like there's… it's a… it's a single-threaded pipeline for inclusion of bundles across Clipper, so, like, everybody gets in line to get a cross-ledger transaction, and a stall of
+
+00:37:45.000 --> 00:37:50.000
+somebody at the head of the line is going to stall everybody in the line.
+
+00:37:50.000 --> 00:37:53.000
+Is that accurate?
+
+00:37:53.000 --> 00:37:59.000
+So when you say stall, I'm curious what that means. So
+
+00:37:59.000 --> 00:38:10.000
+Well, if we have… if we're reliant on a, like, the entire state, um, like a state root of the entire state, then these transactions have to execute in a sequential order.
+
+00:38:10.000 --> 00:38:11.000
+Yes.
+
+00:38:11.000 --> 00:38:30.000
+If transaction A is not included because for censorship reasons or adversarial conditions or just high contention for limited block space, that's that would hold up.
+
+00:38:30.000 --> 00:38:31.000
+Yeah.
+
+00:38:31.000 --> 00:38:35.000
+Any… any prior transactions as well, I assume, right? Because they can't… they would not order… it would not execute in parallel, or just in a first-come… it is first-come, first-served, but like, uh…
+
+00:38:35.000 --> 00:38:38.000
+Yeah, yeah, yeah.
+
+00:38:38.000 --> 00:38:39.000
+execute when ready.
+
+00:38:39.000 --> 00:38:40.000
+Yeah, so
+
+00:38:40.000 --> 00:38:55.000
+Under the hood. There is a communication of throttles that occurs along a channel. So where if one ledger says, I don't want any application transactions to go over, you know.
+
+00:38:55.000 --> 00:39:02.000
+5 million gaps or something or Ethereum is not my native language, so I'm not
+
+00:39:02.000 --> 00:39:13.000
+Totally familiar on what realistic throttles would be. But basically there's ways of setting throttles and saying that if you're going to send a message, it needs to conform to this form.
+
+00:39:13.000 --> 00:39:31.000
+Before I'm willing to receive it and that throttle is communicated along the channel. And it gates. You're trusting the source Clipper service to enforce those throttles and shaping of the execution of the message
+
+00:39:31.000 --> 00:39:43.000
+Now, if the application on the destination ledger, it executes the message, it handles it. And it reverts the Clipper service is going to absorb the reversion
+
+00:39:43.000 --> 00:39:50.000
+And bundle up a reply response, saying basically the execution of this failed, and send that back to the source ledger.
+
+00:39:50.000 --> 00:39:55.000
+In terms of any kind of manipulation or blocking
+
+00:39:55.000 --> 00:40:01.000
+You know, there's going to be ranching guards. So
+
+00:40:01.000 --> 00:40:09.000
+I'm not totally clear on the ways that things can fail. I'm going to have to bone up on that. But we have
+
+00:40:09.000 --> 00:40:15.000
+So is there a specific scenarios that you have questions about
+
+00:40:15.000 --> 00:40:17.000
+Um…
+
+00:40:17.000 --> 00:40:32.000
+Mostly, it's about inclusion guarantees, because I think that if you want to offer a cross-ledger experience, you want it to be time-bound. Um, and, you know, Ethereum block time, at least L1 block time, is currently 12 seconds.
+
+00:40:32.000 --> 00:40:45.000
+Like if ideally, you would want to time bound your cross-ledger transaction time to the slowest slot time of either chain. But the thing is that 12 seconds can become 24, can become 36, can become 48.
+
+00:40:45.000 --> 00:40:47.000
+Sure.
+
+00:40:47.000 --> 00:40:52.000
+If you don't have inclusion guarantees, then…
+
+00:40:52.000 --> 00:41:00.000
+You know, the user experience for that cross-chain transaction, that cross-bridge, sorry, cross-ledger transaction is…
+
+00:41:00.000 --> 00:41:02.000
+Right
+
+00:41:02.000 --> 00:41:03.000
+Yeah.
+
+00:41:03.000 --> 00:41:12.000
+kind of open-ended. So that's why I was asking. I think the reason I'm asking this is because I'm looking at the Ethereum Economic Zone, you know, L1, L2 real-time synchronous composability, and it.
+
+00:41:12.000 --> 00:41:26.000
+Honestly has the exact same problems. There's no guarantee, certainly not today, and there's weak guarantees in the future about a time to inclusion for your composed transaction. So I'm just kind of…
+
+00:41:26.000 --> 00:41:29.000
+I had comparing Clipper to EEZ.
+
+00:41:29.000 --> 00:41:41.000
+Yeah. You know, if there's a network outage, it's an asynchronous messaging protocol, so the amount of time that could go in between is arbitrary.
+
+00:41:41.000 --> 00:41:53.000
+If all of the components are up and running, then the amount of time is basically related to the depth of the queue and how fast you can get things to get processed on either end through the consensus layers.
+
+00:41:53.000 --> 00:42:09.000
+On the Ethereum side, there's really no guarantee, because people can construct blocks in arbitrary ways. So somebody could, you know, maliciously leave your transaction out, or if you're not spicing things up with
+
+00:42:09.000 --> 00:42:14.000
+Enough of a bonus to get the message through into a block
+
+00:42:14.000 --> 00:42:20.000
+You know, you're gonna have that delay as well. You're going to be waiting for downtime on the Ethereum side.
+
+00:42:20.000 --> 00:42:26.000
+I don't know how people get around that right now.
+
+00:42:26.000 --> 00:42:29.000
+But
+
+00:42:29.000 --> 00:42:32.000
+The Clipper semantics is
+
+00:42:32.000 --> 00:42:35.000
+eventual processing
+
+00:42:35.000 --> 00:42:36.000
+Okay.
+
+00:42:36.000 --> 00:42:45.000
+So some downtime occurs and then the message get through. There's not going to be a guarantee of within a certain amount of time.
+
+00:42:45.000 --> 00:43:00.000
+on the Ethereum side, Fossil is a fork choice enforced inclusion list is like an anti-censorship measure that is included in the Hagota hard fork, so just FYI, that will help put
+
+00:43:00.000 --> 00:43:10.000
+Some soft bound on how long a Clipper transaction might, you know, composed Clipper transaction might take when Ethereum is ledger Y, in this case or ledger.
+
+00:43:10.000 --> 00:43:15.000
+X, whichever, when it's involved in the cross-ledger.
+
+00:43:15.000 --> 00:43:17.000
+you know, transaction.
+
+00:43:17.000 --> 00:43:18.000
+Just FYI.
+
+00:43:18.000 --> 00:43:20.000
+Okay.
+
+00:43:20.000 --> 00:43:23.000
+Great, thank you.
+
+00:43:23.000 --> 00:43:28.000
+Any follow-up on that?
+
+00:43:28.000 --> 00:43:29.000
+Okay.
+
+00:43:29.000 --> 00:43:33.000
+Hi, sorry, I didn't put my hand up. I had a question if that's right, Edward.
+
+00:43:33.000 --> 00:43:35.000
+Yes.
+
+00:43:35.000 --> 00:43:50.000
+Yeah, I was keen to understand, maybe on a different tack, maybe where you see this fitting in terms of ledgers that are permissioned
+
+00:43:50.000 --> 00:44:05.000
+private, you know, typical enterprise scenarios compared to things like public chains, mainnets running thousands of nodes where everyone needs to be running nodes at the same hard fork and with agreed
+
+00:44:05.000 --> 00:44:21.000
+You know, agreed behaviors at a given level across lots of intentionally, heterogeneous client implementations. You know, Aragon, Geth, ref, Besu and so on. In terms of all the
+
+00:44:21.000 --> 00:44:36.000
+components here. To me, this looks like something that is potentially suitable for the kind of permissioned world where you have small number of nodes, and you tend to have control over which clients you're running and what
+
+00:44:36.000 --> 00:44:45.000
+consensus algorithms they're using on each ledger, and so on and so on. And you have quite a small number of
+
+00:44:45.000 --> 00:44:49.000
+pairs of ledgers, I guess, that you might be wanting to bridge between
+
+00:44:49.000 --> 00:45:03.000
+I'm just trying to… I guess my… my general question is, do you have a view for if and how this can fit into the public space versus the permission space?
+
+00:45:03.000 --> 00:45:05.000
+Yes.
+
+00:45:05.000 --> 00:45:14.000
+You know, at Hashgraph, we developed the HARO networks. HARO networks can be set up private as well as public
+
+00:45:14.000 --> 00:45:29.000
+And our goal is to facilitate intellectual communication with my demonstration later on, if I get to it, is between a Besu network and a Hiro network communicating to each other
+
+00:45:29.000 --> 00:45:33.000
+It
+
+00:45:33.000 --> 00:45:37.000
+Hairo has a native implementation of Clipper
+
+00:45:37.000 --> 00:45:45.000
+And Besu has a smart track contract where the Clipper endpoint is a separate compute
+
+00:45:45.000 --> 00:45:55.000
+From the Besu validator, but on the Hiro side, the Clipper endpoint is integrated into the consensus node. So they can talk directly to each other
+
+00:45:55.000 --> 00:46:05.000
+The intent is that this was deployable in both public ledger scenarios, but as well as private ledgers.
+
+00:46:05.000 --> 00:46:21.000
+And the model that we have is basically a private ledger is like a submarine that can stay under the water and be inaccessible until it comes to the surface and decides it wants to do a sink with a public network or another private network
+
+00:46:21.000 --> 00:46:33.000
+And its endpoints would talk directly to the endpoints of that ledger, perform the bundle exchanges, and then go back to being incognito
+
+00:46:33.000 --> 00:46:37.000
+you know, it wouldn't advertise necessarily its endpoints
+
+00:46:37.000 --> 00:46:42.000
+You know, and so it could preserve its privacy that way.
+
+00:46:42.000 --> 00:47:03.000
+Yeah, yeah, I think that's really interesting. Yeah, and I don't want to delay because a live demo is always great to see. I guess it's the, you know, you talk about the standardization of doing this between ledges is really appealing. I guess that standardization here is a number of things. It's
+
+00:47:03.000 --> 00:47:13.000
+It's the protocol between the Clipper endpoints, I guess, and it's the… I assume there are smart contracts on both ledges, is that right?
+
+00:47:13.000 --> 00:47:14.000
+Yes.
+
+00:47:14.000 --> 00:47:24.000
+And I guess the smart contracts on each ledger, are they specific to each ledger-to-ledger pairing
+
+00:47:24.000 --> 00:47:32.000
+Right. So I'm a very color oriented person, so I've got this color coded here where
+
+00:47:32.000 --> 00:47:37.000
+you know, Ledger X is teal, and Ledger Y is orange.
+
+00:47:37.000 --> 00:47:50.000
+And what you have on Ledger X is a smart contract that's designed to translate from orange to teal, the verifier contract.
+
+00:47:50.000 --> 00:47:51.000
+Hmm.
+
+00:47:51.000 --> 00:47:53.000
+So the Orange Clipper endpoint monitors the orange ledger Y, bundles up its chain state
+
+00:47:53.000 --> 00:48:10.000
+For the Clipper Protocol on a specific channel and then sends it to the Teal Clipper endpoint. That passes it through as an opaque bytes to the Clipper service. Clipper service looks at the channel and sees the verifier, finds the verifier contract for that channel
+
+00:48:10.000 --> 00:48:26.000
+And then hands the bundle over. That verifier that's designed to decode the orange ledger's data format state proofs does so in a trusted way and then hands the data decoded back, translated to the Clipper service or the Clipper service then hands it
+
+00:48:26.000 --> 00:48:31.000
+Over to the Clipper application.
+
+00:48:31.000 --> 00:48:47.000
+That totally makes sense. And I guess my last kind of question around the public chain case, before I'll let you carry on is like if you're looking at interaction between, let's say L1 Ethereum and
+
+00:48:47.000 --> 00:48:52.000
+And like L1 Tempo or something
+
+00:48:52.000 --> 00:48:58.000
+Do you see this as needing really kind of broad buy-in from
+
+00:48:58.000 --> 00:49:16.000
+from those ecosystems that this is the way to integrate between those ledgers, and this is where the contracts exist for those… for that pairing, and clients need to buy into integrating these… this kind of… this endpoint technology and so on into their clients, so that
+
+00:49:16.000 --> 00:49:28.000
+Anyone who interacts with this contract for Interledger communication, they know that all the clients across that permission space will implement that and work with that.
+
+00:49:28.000 --> 00:49:43.000
+That's the kind of standardization effort that I perceive from what you're describing here that would be needed for big L1 to L1 intercommunication, unless I've… unless I've misunderstood it slightly.
+
+00:49:43.000 --> 00:49:47.000
+No, I think you have it correctly. So
+
+00:49:47.000 --> 00:49:53.000
+Let me see how many more slides there are. There's only a few more slides here.
+
+00:49:53.000 --> 00:49:57.000
+Do carry on if you want to carry on, and that'll kind of help answer that as you go.
+
+00:49:57.000 --> 00:50:03.000
+Yeah. So
+
+00:50:03.000 --> 00:50:10.000
+In the Hyro case, we've integrated a native implementation of Clipper.
+
+00:50:10.000 --> 00:50:23.000
+And the basically the Clipper services need to match the same protocol and the syncing bundle exchange process between the Clipper endpoints need to match
+
+00:50:23.000 --> 00:50:32.000
+But the and that leaves the verifier contracts as kind of the translation points of plugins of extensibility.
+
+00:50:32.000 --> 00:50:33.000
+So
+
+00:50:33.000 --> 00:50:35.000
+Let's say I have
+
+00:50:35.000 --> 00:50:43.000
+an existing Clipper ecosystem that has 9 different ledger types, or 10 different ledger types, and I want to add one more
+
+00:50:43.000 --> 00:50:54.000
+It's a brand new type, which means it needs its Clipper service implemented correctly. It needs a Clipper endpoint
+
+00:50:54.000 --> 00:50:58.000
+code base to translate and understand its ledger type
+
+00:50:58.000 --> 00:51:02.000
+And this is where the complexity comes in. You need
+
+00:51:02.000 --> 00:51:05.000
+N new verifiers
+
+00:51:05.000 --> 00:51:11.000
+To deploy to the other pre-existing
+
+00:51:11.000 --> 00:51:23.000
+Chains types. And so that would translate. So that's N verifiers for the new ledger type. Deployable to the existing ledger types.
+
+00:51:23.000 --> 00:51:31.000
+And then you need n verifiers on the new ledger type that translate from the source ledger types.
+
+00:51:31.000 --> 00:51:38.000
+So there's a 2N implementation effort on the verifier contract level to facilitate
+
+00:51:38.000 --> 00:51:42.000
+The reintegration so that something can talk
+
+00:51:42.000 --> 00:51:45.000
+Point-to-point
+
+00:51:45.000 --> 00:51:47.000
+With all the different ledger types.
+
+00:51:47.000 --> 00:51:50.000
+Cool, thank you, that's really useful information. Thanks.
+
+00:51:50.000 --> 00:51:59.000
+Yeah. Okay. So the final component in this picture is the connector. And this is an entity
+
+00:51:59.000 --> 00:52:12.000
+Just like we have channels that kind of bridge the two ledgers, facilitating, so channel is on one side is indicating the outgoing message queue, channel on the other side is indicating its outgoing message queue
+
+00:52:12.000 --> 00:52:22.000
+A connector binds to a channel on either end, and a connector is a financial entity that's willing to put
+
+00:52:22.000 --> 00:52:25.000
+Funds in the native currency of both ledgers
+
+00:52:25.000 --> 00:52:34.000
+And bind to the channel and then facilitate communication across the channel, paying for the execution of the transaction.
+
+00:52:34.000 --> 00:52:47.000
+So when the Clipper application submits a message, it provides four pieces of information. The channel ID, which is going to determine its destination ledger and Clipper service.
+
+00:52:47.000 --> 00:52:57.000
+The connector to use to pay for the remote execution, the target application on the remote ledger, and the data payload that it wants to send to that remote ledger
+
+00:52:57.000 --> 00:53:03.000
+The Clipper service then asks locally the connector
+
+00:53:03.000 --> 00:53:10.000
+Given all this data, are you willing to subsidize the execution of the transaction of this message on the remote ledger?
+
+00:53:10.000 --> 00:53:27.000
+The connector has the ability to say yes or no. If it says no, the the attempt to send the message is rejected and handed back to the application. If it says yes, the Clipper service then enqueues the message bundle message data on the outgoing message queue
+
+00:53:27.000 --> 00:53:34.000
+The Clipper endpoint for that source ledger packages it up at some point. You know, it pulls
+
+00:53:34.000 --> 00:53:41.000
+Periodically monitors chain state, sees that there's a message waiting to be sent, bundles it up, sends it to the remote Clipper endpoint
+
+00:53:41.000 --> 00:53:45.000
+The remote endpoint sends it to the Clipper service.
+
+00:53:45.000 --> 00:54:02.000
+It's handled the remote Clipper application is invoked, and then a response message is sent back. So the connector is committing to to pay for the remote execution of the sent message as well as the response message that comes back
+
+00:54:02.000 --> 00:54:05.000
+Across Clipper
+
+00:54:05.000 --> 00:54:06.000
+Okay.
+
+00:54:06.000 --> 00:54:24.000
+So without this connector bridging it, things get kind of gummed up. You're waiting for somebody to pay it. Nobody wants to lose money on the transaction. So this, the presence of this connector is basically lubricant to facilitate. Ultimately, it's the application that pays the connector
+
+00:54:24.000 --> 00:54:35.000
+Enough to facilitate and the connectors responsible for making sure there's enough liquidity on either end to pay for the incoming transactions that it's responsible for.
+
+00:54:35.000 --> 00:54:40.000
+Connectors are bonded, so if they misbehave, they'll be slashed.
+
+00:54:40.000 --> 00:54:43.000
+Okay.
+
+00:54:43.000 --> 00:54:50.000
+All right, so when you create the channel, you specify the verifier contracts on either side.
+
+00:54:50.000 --> 00:54:52.000
+And
+
+00:54:52.000 --> 00:54:56.000
+And that's kind of where the magic comes in.
+
+00:54:56.000 --> 00:55:08.000
+Of flexibility where the verifier contract. You can deploy a brand new verifier contract and that will translate from a new ledger you're integrating.
+
+00:55:08.000 --> 00:55:14.000
+Into the native data of the Clipper service. So the Clipper service contract doesn't have to
+
+00:55:14.000 --> 00:55:16.000
+Be updated
+
+00:55:16.000 --> 00:55:26.000
+You just deploy a new verifier contract when you want to extend the capability of what types of ledgers it wants to communicate with.
+
+00:55:26.000 --> 00:55:28.000
+Okay.
+
+00:55:28.000 --> 00:55:33.000
+So in my demonstration
+
+00:55:33.000 --> 00:55:42.000
+Besu… on the Besu side, everything is in smart contracts. The Clipper endpoint for the Besu side is external compute
+
+00:55:42.000 --> 00:55:45.000
+And on the Hairo side.
+
+00:55:45.000 --> 00:55:51.000
+The Clipper endpoint is actually integrated into the consensus node
+
+00:55:51.000 --> 00:56:02.000
+So the higher side is native implementation and the Besu side is a
+
+00:56:02.000 --> 00:56:10.000
+Is a separate compute. Okay, I'm going to have to stop sharing and then I'll share my demo screen.
+
+00:56:10.000 --> 00:56:18.000
+Or I'll just bring things over. Okay.
+
+00:56:18.000 --> 00:56:22.000
+Okay
+
+00:56:22.000 --> 00:56:31.000
+So I'm telling my application to send from Besu round trip through Hairo.
+
+00:56:31.000 --> 00:56:34.000
+And it's tracing here that it's gone through the Beso network
+
+00:56:34.000 --> 00:56:39.000
+hits higher and then comes back to Besu
+
+00:56:39.000 --> 00:56:52.000
+And to prove I'm not lying, there's the links here for the explorers of the respective networks. This one's on the Hiro side and you can see the transaction
+
+00:56:52.000 --> 00:56:53.000
+Come up
+
+00:56:53.000 --> 00:57:03.000
+Oh, great.
+
+00:57:03.000 --> 00:57:06.000
+Let me
+
+00:57:06.000 --> 00:57:09.000
+Okay, it's telling me I'm a liar.
+
+00:57:09.000 --> 00:57:10.000
+I think
+
+00:57:10.000 --> 00:57:11.000
+You go to a live demo and it messes up on you
+
+00:57:11.000 --> 00:57:16.000
+Yeah, I think… I think there's an extra 5 that you have to put down in URL.
+
+00:57:16.000 --> 00:57:17.000
+You missed it in the copy
+
+00:57:17.000 --> 00:57:21.000
+Oh, okay. I didn't copy properly.
+
+00:57:21.000 --> 00:57:23.000
+Okay.
+
+00:57:23.000 --> 00:57:36.000
+All right. So on the Hyro side, it's the mirror node that I need.
+
+00:57:36.000 --> 00:57:50.000
+That's the data. Okay.
+
+00:57:50.000 --> 00:57:52.000
+So here we have the
+
+00:57:52.000 --> 00:58:05.000
+This was an initiation on Besu. It went through the Clipper endpoints, got proxyed, got processed on Hiro. It's a ping pong contract. So basically it just goes back and forth.
+
+00:58:05.000 --> 00:58:11.000
+And then it goes back to Bayesian, and you know I had
+
+00:58:11.000 --> 00:58:16.000
+Claude set up this nice little log of of presenting links.
+
+00:58:16.000 --> 00:58:18.000
+To the demo here.
+
+00:58:18.000 --> 00:58:26.000
+And it can go both ways. So whether you initiate on the high risk side or the Besu side, it's there.
+
+00:58:26.000 --> 00:58:35.000
+Okay, we've got four minutes left in the hour. That's as much as I had to present today.
+
+00:58:35.000 --> 00:58:39.000
+I really appreciate everybody's time and attention.
+
+00:58:39.000 --> 00:58:48.000
+And if there's any further questions I can answer or if you want to reach me
+
+00:58:48.000 --> 00:58:49.000
+You can email me at Edward@hashgraph.com.
+
+00:58:49.000 --> 00:59:01.000
+No, I was just actually going to throw to you. So go ahead, Gary. Thanks, Edward. This is great.
+
+00:59:01.000 --> 00:59:08.000
+I will circulate this amongst anybody that I think might be interested in the matter.
+
+00:59:08.000 --> 00:59:10.000
+Appreciate, uh, appreciate you sharing that.
+
+00:59:10.000 --> 00:59:13.000
+Yeah, thank you.
+
+00:59:13.000 --> 00:59:14.000
+Yeah, thank you very much, Edward.
+
+00:59:14.000 --> 00:59:24.000
+And I'll express this because I think we are interested is in a possible native implementation to ship with Besu
+
+00:59:24.000 --> 00:59:38.000
+I don't know if y'all would be interested in that. You know, right now we're just deploying a smart contracts, and we're setting up bespoke Besu networks so that our enterprise customers that run Besu nodes can
+
+00:59:38.000 --> 00:59:48.000
+Use Clipper. But if Besu is interested in a native implementation, we'd be open to exploring that further.
+
+00:59:48.000 --> 00:59:49.000
+Okay.
+
+00:59:49.000 --> 00:59:51.000
+That sounds like a perfect case for a plug-in implementation.
+
+00:59:51.000 --> 00:59:58.000
+Yep.
+
+00:59:58.000 --> 01:00:10.000
+Yeah, and if you do try to implement it as a plugin and find limitations in the plugin framework, we'd love to hear about it, um, so we could, you know, make extensions to make that more viable.
+
+01:00:10.000 --> 01:00:11.000
+Awesome.
+
+01:00:11.000 --> 01:00:21.000
+Great! Perfect timing. Thanks again, folks. See you next month.
+
+01:00:21.000 --> 01:00:51.000
+That's all.
+

@@ -1,0 +1,755 @@
+WEBVTT
+
+00:15:44.000 --> 00:15:51.000
+And also we want it to be simple and intuitive enough for essentially anyone to use.
+
+00:15:51.000 --> 00:15:57.000
+So that's basically the design, the aims. We have.
+
+00:15:57.000 --> 00:16:18.000
+And again, I don't think I need to labor the use cases. We came across this idea of public key infrastructure as part of a trustworthy digital identity project because it kind of it it became apparent to us that if you're interested in doing a digital identity without the risks of centralized digital ID,
+
+00:16:18.000 --> 00:16:24.000
+But really trustworthy decentralized public key infrastructure is a solution to that problem.
+
+00:16:24.000 --> 00:16:49.000
+Because then you don't need centralized data collection, central databases. You can just have credentials held by individuals on their mobile app, their credential And then they can just present these credentials, the verifier, provided the verifier can access reliably the public key of the issuing authority.
+
+00:16:49.000 --> 00:17:11.000
+Then you basically get digital ID for free and alongside that, you get several other really important use cases like you can with the DID, the W3C standard for DIDs, you can verify URLs and avoid phishing attacks, that sort of thing, and QR code scams. You can verify the provenance of data because
+
+00:17:11.000 --> 00:17:29.000
+Anyone who publishes a data set of whether it's digital media or digital artifact, they can just sign it. And if you're able to access their public key then then you can verify that signature and then you know secure communication in general, you know.
+
+00:17:29.000 --> 00:17:41.000
+Driving a kind of digital, truly digital economy. So again, yeah, these use cases hopefully are very familiar to the trust over IP community.
+
+00:17:41.000 --> 00:18:00.000
+In a nutshell, what TrustChain does is it so uses decentralized networks and protocols And it aims to create a what we call a digital twin of existing relationships between institutions. So we're talking about hierarchical trust network But really what we're doing is we're doing is
+
+00:18:00.000 --> 00:18:17.000
+Creating a digital representation of existing trust relationships that already exist. And they should be genuine pre-existing relationships instead of synthetic trust relationships which only exist in order to sort of share public keys.
+
+00:18:17.000 --> 00:18:22.000
+So what does this look like? This is just one possible scenario, as I said.
+
+00:18:22.000 --> 00:18:33.000
+We want any user community to be able to set up such an infrastructure. But a really easy example to get very familiar would be sort of national digital ID system.
+
+00:18:33.000 --> 00:18:58.000
+And these um these key sort of icons representing public key certificates, which for us are did documents. So they are the documents that contain the public keys. And yeah, so the idea is that there are natural and pre-existing relationships of trust that are very familiar to everybody
+
+00:18:58.000 --> 00:19:19.000
+And we want to leverage those existing trust relationships instead of introducing you know synthetic ones with, you know, let's say certificate authorities that only really exist in order to create the public key infrastructure that is part of the digital infrastructure. We want to set up a digital infrastructure which itself
+
+00:19:19.000 --> 00:19:42.000
+Is verifiable and therefore the only the only trust required is in the institutions that we already recognize and trust to perform the relevant service. And then, of course, if we are able to access these public keys in a trustworthy way then of course at the bottom we have the the um
+
+00:19:42.000 --> 00:19:47.000
+Verifiable credentials, which is then just signed by the relevant authority.
+
+00:19:47.000 --> 00:20:04.000
+So again, hopefully all very familiar territory. So we decided we looked you know carefully I guess I want to look take a sort of take a look first principles look at the uh verifiable credentials and DID standards.
+
+00:20:04.000 --> 00:20:15.000
+And um at the heart of these standards is the idea of a verifiable data registry.
+
+00:20:15.000 --> 00:20:34.000
+So This is the key piece i think In the sense that if you… You can either trust a third party or the idea, the essence of the DID and VC standards is that instead of trusting a third party, we want to be able to verify
+
+00:20:34.000 --> 00:20:48.000
+The data registry itself. And that means the end user actually verifying information that is retrieved from that registry.
+
+00:20:48.000 --> 00:21:01.000
+Yeah, that's a great idea. But how exactly do we um how exactly are we going to realize such a such a data registry? What does it actually mean to be able to verify information that you've retrieved from a from a
+
+00:21:01.000 --> 00:21:14.000
+A verifiable registry. So yeah, so I just want to ask the question well what type of information can be verified cryptographically?
+
+00:21:14.000 --> 00:21:25.000
+There's not that many different ways you know cryptographic verification mechanisms So the first obvious one is digital signatures. We can verify a digital signature.
+
+00:21:25.000 --> 00:21:37.000
+And yeah, that's the whole reason for setting up a public key infrastructure in the first place is in order to be able to then verify the signatures of credential issuers and such.
+
+00:21:37.000 --> 00:21:45.000
+But in a hierarchical, in a hierarchical setting. We're not.
+
+00:21:45.000 --> 00:21:58.000
+Digital signatures alone are not going to be enough to support a decentralized public key infrastructure because, of course, there's a chicken and egg problem. Every digital signature requires knowledge of the public key.
+
+00:21:58.000 --> 00:22:07.000
+In order to verify it. So digital signatures are going to be a necessary ingredient, but they're not on their own they're not they're not sufficient.
+
+00:22:07.000 --> 00:22:19.000
+Hopefully that's uncontroversial. Another type of data that we can verify is the output of a cryptographic hash function. So it's a hash digest.
+
+00:22:19.000 --> 00:22:26.000
+And again, these are ubiquitous. They're used whenever you verify a digital signature, you're actually verifying the hash of the content.
+
+00:22:26.000 --> 00:22:36.000
+And also they're used on data registries like the IPFS decentralized distributed file system.
+
+00:22:36.000 --> 00:22:47.000
+So Hash Digests are interesting because we can verify that data hasn't changed since it was placed on the data registry. So it gives us a way to check for immutability.
+
+00:22:47.000 --> 00:22:58.000
+But again, in a decentralized setting, immutability alone is not going to be sufficient Because, well, anyone could have put the data there in the first place.
+
+00:22:58.000 --> 00:23:13.000
+We've still got this, what's sometimes referred to as the oracle problem So we need some kind of oracle to be able to confirm that was correct when it was placed on the data registry in the first place. So just being able to verify that it hasn't changed
+
+00:23:13.000 --> 00:23:18.000
+Since it was published, that alone is not going to be sufficient.
+
+00:23:18.000 --> 00:23:38.000
+And then there's a third type of information that nowadays we can verify cryptographically and that's we can verify timestamps. And the reason we can do that is because of the proof of work mechanism employed by notably Bitcoin And, you know, other proof of work-based
+
+00:23:38.000 --> 00:24:01.000
+Peer-to-peer networks. So, I mean, I would love to hear if there are, you know, differing opinions on this but Essentially, that to my knowledge is pretty much it in terms of verification mechanisms. I'm not mentioning zero knowledge proofs because I don't think that's a i mean they're interesting of course but they're not necessarily
+
+00:24:01.000 --> 00:24:06.000
+Going to be useful when you're trying to share public key information.
+
+00:24:06.000 --> 00:24:21.000
+So really the only three mechanisms that I'm aware of are these here. And since we've established the first two alone are not going to be sufficient, really by a process of elimination, we're obliged to consider time stamping.
+
+00:24:21.000 --> 00:24:33.000
+So that's what um That's what we're going to do. I just want to kind of drill down a little bit more into that and be very explicit about how timestamping is used in Trust Chain.
+
+00:24:33.000 --> 00:24:44.000
+So we want to verify that the public keys that we receive when we resolve a DID document We want to verify that they were published on a particular date.
+
+00:24:44.000 --> 00:24:56.000
+Again, hopefully this is quite familiar to anyone who knows about the open timestamp system that's built on top of Bitcoin. This is basically using the same mechanism.
+
+00:24:56.000 --> 00:25:10.000
+So we're assuming we've we've we have a DID, a decentralized identifier, and we've used it to resolve the DID document containing public keys and URL service endpoints.
+
+00:25:10.000 --> 00:25:18.000
+And we're using the ION DID method here, the trust chain basically wraps around an ion node.
+
+00:25:18.000 --> 00:25:47.000
+That's the identity overlay network. And what Ion does is it publishes it publishes its data, writes it into ipfs And then it also it then publishes the hash of the core index file, that gets published in a Bitcoin transaction.
+
+00:25:47.000 --> 00:26:10.000
+So how does this enable us to actually verify that the keys, this DID document was indeed published on a certain date well what we actually do is we resolve the did document And we then look inside it. We take the bytes of data that make up the public keys and the service endpoints. And we verify that they are
+
+00:26:10.000 --> 00:26:31.000
+Contained in this first file, the ion chunk file We check that those bites are actually contained in that file in the appropriate place. And then we hash the file and we obtain the the ID, the IPFS content ID, which is the address of that file on ipfs
+
+00:26:31.000 --> 00:26:38.000
+And then we essentially do a similar process two more times. We take that CID, that hash.
+
+00:26:38.000 --> 00:26:52.000
+We check that it's contained inside the next file, which is called a provisional index file. And then we hash that And then again, we carry on until we reach this core index file. The reason, by the way.
+
+00:26:52.000 --> 00:27:14.000
+Ion uses this kind of three levels of indirection is in order to better scale because every time ion publishes a DID document it's going to write a Bitcoin transaction. And so with uh by by by writing them in this sequence of different files, it's able to
+
+00:27:14.000 --> 00:27:31.000
+Publish many up to apparently up to 10,000 DID operations in a single Bitcoin transaction. So it's for scalability. But essentially, so what we're doing is we're just verifying that these um that these public keys and endpoints, that there is a commitment
+
+00:27:31.000 --> 00:27:52.000
+A hash, essentially, a commitment to that information which is published then in a Bitcoin transaction And then we can verify that that Bitcoin transaction is in a certain Bitcoin block via a Merkle proof And then what we end up with is the block header, the Bitcoin block header.
+
+00:27:52.000 --> 00:28:14.000
+Which contains a timestamp And it also contains the commitment to through this chain of hashing, commitment to those public keys and endpoints And then, so each ion node, each trust chain node will contain a Bitcoin node, at least a light Bitcoin node.
+
+00:28:14.000 --> 00:28:29.000
+Which contains the sequence of block headers. And so you can actually verify that the final hash that you arrive at, the proof of work hash, you can verify that that is a genuine hash inside the Bitcoin blockchain chain of headers.
+
+00:28:29.000 --> 00:28:57.000
+And it's just infeasible to reorganize that chain and edit that information post hoc just because the hash rate that the peer-to-peer Bitcoin network generates is just you know it's infeasible to actually um to go back and edit the history of the chain. And so basically we can verify cryptographically that these public keys and these service endpoints, the content of the DID document
+
+00:28:57.000 --> 00:29:11.000
+Were indeed published on a given date in the past. And so we're going to use that in order to share our what we call our root DID.
+
+00:29:11.000 --> 00:29:15.000
+So, um.
+
+00:29:15.000 --> 00:29:28.000
+What we we're going to assume for a moment that the root DID has a timestamp which is known to all users in the in the in the network, in the community that's using this system.
+
+00:29:28.000 --> 00:29:35.000
+So if everybody knows the date on which that information was originally published.
+
+00:29:35.000 --> 00:29:53.000
+Then they can verify by the mechanism I just described. They can verify that they are indeed looking at the right the genuine root did and they have the genuine root public keys simply by verifying the timestamp on that DID document.
+
+00:29:53.000 --> 00:29:59.000
+And then they know they're on the correct network and nobody can spoof or, you know.
+
+00:29:59.000 --> 00:30:13.000
+Nobody can pass off an alternative DID. Or set of keys in place of the genuine root place Well, as I said, it's infeasible to go back and rewrite the history of the chain.
+
+00:30:13.000 --> 00:30:34.000
+And then as soon as you've got a root DID that we can then use, again, a familiar idea of creating a chain of public key certificates. We call these downstream DIDs. So the root entity in this case Just for the sake of an example, we're assuming this is the central government entity
+
+00:30:34.000 --> 00:30:52.000
+Is the root. And then they would sign the public keys in the in any associated with each government department for example and then those departments can then sign public keys on the layer below for each issuing credential issuing agency.
+
+00:30:52.000 --> 00:31:06.000
+So that's the basic idea. It all hinges on the idea that it's possible to share the root did timestamp.
+
+00:31:06.000 --> 00:31:22.000
+Yeah, so this is an assumption that we make that it should be possible because the root, the legal entity that plays the role of the root in this network They're obviously going to be a prominent member of that community. And so it should be possible for them to be able to share this
+
+00:31:22.000 --> 00:31:52.000
+This sort of simple small piece of information, which is simply the date on which they published the root DID document. And a short confirmation code, which I'll explain properly in a moment. So for the sake of the demonstrations, when we do a demo, we sort of put these posters up and say, look, you could imagine if it were the central government who want, you know, they could publicize this root DID timestamp alongside a QR code for downloading a mobile application and then
+
+00:31:52.000 --> 00:31:58.000
+You then just need to configure that app by entering the date. And as long as you've got the correct date.
+
+00:31:58.000 --> 00:32:20.000
+Then you know that you're on the correct you're on the correct DID network So it's extremely secure, but it's also very familiar, the idea of a date is a small piece of information it's very familiar. It's easy to remember. And everybody can understand the idea that
+
+00:32:20.000 --> 00:32:28.000
+It represents the date on which the information was published and nobody else can go back and change that.
+
+00:32:28.000 --> 00:32:35.000
+So before I do a quick live demo, I'm going to just, yeah, I just want to sort of
+
+00:32:35.000 --> 00:32:45.000
+Explain a bit more about the idea between downstream DIDs and upstream DIDs.
+
+00:32:45.000 --> 00:33:04.000
+These are basically just standard DIDs and DID documents. And then we write we write an attestation from the upstream entity, a signature basically from the upstream entity into the DID document metadata. And that's what makes it a downstream DID.
+
+00:33:04.000 --> 00:33:21.000
+And in order to issue these things, the software has a built-in challenge response protocol. So two steps to it. The first is a check to confirm the identity of the downstream legal entity.
+
+00:33:21.000 --> 00:33:28.000
+And remember, there's a genuine existing relationship between these two. So that first step, that identity check.
+
+00:33:28.000 --> 00:33:39.000
+Deliberately uses an out-of-band channel of communication that ought to already exist because if these are agencies within government departments that already know each other.
+
+00:33:39.000 --> 00:34:02.000
+Then they certainly have ways of communicating where they can confirm each other's identity. And then there's a second step, which is to actually check the content of the downstream DID document. So that's actually verifying the public keys are and the service endpoints are as expected.
+
+00:34:02.000 --> 00:34:23.000
+Inside the document metadata there's a there's an update commitment And that's held. So everything in the light blue refers to the upstream entity here and the red refers to the downstream entity so the update commitment in the downstream DID.
+
+00:34:23.000 --> 00:34:49.000
+Is actually the secret, the pre-image for that commitment is held by the upstream entity. And that means that they can revoke this downstream DID unilaterally. So if they decide that they want to sever this this attestation, then they can do that unilaterally which of course is what you would want. But the downstream entity has the pre-image of the recovery commitment. So they can recover their own
+
+00:34:49.000 --> 00:35:04.000
+Did unilaterally as well. So they have this sovereignty over that did But they can't maintain the attestation against the will of the upstream entity. So that kind of works.
+
+00:35:04.000 --> 00:35:25.000
+Quite nicely. Right, I'm going to do a quick uh demo of Yeah, so… apart from the backend software, which I'll demo in a moment, I want to sort of start with just the kind of user experience from a mobile user.
+
+00:35:25.000 --> 00:35:30.000
+So if you can see this Android emulator on the right-hand side now.
+
+00:35:30.000 --> 00:35:37.000
+This is what it looks like. This is what the mobile app looks like when you first, on the first time you use it.
+
+00:35:37.000 --> 00:35:49.000
+The DID of the wallet holder is already there at the bottom This DID, so this is a DID key. This is using the did key method. So the public key is embedded in that DID.
+
+00:35:49.000 --> 00:35:57.000
+And this is generated by the software when you first open the app.
+
+00:35:57.000 --> 00:36:04.000
+You're given a 12-word seed phrase, which you're supposed to write down and keep safe so that you can recover your DID.
+
+00:36:04.000 --> 00:36:20.000
+If you lose your device and then it generates this DID from that seed phrase. So I've skipped that step. But this is essentially where you're taken to And you're kind of led to to open up the settings page.
+
+00:36:20.000 --> 00:36:37.000
+And this is where you, so there's one step you have to perform and that's to basically enter the the root DID date Which, again, we're assuming that you've been informed this date and you know the the root entity can can
+
+00:36:37.000 --> 00:36:54.000
+Inform you of this date via analog channels or digital channels you know you there's a lot of redundancy possible in the way that this date is communicated. So the idea is that you should be able to acquire this day in you know successfully.
+
+00:36:54.000 --> 00:37:12.000
+For the sake of this demo, the correct the correct date is the 13th of October 2023. I'm going to deliberately get the wrong date initially just to, so when I, when I enter the date, it asks for a confirmation code.
+
+00:37:12.000 --> 00:37:18.000
+And this is actually a fragment of the Bitcoin transaction id the hash of the Bitcoin transaction.
+
+00:37:18.000 --> 00:37:31.000
+And this just enables the software to identify the exact Bitcoin transaction that contains the uh you know the uh that was published by the IonDid method when the when the root DID was published.
+
+00:37:31.000 --> 00:37:48.000
+So if I type in the correct confirmation code, but I gave it the wrong date, then it won't find a a Bitcoin transaction that matches so it will just give me an error Similarly, if I give it the correct date now.
+
+00:37:48.000 --> 00:38:00.000
+And then I give it the wrong confirmation code, then it's going to ask me to try again so But if I give it the correct confirmation code, which is shared alongside the date, just a few characters is sufficient.
+
+00:38:00.000 --> 00:38:13.000
+Then it will accept that because it's been able to find a unique DID to that must therefore be the the root.
+
+00:38:13.000 --> 00:38:33.000
+In this case so i can um I can make that setting. One other thing maybe it's worth mentioning, you can see that, yeah, so currently the did uh the holder's DID is a DID key. There is an option to publish that via ION as well and actually use did ion um
+
+00:38:33.000 --> 00:38:48.000
+So if I can… move these controls out of the way. I'll just show how the the credential wallet then worked. So I should say this is a fork of a wallet developed by Spruce ID.
+
+00:38:48.000 --> 00:39:02.000
+Mention that properly later but later Essentially, what we've got is a credential wallet, which is currently empty. And then we can also scan a QR code to receive a credential. So I'm going to try and demonstrate that now.
+
+00:39:02.000 --> 00:39:13.000
+I've just got this set up. This is the environment where we can emulate scanning a QR code. So the first thing you notice is that when you scan a QR code.
+
+00:39:13.000 --> 00:39:31.000
+It's able to verify that the host that is attempting to issue this credential is able to verify that that URL is is valid because it is valid because that URL is a service endpoint inside a DID chain.
+
+00:39:31.000 --> 00:39:39.000
+And that DID chain, it can verify is valid because it can trace that chain all the way up to the root.
+
+00:39:39.000 --> 00:39:47.000
+And since we've told it the root event date, it's able to verify that whole chain So I'm going to be able to accept that.
+
+00:39:47.000 --> 00:39:56.000
+And then add the credential to the wallet It's a driving license.
+
+00:39:56.000 --> 00:40:17.000
+And then, okay, so if I look at uh go in and look at that. It's already verified that the um that this is a valid credential And I can go in and I can look at the I can look at the attributes inside of it
+
+00:40:17.000 --> 00:40:30.000
+So this is obviously just this is just a demonstration. It's got dummy data inside But you can see the attributes inside the credential.
+
+00:40:30.000 --> 00:40:45.000
+But what's nice is we can then we can actually look at the chain of attestations. So we can see that the issuing authority in this case was the vehicle licensing agency. We're just using the UK agency as an example here.
+
+00:40:45.000 --> 00:40:56.000
+And not only that, you can see that there's an attestation on this DID. So this is the downstream DID for the vehicle licensing agency.
+
+00:40:56.000 --> 00:41:21.000
+And we can see that the attestation comes from the Department for Transport um which and and uh And their downstream DID is signed by the central government route And we can see that that date has been verified as part of the verification process. So when we verify a credential, we're not just verifying the signature on the credential. We're verifying
+
+00:41:21.000 --> 00:41:31.000
+The chain of downstream DIDs and then finally the root, sorry, the timestamp on the root DID.
+
+00:41:31.000 --> 00:41:49.000
+Okay, and then I mean, we can also present this credential. We can select attributes that we'd like to share, like our nationality and the family name and maybe which country issued it and then if i if i present it, then it will
+
+00:41:49.000 --> 00:42:00.000
+A QR code is very dense because this is actually sharing the sharing the the signed presentation.
+
+00:42:00.000 --> 00:42:13.000
+And the same mobile app can then be used to verify you know to read that QR code and verify that credential on the verifier side.
+
+00:42:13.000 --> 00:42:30.000
+Yeah, that means that the mobile app is sufficient for both holders and verifiers. And you can share credentials offline. You don't need to be online to be able to do this, provided you've already you've already got the relevant chain of DIDs.
+
+00:42:30.000 --> 00:42:51.000
+So I'll just go back to this chain and then I've got time. I'll just quickly show you the um the backend in this terminal. So I've got a um a did So this is the DID for the DVLA.
+
+00:42:51.000 --> 00:43:03.000
+Issuer. And I'm going to just demonstrate how the trust chain So this is a cli that we've developed.
+
+00:43:03.000 --> 00:43:21.000
+Which you know you you run on a full trust chain node so um credential issuers or anyone that's issuing downstream DIDs, these institutions would just simply run this this free and open source software and uh you know and then uh you know
+
+00:43:21.000 --> 00:43:33.000
+The interface is currently a command line interface. And you can see that there are commands for working with DIDs or working with and also with verifiable credentials.
+
+00:43:33.000 --> 00:43:46.000
+And there's also a challenge response um protocol which can be initiated by the downstream entity in order to issue a new downstream DID.
+
+00:43:46.000 --> 00:43:56.000
+So I'll just quickly demonstrate the DID functionality. So if I
+
+00:43:56.000 --> 00:44:10.000
+If I say, right, okay, so trust chain did it would tell me um It will give me the options here. Let's say let's have a go at resolving the DID that I just
+
+00:44:10.000 --> 00:44:28.000
+I just showed. Okay, I forgot to So, okay, so this is the Trust chain basically is a DID method which wraps around the ion DID method. And this is a DID that's been resolved with the trust chain method.
+
+00:44:28.000 --> 00:44:46.000
+You can see this is the end at the top. You can see the end of the DID document itself You can see it's got the public key sorry it's got service endpoint information uh the uh the credential endpoint, that's the endpoint that was used to issue the credential.
+
+00:44:46.000 --> 00:45:04.000
+And then in the document metadata, you can see that there's a proof field And then the ID inside that is the ID of the upstream entity so that should be uh the DID of the Department for Transport in this example.
+
+00:45:04.000 --> 00:45:10.000
+And so, yeah, that's the attestation. The proof value is then the signature.
+
+00:45:10.000 --> 00:45:24.000
+On the DID. And then just finally, I'll quickly If I, instead of just, I mean… the idea is that, okay, I can resolve that DID.
+
+00:45:24.000 --> 00:45:33.000
+So I've got a DID. Let's say I've got the identifier and I'm confident that I've got the correct string of characters for this did But then, you know.
+
+00:45:33.000 --> 00:45:56.000
+I don't want to have to trust the ION did method to have faithfully return to me the public keys associated with this DID. I mean, I don't I prefer, you know, I want to avoid any trusted third parties, including trusting the ION DID method.
+
+00:45:56.000 --> 00:46:08.000
+So how am I actually going to verify that these the public keys and the content of the DID document are are Yeah, correct.
+
+00:46:08.000 --> 00:46:28.000
+Well, I can verify them And I can verify that each of these that each of these downstream DIDs has a signature from an upstream entity. And then most importantly, I can verify this tick at the top is verifying that the root the ID
+
+00:46:28.000 --> 00:46:44.000
+Was indeed published on the date, which I have configured in the software in a similar way as I did on the mobile app at the beginning.
+
+00:46:44.000 --> 00:47:01.000
+So basically the CLI already knows the full node software has been configured with the same root event date. And then I can just verify that there is a chain of signatures leading back to a DID that was published on that special date. And so provided, and I'm doing that
+
+00:47:01.000 --> 00:47:15.000
+As an end user on my end users, the end user does that on their device, whether it's the full node or the mobile device. So I can be you know i can be absolutely confident that I really am on the right network and that
+
+00:47:15.000 --> 00:47:33.000
+All of this information is valid. Okay, I'm going to have to speed up I'll just quickly uh just This is really just to summarize the um some of the kind of the features that are, you know, some nice features about this approach
+
+00:47:33.000 --> 00:47:53.000
+It's completely permissionless. Anyone can adopt this. It's free and open source and all the all the infrastructure is um in the digital infrastructure is essentially um decentralized peer-to-peer networks. So it's it's very cheap to set up. Issuers need to run a full node.
+
+00:47:53.000 --> 00:48:11.000
+But it's a bit like running a Bitcoin node. Yeah, it's quite easy for for anyone really to run run a full node. And then the end user just needs to, the holders just need to install a mobile app.
+
+00:48:11.000 --> 00:48:30.000
+And even the mobile app itself is able to verify on their own. Each mobile user is able to verify on their own device the timestamp which which confirms that they're on the right network and hopefully it's quite simple and intuitive because it all boils down to this idea of a
+
+00:48:30.000 --> 00:48:49.000
+Of a special date, essentially. Yeah, I won't go into all the details here. Maybe just to point out that on mobile you don't need to run, of course, a full Bitcoin node in order to be able to verify timestamps on mobile.
+
+00:48:49.000 --> 00:49:07.000
+There's this idea of simply in Bitcoin, it's called simplified payment verification where you only need the chain of headers from each Bitcoin block. You don't need the actual transaction block. So similarly, we're able to do that here, what we call it
+
+00:49:07.000 --> 00:49:18.000
+Simplified timestamp verification And so provided we've got that chain of Bitcoin block headers, which is much smaller than the whole blockchain.
+
+00:49:18.000 --> 00:49:38.000
+We're able to verify on our own device the timestamps. So this is maybe more of interest to this group, the kind of governance features so As I've said, the idea itself is secured by independently verifiable timestamping.
+
+00:49:38.000 --> 00:49:56.000
+And then beyond that, we aim for trust minimization through, well, the fact that the only institutions that are being trusted are the ones that are already familiar and recognizable because they are indeed the the institutions in society that are issuing
+
+00:49:56.000 --> 00:50:22.000
+Credentials that we're we're we're already familiar with. And policies are going to be enforced cryptographically, not through soft means they're actually every policy is going to be enforced cryptographically um down the hierarchy from the upstream to the downstream. So one example of this is the idea so suppose we want an upstream entity wants to constrain the types of
+
+00:50:22.000 --> 00:50:27.000
+Credentials or verifiable credentials that can be issued by a downstream entity.
+
+00:50:27.000 --> 00:50:50.000
+So this is possible using some multi-signature scheme. What that What that means really is that a downstream entity would then not be able to issue a credential unilaterally, they would only be able to issue a credential if it has a signature from the upstream entity.
+
+00:50:50.000 --> 00:50:54.000
+And to avoid that causing an overhead for the upstream entity.
+
+00:50:54.000 --> 00:51:13.000
+What they need to all they need to do is to expose an endpoint, an API which checks which a given credential and verifies that it meets the whatever constraints that they want to impose on the given downstream entity.
+
+00:51:13.000 --> 00:51:24.000
+And then they can then provide the signature on that credential if those constraints are met. And if the other signatory is the genuine downstream entity.
+
+00:51:24.000 --> 00:51:37.000
+So in other words, if you want to, for example, allow a bank to be able to issue credentials about credit worthiness, but maybe not about let's say
+
+00:51:37.000 --> 00:51:58.000
+Say a disability or something that was not related to a kind of a financial attribute, then you could use this mechanism to say look you know the types of credentials that can be issued by this downstream entity.
+
+00:51:58.000 --> 00:52:13.000
+Must meet certain predetermined format. And then the upstream entity can just verify that that that constraint is met before the credential can be can be issued.
+
+00:52:13.000 --> 00:52:23.000
+And finally, there's some other nice features. You can verify with timestamping, you can verify that any lists of revoked DIDs are complete.
+
+00:52:23.000 --> 00:52:45.000
+There's mechanisms for rotating keys and maintaining the chain of downstream DIDs. And then there are really nice mechanisms for interoperability You can imagine different networks being set up using this system. And then you might want to interoperate between them.
+
+00:52:45.000 --> 00:53:00.000
+And there are various mechanisms that we've either developed or proposed for doing this, but I don't think I've got, I can go into more detail if If you'd like in the question time.
+
+00:53:00.000 --> 00:53:18.000
+There's full details. In the links that I'm about to share. Just very briefly, it's written the back end is written in Rust and we have heavily used a couple of libraries, one from Spruce ID, the SSI library, and also the rust bitcoin library
+
+00:53:18.000 --> 00:53:24.000
+And then we used the identity overlay network DID method and wrap around that.
+
+00:53:24.000 --> 00:53:33.000
+In order to produce our own DID method. And then the mobile app is written in Dart.
+
+00:53:33.000 --> 00:53:39.000
+And is a fork of the Spruce ID wallet app. Okay, so I'll stop there.
+
+00:53:39.000 --> 00:53:59.000
+Here's my details. If you'd like to get in contact, there's a link there to the documentation site, which has got full instructions for installation and and lots of details on those technical interoperability mechanisms and et cetera, that I just mentioned.
+
+00:53:59.000 --> 00:54:04.000
+And then the repositories on GitHub and the release on crates.io.
+
+00:54:04.000 --> 00:54:09.000
+And at the bottom there the bottom there the IEE article.
+
+00:54:09.000 --> 00:54:12.000
+Okay, I'll stop for questions.
+
+00:54:12.000 --> 00:54:19.000
+Excellent. Thank you. Thank you, Tim. I think there's a lot of interesting concepts in there.
+
+00:54:19.000 --> 00:54:30.000
+And I will ask the audience if they have questions. I also have questions. So does anybody want to jump in?
+
+00:54:30.000 --> 00:54:34.000
+There's also comments.
+
+00:54:34.000 --> 00:54:46.000
+Yeah, maybe I can see one uh is this truly decentralized? It certainly is hierarchical. So that's absolutely that's a good point. That was one of the first comments that we had from within the wider team here.
+
+00:54:46.000 --> 00:55:00.000
+So the point is that it's decentralized in the sense that the infrastructure is decentralized. And that means any user group can choose to to operate and deploy this system. They don't have to ask permission to do that.
+
+00:55:00.000 --> 00:55:21.000
+But yeah, it's hierarchical because usually if you want, well, yeah, we were originally thinking of digital id and in that in that scenario, you want there to be issuers and holders. So there's a natural hierarchy there So you end up with a hierarchical public key infrastructure but it's
+
+00:55:21.000 --> 00:55:33.000
+The decentralization is important because it means that there's no there's no is permissionless. Anyone can just deploy this without needing to Anyway, yeah.
+
+00:55:33.000 --> 00:55:56.000
+Yeah, is the timestamp and notary function It's very similar. I think it's very similar I mean… it's just a verifiable timestamp, right? It's a way of timestamping a document in a way that you don't have to trust any third party to to you know
+
+00:55:56.000 --> 00:56:18.000
+When you verify that timestamp you you that you're essentially verifying that you're verifying that it would be it would be completely infeasible to create a dishonest timestamp. It's just not feasible. And I mean, the Bitcoin system is a decentralized timestamp server that's that's you
+
+00:56:18.000 --> 00:56:40.000
+Section three of the Bitcoin white paper is timestamps is called timestamp server that's that's essentially the solution to the double spending problem that uh that Bitcoin solved. So it's a decentralized timestamp we're using that decentralized timestamp server that is the core function of bitcoin and we you know we don't have to
+
+00:56:40.000 --> 00:56:56.000
+Do any work ourselves but all of that enormous proof of work that is being done continuously by the Bitcoin network we're just being able to we're able to piggyback and leverage that and gain a lot of security from it without actually having to pay much
+
+00:56:56.000 --> 00:57:06.000
+Each Bitcoin transaction is very cheap and we can embed thousands of DID operations in a single Bitcoin transaction.
+
+00:57:06.000 --> 00:57:18.000
+Thanks. I mean, a lot rides on it. And in other architectures you know the notary function provides that sort of assuredness around time.
+
+00:57:18.000 --> 00:57:22.000
+So it's just, you know, so thank you timothy.
+
+00:57:22.000 --> 00:57:27.000
+Yeah, thanks. I mean, this is it. I mean, you could have an, I mean, essentially it's a notary function without the notary.
+
+00:57:27.000 --> 00:57:41.000
+Because we don't want to have to trust the notary because, as I said, any community should be able to deploy this. They might not be located in one country. It's just an example, the idea of a national ID system.
+
+00:57:41.000 --> 00:57:48.000
+It could be an online community. It could be a private company.
+
+00:57:48.000 --> 00:57:59.000
+Having to rely on having to rely on a particular notary would kind of break the whole model of permissionless adoption.
+
+00:57:59.000 --> 00:58:21.000
+Though if it were like a public function, the same way it's like the idea of leveraging something that exists right to provide good things um you know if similarly notary is a public function could fulfill similar purposes so just as tools and designing things as designing things
+
+00:58:21.000 --> 00:58:23.000
+It just calls it to mind. Thank you.
+
+00:58:23.000 --> 00:58:41.000
+Yeah, I mean, if I may, I think that's Even if you were to use a public note or a recognized notary, I think you'd still then have the problem that you would need to know the public key of that notary. So you'd still have they would essentially become the root
+
+00:58:41.000 --> 00:58:52.000
+Of trust and so you would still have this chicken and egg problem of not until you've got the public key of that entity how on earth how do you know that you've even you're even communicating genuinely with them So that's what's so nice about this is that the timestamp is independently verifiable
+
+00:58:52.000 --> 00:58:58.000
+Sure, sure.
+
+00:58:58.000 --> 00:59:05.000
+Without requiring any prior information such as another public key. You don't actually use a public key to verify it.
+
+00:59:05.000 --> 00:59:11.000
+You just verify the proof of work And it's infeasible for anyone to overpower that.
+
+00:59:11.000 --> 00:59:16.000
+Proof of work.
+
+00:59:16.000 --> 00:59:29.000
+Yes. That's the function that exists in the group of work. Right. Notwithstanding concerns related to proof of work right
+
+00:59:29.000 --> 00:59:38.000
+I mean, that's another point that's been made before. Personally, I think, I mean, yeah, the Bitcoin network is already performing all of this work.
+
+00:59:38.000 --> 00:59:42.000
+And so if we can use it for more purposes.
+
+00:59:42.000 --> 00:59:56.000
+Then that's just that's an increase in efficiency, right? Because the same amount of work is being done, but we're leveraging it for more and more useful purposes. So I see this as you know.
+
+00:59:56.000 --> 01:00:05.000
+Potentially a really considerable increase in the efficiency, if you like, of you know all of that work that's being done.
+
+01:00:05.000 --> 01:00:16.000
+Because it is providing a genuinely useful purpose. Otherwise, it wouldn't be done. There is an economic incentive to Bitcoin miners to perform all of that work.
+
+01:00:16.000 --> 01:00:40.000
+And that's why they're doing it. They're incentivized. They're doing it for that reason. The signal that is produced the unforgeable signal that is produced by all that hard work, all that proof of work is more valuable than the resources, the electricity that's being used, being consumed in order to produce that signal.
+
+01:00:40.000 --> 01:00:47.000
+Um and because
+
+01:00:47.000 --> 01:00:48.000
+Yeah.
+
+01:00:48.000 --> 01:00:55.000
+It's absolutely great to see it repurposed and reused because that helps to address some of the fundamental questions that would be related to the question, the answers to the questions that I proposed so yeah no Appreciate the conversation. Thank you.
+
+01:00:55.000 --> 01:00:58.000
+Awesome. Thanks.
+
+01:00:58.000 --> 01:01:02.000
+Three more minutes. Any other questions or keep going through the comments.
+
+01:01:02.000 --> 01:01:03.000
+Carly?
+
+01:01:03.000 --> 01:01:13.000
+Just a quick question. Just going on from Bitcoin, but you're not tied to Bitcoin itself. Like you could switch to another network such as proof of stake Ethereum network now.
+
+01:01:13.000 --> 01:01:34.000
+So no, because we need proof of work. So, yeah, my… So I know that this is potentially controversial but in a proof of stake uh in proof of stake, you're really relying on digital signatures because there's no proof of work.
+
+01:01:34.000 --> 01:01:40.000
+In that list of ways, how do we actually verify, what information can we verify?
+
+01:01:40.000 --> 01:01:46.000
+Well, if there's no proof of work, then you're left with digital signatures and hash and hash digests.
+
+01:01:46.000 --> 01:02:07.000
+And proof of stake ultimately just the verification mechanism can only be to verify digital signatures, albeit with some economic incentives but um But still, the actual process is to verify digital signatures. I'll allow the the hand up to come in.
+
+01:02:07.000 --> 01:02:09.000
+Subra.
+
+01:02:09.000 --> 01:02:25.000
+To put this in the chat, but so if you're actually using the Bitcoin blockchain then Presumably there's a cost involved for each transaction so it's can't be deemed as being free, quote unquote right Is that?
+
+01:02:25.000 --> 01:02:45.000
+Well, it's free access. It's free and open access. It's not free completely to use. Yeah, that's right. Every time you publish a DID, operation with ion you have to pay a Bitcoin transaction fee But you can batch up to 10,000 DID operations into a single
+
+01:02:45.000 --> 01:02:59.000
+Bitcoin transaction and you know transactions are typically less than a dollar to publish. And so, you know, you're talking about a fraction of a penny for for each DID operation if you're batching.
+
+01:02:59.000 --> 01:03:20.000
+And the sort of unrelated. Question or… you know, the thought that I had is in this day and age can we really trust an institution just because of something or the other just because it's a recognized institution. Many of the government institutions seem to become
+
+01:03:20.000 --> 01:03:24.000
+More and more suspect these days. Right.
+
+01:03:24.000 --> 01:03:48.000
+Agreed. I mean, I would potentially agree with that. I do think that um you know If we want to be able to work with verifiable credentials, there has to be some issuing authority. And so it doesn't have to be a government issuing authority, but you're going to have to have some some kind of authority that you trust and then you want to be able to verify that they did indeed
+
+01:03:48.000 --> 01:04:09.000
+Issue the credential that's really the you know that you're only you're able to verify that that really is the issuing authority. You're not able to verify anything beyond that within that authority. But for example, if it were a publisher of digital media, like Reuters maybe publishes a digital photograph
+
+01:04:09.000 --> 01:04:25.000
+Then they could then sign that yeah that that image And you can then verify that it was indeed published by Reuters that's you know that's something. Sorry, Eric.
+
+01:04:25.000 --> 01:04:26.000
+Sure.
+
+01:04:26.000 --> 01:04:33.000
+I was going to say that we're running out of time, but we have run out of time. So people are leaving and we want to thank them for attending. But if you're happy to take a few more questions, I mean.
+
+01:04:33.000 --> 01:04:51.000
+Because no solution solves all the trust issues. And I think you're targeting one trust issue, which is the sort of the PKI sort of issuing certificate authority, but you're not solving all the other trust issues. At some point we do have to
+
+01:04:51.000 --> 01:05:08.000
+Make a decision on whether we trust an institution or trust. But I wanted to ask about the revocation because I know that's always been a difficult thing in this world about relocation. And you mentioned something about the revocation you had a diagram where
+
+01:05:08.000 --> 01:05:19.000
+That the upstream can revoke Would you be able to take a couple minutes? And again, people are free to leave the meeting.
+
+01:05:19.000 --> 01:05:21.000
+And thank you for coming.
+
+01:05:21.000 --> 01:05:26.000
+Yeah, thanks everyone for joining. Yeah, certainly. I mean, would you like to see the image again? Would that help um
+
+01:05:26.000 --> 01:05:40.000
+Yeah, because what I found is there's a lot of different interesting sort of things and elements. I don't know if they're all tied back to the fact that you have to start from the Yeah, there. Or are some of these elements that we can
+
+01:05:40.000 --> 01:05:48.000
+Pick apart and are helpful in other contexts. But yeah, could you go through that revocation Partican?
+
+01:05:48.000 --> 01:05:53.000
+Yeah, sure. So, uh.
+
+01:05:53.000 --> 01:05:59.000
+Basically, the DID standard already contains the necessary ingredients for this mechanism to work.
+
+01:05:59.000 --> 01:06:23.000
+We have actually proposed a slight extension to the DID standard in order to make this idea of a downstream DID a bit more graceful, but we found a workaround to essentially end up with the DID document metadata contains these two commitments. So these are ways for updating
+
+01:06:23.000 --> 01:06:46.000
+The DID and for recovering the DID. And so it's great that those two distinct uh you know um recovery if you like, or ways of changing the DID have been you know sort of included in that standard because It means that the upstream entity
+
+01:06:46.000 --> 01:07:06.000
+Is able to be in possession of the update commitment. So if they want to update the DID, If they want to do an update to the downstream DID, and remove their own signature. So there's the signature from the upstream entity down here, the attestor's signature.
+
+01:07:06.000 --> 01:07:13.000
+And their ID and their ID so that you can actually verify the signature by resolving the upstream DID.
+
+01:07:13.000 --> 01:07:18.000
+So if they want to make an update to this DID document.
+
+01:07:18.000 --> 01:07:27.000
+And remove that attestation, they're able to do that by providing the pre-image to this update commitment.
+
+01:07:27.000 --> 01:07:33.000
+That's what gives them the right to be able to then you know to edit essentially or change the state of the document.
+
+01:07:33.000 --> 01:07:42.000
+But if they were the only ones that were able to do that, then that would mean that the downstream DID subject.
+
+01:07:42.000 --> 01:07:51.000
+Would essentially be at the mercy of the upstream entity. And that would be very much against the kind of ethos of the DID, you know, sort of standard.
+
+01:07:51.000 --> 01:08:11.000
+You really, you know, it's about self-sovereignty over your your own id And so the downstream entity, as part of this challenge response process um these two pieces of information are kind of injected into this document metadata in the appropriate way so that the downstream entity
+
+01:08:11.000 --> 01:08:23.000
+Retains control of the recovery secret. And the upstream entity has control of the update secret. And so the downstream entity can then, using that secret is able to recover their DID.
+
+01:08:23.000 --> 01:08:29.000
+Of course, it would no longer be a downstream DID. It would no longer have a have an attestation from above.
+
+01:08:29.000 --> 01:08:34.000
+So it would also be kind of a breaking of the chain of attestations.
+
+01:08:34.000 --> 01:08:42.000
+But they can do that unilaterally and they can recover their own DID. They're kind of sovereign in that sense over their identifier.
+
+01:08:42.000 --> 01:08:51.000
+But of course, yeah, it's important that the upstream entity is able to revoke because for whatever reason, they should have the right to say, look.
+
+01:08:51.000 --> 01:08:56.000
+You know they no longer want to attest to this downstream.
+
+01:08:56.000 --> 01:08:57.000
+Yeah. Yeah, I think so.
+
+01:08:57.000 --> 01:09:01.000
+Does that make sense?
+
+01:09:01.000 --> 01:09:06.000
+All right. Well, thank you very much. And I think maybe we'll call it a day.
+
+01:09:06.000 --> 01:09:12.000
+There unless there's other questions or other questions Okay.
+
+01:09:12.000 --> 01:09:13.000
+Thank you very much.
+
+01:09:13.000 --> 01:09:15.000
+Thanks, John. Good to see you. And thanks.
+
+01:09:15.000 --> 01:09:19.000
+Thanks, everyone.
+
+01:09:19.000 --> 01:09:25.000
+Pam, and thanks, Tim. And we will uh we'll uh We'll let you know when the recording is available.
+
+01:09:25.000 --> 01:09:26.000
+Awesome. Thanks. Thanks, Eric. Thanks, Carly. Bye-bye.
+
+01:09:26.000 --> 01:09:28.000
+Okay. All right. Thanks, Carly.
+
+01:09:28.000 --> 01:09:32.000
+Thank you.
+

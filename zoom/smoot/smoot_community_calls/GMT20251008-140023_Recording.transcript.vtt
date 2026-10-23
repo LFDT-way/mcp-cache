@@ -1,0 +1,1318 @@
+WEBVTT
+
+1
+00:00:17.480 --> 00:00:18.550
+Marelize Kriel: Hey, Wija.
+
+2
+00:00:19.980 --> 00:00:21.880
+Weijia Zhang (Wanchain): Hey, good morning, Meredith.
+
+3
+00:00:22.940 --> 00:00:26.029
+Weijia Zhang (Wanchain): Good to hear from you.
+
+4
+00:00:26.140 --> 00:00:27.840
+Weijia Zhang (Wanchain): What time is you?
+
+5
+00:00:27.880 --> 00:00:31.439
+Marelize Kriel: No, it's for… It's last hour of the day.
+
+6
+00:00:32.280 --> 00:00:43.680
+Weijia Zhang (Wanchain): Oh, it's 4PM, okay. We probably have a very short meeting today, because the China team was in the vacation, or holiday last week, a whole week.
+
+7
+00:00:45.480 --> 00:00:50.410
+Weijia Zhang (Wanchain): So they have not, they have not, added any pull requests.
+
+8
+00:00:50.780 --> 00:00:52.689
+Weijia Zhang (Wanchain): So, yeah, so we…
+
+9
+00:00:52.690 --> 00:01:00.330
+Marelize Kriel: working on the EEA spec all day anyway, so the little bit of extra time would be nice. I can finish off what I'm busy with.
+
+10
+00:01:00.600 --> 00:01:07.150
+Marelize Kriel: We're gonna need a lot of time to go through this. I'm changing quite a bit of stuff,
+
+11
+00:01:07.730 --> 00:01:15.599
+Marelize Kriel: I'm extending it, I'm bringing in a lot of, you can almost say inspiration from our production contracts.
+
+12
+00:01:15.710 --> 00:01:27.769
+Marelize Kriel: using this spec, and I need to motivate it, so this is not a PR to just be merged, but I'm gonna push it, like, before the end of the week, otherwise, that you have time before…
+
+13
+00:01:28.000 --> 00:01:39.060
+Marelize Kriel: or lots of time to read through it. Please don't just merge it, because there's big changes, and it's just… there's… there's naming things there is, and cleaning up the Algorand and the Stellar…
+
+14
+00:01:39.060 --> 00:01:48.720
+Marelize Kriel: I'm not gonna do too much there, but just… it's very much a mess in my eyes at the moment, and then there's some stuff put in there that…
+
+15
+00:01:49.300 --> 00:02:00.470
+Marelize Kriel: I'm also… I put question marks next to it, but, so I just… because I'm only going to see you next week, right? Next week, Wednesday, for that. So I'm going to try to push it this week.
+
+16
+00:02:00.630 --> 00:02:15.710
+Marelize Kriel: And sent you an email, and see… it's gonna take a bit of time to get that, and it's not just the solidity that I put back in there, it's also addressing… going through everything and addressing the interfaces that we defined.
+
+17
+00:02:15.870 --> 00:02:19.809
+Marelize Kriel: Okay. They're still the same, they just need a bit of renaming.
+
+18
+00:02:19.920 --> 00:02:24.600
+Marelize Kriel: And then the biggest thing… I don't know, do you have time, or do you want to keep it short?
+
+19
+00:02:24.930 --> 00:02:28.449
+Weijia Zhang (Wanchain): No, I have time, yeah, yeah. I do have time, yeah.
+
+20
+00:02:29.630 --> 00:02:38.620
+Marelize Kriel: The biggest thing is, if you really want to think about a messaging layer, being network specific.
+
+21
+00:02:38.800 --> 00:02:44.830
+Marelize Kriel: So, our messaging layer is going to decode and verify according to a specific network.
+
+22
+00:02:45.290 --> 00:02:59.529
+Marelize Kriel: And this is used in the function call when you do an inbound call, right? You call your decoder. In that same inbound call, you're also gonna, verify your authentication parameters, right?
+
+23
+00:03:00.200 --> 00:03:06.029
+Marelize Kriel: So, before you execute that course. So, this is already two things, it's very network-specific.
+
+24
+00:03:06.540 --> 00:03:18.970
+Marelize Kriel: So I want to move those to… or I've moved them to the messaging layer, so that our messaging layer really becomes this modular element that we can change out depending on network.
+
+25
+00:03:19.480 --> 00:03:33.459
+Marelize Kriel: And for that, you need more than just a decode and verify, and authenticate auth parameters, which is now specific to the network. So those two functions. And then also, I added an update and commit.
+
+26
+00:03:33.690 --> 00:03:37.650
+Marelize Kriel: Now, this is where you would do your outbound call,
+
+27
+00:03:37.690 --> 00:03:48.400
+Marelize Kriel: and then you would emit an event. So now you will, as you would with your inbound call, you would call decode and verify. Now you, on your outbound call, you would call update and commit.
+
+28
+00:03:48.420 --> 00:03:58.630
+Marelize Kriel: Now, we can change the name, I'm not too fussy about it, I didn't really know what to call it. Update a commit, and then, again, to the messaging layer, which is now network-specific.
+
+29
+00:03:58.680 --> 00:04:05.010
+Marelize Kriel: It can emit this event, function call… cross-gen function call that we have.
+
+30
+00:04:05.240 --> 00:04:19.399
+Marelize Kriel: Or it can maybe be a linear or a layer 2 that wants a sent message event, or it can be something else that is just a state change. So, depending on your network.
+
+31
+00:04:19.399 --> 00:04:27.149
+Marelize Kriel: On the other side. So, again, that is also something that was added into the messaging layer, and that needs to be…
+
+32
+00:04:27.150 --> 00:04:29.290
+Marelize Kriel: If you're using the function call.
+
+33
+00:04:29.350 --> 00:04:35.469
+Marelize Kriel: Layer, that needs to be incorporated, so you… and then there's still the estimate gas that's also going…
+
+34
+00:04:35.850 --> 00:04:43.889
+Marelize Kriel: Again, network-specific, moving to the messaging layer that the function call layer or the application layer is calling.
+
+35
+00:04:44.020 --> 00:05:00.710
+Marelize Kriel: So, this is what I mean with it's sort of a biggest change, and the biggest thing there is now your… your event becomes a messaging layer thing, because this is very Ethereum. Our cross-chain function call event is an Ethereum event, right?
+
+36
+00:05:00.910 --> 00:05:01.630
+Marelize Kriel: Yeah.
+
+37
+00:05:02.040 --> 00:05:11.870
+Marelize Kriel: what if we want to do something that is acceptable on a Layer 2, then it might look different. We might even, in that update and commit.
+
+38
+00:05:11.870 --> 00:05:22.279
+Marelize Kriel: It's a non-view function, so we might even update a rolling hash commit that's gonna get anchored with a trusted entity in the middle, like they do with linear.
+
+39
+00:05:22.370 --> 00:05:28.530
+Marelize Kriel: So you don't even need to emit an event, it can just be something that gets,
+
+40
+00:05:28.730 --> 00:05:44.759
+Marelize Kriel: that gets stored at a trusted entity will read, and then anchor on another layer, which is very one-chain thingy that can happen. So, I'm interested to see what you think.
+
+41
+00:05:44.760 --> 00:05:48.990
+Marelize Kriel: And then, instead of having then the cross-chain verifier.
+
+42
+00:05:48.990 --> 00:05:55.320
+Marelize Kriel: that has this decode and verify. I rather… and what we also implemented is a cross-chain connector.
+
+43
+00:05:55.600 --> 00:06:02.660
+Marelize Kriel: So, this cross-chain connector is then the one that sits in the messaging layer. You will have a connector for whatever network you want to connect to.
+
+44
+00:06:02.880 --> 00:06:18.650
+Marelize Kriel: Suppose you have a Corda, you have an Ethereum, you have a linear 2, you have an Arbitum, or whatever you want to have, and that connector contracts, it's in a messaging layer, and it will have the three functions, or maybe four, if it's a gas…
+
+45
+00:06:18.740 --> 00:06:35.780
+Marelize Kriel: if there's a gas fees involved. So it's the code and verify, it's authenticate hidden auth parameters, or we can call it application parameters, or just, maybe… what did I call it? Verify authentication parameters, and then update and commit.
+
+46
+00:06:35.920 --> 00:06:37.940
+Marelize Kriel: And then estimate guess.
+
+47
+00:06:38.180 --> 00:06:40.149
+Marelize Kriel: I think, and that's the form.
+
+48
+00:06:40.540 --> 00:06:52.259
+Marelize Kriel: So that's our messaging layer now. So it's a bit of a move around, right? And what will it break in Smoot? Because you implemented the EA spec in Smooth.
+
+49
+00:06:52.950 --> 00:07:06.039
+Weijia Zhang (Wanchain): Yeah, yeah, I think, that's a good point. I think. The, what I'm thinking is that, remember, when we say, decode, right? That one, we want to make it simple. That came from Peter Robinson.
+
+50
+00:07:06.040 --> 00:07:13.890
+Weijia Zhang (Wanchain): with GPACs, right? So, that name is very, kind of, uncommon, to be honest.
+
+51
+00:07:13.890 --> 00:07:26.480
+Weijia Zhang (Wanchain): And we can definitely change that, but now the question is that you have to authenticate and verify, and then commit, right? And these are very EVM-specific.
+
+52
+00:07:26.480 --> 00:07:36.149
+Weijia Zhang (Wanchain): So, I'm wondering, do we want to have it as, like, a must-implement functions, or just that you can just.
+
+53
+00:07:36.680 --> 00:07:37.360
+Marelize Kriel: So…
+
+54
+00:07:37.360 --> 00:07:39.409
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+55
+00:07:40.300 --> 00:07:54.819
+Marelize Kriel: So currently, yeah, this is now, like, the function must, or… and may… so this is the 2. I'm not meaning to change the code and verify, even though if you think there's a better name for it, it's adding another function.
+
+56
+00:07:54.880 --> 00:08:11.070
+Marelize Kriel: And then the application layer, I don't know, the application authentication parameters, is adding to the same interface, the cross-gen connector interface, just how to encode them, and how to decode them.
+
+57
+00:08:11.250 --> 00:08:20.200
+Marelize Kriel: And then… oh, sorry, I must add here, and, to verify them, right? So, even if you want to keep your authentication, yeah, parameters into…
+
+58
+00:08:20.200 --> 00:08:32.350
+Marelize Kriel: Sorry, I'm not finished with this, or it's a bit of a work. It took me a little longer than I thought. So, and then there's also the estimate gas, if you have transaction fees, that's also in the connector contract.
+
+59
+00:08:32.770 --> 00:08:37.810
+Marelize Kriel: So this is your, your interface for, still all messaging?
+
+60
+00:08:38.090 --> 00:08:45.490
+Marelize Kriel: So, it comes… the most important thing is, like, the authentication parameters used to sit in a function called AN.
+
+61
+00:08:45.870 --> 00:08:50.350
+Marelize Kriel: So, big change. Yeah. And then, like, you know, a connector here with the proofs.
+
+62
+00:08:50.840 --> 00:09:02.590
+Marelize Kriel: It's just the proof data that's specific to your connector, so you will… you will say that, like, this is a ZKP connector that will have specialized… specialized proof data.
+
+63
+00:09:02.760 --> 00:09:09.999
+Marelize Kriel: And the same thing for a Merkle proof, or Ethereum… oops, an Ethereum connector.
+
+64
+00:09:10.210 --> 00:09:26.160
+Marelize Kriel: You will have specialized proof data. So it makes it kind of easier to… to not just have that interface for everything, like a verifier interface that does decode and verify, and an authentication parameter interface that does… I must still add it here, like, verify or authenticate
+
+65
+00:09:26.910 --> 00:09:32.020
+Marelize Kriel: parameters. I can't believe… I forgot now, like, the name we use in our code.
+
+66
+00:09:32.120 --> 00:09:36.009
+Marelize Kriel: So this is a… like I say, it's a bit of change.
+
+67
+00:09:36.110 --> 00:09:39.549
+Marelize Kriel: Where was the… and I just…
+
+68
+00:09:39.730 --> 00:09:44.689
+Marelize Kriel: Yeah, that's the interface, and I'm just cleaning up the naming a bit.
+
+69
+00:09:45.060 --> 00:09:50.640
+Marelize Kriel: I think there's a lot of things that was added that I didn't… read so much.
+
+70
+00:09:53.500 --> 00:09:57.460
+Weijia Zhang (Wanchain): Yeah, I need to dig it, do it again, too, yeah.
+
+71
+00:09:57.910 --> 00:10:04.780
+Marelize Kriel: re… go through it again. Well, and then you… yeah, see, these kind of things, I just need to…
+
+72
+00:10:05.520 --> 00:10:19.599
+Marelize Kriel: There, I put them now. The Ethereum one, so this is what I added in. So this is going to be very Ethereum now, I'm going to code Solidity in here, put Solidity examples in here, like you asked. This becomes Solidity, could be a Corda connector there.
+
+73
+00:10:19.990 --> 00:10:23.539
+Marelize Kriel: So I can make the… this one I want to clean up, this is,
+
+74
+00:10:23.880 --> 00:10:33.160
+Marelize Kriel: I have to go look. It feels to me it was just dumped here. And, we can clean it up. Like, for example, this…
+
+75
+00:10:33.760 --> 00:10:42.120
+Marelize Kriel: If you want to say… and I did add here, like, for equivalent messaging, let me just see…
+
+76
+00:10:42.810 --> 00:10:46.450
+Marelize Kriel: Connector, event-based, no, decoder, yeah,
+
+77
+00:10:47.610 --> 00:10:55.929
+Marelize Kriel: Messaging components implementing the cross-gen connector contract must expose public functions equivalent to those defined here.
+
+78
+00:10:56.110 --> 00:11:14.309
+Marelize Kriel: Because it's too difficult, Weijia, to say that people must, for example, in Solidity, you must return a byte, and only a byte, and it adds, like, 100,000 gas to the cost, instead of returning exactly the verification parameters for that.
+
+79
+00:11:14.310 --> 00:11:20.559
+Marelize Kriel: network, suppose it's in Ethereum network, I want to get the contract address and a function call parameters out.
+
+80
+00:11:21.010 --> 00:11:39.400
+Marelize Kriel: I don't want to get it out in a bytes bundle that I have to decode again and have extra costs. Meanwhile, it does exactly the same, it is equivalent, it is compatible. So this is where I put the equivalent in. I don't know what kind of doors I'm opening there.
+
+81
+00:11:39.400 --> 00:11:41.570
+Marelize Kriel: You must say how you feel about this.
+
+82
+00:11:42.240 --> 00:11:50.730
+Marelize Kriel: Because otherwise… very hard to be compatible. And even these implementations that they dumped here for the other
+
+83
+00:11:51.610 --> 00:11:56.110
+Marelize Kriel: With the ecosystem integration, the Augurant ones and stuff.
+
+84
+00:11:56.220 --> 00:12:05.060
+Marelize Kriel: I mean… This is… It is output… it's still a byte array.
+
+85
+00:12:05.500 --> 00:12:09.360
+Marelize Kriel: I don't know, did they implement this exactly like… like it is?
+
+86
+00:12:10.500 --> 00:12:16.919
+Marelize Kriel: the code and variable, I mean, even the name is different, and… The result is still whites.
+
+87
+00:12:18.040 --> 00:12:23.329
+Weijia Zhang (Wanchain): Yeah, let me, I think the, for, definitely for,
+
+88
+00:12:23.330 --> 00:12:38.979
+Weijia Zhang (Wanchain): the different platforms is implemented with different names, as you see the dimension, different programming language, right? So… so I think you want… so what you want is that instead of having a bytecode returned, you just have, like, an address or something.
+
+89
+00:12:38.980 --> 00:12:42.320
+Weijia Zhang (Wanchain): Just, define the data type returned.
+
+90
+00:12:42.760 --> 00:12:44.249
+Weijia Zhang (Wanchain): Is that one area.
+
+91
+00:12:44.250 --> 00:12:48.770
+Marelize Kriel: presentation, and this is probably what I'm going to put into the…
+
+92
+00:12:48.910 --> 00:12:56.800
+Marelize Kriel: into here. Like, our… no, our decode and verify here, returns a contract address and,
+
+93
+00:12:56.920 --> 00:12:58.539
+Marelize Kriel: The function call data.
+
+94
+00:12:58.660 --> 00:13:00.140
+Marelize Kriel: That was extracted.
+
+95
+00:13:00.890 --> 00:13:02.729
+Weijia Zhang (Wanchain): There it is, okay, I think.
+
+96
+00:13:02.730 --> 00:13:10.160
+Marelize Kriel: So, yeah, sorry, I don't have return variables here, but, and then we want to say that it's equivalent.
+
+97
+00:13:10.440 --> 00:13:18.189
+Marelize Kriel: Not make too much of a fuss that it's not bytes, that it's specific parameters according to the platform that you decoded on.
+
+98
+00:13:18.440 --> 00:13:24.889
+Marelize Kriel: And when we say equivalent, then somebody can go and call it underscore call if they want, and it'll be fine.
+
+99
+00:13:25.050 --> 00:13:34.430
+Marelize Kriel: Then I don't have to say that you must implement this interface, because in our contracts, you can imagine what we have to do now, like.
+
+100
+00:13:34.630 --> 00:13:46.880
+Marelize Kriel: We have to go and change our own naming to fit this spec, where it's completely out of sync. So, even when we can show that it is equivalent to what is in this spec.
+
+101
+00:13:47.430 --> 00:14:02.069
+Weijia Zhang (Wanchain): Okay, yeah, I think that makes sense. I think maybe we should just mention that these interfaces should be defined in the source code of your implementation, which means that if I want to check how you implement it, I can always dig out that
+
+102
+00:14:02.240 --> 00:14:06.330
+Weijia Zhang (Wanchain): Let the interface and see what data type you are returning.
+
+103
+00:14:06.780 --> 00:14:23.009
+Weijia Zhang (Wanchain): Right, and if I know what data type we are returning, whether it's a byte stream, or it's just an address, or just some simple data type that saves gas, I think that should be fine, but we just need… maybe just say that you need to,
+
+104
+00:14:23.060 --> 00:14:37.019
+Weijia Zhang (Wanchain): define that interface as a separate interface definition so that people can see it easily. Nor embed that interface into some bigger, like, interface. It should be separate.
+
+105
+00:14:37.180 --> 00:14:43.019
+Weijia Zhang (Wanchain): Why don't we do that? We just say that that interface needs to be separated out so that people can see it.
+
+106
+00:14:43.700 --> 00:14:44.660
+Weijia Zhang (Wanchain): Fair enough.
+
+107
+00:14:44.660 --> 00:14:45.200
+Marelize Kriel: and…
+
+108
+00:14:45.200 --> 00:14:45.630
+Weijia Zhang (Wanchain): Yeah.
+
+109
+00:14:45.630 --> 00:14:51.809
+Marelize Kriel: Yeah, you wouldn't mix this with other interfaces. For sure, even in our case.
+
+110
+00:14:52.110 --> 00:15:04.520
+Marelize Kriel: Well, for us, we were forced to have a cross-chain function call, and a cross-chain messaging, and a cross-chain verifier, and a… it was just so many, and they all are just connectors, and then it really makes sense in the spec as well, to just…
+
+111
+00:15:04.590 --> 00:15:19.299
+Marelize Kriel: have one interface that you want all these functions. Like I say, there's another one that needs to come in here, the authentication of the auth parameters. Proper separation of what gets done in layers, that you can swap out the messaging layer without any effect.
+
+112
+00:15:19.470 --> 00:15:20.910
+Marelize Kriel: For other genes.
+
+113
+00:15:21.050 --> 00:15:29.690
+Weijia Zhang (Wanchain): Yeah, yeah, okay, cool. And do you have a, like, GitHub location for the source code you have, so that I can see the bigger picture?
+
+114
+00:15:30.650 --> 00:15:34.250
+Weijia Zhang (Wanchain): Is that open? Is that GitHub open?
+
+115
+00:15:34.250 --> 00:15:37.190
+Marelize Kriel: No, this is, well, the…
+
+116
+00:15:37.360 --> 00:15:42.089
+Marelize Kriel: There's a dummy thing that's open in, Adara Tech.
+
+117
+00:15:42.330 --> 00:15:48.410
+Marelize Kriel: for linear, right? So, you will see what the connector implementation for linear looks there.
+
+118
+00:15:48.720 --> 00:16:05.030
+Marelize Kriel: This is a little different, like, not only does it need the EA specs interfaces, or those functions, it also needs a function that the linear roll-up can call to anchor things when a roll-up comes in. So this is just a root
+
+119
+00:16:05.150 --> 00:16:12.950
+Marelize Kriel: That it's… so I had to go rip out just the messaging layer that is modular, and that messaging layer we can replace with a connector, right?
+
+120
+00:16:13.220 --> 00:16:18.399
+Marelize Kriel: So, and you can look at that code, but that inter… interrupt manager is…
+
+121
+00:16:18.710 --> 00:16:34.899
+Marelize Kriel: It's literally just saying these functions and doing the minimal as for a proof of concept, but it's the same in our production code. Our storage is upgradable, it's very complex, like, how do things go into each other, but those interfaces is the same as it is in that repo.
+
+122
+00:16:35.650 --> 00:16:39.750
+Weijia Zhang (Wanchain): Okay, so what's the location of that repo? Is it adara?
+
+123
+00:16:40.220 --> 00:16:41.880
+Marelize Kriel: Why did they make it to you?
+
+124
+00:16:44.120 --> 00:16:54.520
+Marelize Kriel: This is not running properly. I broke it at the moment. Remember, I pushed yesterday and I broke my stuff, my own stuff. This is still very work in progress, but you can get an idea.
+
+125
+00:16:54.930 --> 00:16:57.770
+Marelize Kriel: on what I needed to… to do there.
+
+126
+00:16:57.890 --> 00:17:00.040
+Marelize Kriel: Oh, where's the chat?
+
+127
+00:17:03.790 --> 00:17:07.189
+Weijia Zhang (Wanchain): Just, yeah, chat is on the bottom, in the middle, yeah.
+
+128
+00:17:07.369 --> 00:17:08.130
+Marelize Kriel: Sorry.
+
+129
+00:17:09.190 --> 00:17:14.250
+Marelize Kriel: This is the one… please, this is still a work in progress,
+
+130
+00:17:14.369 --> 00:17:17.929
+Marelize Kriel: You can see what was… oh, and there's even conflicts.
+
+131
+00:17:18.510 --> 00:17:26.540
+Marelize Kriel: But it's just ripping out that messaging service and replacing it with connectors, and our connectors is implementing this messaging layer, so you will see the…
+
+132
+00:17:27.010 --> 00:17:29.779
+Marelize Kriel: I don't know if I can…
+
+133
+00:17:30.260 --> 00:17:33.340
+Marelize Kriel: No, it doesn't want to stop sharing that one.
+
+134
+00:17:50.830 --> 00:17:57.669
+Marelize Kriel: Yeah, interfaces, so there's a whole EA interrupt directory here.
+
+135
+00:17:58.050 --> 00:18:17.609
+Marelize Kriel: So, you can see there's a linear… because they… their, setup looks a little different from Layer 1 to Layer 2, or messaging protocol from layer 1 to Layer 2, and from Layer 2 to Layer 1. You have two different connectors, so on your Layer 1, you will use the Layer 2 linear connector. On your Layer 2, you will use the Linear 1 connector.
+
+136
+00:18:17.870 --> 00:18:24.389
+Marelize Kriel: So, this is also not so updated, where's the interfaces?
+
+137
+00:18:25.100 --> 00:18:26.790
+Marelize Kriel: What's in the connector?
+
+138
+00:18:29.140 --> 00:18:36.130
+Marelize Kriel: This is the rolling hash now, or linear connector. I see, you'll see all the encode.
+
+139
+00:18:36.460 --> 00:18:41.929
+Marelize Kriel: of the spec will be here. Decode and verify. See here, you can see what it returns.
+
+140
+00:18:42.710 --> 00:18:43.540
+Weijia Zhang (Wanchain): Okay.
+
+141
+00:18:44.170 --> 00:18:50.540
+Marelize Kriel: Yeah, as an example. So these things are sort of the same. And this is still referencing the old…
+
+142
+00:18:50.850 --> 00:18:54.119
+Marelize Kriel: Old spec, and this is how we implemented it.
+
+143
+00:18:54.430 --> 00:18:57.550
+Marelize Kriel: That Boolean can even be replaced.
+
+144
+00:18:57.770 --> 00:19:04.170
+Marelize Kriel: And just let it revert, you know. And then the new one to update in… in…
+
+145
+00:19:04.550 --> 00:19:17.709
+Marelize Kriel: commit. Now, this contract address is Ethereum-specific, but in the spec, I made it optional, so if you are sending a message to a network that doesn't have smart contracts, you don't need to fill in the contract address.
+
+146
+00:19:18.620 --> 00:19:29.990
+Marelize Kriel: Okay, okay. And this is just maintenance, like, you know, you have to keep track of your remote source networks and your remote destination networks, and so it's more like an interoperability
+
+147
+00:19:30.530 --> 00:19:31.890
+Marelize Kriel: And,
+
+148
+00:19:32.080 --> 00:19:41.810
+Marelize Kriel: So our cross-chain function call layer is called… so interface is iInteroperable. I like the iInterproperable better than ICross-chain function call.
+
+149
+00:19:42.050 --> 00:19:45.939
+Marelize Kriel: But again, I don't want to change too many things at the same time.
+
+150
+00:19:46.310 --> 00:19:48.060
+Marelize Kriel: That's what we called it.
+
+151
+00:19:48.410 --> 00:19:52.090
+Marelize Kriel: And you… you have… it's the same, right?
+
+152
+00:19:52.510 --> 00:19:55.150
+Weijia Zhang (Wanchain): Okay. And it resist this.
+
+153
+00:19:55.180 --> 00:19:56.540
+Marelize Kriel: Maintenance.
+
+154
+00:19:57.910 --> 00:20:01.789
+Marelize Kriel: And the rest is the auth parameters.
+
+155
+00:20:02.200 --> 00:20:11.449
+Marelize Kriel: The rest is… is… is linear-specific, where I ripped out the messaging service, and it… you can see the changes that needed to make this little documentation.
+
+156
+00:20:11.620 --> 00:20:14.400
+Marelize Kriel: What needed to be made… made to the…
+
+157
+00:20:14.780 --> 00:20:17.480
+Marelize Kriel: Roll up to the linear roller base.
+
+158
+00:20:18.600 --> 00:20:23.780
+Marelize Kriel: It's minimal changes, if you think about it. You store…
+
+159
+00:20:23.990 --> 00:20:26.490
+Marelize Kriel: A contract that you will reference?
+
+160
+00:20:28.670 --> 00:20:32.889
+Marelize Kriel: Rather than, than, using an internal one.
+
+161
+00:20:33.230 --> 00:20:50.589
+Marelize Kriel: So, but it will still use the normal one if you give it an initialization, you give it a zero thing. And then, like, what doesn't work at the moment, be careful, I wrote local test, and to set up tokens, because, like, I want to start up the environment for longer than, like, for more than one test.
+
+162
+00:20:50.950 --> 00:21:01.729
+Marelize Kriel: So I wanted… and they deploy… when you bridge, they deploy a new contract that I can reuse, but I first want to deploy the contract the first time. So it's just little setup scripts.
+
+163
+00:21:01.980 --> 00:21:07.979
+Marelize Kriel: That can be useful if you… I'll let you know when you can run them. It is… oops.
+
+164
+00:21:08.120 --> 00:21:09.779
+Marelize Kriel: It is,
+
+165
+00:21:12.450 --> 00:21:22.960
+Marelize Kriel: showing exactly, like, a setup, like, what messages get sent, and blah blah blah. Do I have to illustrate, like, this is working, right, when it eventually does?
+
+166
+00:21:23.790 --> 00:21:26.580
+Marelize Kriel: So this is a public POC that you can look at.
+
+167
+00:21:27.530 --> 00:21:28.890
+Weijia Zhang (Wanchain): Okay, thank you, yeah.
+
+168
+00:21:28.910 --> 00:21:37.740
+Weijia Zhang (Wanchain): Well, then, well, thank you, I'll take time to, to get that, look at that. I have, several things here as well. So,
+
+169
+00:21:37.740 --> 00:21:49.680
+Weijia Zhang (Wanchain): First is that, we, we are supposed to give a smooth seminar to the team, to the community, and they have a… Cacti has a seminar on November 12th.
+
+170
+00:21:49.820 --> 00:22:02.310
+Weijia Zhang (Wanchain): So I was thinking, wait, we wait until they have it, so that we can… we can better prepare ours and see how that thing goes first. So I'm thinking about November 18th,
+
+171
+00:22:02.780 --> 00:22:03.859
+Weijia Zhang (Wanchain): Is that good for you?
+
+172
+00:22:04.720 --> 00:22:07.809
+Marelize Kriel: It's good for me, I will send it to Pete.
+
+173
+00:22:07.950 --> 00:22:13.869
+Marelize Kriel: And, or just make sure that… who else do you need other than Pete?
+
+174
+00:22:14.770 --> 00:22:34.300
+Weijia Zhang (Wanchain): From your side, only peed is needed, because the RC team is saying they want to focus on Solana, so we don't need them. And then on our side, of course, we inform Tam. Tam just has a new baby, so… so he won't join today, and maybe I'm not sure. I think he probably will know…
+
+175
+00:22:34.440 --> 00:22:40.429
+Weijia Zhang (Wanchain): Present in the, in the meeting, so, it will be just us presenting,
+
+176
+00:22:40.520 --> 00:22:44.859
+Marelize Kriel: So… No sleep shit.
+
+177
+00:22:45.560 --> 00:22:49.449
+Marelize Kriel: Yeah, he's gonna run in very low sleep for a very long time.
+
+178
+00:22:49.710 --> 00:23:06.899
+Weijia Zhang (Wanchain): Yeah, yeah, yeah, he, yeah, he actually, today, he just informed me he won't be able to join today's call, so… I know, I understand that. So, 18 is okay, but that's… that's the… of all this time.
+
+179
+00:23:06.900 --> 00:23:08.099
+Marelize Kriel: repeat, and when.
+
+180
+00:23:08.100 --> 00:23:08.500
+Weijia Zhang (Wanchain): Yes.
+
+181
+00:23:08.500 --> 00:23:23.809
+Marelize Kriel: I will forward back onto you, but it's good for me. And then you must just let us know, I don't know if you want to prepare a slide deck, and we can fill in some pages on what you want us to maybe add, or what, how you want, you can just let us know, and we'll slot in.
+
+182
+00:23:24.210 --> 00:23:43.679
+Weijia Zhang (Wanchain): Yeah, yeah, I think let's decide on the time first, then, because I need to inform David, and David needs to arrange it with the LFDT, so he's… he still needs to arrange it. So let's decide on the time, then we can have enough time to prepare the slides, and we will make progress, too. So lots of progress, too, so…
+
+183
+00:23:45.540 --> 00:23:54.030
+Weijia Zhang (Wanchain): So I think that, that, I think that… that is mainly it, and then the, the, I also add the,
+
+184
+00:23:54.030 --> 00:24:18.330
+Weijia Zhang (Wanchain): kind of an issue, an updated issue for the ERC3643, and I just say that we can easily implement onto Polygon and Ethereum. But I'm not sure about Stella, because Stellar Chain has announced that they want to… they are implementing this ERC3643, but I look at their website, look at their
+
+185
+00:24:18.330 --> 00:24:26.170
+Weijia Zhang (Wanchain): GitHub, I don't see it yet. It was announced in October, which is two months ago, so I don't think it's there yet.
+
+186
+00:24:26.280 --> 00:24:42.490
+Weijia Zhang (Wanchain): So at least we can implement it into two EVM chains, and let's see how things go. Maybe I was thinking that if November, by that time this implementation is ready, we can do a demonstration of ERC3643. That'd be interesting.
+
+187
+00:24:43.000 --> 00:24:48.319
+Marelize Kriel: Yeah, yeah, definitely. Did you… you mean, is this… you're talking about the implementation in Smoot?
+
+188
+00:24:48.600 --> 00:24:49.529
+Weijia Zhang (Wanchain): Yeah, yeah, yeah.
+
+189
+00:24:49.530 --> 00:24:50.680
+Marelize Kriel: Yeah, okay, yeah.
+
+190
+00:24:50.840 --> 00:24:51.790
+Marelize Kriel: And…
+
+191
+00:24:52.030 --> 00:25:04.460
+Marelize Kriel: Yeah, we must just make sure what compliance we want to… to highlight, because that's what they're all about, right? Like, you must show how the centralized identity is working. Like, their PowerPoints,
+
+192
+00:25:04.460 --> 00:25:12.230
+Marelize Kriel: Because if we're just going to say ERC, then, nothing… it's not worth much, right?
+
+193
+00:25:12.230 --> 00:25:22.249
+Marelize Kriel: is the conversation, I think, Anaise also said last time, it has to use ERC3643 features inside…
+
+194
+00:25:22.250 --> 00:25:22.650
+Weijia Zhang (Wanchain): Yeah.
+
+195
+00:25:22.650 --> 00:25:28.420
+Marelize Kriel: Even if it's the most basic compliant feature. Otherwise, it is just an ERCPO.
+
+196
+00:25:28.600 --> 00:25:30.310
+Marelize Kriel: But it doesn't mean much.
+
+197
+00:25:30.620 --> 00:25:40.460
+Weijia Zhang (Wanchain): Yeah, yeah. Well, at least we can do the AML, which means that when you transfer something to the other chain… address to the other chain.
+
+198
+00:25:40.970 --> 00:25:47.320
+Weijia Zhang (Wanchain): We need to verify the source address to make sure that it's transfer… it's complying.
+
+199
+00:25:47.490 --> 00:25:49.030
+Weijia Zhang (Wanchain): With this token.
+
+200
+00:25:49.340 --> 00:26:06.040
+Weijia Zhang (Wanchain): And then when they go to the other side, we need to check it again. Well, that's less complex, though, because what if it fails, like the check-in fail on the target chain? So there needs to be something new implemented, because you need to verify it before you do the cross-chain transaction.
+
+201
+00:26:06.460 --> 00:26:13.439
+Marelize Kriel: This is what I'm saying, you must go and draw it out, Weijo, because the way you explained it last time is that there's something missing.
+
+202
+00:26:13.440 --> 00:26:14.700
+Weijia Zhang (Wanchain): Yeah, exactly, exactly.
+
+203
+00:26:14.700 --> 00:26:16.719
+Marelize Kriel: Seems to make this work, yeah.
+
+204
+00:26:17.050 --> 00:26:17.740
+Marelize Kriel: Yeah.
+
+205
+00:26:19.390 --> 00:26:19.990
+Marelize Kriel: Yo.
+
+206
+00:26:20.870 --> 00:26:23.999
+Weijia Zhang (Wanchain): You know what? We need to write an article on that.
+
+207
+00:26:24.300 --> 00:26:25.580
+Weijia Zhang (Wanchain): Bro, this is something new.
+
+208
+00:26:25.580 --> 00:26:29.010
+Marelize Kriel: You're such a researcher, whatever, like, good.
+
+209
+00:26:29.010 --> 00:26:33.029
+Weijia Zhang (Wanchain): This is something… This is something new, this, this something new.
+
+210
+00:26:33.300 --> 00:26:34.620
+Marelize Kriel: Definitely.
+
+211
+00:26:34.620 --> 00:26:44.940
+Weijia Zhang (Wanchain): Yeah, they don't expect that, because I was thinking that if you go to the other side, then you check it on the other target chain, because it comprised implemented on single chain, right? But this doesn't work with that.
+
+212
+00:26:46.590 --> 00:26:50.619
+Marelize Kriel: Now, the cross-chain is not so straightforward, this is… this is true. Very true.
+
+213
+00:26:50.990 --> 00:26:52.030
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+214
+00:26:52.220 --> 00:27:03.610
+Weijia Zhang (Wanchain): Okay, but anyway, let's think about that. Let's see if our presentation can be along that track, because LFDT is very, very interested in compliance.
+
+215
+00:27:03.610 --> 00:27:05.490
+Marelize Kriel: This case are you going to use?
+
+216
+00:27:05.920 --> 00:27:13.220
+Weijia Zhang (Wanchain): That's what I'm thinking, the kind of, compliance, cross-check transaction, which means that.
+
+217
+00:27:13.440 --> 00:27:16.490
+Marelize Kriel: So, a repo, an XVP trade,
+
+218
+00:27:16.630 --> 00:27:21.020
+Marelize Kriel: what? Because they all about trades, I think, right? It's…
+
+219
+00:27:21.020 --> 00:27:21.820
+Weijia Zhang (Wanchain): Yeah, yeah, yeah.
+
+220
+00:27:21.820 --> 00:27:24.929
+Marelize Kriel: Acid trades, so we're gonna have to do with trade.
+
+221
+00:27:25.170 --> 00:27:42.400
+Marelize Kriel: And then, for any sort of thing like that, you need, like, like, you know, I've said, there's something missing, you need a contract, like, we have a XVP manager contract that has to do with these trades, and we check the compliance before it emits an event, or something like that. So we need to implement
+
+222
+00:27:42.540 --> 00:27:55.139
+Marelize Kriel: I think something on that level to… not just even for cross-chain, even just for application-wise. I don't think they provide that, unless we can pull it from some of their examples.
+
+223
+00:27:55.470 --> 00:28:05.820
+Marelize Kriel: We're still going to need an application layer as well. It's… we can use the ERC3643 in an application layer, but it's… it doesn't give us an application layer.
+
+224
+00:28:06.380 --> 00:28:11.510
+Weijia Zhang (Wanchain): Yeah, we need, maybe the application could be, how well decentralized exchange?
+
+225
+00:28:11.730 --> 00:28:13.619
+Weijia Zhang (Wanchain): With the permission token.
+
+226
+00:28:14.290 --> 00:28:16.300
+Marelize Kriel: Yeah, something like that, yes.
+
+227
+00:28:16.440 --> 00:28:30.299
+Marelize Kriel: Something that's maybe used. I always ask, like, where is this used? Tokeniers also raise so much money, and they do make a lot of noise, but how many is it used? Where is it used? Where is it… who's adopted it?
+
+228
+00:28:30.670 --> 00:28:34.200
+Marelize Kriel: And maybe, like, take a use case from there.
+
+229
+00:28:35.270 --> 00:28:35.740
+Weijia Zhang (Wanchain): Oh, okay.
+
+230
+00:28:35.740 --> 00:28:39.960
+Marelize Kriel: When we make the effort, we might as well make one that is useful, right?
+
+231
+00:28:40.570 --> 00:28:45.699
+Weijia Zhang (Wanchain): Yeah, yeah, okay, if that's the case, let me… let me update this one.
+
+232
+00:28:46.720 --> 00:28:50.389
+Marelize Kriel: Well, a nice will know a use case that's… that's good.
+
+233
+00:28:51.230 --> 00:28:52.230
+Marelize Kriel: Emm…
+
+234
+00:28:54.220 --> 00:28:56.019
+Weijia Zhang (Wanchain): Okay, yes.
+
+235
+00:28:56.020 --> 00:28:58.210
+Marelize Kriel: Or, or people that's implemented.
+
+236
+00:28:58.690 --> 00:29:03.740
+Marelize Kriel: Passanara. Passanara. That has implemented,
+
+237
+00:29:05.030 --> 00:29:06.889
+Marelize Kriel: It has a good use case.
+
+238
+00:29:07.020 --> 00:29:12.359
+Marelize Kriel: Or has implemented a good use case, like you say, using Polygon, that you want to use?
+
+239
+00:29:12.990 --> 00:29:29.769
+Weijia Zhang (Wanchain): Okay, let me… before I update it, maybe, let me… let me, let me think about that, because I remember now it says to bring… bring me… bring up the important point. The, Anise mentioned she has a use case, and let me… let me ping her as well, to see if… if that use case is still valid.
+
+240
+00:29:29.800 --> 00:29:39.910
+Weijia Zhang (Wanchain): And then the other way you can do the centralized exchange, or we can go to Polygon to see what applications are there already. And then we can just, port one as.
+
+241
+00:29:39.910 --> 00:29:52.929
+Marelize Kriel: Regardless of what other chain we use, we need the use case, so we can… we should be able to use Polygon or whatever else we want to put in there that shouldn't make a difference, as long as it's EVM-based, really.
+
+242
+00:29:52.930 --> 00:29:55.370
+Weijia Zhang (Wanchain): Yeah, yeah, yeah, cool, cool.
+
+243
+00:29:56.320 --> 00:29:57.270
+Weijia Zhang (Wanchain): Okay.
+
+244
+00:29:58.700 --> 00:29:59.710
+Marelize Kriel: Thumbs up.
+
+245
+00:30:00.750 --> 00:30:04.140
+Marelize Kriel: So it feels to me this website also changes every time I look at it.
+
+246
+00:30:05.850 --> 00:30:06.470
+Weijia Zhang (Wanchain): Yeah.
+
+247
+00:30:06.620 --> 00:30:16.709
+Weijia Zhang (Wanchain): And, and do you… when do you… when can you, submit the pull request? I know you're very busy right now. When can you submit the pull request so that you can…
+
+248
+00:30:16.710 --> 00:30:19.959
+Marelize Kriel: Merge it, but please don't merge it, it's halfway done, right?
+
+249
+00:30:20.340 --> 00:30:20.900
+Weijia Zhang (Wanchain): Okay.
+
+250
+00:30:20.900 --> 00:30:27.029
+Marelize Kriel: some… okay, just to start reading, maybe I will push the PR, but this is in the EA repo, right?
+
+251
+00:30:28.200 --> 00:30:29.160
+Weijia Zhang (Wanchain): Yeah, yeah.
+
+252
+00:30:29.740 --> 00:30:40.469
+Marelize Kriel: The other one is already in Adora Tech. But I will push the EA stuff, but please don't merge it, I'm still… I'm not even at Solidity cases, I'm cleaning up the interfaces.
+
+253
+00:30:41.280 --> 00:30:42.290
+Weijia Zhang (Wanchain): Okay.
+
+254
+00:30:42.990 --> 00:30:51.879
+Marelize Kriel: And if you see question marks with a m there, I don't know who put it in there, and it doesn't sound correct, it smells like AI, I don't know, like, forgive me, they smell.
+
+255
+00:30:51.880 --> 00:30:52.409
+Weijia Zhang (Wanchain): That's amazing.
+
+256
+00:30:52.410 --> 00:30:56.050
+Marelize Kriel: Ignore.
+
+257
+00:30:56.050 --> 00:31:03.789
+Weijia Zhang (Wanchain): Yeah, and I need to look at our implementation as well, to see, because we have loads that also constructive parameters, and then…
+
+258
+00:31:03.820 --> 00:31:23.729
+Weijia Zhang (Wanchain): decode the parameters, and then also commit and things like that. We also have that, and let me see if we can change that easily, modify that easily, on our side, yeah. We have an export implementation, so… so we can easily, extract common things, and then… and then make changes accordingly.
+
+259
+00:31:24.070 --> 00:31:34.919
+Weijia Zhang (Wanchain): Yeah, my concern is more on the LAN EVM chain. Like, for example, in Cardano, we are experiencing a problem now, because you cannot call
+
+260
+00:31:35.280 --> 00:31:37.770
+Weijia Zhang (Wanchain): smart contract directly in Cardano.
+
+261
+00:31:37.910 --> 00:31:45.029
+Weijia Zhang (Wanchain): So you… you have to, like, you send the message in, and then the inbound call.
+
+262
+00:31:45.460 --> 00:31:55.259
+Weijia Zhang (Wanchain): And then you store in the datum in that… in that smart contract. And then you have to use that off-chain to call that smart contract agent.
+
+263
+00:31:55.810 --> 00:32:04.030
+Weijia Zhang (Wanchain): and then construct a UXDO, UTXO, and then call another smart contract. So you have… there's another process for that.
+
+264
+00:32:04.190 --> 00:32:10.509
+Weijia Zhang (Wanchain): So I just don't know how we can make this into… make it compatible to the… to the spec.
+
+265
+00:32:11.210 --> 00:32:12.330
+Marelize Kriel: Joan. Bye.
+
+266
+00:32:12.540 --> 00:32:23.340
+Marelize Kriel: I know nothing… almost nothing about Cardano, but I can maybe just make sure I know what you're talking about on… I'll make a note on whenever we have our next meeting.
+
+267
+00:32:23.790 --> 00:32:28.250
+Marelize Kriel: Yo, that sounds like… Yo.
+
+268
+00:32:29.470 --> 00:32:33.379
+Marelize Kriel: It's not just something where we're going to make it compliant easily.
+
+269
+00:32:33.430 --> 00:32:44.780
+Weijia Zhang (Wanchain): Yeah, yeah, yeah, yeah. And just these other will be the cases where consideration of Cardano chain, the chain-specific one, right? And even with Bitcoin, right, you can have,
+
+270
+00:32:44.870 --> 00:33:03.039
+Weijia Zhang (Wanchain): smart script, and then you just have the… you send through a script, and then it recalls some of the data over there, and then if you want to call another smart… another address, you need to do another transaction. So, so, so that is, yeah, yeah.
+
+271
+00:33:03.040 --> 00:33:05.680
+Marelize Kriel: Crazy spaghetti orchestration.
+
+272
+00:33:05.990 --> 00:33:10.919
+Weijia Zhang (Wanchain): Exactly, actually, to be honest, they call that, orchestrator.
+
+273
+00:33:10.920 --> 00:33:11.730
+Marelize Kriel: Oh, yeah.
+
+274
+00:33:11.730 --> 00:33:18.210
+Weijia Zhang (Wanchain): They call an agent to be orchestrated. Well, trusted.
+
+275
+00:33:18.210 --> 00:33:20.420
+Marelize Kriel: They must add the trusted orchestra.
+
+276
+00:33:20.420 --> 00:33:24.280
+Weijia Zhang (Wanchain): Yeah, trust the orchestrator, yes, yes.
+
+277
+00:33:24.890 --> 00:33:27.500
+Marelize Kriel: Well, this is what we fight so hard to avoid, right?
+
+278
+00:33:27.500 --> 00:33:29.270
+Weijia Zhang (Wanchain): Not to have that chest.
+
+279
+00:33:29.500 --> 00:33:37.580
+Weijia Zhang (Wanchain): Yeah, yeah, and if there's approval over there, that'd be great, but at the same time, it can introduce more.
+
+280
+00:33:37.780 --> 00:33:39.110
+Weijia Zhang (Wanchain): Well, I won't be…
+
+281
+00:33:39.110 --> 00:33:44.420
+Marelize Kriel: Yeah, look at what Cardano do, you just made it sound very complex, to interrupt.
+
+282
+00:33:44.680 --> 00:33:49.680
+Marelize Kriel: And I always think if a chain cannot do interoperability, it's doomed.
+
+283
+00:33:50.750 --> 00:33:52.140
+Weijia Zhang (Wanchain): Yeah, yeah. Today.
+
+284
+00:33:52.140 --> 00:33:52.640
+Marelize Kriel: these days.
+
+285
+00:33:52.640 --> 00:34:07.550
+Weijia Zhang (Wanchain): Well, they have different ideas already, but it's very difficult to… to make it really, really work. They… they have proposed several things, the Hedral and other things that… that's kind of like, Layer 2 for Cardano.
+
+286
+00:34:07.550 --> 00:34:22.129
+Weijia Zhang (Wanchain): And then they also have computational verification, which means that when you have a transaction in the main chain, then the proof is produced, and that proof can be leveraged by other chains. They are working on that, actually.
+
+287
+00:34:22.239 --> 00:34:26.089
+Weijia Zhang (Wanchain): So, yeah, yeah. And to be honest.
+
+288
+00:34:27.080 --> 00:34:38.850
+Weijia Zhang (Wanchain): Yeah, yeah. Yeah, I was supposed to work with their research team on a seminar this week, but they postponed it to next week. So I just want to see what kind of new progress they have made.
+
+289
+00:34:38.980 --> 00:34:39.560
+Weijia Zhang (Wanchain): Yeah.
+
+290
+00:34:39.560 --> 00:34:40.290
+Marelize Kriel: Yes.
+
+291
+00:34:40.679 --> 00:34:41.259
+Weijia Zhang (Wanchain): Yeah.
+
+292
+00:34:42.230 --> 00:34:44.729
+Marelize Kriel: What use cases is running on Cordano?
+
+293
+00:34:46.060 --> 00:34:53.539
+Weijia Zhang (Wanchain): Oh, the use cases, right? Well, they… they have tons… well, Cardano, you… I'm not sure how much you know about Cardano, it's very…
+
+294
+00:34:53.540 --> 00:34:53.900
+Marelize Kriel: you know.
+
+295
+00:34:53.900 --> 00:34:54.400
+Weijia Zhang (Wanchain): Kinda.
+
+296
+00:34:54.409 --> 00:34:55.159
+Marelize Kriel: much…
+
+297
+00:34:56.179 --> 00:35:06.910
+Weijia Zhang (Wanchain): Okay, it's very confined. It's a confined community. Yeah, and then they are supposed to kind of, they want to expand it to enterprises.
+
+298
+00:35:07.130 --> 00:35:21.060
+Weijia Zhang (Wanchain): And, and, and they have exchanges, they have, they have lending platform, they have the Q… Yeah, it's still in the DeFi space, and then, they also have, like,
+
+299
+00:35:21.170 --> 00:35:38.359
+Weijia Zhang (Wanchain): investment platform, but I… I see that investment platform, basically, you can deposit your asset to the investment platform, and then… then they will take the investment and then invest in the real-world, scenario. But that component is done
+
+300
+00:35:38.360 --> 00:35:43.050
+Weijia Zhang (Wanchain): manually, I think it's manually, so… so I do not see that as a…
+
+301
+00:35:43.050 --> 00:35:50.970
+Weijia Zhang (Wanchain): as a true decentralized use case. Basically, they just collect the investment and then invest separately, off-chain.
+
+302
+00:35:51.110 --> 00:35:53.000
+Weijia Zhang (Wanchain): So, they have those issues.
+
+303
+00:35:53.000 --> 00:36:00.119
+Marelize Kriel: We've been showing this for the last… this not… this… we've been showing that for the last 8 years, that it can be done, and we don't think it's secure, right?
+
+304
+00:36:01.780 --> 00:36:02.479
+Marelize Kriel: To be honest.
+
+305
+00:36:02.480 --> 00:36:06.820
+Weijia Zhang (Wanchain): Yeah, yeah, yeah. Well, it's still… because when… when touching the real…
+
+306
+00:36:06.820 --> 00:36:08.130
+Marelize Kriel: Sorry.
+
+307
+00:36:08.130 --> 00:36:17.140
+Weijia Zhang (Wanchain): not essential, but when you're touching the real world, it's still the traditional… traditional methods you use. Yeah, yeah.
+
+308
+00:36:18.480 --> 00:36:33.529
+Weijia Zhang (Wanchain): Yeah, so… so that's… yeah. But I'm… I'm hoping that they can come up, because they are the first one to implement, for big change, they are the first one to implement the POS rule of stake. They are much, like, they are many, many years ahead of,
+
+309
+00:36:33.640 --> 00:36:36.130
+Weijia Zhang (Wanchain): ahead of Ethereum in adopting
+
+310
+00:36:36.500 --> 00:36:48.670
+Weijia Zhang (Wanchain): pool of stake, Euroboros method, that's, the Ouroboros method was first adopted by, by Cardano as a main, consensus, mechanism.
+
+311
+00:36:49.030 --> 00:36:49.830
+Weijia Zhang (Wanchain): So…
+
+312
+00:36:49.830 --> 00:36:52.630
+Marelize Kriel: Yeah. Snake eating its own tail, or a bottle.
+
+313
+00:36:52.630 --> 00:37:05.129
+Weijia Zhang (Wanchain): Yeah, yeah, yeah, okay. And then, I was thinking, Cadeno is very advanced in research, but in terms of adoption and then the community, I think it's called Ethereum is much better, much better.
+
+314
+00:37:05.860 --> 00:37:09.499
+Marelize Kriel: Yeah. Yeah. Oh, we'll read up a little bit.
+
+315
+00:37:09.750 --> 00:37:16.200
+Marelize Kriel: Well, they're still posting things resi… like, it's not dead, let's say that.
+
+316
+00:37:17.290 --> 00:37:30.139
+Weijia Zhang (Wanchain): Oh, well, it's still very active, actually. Yeah, but… but they, they, unlike Cardano, no, unlike Sonana or Ethereum, Cardano is still,
+
+317
+00:37:30.390 --> 00:37:37.310
+Weijia Zhang (Wanchain): Well, I don't want to say too much about them, but still, kind of, have room to grow, that's what I can say.
+
+318
+00:37:37.310 --> 00:37:39.220
+Marelize Kriel: So diplomatic.
+
+319
+00:37:40.110 --> 00:37:41.770
+Marelize Kriel: Always listening.
+
+320
+00:37:46.330 --> 00:37:52.949
+Marelize Kriel: I pushed the PR to the EA, thingy, or, repo,
+
+321
+00:37:53.060 --> 00:37:56.159
+Marelize Kriel: You're at least still in draft.
+
+322
+00:37:57.070 --> 00:37:58.020
+Weijia Zhang (Wanchain): Okay.
+
+323
+00:37:59.320 --> 00:38:16.809
+Weijia Zhang (Wanchain): Okay, and then I'll… let me know as soon as possible about peace and feedback, and then I'll let David know, then we can set that time, and then we'll start working on the… on the PPT PowerPoint, and then… then also work on the… on the real example as well.
+
+324
+00:38:17.670 --> 00:38:22.690
+Marelize Kriel: Cool, I will forward to him now, and I have a meeting with him tomorrow, so you'll have an answer by tomorrow evening.
+
+325
+00:38:22.930 --> 00:38:24.860
+Weijia Zhang (Wanchain): Okay, okay, cool, cool.
+
+326
+00:38:25.490 --> 00:38:29.529
+Weijia Zhang (Wanchain): Okay, thank you, Maya, it's great to talk to you today.
+
+327
+00:38:29.980 --> 00:38:31.670
+Marelize Kriel: Yes, ditto, thank you.
+
+328
+00:38:31.670 --> 00:38:33.740
+Weijia Zhang (Wanchain): Okay, okay, thank you. You too, thank you.
+
+329
+00:38:34.390 --> 00:38:34.950
+Weijia Zhang (Wanchain): Bye.
+

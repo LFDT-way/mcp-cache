@@ -1,0 +1,1244 @@
+WEBVTT
+
+00:02:31.000 --> 00:02:42.000
+Welcome, everybody, to the May 21st Hybridledger Fabric meeting. Uh, we'll do a very quick release update, and then talk about some of the RFCs that have been opened recently.
+
+00:02:42.000 --> 00:02:53.000
+Uh, we've got two from Senthil listed here. Um, on the release perspective, we have just… uh, two small releases recently, in the past month.
+
+00:02:53.000 --> 00:03:02.000
+One was Fabric2513, that remains to be the, um, long-term Uh, the LTS release, long-term support release.
+
+00:03:02.000 --> 00:03:10.000
+Uh, so we do things like dependency updates and any bug fixes. This one just had dependency updates that was released last month.
+
+00:03:10.000 --> 00:03:24.000
+And then, uh, Fabric V3, uh, and specifically 311 was released. This is the release where we've been Uh, where we released the Smart BFT functionality, and we continue to have small improvements and fixes, typically in the Smart BFT.
+
+00:03:24.000 --> 00:03:32.000
+Uh, codebase in that… in that release. So, that seems to be, um, brewing well.
+
+00:03:32.000 --> 00:03:42.000
+Any other, um… Questions on the releases?
+
+00:03:42.000 --> 00:03:46.000
+Okay, uh, so we can go to the RFC review part.
+
+00:03:46.000 --> 00:03:53.000
+Senthal, did you want to talk about both these today, or just one of them?
+
+00:03:53.000 --> 00:04:13.000
+Yeah, hi, uh, hi Dave. So, I think both are interconnected, right? I think it's better to, uh… discuss about both. And also, given, uh, I think all the maintainers have read both the RFC, I think… We can discuss together.
+
+00:04:13.000 --> 00:04:18.000
+Okay? Um, did you want to share your screen and bring up the RFCs while you talk about them?
+
+00:04:18.000 --> 00:04:21.000
+You don't have to, but just… your option.
+
+00:04:21.000 --> 00:04:32.000
+Uh, yeah, so I'm going to give a short intro only, so I don't have a slide. I mean, if you can open it.
+
+00:04:32.000 --> 00:04:33.000
+Okay, uh, which one do you want to go to first?
+
+00:04:33.000 --> 00:04:34.000
+And then show it also that screen.
+
+00:04:34.000 --> 00:04:40.000
+Yeah, the first one is the Fabric X RFC, the first one.
+
+00:04:40.000 --> 00:04:41.000
+Alright, and you want to look at the actual, um… Content?
+
+00:04:41.000 --> 00:04:47.000
+Yeah. Yes.
+
+00:04:47.000 --> 00:04:57.000
+Yeah, so this purpose of FabricX, it's a new high-performance fabric implementation. So, mainly it is targeting over 100,000 DPS.
+
+00:04:57.000 --> 00:05:13.000
+For many of the new generation use cases, like CBDC, And then digital asset, and even for asset trading. So there are a lot of new, demanding use cases which require these kind of throughputs, and even it requires more than 100K, so…
+
+00:05:13.000 --> 00:05:28.000
+I mean, so there are many, um, documents that are available that says that this requirement could double every year, and so… so the proposal is to, uh, have such implementation, uh, within Fabric.
+
+00:05:28.000 --> 00:05:35.000
+Uh, so it's mainly a re-architect of fabric, uh, with the microservices, uh, architecture.
+
+00:05:35.000 --> 00:05:43.000
+And it would use a shared database per organization. Uh, and also enhanced programming model using flows.
+
+00:05:43.000 --> 00:05:49.000
+Uh, at the same time, they would like to keep the core fabric principle.
+
+00:05:49.000 --> 00:05:56.000
+Like, execute order validate, EMSP, uh, key value version data model, endorsement policies.
+
+00:05:56.000 --> 00:06:07.000
+A read-write set, and all those things. So, it's a major step for scalability, and uh… I mean, the proposal is to develop in a new repository.
+
+00:06:07.000 --> 00:06:18.000
+Initially focusing on core performance. Uh, so for example, um, so if there are existing use cases, if they are happy with the existing Hyperledger fabric.
+
+00:06:18.000 --> 00:06:27.000
+They can continue to use it, because, I mean, they don't need the higher performance. So, in that case, there is no need to do the migration.
+
+00:06:27.000 --> 00:06:45.000
+So, uh, especially for new generation use case, they cannot rely on Fabric. So, in that case, we will lose the leadership of Fabric for those new use cases, right So that's why, uh, the proposal is to have another implementation of Fabric.
+
+00:06:45.000 --> 00:07:02.000
+Which are specifically targeting these new use cases. So, that's the, uh, the summary of this whole RFC.
+
+00:07:02.000 --> 00:07:10.000
+Dave, um, is that summary fine, right? Because I think most of the maintenance have already read it.
+
+00:07:10.000 --> 00:07:14.000
+Yeah, I think so. Do you want to give an overview of the other one, then?
+
+00:07:14.000 --> 00:07:23.000
+Yeah.
+
+00:07:23.000 --> 00:07:24.000
+Okay?
+
+00:07:24.000 --> 00:07:34.000
+Yeah. So, this is the second row of C. So, this basically proposes, uh, um, the fabric ecosystem coexistence model.
+
+00:07:34.000 --> 00:07:45.000
+Um, so this RFC is trying to provide a framework for FabricX, And the similar future innovation to exist within the Hyperlaser fabric project.
+
+00:07:45.000 --> 00:07:51.000
+Uh, so the main proposal is to allow multiple specialized fabric implementation.
+
+00:07:51.000 --> 00:08:00.000
+Like Fabric Classic, that is already exists, and FabricX to coexist, uh, and they all would be sharing a core principle.
+
+00:08:00.000 --> 00:08:07.000
+So the model, uh, basically aims to boost fabric adaptability and innovation.
+
+00:08:07.000 --> 00:08:12.000
+So, drawing from a successful example in an ecosystem like Java and Python.
+
+00:08:12.000 --> 00:08:20.000
+And, um, so it also suggests a principle for evolving fabric governance, and also technical charter.
+
+00:08:20.000 --> 00:08:28.000
+So, proposing an extended TSC, because now we would have multiple implementation of Fabric for specific use cases, right?
+
+00:08:28.000 --> 00:08:39.000
+So, that governance model also, uh, being proposed in this. So, together, uh, these two RFC seems to make fabric more versatile and future-proof.
+
+00:08:39.000 --> 00:08:47.000
+And we encourage you to review them. I think already many of the Uh, maintainers have reviewed it.
+
+00:08:47.000 --> 00:08:57.000
+So, yeah, this is the summary of this RFC.
+
+00:08:57.000 --> 00:09:07.000
+Okay, and what is your, um… depending on how this RFC relates to the… the fabric TSC.
+
+00:09:07.000 --> 00:09:13.000
+Um, I think this… you're suggesting they would require updates to the Fabric TSC?
+
+00:09:13.000 --> 00:09:19.000
+Yes, so once, uh, I mean, the current one that you have shared, if this RFC gets approved.
+
+00:09:19.000 --> 00:09:24.000
+Then we need to change the, um… so there is a hyperledger fabric charter, right?
+
+00:09:24.000 --> 00:09:29.000
+Uh, in the fabric repository, so that we need to make changes there.
+
+00:09:29.000 --> 00:09:38.000
+To explain some of the governance model, uh, described in this RFC.
+
+00:09:38.000 --> 00:09:44.000
+So it is, like, fundamentally changing the Hyperledger fabric, uh, I mean, charter, right?
+
+00:09:44.000 --> 00:09:48.000
+So, for that, we need a majority of the vote from the maintainer.
+
+00:09:48.000 --> 00:09:54.000
+And also, I think we need to inform the LLF Foundation.
+
+00:09:54.000 --> 00:09:58.000
+Yeah, I pulled up the charter as well, if we want to talk about that.
+
+00:09:58.000 --> 00:10:13.000
+Uh, so this was… the charter was something new that came into the project last year, maybe not everybody has seen it, because we haven't had to rely on it, but it sets out Um, you know, how we… how we make decisions like this, and how we vote on things like this.
+
+00:10:13.000 --> 00:10:22.000
+Uh, and also had to update the charter itself, um, at the end that talks about needing two-thirds of a vote of the fabric TSC to do this.
+
+00:10:22.000 --> 00:10:28.000
+I asked, um, the Hyperledger staff, or LFDT staff, about this.
+
+00:10:28.000 --> 00:10:41.000
+Um, and they said one of the reasons why they introduced these charters was so that we could have Um, projects like Fabric be broader umbrellas that could potentially contain multiple implementations and things like that.
+
+00:10:41.000 --> 00:10:52.000
+Those types of decisions would be… Um, up to the fabric TSC. So the fabric TSC goes beyond maintainers of, like, any one repository or any family of repositories.
+
+00:10:52.000 --> 00:11:01.000
+And that was their vision of having this FabricTSC is that the… this… this TSC group could make these decisions.
+
+00:11:01.000 --> 00:11:07.000
+Um, but yeah, if we're fundamentally changing, uh, Hyperledger to Fabric to be more of an umbrella.
+
+00:11:07.000 --> 00:11:16.000
+Ecosystem, um… I think we probably would need the… to get, like, that two-thirds, uh, vote for the charter updates.
+
+00:11:16.000 --> 00:11:20.000
+Does that make sense?
+
+00:11:20.000 --> 00:11:26.000
+Yes, yes, Dave. So that was also the expectation. So, I have also come…
+
+00:11:26.000 --> 00:11:43.000
+But Dave, I don't think that the way that charters are supposed to be managed, right? Because if each other is not about developing an umbrella project within… the bigger umbrella of HappyRego.
+
+00:11:43.000 --> 00:11:59.000
+It's about how to manage sub-projects The one… one, uh… And first class project like Fabric, and in terms of different repositories in different dependencies, the single repositories.
+
+00:11:59.000 --> 00:12:07.000
+In case, for example, like, SDK there, we have a disjoint, or might have disjoint set of people who maintaining those repositories.
+
+00:12:07.000 --> 00:12:20.000
+And we would like to have more, more… theoretically grouped way to operate and govern those repositories. It's not like, okay.
+
+00:12:20.000 --> 00:12:31.000
+Here, here the fabric, and let's put inability into the fabric to introduce a new project bypassing the other process that's well-established within Hyperger.
+
+00:12:31.000 --> 00:12:34.000
+Just because we can't do it.
+
+00:12:34.000 --> 00:12:41.000
+I did specifically ask that question because I had the same question myself of the Hyperledger staff, or LFDT staff.
+
+00:12:41.000 --> 00:12:54.000
+And they said the purpose of the charter… of the TS… of the new TSCs is such that the group, the TSC group, could make those decisions on behalf of the project.
+
+00:12:54.000 --> 00:13:04.000
+So it's possible to basically introduce new projects into the fabric, regardless the overall governance policies of the hyperlogger itself.
+
+00:13:04.000 --> 00:13:17.000
+If the fabric TSC believes that the project falls within… Uh, the guidelines and the governance of Hyperledger Fabric, then the Fabric TSC is the organization that can decide that.
+
+00:13:17.000 --> 00:13:20.000
+Is what they told me.
+
+00:13:20.000 --> 00:13:30.000
+Jealousy.
+
+00:13:30.000 --> 00:13:36.000
+Okay.
+
+00:13:36.000 --> 00:14:04.000
+So, I… since everyone sounds, so I don't want to express my, my, uh… My opinion, in terms of the previous ROC, Because I do think that the attempt of bringing a completely new implementation… again, you can call it a fabric, right, but it has very, very, very few from the initial fabric, since it's heavily refactored.
+
+00:14:04.000 --> 00:14:17.000
+And not backlog compatible. And it's also specialized case for the CBDC, and I do think that such impressive piece of work deserves to be a first-class citizen.
+
+00:14:17.000 --> 00:14:25.000
+Within a hypervisual across the hypervisual fabric projects. So, certainly not capability for North Hyperregure projects.
+
+00:14:25.000 --> 00:14:34.000
+And, uh, bringing it into the fabric will just fragment the ecosystem into the pieces.
+
+00:14:34.000 --> 00:14:37.000
+Which is, I think a mistake.
+
+00:14:37.000 --> 00:14:48.000
+Can I jump in? This is Angelo. Artem, maybe this was not… I'm not sure, maybe it's not clear or something, but most of the protobaths messages, and the gRPC services are the same.
+
+00:14:48.000 --> 00:14:57.000
+So, it's like saying. Take the Ethereum protocol, and there are multiple implementations of the theorem protocols.
+
+00:14:57.000 --> 00:15:03.000
+So here we are pushing for another implementation of most of the fabric protocols.
+
+00:15:03.000 --> 00:15:18.000
+With few changes, like we have done already in the past, like when we switched from Rafter to BFT, we had to change the config block. Like, once, like, we… when we introduced the capabilities, we are also saying that something might be deprecated.
+
+00:15:18.000 --> 00:15:27.000
+But most of the protobufs are the same, so it's not correct to say… completely… it's not correct to say that this is a different project. If the protobaths are the same.
+
+00:15:27.000 --> 00:15:36.000
+Alright, but you are not preserved any of the public APIs, okay? So if you would like to go over the comparison, right.
+
+00:15:36.000 --> 00:15:46.000
+So, for example, hyperagile Bezo, they implemented an AVM-based blockchain that is fully aligned with Ethereum. Yet.
+
+00:15:46.000 --> 00:15:51.000
+They have not submitted it into the Ethereum Foundation. It's well established.
+
+00:15:51.000 --> 00:15:58.000
+New project under hyperlogo, and that's the… that's the first thing.
+
+00:15:58.000 --> 00:15:59.000
+Necessarily Artem, but the API are the same. The gRPC services are the same.
+
+00:15:59.000 --> 00:16:04.000
+The second one is… For example, Leon…
+
+00:16:04.000 --> 00:16:05.000
+Why do you say that we're changing that?
+
+00:16:05.000 --> 00:16:16.000
+But if… so, that's something I'm missing. If API is the same, so why do those two implementations are not compatible, even not interoperable. That's what…
+
+00:16:16.000 --> 00:16:22.000
+Yeah, because we are saying that we are dropping PDC and some other stuff, and we are introducing a new transaction format.
+
+00:16:22.000 --> 00:16:25.000
+In channels, right? That's… that's…
+
+00:16:25.000 --> 00:16:44.000
+That is linear, and has the purpose of reaching thousands of transactions… hundreds of thousands of transactions per second.
+
+00:16:44.000 --> 00:16:45.000
+No, no, no, but I'm pointing to the fact that you're saying that this is a different API. That's not true.
+
+00:16:45.000 --> 00:16:51.000
+I'm not arguing that… Angelo, I… look, I'm not arguing the fact that this is the perfect piece of work. Like, I do understand why… I don't… I don't… But, okay, but…
+
+00:16:51.000 --> 00:16:54.000
+We are deprecating stuff, yes.
+
+00:16:54.000 --> 00:17:03.000
+And I mean, the commonalities go beyond just the protobubs. I mean, the… Aside from, like, the execute, order, validate thing, you have MSPs, they're the same. The endorsement model is the same.
+
+00:17:03.000 --> 00:17:06.000
+Whoever used fabric so far, if, if, if…
+
+00:17:06.000 --> 00:17:18.000
+Which I'd set is the same. Multiverse and concurrency control is the same, configuration management is the same, the block structure is almost the same, so, I mean, the list of command analytics is impressive, really.
+
+00:17:18.000 --> 00:17:23.000
+To call it, like, a complete new thing, it sounds like a bit of a stretch to me.
+
+00:17:23.000 --> 00:17:37.000
+So, uh, so Ali, you know, we can take another example. So, Ubuntu is descendant of Debian, and all… it shares a lot of in common, but yet it deserves a completely different project, okay? So that's the first thing.
+
+00:17:37.000 --> 00:18:02.000
+The thing that they're probably missing, and it's, you know, I'm trying to articulate what I'm reading from the RFC, is that there is no migration, and there is no compatibility between Two versions of Fabric X, and in the classical fabric, if you will, okay? So, whoever is using… whoever is using the fabric right now, and would like to switch to the fabric is…
+
+00:18:02.000 --> 00:18:24.000
+They have to start completely from scratch. Even from the configuration point of view, the lack of channels.
+
+00:18:24.000 --> 00:18:25.000
+Artem, you don't have to switch. After them, you don't have to switch.
+
+00:18:25.000 --> 00:18:29.000
+That means that you will need to reconfigure completely the entire network, to have a completely different approach in a way that you operate The entire network, and that's… that's not… okay, so, you do use inter… in…
+
+00:18:29.000 --> 00:18:30.000
+Sorry, Ali.
+
+00:18:30.000 --> 00:18:36.000
+May, may I also say… Yeah, I also want to say, there are also new versions of fabric that are not backwards compatible with the previous versions.
+
+00:18:36.000 --> 00:18:45.000
+Of fabric. And this is still acceptable, because the maintainers decided that it is fine, there is a new set of features that are important for fabric.
+
+00:18:45.000 --> 00:18:50.000
+Uh, to be supported in the future, to the extent that backwards compatibility is broken.
+
+00:18:50.000 --> 00:19:06.000
+It is bad for, uh, when there needs to be extra work for people to transition to the new version, but it is How were the market is moving with respect to the feature needs, and so on and so forth. Now, FabricX is not
+
+00:19:06.000 --> 00:19:19.000
+Saying it is a new version of fabric that people are forced to be compatible with. If There are people that are using fabric that are in the space of digital assets and currencies.
+
+00:19:19.000 --> 00:19:37.000
+I would guess there are very few of them, because fabric is not offering… is not lending itself well, for this kind of use cases, we are making their life easier to adopt some version of fabric, as opposed to not using fabric at all and going to some other alternatives.
+
+00:19:37.000 --> 00:19:47.000
+Uh, so that's the intention here. And although I'm not a maintainer, I'm really, uh, personally connected to fabric.
+
+00:19:47.000 --> 00:19:59.000
+I want to say that ecosystem growing, and to our experience, it's the other way around right now. The market is moving towards digital assets, you saw what is happening with stablecoins in the US.
+
+00:19:59.000 --> 00:20:14.000
+And fabric has no support at all there. And what is gonna happen is what we are afraid, because over the last few years, there hasn't been any development on fabric itself, is that this ecosystem will die, and we don't want that.
+
+00:20:14.000 --> 00:20:29.000
+And yes, it could be that we offer a new project, but this project will take years to be accepted by the TOC, ultimately, and make it to main repository, that would also be not optimal for the community of ABRIC to get strong attention there.
+
+00:20:29.000 --> 00:20:41.000
+Um, we want to make sure that the message is out that fabric is being actively worked on. The fabric ecosystem, in this case, not necessarily the fabric code base itself.
+
+00:20:41.000 --> 00:20:57.000
+That we want to continue to exist and flourish. That's the intention of this RFC, being part of fabric, not as an independent lab. Of course, that would be the easiest way out for everybody, for us as well.
+
+00:20:57.000 --> 00:21:06.000
+But we said it needs to come strongly with fabric, so that people know that we are working towards the direction where the market is going.
+
+00:21:06.000 --> 00:21:22.000
+We don't want to confuse the community, but in all… but with all honesty, there isn't much of the community that is doing digital assets right now that is using fabric. Apart from the ones that are considering abandoning fabric.
+
+00:21:22.000 --> 00:21:38.000
+And this is where we want to grow. We can make this, uh… this crystal clearer, clearer, uh, there, because we don't want to confuse the community, we want to support it and Standard.
+
+00:21:38.000 --> 00:21:39.000
+Yeah.
+
+00:21:39.000 --> 00:22:02.000
+So, I do have a few comments to that. So, first of all, for the previous example of the feature that was abandoned, or we stopped developing There was a clear duplication path they took. It's not like switch on off, there we introduced a new version of the fabric without any support of the previous feature, and
+
+00:22:02.000 --> 00:22:20.000
+Just to remind you that it took several, several years to get rid of the legacy chain code lifecycle, right? And I was the last one to actually submit the commit to close that.
+
+00:22:20.000 --> 00:22:21.000
+That's not ever.
+
+00:22:21.000 --> 00:22:33.000
+It's good, but… You were talking about, like, a new version of fabric. We are not talking about a new version of fabric, we are talking about…
+
+00:22:33.000 --> 00:22:34.000
+The community, the community… The communities to decide what it will become.
+
+00:22:34.000 --> 00:22:40.000
+So that's exactly my point. It's not new girls on the fabric, it's a completely different project, and you're trying to weather it as a kind of evolution of the fabric, rather than…
+
+00:22:40.000 --> 00:22:53.000
+It is an alternative, it is additional probabilities that the community If the community… if the community believes
+
+00:22:53.000 --> 00:22:54.000
+Awesome.
+
+00:22:54.000 --> 00:23:07.000
+Exigned, that's why… that's why I… That's why I think incubation process is the rightful place, so that in order to build the community, not confuse it with the current fabric, and have the close segregation between The fabric that is general purpose, and the fabric X,
+
+00:23:07.000 --> 00:23:08.000
+It's not CBDC only, it's digital assets in general, and that's what the market
+
+00:23:08.000 --> 00:23:28.000
+That is built for purpose of the CBDC, bringing… I have, honestly, to say, rather comp… is LWA… LWA direction that is developed on top of fabric, but it's kind of… the whole new niche that is, uh, deserved, first of all, solid focus and, uh.
+
+00:23:28.000 --> 00:23:29.000
+So, Artem, um, can I ask a… Adam, can I ask a question?
+
+00:23:29.000 --> 00:23:31.000
+It's not fabric, okay? So, you just admitted it, it's…
+
+00:23:31.000 --> 00:23:36.000
+So, Artham, you clearly have a position on that. You clearly have a position.
+
+00:23:36.000 --> 00:23:50.000
+You don't agree that fabric fundamentally is capable I guess from an architecture perspective of supporting this new version or flavor, or different solution, I'll say.
+
+00:23:50.000 --> 00:24:02.000
+My argument is there's nothing wrong with coming up new with new solutions. I like the idea of the concept of a family of solutions that's architecturally related to, I'll call it a parent architecture.
+
+00:24:02.000 --> 00:24:06.000
+So the question I would have, which is really the question for Fabric itself.
+
+00:24:06.000 --> 00:24:12.000
+Is what's different, not about the added features of what they're proposing for the new solution for crypto.
+
+00:24:12.000 --> 00:24:30.000
+But rather, what is limiting about the fabric architecture that would stop that from being, in a sense, a new flavor of fabric. So, yes, maybe the evolution of fabric needs to continue further from an architecture viewpoint.
+
+00:24:30.000 --> 00:24:31.000
+Exactly the same thing I was going…
+
+00:24:31.000 --> 00:24:39.000
+Is my argument. Period There's lots of room for that. I would also argue, though, having spent more time than anybody I know in digital assets over the last 4 years.
+
+00:24:39.000 --> 00:24:46.000
+That there is so much wrong with the whole DeFi platforms as they exist, including EVM.
+
+00:24:46.000 --> 00:24:54.000
+It's very obvious that the future is not permissionless anything, it's permissioned, for sure, 100%.
+
+00:24:54.000 --> 00:25:05.000
+And in fact, BESU is successful because it allows a permission model on an EVM platform that itself is very, what I call, limiting and failed in many ways.
+
+00:25:05.000 --> 00:25:14.000
+And so, um, every solution that's novel in the DeFi space is overcoming the limits of public blockchain, period. That's all they do.
+
+00:25:14.000 --> 00:25:30.000
+That's all they spend their time on. And they still have massive gaps. So having lived in the digital asset space, I would argue that, um, maybe the right thing is rethink fabric architecture again, as you have done in the past.
+
+00:25:30.000 --> 00:25:36.000
+And ask yourself, why couldn't it support the capabilities that the new project is looking at?
+
+00:25:36.000 --> 00:25:40.000
+Easily.
+
+00:25:40.000 --> 00:25:45.000
+And just to add to that, I was also going to really same thoughts. Thanks, Tim.
+
+00:25:45.000 --> 00:25:54.000
+So, to answer your question, Jim, exactly that exercise has happened And fabric that came out of that exercise only.
+
+00:25:54.000 --> 00:26:04.000
+That fabric. Fundamentally, we started with as a kind of one size fits all. That means most of the use cases would be served better.
+
+00:26:04.000 --> 00:26:09.000
+But, as you know, blockchain has been evolving always, uh, even till today.
+
+00:26:09.000 --> 00:26:18.000
+And new use cases becomes more prominent at time versus other So, so far, it had served the… some enterprise use cases, uh, quite well.
+
+00:26:18.000 --> 00:26:27.000
+But when it comes to digital asset use cases, the fabric one-size-fits-all kind of approach started showing weaknesses.
+
+00:26:27.000 --> 00:26:35.000
+Especially for the performance, uh. Significantly lower, like 2,000 TPS definitely is not going to serve any of those use cases.
+
+00:26:35.000 --> 00:26:40.000
+Now, of course. Uh, one approach is, as you said, like.
+
+00:26:40.000 --> 00:26:45.000
+Keep fixing things there. We tried hard there as well.
+
+00:26:45.000 --> 00:26:49.000
+But it failed. And the other approach is, like, think fresh.
+
+00:26:49.000 --> 00:27:00.000
+And that is where how FabricX was, uh, uh, made. That let's think afresh, forget any compatibility, anything, we have full freedom.
+
+00:27:00.000 --> 00:27:09.000
+If we would have two from scratch. However, still keep the core concept and components from Fabric, but re-architect it.
+
+00:27:09.000 --> 00:27:10.000
+Right.
+
+00:27:10.000 --> 00:27:15.000
+So it's not. Basically, it's altogether different concept. It's basically re-architecting the same concepts.
+
+00:27:15.000 --> 00:27:29.000
+And that's how it came up. Now… the point is, like, if I ask, let's say, Artem, if I ask you, okay, somebody wants to try fabric for digital effect, what would your answer be?
+
+00:27:29.000 --> 00:27:35.000
+Go away, it doesn't work. Or, you would say, hey, we have a lightweight version.
+
+00:27:35.000 --> 00:27:36.000
+And which is very specifically tailored
+
+00:27:36.000 --> 00:27:54.000
+So, I'm not… You know, I'm not a really good person to ask this question, so just because I used to work for the several companies building the digital assets on top of… exactly current version of fabric, and it's a pretty…
+
+00:27:54.000 --> 00:28:08.000
+Okay, it's not over… all of them flourishing pretty successful, but there are companies that are running using this solution, and it's pretty… I actually have to admit, showing pretty good results.
+
+00:28:08.000 --> 00:28:13.000
+Yeah, but if the demand is, like, hundreds of thousands of transactions per second.
+
+00:28:13.000 --> 00:28:14.000
+Yes, Spanish, you're correct.
+
+00:28:14.000 --> 00:28:15.000
+We can't answer, like, go and use, uh…
+
+00:28:15.000 --> 00:28:26.000
+So, it's possible to achieve this goal also with the current architecture. That's what I did.
+
+00:28:26.000 --> 00:28:27.000
+Well.
+
+00:28:27.000 --> 00:28:33.000
+This is not the case, Artem, and you know it. We've… we've built a Hyperledger fabric as well. We've tested so many times under many configurations.
+
+00:28:33.000 --> 00:28:35.000
+It's not possible to have…
+
+00:28:35.000 --> 00:28:36.000
+Ladies.
+
+00:28:36.000 --> 00:28:41.000
+Okay, it's not, it's not, it's not, it's not going to the, to the level of the performance of Nanos that you're showing in ROC, but it, uh, it's possible to achieve.
+
+00:28:41.000 --> 00:28:42.000
+Yeah, because serial… because serial… serial validation is a bottleneck. 100,000, you cannot achieve there.
+
+00:28:42.000 --> 00:28:50.000
+So, to… To be fair, to be fair, a lot of this is engineering. A lot of this is engineering, period.
+
+00:28:50.000 --> 00:28:58.000
+So I've taken fabric, the existing fabric, on… two apps, and I've used it differently. It's just a tool.
+
+00:28:58.000 --> 00:29:03.000
+And you use the tool to build something. So I've built something differently than the default way.
+
+00:29:03.000 --> 00:29:12.000
+So just like the, I'll call it DeFi crowd that says EBM is a disaster from a performance perspective, so what do we do? We create something called a Level 2.
+
+00:29:12.000 --> 00:29:19.000
+And the level 2 just ties back to the level 1. It's just a tool. And so the point of it is, I agree with Manish's point.
+
+00:29:19.000 --> 00:29:24.000
+That you should look at the requirements of where you'd like to go, and then ask yourself.
+
+00:29:24.000 --> 00:29:33.000
+Is, and I agree with Manish's concept, is fabric a good starting point? Does it give us some advantages in getting where we really want to go?
+
+00:29:33.000 --> 00:29:42.000
+And we're nowhere close. I will say the whole DLT mess is really a very immature architecture, period. It's solving a trust problem.
+
+00:29:42.000 --> 00:29:54.000
+But it doesn't solve all trust problems. It solves a portion of them. And if you do, like, Manish and some of the other people here, say, what are the other use cases that we're not addressing well, yeah, go look at those.
+
+00:29:54.000 --> 00:29:58.000
+Ask yourself, what would the trust look like that you're looking at in total.
+
+00:29:58.000 --> 00:30:16.000
+What trust would become out of… not a DLT, but I'll call it a virtual smart ledger technology, which is different than DLT. What portion of trust would be answered by that? And then back to your point, what about the use cases and the flexibility from an architecture standpoint? Finally, would fabric be a good base or not?
+
+00:30:16.000 --> 00:30:32.000
+To start to address those use cases. But I am 100% confident, looking at other technologies outside of DLT, that you could easily get what I call the performance you know, to a half a million or a million TPS, um, reasonably.
+
+00:30:32.000 --> 00:30:40.000
+You could, but it wouldn't be using this architecture. There's nothing in the DeFi space, they're all on the wrong track, technically, for sure.
+
+00:30:40.000 --> 00:30:46.000
+There's nothing going to approach it over there. The whole point is rethinking the trust model to begin with, and the architecture model.
+
+00:30:46.000 --> 00:31:04.000
+But I think, I agree very much with your concept. Start out with the use cases, ask what you're trying to get to, and then ask the question, is the existing fabric valuable in addressing that. I suspect it probably is in some ways, but I'm not… I'm not the person to answer that, for sure.
+
+00:31:04.000 --> 00:31:09.000
+No, and regime, exactly, that is the exercise we went through.
+
+00:31:09.000 --> 00:31:18.000
+And that's how FabricX came up. So that full exercise we went through, let's start from scratch, and goal is to support very high throughput.
+
+00:31:18.000 --> 00:31:22.000
+For digital asset cases. So, we had to trim down many things.
+
+00:31:22.000 --> 00:31:27.000
+We had to introduce the parallel validation of transactions, which was the primary bottleneck.
+
+00:31:27.000 --> 00:31:39.000
+Which we keep… to be honest, even before FabricX, in Fabric, we kept on pushing and struggling for parallel validation, because that was the single bottleneck of throughput.
+
+00:31:39.000 --> 00:31:46.000
+But it was so… it has reached a point where it was beyond repair, the original fabric.
+
+00:31:46.000 --> 00:31:47.000
+Yeah, so I'll argue… All right, all I'm gonna say is, looking at the stuff I look at.
+
+00:31:47.000 --> 00:31:51.000
+So that's how, basically, we had to do it.
+
+00:31:51.000 --> 00:31:56.000
+I'm trying to move to a very different point. Um, which is a much higher level.
+
+00:31:56.000 --> 00:32:05.000
+Among other things, a higher level of trust, a broader level of trust, and a bigger definition of trust, where, in a sense, what you call DLT is only a very small portion of that.
+
+00:32:05.000 --> 00:32:15.000
+When I look at what I call financial transactions. The second thing I'm looking at is saying, okay, a million TPS is a reasonable starting point, not an endpoint, but a good starting point.
+
+00:32:15.000 --> 00:32:27.000
+And yes, the existing version of fabric doesn't get me there, but there are things architecturally that fabric has done right that the other platforms don't. They just run from it, and they say, we're going to use something like an EVM base.
+
+00:32:27.000 --> 00:32:32.000
+And try to do a level 2. It's… I can come up with a level 3 or 4 that they haven't come up with.
+
+00:32:32.000 --> 00:32:44.000
+The bottom line is, we do need to have trust. That's the whole point of what you're trying to do, is have a trusted model. The other thing that has come up, obviously, in the finance world, which is huge.
+
+00:32:44.000 --> 00:32:58.000
+Really in the identity world, which I also work in, is look at Sovereign, right? That's a DLT, a different… it's not fabric, but the problem they have is that the provider who runs the platform, the intermediary between you and me on any transaction.
+
+00:32:58.000 --> 00:33:03.000
+Disappeared. What happens when you have a Genesis block in a blockchain.
+
+00:33:03.000 --> 00:33:22.000
+And the operator of that platform doesn't exist anymore. What happens to all of the, in a sense, in my case, not the transactions, because that's past history, but the identities that are still being used. So, there is this concept of survivability. There's a whole bunch of architectural things missing in DLT, for sure.
+
+00:33:22.000 --> 00:33:47.000
+And they're just now hitting some of that in the identity space with WebVH and some other architectures, but fundamentally, there's a lot of gaps in DLT as you think about it, and DeFi doesn't help, honestly. They're not addressing those, they're just working around them. And I would argue, again, back to your point, start with the use cases, and don't just look at performance, but look at trust and what the purpose of it is.
+
+00:33:47.000 --> 00:33:57.000
+And I think you come up with a different life cycle for a transaction that isn't defined today in DeFi, for sure. There's a difference between something called commit and finalization.
+
+00:33:57.000 --> 00:34:03.000
+And you have to understand how more sophisticated architectures and distributed database handle those problems.
+
+00:34:03.000 --> 00:34:09.000
+Which already have solutions. And we're not looking at those, because we're not that mature.
+
+00:34:09.000 --> 00:34:12.000
+As a community, at this point.
+
+00:34:12.000 --> 00:34:30.000
+Yeah, right, those are the broader reasons I think this proposal is that let's allow innovation within fabric, hyperlure fabric, uh… umbrella, rather than each such, like, initiative in its own project, and you lose the value of trust people have in the overall, uh, technology
+
+00:34:30.000 --> 00:34:33.000
+And the concepts. That's the whole proposal here.
+
+00:34:33.000 --> 00:34:45.000
+Alright, but you're not passing the whole incubation process there, you basically leverages the trust of the community to the hyper-region fabric in a way that it exists right now.
+
+00:34:45.000 --> 00:34:46.000
+Yeah, because it's not a brand…
+
+00:34:46.000 --> 00:35:03.000
+After so many, so many, so many, so many years of stabilization, and, uh, to put something that is immature, and you didn't go through the incubation.
+
+00:35:03.000 --> 00:35:04.000
+No, Artem, Artem, it's not.
+
+00:35:04.000 --> 00:35:17.000
+Gideon proved itself as something that's basically sustainable, and then it's simply wrong. That's why I… and again, I'm not… just a second, Manish. I'm not opposed to Fabric EX. I think it's very… good way moving forward, and I do appreciate, and I do think that it's a very valuable, uh…
+
+00:35:17.000 --> 00:35:21.000
+Amount of effort and work that you put into developing such platform.
+
+00:35:21.000 --> 00:35:45.000
+Just, I think it should be aligned. With the general, uh, kind of path of the hyperasure, there we have a set of a broader set of projects. The one who managed the digital identity, the one who implements EVM, the one who addresses the interoperability, and it's… I think it's much more valuable and much more focused
+
+00:35:45.000 --> 00:35:50.000
+To have the project that will be dedicated for LWA things.
+
+00:35:50.000 --> 00:35:51.000
+But Artem, whether it's a new project or an existing project.
+
+00:35:51.000 --> 00:35:56.000
+Yeah, so to answer that, Artem, one thing I would say But, Ali, just…
+
+00:35:56.000 --> 00:36:00.000
+Sorry, it's just… it's just up to the fabric TSC to make this decision.
+
+00:36:00.000 --> 00:36:01.000
+It's very determination.
+
+00:36:01.000 --> 00:36:09.000
+Exactly. So, that… Yeah, that's all I'm saying, it's not so black and white artem that it's a very brand new thing, which hasn't proven itself.
+
+00:36:09.000 --> 00:36:15.000
+And neither it is so, like, white that it's the next version of fabric and hence operatability is possible.
+
+00:36:15.000 --> 00:36:32.000
+It's basically towards in the middle. Where you cannot say it's a totally brand new thing. The old concepts 50% of the codebase everything, like, pretty much is coming from fabric which have proven stand test of time. On the other hand, the people who have
+
+00:36:32.000 --> 00:36:43.000
+Worked on it since beginning. They are coming from the fabric experience for over the years, and they have learned, and They have kept the same, uh, philosophy in mind while building it since beginning.
+
+00:36:43.000 --> 00:36:50.000
+So it's not, like, total brand new thing, which haven't, like, been tested well, ground tested. It's for a different use case.
+
+00:36:50.000 --> 00:37:00.000
+And it's serving different purpose. But it's in the middle, it's neither, like, black and white. That's why this discussion is, like, uh… Um, because putting it brand new would give rather wrong impression, that it's a… new thing.
+
+00:37:00.000 --> 00:37:21.000
+My mother is completely different use case, it's completely different set of repositories, it's a completely different set of people who is going to maintain it. I mean, it's all completely different, and that's why I think it's kind of bypassing The whole path of, uh, of, of, of…
+
+00:37:21.000 --> 00:37:22.000
+I won't say it will completely different set of people. You'll find overlap.
+
+00:37:22.000 --> 00:37:25.000
+The way I see it, it's supposed…
+
+00:37:25.000 --> 00:37:26.000
+You'll find, like, overlap between fabric maintainers and
+
+00:37:26.000 --> 00:37:35.000
+Right, right. I find the overlap, I mean, you know, we all know how this overlap is created, right? But, I mean.
+
+00:37:35.000 --> 00:37:50.000
+There is still… there is still a fragmentation that is gonna be created in a way that once… that ROC will be accepted, and I think that's… that's not the way it's supposed to be done.
+
+00:37:50.000 --> 00:37:51.000
+So, Artem.
+
+00:37:51.000 --> 00:37:59.000
+And I do think that there is the higher level of the guidelines of how the new project and incubation process is supposed to work is here for the region.
+
+00:37:59.000 --> 00:38:06.000
+And I don't think that it's kind of, as you mentioned, black or white, that it's up to the DEC or fabric.
+
+00:38:06.000 --> 00:38:23.000
+To make a decision, so, okay, let's open here in a self-sovereign sub-project to allow bringing in new pieces of the technologies, just because there are some of the concepts that we are using for the fabric.
+
+00:38:23.000 --> 00:38:33.000
+So, Art, let me ask you this. Your point is that it's a radically different project than fabric, and I'm not going to argue that. I'll accept that judgment fine. The question I would ask is.
+
+00:38:33.000 --> 00:38:47.000
+Is the architecture of fabric itself strong enough that it allows different implementations for what I call, uh, service interfaces. If it doesn't, then I would have to agree with you. The concept is, oh, okay, this thing is so different.
+
+00:38:47.000 --> 00:39:03.000
+And fabric is so sort of structured in what it does, that there's really no chance these are two fundamentally different projects. But on the other hand, if you said, oh, kind of like Firefly They have, uh, the fabric has an architecture with a set of service interfaces that, in a sense, are
+
+00:39:03.000 --> 00:39:08.000
+Replaceable, if you will, with replaceable implementations and a default one.
+
+00:39:08.000 --> 00:39:15.000
+Then it becomes, oh no, wait a second, maybe the base architecture actually has value. So that's a question I'm asking, and I don't have the answer.
+
+00:39:15.000 --> 00:39:19.000
+Clearly.
+
+00:39:19.000 --> 00:39:26.000
+Jim is the latter. We are saving most of the gRPC service, we're depregating something like the PDC and rich queries.
+
+00:39:26.000 --> 00:39:32.000
+That are something that happens in the execution, but the gRPC service, most of the protobufs.
+
+00:39:32.000 --> 00:39:42.000
+Are the same. This is fabric. Fabric is its product, the language that he speaks is the protobaths, the gRPC service. This will remain the same.
+
+00:39:42.000 --> 00:39:43.000
+Yeah.
+
+00:39:43.000 --> 00:39:51.000
+And honestly, 40 years ago, I was building something like Protobuffs myself at IBM, because that was an efficient way to do distributed, um.
+
+00:39:51.000 --> 00:39:56.000
+Data communications, for sure. Before the internet existed, obviously.
+
+00:39:56.000 --> 00:40:04.000
+Yeah. So we're not… we're not saying that there will be different endpoints or stuff like that, so that's not the… what we are saying.
+
+00:40:04.000 --> 00:40:11.000
+So I don't understand your position, because it's really… it's the next generation of… we are moving forward.
+
+00:40:11.000 --> 00:40:18.000
+Otherwise, what are you proposing, Artem? Where should fabric be?
+
+00:40:18.000 --> 00:40:35.000
+I also want to say that if we are seeing, and I think we're all of us seeing, that fabric, the classic fabric, is not optimally addressing the new space that is emerging, which is the digital asset. Yes, it can support certain use cases.
+
+00:40:35.000 --> 00:40:46.000
+But we've also… the majority of us that have joined from IBM, they are working actively on different regulated digital asset opportunities, and we're seeing the gaps.
+
+00:40:46.000 --> 00:40:52.000
+So, we're just going… trying to make life easier for people that are in the same position as us.
+
+00:40:52.000 --> 00:40:59.000
+Um, and using public as opposed to any other alternative that is popular these days.
+
+00:40:59.000 --> 00:41:11.000
+So maybe, uh, in accordance also to what Jim was saying earlier, and what Manish was saying, maybe it is the right time to say we extend Fabric Repo to support multiple incarnations of fabric.
+
+00:41:11.000 --> 00:41:36.000
+And then we don't create any confusion anymore. We have the general purpose fabric, which is classic fabric that will continue to be supported. We have fabric X that will, uh, maybe capture some traction on the digital asset side. We'll also get the feedback from the community. If the community thinks the two should get together, or should come together with a microlear, automated, user-friendly migration path.
+
+00:41:36.000 --> 00:41:40.000
+From one to the other, then we'll be… will contribute to building it.
+
+00:41:40.000 --> 00:41:47.000
+Otherwise, and then we have the attention of the community in one repo. They know it's all fabric.
+
+00:41:47.000 --> 00:41:52.000
+Because, see, the community, you mentioned it yourself before, Artem, is small.
+
+00:41:52.000 --> 00:42:02.000
+Dividing it is gonna create a confusion But if we have one rep or set of repos associated to fabric, clearly marked.
+
+00:42:02.000 --> 00:42:11.000
+That would be, at this point, the best for the, uh, for the… for extending, growing that ecosystem.
+
+00:42:11.000 --> 00:42:28.000
+I like your thinking in terms of what you're proposing, which I don't disagree with, is Back to Angelo's point, if we have a common I'll call it a set of protocols underneath. We can argue that the implementation of the architecture as we see it
+
+00:42:28.000 --> 00:42:40.000
+Is limiting in some ways. Fair enough. I don't have the answer on what the right on my end, certainly, on what the right steps is to address that, so that's a decision for other people to make. But I will say.
+
+00:42:40.000 --> 00:42:46.000
+That you're right. When I've… because I do work in the DeFi space on the other architectures.
+
+00:42:46.000 --> 00:42:58.000
+In the finance space, and those are horrific. They are literally horrific. And they're just loaded with all people do in that space, honestly, is work around those limitations. They don't improve them, they work around them.
+
+00:42:58.000 --> 00:43:05.000
+Everything, whether it be identity, whether it be trust, whether it be performance, resiliency.
+
+00:43:05.000 --> 00:43:12.000
+It just goes on and on and on, and… Which is why, after whatever it is, 15 years of blockchain.
+
+00:43:12.000 --> 00:43:20.000
+In that space, they've made so little progress, honestly. They celebrate their progress, but I come from, like, DTCC.
+
+00:43:20.000 --> 00:43:30.000
+You know, we settle two-thirds of the world's security trades. And so the answer is, and I also come from an identity space, digital identity. And in the DTCC world.
+
+00:43:30.000 --> 00:43:36.000
+Nothing that the DeFi world has done yet fits that world. Why?
+
+00:43:36.000 --> 00:43:47.000
+It doesn't fit it on performance, resiliency, trust, period. The gaps are enormous, and all the DeFi crowd does is defend bad architecture over and over again and work around it.
+
+00:43:47.000 --> 00:43:56.000
+And we have an opportunity, and certainly Fabric has some stronger architectural capabilities. I agree with Angelo, look at the base protocols.
+
+00:43:56.000 --> 00:44:08.000
+Those are valid. But when you start asking, what's the right way to go, like Manish said, then you start looking back at the use cases and say, let the use cases tell me the capabilities I need.
+
+00:44:08.000 --> 00:44:18.000
+Then you ask, is fabric useful against those? And I think that's really a proper model for this. And having looked at the trust side, the performance side, the resiliency side, and so on.
+
+00:44:18.000 --> 00:44:29.000
+There are some very strong things about fabric that, like Angelo said, the protocol stuff is good. So, it is a valid question to say, if you're starting like Manish is, and saying, hey, let's do it right.
+
+00:44:29.000 --> 00:44:42.000
+Architecturally, then… is fabric a step forward in that? And the answer is maybe it is, but I'm not the person to answer the question.
+
+00:44:42.000 --> 00:45:08.000
+Uh, excuse me, just, uh, click comment. I'm very interested in public itself. I think it has a lot of potential, but I still have some concern from either perspective, as I mentioned earlier in the RFG, Uh, important point is to avoid user confusion.
+
+00:45:08.000 --> 00:45:19.000
+At this point, it's difficult for me to decide whether FabricX should be part of fabric handle other separate projects for now.
+
+00:45:19.000 --> 00:45:32.000
+So, uh… However, he didn't prefer this approach, I continue to recommend that this project start under hyperlitrogen levels.
+
+00:45:32.000 --> 00:45:38.000
+I believe that we would give us more space for open discussion.
+
+00:45:38.000 --> 00:45:47.000
+And, uh, help us find common ground. Go… going quiet.
+
+00:45:47.000 --> 00:45:55.000
+How about two steps? Lacos project.
+
+00:45:55.000 --> 00:45:59.000
+I can tell my opinion, and others can jump in as they like.
+
+00:45:59.000 --> 00:46:07.000
+So for me, Hyperledger Labs that are about Hyperledger or decentralized trust labs, there are about 50 in total, 40.
+
+00:46:07.000 --> 00:46:23.000
+So we put a code base that it is gonna add value in the view of some of us, not all of us, okay? To a hyperledger Lab, it's gonna be on one of the many with a label of this pink, um.
+
+00:46:23.000 --> 00:46:32.000
+Highly mature codebase, and so on and so forth. The objective here is really to grow the fabric ecosystem.
+
+00:46:32.000 --> 00:46:43.000
+We want to say in strong work, because we've heard from many people, fabric is a dead protocol Fabric nobody's investing on, nobody's adding new features, which is totally true.
+
+00:46:43.000 --> 00:46:56.000
+Right now, we are not adding new features to Fabric. We don't want to, um… let's say a mess up with the classic fabric roadmap.
+
+00:46:56.000 --> 00:47:01.000
+We don't want to do that without the community being onboarded with that.
+
+00:47:01.000 --> 00:47:09.000
+But we want to associate very strongly Fabrica X to fabric, because this is going to be good for the ecosystem of fabric.
+
+00:47:09.000 --> 00:47:19.000
+That's the view. Some people might have the same view, some people will have a different view. It's… it's… that's where the voting is, uh, is to be put in place.
+
+00:47:19.000 --> 00:47:29.000
+Um, and uh… whereas if we just make it, and also, the second thing is that it is a code base.
+
+00:47:29.000 --> 00:47:53.000
+That will receive a lot of attention moving forward, because IBM is now gonna invest a lot on promoting, uh, fabric act Um, so that's the objective. We don't want to do it as an independent project. We want to associate it to Fabric, because it's to the benefit of everybody, the existing fabric community and the future fabric community.
+
+00:47:53.000 --> 00:48:03.000
+If this ecosystem grows. They're no different. As Angelo said. They have fundamental and all listed also in the past. There's the same protocol.
+
+00:48:03.000 --> 00:48:20.000
+They don't have PDCs, because we believe We… the ones that designed Fabric X, or optimized, let's say, fabric operations into Fabric X, We thought that PDCs were not adding value in this kind of set of use cases.
+
+00:48:20.000 --> 00:48:26.000
+If we think… if the community thinks that needs to change, we can add it later on, no problem.
+
+00:48:26.000 --> 00:48:38.000
+Uh, but it is something that, uh, it's a considerable investment. You will see also the code base is not Uh, it's not a proof of concept. It's way more than that.
+
+00:48:38.000 --> 00:48:56.000
+And it will invigorate the fabric ecosystem, and it cannot be disassociated for fabric. Hyperledger Labs is one of the many. We have multiple projects there, but they're not receiving attention. It's very hard for people to, uh, attract attention to this, uh, this, this kind of projects.
+
+00:48:56.000 --> 00:48:57.000
+That's my two cents, and…
+
+00:48:57.000 --> 00:49:11.000
+Um, alright, so thanks for helping me, because I know nothing about the investment IBM's making on the new Fabric X, I'll call it. Um, but it's nice to hear… to understand more about that, and the fact that they, in theory, think they're serious.
+
+00:49:11.000 --> 00:49:25.000
+If they are serious, I would encourage them to do it differently than they've done half the products in IBM. I've worked for IBM, I've been an IBM customer, I've built product for IBM, Consume them. I've been a user of everything you can ever be. And the answer is, half the time.
+
+00:49:25.000 --> 00:49:39.000
+They don't make those investments well, and they don't actually age well at all, I can say that. And some do. And so there's a high risk when IBM does this, that the investment's not going to age well.
+
+00:49:39.000 --> 00:49:45.000
+And the argument is… and I'm gonna pick on Angelo. I know he knows a ton about security. I know that.
+
+00:49:45.000 --> 00:50:06.000
+I also know he's right about the protocol stuff. There are certain things that you can identify in addressing use cases that are valid. If you write the right use cases, you can pick certain things that say, okay, these are really strong ways to go. When you go to design the design the new solution, Fabric X or whatever you want to call it.
+
+00:50:06.000 --> 00:50:24.000
+Then make sure that that's not some hybrid, messed up, um, architecture do it right. Start with use cases, look at the capabilities, start individually making decisions, and understand that what you're building is a new platform that's a general architecture, not some
+
+00:50:24.000 --> 00:50:29.000
+Specific, locked-in, crazy thing, like they probably want to do for just DeFi.
+
+00:50:29.000 --> 00:50:43.000
+To do DeFi better, um, that would be horrific. Just even things like UTXO or whatever you want to use as a transaction model. There's many, many limitations in there, and I would argue that if you're going to invest real money, don't
+
+00:50:43.000 --> 00:50:59.000
+Don't go with the limitations that exist. Start out with clean use cases, define capabilities, start selecting for those capabilities, define interfaces, and then select implementations like Angelo has save for security for protocols, and so on.
+
+00:50:59.000 --> 00:51:05.000
+Um, that to me is a rational way to build something that's going to be a significant investment.
+
+00:51:05.000 --> 00:51:24.000
+But to hack together something based on, you know, I'll call it finance use cases that starts with an existing architecture and fabric doesn't sound like a rich, attractive way to go to grow any kind of a significant, um, platform. It's kind of like the evolution of WebSphere. Took 5 frickin' versions to get to something that was actually production-ready.
+
+00:51:24.000 --> 00:51:29.000
+Um, I would hate to see an investment like that. That took that long to mature. That's all.
+
+00:51:29.000 --> 00:51:37.000
+We've been involved in this kind of engagements for 5 years now, 6 years now.
+
+00:51:37.000 --> 00:51:52.000
+We've been looking at it from the use case perspective, and these were the changes that we made to Fabric. That's why There is this lack of backward compatibility, because certain features we did not… what ARDM is complaining about.
+
+00:51:52.000 --> 00:51:59.000
+Because certain things we said, it doesn't make sense to continue, they don't bring value, we can simplify a lot of things.
+
+00:51:59.000 --> 00:52:05.000
+And that's what the logic that we put in there. Clean state, that's where we started from.
+
+00:52:05.000 --> 00:52:13.000
+Okay, so then the argument is. And I apologize for being stupid on the new investment, because I really am. I know nothing about it.
+
+00:52:13.000 --> 00:52:14.000
+But I would argue…
+
+00:52:14.000 --> 00:52:27.000
+But it doesn't have to do with a new investment, it's really… but what we want to say is that the… this code base will really motivated not to not to disturb what exists, but to make it bigger.
+
+00:52:27.000 --> 00:52:29.000
+That's what I wanted to… Let's say here.
+
+00:52:29.000 --> 00:52:38.000
+So that's… oh, God, that is… I hate to say it, that's what I call an ugly motivation, in the sense that it's hard. You're trying to say.
+
+00:52:38.000 --> 00:52:50.000
+Yes, I took from fabric, which is a good thing. And I want to make it better, but my making it better is going to somehow be limited by what I took from fabric, which doesn't sound right.
+
+00:52:50.000 --> 00:52:51.000
+It's almost like if… if… and I don't know how big this investment is, if it's a big investment, my argument is.
+
+00:52:51.000 --> 00:52:56.000
+There were certain things…
+
+00:52:56.000 --> 00:53:10.000
+And for God's sakes, do it right. And say, no, this is a different version of fabric, as you're saying, but it's one that addresses all the limitations of the existing DLT architectures, which is easy to do.
+
+00:53:10.000 --> 00:53:11.000
+Is my argument.
+
+00:53:11.000 --> 00:53:24.000
+So, look… Just one thing. Fabric was built to address general purpose problems, and this, by nature, is a wrong way to start building things. We're going to end up doing something quite complex.
+
+00:53:24.000 --> 00:53:32.000
+I was there with a team in designing fabric. We were into the loop of days designing the transaction structure.
+
+00:53:32.000 --> 00:53:41.000
+Or months, and it became a Frankenstein. And because we wanted to address the world of use cases that we didn't know already.
+
+00:53:41.000 --> 00:53:42.000
+Okay, so…
+
+00:53:42.000 --> 00:53:49.000
+So, but, but, but that said, it had certain very good, uh, uh, components.
+
+00:53:49.000 --> 00:53:56.000
+The pre-order execution is relevant, relevant for many enterprise use cases that need to scale.
+
+00:53:56.000 --> 00:54:06.000
+It had flexibility on the governor's side. This, we didn't think we should drop. So the protocol, at its heart, the transaction lifecycle.
+
+00:54:06.000 --> 00:54:12.000
+In at least the… how we were exposed to other use cases was quite relevant.
+
+00:54:12.000 --> 00:54:26.000
+And what we're saying is we kept what was good in fabric and relevant for this use case, and we extended that, uh, good, uh, skeleton with other things that did not exist in fabric.
+
+00:54:26.000 --> 00:54:35.000
+So it was a healthy kind of, uh. Variant that… fabric that we were… for this particular set of use cases.
+
+00:54:35.000 --> 00:54:36.000
+Right. So that's good that you were going through that process with Fabric. The challenge of it is.
+
+00:54:36.000 --> 00:54:41.000
+So, uh, it's… it's not…
+
+00:54:41.000 --> 00:54:42.000
+I would agree. Fabric had limitations, as you're saying, that you're trying to overcome.
+
+00:54:42.000 --> 00:54:45.000
+Whether… whether it is good or not.
+
+00:54:45.000 --> 00:54:59.000
+Have you published the architecture for this thing that's available to look at? Because I'm curious to see how limited the new architecture is, I know what fabric is. I'm more interested in the new architecture to say, is it limited in many ways?
+
+00:54:59.000 --> 00:55:07.000
+Yes, we have a paper, white paper, out since quite some time. We're gonna produce a new version of it.
+
+00:55:07.000 --> 00:55:18.000
+Um, sometime this month, beginning of next month. Um, but, uh, yeah, we… we have already some version we can share.
+
+00:55:18.000 --> 00:55:19.000
+Jim, I suspect all the information you want is in this RFC.
+
+00:55:19.000 --> 00:55:23.000
+So probably constructive, constructive proposal? So, sorry.
+
+00:55:23.000 --> 00:55:34.000
+If you look in the RFC and pull request 63, from what I see, there's a lot of detail on the architectural structure and links to other documents with more detail.
+
+00:55:34.000 --> 00:55:38.000
+Yeah, I think the white paper link is in here, isn't it?
+
+00:55:38.000 --> 00:55:39.000
+Could be.
+
+00:55:39.000 --> 00:55:44.000
+If you go down a little bit, it's there.
+
+00:55:44.000 --> 00:55:45.000
+So the white paper…
+
+00:55:45.000 --> 00:55:46.000
+If it's not in the body of the document, I think I saw it in the
+
+00:55:46.000 --> 00:56:07.000
+Can you actually present the, the, the architecture in a way of the presentation? Like, you know, each previous RFC was presented during the contributor meetings, like the… because… You know, I feel that we have kind of broader discussion, and I do still convince that, uh.
+
+00:56:07.000 --> 00:56:17.000
+It should be done in a different way, but I do hear your points, Ele, and probably, you know, more constructive thing of going forward is, uh, have kind of, uh.
+
+00:56:17.000 --> 00:56:30.000
+A real presentation of what is, you know. In a way that current architecture of public architecture is implemented.
+
+00:56:30.000 --> 00:56:50.000
+Because it feels like, okay, it's a drop-off solution of, like, you know, several years of not showing any contribution to the fabric, and uh… So here, a new brand thing that does a lot of things without any backward compatibility yet.
+
+00:56:50.000 --> 00:57:14.000
+And with integration path, that has to be yet designed. So, probably, it might have a value to give a presentation about what is actually… how it looks like with motivation and the More, more, more, more detailed explanations.
+
+00:57:14.000 --> 00:57:25.000
+So, I think RFC itself has a lot of detail. Definitely, the presentation is definitely not going to cover that much detail, and the paper has even more significant detail.
+
+00:57:25.000 --> 00:57:32.000
+So, definitely, we can do the presentation, but I definitely encourage all of you to read the RFC and in the paper.
+
+00:57:32.000 --> 00:57:40.000
+That covers more, uh, detail than what we can do in the presentation.
+
+00:57:40.000 --> 00:57:58.000
+But, you know, in the way that we used to discuss the ROCs before that, it's like, you know, kind of… Not only showing that here, what I see here that the paper go read it, and spent a bit of more time with community.
+
+00:57:58.000 --> 00:58:09.000
+Actually, providing the explanation, utilization, and the more deep overview of the architecture that's proposed.
+
+00:58:09.000 --> 00:58:10.000
+Yeah, I think… I think Sento said, yes, he could do that.
+
+00:58:10.000 --> 00:58:12.000
+Yeah, yeah, so we are open…
+
+00:58:12.000 --> 00:58:23.000
+I also want to say there is a webinar organized on the 11th of June, where we have, um, we are to go in detail on this, uh, on Fabric X.
+
+00:58:23.000 --> 00:58:31.000
+So it's already in plan. It can be on the community meeting, or it can be on the webinar.
+
+00:58:31.000 --> 00:58:32.000
+Yeah. As you see… Yeah.
+
+00:58:32.000 --> 00:58:37.000
+I think the webinar makes sense, yeah.
+
+00:58:37.000 --> 00:58:38.000
+The only information is out. Sorry, Mark. Sorry.
+
+00:58:38.000 --> 00:58:47.000
+Do you know where the webinar is advertised, Ellie? Do you know where the webinar is advertised? Is that in the… LFDT calendar or something?
+
+00:58:47.000 --> 00:58:49.000
+It should be, yes. I think it's gonna be announced quite soon, because they're waiting from us, the abstract.
+
+00:58:49.000 --> 00:58:54.000
+Thank you.
+
+00:58:54.000 --> 00:58:59.000
+But… Yeah, we should have it anytime this week.
+
+00:58:59.000 --> 00:59:13.000
+Yeah, we'll send it on the mailing list.
+
+00:59:13.000 --> 00:59:18.000
+So, uh, Dave, what are the next, uh, steps?
+
+00:59:18.000 --> 00:59:26.000
+Um, so if you think… We need fabric TSC charter updates. That's probably the next thing to work on.
+
+00:59:26.000 --> 00:59:27.000
+Yeah. Absolutely.
+
+00:59:27.000 --> 00:59:43.000
+I was gonna say, that pull request… proposing updates to the Charter. If… if we're thinking of actually updating the Charter text, I wonder if it's worth including in that PR, what we would like to see in an updated charter.
+
+00:59:43.000 --> 00:59:53.000
+So we can see if it makes sense to everyone Rather than just proposing that a change is made and then having to thresh out all the wording later on.
+
+00:59:53.000 --> 00:59:59.000
+Yeah, so in the second ROC, I have included those details, especially the governance model.
+
+00:59:59.000 --> 01:00:17.000
+Of the new implementation would be approved, uh, so there is a hierarchy of governance, so there is extender TXC, That includes maintainers from all the fabric implementation, and then how each of the implementation would be handled. So all the details are given there.
+
+01:00:17.000 --> 01:00:36.000
+And even in the future, if suppose, somebody gives, I mean, comes up with a new fabric implementation, say, for to run Fabric in a mobile. So, what are the procedures that they need to follow? What is the… I mean, voting process. So, with an example, I have given all the details in the second RFC.
+
+01:00:36.000 --> 01:00:43.000
+And that content, if it is approved, it will be moved to the fabric, uh, charter.
+
+01:00:43.000 --> 01:00:48.000
+And, I mean, here and there, there could be a few minor nits that can be definitely fixed.
+
+01:00:48.000 --> 01:00:49.000
+So that's why I'm…
+
+01:00:49.000 --> 01:01:02.000
+Yeah, I think what Mark is suggesting is to actually include the updated Um, charter proposal in this RFC. So we use this RFC to actually iterate on that on the charter updates.
+
+01:01:02.000 --> 01:01:03.000
+So, uh, that's… you're right, uh, fabric repo, right? So, I can move it here.
+
+01:01:03.000 --> 01:01:12.000
+Exactly, Dave. Thanks.
+
+01:01:12.000 --> 01:01:14.000
+Shoot this mom.
+
+01:01:14.000 --> 01:01:34.000
+Yeah, the charter itself lives in the fabric repo, but the discussion about the exact changes can go in the RFC, yeah.
+
+01:01:34.000 --> 01:01:38.000
+Okay. Well, I think we're out of time, uh, but I think that's a good next step.
+
+01:01:38.000 --> 01:01:47.000
+Uh, that and the, uh, the webinar, Junior 11th.
+
+01:01:47.000 --> 01:01:48.000
+Any other final thoughts?
+
+01:01:48.000 --> 01:01:57.000
+Am I right?
+
+01:01:57.000 --> 01:01:58.000
+Thank you. Take care.
+
+01:01:58.000 --> 01:01:59.000
+Thank you.
+
+01:01:59.000 --> 01:02:07.000
+Okay, uh, we'll leave it there, then. Thanks, everybody. Oh, and we… we can do more frequent meetings if we need to, so… These contributor meetings are scheduled once a month, but we can definitely do more frequent meetings if there's active things to discuss, like this proposal.
+
+01:02:07.000 --> 01:02:16.000
+So, keep that in mind. Okay, thanks everybody. Bye.
+
+01:02:16.000 --> 01:02:46.000
+Thank you, bye.
+

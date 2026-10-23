@@ -1,0 +1,774 @@
+WEBVTT
+
+1
+00:02:50.110 --> 00:02:51.530
+Hendrik Ebbers (Hedera Hashgraph LLC): Hello!
+
+2
+00:02:53.100 --> 00:02:53.920
+Angelina C: Bye!
+
+3
+00:02:58.620 --> 00:03:00.169
+Angelina C: doing… oops.
+
+4
+00:03:00.320 --> 00:03:05.509
+Angelina C: I usually wait about another minute, and then if nobody else joins, we'll go ahead and get started.
+
+5
+00:03:44.020 --> 00:03:44.620
+Angelina C: Uncle?
+
+6
+00:03:45.580 --> 00:03:49.019
+Angelina C: We'll go ahead and get started, and then if anyone else joins…
+
+7
+00:03:49.360 --> 00:03:57.000
+Angelina C: Feel free to post anything in chat, or just ask questions, or anything they'd like to share.
+
+8
+00:03:57.240 --> 00:04:13.450
+Angelina C: But to kick things off, I will go ahead and start with a kind of brief agenda. So welcome, welcome, and I hope everyone is having a great morning, evening, day, night, wherever you are in the world today, especially those watching back for the recording.
+
+9
+00:04:13.860 --> 00:04:26.529
+Angelina C: To start here, I will go ahead and start with the hips. This is still an ongoing process, as shared from last week. We are still waiting on 1195 for the Python SDK.
+
+10
+00:04:26.530 --> 00:04:39.080
+Angelina C: I'm sure most of you have noticed that the other SDKs do have 1195. Python was one of the last ones to implement this, however, because of the redesign document, we have been advised
+
+11
+00:04:39.300 --> 00:04:53.189
+Angelina C: by Keith to kind of hold off with this, but once that is done and, sorted out, at that point, we will create the hip issue for Python for 1195, and then it is also my understanding
+
+12
+00:04:53.190 --> 00:05:00.520
+Angelina C: That we will soon be bringing on, HIP 1500, and I want to say 1068, but…
+
+13
+00:05:00.520 --> 00:05:03.610
+Angelina C: I will double check that number. I could have that a bit wrong.
+
+14
+00:05:03.880 --> 00:05:16.090
+Angelina C: But beyond that, there are still the HIP boards in place. There is the one manually created by me. This just tracks it across the SDKs, so if anyone is curious, or
+
+15
+00:05:16.100 --> 00:05:29.560
+Angelina C: you have anyone reaching out to you, and they are curious, feel free to direct them to that board. Again, that is manual, so it is one of the more accurate and up-to-date pieces of information SDK-wise.
+
+16
+00:05:29.670 --> 00:05:42.809
+Angelina C: We do have vHips.hedera.com. This does not cover repositories, this is just simply something that outlines the statuses of every hip, so… and hips that we've seen in the past, so it'll be
+
+17
+00:05:42.810 --> 00:05:50.269
+Angelina C: Things like 1261, the status of 1195, the status of 1500, 1068, and so on and so forth.
+
+18
+00:05:50.460 --> 00:06:06.849
+Angelina C: And then Hendrik has also kindly shared the additional board that does track the progress and status of these as well, so feel free to take a look at each of those individual boards. If anyone has questions about those, please feel free to reach out to myself, reach out to the team.
+
+19
+00:06:06.930 --> 00:06:24.120
+Angelina C: to your respective SDK committers, maintainers, they are happy to provide you a little bit of guidance or point you in the right general direction. But moving on to the next topic, this is one of our bigger topics, is the deprecation of account balance query.
+
+20
+00:06:24.320 --> 00:06:39.720
+Angelina C: This will be deprecated by tomorrow, September 9th, so please make sure that if you are working on an SDK and you are noticing that work has not been started for it, at least make an issue, just make sure that the team is aware.
+
+21
+00:06:39.720 --> 00:06:45.889
+Angelina C: I know in Java, they are aware they have Merges PR. For Python, we have a PR in place already.
+
+22
+00:06:45.890 --> 00:06:48.909
+Angelina C: C++, Rust, Go, and Swift.
+
+23
+00:06:49.110 --> 00:06:56.969
+Angelina C: I want to say they are working towards it. I believe there is, or should be, an issue in Swift, but if there is not.
+
+24
+00:06:56.970 --> 00:07:14.779
+Angelina C: Please feel free to create it, and for those watching the recording as well, please feel free to create this. If you have questions about this, if you're not really sure where to go and you want to create the issue and you want to help, just reach out to commit or maintainer teams of the respective SDKs. They are happy to provide guidance for you.
+
+25
+00:07:14.910 --> 00:07:18.500
+Angelina C: But for this, this is mostly just
+
+26
+00:07:18.500 --> 00:07:36.760
+Angelina C: bringing about a general awareness. There have been several posts in the Discord, chats, the LFX chat, the Hedera chat, just kind of making sure, providing updates as they go along, letting everybody know that this is deprecated, and that we will be switching to the mirror node account balance query.
+
+27
+00:07:36.840 --> 00:07:46.609
+Angelina C: If there are any questions, especially for those watching the recording, please do feel free to reach out and ask. If you're not sure where to start, if you have an issue and you're working on it.
+
+28
+00:07:46.610 --> 00:08:06.529
+Angelina C: Feel free to ask. Code Rabbit is enabled, so if you don't exactly have a general idea of where to go, feel free to trigger Code Rabbit, or please use the Java SDK as a reference. They have gone ahead and kind of built out a simpler version of this, just to kind of get the deprecation moving forward and making sure that
+
+29
+00:08:06.530 --> 00:08:10.289
+Angelina C: The crypto account balance query is no longer being used.
+
+30
+00:08:10.710 --> 00:08:35.569
+Angelina C: Moving on to my next topic is automations. So, as of now, we still have the automations that we are currently seeing. The PR dashboard in some of our SDKs, the linked issue enforcer, we're also seeing the broken markdown link checkers and things like that. So, I have said it before, and I will say it again, if you have an idea for automation, if you see something in a project you're working on.
+
+31
+00:08:35.679 --> 00:08:55.399
+Angelina C: It could be inside of Hiero, outside of Hiero, if it's in Hiero Hackers, or maybe just another project and you think it would be beneficial for Hiero Ledger, please let us know. Open an issue, reach out to a team member, we are happy to take a look, happy to guide you along if you're a little bit stuck and you don't know where to go. I also would like to mention that Sophie
+
+32
+00:08:55.400 --> 00:09:01.059
+Angelina C: Has an ongoing mentorship for this, where there will be an application that is kind of
+
+33
+00:09:01.060 --> 00:09:19.079
+Angelina C: designed to what we call, pick and choose, in the sense that it will allow you to pick which workflows, which automations you would like to see. So, for example, if you feel like the PR dashboard would be beneficial, but you don't think the linked issue enforcer would be beneficial, you'll be able to pick either or, you won't be forced into both.
+
+34
+00:09:19.120 --> 00:09:42.929
+Angelina C: The next one, this is more for the Python SDK, is the TCK. We do have a few issues for the TCK, so if you are new here, and you're watching the recording back, and you want to jump in and help out, the only thing that we ask is before you take on any beginner issues, is that you've completed a good first issue anywhere in the SDKs, repositories, Hiero Ledger itself.
+
+35
+00:09:43.030 --> 00:09:57.860
+Angelina C: could be the website, could be MirrorNode, just making sure that you've completed one good first issue, just so that we know that you're aware of how our workflows kind of happen, what the process looks like, and that you're aware that commits need to be DCO and verified.
+
+36
+00:09:57.950 --> 00:10:07.889
+Angelina C: But beyond that, I am gonna pause here. I know I've been talking for the last few minutes. Did anyone have any questions, comments, or topics that they wanted to bring up?
+
+37
+00:10:11.050 --> 00:10:20.610
+Hendrik Ebbers (Hedera Hashgraph LLC): So, first of all, thank you for the great recap, some… some topics,
+
+38
+00:10:20.970 --> 00:10:28.070
+Hendrik Ebbers (Hedera Hashgraph LLC): I would like to bring up is the TCK topic. We talked about,
+
+39
+00:10:28.190 --> 00:10:45.899
+Hendrik Ebbers (Hedera Hashgraph LLC): on Monday, yesterday. Another one is question to you, Angie, if you are prepared to present the CodeRabbit integration in 20 minutes, and if the token and everything is working, like the RP key.
+
+40
+00:10:47.590 --> 00:10:48.960
+Angelina C: Oh, sorry.
+
+41
+00:10:49.340 --> 00:10:51.979
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, yeah, I'm sorry.
+
+42
+00:10:51.980 --> 00:11:05.429
+Angelina C: Sorry, I didn't know if you were still going. Yeah, I believe that that is working. I may have a conflict, so if anything, it would be more towards the end of the meeting. Yeah, okay. If not, then it would probably just be next week.
+
+43
+00:11:05.880 --> 00:11:15.879
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, that's fine. That's totally fine. So, I just wanted to double-check that when you want to present it, you have everything you need. That's…
+
+44
+00:11:16.560 --> 00:11:21.960
+Hendrik Ebbers (Hedera Hashgraph LLC): That's the point, yeah, but… but then I'm happy. Okay, that's… that's very good. Thank you.
+
+45
+00:11:22.250 --> 00:11:23.409
+Angelina C: Yeah, not a problem.
+
+46
+00:11:27.580 --> 00:11:36.299
+Angelina C: Were there any other topics, questions, or anything anyone wanted to bring? Daniel, I noticed you were off mute. Was there anything that you wanted to add?
+
+47
+00:11:37.610 --> 00:11:41.499
+Daniel Ntege (Open Elements): Hendrik said about the TCK.
+
+48
+00:11:41.800 --> 00:11:45.419
+Daniel Ntege (Open Elements): topic. Do you have anything you want to add on that?
+
+49
+00:11:46.500 --> 00:11:53.080
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, so, who's currently working on that, Daniel?
+
+50
+00:11:53.480 --> 00:11:54.920
+Daniel Ntege (Open Elements): me and Manish.
+
+51
+00:11:55.180 --> 00:12:08.310
+Hendrik Ebbers (Hedera Hashgraph LLC): You and Manish. And I think you, you said, like, Rob showed it to you, right? So Rob showed you that it's, it's currently not, not present, and… and suggested.
+
+52
+00:12:08.310 --> 00:12:09.849
+Daniel Ntege (Open Elements): No.
+
+53
+00:12:09.850 --> 00:12:10.870
+Hendrik Ebbers (Hedera Hashgraph LLC): That's for comment.
+
+54
+00:12:10.870 --> 00:12:17.100
+Daniel Ntege (Open Elements): Rob showed us the process of how to run the TCKs.
+
+55
+00:12:17.890 --> 00:12:21.190
+Daniel Ntege (Open Elements): of how to run the TC case against the…
+
+56
+00:12:21.550 --> 00:12:36.920
+Daniel Ntege (Open Elements): the SDK, the SDK functionalities. So, how to… because by then, we didn't have them, so we had to configure what and, like, the ROPC server, everything. So, after that, we had that issue.
+
+57
+00:12:36.980 --> 00:12:41.839
+Daniel Ntege (Open Elements): Along the way, through… during the implementation. So…
+
+58
+00:12:42.120 --> 00:12:49.110
+Daniel Ntege (Open Elements): when we went across all the SDKs, we found that they don't have that.
+
+59
+00:12:52.350 --> 00:12:53.070
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay.
+
+60
+00:12:53.380 --> 00:12:53.930
+Daniel Ntege (Open Elements): Yeah.
+
+61
+00:12:55.480 --> 00:12:56.250
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay.
+
+62
+00:12:56.430 --> 00:13:02.020
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I think, as said, we should…
+
+63
+00:13:02.460 --> 00:13:06.160
+Hendrik Ebbers (Hedera Hashgraph LLC): Move it forward and show it on the next…
+
+64
+00:13:06.840 --> 00:13:15.570
+Hendrik Ebbers (Hedera Hashgraph LLC): TSC, because we want to get a repo for that anyway, so I think most important here is that you move
+
+65
+00:13:15.820 --> 00:13:19.910
+Hendrik Ebbers (Hedera Hashgraph LLC): The repo you are working on so far to Hiero hackers?
+
+66
+00:13:20.600 --> 00:13:21.450
+Hendrik Ebbers (Hedera Hashgraph LLC): Yep.
+
+67
+00:13:21.450 --> 00:13:21.910
+Daniel Ntege (Open Elements): Yeah.
+
+68
+00:13:21.910 --> 00:13:23.599
+Hendrik Ebbers (Hedera Hashgraph LLC): Has that already been done?
+
+69
+00:13:24.350 --> 00:13:41.059
+Daniel Ntege (Open Elements): We, like, we're done with the other PR I showed you, it's merged, so now, I wanted after the TSC, so… Oh, by the way, I'm going to make the issue in the… in the ads.
+
+70
+00:13:41.060 --> 00:13:46.709
+Daniel Ntege (Open Elements): So how is it going to be done? Because we have to transfer it from Manishi's side to…
+
+71
+00:13:47.990 --> 00:13:49.520
+Daniel Ntege (Open Elements): to Hiero Hakkas.
+
+72
+00:13:52.780 --> 00:13:54.439
+Hendrik Ebbers (Hedera Hashgraph LLC): Excuse me, can you repeat that?
+
+73
+00:13:54.440 --> 00:14:02.320
+Daniel Ntege (Open Elements): Like, should we transfer it, or we create, like, we make a new issue to create a new repository, then we just transfer…
+
+74
+00:14:02.320 --> 00:14:05.009
+Hendrik Ebbers (Hedera Hashgraph LLC): Create an issue and ping me, you have it in a minute.
+
+75
+00:14:05.520 --> 00:14:06.310
+Daniel Ntege (Open Elements): Oh, goodness.
+
+76
+00:14:06.310 --> 00:14:17.170
+Hendrik Ebbers (Hedera Hashgraph LLC): So you cannot create a repo, but if you create an issue, and say to me you have created that issue, I can directly create the repo for you.
+
+77
+00:14:17.730 --> 00:14:26.530
+Daniel Ntege (Open Elements): Yeah, so it means that we should non-transfer, we should create one, then we just transfer the files. We just copy the files to the new repo.
+
+78
+00:14:27.600 --> 00:14:28.310
+Hendrik Ebbers (Hedera Hashgraph LLC): Yep.
+
+79
+00:14:28.620 --> 00:14:29.600
+Daniel Ntege (Open Elements): Okay then.
+
+80
+00:14:34.480 --> 00:14:39.459
+Hendrik Ebbers (Hedera Hashgraph LLC): And we should do it this way, this week. I think that would make totally sense.
+
+81
+00:14:39.460 --> 00:14:45.299
+Daniel Ntege (Open Elements): Yeah, I think, I think immediately after, the TSCA will ping you.
+
+82
+00:14:46.530 --> 00:14:47.710
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, perfect.
+
+83
+00:14:48.460 --> 00:14:49.230
+Daniel Ntege (Open Elements): Cool.
+
+84
+00:14:52.820 --> 00:15:04.280
+Angelina C: Awesome. And if you don't mind just pinging me, too, whenever you get that started, just so that I have knowledge of that. I just like to be aware, if you don't mind.
+
+85
+00:15:04.280 --> 00:15:08.979
+Daniel Ntege (Open Elements): Okay, no worries, no worries, Anja, I'm gonna ping you tomorrow.
+
+86
+00:15:08.980 --> 00:15:09.360
+Angelina C: Thank you.
+
+87
+00:15:09.360 --> 00:15:11.989
+Daniel Ntege (Open Elements): I'll keep you in cross fingers.
+
+88
+00:15:12.420 --> 00:15:13.880
+Angelina C: Thank you, thank you.
+
+89
+00:15:14.080 --> 00:15:22.849
+Angelina C: I don't know if I will make the TSC, I do have a conflict. I actually do have to go here in a minute. I just wanted to make sure that we get…
+
+90
+00:15:22.850 --> 00:15:40.909
+Angelina C: through the agenda. This is the last topic, so I won't keep everybody to too long. Just bringing awareness to the website. We do have PRs in place to read you the homepage, the Issue Explorer tab. Daniel was kind enough to work on the blog for us, so that hopefully should be done, by this…
+
+91
+00:15:40.940 --> 00:15:50.670
+Angelina C: coming weekend, I'm crossing my fingers. And then, we do have a contributor working on a redesign of the banner page, seeing as how the TSC page was
+
+92
+00:15:50.730 --> 00:16:05.420
+Angelina C: beautifully designed by Daniel a few months prior. Thank you, Daniel. But other than that, just keep an eye out, as that website structure will be changing. I do look forward to seeing that, especially since it has been static for so long.
+
+93
+00:16:05.430 --> 00:16:15.680
+Angelina C: But that was it on the topics and the agenda for me today. Before we wrap up here, were there any last-minute questions, comments, or ideas anyone wanted to bring up?
+
+94
+00:16:15.680 --> 00:16:21.119
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I have a question. So, I was assuming all the time our website is
+
+95
+00:16:21.360 --> 00:16:37.299
+Hendrik Ebbers (Hedera Hashgraph LLC): published to Netvify, is that not the case? Because I cannot see, like, any previewing, when I go to the pre-request from Danielle regarding the new layout.
+
+96
+00:16:37.890 --> 00:16:53.760
+Daniel Ntege (Open Elements): Yeah, about… I can ask. About that, remember, we are working in another, like, another branch, which is called the Web Redesign. Yeah. So, and that one is not allocated, like, I…
+
+97
+00:16:53.760 --> 00:16:54.589
+Hendrik Ebbers (Hedera Hashgraph LLC): I hate to call.
+
+98
+00:16:54.590 --> 00:16:55.169
+Daniel Ntege (Open Elements): Yeah, he's not…
+
+99
+00:16:55.170 --> 00:16:58.550
+Hendrik Ebbers (Hedera Hashgraph LLC): going to Maine, because it's not going to Maine.
+
+100
+00:16:59.210 --> 00:16:59.630
+Angelina C: Only…
+
+101
+00:16:59.630 --> 00:17:00.479
+Daniel Ntege (Open Elements): But you see.
+
+102
+00:17:00.480 --> 00:17:01.030
+Angelina C: baby.
+
+103
+00:17:01.030 --> 00:17:04.829
+Daniel Ntege (Open Elements): But I can show it to you, if you'd like to see.
+
+104
+00:17:04.829 --> 00:17:08.509
+Hendrik Ebbers (Hedera Hashgraph LLC): Yes, I mean, for that, we don't need Angelina, who said.
+
+105
+00:17:09.310 --> 00:17:11.649
+Hendrik Ebbers (Hedera Hashgraph LLC): go early, but I would really like to see.
+
+106
+00:17:12.980 --> 00:17:22.980
+Angelina C: I've seen it, it looks very, very nice, and there should be a preview for me. I pushed it to main initially, not thinking, so it ended up building a preview anyway.
+
+107
+00:17:23.470 --> 00:17:33.429
+Angelina C: But I did change it, so when it's merged, it will go to the website redesign branch, and then when we're done, we'll just merge that branch into main, and then we'll be able to see it.
+
+108
+00:17:34.110 --> 00:17:34.720
+Hendrik Ebbers (Hedera Hashgraph LLC): Clue, clue.
+
+109
+00:17:34.720 --> 00:17:38.070
+Daniel Ntege (Open Elements): So, I'm going to share my screen here.
+
+110
+00:17:39.330 --> 00:17:40.199
+Daniel Ntege (Open Elements): I'm sure.
+
+111
+00:17:40.200 --> 00:17:42.939
+Angelina C: Alright, but I do have to drop. Thank you, everybody.
+
+112
+00:17:42.940 --> 00:17:43.290
+Hendrik Ebbers (Hedera Hashgraph LLC): Hello?
+
+113
+00:17:43.290 --> 00:17:44.159
+Angelina C: If you have any questions.
+
+114
+00:17:44.660 --> 00:17:53.739
+Angelina C: need me for anything, please feel free to reach out to me on Discord, but I hope everybody has a great rest of their day, evening, morning, night, wherever you are in the world.
+
+115
+00:17:54.750 --> 00:17:56.050
+Daniel Ntege (Open Elements): Alright, it's…
+
+116
+00:17:56.050 --> 00:17:57.470
+Angelina C: Thank you, bye!
+
+117
+00:17:57.970 --> 00:17:58.680
+Daniel Ntege (Open Elements): Bye.
+
+118
+00:18:00.120 --> 00:18:02.429
+Daniel Ntege (Open Elements): Henry, can you see my screen?
+
+119
+00:18:02.760 --> 00:18:04.940
+Hendrik Ebbers (Hedera Hashgraph LLC): It's loading, now I can see it.
+
+120
+00:18:05.750 --> 00:18:06.430
+Hendrik Ebbers (Hedera Hashgraph LLC): Union.
+
+121
+00:18:06.630 --> 00:18:18.009
+Daniel Ntege (Open Elements): Yeah, I didn't want to make it so, like, so heavy, what and what, so I just changed some.
+
+122
+00:18:18.260 --> 00:18:28.289
+Daniel Ntege (Open Elements): Some simple stuff, as you can see, these ones, just not to deviate from the design, so we have that, we have this…
+
+123
+00:18:29.860 --> 00:18:31.420
+Daniel Ntege (Open Elements): Of these…
+
+124
+00:18:32.090 --> 00:18:41.269
+Daniel Ntege (Open Elements): Then we also have this… I didn't want to deviate, but I just redesigned, so this is… I changed the other one. It was looking so casual, so…
+
+125
+00:18:42.050 --> 00:18:44.930
+Daniel Ntege (Open Elements): I used this, then this is our footer.
+
+126
+00:18:45.770 --> 00:18:46.940
+Hendrik Ebbers (Hedera Hashgraph LLC): Nice!
+
+127
+00:18:47.370 --> 00:18:48.270
+Daniel Ntege (Open Elements): Yeah.
+
+128
+00:18:48.270 --> 00:18:49.610
+Hendrik Ebbers (Hedera Hashgraph LLC): That's great.
+
+129
+00:18:50.880 --> 00:18:51.230
+Hendrik Ebbers (Hedera Hashgraph LLC): Beautiful.
+
+130
+00:18:51.230 --> 00:19:01.799
+Daniel Ntege (Open Elements): Yeah, yeah, so I want… I want us to have a website which is, yeah, when someone goes there and you say, yeah, even though there is, like, we have
+
+131
+00:19:02.340 --> 00:19:18.169
+Daniel Ntege (Open Elements): Simple, simple information, but, to some… something which is cool and nice. And also, what we are going to add after, after, like, we have done with everything existing.
+
+132
+00:19:18.170 --> 00:19:25.270
+Daniel Ntege (Open Elements): We're going to add here, like, a new, like… let me show you something here.
+
+133
+00:19:26.640 --> 00:19:27.440
+Daniel Ntege (Open Elements): Duh.
+
+134
+00:19:28.690 --> 00:19:35.769
+Daniel Ntege (Open Elements): We are going to add something like, something like this, like, the.
+
+135
+00:19:35.770 --> 00:19:37.610
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh, yeah.
+
+136
+00:19:37.610 --> 00:19:46.489
+Daniel Ntege (Open Elements): Yeah, so yeah, we're going to add it somewhere, you know, after this, somewhere here. We're going to add it here.
+
+137
+00:19:46.590 --> 00:19:57.730
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah. But bring that guy first before we do it, because otherwise, it again takes more time, takes more time. Bring this to the live system first before.
+
+138
+00:19:57.730 --> 00:19:58.230
+Daniel Ntege (Open Elements): Yeah.
+
+139
+00:19:58.230 --> 00:20:05.150
+Hendrik Ebbers (Hedera Hashgraph LLC): That's right. When you click now on block, how does that work? So if you just on top, click on block…
+
+140
+00:20:05.150 --> 00:20:08.560
+Daniel Ntege (Open Elements): This one is still… this still row for now.
+
+141
+00:20:08.560 --> 00:20:10.519
+Hendrik Ebbers (Hedera Hashgraph LLC): No, that's fine. Yeah, but, but…
+
+142
+00:20:11.010 --> 00:20:16.759
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, yeah, okay. I think we can bring it to production like that.
+
+143
+00:20:17.300 --> 00:20:24.469
+Daniel Ntege (Open Elements): No, no, this… the blog page, I'm going to change it, I'm going to change it. Yeah, I'm going to change it, yeah.
+
+144
+00:20:24.750 --> 00:20:39.130
+Hendrik Ebbers (Hedera Hashgraph LLC): why not bring it already now to production instead of having unbelievable big pull requests, you know? So, nobody will complain if the web page is already looking awesome, and the product will be.
+
+145
+00:20:39.130 --> 00:20:39.870
+Daniel Ntege (Open Elements): Update.
+
+146
+00:20:39.870 --> 00:20:41.409
+Hendrik Ebbers (Hedera Hashgraph LLC): We create them, you know?
+
+147
+00:20:42.550 --> 00:20:49.180
+Hendrik Ebbers (Hedera Hashgraph LLC): a week later, nobody, nobody will complain about it. And TSC, if you go to that, I assume it looks…
+
+148
+00:20:49.540 --> 00:20:50.580
+Hendrik Ebbers (Hedera Hashgraph LLC): Semag?
+
+149
+00:20:50.980 --> 00:21:05.579
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, so just bring it to… to production, like, bring it to Wrive, create a pull request against master, and then, when it's merged, we can concentrate on proc and TSC view.
+
+150
+00:21:06.250 --> 00:21:12.790
+Daniel Ntege (Open Elements): Okay. Okay, yeah, so what are, what, the, the good thing, the, the, the what?
+
+151
+00:21:13.070 --> 00:21:28.540
+Daniel Ntege (Open Elements): Can you help me? If you liked it, you can approve that PR, then I merge it to the redesign. Then I will open, like, a PR from the redesign to push all the… all this content we have here to the main branch.
+
+152
+00:21:29.460 --> 00:21:30.200
+Hendrik Ebbers (Hedera Hashgraph LLC): Approved.
+
+153
+00:21:30.940 --> 00:21:37.919
+Daniel Ntege (Open Elements): Okay, okay, cool. So, I'm going to, I'm going to, to match this. I think, this one is fine.
+
+154
+00:21:40.600 --> 00:21:41.280
+Daniel Ntege (Open Elements): None so?
+
+155
+00:21:41.280 --> 00:21:58.620
+Hendrik Ebbers (Hedera Hashgraph LLC): Absolutely, yeah, maybe, maybe… so, I personally would like to have a little bit lighter background color, but there are things that can be discussed afterwards. First of all, it should be there, because then… then we can discuss, so let's… let's move that forward.
+
+156
+00:22:01.170 --> 00:22:05.740
+Daniel Ntege (Open Elements): Okay, so, so, how, what do you say about this?
+
+157
+00:22:09.770 --> 00:22:10.810
+Daniel Ntege (Open Elements): Henry?
+
+158
+00:22:12.330 --> 00:22:14.690
+Hendrik Ebbers (Hedera Hashgraph LLC): About how that works. It works great.
+
+159
+00:22:14.690 --> 00:22:15.360
+Daniel Ntege (Open Elements): Yeah.
+
+160
+00:22:16.600 --> 00:22:17.440
+Daniel Ntege (Open Elements): Okay.
+
+161
+00:22:19.170 --> 00:22:25.230
+Daniel Ntege (Open Elements): Okay, so I'm going to bring this to… to… Okay.
+
+162
+00:22:25.730 --> 00:22:26.790
+Daniel Ntege (Open Elements): Yeah.
+
+163
+00:22:27.980 --> 00:22:31.650
+Daniel Ntege (Open Elements): So I'm going to mine, let me, let me, let me see here…
+
+164
+00:22:38.070 --> 00:22:38.950
+Daniel Ntege (Open Elements): Okay.
+
+165
+00:22:40.420 --> 00:22:42.780
+Daniel Ntege (Open Elements): Summer… Where is this?
+
+166
+00:22:45.150 --> 00:22:46.140
+Daniel Ntege (Open Elements): So…
+
+167
+00:22:55.650 --> 00:23:01.470
+Daniel Ntege (Open Elements): Could you send me that, the link for that, for that, for that, for that PR.
+
+168
+00:23:03.690 --> 00:23:05.279
+Hendrik Ebbers (Hedera Hashgraph LLC): For the one I just approved?
+
+169
+00:23:05.280 --> 00:23:06.320
+Daniel Ntege (Open Elements): Yeah, yeah, yeah, yeah, yeah.
+
+170
+00:23:06.320 --> 00:23:08.480
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh, I already closed the browser.
+
+171
+00:23:08.480 --> 00:23:09.770
+Daniel Ntege (Open Elements): Okay.
+
+172
+00:23:09.770 --> 00:23:12.580
+Hendrik Ebbers (Hedera Hashgraph LLC): But there were only two on their website, and I approved.
+
+173
+00:23:13.180 --> 00:23:15.239
+Daniel Ntege (Open Elements): Let me find it here. Yeah.
+
+174
+00:23:57.500 --> 00:24:02.980
+Daniel Ntege (Open Elements): Okay, so… Those are going to be my next steps.
+
+175
+00:24:03.920 --> 00:24:17.030
+Daniel Ntege (Open Elements): I'm going to create… I'm going to create any, any issue, then I'll ping you for the TCK runner, then I think by tomorrow, we shall have a live PR on the what? On the main branch.
+
+176
+00:24:18.900 --> 00:24:19.800
+Daniel Ntege (Open Elements): Yeah.
+
+177
+00:24:21.370 --> 00:24:22.579
+Hendrik Ebbers (Hedera Hashgraph LLC): Let's do it exactly that.
+
+178
+00:24:23.370 --> 00:24:25.630
+Daniel Ntege (Open Elements): Yeah, yeah, it's vocifying.
+
+179
+00:24:35.440 --> 00:24:40.640
+Daniel Ntege (Open Elements): Unless you have anything else, but those are my points for today.
+
+180
+00:24:41.100 --> 00:24:42.999
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, I think then we're good.
+
+181
+00:24:43.810 --> 00:24:50.299
+Daniel Ntege (Open Elements): Just, like, I brought a point, but, we did not discuss it yesterday.
+
+182
+00:24:50.880 --> 00:24:51.260
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+183
+00:24:51.260 --> 00:24:53.560
+Daniel Ntege (Open Elements): About the…
+
+184
+00:24:53.880 --> 00:25:04.139
+Daniel Ntege (Open Elements): There is a… as I told you, we are duplicating the other method, but some reports are not considered for now, so I don't know.
+
+185
+00:25:04.140 --> 00:25:09.890
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, and I'm… I'm a little bit concerned here, because it feels a little bit like…
+
+186
+00:25:10.530 --> 00:25:22.210
+Hendrik Ebbers (Hedera Hashgraph LLC): it's not fully done, so that would be a good question. Ask it on the TSC, how that should be done. I think that's a good question for the TSC, if we come to that,
+
+187
+00:25:22.420 --> 00:25:23.950
+Hendrik Ebbers (Hedera Hashgraph LLC): Point in the meeting today.
+
+188
+00:25:24.410 --> 00:25:28.640
+Daniel Ntege (Open Elements): Yeah, yeah, if there is a room, I'll ask that.
+
+189
+00:25:28.640 --> 00:25:33.769
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah. Yeah. Try, try to bring it, ask it in the TSC. I, I think that would be good.
+
+190
+00:25:34.130 --> 00:25:35.319
+Daniel Ntege (Open Elements): Okay, then.
+
+191
+00:25:35.640 --> 00:25:36.380
+Hendrik Ebbers (Hedera Hashgraph LLC): Perfect!
+
+192
+00:25:37.230 --> 00:25:38.440
+Daniel Ntege (Open Elements): Bye, bye!
+
+193
+00:25:38.440 --> 00:25:39.420
+Hendrik Ebbers (Hedera Hashgraph LLC): Bye!
+

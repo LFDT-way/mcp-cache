@@ -1,0 +1,554 @@
+WEBVTT
+
+1
+00:03:20.020 --> 00:03:21.080
+Keith Kowal (Hedera Hashgraph LLC): Hello, Mark.
+
+2
+00:03:23.310 --> 00:03:24.190
+Mark Blackman: Hey, guys.
+
+3
+00:03:24.490 --> 00:03:25.590
+Mark Blackman: How's it going?
+
+4
+00:03:28.870 --> 00:03:29.840
+Keith Kowal (Hedera Hashgraph LLC): Good.
+
+5
+00:03:30.040 --> 00:03:32.660
+Keith Kowal (Hedera Hashgraph LLC): Lots of… Oh, hey, Steven.
+
+6
+00:03:35.500 --> 00:03:36.030
+Steven Sheehy: Hey.
+
+7
+00:03:36.250 --> 00:03:37.350
+Steven Sheehy: Okay, sounds good.
+
+8
+00:03:43.630 --> 00:03:50.779
+Mark Blackman: So… Maybe, not have the… Meeting this month, huh?
+
+9
+00:03:52.520 --> 00:03:59.700
+Keith Kowal (Hedera Hashgraph LLC): Well, I thought we could just quickly go over, the cutover document that I've been working on, just because, I don't know, it's a good…
+
+10
+00:04:00.020 --> 00:04:08.309
+Keith Kowal (Hedera Hashgraph LLC): Steven's actually in… rightfully pinging me that we need to finish this off, so maybe I can just…
+
+11
+00:04:09.060 --> 00:04:11.740
+Keith Kowal (Hedera Hashgraph LLC): You know, and I think it's relevant to our last conversation.
+
+12
+00:04:13.070 --> 00:04:14.500
+Keith Kowal (Hedera Hashgraph LLC): Let me just quickly share.
+
+13
+00:04:19.550 --> 00:04:30.660
+Keith Kowal (Hedera Hashgraph LLC): So, this was a document I had prepared for the… actually, it kind of relates to our conversation yesterday, Mark. It's for the MirrorNode GitHub repo, which is where we have
+
+14
+00:04:30.800 --> 00:04:36.429
+Keith Kowal (Hedera Hashgraph LLC): most of our core documentation for the mirror node. And basically, it's just a cutover guide on
+
+15
+00:04:36.540 --> 00:04:50.569
+Keith Kowal (Hedera Hashgraph LLC): you know, how to cut over. Now, there had been a whole bunch of feedback in this that I had been waiting on from Shin, and I probably need to talk to Shin about, like, releases and things like that that we should describe in here. That's why the PRs
+
+16
+00:04:50.720 --> 00:04:54.280
+Keith Kowal (Hedera Hashgraph LLC): I think that's the last blocker to the PR not being merged.
+
+17
+00:04:54.280 --> 00:04:59.200
+Steven Sheehy: The PR's already merged. Shin updated it personally, and…
+
+18
+00:04:59.200 --> 00:05:05.190
+Keith Kowal (Hedera Hashgraph LLC): Oh, it's merged. Oh, okay, okay. Alright, perfect. Oh, then I can just go look at… The workout itself.
+
+19
+00:05:05.450 --> 00:05:10.639
+Keith Kowal (Hedera Hashgraph LLC): Alright, so I… okay, so I guess if it's merged, then I guess we're all good. I hadn't realized it had been merged.
+
+20
+00:05:12.600 --> 00:05:14.580
+Keith Kowal (Hedera Hashgraph LLC): Okay, well then maybe we can,
+
+21
+00:05:14.680 --> 00:05:19.850
+Keith Kowal (Hedera Hashgraph LLC): That was my only kind of update. I mean, is there anything else we need to talk about for mirror node cutover?
+
+22
+00:05:20.940 --> 00:05:24.690
+Keith Kowal (Hedera Hashgraph LLC): I mean, with the delays and everything, I think it's not as pressing right now.
+
+23
+00:05:26.960 --> 00:05:38.199
+Mark Blackman: Yeah, we're… we're still trying to sort out some open questions and, potential you know, design,
+
+24
+00:05:38.400 --> 00:05:46.540
+Mark Blackman: solutions, so… Yeah, don't have a, clear picture, definitive clear picture right now.
+
+25
+00:05:48.690 --> 00:06:01.430
+Keith Kowal (Hedera Hashgraph LLC): Well, why don't we talk about the other… because the other topic that might be kind of relevant to the community call, because this is a recording, is, a conversation I've had with you previously, Steven, and then I was just having with Mark yesterday. So…
+
+26
+00:06:02.180 --> 00:06:06.480
+Keith Kowal (Hedera Hashgraph LLC): maybe I can just…
+
+27
+00:06:06.940 --> 00:06:09.849
+Keith Kowal (Hedera Hashgraph LLC): I can start by saying… I'll share my screen again.
+
+28
+00:06:13.260 --> 00:06:29.769
+Keith Kowal (Hedera Hashgraph LLC): under HIRO, you know, every team can decide… every project, whether it's Mirror Node or Consensus Node, can decide, you know, how their documentation is best displayed. And in the Mirror Node, and you know, this has been an ongoing discussion with myself and Steven.
+
+29
+00:06:29.780 --> 00:06:36.700
+Keith Kowal (Hedera Hashgraph LLC): We have kept the documentation in the GitHub README as the easiest way to maintain it.
+
+30
+00:06:36.860 --> 00:06:41.509
+Keith Kowal (Hedera Hashgraph LLC): And also, as a, you know, these days, a pretty easy way for AI to access it.
+
+31
+00:06:41.780 --> 00:06:51.069
+Keith Kowal (Hedera Hashgraph LLC): So all, like, most documentation is in the GitHub repo. Now, of course, the problem with it in the GitHub repo is it's not always the best navigation experience.
+
+32
+00:06:51.100 --> 00:06:53.080
+Keith Kowal (Hedera Hashgraph LLC): And this is relevant because…
+
+33
+00:06:53.090 --> 00:07:10.759
+Keith Kowal (Hedera Hashgraph LLC): something that's been happening, because this is the block, you know, is that block node documentation has started to be put into docs.hiro.org. Now, I had also, at one point, pushed for mirror node documentation to be put into this repo, but I think that we
+
+34
+00:07:10.760 --> 00:07:14.989
+Keith Kowal (Hedera Hashgraph LLC): you know, Steven persuaded me otherwise. So I don't know,
+
+35
+00:07:14.990 --> 00:07:28.999
+Keith Kowal (Hedera Hashgraph LLC): Now, I did have a thought afterwards, Steven, which I don't think I've discussed with you, is like, is there a way where we can take… we can have all the documentation in the mirror node, and then through GitHub Actions, like, periodic GitHub Actions.
+
+36
+00:07:29.000 --> 00:07:35.039
+Keith Kowal (Hedera Hashgraph LLC): Have it, like, synced over to the docs.hiero.org.
+
+37
+00:07:35.190 --> 00:07:42.559
+Keith Kowal (Hedera Hashgraph LLC): I think that would address your concerns, and also provide the docs in a more navigation-friendly way, but…
+
+38
+00:07:42.730 --> 00:07:49.830
+Keith Kowal (Hedera Hashgraph LLC): I don't know if you had any thoughts on that design, or I don't even know if, like, I need to even explore if that design is completely possible, but…
+
+39
+00:07:51.650 --> 00:07:55.320
+Steven Sheehy: Well, that's what I've always wanted, and I think that's what we've talked about.
+
+40
+00:07:55.500 --> 00:08:01.380
+Steven Sheehy: Previously, it was, the people who are gonna, right, maintain the docs are,
+
+41
+00:08:02.650 --> 00:08:05.789
+Steven Sheehy: Probably the MirrorNode authors, and not the
+
+42
+00:08:06.140 --> 00:08:09.959
+Steven Sheehy: random other contributors or the docs team.
+
+43
+00:08:10.350 --> 00:08:20.250
+Steven Sheehy: Because they don't have enough knowledge on what it takes to run the mirror node, so it makes sense it's in the mirror node repo, but then we definitely want it visible on the HIRO docs, so…
+
+44
+00:08:20.610 --> 00:08:22.199
+Steven Sheehy: If there's some way to…
+
+45
+00:08:22.390 --> 00:08:31.229
+Steven Sheehy: to sync it, or have it pull directly from there, or I don't know how… what capability the Docs website has, then that would be ideal.
+
+46
+00:08:32.900 --> 00:08:33.520
+Keith Kowal (Hedera Hashgraph LLC): Yeah.
+
+47
+00:08:34.030 --> 00:08:46.669
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I think… I want to explore that one further, is that could we have a GitHub action that, let's say, runs, I don't know, like, once a week or something, that just, like, syncs over documents, to… to HyroDocs?
+
+48
+00:08:46.710 --> 00:08:55.419
+Keith Kowal (Hedera Hashgraph LLC): I mean, I think that's an interesting compromise. I think, like, that doesn't affect mere node engineering at all, but yet kind of gives a better user experience.
+
+49
+00:08:56.280 --> 00:09:00.069
+Keith Kowal (Hedera Hashgraph LLC): Yeah. But I need to explore if that's even technically feasible, so…
+
+50
+00:09:00.380 --> 00:09:04.879
+Steven Sheehy: Well, I mean, it's definitely feasible if all you do is, like, duplicate, right? You could have, like, a
+
+51
+00:09:05.760 --> 00:09:19.040
+Steven Sheehy: a docs folder on the mirror node, and a mirror node folder on the docs, and you would just have some action in the docs that pulls the open source read-only data from the mirror node and commits it, or creates a PR, at least, to
+
+52
+00:09:19.200 --> 00:09:20.399
+Steven Sheehy: To commit it.
+
+53
+00:09:20.790 --> 00:09:24.270
+Steven Sheehy: on… On the dock site, if it's changed.
+
+54
+00:09:24.680 --> 00:09:27.699
+Steven Sheehy: And periodically, once a day, or once a week, or whatever.
+
+55
+00:09:28.510 --> 00:09:40.750
+Keith Kowal (Hedera Hashgraph LLC): Yeah, that would definitely work. It just means that… I mean… but what's implicit is that there is a burden for somebody to periodically come to docs.hiero. I mean, it doesn't… it just doesn't…
+
+56
+00:09:40.960 --> 00:09:56.749
+Keith Kowal (Hedera Hashgraph LLC): happen by magic. Like, somebody has to periodically come to docs.hire.org, you know, work on navigat- like, these kind of, like, navigation pages, and to link the docs. If there's new docs, you'd have to go in here and, like, add them, that kind of stuff. So, it's not zero work, but I think it's…
+
+57
+00:09:57.020 --> 00:10:04.959
+Keith Kowal (Hedera Hashgraph LLC): It's… maybe, especially with AI, to handle the GitHub action, to modify the GitHub actions, maybe it's simpler.
+
+58
+00:10:05.750 --> 00:10:09.020
+Steven Sheehy: Right, it's also something that could be done generically.
+
+59
+00:10:09.260 --> 00:10:15.339
+Steven Sheehy: Right? Because you could envision Blocknode also moving their docs over back to their own repo.
+
+60
+00:10:15.990 --> 00:10:19.620
+Steven Sheehy: Or doing this for consensus node, or relay, or whatever, so…
+
+61
+00:10:19.880 --> 00:10:23.650
+Steven Sheehy: If we write it appropriately, it could be done generically.
+
+62
+00:10:23.810 --> 00:10:28.069
+Keith Kowal (Hedera Hashgraph LLC): Yeah, yeah, that's a good point. Mark, do you have any thoughts on that proposal?
+
+63
+00:10:29.690 --> 00:10:35.200
+Mark Blackman: Yeah, that sounds, like the best of both worlds, for sure.
+
+64
+00:10:35.840 --> 00:10:42.100
+Mark Blackman: I have a different opinion on just the first Policy you described that
+
+65
+00:10:42.910 --> 00:10:49.150
+Mark Blackman: every repo, dictates how and where the docks are placed. I think…
+
+66
+00:10:49.540 --> 00:10:51.989
+Mark Blackman: If we do have a high-road docks site.
+
+67
+00:10:52.700 --> 00:10:59.099
+Mark Blackman: You know, there should be one place people could come, discover, learn.
+
+68
+00:10:59.330 --> 00:11:05.219
+Mark Blackman: And, you know, we have so many node… different node types, it'd be great if
+
+69
+00:11:05.580 --> 00:11:08.629
+Mark Blackman: We just had a place for operators to come, and…
+
+70
+00:11:09.180 --> 00:11:13.600
+Mark Blackman: You know, get the operations side of this also.
+
+71
+00:11:14.070 --> 00:11:27.200
+Mark Blackman: whether that's in high row or not, I don't know, but I think having uniformity across the docs, across the repos, would actually be a positive thing, but…
+
+72
+00:11:27.880 --> 00:11:30.299
+Mark Blackman: You know, that's just my opinion.
+
+73
+00:11:30.300 --> 00:11:31.830
+Keith Kowal (Hedera Hashgraph LLC): Yeah, I, I just, just…
+
+74
+00:11:32.240 --> 00:11:40.469
+Keith Kowal (Hedera Hashgraph LLC): you know, I did a big review… sorry, I'm trying to… it's a bit of a memory hole, but, like, I did a big review of this a while back, and, you know, the only way that we could have this kind of
+
+75
+00:11:40.470 --> 00:11:54.549
+Keith Kowal (Hedera Hashgraph LLC): enforced structure is if the TSC passed that as, like, a docs policy. And I think, if I remember correctly, like, they were unwilling to do that. They just said, look, it's up to… every repo can kind of do their own thing. And I think also the fly in the ointment was.
+
+76
+00:11:54.620 --> 00:11:56.269
+Keith Kowal (Hedera Hashgraph LLC): At that time.
+
+77
+00:11:56.460 --> 00:12:15.430
+Keith Kowal (Hedera Hashgraph LLC): the… the solo team really, really, really wanted their own docks. They didn't want their docs in, docs.hiro.org. Like, this is during, I think, Torfinn's time. So, like, that was… that was another challenge, was, like, we had one team that really, really wanted their own dock site.
+
+78
+00:12:16.870 --> 00:12:25.689
+Keith Kowal (Hedera Hashgraph LLC): And so that's why we kind of came up with, well, okay, then every project can just decide to do their own thing. Which I, I mean, I agree, it's not great for consistency, but…
+
+79
+00:12:26.050 --> 00:12:31.050
+Keith Kowal (Hedera Hashgraph LLC): it's just kind of the reality of a decentralized Linux foundation Project.
+
+80
+00:12:32.000 --> 00:12:37.809
+Mark Blackman: Yeah, I mean, it's just… brings… Issues when you need to…
+
+81
+00:12:38.360 --> 00:12:48.020
+Mark Blackman: the span repos to get something done. So, solo provisioner, is that gonna go in solo? And it's required for block node install, so…
+
+82
+00:12:48.300 --> 00:12:48.920
+Mark Blackman: Yum.
+
+83
+00:12:48.920 --> 00:12:50.120
+Keith Kowal (Hedera Hashgraph LLC): No, that…
+
+84
+00:12:50.120 --> 00:12:54.850
+Mark Blackman: That linking between these two… libraries,
+
+85
+00:12:55.020 --> 00:12:58.299
+Mark Blackman: It's just as difficult from a management standpoint.
+
+86
+00:12:58.930 --> 00:13:03.790
+Keith Kowal (Hedera Hashgraph LLC): Yeah, no, that's a great point. Also,
+
+87
+00:13:04.090 --> 00:13:16.689
+Keith Kowal (Hedera Hashgraph LLC): you know, I guess maybe the other point that we didn't talk about was that… the other fly in the ointment is that we do have docs on docs.hedera.com, where there is, like, mirror no docs, block node docs. So, like.
+
+88
+00:13:16.690 --> 00:13:25.439
+Keith Kowal (Hedera Hashgraph LLC): how do the docs here live with, let's say, docs, docs.hyro.org? I mean, I guess my preference would be that
+
+89
+00:13:25.670 --> 00:13:37.000
+Keith Kowal (Hedera Hashgraph LLC): I don't… I don't like duplication of docs, so where possible, we just link over to HIRO. It's not a very great… it's a pretty… it's not a great experience, but, like, jumping them between two dock sites, but…
+
+90
+00:13:37.130 --> 00:13:51.309
+Keith Kowal (Hedera Hashgraph LLC): I think maybe it's just the world we live in. So, that's something else we kind of have to wrestle with, is like, well, how much… how much independent mirror node or block node content should be on docs.hedera.com, or should we just be, like, always pushing them over to…
+
+91
+00:13:52.440 --> 00:13:53.909
+Keith Kowal (Hedera Hashgraph LLC): the docks on Hyrule.
+
+92
+00:13:57.130 --> 00:14:00.280
+Mark Blackman: Yeah, it's a good question. The line…
+
+93
+00:14:01.030 --> 00:14:09.260
+Mark Blackman: Domain of these sites needs to be clearly, agreed to across Everybody writing and consuming.
+
+94
+00:14:10.910 --> 00:14:11.450
+Keith Kowal (Hedera Hashgraph LLC): Yeah.
+
+95
+00:14:13.010 --> 00:14:19.639
+Steven Sheehy: But… Not sure about the Hedera versus Hairo, but, fully in agreement that at least Hairo
+
+96
+00:14:20.400 --> 00:14:23.819
+Steven Sheehy: All the docs should be there, in one spot.
+
+97
+00:14:24.210 --> 00:14:32.009
+Steven Sheehy: And then even Solo, if they want to have another website, maybe that's fine, but they should also have the docs synced to the Hiro.
+
+98
+00:14:32.410 --> 00:14:36.049
+Steven Sheehy: Website, so that we can see it all in one pane of glass.
+
+99
+00:14:36.470 --> 00:14:41.859
+Steven Sheehy: And then, you know, each… Repo can have the docs that live in their own
+
+100
+00:14:41.960 --> 00:14:45.260
+Steven Sheehy: repository and be synced to the Hiero one.
+
+101
+00:14:45.360 --> 00:14:47.929
+Steven Sheehy: But then we should have some sort of,
+
+102
+00:14:48.580 --> 00:14:59.350
+Steven Sheehy: template, even if it's not approved by TSC or whatever, we should have some sort of template where you have to have these sort of minimal sections of overview, architecture, configuration, and so on.
+
+103
+00:14:59.880 --> 00:15:03.070
+Steven Sheehy: To enforce across all the ones that show up on the high road docs.
+
+104
+00:15:03.920 --> 00:15:12.739
+Keith Kowal (Hedera Hashgraph LLC): I think one of the problems with the solo docs is that in the solo docs themselves, and this was a kind of a big back and forth we had, there's a lot of
+
+105
+00:15:13.200 --> 00:15:24.820
+Keith Kowal (Hedera Hashgraph LLC): for good… for better or for worse, there's a lot of automation in these docs. Like, there is… like, we have… there's automation set up so, like, every time a build is created, it actually, like.
+
+106
+00:15:24.820 --> 00:15:35.889
+Keith Kowal (Hedera Hashgraph LLC): modifies areas of these docks. I think that was another argument why we needed our… Solo needed its own dock site, because that kind of automation was going to be very hard to maintain on high-row docks.
+
+107
+00:15:36.070 --> 00:15:46.149
+Keith Kowal (Hedera Hashgraph LLC): So, like, let's just say maybe, like, this is an example of, like, a specific project having specific requirements that require its own dock solution.
+
+108
+00:15:46.270 --> 00:15:49.269
+Keith Kowal (Hedera Hashgraph LLC): Yeah. I mean, I didn't, I didn't, I didn't…
+
+109
+00:15:49.670 --> 00:15:51.270
+Keith Kowal (Hedera Hashgraph LLC): I'm a fan of the automation, but yeah.
+
+110
+00:15:51.960 --> 00:15:54.449
+Steven Sheehy: But then that goes back to my point, as long as each…
+
+111
+00:15:55.090 --> 00:15:57.860
+Steven Sheehy: Repo can manage their own docs on their own
+
+112
+00:15:57.960 --> 00:16:04.010
+Steven Sheehy: Repo, as long as it's synced back periodically, then they can update it via automation as frequently as they want.
+
+113
+00:16:05.230 --> 00:16:05.750
+Keith Kowal (Hedera Hashgraph LLC): Yeah.
+
+114
+00:16:07.760 --> 00:16:08.879
+Keith Kowal (Hedera Hashgraph LLC): Yeah, okay.
+
+115
+00:16:09.240 --> 00:16:22.169
+Keith Kowal (Hedera Hashgraph LLC): Well, let me, let me take this back, and I think, Mark, what I think what you would appreciate was, like, an official proposal that you can work off of, so is that kind of… would that be helpful for you, Mark, in your conversations with the Blocknow team?
+
+116
+00:16:28.510 --> 00:16:30.279
+Keith Kowal (Hedera Hashgraph LLC): If you're talking, Mark, you're on mute.
+
+117
+00:16:30.930 --> 00:16:33.960
+Mark Blackman: Sorry, yeah, that sounds good, and then I'll…
+
+118
+00:16:34.200 --> 00:16:53.379
+Mark Blackman: you know, kind of dig into why we made that decision in the first place, what were the concerns or the personas they were going after, and just get clarity on that end. But yeah, personally, I think we should at least, if we all believe in this single pane of glass.
+
+119
+00:16:53.580 --> 00:17:02.710
+Mark Blackman: Let's, formally proposed to the TSC, and they could reject it, of course, but at least we.
+
+120
+00:17:02.960 --> 00:17:07.220
+Mark Blackman: Did the work to, present it in a meaningful way.
+
+121
+00:17:08.420 --> 00:17:19.790
+Keith Kowal (Hedera Hashgraph LLC): And just, you know, you raised another good point, Mark, and that's something we've not talked about for a while, is solo provisioner. Like, the original plan was that solo provisioner was going to live on
+
+122
+00:17:20.010 --> 00:17:39.489
+Keith Kowal (Hedera Hashgraph LLC): the solo docs website, and that, like, there would just be another link here, like, we would add some links here, like, oh, you want solo CLI docs? Click here. If you want solo provisioner docs, click here. But, I mean, you raise a valid point that, like, if solo provisioners are heavily tied to block nodes, like, that's a… not a great experience.
+
+123
+00:17:39.490 --> 00:17:45.660
+Mark Blackman: Where it's gonna be… All nodes eventually, all node types, or at least consensus node type.
+
+124
+00:17:46.200 --> 00:17:51.390
+Mark Blackman: So it, it, it spans node types, but…
+
+125
+00:17:51.940 --> 00:17:56.680
+Mark Blackman: It is part of the Solo brand, that was made clear, so…
+
+126
+00:17:56.950 --> 00:18:02.040
+Mark Blackman: it should go on the Solo-branded dock site, but…
+
+127
+00:18:02.230 --> 00:18:06.930
+Mark Blackman: Yeah, just as Steven said, maybe mirroring the content over…
+
+128
+00:18:07.240 --> 00:18:14.850
+Mark Blackman: Lynx is not only a horrible experience, but just, maintenance nightmare.
+
+129
+00:18:14.980 --> 00:18:21.840
+Mark Blackman: You know, you always have dead links, and there's no worse experience than a dead link. It just really conveys…
+
+130
+00:18:22.140 --> 00:18:29.080
+Mark Blackman: Yeah, just bad things, so… Yeah, let's, let's talk, but I agree, it is a problem.
+
+131
+00:18:29.780 --> 00:18:41.740
+Keith Kowal (Hedera Hashgraph LLC): But what I would say is that even for, like, syncing over to Hyrodox, like, you know, a year ago when I looked at this, I was just like, oh, this is a nightmare. I think what's changed is, like, AI makes this a lot…
+
+132
+00:18:41.740 --> 00:18:50.020
+Keith Kowal (Hedera Hashgraph LLC): easier, to do these kind of, like, broad updates very quickly. So, yeah, maybe we should take another look at it.
+
+133
+00:18:50.930 --> 00:18:51.730
+Mark Blackman: Sounds good.
+
+134
+00:18:52.610 --> 00:18:53.920
+Keith Kowal (Hedera Hashgraph LLC): Okay, awesome.
+
+135
+00:18:54.280 --> 00:18:58.270
+Keith Kowal (Hedera Hashgraph LLC): Alright, that's all I had, so, unless it… you guys, either of you have anything else?
+
+136
+00:18:59.580 --> 00:19:00.429
+Mark Blackman: Not for me.
+
+137
+00:19:01.760 --> 00:19:03.209
+Keith Kowal (Hedera Hashgraph LLC): Okay, thank you both.
+
+138
+00:19:03.500 --> 00:19:05.100
+Mark Blackman: Alright, take care. Cheers.
+

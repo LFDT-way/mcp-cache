@@ -1,0 +1,1414 @@
+WEBVTT
+
+1
+00:00:24.400 --> 00:00:26.059
+Marcus Brandenburger (IBM Research Zurich): Hello! Everyone.
+
+2
+00:00:31.250 --> 00:00:34.400
+David Enyeart (International Business Machines Corporation): Hello, Hi!
+
+3
+00:00:55.560 --> 00:00:56.910
+David Enyeart (International Business Machines Corporation): How's it going, Andy?
+
+4
+00:00:59.760 --> 00:01:01.079
+David Enyeart (International Business Machines Corporation): Long time? No talk.
+
+5
+00:01:22.880 --> 00:01:25.019
+David Enyeart (International Business Machines Corporation): Looks like we have the whole crew today.
+
+6
+00:01:25.390 --> 00:01:26.580
+David Enyeart (International Business Machines Corporation): It's been a while.
+
+7
+00:01:30.700 --> 00:01:31.959
+David Enyeart (International Business Machines Corporation): Can you guys hear me.
+
+8
+00:01:32.840 --> 00:01:34.040
+Marcus Brandenburger (IBM Research Zurich): Yes.
+
+9
+00:01:36.110 --> 00:01:36.920
+David Enyeart (International Business Machines Corporation): Hi! Everybody!
+
+10
+00:01:37.660 --> 00:01:38.820
+Marcus Brandenburger (IBM Research Zurich): A.
+
+11
+00:01:42.520 --> 00:01:43.310
+Andrew Coleman: Hi! Dave!
+
+12
+00:01:44.330 --> 00:01:45.320
+David Enyeart (International Business Machines Corporation): Hello!
+
+13
+00:01:46.330 --> 00:01:48.150
+David Enyeart (International Business Machines Corporation): It's like getting the band back together.
+
+14
+00:01:51.380 --> 00:01:53.370
+Marcus Brandenburger (IBM Research Zurich): Oh, my God! Let's go to Vegas!
+
+15
+00:02:01.054 --> 00:02:02.184
+Elli Androulaki: And everybody.
+
+16
+00:02:02.870 --> 00:02:05.269
+Elli Androulaki: It's been a while since we last met.
+
+17
+00:02:15.970 --> 00:02:18.789
+David Enyeart (International Business Machines Corporation): Alright. Let's get started. I'll share my screen.
+
+18
+00:02:30.350 --> 00:02:41.889
+David Enyeart (International Business Machines Corporation): Okay, welcome everybody to the May 21st hybrid Ledger fabric meeting. We'll do a very quick release update and then talk about some of the Rfcs that have been opened recently.
+
+19
+00:02:42.150 --> 00:02:44.710
+David Enyeart (International Business Machines Corporation): We've got 2 from senthel listed here.
+
+20
+00:02:45.866 --> 00:02:49.760
+David Enyeart (International Business Machines Corporation): On the release perspective. We have just
+
+21
+00:02:50.140 --> 00:02:58.850
+David Enyeart (International Business Machines Corporation): 2 small releases. Recently, in the past month, one was fabric 2, 5, 13. That remains to be the long term
+
+22
+00:02:59.562 --> 00:03:09.870
+David Enyeart (International Business Machines Corporation): the Lts release long term support release. So we do things like dependency updates. And any bug fixes. There, this one just had dependency updates that was released last month.
+
+23
+00:03:10.050 --> 00:03:17.269
+David Enyeart (International Business Machines Corporation): and then fabric v. 3, and specifically 3, 1, 1 was released. This is the release where we've been.
+
+24
+00:03:17.450 --> 00:03:24.639
+David Enyeart (International Business Machines Corporation): where we release the smart bft functionality, and we continue to have small improvements and fixes typically in the smart Bft
+
+25
+00:03:24.740 --> 00:03:33.470
+David Enyeart (International Business Machines Corporation): code base in that in that release. So that seems to be brewing well, any other
+
+26
+00:03:34.360 --> 00:03:35.909
+David Enyeart (International Business Machines Corporation): questions on the releases.
+
+27
+00:03:42.490 --> 00:03:49.960
+David Enyeart (International Business Machines Corporation): Okay? So we can go to the Rfc review part Central. Did you want to talk about both these today, or just one of them.
+
+28
+00:03:53.720 --> 00:04:10.579
+Senthilnathan N: Yeah, Hi, Hi, Dave. So I think both are interconnected. Right? I think it's better to discuss about both, and also given I think all the maintenance have read both the Rfc. I think. We can discuss together.
+
+29
+00:04:13.580 --> 00:04:20.959
+David Enyeart (International Business Machines Corporation): Okay, did you want to share your screen and bring up the Rfc. While you talk about them? You don't have to. But just your option.
+
+30
+00:04:21.951 --> 00:04:30.670
+Senthilnathan N: Yeah. So I'm going to give a short intro, only so I don't have a slide. I mean, if you can open it and then show it also. So that's fine.
+
+31
+00:04:32.010 --> 00:04:34.299
+David Enyeart (International Business Machines Corporation): Okay. Which one do you want to go to? First? st
+
+32
+00:04:34.300 --> 00:04:38.999
+Senthilnathan N: Yeah. The 1st one is the fabric. X, Rfc, the 1st one.
+
+33
+00:04:40.040 --> 00:04:43.640
+David Enyeart (International Business Machines Corporation): Alright. And you wanna look at the actual content.
+
+34
+00:04:44.100 --> 00:04:44.720
+Senthilnathan N: Yes.
+
+35
+00:04:46.850 --> 00:04:57.059
+Senthilnathan N: yeah. So this purpose of fabricx. It's a new high performance fabric implementation. So mainly it is targeting over 100,000 tps
+
+36
+00:04:57.220 --> 00:05:13.729
+Senthilnathan N: for many of the new generation use cases like Cbdc, and then digital asset, and even for asset trading. So there are a lot of new demanding use cases which require these kind of throughputs, and even it requires more than 100 k. So
+
+37
+00:05:13.730 --> 00:05:28.690
+Senthilnathan N: I mean, so there are many documents that are available that says that this requirement could double every year, and so so so the proposal is to have such implementation within fabric.
+
+38
+00:05:29.122 --> 00:05:35.310
+Senthilnathan N: So it's mainly a re architect of fabric with the micro services architecture.
+
+39
+00:05:35.360 --> 00:05:42.869
+Senthilnathan N: and it would use a shared database per organization and also enhanced programming model using flows
+
+40
+00:05:43.390 --> 00:05:58.360
+Senthilnathan N: at the same time, they would like to keep the core fabric principle, like execute order, validate Msp, key value version data, model endorsement policies read, write, set and all those things.
+
+41
+00:05:58.570 --> 00:06:09.860
+Senthilnathan N: So it's a major step for scalability. And I mean, the proposal is to develop in a new repository initially focusing on core performance.
+
+42
+00:06:10.901 --> 00:06:27.130
+Senthilnathan N: So, for example, so if there are existing, use case, if they are happy with the existing hyper laser fabric, they can continue to use it, because I mean they don't need the higher performance. So in that case there is no need to do the migration
+
+43
+00:06:27.130 --> 00:06:45.889
+Senthilnathan N: so especially for new generation use case. They cannot rely on fabric. So in that case we will lose the leadership of fabric for those new use cases. Right? So that's why, the proposal is to have another implementation of fabric
+
+44
+00:06:45.890 --> 00:06:51.179
+Senthilnathan N: which are specifically targeting these news new use cases.
+
+45
+00:06:51.580 --> 00:06:56.489
+Senthilnathan N: So that's the the summary of this whole Rfc.
+
+46
+00:07:02.070 --> 00:07:09.620
+Senthilnathan N: And Dave is that summary fine? Right? Because I think most of the maintenance have already read it.
+
+47
+00:07:10.350 --> 00:07:13.750
+David Enyeart (International Business Machines Corporation): Yeah, I think so. Do you wanna give an overview of the other one? Then.
+
+48
+00:07:14.590 --> 00:07:15.000
+Senthilnathan N: Yeah.
+
+49
+00:07:23.690 --> 00:07:24.310
+David Enyeart (International Business Machines Corporation): Okay.
+
+50
+00:07:24.770 --> 00:07:33.880
+Senthilnathan N: Yeah, so this is the second door of C, so this basically proposes the fabric ecosystem coexistence model.
+
+51
+00:07:34.390 --> 00:08:00.319
+Senthilnathan N: So this Rfc is trying to provide a framework for fabricx and a similar future innovation to exist within the hyperlaser fabric project. So the main proposal is to allow multiple specialized fabric implementation like fabric classic, that is already exist and fabricx to coexist. And they all would be sharing a core principle.
+
+52
+00:08:00.680 --> 00:08:11.869
+Senthilnathan N: So the model basically aims to boost fabric, adaptability and innovation. So drawing from a successful example in ecosystem like Java and Python
+
+53
+00:08:12.520 --> 00:08:32.359
+Senthilnathan N: and so it also suggest a principle for evolving fabric governance and also technical charter. So proposing an extended Tsc, because now we would have multiple implementation of fabric for specific use cases, right? So that governance model also being proposed in this.
+
+54
+00:08:32.690 --> 00:08:39.489
+Senthilnathan N: So together, these 2 Rfc. Seems to make fabric more versatile and future proof.
+
+55
+00:08:39.640 --> 00:08:46.460
+Senthilnathan N: and we encourage you to review them. I think already many of the maintenance have reviewed it.
+
+56
+00:08:47.200 --> 00:08:51.600
+Senthilnathan N: So, yeah, this is the summary of this Rfc.
+
+57
+00:08:57.800 --> 00:08:59.749
+David Enyeart (International Business Machines Corporation): Okay, and what is your
+
+58
+00:09:00.820 --> 00:09:06.769
+David Enyeart (International Business Machines Corporation): depending on how this Rfc relates to the the fabric? Tsc.
+
+59
+00:09:07.523 --> 00:09:11.600
+David Enyeart (International Business Machines Corporation): I think this you're suggesting they would require updates to the fabric. Tsc.
+
+60
+00:09:12.060 --> 00:09:34.310
+Senthilnathan N: Yes. So once if I mean the the current one that you have shared. If this get approved, then we need to change the so there is a hyper fabric charter right in the fabric repository, so that we need to make changes there to explain some of the governance model described in this Rfc.
+
+61
+00:09:38.060 --> 00:09:52.510
+Senthilnathan N: so it is like fundamentally changing the hyper ledger fabric. I mean charter right? So for that, we need a majority of the vote from the Maintainer. And also, I think we need to inform the Lf. Foundation.
+
+62
+00:09:54.720 --> 00:10:06.529
+David Enyeart (International Business Machines Corporation): Yeah. I pulled up the charter as well if we want to talk about that. So this was the charter was something new that came into the project last year. Maybe not. Everybody has seen it, because we haven't had to rely on it, but it sets out
+
+63
+00:10:08.050 --> 00:10:17.980
+David Enyeart (International Business Machines Corporation): You know how we how we make decisions like this, and how we vote on things like this, and also how to update the charter itself at the end that talks about
+
+64
+00:10:18.380 --> 00:10:27.789
+David Enyeart (International Business Machines Corporation): needing 2 thirds of a vote of the fabric Tsc. To do this, I asked the Hyperledger staff or Lfdt. Staff about this
+
+65
+00:10:28.334 --> 00:10:33.990
+David Enyeart (International Business Machines Corporation): and they said one of the reasons why they introduced these charters was so that we could have
+
+66
+00:10:34.110 --> 00:10:38.380
+David Enyeart (International Business Machines Corporation): projects like fabric, be broader umbrellas that could
+
+67
+00:10:38.500 --> 00:10:44.678
+David Enyeart (International Business Machines Corporation): potentially contain multiple implementations and things like that. Those types of decisions would be
+
+68
+00:10:45.280 --> 00:11:00.480
+David Enyeart (International Business Machines Corporation): up to the fabric. Tsc, so the fabric Tsc goes beyond maintainers of like any one repository or any family of repositories, and that was their vision of having this fabric. Tsc, is that this Tsc group could make these decisions.
+
+69
+00:11:00.690 --> 00:11:06.800
+David Enyeart (International Business Machines Corporation): But yeah, if we're fundamentally changing hyperledger to fabric to be more of an umbrella
+
+70
+00:11:07.070 --> 00:11:11.059
+David Enyeart (International Business Machines Corporation): ecosystem. I think we probably would need the
+
+71
+00:11:11.480 --> 00:11:17.869
+David Enyeart (International Business Machines Corporation): to get like that. Two-thirds vote for the charter updates, does that make sense.
+
+72
+00:11:20.780 --> 00:11:26.159
+Senthilnathan N: Yes, yes, Dave, so that was also the expectation. So I have also.
+
+73
+00:11:26.160 --> 00:11:43.160
+Artem Barger (iland Hosting): But, Dave, I don't think that the way that charters are supposed to be managed right, because if if if each other is not, it's not about developing in in umbrella project within the bigger umbrella umbrella of hyper.
+
+74
+00:11:43.260 --> 00:11:50.910
+Artem Barger (iland Hosting): It's about how to to manage some sub projects within within a 1 1
+
+75
+00:11:51.400 --> 00:12:11.570
+Artem Barger (iland Hosting): 1st class project, like fabric, in in terms of different repositories, in in different dependencies, within those repositories. In case, for example, like SDK, there, we have a disjoint, or might have disjoint set of of people maintaining those repositories, and we would like to to have a more most
+
+76
+00:12:11.660 --> 00:12:33.449
+Artem Barger (iland Hosting): theoretically grouped way to operate and govern those repositories. It's not like, okay. See? I hear the fabric. And let's put an ability into the fabric to introduce a new project bypassing the other process that's well established within hyper, just because we can do it.
+
+77
+00:12:34.780 --> 00:12:41.300
+David Enyeart (International Business Machines Corporation): I did specifically ask that question because I had the same question myself of the Hyperledger Staff or Lfdt. Staff.
+
+78
+00:12:41.450 --> 00:12:50.379
+David Enyeart (International Business Machines Corporation): and they said the purpose of the charter of the Ts. The new Tsc. Is such that the group, the Tsc. Group, could make those decisions on behalf of the project.
+
+79
+00:12:54.090 --> 00:13:04.020
+Artem Barger (iland Hosting): So it's possible to basically introduce a new projects into the fabric, regardless the overall governance policies of the hyper itself.
+
+80
+00:13:04.400 --> 00:13:08.820
+David Enyeart (International Business Machines Corporation): If the fabric Tsc. Believes that the project falls within
+
+81
+00:13:09.060 --> 00:13:16.060
+David Enyeart (International Business Machines Corporation): the guidelines and the governance of hyperledger fabric, then the fabric Tsc is is the organization that can decide. That
+
+82
+00:13:17.580 --> 00:13:18.719
+David Enyeart (International Business Machines Corporation): is what they told me.
+
+83
+00:13:18.720 --> 00:13:21.780
+Artem Barger (iland Hosting): For me, Madison.
+
+84
+00:13:29.950 --> 00:13:30.820
+Artem Barger (iland Hosting): Okay.
+
+85
+00:13:35.970 --> 00:13:37.156
+Artem Barger (iland Hosting): so I
+
+86
+00:13:38.060 --> 00:14:04.390
+Artem Barger (iland Hosting): since since everyone, I don't want to express my my opinion in in terms of the previous Roc, because I I do think that the attempt of bringing a completely new implementation again, you can call it a fabric right? But it has very, very, very few from the from the initial fabric, since it's a heavily refactored
+
+87
+00:14:04.390 --> 00:14:08.330
+Artem Barger (iland Hosting): and not backward compatible. And it's also specialized a case
+
+88
+00:14:08.360 --> 00:14:35.640
+Artem Barger (iland Hosting): for the for the Cbdc. And I do think that such impressive piece of work deserves to be a 1st class citizen within, within the fabric will just fragment the ecosystem into into the pieces, which I think a mistake.
+
+89
+00:14:37.000 --> 00:14:48.510
+Angelo De Caro (International Business Machines Corporation): Can I jump in? This is Angelo Artem. Maybe this was not. I'm not sure. Maybe it's not clear or something, but most of the protobus messages and the Grpc services are the same.
+
+90
+00:14:48.660 --> 00:14:57.100
+Angelo De Caro (International Business Machines Corporation): So it's like saying, Take the ethereum protocol, and there are multiple implementations of the ethereum protocols.
+
+91
+00:14:57.100 --> 00:15:21.199
+Angelo De Caro (International Business Machines Corporation): So here we are pushing for another implementation of most of the fabric protocols, with few changes like we have done already in the past, like when we switch it from rafter to bft. We had to change the config block when we introduced capabilities. We are also saying that something might be deprecated, but most of the Protocols are the same.
+
+92
+00:15:21.200 --> 00:15:28.099
+Angelo De Caro (International Business Machines Corporation): not correct to say completely. It's not correct to say that this is a different project. If the protobus are the same.
+
+93
+00:15:28.100 --> 00:15:57.290
+Artem Barger (iland Hosting): All right. But you you are not preserved any of the public. Apis. Okay. So if if you would like to go with the comparison. Right? So, for example, hyper bezo, they implemented a Avm based blockchain that is fully aligned with ethereum, yet they have not submitted it into the ethereum foundation that's well established. New project under hyper. That's the 1st thing. The second one is.
+
+94
+00:15:57.833 --> 00:15:58.659
+Artem Barger (iland Hosting): for example.
+
+95
+00:15:58.660 --> 00:16:03.140
+Angelo De Caro (International Business Machines Corporation): But the Api are the same. The Gfpc services are the same.
+
+96
+00:16:03.950 --> 00:16:17.009
+Artem Barger (iland Hosting): But if if Api is the same, so why? Why do those 2 implementations are not compatible, and not even not in interoperable? That's that's.
+
+97
+00:16:17.010 --> 00:16:22.549
+Angelo De Caro (International Business Machines Corporation): Because we are saying that we are dropping Pdc and and some other stuff.
+
+98
+00:16:22.550 --> 00:16:23.200
+Artem Barger (iland Hosting): Channels, right.
+
+99
+00:16:23.200 --> 00:16:34.050
+Angelo De Caro (International Business Machines Corporation): Transaction format that is leaner and and it's and as the purpose of reaching thousands of transactions, hundreds of thousands of transactions.
+
+100
+00:16:34.050 --> 00:16:44.359
+Artem Barger (iland Hosting): I'm not arguing the fact that this is the perfect piece of work like I don't.
+
+101
+00:16:44.360 --> 00:16:46.260
+Angelo De Caro (International Business Machines Corporation): No, no, but I'm I'm pointing to the fact that
+
+102
+00:16:46.620 --> 00:16:49.379
+Angelo De Caro (International Business Machines Corporation): that this is a different Api. That's not true.
+
+103
+00:16:49.690 --> 00:16:52.770
+Artem Barger (iland Hosting): But okay, but we have to take hours.
+
+104
+00:16:52.770 --> 00:16:53.730
+Angelo De Caro (International Business Machines Corporation): Yes.
+
+105
+00:16:54.010 --> 00:17:05.000
+Alessandro Sorniotti: And and I mean the the commonalities go beyond just the proto buffs. I mean the aside from like the execute order. Validate thing you have, Msps, they're the same. The endorsement.
+
+106
+00:17:05.000 --> 00:17:08.560
+Artem Barger (iland Hosting): Whoever whoever use whoever used fabric so far, if.
+
+107
+00:17:08.569 --> 00:17:22.979
+Alessandro Sorniotti: Control is the same. Configuration management is the same, the block structure is almost the same. So I mean, the the list of commonalities is impressive, really, to call it like a complete new thing. It sounds like a bit of a stretch to me.
+
+108
+00:17:23.450 --> 00:17:47.740
+Artem Barger (iland Hosting): So, Ali, you know we can take another example. So Ubuntu is descendant of Debian and all it shares a lot of in common, but yet it deserves a completely different project. Okay, so that's the 1st thing the the thing that I probably missing. And it's, you know, I'm trying to to articulate. What I'm reading from the Rfc. Is that there is no
+
+109
+00:17:47.740 --> 00:18:10.410
+Artem Barger (iland Hosting): and there is no compatibility between 2 versions of fabric X and and the classical fabric if you will. Okay, so whoever is using whoever is using the fabric right now and would like to to switch to the fabric is X, they have to start completely from scratch, even even from the configuration, a point of view, the lack of channels.
+
+110
+00:18:10.410 --> 00:18:24.439
+Artem Barger (iland Hosting): That means that you, you will need to reconfigure completely the the entire network to have a completely different approach in the way that you operate the entire network. And that's not okay. So.
+
+111
+00:18:26.360 --> 00:18:27.650
+Elli Androulaki: May.
+
+112
+00:18:29.230 --> 00:18:50.169
+Elli Androulaki: Yeah, I also want to say there are also new versions of fabric that are not backwards compatible with the previous versions of fabric, and this is still acceptable because the maintainers decided that it is fine. There is a new set of features that are important for fabric to be supported in the future to the extent that backwards compatibility is broken.
+
+113
+00:18:50.170 --> 00:19:12.689
+Elli Androulaki: It is bad, for there needs to be extra work for people to transition to the new version, but it is where the market is moving with respect to the feature needs, and so on and so forth. Now Fabricx is not saying it is a new version of fabric that people are forced to be compatible with. If
+
+114
+00:19:12.690 --> 00:19:35.750
+Elli Androulaki: there are people that are using fabric that are in the space of digital assets and currencies. I would guess there are very few of them, because fabric is not offering is not lending itself well for this kind of use. Cases we are making their life easier to adopt some version of fabric as opposed to not using fabric at all and going to some other
+
+115
+00:19:35.750 --> 00:19:46.979
+Elli Androulaki: alternatives. So that's the intention here. And although I'm not a Maintainer, I'm really personally connected to fabric.
+
+116
+00:19:46.980 --> 00:20:13.120
+Elli Androulaki: I want to see that ecosystem growing and to our experience, it's the other way around. Right now the market is moving towards digital assets. You saw what is happening with stablecoins in the Us. And fabric has no support at all there, and what is going to happen is what we are afraid, because over the last few years there hasn't been any development on fabric itself is that this ecosystem will die, and we don't want that.
+
+117
+00:20:13.910 --> 00:20:28.929
+Elli Androulaki: And yes, it could be that we offer a new project. But this project will take years to be accepted by the Toc ultimately, and make it to main repository. That would also be not optimal for the community of fabric to get strong attention there.
+
+118
+00:20:29.560 --> 00:20:45.170
+Elli Androulaki: We want to make sure that the message is out that fabric is being actively worked on the fabric ecosystem in this case, not necessarily. The fabric code base itself that we want to continue to exist and and flourish.
+
+119
+00:20:46.100 --> 00:21:05.780
+Elli Androulaki: That's the intention of this Rfc. Being part of fabric, not not as an independent lab. Of course that would be the easiest way out for everybody for us as well, but we said it needs to come strongly with fabric, so that people know that we are working towards the direction where the market is going.
+
+120
+00:21:06.270 --> 00:21:21.329
+Elli Androulaki: We don't want to confuse the community, but with all honesty there isn't much of the community that is doing digital assets right now, that is, using fabric apart from the ones that are considering abandoning fabric.
+
+121
+00:21:22.590 --> 00:21:24.669
+Elli Androulaki: And this is where we want to grow.
+
+122
+00:21:25.290 --> 00:21:35.700
+Elli Androulaki: We can make this this, this crystal clear or clearer there, because we don't want to confuse the community. We want to support it and extend it.
+
+123
+00:21:38.050 --> 00:22:02.670
+Artem Barger (iland Hosting): So I do have a few comments to that. So, 1st of all, for the previous example of the feature that was abandoned, or we stopped developing. There was a clear duplication path that took it's not like switch on off there. We introduced a new version of the fabric without any support of the previous feature, and
+
+124
+00:22:03.168 --> 00:22:20.620
+Artem Barger (iland Hosting): just to remind you that it took several several years to get rid of the legacy lifecycle right. And I was. I was the last one to to actually submit the commit to close the.
+
+125
+00:22:20.620 --> 00:22:27.000
+Elli Androulaki: You were talking about a new version of fabric. We are not talking about a new version of fabric we are talking about.
+
+126
+00:22:27.050 --> 00:22:33.959
+Artem Barger (iland Hosting): My point. It's not new girls on the fabric. It's completely different project. And you're trying to weather it as a kind of a revolution
+
+127
+00:22:33.960 --> 00:22:35.410
+Artem Barger (iland Hosting): some of the fabric, and rather,
+
+128
+00:22:36.840 --> 00:22:39.530
+Elli Androulaki: The community is to decide what it will become.
+
+129
+00:22:40.460 --> 00:22:43.869
+Elli Androulaki: It is an alternative. It is additional.
+
+130
+00:22:43.870 --> 00:22:48.450
+Artem Barger (iland Hosting): Exactly. That's why that's why that's why I that's why I think
+
+131
+00:22:48.450 --> 00:22:53.889
+Artem Barger (iland Hosting): process is the rightful place for that. In order to build the community and not confuse
+
+132
+00:22:54.210 --> 00:23:08.060
+Artem Barger (iland Hosting): current fabric, and the close segregation between the fabric that is general purpose and the fabric that is built for purpose of the Cbdc. Bringing, I have honest.
+
+133
+00:23:09.190 --> 00:23:11.750
+Elli Androulaki: Only it's digital assets in general.
+
+134
+00:23:12.145 --> 00:23:29.160
+Artem Barger (iland Hosting): Direction. That is a developed on top of fabric, but it's kind of the the whole, the whole new niche that is a deserve. 1st of all, a solar focus. And the it's it's it's not. It's not fabric. Okay? So you you.
+
+135
+00:23:29.160 --> 00:23:29.550
+Manish Sethi: Oh!
+
+136
+00:23:29.550 --> 00:23:30.990
+Artem Barger (iland Hosting): You just admitted it.
+
+137
+00:23:30.990 --> 00:23:31.930
+Jim Mason (Sky Web Team): So autumn.
+
+138
+00:23:32.138 --> 00:23:33.179
+Manish Sethi: Can I ask a question.
+
+139
+00:23:33.180 --> 00:23:41.209
+Jim Mason (Sky Web Team): Position. On that you clearly have a position. You don't agree that fabric fundamentally is capable.
+
+140
+00:23:41.830 --> 00:23:49.719
+Jim Mason (Sky Web Team): I guess, from an architecture perspective, of supporting this new version or flavor or different solution. I'll say
+
+141
+00:23:50.110 --> 00:23:51.749
+Jim Mason (Sky Web Team): my argument is.
+
+142
+00:23:51.810 --> 00:24:12.720
+Jim Mason (Sky Web Team): there's nothing wrong with coming up new with new solutions. I like the idea of the concept of a family of solutions that's architecturally related to, I'll call it a parent architecture. So the question I would have, which is really a question for fabric itself is what's different, not about the added features of what they're proposing for the new solution for crypto.
+
+143
+00:24:12.720 --> 00:24:28.250
+Jim Mason (Sky Web Team): but rather, what is limiting about the fabric architecture that would stop that from being in a sense a new flavor of fabric. So yes, maybe the evolution of fabric needs to continue further from an architecture viewpoint
+
+144
+00:24:28.310 --> 00:24:46.480
+Jim Mason (Sky Web Team): is my argument period. There's lots of I would also argue, though, having spent more time than anybody I know in digital assets over the last 4 years that there is so much wrong with the whole defi platforms as they exist, including evm.
+
+145
+00:24:46.500 --> 00:25:05.479
+Jim Mason (Sky Web Team): it's very obvious that the future is not permissionless. Anything. It's permissioned for sure, 100%. And in fact, Baysu is successful because it allows a permission model on an Evm platform. That itself is very what I call limiting and failed in many ways.
+
+146
+00:25:05.480 --> 00:25:16.530
+Jim Mason (Sky Web Team): And so every solution that's novel in the Defi space is overcoming the limits of public blockchain period. That's all they do, that's all they spend their time on.
+
+147
+00:25:16.530 --> 00:25:37.360
+Jim Mason (Sky Web Team): and they still have massive gaps. So, having lived in the digital asset space, I would argue that maybe the right thing is rethink fabric architecture again, as you have done in the past, and ask yourself, why couldn't it support the capabilities that the new project is looking at easily.
+
+148
+00:25:38.430 --> 00:25:39.120
+Elli Androulaki: Hmm.
+
+149
+00:25:40.580 --> 00:25:46.510
+Manish Sethi: Like. And just to add to that I was also going to release same thought. Thanks, Tim, so
+
+150
+00:25:46.790 --> 00:25:59.910
+Manish Sethi: to answer your question, Jim. Exactly that exercise has happened, and fabrics came out of that exercise only that fabric. Fundamentally, we started with as a kind of one size fit. All
+
+151
+00:26:00.060 --> 00:26:03.609
+Manish Sethi: that means most of the use cases would be served better.
+
+152
+00:26:03.900 --> 00:26:13.289
+Manish Sethi: But, as you know, blockchain has been evolving always even till today, and new use cases becomes more prominent at time versus other.
+
+153
+00:26:13.600 --> 00:26:35.479
+Manish Sethi: So so far it had served the some enterprise, use cases quite well, but when it comes to digital asset use cases, the fabric. One size fits all kind of approach. Started showing weaknesses, especially for the performance. Significantly lower, like 2,000 tps, definitely is not going to serve any of those use cases.
+
+154
+00:26:35.610 --> 00:26:42.590
+Manish Sethi: Now, of course, one approach is, as you said, like, keep fixing things there.
+
+155
+00:26:42.690 --> 00:26:46.719
+Manish Sethi: We tried hard there as well, but it failed.
+
+156
+00:26:46.830 --> 00:26:49.420
+Manish Sethi: and the other approach is like, Think fresh.
+
+157
+00:26:49.700 --> 00:27:17.390
+Manish Sethi: and that is where how fabricx was made that let's think afresh, forget any compatibility, anything. We have full freedom if we would have to do from scratch, however, still keep the core concept and components from fabric. But re-architect it. So it's not. Basically it's altogether different concept. It's basically re-architecting the same concepts. And that's how it came up.
+
+158
+00:27:17.510 --> 00:27:18.650
+Manish Sethi: Now.
+
+159
+00:27:19.370 --> 00:27:27.340
+Manish Sethi: the point is like, if I ask, let's say, Artem, if I ask you. Okay, somebody wants to try fabric for digital asset. What would your answer be?
+
+160
+00:27:28.880 --> 00:27:30.640
+Manish Sethi: Go away. It doesn't work.
+
+161
+00:27:31.580 --> 00:27:35.120
+Manish Sethi: Or you would say, Hey, we have a lightweight version.
+
+162
+00:27:35.120 --> 00:27:36.760
+Artem Barger (iland Hosting): So.
+
+163
+00:27:38.780 --> 00:27:54.419
+Artem Barger (iland Hosting): you know, I'm I'm not a really good person to ask the question. So just because I used to work for for the for the several companies building the digital assets on top of a exactly current version of fabric. And it's a pretty
+
+164
+00:27:54.720 --> 00:28:07.230
+Artem Barger (iland Hosting): okay. It's not not of all of them flourish and pretty successful. But there are companies that running on using this solution. And it's pretty, I actually have to admit showing pretty good results.
+
+165
+00:28:08.350 --> 00:28:12.700
+Manish Sethi: Yeah. But if the demand is like hundreds of thousands of transaction per second.
+
+166
+00:28:13.000 --> 00:28:13.380
+Jim Mason (Sky Web Team): Yes.
+
+167
+00:28:13.380 --> 00:28:15.470
+Manish Sethi: He can't answer like, Go and leave the.
+
+168
+00:28:15.470 --> 00:28:21.839
+Artem Barger (iland Hosting): It's possible to to achieve this this goal also with the current architecture. That's what I did.
+
+169
+00:28:22.050 --> 00:28:34.330
+Elli Androulaki: This is not the case, Arthur. Many, you know it. We've we've built a hyper ledger fabric as well. We've tested so many times under many configurations. It's not possible.
+
+170
+00:28:34.330 --> 00:28:42.389
+Artem Barger (iland Hosting): Okay, okay, it's not. It's not, it's not. It's not going to the, to the, to the level of the performance that you're showing in Roc. But it's.
+
+171
+00:28:42.390 --> 00:28:42.720
+Jim Mason (Sky Web Team): So.
+
+172
+00:28:42.720 --> 00:28:43.280
+Artem Barger (iland Hosting): Possible for you.
+
+173
+00:28:45.130 --> 00:28:46.400
+Jim Mason (Sky Web Team): Fair to be fair.
+
+174
+00:28:46.400 --> 00:28:46.850
+Manish Sethi: Validate.
+
+175
+00:28:46.850 --> 00:29:12.860
+Jim Mason (Sky Web Team): A lot of this is engineering. A lot of this is engineering period. So I've taken fabric, the existing fabric on 2 apps. And I've used it differently. It's just a tool, and you use the tool to build something. So I've built something differently than the default way. So just like the I'll call it Defi crowd. That, says Ebm, is a disaster from a performance perspective. So what do we do? We create something called a level 2,
+
+176
+00:29:12.860 --> 00:29:24.610
+Jim Mason (Sky Web Team): and the level 2 just ties back to the level one. It's just a tool. And so the point of it is, I agree with Manish's point that you should look at the requirements of where you'd like to go, and then ask yourself.
+
+177
+00:29:24.610 --> 00:29:49.280
+Jim Mason (Sky Web Team): is, and I agree with Manish's concept is fabric a good starting point does it give us some advantages in getting where we really want to go, and we're nowhere close. I will say the whole dlt mess is really a very immature architecture period. It's solving a trust problem, but it doesn't solve all trust problems. It solves a portion of them. And if you do like manish, and some of the other people here
+
+178
+00:29:49.280 --> 00:30:16.680
+Jim Mason (Sky Web Team): say, what are the other use? Cases that we're not addressing? Well, yeah, go look at those. Ask yourself, what would the Trust look like that you're looking at in total, what trust would become out of? Not a dlt. But I'll call it a virtual smart ledger technology which is different than dlt. What portion of trust would be answered by that? And then back to your point? What about the use cases and the flexibility from an architecture standpoint. Finally, would fabric be a good base or not
+
+179
+00:30:16.680 --> 00:30:39.879
+Jim Mason (Sky Web Team): to start to address those use cases. But I am 100% confident looking at other technologies outside of Dlt, that you could easily get what I call the performance to a half a million or a million Tps. Reasonably you could, but it wouldn't be using this architecture. There's nothing in the defi space. They're all on the wrong track. Technically, for sure.
+
+180
+00:30:39.880 --> 00:31:04.519
+Jim Mason (Sky Web Team): there's nothing going to approach it over there. The whole point is rethinking the trust model to begin with, and the architecture model. But I think, manish. I agree very much with your concept. Start out with use cases, ask what you're trying to get to, and then ask the question, is the existing fabric valuable in addressing that? I suspect it probably is in some ways, but I'm not the person to answer that.
+
+181
+00:31:04.520 --> 00:31:11.340
+Manish Sethi: No, and Jim, exactly. That is the exercise we went through, and that's how Fabric X came up.
+
+182
+00:31:11.560 --> 00:31:34.520
+Manish Sethi: So that full exercise we went through. Let's start from scratch and goal is to support very high throughput for digital asset cases. So we had to trim down many things. We had to introduce the parallel validation of transactions which was the primary bottleneck which we keep to be honest even before fabric X. In fabric. We kept on pushing and struggling for
+
+183
+00:31:34.630 --> 00:31:38.909
+Manish Sethi: parallel validation, because that was the single bottleneck of throughput.
+
+184
+00:31:39.090 --> 00:31:45.860
+Manish Sethi: But it was so. It has reached a point where it was beyond repair. The original fabric.
+
+185
+00:31:46.590 --> 00:32:05.379
+Jim Mason (Sky Web Team): Yeah. So all right, all I'm going to say is looking at the stuff I look at. I'm trying to move to a very different point, which is a much higher level among other things, a higher level of trust, a broader level of trust, and a bigger definition of trust. Where, in a sense, what you call dlt is only a very small portion of that.
+
+186
+00:32:05.470 --> 00:32:32.579
+Jim Mason (Sky Web Team): When I look at what I call financial transactions. The second thing I'm looking at is saying, Okay, a million Tps is a reasonable starting point, not an endpoint, but a good starting point. And yes, the existing version of fabric doesn't get me there. But there are things architecturally that fabric has done right, that the other platforms don't. They just run from it. And they say we're going to use something like an Ebm base and try to do a level 2. It's I can come up with a level 3 or 4 that they haven't come up with
+
+187
+00:32:32.580 --> 00:32:35.650
+Jim Mason (Sky Web Team): the bottom line is we do need to have trust.
+
+188
+00:32:35.650 --> 00:32:59.810
+Jim Mason (Sky Web Team): That's the whole point of what you're trying to do is have a trusted model. The other thing that has come up obviously in the finance world, which is huge, really in the identity world which I also work in is, look at sovereign right? That's a dlt, a different. It's not fabric. But the problem they have is that the provider who runs the platform, the intermediary between you and me on any transaction disappeared.
+
+189
+00:32:59.810 --> 00:33:07.859
+Jim Mason (Sky Web Team): What happens when you have a genesis block and a blockchain? And the operator of that platform doesn't exist anymore.
+
+190
+00:33:08.230 --> 00:33:29.079
+Jim Mason (Sky Web Team): What happens to all of the, in a sense, in my case, not the transactions, because that's past history, but the identities that are still being used. So there is this concept of survivability. There's a whole bunch of architectural things missing in Dlt for sure, and they're just now hitting some of that in the identity space with Webvh and some other architectures. But
+
+191
+00:33:29.080 --> 00:33:54.050
+Jim Mason (Sky Web Team): fundamentally there's a lot of gaps in Dlt as you think about it, and Defi doesn't help. Honestly, they're not addressing those they're just working around them, and I would argue again back to your point, start with, use cases, and don't just look at performance. But look at trust and what the purpose of it is. And I think you come up with a different life cycle for a transaction that isn't defined today in defi for sure
+
+192
+00:33:54.050 --> 00:33:56.969
+Jim Mason (Sky Web Team): difference between something called commit and finalization.
+
+193
+00:33:57.040 --> 00:34:08.709
+Jim Mason (Sky Web Team): And you have to understand how more sophisticated architectures in distributed database handle those problems which already have solutions. And we're not looking at those because we're not that mature
+
+194
+00:34:08.929 --> 00:34:10.959
+Jim Mason (Sky Web Team): as a community. At this point.
+
+195
+00:34:12.600 --> 00:34:32.620
+Manish Sethi: Yeah, right? Those are the broader reason. I think this proposal is that let's allow innovation within fabric, hyper, fabric umbrella rather than each such like initiative in its own project. And you lose the value of trust people have in the overall technology and the concepts. That's the whole proposal here.
+
+196
+00:34:32.889 --> 00:34:45.729
+Manish Sethi: Right? But you're not passing the whole incubation process there. You basically leverages the trust of the community to the hypervision fabric in a way that it exists right now.
+
+197
+00:34:45.730 --> 00:34:46.709
+Manish Sethi: It's not able to.
+
+198
+00:34:46.719 --> 00:35:03.979
+Artem Barger (iland Hosting): So many years of stabilization, and to put something that is immature. And you didn't go through the incubation didn't prove itself as something that basically sustainable. And then it's simply wrong. That's why I.
+
+199
+00:35:03.980 --> 00:35:05.010
+Manish Sethi: Item. No item is not.
+
+200
+00:35:05.010 --> 00:35:17.090
+Artem Barger (iland Hosting): Just a second manish. I'm not opposed to Fabric XI think it's very good way moving forward, and I do appreciate, and I do think that it's really valuable
+
+201
+00:35:17.270 --> 00:35:24.540
+Artem Barger (iland Hosting): amount of effort and work that you put into developing such platform. Just I think it should be aligned
+
+202
+00:35:24.540 --> 00:35:48.990
+Artem Barger (iland Hosting): with the general kind of path of the hyper. There we have a set of a broader set of projects. The one who manages the digital identity, the one who implements Evm, the one who addresses the interoperability, and I think it's much more valuable and much more focused to have the project that will be dedicated for Lwa.
+
+203
+00:35:48.990 --> 00:35:49.990
+Artem Barger (iland Hosting): It thinks.
+
+204
+00:35:50.904 --> 00:35:52.440
+Alessandro Sorniotti: But I can do.
+
+205
+00:35:52.440 --> 00:35:52.890
+Manish Sethi: Number one.
+
+206
+00:35:52.890 --> 00:35:54.580
+Alessandro Sorniotti: It's a new project, or like.
+
+207
+00:35:54.580 --> 00:35:54.960
+Manish Sethi: I leave.
+
+208
+00:35:54.960 --> 00:35:55.320
+Manish Sethi: Okay.
+
+209
+00:35:55.320 --> 00:35:56.000
+Manish Sethi: Thank you.
+
+210
+00:35:56.000 --> 00:36:00.460
+Alessandro Sorniotti: Sorry. It's just. It's just up to the fabric Tsc to this to make the exactly.
+
+211
+00:36:00.660 --> 00:36:02.279
+Alessandro Sorniotti: It's very determination.
+
+212
+00:36:02.590 --> 00:36:15.600
+Manish Sethi: Yeah, that's all I'm saying. It's not so black and white artem that it's a very brand new thing which hasn't proven itself, and neither. It is so like white that it's the next version of fabric. And hence operability is possible.
+
+213
+00:36:15.700 --> 00:36:23.119
+Manish Sethi: It's basically towards in the middle, where you cannot say it's a totally brand new things, the old concepts.
+
+214
+00:36:23.180 --> 00:36:49.890
+Manish Sethi: 50% of the code base. Everything like pretty much is coming from fabric, which has proven stand test of time. On the other hand, the people who have worked on it since beginning they are coming from the fabric experience for over the years, and they have learned, and they have kept the same philosophy in mind while building it since beginning. So it's not like total brand new thing, which haven't like been tested well ground tested. It's for a different use case.
+
+215
+00:36:49.980 --> 00:37:01.070
+Manish Sethi: And it's serving different purpose. But it's in the middle. It's neither like black and white. That that's why this discussion is like because putting it brand new would give rather wrong impression.
+
+216
+00:37:01.070 --> 00:37:21.090
+Artem Barger (iland Hosting): But it's it's it's it's completely different. Use case. It's completely different set of repositories. It's completely different set of people who is going to maintain it. It's it's I mean, it's it's all completely different. And that's why I think it's kind of bypassing the the the whole. The whole path of of of
+
+217
+00:37:21.360 --> 00:37:23.109
+Artem Barger (iland Hosting): the way I see is.
+
+218
+00:37:23.110 --> 00:37:27.219
+Manish Sethi: Different set of people you will find overlap, you will find, like overlap between.
+
+219
+00:37:27.220 --> 00:37:49.560
+Artem Barger (iland Hosting): All right. I find the overlap, I mean, you know we all know how the this overlap is created right, but I mean there is. Still, there is still a fragmentation that is gonna be created in a way that once that will be accepted. And I think that's that's that's that's not the way it's supposed to be supposed to be done.
+
+220
+00:37:50.250 --> 00:37:59.770
+Artem Barger (iland Hosting): and I do think that there is the higher level of the guidelines of how the new project incubation process supposed to work is here for the reason.
+
+221
+00:37:59.770 --> 00:38:22.159
+Artem Barger (iland Hosting): and I don't think that it's kind of, as we mentioned, black or white, that it's up to the CEO of fabric to make a decision. So okay, let's let's open here in a self-solvent sub project to allow bringing in new pieces of the technologies, just because there are some of the concepts that we are using for the fabric.
+
+222
+00:38:23.260 --> 00:38:37.120
+Jim Mason (Sky Web Team): Art. Let me ask you this. Your your point is that it's a radically different project than fabric, and I'm not going to argue that I'll accept that judgment. Fine. The question I would ask is, is the architecture of fabric itself strong enough
+
+223
+00:38:37.250 --> 00:38:56.820
+Jim Mason (Sky Web Team): that it allows different implementations for what I call service interfaces. If it doesn't, then I would have to agree with you. The concept is, Oh, okay, this thing is so different. And fabric is so sort of structured in what it does, that there's really no chance. These are 2 fundamentally different projects. But, on the other hand, if you said, Oh, kind of. Like firefly.
+
+224
+00:38:56.820 --> 00:39:16.229
+Jim Mason (Sky Web Team): they have. The fabric, has a an architecture with a set of service interfaces that, in a sense are replaceable if you will, with replaceable implementations in a default one. Then it becomes oh, no, wait a second. Maybe maybe the base architecture actually has value. So that's a question I'm asking, and I don't have the answer clearly.
+
+225
+00:39:18.930 --> 00:39:40.920
+Angelo De Caro (International Business Machines Corporation): Jim, is the latter. We are saving most of the Grpc. Service, depregating something like the Pdc. And richqueries that are something that happens in the execution, but the Grpc service most of the proto buffs are the same. This is fabric. Fabric is the language that he speaks is the proto Buffs, the Grpc. Service. This will remain the same.
+
+226
+00:39:40.920 --> 00:39:42.080
+Jim Mason (Sky Web Team): And honestly.
+
+227
+00:39:42.080 --> 00:39:42.470
+YOAV TOCK: No.
+
+228
+00:39:42.470 --> 00:39:55.820
+Jim Mason (Sky Web Team): 40 years ago I was building something like protobufs myself at Ibm, because that was an efficient way to do distributed data communications for sure before the Internet existed. Obviously.
+
+229
+00:39:56.570 --> 00:40:16.899
+Angelo De Caro (International Business Machines Corporation): Yeah, so we're not. We're not saying that there will be different endpoints or stuff like that. So that that's not the what we are saying so. I don't understand the opposition, because it's really it's the next generation of we're moving forward. Otherwise, what what are you proposing? Are Artem to? Where should fabric be.
+
+230
+00:40:18.370 --> 00:40:25.219
+Elli Androulaki: I also want to say that if we are seeing, and I think we're all of us, seeing that fabric, the classic fabric is not
+
+231
+00:40:25.220 --> 00:40:50.089
+Elli Androulaki: optimally addressing the new space that is emerging, which is the digital asset. Yes, it can support certain use cases, but we've also the majority of us that have joined from Ibm. They are working actively on different regulated digital asset opportunities. And we're seeing the gaps. So we're just going trying to make life easier for people that
+
+232
+00:40:50.090 --> 00:41:11.280
+Elli Androulaki: are in the same position as us, and using fabric as opposed to any other alternative that is popular these days. So maybe in accordance also to what Jim was saying earlier and what Manish was saying. Maybe it is the right time to say we extend fabric repo to support multiple incarnations of fabric.
+
+233
+00:41:11.550 --> 00:41:40.390
+Elli Androulaki: And then we don't create any confusion anymore. We have the general purpose fabric, which is classic fabric that will continue to be supported. We have fabricx that will maybe capture some traction on the digital asset side. We'll also get the feedback from the community. If the community thinks that the 2 should get together or should come together with a clear, automated user, friendly migration path from one to the other. Then we'll contribute to building it
+
+234
+00:41:40.550 --> 00:41:57.890
+Elli Androulaki: otherwise. And and then we have the attention of the community in one repo. They know it's all fabric, because the community you mentioned it yourself before. Artem is small dividing it is, gonna create a confusion. But if we have one
+
+235
+00:41:58.080 --> 00:42:09.439
+Elli Androulaki: repo set of repos associated to fabric clearly marked, that would be at this point the best for the for the, for for extending, growing that ecosystem.
+
+236
+00:42:11.560 --> 00:42:14.599
+Jim Mason (Sky Web Team): I like your thinking in terms of
+
+237
+00:42:14.960 --> 00:42:30.339
+Jim Mason (Sky Web Team): what you're proposing, which I don't disagree with is back to Angela's point. If we have a common. I'll call it set of protocols underneath. We can argue that the implementation of the architecture, as we see it, is limiting in some ways fair enough.
+
+238
+00:42:30.530 --> 00:42:33.009
+Jim Mason (Sky Web Team): Don't have the answer on what? The right
+
+239
+00:42:33.080 --> 00:42:48.030
+Jim Mason (Sky Web Team): on my end, certainly on what the right steps is to address that. So that's a decision for other people to make. But I will say that you're right when I've because I do work in the defi space on the other architectures in the finance space.
+
+240
+00:42:48.030 --> 00:43:07.489
+Jim Mason (Sky Web Team): and those are horrific. They are literally horrific, and they're just loaded with all people do in that space honestly, is work around those limitations. They don't improve them. They work around them everything, whether it be identity, whether it be trust, whether it be performance, resiliency, it just goes on and on and on, and
+
+241
+00:43:07.520 --> 00:43:32.000
+Jim Mason (Sky Web Team): which is why, after whatever it is, 15 years of blockchain in that space, they've made so little progress. Honestly they celebrate their progress. But I come from like Dtcc, you know, we settle 2 thirds of the world security trades. And so the answer is in that. And I also come from an identity space digital identity, and in the Dtcc world nothing
+
+242
+00:43:32.000 --> 00:43:47.150
+Jim Mason (Sky Web Team): that the Defi world has done yet fits that world. Why, it doesn't fit it on performance, resiliency, trust period. The gaps are enormous, and all the defi crowd does is defend bad architecture over and over again, and work around it.
+
+243
+00:43:47.150 --> 00:44:07.709
+Jim Mason (Sky Web Team): and we have an opportunity, and certainly fabric has some stronger architectural capabilities. I agree with Angelo. Look at the base protocols. Those are valid. But when you start asking what's the right way to go like Manish said. Then you start looking back at the use cases and say, Let the use cases. Tell me the capabilities I need.
+
+244
+00:44:07.820 --> 00:44:37.609
+Jim Mason (Sky Web Team): Then, you ask, is fabric useful against those, and I think that's really a proper model for this. And having looked at the trust side, the performance side, the resiliency side, and so on. There are some very strong things about fabric that, like Angelo said, the protocol stuff is good. So it is a valid question to say, if you're starting like manishes and saying, Hey, let's do it right architecturally, then, is fabric a step forward in that? And the answer is, maybe it is. But I'm not the person to answer the question.
+
+245
+00:44:42.140 --> 00:44:45.220
+Tatsuya Sato (Hitachi, Ltd.): Excuse me just a quick comment.
+
+246
+00:44:45.680 --> 00:44:49.870
+Tatsuya Sato (Hitachi, Ltd.): I'm very interested in public guests itself.
+
+247
+00:44:50.450 --> 00:45:13.959
+Tatsuya Sato (Hitachi, Ltd.): I think it has a lot of potential, but I still have some concern from our user perspective. As I mentioned earlier in the Rfg important point is to avoid user confusion at this point. It's difficult for me to decide whether public should be
+
+248
+00:45:14.490 --> 00:45:20.460
+Tatsuya Sato (Hitachi, Ltd.): part of fabric or handle other separate project for now so
+
+249
+00:45:21.477 --> 00:45:32.160
+Tatsuya Sato (Hitachi, Ltd.): while everyone didn't prefer this approach, I continue to recommend that this project to start under hyperlink levels.
+
+250
+00:45:32.550 --> 00:45:38.170
+Tatsuya Sato (Hitachi, Ltd.): I believe that would give us more space for open discussion
+
+251
+00:45:38.450 --> 00:45:45.120
+Tatsuya Sato (Hitachi, Ltd.): and help us find common ground go going forward.
+
+252
+00:45:47.090 --> 00:45:51.490
+Tatsuya Sato (Hitachi, Ltd.): How about to start Lagos Project.
+
+253
+00:45:55.300 --> 00:45:58.970
+Elli Androulaki: I can tell my opinion, and others can jump in as they like.
+
+254
+00:45:59.360 --> 00:46:07.169
+Elli Androulaki: So for me, hyper ledger labs that are about hyper Ledger or decentralized trust labs are about 50 in total 40.
+
+255
+00:46:07.450 --> 00:46:22.719
+Elli Androulaki: So we put a code base that it is gonna add value in the view of some of us, not all of us. Okay. to to a hyper ledger lab. It's gonna be on one of the many with a label of this being
+
+256
+00:46:23.050 --> 00:46:46.269
+Elli Androulaki: highly mature code base, and so on. So forth. The objective here is really to grow the fabric ecosystem. We want to say in strong work, because we've heard from many people. Fabric is a dead protocol fabric. Nobody is investing on, nobody is adding new features, which is totally true right now. We are not adding new features to fabric.
+
+257
+00:46:46.430 --> 00:47:09.880
+Elli Androulaki: We don't want to, let's say, mess up with the classic fabric roadmap. We don't want to do that without the community being on boarded with that. But we want to associate very strongly fabricx to fabric, because this is going to be good for the ecosystem of fabric. That's
+
+258
+00:47:09.880 --> 00:47:20.529
+Elli Androulaki: the view, some people might have the same view. Some people will have a different view. It's it's that's where the voting is to be put in place.
+
+259
+00:47:20.660 --> 00:47:34.880
+Elli Androulaki: And whereas if we just make it. And and also the second thing is that it, it is a a code base that will receive a lot of attention moving forward. Because Ibm is now gonna
+
+260
+00:47:34.930 --> 00:48:03.420
+Elli Androulaki: invest a lot on promoting fabric X. So that's the objective. We don't want to do it as an independent project. We want to associate it to fabric because it's to the benefit of everybody, the existing fabric community and the future fabric community. If this ecosystem grows. They're no different. As Angelo said, they have fundamental. And Alice said, also in the past there's the same protocol.
+
+261
+00:48:03.520 --> 00:48:07.310
+Elli Androulaki: They don't have Pdcs because we believe
+
+262
+00:48:07.570 --> 00:48:26.379
+Elli Androulaki: we the ones that designed fabricx or optimized? Let's say, fabric operations into fabricx. We thought that Pdcs were not adding value in this kind of set of use cases. If we think if the community thinks that needs to change, we can add it later on. No problem
+
+263
+00:48:26.926 --> 00:48:55.899
+Elli Androulaki: but it is something that it's considerable investment. You will see also, the code bases is not is not a proof of concept. It's way more than that, and will invigorate the the fabric ecosystem, and it cannot be disassociated for fabric. Hyperledger labs is one of the many. We have multiple projects there, but they're not receiving attention. It's very hard for people to attract attention to this. This this kind of projects.
+
+264
+00:48:56.100 --> 00:48:58.130
+Elli Androulaki: That's my 2 cents.
+
+265
+00:48:58.130 --> 00:49:25.219
+Jim Mason (Sky Web Team): So thanks for helping me, because I know nothing about the investment Ibm's making on the new fabricx, I'll call it, but it's nice to hear, to understand more about that, and the fact that they in theory think they're serious. If they are serious, I would encourage them to do it differently than they've done half the products in Ibm I've worked for Ibm, I've been an Ibm customer. I built product for. Ibm consume them. I've been a user everything you can ever be. And the answer is, half the time
+
+266
+00:49:25.420 --> 00:49:39.019
+Jim Mason (Sky Web Team): they don't make those investments well, and they don't actually age well at all. I can say that, and some do. And so there's a high risk when Ibm does this, that the investment's not going to age. Well.
+
+267
+00:49:39.020 --> 00:50:05.780
+Jim Mason (Sky Web Team): and the argument is, and I'm going to pick on Angelo. I know he knows a ton about security. I know that I also know he's right about the protocol stuff. There are certain things that you can identify in addressing, use cases that are valid. If you write the right use cases, you can pick certain things that say, okay, these are really strong ways to go when you go to design the fabric to design the new solution fabricx, or whatever you want to call it.
+
+268
+00:50:06.090 --> 00:50:29.700
+Jim Mason (Sky Web Team): Then make sure that that's not some hybrid messed up architecture. Do it right? Start with use cases, look at the capabilities, start individually, making decisions, and understand that what you're building is a new platform. That's a general architecture, not some specific locked in crazy thing like they probably want to do for just defi
+
+269
+00:50:29.700 --> 00:50:43.409
+Jim Mason (Sky Web Team): to do defi better. That would be horrific, just even things like Utxo or whatever you want to use as a transaction model. There's many, many limitations in there, and I would argue that if you're going to invest real money, don't
+
+270
+00:50:43.630 --> 00:51:00.330
+Jim Mason (Sky Web Team): don't go with the limitations that exist. Start out with clean use cases, define capabilities, start selecting for those capabilities, define interfaces, and then select implementations like Angelo has safer security for protocols, and so on.
+
+271
+00:51:00.330 --> 00:51:24.359
+Jim Mason (Sky Web Team): That to me is a rational way to build something that's going to be a significant investment, but to hack together something based on, you know, I'll call it finance. Use cases that starts with an existing architecture and fabric doesn't sound like a rich, attractive way to go to grow any kind of a significant platform. It's kind of like the evolution of websphere took 5 fricking versions to get to something that was actually production ready?
+
+272
+00:51:24.838 --> 00:51:31.100
+Jim Mason (Sky Web Team): I would hate to see an investment like that that took that long to mature, that's all.
+
+273
+00:51:31.100 --> 00:51:37.410
+Elli Androulaki: We've been involved in this kind of engagements for 5 years now, 6 years now
+
+274
+00:51:37.450 --> 00:52:05.189
+Elli Androulaki: we've been looking at it from the use case perspective. And these were the changes that we made to fabric. That's why there is this lack of backwards compatibility, because certain features we did not. What are them is complaining about because certain things we said it doesn't make sense to continue. They don't bring value. We can simplify a lot of things, and that's what the logic that that we put in there clean state. That's where we started from.
+
+275
+00:52:05.680 --> 00:52:08.059
+Elli Androulaki: Okay? So then the argument is.
+
+276
+00:52:08.330 --> 00:52:14.659
+Elli Androulaki: and I apologize for being stupid on the new investment. Because I really am. I know nothing about it.
+
+277
+00:52:14.660 --> 00:52:27.049
+Elli Androulaki: The new investment it's really. But what we want to say is that this code base. We're really motivated not to not to disturb what exists, but to make it bigger.
+
+278
+00:52:27.230 --> 00:52:29.070
+Elli Androulaki: That's what I want.
+
+279
+00:52:29.070 --> 00:52:52.800
+Jim Mason (Sky Web Team): So that's oh, God, that is, I hate to say it. That's what I call an ugly motivation in the sense that it's hard you're trying to say yes, I took from fabric, which is a good thing, and I want to make it better. But my making it better is going to somehow be limited by what I took from fabric, which doesn't sound right. It's almost like if if I don't know how
+
+280
+00:52:52.800 --> 00:52:53.210
+Jim Mason (Sky Web Team): he doesn't.
+
+281
+00:52:53.210 --> 00:53:09.619
+Jim Mason (Sky Web Team): investment is, if it's a big investment. My argument is, then, for God's sakes, do it right and say, no. This is a different version of fabric, as you're saying, but it's 1 that addresses all the limitations of the existing dlt architectures, which is easy.
+
+282
+00:53:09.620 --> 00:53:10.020
+Elli Androulaki: So.
+
+283
+00:53:10.020 --> 00:53:11.860
+Jim Mason (Sky Web Team): Do? Is my argument.
+
+284
+00:53:11.860 --> 00:53:40.990
+Elli Androulaki: Just one thing. Fabric was built to address general purpose problems. And this by nature is a wrong motivate. It's the wrong way to start building things. We're going to end up doing something quite complex. I was there with a team in designing fabric. We were into the loop of days designing the transaction structure or months, and it became a Frankenstein, and because we wanted to to address the world of use cases that we didn't know already
+
+285
+00:53:41.230 --> 00:53:56.039
+Elli Androulaki: so, but but that said it had very certain. Very good components. The pre-order execution is is relevant, relevant for all. Many enterprise use cases that need to scale.
+
+286
+00:53:56.040 --> 00:54:14.699
+Elli Androulaki: It had flexibility on the governance side. This we didn't think we should drop so the protocol at its heart, the transaction lifecycle, in at least how we were exposed to other use cases was quite relevant. And what we're saying is, we kept
+
+287
+00:54:14.700 --> 00:54:29.220
+Elli Androulaki: what was good in fabric and relevant for this use case, and we extended that good skeleton with other things that did not exist in fabric. So it was a healthy kind of
+
+288
+00:54:29.320 --> 00:54:34.559
+Elli Androulaki: variant that a fabric that we were for this particular set of use cases.
+
+289
+00:54:34.820 --> 00:54:36.790
+Elli Androulaki: So it's.
+
+290
+00:54:36.790 --> 00:54:41.090
+Jim Mason (Sky Web Team): So that's good that you were going through that process with fabric. The challenge of it
+
+291
+00:54:41.290 --> 00:54:45.439
+Jim Mason (Sky Web Team): fabric had limitations. As you're saying that you're trying to overcome.
+
+292
+00:54:45.580 --> 00:54:58.729
+Jim Mason (Sky Web Team): Have you published the architecture for this thing that's available to look at? Because I'm curious to see how limited the new architecture is. I know what fabric is. I'm more interested in the new architecture to say. Is it limited in many ways?
+
+293
+00:54:59.870 --> 00:55:11.169
+Elli Androulaki: Yes, we have a a paper white paper out since quite some time. We're gonna produce a new version of it. Sometime this month beginning of of next month.
+
+294
+00:55:11.911 --> 00:55:16.970
+Elli Androulaki: But yeah, we we have already some version we can share.
+
+295
+00:55:17.500 --> 00:55:18.080
+Jim Mason (Sky Web Team): Great thanks.
+
+296
+00:55:18.080 --> 00:55:18.530
+Mark Lewis (IBM Research): It must.
+
+297
+00:55:18.530 --> 00:55:22.110
+Mark Lewis (IBM Research): So so probably constructive constructive proposal.
+
+298
+00:55:23.210 --> 00:55:26.459
+Mark Lewis (IBM Research): If you look in the Rfc. And pull, request 63.
+
+299
+00:55:26.810 --> 00:55:33.889
+Mark Lewis (IBM Research): From what I see, there's a lot of detail on the architectural structure, and links to other documents with more detail.
+
+300
+00:55:34.320 --> 00:55:36.829
+David Enyeart (International Business Machines Corporation): Yeah, I think the white paper link is in here, isn't it?
+
+301
+00:55:37.990 --> 00:55:38.740
+Elli Androulaki: Could be.
+
+302
+00:55:39.190 --> 00:55:41.820
+Manish Sethi: Yeah, if you go down little bit, it's there.
+
+303
+00:55:46.800 --> 00:56:07.300
+Artem Barger (iland Hosting): Can you? Can you actually present the the architecture in in a way of the presentation, like, you know, each previous Roc was presenting during the contributor meetings like the the but because, you know, I feel that we have kind of broader discussion. And I I do. I do, I do. I do, I do. I do still convince that
+
+304
+00:56:07.300 --> 00:56:21.939
+Artem Barger (iland Hosting): it should be done in a different way. But I do. I do hear your points earlier, and probably you know, more constructive thing of going forward is have kind of a real presentation of what is, you know.
+
+305
+00:56:21.980 --> 00:56:29.349
+Artem Barger (iland Hosting): in in a way that current architecture or public architecture is is is implemented
+
+306
+00:56:30.510 --> 00:56:49.990
+Artem Barger (iland Hosting): because it feels like, okay, it's it's a drop off solution of, like, you know, several years of not not showing any contribution to the fabric. And here here a new new brand thing that does a lot of things without any backward compatibility yet.
+
+307
+00:56:50.130 --> 00:57:09.830
+Artem Barger (iland Hosting): and the configuration path that is, has to be yet designed, so probably it might have a value to to give a presentation about what is actually how it looks like with mativation and more more detailed explanations.
+
+308
+00:57:14.140 --> 00:57:31.469
+Senthilnathan N: So I think Rfc itself has lot of detail definitely. The presentation is definitely not going to cover that much detail, and the paper has even more significant detail. So definitely we can do the presentation. But I definitely encourage all of you to read the Rfc. And then the paper
+
+309
+00:57:31.780 --> 00:57:36.409
+Senthilnathan N: that covers more detail than what we can do in the presentation.
+
+310
+00:57:39.810 --> 00:57:49.499
+Artem Barger (iland Hosting): All right, but you know, in in a way that we used to to discuss the before that it's like, you know, kind of
+
+311
+00:57:49.930 --> 00:58:06.410
+Artem Barger (iland Hosting): not only showing that here that I see here the the paper, go, read it, go, read it, and spent a bit of more time with community, actually providing the explanation, utilization, and the more deep overview of the of the architecture that's proposed.
+
+312
+00:58:08.680 --> 00:58:09.810
+Senthilnathan N: Yeah, yeah, so we are open.
+
+313
+00:58:09.810 --> 00:58:12.099
+David Enyeart (International Business Machines Corporation): I think Sento said yes, he could do that.
+
+314
+00:58:12.100 --> 00:58:22.919
+Elli Androulaki: I also want to say there is a webinar organized on the 11th of June, where we have we are to go in detail on this on Fabric X,
+
+315
+00:58:23.370 --> 00:58:25.070
+Elli Androulaki: so it's already in plan.
+
+316
+00:58:25.960 --> 00:58:30.179
+Elli Androulaki: It can be on the community meeting, or it can be on the webinar.
+
+317
+00:58:31.590 --> 00:58:33.309
+Elli Androulaki: Yeah, I think.
+
+318
+00:58:33.310 --> 00:58:34.580
+David Enyeart (International Business Machines Corporation): Webinar makes sense. Yeah.
+
+319
+00:58:34.840 --> 00:58:35.240
+Elli Androulaki: Yeah.
+
+320
+00:58:36.880 --> 00:58:37.710
+Mark Lewis (IBM Research): Do you know.
+
+321
+00:58:37.710 --> 00:58:38.280
+Elli Androulaki: Webinar.
+
+322
+00:58:38.970 --> 00:58:39.410
+Mark Lewis (IBM Research): Steadily.
+
+323
+00:58:39.832 --> 00:58:41.098
+Elli Androulaki: Sorry, Mark. Sorry.
+
+324
+00:58:41.520 --> 00:58:46.940
+Mark Lewis (IBM Research): Do you know where the webinar is advertised? Is that in the Lftt Calendar, or something.
+
+325
+00:58:47.330 --> 00:58:48.680
+Elli Androulaki: It should be. Yes.
+
+326
+00:58:49.180 --> 00:58:55.579
+Elli Androulaki: I think it's gonna be announced quite soon, because they're waiting from us the abstract. But
+
+327
+00:58:56.040 --> 00:58:59.109
+Elli Androulaki: yeah, we should have it anytime this week.
+
+328
+00:58:59.250 --> 00:59:01.110
+David Enyeart (International Business Machines Corporation): Yeah, we'll send it on the mailing list.
+
+329
+00:59:13.140 --> 00:59:15.949
+Senthilnathan N: So, Dave, what are the next steps.
+
+330
+00:59:18.640 --> 00:59:25.770
+David Enyeart (International Business Machines Corporation): So if you think we need fabric, Tsc charter updates, that's probably the next thing to work on.
+
+331
+00:59:26.620 --> 00:59:27.180
+Senthilnathan N: Yeah.
+
+332
+00:59:27.720 --> 00:59:39.090
+Mark Lewis (IBM Research): I was going to say that pull request proposing updates to the charter. If if we're thinking of actually updating the charter text, I wonder if it's worth including
+
+333
+00:59:39.360 --> 00:59:52.429
+Mark Lewis (IBM Research): in that Pr, what we would like to see in an updated charter. So we can see if it makes sense to everyone rather than just proposing that a change is made, and then having to thrash out all the wording later on.
+
+334
+00:59:53.610 --> 01:00:06.850
+Senthilnathan N: Yeah. So in the second Roc, I have, included those details, especially the governance model, how the new implementation would be approved. So there is a a hierarchy of governance. So there is extended Txc.
+
+335
+01:00:06.850 --> 01:00:24.189
+Senthilnathan N: That includes maintenance from all the fabric implementation, and then how each of the implementation would be handled. So all the details are given there, and even in the future, if suppose somebody gives, I mean comes up with a new fabric implementation say, for
+
+336
+01:00:24.190 --> 01:00:35.849
+Senthilnathan N: to run fabric in a mobile. So so what are the procedures that they need to follow? What is the I mean voting process? So with an example. I have given all the details in the second Rfc.
+
+337
+01:00:36.170 --> 01:00:42.870
+Senthilnathan N: And that content if it is approved, it will be moved to the fabric charter.
+
+338
+01:00:43.020 --> 01:00:48.700
+Senthilnathan N: and I mean here and there there could be a few minor needs that can be definitely fixed. So that's.
+
+339
+01:00:48.700 --> 01:00:53.500
+David Enyeart (International Business Machines Corporation): Yeah, I think what Mark is suggesting is to actually include the updated
+
+340
+01:00:54.216 --> 01:01:01.360
+David Enyeart (International Business Machines Corporation): charter proposal in this. Rfc, so we use this Rfc to actually iterate on that on the charter updates.
+
+341
+01:01:02.240 --> 01:01:08.420
+Senthilnathan N: So that's you're right fabric repo. Right? So I can move it. Here.
+
+342
+01:01:12.210 --> 01:01:13.379
+Senthilnathan N: shoot his mom.
+
+343
+01:01:14.910 --> 01:01:21.890
+David Enyeart (International Business Machines Corporation): Yeah, the charter itself lives in the fabric repo. But the discussion about the exact changes can can go in the Rfc, yeah.
+
+344
+01:01:22.320 --> 01:01:23.070
+Senthilnathan N: Yeah.
+
+345
+01:01:34.970 --> 01:01:41.410
+David Enyeart (International Business Machines Corporation): Okay? Well, I think we're out of time but I think that's a good next step, and that and the the webinar June 11.th
+
+346
+01:01:47.380 --> 01:01:48.950
+Angelo De Caro (International Business Machines Corporation): Any other final thoughts.
+
+347
+01:01:53.750 --> 01:01:56.670
+David Enyeart (International Business Machines Corporation): Okay, we'll leave it at there then. Thanks. Everybody.
+
+348
+01:01:57.160 --> 01:01:57.670
+Angelo De Caro (International Business Machines Corporation): Thank you.
+
+349
+01:01:57.670 --> 01:02:07.199
+David Enyeart (International Business Machines Corporation): And we, we can do more frequent meetings if we need to. So these contributor meetings are scheduled once a month, but we can definitely do more frequent meetings if there's active things to discuss like this proposal.
+
+350
+01:02:07.710 --> 01:02:09.079
+David Enyeart (International Business Machines Corporation): So keep that in mind.
+
+351
+01:02:10.590 --> 01:02:12.099
+David Enyeart (International Business Machines Corporation): Okay, thanks. Everybody.
+
+352
+01:02:12.650 --> 01:02:13.240
+Elli Androulaki: Fine.
+
+353
+01:02:13.560 --> 01:02:14.450
+Angelo De Caro (International Business Machines Corporation): Go.
+

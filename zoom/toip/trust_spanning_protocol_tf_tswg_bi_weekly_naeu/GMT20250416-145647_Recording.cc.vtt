@@ -1,0 +1,1133 @@
+WEBVTT
+
+00:13:10.000 --> 00:13:15.000
+In mechanism and in Carrie, that's the watcher network to protect from that.
+
+00:13:15.000 --> 00:13:20.000
+I used the term there I'm not familiar with. What's an eclipse attack?
+
+00:13:20.000 --> 00:13:31.000
+So Eclipse attack is one of the most commonly successful attacks on blockchains.
+
+00:13:31.000 --> 00:13:55.000
+So any distributed protocol Where you have to share information An eclipse attack is where you control the network in such a way that a given party can't see other parties and can't see information. So an eclipse attack on Bitcoin would be
+
+00:13:55.000 --> 00:14:10.000
+Your local wallet is trying to figure out what the Bitcoin blockchain looks like and look for transactions. And so it gossips to nearby mining nodes or full nodes to try to find out what the status of the chain is. If you control the network.
+
+00:14:10.000 --> 00:14:11.000
+Right.
+
+00:14:11.000 --> 00:14:19.000
+Then you can put your own mining nodes and the only nodes that that eclipse person sees are your nodes.
+
+00:14:19.000 --> 00:14:30.000
+So you can mine blocks that show their transaction went through But the blocks you're mining are not on the longest chain. And so then you can you can double spend You can spend your own money without doing a key compromise. So you don't even have to do a key compromise to do an eclipse attack.
+
+00:14:30.000 --> 00:14:35.000
+Right.
+
+00:14:35.000 --> 00:14:51.000
+You spend your own money. That guy gives you something in return for the money you spend.
+
+00:14:51.000 --> 00:14:52.000
+I got it. Right.
+
+00:14:52.000 --> 00:14:58.000
+And then you remove the eclipse and they find that that transaction doesn't exist on the longest chain, but they already uh you know like you buy a say you buy a painting for a million dollars They gave you the painting. They think they got a million dollars of your Bitcoin and instead they got nothing.
+
+00:14:58.000 --> 00:15:00.000
+Got nothing. Yeah. Got it. Got it.
+
+00:15:00.000 --> 00:15:09.000
+Right. So same thing applies for key state. A malicious controller can can manufacture all they want for Key State and sign it.
+
+00:15:09.000 --> 00:15:10.000
+Got it.
+
+00:15:10.000 --> 00:15:20.000
+And then when somebody asks, well, what's your current key state? They give them a different key state than they're giving other people. And so they just can't see what other people see.
+
+00:15:20.000 --> 00:15:25.000
+Exactly.
+
+00:15:25.000 --> 00:15:26.000
+The second day you did key compromise, what did you do the third day?
+
+00:15:26.000 --> 00:15:28.000
+And so they're eclipsed from what other people say. And so it's…
+
+00:15:28.000 --> 00:15:43.000
+We did bound issuances. If your issuances are unbound to your key state, then there's a whole range of attacks that an attacker can execute.
+
+00:15:43.000 --> 00:15:52.000
+And so that includes everything that uses a zero knowledge proof because unlinkability means you can't bind your issuances.
+
+00:15:52.000 --> 00:15:58.000
+So an issuer can't know if their keys have been compromised, which means they can't They can't know that they've been attacked.
+
+00:15:58.000 --> 00:16:18.000
+Which means that if your keys are ever compromised in an unbound issuance, then the attacker can forge whatever issuances they want and verifiers have to trust it because there's no way for the verifier and issuer to communicate about the key state for that issuance.
+
+00:16:18.000 --> 00:16:31.000
+So if you don't. You don't bind the issuances, then what you have to do is at any time you rotate keys, you have to revoke and reissue all the issuances under a given key state.
+
+00:16:31.000 --> 00:16:35.000
+And so that was one of the limitations that Sovereign had.
+
+00:16:35.000 --> 00:16:55.000
+That they didn't solve and anybody using an on credits has that thing and anybody using the new diff uh mechanism for using DBS Plus has that same attack. Now, if we're using zero knowledge proofs to issue bearer tokens for RIDC.
+
+00:16:55.000 --> 00:17:17.000
+Then that's not a problem because you're effectively revoking all the issuances Every time you rotate keys because that's the way OIDC works. Unless you're doing OIDC for VC, and then that then that breaks because you're not revoking those issuances. And so you have an issuer to device
+
+00:17:17.000 --> 00:17:27.000
+Proof and then a device holder to presentation And the presentation connection to the issuance is broken when you rotate key state.
+
+00:17:27.000 --> 00:17:37.000
+So these are serious attacks and most people in the space, just ignore them. They pretend they don't exist.
+
+00:17:37.000 --> 00:17:45.000
+Yep. Yep. Okay. Very good stuff.
+
+00:17:45.000 --> 00:17:46.000
+So I'm sorry, I talked. Yeah.
+
+00:17:46.000 --> 00:18:16.000
+Lunging it out. We're just doing recap. Wendy and I had a chance to have a short chat Not. At the same time Sam Kern and… Steve McCown co-chairs of the bid uh excuse me, DIDCOM Working Group.com But we did get a chance to catch up with Steve and sort of their plans for DIDCOM.
+
+00:18:18.000 --> 00:18:25.000
+It sounds like they want their next step is they want to add support for um seymour. They don't.
+
+00:18:25.000 --> 00:18:33.000
+They don't currently have. And they know that one option to do that is is to adopt Caesar.
+
+00:18:33.000 --> 00:18:43.000
+I don't know what, Wenjing, how would you summarize the conclusion of of that discussion.
+
+00:18:43.000 --> 00:18:50.000
+Yeah, there's two aspects of it. I think one is for binary encoding.
+
+00:18:50.000 --> 00:19:13.000
+So they wanted to go ahead and to support SIBO. And we had a discussion open to put it right in such a way for the to come spec so that it could have other binary encoding schemes.
+
+00:19:13.000 --> 00:19:23.000
+I think that means a possibility that will be in some way compatible Caesar.
+
+00:19:23.000 --> 00:19:28.000
+And that's one part of the discussion.
+
+00:19:28.000 --> 00:19:46.000
+We also talked about the a way for DICOM to run over top of tsp essentially preserving the messages.
+
+00:19:46.000 --> 00:20:01.000
+But the lower layer or lower sub layer whether it be running tsp And… There's no hard conclusions on that but
+
+00:20:01.000 --> 00:20:09.000
+I think all think that should in some way work.
+
+00:20:09.000 --> 00:20:27.000
+My takeaway would be we could go try that. If they are sufficient requirement, you know, sufficient people who would lie to preserve the decom messages while adopting TSP in the lower layer.
+
+00:20:27.000 --> 00:20:28.000
+Yeah, that's that's Go ahead.
+
+00:20:28.000 --> 00:20:31.000
+Hey, so this is Rob, Aaron.
+
+00:20:31.000 --> 00:20:46.000
+So the spec team is cell would not take on this in the near future at least, but we could experiment if such a mechanism would sufficiently work well yeah
+
+00:20:46.000 --> 00:20:48.000
+Go ahead, Rob. You're going to say something?
+
+00:20:48.000 --> 00:21:08.000
+Oh, yeah, I was at the last didcom tag up and um To put a finer point on the Caesar direction They definitely are squaring up seabor, but they are going to allow um any encoding method. Caesar was discussed.
+
+00:21:08.000 --> 00:21:13.000
+But their direction is seabor and optionally Caesar. So just wanted to put a finer point in that sentence.
+
+00:21:13.000 --> 00:21:17.000
+Above there.
+
+00:21:17.000 --> 00:21:21.000
+Okay, that's very helpful.
+
+00:21:21.000 --> 00:21:29.000
+Yeah, that's great.
+
+00:21:29.000 --> 00:21:30.000
+Well, if they do Caesar, then they get seabor for free.
+
+00:21:30.000 --> 00:21:35.000
+Okay.
+
+00:21:35.000 --> 00:21:41.000
+I don't know if they know that.
+
+00:21:41.000 --> 00:21:42.000
+No, he doesn't really know it. He kind of knows it.
+
+00:21:42.000 --> 00:21:44.000
+I know. And I know. And Steve McCow does know that. I don't know how much you've talked to him about it, but I did…
+
+00:21:44.000 --> 00:21:52.000
+He's just now starting to understand how Carrie works. He just started looking at it the last few weeks.
+
+00:21:52.000 --> 00:21:53.000
+So I don't know how much he understands it.
+
+00:21:53.000 --> 00:22:02.000
+Okay. Well, he's sort of a neighbor down there. You might want to have a lunch with him or two and make sure that he… Exactly.
+
+00:22:02.000 --> 00:22:04.000
+Yeah. Yeah.
+
+00:22:04.000 --> 00:22:30.000
+Yeah, so this you know we uh beyond uh the discussions with uh see when and the curve in there. We had several discussions on those people who are potentially interested in adopting TSP, but may have already used some of the con messages and their feedback was also very encouraging.
+
+00:22:30.000 --> 00:22:32.000
+So I'll just add that.
+
+00:22:32.000 --> 00:22:33.000
+Yeah, I could see where some people might want to do seabor and not Caesar.
+
+00:22:33.000 --> 00:22:38.000
+Yeah.
+
+00:22:38.000 --> 00:22:53.000
+You know because there are seabor libraries that are widely available that people could adopt, whereas Caesar's a little bit more of a lift So I was a little bit joking when I said, you know, if you do Caesar first, you get seabor for free.
+
+00:22:53.000 --> 00:22:58.000
+But it is true.
+
+00:22:58.000 --> 00:23:09.000
+Yep. Yep. Exactly. I guess on this topic, the last thing I'll mention is we had a number of sessions on what we're calling the first person project.
+
+00:23:09.000 --> 00:23:35.000
+And it's it's clear that we have for first person credentials where you're forming these verifiable your issue issuing bi-directional verifiable relationship credentials and then your taking subsequent steps on the channel you've set up with pairwise dids that it's clearly a series of coordinated trust tasks
+
+00:23:35.000 --> 00:23:51.000
+And so the need for us with that project to define those trust tasks and then make sure that any wallet and agent that wants to support first person credentials can perform those trust tasks.
+
+00:23:51.000 --> 00:24:07.000
+It's really helping us. It's pushing the uh the whole trust ass topic, right? And so that was uh Even though we didn't hold any separate sessions on TSP itself.
+
+00:24:07.000 --> 00:24:20.000
+We did have some really good discussions about the need to do that. I even had another you know spent friday afternoon with developers who want to work on that and they had you know uh they had questions about, okay, how do we start
+
+00:24:20.000 --> 00:24:31.000
+You know uh developing those trust tasks. So they're going to dive in and look at the TSP spec.
+
+00:24:31.000 --> 00:24:47.000
+Okay, unless there's anything else, the other topic that sort of came out of it that I was wondering about quite a bit of a lot of discussion about MCP and then You know, Google announced a toa during the conference, at least I hadn't heard about it before that
+
+00:24:47.000 --> 00:25:07.000
+And I just wanted to sort of toss it out there and go, okay, these new agent agent protocols that Or in the case of MCPA, I guess it's agent to server protocols what are we thinking the relationship of TSP to these new protocols is? I just wanted to toss that question out there and see what
+
+00:25:07.000 --> 00:25:13.000
+What folks were thinking.
+
+00:25:13.000 --> 00:25:25.000
+So they trust tasks. To me, not surprising and
+
+00:25:25.000 --> 00:25:35.000
+We've been walking on that or discussing that in the AI and human trust task force.
+
+00:25:35.000 --> 00:25:51.000
+And currently work on implementation. So hopefully… in a few more meetings, we should be able to do some demos and see how that would work um
+
+00:25:51.000 --> 00:25:56.000
+With TSP as the core.
+
+00:25:56.000 --> 00:26:03.000
+Yeah, I think if we go through the relationship formation today Roman.
+
+00:26:03.000 --> 00:26:04.000
+Yep.
+
+00:26:04.000 --> 00:26:11.000
+This will be a good example of how you… tunnel a trust task through GSP.
+
+00:26:11.000 --> 00:26:18.000
+Because this is a native trust task. So it's a template for how you would do that.
+
+00:26:18.000 --> 00:26:32.000
+One of the things that's that coming from a DIDCOM background, because didcom doesn't have very tight, clean separation between the layers.
+
+00:26:32.000 --> 00:26:33.000
+Yeah.
+
+00:26:33.000 --> 00:26:46.000
+When you want to add functionality didcom it has to be part of DIDCOM in some way. Whereas with the tsp Any other things that you want to do you just tunnel through TSP.
+
+00:26:46.000 --> 00:26:47.000
+Yeah.
+
+00:26:47.000 --> 00:26:55.000
+So you define whatever that is. As its own protocol, as its own transaction, whatever it is And TSB doesn't care.
+
+00:26:55.000 --> 00:26:58.000
+Because it's opaque to TSB.
+
+00:26:58.000 --> 00:26:59.000
+Yep.
+
+00:26:59.000 --> 00:27:15.000
+Exactly. And that's really fundamental. A lot of people, you know, it's easy to say, but you don't see the benefit until you see, ha, here you go And so these protocols can be designed on message formats they they like
+
+00:27:15.000 --> 00:27:34.000
+The patterns they've adopted. All of that can be preserved, their own protocol, right? And they don't need to become somehow part of a decom or Or TSP in that case. So TSP simply transparently provide the service for you.
+
+00:27:34.000 --> 00:27:45.000
+Perfect. I love it. Well, with that, I think we should dive into this, your proposal, Sam, on the relationship formation. Do you want to share?
+
+00:27:45.000 --> 00:27:46.000
+Good.
+
+00:27:46.000 --> 00:28:00.000
+Yeah, happy to do that. So let me pull up my
+
+00:28:00.000 --> 00:28:03.000
+Can you see my screen? Can you see the screen? Looks like a github.
+
+00:28:03.000 --> 00:28:09.000
+So yes, it just came up. Yep, just came up.
+
+00:28:09.000 --> 00:28:10.000
+Looking good, yeah.
+
+00:28:10.000 --> 00:28:19.000
+Github discussion. Okay. Yeah. So this is in the web of trust fairy discussions, which is the Caesar 2 code tables. I added this at the bottom.
+
+00:28:19.000 --> 00:28:20.000
+Okay.
+
+00:28:20.000 --> 00:28:28.000
+So summary, these are my proposals. We have the x hop tunnel payload, which we've already defined above.
+
+00:28:28.000 --> 00:28:40.000
+And then I've added three payload types. Or a relationship formation invite payload, region formation accept payload, and abrasion formation decline payload.
+
+00:28:40.000 --> 00:28:58.000
+And then this last one is a sniffles little seizor Streminus payload. So if you had a trust task that's not native to TSP, then the payload type would be this. And then you would put whatever you needed in here and it would just be handed off to a higher level
+
+00:28:58.000 --> 00:29:07.000
+Layer in the protocol to figure out what's in that sniffable season stream. But the sniffable season stream means it could be anything that you can encode in Caesar.
+
+00:29:07.000 --> 00:29:11.000
+So you're not limited at all. Right.
+
+00:29:11.000 --> 00:29:26.000
+So the code itself is uh start with x and then three letters.
+
+00:29:26.000 --> 00:29:27.000
+Okay. Yeah.
+
+00:29:27.000 --> 00:29:44.000
+Yeah, so X is the caesar. Encoding for a four character code Caesar code. And so there are three characters that are you can define. And so we're just defining the three characters. So this means we have three characters This means these are, as far as I can tell, these are the only payloads
+
+00:29:44.000 --> 00:30:07.000
+Types that we need for the TSP. We need the hop We need the relationship formation and then we just need a payload that is generic container that just carries whatever cross tasks that you want above that. And this just tells you sniffable Caesar string because that means anything that Caesar can encode, you can encode there.
+
+00:30:07.000 --> 00:30:30.000
+And so… That's a proposal. So it keeps the protocol super simple. I really don't see a need for anything else than this. And we've already defined the hot payload above. So here's the three payload payload types for relationship formation.
+
+00:30:30.000 --> 00:30:44.000
+So this is the invitation payload. So we have the payload group The message type or payload type which is XRFI relationship formation invite This is the said.
+
+00:30:44.000 --> 00:30:52.000
+Of this payload. This is the new relationship Invite bid.
+
+00:30:52.000 --> 00:31:02.000
+And this is then the attack. This is the signature on this payload. It's not a signature on the ESSR wrapper.
+
+00:31:02.000 --> 00:31:10.000
+This is a payload inside of an ESSR wrapper. And then this is the acceptance payload.
+
+00:31:10.000 --> 00:31:20.000
+So it's a payload group The acceptance type, this is the acceptance said of this packet This is the set of this packet.
+
+00:31:20.000 --> 00:31:27.000
+So this creates a cryptographically bound transaction. So it's a mini blockchain.
+
+00:31:27.000 --> 00:31:31.000
+Does that make sense?
+
+00:31:31.000 --> 00:31:32.000
+Yeah.
+
+00:31:32.000 --> 00:31:33.000
+It's a… It's a micro ledger.
+
+00:31:33.000 --> 00:31:39.000
+This is this is… This binds this packet to this packet.
+
+00:31:39.000 --> 00:31:40.000
+And then this is the set of this packet. Yeah, so yeah so set is a hash.
+
+00:31:40.000 --> 00:31:44.000
+It's a hashtag.
+
+00:31:44.000 --> 00:31:47.000
+It's an embedded hash.
+
+00:31:47.000 --> 00:31:49.000
+And then here's the acceptance bid.
+
+00:31:49.000 --> 00:31:54.000
+Yeah, today we use the thread ID for that.
+
+00:31:54.000 --> 00:32:10.000
+Right. Well, the IID is the threat ID. So it's the threat ID or in this in the SPAC white paper, I call it an interaction ID, but we can call it a TID for threat ID. That doesn't matter. I'm just pulling this from from
+
+00:32:10.000 --> 00:32:13.000
+How my brain works from the SPAC white paper.
+
+00:32:13.000 --> 00:32:32.000
+Okay, okay. So we could still use this. So in effect, still the threat ID. So in that case, I don't want to introduce new terms for this back.
+
+00:32:32.000 --> 00:32:33.000
+Right, right.
+
+00:32:33.000 --> 00:32:40.000
+Yes, that's right. You could use the thread ID. Thread ID is the term from from DidCon, they used a threat id Right. But you could also call it a transaction ID because the transaction forms a threat, right? And I called it interaction because
+
+00:32:40.000 --> 00:32:41.000
+True, true, true.
+
+00:32:41.000 --> 00:32:46.000
+It's just a choice. This is the other half of the new relationship.
+
+00:32:46.000 --> 00:32:50.000
+Yeah.
+
+00:32:50.000 --> 00:33:02.000
+So this is the acceptance vid. And then if you decide not to accept, then you decline. And the decline message is really just a negative acknowledgement, but it includes the threat ID.
+
+00:33:02.000 --> 00:33:24.000
+Now, how this works is that this is embedded in a TSP packet between two other pair between a different pair of vids right because because you have to have formed a relationship in order to send anything. So the first relationships formed out of band.
+
+00:33:24.000 --> 00:33:34.000
+Once you form a relationship out of band, now you can send TSP packets between those two bids.
+
+00:33:34.000 --> 00:33:35.000
+Yeah, so the
+
+00:33:35.000 --> 00:33:53.000
+So what you do is you take an existing relationship you use the the wrapper is the existing relationship. So it's signed by, so I'll go down here right So X0 wishes to form a new relationship with Y0. So they already have a relationship, right? You have an existing relationship between X0 and y0
+
+00:33:53.000 --> 00:34:12.000
+So Xero creates a new vid that it controls X1. X sends an ESR wrap packet to Y0 with an RFI payload. So I'm not showing the rapper. The rapper is the rapper up here, right? It starts with a minus e has a minus e
+
+00:34:12.000 --> 00:34:19.000
+The source destination the you know ciphertext payload. So the payload here is what's being wrapped.
+
+00:34:19.000 --> 00:34:24.000
+And if it's encrypted, then it's sitting here. So you don't know what's inside of it.
+
+00:34:24.000 --> 00:34:47.000
+And it could be triple. It could be triple nested, right? This relationship formation could be nested down three times in a triple nested esr payload. Does that make sense? It doesn't care. It just says The outer wrapper is who's forming the relationship, a new relationship that is opaque
+
+00:34:47.000 --> 00:34:53.000
+To anybody that can see the outer wrapper because if these are encrypted, then you can't see these.
+
+00:34:53.000 --> 00:35:03.000
+So he creates a new vid that he controls. He sends the invite He doesn't know what the other half is. So he can just say, here's my half of the invite.
+
+00:35:03.000 --> 00:35:14.000
+I've got a new vid called X1. I want to invite you Why zero to form a new relationship with some new vid that you create for this relationship?
+
+00:35:14.000 --> 00:35:40.000
+And so it has to be signed. With the new vid with the new So this signature is with the new relationship vid so that y0 knows that x zero that sending it and whoever created this X1, the X1 is sending this right so you know it came from x1
+
+00:35:40.000 --> 00:35:50.000
+Does that make sense? And then Y0, if they wish to accept, then Y0 says, well, I want to accept.
+
+00:35:50.000 --> 00:35:58.000
+So Y0R creates a new vid y1 puts y1 in here.
+
+00:35:58.000 --> 00:36:17.000
+This one has, this is the hash of this packet I also have the hash of the previous packet so that binds these two together. So this acceptance knows it goes to this invite, this specific cryptographically unique invite because this is a hash.
+
+00:36:17.000 --> 00:36:31.000
+I don't think we need… So, well, I'll come back to that. Just remind me whether we need to have a salty Noston or not. That's an option I don't have in here. That's a complication.
+
+00:36:31.000 --> 00:36:33.000
+We could decide to add that or not.
+
+00:36:33.000 --> 00:36:43.000
+Yeah, can we reference this to this spec that's you know the whole thing all the protocols these cases are already documented in.
+
+00:36:43.000 --> 00:36:50.000
+Right, right. I'm just proposing what it would look like with the actual caesar sees their stuff using Caesar not
+
+00:36:50.000 --> 00:36:59.000
+Right. That's this way. We don't know what the differences are other than the code being selected differently. But other than that.
+
+00:36:59.000 --> 00:37:03.000
+I think these topics are already covered, right?
+
+00:37:03.000 --> 00:37:16.000
+Right. Yeah. I'm just saying, but what we need to do is replace the ones in the spec with ones that actually work in Caesar because the ones in the spec don't.
+
+00:37:16.000 --> 00:37:17.000
+And that's the code portion. The message type
+
+00:37:17.000 --> 00:37:33.000
+Don't use Caesar properly. So this is what I'm proposing as we're lying these Well, but it's all of these fields, right? These are all things that are encoded in Caesar. Like even this did web, this is a string. It would actually be…
+
+00:37:33.000 --> 00:37:46.000
+It would actually be encoded as a Caesar string. I just show it as this did web S, but it actually has to be encoded as a string primitive, a variable length string primitive.
+
+00:37:46.000 --> 00:37:47.000
+But that's Right, right.
+
+00:37:47.000 --> 00:37:51.000
+Yeah. So that begets this question.
+
+00:37:51.000 --> 00:37:52.000
+Is I think this is a little bit a more subtle question.
+
+00:37:52.000 --> 00:37:56.000
+Okay.
+
+00:37:56.000 --> 00:38:05.000
+So these relationship formation messages
+
+00:38:05.000 --> 00:38:11.000
+So we need to start with, because they are in that trust task, essentially.
+
+00:38:11.000 --> 00:38:32.000
+We… start with say that, you know, somewhere you need to have a CISA coding because our protocol, the envelope are coded that way. What do we allow this protocol to be not in Caesar coding?
+
+00:38:32.000 --> 00:38:33.000
+And that's a question.
+
+00:38:33.000 --> 00:38:46.000
+I don't think there's i don't i i would say that would mean that we're creating a bespoke encoding format when Caesar is perfectly capable of doing it. And the same parser works.
+
+00:38:46.000 --> 00:38:57.000
+There's no reason to not use caesar Because then it's just it's just it's just the parser just works.
+
+00:38:57.000 --> 00:38:58.000
+Correct.
+
+00:38:58.000 --> 00:39:12.000
+The Caesar parser will parse this just fine. Because Caesar already gives you the ability to have fixed format stuff and the Caesar codes tells you what the type is of the value and as long as it's a fixed field, you don't need to have field labels.
+
+00:39:12.000 --> 00:39:23.000
+So it just simplifies the expression of the protocol. I mean, this is like one page and that's all you need to know.
+
+00:39:23.000 --> 00:39:51.000
+I mean, that's one reason to use Caesar is that it makes protocols makes protocol design and design documentation straightforward because once you know the Caesar codes, everything else is just the parser parsing it and you just have to define that. So the only complication here is
+
+00:39:51.000 --> 00:39:52.000
+Yeah. Yeah. So you've got an abstract data model right right
+
+00:39:52.000 --> 00:40:00.000
+Right. That's how our background is structured. In fact, we don't talk about the encoding because This is all straightforward. And then the important portion is very very small section very deep you know just a few codes that need to be followed
+
+00:40:00.000 --> 00:40:07.000
+And so the question I have really is about that in the beginning of that table.
+
+00:40:07.000 --> 00:40:20.000
+That all star with x y if we want to expand this protocol, we'll be adding entries into this table.
+
+00:40:20.000 --> 00:40:21.000
+Right.
+
+00:40:21.000 --> 00:40:30.000
+Yes, that's right. We'll just add entries to this table if we want to add additional payload types because we don't have to change if we follow this paradigm above we don't have, oh, sorry, I went too far. We don't have to
+
+00:40:30.000 --> 00:40:34.000
+Right here, right here, yeah.
+
+00:40:34.000 --> 00:40:52.000
+Oh, yeah, right here. We don't have to. This is universal. This is a recursively defined… rapper And you can nest wrappers, right? So this is a nested wrapper, right? So here, so this payload is X hop and the X hop includes a nested wrapper
+
+00:40:52.000 --> 00:41:03.000
+So in, oh, well, this one doesn't one Oh, no, yeah, that's right here. Here's the minus E. There's the nested one.
+
+00:41:03.000 --> 00:41:18.000
+So here's the nested one inside. See the minus E. And this one could have nested inside it another nested one so so it's perfectly recursively nestable to any level.
+
+00:41:18.000 --> 00:41:31.000
+And the parser just parses down the levels. So we don't need anything else but But this, right? Now, this is an old version Because I changed it up above it.
+
+00:41:31.000 --> 00:41:37.000
+Where is the… Where's the replies?
+
+00:41:37.000 --> 00:41:43.000
+Oh. What happened to the replies?
+
+00:41:43.000 --> 00:41:48.000
+It's not showing the replies.
+
+00:41:48.000 --> 00:41:52.000
+So it's uh can i um just uh quickly
+
+00:41:52.000 --> 00:42:00.000
+Yeah, I know. I'm just wondering why… Why?
+
+00:42:00.000 --> 00:42:07.000
+Oh, that's why. No.
+
+00:42:07.000 --> 00:42:18.000
+Oh. This, this… What I'm sharing, for some reason, it's not expanding the replies for some reason.
+
+00:42:18.000 --> 00:42:22.000
+It's a one of the replies. That's about… Okay.
+
+00:42:22.000 --> 00:42:25.000
+Well, there's a bunch of replies to
+
+00:42:25.000 --> 00:42:41.000
+Yeah, there's a bunch of stuff in here that that that's missing, but it was here this morning. So I'm trying to figure out why GitHub isn't displaying it because this is the ACDC protocol that's Not related.
+
+00:42:41.000 --> 00:42:59.000
+The… And this was a new comment, but there's a bunch of Oh, here. Oh, that's why this This ACDC top level was injected in between Here's the other stuff. Here we go.
+
+00:42:59.000 --> 00:43:01.000
+Yeah.
+
+00:43:01.000 --> 00:43:12.000
+There it is. Right. So here's right. Here's the that comment below was an old one because it doesn't have the protocol version in it. It's missing this field, that comment.
+
+00:43:12.000 --> 00:43:22.000
+Got pushed down for some reason. So here's the wrapper. Here's the nested wrapper. So this is the right one to look at. This one down here is wrong. I should just delete it.
+
+00:43:22.000 --> 00:43:32.000
+I should just delete this open versus closed mode one. It's uh It's… it's bad. It doesn't it doesn't bad.
+
+00:43:32.000 --> 00:43:50.000
+It's old fashioned there. Now it won't confuse me. Okay. All right. So… And then this shows. And so the two things not mentioned here are replay attack. And I just wanted to finish the discussion on that, talk about replay attack
+
+00:43:50.000 --> 00:43:54.000
+And then I want to talk about And then the other thing is
+
+00:43:54.000 --> 00:44:03.000
+Maybe can you summarize all of that in a one single
+
+00:44:03.000 --> 00:44:04.000
+Posts that we can reference.
+
+00:44:04.000 --> 00:44:10.000
+Posting in the end so that because I'm trying to interleave between them it's a sometimes A little jumpy here.
+
+00:44:10.000 --> 00:44:14.000
+Yeah. Yeah, it jumps around.
+
+00:44:14.000 --> 00:44:23.000
+Do we want a salty knots? Let's do… Revenge.
+
+00:44:23.000 --> 00:44:24.000
+Correlation.
+
+00:44:24.000 --> 00:44:32.000
+Currently, we've implemented some of the messages needed Saudi nouns because otherwise they will be very predictable.
+
+00:44:32.000 --> 00:44:57.000
+Yes, that's right. If you see a vid someplace And you want to see if somebody is forming a relationship using that then you'd be able to correlate the hash And you'd be able to correlate the the uh the encryption of it. So we probably probably want the salty nonce. I just didn't have time to add it.
+
+00:44:57.000 --> 00:44:58.000
+So to add the salty knots, we just do something like this.
+
+00:44:58.000 --> 00:45:02.000
+Yeah.
+
+00:45:02.000 --> 00:45:26.000
+It would be… Let's see. We just add a field Right here.
+
+00:45:26.000 --> 00:45:44.000
+Here. And it would look something like It's usually it just needs to be 16 bytes. So the code for it is starts with A, usually in caesar.
+
+00:45:44.000 --> 00:45:49.000
+So it's just a… 16.
+
+00:45:49.000 --> 00:45:54.000
+16 character so so that so we just add the salty knots And now it's…
+
+00:45:54.000 --> 00:46:07.000
+Okay. So again, the question on x if so xr f i the the the message code type of code, right?
+
+00:46:07.000 --> 00:46:16.000
+Which table is that in? I'm just trying to make sure that we have the necessary flexibility there. Yeah.
+
+00:46:16.000 --> 00:46:22.000
+Oh, X is already in the Caesar 2.0 code table. These are values
+
+00:46:22.000 --> 00:46:28.000
+Right. But there's a table of allocating those characters, right? The three capture.
+
+00:46:28.000 --> 00:46:35.000
+No, this X hop is not a Caesar thing. X is the Caesar thing.
+
+00:46:35.000 --> 00:46:36.000
+Soc is a TSP thing. So it hasn't it hasn't Okay.
+
+00:46:36.000 --> 00:46:47.000
+Yeah. I understand. So there is a are you saying anything starts with the X is already exclusively to TSP?
+
+00:46:47.000 --> 00:46:48.000
+That's not…
+
+00:46:48.000 --> 00:46:56.000
+No, anything starting with X, is a three character Caesar value. You decide what it means.
+
+00:46:56.000 --> 00:46:57.000
+So So, so.
+
+00:46:57.000 --> 00:47:05.000
+So if, oh, so in this case, if a collides with other protocols, it doesn't matter because it's used within Okay, perfect. Perfect.
+
+00:47:05.000 --> 00:47:11.000
+It doesn't matter. Right. Minus Z says minus the is specific to TSP.
+
+00:47:11.000 --> 00:47:12.000
+Minus Z says this is a TSP payload. That's already in the table.
+
+00:47:12.000 --> 00:47:16.000
+Okay. Right. Okay.
+
+00:47:16.000 --> 00:47:17.000
+That's already in the Caesar table. X just says that's a data type.
+
+00:47:17.000 --> 00:47:20.000
+Okay. Okay.
+
+00:47:20.000 --> 00:47:25.000
+This is of type three character code. Right. And in a fixed field format, we say the first one is minus Z.
+
+00:47:25.000 --> 00:47:29.000
+Right, right.
+
+00:47:29.000 --> 00:47:35.000
+Then the second one is always the payload type. And now we know what the rest of the fields are. So a parser says, ah, this is TSP. This is the TSP payload type this.
+
+00:47:35.000 --> 00:47:39.000
+Okay.
+
+00:47:39.000 --> 00:47:53.000
+These are the rest of the fields. And so it's trivial to parse. So the only thing that Caesar needs to know is minus Z, and that's already in there.
+
+00:47:53.000 --> 00:48:09.000
+Okay.
+
+00:48:09.000 --> 00:48:10.000
+Yeah, we went through those already. Yeah.
+
+00:48:10.000 --> 00:48:22.000
+And then it also needs to know this Which is… this protocol version. This is a TSP protocol, TSP underscore to Yeah. Yeah. And so that, but, and so a parser that's parsing Minus E says, okay, what protocol is this ESSR wrapper
+
+00:48:22.000 --> 00:48:41.000
+And it's this particular TSP protocol. That way it allows us to version TSPs to have you know all you know uh tsp like protocols, if we're doing staging and stuff like that. And it just gives us, it's a future proofing mechanism to put that here.
+
+00:48:41.000 --> 00:48:46.000
+Otherwise, um. It.
+
+00:48:46.000 --> 00:48:57.000
+It kind of constrains you what you can do there. That was my proposal. I don't know that it's been accepted or not. We talked about it. And I think at the end, it just said we should continue to talk about it.
+
+00:48:57.000 --> 00:48:58.000
+So let's see, we got the salty nuts. Yeah.
+
+00:48:58.000 --> 00:49:09.000
+Well So I think the better to get a conclusion is compared to what is in the current scheme.
+
+00:49:09.000 --> 00:49:18.000
+And most of them, it's exactly the same. So there's no change. There's a few of them have changes.
+
+00:49:18.000 --> 00:49:22.000
+And this one, the main change would be the code itself, right? So if we use RFI that code. The rest look the same to me.
+
+00:49:22.000 --> 00:49:27.000
+Yeah.
+
+00:49:27.000 --> 00:49:28.000
+Yeah, the rest looks the same.
+
+00:49:28.000 --> 00:49:58.000
+And the question you were talking about any other messages needed i think that's questionable because i want to see in the spec section seven we define all the messages about different type of relationship performing plus the sorry the additional messages for that protocol so that the whole section seven talks about it
+
+00:50:00.000 --> 00:50:21.000
+And if we have reason to remove any of those functionalities, we could. But beyond that, I think What I will do, I would recommend is that we take the new code and merge them into essentially that would be like one small change in the coding scheme
+
+00:50:21.000 --> 00:50:30.000
+Of those messages and then we can, you know, of course, reassign each of the message again whether those are needed.
+
+00:50:30.000 --> 00:50:44.000
+But presumably there will still be presumably. And so we will end up with essentially very the proposal you presented here will be merged into the spec.
+
+00:50:44.000 --> 00:50:45.000
+Okay.
+
+00:50:45.000 --> 00:50:51.000
+But mainly it's the coding table like it's showing right here yeah on the top The rest are consistent with each other. So these are not new information.
+
+00:50:51.000 --> 00:50:59.000
+Yeah.
+
+00:50:59.000 --> 00:51:07.000
+Yeah, but so the spec right now is really an abstract data model spec So someplace we need to put someplace implementation details, right?
+
+00:51:07.000 --> 00:51:17.000
+There's a coding we're just… we intentionally put them two separate so the spec section seven is abstract.
+
+00:51:17.000 --> 00:51:18.000
+Yeah. Okay. Yeah. So, so nine, we need to put this stuff in nine.
+
+00:51:18.000 --> 00:51:29.000
+But that's Section 9 covers the coding. So maybe you are not looking at we intentionally leave them separately because you shouldn't think about the extract and the coding portion
+
+00:51:29.000 --> 00:51:46.000
+No, no, no. Yeah, that's right. I mean, yeah, there's two ways to write specs. One is to write an abstract data model and then have… and coding implementations. The other is you just write the encoding implementations without an abstract data model and
+
+00:51:46.000 --> 00:51:56.000
+Yeah, either one's fine with me. I don't you know, there's reasons to do both
+
+00:51:56.000 --> 00:51:57.000
+Yeah. Yeah.
+
+00:51:57.000 --> 00:52:05.000
+Yeah, the abstract thinking allows the allows you know like task developers easier to think about because that's all they need to think about is they have to do that portion Cool.
+
+00:52:05.000 --> 00:52:06.000
+So, so…
+
+00:52:06.000 --> 00:52:17.000
+Okay, so that will be what I will do. And we should then be able to individually look at the text change to the spec in the next couple weeks.
+
+00:52:17.000 --> 00:52:18.000
+That's, I think, a good one. Yeah.
+
+00:52:18.000 --> 00:52:25.000
+Okay, great. So I'll just…
+
+00:52:25.000 --> 00:52:31.000
+All right. Well, that was my proposal. So that's all I have. I'm just going to I'm just going to finish editing this uh Good.
+
+00:52:31.000 --> 00:52:38.000
+Yeah, Juan, if I could, just so people can follow on.
+
+00:52:38.000 --> 00:52:44.000
+I will give a… Very quick.
+
+00:52:44.000 --> 00:52:45.000
+Sure, go ahead.
+
+00:52:45.000 --> 00:53:06.000
+Pointing out where the changes will be coming. So this is the section seven, which really, if you look at the table of contests, talk about relational forming, which includes direct relationship over a routed path, parallel relation nested surplied referrals. So there's a lot of different kind of things
+
+00:53:06.000 --> 00:53:17.000
+You may do and other events to the relationship. So that's really section seven talks about the whole relationship management protocol.
+
+00:53:17.000 --> 00:53:18.000
+And this portion, maybe you can rename it as relation management protocol or something like that.
+
+00:53:18.000 --> 00:53:23.000
+Yep.
+
+00:53:23.000 --> 00:53:35.000
+Which really is the Section 7. So that itself is, you know, like we've been discussing a small trust task itself.
+
+00:53:35.000 --> 00:53:36.000
+Yep.
+
+00:53:36.000 --> 00:53:48.000
+All the encoding are in section nine serialization and coding, which goes in to cover all that aspects too, including all the protocol we've been discussing.
+
+00:53:48.000 --> 00:53:49.000
+Yep.
+
+00:53:49.000 --> 00:54:00.000
+So decode exactly which number used, like for example over here, we have these code available um And the choices I think, sometimes are different.
+
+00:54:00.000 --> 00:54:13.000
+And we are, you know, I'm trying to sync up with Sam so that we pick the same.
+
+00:54:13.000 --> 00:54:14.000
+Yep.
+
+00:54:14.000 --> 00:54:31.000
+And so that's the task we need to be sure of And I do want to think that, yes, Sam, you're implementing on this option. We want to keep the other options in place because our code supports all three of them.
+
+00:54:31.000 --> 00:54:33.000
+And so that is the one. So that way
+
+00:54:33.000 --> 00:54:42.000
+So we need to, yeah, but those codes don't work in those codes don't work that way in Caesar for encrypted primitives.
+
+00:54:42.000 --> 00:54:58.000
+So we actually need different codes. Because we don't have a separate code field in Caesar If it's a primitive, the code for the primitive is embedded with the primitive.
+
+00:54:58.000 --> 00:55:11.000
+So we need to define in caesar encryption codes for those other two encryption mechanisms.
+
+00:55:11.000 --> 00:55:12.000
+Yeah. So that's the question we want to raise too.
+
+00:55:12.000 --> 00:55:25.000
+But i don't So yeah, so those don't work. Those codes that you listed there don't work in season. I mean, the lib sodium sealed box, it's actually six codes.
+
+00:55:25.000 --> 00:55:31.000
+Because there's… Because encrypted primitives are variable length. They're not fixed length.
+
+00:55:31.000 --> 00:55:52.000
+So we need to use variable length codes. And so for variable length codes, we have short lengths and long links, right? So for things that are small encrypted payloads. You have a two character base64 counter So it can count up to 64 squared bytes
+
+00:55:52.000 --> 00:55:58.000
+And then you have a long one which is…
+
+00:55:58.000 --> 00:56:07.000
+I think it's, you know, minus like four or five counts so you can count up to really big numbers
+
+00:56:07.000 --> 00:56:17.000
+But that's Yeah, Sam, that's because you are defined in a defined universal sense outside of TSP, right?
+
+00:56:17.000 --> 00:56:18.000
+These are currently…
+
+00:56:18.000 --> 00:56:26.000
+Well, yeah, but that's yeah but but that makes it so that it's cryptographically agile.
+
+00:56:26.000 --> 00:56:37.000
+What happens is that if you have a separate code then you lose the cryptographic agility Once you strip the code off.
+
+00:56:37.000 --> 00:56:46.000
+Whereas the way Caesar's designed for primitives The primitive always includes its cryptographic agility because it's embedded with the primitive.
+
+00:56:46.000 --> 00:57:07.000
+So that's a really good feature of of Caesar that other protocols suffer from because they have this data block that says you know, here's how to interpret this raw string But if you lose the data block, you don't know how to interpret the raw string. Caesar says, no, no, it's a primitive.
+
+00:57:07.000 --> 00:57:15.000
+We want its cryptographic agility to be embedded with the primitive. We want it to be strongly bound to the primitive.
+
+00:57:15.000 --> 00:57:16.000
+So we always encode primitives
+
+00:57:16.000 --> 00:57:22.000
+But they were looking alike. Outside of a TSP. I think that's the benefit. I do agree.
+
+00:57:22.000 --> 00:57:31.000
+Yes, they will look alike outside. Well, see, because once you strip it out of TSP and stick it in a database and somebody wants to process, they go, well, how do I decrypt this?
+
+00:57:31.000 --> 00:57:46.000
+They go, I don't know. You just gave me a bunch of numbers, but if it's in Caesar, they go, well, I know how to decrypt it because I know what algorithm it is because I saved it as an encoded Caesar primitive.
+
+00:57:46.000 --> 00:58:05.000
+And so I can use it downstream from the TSP without having to change it or to carry along all of this stuff. That's one of the reasons Caesar When I did the talk where I showed how much more efficient Caesar is than, say, CBO,
+
+00:58:05.000 --> 00:58:18.000
+Or Jason for encoding. Primitives of cryptographic agility. It's exactly that that makes it so efficient is that the primitive embed all that information In a universal table, yeah.
+
+00:58:18.000 --> 00:58:30.000
+Okay, so… So can I then ask us assign you a task of propose, well, currently you have the third option over there at code.
+
+00:58:30.000 --> 00:58:39.000
+Yeah, because lip sodium sealed box is an open standard library that we have access to. So we can write unit tests for it and make sure that it works.
+
+00:58:39.000 --> 00:58:40.000
+Yeah.
+
+00:58:40.000 --> 00:58:54.000
+So what we need is we need a library that we can reference someplace that we can say, well, here's how you encode and these other models, these ones that you've created.
+
+00:58:54.000 --> 00:59:16.000
+And then we'll then then we'll add it to the Caesar code table And then it'll be a universal thing. But if those are proprietary, then they i mean they should be because uh tsp is not proprietary so i don't know
+
+00:59:16.000 --> 00:59:17.000
+Why do you think these are proprietary?
+
+00:59:17.000 --> 00:59:25.000
+I don't know how we move those from those from experimental state to something that a cryptographer could look at and say, yeah, this works.
+
+00:59:25.000 --> 00:59:31.000
+Yeah, there's a lot of profile for actually look at it, they think that works.
+
+00:59:31.000 --> 00:59:32.000
+So. Yeah.
+
+00:59:32.000 --> 00:59:39.000
+Okay, yeah, I'm just saying, so I just need some more information about like like, uh.
+
+00:59:39.000 --> 00:59:44.000
+Like what how how it encodes it.
+
+00:59:44.000 --> 01:00:01.000
+In the different lengths so that we can we know i i know how to I mean, it should be trivial since it's variable length. So you just figure it out. So I could just assign values in the table and then we'll have to figure it out later but but you know i i um i just
+
+01:00:01.000 --> 01:00:12.000
+Didn't know for sure how we were going to support those Because you had said at one point that the public keys were embedded in those.
+
+01:00:12.000 --> 01:00:28.000
+And I think that that's actually not that's actually not that's not ESSR to embed it at that at the that way so so we still have to put the sender inside the payload.
+
+01:00:28.000 --> 01:00:37.000
+But the encrypted the encrypted is a single is a single raw value, right? There's not there's not a
+
+01:00:37.000 --> 01:00:41.000
+Yeah, we're talking about the code here. We can talk about these two separately.
+
+01:00:41.000 --> 01:01:06.000
+Well, I think, yeah, well, I need to see the raw, I need to see the raw string format and just tell me hey, it's a raw string and uh it's some function of the encrypted thing, but whatever it is, it's just it's a variable length that could be any length. There's no restrictions on that, right? It can be any length.
+
+01:01:06.000 --> 01:01:25.000
+There's stuff added on. Stuff added to it. But when you look at it you're spitting out your algorithm is spitting out a raw string. Is that right?
+
+01:01:25.000 --> 01:01:26.000
+Yeah, I just, just show me some examples. I just need to see some examples of Yeah.
+
+01:01:26.000 --> 01:01:37.000
+We can discuss the protocols and implementations and um in in we can easily do that but resolving this question is about code allocation.
+
+01:01:37.000 --> 01:01:44.000
+And if we deploy allocation happens here This can be done this way.
+
+01:01:44.000 --> 01:01:45.000
+But if we want to call allocation happen in Caesar We could do that.
+
+01:01:45.000 --> 01:01:49.000
+Right. Yeah. And so we just have, so we have plenty of space Well, no, that… Yeah, so…
+
+01:01:49.000 --> 01:01:55.000
+We don't have to, right? Esp could simply go up along this way.
+
+01:01:55.000 --> 01:02:04.000
+Well, then you're basically not using Caesar for cryptographic primitives.
+
+01:02:04.000 --> 01:02:13.000
+And that's the whole point of Caesar is so that all cryptographic primitives everywhere have a code. So we just have to add them to the Caesar code table.
+
+01:02:13.000 --> 01:02:24.000
+Yeah, let's do that. And we can still have other discussions later, but let's do basically two cold points to these two other protocols.
+
+01:02:24.000 --> 01:02:33.000
+Yeah, they'll actually be… it'll actually be six each.
+
+01:02:33.000 --> 01:02:55.000
+Because in Caesar, everything has to align on 24-bit boundaries. So you get a code point per per modulo modulo length of the string. So if the string would have to be padded with one pad character, it's a different code than it has to be padded with two pad characters.
+
+01:02:55.000 --> 01:02:56.000
+Or if it has to not be padded at all because it's
+
+01:02:56.000 --> 01:03:02.000
+Oh, so you have to do all the commentary of the encryption scheme as well because these are protocols.
+
+01:03:02.000 --> 01:03:03.000
+Yes.
+
+01:03:03.000 --> 01:03:11.000
+Each one of them support multiple encryption schemes. So each would require a code.
+
+01:03:11.000 --> 01:03:17.000
+Each would require six entries. So I'll show you, I'll share my screen again.
+
+01:03:17.000 --> 01:03:19.000
+Sure. And I think… We run out of time.
+
+01:03:19.000 --> 01:03:22.000
+I'm just noting we're out of time It's okay if you do want to keep going. I've got to jump to another meeting.
+
+01:03:22.000 --> 01:03:27.000
+Okay.
+
+01:03:27.000 --> 01:03:28.000
+Bye.
+
+01:03:28.000 --> 01:03:34.000
+So, Sam, would that be okay that get this code into that table.
+
+01:03:34.000 --> 01:03:35.000
+Because otherwise we'll have to go on this way.
+
+01:03:35.000 --> 01:03:44.000
+Yeah, yeah, yeah. It's pretty straightforward to do. I was just going to show you the codes.
+
+01:03:44.000 --> 01:03:50.000
+Um for Well, no.
+
+01:03:50.000 --> 01:03:56.000
+There's too much in this one comment. I can't find them. Oh, there they are right there.
+
+01:03:56.000 --> 01:04:01.000
+So those are the six codes. These are the six codes for the sealed box
+
+01:04:01.000 --> 01:04:02.000
+You're not sharing yet.
+
+01:04:02.000 --> 01:04:08.000
+Oh, sorry.
+
+01:04:08.000 --> 01:04:09.000
+You see it? These are the six codes for the sealed box cipher.
+
+01:04:09.000 --> 01:04:12.000
+You're not sharing your screen. If you sure, I'll take a quick screenshot
+
+01:04:12.000 --> 01:04:13.000
+Okay. Another blood like that.
+
+01:04:13.000 --> 01:04:23.000
+So we just add So we're just going to add six codes For the base mode and the other mode. We'll just add another block of codes.
+
+01:04:23.000 --> 01:04:28.000
+And that will account for those ciphers.
+
+01:04:28.000 --> 01:04:45.000
+Okay, so we were essentially through the actual changes to the test one by one, all the details like this would you know eventually be resolved and that's the way I think we can drive the resolution of this.
+
+01:04:45.000 --> 01:04:52.000
+But overall scheme looks like we are in sync.
+
+01:04:52.000 --> 01:05:22.000
+Yeah, and you see right here, Caesar codes for other sniffable strain HPKE encryption formats have yet to be defined. So we just need to add them to the table and write them up in a way that because we don't want to we don't want to yeah we
+
+01:05:23.000 --> 01:05:24.000
+So this table can be quite long. Right? Yeah. Okay.
+
+01:05:24.000 --> 01:05:35.000
+Want to write this label out so that it's descriptive So this is references the x255195 cipher and then this is more descriptive. And so we take advantage of that. So I just want to Yes, yes. The Caesar primitive table can hold
+
+01:05:35.000 --> 01:05:36.000
+Yeah, Charlie says, really? Okay.
+
+01:05:36.000 --> 01:05:49.000
+Hundreds of thousands of entries. So it was designed so that every possible cryptographic primitive that you would ever want to use in the next million years would fit in the table.
+
+01:05:49.000 --> 01:05:59.000
+We're not limited by table space. We're limited by some of the codes like these short codes, there's a finite number of those. So we don't want to give short codes to things that we're not going to use heavily.
+
+01:05:59.000 --> 01:06:02.000
+Okay.
+
+01:06:02.000 --> 01:06:16.000
+But the long codes there's there's, you know, like I say, there's four there's 64 to the fourth number of codes in the long code table. So it's hundreds of thousands of codes.
+
+01:06:16.000 --> 01:06:17.000
+Okay, well. Will start to resolve this, yes.
+
+01:06:17.000 --> 01:06:22.000
+So we're not going to run out of codes. Yeah, okay.
+
+01:06:22.000 --> 01:06:23.000
+Thank you.
+
+01:06:23.000 --> 01:06:29.000
+Got to run. Thanks very much. It's all good. I think I've got everything captured in the notes.
+
+01:06:29.000 --> 01:06:33.000
+We'll get those codes defined and see everyone in two weeks.
+
+01:06:33.000 --> 01:06:34.000
+Okay.
+
+01:06:34.000 --> 01:06:35.000
+Great. Thank you.
+
+01:06:35.000 --> 01:06:38.000
+Thanks, everyone. You bet.
+
+01:06:38.000 --> 01:07:08.000
+Bye.
+

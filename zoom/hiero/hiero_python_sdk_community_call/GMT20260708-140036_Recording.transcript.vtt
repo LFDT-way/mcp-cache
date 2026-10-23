@@ -1,0 +1,194 @@
+WEBVTT
+
+1
+00:00:55.830 --> 00:00:56.910
+Angelina Ceppaluni: Bye!
+
+2
+00:02:05.570 --> 00:02:06.799
+Angelina Ceppaluni: Hi, Nisha. Hi.
+
+3
+00:02:07.880 --> 00:02:21.660
+Angelina Ceppaluni: I'm going to go ahead and start this meeting in about the next minute or so. I don't think we will have too much participation today just because I know some people and a few other folks are traveling today.
+
+4
+00:02:22.160 --> 00:02:32.470
+Angelina Ceppaluni: So, with that being said, we'll kind of… we'll end up keeping this a bit brief, just because some of these other topics, I would like to have a few more members,
+
+5
+00:02:32.710 --> 00:02:40.869
+Angelina Ceppaluni: Discussion and their input over. So I will probably post something in the Discord chat. The original maker.
+
+6
+00:02:41.000 --> 00:02:56.419
+Angelina Ceppaluni: Or original person who had the idea, they are working on something else at the moment, so they'll need a few days, and I figured given the event, that'd probably be best. So, I'll most likely move those topics to next week.
+
+7
+00:02:56.750 --> 00:03:06.910
+Angelina Ceppaluni: But before I go ahead and get started, were there any topics anyone would like me to add to today's agenda?
+
+8
+00:03:07.820 --> 00:03:18.120
+Angelina Ceppaluni: Anything that they would like to share. If you can't come off mute, that's fine. Feel free to post it in chat. If nothing, then I will. Oh, okay.
+
+9
+00:03:19.050 --> 00:03:26.250
+Manish Dait: Okay, so… That's, like, one PIA that, is, like, currently under draft.
+
+10
+00:03:26.660 --> 00:03:29.230
+Manish Dait: So… Let me share it with you.
+
+11
+00:03:32.420 --> 00:03:33.600
+Manish Dait: Okay.
+
+12
+00:03:46.210 --> 00:04:02.149
+Manish Dait: Okay, so this PR basically, focuses on improving the serialization for the transaction. Basically, it introduced the support for adding multiple node account IDs, and,
+
+13
+00:04:02.290 --> 00:04:04.559
+Manish Dait: The support for the chunk transaction.
+
+14
+00:04:04.730 --> 00:04:10.670
+Manish Dait: So, it is almost completed. There are, like, some tests remaining, but
+
+15
+00:04:10.910 --> 00:04:15.399
+Manish Dait: I like if, I get some, output on that.
+
+16
+00:04:33.020 --> 00:04:38.090
+Angelina Ceppaluni: Okay, so this is ready to be reviewed then, despite it being in draft?
+
+17
+00:04:39.200 --> 00:04:43.999
+Manish Dait: Yeah, just… there are, like, some test cases, but it is, like, almost ready.
+
+18
+00:04:48.140 --> 00:04:50.670
+Angelina Ceppaluni: Okay, not a problem. I'll… I'll do it.
+
+19
+00:04:50.830 --> 00:04:52.439
+Angelina Ceppaluni: Take a look at this today.
+
+20
+00:04:59.950 --> 00:05:00.680
+Angelina Ceppaluni: Okay.
+
+21
+00:05:00.820 --> 00:05:05.940
+Angelina Ceppaluni: And any other topics from anyone?
+
+22
+00:05:09.750 --> 00:05:12.679
+Angelina Ceppaluni: Okay, I will go ahead and get started.
+
+23
+00:05:13.040 --> 00:05:29.470
+Angelina Ceppaluni: Nothing too, too major. Just want to say that a few PRs have merged. We do have PRs coming in for automation, so keep on the lookout for those. Those automation flows are coming from other SDKs as well.
+
+24
+00:05:29.530 --> 00:05:39.300
+Angelina Ceppaluni: So if you'd like to see how they'll work in real time before that PR comes in, please make sure to take a look at those SDKs. C++ and…
+
+25
+00:05:39.430 --> 00:05:45.900
+Angelina Ceppaluni: I believe the website also have a few of these implemented already.
+
+26
+00:05:46.560 --> 00:06:00.790
+Angelina Ceppaluni: Despite the automation, I have not heard any major updates regarding the hips. As of right now, we are still waiting to continue work with 1195 and 1340.
+
+27
+00:06:00.950 --> 00:06:10.650
+Angelina Ceppaluni: My biggest recommendation is just to keep an eye out for the Discord channels once any information or updates become available, and that is where they'll be shared.
+
+28
+00:06:10.860 --> 00:06:19.119
+Angelina Ceppaluni: Beyond that… I don't believe there were any other topics,
+
+29
+00:06:20.740 --> 00:06:23.370
+Angelina Ceppaluni: That I wanted to bring up.
+
+30
+00:06:25.550 --> 00:06:31.510
+Angelina Ceppaluni: Well, okay, Manish, I think Aditya has a question for you in chat.
+
+31
+00:06:31.680 --> 00:06:33.550
+Angelina Ceppaluni: When you have a moment, okay?
+
+32
+00:06:34.140 --> 00:06:36.480
+Angelina Ceppaluni: That's it. Oh, go ahead.
+
+33
+00:06:37.500 --> 00:06:44.460
+Manish Dait: So, the improvement is needed, basically, because in the previous serialization, what is happening that
+
+34
+00:06:44.780 --> 00:07:00.860
+Manish Dait: the transaction, if multiple node IDs are set, then when we, like, serialize it to the bytes, and then again deserialize it, it only retrieves the first node account ID, and that can be, like.
+
+35
+00:07:01.170 --> 00:07:11.279
+Manish Dait: cause some error if that node is out of service, or some other issue happened to that. And second issue is that,
+
+36
+00:07:11.620 --> 00:07:24.150
+Manish Dait: when we serialize the chunk transaction, mostly what it does, it only serializes the first chunk. So, if we have, like, 14 chunks, only the first chunk gets serialized, and that is
+
+37
+00:07:24.250 --> 00:07:32.219
+Manish Dait: the one that is getting executed, and the 13 remaining ones are just neglected. So, that is the reason for, like, the improvement.
+
+38
+00:07:38.740 --> 00:07:39.649
+Manish Dait: Okay, thank you.
+
+39
+00:07:41.340 --> 00:07:44.360
+Angelina Ceppaluni: Thank you so much, Manish, for that explanation.
+
+40
+00:07:44.540 --> 00:08:01.119
+Angelina Ceppaluni: Were there any other topics or questions anyone had? Again, this is going to be pretty brief, just seeing as how the participation for today. There will be a bit more to discuss next week, so please stay tuned for that if you can.
+
+41
+00:08:01.250 --> 00:08:06.669
+Angelina Ceppaluni: But anything else anyone would like to share? Comments, ideas, or topics?
+
+42
+00:08:20.390 --> 00:08:21.160
+Angelina Ceppaluni: Okay.
+
+43
+00:08:22.800 --> 00:08:31.169
+Angelina Ceppaluni: Well, we can definitely bring that up in the next meeting. I think that might be a topic that I'd like to have more people, weigh in on.
+
+44
+00:08:32.970 --> 00:08:34.750
+Angelina Ceppaluni: Okay, yeah, not a problem. Thank you.
+
+45
+00:08:35.880 --> 00:08:48.039
+Angelina Ceppaluni: Of course, I will take a note of that. I will write that down for next week and add it to next week's agenda. I just want to make sure that any larger conversations, we just have enough of an input from the maintainer team, committer teams.
+
+46
+00:08:48.120 --> 00:08:57.509
+Angelina Ceppaluni: But thank you so much for that. This list will be a bit large for next week, but I know we have a half hour, so I promise it'll be brief.
+
+47
+00:08:57.750 --> 00:09:14.380
+Angelina Ceppaluni: But I think if that is it from everyone today, then we'll go ahead and conclude a few minutes early. I do hope everyone has a great day, night, morning, evening, wherever you are in the world today, and I will see you guys next time. Bye!
+
+48
+00:09:15.110 --> 00:09:15.920
+Manish Dait: Bye.
+

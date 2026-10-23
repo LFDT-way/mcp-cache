@@ -1,0 +1,794 @@
+WEBVTT
+
+1
+00:05:31.300 --> 00:05:38.140
+Parv Mittal: Hello, everyone. Welcome to another Weekly Dev Call for GitMesh. Today is 26th of August, 2026.
+
+2
+00:05:40.110 --> 00:05:42.069
+Parv Mittal: Coming to the Code of Conduct.
+
+3
+00:05:42.480 --> 00:05:54.680
+Parv Mittal: These slides do not contain any commercial advertisements. All the tools, products, books, materials, and all the examples are generic, and you have to consider those as examples.
+
+4
+00:05:55.720 --> 00:06:01.799
+Parv Mittal: We hold our weekly Dev Calls on every Wednesday, and you can join us from the links here.
+
+5
+00:06:02.050 --> 00:06:07.649
+Parv Mittal: And you can check the privacy policy, terms of use, and retrust policy.
+
+6
+00:06:08.280 --> 00:06:11.169
+Parv Mittal: Code of Conduct and official report from here.
+
+7
+00:06:13.080 --> 00:06:17.479
+Parv Mittal: So, for today, we will be talking on the work update.
+
+8
+00:06:17.740 --> 00:06:24.289
+Parv Mittal: I have done some work over the last two weeks, and I'll be explaining what I've done, and
+
+9
+00:06:24.860 --> 00:06:31.210
+Parv Mittal: There will be some technical and cool discussion, and if possible, then Q&A discussion.
+
+10
+00:06:31.930 --> 00:06:34.250
+Parv Mittal: So, let's get a starter.
+
+11
+00:06:36.330 --> 00:06:39.440
+Parv Mittal: First onto the Work Update.
+
+12
+00:06:47.160 --> 00:06:54.439
+Parv Mittal: I was working on the last two weeks on some… These things.
+
+13
+00:06:55.180 --> 00:07:08.390
+Parv Mittal: And, I have, worked on… T1.4, to T1.9.
+
+14
+00:07:09.400 --> 00:07:11.950
+Parv Mittal: Based on the paperwork document.
+
+15
+00:07:12.330 --> 00:07:13.280
+Parv Mittal: So…
+
+16
+00:07:14.350 --> 00:07:30.560
+Parv Mittal: T1.4, 1.7 were the detectors part, which included detectors for Copilot, anti-gravity, open code, and other third-party detectors. And,
+
+17
+00:07:30.960 --> 00:07:40.010
+Parv Mittal: T1.8 was related to the normalizer, and T1.9 was related to the Drifter.
+
+18
+00:07:40.500 --> 00:07:43.070
+Parv Mittal: Drift for defer to be exact.
+
+19
+00:07:44.090 --> 00:07:45.570
+Parv Mittal: And,
+
+20
+00:07:46.060 --> 00:07:52.489
+Parv Mittal: We have also closed some issues based on these full requests, as you can see from here.
+
+21
+00:07:52.610 --> 00:07:57.799
+Parv Mittal: These are also related to T1.4 to T1.9.
+
+22
+00:07:59.810 --> 00:08:09.459
+Parv Mittal: So, I'll today explain the, work we have done so far, and, GitMesh architecture in detail.
+
+23
+00:08:12.620 --> 00:08:17.469
+Parv Mittal: Okay, so… for the GitMesh architecture.
+
+24
+00:08:18.660 --> 00:08:22.009
+Parv Mittal: The thing is, we have,
+
+25
+00:08:26.330 --> 00:08:33.140
+Parv Mittal: We have subdated the legacy code, from the, current code, and
+
+26
+00:08:34.130 --> 00:08:47.950
+Parv Mittal: the things here, like Docker, governance layer, and, packages GitMesh PLI Playbooks, public. These are no longer required, as I've also mentioned this before.
+
+27
+00:08:48.980 --> 00:08:56.670
+Parv Mittal: And, these are to be considered as legacy. So, the thing is, what's, what is active currently?
+
+28
+00:08:57.370 --> 00:09:05.059
+Parv Mittal: So, the things which are currently active and are part of the current GitMesh project are CLI, Docker.
+
+29
+00:09:05.230 --> 00:09:06.440
+Parv Mittal: Sorry, dogs?
+
+30
+00:09:07.150 --> 00:09:13.430
+Parv Mittal: The docs are, messed up, currently messed up, and mixed up in these two parts.
+
+31
+00:09:13.930 --> 00:09:15.900
+Parv Mittal: The main part is this.
+
+32
+00:09:17.150 --> 00:09:24.989
+Parv Mittal: Doc pivot, the pivot document, contains… Are contained in this folder.
+
+33
+00:09:25.550 --> 00:09:29.510
+Parv Mittal: And, we will be replacing this folder entirely in the future.
+
+34
+00:09:30.860 --> 00:09:36.119
+Parv Mittal: The main, pack, folder and the working directory is this.
+
+35
+00:09:36.780 --> 00:09:46.589
+Parv Mittal: Here, also, these four are not required, these are part of the legacy code, and these two are the part of the current GitMesh implementation.
+
+36
+00:09:47.210 --> 00:09:58.469
+Parv Mittal: So, workspace Adapters contains the code for detecting the adapters, which I discussed earlier, in the T1.1 to T1.7.
+
+37
+00:09:58.920 --> 00:10:05.630
+Parv Mittal: And, Workspace Core contains, all the other, things that are,
+
+38
+00:10:05.740 --> 00:10:10.159
+Parv Mittal: a part of the GitMesh doctor implementation right now.
+
+39
+00:10:10.630 --> 00:10:17.080
+Parv Mittal: It will also contain the implementation of other GitMesh modules, such as,
+
+40
+00:10:18.060 --> 00:10:22.679
+Parv Mittal: GitMesh in it, GitMesh Supply, and, so on.
+
+41
+00:10:22.800 --> 00:10:26.649
+Parv Mittal: Right now, it contains only the part of the GitMesh doctor.
+
+42
+00:10:29.330 --> 00:10:33.180
+Parv Mittal: So, let's, talk about the workspace adapters.
+
+43
+00:10:33.610 --> 00:10:39.310
+Parv Mittal: So, workspace adapters contain two main things, mainly fixtures and the source.
+
+44
+00:10:40.030 --> 00:10:44.689
+Parv Mittal: So fixtures, or, we often,
+
+45
+00:10:45.170 --> 00:10:57.069
+Parv Mittal: We have one, said golden fixtures. These means the fake, or mock repositories that, will work as tests.
+
+46
+00:10:57.550 --> 00:11:04.279
+Parv Mittal: In… when we are running our detectors on some fake or mock repositories.
+
+47
+00:11:04.970 --> 00:11:12.179
+Parv Mittal: So, like, the… If you open any fixture, like, this one.
+
+48
+00:11:13.380 --> 00:11:19.319
+Parv Mittal: There… every fixture contains two folders, and, some more folders.
+
+49
+00:11:20.000 --> 00:11:26.409
+Parv Mittal: These two folders are mandatory in this, these fixtures, like full surface and no artifacts.
+
+50
+00:11:26.630 --> 00:11:44.299
+Parv Mittal: Full surface contains the, part, contains the scenario where the repo contains all of the artifacts which can be detected by the adapter, and no artifacts is the opposite case of this, when the repo contains no adapters.
+
+51
+00:11:44.560 --> 00:11:47.470
+Parv Mittal: So, the thing was, the,
+
+52
+00:11:47.930 --> 00:11:59.649
+Parv Mittal: Detector should not hallucinate on the repo, and should not detect any other thing, which are not relevant to the, like, to the detector.
+
+53
+00:12:00.420 --> 00:12:03.180
+Parv Mittal: So, if I open the no detectors…
+
+54
+00:12:03.280 --> 00:12:09.319
+Parv Mittal: Every detector contains at least two things, expected and input report.
+
+55
+00:12:09.960 --> 00:12:16.649
+Parv Mittal: It, may also contain some other things based on the, based on the type.
+
+56
+00:12:17.130 --> 00:12:18.590
+Parv Mittal: And,
+
+57
+00:12:19.290 --> 00:12:30.039
+Parv Mittal: If we go into the expected, there is a detected.json. So, this is the output. Now, detected.json is always empty for the no artifacts.
+
+58
+00:12:30.600 --> 00:12:34.130
+Parv Mittal: Type of depth of fixture.
+
+59
+00:12:34.610 --> 00:12:38.240
+Parv Mittal: And, the input repo is,
+
+60
+00:12:38.380 --> 00:12:41.650
+Parv Mittal: Also, almost empty for this type of fiction.
+
+61
+00:12:43.480 --> 00:12:51.959
+Parv Mittal: It could do not contain any artifacts that are related to the cursor, so, it should not detect any artifact that,
+
+62
+00:12:52.200 --> 00:12:59.400
+Parv Mittal: is, also within the directory.json under the expected folder.
+
+63
+00:13:00.700 --> 00:13:09.879
+Parv Mittal: If we talk about a full surface, so full surface contains all the artifacts that can be detected and related to the cursor.
+
+64
+00:13:11.490 --> 00:13:17.500
+Parv Mittal: So, like, there are cursor agents reviewed at MD cursor, hooks, rotation, and other things.
+
+65
+00:13:18.540 --> 00:13:33.859
+Parv Mittal: And the input repo contains all of these, like, it contains .cursor folder, it contains .cursor rules, and even in the known modules, it may contain agents.md, and that way, it needs to be detected.
+
+66
+00:13:35.810 --> 00:13:51.859
+Parv Mittal: And, like, there are also some other folders, some other fixtures that are, related to the cursor itself. Like, earlier cursor, the cursor has been updated.
+
+67
+00:13:52.050 --> 00:13:54.429
+Parv Mittal: In the last few months.
+
+68
+00:13:54.830 --> 00:14:04.369
+Parv Mittal: So, there is legacy cursor rules, which will be helpful for detecting, cursor artifacts from the old repos.
+
+69
+00:14:04.540 --> 00:14:06.130
+Parv Mittal: And, like…
+
+70
+00:14:06.350 --> 00:14:13.740
+Parv Mittal: Cursor has been updated, but, legacy code still remains, so it will be helpful to detect, these type of things.
+
+71
+00:14:14.050 --> 00:14:32.270
+Parv Mittal: And then DC Frontmatter is another, cursor, architect-related thing. There are, many such things. If you open Copilot, there is this, instruction front matter, which is specific to Copilot. And, if I open Cloud Code.
+
+72
+00:14:32.630 --> 00:14:41.200
+Parv Mittal: There is, also scope and manage user scope not requested. There is a interesting thing about scope and managed.
+
+73
+00:14:42.010 --> 00:14:50.749
+Parv Mittal: It contains, other things, like, also other things, like Manage Folder and User Home Folder.
+
+74
+00:14:51.330 --> 00:14:57.940
+Parv Mittal: So it is like, you are given access to the cloud code to read from your home directory also.
+
+75
+00:14:58.270 --> 00:15:05.910
+Parv Mittal: And, because the Cloud Code, creates a CloudCloud folder in the home directory of the user.
+
+76
+00:15:06.100 --> 00:15:08.920
+Parv Mittal: Which contains some artifacts of clot.
+
+77
+00:15:09.220 --> 00:15:20.020
+Parv Mittal: And, if you are… if the repo, or if GitMesh has been given authority to check these artifacts into the route folder also.
+
+78
+00:15:20.310 --> 00:15:23.629
+Parv Mittal: Then, it will be able to detect them also.
+
+79
+00:15:25.120 --> 00:15:35.340
+Parv Mittal: And, user scope not requested. If we… there are user home things, but, the user has explicitly told GitMesh.
+
+80
+00:15:35.560 --> 00:15:45.610
+Parv Mittal: that, they do not want to detect artifacts from the home directory, then, GitMesh will not detect… GitMesh should not detect, such things.
+
+81
+00:15:46.820 --> 00:15:51.719
+Parv Mittal: This was specific to Cloud Code, and there are many other things.
+
+82
+00:15:52.200 --> 00:15:55.130
+Parv Mittal: For the anti-gravity, and so on.
+
+83
+00:15:55.510 --> 00:15:58.179
+Parv Mittal: So that was about the fixtures.
+
+84
+00:15:59.030 --> 00:16:07.439
+Parv Mittal: In the workspace adapter also contain, the source code for these, to detecting these fixtures.
+
+85
+00:16:07.980 --> 00:16:20.780
+Parv Mittal: like, if I open this, and if I open this, every folder contains, 3 files. DetectTest, detect.ts, and index.ts.
+
+86
+00:16:21.600 --> 00:16:35.109
+Parv Mittal: So, it's actually quite modular, and the code is also, like, very short, in these files, so it will be helpful for managing the code better in the future.
+
+87
+00:16:35.850 --> 00:16:37.140
+Parv Mittal: And,
+
+88
+00:16:37.180 --> 00:16:51.360
+Parv Mittal: Here is… I don't think here is any exception to our folder structure. Every adapter contains 3 main files, detect.test, detect.ts, and detect.tx. The main logic is written in this.
+
+89
+00:16:51.360 --> 00:16:59.450
+Parv Mittal: Index.tx is, like, the entry file, and test.ts is the… has the test for these.
+
+90
+00:17:01.470 --> 00:17:07.039
+Parv Mittal: So… That's, about the workspace adapters.
+
+91
+00:17:07.589 --> 00:17:18.090
+Parv Mittal: And Workspace code contains other utilities, like, the work of GitMesh Adapter is not just to detect these files. The work of GitMesh Adapter is,
+
+92
+00:17:18.160 --> 00:17:30.990
+Parv Mittal: GitMesh doctor is to compute other things, like, how much the product has, how much these artifacts have, drifted from each other, and,
+
+93
+00:17:31.580 --> 00:17:38.989
+Parv Mittal: Like, it also, implement rules which will be based on the future implementation.
+
+94
+00:17:39.260 --> 00:17:47.290
+Parv Mittal: And, it contains the normalization code. Right now, the code for normalization and the code for,
+
+95
+00:17:47.640 --> 00:17:59.309
+Parv Mittal: Drifter has been written, as you can see from here. There are also fixtures for drift, but there is no fixture for normalizer.
+
+96
+00:18:00.250 --> 00:18:05.450
+Parv Mittal: And, like, First, talking about the normalizer.
+
+97
+00:18:06.180 --> 00:18:17.670
+Parv Mittal: So, normalizer contains, normalizer is required, for files that have almost the same content, but, the formatting is different.
+
+98
+00:18:17.910 --> 00:18:22.970
+Parv Mittal: Like, if I talk about agents.md, and
+
+99
+00:18:23.500 --> 00:18:42.520
+Parv Mittal: If I talk about clod.md, they might contain the same thing, same rules, but, it is possible that, one uses the dash for bullet points, and one uses, the circle for a bullet point, or,
+
+100
+00:18:42.930 --> 00:18:55.979
+Parv Mittal: It is possible one uses H1 as heading, one uses H2 as heading, and there might be some formatting… other formatting issues. So, the work of Normalizer is to detect all these formatting issues.
+
+101
+00:18:56.130 --> 00:19:03.550
+Parv Mittal: And, to convert the code Into, normalized form.
+
+102
+00:19:04.020 --> 00:19:05.769
+Parv Mittal: So, like.
+
+103
+00:19:07.810 --> 00:19:20.620
+Parv Mittal: The normalized.ts, it will convert the markdown into normalized blocks, and, then convert those normalized blocks into a SHA to 56 hashes.
+
+104
+00:19:20.770 --> 00:19:30.529
+Parv Mittal: So, the hashes are required, so that, we'll be able to get a kind of fingerprint of the blocks.
+
+105
+00:19:30.630 --> 00:19:39.109
+Parv Mittal: The SHA contains… the SSJ is created based on the content, and based on the type of the block.
+
+106
+00:19:39.540 --> 00:19:47.530
+Parv Mittal: So, the type of the block has been defined in the… Ties.ts…
+
+107
+00:19:48.320 --> 00:19:57.180
+Parv Mittal: Which was created in the earlier code, you can look for that. It was created into the T0 part of the…
+
+108
+00:19:57.830 --> 00:20:00.550
+Parv Mittal: When I was working on the T0 part.
+
+109
+00:20:00.890 --> 00:20:10.620
+Parv Mittal: And, frontmeta.js, it, it is mainly for cursor. Cursor contains .mdc files.
+
+110
+00:20:10.780 --> 00:20:15.770
+Parv Mittal: And, also for Copilot, Copilot contains supply to
+
+111
+00:20:16.600 --> 00:20:26.589
+Parv Mittal: So, it is, to detect, to work for, those kind of artifacts. And, simlink.ts, this one.
+
+112
+00:20:27.790 --> 00:20:37.000
+Parv Mittal: Same link is the, if you don't know about the same link, same link means a file referencing another file.
+
+113
+00:20:37.350 --> 00:20:56.060
+Parv Mittal: So, like, it is possible that, Cloud Code just references the agents.md. So, in that case, we do not need to compare agents.md and Cloud Code, because they are essentially the same files. Even, Git considers them as the same file, and, like,
+
+114
+00:20:56.760 --> 00:21:02.400
+Parv Mittal: It, manages 10 separately. Like, it manages as a single file.
+
+115
+00:21:02.880 --> 00:21:15.950
+Parv Mittal: So, if a same link is fine, it will resolve with its path, and it will, like, return the result that these are the same, and should not be compared.
+
+116
+00:21:18.820 --> 00:21:25.910
+Parv Mittal: And, there are, test.ts, I have written tests in this, folder.
+
+117
+00:21:26.870 --> 00:21:29.630
+Parv Mittal: And, coming to the Drifter…
+
+118
+00:21:30.520 --> 00:21:42.480
+Parv Mittal: So, it is actually drift differ. It also contains fixtures for drift, because we wanted to test it, on a real repo.
+
+119
+00:21:42.610 --> 00:21:46.720
+Parv Mittal: Like, on some mock repo, not a real repo.
+
+120
+00:21:47.530 --> 00:21:58.220
+Parv Mittal: So… Claude.md is actually a symlink that is pointing to agents.md, and agents.md contains the actual rules.
+
+121
+00:21:58.840 --> 00:22:01.690
+Parv Mittal: And, gemini.md.
+
+122
+00:22:02.100 --> 00:22:07.180
+Parv Mittal: is another artifact in this repo. So, it contains 3 main folders.
+
+123
+00:22:08.400 --> 00:22:13.300
+Parv Mittal: And, .mdc for the cursor, it also contains these things.
+
+124
+00:22:13.990 --> 00:22:21.330
+Parv Mittal: So, let's talk about the SageNs.md and cloud.md. So, the role of the Drifter will be…
+
+125
+00:22:21.510 --> 00:22:27.399
+Parv Mittal: To not compare these files, and to return that, these files are essentially the same.
+
+126
+00:22:27.630 --> 00:22:31.570
+Parv Mittal: But, it will compare Cloud.md and agents.md.
+
+127
+00:22:32.250 --> 00:22:35.020
+Parv Mittal: I will convert it into the code.
+
+128
+00:22:36.320 --> 00:22:37.110
+Parv Mittal: Hmm.
+
+129
+00:22:39.330 --> 00:22:42.380
+Parv Mittal: Okay, it is getting converted again.
+
+130
+00:22:42.610 --> 00:22:54.980
+Parv Mittal: So, like, you can see from here, these two things are, same in both of the files. Project rules uses, PNPM for all installs, but, these two rules.
+
+131
+00:22:55.070 --> 00:23:03.829
+Parv Mittal: run tests before every connect, and, sign off commits with, S, and, preferred tasks over spaces.
+
+132
+00:23:04.520 --> 00:23:08.479
+Parv Mittal: These are specific to these files only, so…
+
+133
+00:23:08.780 --> 00:23:14.020
+Parv Mittal: We can see from the… this contains the…
+
+134
+00:23:16.450 --> 00:23:21.000
+Parv Mittal: This contains the result for the MDC file, we'll talk about it later.
+
+135
+00:23:22.060 --> 00:23:28.229
+Parv Mittal: And, like, it first, denotes what kind of blocks are there in each file.
+
+136
+00:23:28.350 --> 00:23:33.989
+Parv Mittal: So, the agents.md and, cloud.md,
+
+137
+00:23:34.220 --> 00:23:36.580
+Parv Mittal: If, we talk about this.
+
+138
+00:23:37.640 --> 00:23:42.440
+Parv Mittal: It contains, this, heading block, this paragraph block.
+
+139
+00:23:42.730 --> 00:23:45.570
+Parv Mittal: And, kind… block.
+
+140
+00:23:46.300 --> 00:23:48.030
+Parv Mittal: And a list block, sorry.
+
+141
+00:23:48.750 --> 00:23:58.869
+Parv Mittal: And, if we talk about the Gemina and .md, here it is written two paths, because these two are essentially the same file, because of the same link.
+
+142
+00:23:59.670 --> 00:24:03.229
+Parv Mittal: And, if we talk about, gemini.md…
+
+143
+00:24:04.420 --> 00:24:08.119
+Parv Mittal: It has the heading, it has the paragraph.
+
+144
+00:24:08.760 --> 00:24:11.269
+Parv Mittal: And, it has another paragraph.
+
+145
+00:24:11.820 --> 00:24:14.480
+Parv Mittal: As we've seen… saw from here.
+
+146
+00:24:14.730 --> 00:24:23.470
+Parv Mittal: So, we will be able to see that, these hash… this hash and this hash will essentially be the same.
+
+147
+00:24:24.270 --> 00:24:28.950
+Parv Mittal: And, similarities and this will also be the same.
+
+148
+00:24:29.270 --> 00:24:37.490
+Parv Mittal: So, the drifter can, actually just compare these two hashes, and we'll be able to find out what is,
+
+149
+00:24:37.780 --> 00:24:43.240
+Parv Mittal: differing. And, it also detects the same link groups, from here.
+
+150
+00:24:46.520 --> 00:24:47.500
+Parv Mittal: Cool.
+
+151
+00:24:52.670 --> 00:24:55.799
+Parv Mittal: And, like, it compares the pairs.
+
+152
+00:24:56.160 --> 00:25:04.419
+Parv Mittal: So, the pair one is, A, style.mdc and agents.mdc, and it finds 3 things.
+
+153
+00:25:04.800 --> 00:25:07.559
+Parv Mittal: Or lane A, or lane B.
+
+154
+00:25:08.460 --> 00:25:19.669
+Parv Mittal: Sorry, two things, only in A, only in B, and, like, how much is, being shared, and, whether these are identical or not.
+
+155
+00:25:20.240 --> 00:25:24.000
+Parv Mittal: Or whether it is just reorder or not.
+
+156
+00:25:25.930 --> 00:25:31.959
+Parv Mittal: Similarly, it will compare these two pairs. Similarly, it will compare, these two pairs.
+
+157
+00:25:32.410 --> 00:25:34.490
+Parv Mittal: And, so on.
+
+158
+00:25:34.860 --> 00:25:37.319
+Parv Mittal: So, that is the work of the Drifter.
+
+159
+00:25:39.090 --> 00:25:43.850
+Parv Mittal: Yeah, or, more specifically, drift differ.
+
+160
+00:25:45.310 --> 00:25:46.929
+Parv Mittal: So…
+
+161
+00:25:47.220 --> 00:25:55.499
+Parv Mittal: That's the main code, for GitMesh, and what we have been… what, have been built so far.
+
+162
+00:25:55.920 --> 00:26:06.290
+Parv Mittal: If I talk about the result of this, drifter for, like, comparing agents.md, And, gemini.md.
+
+163
+00:26:07.510 --> 00:26:10.069
+Parv Mittal: Oh, where is this, huh?
+
+164
+00:26:10.480 --> 00:26:14.930
+Parv Mittal: So, agents.md contains these lists.
+
+165
+00:26:16.070 --> 00:26:20.800
+Parv Mittal: Run test before every commit, and sign off commit with S.
+
+166
+00:26:21.350 --> 00:26:31.740
+Parv Mittal: And, the Gemini.md contains this, list, which is not available in this. So, it was able to detect, these,
+
+167
+00:26:32.380 --> 00:26:35.449
+Parv Mittal: These, properly.
+
+168
+00:26:35.670 --> 00:26:41.469
+Parv Mittal: And, it showed a result that, these are not identical. And, it shares…
+
+169
+00:26:41.610 --> 00:26:46.400
+Parv Mittal: Two are… two blocks that, are common in both of them.
+
+170
+00:26:47.390 --> 00:26:51.999
+Parv Mittal: So, it will be able to… Identify these details.
+
+171
+00:26:52.710 --> 00:27:02.250
+Parv Mittal: And, like, there will… for the next part, upcoming part, that I'll be working on in this week is the judge.
+
+172
+00:27:02.540 --> 00:27:14.760
+Parv Mittal: It will contain, 11 rows, GM001 to GM011. These are written in the… pivot.md.
+
+173
+00:27:15.500 --> 00:27:26.160
+Parv Mittal: So, if you are willing to work on these, this, that part, just let me know. I'll assign you the issues,
+
+174
+00:27:26.390 --> 00:27:28.509
+Parv Mittal: that are created on the GitHub.
+
+175
+00:27:30.360 --> 00:27:32.829
+Parv Mittal: So I'm talking about this.
+
+176
+00:27:33.090 --> 00:27:36.870
+Parv Mittal: T1.10 to T1.15.
+
+177
+00:27:38.050 --> 00:27:42.030
+Parv Mittal: The rule risk… risk rule engine.
+
+178
+00:27:42.140 --> 00:27:52.790
+Parv Mittal: That is created for creating these rules. GM011 to VM0… If I…
+
+179
+00:27:58.620 --> 00:28:02.189
+Parv Mittal: So, no, here are all the rules written.
+
+180
+00:28:03.480 --> 00:28:05.750
+Parv Mittal: You can,
+
+181
+00:28:06.310 --> 00:28:11.600
+Parv Mittal: You can take reference from here if you are… you want to work on these rules.
+
+182
+00:28:12.550 --> 00:28:21.910
+Parv Mittal: And, after that, After, we have created these rules, there are, some… render those…
+
+183
+00:28:22.700 --> 00:28:26.509
+Parv Mittal: Like, scoring output.
+
+184
+00:28:26.830 --> 00:28:32.589
+Parv Mittal: And, there are some, more, edge cases,
+
+185
+00:28:32.700 --> 00:28:37.240
+Parv Mittal: Handling and, performance guard, benchmarking.
+
+186
+00:28:37.460 --> 00:28:43.639
+Parv Mittal: And, then the closing of the GitMesh doctor. The work of the GitMesh doctor will be over then.
+
+187
+00:28:44.670 --> 00:28:56.510
+Parv Mittal: And, we'll be left with the next parts, like, GitMesh Apply, GitMesh Check, and GitMesh Policy. We'll discuss about them in the next meet.
+
+188
+00:28:57.110 --> 00:29:01.360
+Parv Mittal: If you have any questions or want to ask anything,
+
+189
+00:29:01.810 --> 00:29:05.550
+Parv Mittal: You can ask, otherwise we'll land the meet here.
+
+190
+00:29:13.090 --> 00:29:23.250
+Parv Mittal: Okay, I think, it's the right time to end the meeting. If you want to contribute to the next phase of the GitMesh.
+
+191
+00:29:23.360 --> 00:29:27.950
+Parv Mittal: then just tag me on the GitHub under the relevant,
+
+192
+00:29:28.130 --> 00:29:31.580
+Parv Mittal: issue, and I'll assign the issue to you.
+
+193
+00:29:31.810 --> 00:29:41.379
+Parv Mittal: Just make, Just make sure, To… take reference from the pivot.md.
+
+194
+00:29:42.300 --> 00:29:48.459
+Parv Mittal: Because, most of the logic and most of the implementation details are written in that.
+
+195
+00:29:49.230 --> 00:29:53.319
+Parv Mittal: And, if you have any doubt, you can always ping me there.
+
+196
+00:29:54.420 --> 00:30:00.199
+Parv Mittal: So, that's it for the today's meet. We'll meet, next week also.
+
+197
+00:30:00.320 --> 00:30:01.969
+Parv Mittal: Till then, bye-bye.
+
+198
+00:30:02.810 --> 00:30:03.570
+Parv Mittal: Thanks.
+

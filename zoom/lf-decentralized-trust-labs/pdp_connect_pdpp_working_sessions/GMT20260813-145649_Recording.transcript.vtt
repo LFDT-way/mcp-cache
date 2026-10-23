@@ -1,0 +1,1682 @@
+WEBVTT
+
+1
+00:04:18.620 --> 00:04:19.630
+Tim Nunamaker: Hey, everyone.
+
+2
+00:04:20.550 --> 00:04:24.700
+Tim Nunamaker: I think we'll take a couple of minutes, and then… Just jump right in.
+
+3
+00:04:27.010 --> 00:04:28.630
+Tim Nunamaker: Hey, Sarah, good to see you again.
+
+4
+00:04:29.440 --> 00:04:30.890
+Sara Saab: Hey Tim, great to see you.
+
+5
+00:04:31.940 --> 00:04:33.010
+Tim Nunamaker: Thanks for joining.
+
+6
+00:04:36.730 --> 00:04:47.660
+Tim Nunamaker: So you… you are transitioning from prolific into a more general data portability problem space. Is there anything in particular that you're excited about?
+
+7
+00:04:48.210 --> 00:05:03.349
+Sara Saab: So I actually think… I think I'm kind of headed towards provenance in general, and, like, payloads that are moving across the internet in general. I think I may end up doing that from the lens of, like, controls of internet traffic. I'm talking to…
+
+8
+00:05:03.450 --> 00:05:12.130
+Sara Saab: A major player who you'll probably… probably guess who… who it is, who controls a bunch of internet traffic, who has interest in… in brokering that,
+
+9
+00:05:12.130 --> 00:05:24.740
+Sara Saab: But yeah, maybe at a different time, we can talk about the, kind of, like, who has stake in what parts of this, and it's been a really interesting exploration of the economics and the various stakes that different players have on this space, over the last few weeks.
+
+10
+00:05:25.360 --> 00:05:28.960
+Tim Nunamaker: Very cool. Yeah, I would love to talk about that. I've looked a little bit into
+
+11
+00:05:29.150 --> 00:05:34.730
+Tim Nunamaker: sort of CKTLS, and connecting the dots between somebody who wants
+
+12
+00:05:35.320 --> 00:05:42.109
+Tim Nunamaker: you know, proof of providence, or whatever, and a regular person. Hey Anna. Hey, Justin.
+
+13
+00:05:42.330 --> 00:05:42.700
+Anna Kazlauskas: Yay.
+
+14
+00:05:45.630 --> 00:05:49.980
+Tim Nunamaker: I think we can just jump in. I don't know, Anna, if you wanted to…
+
+15
+00:05:50.210 --> 00:05:52.970
+Tim Nunamaker: kick anything off here, I can just throw out the slides.
+
+16
+00:05:53.710 --> 00:05:58.139
+Anna Kazlauskas: No, just excited for a second week. Good to see everybody, yeah.
+
+17
+00:05:59.270 --> 00:05:59.870
+Tim Nunamaker: Great.
+
+18
+00:06:00.340 --> 00:06:01.879
+Tim Nunamaker: Okay, one second.
+
+19
+00:06:06.380 --> 00:06:18.049
+Tim Nunamaker: Okay, so this is the second session, of four sessions where we are sort of walking through the, Personal Data Portability Protocol, PDPP for short.
+
+20
+00:06:18.280 --> 00:06:19.440
+Tim Nunamaker: And…
+
+21
+00:06:19.820 --> 00:06:31.290
+Tim Nunamaker: I think Anna said it well last week, that what we're really talking about is the language of data portability, and how can we express, what we need to to make data portable on the internet.
+
+22
+00:06:31.630 --> 00:06:32.790
+Tim Nunamaker: And…
+
+23
+00:06:33.000 --> 00:06:39.820
+Tim Nunamaker: If you want to see the recording from last week, or just read through the session notes, you can find those through the GitHub.
+
+24
+00:06:39.980 --> 00:06:43.719
+Tim Nunamaker: If you can't find it, just ping me in Discord, I'm happy to share that.
+
+25
+00:06:44.000 --> 00:06:48.140
+Tim Nunamaker: And… We talked a little bit last time about
+
+26
+00:06:48.280 --> 00:06:58.320
+Tim Nunamaker: sort of the framing of PDPP and the overall architecture. Today, we're going to start to get into a little bit more of the technical details, going into how data is modeled.
+
+27
+00:06:58.490 --> 00:07:06.859
+Tim Nunamaker: And sort of communicated from data source providers, and then how clients can request access to data.
+
+28
+00:07:07.160 --> 00:07:18.600
+Tim Nunamaker: Next week, we'll get more into how is Access itself modeled and stored, and how are queries served. And then finally, in the fourth week, we will talk about
+
+29
+00:07:18.720 --> 00:07:25.560
+Tim Nunamaker: Sort of how the protocol is governed and participation in the protocol. And we'll just go through some of the key open questions.
+
+30
+00:07:26.600 --> 00:07:30.449
+Tim Nunamaker: So, going back to, last week, just to recap.
+
+31
+00:07:31.140 --> 00:07:40.560
+Tim Nunamaker: The architecture in terms of, sort of, the flow from a client's perspective, is basically standard OAuth. A client
+
+32
+00:07:40.690 --> 00:07:44.029
+Tim Nunamaker: Has a token which is bound to
+
+33
+00:07:44.490 --> 00:07:51.079
+Tim Nunamaker: In our case, a consent artifact with finely modeled data.
+
+34
+00:07:51.650 --> 00:08:00.819
+Tim Nunamaker: permissions. So, we… we kind of sneak inside of the token something called a rich authorization request payload, which…
+
+35
+00:08:01.300 --> 00:08:12.410
+Tim Nunamaker: pretty much defines exactly what the client is allowed to access. And of course, for that to work, the data needs to be modeled appropriately, and the server needs to know how to, like, work with that and get to the data.
+
+36
+00:08:12.620 --> 00:08:21.059
+Tim Nunamaker: So… Some of the primitives involved are, how do you actually define a record of data? How do you…
+
+37
+00:08:21.480 --> 00:08:26.650
+Tim Nunamaker: create the language for clients to request access, that's what we're going to talk about today. And…
+
+38
+00:08:26.900 --> 00:08:30.520
+Tim Nunamaker: Then how do you store the access, and how do you query into that?
+
+39
+00:08:32.990 --> 00:08:52.779
+Tim Nunamaker: So, drilling a little bit into these three concepts, the record model, a data source manifest, and a selection request, the record model is sort of the core building block. It's… I have a piece of data, whether that's a post from social media, or a transaction from my credit card statement.
+
+40
+00:08:52.920 --> 00:08:56.529
+Tim Nunamaker: Or my gaming profile.
+
+41
+00:08:56.680 --> 00:08:59.309
+Tim Nunamaker: And that single piece of data is…
+
+42
+00:08:59.450 --> 00:09:12.189
+Tim Nunamaker: defined as a record in PDPP, and that's kind of where you start to define the schema, or how is data, modeled and expressed, what are the… what are the types of the fields within the data?
+
+43
+00:09:12.520 --> 00:09:16.409
+Tim Nunamaker: And a manifest is then, how do you take
+
+44
+00:09:16.540 --> 00:09:21.530
+Tim Nunamaker: That record, and package it up into
+
+45
+00:09:21.820 --> 00:09:33.989
+Tim Nunamaker: A collection, which is called a stream, where there can be ordering of records within that collection, where you may want to express particular semantics about records in the collection.
+
+46
+00:09:34.250 --> 00:09:36.259
+Tim Nunamaker: For example.
+
+47
+00:09:36.490 --> 00:09:52.710
+Tim Nunamaker: if you need to know when something… when data was created, here's the specific timestamp field that you would look at. The manifest kind of describes all of that. And then the selection request is not only the syntax for how does a client ask for
+
+48
+00:09:52.800 --> 00:10:00.790
+Tim Nunamaker: access to data, but the rules that go along with that. And, both the rules for the client and the rules for the server, that's…
+
+49
+00:10:00.910 --> 00:10:03.149
+Tim Nunamaker: Conforming with the protocol.
+
+50
+00:10:05.010 --> 00:10:08.490
+Tim Nunamaker: So this is what a…
+
+51
+00:10:08.710 --> 00:10:15.519
+Tim Nunamaker: What a stream, like, a very simple stream, might look like, where… or sorry, a record might look like.
+
+52
+00:10:15.860 --> 00:10:23.070
+Tim Nunamaker: Where the record is defined as part of a collection, called a stream. In this case, it's a collection of messages.
+
+53
+00:10:23.200 --> 00:10:25.299
+Tim Nunamaker: And this particular…
+
+54
+00:10:25.400 --> 00:10:35.930
+Tim Nunamaker: record type is pretty simple. It just defines, here's a conversation that this message came from. This was a message from a user, perhaps as opposed to an agent.
+
+55
+00:10:36.100 --> 00:10:39.699
+Tim Nunamaker: What did the user say, and when did they say it?
+
+56
+00:10:40.090 --> 00:10:42.560
+Tim Nunamaker: So…
+
+57
+00:10:43.260 --> 00:10:53.829
+Tim Nunamaker: Yeah, this basically can just be expressed as JSON in most cases, and you could define the schema for this as JSON schema. And I think it's worth making a distinction between
+
+58
+00:10:53.950 --> 00:11:00.150
+Tim Nunamaker: maybe when was the record emitted or known within the protocol? That could be…
+
+59
+00:11:00.200 --> 00:11:18.719
+Tim Nunamaker: like, a timestamp called emitted at, versus when was the record itself created. So maybe, I have an email from many years ago, and there's an important timestamp associated with that email, when did I write it, but when did it actually become part of
+
+60
+00:11:19.030 --> 00:11:21.589
+Tim Nunamaker: The data source in the protocol.
+
+61
+00:11:22.010 --> 00:11:25.139
+Tim Nunamaker: So there… those could be used for different things.
+
+62
+00:11:25.880 --> 00:11:34.150
+Tim Nunamaker: Some records can carry blobs. So, for example, an email might have images or videos, and…
+
+63
+00:11:34.780 --> 00:11:38.140
+Tim Nunamaker: Basically, what you would do is you would just,
+
+64
+00:11:38.360 --> 00:11:41.950
+Tim Nunamaker: Create a blob separately, and then a reference would ride.
+
+65
+00:11:42.140 --> 00:11:48.299
+Tim Nunamaker: Would be attached into the record here, and would be resolvable externally.
+
+66
+00:11:50.270 --> 00:11:56.710
+Tim Nunamaker: So, one of the key design decisions that we've made within PDP is that…
+
+67
+00:11:56.960 --> 00:12:00.539
+Tim Nunamaker: Unlike some other protocols, for example, in open banking.
+
+68
+00:12:00.720 --> 00:12:08.160
+Tim Nunamaker: Where you make a request for data, and you get back a response, you're just getting the current snapshot of the data.
+
+69
+00:12:08.310 --> 00:12:19.680
+Tim Nunamaker: And if you want to understand how data changes over time, or what has changed since the last time you asked, there isn't really an affordance to do that.
+
+70
+00:12:20.140 --> 00:12:28.890
+Tim Nunamaker: I think Plaid is an interesting example in the market, where they actually moved away from sort of a static point in time
+
+71
+00:12:28.950 --> 00:12:41.939
+Tim Nunamaker: query model to a more cursor-based, like, streaming-over-time model, and that's the approach that we're taking in PDPP, because we think that that's actually a very valuable
+
+72
+00:12:42.260 --> 00:12:50.300
+Tim Nunamaker: way to… to expose data. Especially because so much personal data
+
+73
+00:12:51.010 --> 00:13:07.860
+Tim Nunamaker: kind of decays and is sort of rapidly… it's almost like it's alive. Like, every day you get new emails in your inbox, or every day you're performing more activity on social media. And so, how that's changing over time is really important, versus maybe, like.
+
+74
+00:13:08.130 --> 00:13:11.049
+Tim Nunamaker: A single snapshot of your data.
+
+75
+00:13:11.330 --> 00:13:14.880
+Tim Nunamaker: That could become outdated, fairly quickly.
+
+76
+00:13:14.990 --> 00:13:32.520
+Tim Nunamaker: So, PDPP, in order to accommodate streams, has a bunch of features and semantics about, for example, if a record is deleted, there might be a tombstone representing that that once existed and no longer exists.
+
+77
+00:13:33.760 --> 00:13:41.540
+Tim Nunamaker: And I think the other… Yeah, note about this is, if you're granting standing consent to data, so…
+
+78
+00:13:41.790 --> 00:13:43.600
+Tim Nunamaker: I want to give a one-time
+
+79
+00:13:43.770 --> 00:13:56.219
+Tim Nunamaker: Authorization to some client application to access my financial data whenever it wants to, or to access my medical records or social media posts whenever they want.
+
+80
+00:13:56.320 --> 00:14:00.229
+Tim Nunamaker: That could create value for me as a user of that product.
+
+81
+00:14:00.440 --> 00:14:09.460
+Tim Nunamaker: And in order for that to work, that application's probably going to need to read new data over time and fresh data.
+
+82
+00:14:11.740 --> 00:14:18.389
+Tim Nunamaker: I think something that we've… Learned in working with a whole bunch of different types of personal data.
+
+83
+00:14:18.500 --> 00:14:20.540
+Tim Nunamaker: at Open Data Labs in Invanna.
+
+84
+00:14:20.680 --> 00:14:23.920
+Tim Nunamaker: Is most personal data is actually immutable.
+
+85
+00:14:24.060 --> 00:14:25.260
+Tim Nunamaker: Meaning…
+
+86
+00:14:25.480 --> 00:14:37.970
+Tim Nunamaker: you see new records all the time, but the records that you get typically aren't going to change. So that could be, you write that Slack post, you could edit it, but most of the time you don't.
+
+87
+00:14:38.130 --> 00:14:42.589
+Tim Nunamaker: And… One of the decisions that we've made is that
+
+88
+00:14:42.850 --> 00:14:48.270
+Tim Nunamaker: By differentiating between records that are append-only versus mutable.
+
+89
+00:14:48.380 --> 00:14:54.169
+Tim Nunamaker: You can simplify the rules that client tooling and that the server
+
+90
+00:14:54.360 --> 00:14:57.189
+Tim Nunamaker: Has to play by for the majority of the data.
+
+91
+00:14:57.320 --> 00:15:05.819
+Tim Nunamaker: For example, if you can assume that this record is never going to change, then a client would never need to check again to see if it has changed.
+
+92
+00:15:06.250 --> 00:15:10.750
+Tim Nunamaker: Some data types, are expected to change.
+
+93
+00:15:11.060 --> 00:15:15.650
+Tim Nunamaker: my LinkedIn profile is going to change over the course of my career.
+
+94
+00:15:15.820 --> 00:15:19.870
+Tim Nunamaker: And so, it's important that we can model mutability.
+
+95
+00:15:20.100 --> 00:15:28.439
+Tim Nunamaker: One simplification that we could make in the protocol is to just say that all data is mutable, and that reduces
+
+96
+00:15:28.640 --> 00:15:35.109
+Tim Nunamaker: Sort of the different rules that tools have to follow and that conformance requires.
+
+97
+00:15:35.310 --> 00:15:38.740
+Tim Nunamaker: And so, this is kind of an optimization, and we're still weighing.
+
+98
+00:15:38.880 --> 00:15:43.520
+Tim Nunamaker: What the right… Side of that scale is.
+
+99
+00:15:44.740 --> 00:15:53.010
+Anna Kazlauskas: One perspective I'd be curious to hear from… Caleb, I don't want to put you on the spot, but I know you work on, kind of, data exports more from the platform side.
+
+100
+00:15:53.300 --> 00:15:57.630
+Anna Kazlauskas: What do you think of, like, when you think about creating a personal data export.
+
+101
+00:15:57.800 --> 00:16:06.069
+Anna Kazlauskas: Do you think of it as the historic dump of a user's data is pretty much immutable, or are you often, like, updating different aspects of it?
+
+102
+00:16:09.940 --> 00:16:11.389
+Caleb: Usually immutable.
+
+103
+00:16:11.720 --> 00:16:12.550
+Caleb: Cloud.
+
+104
+00:16:12.700 --> 00:16:18.130
+Caleb: now I'm thinking about, this mutable state and running things through my head, so… No.
+
+105
+00:16:23.580 --> 00:16:25.120
+Tim Nunamaker: Cool.
+
+106
+00:16:25.820 --> 00:16:31.270
+Tim Nunamaker: So here's just a very simple manifest, so you can have an idea of what that looks like.
+
+107
+00:16:31.700 --> 00:16:36.740
+Tim Nunamaker: We're basically defining What is this data source called?
+
+108
+00:16:37.050 --> 00:16:41.529
+Tim Nunamaker: And what streams does it contain within those streams?
+
+109
+00:16:41.760 --> 00:16:45.300
+Tim Nunamaker: What are the schemas, meaning what fields do they contain?
+
+110
+00:16:45.440 --> 00:16:50.160
+Tim Nunamaker: And just some semantics that this is a…
+
+111
+00:16:50.410 --> 00:16:54.359
+Tim Nunamaker: Mutable stream, like, here's where you can follow.
+
+112
+00:16:54.570 --> 00:16:58.990
+Tim Nunamaker: New records over time by looking at this field as a cursor.
+
+113
+00:16:59.300 --> 00:17:05.169
+Tim Nunamaker: Manifests actually can express a lot more semantics than this, and in PDPP,
+
+114
+00:17:05.730 --> 00:17:09.269
+Tim Nunamaker: Some of them are optional, so the degree to which
+
+115
+00:17:09.800 --> 00:17:15.949
+Tim Nunamaker: You can sort of make data filterable and rich and meaningful.
+
+116
+00:17:16.140 --> 00:17:24.339
+Tim Nunamaker: Just depends on how hard you want to work to bubble up all of those different, sort of semantic details.
+
+117
+00:17:27.050 --> 00:17:33.090
+Tim Nunamaker: maybe the most central design decision of PDPP is that…
+
+118
+00:17:33.280 --> 00:17:41.880
+Tim Nunamaker: There is no canonical data model for what is an email, what is a social media post, what is a bank statement.
+
+119
+00:17:42.110 --> 00:17:49.540
+Tim Nunamaker: I think people are probably familiar with things like schema.org and other protocols, including the Data Transfer Project.
+
+120
+00:17:49.840 --> 00:17:56.310
+Tim Nunamaker: They're designed around A common definition of a particular type of data.
+
+121
+00:17:56.700 --> 00:18:01.360
+Tim Nunamaker: We're making the choice to
+
+122
+00:18:02.180 --> 00:18:09.230
+Tim Nunamaker: kind of meet the data where it is. So, if you imagine the long tail of data on the internet, a lot of it
+
+123
+00:18:09.530 --> 00:18:16.199
+Tim Nunamaker: is probably fairly narrow in terms of the domain that it is defined in. There may not be
+
+124
+00:18:16.340 --> 00:18:23.930
+Tim Nunamaker: a bunch of data providers that are all providing the same kinds of data. There could be differences between how different
+
+125
+00:18:24.180 --> 00:18:30.380
+Tim Nunamaker: providers model different types of data. Some might have more rich data models than others.
+
+126
+00:18:30.490 --> 00:18:37.200
+Tim Nunamaker: And I would say the key trade-off that this comes with is if you wanted to, for example.
+
+127
+00:18:37.550 --> 00:18:46.170
+Tim Nunamaker: aggregate all of your transactions across different banks and credit card statements. You would then have to understand the schema for each one of those.
+
+128
+00:18:47.170 --> 00:18:55.109
+Tim Nunamaker: However, we're not saying that you can't create a shared schema, and there's also nothing preventing you from creating
+
+129
+00:18:55.310 --> 00:18:58.350
+Tim Nunamaker: Another shared schema that sort of sits on top of
+
+130
+00:18:58.480 --> 00:19:05.959
+Tim Nunamaker: the different banks' schemas, and defines mappings across those. So you can imagine something like
+
+131
+00:19:06.080 --> 00:19:11.980
+Tim Nunamaker: How Plaid sort of defined a common schema over existing
+
+132
+00:19:12.170 --> 00:19:18.189
+Tim Nunamaker: provider-specific schemas, that could definitely be built on top of PDPP. And…
+
+133
+00:19:18.360 --> 00:19:20.679
+Tim Nunamaker: I also think it's interesting that now that
+
+134
+00:19:21.030 --> 00:19:30.159
+Tim Nunamaker: AI agents are becoming more ubiquitous, and they're able to work with schemas very easily. The cost of needing to understand
+
+135
+00:19:30.280 --> 00:19:32.579
+Tim Nunamaker: You know, the next marginal schema.
+
+136
+00:19:32.730 --> 00:19:39.619
+Tim Nunamaker: may be approaching zero over time, and so I think this is a bet that we feel pretty good about.
+
+137
+00:19:39.900 --> 00:19:42.990
+Tim Nunamaker: And we have seen examples.
+
+138
+00:19:43.340 --> 00:19:46.890
+Tim Nunamaker: I think, of where… trying to…
+
+139
+00:19:47.010 --> 00:19:52.380
+Tim Nunamaker: Define in too much detail, or with too much abstraction.
+
+140
+00:19:52.550 --> 00:19:58.710
+Tim Nunamaker: Like, this is what this type of data looks like. Can be a pretty big impediment to adoption.
+
+141
+00:19:59.070 --> 00:20:03.099
+Tim Nunamaker: So we're just taking the opposite approach, and…
+
+142
+00:20:03.660 --> 00:20:06.660
+Tim Nunamaker: I guess we'll see how that goes, but I feel good about that.
+
+143
+00:20:11.360 --> 00:20:17.030
+Tim Nunamaker: Okay, so now we're moving into the client experience. How does a client
+
+144
+00:20:17.150 --> 00:20:24.649
+Tim Nunamaker: ask for data, which is in some resource server that is PDPP conformant, and
+
+145
+00:20:25.060 --> 00:20:28.609
+Tim Nunamaker: I think it's important to recognize that,
+
+146
+00:20:29.400 --> 00:20:48.940
+Tim Nunamaker: it actually starts with a client. It doesn't start with a user or the data source provider. The client is basically able to ask for access in sort of the same way that an OAuth client can ask for access to a Google user's Drive account or a Dropbox user's storage.
+
+147
+00:20:49.110 --> 00:20:53.190
+Tim Nunamaker: This just reduces some of the friction in the process.
+
+148
+00:20:53.620 --> 00:20:58.639
+Tim Nunamaker: So that the client application that wants access can initiate the process.
+
+149
+00:20:59.390 --> 00:21:03.409
+Tim Nunamaker: And… What that looks like is a request.
+
+150
+00:21:03.590 --> 00:21:09.519
+Tim Nunamaker: Where the client needs to specify not only what data
+
+151
+00:21:09.930 --> 00:21:14.310
+Tim Nunamaker: do they want access to? Specifically, what streams and fields within
+
+152
+00:21:14.520 --> 00:21:22.670
+Tim Nunamaker: The data, but also what, purpose are they requesting access for? What commitments are they making?
+
+153
+00:21:22.950 --> 00:21:25.439
+Tim Nunamaker: About how the data will be treated.
+
+154
+00:21:25.730 --> 00:21:30.719
+Tim Nunamaker: And… We'll talk a little bit more about this, I think.
+
+155
+00:21:31.150 --> 00:21:41.309
+Tim Nunamaker: this is where we start to see PDPP is a bit opinionated about what it means for data to become portable, and we really want to
+
+156
+00:21:41.620 --> 00:21:48.569
+Tim Nunamaker: make this work well for end users. And we think that with enough control.
+
+157
+00:21:49.360 --> 00:22:00.650
+Tim Nunamaker: Authorization servers can do better than just, say, like, in OAuth, you just see something like, this application wants to use your account, and as a user, that could be a little bit confusing.
+
+158
+00:22:01.360 --> 00:22:09.250
+Tim Nunamaker: Maybe one detail here to point out is… Clients can actually ask for
+
+159
+00:22:09.470 --> 00:22:13.420
+Tim Nunamaker: optional access to data. So in this example.
+
+160
+00:22:13.600 --> 00:22:21.120
+Tim Nunamaker: I need the top artists for this user's data. If they're interested in giving me tracks that they've saved.
+
+161
+00:22:21.330 --> 00:22:28.269
+Tim Nunamaker: then I can use that in the experience that I'm creating for them. But if not, I can live without it.
+
+162
+00:22:28.800 --> 00:22:33.060
+Tim Nunamaker: And then the user in the UI could indicate whether or not they want to share that data.
+
+163
+00:22:35.740 --> 00:22:36.860
+Tim Nunamaker: So…
+
+164
+00:22:37.530 --> 00:22:40.160
+Anna Kazlauskas: I think one question… Sara, I see you have a question. Do you want to jump in?
+
+165
+00:22:41.000 --> 00:22:44.889
+Sara Saab: Sure, yeah, thank you. Is it okay to ask a question now, Tim?
+
+166
+00:22:45.130 --> 00:22:45.730
+Sara Saab: Join us?
+
+167
+00:22:45.730 --> 00:22:46.440
+Tim Nunamaker: I go for it.
+
+168
+00:22:46.440 --> 00:22:59.859
+Sara Saab: So this was… I was dogfooding a little bit the other day, and I put this on GitHub as an issue as well. Like, the one… the one thing I wondered is, like, is there… is there a representation or semantics around inventory? Like,
+
+169
+00:22:59.920 --> 00:23:14.110
+Sara Saab: Should the client know what the entire, like, corpus of streams available are by querying the resource server? Should there be a way to know that, or you have to come in knowing what you want?
+
+170
+00:23:14.570 --> 00:23:21.510
+Tim Nunamaker: No, I think that's a great question. I think, it's a little bit of an open question that we want to figure out this month.
+
+171
+00:23:21.760 --> 00:23:27.560
+Tim Nunamaker: And my default answer to that question is, a client shouldn't be able to know
+
+172
+00:23:28.000 --> 00:23:31.159
+Tim Nunamaker: all of the data that a user has, that's data in itself.
+
+173
+00:23:31.400 --> 00:23:37.390
+Tim Nunamaker: Like, you can imagine if your entire digital life is connected into some single personal server.
+
+174
+00:23:37.530 --> 00:23:45.340
+Tim Nunamaker: then learning about what's on that server is already pretty revealing. So, I think in the sense that,
+
+175
+00:23:46.360 --> 00:23:48.570
+Tim Nunamaker: like many APIs.
+
+176
+00:23:49.010 --> 00:24:01.679
+Tim Nunamaker: will define scopes in OAuth. Here's what you can access. There are also scopes for being able to see what data exists that you… or being able to learn what you can then subsequently request access for.
+
+177
+00:24:01.760 --> 00:24:09.099
+Tim Nunamaker: So I think directionally, that's where we want to go. I think the current spec may not fully, like, have all of that written up.
+
+178
+00:24:14.090 --> 00:24:23.009
+Tim Nunamaker: So PDPP is pretty clear about there being maybe these three different categories of promises that
+
+179
+00:24:23.680 --> 00:24:31.939
+Tim Nunamaker: need to be made when consent is given to data, and the first one is easy. Anything that the protocol can enforce
+
+180
+00:24:32.150 --> 00:24:38.710
+Tim Nunamaker: Like, from the user's perspective, is clear. Okay, I'm granting access to
+
+181
+00:24:39.060 --> 00:24:50.010
+Tim Nunamaker: these fields within my emails, and I trust this authorization server to enforce those rules, and those promises are sort of guaranteed implicitly.
+
+182
+00:24:50.600 --> 00:24:53.240
+Tim Nunamaker: But then there are promises that
+
+183
+00:24:53.540 --> 00:25:02.399
+Tim Nunamaker: The client could make about the data that the authorization server can't necessarily enforce, but that should still be communicated clearly.
+
+184
+00:25:02.600 --> 00:25:05.109
+Tim Nunamaker: And that the user should still
+
+185
+00:25:05.260 --> 00:25:17.300
+Tim Nunamaker: be able to consider. Some of those may be machine-readable. For example, what is the code that expresses what the purpose for the use is?
+
+186
+00:25:17.530 --> 00:25:20.980
+Tim Nunamaker: how long will data be retained? Obviously.
+
+187
+00:25:21.460 --> 00:25:26.800
+Tim Nunamaker: The authorization server can't control when data gets deleted on
+
+188
+00:25:26.980 --> 00:25:34.860
+Tim Nunamaker: The client application, server, but that should at least be Sort of communicated clearly.
+
+189
+00:25:35.290 --> 00:25:42.939
+Tim Nunamaker: And then some claims by the client may not be programmatically consumable. They could just be messages to the user.
+
+190
+00:25:43.110 --> 00:25:46.280
+Tim Nunamaker: We're only going to use this data for XYZ.
+
+191
+00:25:46.380 --> 00:25:49.459
+Tim Nunamaker: And… It's important that
+
+192
+00:25:49.940 --> 00:25:58.469
+Tim Nunamaker: The authorization server makes it clear that these are things that the client is saying, they can't be guaranteed, but
+
+193
+00:25:58.870 --> 00:26:06.219
+Tim Nunamaker: There's, like, a framework where those claims need to be like, clearly denoted, and…
+
+194
+00:26:06.810 --> 00:26:14.920
+Tim Nunamaker: Hopefully, this helps, users understand, sort of, the terms that they're agreeing to with clients who are requesting access.
+
+195
+00:26:15.220 --> 00:26:19.020
+Tim Nunamaker: We also have this sort of special case called out in the protocol.
+
+196
+00:26:19.430 --> 00:26:27.949
+Tim Nunamaker: where… just because of the nature of AI training, and how it's really hard to sort of untrained…
+
+197
+00:26:28.380 --> 00:26:32.560
+Tim Nunamaker: Your data out of… say, Frontier LLMs.
+
+198
+00:26:32.760 --> 00:26:36.279
+Tim Nunamaker: We really want that to be an explicit
+
+199
+00:26:36.460 --> 00:26:44.740
+Tim Nunamaker: consent option in this particular flow, so if a client wants to use data for AI training,
+
+200
+00:26:45.010 --> 00:26:48.179
+Tim Nunamaker: At the moment in the spec, that should be made explicit.
+
+201
+00:26:53.040 --> 00:27:01.760
+Tim Nunamaker: The spec, though, it doesn't say how visual design needs to look in the authorization server, what copy needs to be used.
+
+202
+00:27:01.960 --> 00:27:10.870
+Tim Nunamaker: what visual language or layout needs to be used. It's more about, clearly distingu- making a distinction between
+
+203
+00:27:11.160 --> 00:27:17.709
+Tim Nunamaker: What the unenforceable client claims are, and the, sort of, protocol-enforced terms are.
+
+204
+00:27:18.410 --> 00:27:21.579
+Tim Nunamaker: Yeah, so OAuth basically just…
+
+205
+00:27:22.060 --> 00:27:26.709
+Tim Nunamaker: Leaves it open, everybody says, this app wants to access your account, and that's it.
+
+206
+00:27:29.290 --> 00:27:35.180
+Tim Nunamaker: So we've talked about some of the key design decisions, related to…
+
+207
+00:27:35.300 --> 00:27:42.480
+Tim Nunamaker: modeling the data and requesting access to the data. And just to recap some of those, Data is…
+
+208
+00:27:42.720 --> 00:27:45.160
+Tim Nunamaker: Either modeled as mutable or immutable.
+
+209
+00:27:45.540 --> 00:27:49.760
+Tim Nunamaker: There are no canonical data models in the protocol.
+
+210
+00:27:49.950 --> 00:27:54.049
+Tim Nunamaker: And… consent UIs need to have clear semantics.
+
+211
+00:27:56.850 --> 00:28:09.209
+Tim Nunamaker: So, I would love to open it up for some discussion or additional questions. You can jump to the website here if you want to read more of the details in the standard itself.
+
+212
+00:28:09.380 --> 00:28:24.769
+Tim Nunamaker: There's also a personal server that you can run if you want to play around with this, and you can build a data connector to drop your own data in if it's not already supported. And, of course, we're in the Discord server, and are happy to hear from you.
+
+213
+00:28:25.200 --> 00:28:29.889
+Tim Nunamaker: So I guess at this point, I'll just open it up, or…
+
+214
+00:28:30.010 --> 00:28:35.739
+Tim Nunamaker: And if you have any additional thoughts you want to share before we shift into some open questions, feel welcome.
+
+215
+00:28:36.040 --> 00:28:38.200
+Anna Kazlauskas: I have… yeah, actually.
+
+216
+00:28:38.430 --> 00:28:47.650
+Anna Kazlauskas: Karen, I don't want to put you on the spot, and I know we haven't met yet, but I think you're from the… coming from the IEEE side, where I feel like you have a really interesting, like, standard setting of
+
+217
+00:28:47.830 --> 00:28:54.630
+Anna Kazlauskas: the internet, of Wi-Fi, of Ethernet, and I think that some of the questions that Tim is surfacing are.
+
+218
+00:28:54.750 --> 00:28:55.909
+Anna Kazlauskas: on, like.
+
+219
+00:28:56.520 --> 00:29:14.619
+Anna Kazlauskas: kind of how opinionated should a standard be, and how much should be, like, technically enforced versus legally enforced. So, for example, the trade-offs of, stating, this is what the data will be used for versus, like, cryptographically enforcing it. So I'd be curious how you all have managed the trade-off of, like.
+
+220
+00:29:14.770 --> 00:29:18.390
+Anna Kazlauskas: Yeah, basically, how should… how opinionated should a standard be?
+
+221
+00:29:19.060 --> 00:29:20.810
+Karen Mulberry: Well, and first things.
+
+222
+00:29:21.240 --> 00:29:28.869
+Karen Mulberry: In the standards development process, it's based upon the group that is developing the standard in terms of the content.
+
+223
+00:29:29.820 --> 00:29:39.189
+Karen Mulberry: Personally, I don't like a standard to be too opinionated. It should provide a framework for how things should operate.
+
+224
+00:29:39.330 --> 00:29:47.130
+Karen Mulberry: And in particular, that framework needs to be structured so it's safe and secure, and, and…
+
+225
+00:29:47.270 --> 00:29:50.449
+Karen Mulberry: Transparent to all who are trying to implement it.
+
+226
+00:29:51.070 --> 00:29:57.180
+Karen Mulberry: And that interoperability, I think, is very important when you're looking at a standard.
+
+227
+00:29:59.050 --> 00:30:02.920
+Karen Mulberry: But in, you know, in terms of the protocol that you're trying to build here.
+
+228
+00:30:03.510 --> 00:30:05.779
+Karen Mulberry: You know, a couple of things come to mind.
+
+229
+00:30:07.850 --> 00:30:11.409
+Karen Mulberry: I mean, is there a standard set, a data set.
+
+230
+00:30:11.850 --> 00:30:13.809
+Karen Mulberry: For the information to begin with.
+
+231
+00:30:17.850 --> 00:30:29.179
+Karen Mulberry: I mean, because I think, you know, if everyone can agree that in a digital identity environment, there's this standard set of data elements.
+
+232
+00:30:29.320 --> 00:30:45.770
+Karen Mulberry: I mean, others can be added to it, but there should be a standard set, you know, your name, or your address or something, that is always common amongst all of the various applications that are using a digital identity.
+
+233
+00:30:46.120 --> 00:30:48.230
+Karen Mulberry: I think that would be very important.
+
+234
+00:30:48.490 --> 00:31:00.310
+Karen Mulberry: To note, because then, you know, what you're trying to do in terms of the portability of things, it becomes much easier to say, with the standard set, here's how you can actually move it around and do things.
+
+235
+00:31:04.990 --> 00:31:12.180
+Karen Mulberry: And you may have already talked about it, I was more in listening mode, trying to learn, than anything else right now.
+
+236
+00:31:12.470 --> 00:31:21.639
+Anna Kazlauskas: No, I think that's a great point. Like, it, I think one of Tim's earlier slides kind of is looking at some of this trade-off, right, where there is no…
+
+237
+00:31:23.180 --> 00:31:39.350
+Anna Kazlauskas: kind of… for example, like, one application could call something home address, and another one could call it just address, right? And because of that, then someone could actually have the right information to make it easily portable, but it might not be immediately obvious to
+
+238
+00:31:39.350 --> 00:31:46.639
+Anna Kazlauskas: the second or third application, because the data is kind of named something different. Yeah, that's a really good point.
+
+239
+00:31:47.100 --> 00:31:55.019
+Karen Mulberry: Yeah, I mean, I… you know, in a past life, I was involved with trying to manage a lot of data in disparate systems.
+
+240
+00:31:55.360 --> 00:32:09.520
+Karen Mulberry: And came across the fact that we had similar data in all the systems called something different. And it took quite a bit to come up with a flat file with common elements that could be used to populate all the databases.
+
+241
+00:32:11.510 --> 00:32:31.000
+Karen Mulberry: So I'm thinking, well, you know, this could be another area where, you know, you can indicate as part of what you're developing. These are the common fields that should be defined and implemented in any kind of digital identity environment.
+
+242
+00:32:32.340 --> 00:32:42.679
+Karen Mulberry: Now, it might already exist, I don't know, but, you know, somewhere, somehow, there has to be an agreement as to the basic elements in this all.
+
+243
+00:32:45.170 --> 00:32:48.630
+Karen Mulberry: And then what the definitions of taxonomy that everyone's using.
+
+244
+00:32:51.200 --> 00:32:56.719
+Tim Nunamaker: Yeah, I think, so, to some extent, I think it probably depends on
+
+245
+00:32:56.930 --> 00:33:02.620
+Tim Nunamaker: the domain, so within certain domains, interoperability.
+
+246
+00:33:02.850 --> 00:33:06.210
+Tim Nunamaker: Is going to be very valuable, and there should be
+
+247
+00:33:06.530 --> 00:33:09.299
+Tim Nunamaker: A lot of overlap between
+
+248
+00:33:09.550 --> 00:33:13.330
+Tim Nunamaker: What different providers would model in the data.
+
+249
+00:33:13.530 --> 00:33:22.549
+Tim Nunamaker: in some cases, there may be data that's unique to a specific company or a specific situation.
+
+250
+00:33:22.740 --> 00:33:26.230
+Tim Nunamaker: And it might be difficult to anticipate
+
+251
+00:33:26.660 --> 00:33:28.479
+Tim Nunamaker: how to model that, and so I think
+
+252
+00:33:28.730 --> 00:33:33.250
+Tim Nunamaker: Kind of what you're saying about… creating… Framework.
+
+253
+00:33:33.610 --> 00:33:36.660
+Tim Nunamaker: Could… could offer a path for…
+
+254
+00:33:36.780 --> 00:33:42.159
+Tim Nunamaker: That particular company or users interested in that, making that data portable.
+
+255
+00:33:42.290 --> 00:33:45.319
+Tim Nunamaker: To define what is the data type.
+
+256
+00:33:45.450 --> 00:33:46.650
+Tim Nunamaker: that…
+
+257
+00:33:47.040 --> 00:33:52.840
+Tim Nunamaker: could sort of be the standard for interoperability there. I think maybe we need to think a little bit more about
+
+258
+00:33:53.720 --> 00:34:00.440
+Tim Nunamaker: How to balance The unique shapes of data in different platforms.
+
+259
+00:34:00.620 --> 00:34:03.749
+Tim Nunamaker: And what those differences are with…
+
+260
+00:34:04.840 --> 00:34:07.180
+Tim Nunamaker: Sort of cutting down the friction.
+
+261
+00:34:07.370 --> 00:34:11.830
+Tim Nunamaker: And… Being able to import it and export it in different systems, so…
+
+262
+00:34:12.750 --> 00:34:19.619
+Karen Mulberry: Well, and it would be useful in the beginning of… that you can say, okay, for address, we mean this.
+
+263
+00:34:20.030 --> 00:34:27.290
+Karen Mulberry: You know, and if you have 4 or 5 common elements, it doesn't preclude others from adding to that.
+
+264
+00:34:27.460 --> 00:34:34.809
+Karen Mulberry: For their particular application or need. But at least all systems would recognize the four common elements.
+
+265
+00:34:35.199 --> 00:34:44.300
+Karen Mulberry: So that provides you with that pathway to portability, and that pathway to use, you know, the protocol you're trying to develop here.
+
+266
+00:34:46.770 --> 00:34:56.820
+Tim Nunamaker: Yeah, and there may be existing… resources, or maybe, like, schema.org, data models within DTP
+
+267
+00:34:57.210 --> 00:35:00.800
+Tim Nunamaker: We may be able to better support compatibility.
+
+268
+00:35:00.930 --> 00:35:08.549
+Tim Nunamaker: With common definitions of data types, and make that a sort of first-class Path within the protocol.
+
+269
+00:35:08.830 --> 00:35:16.760
+Karen Mulberry: Yeah, I mean, I think that would be very useful, and then make your protocol, then, very, attractive.
+
+270
+00:35:17.190 --> 00:35:20.880
+Karen Mulberry: For people to use, because it's built upon common elements.
+
+271
+00:35:23.990 --> 00:35:27.649
+Anna Kazlauskas: I think one place where my mind goes from this, too, is,
+
+272
+00:35:27.770 --> 00:35:45.389
+Anna Kazlauskas: To what extent is that translation layer built into the protocol versus something on top of the protocol, which is kind of consuming and translating the different schemas? Especially thinking about all the different types of data that could come in,
+
+273
+00:35:46.090 --> 00:35:51.159
+Anna Kazlauskas: I know, actually, one perspective that could be interesting… Melbin, I know you've worked with a lot of coding data.
+
+274
+00:35:51.160 --> 00:36:06.530
+Anna Kazlauskas: I would be curious… oh, bye, Caleb, thanks for joining, thanks for joining super early in SF, and now hopping on an odd call issue. But, Melbin, like, if there was a format for Agentic coding data, and you were using… would that be the same format as, like.
+
+275
+00:36:06.630 --> 00:36:14.649
+Anna Kazlauskas: Agentic coding data from Claude Code and from Codex, or would it vary between platforms?
+
+276
+00:36:17.380 --> 00:36:29.700
+Melbin Thomas Jose: Sorry. So, one of the, things that… I mean, this is a very important discussion, and it's something that we also grappled with, to standardize the kind of data that we are actually collecting,
+
+277
+00:36:29.900 --> 00:36:42.580
+Melbin Thomas Jose: So, there are two problems here. One is Agentic coding, which is a content piece, and the other piece that we are talking about standardizing is the identity or identification of certain elements of the data contributor itself.
+
+278
+00:36:42.650 --> 00:36:56.120
+Melbin Thomas Jose: Right, so what we did is, we… to solve the first problem, we basically narrowed down the, scope within which the data contribution was happening. So we put up bounties.
+
+279
+00:36:56.310 --> 00:37:06.510
+Melbin Thomas Jose: to solve certain problems. So every data that gets solved for that particular problem gets attributed to something similar over there. We can use some kind of semantic
+
+280
+00:37:06.510 --> 00:37:18.660
+Melbin Thomas Jose: search semantic, attribution to basically do that. The other bit about the identity, what we did is in the application itself, we maintained a,
+
+281
+00:37:18.660 --> 00:37:23.410
+Melbin Thomas Jose: A way that only one identity pursued throughout.
+
+282
+00:37:23.410 --> 00:37:34.930
+Melbin Thomas Jose: different sessions. So, we had three platforms. One is the, one is our web platform, where you would actually look at how you're doing, what kind of data you contributed. One was…
+
+283
+00:37:34.930 --> 00:37:59.289
+Melbin Thomas Jose: the contribution itself happening in a VS Code environment, or a VS Code extension, basically. So the login into the VS Code extension and the login on the web platform was the same route, so we basically redirected it that way to basically get it. So, the identity always remained the same of the data contributor, and what we did is we created a wallet, which was actually a VANA wallet that we created.
+
+284
+00:37:59.470 --> 00:38:04.419
+Melbin Thomas Jose: For the users over there, the moment they signed up, and it was a completely…
+
+285
+00:38:04.530 --> 00:38:09.930
+Melbin Thomas Jose: account abstracted wallet that we created. So that wallet becomes that one source of…
+
+286
+00:38:10.070 --> 00:38:24.550
+Melbin Thomas Jose: not, I would say, truth, but I would say one source of identifying the user. That's kind of how we practically implemented it, at that time, since there was no standard existing. But yeah, that's… if that helps in basically putting a mental
+
+287
+00:38:24.760 --> 00:38:26.439
+Melbin Thomas Jose: Model in place, and yeah.
+
+288
+00:38:26.910 --> 00:38:46.620
+Anna Kazlauskas: Yeah, yeah, it's sort of like, there's some data which is shared across platforms and environments, but then there's other data that ends up being pretty specific, right? Of like, okay, this particular coding task was trying to accomplish this would be super unrelated to, like, an export from Airbnb, right? Or an export from another data source. Interesting.
+
+289
+00:38:49.590 --> 00:38:54.639
+Melbin Thomas Jose: One… another thing I wanted to add is I was working with another project called Decide AI,
+
+290
+00:38:54.890 --> 00:39:06.459
+Melbin Thomas Jose: So these guys, initially, for data contributions, those guys, basically, that is, they solve the identity problem first. It's like, give everyone an identity first.
+
+291
+00:39:06.740 --> 00:39:16.639
+Melbin Thomas Jose: onboard people, get them an identity. So, that one unique identifier of the data contributor persists, and then you basically have to have plugins for other
+
+292
+00:39:16.720 --> 00:39:32.370
+Melbin Thomas Jose: other, platforms. So if you, for example, if you're integrating with Airbnb, so there needs to be custom integrations for each of these platforms that we're collecting data from. Becomes cumbersome, but yeah, it's a problem that needs to be solved, because
+
+293
+00:39:32.370 --> 00:39:39.139
+Melbin Thomas Jose: Unified entities is a touchy topic politically as well, because it can also be misused. So, yeah.
+
+294
+00:39:45.260 --> 00:39:49.699
+Tim Nunamaker: Interesting. I'm just thinking about… If you don't have a unified identity.
+
+295
+00:39:50.930 --> 00:40:00.439
+Tim Nunamaker: like, what are the key problems? Let's say you're collecting data from multiple sources, and they all have some identity information associated with those.
+
+296
+00:40:01.020 --> 00:40:08.209
+Tim Nunamaker: you have to do some work to tie them together. Are there particular problems that jump to mind?
+
+297
+00:40:08.470 --> 00:40:14.099
+Tim Nunamaker: For you with that, like, somebody can use different email addresses, or you may need to verify
+
+298
+00:40:14.320 --> 00:40:16.160
+Tim Nunamaker: Identity multiple times.
+
+299
+00:40:19.050 --> 00:40:22.570
+Karen Mulberry: Well, and you say, the first thing that comes to my mind is more security.
+
+300
+00:40:22.740 --> 00:40:26.420
+Karen Mulberry: I mean, you're dependent upon mapping things correctly to the right spot.
+
+301
+00:40:26.890 --> 00:40:31.509
+Karen Mulberry: Which leaves a lot of openings for mischief.
+
+302
+00:40:42.490 --> 00:40:44.999
+Tim Nunamaker: That makes sense. I think something that…
+
+303
+00:40:45.150 --> 00:40:55.350
+Tim Nunamaker: the protocol hasn't yet solved for in the current version, which we're still working on. Is… let's say…
+
+304
+00:40:55.530 --> 00:40:57.430
+Tim Nunamaker: a plot, let's say Airbnb.
+
+305
+00:40:57.800 --> 00:41:07.550
+Tim Nunamaker: is conformant with PDPP, and has an authorization server with identity associated with Airbnb. To some extent, as a client.
+
+306
+00:41:08.280 --> 00:41:11.549
+Tim Nunamaker: if I know it's Airbnb, like, I can trust
+
+307
+00:41:11.970 --> 00:41:15.059
+Tim Nunamaker: What that identity is, and what the implications of that are.
+
+308
+00:41:15.390 --> 00:41:19.900
+Tim Nunamaker: Versus if somebody in the community builds an adapter
+
+309
+00:41:20.120 --> 00:41:24.059
+Tim Nunamaker: For… for Airbnb, like a data connector.
+
+310
+00:41:24.620 --> 00:41:34.329
+Tim Nunamaker: maybe if that data isn't coming directly from Airbnb, but it's been collected or exported another way, then…
+
+311
+00:41:34.880 --> 00:41:39.320
+Tim Nunamaker: the assumptions that I can make about the nature of the data are a little bit different.
+
+312
+00:41:39.470 --> 00:41:47.940
+Tim Nunamaker: And so maybe there's… maybe this is where Providence comes in more, Sarah, like… Having more of a…
+
+313
+00:41:48.560 --> 00:41:58.129
+Tim Nunamaker: whether it's a proof of providence, or there's some trust elements, or maybe, like, a trust registry, similar to DTI's trust registry.
+
+314
+00:41:58.290 --> 00:42:01.590
+Tim Nunamaker: Maybe these… these components start to become more relevant.
+
+315
+00:42:01.760 --> 00:42:05.679
+Tim Nunamaker: So maybe this is something that we can explore a little bit more.
+
+316
+00:42:06.680 --> 00:42:08.850
+Tim Nunamaker: In this iteration of the spec.
+
+317
+00:42:09.190 --> 00:42:27.040
+Sara Saab: Something that's in my mind is, like, is this a one-way door that needs to be solved, like, right at the beginning of launch, or can it become… like, it feels to me like there will probably be some kind of, like, semantic matching, as well as, like, being able to match across, like, a strong identity framework that needs to be supported always.
+
+318
+00:42:27.220 --> 00:42:35.159
+Sara Saab: I don't know, maybe that's… that's not true, but, like, it feels that maybe the identity framework can be layered on,
+
+319
+00:42:35.540 --> 00:42:40.969
+Sara Saab: Because we do a little bit of work on corroboration and trust signals at Prolific, and
+
+320
+00:42:41.120 --> 00:42:51.500
+Sara Saab: I'm… yeah, I think it's, like, non-trivial lift, I would say. I don't know if others feel different. So yeah, I'm just thinking about, like, one-way door and two-way door decision points on this.
+
+321
+00:42:52.990 --> 00:42:55.010
+Tim Nunamaker: I think that's a good point, and…
+
+322
+00:42:55.480 --> 00:42:59.080
+Tim Nunamaker: when Anne and I were working on data collectives, and…
+
+323
+00:42:59.260 --> 00:43:06.200
+Tim Nunamaker: in that context, provenance is pretty important. Like, if you're pooling your data with other people.
+
+324
+00:43:06.420 --> 00:43:09.030
+Tim Nunamaker: And you want… some…
+
+325
+00:43:09.760 --> 00:43:22.429
+Tim Nunamaker: some evidence that your data is worth something, or that it fits the collective, like, how is that expressed? And I think, to me, that's… it seems like more of a…
+
+326
+00:43:22.830 --> 00:43:27.199
+Tim Nunamaker: A future decision that can be layered on later on.
+
+327
+00:43:27.310 --> 00:43:31.130
+Tim Nunamaker: Like, just attaching…
+
+328
+00:43:31.560 --> 00:43:45.140
+Tim Nunamaker: a ZK proof, or whatever it is, that can be verified, doesn't have to redefine the data model, but it can extend it, or it could be an extension to the protocol, like a profile over the protocol.
+
+329
+00:43:50.710 --> 00:44:02.650
+Anna Kazlauskas: I think the idea, Karen, that you're bearing up around mischief is, like, really interesting to explore. Like, what is… what does mischief even mean, right? And, like, what provenance guarantees should be baked in at
+
+330
+00:44:02.720 --> 00:44:12.460
+Anna Kazlauskas: the protocol layer versus of, like, an applic… sort of, yeah, where exactly is the trust? And I think that, to date with PDPP, we've really relied on
+
+331
+00:44:12.540 --> 00:44:16.699
+Anna Kazlauskas: actually being pretty neutral towards, okay, this…
+
+332
+00:44:16.730 --> 00:44:35.350
+Anna Kazlauskas: this is expressing this, but we're not actually verifying, is this checked? Is this coming from… We can know this came from this identity, but if somebody is, like, using a data connector, and connecting, say, their ChatGBT data via a data connector, you don't actually know that it came
+
+333
+00:44:35.430 --> 00:44:42.199
+Anna Kazlauskas: directly from ChatGBT, right? Unless they're support… OpenAI is supporting PDPP. Really? Yeah.
+
+334
+00:44:42.200 --> 00:44:44.429
+Karen Mulberry: And there's… and there's so much spoofing out there.
+
+335
+00:44:45.520 --> 00:44:49.049
+Karen Mulberry: I mean, so, how… how do you know?
+
+336
+00:44:49.480 --> 00:45:01.140
+Karen Mulberry: And I… and I know that's more and more of a concern from, a lot of places. And, are the… is the data you're getting actually, a fake?
+
+337
+00:45:02.050 --> 00:45:05.990
+Karen Mulberry: Which then leads to all kinds of mischief and harm, potentially.
+
+338
+00:45:06.250 --> 00:45:10.530
+Karen Mulberry: Or is it… is it actually legitimate and reliable?
+
+339
+00:45:12.580 --> 00:45:21.709
+Anna Kazlauskas: Yeah. And I think a big question, too, is, like, who decides what is legitimate and reliable, right? Because, like, to one person, like, you could have an account that's,
+
+340
+00:45:21.950 --> 00:45:35.510
+Anna Kazlauskas: a real Spotify account that has had 2 years of history that someone connected, but it could be that somebody bought that on the dark internet, and while it's a real account, it's not actually that person's, right? And so I think that it also gets into these interesting questions of, like.
+
+341
+00:45:35.510 --> 00:45:44.820
+Anna Kazlauskas: what actually is the guarantee you're looking for? Is it that this data came from this platform exactly? Is it, like, this user owned this particular account and connected it?
+
+342
+00:45:44.820 --> 00:46:01.849
+Anna Kazlauskas: And I think, like, where I lean is actually being kind of more neutral, but adding more flexible ways of putting metadata onto it, so you can know, okay, it came from here, this proof is there, but not trying to make, too strong of a claim, because it seems like
+
+343
+00:46:01.890 --> 00:46:10.120
+Anna Kazlauskas: nearly impossible, like, even just making the claim, we know this data is legitimate, can, so many people can interpret that different ways, yeah.
+
+344
+00:46:10.300 --> 00:46:15.819
+Karen Mulberry: Yeah, I mean, and, you know, people are becoming risk-averse to a lot of things.
+
+345
+00:46:16.550 --> 00:46:22.630
+Karen Mulberry: So, in looking at the protocol, you don't want them to become risk-averse to using it.
+
+346
+00:46:22.920 --> 00:46:23.410
+Anna Kazlauskas: Yeah.
+
+347
+00:46:23.410 --> 00:46:25.849
+Karen Mulberry: You want to make this advantageous for them.
+
+348
+00:46:26.140 --> 00:46:32.250
+Karen Mulberry: So, just thinking about, you know, going back, you know, you have the common elements.
+
+349
+00:46:33.540 --> 00:46:44.480
+Karen Mulberry: I mean, if you have your name and your address, and you determine whether it's your home address or something, everybody has a name, an address, and even a telephone number that can be verified.
+
+350
+00:46:45.030 --> 00:46:50.280
+Karen Mulberry: So you start with a foundation of trust, I'm…
+
+351
+00:46:50.810 --> 00:46:52.759
+Karen Mulberry: Data elements that can be verified.
+
+352
+00:46:54.070 --> 00:47:05.400
+Karen Mulberry: Now, you may not have to build that into the protocol, but you can note that these are common data elements, and they're verifiable within the country, that you're working in.
+
+353
+00:47:09.950 --> 00:47:11.960
+Karen Mulberry: I mean, that might help a bit.
+
+354
+00:47:11.970 --> 00:47:14.730
+Melbin Thomas Jose: It could be because… Sorry.
+
+355
+00:47:14.750 --> 00:47:15.890
+Karen Mulberry: No, go ahead.
+
+356
+00:47:16.280 --> 00:47:25.549
+Melbin Thomas Jose: Oh, so yeah, this is one thing that we basically thought of tackling as well with our application. So, like I mentioned earlier, it was a,
+
+357
+00:47:26.100 --> 00:47:37.530
+Melbin Thomas Jose: extension on VS Code. So what we were tracking was, as users and, you know, run a program on the terminal, we used to know
+
+358
+00:47:37.530 --> 00:47:48.699
+Melbin Thomas Jose: We used to collect the output of that. Is it an error, or is it, like, did it execute successfully? So what ended up happening is we were build… we were essentially collecting the proof
+
+359
+00:47:49.010 --> 00:47:50.020
+Melbin Thomas Jose: Live.
+
+360
+00:47:50.530 --> 00:47:52.669
+Melbin Thomas Jose: Right, and attributing it to the user.
+
+361
+00:47:53.030 --> 00:47:58.130
+Melbin Thomas Jose: Right, so now we've formed unique signatures for each data point.
+
+362
+00:47:58.270 --> 00:48:00.180
+Melbin Thomas Jose: As it got recorded.
+
+363
+00:48:00.610 --> 00:48:11.429
+Melbin Thomas Jose: So that kind of a live collection, actually helps, in the sense even the metadata, like you mentioned, Anna, can be attributed to some kind of an action.
+
+364
+00:48:11.590 --> 00:48:24.330
+Melbin Thomas Jose: that actually led to it. So, if the protocol can actually… I don't know if the protocol can enforce it, but definitely the value of such a data becomes much higher, because now it's verifiable.
+
+365
+00:48:25.190 --> 00:48:31.769
+Melbin Thomas Jose: I mean… So, yeah, that's kind of how we basically built our product around this data collection, but yeah.
+
+366
+00:48:32.440 --> 00:48:33.280
+Melbin Thomas Jose: That's true.
+
+367
+00:48:33.600 --> 00:48:34.370
+Melbin Thomas Jose: Cheer.
+
+368
+00:48:37.700 --> 00:48:38.300
+Tim Nunamaker: And I think…
+
+369
+00:48:38.300 --> 00:48:57.349
+Anna Kazlauskas: That's a good point on kind of, like, real-time, like, if you can have… be collecting that, like, real-time, verification and metadata of, like, okay, this just happened, you've got some record that it happened, it's sort of signed in or verified in some way, and just have that built in, then it kind of lets you,
+
+370
+00:48:57.720 --> 00:49:08.089
+Anna Kazlauskas: almost on top of that, build other verifications, right? Where, like, then if a bunch of stuff is missing, okay, that's starting to look a little bit weird, right? And kind of having that automatically, writing back in.
+
+371
+00:49:08.600 --> 00:49:09.940
+Anna Kazlauskas: Sorry, Tim, go ahead.
+
+372
+00:49:10.650 --> 00:49:13.530
+Tim Nunamaker: No, I just think it's… it's interesting because
+
+373
+00:49:14.000 --> 00:49:26.860
+Tim Nunamaker: like, the set of all possible use cases and the set of different levels of verification and types of verification that you may want, to me, seems really varied and diverse. And so…
+
+374
+00:49:27.330 --> 00:49:29.990
+Tim Nunamaker: Building, a framework that
+
+375
+00:49:30.360 --> 00:49:34.520
+Tim Nunamaker: like, has a lot of flexibility, to me, it just makes a lot of sense, like.
+
+376
+00:49:34.670 --> 00:49:36.500
+Tim Nunamaker: What you would need to…
+
+377
+00:49:37.060 --> 00:49:45.460
+Tim Nunamaker: Like, send medical… sensitive medical records from one medical provider to another, versus what you would need in terms of verification.
+
+378
+00:49:45.470 --> 00:50:02.719
+Tim Nunamaker: or somebody just conveniently accessing their own notes, which the protocol could enable. Or maybe I have notes in two different platforms and I just want to access them with a single local personal assistant agent. I may not need verification for that.
+
+379
+00:50:02.770 --> 00:50:08.310
+Tim Nunamaker: Because it's my data, and I know where it comes from, and I'm not using it for anything.
+
+380
+00:50:08.480 --> 00:50:14.180
+Tim Nunamaker: That requires verification. And so, I think if we… pick
+
+381
+00:50:14.650 --> 00:50:20.820
+Tim Nunamaker: If we pick a side and only solve for that one side, we probably lose
+
+382
+00:50:20.990 --> 00:50:32.549
+Tim Nunamaker: a lot of valuable use cases. If we don't have any path for verification, then important verification use cases are just not possible. And if we…
+
+383
+00:50:33.060 --> 00:50:37.379
+Tim Nunamaker: Add, like, really rigorous verification in it, in the protocol.
+
+384
+00:50:37.550 --> 00:50:43.640
+Tim Nunamaker: Then that could cut out situations where I may not want to do the work to, like.
+
+385
+00:50:43.760 --> 00:50:47.160
+Tim Nunamaker: Create proof that the data is valid, because that's not actually needed.
+
+386
+00:50:47.290 --> 00:50:54.459
+Tim Nunamaker: So… Thinking of this in terms of layers, and also…
+
+387
+00:50:54.610 --> 00:50:59.899
+Tim Nunamaker: Creating bridges to other technology and other protocols that solve some of these problems.
+
+388
+00:51:00.370 --> 00:51:04.310
+Tim Nunamaker: feels like the direction that I would naturally orient to here.
+
+389
+00:51:09.670 --> 00:51:16.640
+Karen Mulberry: Well, I'm, you know, in thinking, actually, it might be interesting just to try and document a variety of use cases.
+
+390
+00:51:17.180 --> 00:51:21.309
+Karen Mulberry: And then see if you could… how the protocol might work with it.
+
+391
+00:51:25.740 --> 00:51:28.429
+Tim Nunamaker: Yeah, I think that's a really important point.
+
+392
+00:51:28.600 --> 00:51:36.160
+Tim Nunamaker: And… like, Anna and I have worked
+
+393
+00:51:36.370 --> 00:51:39.079
+Tim Nunamaker: And a pretty wide, with a pretty wide.
+
+394
+00:51:39.630 --> 00:51:49.540
+Tim Nunamaker: types of data, and thinking about different use cases, but probably not all of them, and definitely not all the important ones. So, I think that's a good call-out.
+
+395
+00:51:50.060 --> 00:52:00.820
+Tim Nunamaker: To really, like, pressure test the protocol, we need to sort of pretty exhaustively go through what are the weird edge cases we haven't thought about, or what are the different
+
+396
+00:52:00.980 --> 00:52:09.820
+Tim Nunamaker: data providers or different consumers of data or clients that we haven't looked at directly. If you guys have any
+
+397
+00:52:10.390 --> 00:52:14.270
+Tim Nunamaker: Specific use cases in mind, or any references?
+
+398
+00:52:14.380 --> 00:52:17.329
+Tim Nunamaker: Would love to hear those, like.
+
+399
+00:52:18.300 --> 00:52:21.770
+Tim Nunamaker: Like, here in the chat, or later on,
+
+400
+00:52:22.300 --> 00:52:24.539
+Tim Nunamaker: Yeah, I think that's… I think that's important.
+
+401
+00:52:27.430 --> 00:52:38.290
+Anna Kazlauskas: I think, too, especially with, just how much the internet is changing with a lot of the, kind of, Agentic use, like, I exported my Cloud data recently, and…
+
+402
+00:52:38.290 --> 00:52:47.819
+Anna Kazlauskas: it's, like, 27 million tokens worth of text, and it's just, like, a crazy amount of data, right? And so also thinking about the use cases from the perspective of, like.
+
+403
+00:52:48.680 --> 00:53:01.599
+Anna Kazlauskas: what's that going to look like 3 years out, right? Probably my export is going to be, I don't know, like, 500 million tokens? Like, a billion tokens? Like, it's just gonna be a massive amount of data, and thinking through, like.
+
+404
+00:53:01.680 --> 00:53:18.530
+Anna Kazlauskas: what does that then mean? What are context windows gonna look like? Because I think often it's going to be that you're using PDPP to kind of grant access to pass data into an LLM. And so thinking through those patterns, both for, like.
+
+405
+00:53:18.730 --> 00:53:27.219
+Anna Kazlauskas: What is the current state of data and how it's moving on the internet, and especially where things are headed, just because things are kind of changing so quickly, too.
+
+406
+00:53:28.660 --> 00:53:38.760
+Anna Kazlauskas: I think that's all. I guess I'll pause. If there are any other questions people want to ask, or thoughts or comments, let me just pause for a minute or so.
+
+407
+00:53:43.510 --> 00:53:45.530
+Tim Nunamaker: Maybe one follow-up comment.
+
+408
+00:53:46.030 --> 00:53:55.030
+Tim Nunamaker: On the Agentic… like… like, frontier that we're in. I noticed that I actually don't know
+
+409
+00:53:55.630 --> 00:54:00.810
+Tim Nunamaker: within my… within my own coding agent data now, I don't always know
+
+410
+00:54:01.000 --> 00:54:06.210
+Tim Nunamaker: When it was me that said something versus another agent, like, driving another agent.
+
+411
+00:54:06.600 --> 00:54:14.640
+Tim Nunamaker: the lines are starting to blur more and more, and as I delegate more and more to agents, it's like…
+
+412
+00:54:14.900 --> 00:54:21.430
+Tim Nunamaker: what… what is my data? What is that agent's data? Like, it's all… it's all my data, but making sense of it
+
+413
+00:54:22.060 --> 00:54:23.409
+Tim Nunamaker: may get harder.
+
+414
+00:54:23.520 --> 00:54:25.149
+Tim Nunamaker: So I think that's interesting.
+
+415
+00:54:25.480 --> 00:54:48.490
+Anna Kazlauskas: Yeah, I actually was doing the breakdown on my ChatGPT data of this, so I had 6 million tokens in ChatGPT, and only 1 million of them were tokens I wrote, and then 3 million were generated by AI, and 2 million were tool calls, right? And so then it's also interesting to think about, like, okay, the majority of data is, like, my interactions with AI and the AI saying something back, and then how do we
+
+416
+00:54:48.490 --> 00:54:52.040
+Anna Kazlauskas: grant access and make that portable as well.
+
+417
+00:54:52.330 --> 00:55:06.789
+Anna Kazlauskas: Okay, well, thank you everyone for, like, joining and so actively participating in the discussion. I hope to see you all next week, and yeah, we'll be on Discord, and yeah, we'll see some of you too, I know, in Geneva as well.
+
+418
+00:55:08.370 --> 00:55:09.579
+Tim Nunamaker: Yeah, thank you, everyone.
+
+419
+00:55:09.580 --> 00:55:12.230
+Karen Mulberry: Wonderful, this was a great discussion, thank you.
+
+420
+00:55:12.230 --> 00:55:14.529
+Anna Kazlauskas: Yeah, what a pleasure. Okay, goodbye.
+

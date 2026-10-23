@@ -1,0 +1,2070 @@
+WEBVTT
+
+1
+00:02:40.510 --> 00:02:42.110
+Robert Walworth: Hello, everybody.
+
+2
+00:02:47.800 --> 00:02:49.170
+Angelina Ceppaluni: Aye, the.
+
+3
+00:04:36.260 --> 00:04:39.739
+Robert Walworth: Alright, we can probably go ahead and get started.
+
+4
+00:04:40.510 --> 00:04:43.140
+Robert Walworth: Go ahead and start with our SDK updates.
+
+5
+00:04:44.270 --> 00:04:46.279
+Robert Walworth: Did JS want to start?
+
+6
+00:04:47.220 --> 00:04:47.990
+Venilin Vasilev: Yes.
+
+7
+00:04:49.330 --> 00:04:50.120
+Robert Walworth: Alrighty.
+
+8
+00:04:52.920 --> 00:04:56.429
+Venilin Vasilev: So, for the JS SDK,
+
+9
+00:04:57.190 --> 00:05:07.880
+Venilin Vasilev: Vio has been able to set up the environment for the high-volume entity creation tests. He described it in the Client SDK team channel.
+
+10
+00:05:08.490 --> 00:05:17.320
+Venilin Vasilev: Oh… Also, he… did everything for the Ektra, but…
+
+11
+00:05:17.810 --> 00:05:26.669
+Venilin Vasilev: Not, like, anything… it couldn't be released because there is no stable tag for it.
+
+12
+00:05:28.710 --> 00:05:35.390
+Venilin Vasilev: Personally, from my side, I was working on the HIP1137.
+
+13
+00:05:35.930 --> 00:05:43.930
+Venilin Vasilev: I have the implementation… some kind of, ready. I see that…
+
+14
+00:05:44.560 --> 00:05:54.469
+Venilin Vasilev: There… the… probably the consensus note endpoints for the transaction… for the three new transactions are not present in the…
+
+15
+00:05:55.380 --> 00:05:57.309
+Venilin Vasilev: In Maine, currently.
+
+16
+00:05:57.550 --> 00:06:05.770
+Venilin Vasilev: But I'm gonna ping you later, Rob, so you can double-check in the HIP channel if this is the case, or maybe I'm missing something.
+
+17
+00:06:07.580 --> 00:06:14.920
+Venilin Vasilev: Oh… UVAIO is also, working on,
+
+18
+00:06:16.860 --> 00:06:22.780
+Venilin Vasilev: integrating, refactoring the SDK to use… Oh, the…
+
+19
+00:06:23.400 --> 00:06:30.490
+Venilin Vasilev: Turbo Repo, so it can be structured in a… in a monorepo, so we can leverage the…
+
+20
+00:06:30.940 --> 00:06:35.760
+Venilin Vasilev: the cachute use of the Turbo Repository, and
+
+21
+00:06:36.140 --> 00:06:46.609
+Venilin Vasilev: like, having the library built faster in the CI and in local development, And I guess…
+
+22
+00:06:46.750 --> 00:06:50.250
+Venilin Vasilev: That's pretty much for the JS SDK.
+
+23
+00:06:52.530 --> 00:06:59.469
+Robert Walworth: Yeah, I'll, yeah, sounds good. So, the 1137…
+
+24
+00:06:59.730 --> 00:07:03.350
+Robert Walworth: testing, I think I need to check with…
+
+25
+00:07:03.620 --> 00:07:09.209
+Robert Walworth: Keith on that, on how exactly that's going to work.
+
+26
+00:07:09.330 --> 00:07:18.189
+Robert Walworth: because as far as I know, Blocknode does use Solo for testing right now, but… I don't…
+
+27
+00:07:18.600 --> 00:07:26.920
+Robert Walworth: know exactly how they do their node discovery, or if it works the same way as, like, the consensus node update and create.
+
+28
+00:07:27.750 --> 00:07:32.039
+Robert Walworth: So, yeah, we'll… we'll need to… to figure that out.
+
+29
+00:07:32.350 --> 00:07:35.259
+Robert Walworth: And the, the Pectra, I think?
+
+30
+00:07:35.420 --> 00:07:37.280
+Robert Walworth: We had a meeting with,
+
+31
+00:07:37.490 --> 00:07:43.139
+Robert Walworth: FER and the smart contracts team, you know, last week or the week before?
+
+32
+00:07:45.070 --> 00:07:59.569
+Robert Walworth: And I believe they're… they're still trying to figure out exactly how they want to go about their, like, development work and testing. I think, for the most part, we're still just kind of on standby.
+
+33
+00:08:00.370 --> 00:08:07.610
+Robert Walworth: But I knew… I know that we were having discussions about, beta releases and how they were kind of…
+
+34
+00:08:07.950 --> 00:08:11.300
+Robert Walworth: becoming a problem.
+
+35
+00:08:11.530 --> 00:08:21.739
+Robert Walworth: But we made it known to them that we want to test on a branch and not have to do another beta release, and it sounded like they were fine with that.
+
+36
+00:08:22.050 --> 00:08:36.449
+Venilin Vasilev: Actually, we, Mia and Vao had a discussion about this, because now that we released a stable version of the SDK, we needed to remove the hooks that were in the main branch.
+
+37
+00:08:36.530 --> 00:08:46.300
+Venilin Vasilev: Actually, I think it would… we could, like, push better releases, at least in the JS SDK. We will just include such…
+
+38
+00:08:46.420 --> 00:08:50.619
+Venilin Vasilev: Features that are not meant to be released in some
+
+39
+00:08:51.290 --> 00:09:03.529
+Venilin Vasilev: beta release branches for the specified feature, and we will tag those in the… we'll put special beta tags for those branches.
+
+40
+00:09:03.800 --> 00:09:07.210
+Venilin Vasilev: And they won't be merged to main until the…
+
+41
+00:09:07.490 --> 00:09:12.430
+Venilin Vasilev: The feature is not ready to be… Released on main.
+
+42
+00:09:14.220 --> 00:09:21.050
+Robert Walworth: Okay, so you're kind of saying, like, you just, like, make a branch with the feature, and then just, like, tag that branch?
+
+43
+00:09:21.910 --> 00:09:25.299
+Venilin Vasilev: Yeah, we will take that branch for a better release.
+
+44
+00:09:27.890 --> 00:09:34.909
+Ivan Asenov: The workflow that pushes the artifacts to NPM is going to work like this? Do we know that?
+
+45
+00:09:36.100 --> 00:09:41.870
+Venilin Vasilev: Well, that's a good question, I'm not sure, but I think it will… it will work, because…
+
+46
+00:09:42.130 --> 00:09:46.230
+Venilin Vasilev: I remember back, like, probably in the…
+
+47
+00:09:47.200 --> 00:09:54.460
+Venilin Vasilev: In the first times I released the SDK, I did a mistake and tagged a different branch, and it worked.
+
+48
+00:09:54.750 --> 00:09:59.610
+Venilin Vasilev: So I guess it should work, but yeah, I need to check the workflow.
+
+49
+00:09:59.610 --> 00:10:05.169
+Ivan Asenov: Okay, that's… that's pretty… pretty nice, actually, for… for that specific use case.
+
+50
+00:10:07.690 --> 00:10:16.890
+Robert Walworth: Yeah, I thought that was… that was a pushback that Evila was saying, like, because it automatically pushes to MPM, like, we weren't exactly sure.
+
+51
+00:10:17.340 --> 00:10:22.659
+Robert Walworth: how that would work. But also, like, if we're just making a branch to…
+
+52
+00:10:22.830 --> 00:10:24.890
+Robert Walworth: Then just tag the branch anyways.
+
+53
+00:10:25.300 --> 00:10:29.430
+Robert Walworth: I guess… Well, at that point, the…
+
+54
+00:10:29.560 --> 00:10:33.830
+Robert Walworth: Like, if they're able to test with a branch themselves.
+
+55
+00:10:34.470 --> 00:10:38.370
+Robert Walworth: I guess, what's… what's the point of tagging at that point?
+
+56
+00:10:39.070 --> 00:10:43.950
+Venilin Vasilev: Well, if they're able to test it with a branch, I'm okay, like…
+
+57
+00:10:44.400 --> 00:10:47.879
+Venilin Vasilev: I have no issues with that, but it's an option.
+
+58
+00:10:48.440 --> 00:10:50.079
+Robert Walworth: Okay. Gotcha.
+
+59
+00:10:53.710 --> 00:10:57.640
+Robert Walworth: Okay, yeah, I mean, I think that's still, like, a couple…
+
+60
+00:10:58.010 --> 00:11:01.250
+Robert Walworth: A couple weeks away, if not more, so,
+
+61
+00:11:01.510 --> 00:11:04.050
+Robert Walworth: Yeah, we still have some time to solidify the plan.
+
+62
+00:11:09.100 --> 00:11:13.329
+Robert Walworth: Okay, cool, sounds good. Does, Java want to go next?
+
+63
+00:11:17.150 --> 00:11:24.570
+Ivan Asenov: Yeah, I can update for Java. We've had a bunch of security reports last week.
+
+64
+00:11:24.680 --> 00:11:27.619
+Ivan Asenov: And we've been mainly focusing on that.
+
+65
+00:11:29.450 --> 00:11:37.069
+Ivan Asenov: I think we… we are pretty close to resolving the first one. It was, to give you a brief, like…
+
+66
+00:11:37.390 --> 00:11:42.470
+Ivan Asenov: an overview. It was, pretty much a book where…
+
+67
+00:11:43.040 --> 00:11:51.320
+Ivan Asenov: If the user tried to verify, a given… If a given transaction was…
+
+68
+00:11:51.480 --> 00:12:08.440
+Ivan Asenov: was signed with a given, ECDSA private key. There was a book where, actually, one of the signing functions, which is at signature, didn't, modify the proper fields in the transaction.
+
+69
+00:12:08.470 --> 00:12:12.220
+Ivan Asenov: And, yeah, there is a…
+
+70
+00:12:13.690 --> 00:12:19.960
+Ivan Asenov: Pretty much a use case where a user can, Cannot… a signature that's…
+
+71
+00:12:20.360 --> 00:12:33.499
+Ivan Asenov: for example, empty bytes for that specific public key, and there is a mismatch between the signature and the public key, and the SDK didn't verify that, so…
+
+72
+00:12:33.660 --> 00:12:37.619
+Ivan Asenov: That could lead to some issues.
+
+73
+00:12:37.780 --> 00:12:45.129
+Ivan Asenov: It's… it's not that big of a deal, but it's… still, it's a book, so, yeah, we…
+
+74
+00:12:45.700 --> 00:12:55.850
+Ivan Asenov: we saw that in all our SDKs, we actually have this verification, done correctly, but there's still one problem where…
+
+75
+00:12:55.850 --> 00:13:07.180
+Ivan Asenov: It's kind of hard to explain, but we… we check only if the public keys are added to that structure, which probably shouldn't be done, and we're still…
+
+76
+00:13:07.640 --> 00:13:15.120
+Ivan Asenov: Looking into why that was implemented that way, because that logic is, like, from 20… 2020 or something like that.
+
+77
+00:13:15.410 --> 00:13:17.379
+Ivan Asenov: And yeah.
+
+78
+00:13:19.640 --> 00:13:25.499
+Ivan Asenov: Forego… We've had also a bunch of security reports.
+
+79
+00:13:25.660 --> 00:13:31.409
+Ivan Asenov: One of them is the same as in the JS, where,
+
+80
+00:13:31.540 --> 00:13:39.859
+Ivan Asenov: The transaction bodies for the inner signed transactions was not verified, that they are the same correctly.
+
+81
+00:13:40.620 --> 00:13:50.900
+Ivan Asenov: And we also had another issue that is also with the private keys. It's actually one that I unintentionally introduced last week.
+
+82
+00:13:51.020 --> 00:13:52.829
+Ivan Asenov: Because we had a bump.
+
+83
+00:13:53.010 --> 00:13:59.419
+Ivan Asenov: in our… in our dependencies for HDSA private keys, and…
+
+84
+00:13:59.910 --> 00:14:04.269
+Ivan Asenov: Yeah, I intentionally changed one of the logic…
+
+85
+00:14:05.270 --> 00:14:13.939
+Ivan Asenov: what pretty much happened is, if the curve is, like, a billion values of private keys, I unintentionally reduced that scope
+
+86
+00:14:14.340 --> 00:14:16.719
+Ivan Asenov: with some number.
+
+87
+00:14:17.190 --> 00:14:25.470
+Ivan Asenov: So some of the private keys would be rejected by the SDK. So, yeah,
+
+88
+00:14:25.600 --> 00:14:28.059
+Ivan Asenov: We worked on a fix for that as well.
+
+89
+00:14:29.310 --> 00:14:40.910
+Ivan Asenov: And, we also started working on, on the HIP for block node discoverability, 1137 in Go, and in Java, we let,
+
+90
+00:14:42.540 --> 00:14:59.459
+Ivan Asenov: some external contributor, I forgot his name, to… to have a… have a look and try to… to implement it, and he actually opened the PR, I believe, today, or actually on Friday, and we're going to have a look on that one.
+
+91
+00:15:01.280 --> 00:15:07.620
+Ivan Asenov: Aside from that, I don't think there's anything else that was that interesting.
+
+92
+00:15:08.240 --> 00:15:11.349
+Ivan Asenov: We did some TCK, work as well.
+
+93
+00:15:13.660 --> 00:15:17.190
+Robert Walworth: That's awesome to hear about the new contributor working on the hip.
+
+94
+00:15:17.640 --> 00:15:25.390
+Robert Walworth: Yeah, has this been, like, a contributor that's been contributing a lot, or has he just, like, come in?
+
+95
+00:15:25.390 --> 00:15:32.900
+Ivan Asenov: Yeah, he actually contributed quite a lot. He has 4 closed PRs or something like that.
+
+96
+00:15:33.080 --> 00:15:35.969
+Ivan Asenov: Most of them were TCK ones.
+
+97
+00:15:36.770 --> 00:15:40.639
+Ivan Asenov: And yeah, I think he's doing pretty, pretty good.
+
+98
+00:15:41.920 --> 00:15:42.700
+Robert Walworth: Nice.
+
+99
+00:15:44.970 --> 00:15:49.580
+Robert Walworth: Yeah, that's awesome. It's good to hear that new contributors are coming in.
+
+100
+00:15:51.290 --> 00:16:01.889
+Robert Walworth: You opened a PR in the governance repo, right, to get, maintainer privileges for… for some?
+
+101
+00:16:02.460 --> 00:16:03.160
+Ivan Asenov: Yeah.
+
+102
+00:16:05.060 --> 00:16:08.770
+Robert Walworth: Have… have you had trouble, like, reaching out to Simi or anyone?
+
+103
+00:16:08.940 --> 00:16:15.679
+Ivan Asenov: No, actually, we gathered all the required approvals, and we merged the PR.
+
+104
+00:16:15.970 --> 00:16:18.649
+Ivan Asenov: Maybe it was yesterday.
+
+105
+00:16:18.750 --> 00:16:23.479
+Ivan Asenov: Or on Friday, I'm not sure. So, right now, the guys have,
+
+106
+00:16:24.250 --> 00:16:28.420
+Ivan Asenov: CF maintainer privileges, so that's pretty nice.
+
+107
+00:16:28.620 --> 00:16:29.330
+Robert Walworth: Great.
+
+108
+00:16:34.040 --> 00:16:38.520
+Robert Walworth: Alright, sounds good. Python when I go next?
+
+109
+00:16:40.640 --> 00:16:42.620
+Sophie Bulloch: Hi, yep.
+
+110
+00:16:43.130 --> 00:16:48.689
+Sophie Bulloch: This week, we were working on some of the TCK.
+
+111
+00:16:48.940 --> 00:16:50.860
+Sophie Bulloch: And fuzz tests…
+
+112
+00:16:51.540 --> 00:17:10.140
+Sophie Bulloch: In that, we found that we had… we were using, an outdated… slightly outdated protopath, and updating that has been a little bit difficult to get them all sorted. We also have some bugs that we spotted
+
+113
+00:17:10.240 --> 00:17:16.309
+Sophie Bulloch: So… we're still stuck-ish on that, still in development.
+
+114
+00:17:17.380 --> 00:17:25.079
+Sophie Bulloch: But I think that's the key sort of focus, and I think we made some progress with improving Windows documentation as well.
+
+115
+00:17:26.300 --> 00:17:40.000
+Sophie Bulloch: And we've been migrating some of our runners for the workflows to these self-hosted ones, doing that slowly. Yeah, that's about it.
+
+116
+00:17:41.850 --> 00:17:45.510
+Robert Walworth: Have you, needed any help from…
+
+117
+00:17:45.770 --> 00:17:50.379
+Robert Walworth: Like, the release team or platform team for migrating?
+
+118
+00:17:51.590 --> 00:17:54.479
+Robert Walworth: Are you blocked there in any way, or are you good?
+
+119
+00:17:55.250 --> 00:18:00.559
+Sophie Bulloch: So with the protobuf…
+
+120
+00:18:00.560 --> 00:18:17.400
+Sophie Bulloch: like, our tests run, right? But it's, like, implementing the new hips, or something. We realized that, okay, it might not have generated exactly correctly, so it's just more, like, filtering through different edge cases and running it on Windows and stuff like that.
+
+121
+00:18:19.410 --> 00:18:22.760
+Robert Walworth: Oh, so you're, you're, like, hooking up, like, Windows runners.
+
+122
+00:18:22.870 --> 00:18:26.219
+Robert Walworth: to try and, like, run the test there? Is that what you meant?
+
+123
+00:18:27.570 --> 00:18:31.209
+Sophie Bulloch: Oh, no, I meant generating the protobufs.
+
+124
+00:18:32.320 --> 00:18:46.719
+Sophie Bulloch: We generated the prototypuffs, all our tests passed, but then we find there's a couple of edge cases that we, like, didn't think of. With the migration, we actually don't know exactly what we're migrating onto.
+
+125
+00:18:47.100 --> 00:19:01.099
+Sophie Bulloch: So we just know that it's, like, Python, Linux runners from the security team, but we don't know what's installed in them or anything else. So that's why we're just winging it one at a time and seeing what happens.
+
+126
+00:19:02.510 --> 00:19:06.199
+Robert Walworth: Oh, okay, so the security team is helping you out with that.
+
+127
+00:19:07.290 --> 00:19:14.390
+Sophie Bulloch: Well, we don't have any insight into, like, what it means.
+
+128
+00:19:14.650 --> 00:19:16.789
+Sophie Bulloch: To change the runners?
+
+129
+00:19:16.930 --> 00:19:19.679
+Sophie Bulloch: From the Ubuntu hosted ones?
+
+130
+00:19:20.110 --> 00:19:25.349
+Sophie Bulloch: So, we're just doing it as good first issues, one at a time, and seeing what happens.
+
+131
+00:19:28.540 --> 00:19:30.020
+Robert Walworth: Gotcha. Angie?
+
+132
+00:19:31.690 --> 00:19:49.400
+Angelina Ceppaluni: Is there a way that we could get some insight as to what is behind those selfless food runners? Like, are we able to maybe reach out to somebody? Are they able to do, like, a call or some kind of session, just so that we can possibly just get some more insight?
+
+133
+00:19:50.260 --> 00:19:57.840
+Robert Walworth: Yeah, that's kind of what I was getting at. Like, I'm thinking, like, you may want to, like, reach out to, like, Roger or Andrew to…
+
+134
+00:19:58.040 --> 00:20:03.760
+Robert Walworth: to help out with that. I guess, what prompted, like, the runner migration?
+
+135
+00:20:04.090 --> 00:20:06.579
+Robert Walworth: Was it, like, a security issue or something?
+
+136
+00:20:07.000 --> 00:20:21.539
+Sophie Bulloch: We don't know, they just opened up an issue one day. I think we asked for documentation already in that issue. And then it was like, yeah, like, trust me, it'll be fine. So…
+
+137
+00:20:21.940 --> 00:20:22.960
+Robert Walworth: Oh, okay.
+
+138
+00:20:25.190 --> 00:20:30.550
+Robert Walworth: Alright, yeah, I mean, maybe… maybe you can just, like, try and coordinate, like, on that issue then,
+
+139
+00:20:31.580 --> 00:20:41.470
+Robert Walworth: Because I… are those, like, the CI-CD, like, audit story issues that they opened in, like, all the repos? Is that…
+
+140
+00:20:41.950 --> 00:20:42.640
+Robert Walworth: issue you're talking about?
+
+141
+00:20:43.380 --> 00:20:47.280
+Sophie Bulloch: I don't think so, this is just another one.
+
+142
+00:20:47.280 --> 00:20:48.170
+Robert Walworth: Yeah, okay.
+
+143
+00:20:48.170 --> 00:20:54.519
+Sophie Bulloch: I don't think we have an OpenCI audit issue in the Python SDK.
+
+144
+00:20:55.030 --> 00:20:55.670
+Robert Walworth: Okay.
+
+145
+00:20:56.540 --> 00:21:01.359
+Robert Walworth: Yeah, they opened some issues like that, like, a while ago, and I think they're, like.
+
+146
+00:21:01.630 --> 00:21:10.149
+Robert Walworth: just starting to get around to them, or at least they are in, like, C++ and Swift, so… I… I'd imagine they'd try and do the same thing in Python, but…
+
+147
+00:21:10.670 --> 00:21:11.610
+Robert Walworth: I'm not sure.
+
+148
+00:21:14.490 --> 00:21:23.449
+Robert Walworth: Yeah, I mean, if, yeah, just try reaching out, and like, if, you know, they're unresponsive or whatever, just let me know, and I can try and ping them, too.
+
+149
+00:21:30.000 --> 00:21:36.819
+Robert Walworth: Alright, let's see, for C++… Let me go through here.
+
+150
+00:21:38.400 --> 00:21:40.299
+Robert Walworth: We had,
+
+151
+00:21:40.720 --> 00:21:55.370
+Robert Walworth: a number of merged PRs this past week. Our new junior contributor implemented our opt-in receipt and record query failover. We did a pretty good job there. Learned how to…
+
+152
+00:21:55.740 --> 00:22:01.050
+Robert Walworth: Learn more about, like, our design docs and how they… and how they work.
+
+153
+00:22:01.330 --> 00:22:03.040
+Robert Walworth: And kind of how to read them.
+
+154
+00:22:03.700 --> 00:22:09.309
+Robert Walworth: So gaining knowledge there. We had a beginner issue merge for adding some…
+
+155
+00:22:09.450 --> 00:22:14.830
+Robert Walworth: signature methods, some public APIs in our… in transaction,
+
+156
+00:22:15.910 --> 00:22:22.270
+Robert Walworth: So that was good, and then the, working on, TCK endpoints as well.
+
+157
+00:22:22.760 --> 00:22:29.460
+Robert Walworth: And then I think, believe the rest here are mostly just typo fixes and for, good first issues.
+
+158
+00:22:32.710 --> 00:22:42.620
+Robert Walworth: Yeah, I myself haven't had too much time to look at this past week, but the bot automation is still on the radar, still want to keep working on that.
+
+159
+00:22:42.910 --> 00:22:44.510
+Robert Walworth: When I had the time.
+
+160
+00:22:44.980 --> 00:22:52.070
+Robert Walworth: Then for Swifts… Not too much has happened here. I think we got, like, a…
+
+161
+00:22:53.010 --> 00:23:02.269
+Robert Walworth: Maybe one or two good first issues merged, there was a bug bounty fix here that… that I implemented. There was,
+
+162
+00:23:02.750 --> 00:23:09.360
+Robert Walworth: getting a transaction from Bytes, and then trying to change that transaction,
+
+163
+00:23:09.800 --> 00:23:15.329
+Robert Walworth: Actually didn't end up overwriting the internal state, so…
+
+164
+00:23:16.110 --> 00:23:21.999
+Robert Walworth: It would keep, like, the stale… fields, from…
+
+165
+00:23:22.260 --> 00:23:26.750
+Robert Walworth: From the, deserialization, so that's just a fix for that.
+
+166
+00:23:29.560 --> 00:23:36.659
+Robert Walworth: Yeah, that's… that's pretty much it from the Swift side. What about Rust? Do we… do we know what's going on there?
+
+167
+00:23:40.840 --> 00:23:42.319
+Georgi Stoykov: So for us…
+
+168
+00:23:42.580 --> 00:23:56.979
+Georgi Stoykov: I guess the last week, we've been merging some dependent CPRs as they were stacked, maybe 20 of them. Also, I think we managed to
+
+169
+00:23:57.690 --> 00:23:59.200
+Georgi Stoykov: Just one second…
+
+170
+00:24:07.490 --> 00:24:11.799
+Georgi Stoykov: Yeah, I think I managed to… to do some…
+
+171
+00:24:12.030 --> 00:24:20.550
+Georgi Stoykov: docs and short PRs, like, changing SO start instructions, and also…
+
+172
+00:24:20.780 --> 00:24:32.910
+Georgi Stoykov: change some examples to use DCDSA keys, and mostly CHARPRs, nothing special going on there, but now I guess…
+
+173
+00:24:33.170 --> 00:24:41.210
+Georgi Stoykov: I can release those stuff, and maybe add a couple of hips to the following milestone.
+
+174
+00:24:42.280 --> 00:24:44.619
+Georgi Stoykov: And yeah, that's about it for us.
+
+175
+00:24:47.190 --> 00:24:52.140
+Robert Walworth: Sounds good. Have, you gotten any new contributors in Rust?
+
+176
+00:24:52.890 --> 00:25:07.369
+Georgi Stoykov: No, we also haven't, I don't know if Venolin started, but, I saw he was taking a look at, the Good First Tissue stuff.
+
+177
+00:25:07.820 --> 00:25:13.030
+Georgi Stoykov: But I don't know if he was working for JS or Rust for that part.
+
+178
+00:25:13.530 --> 00:25:22.639
+Georgi Stoykov: But no, we still haven't started that initiative in Rust, I guess, if we don't have the tags.
+
+179
+00:25:22.790 --> 00:25:26.979
+Georgi Stoykov: All those stuff, but we can also include that.
+
+180
+00:25:27.280 --> 00:25:28.939
+Georgi Stoykov: The following bass.
+
+181
+00:25:33.850 --> 00:25:36.370
+Georgi Stoykov: And, yeah, I think that's it.
+
+182
+00:25:37.940 --> 00:25:38.640
+Robert Walworth: Okay.
+
+183
+00:25:38.800 --> 00:25:39.950
+Robert Walworth: Sounds good.
+
+184
+00:25:40.310 --> 00:25:51.000
+Robert Walworth: Did anyone have any, like, questions on SDK updates? Any specific questions for any language?
+
+185
+00:25:58.220 --> 00:25:59.140
+Robert Walworth: Alrighty.
+
+186
+00:26:00.770 --> 00:26:08.430
+Robert Walworth: Let me go ahead and look through the SDK Hub PRs now. I don't think there are any…
+
+187
+00:26:08.980 --> 00:26:14.150
+Robert Walworth: New ones, really? Oh, I added this one this past week.
+
+188
+00:26:14.260 --> 00:26:23.269
+Robert Walworth: So this is for HIP1313, the high volume transaction. Just going through… actually, I…
+
+189
+00:26:23.450 --> 00:26:33.109
+Robert Walworth: I don't really even remember how I noticed this, because it's not in the hip. I think I just found it, like, in… in the proto, file?
+
+190
+00:26:33.280 --> 00:26:41.629
+Robert Walworth: there's a missing field here, or a new introduced field in the transaction record.
+
+191
+00:26:41.770 --> 00:26:44.499
+Robert Walworth: For the high volume pricing multiplier.
+
+192
+00:26:45.030 --> 00:26:53.770
+Robert Walworth: So, yeah, this PR just introduces that to the… to the design, and it's…
+
+193
+00:26:53.960 --> 00:27:02.800
+Robert Walworth: Something we should look to… to include in our… in our 1313, Implementations, so…
+
+194
+00:27:03.280 --> 00:27:09.719
+Robert Walworth: Yeah, it's super small. It's just, yeah, just one field, and then just an updated test here. Shouldn't be too much.
+
+195
+00:27:10.030 --> 00:27:15.309
+Robert Walworth: Too much work, but yeah, we, we should, we should look to get that, get that in.
+
+196
+00:27:18.170 --> 00:27:29.810
+Robert Walworth: The new request hierarchy, so I kind of went over this a little last week, so this is a V3 design. Hendrik and I have been iterating on this, going back and forth, getting other opinions.
+
+197
+00:27:30.050 --> 00:27:35.060
+Robert Walworth: on… What this should look like.
+
+198
+00:27:35.450 --> 00:27:38.290
+Robert Walworth: But… basically, it's just a new…
+
+199
+00:27:38.510 --> 00:27:45.929
+Robert Walworth: a new kind of way to how we want to structure our requests, in V3.
+
+200
+00:27:46.290 --> 00:27:50.510
+Robert Walworth: Kind of divide them out a little bit more, and make them a bit more,
+
+201
+00:27:51.150 --> 00:27:53.899
+Robert Walworth: modular, I'd say.
+
+202
+00:27:54.370 --> 00:28:07.590
+Robert Walworth: But basically, the thought was, like, for each request that we have, you know, now that we're expanding to include, you know, mirror node requests and eventually block node requests as well,
+
+203
+00:28:08.020 --> 00:28:11.290
+Robert Walworth: You know, there's… there's different,
+
+204
+00:28:11.650 --> 00:28:18.699
+Robert Walworth: Things we… that need to be taken into account for each request, and those are basically which network they're going to.
+
+205
+00:28:18.770 --> 00:28:36.170
+Robert Walworth: How they're being executed, and basically what's their, transport protocol. And this kind of goes through and is still… it's still a draft, so we're still, you know, it's not, like, final by any means, but,
+
+206
+00:28:36.680 --> 00:28:46.390
+Robert Walworth: Yeah, it kind of goes through and kind of attempts to divide those functionalities out. While…
+
+207
+00:28:46.740 --> 00:28:53.339
+Robert Walworth: still trying to… in general, I think, keep… Keep the…
+
+208
+00:28:53.750 --> 00:28:59.359
+Robert Walworth: you know, functionality and look relatively similar. Obviously, it's gonna be slightly different.
+
+209
+00:28:59.490 --> 00:29:02.929
+Robert Walworth: But I think the general use cases…
+
+210
+00:29:03.290 --> 00:29:07.330
+Robert Walworth: Should be similar, and a little bit more,
+
+211
+00:29:07.550 --> 00:29:10.800
+Robert Walworth: consolidated, I think, and less room for error.
+
+212
+00:29:10.960 --> 00:29:18.049
+Robert Walworth: So, there's this, and then actually I'm also gonna open a PR, hopefully today,
+
+213
+00:29:18.160 --> 00:29:26.280
+Robert Walworth: We discussed a new, as part of this, a new, I guess, kinda…
+
+214
+00:29:26.870 --> 00:29:32.819
+Robert Walworth: how do I describe it? Like a… Sort of builder,
+
+215
+00:29:33.790 --> 00:29:37.339
+Robert Walworth: I guess, way to do this,
+
+216
+00:29:38.510 --> 00:29:44.350
+Robert Walworth: Yeah, but I think I'll wait to talk about that more next week. I'll get the PR up.
+
+217
+00:29:45.020 --> 00:29:46.000
+Robert Walworth: Yeah.
+
+218
+00:29:46.490 --> 00:29:57.450
+Hendrik Ebbers (Hedera Hashgraph LLC): Is the one… this one, the new request hierarchy? Has you updated that based on all the commands and so on, or is that, like.
+
+219
+00:29:57.650 --> 00:29:59.549
+Hendrik Ebbers (Hedera Hashgraph LLC): As it was at the beginning.
+
+220
+00:30:01.040 --> 00:30:09.340
+Robert Walworth: You mean, like, from your comments, or from the comments we received from other people? Because of the…
+
+221
+00:30:09.340 --> 00:30:09.900
+Hendrik Ebbers (Hedera Hashgraph LLC): both.
+
+222
+00:30:10.160 --> 00:30:14.420
+Robert Walworth: Both, okay. I have pushed some updates, from…
+
+223
+00:30:14.820 --> 00:30:30.439
+Robert Walworth: from the comments you've left, I think there's still a little bit more discussion input. I think I'm waiting from you. And then, yeah, the other PR, the Transaction Builder one, was the one I was gonna put up based on the…
+
+224
+00:30:30.980 --> 00:30:34.430
+Robert Walworth: Conversations and opinions we got from
+
+225
+00:30:34.590 --> 00:30:37.110
+Robert Walworth: From the other, DevRel people.
+
+226
+00:30:37.110 --> 00:30:42.390
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah. So, so, my suggestion…
+
+227
+00:30:42.750 --> 00:30:48.940
+Hendrik Ebbers (Hedera Hashgraph LLC): It would be if we have those… so those two topics are heavily…
+
+228
+00:30:49.090 --> 00:30:53.460
+Hendrik Ebbers (Hedera Hashgraph LLC): you know, connected, right? So,
+
+229
+00:30:54.140 --> 00:31:10.309
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe, instead of having both, my point of view is, having this one and then the other one, it will be hard to review and bring it together. You know what I mean?
+
+230
+00:31:11.890 --> 00:31:22.750
+Hendrik Ebbers (Hedera Hashgraph LLC): Because you have two pull requests, then, that are changing similar things, and, and,
+
+231
+00:31:23.190 --> 00:31:41.780
+Hendrik Ebbers (Hedera Hashgraph LLC): And so on. So my question is, would it make sense to start with the transaction builder? Like, to take that approach, first of all, and once we have that, continue on this one, because this here is more like the base, right?
+
+232
+00:31:41.920 --> 00:31:51.559
+Hendrik Ebbers (Hedera Hashgraph LLC): And even this one, I would split up, and my assumption is prox stream, where we have, like, those…
+
+233
+00:31:52.070 --> 00:31:58.349
+Hendrik Ebbers (Hedera Hashgraph LLC): reactive APIs, do that maybe in a… in a single PR.
+
+234
+00:32:01.320 --> 00:32:15.650
+Robert Walworth: Okay. So yeah, so the intent was, yeah, open a separate PR to do the transaction builder and introduce that, and then once that gets approved and merged, I'll update this one.
+
+235
+00:32:15.650 --> 00:32:16.500
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, perfect, yeah.
+
+236
+00:32:16.500 --> 00:32:20.190
+Robert Walworth: with that, yeah, and then I guess the…
+
+237
+00:32:20.420 --> 00:32:27.680
+Robert Walworth: Yeah, I don't think I really go… yeah, the block stream stuff, like, isn't too… too big here.
+
+238
+00:32:27.880 --> 00:32:32.439
+Robert Walworth: I think… where do I describe…
+
+239
+00:32:33.430 --> 00:32:38.010
+Robert Walworth: That interface… okay, yeah, it's like this subscribable interface here.
+
+240
+00:32:38.130 --> 00:32:42.389
+Robert Walworth: yeah, even, like, that's not really…
+
+241
+00:32:42.650 --> 00:32:45.290
+Robert Walworth: Not really too big, either.
+
+242
+00:32:46.180 --> 00:32:48.409
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, but this is, like…
+
+243
+00:32:48.770 --> 00:32:57.279
+Hendrik Ebbers (Hedera Hashgraph LLC): So, is this based on the discussion we had, or is this, like, as it was at the beginning and not updated?
+
+244
+00:32:58.890 --> 00:33:04.680
+Robert Walworth: I haven't updated anything… here yet, no.
+
+245
+00:33:04.680 --> 00:33:09.499
+Hendrik Ebbers (Hedera Hashgraph LLC): That is why I think to make it step-by-step, right? Because we have this…
+
+246
+00:33:09.860 --> 00:33:20.560
+Hendrik Ebbers (Hedera Hashgraph LLC): bigger discussion about the subscriber pattern, where I think it's a good discussion, but it should be, like, you know, like, one PR, or one…
+
+247
+00:33:20.680 --> 00:33:34.790
+Hendrik Ebbers (Hedera Hashgraph LLC): document whatever about that discussion. Yeah. And… and then one discussion… because my point of view is, when we start with the transaction builder, there will be other discussions. And… and those are…
+
+248
+00:33:35.490 --> 00:33:46.450
+Hendrik Ebbers (Hedera Hashgraph LLC): independent of each other, you know? So, that's why I think is, we should concentrate on… On those individually.
+
+249
+00:33:47.280 --> 00:33:55.240
+Hendrik Ebbers (Hedera Hashgraph LLC): And keep this one as a base, and once we have, like, solved the other ones, I assume this one will be quite easy.
+
+250
+00:33:55.990 --> 00:34:00.330
+Robert Walworth: Yeah, no, I think that makes sense. Yeah, this, this…
+
+251
+00:34:00.490 --> 00:34:05.670
+Robert Walworth: is kind of a big PR. I think it makes sense to split it up. Yeah, I like that.
+
+252
+00:34:06.180 --> 00:34:08.260
+Robert Walworth: Maybe I'll keep this one open.
+
+253
+00:34:08.260 --> 00:34:08.979
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, yeah, keep it on!
+
+254
+00:34:08.980 --> 00:34:12.559
+Robert Walworth: Yeah, and then just split off PRs from this.
+
+255
+00:34:12.719 --> 00:34:15.659
+Hendrik Ebbers (Hedera Hashgraph LLC): And my, my hope is that,
+
+256
+00:34:15.779 --> 00:34:26.189
+Hendrik Ebbers (Hedera Hashgraph LLC): if we have one PR for transaction builders, and maybe then do one PR for, ProcNote API with subscriptions.
+
+257
+00:34:26.709 --> 00:34:34.159
+Hendrik Ebbers (Hedera Hashgraph LLC): And have solved the, interface abstraction discussion and so on.
+
+258
+00:34:34.399 --> 00:34:43.899
+Hendrik Ebbers (Hedera Hashgraph LLC): And those three are done, then this PR will be, like, four fights, which do all the base stuff. And that is then a very good review able.
+
+259
+00:34:44.520 --> 00:34:45.190
+Robert Walworth: Yeah.
+
+260
+00:34:46.500 --> 00:34:47.769
+Robert Walworth: Yeah, I agree.
+
+261
+00:34:50.690 --> 00:34:55.549
+Robert Walworth: Okay, yeah, I'll, I'll… I'll keep this open,
+
+262
+00:34:55.980 --> 00:35:02.160
+Robert Walworth: And then… yeah, I'll do the… I'll open the Transaction Builder PR, we'll get that looked at, and then…
+
+263
+00:35:02.470 --> 00:35:06.390
+Robert Walworth: The subscribe…
+
+264
+00:35:06.550 --> 00:35:20.180
+Robert Walworth: So, so, real quick, subscribe isn't just fully, block node, we have the topic message query as well, which is why I split it out into, into an interface, but,
+
+265
+00:35:22.070 --> 00:35:25.890
+Robert Walworth: Yeah, that will be a good separate discussion.
+
+266
+00:35:26.030 --> 00:35:31.270
+Robert Walworth: itself, I think. So I'll do a PR for that as well, and then I think…
+
+267
+00:35:32.470 --> 00:35:36.039
+Robert Walworth: I'm trying to think what other kind of major…
+
+268
+00:35:36.250 --> 00:35:39.880
+Robert Walworth: discussion points we had here. The…
+
+269
+00:35:40.440 --> 00:35:49.049
+Robert Walworth: The retry… yeah, I think… I think we should just wait till this hip comes out, because that's just gonna redo everything, anyways,
+
+270
+00:35:50.510 --> 00:35:53.210
+Robert Walworth: So I think we can wait on that.
+
+271
+00:35:56.600 --> 00:35:58.989
+Robert Walworth: One other, kind of, big discussion topics.
+
+272
+00:35:58.990 --> 00:36:06.110
+Hendrik Ebbers (Hedera Hashgraph LLC): The one with… with synchronized and sweat-safe, and so that is not part of this one anymore, right? That is…
+
+273
+00:36:06.570 --> 00:36:08.540
+Hendrik Ebbers (Hedera Hashgraph LLC): Or is it still here?
+
+274
+00:36:09.280 --> 00:36:14.869
+Robert Walworth: So I think… I think we merged that PR. I haven't integrated that back into this.
+
+275
+00:36:14.870 --> 00:36:16.380
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, okay, yeah, yeah.
+
+276
+00:36:18.060 --> 00:36:26.810
+Robert Walworth: So still need to do that, this is… Oh, this one.
+
+277
+00:36:27.030 --> 00:36:32.859
+Robert Walworth: The generic return types for…
+
+278
+00:36:33.610 --> 00:36:34.750
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh, yeah, yeah.
+
+279
+00:36:34.750 --> 00:36:35.550
+Robert Walworth: and stuff.
+
+280
+00:36:35.550 --> 00:36:44.729
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, I've seen you answered on it. And that is, like, for the transaction builder, important too, right? And that is what I'm saying. I assume this discussion
+
+281
+00:36:44.810 --> 00:37:03.199
+Hendrik Ebbers (Hedera Hashgraph LLC): in the transaction builder would totally make sense, and that's why I think it's… it's better to split it up, because here we have really, like, four big discussions started, where one, like, the thread discussion is solved, but we have the subscription discussion, we have this discussion, we have…
+
+282
+00:37:03.230 --> 00:37:09.940
+Hendrik Ebbers (Hedera Hashgraph LLC): interface abstraction discussion happening here, and… and, you know, that… that were…
+
+283
+00:37:10.650 --> 00:37:20.920
+Hendrik Ebbers (Hedera Hashgraph LLC): until not all of them are done, this issue will be blocked. And if we split it up, we can, as soon as we have something solved, directly merge it.
+
+284
+00:37:21.190 --> 00:37:22.470
+Hendrik Ebbers (Hedera Hashgraph LLC): Yep.
+
+285
+00:37:23.510 --> 00:37:28.930
+Robert Walworth: Yep, I agree. Yeah, otherwise this PR will have, like… A hundred comments.
+
+286
+00:37:28.930 --> 00:37:31.939
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, exactly, that's the point, right? Yeah.
+
+287
+00:37:32.340 --> 00:37:34.160
+Robert Walworth: Okay. Yeah, I'll be,
+
+288
+00:37:34.820 --> 00:37:47.290
+Robert Walworth: I'll do a separate PR for this abstraction interface 1-2, because I know we've been going back and forth on that as well, so we can just kind of open that up to other opinions.
+
+289
+00:37:47.790 --> 00:37:51.540
+Robert Walworth: Okay. Yeah, I think I'll…
+
+290
+00:37:51.860 --> 00:37:58.139
+Robert Walworth: I'll try and get at least a transaction builder PR up today, and maybe this one as well.
+
+291
+00:37:58.330 --> 00:38:02.000
+Robert Walworth: But yeah, I'll… I can…
+
+292
+00:38:02.320 --> 00:38:05.039
+Robert Walworth: I can ping people when… when I do that.
+
+293
+00:38:05.400 --> 00:38:05.990
+Hendrik Ebbers (Hedera Hashgraph LLC): Clue?
+
+294
+00:38:06.120 --> 00:38:07.090
+Hendrik Ebbers (Hedera Hashgraph LLC): Thank you.
+
+295
+00:38:12.450 --> 00:38:20.690
+Robert Walworth: There's that, and then… The last one was 10A1 again, the block node API,
+
+296
+00:38:22.060 --> 00:38:29.309
+Robert Walworth: Hendrik, I see you approve this, thank you. I'm still waiting to hear back on…
+
+297
+00:38:29.910 --> 00:38:34.389
+Robert Walworth: How much of this… We actually need to do…
+
+298
+00:38:34.970 --> 00:38:38.030
+Robert Walworth: So we already cut down…
+
+299
+00:38:38.180 --> 00:38:43.949
+Robert Walworth: Yeah, so I think BlockNode offers, like, I want to say 6 or 7 different queries.
+
+300
+00:38:44.080 --> 00:38:47.230
+Robert Walworth: So we already cut that down to 3,
+
+301
+00:38:47.700 --> 00:38:57.920
+Robert Walworth: I heard from the Blocknow team that we only really need, at least at this first… Release…
+
+302
+00:38:59.380 --> 00:39:00.380
+Robert Walworth: Where are they?
+
+303
+00:39:01.490 --> 00:39:07.040
+Robert Walworth: This server status query, a block query, and the block stream query.
+
+304
+00:39:07.200 --> 00:39:11.040
+Robert Walworth: But, yeah, so the majority of this…
+
+305
+00:39:11.870 --> 00:39:19.120
+Robert Walworth: design, it's just all the… all the different APIs that are part of a block.
+
+306
+00:39:19.420 --> 00:39:21.489
+Robert Walworth: And yeah, it's just…
+
+307
+00:39:22.300 --> 00:39:31.680
+Robert Walworth: an obscene amount. So, I'm trying to see if there's any way we can cut down on this, or if we need to provide these all,
+
+308
+00:39:31.910 --> 00:39:36.500
+Robert Walworth: Right now. But I do think this is…
+
+309
+00:39:36.670 --> 00:39:40.430
+Robert Walworth: Going to start becoming a higher priority in the next couple weeks.
+
+310
+00:39:40.610 --> 00:39:46.660
+Robert Walworth: So I think, if we can get some more…
+
+311
+00:39:46.790 --> 00:39:50.839
+Robert Walworth: reviews on this, I think that'd be great.
+
+312
+00:39:51.020 --> 00:39:59.060
+Robert Walworth: I think I mentioned to Ivailo already, you know, he had some questions, which I answered, and…
+
+313
+00:39:59.400 --> 00:40:07.280
+Robert Walworth: I think I… answered most of your stuff too, Hendrik, so I think we're… We're good there.
+
+314
+00:40:07.810 --> 00:40:08.810
+Dosi Kolev: Yeah, I think so.
+
+315
+00:40:09.770 --> 00:40:19.260
+Dosi Kolev: Yeah, sorry. I think I will… I think I will approve it. It's me if I'm just from DOSI's account. So yeah, I saw that you…
+
+316
+00:40:19.790 --> 00:40:21.080
+Dosi Kolev: You reply to them.
+
+317
+00:40:22.240 --> 00:40:23.069
+Robert Walworth: Oh, okay.
+
+318
+00:40:23.330 --> 00:40:24.319
+Robert Walworth: Alright, cool.
+
+319
+00:40:28.390 --> 00:40:37.800
+Robert Walworth: Sweet. Yeah, and then, let's see, the…
+
+320
+00:40:38.090 --> 00:40:43.319
+Robert Walworth: Oh, I keep saying I'm gonna delete this, this one. This is the standardized labels, I think…
+
+321
+00:40:43.710 --> 00:40:46.990
+Robert Walworth: I think we're still trying to figure that out, so,
+
+322
+00:40:47.980 --> 00:40:51.350
+Robert Walworth: I'll just leave it up. It's fine.
+
+323
+00:40:51.600 --> 00:40:56.869
+Robert Walworth: Andrew, do you have any more questions about this one?
+
+324
+00:40:57.220 --> 00:41:00.649
+Robert Walworth: I know you said you were, you were looking into it, I don't know if you just haven't, like…
+
+325
+00:41:01.020 --> 00:41:03.579
+Robert Walworth: Gone back to it, or hasn't been a high priority?
+
+326
+00:41:04.100 --> 00:41:12.299
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I… I already… Changed some things.
+
+327
+00:41:12.490 --> 00:41:14.530
+Hendrik Ebbers (Hedera Hashgraph LLC): But,
+
+328
+00:41:15.370 --> 00:41:24.150
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I agree with what you said, and I need to deep deeper into that to find a good way to do it, so…
+
+329
+00:41:24.290 --> 00:41:31.919
+Hendrik Ebbers (Hedera Hashgraph LLC): that is open for me, but I looked twice in it, and it was like, oh, I need to learn more about Swift, and… yeah.
+
+330
+00:41:33.290 --> 00:41:34.020
+Robert Walworth: Okay.
+
+331
+00:41:34.710 --> 00:41:41.339
+Robert Walworth: Yeah, just, let me… let me know if you get, like, stuck or anything. I'm happy to help with that.
+
+332
+00:41:42.980 --> 00:41:51.140
+Robert Walworth: And then… Venolin, I think…
+
+333
+00:41:51.800 --> 00:41:57.839
+Robert Walworth: This has… I don't know if this was still on your radar or not. I think we talked about this a while ago, and since…
+
+334
+00:41:58.990 --> 00:42:04.430
+Robert Walworth: You said you did this in JS, that you were gonna take this over for…
+
+335
+00:42:04.540 --> 00:42:07.509
+Robert Walworth: Other SDKs, which basically do the same thing.
+
+336
+00:42:08.480 --> 00:42:11.529
+Robert Walworth: I don't know if you had any… any update on this.
+
+337
+00:42:12.470 --> 00:42:15.810
+Venilin Vasilev: Oh, actually, I've completely missed it, so…
+
+338
+00:42:16.350 --> 00:42:20.740
+Robert Walworth: No Yeah, no big deal, it's fine.
+
+339
+00:42:23.770 --> 00:42:29.130
+Robert Walworth: Yeah, I guess… Do we…
+
+340
+00:42:29.360 --> 00:42:36.539
+Robert Walworth: Do we want to, like, leave this open? Like, or will you, like, work on this here in the next, like, couple weeks, or do we just want to close it?
+
+341
+00:42:42.120 --> 00:42:46.759
+Venilin Vasilev: Well, actually, I'll have a look at it, and I'll… That being you.
+
+342
+00:42:47.130 --> 00:42:47.649
+Venilin Vasilev: When I say…
+
+343
+00:42:47.650 --> 00:42:48.220
+Robert Walworth: Okay.
+
+344
+00:42:48.220 --> 00:42:49.950
+Venilin Vasilev: It's like… it's been a while.
+
+345
+00:42:50.800 --> 00:42:52.910
+Robert Walworth: Yeah, no worries. Sounds good.
+
+346
+00:42:54.490 --> 00:42:55.550
+Robert Walworth: Alrighty.
+
+347
+00:42:56.570 --> 00:43:06.800
+Robert Walworth: Oh, also for this one, I have, hendrik, have you heard anything more from… This guy,
+
+348
+00:43:07.410 --> 00:43:10.360
+Robert Walworth: Oh, it looks like he… addressed that? Yes.
+
+349
+00:43:10.360 --> 00:43:24.420
+Hendrik Ebbers (Hedera Hashgraph LLC): He, he pinged me at the weekend, that he looked at it and, and worked on it. That is on my to-do list to have a look at it. So, yeah, he replied and… and did something.
+
+350
+00:43:24.840 --> 00:43:27.139
+Robert Walworth: Okay. Yeah, I'll take a look through it, too.
+
+351
+00:43:27.270 --> 00:43:28.270
+Robert Walworth: Freedom.
+
+352
+00:43:30.450 --> 00:43:31.370
+Robert Walworth: Sweet.
+
+353
+00:43:32.070 --> 00:43:36.059
+Robert Walworth: Alright, that's it for the Hub PRs,
+
+354
+00:43:36.440 --> 00:43:45.080
+Robert Walworth: Last thing I put on here, so I know last week we talked about the maintainers, code owners, Hendrik brought that up, about,
+
+355
+00:43:45.230 --> 00:43:51.160
+Robert Walworth: making SDK maintainers, like, higher SDK-wide.
+
+356
+00:43:51.390 --> 00:43:55.380
+Robert Walworth: So basically, if you were a maintainer of one SDK, you'd be a maintainer of all of them.
+
+357
+00:43:55.510 --> 00:43:58.570
+Robert Walworth: And,
+
+358
+00:43:58.830 --> 00:44:03.889
+Robert Walworth: I know, at least I said I wanted a little bit more time to think about it,
+
+359
+00:44:04.420 --> 00:44:14.970
+Robert Walworth: And, I… well, personally, I think, like, I'm… I'm okay with this. I guess, like, maybe… one…
+
+360
+00:44:15.200 --> 00:44:26.309
+Robert Walworth: thing I'd maybe want to talk about more, or get more clarity on, Hendrik, is… are… were we doing this specifically for…
+
+361
+00:44:26.730 --> 00:44:33.149
+Robert Walworth: SDK maintainers, or are we doing them for committers, too? So basically, if, like, you're a committer of one, you're a committer of all.
+
+362
+00:44:34.170 --> 00:44:36.230
+Hendrik Ebbers (Hedera Hashgraph LLC): I would suggest to do it for both.
+
+363
+00:44:36.730 --> 00:44:55.180
+Hendrik Ebbers (Hedera Hashgraph LLC): That's my suggestion to make it, because… so, I would, okay, differently. So, our definition says we have maintainers, committers, and since near future… near past, junior committers per project.
+
+364
+00:44:55.560 --> 00:45:00.530
+Hendrik Ebbers (Hedera Hashgraph LLC): Today, Each SDK is a project on its own.
+
+365
+00:45:00.910 --> 00:45:10.710
+Hendrik Ebbers (Hedera Hashgraph LLC): Prius Hub is a project on its own, plus TCK is a project on its own. I would like to say, like, we have the SDK project.
+
+366
+00:45:12.760 --> 00:45:20.839
+Hendrik Ebbers (Hedera Hashgraph LLC): But this means, then, that all three cubes are… global for SDK repositories.
+
+367
+00:45:25.140 --> 00:45:32.409
+Robert Walworth: Yeah, I've kind of thought about that, too, in, like, in relation to, like, SDK Hub, for example. It's like…
+
+368
+00:45:32.800 --> 00:45:41.309
+Robert Walworth: If you're a committer, in an SDK repo, like, you're… you should be able to…
+
+369
+00:45:41.610 --> 00:45:49.090
+Robert Walworth: come into the SDK Hub and, you know, offer opinions and designs and all that, and like…
+
+370
+00:45:49.220 --> 00:45:52.819
+Robert Walworth: Your approvals should… should mean something.
+
+371
+00:45:52.990 --> 00:45:55.060
+Robert Walworth: It shouldn't just be, like, a rubber stamp, yeah.
+
+372
+00:45:55.060 --> 00:45:55.610
+Hendrik Ebbers (Hedera Hashgraph LLC): Yep.
+
+373
+00:45:57.580 --> 00:46:02.140
+Robert Walworth: Yeah, I think I'm with you on that. I agree.
+
+374
+00:46:04.640 --> 00:46:05.869
+Keith Kowal (Hedera Hashgraph LLC): Can I chip in one thing?
+
+375
+00:46:06.580 --> 00:46:07.620
+Robert Walworth: Yeah, go ahead, Keith.
+
+376
+00:46:08.670 --> 00:46:17.489
+Keith Kowal (Hedera Hashgraph LLC): if… I mean, if you're gonna create a lot of different maintainer levels, I mean, that's fine, but I would just say that the… the process today to get
+
+377
+00:46:17.590 --> 00:46:29.329
+Keith Kowal (Hedera Hashgraph LLC): to get someone, like… I think we need a more streamlined process about how you make requests to make somebody, like, to step up somebody's maintainer, because I would say right now, in the hire process, it's fairly…
+
+378
+00:46:29.610 --> 00:46:38.439
+Keith Kowal (Hedera Hashgraph LLC): it's not very… like, I often put up requests in the governance repo about making someone a maintainer, or changing maintainer status, and, like.
+
+379
+00:46:38.550 --> 00:46:43.169
+Keith Kowal (Hedera Hashgraph LLC): I don't know, like, I have to bug people for, like, 2 weeks to get anything to happen. So…
+
+380
+00:46:43.310 --> 00:46:48.579
+Keith Kowal (Hedera Hashgraph LLC): I think we need to improve that part of the process before you make a really complex maintainer model.
+
+381
+00:46:48.580 --> 00:46:50.579
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh, we want to make it more easy, Keith.
+
+382
+00:46:51.860 --> 00:47:05.739
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I agree with what you said, and that is… I would say the problem here is not the process, but the problem is that the people not reacting.
+
+383
+00:47:05.750 --> 00:47:21.369
+Hendrik Ebbers (Hedera Hashgraph LLC): But what we try to achieve here is to have, like, a more global maintainer group, a more global committer group, so we will, instead of, I don't know how much is it, 10 maintainer groups in the SDK space just have one.
+
+384
+00:47:23.110 --> 00:47:30.940
+Hendrik Ebbers (Hedera Hashgraph LLC): So, and that will make, from my point of view, everything easier. So where do you see more complexity?
+
+385
+00:47:31.440 --> 00:47:44.669
+Keith Kowal (Hedera Hashgraph LLC): Well, because you're talking about, like, a junior committer, like, a committer, like, all these different commit… and my question is, well, how would you nominate someone to be a junior commit, for example, when, like, our current process for this seems fairly broken?
+
+386
+00:47:47.610 --> 00:47:59.710
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, so two things here. So, junior, becoming a junior committer is super easy, and it's documented in our docs.
+
+387
+00:48:00.130 --> 00:48:13.070
+Hendrik Ebbers (Hedera Hashgraph LLC): Where I agree with you is that for some projects, it is… horribly hard to just…
+
+388
+00:48:13.300 --> 00:48:27.340
+Hendrik Ebbers (Hedera Hashgraph LLC): Change a committer or a maintainer, because our guideline says that the maintainers need to vote on that, and many people, many maintainers in that case just don't do.
+
+389
+00:48:27.950 --> 00:48:35.459
+Hendrik Ebbers (Hedera Hashgraph LLC): I don't know if the process is… is bad here, or if it's,
+
+390
+00:48:35.800 --> 00:48:39.789
+Hendrik Ebbers (Hedera Hashgraph LLC): Bad that some people don't care about that, right?
+
+391
+00:48:39.790 --> 00:48:45.019
+Keith Kowal (Hedera Hashgraph LLC): What's the process, the easy process for someone to become a junior committer?
+
+392
+00:48:45.280 --> 00:48:52.509
+Hendrik Ebbers (Hedera Hashgraph LLC): To become a junior committer is to create a PR. I mean, I mean, the,
+
+393
+00:48:52.950 --> 00:49:10.250
+Hendrik Ebbers (Hedera Hashgraph LLC): the… how to say that in English, like, the things somebody need to have been done to be allowed to become a junior committer is really low level, so if you just want to open, Rob, I'm sharing the link.
+
+394
+00:49:10.250 --> 00:49:19.819
+Keith Kowal (Hedera Hashgraph LLC): Let's just say, like, I, Keith, have been agreed that I'm gonna be a junior committer. What's the process to actually make me a junior committer?
+
+395
+00:49:20.480 --> 00:49:28.050
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh! Somebody creates a PR, and there must be a voting. That is independently if it's a junior committer, a committer, or a maintainer.
+
+396
+00:49:28.400 --> 00:49:29.500
+Hendrik Ebbers (Hedera Hashgraph LLC): It's the difference…
+
+397
+00:49:29.500 --> 00:49:30.710
+Keith Kowal (Hedera Hashgraph LLC): That's why I'm saying, like.
+
+398
+00:49:31.330 --> 00:49:44.690
+Keith Kowal (Hedera Hashgraph LLC): there's a… there's a voting, and then I think eventually you put up an issue in the governance PR. Once you let's an agreement on all the voting, then I think you have to put up an issue in the governance repo, and, like, none of this works very well.
+
+399
+00:49:46.980 --> 00:49:50.770
+Hendrik Ebbers (Hedera Hashgraph LLC): No, no, the voting, I agree with the voting, but what… what else?
+
+400
+00:49:51.850 --> 00:50:02.979
+Keith Kowal (Hedera Hashgraph LLC): Well, like, I put up… I put up PRs all the time in the governance repo, asking someone to be made, like, you know, please make me a committer for this repo, or something like that, and I tag Jessica, and then, like, I don't hear anything.
+
+401
+00:50:03.190 --> 00:50:14.580
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, because the idea is that Jessica then starts the voting process, and all the maintainers will be… notified?
+
+402
+00:50:14.950 --> 00:50:19.870
+Hendrik Ebbers (Hedera Hashgraph LLC): And if I know about that, I even, you know, like, ping people on…
+
+403
+00:50:21.610 --> 00:50:26.640
+Hendrik Ebbers (Hedera Hashgraph LLC): on SREC, as an example, on the internally hashcraft SREC.
+
+404
+00:50:27.060 --> 00:50:28.340
+Hendrik Ebbers (Hedera Hashgraph LLC): Rob?
+
+405
+00:50:28.770 --> 00:50:44.039
+Robert Walworth: Yeah, I just wanted to add, I don't necessarily think the issue is in the process. I think the issue is in speed of people coming in and giving their approvals or votes. Like, the actual, like…
+
+406
+00:50:44.040 --> 00:50:47.369
+Keith Kowal (Hedera Hashgraph LLC): Rob, Rob, that's… that's… that's the process, like, that…
+
+407
+00:50:47.370 --> 00:50:48.930
+Hendrik Ebbers (Hedera Hashgraph LLC): If it takes, like… Okay, okay, okay.
+
+408
+00:50:48.930 --> 00:50:50.460
+Keith Kowal (Hedera Hashgraph LLC): That's the process.
+
+409
+00:50:50.460 --> 00:50:52.189
+Robert Walworth: Well, sure, but, like…
+
+410
+00:50:52.330 --> 00:51:04.639
+Robert Walworth: I mean, the fix is just people need to pay more attention. I don't know. Like, process in terms of, like, how to actually do it is, like, simple. Yeah, it's just like open a PR, but…
+
+411
+00:51:04.890 --> 00:51:06.660
+Robert Walworth: I mean…
+
+412
+00:51:07.450 --> 00:51:15.860
+Robert Walworth: Like, you need votes from the maintainers, and, like, it's ultimately on the maintainer's timeline, so if it takes a while, that's like…
+
+413
+00:51:16.810 --> 00:51:18.760
+Robert Walworth: That's just on the maintainers, I don't know.
+
+414
+00:51:18.760 --> 00:51:25.660
+Hendrik Ebbers (Hedera Hashgraph LLC): And I can tell you, Keith, that there were some… projects… Where it went fast.
+
+415
+00:51:26.230 --> 00:51:44.259
+Hendrik Ebbers (Hedera Hashgraph LLC): You know, so I can tell you that, on the Python SDK, for example, people changed. Like, there was a new maintainer, maintainers has been removed, and so on. And yeah, it maybe took 2 days, but then the voting has been done, and the PR has been merged.
+
+416
+00:51:45.430 --> 00:51:53.289
+Hendrik Ebbers (Hedera Hashgraph LLC): On the other hand, we have consensus node, where it mostly takes 2 weeks, because our rule currently says
+
+417
+00:51:53.560 --> 00:52:00.770
+Hendrik Ebbers (Hedera Hashgraph LLC): When going to, to voting, that,
+
+418
+00:52:01.480 --> 00:52:17.120
+Hendrik Ebbers (Hedera Hashgraph LLC): the PI's open for 2 weeks, and… and after 2 weeks, it will be closed. I mean, what we can do is, we can move that down to, just one week. At the beginning, we decided to…
+
+419
+00:52:17.120 --> 00:52:27.129
+Hendrik Ebbers (Hedera Hashgraph LLC): have this for 2 weeks, because somebody can be on vacation, can be ill, or whatever, and give people 2 weeks to… to react.
+
+420
+00:52:27.240 --> 00:52:31.729
+Hendrik Ebbers (Hedera Hashgraph LLC): make… sense from my point of view. I think we have it…
+
+421
+00:52:32.040 --> 00:52:41.560
+Hendrik Ebbers (Hedera Hashgraph LLC): somewhere here, when to cast a vote, or no? Then it's… then it's here in the voting, where the, timelines are defined.
+
+422
+00:52:43.270 --> 00:52:57.300
+Keith Kowal (Hedera Hashgraph LLC): I don't want… I don't want to disrupt… what my point is just that I think if you want to create tons of hierarchies of committers or, maintainers, okay, fine, but, like, this… that means that you need lots more votes, which creates a lot more…
+
+423
+00:52:57.300 --> 00:53:02.480
+Hendrik Ebbers (Hedera Hashgraph LLC): Sorry, sorry to interrupt you, where do you see those tons of…
+
+424
+00:53:02.600 --> 00:53:08.109
+Hendrik Ebbers (Hedera Hashgraph LLC): We couldn't be talking about make sense easier by creating one group out of 10.
+
+425
+00:53:11.420 --> 00:53:17.020
+Keith Kowal (Hedera Hashgraph LLC): No, I'm talking about the hierarchy of, like, having junior committers, committers,
+
+426
+00:53:17.880 --> 00:53:19.760
+Keith Kowal (Hedera Hashgraph LLC): That's the hierarchy I'm talking about.
+
+427
+00:53:19.760 --> 00:53:34.390
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, yeah, so we added… so the point why we added junior committers is because we came to a point where we had, in SDKs, a lot of people working on issues and starting to…
+
+428
+00:53:35.170 --> 00:53:49.469
+Hendrik Ebbers (Hedera Hashgraph LLC): to, do more and more work, and the problem they had is they were not able to assign themselves to issues, so it was always on us to assign people. So what a junior committer has
+
+429
+00:53:49.690 --> 00:54:08.070
+Hendrik Ebbers (Hedera Hashgraph LLC): as a ride, more or less, is that, it gets, how is it called? I think triage right when it comes to the, GitHub rights, which means that person has some more, allowance when it comes to issues.
+
+430
+00:54:08.930 --> 00:54:14.340
+Hendrik Ebbers (Hedera Hashgraph LLC): And, that helps, especially the,
+
+431
+00:54:14.850 --> 00:54:22.099
+Hendrik Ebbers (Hedera Hashgraph LLC): committers we now, or the people we now have, coming from the outside, to work on the project. And…
+
+432
+00:54:22.280 --> 00:54:26.649
+Hendrik Ebbers (Hedera Hashgraph LLC): The project where we have junior committers,
+
+433
+00:54:26.850 --> 00:54:29.459
+Hendrik Ebbers (Hedera Hashgraph LLC): That worked quite good so far.
+
+434
+00:54:30.080 --> 00:54:32.440
+Hendrik Ebbers (Hedera Hashgraph LLC): To get those people on board.
+
+435
+00:54:34.730 --> 00:54:52.859
+Hendrik Ebbers (Hedera Hashgraph LLC): So, in those projects, I never heard somebody coming to me and says, oh, we had, like, junior committers now, and we tried to create a pull request for that in the governance repo, and it was horrible. The points,
+
+436
+00:54:53.030 --> 00:55:03.160
+Hendrik Ebbers (Hedera Hashgraph LLC): where we have those problems are independent of junior committers. This is mostly about committers or maintainers of the larger projects.
+
+437
+00:55:03.590 --> 00:55:04.510
+Hendrik Ebbers (Hedera Hashgraph LLC): That is…
+
+438
+00:55:05.060 --> 00:55:16.290
+Hendrik Ebbers (Hedera Hashgraph LLC): at least what ends at me. Maybe I'm wrong, because I do not look in each and every PR and track them, but the,
+
+439
+00:55:16.580 --> 00:55:21.100
+Hendrik Ebbers (Hedera Hashgraph LLC): responses I get and the feedback I get is exactly that.
+
+440
+00:55:21.340 --> 00:55:31.470
+Keith Kowal (Hedera Hashgraph LLC): Sorry, I just want to call it… so today, junior committers are assigned, and in this new framework, junior… becoming a junior committer will require a vote from all maintainers.
+
+441
+00:55:31.470 --> 00:55:34.179
+Hendrik Ebbers (Hedera Hashgraph LLC): But there is no new framework. We have that.
+
+442
+00:55:35.850 --> 00:55:53.439
+Hendrik Ebbers (Hedera Hashgraph LLC): So, so junior committers, when… I don't know when… when we started to have them, I don't know, weeks… weeks ago. So, that is… that is nothing new. What new is, that we would like to…
+
+443
+00:55:54.910 --> 00:55:59.360
+Hendrik Ebbers (Hedera Hashgraph LLC): Let me… Still showing my screen wide, yeah.
+
+444
+00:55:59.690 --> 00:56:03.609
+Hendrik Ebbers (Hedera Hashgraph LLC): So, when I search here for SDK,
+
+445
+00:56:05.470 --> 00:56:13.090
+Hendrik Ebbers (Hedera Hashgraph LLC): that we want… oh, not SAC, I want to search for… SDK…
+
+446
+00:56:13.250 --> 00:56:16.919
+Hendrik Ebbers (Hedera Hashgraph LLC): We want to get rid of a lot of those coops.
+
+447
+00:56:17.450 --> 00:56:27.260
+Hendrik Ebbers (Hedera Hashgraph LLC): So, which means, if somebody becomes a committer, or a maintainer, or even a junior committer, You still…
+
+448
+00:56:27.760 --> 00:56:43.309
+Hendrik Ebbers (Hedera Hashgraph LLC): need to create a pull request, you still need to vote on it, so I'm not saying that the problem you describe, and I understand that problem, is getting better with it, but it's definitely not getting worse, because we just
+
+449
+00:56:43.400 --> 00:56:51.919
+Hendrik Ebbers (Hedera Hashgraph LLC): try to get rid of a lot of different groups. Maybe it gets better, because today, you need to become…
+
+450
+00:56:52.090 --> 00:57:06.239
+Hendrik Ebbers (Hedera Hashgraph LLC): part of the Python maintainer, of the JavaScript maintainer, of the Java committer, and of the Go committer, maybe, and now this would be just one, hey, here's one pull request to it. Rob.
+
+451
+00:57:07.120 --> 00:57:16.240
+Robert Walworth: So, quick mechanics question. So, if we're looking to combine all these groups into one.
+
+452
+00:57:16.240 --> 00:57:16.860
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah.
+
+453
+00:57:16.860 --> 00:57:24.759
+Robert Walworth: Yeah, that's great. But when we get to editing the code owner's files, and only allowing specific people to…
+
+454
+00:57:24.960 --> 00:57:32.600
+Robert Walworth: review, you know, certain languages or repos, whatever. Are we still gonna need these groups?
+
+455
+00:57:32.760 --> 00:57:34.650
+Robert Walworth: Or are we just gonna, like…
+
+456
+00:57:34.790 --> 00:57:37.399
+Robert Walworth: Just tag people manually in those.
+
+457
+00:57:37.400 --> 00:57:39.460
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh yeah, I would tag people manually.
+
+458
+00:57:39.610 --> 00:57:40.290
+Robert Walworth: Okay.
+
+459
+00:57:40.520 --> 00:57:44.789
+Hendrik Ebbers (Hedera Hashgraph LLC): That's my personal point of view, because we do not talk about that many people here.
+
+460
+00:57:46.040 --> 00:57:48.590
+Robert Walworth: Yeah, and it'll be easier to edit.
+
+461
+00:57:48.720 --> 00:57:51.620
+Robert Walworth: As opposed to going through the government's repo.
+
+462
+00:57:52.130 --> 00:57:55.020
+Hendrik Ebbers (Hedera Hashgraph LLC): So I think we should get rid of all those groups.
+
+463
+00:57:55.360 --> 00:57:56.110
+Robert Walworth: Okay.
+
+464
+00:58:05.530 --> 00:58:11.449
+Hendrik Ebbers (Hedera Hashgraph LLC): And, Keith, regarding the problem you mentioned,
+
+465
+00:58:12.960 --> 00:58:22.820
+Hendrik Ebbers (Hedera Hashgraph LLC): So, I think that is not an SDK program, right? So, as I said, I assume SDK is the better area where it works better than in others.
+
+466
+00:58:23.130 --> 00:58:28.240
+Hendrik Ebbers (Hedera Hashgraph LLC): My gut feeling is that it's more like a…
+
+467
+00:58:29.330 --> 00:58:35.990
+Hendrik Ebbers (Hedera Hashgraph LLC): maybe even Hashcroft internal program to get Hashcroft people to take more awareness of
+
+468
+00:58:36.690 --> 00:58:51.039
+Hendrik Ebbers (Hedera Hashgraph LLC): those PRs may be in combination with Jessica from AF, that she, takes more responsibility to create those votes and ping the people.
+
+469
+00:58:53.900 --> 00:59:00.720
+Keith Kowal (Hedera Hashgraph LLC): Okay. I just want to… I just want to make sure… so it sounds like, Hendrick, what you guys are proposing doesn't affect the current process, doesn't make.
+
+470
+00:59:00.720 --> 00:59:01.300
+Hendrik Ebbers (Hedera Hashgraph LLC): No, no.
+
+471
+00:59:02.190 --> 00:59:02.910
+Hendrik Ebbers (Hedera Hashgraph LLC): It's up.
+
+472
+00:59:02.910 --> 00:59:18.789
+Keith Kowal (Hedera Hashgraph LLC): That's fine. The other point I want to make is, I… I also am uncomfortable with, let's just say, like, someone who becomes a maintainer of the Python SDK also becomes a maintainer of all the SDKs, and because
+
+473
+00:59:18.790 --> 00:59:28.830
+Keith Kowal (Hedera Hashgraph LLC): I consider Python to be a community SDK, and I think, as Rob knows, I'm actually pushing that more SDKs become community SDKs, and then we only have a couple of official SDKs.
+
+474
+00:59:28.990 --> 00:59:46.920
+Keith Kowal (Hedera Hashgraph LLC): I am not sure that if someone becomes a maintainer on a community SDK, they should become a maintainer of our official SDKs. Most critically, Java… you know, most of our user activity is around 3 SDKs, Go, Java, and JavaScript. I think we need to treat those SDKs with more protections.
+
+475
+00:59:46.920 --> 00:59:52.690
+Hendrik Ebbers (Hedera Hashgraph LLC): Why are you not sure? Like, what negative things would… would you see?
+
+476
+00:59:53.220 --> 01:00:06.649
+Hendrik Ebbers (Hedera Hashgraph LLC): If we say he… a person, do not become a maintainer of SDK A, he just becomes a maintainer of all SDKs. So, so what is… what is the, problem you see?
+
+477
+01:00:07.860 --> 01:00:10.129
+Keith Kowal (Hedera Hashgraph LLC): It's a security thing, right? Like…
+
+478
+01:00:10.640 --> 01:00:16.879
+Keith Kowal (Hedera Hashgraph LLC): I mean, it depends. What's the process to… what's the process for someone to become a maintainer of, let's say, the
+
+479
+01:00:16.880 --> 01:00:31.740
+Keith Kowal (Hedera Hashgraph LLC): the Swift SDK, or the C++ SDK? Are we gonna meet them… are we gonna meet them in person? Are we going to, like, what's the vetting and validation process? Because if we make the maintainer of the JavaScript SDK, or the Java SDK,
+
+480
+01:00:32.410 --> 01:00:35.340
+Keith Kowal (Hedera Hashgraph LLC): Like, potentially there could be some harm done.
+
+481
+01:00:35.470 --> 01:00:41.819
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, I understand what you mean. And that is, why we have code ownership. So,
+
+482
+01:00:41.970 --> 01:00:51.649
+Hendrik Ebbers (Hedera Hashgraph LLC): And that is done by other parts, like consensus node, and so on, too. So, saying somebody is a maintainer of all SDKs.
+
+483
+01:00:51.920 --> 01:00:58.260
+Hendrik Ebbers (Hedera Hashgraph LLC): does not mean that that person can easily put code into the JavaScript SDK.
+
+484
+01:01:00.770 --> 01:01:01.830
+Hendrik Ebbers (Hedera Hashgraph LLC): Pulls up?
+
+485
+01:01:01.830 --> 01:01:05.570
+Keith Kowal (Hedera Hashgraph LLC): That sort of… what can they do, though? They could have.
+
+486
+01:01:05.570 --> 01:01:06.250
+Hendrik Ebbers (Hedera Hashgraph LLC): Oh!
+
+487
+01:01:06.250 --> 01:01:15.720
+Keith Kowal (Hedera Hashgraph LLC): someone… they could approve someone else's… I mean, what… I just… all I'm asking is, can we have a thread analysis on this one? Because, like, what happens if we…
+
+488
+01:01:15.920 --> 01:01:20.859
+Keith Kowal (Hedera Hashgraph LLC): By all good intentions, but we get a malicious maintainer, what can they do?
+
+489
+01:01:20.860 --> 01:01:27.499
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, what they could… can do is, they can do horrible stuff with issues, maybe.
+
+490
+01:01:27.940 --> 01:01:30.110
+Hendrik Ebbers (Hedera Hashgraph LLC): Like, delete issues.
+
+491
+01:01:32.100 --> 01:01:40.560
+Hendrik Ebbers (Hedera Hashgraph LLC): They could delete a pull request, but they cannot merge malicious code into an SDK.
+
+492
+01:01:45.930 --> 01:01:58.170
+Keith Kowal (Hedera Hashgraph LLC): Okay, I just think we need that kind of thinking towards this, because again, if we're saying these are maintainers that, you know, we've known them for years, and we've met them, and we really know them well, okay, that's one thing. But if these are people just, like.
+
+493
+01:01:58.210 --> 01:02:13.229
+Keith Kowal (Hedera Hashgraph LLC): who randomly become, you know, you know, without really knowing them that well, can become a maintainer of, let's say, the less important… I mean, I'm trying to be nice here, but, like, the SDKs are less used, like C++ or Swift, and all of a sudden they have…
+
+494
+01:02:13.230 --> 01:02:14.579
+Hendrik Ebbers (Hedera Hashgraph LLC): CPS Press, yep.
+
+495
+01:02:15.410 --> 01:02:23.170
+Keith Kowal (Hedera Hashgraph LLC): then, you know… and then all of a sudden they have all these rights for the SDKs that everybody uses. Okay, well, what does that mean?
+
+496
+01:02:23.240 --> 01:02:31.449
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, so to show it, like, in a clear way, let's have a look how the,
+
+497
+01:02:31.990 --> 01:02:35.289
+Hendrik Ebbers (Hedera Hashgraph LLC): Consensus node does it, as an example.
+
+498
+01:02:43.760 --> 01:02:55.100
+Keith Kowal (Hedera Hashgraph LLC): I just want to call out that, as far as I know, everyone who's a maintainer of consensus knows, like, we know them. Like, we've met them in person, like, there's a high vetting to work.
+
+499
+01:02:55.100 --> 01:03:12.559
+Hendrik Ebbers (Hedera Hashgraph LLC): Yeah, wait, wait, wait, Keith, but being a maintainer on consensus node does not mean that you can just commit code, or approve code, in consensus node, and that's what I want to show. Because there is this code owners file, and for consensus node, that is really big.
+
+500
+01:03:12.680 --> 01:03:17.480
+Hendrik Ebbers (Hedera Hashgraph LLC): Which defines a lot of parts, like…
+
+501
+01:03:18.410 --> 01:03:30.319
+Hendrik Ebbers (Hedera Hashgraph LLC): This submodule, or this submodule, or this submodule, which says you are only allowed to bring code into this submodule.
+
+502
+01:03:30.660 --> 01:03:43.499
+Hendrik Ebbers (Hedera Hashgraph LLC): if you… this. So they, because they have a lot of people, they use groups. But often, you have here names written. So what we can do for SDKs, say.
+
+503
+01:03:43.650 --> 01:03:47.190
+Hendrik Ebbers (Hedera Hashgraph LLC): Hey, we have the source folder.
+
+504
+01:03:47.660 --> 01:03:54.090
+Hendrik Ebbers (Hedera Hashgraph LLC): And every code that goes into the source folder must be approved By what?
+
+505
+01:03:55.380 --> 01:03:58.079
+Hendrik Ebbers (Hedera Hashgraph LLC): If Rob do not approve code.
+
+506
+01:03:58.190 --> 01:04:11.429
+Hendrik Ebbers (Hedera Hashgraph LLC): then it can absolutely not go into the source folder. And this one, we can make more easy without votes, you know, the people of the,
+
+507
+01:04:11.730 --> 01:04:20.139
+Hendrik Ebbers (Hedera Hashgraph LLC): of the SDKs can do that, and that is where we want to stop it, because a maintainer
+
+508
+01:04:20.900 --> 01:04:36.689
+Hendrik Ebbers (Hedera Hashgraph LLC): should, you know, like, know all about the SDKs, should be able to maybe add new tasks, tests to the TCK, or is that where I totally agree with you, a maintainer of the C++ SDK should not be
+
+509
+01:04:36.870 --> 01:04:40.260
+Hendrik Ebbers (Hedera Hashgraph LLC): able to just get code into the
+
+510
+01:04:41.250 --> 01:04:47.190
+Hendrik Ebbers (Hedera Hashgraph LLC): published and executable code of the Java SDK. For that, we have this code owners file.
+
+511
+01:04:47.320 --> 01:04:52.529
+Hendrik Ebbers (Hedera Hashgraph LLC): And that is what we want to use here. I hope… I hope that answers your question.
+
+512
+01:04:53.930 --> 01:04:54.919
+Keith Kowal (Hedera Hashgraph LLC): Yeah, thank you.
+
+513
+01:04:55.160 --> 01:04:56.630
+Hendrik Ebbers (Hedera Hashgraph LLC): Perfect. Okay.
+
+514
+01:04:57.020 --> 01:04:57.810
+Hendrik Ebbers (Hedera Hashgraph LLC): Good.
+
+515
+01:04:57.810 --> 01:05:03.650
+Robert Walworth: Alright, cool, we're 3 past the hour, we got the mentorship meeting next, so we'll go ahead and cut it here. Thanks, everyone.
+
+516
+01:05:04.050 --> 01:05:05.340
+Hendrik Ebbers (Hedera Hashgraph LLC): Okay, bye.
+
+517
+01:05:13.250 --> 01:05:13.910
+Keith Kowal (Hedera Hashgraph LLC): You.
+

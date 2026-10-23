@@ -1,0 +1,1750 @@
+WEBVTT
+
+1
+00:02:06.710 --> 00:02:08.150
+Wenjing Chu (Futurewei Technologies, Inc.): Hello!
+
+2
+00:02:09.810 --> 00:02:11.539
+Neil Thomson (QueryVision): Hey? Wen jing! Happy New Year.
+
+3
+00:02:11.690 --> 00:02:13.380
+Wenjing Chu (Futurewei Technologies, Inc.): Happy New Year to you, Neil.
+
+4
+00:02:15.240 --> 00:02:19.370
+Neil Thomson (QueryVision): So I see Jamie Smith has put up an interesting
+
+5
+00:02:20.013 --> 00:02:24.350
+Neil Thomson (QueryVision): post, to which I made a comment on personal data
+
+6
+00:02:24.500 --> 00:02:29.240
+Neil Thomson (QueryVision): and AI agents. Let me just dig up the reference.
+
+7
+00:02:29.740 --> 00:02:31.295
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah.
+
+8
+00:03:51.940 --> 00:03:53.269
+Eric Drury (Forth Consulting): Happy New Year.
+
+9
+00:03:54.440 --> 00:03:55.920
+Wenjing Chu (Futurewei Technologies, Inc.): Happy New Year, Eric.
+
+10
+00:03:57.100 --> 00:03:57.959
+Eric Drury (Forth Consulting): How's it going.
+
+11
+00:03:58.765 --> 00:04:00.640
+Wenjing Chu (Futurewei Technologies, Inc.): You're growing something.
+
+12
+00:04:01.030 --> 00:04:02.760
+Eric Drury (Forth Consulting): Or what something.
+
+13
+00:04:04.440 --> 00:04:12.080
+Wenjing Chu (Futurewei Technologies, Inc.): It's cold. I'm trying to get through the winter and.
+
+14
+00:04:12.490 --> 00:04:19.949
+Neil Thomson (QueryVision): Yeah. So I just post posted it in chat. And I commented to it. He's saying, It's time, you know, we pushed personal data back to the person
+
+15
+00:04:20.820 --> 00:04:24.674
+Neil Thomson (QueryVision): that just might be. I don't know that travel profile project I'm working on.
+
+16
+00:04:25.770 --> 00:04:36.899
+Neil Thomson (QueryVision): yeah. Yeah. The the overwhelming problem, with data and agents is, you can't let them. Just you know how I'm gonna grab this data and shove it into some proprietary format in
+
+17
+00:04:37.000 --> 00:04:41.270
+Neil Thomson (QueryVision): my agent, because now it's not shareable, it's not interoperable.
+
+18
+00:04:41.400 --> 00:04:52.089
+Neil Thomson (QueryVision): And if I'm gonna so certainly this came up in terms of looking at, you know. So so one of the things the travel profile project over a diff is working on is coming up with a schema that's pretty big.
+
+19
+00:04:52.579 --> 00:05:04.460
+Neil Thomson (QueryVision): For you know, travel data that includes, you know medical issues, accessibility questions, allergies, preferences, all sorts of stuff. So it's a non trivial, you know. There's nothing exotic about it. It's just big
+
+20
+00:05:04.871 --> 00:05:11.280
+Neil Thomson (QueryVision): but the problem is, how do you share that in AI agents? And it's not letting agents do their own thing, because
+
+21
+00:05:11.720 --> 00:05:16.710
+Neil Thomson (QueryVision): part of the problem is, if you pick a specific. So so this is intended to be a presentation
+
+22
+00:05:17.460 --> 00:05:24.380
+Neil Thomson (QueryVision): schema, not the storage schema right? But at some point there's gonna be a reference storage.
+
+23
+00:05:24.590 --> 00:05:47.109
+Neil Thomson (QueryVision): Json schema based definition for it. That's going to be an exchange format. Because if I want to move from Wallet X to wallet Y, or agent A to Agent B. If that information is not in a form that's shareable or even request, how do I request personal data? If I don't don't know what the structure looks like. Right? How do you know.
+
+24
+00:05:47.110 --> 00:05:48.590
+Eric Drury (Forth Consulting): Agent will figure it out.
+
+25
+00:05:48.880 --> 00:05:51.459
+Neil Thomson (QueryVision): Yeah, yeah. And and it's still non portable.
+
+26
+00:05:52.410 --> 00:06:01.760
+Neil Thomson (QueryVision): That's the problem. You, you can't say that. Well, we'll just let the agent handle the data stuff. It's like, okay, so how are you going to exchange that information? And how do you check it?
+
+27
+00:06:02.000 --> 00:06:06.960
+Neil Thomson (QueryVision): How do I say? Yes, you have an accurate representation of me and my personal preferences.
+
+28
+00:06:08.170 --> 00:06:15.420
+Wenjing Chu (Futurewei Technologies, Inc.): Alright. Let me share this to kick. Things started.
+
+29
+00:06:16.820 --> 00:06:19.957
+Wenjing Chu (Futurewei Technologies, Inc.): Oh, Happy New Year, everyone. And
+
+30
+00:06:20.810 --> 00:06:27.019
+Wenjing Chu (Futurewei Technologies, Inc.): let's see, I think now the recording is automatic. So it's all already being recording
+
+31
+00:06:27.934 --> 00:06:36.999
+Wenjing Chu (Futurewei Technologies, Inc.): and we have today's agendas, basically 2 items. We could do a quick review of the white paper where we are
+
+32
+00:06:37.895 --> 00:06:57.149
+Wenjing Chu (Futurewei Technologies, Inc.): and maybe get the everyone feedback on. See if this new structure, new direction all. Good. If it is, then I think we can get it done quite quickly, and then we can open the discussion on our agent. We can wait to get that started.
+
+33
+00:06:59.000 --> 00:07:01.960
+Wenjing Chu (Futurewei Technologies, Inc.): Would that be good for today's agenda.
+
+34
+00:07:05.210 --> 00:07:05.810
+Steven Milstein (Collab.Ventures): Yep.
+
+35
+00:07:06.670 --> 00:07:16.860
+Wenjing Chu (Futurewei Technologies, Inc.): Sounds good. Okay. Well, maybe, Neil, you can go ahead. I put down that you are sharing this link about that. You know. That will be part of the news, and we have.
+
+36
+00:07:17.160 --> 00:07:20.420
+Wenjing Chu (Futurewei Technologies, Inc.): We have at least 15 min to cover over that.
+
+37
+00:07:20.980 --> 00:07:23.270
+Wenjing Chu (Futurewei Technologies, Inc.): So go ahead to continue, Neil.
+
+38
+00:07:23.480 --> 00:07:37.699
+Neil Thomson (QueryVision): Yeah, I mean, Jamie Smith is certainly. You know everybody's watching what he's he's talking about. Certainly, over on the diff hospitality travel segment these, which is, I would say, 75% of the people in there are
+
+39
+00:07:38.302 --> 00:07:46.509
+Neil Thomson (QueryVision): experts and long term consultants, and you know, ex executives in the hospitality travel, industry, who have
+
+40
+00:07:47.810 --> 00:07:59.496
+Neil Thomson (QueryVision): a passion for for technology. And the 25% of us are the reverse. The geeks who are trying to understand. You know, SSI and data privacy background trying to look at
+
+41
+00:08:00.000 --> 00:08:05.679
+Neil Thomson (QueryVision): the the that particular data set and use of that data set in in hospitality and travel
+
+42
+00:08:07.130 --> 00:08:15.339
+Neil Thomson (QueryVision): and so so you know, they they think a lot of what Jamie Smith seems to talk about, and and his latest post is talking about. Okay. So I got agents.
+
+43
+00:08:15.700 --> 00:08:22.939
+Neil Thomson (QueryVision): right? So what do I do about the data? You know? I don't. You know, if I share a wholesale with an agent. What happens to it? How does it evolve?
+
+44
+00:08:23.410 --> 00:08:50.390
+Neil Thomson (QueryVision): And as as certainly what I've heard from the hospitality and travel experts is the cyber insurance industry is now giving. You know the bookings.com the expedias and airlines. A hell of a hard time in terms of cyber insurance costs, because you really don't want to have that personal data lying around, including things like, you know, storage of of credit card information lying around on your server. You're just a honeypot.
+
+45
+00:08:51.230 --> 00:08:53.578
+Neil Thomson (QueryVision): So his pitch in this latest
+
+46
+00:08:54.140 --> 00:09:04.690
+Neil Thomson (QueryVision): posting on Linkedin is, hey? This stuff needs to get pushed back to the individual and have them manage it out of their let's call it distributed wallet, which may include, you know.
+
+47
+00:09:05.972 --> 00:09:11.520
+Neil Thomson (QueryVision): distributed web node right, as you know. If you can't reach me on my cell phone. Go talk to my web note
+
+48
+00:09:11.700 --> 00:09:36.620
+Neil Thomson (QueryVision): right? And so that certainly ties in directly with you know what the Travel Profile group is looking at is not only what is the structure of that deeply personal information for travel and hospitality, but what is the actual interaction. What's what's the data exchange protocol look like? And how do you share data? When do you share it? And what's the lifetime?
+
+49
+00:09:37.950 --> 00:09:57.970
+Neil Thomson (QueryVision): So so I I made some comments back to to Jamie. And you know, so certainly the one thing that we've come up with in the in the travel profile stuff is is what is what is, what is the integration of travel onto a digital wallet? Look like that includes the travel profile. So what is other data that
+
+50
+00:09:58.390 --> 00:10:00.420
+Neil Thomson (QueryVision): because credentials.
+
+51
+00:10:00.600 --> 00:10:22.209
+Neil Thomson (QueryVision): or perhaps not in your travel profile, because the travel profile is a self attested set of data. In other words, you're saying. These are my preferences. These are my issues, you know. You know I walk with a cane. I'm in a wheelchair now. They may be backed by credentials. But it's predominantly something for a user to say, here is the information. As I want the rest of the world to understand it.
+
+52
+00:10:23.091 --> 00:10:45.400
+Neil Thomson (QueryVision): So. So there would be an interplay between verifiable credentials in terms of establishing proof. And certainly, you know, a passport in terms of travel is going to be a credential that you present. But there's there's also some things here is is, I don't hand someone like I don't need to hand someone my my passport record for them to hang on to for the rest of life. They the intent is
+
+53
+00:10:45.700 --> 00:10:57.030
+Neil Thomson (QueryVision): I'm gonna share it to you for you to verify it, and I'm gonna give you an access token to come back and get it should you need it in future. But I don't want you storing my credential on your site on a permanent basis.
+
+54
+00:11:02.250 --> 00:11:04.910
+Neil Thomson (QueryVision): So that's that's you know where
+
+55
+00:11:05.010 --> 00:11:14.830
+Neil Thomson (QueryVision): the the relevance here and and Jamie was talking about it predominantly in terms of, okay, who's which agent is going to hang on to that data? Who is going to.
+
+56
+00:11:15.060 --> 00:11:26.409
+Neil Thomson (QueryVision): you know? Are you gonna hand it out to any agent out there in a 3rd party? Or do you want a personal agent to manage that? And including the data sharing? And I think the answer is, you know that we've discussed as well is.
+
+57
+00:11:26.550 --> 00:11:29.910
+Neil Thomson (QueryVision): you really would like to have an agent that helps you with consent
+
+58
+00:11:30.330 --> 00:11:45.950
+Neil Thomson (QueryVision): and minimizes the exposure and negotiates with other parties, because, you know, grandma just has no idea what the hell consent means, and that's certainly consistent with what I've heard from some of the top data privacy lawyers here in Canada. They just say
+
+59
+00:11:46.620 --> 00:12:05.219
+Neil Thomson (QueryVision): we're recommending to our clients. Do not count on consent. You need to manage yourself because you can't count on meaningful consent would require you to absolutely qualify that the person understood what they were agreeing to, and that currently is beyond the scope of a simple checkbox at the bottom of a
+
+60
+00:12:05.320 --> 00:12:12.100
+Neil Thomson (QueryVision): 15 page long. Lawyer's description of consent ran for the day over.
+
+61
+00:12:16.360 --> 00:12:20.750
+Wenjing Chu (Futurewei Technologies, Inc.): Any other news to share of the long holiday.
+
+62
+00:12:24.180 --> 00:12:26.929
+Wenjing Chu (Futurewei Technologies, Inc.): I went to 2 conferences.
+
+63
+00:12:27.800 --> 00:12:33.639
+Steven Milstein (Collab.Ventures): Wanging. Sorry one sec. When you're sharing your screen. It has the pop up for this meetings being recorded.
+
+64
+00:12:36.010 --> 00:12:37.500
+Steven Milstein (Collab.Ventures): I don't know if you see it.
+
+65
+00:12:37.670 --> 00:12:38.650
+Steven Milstein (Collab.Ventures): What I do.
+
+66
+00:12:39.250 --> 00:12:40.476
+Wenjing Chu (Futurewei Technologies, Inc.): Oh, really.
+
+67
+00:12:41.090 --> 00:12:41.850
+Steven Milstein (Collab.Ventures): Yeah.
+
+68
+00:12:42.400 --> 00:12:44.080
+Wenjing Chu (Futurewei Technologies, Inc.): Don't it? Says.
+
+69
+00:12:44.080 --> 00:12:45.463
+Steven Milstein (Collab.Ventures): I didn't think you did.
+
+70
+00:12:46.490 --> 00:12:49.320
+Neil Thomson (QueryVision): Yeah, with that. Lfx, it's automatic.
+
+71
+00:12:49.890 --> 00:12:51.880
+Wenjing Chu (Futurewei Technologies, Inc.): It's yeah. It seems like.
+
+72
+00:12:51.880 --> 00:12:58.490
+Steven Milstein (Collab.Ventures): The pop up is is blocking the the document you're sharing, maybe minimize the browser window, and then.
+
+73
+00:12:58.790 --> 00:12:59.510
+Eric Drury (Forth Consulting): I don't solve.
+
+74
+00:12:59.510 --> 00:13:00.950
+Eric Scouten (Adobe Inc.): I'm not seeing that.
+
+75
+00:13:01.240 --> 00:13:01.740
+Steven Milstein (Collab.Ventures): Wow!
+
+76
+00:13:02.150 --> 00:13:02.830
+Eric Drury (Forth Consulting): You know what.
+
+77
+00:13:02.830 --> 00:13:04.410
+Eric Scouten (Adobe Inc.): That might be in your zoom.
+
+78
+00:13:04.720 --> 00:13:09.699
+Eric Scouten (Adobe Inc.): It's me sorry the pop up is coming from inside the house.
+
+79
+00:13:09.700 --> 00:13:11.129
+Neil Thomson (QueryVision): Oh, my God! They're.
+
+80
+00:13:11.130 --> 00:13:13.509
+Steven Milstein (Collab.Ventures): Goddamn AI agents.
+
+81
+00:13:14.242 --> 00:13:16.440
+Wenjing Chu (Futurewei Technologies, Inc.): Well, it's working.
+
+82
+00:13:16.440 --> 00:13:20.109
+Steven Milstein (Collab.Ventures): Sorry about that. Well, working as designed. There you go.
+
+83
+00:13:20.500 --> 00:13:25.029
+Neil Thomson (QueryVision): No, that that was, that was a conversation that was had at the.
+
+84
+00:13:25.315 --> 00:13:25.570
+Steven Milstein (Collab.Ventures): No.
+
+85
+00:13:25.570 --> 00:13:32.640
+Neil Thomson (QueryVision): The the session last night. For I can't remember what the hell the name of it is. The.
+
+86
+00:13:33.920 --> 00:13:51.823
+Neil Thomson (QueryVision): anyway. The question to Ms, Genta Michelle was, okay. So when can we get the controls to actually turn recording on and off as as a chair, so that that, I think is a missing piece, and and also that
+
+87
+00:13:53.580 --> 00:13:58.140
+Neil Thomson (QueryVision): I I think there's a few people said, Look, I want to be able to edit the video before it's interview.
+
+88
+00:13:58.702 --> 00:14:11.039
+Neil Thomson (QueryVision): you know. I wanna be able to, you know, clip out the irrelevant parts like the beginning of the chatter at the front of the chatter at the end, and maybe even lift, you know, a specific presentation out of that. So how do we do that? I mean, there are tools
+
+89
+00:14:11.699 --> 00:14:15.539
+Neil Thomson (QueryVision): my understanding is on zoom. You can go in and edit.
+
+90
+00:14:15.850 --> 00:14:20.770
+Neil Thomson (QueryVision): I mean, you can always download it, but that's starting to get big. And now you need tools on your desktop. Right?
+
+91
+00:14:21.208 --> 00:14:27.989
+Neil Thomson (QueryVision): So so what facilities are there in Zoom? I'm sure there are. Can we get those exposed for trust over IP.
+
+92
+00:14:28.410 --> 00:14:30.840
+Steven Milstein (Collab.Ventures): Yeah. But is zoom C, 2 PA.
+
+93
+00:14:33.127 --> 00:14:34.111
+Wenjing Chu (Futurewei Technologies, Inc.): There we go!
+
+94
+00:14:34.440 --> 00:14:36.729
+Steven Milstein (Collab.Ventures): If we modify the contents.
+
+95
+00:14:38.477 --> 00:14:40.272
+Wenjing Chu (Futurewei Technologies, Inc.): Don't know.
+
+96
+00:14:41.170 --> 00:14:42.220
+Neil Thomson (QueryVision): Yeah, yeah.
+
+97
+00:14:42.220 --> 00:14:43.390
+Eric Scouten (Adobe Inc.): Leave an action.
+
+98
+00:14:43.390 --> 00:14:44.100
+Eric Drury (Forth Consulting): Thing you were.
+
+99
+00:14:44.100 --> 00:14:45.889
+Eric Scouten (Adobe Inc.): Assertion behind. You'll be fine.
+
+100
+00:14:46.130 --> 00:14:46.510
+Steven Milstein (Collab.Ventures): Okay.
+
+101
+00:14:47.680 --> 00:14:48.190
+Steven Milstein (Collab.Ventures): Okay.
+
+102
+00:14:48.380 --> 00:14:51.749
+Eric Drury (Forth Consulting): When, Jim, you were at conferences you said over the holidays.
+
+103
+00:14:52.545 --> 00:15:18.080
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. So I went to 2 of them one end of last year. That's new in Vancouver. This is a more academic, but usually in the last 2 days they have workshops that is much more specific, targeted to a particular topic, and they are actually 2 of them all relate to trust and etc. So
+
+104
+00:15:19.090 --> 00:15:25.320
+Wenjing Chu (Futurewei Technologies, Inc.): oh, maybe at sometime when we have, you know open
+
+105
+00:15:26.110 --> 00:15:34.250
+Wenjing Chu (Futurewei Technologies, Inc.): so last time I I can do a little deeper report on what, at least from academic side, what people are doing.
+
+106
+00:15:35.285 --> 00:15:47.220
+Wenjing Chu (Futurewei Technologies, Inc.): There is a piece of news there. There was a presentation from the
+
+107
+00:15:48.186 --> 00:15:51.780
+Wenjing Chu (Futurewei Technologies, Inc.): to alias!
+
+108
+00:15:52.810 --> 00:15:57.368
+Wenjing Chu (Futurewei Technologies, Inc.): I can never pronounce his last name
+
+109
+00:15:58.370 --> 00:16:18.110
+Wenjing Chu (Futurewei Technologies, Inc.): on on the sort of agent, and what that agent would do, and I think the because he's very super focused on safety side. So at least, that's what these new companies is is supposed to be doing.
+
+110
+00:16:18.110 --> 00:16:38.610
+Wenjing Chu (Futurewei Technologies, Inc.): and one of the, I think, observation that I thought I would totally agree is the building of reasoning systems to him is very dangerous. I think he meant to say that if you know an agent is able to reason and then reach conclusions and do things.
+
+111
+00:16:39.395 --> 00:16:49.788
+Wenjing Chu (Futurewei Technologies, Inc.): Then we are. You know, we're definitely beyond, simply, like a privacy and and data. We, we need them more of a control system.
+
+112
+00:16:50.920 --> 00:17:04.439
+Wenjing Chu (Futurewei Technologies, Inc.): because it will be very surprising. It will do things that will surprise us, and that can be very unsettling. So I think that's a very good point I heard about. It's very nice.
+
+113
+00:17:05.091 --> 00:17:20.198
+Wenjing Chu (Futurewei Technologies, Inc.): The other conferences early this last week in in ces. So there's a lot of people think that there will be a lot of AI related products coming out this year
+
+114
+00:17:20.740 --> 00:17:24.398
+Wenjing Chu (Futurewei Technologies, Inc.): My personal experience is that
+
+115
+00:17:25.510 --> 00:17:40.219
+Wenjing Chu (Futurewei Technologies, Inc.): other than autonomous driving, which is, seem to be everywhere, and everybody seemed to be very optimistic that it's going to be the year that this will actually be, you know, widely deployed.
+
+116
+00:17:40.786 --> 00:17:52.219
+Wenjing Chu (Futurewei Technologies, Inc.): But other than that, I don't see anything else. So most of the other things are robots, etc. Haven't you know I haven't seen anything beyond what you know most people have already know.
+
+117
+00:17:52.490 --> 00:17:58.250
+Wenjing Chu (Futurewei Technologies, Inc.): Anyway. So 2 quick updates on those conferences.
+
+118
+00:18:04.000 --> 00:18:09.709
+Steven Milstein (Collab.Ventures): So I think, in the meantime, with the agents and and the reasoning, making decisions is where the
+
+119
+00:18:10.070 --> 00:18:20.790
+Steven Milstein (Collab.Ventures): the human in the loop comes in right cause it. That's like training wheels. You should at least be able to say, Okay, I agree. Disagree after a while. Maybe there will be kind of a
+
+120
+00:18:21.340 --> 00:18:28.159
+Steven Milstein (Collab.Ventures): pattern where you go. Yeah, yeah, it's okay. It's okay, like, always say, yes, kind of thing. But in the meantime any kind of reasoning you'd have to.
+
+121
+00:18:28.730 --> 00:18:39.560
+Steven Milstein (Collab.Ventures): but if you ever use, I haven't used it in a long time. But auto gpt if you ever use it, it's like just crazy, and I use it like at the very, very beginning, so I can't imagine what it's doing now.
+
+122
+00:18:39.560 --> 00:18:39.960
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah.
+
+123
+00:18:39.960 --> 00:18:44.180
+Steven Milstein (Collab.Ventures): But it would show you all the steps it's doing, and then always check back
+
+124
+00:18:44.410 --> 00:18:47.019
+Steven Milstein (Collab.Ventures): like he could always say, No, don't do that.
+
+125
+00:18:47.190 --> 00:18:51.039
+Steven Milstein (Collab.Ventures): You're you're going about the wrong way, you know. You have to go this way instead.
+
+126
+00:18:52.340 --> 00:18:57.620
+Steven Milstein (Collab.Ventures): That idea that they had in that workflow was was always pretty impressive.
+
+127
+00:18:58.220 --> 00:19:03.060
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. And and I, I think the interesting question will be, where?
+
+128
+00:19:03.250 --> 00:19:07.069
+Wenjing Chu (Futurewei Technologies, Inc.): When? To bother the human, when not to. And
+
+129
+00:19:07.370 --> 00:19:21.639
+Wenjing Chu (Futurewei Technologies, Inc.): you know, can you do a presumably, if you do a simple, clean line, you're gonna lose a half of the benefit. But, you know, is there a better way to do this, and and that's the that's the question.
+
+130
+00:19:23.020 --> 00:19:36.080
+Eric Drury (Forth Consulting): I mean, what I've heard on that point is that getting the human in the loop is essential during during training, because once once you're, I mean, if the whole point is automation.
+
+131
+00:19:36.550 --> 00:19:43.959
+Eric Drury (Forth Consulting): than having a human in the loop, slow things down and and sort of what's the point, and so getting the human in the loop during all the training
+
+132
+00:19:44.080 --> 00:19:48.449
+Eric Drury (Forth Consulting): until it's until it's got that automate automation down
+
+133
+00:19:48.700 --> 00:19:53.909
+Eric Drury (Forth Consulting): is is where it's important. And then, yeah, okay, then, once it's out in the wild.
+
+134
+00:19:54.040 --> 00:20:01.760
+Eric Drury (Forth Consulting): What are the you know? Where's the big red button to stop it, or where? Where are the points to to get that human in there.
+
+135
+00:20:03.568 --> 00:20:11.229
+Wenjing Chu (Futurewei Technologies, Inc.): And the the the issue has always been like
+
+136
+00:20:11.650 --> 00:20:21.149
+Wenjing Chu (Futurewei Technologies, Inc.): similar to spam right? You may not be bothered for 99% of the time. But that 1% is extremely important.
+
+137
+00:20:21.640 --> 00:20:28.579
+Wenjing Chu (Futurewei Technologies, Inc.): And how do we separate the 2 somehow so that we don't get bothered unnecessarily?
+
+138
+00:20:28.790 --> 00:20:32.220
+Wenjing Chu (Futurewei Technologies, Inc.): So automation actually happens, but then
+
+139
+00:20:32.460 --> 00:20:35.460
+Wenjing Chu (Futurewei Technologies, Inc.): be able to in control when it's needed.
+
+140
+00:20:37.550 --> 00:20:45.509
+Neil Thomson (QueryVision): The only problem I can see with that is, you're still presuming upon the competence of the person to understand what they're being asked for it's back to the consent problem.
+
+141
+00:20:45.830 --> 00:20:48.169
+Neil Thomson (QueryVision): Do they understand what they're agreeing to?
+
+142
+00:20:48.590 --> 00:21:06.810
+Neil Thomson (QueryVision): So I don't know that, you know you you push that into the process. But you're still saying I don't even understand what you're asking me would be my. It would be in in some cases. Or you ask me. You know I I need. You know, I need to make a decision based on legal recommendations. You know
+
+143
+00:21:07.080 --> 00:21:21.980
+Neil Thomson (QueryVision): what's your reasoning in terms of what you recommend. It's like, well, you know, there's case A, you know. It's like, you know, that the AI coming back? Well, you know, there's there's 2 precedence cases that you need to consider. It's like I'm gonna understand that. So I don't know that it gets you out of the box.
+
+144
+00:21:26.610 --> 00:21:33.709
+Eric Drury (Forth Consulting): I'll give 2 quick, quick sort of news updates. I've been speaking a lot to the people at cooperative AI, and I've put that link in the
+
+145
+00:21:34.580 --> 00:21:37.109
+Eric Drury (Forth Consulting): in the chat box.
+
+146
+00:21:37.280 --> 00:21:38.633
+Eric Drury (Forth Consulting): They are
+
+147
+00:21:39.520 --> 00:22:04.350
+Eric Drury (Forth Consulting): they do a lot of research, and they fund research. So if you guys know of anybody who is who who does research or is looking to to focus on something. You can point them there. They've got funding. But one of their focuses this year is agents, obviously and and also AI agents and identity. And I think that's 1 thing that
+
+148
+00:22:04.460 --> 00:22:10.859
+Eric Drury (Forth Consulting): that I'd like to to focus on as well, and and maybe at some point during this at the end of this
+
+149
+00:22:11.090 --> 00:22:17.539
+Eric Drury (Forth Consulting): call, and can't see the rest of the agenda or the next one. I'd love to figure out, you know how we can.
+
+150
+00:22:17.910 --> 00:22:28.109
+Eric Drury (Forth Consulting): what what our focus would be if we're going to. If we say AI agents, and then they can go in all kinds of directions. Where would our work bring most value
+
+151
+00:22:28.380 --> 00:22:30.188
+Eric Drury (Forth Consulting): in one and and
+
+152
+00:22:31.110 --> 00:22:36.449
+Eric Drury (Forth Consulting): And one of the areas is, you know, how do we attach identity to AI and AI agents.
+
+153
+00:22:36.620 --> 00:22:38.949
+Eric Drury (Forth Consulting): or identifiers, or whatever.
+
+154
+00:22:39.789 --> 00:22:48.420
+Eric Drury (Forth Consulting): So that's the 1st thing is just the corporate AI, and they're doing a lot of work as well on the EU AI act.
+
+155
+00:22:48.780 --> 00:23:11.550
+Eric Drury (Forth Consulting): and I shared a document. They are the cop code of principles, or something like that. Where there's this, these principles and they. They're in their second draft, and there will be a 3rd draft that's coming up. And they're trying to take the EU AI act, and and give people something to
+
+156
+00:23:11.660 --> 00:23:21.910
+Eric Drury (Forth Consulting): to to guide them. So they understand what they they need to do on that. And I guess the 3, rd the 3rd point is because I see there's this
+
+157
+00:23:22.644 --> 00:23:29.305
+Eric Drury (Forth Consulting): last point about Z inspection. And I think I you can take that off the
+
+158
+00:23:29.920 --> 00:23:46.999
+Eric Drury (Forth Consulting): off the agenda. But that's just in general, all of these, especially in Europe. There's a lot of companies that are popping up to do compliance and say are and doing assessments to say, are you complying with the EU AI act? I don't know if it'll be the same in the Us.
+
+159
+00:23:52.460 --> 00:23:58.970
+Wenjing Chu (Futurewei Technologies, Inc.): Great point getting us ready for the agent topic. Any other announcements. News?
+
+160
+00:24:01.820 --> 00:24:10.520
+Wenjing Chu (Futurewei Technologies, Inc.): Alright. So I will jump into the so the action item, I think, is responsible updated.
+
+161
+00:24:11.796 --> 00:24:13.409
+Wenjing Chu (Futurewei Technologies, Inc.): So the
+
+162
+00:24:13.720 --> 00:24:30.619
+Wenjing Chu (Futurewei Technologies, Inc.): 1st topic, let me see if I can follow this link. So our decision was to get a new version. And I'm not quite there in as a new version. But at least I think
+
+163
+00:24:30.780 --> 00:24:31.970
+Wenjing Chu (Futurewei Technologies, Inc.): of a
+
+164
+00:24:32.190 --> 00:24:42.339
+Wenjing Chu (Futurewei Technologies, Inc.): some idea of what that new version would look like, and this is the new structure. This will make it shorter as well.
+
+165
+00:24:43.109 --> 00:24:49.339
+Wenjing Chu (Futurewei Technologies, Inc.): So essentially, we let me see my note. I've looked over
+
+166
+00:24:51.233 --> 00:25:04.509
+Wenjing Chu (Futurewei Technologies, Inc.): Steven your hack. Md. Document thought through Eric that the C. 2 PA. Plus card discussion we had an Iw.
+
+167
+00:25:04.830 --> 00:25:12.650
+Wenjing Chu (Futurewei Technologies, Inc.): Read through most of the comments, and also trying to make it more concise.
+
+168
+00:25:15.590 --> 00:25:26.849
+Wenjing Chu (Futurewei Technologies, Inc.): So one of the comments, let me see. So I think I'm trying to restructure. So in a way that captures most of those feedbacks.
+
+169
+00:25:27.010 --> 00:25:32.070
+Wenjing Chu (Futurewei Technologies, Inc.): And so one thing is that come up with a new
+
+170
+00:25:33.280 --> 00:25:38.910
+Wenjing Chu (Futurewei Technologies, Inc.): title. See if that makes sense. And second is
+
+171
+00:25:39.594 --> 00:25:57.380
+Wenjing Chu (Futurewei Technologies, Inc.): I'm structuring in a way that that talk about. You know the problem essentially in the sorry introduction base or background. And then, how can we help portion goes into more technically talking about the issues in this.
+
+172
+00:25:57.510 --> 00:26:09.510
+Wenjing Chu (Futurewei Technologies, Inc.): And then what can be solved? You know we we have a tool, and how? How this would help us in these situations. And then we dive into one particular case.
+
+173
+00:26:10.241 --> 00:26:38.399
+Wenjing Chu (Futurewei Technologies, Inc.): We've discussed the multiple of these. Unfortunately, so one of the decisions I think we need to make is that, do we simply focus on one, and we can go on and on into more and more stuff, but we will probably be better off to wait until, for example, anything related to agent about the, you know data set of curation, the training that process all that could be a separate document. And so my
+
+174
+00:26:39.310 --> 00:26:52.399
+Wenjing Chu (Futurewei Technologies, Inc.): inclination, would it be? Remove this or any of these other cases, and simply focus on the one we have more mature content right now.
+
+175
+00:26:53.480 --> 00:26:54.430
+Wenjing Chu (Futurewei Technologies, Inc.): And
+
+176
+00:26:54.750 --> 00:27:04.304
+Wenjing Chu (Futurewei Technologies, Inc.): I think those are the main points that this step is taking to, and I will probably just hear your feedback comments.
+
+177
+00:27:04.720 --> 00:27:06.529
+Wenjing Chu (Futurewei Technologies, Inc.): yeah, I'll be doing on that.
+
+178
+00:27:06.970 --> 00:27:07.919
+Neil Thomson (QueryVision): Wait till we are.
+
+179
+00:27:07.920 --> 00:27:16.663
+Eric Drury (Forth Consulting): I did we talk about? Maybe just having, you know, 2 or 3 sentences just rather than full on case
+
+180
+00:27:17.350 --> 00:27:18.969
+Eric Drury (Forth Consulting): case study or
+
+181
+00:27:19.360 --> 00:27:29.930
+Eric Drury (Forth Consulting): focus. Just to say that it's that it it's applicable in in many more use cases was that I mean, if did we do that or discuss that.
+
+182
+00:27:31.036 --> 00:27:36.850
+Wenjing Chu (Futurewei Technologies, Inc.): We can discuss now. But we could, for example, right? We could come up with a 1, 2, 3
+
+183
+00:27:37.190 --> 00:27:39.759
+Wenjing Chu (Futurewei Technologies, Inc.): cases, and each relatively short.
+
+184
+00:27:39.920 --> 00:27:48.730
+Wenjing Chu (Futurewei Technologies, Inc.): or we could also do. The 1st case has a little bit of more content. But the other 2 are kind of short, so that we can do that. Yeah.
+
+185
+00:27:49.420 --> 00:27:56.950
+Eric Drury (Forth Consulting): Well, if I mean at the moment, if you scroll down to whatever that is, page 9, did we? Is that what we had.
+
+186
+00:27:59.340 --> 00:28:00.566
+Wenjing Chu (Futurewei Technologies, Inc.): Oh, yeah,
+
+187
+00:28:02.180 --> 00:28:09.489
+Wenjing Chu (Futurewei Technologies, Inc.): currently we don't, or or in the past. These information are all mixed together. So there's notes and comments everywhere.
+
+188
+00:28:09.600 --> 00:28:15.540
+Wenjing Chu (Futurewei Technologies, Inc.): and I'm trying to say, because it's very hard for a reader to follow.
+
+189
+00:28:15.800 --> 00:28:16.430
+Eric Drury (Forth Consulting): Yeah.
+
+190
+00:28:16.822 --> 00:28:36.850
+Wenjing Chu (Futurewei Technologies, Inc.): And so, in order to properly explain this, that's why we need at least this section, because this section talks about the principles. And I'm trying to capture the things. Why, you know, a. A protocol, and Id and C, 2, PA can do these functions or these tools.
+
+191
+00:28:36.970 --> 00:28:44.409
+Wenjing Chu (Futurewei Technologies, Inc.): and then how that applied to this particular example that we've gone through. I think this we can explain quite well.
+
+192
+00:28:44.550 --> 00:28:45.380
+Wenjing Chu (Futurewei Technologies, Inc.): Right.
+
+193
+00:28:47.022 --> 00:28:58.310
+Wenjing Chu (Futurewei Technologies, Inc.): That reasonable enough. For example, if someone is a developer, they will say, I know what you mean. And they can potentially take this and go design a system to implement it.
+
+194
+00:28:58.909 --> 00:29:05.939
+Wenjing Chu (Futurewei Technologies, Inc.): If we want to do the same level for this data set of curation and model training, or that
+
+195
+00:29:06.458 --> 00:29:08.350
+Wenjing Chu (Futurewei Technologies, Inc.): it will require more work.
+
+196
+00:29:09.670 --> 00:29:25.240
+Wenjing Chu (Futurewei Technologies, Inc.): Because in order to say, yeah, the same to apply to that as well. Then we would probably need to come up with a slightly more concrete example where the example we talk about actually makes sense to people who are working in that domain.
+
+197
+00:29:26.240 --> 00:29:35.049
+Wenjing Chu (Futurewei Technologies, Inc.): So so model training. And they were taking the data set. And you know what kind of format of data set are currently they're doing.
+
+198
+00:29:35.200 --> 00:29:38.240
+Wenjing Chu (Futurewei Technologies, Inc.): I know they have, like a data sheet and stuff like that.
+
+199
+00:29:38.360 --> 00:29:45.430
+Wenjing Chu (Futurewei Technologies, Inc.): And and what are we proposing? So, for example, the data sheet, or what?
+
+200
+00:29:45.650 --> 00:29:47.450
+Wenjing Chu (Futurewei Technologies, Inc.): Excuse me, look alike.
+
+201
+00:29:48.160 --> 00:29:58.144
+Wenjing Chu (Futurewei Technologies, Inc.): Something similar to a I guess, as C, 2 Pm. Manifest or similar to like
+
+202
+00:30:00.012 --> 00:30:01.577
+Wenjing Chu (Futurewei Technologies, Inc.): open. Ssf,
+
+203
+00:30:03.102 --> 00:30:16.710
+Wenjing Chu (Futurewei Technologies, Inc.): forgot the word they use. Essentially, you know the the bomb, right, the bill of materials for software release. And you document each component who signed it off, etc, etc.
+
+204
+00:30:16.990 --> 00:30:36.850
+Wenjing Chu (Futurewei Technologies, Inc.): And so for the the content case, we basically have C 2 PA's concepts. And so we can talk to that naturally, for a data set, we would need to also dig down into those details. And, you know, talk about
+
+205
+00:30:36.970 --> 00:30:41.559
+Wenjing Chu (Futurewei Technologies, Inc.): in those terms a particular scenario.
+
+206
+00:30:41.940 --> 00:30:45.840
+Wenjing Chu (Futurewei Technologies, Inc.): We would, you know, that is definitely doable, but it will take more time.
+
+207
+00:30:50.204 --> 00:30:54.395
+Neil Thomson (QueryVision): Something just sort of bounce into my head.
+
+208
+00:30:56.119 --> 00:31:01.680
+Neil Thomson (QueryVision): and, Eric, I'd be interested in your perspective on this as well. So one of the things that
+
+209
+00:31:02.320 --> 00:31:04.773
+Neil Thomson (QueryVision): many of us in trust of our P.
+
+210
+00:31:05.260 --> 00:31:08.679
+Neil Thomson (QueryVision): thought of when we 1st look at C 2, PA was.
+
+211
+00:31:08.960 --> 00:31:18.250
+Neil Thomson (QueryVision): that's covering a lot of stuff that authentic data chain has containers. The Acdcs cover.
+
+212
+00:31:18.902 --> 00:31:26.159
+Neil Thomson (QueryVision): And what I'm wondering is, one thing to look at here is, you know, case one looks at
+
+213
+00:31:27.077 --> 00:31:33.782
+Neil Thomson (QueryVision): looks at C, 2 PA, right? Here's an example, for you know, media, particularly
+
+214
+00:31:35.510 --> 00:31:39.889
+Neil Thomson (QueryVision): cause that it's not all it does. But it it's certainly a a strong focus.
+
+215
+00:31:40.411 --> 00:31:49.440
+Neil Thomson (QueryVision): And then look at what's a general approach. And also general data sets. So I think the travel profile might be a good example of
+
+216
+00:31:49.680 --> 00:31:52.770
+Neil Thomson (QueryVision): something that's a structured general data set.
+
+217
+00:31:52.900 --> 00:32:00.679
+Neil Thomson (QueryVision): And one of the things that we sort of tripped across is where Acdcs are going to come in. Essential is going to be in travel history.
+
+218
+00:32:01.440 --> 00:32:13.809
+Neil Thomson (QueryVision): Right? So a good, a good part of you know what your preferences are, and and what you do is going to be discovered through going through your travel history and having that in a form that is, can be proved to be authentic.
+
+219
+00:32:14.430 --> 00:32:36.839
+Neil Thomson (QueryVision): In other words, you know all the places you travel, they feed, feed you records, and you stitch that together. And you can say, Look here, I've got an authentic data chain. So you can understand that this is, you know truly my my travel history. It's been verified, etc. So and that's sort of leaning towards a general model of of the kind of stuff, at least for structured data. So I think.
+
+220
+00:32:37.508 --> 00:32:44.311
+Neil Thomson (QueryVision): that that blends into the you know what kind of information. And and a 3rd paper might be
+
+221
+00:32:45.110 --> 00:33:01.740
+Neil Thomson (QueryVision): agents using the structured data as an exchange format and also a request response format that is generalizable across any agent and also forwarded backward to humans to be able to understand it and standard data structures to analyze against.
+
+222
+00:33:03.920 --> 00:33:19.560
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. So I did put my note. And and again summarizing the comments we we had earlier that we would structure the the document, so that C, 2 PA is one example.
+
+223
+00:33:20.075 --> 00:33:36.850
+Wenjing Chu (Futurewei Technologies, Inc.): We we will remove anything that seemed to suggest. That's the, you know, the only format. But definitely in this particular for content. This we will focus on that, you know. C, 2 p. Format.
+
+224
+00:33:36.870 --> 00:33:49.850
+Wenjing Chu (Futurewei Technologies, Inc.): And if we have another example in traveling that we use. Acdc, that would be wonderful. So it will be logically, will look like this, right? And and I know, you know again, this one
+
+225
+00:33:50.191 --> 00:34:11.000
+Wenjing Chu (Futurewei Technologies, Inc.): the the data formats are kind of a question mark we need to. We we could think about, you know. A bomb, for example, is one of those because they have a sign, offs and all that. It will look very similar. Essentially, it's a hierarchical. And with, you know, software modules, and who signed it off to it, etc?
+
+226
+00:34:12.510 --> 00:34:21.150
+Wenjing Chu (Futurewei Technologies, Inc.): the so that would be really good, except that the the you know, we still remain. The question is, should we do that now, or should we
+
+227
+00:34:21.300 --> 00:34:27.009
+Wenjing Chu (Futurewei Technologies, Inc.): postpone this into sort of a series, or breaking this up into a series of documents.
+
+228
+00:34:28.679 --> 00:34:29.869
+Steven Milstein (Collab.Ventures): I think smaller is better.
+
+229
+00:34:29.870 --> 00:34:48.529
+Eric Scouten (Adobe Inc.): And maybe this is relevant to how you talk, how you frame the initial document. But I think it's worth thinking about. C. 2 PA as a document of creation, provenance, and trust, spanning protocol as documenting the transit provenance.
+
+230
+00:34:49.610 --> 00:34:50.150
+Wenjing Chu (Futurewei Technologies, Inc.): That.
+
+231
+00:34:50.150 --> 00:34:54.689
+Eric Scouten (Adobe Inc.): Yeah, that was something we talked about at the Iw. Session, but it may be worth repeating here for those.
+
+232
+00:34:54.699 --> 00:35:05.619
+Wenjing Chu (Futurewei Technologies, Inc.): Absolutely so that seem would be that will be cap captured in this section. So the content is not quite there yet. But I intend to explain all of that in this.
+
+233
+00:35:05.620 --> 00:35:06.160
+Eric Scouten (Adobe Inc.): So.
+
+234
+00:35:06.440 --> 00:35:34.439
+Wenjing Chu (Futurewei Technologies, Inc.): So this will be general section, and we can reuse that for all the case studies. And then I'm trying to organize because we cover so much ground, it could be disorienting for a lot of people. So I will capture the principles, including, you know, the the data format of where this is being created, or I think I use the word, the local data authenticity, and then the transfer of that authenticity for one party to the other.
+
+235
+00:35:34.460 --> 00:35:47.000
+Wenjing Chu (Futurewei Technologies, Inc.): Right, translate portion of it, and so we. I will try to cover cover that, as you know, as as precisely or concisely as possible in this section.
+
+236
+00:35:47.000 --> 00:35:53.939
+Eric Scouten (Adobe Inc.): Sure, and I have some screenshots or pictures that I took of the whiteboard when we did the Iw. Session. So.
+
+237
+00:35:53.940 --> 00:35:54.530
+Wenjing Chu (Futurewei Technologies, Inc.): That'd be wonderful.
+
+238
+00:35:54.530 --> 00:35:55.860
+Eric Scouten (Adobe Inc.): To you. I can send those to you.
+
+239
+00:35:56.170 --> 00:36:01.910
+Wenjing Chu (Futurewei Technologies, Inc.): Yes, yes, currently the only one I have is in the our meeting minutes. One of the meeting minutes has a.
+
+240
+00:36:01.910 --> 00:36:02.390
+Eric Scouten (Adobe Inc.): Right.
+
+241
+00:36:02.390 --> 00:36:03.610
+Wenjing Chu (Futurewei Technologies, Inc.): Version of it. But if you.
+
+242
+00:36:03.610 --> 00:36:06.670
+Eric Scouten (Adobe Inc.): Now we came up with a few more points when we had the session, so.
+
+243
+00:36:06.670 --> 00:36:22.604
+Wenjing Chu (Futurewei Technologies, Inc.): Exactly exactly so. So that would that would be lovely if you could send that either post the day in the wiki or sent to me. So that would be what this would cover. And the introduction is simply background to introducing. What are the issues?
+
+244
+00:36:23.303 --> 00:36:38.599
+Wenjing Chu (Futurewei Technologies, Inc.): Some of the policies. So you know. And and then we we put it on some of the AI levels and timeline so to box it so that we, you know we. We only talk about a certain period. We don't.
+
+245
+00:36:38.760 --> 00:37:00.909
+Wenjing Chu (Futurewei Technologies, Inc.): We don't speculate into far into the future. So so so those are the background information introduction, then the the second section trying to cover the principles or the you know. Yeah, the the abstract solutions. And then these case studies will be one by one focus on one particular area.
+
+246
+00:37:02.210 --> 00:37:04.659
+Wenjing Chu (Futurewei Technologies, Inc.): And I I hope we
+
+247
+00:37:04.750 --> 00:37:32.360
+Wenjing Chu (Futurewei Technologies, Inc.): well, in order to finish this quickly, we would actually, I think, be wise to simply focus on one case, and we can say, this will become serious, and then we will go into the second and 3rd case in the future, and that those can be definitely quicker. We can potentially even do in parallel for some of us to focus on one case and others on a different one.
+
+248
+00:37:34.883 --> 00:37:38.219
+Steven Milstein (Collab.Ventures): Just 2 points. Maybe one is in the title.
+
+249
+00:37:38.630 --> 00:37:45.230
+Steven Milstein (Collab.Ventures): Don't use the acronym t Tsp, because we're talking how Tsp will help, and people probably don't know what Tsp is.
+
+250
+00:37:47.000 --> 00:37:53.450
+Steven Milstein (Collab.Ventures): it's just being anal. The other one, too, with the case studies. If we're talking about Ctpa, do we want to mention
+
+251
+00:37:53.860 --> 00:37:56.010
+Steven Milstein (Collab.Ventures): cog, CW.
+
+252
+00:37:56.180 --> 00:37:57.000
+Steven Milstein (Collab.Ventures): G.
+
+253
+00:37:59.150 --> 00:38:00.610
+Wenjing Chu (Futurewei Technologies, Inc.): Yes, every
+
+254
+00:38:00.840 --> 00:38:15.230
+Wenjing Chu (Futurewei Technologies, Inc.): time I uttered that, what I meant to say, I think somewhere we said, C 2 plus gog. I don't know how better to frame it, but the the content will cover the assuming. That is the case.
+
+255
+00:38:15.950 --> 00:38:28.129
+Steven Milstein (Collab.Ventures): Right, especially cause C. 2 P. Does not talk about identity, and we do talk about identity. So I think we would be the glue that binds the seat, the cog, and the C. 2 PA. Maybe into.
+
+256
+00:38:30.110 --> 00:38:35.280
+Steven Milstein (Collab.Ventures): and then the Acdc. Would be just another way to do the same thing. Maybe.
+
+257
+00:38:35.520 --> 00:38:37.970
+Wenjing Chu (Futurewei Technologies, Inc.): But I I wouldn't want to, you know. Yeah.
+
+258
+00:38:37.970 --> 00:38:46.830
+Steven Milstein (Collab.Ventures): Confusion in the marketplace if we could find a way that they all kind of cohabitate, or there's many ways to do the same thing.
+
+259
+00:38:47.070 --> 00:39:01.859
+Eric Scouten (Adobe Inc.): Yeah, I'll offer a framing for that as well. That I think cog is prepared to help. You understand? Who created a piece of digital media. And Tsp is prepared to tell you how you got it, how it transited to you.
+
+260
+00:39:02.980 --> 00:39:06.659
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. And and identity is the bonding between them.
+
+261
+00:39:06.940 --> 00:39:07.380
+Eric Scouten (Adobe Inc.): Yeah.
+
+262
+00:39:07.380 --> 00:39:18.140
+Wenjing Chu (Futurewei Technologies, Inc.): In order to do proper reasoning from, you know, from A to B. The reasoning would require that identity somehow matches.
+
+263
+00:39:18.330 --> 00:39:29.850
+Eric Scouten (Adobe Inc.): Yeah. One thing I'll point out about cog is to think about it as a framework for identity credentials. So if, for instance, you wanted to use Tsp identifier
+
+264
+00:39:29.960 --> 00:39:37.209
+Eric Scouten (Adobe Inc.): in a way that isn't already in the cog spec. There is a provision for you to step outside the spec and define your own
+
+265
+00:39:37.710 --> 00:39:40.770
+Eric Scouten (Adobe Inc.): implementation of what the credential and the signature look like
+
+266
+00:39:41.610 --> 00:39:43.560
+Eric Scouten (Adobe Inc.): that can be bound into the content.
+
+267
+00:39:43.790 --> 00:39:48.344
+Wenjing Chu (Futurewei Technologies, Inc.): Okay. Okay, yeah. If Eric, if you have some
+
+268
+00:39:48.980 --> 00:40:12.529
+Wenjing Chu (Futurewei Technologies, Inc.): document or language to to make sure, I I describe properly. Please share that with me as well. But that's the intent is the once we get into this section, that's where we going to introduce. And I'll update this, probably. But this the with the proper terminologies in it.
+
+269
+00:40:13.270 --> 00:40:14.030
+Eric Scouten (Adobe Inc.): Sounds good.
+
+270
+00:40:19.960 --> 00:40:25.110
+Eric Scouten (Adobe Inc.): Can you send me a note when you have a idea in the document where you want that to be?
+
+271
+00:40:29.101 --> 00:40:34.819
+Wenjing Chu (Futurewei Technologies, Inc.): The sorry, the the details of how the C. 2, PA. Cog and and Ts.
+
+272
+00:40:34.820 --> 00:40:38.917
+Eric Scouten (Adobe Inc.): Yeah, yeah, just point me to a part of the doc.
+
+273
+00:40:39.290 --> 00:40:41.620
+Eric Scouten (Adobe Inc.): that will be that will be in here.
+
+274
+00:40:41.620 --> 00:40:42.380
+Eric Scouten (Adobe Inc.): Okay.
+
+275
+00:40:42.550 --> 00:41:00.530
+Wenjing Chu (Futurewei Technologies, Inc.): Because this one will be exclusively talking about combining these 3 anything before that we are talking about generally. So you could say the same thing for for Acdc, for example, but in this section is precisely into those details.
+
+276
+00:41:07.930 --> 00:41:08.580
+Eric Scouten (Adobe Inc.): Okay.
+
+277
+00:41:19.340 --> 00:41:21.479
+Wenjing Chu (Futurewei Technologies, Inc.): All right. Anything else.
+
+278
+00:41:28.508 --> 00:41:50.999
+Neil Thomson (QueryVision): Just just thinking aloud, here, looking at the travel profile thing travel profile is gonna be largely a self tested set of information. Here are my preferences. I'm saying that I have, so that that tends to tie into verifiable identifier. Yes, I'm the person who said it. What else is is required from that kind of information?
+
+279
+00:41:51.513 --> 00:41:57.020
+Neil Thomson (QueryVision): To fit into this puzzle in terms of you know.
+
+280
+00:41:57.130 --> 00:42:07.258
+Neil Thomson (QueryVision): Yeah, I mean, some of it is going to be a thread, you know. An Acdc. Chain. But what other information is required for that?
+
+281
+00:42:07.810 --> 00:42:08.620
+Wenjing Chu (Futurewei Technologies, Inc.): For that.
+
+282
+00:42:08.620 --> 00:42:10.150
+Neil Thomson (QueryVision): For that kind of data.
+
+283
+00:42:10.470 --> 00:42:32.759
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. So my suggestion would be similar to this, right in here we are basically goes through a example. Here's the description of the example so we could go through a similar kind of example in the in the travel case, and that most compelling and relatively easy to describe.
+
+284
+00:42:33.327 --> 00:42:55.159
+Wenjing Chu (Futurewei Technologies, Inc.): That would go in here. And so that may require, you know, a certain type of data structure like Acdc, but also you could bring in, for example, private data store and all other things that will fill up that application case structure.
+
+285
+00:42:55.907 --> 00:43:03.262
+Wenjing Chu (Futurewei Technologies, Inc.): So if you have that example, I think the the discussion would be meaning that, hey? If we apply these
+
+286
+00:43:03.750 --> 00:43:17.319
+Wenjing Chu (Futurewei Technologies, Inc.): decentralized identity or tsp, specifically in that in that contest, what the value does it bring? Does it? You know why, this is better than simply using what we have today.
+
+287
+00:43:26.350 --> 00:43:48.779
+Wenjing Chu (Futurewei Technologies, Inc.): So maybe one of the exact, we, we can continue this particular point once we finish better description on the case. One we can describe it in some detail, and it shouldn't be very long. I think I can finish this one, probably in 2 pages, definitely. And so that way we could
+
+288
+00:43:49.500 --> 00:43:55.160
+Wenjing Chu (Futurewei Technologies, Inc.): model it and look at the you know how we couldn't do the same for travel.
+
+289
+00:43:58.760 --> 00:44:02.649
+Steven Milstein (Collab.Ventures): And is the attempt to publish a paper or blog posts?
+
+290
+00:44:03.440 --> 00:44:09.420
+Steven Milstein (Collab.Ventures): Because with lf, now, it's seems like they have a pretty good system, for getting content out.
+
+291
+00:44:09.720 --> 00:44:10.340
+Wenjing Chu (Futurewei Technologies, Inc.): Ex-exact.
+
+292
+00:44:10.340 --> 00:44:18.149
+Steven Milstein (Collab.Ventures): So if you do a maybe a blog series. And then maybe people could suggest other follow up, use cases that we didn't think about
+
+293
+00:44:18.510 --> 00:44:26.759
+Steven Milstein (Collab.Ventures): just to get some conversation and traffic back to trust over IP. And I think when you do, a paper just kind of goes out.
+
+294
+00:44:27.430 --> 00:44:30.479
+Steven Milstein (Collab.Ventures): and that's it. It's caught in the wind. And but if we
+
+295
+00:44:30.480 --> 00:44:37.729
+Steven Milstein (Collab.Ventures): we suggest a series coming up then, people, you know, like, now the travel came up. Maybe someone come up with something else another time.
+
+296
+00:44:38.730 --> 00:44:47.589
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. And and we would talk to quite a bit other than these. Remember, we had a long list, right? I don't suggest we need to do one for each of those
+
+297
+00:44:47.590 --> 00:44:48.150
+Wenjing Chu (Futurewei Technologies, Inc.): use
+
+298
+00:44:48.150 --> 00:44:58.630
+Wenjing Chu (Futurewei Technologies, Inc.): cases. But I would say definitely, I want to do follow up is, what are we going to do with agent. And so that will be another one. That can go into
+
+299
+00:45:00.720 --> 00:45:11.299
+Wenjing Chu (Futurewei Technologies, Inc.): And yeah, so we can suggest a series and then push out through Lvt. They they seem to be at least reach a much bigger audience. There.
+
+300
+00:45:13.510 --> 00:45:14.130
+Steven Milstein (Collab.Ventures): Yep.
+
+301
+00:45:20.670 --> 00:45:26.659
+Steven Milstein (Collab.Ventures): if you do that format you could just start with. You don't even have to go to case one right now. Right? You could just do the intro.
+
+302
+00:45:27.870 --> 00:45:28.700
+Wenjing Chu (Futurewei Technologies, Inc.): Is, that.
+
+303
+00:45:28.700 --> 00:45:32.940
+Steven Milstein (Collab.Ventures): Why don't you send out? Just send out the problem right now? Right?
+
+304
+00:45:33.170 --> 00:45:34.910
+Steven Milstein (Collab.Ventures): You shouldn't have the problem problem.
+
+305
+00:45:35.100 --> 00:45:37.269
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, we could do that, too. Yes.
+
+306
+00:45:39.490 --> 00:45:56.470
+Wenjing Chu (Futurewei Technologies, Inc.): So as a as a action item to deliver this particular, we've been talking about it for a while. I think I want to be able to at least finish the intro, the the principal section, and the one case.
+
+307
+00:45:56.720 --> 00:46:01.640
+Wenjing Chu (Futurewei Technologies, Inc.): so that that covers the those 3 parts.
+
+308
+00:46:02.630 --> 00:46:03.310
+Steven Milstein (Collab.Ventures): Okay.
+
+309
+00:46:10.150 --> 00:46:15.457
+Neil Thomson (QueryVision): So so a side question to to Eric. So, looking at Cawg,
+
+310
+00:46:16.210 --> 00:46:25.689
+Neil Thomson (QueryVision): I'm assuming that at this point is predominantly focused on professional photographers working for, say, New York Times.
+
+311
+00:46:27.056 --> 00:46:34.009
+Neil Thomson (QueryVision): What would be the sort of downgraded version of that someone who's a personal photographer or an independent.
+
+312
+00:46:34.980 --> 00:46:44.979
+Eric Scouten (Adobe Inc.): So you're actually off on the initial case that the New York Times, for instance, or large media, tend to want to
+
+313
+00:46:45.230 --> 00:47:06.869
+Eric Scouten (Adobe Inc.): highlight, their organizational identity, which is why we have the X 509 flavor of the identity assertion available for them. When you get to talking about individual creative professionals. This is a talk that I gave at Iw. But what we're really finding is the kinds of things that we hear about when
+
+314
+00:47:06.960 --> 00:47:23.950
+Eric Scouten (Adobe Inc.): we ask them, what, what's your identity? How do you want to be known? As you know, your creative professional practice? We hear things about their Instagram, their Linkedin, their Twitter, their other social medias for their website, right, none of which are really autonomous signing credentials.
+
+315
+00:47:24.080 --> 00:47:29.989
+Eric Scouten (Adobe Inc.): And that's why we've built this thing that we call identity claims aggregation which is
+
+316
+00:47:30.410 --> 00:47:43.241
+Eric Scouten (Adobe Inc.): more centralized than you know. Those of us who come to these kinds of meetings would like. But just sort of a practical reality of the time that we're in, that that people don't really have their own
+
+317
+00:47:44.120 --> 00:47:48.500
+Eric Scouten (Adobe Inc.): signing credentials in in mass adoption, anyway.
+
+318
+00:47:49.163 --> 00:47:56.279
+Eric Scouten (Adobe Inc.): So that really relies on a 3rd party to aggregate the kinds of signals I just named, and then relay those as part of the content.
+
+319
+00:47:56.530 --> 00:48:00.409
+Eric Scouten (Adobe Inc.): And that's what identity claims. Aggregation. Section 8.1 of the
+
+320
+00:48:00.530 --> 00:48:04.190
+Eric Scouten (Adobe Inc.): draft. The current draft identity assertion. Spec. Talks to.
+
+321
+00:48:13.490 --> 00:48:14.690
+Wenjing Chu (Futurewei Technologies, Inc.): That's very good.
+
+322
+00:48:17.830 --> 00:48:19.532
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, should we?
+
+323
+00:48:21.676 --> 00:48:29.260
+Wenjing Chu (Futurewei Technologies, Inc.): stop here? So I need some information from you, Eric, and I also want to call
+
+324
+00:48:30.062 --> 00:48:37.369
+Wenjing Chu (Futurewei Technologies, Inc.): because there is a introduction section about the problems. So if anyone want to
+
+325
+00:48:37.845 --> 00:49:00.570
+Wenjing Chu (Futurewei Technologies, Inc.): revise or or do anything on the on the long list that we had before. I I would welcome that contribution. But otherwise I'm gonna go through them and basically trying to shrink it into a shorter section. So this is the this is the shorter description of hopefully cover the similar content there.
+
+326
+00:49:01.398 --> 00:49:12.950
+Wenjing Chu (Futurewei Technologies, Inc.): And similarly, I'm I'm doing the same thing to the early policy examples, and all that, shrinking it to much shorter. So that we keep this relatively small document.
+
+327
+00:49:13.730 --> 00:49:18.060
+Wenjing Chu (Futurewei Technologies, Inc.): It will still come up, probably in 10 pages or more.
+
+328
+00:49:19.637 --> 00:49:45.050
+Neil Thomson (QueryVision): yeah, it is, you know, it always expands to fill the universe. I I suggest at this point, is that I would just say, Go ahead and do it. I think if we want to add additional perspectives, let's leave that for a later blog, as opposed to, you know, trying to continually up, try and update this to be a hundred percent current with everything today. So I just say, let's go go nuts, fill it. Then, you know, we'll worry about
+
+329
+00:49:45.260 --> 00:49:49.230
+Neil Thomson (QueryVision): different perspectives in a future opt out.
+
+330
+00:49:49.230 --> 00:49:55.159
+Wenjing Chu (Futurewei Technologies, Inc.): Sounds good. Sounds good exactly try not to delay it forever, and get it done.
+
+331
+00:49:57.330 --> 00:49:58.000
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. Alright.
+
+332
+00:49:59.192 --> 00:50:02.430
+Neil Thomson (QueryVision): You get it done. That's right.
+
+333
+00:50:02.848 --> 00:50:10.809
+Wenjing Chu (Futurewei Technologies, Inc.): With that note. I guess we're we're done on that topic, and we have some time on the agent.
+
+334
+00:50:11.310 --> 00:50:16.489
+Wenjing Chu (Futurewei Technologies, Inc.): And as I think, Erica, you
+
+335
+00:50:16.990 --> 00:50:36.060
+Wenjing Chu (Futurewei Technologies, Inc.): pointed out earlier. The big question is, what do you want to do with it? Right? So as I've been thinking about this, there's 2 things seem to be trending in the social media. And one of them is the Google. So white Paper, which might be useful. So I'm going to go jump into it.
+
+336
+00:50:36.838 --> 00:50:43.959
+Wenjing Chu (Futurewei Technologies, Inc.): It's relatively simple. It has nothing to specific about it.
+
+337
+00:50:44.180 --> 00:50:58.900
+Wenjing Chu (Futurewei Technologies, Inc.): But let me try to see the diagram. But basically, I like the simplicity of their diagrams. Okay? And so basically delineating like, which which problem are we talking about?
+
+338
+00:50:59.010 --> 00:51:13.380
+Wenjing Chu (Futurewei Technologies, Inc.): And and let me see, what's the other diagram that's good. And some co-segment of that. Okay? So the key thing here. Maybe this is the diagram. Oh, is that they distinguish these 2
+
+339
+00:51:14.785 --> 00:51:15.529
+Wenjing Chu (Futurewei Technologies, Inc.): models.
+
+340
+00:51:16.965 --> 00:51:22.380
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, embedding. Use great agents check database
+
+341
+00:51:22.810 --> 00:51:28.939
+Wenjing Chu (Futurewei Technologies, Inc.): and daily basis. And where is the diagram? Sorry about all this?
+
+342
+00:51:31.320 --> 00:51:33.269
+Wenjing Chu (Futurewei Technologies, Inc.): Maybe this is a good one.
+
+343
+00:51:33.680 --> 00:51:39.510
+Wenjing Chu (Futurewei Technologies, Inc.): So this gets into the whole thing about this so-called agent.
+
+344
+00:51:39.760 --> 00:51:55.360
+Wenjing Chu (Futurewei Technologies, Inc.): and the also the the information that it goes into and where this thing is running. So so you have the client side
+
+345
+00:51:55.530 --> 00:52:05.040
+Wenjing Chu (Futurewei Technologies, Inc.): and the agent side, and then people may say, server at those Apis will go to the server side. Right? Does that make sense in this diagram?
+
+346
+00:52:05.190 --> 00:52:14.040
+Wenjing Chu (Futurewei Technologies, Inc.): And they distinguish 2 things. One is so-called extensions, the other is a function. So the function is like you do a query.
+
+347
+00:52:14.710 --> 00:52:19.840
+Wenjing Chu (Futurewei Technologies, Inc.): The agent respond with a a function to be executed.
+
+348
+00:52:19.960 --> 00:52:22.820
+Wenjing Chu (Futurewei Technologies, Inc.): But the the client is to yourself.
+
+349
+00:52:22.950 --> 00:52:26.099
+Wenjing Chu (Futurewei Technologies, Inc.): so that could be seen as more
+
+350
+00:52:27.070 --> 00:52:35.380
+Wenjing Chu (Futurewei Technologies, Inc.): private, I guess, because the the actual data, the you know, real input to the function are not disclosed to the agent.
+
+351
+00:52:36.436 --> 00:52:49.039
+Wenjing Chu (Futurewei Technologies, Inc.): While extension is the other way around. So you would give the your your travel data, for example, profile to it, and the agent will do the the actual execution.
+
+352
+00:52:49.270 --> 00:52:53.650
+Wenjing Chu (Futurewei Technologies, Inc.): using that information. So the agent wouldn't know those those data.
+
+353
+00:52:54.243 --> 00:53:11.589
+Wenjing Chu (Futurewei Technologies, Inc.): anyway. And then there's a date. You know, this database or rag type of vector, database, for for how to reach those versus, the function will simply use a standard. Api. So this will be Api call, as as usual.
+
+354
+00:53:13.750 --> 00:53:23.660
+Wenjing Chu (Futurewei Technologies, Inc.): that might be good starting point. On some of our discussions to make it a little bit more simpler and more clear.
+
+355
+00:53:24.882 --> 00:53:28.500
+Wenjing Chu (Futurewei Technologies, Inc.): So let me stop here and see if
+
+356
+00:53:28.820 --> 00:53:31.940
+Wenjing Chu (Futurewei Technologies, Inc.): we could. This could help us
+
+357
+00:53:32.080 --> 00:53:34.753
+Wenjing Chu (Futurewei Technologies, Inc.): get to. What do you want to do? Question.
+
+358
+00:53:35.050 --> 00:53:39.212
+Eric Drury (Forth Consulting): You enlarge this, please. I'm sorry I'm on a small computer. I'm on a laptop.
+
+359
+00:53:39.490 --> 00:53:40.380
+Wenjing Chu (Futurewei Technologies, Inc.): Sure.
+
+360
+00:53:40.380 --> 00:53:41.350
+Eric Drury (Forth Consulting): Thank you. Okay.
+
+361
+00:53:42.240 --> 00:53:47.060
+Eric Drury (Forth Consulting): So ski trip with the family through the Ui, then goes to the agent.
+
+362
+00:53:48.410 --> 00:53:49.160
+Eric Drury (Forth Consulting): Okay.
+
+363
+00:53:54.260 --> 00:53:54.729
+Wenjing Chu (Futurewei Technologies, Inc.): So it's.
+
+364
+00:53:54.730 --> 00:53:55.270
+Neil Thomson (QueryVision): So what?
+
+365
+00:53:55.270 --> 00:53:56.539
+Wenjing Chu (Futurewei Technologies, Inc.): Oh, no! Yep!
+
+366
+00:53:56.880 --> 00:54:03.060
+Neil Thomson (QueryVision): So so one thing that really jumps off the page at me is is certainly the discussions in in the
+
+367
+00:54:03.160 --> 00:54:24.409
+Neil Thomson (QueryVision): hospitality travel group is, you know, basically, everybody's got their own agents right? It's not just an agent, it's you, you know. Every service has got the intermediaries got. How do they do stuff. And how do they firewall data across themselves? And and what is the model they're all agreeing to? So I think that is I. I have not read the Google paper. But
+
+368
+00:54:24.450 --> 00:54:45.549
+Neil Thomson (QueryVision): I'm I'm going to. And and I think there's a way to say, Okay, now, well, let's let's explode that into something that is in alignment with the current kind of organizational thing in hospitality and travel is that you've got some. You know you've got some local. You know you've got coordinating organizations. You've got individual services like a ski
+
+369
+00:54:45.550 --> 00:55:01.367
+Neil Thomson (QueryVision): tour company and and they're all gonna have their agents. And and how do they exchange information. And how do they, you know? And how would they update things? All? We've discovered something new that we need to hand back to the user? It also will lend itself
+
+370
+00:55:01.690 --> 00:55:17.520
+Neil Thomson (QueryVision): very nicely to looking at what again full credit to to Drummond, he came up with this term micro sharing of data as opposed to bulk sharing. In other words. So you know, if you're booking a trip, you're going to micro share about the specifics for a short period of time you're gonna get proof
+
+371
+00:55:18.104 --> 00:55:28.799
+Neil Thomson (QueryVision): you're gonna get. Yes, the person has a passport, not hand the passport. So to me, I'd say, you know, if Google's put it, you know, from a credibility standpoint. I think
+
+372
+00:55:29.310 --> 00:55:51.690
+Neil Thomson (QueryVision): you know, they started talking about travel. Apparently the EU digital wallet is got travel as a big thing, because, of course, EU is looking for cross border the travel as as sort of like the use case, because it involves different countries with their own passports, and whatever else. So I think that's you know it. It nicely dovetails with
+
+373
+00:55:51.810 --> 00:56:03.069
+Neil Thomson (QueryVision): the sort of discussions we're having over on the travel side of things. So yeah, it's, you know. Their introduction, I think, is a natural to explore all kinds of stuff.
+
+374
+00:56:03.370 --> 00:56:28.210
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. The introduction is, I think, is intentionally very, very simple. So in this case it's only one agent, and they assume the agents are run by them, of course. But I think this diagram, if we want to think about like a personal agent and have a multiple agents can be extended, because this, you know, on the right hand side the majority of the document.
+
+375
+00:56:28.400 --> 00:56:37.470
+Wenjing Chu (Futurewei Technologies, Inc.): the diagram so it can be extended into agent talking to more agent, etc. So that's definitely possible direction. We can go to
+
+376
+00:56:39.240 --> 00:56:43.440
+Wenjing Chu (Futurewei Technologies, Inc.): But I thought it would be good to start with something like that simple.
+
+377
+00:56:43.840 --> 00:56:44.400
+Eric Drury (Forth Consulting): Yeah.
+
+378
+00:56:45.410 --> 00:57:12.840
+Eric Drury (Forth Consulting): talking about trust. And that's the the when you when you think about agents, they're not just sort of floating around there, you you encounter them within a domain that you're already interacting with. And you trust that agent because you trust the domain. So if you're in the Google Domain, and they present an agent to you. Either you trust that agent because you already trust Google or you're on your bank app, and the bank app has a agent. You trust your bank, you trust your bank's app.
+
+379
+00:57:12.950 --> 00:57:33.240
+Eric Drury (Forth Consulting): therefore, agent. So you're rarely are you interacting with agents that don't have any that are just sort of floating around, but but they but your agent is talking to other agents, and you don't know what other agents they're talking to, and so the further it gets away from you. How do you make sure that that they can only
+
+380
+00:57:33.820 --> 00:57:35.980
+Eric Drury (Forth Consulting): interact with trusted agents?
+
+381
+00:57:36.340 --> 00:57:37.249
+Eric Drury (Forth Consulting): And what does that mean?
+
+382
+00:57:37.250 --> 00:58:06.250
+Neil Thomson (QueryVision): Yeah. So so specifically, that point one of the things we did in the Attraction pass. We, we looked at, okay, what about credentials and tickets. Tickets is a, you know, a transactional credential right? And and one of the key things that came out of this and those sort of people in that industry, you know. People, you know, selling, you know, passes, let's call it. What's the the big company in the Us. Has been through a lot of problems in terms of tickets for sorry.
+
+383
+00:58:06.710 --> 00:58:07.840
+Eric Drury (Forth Consulting): Live nation.
+
+384
+00:58:08.100 --> 00:58:09.540
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah.
+
+385
+00:58:10.850 --> 00:58:11.710
+Neil Thomson (QueryVision): No?
+
+386
+00:58:11.930 --> 00:58:13.620
+Neil Thomson (QueryVision): Well, the the ones that were.
+
+387
+00:58:13.770 --> 00:58:14.340
+Eric Drury (Forth Consulting): Ticketmaster.
+
+388
+00:58:14.340 --> 00:58:23.389
+Neil Thomson (QueryVision): Ticketmaster. So these are people in that industry. And they said, one of the absolutely critical things is to have a verifiable trust chain.
+
+389
+00:58:23.930 --> 00:58:29.390
+Neil Thomson (QueryVision): So we we threw a couple of things at them. 1 1 was a glyph based model, and they said, We like that
+
+390
+00:58:30.210 --> 00:58:47.260
+Neil Thomson (QueryVision): right? So I think that which speaks, I think, exactly to what you were talking about, Eric, is that you know what's your traceability? You're an agent, so can you show me your root of trust, and and where you come from? Because they they thought that that was certainly the biggest problem they have. You know, you meet some guy on the street is gonna sell you a ticket.
+
+391
+00:58:47.820 --> 00:58:48.200
+Neil Thomson (QueryVision): and you know.
+
+392
+00:58:48.350 --> 00:58:53.239
+Neil Thomson (QueryVision): you know, if you could show me a verifiable chain that you are, in fact, entitled to sell this ticket.
+
+393
+00:58:53.683 --> 00:58:58.019
+Neil Thomson (QueryVision): In. In fact, one of the conclusions out of that came is that
+
+394
+00:58:58.240 --> 00:59:04.879
+Neil Thomson (QueryVision): you know, if the any sale of a resale of a ticket has to go back to the original issuer.
+
+395
+00:59:06.170 --> 00:59:22.579
+Neil Thomson (QueryVision): That's the only safe way to do it. As opposed to saying, Yeah, I'm selling this, you know. I bought it. So I'm selling to you. It's like, No, no sorry that has to go back, because if it if it isn't, then the traceability of all the tickets becomes entirely in question, and when you're trying to.
+
+396
+00:59:23.090 --> 00:59:25.890
+Neil Thomson (QueryVision): you know, hand the ticket over at the event.
+
+397
+00:59:26.260 --> 00:59:33.569
+Neil Thomson (QueryVision): you know that that has to be resolved before you do that. Not oh, well, you you pick this up from someone else. How we're gonna have to check, that doesn't work.
+
+398
+00:59:33.750 --> 00:59:36.750
+Neil Thomson (QueryVision): So that was the conclusion that came out of that. So.
+
+399
+00:59:42.060 --> 00:59:46.159
+Neil Thomson (QueryVision): anyway. But I'm agreeing with you, and and there's a concrete case right? So.
+
+400
+00:59:46.160 --> 00:59:49.249
+Eric Drury (Forth Consulting): And that's and that's interesting. Because
+
+401
+00:59:50.300 --> 01:00:00.650
+Eric Drury (Forth Consulting): I've been trying to get my head around does. So, each agent needs to have their own identifier. And while that's important, I guess it's more important is who's controlling that agent?
+
+402
+01:00:01.610 --> 01:00:04.799
+Eric Drury (Forth Consulting): And yeah, so what what is that root of trust.
+
+403
+01:00:05.290 --> 01:00:23.869
+Neil Thomson (QueryVision): Yeah. And it is it a, you know, like I said, we have a mechanism that Glyph has. It's it's a credential chain that you can walk up the the chain, which is one of the key things that you know. The. The one thing that I've certainly heard from from people at Glyph is who needs a trust registry. If you've got a verifiable chain, you can walk in real time.
+
+404
+01:00:26.200 --> 01:00:44.479
+Neil Thomson (QueryVision): You know that. That was, they said. We already have a solution. You're gonna have to go to that sooner or later, if you really want to verify something. I got it from the structure that's nice. But and can I follow back to the the root of trust on even that is is, you know, another level of depth, of verification, of authenticity.
+
+405
+01:00:45.670 --> 01:00:49.690
+Neil Thomson (QueryVision): So I know everyone's in love with trust agencies. But
+
+406
+01:00:57.380 --> 01:00:59.580
+Neil Thomson (QueryVision): anyway, we're approaching the top of the hour.
+
+407
+01:01:00.060 --> 01:01:24.970
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. So so one suggestion I have. If people like a diagram like this, would it be that we go down, you know, using this as a starting point, and then maybe come up with different scenarios of different diagrams. And for each of them, there will be issues right? So this will be you know, trust problems. And then we can articulate them.
+
+408
+01:01:25.330 --> 01:01:30.639
+Wenjing Chu (Futurewei Technologies, Inc.): So that way we are exploring the problem space for a little bit
+
+409
+01:01:32.090 --> 01:01:40.669
+Wenjing Chu (Futurewei Technologies, Inc.): and you think about how we can solve them. So this would this be a I don't know in general, a productive way by moving forward.
+
+410
+01:01:42.280 --> 01:01:43.200
+Steven Milstein (Collab.Ventures): Yeah, I, like it.
+
+411
+01:01:44.110 --> 01:01:57.549
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, and we can point to like, there are code there. So we can using this and construct examples, even running code as well. And then I think that will be much more grounded and more practical.
+
+412
+01:01:59.600 --> 01:02:06.970
+Neil Thomson (QueryVision): Well, it certainly won't help. It certainly brings credibility to the table, I mean, if this is a well-respected paper, then
+
+413
+01:02:07.340 --> 01:02:07.920
+Neil Thomson (QueryVision): well.
+
+414
+01:02:08.110 --> 01:02:19.048
+Wenjing Chu (Futurewei Technologies, Inc.): At least I heard. It's very popular. There's a lot of people in the social media talking about it. So in it's it's viral. It's very simple, though it's not very technical.
+
+415
+01:02:23.330 --> 01:02:31.120
+Wenjing Chu (Futurewei Technologies, Inc.): Okay? So so that bring us to the top of our. I don't know anyone have a last minute comments and
+
+416
+01:02:31.670 --> 01:02:34.470
+Wenjing Chu (Futurewei Technologies, Inc.): suggestions for this year.
+
+417
+01:02:37.570 --> 01:02:38.450
+Steven Milstein (Collab.Ventures): Looks, good.
+
+418
+01:02:40.560 --> 01:02:49.250
+Neil Thomson (QueryVision): Just a quickie, Derek. Is there a must read set of documents that you know all of us should be aware of on Cawg.
+
+419
+01:02:51.312 --> 01:03:04.110
+Eric Scouten (Adobe Inc.): I would. If you're gonna focus, you know, a short period of time on reading things, I would look through the introduction section of the the cog identity document. So cog dot I/O, and then follow the links to identity. Assertion.
+
+420
+01:03:04.970 --> 01:03:05.450
+Wenjing Chu (Futurewei Technologies, Inc.): Beautiful.
+
+421
+01:03:05.450 --> 01:03:10.660
+Eric Scouten (Adobe Inc.): And that 1st one lays out the framework of of what we're doing and why we're doing it in
+
+422
+01:03:10.840 --> 01:03:15.860
+Eric Scouten (Adobe Inc.): some good detail, and mirrors a lot of what I've talked about at various conferences and such.
+
+423
+01:03:19.020 --> 01:03:23.550
+Neil Thomson (QueryVision): Are your Iw. Presentations posted anywhere.
+
+424
+01:03:24.440 --> 01:03:46.470
+Eric Scouten (Adobe Inc.): I don't believe so. I might have the one place I would look. And I I just the reason I'm hesitating because I don't remember if I actually got around to posting it this time or not. But if you look on my personal website, Eric Scott and dev there should be a link to my notes from Iw. Which I think would include the slide deck, and if it doesn't ping me and I'll I can go back and add it.
+
+425
+01:03:48.390 --> 01:03:49.070
+Neil Thomson (QueryVision): Okay.
+
+426
+01:03:51.140 --> 01:03:58.130
+Eric Scouten (Adobe Inc.): Cool, and one thing I'll I busy this week, but I should have be able to add some content for you next week.
+
+427
+01:03:58.460 --> 01:03:59.830
+Wenjing Chu (Futurewei Technologies, Inc.): Right? Right?
+
+428
+01:04:01.400 --> 01:04:02.166
+Wenjing Chu (Futurewei Technologies, Inc.): All right.
+
+429
+01:04:02.960 --> 01:04:04.630
+Wenjing Chu (Futurewei Technologies, Inc.): Thank you very much.
+
+430
+01:04:04.630 --> 01:04:04.960
+Eric Drury (Forth Consulting): Thank you.
+
+431
+01:04:05.372 --> 01:04:15.270
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, next week will be great. And I'm trying to say I could fully say, this draft is complete by next meeting.
+
+432
+01:04:15.650 --> 01:04:16.450
+Eric Drury (Forth Consulting): All right.
+
+433
+01:04:16.960 --> 01:04:17.653
+Steven Milstein (Collab.Ventures): All right.
+
+434
+01:04:18.000 --> 01:04:18.980
+Steven Milstein (Collab.Ventures): Thanks very much.
+
+435
+01:04:19.090 --> 01:04:19.600
+Eric Drury (Forth Consulting): Dude.
+
+436
+01:04:20.540 --> 01:04:21.260
+Eric Drury (Forth Consulting): Thank you.
+
+437
+01:04:21.500 --> 01:04:22.190
+Wenjing Chu (Futurewei Technologies, Inc.): Bye-bye.
+

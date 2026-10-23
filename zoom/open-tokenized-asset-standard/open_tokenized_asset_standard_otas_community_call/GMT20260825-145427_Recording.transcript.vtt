@@ -1,0 +1,886 @@
+WEBVTT
+
+1
+00:00:11.510 --> 00:00:31.819
+Sean W. Bohan (LF Decentralized Trust): All right, welcome everybody to the August 25th, 2026 Open Tokenized Asset Standard Community Call. As with all Linux Foundation events, this is held under the Linux Foundation antitrust policy. If you have any questions about these matters, please contact your company council, or if you're a member of the Linux Foundation, feel free to contact Andrew Updog of the firm Gessimer Updagrov LLP, which provides legal counsel to the Linux Foundation.
+
+2
+00:00:31.820 --> 00:00:37.670
+Sean W. Bohan (LF Decentralized Trust): In addition, this is held on a Lynx Foundation code of conduct, which can best be summed up as be excellent to each other. We're going to get a ton of work done.
+
+3
+00:00:37.920 --> 00:00:52.209
+Sean W. Bohan (LF Decentralized Trust): With that, our next meeting, and I'm just gonna do this real quick announcement to start, our next meeting is scheduled for Tuesday, September 22nd, 8 a.m. PT, 11 a.m. ET, 5pm CET, and I'm gonna turn it over to Sarvesh and Mukul. You guys are up.
+
+4
+00:00:53.550 --> 00:00:59.060
+Sarvesh Naidu: Perfect. I'd let Mukul start, but just wanted to kind of give a quick,
+
+5
+00:00:59.580 --> 00:01:14.620
+Sarvesh Naidu: Thank you for, first of all, heads up for everyone, thank you so much for joining, really appreciate it. There is… there are a few good things that have happened in the past. We've had a few good calls with the Meiston team, Meiston Lab, so, they are also…
+
+6
+00:01:14.620 --> 00:01:23.729
+Sarvesh Naidu: very much involved. We had a good, you know, we gave him a good understanding of what ODAS is. So, I think Haris is here as well? Yeah.
+
+7
+00:01:23.730 --> 00:01:24.960
+Haris Katimertzis: Hello, everyone. Awesome.
+
+8
+00:01:25.270 --> 00:01:37.600
+Sarvesh Naidu: He's from the Meiston Lab and, has worked closely with the SWI blockchain itself, so he's, you know, he's one of the people we work very closely with, for our other projects as well.
+
+9
+00:01:37.970 --> 00:01:41.729
+Sarvesh Naidu: So, welcome, Haris. That said…
+
+10
+00:01:41.730 --> 00:01:43.059
+Haris Katimertzis: holidays here, yeah.
+
+11
+00:01:43.060 --> 00:01:46.289
+Sarvesh Naidu: Oh, Maria's here as well. Hi, Maria, how are you doing?
+
+12
+00:01:46.510 --> 00:02:04.779
+Sarvesh Naidu: Great. So, Mukul, I'll let you take over and go over these questions that we had. I know when we had a call the last time with the Meiston lab team, they had a few questions which they felt was very important, which I also felt was very important for our,
+
+13
+00:02:04.780 --> 00:02:23.659
+Sarvesh Naidu: overall white paper that we have. Maybe it's good to have those as questions or discussion points within our whitepaper, so that we can either incorporate them or at least tweak the paper accordingly so that, you know, those changes are available there.
+
+14
+00:02:25.540 --> 00:02:32.559
+Mukul: Right, sure. So, actually, I… yeah, before I start, actually, I prepared this as a…
+
+15
+00:02:32.560 --> 00:02:49.339
+Mukul: presentation where we show the DVP flow of entire OTAS, but since a lot of people are here, I think, and I assumed it would take a lot of time, since a lot of people are here, and should we introduce OTAS again, or how do we start this?
+
+16
+00:02:49.830 --> 00:03:03.940
+Mukul: And I think we should take the questions first, because it might take some time later, so I think questions are important, so we should ideally spend some time before on questions, if, if we could do that, yeah.
+
+17
+00:03:04.280 --> 00:03:11.880
+Sarvesh Naidu: Sure. So, before that, I just want to kind of, you know, quickly ask if people have actually gone through our whitepaper and
+
+18
+00:03:12.220 --> 00:03:20.819
+Sarvesh Naidu: What do you, you know, is there anything that you feel is missing, or do you feel that, you know, we have… it's very generic and we need to add more meat to it?
+
+19
+00:03:21.840 --> 00:03:23.660
+Sarvesh Naidu: Right. It's an open question.
+
+20
+00:03:27.990 --> 00:03:34.889
+Sean W. Bohan (LF Decentralized Trust): And, Mukul and Sarvesh, you've got control, so if you want to share your screen, go right ahead. I stopped sharing, because it sounded like we were going to get into a presentation.
+
+21
+00:03:35.720 --> 00:03:37.749
+Mukul: No worries. I'm sharing my screen, yeah.
+
+22
+00:03:37.750 --> 00:03:38.990
+Sarvesh Naidu: Yeah. Go ahead, Mukul.
+
+23
+00:03:52.640 --> 00:03:55.050
+Mukul: Yes, can you see my screen, Sarvesh?
+
+24
+00:03:55.360 --> 00:03:56.560
+Sarvesh Naidu: Yes, again.
+
+25
+00:03:56.560 --> 00:04:10.249
+Mukul: Okay, okay, got it. So, one of our contributors basically, shared OTAS Probe with us in one of our discussions, about privacy and confidentiality, so, we wanted to
+
+26
+00:04:10.250 --> 00:04:22.430
+Mukul: decide what direction we are heading, right? I mean, in terms of implementation side, as we are writing the white paper. So, I thought this… I spent some time with OTAS Probe, and I think it was a…
+
+27
+00:04:22.430 --> 00:04:41.139
+Mukul: it is a good attempt. Basically, it… it is a read-only implementation. It checks whether, token of different chain follow the OTA standard, or the standard which we are defining. So, I initially… so it has adapter for EVM, and it has some, implementation for Solana and SUI.
+
+28
+00:04:41.140 --> 00:04:46.069
+Mukul: But it's not, complete, so I initially started to make that part.
+
+29
+00:04:46.070 --> 00:04:57.859
+Mukul: But later, I basically tried to visualize everything, simulated, the entire DVP cycle for, two chains, right now, EVM and SUI, between EVM and SUI, so…
+
+30
+00:04:59.130 --> 00:05:23.179
+Mukul: Well, that's what I assumed we would take some more time on, but since we have a lot of people, so we could either… if you have… if people don't know what OTAS is, maybe we can start with a broader introduction, or maybe if you, as Sarvesh mentioned, you guys have some questions or ideas, maybe we should spend some time on that before, because then the later part might take some time, so…
+
+31
+00:05:23.180 --> 00:05:29.260
+Mukul: And if you have any questions about OTAS or any suggestions, please feel free to point out.
+
+32
+00:05:41.830 --> 00:05:46.370
+Mukul: Sarvesh, my audio is right, correct, right?
+
+33
+00:05:46.750 --> 00:05:49.740
+Sarvesh Naidu: Yeah, yeah, yeah, I can… I can hear you. I think everybody else can hear you, too.
+
+34
+00:05:49.990 --> 00:05:50.490
+Mukul: Okay, okay.
+
+35
+00:05:50.490 --> 00:05:51.289
+Sarvesh Naidu: I'm hoping.
+
+36
+00:05:51.880 --> 00:05:52.450
+Mukul: Yep.
+
+37
+00:05:52.910 --> 00:05:53.640
+Sarvesh Naidu: Awesome.
+
+38
+00:05:54.800 --> 00:06:04.590
+Sarvesh Naidu: I know Michael, sent a message. Michael, can you just elaborate what exactly… is that a question, or are we trying to kind of get to that discussion point as such?
+
+39
+00:06:04.750 --> 00:06:08.479
+Michael Santore: Oh, no, I was just linking it in the chat. It's great to see everybody again.
+
+40
+00:06:08.930 --> 00:06:09.300
+Sarvesh Naidu: Awesome.
+
+41
+00:06:09.300 --> 00:06:09.750
+Mukul: India.
+
+42
+00:06:09.750 --> 00:06:10.309
+Sarvesh Naidu: Thank you.
+
+43
+00:06:10.930 --> 00:06:13.170
+Mukul: Yes, Michael, linked the thread, correct?
+
+44
+00:06:13.170 --> 00:06:13.760
+Sarvesh Naidu: Okay.
+
+45
+00:06:13.760 --> 00:06:15.190
+Mukul: Oh,
+
+46
+00:06:20.830 --> 00:06:31.199
+Sarvesh Naidu: Okay, so I think… let's just give a quick update on… on OTAS itself, you know, the white paper, and then, you know, yeah.
+
+47
+00:06:32.590 --> 00:06:38.050
+Mukul: Sure. You can see my, my tab, right? Current tab? Yes.
+
+48
+00:06:38.380 --> 00:06:39.210
+Mukul: Okay.
+
+49
+00:06:40.090 --> 00:06:54.879
+Mukul: So, Open Tokenized Asset Standard, OTAS, we are trying to, make a white paper, make a protocol agnostic layer where, you can basically check whether,
+
+50
+00:06:54.880 --> 00:07:08.969
+Mukul: essentially, we have these four layers, settlement network identity, compliance, and Asset Metadata, where, our primary goal is as a tokenization is being, used in different industries,
+
+51
+00:07:08.970 --> 00:07:15.940
+Mukul: And tokenized… and basically, tokenized assets are, being used as stock assets for different.
+
+52
+00:07:15.940 --> 00:07:30.490
+Mukul: for real-world assets, for properties, and so on. So, to make a standard for different jurisdictions, different regions, different protocols, different companies can follow, where they don't have to,
+
+53
+00:07:30.870 --> 00:07:41.310
+Mukul: Where a bond which is being created on one chain can also be utilized or exchanged or managed in another chain without having to
+
+54
+00:07:41.310 --> 00:07:57.129
+Mukul: without it having to, being created again, and duplicate the entire compliance process, entire, token itself, so to, improve the capital efficiency through this. So that's, the primary goal.
+
+55
+00:07:57.190 --> 00:07:59.350
+Mukul: And…
+
+56
+00:08:00.220 --> 00:08:13.860
+Mukul: I'd recommend to go over the white paper if you, already haven't. It's not that, big. Also, Sarvesh, I haven't mentioned, I spoke with Ivan, after our last call. We exchanged a couple of emails.
+
+57
+00:08:13.860 --> 00:08:28.749
+Mukul: His time zone is… he's from Australia, right, so this is really late for him. So, we are planning to schedule a short call this week later, to discuss. He had some pointers on finality, as, so, is Amit in the call?
+
+58
+00:08:29.270 --> 00:08:29.869
+Sarvesh Naidu: Yeah, I'm a desert.
+
+59
+00:08:29.870 --> 00:08:46.229
+Mukul: Yeah, we experienced some, chat in our channel, Open Asset channel, about the finality part. So he also, so basically, basically, Ivan also had some point on technical finality itself, that it being not clear.
+
+60
+00:08:46.870 --> 00:08:56.320
+Sarvesh Naidu: Well, what I would suggest is, instead of the open Asset channel, we should start having all these discussions on the Discord channel for the larger audience.
+
+61
+00:08:56.320 --> 00:08:56.990
+Mukul: Are you good enough.
+
+62
+00:08:56.990 --> 00:08:58.219
+Sarvesh Naidu: Help them to…
+
+63
+00:08:58.220 --> 00:08:59.169
+Mukul: Same, same discourse.
+
+64
+00:08:59.170 --> 00:09:01.860
+Sarvesh Naidu: Oh, okay, that same Discord channel, okay, okay.
+
+65
+00:09:01.860 --> 00:09:02.920
+Mukul: Yes, yes, yes.
+
+66
+00:09:03.180 --> 00:09:04.610
+Mukul: Good. Craig.
+
+67
+00:09:04.990 --> 00:09:11.850
+Mukul: So… yeah, I lost my chain of thought, sorry.
+
+68
+00:09:13.850 --> 00:09:15.680
+Sarvesh Naidu: Go ahead, Redwan. You had a question?
+
+69
+00:09:16.260 --> 00:09:17.980
+Mukul: Y-yuh.
+
+70
+00:09:19.410 --> 00:09:20.830
+Redwan Meslem (Enterprise Ethereum Alliance): Yeah, so I'm just, I'm just…
+
+71
+00:09:20.830 --> 00:09:21.330
+Mukul: Awesome.
+
+72
+00:09:21.330 --> 00:09:26.580
+Redwan Meslem (Enterprise Ethereum Alliance): I'm just thinking, are you saying, like, the conversation for these standards are happening on Discord?
+
+73
+00:09:28.230 --> 00:09:30.500
+Mukul: Registered for us.
+
+74
+00:09:30.670 --> 00:09:31.370
+Mukul: Yeah.
+
+75
+00:09:32.380 --> 00:09:35.419
+Sarvesh Naidu: Are you on that Discord channel, Redwan? If not…
+
+76
+00:09:35.740 --> 00:09:41.650
+Redwan Meslem (Enterprise Ethereum Alliance): I'm more surprised. I felt like this was an institutional, like, working group.
+
+77
+00:09:41.730 --> 00:09:52.800
+Redwan Meslem (Enterprise Ethereum Alliance): For really, like, you know, financial instrument for adoption. And Discord seems like the worst, tool to actually have those conversations, like.
+
+78
+00:09:52.830 --> 00:10:08.499
+Redwan Meslem (Enterprise Ethereum Alliance): None institution, if you want to have some, actually, people joining, are going to go on Discord to engage with the work that we do. And so if we… if even, like, I would say, like, the work is being done on Discord right now, I would say it's not even worth, like, spending time, like, to do this.
+
+79
+00:10:09.020 --> 00:10:26.560
+Redwan Meslem (Enterprise Ethereum Alliance): I'm really, like, but just, it's… this is a… this is a gamer, like, social media platform, and we're talking about, assets for DTCC, EuroClear, and the financial world. That's just not gonna work out.
+
+80
+00:10:27.760 --> 00:10:31.149
+Sarvesh Naidu: So… This is, Sean, please go ahead.
+
+81
+00:10:31.380 --> 00:10:43.560
+Sean W. Bohan (LF Decentralized Trust): Yeah, I was just gonna say, thanks, Redwan, for that. Lf Decentralized Trust for the communities that we have. We use Discord for the in-the-moment conversations, like, hey, where can I find this? That sort of thing. We also have mailing lists as well.
+
+82
+00:10:43.560 --> 00:10:54.659
+Sean W. Bohan (LF Decentralized Trust): We will also want to give a, a community LEGO task some room to find its legs, and get to where these discussions can happen. A lot of this work is going to happen in GitHub.
+
+83
+00:10:54.710 --> 00:11:02.209
+Sean W. Bohan (LF Decentralized Trust): But we also want to give folks a chance to raise their hand and say, hey, I saw this, can I do this, that sort of thing. So we tend to have 3 main channels.
+
+84
+00:11:02.210 --> 00:11:19.360
+Sean W. Bohan (LF Decentralized Trust): Discord for In The Moment Conversations, the mailing list, which not a lot of folks have signed up for, and we're gonna encourage that as well, but also in GitHub itself, whether you're gonna do an issue, or file a PR, or actually, you know, dive into the white paper and start answering some of the questions in the discussion board of the whitepaper.
+
+85
+00:11:19.360 --> 00:11:30.790
+Sean W. Bohan (LF Decentralized Trust): Michael said he respectfully agrees with Redwan. Cool. This is what we do with a lot of our other communities, like Bezu, like Lineth, and others, and in some cases, like with OTAS, it's new, and we're helping them get their feet.
+
+86
+00:11:31.880 --> 00:11:32.640
+Redwan Meslem (Enterprise Ethereum Alliance): Okay.
+
+87
+00:11:34.420 --> 00:11:39.190
+Sean W. Bohan (LF Decentralized Trust): It's awesome feedback, and we appreciate it, and we can take that to heart and think about what we're doing there.
+
+88
+00:11:39.440 --> 00:11:44.049
+Redwan Meslem (Enterprise Ethereum Alliance): Is there anyone from, working from a bank or any institution on the call right now?
+
+89
+00:11:45.980 --> 00:11:49.099
+Mukul: Yes, do we have Amit bread, yeah.
+
+90
+00:11:49.100 --> 00:11:49.420
+Sarvesh Naidu: Yeah.
+
+91
+00:11:49.420 --> 00:11:50.240
+Amit Sagar (Bank of England): Yeah.
+
+92
+00:11:50.240 --> 00:11:53.980
+Redwan Meslem (Enterprise Ethereum Alliance): Can you access… can you access Discord from your network?
+
+93
+00:11:54.400 --> 00:12:00.079
+Amit Sagar (Bank of England): No, I certainly do not need to access it from my bank network, I do it on my personal capacity.
+
+94
+00:12:00.790 --> 00:12:10.859
+Redwan Meslem (Enterprise Ethereum Alliance): Well, so that's… that could be, like, a pretty big breach of your… of your… your privacy and what you're supposed to be doing on… on your work at the Bank of England, or in your…
+
+95
+00:12:10.990 --> 00:12:20.839
+Redwan Meslem (Enterprise Ethereum Alliance): I'm not trying to create trouble, but just… I'm saying that from my experience, you know. I've run working groups with GP Morgan and some of the banks, just Google Doc is a
+
+96
+00:12:20.920 --> 00:12:28.749
+Redwan Meslem (Enterprise Ethereum Alliance): As a problem. And see, if we choose tools that they cannot even access from their network and from the way they operate.
+
+97
+00:12:28.790 --> 00:12:43.100
+Redwan Meslem (Enterprise Ethereum Alliance): I'm just saying, like, that's gonna be an issue, but also, in the meantime, you've run, like, some other, like, working group at the Enix Foundation, that involve institutions, and just say, like, very wary of the tools that you want to use for this type of engagement.
+
+98
+00:12:43.360 --> 00:12:48.460
+Redwan Meslem (Enterprise Ethereum Alliance): But I'll stop here. Just my, my, my, my kind of, like, red flag here.
+
+99
+00:12:50.090 --> 00:13:07.889
+Amit Sagar (Bank of England): No, I appreciate it, appreciate it, Redwan, yeah. But that depends on the kind of documentation and communications you're opening, so if it is a formal and definite conversation you want to have, you can use the mailing list on LFTT, what Sean already mentioned, right? So… and it all depends, so… so, yeah, definitely, taking your point, but, you know, there are
+
+100
+00:13:08.420 --> 00:13:09.730
+Amit Sagar (Bank of England): Nuances to it.
+
+101
+00:13:11.350 --> 00:13:27.810
+Sarvesh Naidu: And even if you do do it on GitHub, right? I mean, not all your repos are accessible through institutions, right? So, it's always going to be… there are going to be some, you know, challenges, but I think, from what I understand,
+
+102
+00:13:28.180 --> 00:13:47.089
+Sarvesh Naidu: you know, most of the people who have joined here are on Discord, and they're able to, you know, respond to these things. We have the mailing list, you know, Redwan, so I think you're on that mailing list. If you haven't, just subscribe, and you should start getting, you know, weekly updates or monthly updates based off
+
+103
+00:13:47.660 --> 00:14:02.489
+Sarvesh Naidu: what your settings are, and then, you know, whatever changes and whatever updates we're doing would be really, you know, what could come to you. So, and everything is on the GitHub page itself, so, you know, it's pretty self-explanatory how you can do that.
+
+104
+00:14:03.670 --> 00:14:04.430
+Sarvesh Naidu: Yeah?
+
+105
+00:14:08.170 --> 00:14:14.240
+Sarvesh Naidu: Cool. Yeah, go ahead, Mukul, you, you were saying about,
+
+106
+00:14:14.240 --> 00:14:14.770
+Mukul: Yes.
+
+107
+00:14:14.770 --> 00:14:16.729
+Sarvesh Naidu: The finality and…
+
+108
+00:14:18.220 --> 00:14:19.559
+Mukul: Right, correct.
+
+109
+00:14:19.560 --> 00:14:43.319
+Mukul: So we were having debate about this, technical fin… so we want to separate technical finality with the legal finality in the paper and the implementation, right? So, so basically, he suggest… I was talking about, my conversation with Ivan, so he suggested, even as we discussed on our last chat with Amit, that also technical finality is quite nuanced, it is very different in different chains.
+
+110
+00:14:43.320 --> 00:14:51.769
+Mukul: And since we, technical final… and as we proposed a committed state, in our next issue, which we want to work on.
+
+111
+00:14:51.800 --> 00:15:05.189
+Mukul: So that also, technical finality is also, something we should more discuss on, more, more study upon, and, try to see how we can do that. So, as,
+
+112
+00:15:05.670 --> 00:15:08.860
+Mukul: I was saying, the…
+
+113
+00:15:09.830 --> 00:15:29.169
+Mukul: So the, to… for more people, the… as we know, the fixed standard is how trades get negotiated. SWIF standardized how financial institutions, can talk, bank message and coordinate. Tcpip standardize how, completely different networks talk to each other without anyone rebuilding. The post-trade layer for
+
+114
+00:15:29.170 --> 00:15:37.880
+Mukul: Tokenized assets, so don't have any standard yet, so we are trying to, make the standard that, make that standard with CTAS.
+
+115
+00:15:37.880 --> 00:15:39.430
+Mukul: If we…
+
+116
+00:15:40.360 --> 00:16:03.050
+Mukul: And also, we, in the paper especially, we try to, we try to do the comparative analysis of different, already existing standards. We try to make a… we want to make a standard which covers those standards as well. Basically, there are technical standards for each chain, right? Ethereum, or a wider EVM family has a chain.
+
+117
+00:16:03.050 --> 00:16:05.970
+Mukul: has a standard ERC3643. It is not…
+
+118
+00:16:05.970 --> 00:16:30.870
+Mukul: it is more of a technical standard, not the entire compliance, identity complete standard, but they have a standard, Solana tokens have standard, different, different permission networks have different standards, SUE has object model, and so on. So, we try to, study them, try to, identify the common denominator in them, and try to see, how we can, basically, make a standard out of them.
+
+119
+00:16:30.870 --> 00:16:33.469
+Mukul: Based on, token-based type.
+
+120
+00:16:33.470 --> 00:16:41.690
+Mukul: different behavior, different canonical event schemas, and so on. So, that's the goal. Can we,
+
+121
+00:16:42.660 --> 00:16:43.620
+Mukul: dot…
+
+122
+00:16:43.620 --> 00:16:59.320
+Sarvesh Naidu: So, I want to kind of… Yeah, Mukul, I just wanted to kind of see, Haris, Maria, I know, Haris, you were with the… on the last call with Manos as well, and you had a few questions more related to identity and how we can manage,
+
+123
+00:16:59.360 --> 00:17:10.119
+Sarvesh Naidu: those things, correct me if I'm wrong. Do you have those discussion points as such, or would you prefer putting it on the, discussion board as such?
+
+124
+00:17:10.800 --> 00:17:13.379
+Haris Katimertzis: Maybe we'll re-put it in the discussion board.
+
+125
+00:17:13.380 --> 00:17:18.050
+Sarvesh Naidu: Yeah, I'd appreciate it, because, Redwan, he comes from…
+
+126
+00:17:18.290 --> 00:17:31.110
+Sarvesh Naidu: that, that world, more, mostly, more on the identity. Redwan, correct me if I'm wrong, the last conversation we had, I think it was more related to identity, and you wanted to kind of be more closely related to that, right?
+
+127
+00:17:32.110 --> 00:17:34.750
+Redwan Meslem (Enterprise Ethereum Alliance): Yeah, I've done a few deep dives on that. Right.
+
+128
+00:17:34.870 --> 00:17:38.949
+Redwan Meslem (Enterprise Ethereum Alliance): I'm still doing some, actually, work on, even,
+
+129
+00:17:39.430 --> 00:17:45.980
+Redwan Meslem (Enterprise Ethereum Alliance): General, like, specification for Tokenization, standards, so… Yeah,
+
+130
+00:17:45.980 --> 00:17:50.250
+Sarvesh Naidu: Yeah, so maybe you might be able to kind of, you know,
+
+131
+00:17:50.340 --> 00:18:05.609
+Sarvesh Naidu: you know, at least pick those questions if Haris and team put them there, mostly more specific to identity, right? Since they're coming from the SUI group and, you know, the Meiston Lab, so we might have
+
+132
+00:18:05.670 --> 00:18:12.989
+Sarvesh Naidu: they might have specific questions, which they're going through right now, which we can then, you know, leverage in our OTAS whitepaper itself.
+
+133
+00:18:13.610 --> 00:18:25.660
+Haris Katimertzis: Yeah, actually, we see… we see verifiable credentials as, keywords in the white paper, and we're trying to understand how this gonna be, like, the identity layer of the RWJs.
+
+134
+00:18:26.730 --> 00:18:29.869
+Mukul: Sorry, what was the last part?
+
+135
+00:18:30.110 --> 00:18:31.189
+Mukul: I missed it.
+
+136
+00:18:31.990 --> 00:18:39.530
+Haris Katimertzis: We see verifiable credentials as keywords in the white paper, and they were trying to understand how this
+
+137
+00:18:39.660 --> 00:18:44.830
+Haris Katimertzis: gonna fit with… as identity layer in, the RWA's assets.
+
+138
+00:18:46.330 --> 00:18:58.049
+Mukul: Okay. So basically by credentials, you mean, by credential, you mean the terminal… in general, terminologies used, or do you mean anything that's…
+
+139
+00:18:58.180 --> 00:19:09.670
+Haris Katimertzis: we saw VCs as keywords in the white paper. Maybe I will take it more, more in detail, and I will add a specific question in the discussion board. Yeah, so let's do it.
+
+140
+00:19:09.670 --> 00:19:14.729
+Sarvesh Naidu: that, right? I think what we have done, Haris, is, just to give you a little.
+
+141
+00:19:14.730 --> 00:19:19.669
+Mukul: So by terms, do you mean these, events are…
+
+142
+00:19:32.930 --> 00:19:36.729
+Mukul: I… I can't seem to hear anyone. I'm sorry.
+
+143
+00:19:43.360 --> 00:19:46.160
+Mukul: Hi Sarvesh, can you hear me?
+
+144
+00:19:46.420 --> 00:19:49.580
+Sarvesh Naidu: Yeah, yeah, I can hear you. I think we lost Haris for a bit.
+
+145
+00:19:49.580 --> 00:19:51.260
+Mukul: Okay, got it. Okay.
+
+146
+00:19:51.420 --> 00:19:55.680
+Sarvesh Naidu: That's alright, so let's proceed, but I think we have an overall understanding what would…
+
+147
+00:19:55.680 --> 00:20:16.990
+Sarvesh Naidu: the next steps would be, from Harris' side, is just go through the documentation for white paper, and, you know, specifically, see what is there for identity. We might have not covered the entire identity portion for the simple reason we were looking at it from the perspective of settlement layer. We wanted someone to pick up the identity layer as well. Correct me if I'm wrong, Mukul.
+
+148
+00:20:16.990 --> 00:20:41.020
+Sarvesh Naidu: Right? So, it might not be in the best, it might not have all the information that we are expecting, but ideally, what we want is have these questions so that we can start putting those, you know, make it more, identity-specific as well, and then maybe Redwan and Haris can work together to kind of, tweak the white paper or come up with suggestions on how we can add those.
+
+149
+00:20:41.080 --> 00:20:42.539
+Sarvesh Naidu: In the white paper, right?
+
+150
+00:20:42.910 --> 00:20:46.529
+Haris Katimertzis: Yes, of course, also… Sorry to go.
+
+151
+00:20:46.530 --> 00:20:47.780
+Mukul: Yeah.
+
+152
+00:20:48.280 --> 00:20:48.880
+Haris Katimertzis: I'll go.
+
+153
+00:20:48.880 --> 00:20:51.390
+Mukul: Yes, please go.
+
+154
+00:20:51.930 --> 00:20:59.410
+Haris Katimertzis: Of course, also we have some fixes about the SUI stuff, like, the SUI specifics, but yes.
+
+155
+00:20:59.410 --> 00:20:59.890
+Mukul: Oh, okay.
+
+156
+00:20:59.890 --> 00:21:07.220
+Haris Katimertzis: the technical part that, because we're using a new standard, we're using the permission Asset standard.
+
+157
+00:21:07.330 --> 00:21:07.960
+Haris Katimertzis: So…
+
+158
+00:21:07.960 --> 00:21:08.810
+Mukul: Okay, got it.
+
+159
+00:21:09.010 --> 00:21:10.530
+Haris Katimertzis: To put that… Perfect.
+
+160
+00:21:10.530 --> 00:21:17.120
+Sarvesh Naidu: should actually update this by, you know, with those changes, right? Let's put those changes in.
+
+161
+00:21:17.260 --> 00:21:21.579
+Sarvesh Naidu: And, update that as well, so that we have the latest.
+
+162
+00:21:22.520 --> 00:21:24.139
+Haris Katimertzis: Very good, Keith.
+
+163
+00:21:25.710 --> 00:21:28.089
+Mukul: Can you create an issue for it?
+
+164
+00:21:28.090 --> 00:21:28.460
+Sarvesh Naidu: Exactly.
+
+165
+00:21:29.120 --> 00:21:29.930
+Sarvesh Naidu: Exactly.
+
+166
+00:21:31.120 --> 00:21:32.699
+Haris Katimertzis: Sorry, I didn't hear it.
+
+167
+00:21:33.650 --> 00:21:40.779
+Mukul: Can you create an issue for it, if possible, so that we can track the changes in the issue and PR for it?
+
+168
+00:21:41.160 --> 00:21:42.510
+Haris Katimertzis: Yeah, of course, of course.
+
+169
+00:21:42.510 --> 00:21:43.920
+Mukul: Okay, perfect.
+
+170
+00:21:44.260 --> 00:21:51.139
+Mukul: In fact, Sarvesh, you were saying something?
+
+171
+00:21:51.850 --> 00:21:56.660
+Sarvesh Naidu: No, I lost my chain of thought right now. I think you can proceed.
+
+172
+00:21:57.070 --> 00:22:01.440
+Mukul: Okay, got it. So, yeah, that's about the…
+
+173
+00:22:02.230 --> 00:22:09.760
+Mukul: standard. So we had some other items in the, basically, agenda today. So…
+
+174
+00:22:11.600 --> 00:22:14.089
+Mukul: You can see the OTAS probe, right? This one?
+
+175
+00:22:14.090 --> 00:22:14.700
+Sarvesh Naidu: Yeah, so…
+
+176
+00:22:14.700 --> 00:22:26.710
+Mukul: So, I spent some time with it, and it was actually a good contribution. A community contributor shared a tool, this tool, in the privacy versus composability thread called OTestro by
+
+177
+00:22:26.710 --> 00:22:37.069
+Mukul: So it's a read-only conformance and normalization probe for OTAS's version 1.01 whitepaper. It reads deployed…
+
+178
+00:22:37.070 --> 00:22:51.369
+Mukul: I mentioned some of this, right? It, reads deployed on-chain and reports how its observable surface maps onto our model, base type, behaviors, canonical event, reason codes, and flags. What it can't determine is
+
+179
+00:22:51.370 --> 00:23:15.569
+Mukul: Basically, it is not functional for, all the chains right now, so it has, it has a architecture of different adapters, so we can add some adapters to it, but, it will still, lack some, implementation for some of the chains. Also, one thing within settlement and this privacy composability, and also settlement.
+
+180
+00:23:15.570 --> 00:23:19.580
+Mukul: Discussion came up is, how we are going to treat the,
+
+181
+00:23:19.580 --> 00:23:39.799
+Mukul: read the networks with private chains, or transactions which are supposedly private. So, for that, I mean, the right… we can maybe open some discussion around that, or maybe we can discuss it right now, how we would deal with the tokens which are supposed to be private, and between two entities which are
+
+182
+00:23:39.800 --> 00:23:44.400
+Mukul: Which want this token or asset to be private for some reason.
+
+183
+00:23:44.400 --> 00:24:00.659
+Mukul: there could be many reasons, of course, for that, and how we should… how we would verify or standardize that part. Do people have any opinions on that? We would do that? Right now, the only discussion which came up with is either some people suggested ZK as a tool.
+
+184
+00:24:00.660 --> 00:24:08.080
+Mukul: or some hashes related to that, or different kinds of mechanisms. So, do people have opinions about that?
+
+185
+00:24:12.810 --> 00:24:22.979
+Amit Sagar (Bank of England): I mean, of course, proofs are helpful here, Mukul, but then depends what kind of implementation we are looking at. If you're looking at some zero-knowledge systems or adapters in between, there has to be…
+
+186
+00:24:23.030 --> 00:24:41.919
+Amit Sagar (Bank of England): different setups involved in recipient and the source part, right? So that includes a lot of infra-complexity, and add a bit of cost element to that as well, and implementation as well. And if you're looking into hash-based verification, it also depends. It adds to scalability, and then
+
+187
+00:24:42.000 --> 00:24:50.499
+Amit Sagar (Bank of England): You know, the scalability, basically, because how fast the hash is gonna reconcile and validate the inputs.
+
+188
+00:24:50.580 --> 00:25:03.249
+Amit Sagar (Bank of England): Other… other verification mechanism could be a universal proof mechanism, where you generate one proof that can be verifiable on any kind of setup. And I know it's a far-fetched idea, but then we can look into.
+
+189
+00:25:03.630 --> 00:25:05.950
+Amit Sagar (Bank of England): Implementations already existing in the market.
+
+190
+00:25:07.510 --> 00:25:11.309
+Mukul: Right, right, right. Right, that makes sense.
+
+191
+00:25:11.400 --> 00:25:20.849
+Mukul: So we can work on our own OTAS probe and, try to make it available for as many public networks as possible. That's…
+
+192
+00:25:20.890 --> 00:25:32.899
+Mukul: we can start doing that. Also, in order to do that, I basically created a, flow, entire flow state of the OTAS, so to make it more,
+
+193
+00:25:32.980 --> 00:25:48.169
+Mukul: possible to visualize how these, different things and different ideas can be… can be converged into one. So, I prepared a run for it, but I think we have spent the… yeah, we… we have reached the timing. So, before…
+
+194
+00:25:48.170 --> 00:26:02.640
+Mukul: we can maybe make it public later, and then we can discuss it in its discussion. But for now, I think we are almost done, but I wanted to discuss another thing. So, as we are moving towards, version
+
+195
+00:26:02.800 --> 00:26:13.679
+Mukul: B0.2, so I wanted to discuss how do we handle the branches? Do we… branches on GitHub? Do we make a white paper be 0.2 branch?
+
+196
+00:26:13.680 --> 00:26:26.740
+Mukul: or we make a main branch and, weekly or bi-weekly, merge the main branch's changes to white paper, we 0.2 branch. Do you have any ideas or any opinions about that, everyone?
+
+197
+00:26:38.700 --> 00:26:45.500
+Sarvesh Naidu: I think, in that case, if, you know, let's… let's go with what your approach is.
+
+198
+00:26:45.660 --> 00:26:56.910
+Sarvesh Naidu: a weekly merge to master would be okay. Ensuring that, you know, we drop the branch once it's done, or else it's another redundant branch that's available.
+
+199
+00:26:56.910 --> 00:27:16.420
+Mukul: No, I think… I think we should keep whitepaper B0.1 branch as a historical record of the last version of it, but as we are merging into whitepaper.md, the main whitepaper file, we should maintain another whitepaper V0.2 as we want to make changes to that, but
+
+200
+00:27:16.420 --> 00:27:23.250
+Mukul: For that, we might have to maintain… make that branch again and again, so, so…
+
+201
+00:27:23.270 --> 00:27:29.170
+Mukul: Instead, we could do, what Ethereum.org does, essentially, is we maintain a main branch.
+
+202
+00:27:29.170 --> 00:27:43.379
+Mukul: And, merge, merged main branch to the latest branch of white paper. White paper B0.2 or White Paper B 0.3, periodically, over a week, or over a… over a week or couple of weeks would be better for us, I think, for our pace.
+
+203
+00:27:43.380 --> 00:27:49.119
+Sarvesh Naidu: So you're working out of two branches, right? One is your master, one is your working branch, in this case, correct?
+
+204
+00:27:49.120 --> 00:27:51.750
+Mukul: No, right, Pep, right now, our,
+
+205
+00:27:51.750 --> 00:27:54.830
+Sarvesh Naidu: No, no, no, I'm talking about ETH, if you go with the ETH.
+
+206
+00:27:54.830 --> 00:27:56.929
+Mukul: Okay, right, right. Right, right, right.
+
+207
+00:27:57.910 --> 00:28:07.280
+Sarvesh Naidu: Cool. Yeah, I think that works too. I mean, as long as, you know, we don't lose anything, and if everybody's okay, a thumbs up would be fine.
+
+208
+00:28:07.280 --> 00:28:26.239
+Sarvesh Naidu: if, you know, and then we can take it from there. I think that would be a good idea for us. Let's start there, and, you know, as and when we make more progress, we will then, you know, keep updating the master, and then we can push some kind of a notification to all our users that, you know, there has been a new version out.
+
+209
+00:28:27.690 --> 00:28:28.220
+Mukul: Great.
+
+210
+00:28:28.480 --> 00:28:29.050
+Sarvesh Naidu: Right?
+
+211
+00:28:29.630 --> 00:28:30.270
+Mukul: Yep.
+
+212
+00:28:31.100 --> 00:28:34.339
+Sarvesh Naidu: Cool. I think, that's… that's good.
+
+213
+00:28:34.620 --> 00:28:43.589
+Sarvesh Naidu: So I think we are, I think above time. There should be a good, stopping point. Guys, do you have… does anybody have any questions related to this?
+
+214
+00:28:46.940 --> 00:29:03.430
+Sarvesh Naidu: I would suggest, if you have anything more concrete towards the white paper, let's start putting more discussion questions around it, and then we can start, you know, I mean, now that the group is growing, we just had two last week, or the week before, and there are a lot more people now, I'm guessing, you know.
+
+215
+00:29:03.520 --> 00:29:07.619
+Sarvesh Naidu: I'm seeing a lot more traction, which is great. So,
+
+216
+00:29:07.870 --> 00:29:24.570
+Sarvesh Naidu: you know, let's try to kind of build those questions and respond. If you feel that, you know, if any of these questions relate to what you're doing today, it'll be great if you can start picking those up. It'll definitely help us with how the… how we shape our whitepaper eventually.
+
+217
+00:29:26.280 --> 00:29:27.090
+Sarvesh Naidu: Yeah?
+
+218
+00:29:27.360 --> 00:29:36.309
+Sarvesh Naidu: Awesome. Thank you so much for your time. Mukul, this was great, yeah? So, let's talk later. But otherwise, thank you so much for your time, guys.
+
+219
+00:29:37.570 --> 00:29:38.310
+Sean W. Bohan (LF Decentralized Trust): Thank you, sir.
+
+220
+00:29:38.310 --> 00:29:38.860
+Mukul: Thank you, everyone.
+
+221
+00:29:38.860 --> 00:29:44.599
+Sean W. Bohan (LF Decentralized Trust): Super cool. Thank you, everybody, for joining us today and, participating. Let me… stop the recording.
+

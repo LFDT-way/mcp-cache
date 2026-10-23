@@ -1,0 +1,506 @@
+WEBVTT
+
+1
+00:02:56.840 --> 00:02:58.060
+David Enyeart (International Business Machines Corporation): Hello!
+
+2
+00:02:59.100 --> 00:03:00.100
+Tatsuya Sato (Hitachi, Ltd.): Our web.
+
+3
+00:03:30.860 --> 00:03:35.172
+David Enyeart (International Business Machines Corporation): Okay, while we wait for any others. Does anybody want to introduce themselves? I know
+
+4
+00:03:35.830 --> 00:03:39.650
+David Enyeart (International Business Machines Corporation): Sato-san, another maintainer from fabric?
+
+5
+00:03:39.840 --> 00:03:46.919
+David Enyeart (International Business Machines Corporation): I see Jimmy and mercy, and I'm Dave Ennurt
+
+6
+00:03:57.570 --> 00:04:09.590
+Jimmy: Hi, I'm Jimmy. I'm researching researching hyper Ledger for a blockchain type project kind of a
+
+7
+00:04:10.060 --> 00:04:14.070
+Jimmy: internal chain that will interface with external chains
+
+8
+00:04:15.210 --> 00:04:19.440
+David Enyeart (International Business Machines Corporation): Okay? Yeah. When, after we get through our agenda, feel free to
+
+9
+00:04:20.160 --> 00:04:23.240
+David Enyeart (International Business Machines Corporation): ask any questions or bring up other agenda items
+
+10
+00:04:24.370 --> 00:04:25.300
+Jimmy: Sounds good
+
+11
+00:04:29.210 --> 00:04:31.300
+David Enyeart (International Business Machines Corporation): Yeah, mercy, you want to introduce yourself.
+
+12
+00:04:36.920 --> 00:04:39.360
+David Enyeart (International Business Machines Corporation): That's okay. You can just listen in, if you like.
+
+13
+00:04:39.897 --> 00:04:47.270
+David Enyeart (International Business Machines Corporation): On the agenda today, we'll talk about the latest releases. And I wanted to bring up a fabric Ca, issue. We've been seeing.
+
+14
+00:04:47.700 --> 00:04:51.100
+David Enyeart (International Business Machines Corporation): Those are the 2 main points. Anybody else have other items.
+
+15
+00:04:54.780 --> 00:04:57.209
+David Enyeart (International Business Machines Corporation): Okay, let me share my screen. We'll get started.
+
+16
+00:05:12.360 --> 00:05:14.439
+David Enyeart (International Business Machines Corporation): Okay, so do you see the screen
+
+17
+00:05:16.760 --> 00:05:18.150
+Tatsuya Sato (Hitachi, Ltd.): Yes, yep.
+
+18
+00:05:18.160 --> 00:05:36.800
+David Enyeart (International Business Machines Corporation): Okay, perfect so just a quick update on the releases. I think it was maybe last week we did a fabric, 2, 5 12 release there were 2 important bug fixes in that one that I highlight here. So people know. These.
+
+19
+00:05:37.870 --> 00:06:03.319
+David Enyeart (International Business Machines Corporation): probably, you know, if you're not if you're in production, you probably want to get the latest to pick up these fixes. But in certain cases there were some intermittent panics in the pier due to the gossip component, those got fixed. We also do dependency updates. Since this is a long term support release. We do dependency updates to catch any dependency vulnerabilities that might have been fixed out there. So that was released last week
+
+20
+00:06:03.737 --> 00:06:16.960
+David Enyeart (International Business Machines Corporation): and then just yesterday, we did release fabric the latest from the main branch. That's version 3 dot one dot 0. That does include some new features around chain code batch operations. So if you're doing multiple
+
+21
+00:06:17.468 --> 00:06:27.300
+David Enyeart (International Business Machines Corporation): gets in a chain code or multiple writes in the chain code for keys the new batch operation processing will make that form better.
+
+22
+00:06:28.520 --> 00:06:31.440
+David Enyeart (International Business Machines Corporation): So those were good contributions that we got
+
+23
+00:06:31.998 --> 00:06:41.489
+David Enyeart (International Business Machines Corporation): the other thing we did, that's kind of new is we are now releasing images for each release into both Docker Hub and the Github Container Registry.
+
+24
+00:06:41.610 --> 00:06:52.709
+David Enyeart (International Business Machines Corporation): and in fact, we've updated our install scripts and samples to pull from the Github Container Registry. Since that's a little bit more friendly in terms of no limits or anything like that.
+
+25
+00:06:55.590 --> 00:06:57.979
+David Enyeart (International Business Machines Corporation): Anybody have questions about the releases
+
+26
+00:06:58.750 --> 00:07:08.810
+Tatsuya Sato (Hitachi, Ltd.): Congrats on the 3.1, ladies. And I also checked the integration with the public samples today
+
+27
+00:07:09.780 --> 00:07:11.200
+David Enyeart (International Business Machines Corporation): Thank you. I saw that. Yeah.
+
+28
+00:07:13.540 --> 00:07:20.339
+David Enyeart (International Business Machines Corporation): yeah, just so, others know. We also use fabric samples kind of as a test across the different repositories.
+
+29
+00:07:20.440 --> 00:07:25.100
+David Enyeart (International Business Machines Corporation): So it's kind of an interoperability test, because it pulls together
+
+30
+00:07:25.210 --> 00:07:44.839
+David Enyeart (International Business Machines Corporation): all the different containers, you know, not just fabric peers and orders, but also the fabric. Ca, the certificate authority, all the different languages of the chain codes, and all the different languages of the clients across go Node and Java. So there's a lot of good tests in the fabric samples Repository
+
+31
+00:07:45.480 --> 00:07:48.079
+David Enyeart (International Business Machines Corporation): in addition to them being samples and tutorials.
+
+32
+00:07:48.660 --> 00:07:51.320
+David Enyeart (International Business Machines Corporation): So it's good that you updated that to the latest version.
+
+33
+00:07:54.620 --> 00:08:17.079
+David Enyeart (International Business Machines Corporation): Okay, let me move on so the fabric Ca issue I wanted to bring up. So there was a change. It's been maybe 2 months now, when we 1st released fabric Ca, one dot 5 dot. 14, there was an environment variable. That get was getting set to true by default. So a compatibility mode to back back to an old version 1.3
+
+34
+00:08:17.701 --> 00:08:24.859
+David Enyeart (International Business Machines Corporation): that old version was like 6 years ago. So we didn't think that was needed anymore. We changed that to default to false
+
+35
+00:08:25.337 --> 00:08:40.870
+David Enyeart (International Business Machines Corporation): most of the clients that use Ca, were good with that. But it turns out there are a couple of clients that you're using the Ca rest services that had issues. If the Ca was not in compatibility mode. So we saw an issue with the fabric operations console.
+
+36
+00:08:41.276 --> 00:08:48.989
+David Enyeart (International Business Machines Corporation): We did update that but I know somebody else in discord reported an issue as well. So I'm looking. I'm working on that with them
+
+37
+00:08:49.320 --> 00:09:03.470
+David Enyeart (International Business Machines Corporation): to see if there's another issue out there. So I just wanted to to raise this in case anybody sees issues around like registering or enrolling users in the fabric. Ca, if you see an error like this invalid token and authorization header.
+
+38
+00:09:03.570 --> 00:09:08.139
+David Enyeart (International Business Machines Corporation): then you might be hitting this issue. You can fix it. If you set
+
+39
+00:09:08.360 --> 00:09:16.660
+David Enyeart (International Business Machines Corporation): this environment variable, and the fabric caa to true fabric. Ca, server, compatibility, compatibility, mode, b. 1, 3.
+
+40
+00:09:17.070 --> 00:09:29.010
+David Enyeart (International Business Machines Corporation): And we thought that was a good fallback. But it turns out it's sometimes not easier said than done. If you're in a Kubernetes environment, and you've got an operator that is managing all the environment variables
+
+41
+00:09:29.470 --> 00:09:34.700
+David Enyeart (International Business Machines Corporation): that sometimes could be a little bit tedious and not as easy as we would have liked. So
+
+42
+00:09:34.900 --> 00:09:37.160
+David Enyeart (International Business Machines Corporation): that's why I'm highlighting this issue.
+
+43
+00:09:40.940 --> 00:09:45.779
+David Enyeart (International Business Machines Corporation): So I don't know if you guys have seen any issues around this, do you always update to the latest
+
+44
+00:09:46.800 --> 00:09:48.220
+David Enyeart (International Business Machines Corporation): in your environments?
+
+45
+00:09:55.540 --> 00:09:57.839
+David Enyeart (International Business Machines Corporation): Oh, you're on mute if you're talking
+
+46
+00:10:01.960 --> 00:10:05.749
+Tatsuya Sato (Hitachi, Ltd.): It's okay. For from my side.
+
+47
+00:10:06.380 --> 00:10:10.600
+David Enyeart (International Business Machines Corporation): Okay, all right. So
+
+48
+00:10:10.920 --> 00:10:14.681
+David Enyeart (International Business Machines Corporation): that's all I had for the agenda today. I know there's not too much
+
+49
+00:10:16.030 --> 00:10:18.250
+David Enyeart (International Business Machines Corporation): Anybody else have other agenda items.
+
+50
+00:10:25.440 --> 00:10:27.610
+David Enyeart (International Business Machines Corporation): Joav. Thanks for joining. How are you doing
+
+51
+00:10:28.290 --> 00:10:33.189
+Yoav Tock (International Business Machines Corporation): Hi, I'm doing fine. Thank you. Had some trouble logging in.
+
+52
+00:10:34.580 --> 00:10:38.450
+Yoav Tock (International Business Machines Corporation): Yes, I have. I have. No, I no no item for the agenda
+
+53
+00:10:41.030 --> 00:10:44.340
+David Enyeart (International Business Machines Corporation): Okay. Jimmy, did you have anything you want to talk about?
+
+54
+00:10:47.250 --> 00:10:55.715
+Jimmy: I just will probably be joining once a month to listen in and start following things. This is a long term project.
+
+55
+00:10:56.260 --> 00:11:03.890
+Jimmy: I have a need for a internal blockchain, and my dream is to get a native postgres
+
+56
+00:11:05.320 --> 00:11:13.099
+Jimmy: thing, running sequences and all, on a blockchain and create an audibility audit trail for what we're doing.
+
+57
+00:11:13.340 --> 00:11:21.169
+Jimmy: So multiple verifiers can use your channels there to verify things, and each have their own postgres database.
+
+58
+00:11:21.969 --> 00:11:29.949
+Jimmy: A lot of what we're doing would be store procedures and things and sequences can be outside of transactions. So
+
+59
+00:11:30.190 --> 00:11:31.949
+Jimmy: this would be quite a project.
+
+60
+00:11:32.070 --> 00:11:34.160
+Jimmy: I was looking at Etsy d.
+
+61
+00:11:34.350 --> 00:11:41.089
+Jimmy: And thinking about writing something on, etcd. And then I saw Hyper Ledger. You spaced your implementation on, etcd.
+
+62
+00:11:41.620 --> 00:11:45.730
+Jimmy: so I'm hoping this will be a huge head start
+
+63
+00:11:46.490 --> 00:11:47.290
+David Enyeart (International Business Machines Corporation): Yeah, okay.
+
+64
+00:11:48.711 --> 00:11:56.000
+Jimmy: Yeah. So the the fabric releases are pretty stable these days. So there's not a lot of new development going on. That's why these meetings are pretty quick. Now.
+
+65
+00:11:56.415 --> 00:11:59.439
+David Enyeart (International Business Machines Corporation): But yeah, feel free to join every month, if you like.
+
+66
+00:12:00.670 --> 00:12:05.659
+Jimmy: Okay. So it seems like a good fit. Does that sound like something fabric can do
+
+67
+00:12:07.253 --> 00:12:11.810
+David Enyeart (International Business Machines Corporation): Well, when you, when you said an internal deployment, what do you mean by that?
+
+68
+00:12:13.640 --> 00:12:18.290
+Jimmy: We're basically community to community.
+
+69
+00:12:18.860 --> 00:12:25.349
+Jimmy: So it's not necessarily a full blockchain with 100,000 nodes. It would be more like
+
+70
+00:12:25.500 --> 00:12:29.599
+Jimmy: 7 or 8 nodes, and then we would
+
+71
+00:12:30.230 --> 00:12:37.410
+Jimmy: organize the the blockchain more around our communities, not like a wild
+
+72
+00:12:37.520 --> 00:12:43.209
+Jimmy: out there, like, how many nodes do do you usually run in hyper ledger networks.
+
+73
+00:12:44.132 --> 00:12:49.940
+David Enyeart (International Business Machines Corporation): Well, sometimes these networks are small. But the key point is that there's multiple organizations
+
+74
+00:12:50.364 --> 00:12:56.460
+Jimmy: So do you when you say internal? Do you have one organization with like 7 or 8 nodes? Or would this be across organizations
+
+75
+00:12:56.600 --> 00:12:58.570
+David Enyeart (International Business Machines Corporation): I don't know what you mean by communities
+
+76
+00:12:58.990 --> 00:13:07.301
+Jimmy: Yeah, we would start with 3 organizations, 3 nodes per organization. Then we need an independent
+
+77
+00:13:07.940 --> 00:13:10.509
+Jimmy: organization to audit what we're doing.
+
+78
+00:13:10.780 --> 00:13:17.439
+Jimmy: So we're we're releasing a token. And we have to make sure there's no fake wallets. For example, basically
+
+79
+00:13:17.650 --> 00:13:18.190
+David Enyeart (International Business Machines Corporation): Yeah, okay.
+
+80
+00:13:18.300 --> 00:13:33.710
+Jimmy: Based on an asset. So then, we do all this heavy lifting and crunching and populate this database. And then we need to hand that data off to another entity to verify it and check it all.
+
+81
+00:13:34.400 --> 00:13:38.649
+Jimmy: And then they would sign off and say, Okay, it's good. And then we can release the tokens
+
+82
+00:13:39.490 --> 00:13:47.809
+David Enyeart (International Business Machines Corporation): Okay? So the when you say, postgres, yeah, like, the actual data will be in postgres. But you're using the blockchain as more. An audit trail. Is that right?
+
+83
+00:13:49.338 --> 00:13:53.390
+Jimmy: Yes, it'll be some combination of
+
+84
+00:13:53.630 --> 00:13:59.879
+Jimmy: whatever fits best. But we have postgres, and then postgres is creating both
+
+85
+00:14:00.520 --> 00:14:09.590
+Jimmy: replication logs, low, level replication logs, and it also creates. We have a store procedures that create Json logs.
+
+86
+00:14:09.820 --> 00:14:16.799
+Jimmy: So we'll figure out whatever is easiest. So I might be just sending Json logs over.
+
+87
+00:14:16.990 --> 00:14:22.190
+Jimmy: or something like that, or maybe replication logs one day where
+
+88
+00:14:22.330 --> 00:14:26.860
+Jimmy: postgres has timelines. So I can. I think I can deal with the forks, using
+
+89
+00:14:28.260 --> 00:14:32.719
+Jimmy: a persistent transaction called timelines. If you've ever heard of that
+
+90
+00:14:36.130 --> 00:14:47.339
+Jimmy: I don't know how much detail you want, but in databases the sequences. Simple sequences are counters, and they have to be outside of transactions.
+
+91
+00:14:47.340 --> 00:14:47.970
+David Enyeart (International Business Machines Corporation): Right.
+
+92
+00:14:47.970 --> 00:14:50.200
+Jimmy: So you can't roll back a sequence
+
+93
+00:14:50.770 --> 00:14:56.940
+Jimmy: or somewhere in a distributed network. Someone already used that sequence. So it'd be a huge problem
+
+94
+00:14:56.940 --> 00:14:58.340
+David Enyeart (International Business Machines Corporation): I see? Yeah, okay.
+
+95
+00:14:58.540 --> 00:15:09.190
+Jimmy: So you so you can write timelines to disk, and you need a leader protocol just like the raft protocol. So if you have a leader issuing the sequence values
+
+96
+00:15:09.530 --> 00:15:15.989
+Jimmy: and the followers writing timelines and auditing them.
+
+97
+00:15:16.400 --> 00:15:22.340
+Jimmy: Then they can reelect a new leader and go change to their timeline. If they're the leader.
+
+98
+00:15:22.510 --> 00:15:23.740
+Jimmy: Does that make sense
+
+99
+00:15:23.740 --> 00:15:26.890
+David Enyeart (International Business Machines Corporation): I see. So in blockchain you can manage the sequences
+
+100
+00:15:27.970 --> 00:15:38.380
+Jimmy: That way you can manage the sequences, because there, it's like you have multiple databases on disk. So the auditors have their own version in case they become the leader. Then
+
+101
+00:15:38.850 --> 00:15:42.350
+Jimmy: you know that they can go back to where the last
+
+102
+00:15:42.800 --> 00:15:46.029
+Jimmy: last validated block is from the last leader.
+
+103
+00:15:46.390 --> 00:15:46.980
+Jimmy: Yep.
+
+104
+00:15:48.770 --> 00:15:49.976
+David Enyeart (International Business Machines Corporation): Makes sense.
+
+105
+00:15:50.700 --> 00:15:55.140
+David Enyeart (International Business Machines Corporation): so yeah, I mean, you could solve that like I think you said with at CD raft, probably.
+
+106
+00:15:55.620 --> 00:16:00.160
+David Enyeart (International Business Machines Corporation): so that you'll have to see if you if you're actually using any of the other
+
+107
+00:16:00.450 --> 00:16:05.850
+David Enyeart (International Business Machines Corporation): bells and whistles with hyperledger fabric, or if it's just going to be more overhead on top of that CD raft. I think that'll be your
+
+108
+00:16:06.800 --> 00:16:08.819
+David Enyeart (International Business Machines Corporation): what? Your decision point? Yeah.
+
+109
+00:16:09.150 --> 00:16:10.710
+Jimmy: Sbc raft.
+
+110
+00:16:11.470 --> 00:16:12.790
+David Enyeart (International Business Machines Corporation): At CD.
+
+111
+00:16:13.080 --> 00:16:18.960
+Jimmy: Oh, et raft. Okay? Oh, yeah. So I might be going directly to Etsyd. Raft
+
+112
+00:16:19.465 --> 00:16:27.410
+Jimmy: but there will be other things like the channels where we want to do multi sig to check things and stuff like that.
+
+113
+00:16:27.850 --> 00:16:29.100
+Jimmy: So
+
+114
+00:16:29.100 --> 00:16:31.490
+David Enyeart (International Business Machines Corporation): Yeah, yeah, sounds like a valid use case. Yeah.
+
+115
+00:16:32.400 --> 00:16:39.865
+Jimmy: Okay? And then that would unlock. I don't know anyone who's unlocked the full power of postgres it. They've always gone to like
+
+116
+00:16:40.340 --> 00:16:45.439
+Jimmy: A more decentralized version of postgres with less stored procedures in it, basically
+
+117
+00:16:45.590 --> 00:16:46.400
+David Enyeart (International Business Machines Corporation): Right.
+
+118
+00:16:47.370 --> 00:16:50.589
+Jimmy: So solving that problem, it might be a 1st
+
+119
+00:16:50.810 --> 00:16:55.059
+David Enyeart (International Business Machines Corporation): Yep, yep, okay. Sounds good. Welcome.
+
+120
+00:16:55.460 --> 00:16:56.429
+David Enyeart (International Business Machines Corporation): Thank you. Yep.
+
+121
+00:16:56.430 --> 00:16:57.870
+David Enyeart (International Business Machines Corporation): Anybody else have anything.
+
+122
+00:17:02.160 --> 00:17:08.989
+David Enyeart (International Business Machines Corporation): Okay? Thanks again. Like I said, we'll keep these pretty short unless something else comes up. But we'll touch base next time.
+
+123
+00:17:09.109 --> 00:17:10.270
+David Enyeart (International Business Machines Corporation): Thanks, everybody.
+
+124
+00:17:10.480 --> 00:17:11.200
+David Enyeart (International Business Machines Corporation): Thank you.
+
+125
+00:17:11.200 --> 00:17:11.690
+Yoav Tock (International Business Machines Corporation): Bye, bye.
+
+126
+00:17:12.540 --> 00:17:13.880
+Tatsuya Sato (Hitachi, Ltd.): Q. Right.
+

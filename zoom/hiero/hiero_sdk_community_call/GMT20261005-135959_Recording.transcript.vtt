@@ -1,0 +1,1206 @@
+WEBVTT
+
+1
+00:01:00.390 --> 00:01:01.330
+Ivaylo Georgiev: You know.
+
+2
+00:01:05.190 --> 00:01:05.890
+Mustafa Uzun: Hi.
+
+3
+00:01:06.420 --> 00:01:07.240
+Keith Kowal (Hedera Hashgraph LLC): Hello.
+
+4
+00:01:40.990 --> 00:01:43.170
+Keith Kowal (Hedera Hashgraph LLC): We'll give it one more minute for people to join.
+
+5
+00:02:49.850 --> 00:02:50.770
+Keith Kowal (Hedera Hashgraph LLC): All right.
+
+6
+00:02:50.880 --> 00:02:59.299
+Keith Kowal (Hedera Hashgraph LLC): Let's get going. Welcome to the SDK Hiero Community Call. Welcome, everyone.
+
+7
+00:03:00.180 --> 00:03:05.359
+Keith Kowal (Hedera Hashgraph LLC): Do we have any… New people… I'm listing, like, the list…
+
+8
+00:03:06.700 --> 00:03:11.830
+Keith Kowal (Hedera Hashgraph LLC): Anyone like, yeah, we have a new few new people. Anyone like to introduce themselves for the 1st time.
+
+9
+00:03:18.640 --> 00:03:19.380
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+10
+00:03:20.060 --> 00:03:21.650
+Keith Kowal (Hedera Hashgraph LLC): That's fine.
+
+11
+00:03:22.060 --> 00:03:23.070
+Keith Kowal (Hedera Hashgraph LLC): So…
+
+12
+00:03:23.190 --> 00:03:37.030
+Keith Kowal (Hedera Hashgraph LLC): For those of you who are new joining, my name is Keith. I am a product manager at Hashgraph, and I guess relevant to this call, I help, manage
+
+13
+00:03:37.260 --> 00:03:45.550
+Keith Kowal (Hedera Hashgraph LLC): or oversee the product direction of the, of many of the SDKs that Hiero supports.
+
+14
+00:03:47.770 --> 00:03:57.660
+Keith Kowal (Hedera Hashgraph LLC): So, yeah, the purpose of today's call is just to kind of go through what's happening on the SDK landscape across all of our SDKs, what are the new initiatives, what are the new projects.
+
+15
+00:03:58.950 --> 00:04:00.050
+Keith Kowal (Hedera Hashgraph LLC): So…
+
+16
+00:04:00.060 --> 00:04:15.339
+Keith Kowal (Hedera Hashgraph LLC): Maybe I can just open up… did anyone have any topics that they wanted to discuss? We did have one key topic on today's agenda, and I see that, I think if Danielle's here, that's to talk about a new proposal around the, TCK
+
+17
+00:04:15.340 --> 00:04:23.119
+Keith Kowal (Hedera Hashgraph LLC): GitHub Action proposal that was presented in last week's TSC, and to go into more details on that.
+
+18
+00:04:23.150 --> 00:04:26.260
+Keith Kowal (Hedera Hashgraph LLC): Is it you, Daniel, who'll be presenting that?
+
+19
+00:04:34.180 --> 00:04:35.360
+Daniel Ntege (Open Elements): Can you hear me?
+
+20
+00:04:37.150 --> 00:04:37.830
+Keith Kowal (Hedera Hashgraph LLC): Sorry?
+
+21
+00:04:38.380 --> 00:04:39.449
+Daniel Ntege (Open Elements): Can you hear me?
+
+22
+00:04:41.140 --> 00:04:41.820
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+23
+00:04:42.250 --> 00:04:50.349
+Daniel Ntege (Open Elements): Yeah, so, yes, me and Manish, and I think Manish is on the call, so… We shall do that.
+
+24
+00:04:51.820 --> 00:04:56.129
+Keith Kowal (Hedera Hashgraph LLC): Okay. Well, why don't we start with that? Are you ready to start with that?
+
+25
+00:04:57.510 --> 00:04:58.790
+Manish Dait: Yeah, we are ready.
+
+26
+00:04:59.570 --> 00:05:06.980
+Keith Kowal (Hedera Hashgraph LLC): Great, okay, yeah, please, you can go ahead, share your screen if you need to, and let's discuss your TCK proposal.
+
+27
+00:05:14.010 --> 00:05:15.319
+Manish Dait: So, is it visible?
+
+28
+00:05:17.800 --> 00:05:19.200
+Keith Kowal (Hedera Hashgraph LLC): Yep, I can see your screen.
+
+29
+00:05:20.530 --> 00:05:29.519
+Manish Dait: Okay, so we want to, like, bring, on the… Hiero TCK action, so.
+
+30
+00:05:29.770 --> 00:05:33.630
+Manish Dait: Basically, What it tries to solve is that.
+
+31
+00:05:33.720 --> 00:05:43.639
+Manish Dait: It, runs, CI against the SDK's, TCK implementation, and the Hiero SDK
+
+32
+00:05:43.720 --> 00:05:49.870
+Manish Dait: TCK test suit, so if, if we, look at the current state of the, of.
+
+33
+00:05:49.870 --> 00:06:04.259
+Manish Dait: the TCK server, the testing is basically the unit testing that, is done, and it just validates, if the… if the code regarding to the TCK server is right or wrong, but, when we implement, like.
+
+34
+00:06:04.540 --> 00:06:13.819
+Manish Dait: A new method, or refactor, some of the logic, inside that, then it is, like, really hard for the…
+
+35
+00:06:14.060 --> 00:06:31.150
+Manish Dait: for, let's say, a person reviewing the pull request to, actually identify that, hey, that if… if the method implemented is really, over… compatible with the Hiero SDK TCK.
+
+36
+00:06:31.610 --> 00:06:44.040
+Manish Dait: So, he or, like, he needs to, clone the branch, set up a solo on his machine, and then, test that, implementation. So, what we…
+
+37
+00:06:44.180 --> 00:06:48.749
+Manish Dait: Have done, we have, like, come up with the, action that.
+
+38
+00:06:49.170 --> 00:06:59.420
+Manish Dait: do that in the CI, so it… it uses, like, the mirror… the solo action to set up a mirror… set up a.
+
+39
+00:06:59.870 --> 00:07:06.229
+Manish Dait: Solo network with a mirror node enabled in it, and then it run the,
+
+40
+00:07:06.680 --> 00:07:17.840
+Manish Dait: TCK test against the implementation for the TCK server. So that's it. Daniel, do you want to, add something?
+
+41
+00:07:22.700 --> 00:07:36.719
+Daniel Ntege (Open Elements): Unless there is any question about it, because Keith, because we explained more in the TESC, but unless if there is any question, we are willing to go into details.
+
+42
+00:07:36.920 --> 00:07:38.279
+Daniel Ntege (Open Elements): But that's the overview.
+
+43
+00:07:39.000 --> 00:07:40.660
+Dian Deskov: Yeah, I have a lot of questions.
+
+44
+00:07:42.240 --> 00:07:54.720
+Dian Deskov: So, first of all, it's about its purpose. Is the main goal a contributor convenience, like SDK PR checks, community SDK testing, or replacing existing workflows?
+
+45
+00:07:59.160 --> 00:08:00.910
+Daniel Ntege (Open Elements): Manish, are you answering that?
+
+46
+00:08:01.400 --> 00:08:12.159
+Manish Dait: Yeah. So it is mainly help the reviewer in the reviewing process. So let me give an example.
+
+47
+00:08:12.720 --> 00:08:13.770
+Manish Dait: So…
+
+48
+00:08:26.590 --> 00:08:27.270
+Manish Dait: Yeah.
+
+49
+00:08:27.920 --> 00:08:35.210
+Manish Dait: So, let's say, this is a PR that is, implementing, endpoint for the…
+
+50
+00:08:35.470 --> 00:08:39.919
+Manish Dait: For the TCK, that is, for the get info method, but.
+
+51
+00:08:40.409 --> 00:08:43.989
+Manish Dait: We can, like, check the CI, so…
+
+52
+00:08:47.230 --> 00:08:49.010
+Manish Dait: What it does, it, it.
+
+53
+00:08:49.360 --> 00:09:02.219
+Manish Dait: Like, runs the unit test, so if we need to, like, verify that, if the implementation is correct and it is, like, compatible with the, the TCK, we need to, like.
+
+54
+00:09:02.330 --> 00:09:09.980
+Manish Dait: clone the branch, and then run it locally against the TCK to find if that is working.
+
+55
+00:09:09.990 --> 00:09:25.330
+Manish Dait: That's, like, kind of, additional work that, a reviewer needs to do. So, this, basically, the action, solves that by running, the entire test suite in the, in the CI.
+
+56
+00:09:30.670 --> 00:09:35.329
+Dian Deskov: Okay, Mustafa, did you get that? Because you had the similar question.
+
+57
+00:09:36.170 --> 00:09:37.909
+Dian Deskov: And I think I've rejected.
+
+58
+00:09:38.720 --> 00:09:41.740
+Daniel Ntege (Open Elements): Additional on that.
+
+59
+00:09:42.420 --> 00:09:57.479
+Daniel Ntege (Open Elements): It's like, for example, when you are reviewing a code in, like, for example, implementing a method, just another PC method, you have to, like, if I'm a… for example, if I'm a maintainer in Python, so I'll have to…
+
+60
+00:09:57.580 --> 00:10:03.540
+Daniel Ntege (Open Elements): to clone the full branch of that person who has implemented that method, then I have to
+
+61
+00:10:03.780 --> 00:10:07.810
+Daniel Ntege (Open Elements): run the Sibyl the… The.
+
+62
+00:10:08.080 --> 00:10:19.530
+Daniel Ntege (Open Elements): test suit against the work that Jason Arapis is about. So, it means that I have to also start the solo on my local machine, and at some time, some machines do not work.
+
+63
+00:10:19.840 --> 00:10:28.609
+Daniel Ntege (Open Elements): don't like… some of the maintainers don't have that capability, so what we decided, we decided that
+
+64
+00:10:28.650 --> 00:10:42.870
+Daniel Ntege (Open Elements): that can bring all that burden into the CI so that the maintainer can see that this method, which has been implemented, it has all the test cases passing in the CI.
+
+65
+00:10:42.960 --> 00:10:48.089
+Daniel Ntege (Open Elements): So, that… So that simplifies… that simplifies the review.
+
+66
+00:10:48.480 --> 00:10:54.809
+Daniel Ntege (Open Elements): on that specific PR, which is made. And also, it has… it can also
+
+67
+00:10:55.610 --> 00:11:04.689
+Daniel Ntege (Open Elements): have, like, a full… a full test suit run, and see whether the current test suit is matching with the SDK implementation.
+
+68
+00:11:10.650 --> 00:11:13.540
+Dian Deskov: Okay, Ivo, you have a question?
+
+69
+00:11:15.100 --> 00:11:18.860
+Ivaylo Georgiev: So, this test suite should be…
+
+70
+00:11:19.360 --> 00:11:23.480
+Ivaylo Georgiev: In different repo, or we should implement it in…
+
+71
+00:11:24.200 --> 00:11:28.569
+Ivaylo Georgiev: SDK TCK or some of the SDK repos.
+
+72
+00:11:29.120 --> 00:11:30.660
+Daniel Ntege (Open Elements): What did the point for?
+
+73
+00:11:30.660 --> 00:11:35.890
+Keith Kowal (Hedera Hashgraph LLC): Well, that was an open question, Ivylo. What do you think?
+
+74
+00:11:36.830 --> 00:11:41.859
+Ivaylo Georgiev: In my opinion, I think it's better to be in the repo of
+
+75
+00:11:42.010 --> 00:11:46.700
+Ivaylo Georgiev: every SDK, because we have different use cases.
+
+76
+00:11:47.450 --> 00:11:54.400
+Ivaylo Georgiev: What I mean, different bulk notes versions we can test and… They should, run
+
+77
+00:11:55.240 --> 00:12:04.719
+Ivaylo Georgiev: In the same way, they should behave in the same way. So I think we should talk about more.
+
+78
+00:12:05.330 --> 00:12:06.700
+Ivaylo Georgiev: Yes, Daniel.
+
+79
+00:12:07.280 --> 00:12:08.640
+Daniel Ntege (Open Elements): No, first, first finish.
+
+80
+00:12:09.500 --> 00:12:25.300
+Ivaylo Georgiev: Okay, so we need to think good about this, because if you create new repo, this could bring more job and more maintenance of different repos.
+
+81
+00:12:27.280 --> 00:12:33.919
+Daniel Ntege (Open Elements): So, about that, we also thought about it, but.
+
+82
+00:12:34.070 --> 00:12:50.319
+Daniel Ntege (Open Elements): it's better to just import an action than you just implement in the repo. Because, as you see the solo action, you just import that action, then you do the sub… like, you do the rest of the implementation on the… on that
+
+83
+00:12:50.320 --> 00:12:59.689
+Daniel Ntege (Open Elements): same repo, because we… we had all the implementation, we got… we went through all the implementations from other SDKs.
+
+84
+00:12:59.720 --> 00:13:07.060
+Daniel Ntege (Open Elements): And, we… With this, because each… SDK has a Docker file.
+
+85
+00:13:07.550 --> 00:13:09.600
+Daniel Ntege (Open Elements): Has a Docker file for the…
+
+86
+00:13:09.870 --> 00:13:16.459
+Daniel Ntege (Open Elements): firing up the JSON RFC server. That's all what the action requires. Then after.
+
+87
+00:13:16.810 --> 00:13:20.540
+Daniel Ntege (Open Elements): After that, you can add on the water, the… because we…
+
+88
+00:13:20.570 --> 00:13:43.939
+Daniel Ntege (Open Elements): if you go into the details of the documentation, you can see how you can have, for example, the C++, what? C++ SDK. It has different build system, what and what, so we all… all that can be configured in what? In one repo, and all these versions, what and what, so that when, I mean, like, when CI is
+
+89
+00:13:43.950 --> 00:13:46.910
+Daniel Ntege (Open Elements): implemented in, one SDK.
+
+90
+00:13:47.350 --> 00:13:48.949
+Daniel Ntege (Open Elements): So, one just…
+
+91
+00:13:49.080 --> 00:14:02.739
+Daniel Ntege (Open Elements): We just update the action that, this has been changed in here, we just update here. So, when this is being reviewed and it is fine, then it just eases the work of creating the CI.
+
+92
+00:14:02.880 --> 00:14:04.609
+Daniel Ntege (Open Elements): As you see, that's all action.
+
+93
+00:14:05.060 --> 00:14:10.499
+Ivaylo Georgiev: Yeah, I completely understand that, but in my head,
+
+94
+00:14:10.700 --> 00:14:15.010
+Ivaylo Georgiev: I see one major blocker. For example, for some reason.
+
+95
+00:14:15.970 --> 00:14:22.250
+Ivaylo Georgiev: You mess up something in, or the maintainer of the repo messed up something in his,
+
+96
+00:14:22.680 --> 00:14:42.529
+Ivaylo Georgiev: his CI that we use it. And, this will be out of our control, of the SDK control, and we relate it on this repo to fix the action. We wait the result, and imagine we need to release
+
+97
+00:14:42.650 --> 00:14:46.489
+Ivaylo Georgiev: After 1 day or 2 days, and this.
+
+98
+00:14:46.680 --> 00:14:56.159
+Ivaylo Georgiev: CI block the repos and not only one repo it will block all the of the SDKs
+
+99
+00:14:57.210 --> 00:15:08.580
+Ivaylo Georgiev: In my head, I don't know what scenario can happen because, you know, programming is very dynamic, but in my head, this can be a blocker in the future.
+
+100
+00:15:09.570 --> 00:15:11.619
+Dian Deskov: Yeah, I agree with Ivo.
+
+101
+00:15:21.860 --> 00:15:26.789
+Dian Deskov: Mustafa You had similar questions.
+
+102
+00:15:26.790 --> 00:15:33.189
+Mustafa Uzun: I have, several points. First of all, I like this idea.
+
+103
+00:15:33.750 --> 00:15:36.190
+Mustafa Uzun: Like the idea?
+
+104
+00:15:36.640 --> 00:15:40.249
+Mustafa Uzun: The implementation, we can think about it, like…
+
+105
+00:15:40.590 --> 00:15:44.120
+Mustafa Uzun: And for this to be running,
+
+106
+00:15:44.710 --> 00:15:48.730
+Mustafa Uzun: I think we should put some logic behind it.
+
+107
+00:15:48.900 --> 00:15:55.680
+Mustafa Uzun: like to check if the given PR have any changes, In the cheesecake.
+
+108
+00:15:56.390 --> 00:15:57.700
+Mustafa Uzun: This is the first one.
+
+109
+00:15:58.050 --> 00:16:06.300
+Mustafa Uzun: The second one, I don't think we need another repo, because every other repo is additional job.
+
+110
+00:16:06.430 --> 00:16:08.859
+Mustafa Uzun: And additional point of error, so…
+
+111
+00:16:09.190 --> 00:16:13.779
+Mustafa Uzun: In best, if you want to be separate, separate from the…
+
+112
+00:16:13.900 --> 00:16:18.250
+Mustafa Uzun: SDKs, we can put it in the… our current Oh.
+
+113
+00:16:18.880 --> 00:16:26.340
+Mustafa Uzun: I think it was something like SDK Actions, or something like that, where our SOA version and stuff like that is implemented, so…
+
+114
+00:16:26.560 --> 00:16:31.769
+Mustafa Uzun: It should be there, if you want it to be in a different place than this case, not another repo.
+
+115
+00:16:32.220 --> 00:16:33.600
+Mustafa Uzun: Oh.
+
+116
+00:16:33.920 --> 00:16:40.329
+Mustafa Uzun: And… Yeah, this is key point… To think about…
+
+117
+00:16:42.780 --> 00:16:45.279
+Mustafa Uzun: And the third stuff is that…
+
+118
+00:16:46.050 --> 00:16:50.689
+Mustafa Uzun: In every SDK, when the CI starts, we already run SOL.
+
+119
+00:16:50.910 --> 00:16:55.060
+Mustafa Uzun: So, I wouldn't want to have another instance of
+
+120
+00:16:55.280 --> 00:17:04.179
+Mustafa Uzun: So, deployment only for one workflow, so this is also a point where we need to think how to use already
+
+121
+00:17:04.290 --> 00:17:10.830
+Mustafa Uzun: Running so, not, creating a new instance, and yeah.
+
+122
+00:17:12.089 --> 00:17:14.330
+Mustafa Uzun: But overall, I like the idea.
+
+123
+00:17:18.869 --> 00:17:24.679
+Keith Kowal (Hedera Hashgraph LLC): I guess my question is… So… It.
+
+124
+00:17:25.349 --> 00:17:35.629
+Keith Kowal (Hedera Hashgraph LLC): I just want to go back up to the user flow. So, this feature… this functionality is to test, like, you know, contributors adding new features, but…
+
+125
+00:17:35.919 --> 00:17:43.239
+Keith Kowal (Hedera Hashgraph LLC): isn't there… maybe this has already been brought up, but, like, the problem is, like, new features need to be added to TCK
+
+126
+00:17:43.369 --> 00:17:47.759
+Keith Kowal (Hedera Hashgraph LLC): And they're not gonna… you know, you're not gonna be able to tell… like, you know, let's just take.
+
+127
+00:17:48.079 --> 00:17:54.459
+Keith Kowal (Hedera Hashgraph LLC): a new feature, like the new Mirror Node account balance query. I mean.
+
+128
+00:17:54.459 --> 00:18:10.269
+Keith Kowal (Hedera Hashgraph LLC): that's a feature which we need to add to all the SDKs, and you could add it to the SDK, but the TCK, like, this GitHub Action TCK is not going to be able to test that functionality, because that functionality has not yet been added to the TCK.
+
+129
+00:18:11.579 --> 00:18:13.569
+Keith Kowal (Hedera Hashgraph LLC): Any… any thoughts on that one?
+
+130
+00:18:13.570 --> 00:18:28.330
+Mustafa Uzun: Yeah, like, now, to test any new feature with TCK, we have several steps. The first step is to add, test scenarios in TCK repo itself, like, this is the scenarios.
+
+131
+00:18:28.480 --> 00:18:34.889
+Mustafa Uzun: The second step is implement an endpoint in every SDK that we want to test.
+
+132
+00:18:35.310 --> 00:18:41.469
+Mustafa Uzun: So TCCCCCCCCCCCCCCCCCCCCCCCCCCC And the proposal that we now discuss.
+
+133
+00:18:41.690 --> 00:18:46.509
+Mustafa Uzun: Potentially, we will look at the new PR, and if it sees
+
+134
+00:18:47.050 --> 00:18:51.849
+Mustafa Uzun: TCK changes or new TCK endpoints in SDK itself.
+
+135
+00:18:52.170 --> 00:19:00.239
+Mustafa Uzun: Trigger some action to… Really ruin it, because now, like the guy said.
+
+136
+00:19:00.430 --> 00:19:04.589
+Mustafa Uzun: You need to check it locally, because you can…
+
+137
+00:19:05.350 --> 00:19:09.010
+Mustafa Uzun: Implement, and put the TCK endpoint
+
+138
+00:19:09.280 --> 00:19:12.380
+Mustafa Uzun: But we don't check it on CI, like…
+
+139
+00:19:13.750 --> 00:19:17.610
+Mustafa Uzun: You need to run a job from TCK,
+
+140
+00:19:17.970 --> 00:19:19.670
+Mustafa Uzun: Or you need to check it locally.
+
+141
+00:19:23.200 --> 00:19:24.649
+Daniel Ntege (Open Elements): I'm sorry to hear that.
+
+142
+00:19:27.270 --> 00:19:28.310
+Mustafa Uzun: Excuse me?
+
+143
+00:19:30.540 --> 00:19:33.280
+Daniel Ntege (Open Elements): I was just saying that, absolutely.
+
+144
+00:19:38.030 --> 00:19:39.379
+Dian Deskov: I didn't get that neither.
+
+145
+00:19:39.380 --> 00:19:40.160
+Keith Kowal (Hedera Hashgraph LLC): Oh.
+
+146
+00:19:42.850 --> 00:19:46.570
+Keith Kowal (Hedera Hashgraph LLC): So, is this… is this functionality that would have to be added to the… to the…
+
+147
+00:19:46.670 --> 00:19:48.310
+Keith Kowal (Hedera Hashgraph LLC): To what you're building, Daniel?
+
+148
+00:19:49.820 --> 00:20:02.809
+Daniel Ntege (Open Elements): Like, what I, like, what I wanted to, to say is that I absolutely agree with what he said, and, would, for example, as you said, adding a new functionality.
+
+149
+00:20:02.810 --> 00:20:10.210
+Daniel Ntege (Open Elements): It doesn't mean that when you add a new functionality to the SDK, you have added it to the TSCK, so…
+
+150
+00:20:10.630 --> 00:20:24.059
+Daniel Ntege (Open Elements): you have to add a method to support that. So, while adding the method, then it means that you have to test, like… when you add the method, it means that that method also should be…
+
+151
+00:20:24.460 --> 00:20:33.170
+Daniel Ntege (Open Elements): Inside that, the… TCK, the TCK what? TCK repo. So, it means that We only add the…
+
+152
+00:20:33.400 --> 00:20:37.379
+Daniel Ntege (Open Elements): functionalities in the JSON RFC server, which are…
+
+153
+00:20:37.850 --> 00:20:46.110
+Daniel Ntege (Open Elements): existing in the… in the TC Caribbean, because that's the way… that's the only way how you can check for the compatibility, because…
+
+154
+00:20:46.340 --> 00:20:50.649
+Daniel Ntege (Open Elements): the aspects are being defined in the what? In the GCC report. So…
+
+155
+00:20:55.570 --> 00:21:04.240
+Keith Kowal (Hedera Hashgraph LLC): That was also a question I've had, is that a few times that you've mentioned the JSON RPC relay, is that just for the EVM testing, or…
+
+156
+00:21:04.970 --> 00:21:06.990
+Keith Kowal (Hedera Hashgraph LLC): It's not for the happy testing, right?
+
+157
+00:21:08.190 --> 00:21:13.470
+Daniel Ntege (Open Elements): It's not just an RPC, really. No, it's just an RPC sub.
+
+158
+00:21:13.930 --> 00:21:18.799
+Keith Kowal (Hedera Hashgraph LLC): Just a JSON RPC, really. Oh, okay, okay, just a JSON RPC. Okay, alright, thank you.
+
+159
+00:21:18.900 --> 00:21:19.750
+Keith Kowal (Hedera Hashgraph LLC): So
+
+160
+00:21:20.650 --> 00:21:32.969
+Keith Kowal (Hedera Hashgraph LLC): So where do we go from here? I mean, can I just turn back to the, like, what are the changes or additions we would need to make this product useful in your mind?
+
+161
+00:21:39.210 --> 00:21:47.430
+Mustafa Uzun: I… So, like I said, I don't think it should be a new repo. We need to… think…
+
+162
+00:21:47.630 --> 00:21:51.460
+Mustafa Uzun: A way that we will reuse…
+
+163
+00:21:51.630 --> 00:21:54.900
+Mustafa Uzun: Or put it somewhere in our existing repos.
+
+164
+00:21:55.220 --> 00:22:01.409
+Mustafa Uzun: I don't think, such a workflow need to be in separate repo.
+
+165
+00:22:04.950 --> 00:22:10.080
+Keith Kowal (Hedera Hashgraph LLC): So maybe we just have a new folder in the existing repos with this in it.
+
+166
+00:22:12.130 --> 00:22:18.700
+Ivaylo Georgiev: Or we can implement it on TCK repo. I'm not sure. We don't… we didn't discuss it yet.
+
+167
+00:22:18.940 --> 00:22:19.780
+Ivaylo Georgiev: But.
+
+168
+00:22:20.300 --> 00:22:27.270
+Mustafa Uzun: Yeah, this is the other idea, like, we can create a new action in TCK repo itself.
+
+169
+00:22:27.570 --> 00:22:29.839
+Mustafa Uzun: Where we can give,
+
+170
+00:22:30.180 --> 00:22:39.149
+Mustafa Uzun: TCK version, TCK branch, and for target, we can give SDK branch or SDK version.
+
+171
+00:22:39.620 --> 00:22:41.300
+Mustafa Uzun: It is much cleaner.
+
+172
+00:22:42.090 --> 00:22:45.600
+Mustafa Uzun: And I think it should be much faster.
+
+173
+00:22:53.310 --> 00:22:54.050
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+174
+00:22:54.700 --> 00:22:57.019
+Keith Kowal (Hedera Hashgraph LLC): And then what about…
+
+175
+00:22:57.400 --> 00:23:07.149
+Keith Kowal (Hedera Hashgraph LLC): You know, we had talked about maybe change… does this product… is there something we could do with the product as it exists, or is there more changes we would need to the product before we do that?
+
+176
+00:23:10.650 --> 00:23:14.850
+Mustafa Uzun: I think we should be able to do it with the current stuff.
+
+177
+00:23:14.960 --> 00:23:16.450
+Mustafa Uzun: We need to look at it.
+
+178
+00:23:21.980 --> 00:23:22.600
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+179
+00:23:26.840 --> 00:23:27.730
+Keith Kowal (Hedera Hashgraph LLC): So.
+
+180
+00:23:28.340 --> 00:23:41.340
+Keith Kowal (Hedera Hashgraph LLC): What I'm hearing from this conversation is that we do see value in this product as being able to support developers as they add new features and to do testing to make sure PRs are…
+
+181
+00:23:41.420 --> 00:23:47.979
+Keith Kowal (Hedera Hashgraph LLC): you know, are good, and that a feature is ready before they merge in, and I guess…
+
+182
+00:23:48.020 --> 00:24:00.279
+Keith Kowal (Hedera Hashgraph LLC): I, I, you know… so, basically, the user flow, it would be that a… somebody adds a new feature, or updates an existing feature to the… to an SDK,
+
+183
+00:24:00.300 --> 00:24:15.230
+Keith Kowal (Hedera Hashgraph LLC): within that repo, they run this GitHub action to make sure that everything's gonna pass on the TCK, and then maybe, if everything looks good, they approve the PR. Like, these checks would happen in our CI pipeline.
+
+184
+00:24:15.230 --> 00:24:28.869
+Keith Kowal (Hedera Hashgraph LLC): with the TCK, and presumably would more easily… like, we would have less TCK failures, after a PR is approved, or… and…
+
+185
+00:24:29.630 --> 00:24:35.499
+Keith Kowal (Hedera Hashgraph LLC): And then, you know, so basically this would just be kind of a check before… before people,
+
+186
+00:24:35.810 --> 00:24:38.460
+Keith Kowal (Hedera Hashgraph LLC): Submit a PR. Is that the kind of the thought?
+
+187
+00:24:39.750 --> 00:24:42.480
+Mustafa Uzun: Yeah, like, Oh.
+
+188
+00:24:42.830 --> 00:24:49.810
+Mustafa Uzun: people already doing that, where I saw anyone who implemented SkinPoint, but…
+
+189
+00:24:50.370 --> 00:24:56.210
+Mustafa Uzun: This is an additional step, where if somebody forgot to run it locally or test it.
+
+190
+00:24:56.320 --> 00:24:58.780
+Mustafa Uzun: It is kind of, additional security.
+
+191
+00:25:05.040 --> 00:25:11.599
+Keith Kowal (Hedera Hashgraph LLC): So, like, today, you guys as SDK developers, how do you do that today without a GitHub action like this?
+
+192
+00:25:12.530 --> 00:25:16.130
+Mustafa Uzun: But I think most of the people,
+
+193
+00:25:16.560 --> 00:25:20.249
+Mustafa Uzun: Run locally their branch with the changes on the SDK.
+
+194
+00:25:20.760 --> 00:25:21.970
+Mustafa Uzun: Oh.
+
+195
+00:25:22.440 --> 00:25:30.840
+Mustafa Uzun: And after that runs locally also the TCK test. So they verify that everything is passing, nothing is broken and so on.
+
+196
+00:25:32.460 --> 00:25:38.270
+Keith Kowal (Hedera Hashgraph LLC): So, so in your mind, what is the benefit that this… that this GitHub Action TCK
+
+197
+00:25:38.420 --> 00:25:44.329
+Keith Kowal (Hedera Hashgraph LLC): Is it just that you can actually run the actual Tck more easily against your local branch.
+
+198
+00:25:44.640 --> 00:25:54.340
+Mustafa Uzun: Yeah, and also… If we figure out how to integrate it on the… PRCI pipeline…
+
+199
+00:25:54.730 --> 00:25:59.490
+Mustafa Uzun: It would be automated, and we will skip one additional step.
+
+200
+00:25:59.640 --> 00:26:01.109
+Mustafa Uzun: And yeah, faster development.
+
+201
+00:26:04.470 --> 00:26:13.969
+Ivaylo Georgiev: So I can give you example in GS repo, we have task file where you must run it.
+
+202
+00:26:14.150 --> 00:26:22.090
+Ivaylo Georgiev: One of the steps that, check the code is correct, and if there are no failures.
+
+203
+00:26:22.310 --> 00:26:26.009
+Ivaylo Georgiev: you can push the branch, open the new PR.
+
+204
+00:26:31.850 --> 00:26:32.500
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+205
+00:26:34.290 --> 00:26:35.550
+Keith Kowal (Hedera Hashgraph LLC): I… I…
+
+206
+00:26:36.720 --> 00:26:50.809
+Keith Kowal (Hedera Hashgraph LLC): Now, I just want to go back. Can you share your proposal again, Daniel? I just want to make sure, like, the proposal captures that kind of motivation for the purpose of… of… or the value that we see in this project. Does it… does the proposal currently have that?
+
+207
+00:26:57.190 --> 00:26:58.919
+Daniel Ntege (Open Elements): Manish, could you share?
+
+208
+00:27:11.400 --> 00:27:12.330
+Manish Dait: Is it visible?
+
+209
+00:27:14.290 --> 00:27:14.870
+Keith Kowal (Hedera Hashgraph LLC): Yeah.
+
+210
+00:27:17.310 --> 00:27:26.350
+Keith Kowal (Hedera Hashgraph LLC): So yeah, I think maybe this proposal would benefit from, like, a motivation section, like, if it doesn't have it, I'm not seeing it. About, like.
+
+211
+00:27:26.590 --> 00:27:32.769
+Keith Kowal (Hedera Hashgraph LLC): Who would use this, why they would use it, why it benefits… overall benefits.
+
+212
+00:27:32.880 --> 00:27:38.020
+Keith Kowal (Hedera Hashgraph LLC): the STKs. I think that might be a very useful section to add, if possible.
+
+213
+00:27:41.490 --> 00:27:44.919
+Daniel Ntege (Open Elements): Yeah, strongly agree. I think we are going to add that.
+
+214
+00:27:48.300 --> 00:27:55.619
+Keith Kowal (Hedera Hashgraph LLC): Because I think when we're all on the same page about why we're doing this, then how we do it makes much more… well, start…
+
+215
+00:27:55.910 --> 00:28:00.080
+Keith Kowal (Hedera Hashgraph LLC): You know, we can start… makes it easier to have that conversation.
+
+216
+00:28:05.640 --> 00:28:06.340
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+217
+00:28:06.560 --> 00:28:07.630
+Daniel Ntege (Open Elements): Okay.
+
+218
+00:28:08.270 --> 00:28:10.589
+Daniel Ntege (Open Elements): We're going to add that. We're going to add that.
+
+219
+00:28:14.880 --> 00:28:20.560
+Keith Kowal (Hedera Hashgraph LLC): Okay, so, yeah, maybe you can add that section. I think that.
+
+220
+00:28:20.870 --> 00:28:24.120
+Keith Kowal (Hedera Hashgraph LLC): I think we'll continue the conversation.
+
+221
+00:28:24.220 --> 00:28:40.549
+Keith Kowal (Hedera Hashgraph LLC): on the Hashgraph SDK team, just to talk about how we would potentially integrate this. I think maybe our team… the team could take some more time to review this, we can think more about it, and think about how we want to integrate this into the SDKs.
+
+222
+00:28:40.660 --> 00:28:44.780
+Keith Kowal (Hedera Hashgraph LLC): Any other action items or anything anyone would call out?
+
+223
+00:28:46.830 --> 00:28:49.870
+Daniel Ntege (Open Elements): And yeah, just, just one thing on addition.
+
+224
+00:28:50.540 --> 00:28:57.899
+Daniel Ntege (Open Elements): Like, staff say that it is easy on the… on the what? On the local, but…
+
+225
+00:28:58.440 --> 00:29:05.719
+Daniel Ntege (Open Elements): Most of the maintainers, like, some machines that they would want to review, but they are not able, so…
+
+226
+00:29:06.750 --> 00:29:08.180
+Daniel Ntege (Open Elements): That's… that's the point.
+
+227
+00:29:09.790 --> 00:29:12.140
+Keith Kowal (Hedera Hashgraph LLC): I mean, because their computer… their computer.
+
+228
+00:29:12.140 --> 00:29:12.730
+Daniel Ntege (Open Elements): Yeah.
+
+229
+00:29:12.730 --> 00:29:13.260
+Keith Kowal (Hedera Hashgraph LLC): enough.
+
+230
+00:29:13.790 --> 00:29:21.749
+Daniel Ntege (Open Elements): Yeah, because now, you see now, solo. Solo, you need, 12 GP and above, so to reply, only that, so…
+
+231
+00:29:22.090 --> 00:29:24.609
+Daniel Ntege (Open Elements): I think… to come.
+
+232
+00:29:24.610 --> 00:29:27.509
+Keith Kowal (Hedera Hashgraph LLC): Okay, that would be a great point to add in as well, yeah.
+
+233
+00:29:27.990 --> 00:29:33.409
+Daniel Ntege (Open Elements): Some maintainers, it may be… or some committers who would want to review it, maybe.
+
+234
+00:29:33.410 --> 00:29:49.239
+Daniel Ntege (Open Elements): a blocker for them, but if there is a CI to run it when there is no any additional tasks. Because we… we ask me, for example, me, I do that, I… I do the local review at and what, but you may find that
+
+235
+00:29:49.790 --> 00:29:54.449
+Daniel Ntege (Open Elements): Some maintainers don't have that. They are not are not able to do that.
+
+236
+00:29:57.120 --> 00:29:59.000
+Keith Kowal (Hedera Hashgraph LLC): Okay, I think that's a great point.
+
+237
+00:30:03.410 --> 00:30:13.329
+Keith Kowal (Hedera Hashgraph LLC): All right, any other, points or questions on this topic? And again, thank you, Daniel and team, for bringing this. This is a great project.
+
+238
+00:30:18.490 --> 00:30:21.790
+Keith Kowal (Hedera Hashgraph LLC): Okay, just, I think, is.
+
+239
+00:30:22.940 --> 00:30:29.510
+Keith Kowal (Hedera Hashgraph LLC): As a… just as one more update, just give me one sec, Hiram…
+
+240
+00:30:33.440 --> 00:30:37.520
+Keith Kowal (Hedera Hashgraph LLC): Just opening up a document, Okay.
+
+241
+00:30:37.750 --> 00:30:40.080
+Keith Kowal (Hedera Hashgraph LLC): I on other topics.
+
+242
+00:30:44.220 --> 00:30:57.379
+Keith Kowal (Hedera Hashgraph LLC): So again, for those of you new joining, this is the SDK Collaboration Hub on Hiero, and this is where we put in most of our design work. So there was a design proposal that's.
+
+243
+00:30:57.590 --> 00:31:00.410
+Keith Kowal (Hedera Hashgraph LLC): Called the HTTP transport layer.
+
+244
+00:31:00.490 --> 00:31:15.769
+Keith Kowal (Hedera Hashgraph LLC): And so this has been… you know, there's still some discussion around this, and if anyone has comments, please, let us know. But, I think on 3 of the SDKs so far, we have implemented the Mirror Node account balance query.
+
+245
+00:31:15.770 --> 00:31:32.289
+Keith Kowal (Hedera Hashgraph LLC): based on this new architecture to improve the performance or the reliability of HTTP requests. That's when the SDK is talking to the mirror node, specifically. So, I think we've had… yeah, so we are implementing the mirror node
+
+246
+00:31:32.380 --> 00:31:44.349
+Keith Kowal (Hedera Hashgraph LLC): account balance query based on this. I think we've made a decision so far, we're not gonna go… there's other, you know, there was existing mirror node queries in the SDKs. A good one would be, like.
+
+247
+00:31:44.430 --> 00:31:59.720
+Keith Kowal (Hedera Hashgraph LLC): pricing, the gas pricing and stuff like that. So far, we've decided we're not going to go back and retroactively redo those yet, although I guess any of the SDKs could make a decision to do that if they wanted to go back and
+
+248
+00:31:59.770 --> 00:32:13.070
+Keith Kowal (Hedera Hashgraph LLC): retroactively update all of the Mirror Node, HTTP frameworks. But for now, we're just using this for the Mirror Node account bounce query. So yeah, if anyone has comments on this, please…
+
+249
+00:32:13.130 --> 00:32:18.810
+Keith Kowal (Hedera Hashgraph LLC): you know, please leave your comments about the architecture, and then I think I already had some tickets
+
+250
+00:32:18.880 --> 00:32:30.810
+Keith Kowal (Hedera Hashgraph LLC): Oh, I think I have tickets in all the repos for deprecating account balance query, but I'll probably create new ones about, just, supporting the mere node account balance query.
+
+251
+00:32:31.500 --> 00:32:38.560
+Keith Kowal (Hedera Hashgraph LLC): Because, if you look at, at least on the Hedera network, if you look at our documentation, this is what we're recommending people to move to.
+
+252
+00:32:39.870 --> 00:32:42.510
+Keith Kowal (Hedera Hashgraph LLC): Any questions or comments on this one?
+
+253
+00:32:49.300 --> 00:32:55.849
+Keith Kowal (Hedera Hashgraph LLC): Okay, the last thing is, the new work coming is… so.
+
+254
+00:32:56.290 --> 00:33:07.710
+Keith Kowal (Hedera Hashgraph LLC): For those of you who have maybe, I'm just gonna go to hips.hedera.com, and I'm gonna go to a new HIP called HIP1535.
+
+255
+00:33:07.890 --> 00:33:11.520
+Keith Kowal (Hedera Hashgraph LLC): This is the… a new protocol that.
+
+256
+00:33:12.110 --> 00:33:19.069
+Keith Kowal (Hedera Hashgraph LLC): is being pushed through by the Hashgraph team called Clipper. It's a cross-protocol ledger for Hiero.
+
+257
+00:33:19.470 --> 00:33:28.830
+Keith Kowal (Hedera Hashgraph LLC): So this is being kind of fast-tracked. I think we're looking to do the initial release in December of Clipper on the Hiero networks.
+
+258
+00:33:28.860 --> 00:33:33.200
+Keith Kowal (Hedera Hashgraph LLC): And this will need SDK support.
+
+259
+00:33:33.200 --> 00:33:57.290
+Keith Kowal (Hedera Hashgraph LLC): It will need SDK support around things like what we call, like, creating channels, updating channels, maintaining channels, creating endpoints, maintaining endpoints, and also submitting messages and bundling messages. So there's quite a bit of SDK work for this new Clipper feature. I'm currently working on a SDK design proposal for
+
+260
+00:33:57.290 --> 00:34:00.489
+Keith Kowal (Hedera Hashgraph LLC): For that work, I think there's.
+
+261
+00:34:00.770 --> 00:34:05.640
+Keith Kowal (Hedera Hashgraph LLC): Yeah, maybe 10, 10 new APIs. So, I,
+
+262
+00:34:05.700 --> 00:34:22.050
+Keith Kowal (Hedera Hashgraph LLC): I'm putting that together, and I should release that probably this week on the SDK Collaboration Hub for the start, the initial review. So yeah, that's something that, if we look at work that's coming up for the SDKs, that's certainly a… sorry, a big one.
+
+263
+00:34:23.630 --> 00:34:39.710
+Keith Kowal (Hedera Hashgraph LLC): Any comments or questions on Clipper? If you're interested, what I'd say is start by reading the HIP, HIP1535. That'll give you the good starting point and help you understand the SDK proposal, better when it comes.
+
+264
+00:34:47.090 --> 00:34:47.909
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+265
+00:34:48.889 --> 00:34:52.659
+Keith Kowal (Hedera Hashgraph LLC): Did anyone else have any topics or questions for this call?
+
+266
+00:34:57.380 --> 00:34:58.689
+Jessy Ssebuliba (Open Elements): Yeah, I have one.
+
+267
+00:34:59.800 --> 00:35:00.970
+Keith Kowal (Hedera Hashgraph LLC): Yeah, please go ahead.
+
+268
+00:35:02.670 --> 00:35:05.899
+Jessy Ssebuliba (Open Elements): Yeah, so, earlier I had the topic in the TSC,
+
+269
+00:35:06.210 --> 00:35:12.159
+Jessy Ssebuliba (Open Elements): For becoming a junior commuter to the… to the Javascript SDK.
+
+270
+00:35:12.820 --> 00:35:18.220
+Jessy Ssebuliba (Open Elements): And I would like to know if it is, is… it is possible.
+
+271
+00:35:18.470 --> 00:35:22.859
+Jessy Ssebuliba (Open Elements): If it is not, then I would like to know, is it a skill issue, is it,
+
+272
+00:35:23.260 --> 00:35:30.890
+Jessy Ssebuliba (Open Elements): Situator issue, do I need to provide some… Kind of information further, so… Yes.
+
+273
+00:35:31.130 --> 00:35:36.050
+Jessy Ssebuliba (Open Elements): That was my topic, and it hasn't been resolved for… Sometime.
+
+274
+00:35:36.970 --> 00:35:56.629
+Keith Kowal (Hedera Hashgraph LLC): Yeah, yeah, I apologize on that, Jesse. I don't see any issue with that. Why don't… I'll talk to Hendrik, and we should get a vote going. I mean, I think we do need a vote. I thought that there'd already been a vote called for that, but maybe not. So, let me talk to Hendrik, and let's try to get a vote going this week to make you a junior commuter.
+
+275
+00:35:57.290 --> 00:36:05.790
+Keith Kowal (Hedera Hashgraph LLC): Did anyone from the… Does anyone from the JavaScript team any comments or questions on that? Or… Concerns?
+
+276
+00:36:07.390 --> 00:36:08.799
+Ivaylo Georgiev: I'm okay with that.
+
+277
+00:36:10.920 --> 00:36:21.570
+Keith Kowal (Hedera Hashgraph LLC): Yeah, okay, so let's get that vote going this week, Jesse, and we'll get the approvals you need and get you in as a junior commuter. Thank you so much for wanting to do that.
+
+278
+00:36:22.910 --> 00:36:23.670
+Jessy Ssebuliba (Open Elements): Thank you.
+
+279
+00:36:27.560 --> 00:36:28.140
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+280
+00:36:28.300 --> 00:36:30.420
+Keith Kowal (Hedera Hashgraph LLC): Any other comments or questions?
+
+281
+00:36:36.560 --> 00:36:37.290
+Keith Kowal (Hedera Hashgraph LLC): Okay.
+
+282
+00:36:37.410 --> 00:36:38.320
+Keith Kowal (Hedera Hashgraph LLC): Awesome.
+
+283
+00:36:38.450 --> 00:36:39.689
+Keith Kowal (Hedera Hashgraph LLC): Well,
+
+284
+00:36:39.830 --> 00:36:56.360
+Keith Kowal (Hedera Hashgraph LLC): Thank you, everyone, for your time this week. I really appreciate it, and yeah, let's continue to follow up on this great proposal on the GitHub actions for the SDK… for the TCK, and also, we can probably, in next week's meeting, we'll start reviewing the Clipper SDK proposal.
+
+285
+00:36:59.350 --> 00:37:00.680
+Keith Kowal (Hedera Hashgraph LLC): Yep, Daniel?
+
+286
+00:37:01.460 --> 00:37:05.360
+Daniel Ntege (Open Elements): Is there any news on 1195?
+
+287
+00:37:09.030 --> 00:37:12.159
+Keith Kowal (Hedera Hashgraph LLC): Is that the 1195 Hiero hooks?
+
+288
+00:37:13.670 --> 00:37:14.440
+Daniel Ntege (Open Elements): Yeah.
+
+289
+00:37:16.820 --> 00:37:26.060
+Keith Kowal (Hedera Hashgraph LLC): Yeah, so, I think there continues to be no, update on that. That is, I would say, probably
+
+290
+00:37:26.260 --> 00:37:30.359
+Keith Kowal (Hedera Hashgraph LLC): Very much stalled, in that way you're keeping it behind a feature flag.
+
+291
+00:37:30.530 --> 00:37:36.270
+Keith Kowal (Hedera Hashgraph LLC): And I still think we'll be refactored. So, I still would say that
+
+292
+00:37:36.270 --> 00:37:49.710
+Keith Kowal (Hedera Hashgraph LLC): I would not spend time working on HIP 1195 right now. Like I said, there's a lot of work coming for Clipper that is going to be very important across the SDKs. I… if I was to focus on anything, it would be on the new Clipper work, and also on the…
+
+293
+00:37:49.710 --> 00:38:00.810
+Keith Kowal (Hedera Hashgraph LLC): We do need to get the mirror node account balance query support into all the SDKs, so that's another area of work, that we… I would say is probably higher focus.
+
+294
+00:38:06.580 --> 00:38:08.529
+Keith Kowal (Hedera Hashgraph LLC): Does that answer your question, Daniel?
+
+295
+00:38:10.280 --> 00:38:12.760
+Daniel Ntege (Open Elements): Yeah, perfect, you're fine, perfect, bye.
+
+296
+00:38:14.180 --> 00:38:14.730
+Keith Kowal (Hedera Hashgraph LLC): Awesome.
+
+297
+00:38:15.710 --> 00:38:21.490
+Keith Kowal (Hedera Hashgraph LLC): Alright, team, thank you again, thank you so much for your time, and we'll talk to you at the next, community call.
+
+298
+00:38:22.040 --> 00:38:23.469
+Ivaylo Georgiev: Thank you, bye-bye.
+
+299
+00:38:23.640 --> 00:38:24.180
+Mustafa Uzun: Bye.
+
+300
+00:38:25.690 --> 00:38:26.490
+Manish Dait: Bye!
+
+301
+00:38:30.740 --> 00:38:31.410
+Jessy Ssebuliba (Open Elements): Bye.
+

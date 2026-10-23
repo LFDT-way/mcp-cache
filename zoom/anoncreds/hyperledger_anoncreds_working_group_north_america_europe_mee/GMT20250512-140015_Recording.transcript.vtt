@@ -1,0 +1,1946 @@
+WEBVTT
+
+1
+00:00:12.910 --> 00:00:16.849
+Stephen Curran (Cloud Compass Computing Inc.): Hey! Welcome to the May 12, th and on credits working group meeting.
+
+2
+00:00:18.377 --> 00:00:25.060
+Stephen Curran (Cloud Compass Computing Inc.): to Linux Foundation meeting and an lft team meeting. So any trust policy code of conduct.
+
+3
+00:00:25.840 --> 00:00:29.470
+Stephen Curran (Cloud Compass Computing Inc.): So Google's Libzk.
+
+4
+00:00:32.600 --> 00:00:38.280
+Stephen Curran (Cloud Compass Computing Inc.): So can you tell me how circuits work in the context? So
+
+5
+00:00:38.450 --> 00:00:40.899
+Stephen Curran (Cloud Compass Computing Inc.): the way I'm used to things.
+
+6
+00:00:41.300 --> 00:00:44.330
+Stephen Curran (Cloud Compass Computing Inc.): you issue a credential to a holder.
+
+7
+00:00:45.720 --> 00:00:58.670
+Stephen Curran (Cloud Compass Computing Inc.): The verifier assemble some sort of presentation request, usually a a bunch of Json with a with that
+
+8
+00:00:58.820 --> 00:01:06.080
+Stephen Curran (Cloud Compass Computing Inc.): challenge not to make the presentation request unique hands it to the holder.
+
+9
+00:01:06.200 --> 00:01:14.330
+Stephen Curran (Cloud Compass Computing Inc.): and the holder uses that to figure out what to con, how to construct a presentation request that includes data from the
+
+10
+00:01:14.860 --> 00:01:16.040
+Stephen Curran (Cloud Compass Computing Inc.): presentation.
+
+11
+00:01:18.150 --> 00:01:21.620
+Stephen Curran (Cloud Compass Computing Inc.): What I'm told is when using Zk circuits.
+
+12
+00:01:22.400 --> 00:01:29.580
+Stephen Curran (Cloud Compass Computing Inc.): It's kind of like that, but kind of different. So what does it mean when Zk circuits are involved.
+
+13
+00:01:31.050 --> 00:01:39.449
+Mike Lodder: Okay, so this is the concept of like a snark or a stark or bulletproof. Okay.
+
+14
+00:01:39.450 --> 00:01:39.900
+Stephen Curran (Cloud Compass Computing Inc.): Correct.
+
+15
+00:01:40.920 --> 00:01:48.250
+Mike Lodder: So what they typically mean by circuits is, you specify what proofs you want
+
+16
+00:01:49.510 --> 00:02:05.350
+Mike Lodder: ahead of time? Right? And you design one proof around all the statements you want proven instead of like what we currently have in a non creds is a bunch of small composable components, right?
+
+17
+00:02:05.530 --> 00:02:05.890
+Stephen Curran (Cloud Compass Computing Inc.): Right.
+
+18
+00:02:05.890 --> 00:02:06.990
+Mike Lodder: Together.
+
+19
+00:02:07.360 --> 00:02:08.759
+Mike Lodder: A circuit
+
+20
+00:02:08.940 --> 00:02:22.640
+Mike Lodder: says, Define all of the proofs you want, and I'll make one big proof about all of that, and it's all or nothing, which is basically what you that we're doing, basically the same thing with what we're doing.
+
+21
+00:02:22.640 --> 00:02:23.300
+Stephen Curran (Cloud Compass Computing Inc.): Right.
+
+22
+00:02:24.230 --> 00:02:29.000
+Mike Lodder: The difference is, when you build a circuit
+
+23
+00:02:29.110 --> 00:02:39.170
+Mike Lodder: currently in snarks, they're defined as what they call rank. One constraint system or an r. 1. Cs circuit.
+
+24
+00:02:39.430 --> 00:02:40.030
+Mike Lodder: Okay.
+
+25
+00:02:41.100 --> 00:02:50.260
+Mike Lodder: there. It's not terribly hard to design these, but it can be difficult to make sure you've covered all of your bases like you've got them all correct.
+
+26
+00:02:51.980 --> 00:02:57.950
+Mike Lodder: So that's what they're doing is they're basically saying, Well, there's these common scenarios
+
+27
+00:02:58.650 --> 00:03:03.559
+Mike Lodder: that we want proven. And whenever those happen we can just.
+
+28
+00:03:03.690 --> 00:03:06.269
+Mike Lodder: We'll just define the circuit ahead of time.
+
+29
+00:03:07.020 --> 00:03:07.780
+Stephen Curran (Cloud Compass Computing Inc.): Okay.
+
+30
+00:03:07.780 --> 00:03:11.840
+Mike Lodder: The verifier will just say, this is the circuit I want proven.
+
+31
+00:03:12.520 --> 00:03:18.530
+Mike Lodder: And so the inputs to the for the prover is the same as we do with our system. Right?
+
+32
+00:03:19.060 --> 00:03:21.279
+Mike Lodder: He has the public inputs
+
+33
+00:03:22.030 --> 00:03:34.910
+Mike Lodder: in this case, like, say, public keys anything else that might be considered public like an address, or you know a name of the issuer, those kinds of things.
+
+34
+00:03:35.570 --> 00:03:43.819
+Mike Lodder: and then they call it witness data. We kind of call it that, too. But this is like the private data that only the holder would know.
+
+35
+00:03:43.820 --> 00:03:44.500
+Stephen Curran (Cloud Compass Computing Inc.): Right.
+
+36
+00:03:45.690 --> 00:03:48.289
+Mike Lodder: So you could think of it. Let's think of it in terms of.
+
+37
+00:03:48.290 --> 00:03:51.980
+Stephen Curran (Cloud Compass Computing Inc.): And hold on. That's the Vc. And the challenge right.
+
+38
+00:03:52.380 --> 00:03:53.120
+Mike Lodder: Yes.
+
+39
+00:03:53.390 --> 00:04:04.160
+Mike Lodder: yes, that's yeah. And the challenge is like, here's the circuit with a nonce to prove that you're generating it right now versus one that you did previously.
+
+40
+00:04:04.160 --> 00:04:04.750
+Stephen Curran (Cloud Compass Computing Inc.): Right.
+
+41
+00:04:05.150 --> 00:04:05.560
+Mike Lodder: So.
+
+42
+00:04:05.560 --> 00:04:07.440
+Stephen Curran (Cloud Compass Computing Inc.): Circuit is also okay.
+
+43
+00:04:07.440 --> 00:04:10.120
+Mike Lodder: Circuit's public right. The circuit is public.
+
+44
+00:04:10.120 --> 00:04:11.790
+Stephen Curran (Cloud Compass Computing Inc.): Oh, the circuits! Public. Okay.
+
+45
+00:04:11.790 --> 00:04:19.960
+Mike Lodder: Yes, because all it think of it as like this is what I want you to prove, and how I want you to prove it. I don't know what your inputs will be to it.
+
+46
+00:04:20.430 --> 00:04:22.100
+Mike Lodder: because that's private.
+
+47
+00:04:22.260 --> 00:04:24.050
+Mike Lodder: I don't get to learn that information.
+
+48
+00:04:24.050 --> 00:04:25.003
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, yeah.
+
+49
+00:04:25.480 --> 00:04:41.060
+Mike Lodder: But then, so the prover does their thing, and then they send over the proof just like we do. And the verifier is just gonna enter do the same thing. They have all their public data. They have the proof. They're gonna verify it. And it's gonna check out or not.
+
+50
+00:04:41.060 --> 00:04:44.890
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, yeah, okay, so.
+
+51
+00:04:45.310 --> 00:04:48.500
+Mike Lodder: Not much different flow wise, than what we have now.
+
+52
+00:04:48.500 --> 00:04:51.750
+Stephen Curran (Cloud Compass Computing Inc.): But the big difference is that
+
+53
+00:04:52.460 --> 00:05:02.100
+Stephen Curran (Cloud Compass Computing Inc.): the circuit a Aka, what I call the presentation request has to be public, meaning that it has to be
+
+54
+00:05:02.750 --> 00:05:10.749
+Stephen Curran (Cloud Compass Computing Inc.): defined ahead of time, such that the the the somehow the
+
+55
+00:05:11.030 --> 00:05:14.719
+Stephen Curran (Cloud Compass Computing Inc.): verifier and the and the holder have to agree on them.
+
+56
+00:05:16.260 --> 00:05:17.010
+Mike Lodder: Yes.
+
+57
+00:05:17.010 --> 00:05:24.079
+Stephen Curran (Cloud Compass Computing Inc.): So they have to be deterministically defined, either deterministic or literally existing.
+
+58
+00:05:25.840 --> 00:05:27.110
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, that's fine.
+
+59
+00:05:27.970 --> 00:05:45.300
+Mike Lodder: Yes. So yeah, like the same thing is true of Starks. Starks do a different type of encoding rather than r. 1 Cs to do something else. But it doesn't matter for the sake of this discussion. Just know more or less. The statements you want proven are defined ahead of time.
+
+60
+00:05:45.750 --> 00:05:49.720
+Mike Lodder: and you usually want these like
+
+61
+00:05:49.840 --> 00:05:54.789
+Mike Lodder: defined. They're not as dynamic as we currently have right now, right where
+
+62
+00:05:55.470 --> 00:05:59.520
+Stephen Curran (Cloud Compass Computing Inc.): Well, literally, if I have, if I have a
+
+63
+00:05:59.700 --> 00:06:09.399
+Stephen Curran (Cloud Compass Computing Inc.): what we're saying here is, if I have a verifiable credential with 10 parameters, I can come up with
+
+64
+00:06:09.530 --> 00:06:18.580
+Stephen Curran (Cloud Compass Computing Inc.): 1010 factorial, different selective disclosure requests right.
+
+65
+00:06:19.560 --> 00:06:20.140
+Mike Lodder: Yeah.
+
+66
+00:06:21.000 --> 00:06:27.500
+Stephen Curran (Cloud Compass Computing Inc.): And and in this I would have to have 10 factorial circuits predefined.
+
+67
+00:06:27.610 --> 00:06:29.890
+Stephen Curran (Cloud Compass Computing Inc.): and then select one of them.
+
+68
+00:06:32.220 --> 00:06:33.500
+Mike Lodder: That's right.
+
+69
+00:06:33.720 --> 00:06:40.580
+Stephen Curran (Cloud Compass Computing Inc.): Or we'd have to have some sort of language that says, Oh, I want the 3rd and the 7th and the 9th
+
+70
+00:06:41.541 --> 00:06:54.300
+Stephen Curran (Cloud Compass Computing Inc.): attribute. And therefore here's how it would get generated deterministically, and they would do that on the fly, and presumably they're too expensive to generate on the fly. Is that correct?
+
+71
+00:06:54.627 --> 00:07:00.970
+Mike Lodder: Well, so this is where it gets a little like hazy, right? Because different snarks
+
+72
+00:07:01.956 --> 00:07:08.669
+Mike Lodder: snarks and well, Starks less so, but snarks, for example, have varying trade-offs.
+
+73
+00:07:09.600 --> 00:07:14.530
+Mike Lodder: There's what's called a trusted setup per circuit.
+
+74
+00:07:14.640 --> 00:07:22.380
+Mike Lodder: Yeah, universal trusted setup, or, as we have it, kind of right now, no trusted setup at all.
+
+75
+00:07:22.920 --> 00:07:29.520
+Mike Lodder: Yeah, so the trade-off is, the more on the trusted setup side you have.
+
+76
+00:07:30.030 --> 00:07:34.240
+Mike Lodder: faster the proving goes, and the and the smaller the proof size.
+
+77
+00:07:34.240 --> 00:07:35.140
+Stephen Curran (Cloud Compass Computing Inc.): Okay.
+
+78
+00:07:35.140 --> 00:07:38.649
+Mike Lodder: So the most common one is called Groth, 16
+
+79
+00:07:39.520 --> 00:07:47.630
+Mike Lodder: by Jans Groth, back in 2,016. That's the one that Zcash started with right.
+
+80
+00:07:47.630 --> 00:07:48.230
+Stephen Curran (Cloud Compass Computing Inc.): Okay.
+
+81
+00:07:48.230 --> 00:07:51.230
+Mike Lodder: Because it's incredibly small proofs.
+
+82
+00:07:51.480 --> 00:07:55.870
+Mike Lodder: Improving time is actually quite fast, like, we're talking 2, 3 seconds
+
+83
+00:07:56.470 --> 00:07:59.110
+Mike Lodder: on a phone. So that's that's reasonable.
+
+84
+00:08:00.100 --> 00:08:01.989
+Mike Lodder: Verifying time's even less.
+
+85
+00:08:02.570 --> 00:08:04.350
+Mike Lodder: But anyway.
+
+86
+00:08:04.980 --> 00:08:14.570
+Mike Lodder: because of this trusted step, a lot of people don't like that. But you can imagine a scenario where you want more dynamics like what you're suggesting. Where, hey? I'll just do it on the fly.
+
+87
+00:08:15.811 --> 00:08:18.970
+Mike Lodder: Per circuit! Trusted setup doesn't allow that.
+
+88
+00:08:20.160 --> 00:08:27.039
+Mike Lodder: at least not very easily, because you have to do a trusted setup for that particular setup right.
+
+89
+00:08:27.250 --> 00:08:27.930
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+90
+00:08:28.220 --> 00:08:29.480
+Mike Lodder: So
+
+91
+00:08:29.680 --> 00:08:45.829
+Mike Lodder: because of the whole trusted, setup thing. And it's people have kind of shied away from those when it comes to credential systems. So that kind of leaves you with 2 options. You either don't do a trusted setup at all, or you have a system that has a universal setup, which is.
+
+92
+00:08:46.170 --> 00:08:53.099
+Mike Lodder: we do this one time. Think of it as like, pick the elliptic curve parameters. We do that once, and then everybody just reuses it. It's kind of similar.
+
+93
+00:08:53.600 --> 00:08:54.260
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+94
+00:08:54.260 --> 00:08:59.290
+Mike Lodder: So those are kind of what has been prevalent today. So
+
+95
+00:08:59.510 --> 00:09:06.300
+Mike Lodder: if you look at Google's Libzk, they're using a snark that doesn't require a trusted setup at all.
+
+96
+00:09:06.470 --> 00:09:07.330
+Stephen Curran (Cloud Compass Computing Inc.): Okay.
+
+97
+00:09:07.460 --> 00:09:13.639
+Mike Lodder: So like, I said. The downside is when you don't do a trusted setup at all. It tends to be slower
+
+98
+00:09:14.400 --> 00:09:32.249
+Mike Lodder: than ones with a trust up. And the proof size is bigger, because what you're doing is instead of having a global parameters that use to verify everything that everybody trusts, you have to verify the circuit along with the proof each time. So it's kind of
+
+99
+00:09:32.790 --> 00:09:37.359
+Mike Lodder: that's the downside, and why the proof size gets so big and slow. So
+
+100
+00:09:38.030 --> 00:09:45.269
+Mike Lodder: they're using one called Legero or Lajero. I don't know exactly the right pronunciation, but anyway, that's that's what they're using.
+
+101
+00:09:46.260 --> 00:09:48.902
+Mike Lodder: So like, if you look at it
+
+102
+00:09:49.990 --> 00:09:53.260
+Mike Lodder: like. If you go look at their Rfc. For the lib zk.
+
+103
+00:09:53.260 --> 00:09:53.680
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+104
+00:09:56.340 --> 00:10:00.579
+Mike Lodder: Liguero, from what I understand, is slower then
+
+105
+00:10:02.310 --> 00:10:06.030
+Mike Lodder: than those than what I'm saying, you're like. It's not as
+
+106
+00:10:07.180 --> 00:10:08.829
+Mike Lodder: it's not as fast as like
+
+107
+00:10:10.070 --> 00:10:13.249
+Mike Lodder: gross 16, for example, right? It's not going to be.
+
+108
+00:10:13.390 --> 00:10:15.270
+Stephen Curran (Cloud Compass Computing Inc.): So yep.
+
+109
+00:10:15.440 --> 00:10:18.420
+Mike Lodder: Now the one cat that this one.
+
+110
+00:10:18.420 --> 00:10:24.589
+Stephen Curran (Cloud Compass Computing Inc.): Deliberate on their part, because they don't want a trusted setup, because they don't think anyone can agree on that.
+
+111
+00:10:25.130 --> 00:10:32.529
+Mike Lodder: Yep. And so bulletproofs is another way of doing this, where there's no trusted setup, but again
+
+112
+00:10:32.710 --> 00:10:44.079
+Mike Lodder: proving and verifying is slower and proof. Size is bigger. So there's a trade-off. Now. Starks, on the other hand, because they don't rely on elliptic curves, they are more hash based.
+
+113
+00:10:44.370 --> 00:11:01.720
+Mike Lodder: They're considered quantum resistant right. Hashing is harder to break, but the encoding is different than r. 1 cs, it's called air or fry. Those are 2 different ways of doing it. Fry is kind of the successor to it. But anyway.
+
+114
+00:11:02.640 --> 00:11:19.019
+Mike Lodder: Starks have no trusted setup at all. They're fast. They tend to be faster than snarks that have no trusted setup, but the proof size is quite large. It used to be in the Megabytes. They've come down a bit like they're still in about the hundreds of kilobytes.
+
+115
+00:11:19.990 --> 00:11:24.590
+Mike Lodder: But yeah, that's the trade off is they're more complicated and the proof size is bigger.
+
+116
+00:11:25.070 --> 00:11:27.980
+Mike Lodder: But you get quantum resistance, and
+
+117
+00:11:28.994 --> 00:11:36.890
+Mike Lodder: they're faster than snarks that have no trusted setup. So that's the trade off. Those have been around for years.
+
+118
+00:11:36.890 --> 00:11:47.920
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, yeah, these are terms I recognize. But we've never had to talk about them. So let me let me ask one more in that range. Then trusted setup versus a circuit. What?
+
+119
+00:11:48.330 --> 00:11:52.149
+Stephen Curran (Cloud Compass Computing Inc.): So you can have one trusted setup and multiple circuits.
+
+120
+00:11:52.870 --> 00:11:55.769
+Mike Lodder: Yes, so think of it like an elliptic curve.
+
+121
+00:11:56.330 --> 00:11:58.410
+Mike Lodder: Once I define the elliptic curve.
+
+122
+00:11:59.030 --> 00:12:20.830
+Mike Lodder: Right? That's the trusted setup. I've defined what the parameters for that curve are. Everybody can use it as they see fit, right? It doesn't matter what they use it for. As long as everybody uses the same parameters. We're good. That's that's a universal, trusted setup. It's similar to that. Okay, here's here's the parameters. Everybody use these as long as you use these. Then you can do whatever you want.
+
+123
+00:12:24.140 --> 00:12:29.509
+Stephen Curran (Cloud Compass Computing Inc.): And by having no trusted circuit. You need. Sorry, trusted setup. You need a circuit.
+
+124
+00:12:29.930 --> 00:12:32.030
+Mike Lodder: Well, you always have a circuit, no matter what.
+
+125
+00:12:32.030 --> 00:12:33.649
+Stephen Curran (Cloud Compass Computing Inc.): Oh, you always do. Okay.
+
+126
+00:12:33.850 --> 00:12:38.280
+Mike Lodder: Cause. The circuit is what defines, what is being proven and what is not being proven.
+
+127
+00:12:39.530 --> 00:12:40.019
+Stephen Curran (Cloud Compass Computing Inc.): But how do you?
+
+128
+00:12:40.020 --> 00:12:41.590
+Stephen Curran (Cloud Compass Computing Inc.): That is John Creds.
+
+129
+00:12:41.960 --> 00:12:45.360
+Mike Lodder: Yeah, in the noncreds. That's the statements you want proven.
+
+130
+00:12:45.360 --> 00:12:51.609
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, but we can do it dynamically in the non creds, because they can do.
+
+131
+00:12:51.610 --> 00:12:55.599
+Mike Lodder: No trusted setup right. If there's no trusted setup at all.
+
+132
+00:12:55.860 --> 00:12:58.699
+Mike Lodder: they can do it dynamically, too. It's just harder.
+
+133
+00:13:00.880 --> 00:13:09.170
+Mike Lodder: So, for example. But see, I don't see this as a terrible loss, because in most cases, like, if you're doing with government proofs.
+
+134
+00:13:09.420 --> 00:13:09.920
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+135
+00:13:09.920 --> 00:13:13.370
+Mike Lodder: Those are gonna be known, correct.
+
+136
+00:13:14.500 --> 00:13:22.780
+Mike Lodder: or given situations. There's going to be common situations where we know what's proven. It's common. We can define those ahead of time.
+
+137
+00:13:23.530 --> 00:13:26.300
+Mike Lodder: It's kind of the more like I'd say
+
+138
+00:13:26.440 --> 00:13:31.019
+Mike Lodder: 5, 10% area where we need more dynamic stuff
+
+139
+00:13:33.080 --> 00:13:37.699
+Mike Lodder: that snarks may not be as useful there, and the Noncreds wins.
+
+140
+00:13:38.540 --> 00:13:51.068
+Mike Lodder: But in the scenario where we're going to define, everything needs to be proven ahead of time and things like that, there's not gonna be much of a difference between snarks and what we're doing except what we're doing. Well, a non creds
+
+141
+00:13:52.820 --> 00:13:58.130
+Mike Lodder: is the proof. Sizes for the most part will be smaller and faster to generate.
+
+142
+00:14:03.170 --> 00:14:11.530
+Mike Lodder: They're easy to understand as well, because, like, I said, it's a little bit harder to define the circuits and make sure it's secure.
+
+143
+00:14:11.970 --> 00:14:15.069
+Mike Lodder: Almost need a cryptographer to review it every time.
+
+144
+00:14:15.270 --> 00:14:15.990
+Stephen Curran (Cloud Compass Computing Inc.): Really.
+
+145
+00:14:16.520 --> 00:14:27.010
+Mike Lodder: Yeah. Well, I mean, I've written r. 1 Cs circuits lots of times and they'll go. Okay. I covered everything, and then I hand a cryptographer to look at. And he goes. Oh, you need to add this and this and this.
+
+146
+00:14:27.240 --> 00:14:33.419
+Mike Lodder: And I was like, Oh, okay. And after I've done that the proof size, like just doubles or triples in size.
+
+147
+00:14:33.600 --> 00:14:34.050
+Stephen Curran (Cloud Compass Computing Inc.): Wow!
+
+148
+00:14:34.050 --> 00:14:34.830
+Mike Lodder: So.
+
+149
+00:14:35.710 --> 00:14:37.820
+Stephen Curran (Cloud Compass Computing Inc.): But so what you're saying is.
+
+150
+00:14:38.530 --> 00:14:42.450
+Stephen Curran (Cloud Compass Computing Inc.): you know, again, back to my simple oh, I wanna I wanna
+
+151
+00:14:43.130 --> 00:14:50.689
+Stephen Curran (Cloud Compass Computing Inc.): I want to selectively disclose, attribute one, and then later, I want a a different proof to selectively
+
+152
+00:14:53.075 --> 00:15:00.490
+Stephen Curran (Cloud Compass Computing Inc.): disclose attribute to. Does that mean I need a cryptographer to produce both of those circuits.
+
+153
+00:15:01.599 --> 00:15:08.329
+Mike Lodder: It depends on what attribute one and attribute 2 are. If they're similar, like, just say they're one is 1st name. One is last name
+
+154
+00:15:09.312 --> 00:15:11.490
+Mike Lodder: you could use almost the same logic. Right
+
+155
+00:15:12.070 --> 00:15:18.210
+Mike Lodder: versus if I say, attribute one is my 1st and last name. Attribute 2. Is my age
+
+156
+00:15:19.110 --> 00:15:26.419
+Mike Lodder: right? You're proving very different things. One. You're proving like, maybe an equality string and age is a number.
+
+157
+00:15:26.560 --> 00:15:27.250
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+158
+00:15:27.610 --> 00:15:28.330
+Mike Lodder: So.
+
+159
+00:15:28.760 --> 00:15:32.430
+Stephen Curran (Cloud Compass Computing Inc.): So so there's a heavy cost to.
+
+160
+00:15:35.040 --> 00:15:37.849
+Mike Lodder: There's a heavier setup cost if that makes sense.
+
+161
+00:15:37.850 --> 00:15:40.740
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, it's not trusted setup. It's just the
+
+162
+00:15:41.380 --> 00:15:46.520
+Stephen Curran (Cloud Compass Computing Inc.): coding, if you will. Coding. The presentation request is heavy.
+
+163
+00:15:46.520 --> 00:15:49.739
+Mike Lodder: Yes, yes, and when we say.
+
+164
+00:15:49.740 --> 00:15:55.740
+Stephen Curran (Cloud Compass Computing Inc.): You're gonna have. As a result, you're gonna have fewer of. You can't just have random developers. Say, Oh, I want this, this, this and this.
+
+165
+00:15:56.340 --> 00:16:11.009
+Mike Lodder: Right now, once you've defined exactly what you want, and the cryptographer says, well, here's how you could code it writing the code, for it's the easy part, right? You can pick a library like circom, or there's lots of libraries for defining an r 1. Cs.
+
+166
+00:16:11.510 --> 00:16:15.990
+Mike Lodder: that's the easy part. What to put in the circuit is the hardest part.
+
+167
+00:16:17.920 --> 00:16:24.580
+Stephen Curran (Cloud Compass Computing Inc.): And is that an all in one thing, or is that like, Oh, there's a bunch of Lego blocks, and you can just assemble them all together.
+
+168
+00:16:24.930 --> 00:16:27.789
+Mike Lodder: No, it's usually like an all of all in one thing.
+
+169
+00:16:28.160 --> 00:16:33.310
+Stephen Curran (Cloud Compass Computing Inc.): Okay. So this is why these are the model's not great
+
+170
+00:16:33.580 --> 00:16:36.140
+Stephen Curran (Cloud Compass Computing Inc.): compared to what we've got now. Cause we can.
+
+171
+00:16:36.340 --> 00:16:38.319
+Stephen Curran (Cloud Compass Computing Inc.): We? I mean, we've got.
+
+172
+00:16:38.320 --> 00:16:39.820
+Mike Lodder: It's more complicated.
+
+173
+00:16:39.820 --> 00:16:43.789
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, it's way more complicated. We've got random developers, building
+
+174
+00:16:43.990 --> 00:16:52.640
+Stephen Curran (Cloud Compass Computing Inc.): presentation requests that are made way. More worried about. Oh, what exactly, is my business process. And what's my ui gonna look like and shit like that?
+
+175
+00:16:52.640 --> 00:16:53.930
+Mike Lodder: And that's how it should be.
+
+176
+00:16:53.930 --> 00:16:55.599
+Mike Lodder: which is how it should be.
+
+177
+00:16:55.600 --> 00:16:56.770
+Mike Lodder: They've actually wait.
+
+178
+00:16:56.770 --> 00:17:08.849
+Stephen Curran (Cloud Compass Computing Inc.): Now this goes over to 1st we have to talk to the cryptographers to come up with what the circuit is, and then we're constrained to exactly that, and we can't mess around with adjusting it, or whatever.
+
+179
+00:17:09.460 --> 00:17:10.920
+Stephen Curran (Cloud Compass Computing Inc.): without going back.
+
+180
+00:17:11.240 --> 00:17:21.649
+Mike Lodder: Yeah, so similar to what we've done. Where we have pre-built components, you can do something similar with r, 1 Cs circuits like, you can say, here's a range proof circuit for you.
+
+181
+00:17:22.040 --> 00:17:22.630
+Stephen Curran (Cloud Compass Computing Inc.): Okay.
+
+182
+00:17:22.630 --> 00:17:32.459
+Mike Lodder: Here's a name circuit, and then, trying to glue them together, would take some work, but not as heavy of a lift as just defining those. In the 1st place.
+
+183
+00:17:33.260 --> 00:17:33.889
+Stephen Curran (Cloud Compass Computing Inc.): So.
+
+184
+00:17:35.320 --> 00:17:41.189
+Mike Lodder: Like, if I had to define. Okay, I'm going to do an Ecdsa signature verification.
+
+185
+00:17:41.430 --> 00:17:43.989
+Mike Lodder: That's a very complicated circuit.
+
+186
+00:17:45.970 --> 00:17:51.060
+Stephen Curran (Cloud Compass Computing Inc.): Whereas let me let me give another example. So we've got a link secret.
+
+187
+00:17:51.390 --> 00:18:01.829
+Stephen Curran (Cloud Compass Computing Inc.): We basically defined that component, put it away in the layer below, so that users didn't deal with it. It just always happened, is it that type of thing.
+
+188
+00:18:02.200 --> 00:18:04.189
+Mike Lodder: Kind of yeah, it's so.
+
+189
+00:18:04.190 --> 00:18:04.770
+Stephen Curran (Cloud Compass Computing Inc.): Okay.
+
+190
+00:18:04.900 --> 00:18:13.260
+Stephen Curran (Cloud Compass Computing Inc.): okay? And then let me ask in a in another way. So if we had wanted in a non creds, one to add synonymous identifiers. We'd have
+
+191
+00:18:13.440 --> 00:18:21.300
+Stephen Curran (Cloud Compass Computing Inc.): coded that in and given the developer exposed some way to say, oh, I want a pseudonymous identifier.
+
+192
+00:18:22.210 --> 00:18:26.850
+Stephen Curran (Cloud Compass Computing Inc.): which is what we're doing in a non, Chris, too. Right? That's essentially that's exactly what we're doing.
+
+193
+00:18:28.500 --> 00:18:29.290
+Mike Lodder: Yeah.
+
+194
+00:18:29.290 --> 00:18:31.380
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, we're we're
+
+195
+00:18:31.740 --> 00:18:42.879
+Stephen Curran (Cloud Compass Computing Inc.): we. You've implemented all of the basic systems and now expose them at a level that a random developer can go. I want this, this, this and this in my presentation request.
+
+196
+00:18:43.760 --> 00:18:50.760
+Stephen Curran (Cloud Compass Computing Inc.): Okay, but you. But you're saying that is harder to do with the live Zk.
+
+197
+00:18:52.260 --> 00:18:57.789
+Mike Lodder: Yes. Well, like, I said, someone needs to define what these components are. First.st
+
+198
+00:18:57.790 --> 00:18:58.460
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+199
+00:18:58.810 --> 00:19:01.740
+Mike Lodder: If we can get those defined, it makes it easier.
+
+200
+00:19:01.910 --> 00:19:02.580
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+201
+00:19:07.460 --> 00:19:08.210
+Stephen Curran (Cloud Compass Computing Inc.): Okay.
+
+202
+00:19:11.680 --> 00:19:14.269
+Stephen Curran (Cloud Compass Computing Inc.): That's awesome. Thank you. That was huge
+
+203
+00:19:14.660 --> 00:19:20.070
+Stephen Curran (Cloud Compass Computing Inc.): for me. The revocation scheme. What did you think? Did you look at that.
+
+204
+00:19:21.410 --> 00:19:27.980
+Mike Lodder: Oh, a little bit. Yeah. Like it looks similar to something I've seen before.
+
+205
+00:19:27.980 --> 00:19:33.600
+Stephen Curran (Cloud Compass Computing Inc.): Yeah. Andrew had done something similar to that. The one he was working on was was quite similar.
+
+206
+00:19:34.000 --> 00:19:38.810
+Mike Lodder: Yeah, I'm not sure his was cryptographically sound or not. Right? There's no no.
+
+207
+00:19:39.320 --> 00:19:40.050
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, I know.
+
+208
+00:19:41.160 --> 00:19:47.410
+Mike Lodder: But yeah, this is so. Their concept is something similar to what young Cominish has proposed in the past.
+
+209
+00:19:48.090 --> 00:19:54.369
+Mike Lodder: which is, the issuer, signs something that says, all values in this range
+
+210
+00:19:54.730 --> 00:19:58.439
+Mike Lodder: or this membership range are valid still.
+
+211
+00:19:58.670 --> 00:20:04.880
+Mike Lodder: So you just prove you have a value that lies in that range without revealing which one.
+
+212
+00:20:04.880 --> 00:20:05.310
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+213
+00:20:05.310 --> 00:20:07.089
+Mike Lodder: And that proves you're non revoked.
+
+214
+00:20:07.090 --> 00:20:07.860
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+215
+00:20:07.860 --> 00:20:13.749
+Mike Lodder: You're still valid. You're issued. You're you're active. Whatever the status is, it's similar to that concept.
+
+216
+00:20:14.490 --> 00:20:22.820
+Mike Lodder: Instead of using a membership proof, which is what we use or what we're proposing. Right? That's what does they're saying, use a range proof.
+
+217
+00:20:23.150 --> 00:20:26.749
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, without revealing which range you're using.
+
+218
+00:20:27.170 --> 00:20:30.250
+Mike Lodder: No, you do reveal which range you're in. That's why I don't like it as much.
+
+219
+00:20:30.250 --> 00:20:34.099
+Stephen Curran (Cloud Compass Computing Inc.): What? Oh, oh, you reveal which range you're in.
+
+220
+00:20:34.790 --> 00:20:37.740
+Mike Lodder: You have to. You basically think of it as like.
+
+221
+00:20:38.020 --> 00:20:45.170
+Mike Lodder: I'm sort of revealing which path in the Merkle tree I am like, let's say, it's a million elements in the
+
+222
+00:20:45.170 --> 00:20:49.719
+Mike Lodder: yeah, yeah, I'm basically saying, I'm basically saying, I'm on the left half.
+
+223
+00:20:51.880 --> 00:20:57.380
+Mike Lodder: So you're like, Oh, okay, instead of 2 to the 32 possibilities. I'm 2 to the 31 possibilities
+
+224
+00:20:58.320 --> 00:20:59.980
+Mike Lodder: or something like that, right?
+
+225
+00:21:00.940 --> 00:21:04.249
+Mike Lodder: But as more and more people get revoked, that range shrinks.
+
+226
+00:21:04.460 --> 00:21:06.150
+Stephen Curran (Cloud Compass Computing Inc.): Exactly. Yeah.
+
+227
+00:21:07.990 --> 00:21:09.160
+Stephen Curran (Cloud Compass Computing Inc.): Oh, interesting.
+
+228
+00:21:09.160 --> 00:21:12.430
+Mike Lodder: So it fragments and things like that. So.
+
+229
+00:21:12.430 --> 00:21:25.239
+Stephen Curran (Cloud Compass Computing Inc.): So if you happen to be between 3, you know 2 one, you know, 2 that are 10 apart, and you're between them. Then they know you're one of 8 number one of 8 numbers.
+
+230
+00:21:26.000 --> 00:21:28.130
+Mike Lodder: Yep, that's why I don't like it. It's.
+
+231
+00:21:28.130 --> 00:21:29.319
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, okay.
+
+232
+00:21:29.320 --> 00:21:36.860
+Mike Lodder: Constantly refreshing people's stuff even worse than what we called witnesses. You know I have to update the witness.
+
+233
+00:21:37.250 --> 00:21:40.739
+Mike Lodder: This is no different, but I feel like the refresh rate is worse.
+
+234
+00:21:43.270 --> 00:21:49.860
+Mike Lodder: It's simpler in terms of the setup and how it's done. But I think it's worse in terms of the user experience
+
+235
+00:21:50.020 --> 00:21:51.680
+Mike Lodder: and the devrel, the developer.
+
+236
+00:21:51.680 --> 00:21:52.460
+Stephen Curran (Cloud Compass Computing Inc.): Experience.
+
+237
+00:21:53.050 --> 00:21:57.639
+Stephen Curran (Cloud Compass Computing Inc.): So prove your inner range without revealing the index
+
+238
+00:21:58.180 --> 00:22:02.800
+Stephen Curran (Cloud Compass Computing Inc.): within the range. But you reveal the range. So you reveal the outer 2 numbers.
+
+239
+00:22:03.210 --> 00:22:06.869
+Mike Lodder: Have to. Okay. Now, if you can try to hide it
+
+240
+00:22:07.540 --> 00:22:09.890
+Mike Lodder: and basically say, Yeah, I'm in the Merkle tree
+
+241
+00:22:10.290 --> 00:22:14.220
+Mike Lodder: at some point. You're revealing a range, maybe just not as specific.
+
+242
+00:22:14.220 --> 00:22:14.870
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+243
+00:22:15.100 --> 00:22:18.760
+Mike Lodder: But, like I said, the more revocations that happen, the worse it gets.
+
+244
+00:22:19.196 --> 00:22:20.070
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, yeah.
+
+245
+00:22:20.070 --> 00:22:22.300
+Mike Lodder: Now, if you want to also hide
+
+246
+00:22:23.150 --> 00:22:28.289
+Mike Lodder: the subset range, then, of course, the proof gets even more complicated. So.
+
+247
+00:22:30.180 --> 00:22:35.790
+Stephen Curran (Cloud Compass Computing Inc.): And I figured it's about given their parameters. They're saying they want a 1%
+
+248
+00:22:36.160 --> 00:22:41.630
+Stephen Curran (Cloud Compass Computing Inc.): revocation, which means you've got to have business rules that you know.
+
+249
+00:22:43.500 --> 00:22:45.230
+Mike Lodder: Really, low.
+
+250
+00:22:46.620 --> 00:22:51.829
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, I know. The business rules then become such that you have to keep it below.
+
+251
+00:22:53.980 --> 00:22:54.690
+Mike Lodder: Well, you have to call.
+
+252
+00:22:55.285 --> 00:22:55.880
+Stephen Curran (Cloud Compass Computing Inc.): Please!
+
+253
+00:22:55.880 --> 00:23:01.810
+Mike Lodder: Ranges, and then almost re-update everything, reindex everything. I don't know how you do that.
+
+254
+00:23:02.570 --> 00:23:13.180
+Stephen Curran (Cloud Compass Computing Inc.): Well, the way I would assume is, you keep the expiration date low enough that, as you revoke things
+
+255
+00:23:14.450 --> 00:23:28.409
+Stephen Curran (Cloud Compass Computing Inc.): like like you know the business well enough like, how often do people change address in a driver's license scenario? Oh, well, you know you can't have a 5 year expiration. You have to have it down to 3 months, so that
+
+256
+00:23:28.850 --> 00:23:39.570
+Stephen Curran (Cloud Compass Computing Inc.): only people that are have their license revoked, or that move within 3 months. Get revoked, and then you have to reissue everyone
+
+257
+00:23:39.690 --> 00:23:40.520
+Stephen Curran (Cloud Compass Computing Inc.): which.
+
+258
+00:23:41.690 --> 00:23:45.409
+Mike Lodder: See that to me is no different than refreshing the witness data.
+
+259
+00:23:45.610 --> 00:23:48.779
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, I know. Yeah, exactly. I I know what you mean.
+
+260
+00:23:51.060 --> 00:24:04.160
+Stephen Curran (Cloud Compass Computing Inc.): So now you're reissuing all the time. So you've got that overhead versus. But anyway, but I figured it was about a 2 MB file that would have to be downloaded. That's got all the signatures.
+
+261
+00:24:05.698 --> 00:24:11.689
+Mike Lodder: Yuck isn't terrible, but it's still fairly big.
+
+262
+00:24:11.690 --> 00:24:18.240
+Stephen Curran (Cloud Compass Computing Inc.): Yeah. So for a million credentials, you've got 2 mil, 2 MB of data. Give or take.
+
+263
+00:24:19.860 --> 00:24:22.570
+Mike Lodder: Yeah. And that's why I like our solution, which.
+
+264
+00:24:22.570 --> 00:24:23.170
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+265
+00:24:23.170 --> 00:24:31.179
+Mike Lodder: 48 Byte for the accumulator, 96 Byte for the key. The key doesn't change, so you can cache it permanently. Really.
+
+266
+00:24:31.180 --> 00:24:31.850
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+267
+00:24:32.460 --> 00:24:34.760
+Mike Lodder: But anyway, yeah, it sucks.
+
+268
+00:24:34.930 --> 00:24:38.839
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, yeah, okay, that, too, is helpful.
+
+269
+00:24:39.650 --> 00:24:48.679
+Stephen Curran (Cloud Compass Computing Inc.): I was I. I thought they had said, you know, without revealing the range. And I didn't know how they would do that. But I thought, Okay, well, magic
+
+270
+00:24:48.840 --> 00:24:55.440
+Stephen Curran (Cloud Compass Computing Inc.): 0 knowledge. Okay. But they're just not revealing the index within the range, which okay, that's different.
+
+271
+00:24:55.440 --> 00:25:01.689
+Mike Lodder: Well if they also try to get away with not revealing the range. That's a more complicated proof. It's not simple.
+
+272
+00:25:01.690 --> 00:25:03.240
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, yeah, yeah.
+
+273
+00:25:03.700 --> 00:25:10.509
+Stephen Curran (Cloud Compass Computing Inc.): And they were talking, it was fairly easy to do. They were also talking. Their pseudonymous identifiers was fairly simple.
+
+274
+00:25:12.060 --> 00:25:19.088
+Mike Lodder: Yeah. Well, it that part is easy to do. I don't. No matter which proof system you pick that one's kind of the easiest one.
+
+275
+00:25:19.370 --> 00:25:21.009
+Stephen Curran (Cloud Compass Computing Inc.): Okay. Okay. Good.
+
+276
+00:25:24.200 --> 00:25:30.869
+Mike Lodder: Again. I've studied revocation for a long time, and anything beat allosaur.
+
+277
+00:25:30.870 --> 00:25:31.210
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+278
+00:25:31.567 --> 00:25:33.710
+Mike Lodder: For trade-offs and space and time.
+
+279
+00:25:33.710 --> 00:25:34.330
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+280
+00:25:36.570 --> 00:25:39.600
+Mike Lodder: Well and just flow right.
+
+281
+00:25:39.600 --> 00:25:40.889
+Stephen Curran (Cloud Compass Computing Inc.): Yeah. Exactly.
+
+282
+00:25:41.000 --> 00:25:41.760
+Stephen Curran (Cloud Compass Computing Inc.): Yep.
+
+283
+00:25:42.430 --> 00:25:51.140
+Mike Lodder: And privacy, because, no matter what like, I mean, best case scenario. If you're going, Allison, with the ultimate privacy settings, turned on
+
+284
+00:25:51.350 --> 00:25:57.870
+Mike Lodder: all these other proof systems don't solve the phone home. At some point
+
+285
+00:25:58.010 --> 00:26:07.609
+Mike Lodder: I have to update. And the issuer or the verifier knows who I am. Yeah, someone's leaking that yeah, no one has solved that. And that's why I like allosaur.
+
+286
+00:26:07.610 --> 00:26:08.270
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+287
+00:26:08.620 --> 00:26:15.060
+Mike Lodder: We at least solved that, and I don't think it's that complicated.
+
+288
+00:26:15.620 --> 00:26:16.386
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, yeah.
+
+289
+00:26:17.900 --> 00:26:18.723
+Stephen Curran (Cloud Compass Computing Inc.): Okay,
+
+290
+00:26:23.640 --> 00:26:26.249
+Stephen Curran (Cloud Compass Computing Inc.): what have you been doing lately?
+
+291
+00:26:26.440 --> 00:26:27.589
+Stephen Curran (Cloud Compass Computing Inc.): Can you share?
+
+292
+00:26:28.806 --> 00:26:32.530
+Stephen Curran (Cloud Compass Computing Inc.): Yeah. I've been actually working on a lot of post quantum, stuff. Lately.
+
+293
+00:26:32.530 --> 00:26:33.860
+Stephen Curran (Cloud Compass Computing Inc.): Okay, yeah.
+
+294
+00:26:35.209 --> 00:26:39.700
+Mike Lodder: Been working on a system called bring your own authentication.
+
+295
+00:26:41.670 --> 00:26:46.650
+Mike Lodder: Think of it as you define your own set of rules for, hey?
+
+296
+00:26:47.110 --> 00:26:51.530
+Mike Lodder: I'm gonna not. I'm gonna set up my rules for authentication.
+
+297
+00:26:52.270 --> 00:26:56.400
+Mike Lodder: Here's what it looks like. And I'm going to rank them by priority.
+
+298
+00:26:56.530 --> 00:26:59.979
+Mike Lodder: So let's say, a level 0 is the highest. You can go.
+
+299
+00:26:59.980 --> 00:27:00.600
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+300
+00:27:00.600 --> 00:27:07.779
+Mike Lodder: And if I can authenticate using that, that one always takes precedence over a low one with a higher number.
+
+301
+00:27:08.400 --> 00:27:11.980
+Mike Lodder: So say, for example, I'm using lit
+
+302
+00:27:12.380 --> 00:27:16.900
+Mike Lodder: lips. Threshold-based signatures is my level 0.
+
+303
+00:27:17.880 --> 00:27:22.480
+Mike Lodder: Then my level one is, oh, I'm going to use
+
+304
+00:27:23.070 --> 00:27:34.579
+Mike Lodder: like my key. That's in the hardware device. My level 2 is a username and password with an authenticator app. Okay, let's just let's just keep it simple with that
+
+305
+00:27:35.640 --> 00:27:42.410
+Mike Lodder: now. Or for the sake of example, let's say, level 2 is SMS based, not authentic care. App.
+
+306
+00:27:42.410 --> 00:27:42.740
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+307
+00:27:42.740 --> 00:27:44.199
+Mike Lodder: They want to illustrate something.
+
+308
+00:27:44.560 --> 00:27:51.880
+Mike Lodder: So I hand that over to any auth provider and say, These are my rules.
+
+309
+00:27:52.310 --> 00:27:54.750
+Mike Lodder: Do these meet your standards, like
+
+310
+00:27:55.250 --> 00:28:01.799
+Mike Lodder: the Auth Provider just defines standards. It says, Okay, if you're going to do your own auth, these are the rules you have to meet.
+
+311
+00:28:02.040 --> 00:28:09.770
+Mike Lodder: and so they they can look at it because it's all public and go. Yep. Okay. You've got at least 2 that are high enough. Great. We'll take it.
+
+312
+00:28:10.760 --> 00:28:23.350
+Mike Lodder: So I go on using my username password and SMS for a while, because that's easiest. And I don't really know what I'm doing, you know, with the other 2, but some off providers set up the other 2 for me. Okay, fine.
+
+313
+00:28:23.540 --> 00:28:26.859
+Mike Lodder: At some point a breach happens.
+
+314
+00:28:26.980 --> 00:28:32.389
+Mike Lodder: and obviously my auth rules are public. So. Oh, whoop-de-doo!
+
+315
+00:28:32.910 --> 00:28:43.410
+Mike Lodder: The attacker steals it, takes a look at and goes. Aha! Can brute force the username and password. Okay, I've got that. Now. I'm going to try to steal your SMS token.
+
+316
+00:28:43.410 --> 00:28:43.940
+Stephen Curran (Cloud Compass Computing Inc.): Yep.
+
+317
+00:28:43.940 --> 00:28:46.769
+Mike Lodder: I managed to compromise your account. Okay.
+
+318
+00:28:47.690 --> 00:28:50.200
+Mike Lodder: now, here's where the other rules come in.
+
+319
+00:28:51.110 --> 00:29:00.550
+Mike Lodder: I can go. Huh! I noticed that. My, let's just say, Facebook, my Facebook account got hacked. They now they've changed my username and password shoot
+
+320
+00:29:00.730 --> 00:29:03.800
+Mike Lodder: because they got a hold of my level. 2 credentials.
+
+321
+00:29:04.640 --> 00:29:09.730
+Mike Lodder: Well, I can say I'm going to use my level. One key
+
+322
+00:29:10.100 --> 00:29:16.910
+Mike Lodder: to do instead of you know. So in this case it's an account. Takeover, I'm going to call this an account, take back.
+
+323
+00:29:17.570 --> 00:29:18.270
+Stephen Curran (Cloud Compass Computing Inc.): Hmm.
+
+324
+00:29:18.710 --> 00:29:26.430
+Mike Lodder: Not recovery, because recovery to me is like I've in the scenario. I've lost my password. So that's like lost. This is in the scenario of compromise.
+
+325
+00:29:26.770 --> 00:29:27.870
+Mike Lodder: So
+
+326
+00:29:28.410 --> 00:29:33.179
+Mike Lodder: I can't use my level 2 credentials anymore, because I don't know what they are. They changed them on me.
+
+327
+00:29:33.630 --> 00:29:35.920
+Mike Lodder: But my level one is still in effect.
+
+328
+00:29:36.710 --> 00:29:43.090
+Mike Lodder: So I go, okay, where's my Ub key? Oh, shoot! I lost that, too, so I can't use my level one.
+
+329
+00:29:43.310 --> 00:29:45.099
+Mike Lodder: But I could if I had it.
+
+330
+00:29:45.100 --> 00:29:45.850
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+331
+00:29:46.210 --> 00:29:52.460
+Mike Lodder: And they. So then they go. Okay, I'm going to use my level 0 credentials, which is a threshold signature over lit
+
+332
+00:29:53.020 --> 00:30:04.850
+Mike Lodder: lit. I need a signature for this scenario. I jump through all their auth rules, access control rules blah blah! They generate a signature for me. I use that to log in.
+
+333
+00:30:04.970 --> 00:30:07.779
+Mike Lodder: And now I've done an account. Take back.
+
+334
+00:30:09.010 --> 00:30:14.629
+Mike Lodder: And now, because I did level 0, I can rewrite all the rules that were, you know.
+
+335
+00:30:15.040 --> 00:30:16.979
+Mike Lodder: level one level 2 etc.
+
+336
+00:30:17.560 --> 00:30:24.460
+Mike Lodder: I don't need to change. Well, I need to change level one because I lost my yubikey. So I went and bought a new one, so I'll change that. And
+
+337
+00:30:24.720 --> 00:30:30.830
+Mike Lodder: now that I've got my yubikey, I can change level 2. Now. I don't need my yubi key to change level 2. I could have done that with level 0. Also.
+
+338
+00:30:31.980 --> 00:30:36.660
+Mike Lodder: I'm just illustrating that it doesn't matter. As long as I have one. That's higher up.
+
+339
+00:30:36.920 --> 00:30:40.459
+Mike Lodder: I can rewrite everything that's lower priority.
+
+340
+00:30:40.790 --> 00:30:48.249
+Stephen Curran (Cloud Compass Computing Inc.): But it does require. So what you're saying is, you set up all of these on a day to day use. You use level 2.
+
+341
+00:30:48.380 --> 00:30:48.990
+Mike Lodder: Yeah.
+
+342
+00:30:48.990 --> 00:30:56.309
+Stephen Curran (Cloud Compass Computing Inc.): And then you restore. But you do have to in advance. Grab all of the you have to have established the level ones.
+
+343
+00:30:56.830 --> 00:31:11.269
+Mike Lodder: Well. So, for example, a service I would like to create says, Hey, we'll help you set up your auth rules for level 0 and level one, so you can recover your account at any time. If someone manages to get your other stuff.
+
+344
+00:31:11.270 --> 00:31:11.940
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+345
+00:31:12.610 --> 00:31:22.250
+Mike Lodder: And just has monitoring rules. And whatever maybe level 2 is also Zkp based on creds. Yeah, or maybe that's level one. You know, it doesn't matter
+
+346
+00:31:22.480 --> 00:31:26.480
+Mike Lodder: to me. It's like the level 0 is the hardest to to break.
+
+347
+00:31:26.480 --> 00:31:28.040
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, yeah.
+
+348
+00:31:28.040 --> 00:31:31.419
+Mike Lodder: Level one could be slightly less. Maybe it's the same thing.
+
+349
+00:31:31.420 --> 00:31:32.190
+Stephen Curran (Cloud Compass Computing Inc.): Yep.
+
+350
+00:31:32.190 --> 00:31:33.280
+Mike Lodder: Doesn't matter.
+
+351
+00:31:33.400 --> 00:31:37.360
+Mike Lodder: The point is that I'm providing a way to do an account. Take back.
+
+352
+00:31:37.630 --> 00:31:38.260
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+353
+00:31:38.550 --> 00:31:41.459
+Mike Lodder: So my biggest hurdle with this is actually getting
+
+354
+00:31:41.570 --> 00:31:47.459
+Mike Lodder: auth providers to say, Hey, I'm going to allow my users to bring their own auth rules.
+
+355
+00:31:47.460 --> 00:31:48.170
+Stephen Curran (Cloud Compass Computing Inc.): Right.
+
+356
+00:31:48.460 --> 00:31:55.239
+Mike Lodder: So it's it's it's an inversion of the system. Normally, you know, people when they provide a service.
+
+357
+00:31:55.530 --> 00:32:02.059
+Mike Lodder: they go. Okay, I just want to provide the service. I don't really want to care about authenticating people, but I have to.
+
+358
+00:32:02.240 --> 00:32:07.200
+Mike Lodder: So is there an easier system. So in my mind, this is an easier system.
+
+359
+00:32:07.580 --> 00:32:08.250
+Stephen Curran (Cloud Compass Computing Inc.): Yep.
+
+360
+00:32:08.460 --> 00:32:14.319
+Mike Lodder: They would use us and go, okay, yeah, just the users bring their own auth rules. The users define it.
+
+361
+00:32:14.520 --> 00:32:17.519
+Mike Lodder: and then they can reuse that with other providers.
+
+362
+00:32:17.740 --> 00:32:26.590
+Mike Lodder: That would be, you know. Can you imagine how nice it would be where you go to log in to a new system? And it's already using the same rules you already set up somewhere else.
+
+363
+00:32:26.590 --> 00:32:27.410
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, yeah.
+
+364
+00:32:27.410 --> 00:32:29.070
+Mike Lodder: Hate the fact. I have to
+
+365
+00:32:29.230 --> 00:32:42.310
+Mike Lodder: every time I log in. Okay, now create a new authenticator. QR. Code now enable SMS now enable the same Yubi key. I mean, it's like the same thing over and over and over again every time I go to a new provider
+
+366
+00:32:43.120 --> 00:32:45.089
+Mike Lodder: this way I just hand them the rules.
+
+367
+00:32:45.340 --> 00:32:48.919
+Mike Lodder: and if it meets their compliance, they just accept it.
+
+368
+00:32:50.750 --> 00:32:59.350
+Mike Lodder: And I'm done right? Okay, yeah. I see Oauth is one of your authentication rules at level one great. We'll take that
+
+369
+00:32:59.876 --> 00:33:03.050
+Mike Lodder: and whatever you want, you know, it's just.
+
+370
+00:33:03.050 --> 00:33:07.359
+Stephen Curran (Cloud Compass Computing Inc.): Let me hold on, though. Am I having to
+
+371
+00:33:10.057 --> 00:33:18.959
+Stephen Curran (Cloud Compass Computing Inc.): correlation? Am I doing a different set of password, user, id and password? A different key and a different signature at each one.
+
+372
+00:33:19.570 --> 00:33:21.920
+Mike Lodder: You could if you wanted, or you could reuse it.
+
+373
+00:33:21.920 --> 00:33:25.759
+Stephen Curran (Cloud Compass Computing Inc.): Or you could reuse it. But if you reuse it, you're getting
+
+374
+00:33:26.980 --> 00:33:29.649
+Stephen Curran (Cloud Compass Computing Inc.): your correlation, isn't it? Aren't you.
+
+375
+00:33:30.500 --> 00:33:31.450
+Mike Lodder: Yes.
+
+376
+00:33:31.450 --> 00:33:32.220
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, okay.
+
+377
+00:33:32.220 --> 00:33:44.099
+Mike Lodder: You could do. Zk, as well like, I said. The point is, think of like you could use Carrie for this. You could use provenance logs from cryptid. You could use anything you want.
+
+378
+00:33:44.525 --> 00:33:44.950
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+379
+00:33:44.950 --> 00:33:46.420
+Mike Lodder: Define these rules.
+
+380
+00:33:46.560 --> 00:33:52.050
+Mike Lodder: I personally like the provenance log approach. It's simpler, it's easier, and
+
+381
+00:33:53.390 --> 00:34:00.829
+Mike Lodder: you know less of a headache. And but see, it's kind of like, it's all public data. You're just handing public data to them.
+
+382
+00:34:01.160 --> 00:34:04.140
+Mike Lodder: And yeah, they could use that to correlate you.
+
+383
+00:34:04.770 --> 00:34:11.130
+Mike Lodder: Or you could just say, I'm gonna just do the same auth rules. But I want you to randomize everything so that.
+
+384
+00:34:11.139 --> 00:34:17.219
+Stephen Curran (Cloud Compass Computing Inc.): Exactly. I was just thinking that if you get a single credential as one of your levels.
+
+385
+00:34:17.219 --> 00:34:18.019
+Mike Lodder: Monteli.
+
+386
+00:34:20.179 --> 00:34:28.619
+Stephen Curran (Cloud Compass Computing Inc.): And you're using a synonymous identifier that a stable, pseudonymous identifier
+
+387
+00:34:30.999 --> 00:34:36.689
+Stephen Curran (Cloud Compass Computing Inc.): that would give you a single way to do it across all that's non correlatable, but
+
+388
+00:34:36.859 --> 00:34:42.759
+Stephen Curran (Cloud Compass Computing Inc.): but also high level security, interesting.
+
+389
+00:34:43.070 --> 00:34:45.379
+Mike Lodder: Yeah, so there's ways to randomize it.
+
+390
+00:34:45.560 --> 00:34:46.159
+Stephen Curran (Cloud Compass Computing Inc.): Yep.
+
+391
+00:34:46.340 --> 00:34:48.510
+Mike Lodder: So so that you're hidden.
+
+392
+00:34:48.909 --> 00:34:54.210
+Mike Lodder: That's all I'm saying, like there's ways to do it. But the point is, you set it up once, and you can reuse.
+
+393
+00:34:54.219 --> 00:34:54.559
+Stephen Curran (Cloud Compass Computing Inc.): Right.
+
+394
+00:34:54.560 --> 00:34:59.919
+Mike Lodder: Rinse and repeat, without having to repeat the process over and over and over again.
+
+395
+00:34:59.920 --> 00:35:07.680
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, with everyone's doing it differently. So each time you coming up to a new set of rules, yeah.
+
+396
+00:35:08.130 --> 00:35:15.330
+Mike Lodder: Yeah, and you can salt each one. So even though you're reusing the same password, the salt is different or the pepper is different. Whatever right?
+
+397
+00:35:15.980 --> 00:35:16.630
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+398
+00:35:21.190 --> 00:35:23.720
+Stephen Curran (Cloud Compass Computing Inc.): alright, very cool.
+
+399
+00:35:29.830 --> 00:35:37.139
+Stephen Curran (Cloud Compass Computing Inc.): one more that came up this week, if you don't mind me asking pseudonymous identifiers and Dbs.
+
+400
+00:35:37.580 --> 00:35:40.479
+Stephen Curran (Cloud Compass Computing Inc.): it looks like they're using
+
+401
+00:35:41.670 --> 00:35:49.129
+Stephen Curran (Cloud Compass Computing Inc.): the signature of the credential you have. Which means that when the credential, when you get issued a new
+
+402
+00:35:49.410 --> 00:35:56.889
+Stephen Curran (Cloud Compass Computing Inc.): credential, you're gonna get a new pseudonymous identifier at each verifier.
+
+403
+00:36:00.950 --> 00:36:07.939
+Stephen Curran (Cloud Compass Computing Inc.): I believe in the anon Creds. V. 2. You have a way that the
+
+404
+00:36:10.180 --> 00:36:15.490
+Stephen Curran (Cloud Compass Computing Inc.): pseudonymous identifier is based on a an attribute
+
+405
+00:36:15.670 --> 00:36:19.140
+Stephen Curran (Cloud Compass Computing Inc.): so that it can be stable
+
+406
+00:36:20.020 --> 00:36:25.469
+Stephen Curran (Cloud Compass Computing Inc.): across issuance of the same type of credentials. So I have a driver's license.
+
+407
+00:36:26.540 --> 00:36:29.130
+Stephen Curran (Cloud Compass Computing Inc.): I'm logging into a system, and
+
+408
+00:36:29.480 --> 00:36:37.000
+Stephen Curran (Cloud Compass Computing Inc.): they've got a pseudonymous identifier for me, based on my driver's license. I get issued a new driver's license because I moved.
+
+409
+00:36:38.280 --> 00:36:49.440
+Stephen Curran (Cloud Compass Computing Inc.): I want, and I when I go back and use that for authentication at a site. I want it to you. I want the verifier to get the same pseudonymous identifier.
+
+410
+00:36:50.780 --> 00:36:52.249
+Mike Lodder: Yeah. The domain proof.
+
+411
+00:36:52.820 --> 00:37:00.080
+Stephen Curran (Cloud Compass Computing Inc.): So that's possible in in in V 2. So even though I've got.
+
+412
+00:37:00.550 --> 00:37:03.559
+Stephen Curran (Cloud Compass Computing Inc.): I've got a a new version of my
+
+413
+00:37:03.770 --> 00:37:13.410
+Stephen Curran (Cloud Compass Computing Inc.): driver's license because I moved. It's still me. So when I use that to log into another system, I want to be able to log into my own account.
+
+414
+00:37:14.950 --> 00:37:16.160
+Stephen Curran (Cloud Compass Computing Inc.): You know what I mean.
+
+415
+00:37:16.160 --> 00:37:20.360
+Mike Lodder: Yeah, that's the. There's the verifiable decryption approach we've talked about.
+
+416
+00:37:20.360 --> 00:37:21.050
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+417
+00:37:21.830 --> 00:37:23.250
+Mike Lodder: That would do the same thing.
+
+418
+00:37:25.950 --> 00:37:37.300
+Mike Lodder: So you have a stable identifier represents you your identity. Yeah, it's finding all the credentials, whether they're new or old. But when you prove to the various and you know
+
+419
+00:37:37.950 --> 00:37:40.589
+Mike Lodder: verifiers, it all ends up being the same.
+
+420
+00:37:40.760 --> 00:37:46.480
+Mike Lodder: even though they don't know the actual value. There is a identifier just for that pairwise relationship.
+
+421
+00:37:46.480 --> 00:37:49.050
+Stephen Curran (Cloud Compass Computing Inc.): Got it. Okay? Good. Good. That's what I thought.
+
+422
+00:37:50.606 --> 00:37:52.789
+Stephen Curran (Cloud Compass Computing Inc.): Just so, you know the
+
+423
+00:37:52.990 --> 00:37:57.499
+Stephen Curran (Cloud Compass Computing Inc.): I don't know if you've been following along with this forever unlink ability that
+
+424
+00:37:57.750 --> 00:38:07.610
+Stephen Curran (Cloud Compass Computing Inc.): the the Bbs group is hung up on. But they're coming up with using a vector of secrets.
+
+425
+00:38:10.420 --> 00:38:12.379
+Mike Lodder: For what purpose?
+
+426
+00:38:12.380 --> 00:38:14.670
+Mike Lodder: Yeah, I agree and burn it.
+
+427
+00:38:15.740 --> 00:38:20.620
+Stephen Curran (Cloud Compass Computing Inc.): No, no, but the idea would be that you would.
+
+428
+00:38:27.160 --> 00:38:35.480
+Stephen Curran (Cloud Compass Computing Inc.): When you get a credential, the holder would generate a a set of secrets
+
+429
+00:38:36.580 --> 00:38:44.969
+Stephen Curran (Cloud Compass Computing Inc.): that would be used, and then, when you prove it, you would be using those secrets, and a and an attacker would have to require.
+
+430
+00:38:45.300 --> 00:38:56.589
+Stephen Curran (Cloud Compass Computing Inc.): acquire the proof from n different verifiers to be able to correlate the holder.
+
+431
+00:38:56.730 --> 00:39:06.079
+Stephen Curran (Cloud Compass Computing Inc.): They couldn't do it with just a pair, or anything less than n presentations. If they have, they also have to have a quantum
+
+432
+00:39:07.670 --> 00:39:09.019
+Stephen Curran (Cloud Compass Computing Inc.): computer that could.
+
+433
+00:39:11.340 --> 00:39:15.149
+Mike Lodder: Oh, oh, well, I I don't understand enough about it.
+
+434
+00:39:15.150 --> 00:39:15.860
+Stephen Curran (Cloud Compass Computing Inc.): Yeah, okay.
+
+435
+00:39:15.860 --> 00:39:19.386
+Mike Lodder: Unlike. It's really doing what they're proposing.
+
+436
+00:39:20.150 --> 00:39:21.520
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+437
+00:39:22.090 --> 00:39:23.120
+Stephen Curran (Cloud Compass Computing Inc.): Say, right? Now.
+
+438
+00:39:23.240 --> 00:39:27.179
+Mike Lodder: Versus one, but I'm going to store them all in the same place.
+
+439
+00:39:27.898 --> 00:39:31.480
+Mike Lodder: It's no different than just having one strong secret.
+
+440
+00:39:32.670 --> 00:39:33.370
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+441
+00:39:37.660 --> 00:39:39.146
+Stephen Curran (Cloud Compass Computing Inc.): All right.
+
+442
+00:39:45.690 --> 00:39:48.839
+Mike Lodder: I should probably take a look at that, and maybe report back next time.
+
+443
+00:39:48.840 --> 00:39:49.300
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+444
+00:39:49.300 --> 00:39:51.899
+Mike Lodder: I haven't looked at it to see how it how it works. Yet.
+
+445
+00:39:51.900 --> 00:39:57.719
+Stephen Curran (Cloud Compass Computing Inc.): Okay, I'll I'll send some stuff in over to you about that.
+
+446
+00:39:58.288 --> 00:40:07.510
+Stephen Curran (Cloud Compass Computing Inc.): But yeah, I mean the big risk they they're saying, is that the way they did the pseudonymous identifiers with just a single secret that.
+
+447
+00:40:07.900 --> 00:40:16.259
+Stephen Curran (Cloud Compass Computing Inc.): given a post quantum computer sometime in the future, you could collect a bunch of presentations
+
+448
+00:40:16.420 --> 00:40:23.380
+Stephen Curran (Cloud Compass Computing Inc.): and be able to correlate the holder across verifiers, so you could say, Oh, this is the same holder.
+
+449
+00:40:24.780 --> 00:40:31.599
+Mike Lodder: Yes, yes, yeah. So I'm verifiable encryption approach. Yes. Has that vulnerability correct?
+
+450
+00:40:32.020 --> 00:40:35.900
+Mike Lodder: I'm not sure how having a vector of secrets is better.
+
+451
+00:40:36.060 --> 00:40:48.519
+Stephen Curran (Cloud Compass Computing Inc.): Yeah. And that's what they're saying is, if I have a vector of secrets, then the attacker would have to have n presentations to be able to break it. It would have to have enough for all the secrets.
+
+452
+00:40:49.500 --> 00:40:55.000
+Stephen Curran (Cloud Compass Computing Inc.): and I don't. I don't know why, obviously, but that's what they're that's their solution for it.
+
+453
+00:40:55.370 --> 00:40:58.179
+Mike Lodder: I don't know if that's much better. Lap because it's like, look.
+
+454
+00:40:58.360 --> 00:41:12.569
+Mike Lodder: if I get one, I break you. I I still have to collect it from another one to correlate you in both approaches. So if I can collect it from all of them, or enough of them, what they're basically saying is, we require at least a threshold to be able to tell us
+
+455
+00:41:12.570 --> 00:41:14.230
+Mike Lodder: exactly. Yes.
+
+456
+00:41:15.860 --> 00:41:21.350
+Mike Lodder: I mean, I can see where they're going with it. I just don't know if it's achieving what they propose.
+
+457
+00:41:21.350 --> 00:41:21.960
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+458
+00:41:22.950 --> 00:41:27.930
+Mike Lodder: Because if I want to know if I want to know that Steven Curran
+
+459
+00:41:28.110 --> 00:41:30.699
+Mike Lodder: presented to the British Columbia Government
+
+460
+00:41:32.180 --> 00:41:37.440
+Mike Lodder: then or somewhere else, I'm still going to collect the data from both, and post quantum attack it.
+
+461
+00:41:38.270 --> 00:41:39.280
+Mike Lodder: Yeah.
+
+462
+00:41:40.890 --> 00:41:43.470
+Mike Lodder: So to me, it's not really that useful.
+
+463
+00:41:43.470 --> 00:41:45.240
+Stephen Curran (Cloud Compass Computing Inc.): But they're saying that
+
+464
+00:41:45.580 --> 00:41:53.659
+Stephen Curran (Cloud Compass Computing Inc.): right now, like I, British Columbia Government and the Law Society. If I got proofs from both of those I could then correlate
+
+465
+00:41:53.870 --> 00:41:55.400
+Stephen Curran (Cloud Compass Computing Inc.): the different users.
+
+466
+00:41:55.560 --> 00:42:04.580
+Stephen Curran (Cloud Compass Computing Inc.): whereas if there's 20 of them, I would have to get to 20 different verifiers. Get the data from 20 different verifiers in order to correlate them.
+
+467
+00:42:05.420 --> 00:42:11.750
+Mike Lodder: Yeah, I'm gonna have to see how that works. I don't know why you couldn't just do. Oh, well, I'll just do a
+
+468
+00:42:11.990 --> 00:42:16.869
+Mike Lodder: I'll just Shamir secret, share my secret, split it into with a threshold of 20,
+
+469
+00:42:17.070 --> 00:42:18.410
+Mike Lodder: and do the same thing.
+
+470
+00:42:19.340 --> 00:42:20.880
+Stephen Curran (Cloud Compass Computing Inc.): Oh, I see. Yeah.
+
+471
+00:42:20.880 --> 00:42:21.530
+Mike Lodder: Right.
+
+472
+00:42:21.530 --> 00:42:22.110
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+473
+00:42:23.550 --> 00:42:24.109
+Mike Lodder: And then
+
+474
+00:42:24.110 --> 00:42:31.830
+Mike Lodder: go all with the people. Then you're an index 0 index, one index 2, because it's basically tracking the same thing. But I'm using
+
+475
+00:42:33.049 --> 00:42:42.949
+Mike Lodder: threshold cryptography versus like their multi sick approach, which is, Oh, I'm just gonna generate 20 secrets. Manage 20 of them. Yeah.
+
+476
+00:42:42.950 --> 00:42:43.350
+Stephen Curran (Cloud Compass Computing Inc.): Yeah.
+
+477
+00:42:43.740 --> 00:42:48.090
+Mike Lodder: So, anyway.
+
+478
+00:42:48.910 --> 00:42:56.370
+Mike Lodder: let me take a look at it. I'm not sure what they're proposing. Maybe they're proposing exactly what I just suggest, or something completely different. I don't know.
+
+479
+00:42:56.850 --> 00:42:57.450
+Mike Lodder: Alright!
+
+480
+00:42:57.450 --> 00:42:59.339
+Mike Lodder: Say what it is without having read it.
+
+481
+00:42:59.340 --> 00:43:08.310
+Stephen Curran (Cloud Compass Computing Inc.): Okay, I'll I'll send over the references. There's a particular email that describes it. That's it's probably the easiest thing. I'll just send that over to you.
+
+482
+00:43:08.960 --> 00:43:09.590
+Mike Lodder: Great.
+
+483
+00:43:09.720 --> 00:43:10.770
+Stephen Curran (Cloud Compass Computing Inc.): Good, awesome.
+
+484
+00:43:10.980 --> 00:43:13.279
+Stephen Curran (Cloud Compass Computing Inc.): Alright, Mike, good to catch up with you.
+
+485
+00:43:13.590 --> 00:43:14.812
+Mike Lodder: Yeah. See? Ya.
+
+486
+00:43:15.220 --> 00:43:16.022
+Stephen Curran (Cloud Compass Computing Inc.): See ya bye.
+

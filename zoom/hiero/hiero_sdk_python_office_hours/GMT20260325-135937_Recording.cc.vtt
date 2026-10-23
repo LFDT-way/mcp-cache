@@ -1,0 +1,836 @@
+WEBVTT
+
+00:06:37.000 --> 00:06:40.000
+to just sitting in the background.
+
+00:06:40.000 --> 00:06:48.000
+I think I have some suggestions. Before that, we can start from, uh, Aditya. Aditya, do you have any question, idea, suggestion for…
+
+00:06:48.000 --> 00:07:07.000
+Python SDK.
+
+00:07:07.000 --> 00:07:19.000
+Okay. That's sweet.
+
+00:07:19.000 --> 00:07:49.000
+I actually…
+
+00:08:19.000 --> 00:08:24.000
+So, I think I'm not aware around this, like…
+
+00:08:24.000 --> 00:08:26.000
+Sophie, can you see the chat, and…
+
+00:08:26.000 --> 00:08:32.000
+Can you reply this?
+
+00:08:32.000 --> 00:08:37.000
+Yeah, um, so the TCK…
+
+00:08:37.000 --> 00:08:40.000
+is tests.
+
+00:08:40.000 --> 00:08:48.000
+To compare how well our transactions match.
+
+00:08:48.000 --> 00:08:50.000
+match the protobufs.
+
+00:08:50.000 --> 00:08:53.000
+requirement. So, let me just…
+
+00:08:53.000 --> 00:09:05.000
+pull up the CPP one to show you.
+
+00:09:05.000 --> 00:09:35.000
+Might take me, like, a minute to figure out where this is.
+
+00:09:53.000 --> 00:09:57.000
+Yeah, so, um, there was an issue…
+
+00:09:57.000 --> 00:10:00.000
+Rob is the maintainer for the Swift.
+
+00:10:00.000 --> 00:10:02.000
+SDK and also the C++.
+
+00:10:02.000 --> 00:10:08.000
+SDK, he created this issue a long time ago.
+
+00:10:08.000 --> 00:10:14.000
+Uh, I'm gonna put it in the chat.
+
+00:10:14.000 --> 00:10:18.000
+Yeah, like, I'm aware of that thing, but…
+
+00:10:18.000 --> 00:10:19.000
+Yeah.
+
+00:10:19.000 --> 00:10:27.000
+Uh, for the other TCK implementation, like, uh, what Maniz has implemented for, I guess, for the account create transaction and other stuffs,
+
+00:10:27.000 --> 00:10:32.000
+So, I was, uh, doing in the C++ SDK, and, uh, uh…
+
+00:10:32.000 --> 00:10:43.000
+And I was, like, curious of how we are going to implement that in the Python. So, he told, like, we are still figuring it out how well we can optimize and how well we can write, uh…
+
+00:10:43.000 --> 00:10:47.000
+the TCK server, and it's mostly, uh, similar to the…
+
+00:10:47.000 --> 00:10:50.000
+JS and the Go SDK.
+
+00:10:50.000 --> 00:10:58.000
+So, yeah, like, I just wanted to know what we are up to right now. It's still long.
+
+00:10:58.000 --> 00:11:01.000
+Um, so we don't have a plan, we just need to create all the tests.
+
+00:11:01.000 --> 00:11:03.000
+Uh, yeah.
+
+00:11:03.000 --> 00:11:04.000
+Mm-hmm, okay, okay.
+
+00:11:04.000 --> 00:11:07.000
+So, right now, Manish only created…
+
+00:11:07.000 --> 00:11:09.000
+1… 4…
+
+00:11:09.000 --> 00:11:10.000
+Yeah, so…
+
+00:11:10.000 --> 00:11:13.000
+create an account. So we only have one…
+
+00:11:13.000 --> 00:11:15.000
+CCK endpoint for account.
+
+00:11:15.000 --> 00:11:20.000
+Let's create. And with that, he found lots of bugs. That's why it took a long time, because he had to fix the bugs.
+
+00:11:20.000 --> 00:11:24.000
+So, that means inside the TCK file,
+
+00:11:24.000 --> 00:11:27.000
+We only have…
+
+00:11:27.000 --> 00:11:30.000
+the parameters for account.
+
+00:11:30.000 --> 00:11:33.000
+Yeah, like, also he said that, uh, all of the…
+
+00:11:33.000 --> 00:11:45.000
+like, for account transactions, for example, account create, account delete, account update, and etc. will be inside one file. Yeah, so this one will contain all of the files.
+
+00:11:45.000 --> 00:11:48.000
+For that, but unlike in the C++, we have, uh, uh…
+
+00:11:48.000 --> 00:11:54.000
+separate, uh, what we can say, separate tree secant endpoints for, uh, every…
+
+00:11:54.000 --> 00:11:58.000
+TC… you're getting right.
+
+00:11:58.000 --> 00:12:01.000
+It means every folder would have each and every…
+
+00:12:01.000 --> 00:12:03.000
+endpoints.
+
+00:12:03.000 --> 00:12:07.000
+Yeah, I was trying to find it, but yeah, I know what you mean. It's okay, we can change it. So, inside here…
+
+00:12:07.000 --> 00:12:10.000
+Yeah, yeah, yeah.
+
+00:12:10.000 --> 00:12:11.000
+Mm-hmm.
+
+00:12:11.000 --> 00:12:15.000
+As we add more things. Like, right now, maybe it makes sense to have it like this, but we could add a new file for, like, accounts.
+
+00:12:15.000 --> 00:12:20.000
+Similar to how we structure SRC, right? So, our SRC…
+
+00:12:20.000 --> 00:12:26.000
+has account, and then, like, if we want to add files, we'll just add file stuff, token stuff.
+
+00:12:26.000 --> 00:12:28.000
+Yeah, right, right.
+
+00:12:28.000 --> 00:12:33.000
+So, I think I imagine that's how it's going to end up being structured, because this is already…
+
+00:12:33.000 --> 00:12:37.000
+We've only added a test, basically, for create…
+
+00:12:37.000 --> 00:12:43.000
+count. That's it. So we need to do all of the other account services.
+
+00:12:43.000 --> 00:12:45.000
+So what are the other account services? It's like…
+
+00:12:45.000 --> 00:12:48.000
+Account balance, account approve, Account Delete…
+
+00:12:48.000 --> 00:12:49.000
+Yeah, right.
+
+00:12:49.000 --> 00:12:52.000
+All of these need to be created and tested.
+
+00:12:52.000 --> 00:12:55.000
+And then this is the pull request.
+
+00:12:55.000 --> 00:12:58.000
+with the documentation that tells you…
+
+00:12:58.000 --> 00:13:01.000
+what the tests need to look like.
+
+00:13:01.000 --> 00:13:03.000
+And if you look at the…
+
+00:13:03.000 --> 00:13:07.000
+Um, if you look at the Swift…
+
+00:13:07.000 --> 00:13:10.000
+Where'd I put it?
+
+00:13:10.000 --> 00:13:16.000
+For example, I was pointing here, like, there are some similar examples, so all you need to do is be like, oh,
+
+00:13:16.000 --> 00:13:18.000
+We don't have any tests.
+
+00:13:18.000 --> 00:13:21.000
+Or…
+
+00:13:21.000 --> 00:13:24.000
+Um…
+
+00:13:24.000 --> 00:13:26.000
+That's tokens, right? So let's go back.
+
+00:13:26.000 --> 00:13:28.000
+We have no tests for…
+
+00:13:28.000 --> 00:13:32.000
+account, so we need to create this.
+
+00:13:32.000 --> 00:13:36.000
+We have no tests for tokens, so we'll create this. Actually, yeah, here, they're all together.
+
+00:13:36.000 --> 00:13:37.000
+Um, then the users create.
+
+00:13:37.000 --> 00:13:45.000
+Yeah, like, this is the executable file, so it contains a single thing, but in the params, uh, all the other stuffs for the tokens are there.
+
+00:13:45.000 --> 00:13:50.000
+So, like, if you go to the TCK and then params, uh, yeah, TCK then…
+
+00:13:50.000 --> 00:13:52.000
+SR, include, sorry, include, include.
+
+00:13:52.000 --> 00:13:56.000
+Include, include, yeah, yeah. I then go to the, uh, accounts,
+
+00:13:56.000 --> 00:13:59.000
+Yeah. I think the structure's not too important, feel free to, like, move things around, we could just…
+
+00:13:59.000 --> 00:14:01.000
+up there, yeah, right.
+
+00:14:01.000 --> 00:14:08.000
+do it similarly, but the key thing is when you create the test, we want to create them one at a time.
+
+00:14:08.000 --> 00:14:09.000
+Okay, yeah.
+
+00:14:09.000 --> 00:14:13.000
+I mean, you could try and create all the tests together, but I don't think that will…
+
+00:14:13.000 --> 00:14:14.000
+I mean, you could, you could.
+
+00:14:14.000 --> 00:14:16.000
+Yeah, that is not… that thing, I guess it's not…
+
+00:14:16.000 --> 00:14:19.000
+feasible for, uh, for the contributor as well.
+
+00:14:19.000 --> 00:14:20.000
+Because… yeah.
+
+00:14:20.000 --> 00:14:23.000
+Yeah, we'll make everything slower as well, Mimi.
+
+00:14:23.000 --> 00:14:24.000
+Uh, yes.
+
+00:14:24.000 --> 00:14:27.000
+Maybe you could create all of the account ones if you wanted, and then…
+
+00:14:27.000 --> 00:14:30.000
+But some of them depend on previous tests existing.
+
+00:14:30.000 --> 00:14:31.000
+Ah, yes, right.
+
+00:14:31.000 --> 00:14:38.000
+So I imagine if you want to create delete account, you need to also have created the account before, and stuff like that.
+
+00:14:38.000 --> 00:14:42.000
+Um, yeah, so I… I am not gonna create…
+
+00:14:42.000 --> 00:14:46.000
+issues, because I haven't… I don't have the time right now to research how to, like,
+
+00:14:46.000 --> 00:14:51.000
+separate them and structure them and everything, but there's nothing stopping anyone else.
+
+00:14:51.000 --> 00:14:54.000
+From being like, hey, we don't have any tests for…
+
+00:14:54.000 --> 00:15:01.000
+The remaining account ones, and then you just look at the similar examples.
+
+00:15:01.000 --> 00:15:02.000
+Yeah, right, right.
+
+00:15:02.000 --> 00:15:05.000
+And then you just create them.
+
+00:15:05.000 --> 00:15:07.000
+Yeah.
+
+00:15:07.000 --> 00:15:13.000
+That would show, like, good skills, like, pretty advanced skills, like, if you are able to…
+
+00:15:13.000 --> 00:15:16.000
+Um, self-direct with that as well.
+
+00:15:16.000 --> 00:15:18.000
+And you have… so you have these two…
+
+00:15:18.000 --> 00:15:23.000
+PRs to, like, study, and they have all the information down.
+
+00:15:23.000 --> 00:15:28.000
+How to create the tests and what they should look like.
+
+00:15:28.000 --> 00:15:35.000
+So we have loads and loads of TCK tests to do, and I think it's a really good thing to do, because you will find bugs.
+
+00:15:35.000 --> 00:15:39.000
+And then that will help improve your, uh, knowledge of the…
+
+00:15:39.000 --> 00:15:42.000
+So it's great.
+
+00:15:42.000 --> 00:15:50.000
+Hi, Daniel.
+
+00:15:50.000 --> 00:15:51.000
+Yeah, I'm good, thank you.
+
+00:15:51.000 --> 00:15:57.000
+Hi, how are you?
+
+00:15:57.000 --> 00:16:04.000
+Yep, so if you want to create TCK tests, just create an issue and go ahead.
+
+00:16:04.000 --> 00:16:07.000
+But there are any other questions with how to do it, or…?
+
+00:16:07.000 --> 00:16:09.000
+I know, yes, uh…
+
+00:16:09.000 --> 00:16:16.000
+Right, now it's… anything.
+
+00:16:16.000 --> 00:16:19.000
+Yeah, the only thing is, if you are gonna solve bugs,
+
+00:16:19.000 --> 00:16:24.000
+After you do a TCK test, I would recommend opening that as a separate issue.
+
+00:16:24.000 --> 00:16:28.000
+Because we had a problem with Manish's PR, like, it became really big.
+
+00:16:28.000 --> 00:16:32.000
+And it took a long time to make, because he did the tests.
+
+00:16:32.000 --> 00:16:35.000
+And then he did the bug fixes in the same PR.
+
+00:16:35.000 --> 00:17:05.000
+I think it's better to separate them.
+
+00:17:42.000 --> 00:17:49.000
+Alright, I think I have a idea. Sorry, but yeah. So, it's like, uh…
+
+00:17:49.000 --> 00:17:54.000
+I was thinking key, these workflows, we have too many workflows.
+
+00:17:54.000 --> 00:18:03.000
+And they run on every commit, so can we take some of the workflows and run them locally? Like, how are pre-commit webhooks works, you know?
+
+00:18:03.000 --> 00:18:09.000
+So it's becoming easy for them, and they also get on their commit only, okay, you missed this.
+
+00:18:09.000 --> 00:18:16.000
+You do not change lobes or something.
+
+00:18:16.000 --> 00:18:20.000
+Um, like, a way of testing the pulruck, too.
+
+00:18:20.000 --> 00:18:22.000
+the pull requests.
+
+00:18:22.000 --> 00:18:31.000
+Like, I'm not testing when, like, the workflows run when somebody opens a PR to mean, uh… so I think, uh…
+
+00:18:31.000 --> 00:18:38.000
+I have seen, like, NPM test, NPM, like, unit tests and integration test can be run locally.
+
+00:18:38.000 --> 00:18:46.000
+Uh, if we integrate that with the webhook to the git commit command, well, uh, somebody tries git commit command,
+
+00:18:46.000 --> 00:18:57.000
+So, integration would be running, and then only the commit would be, uh, like, successful, else it would be, like, okay, you can't commit until you're… you can't fix this unit test, like…
+
+00:18:57.000 --> 00:18:59.000
+If you break something.
+
+00:18:59.000 --> 00:19:01.000
+So, it locally runs…
+
+00:19:01.000 --> 00:19:03.000
+So, I think that helps.
+
+00:19:03.000 --> 00:19:05.000
+too much…
+
+00:19:05.000 --> 00:19:06.000
+Well, yeah.
+
+00:19:06.000 --> 00:19:17.000
+Yeah. Think of also evidenced it somewhere, so it first run the, for example, you can have pre-commit configurations.
+
+00:19:17.000 --> 00:19:18.000
+So…
+
+00:19:18.000 --> 00:19:27.000
+Yeah, it should run, like… I think example and int… uh, not integration, unit test…
+
+00:19:27.000 --> 00:19:33.000
+DOC check, this can be the pre-commit checks, like,
+
+00:19:33.000 --> 00:19:54.000
+Yeah, because I also configured it somewhere where you, for example, you first check the linking of the of the… of the repo before it, what? Before it commits anything. So I think that can work, but… For every commit, it will have to make the… those pre-commit configurations.
+
+00:19:54.000 --> 00:20:00.000
+So it means that someone to commit something has to have everything checked and cleared.
+
+00:20:00.000 --> 00:20:05.000
+Yeah, that, that, at the end improves our efficiency and reduces our server loads.
+
+00:20:05.000 --> 00:20:08.000
+as a GitHub action, uh, because our runners are running too much.
+
+00:20:08.000 --> 00:20:12.000
+Like, if somebody posts something, or PR is in, like,
+
+00:20:12.000 --> 00:20:15.000
+are not ready for review. He's testing something.
+
+00:20:15.000 --> 00:20:18.000
+Uh, it runs alone.
+
+00:20:18.000 --> 00:20:19.000
+Yep.
+
+00:20:19.000 --> 00:20:24.000
+So, I think if it runs locally, that would be much better.
+
+00:20:24.000 --> 00:20:27.000
+We have, um…
+
+00:20:27.000 --> 00:20:32.000
+We have some of these.
+
+00:20:32.000 --> 00:20:37.000
+Um, yeah, I think you have to figure out how that would work, and how it would fit into… to everything.
+
+00:20:37.000 --> 00:20:44.000
+Um, my only thought, if you need, like, a playground to figure things out, you would create a repo
+
+00:20:44.000 --> 00:20:48.000
+in Hyro Hackers. I think there's a good use case to having, like, a…
+
+00:20:48.000 --> 00:20:53.000
+repo dedicated to workflows?
+
+00:20:53.000 --> 00:20:55.000
+Where we can, like, test…
+
+00:20:55.000 --> 00:20:59.000
+everything out with the workflows, or the hooks, or whatever.
+
+00:20:59.000 --> 00:21:05.000
+And then we're like, okay, yeah, let's just copy it into the Python SDK and stuff like that.
+
+00:21:05.000 --> 00:21:09.000
+So that's one option, like, creating a new repo here. Let me give you the link.
+
+00:21:09.000 --> 00:21:15.000
+I think, yeah, we can create a repo there, and we… like, uh, I was…
+
+00:21:15.000 --> 00:21:16.000
+Or figure out how to eat it.
+
+00:21:16.000 --> 00:21:25.000
+Uh, I was looking around solo, they are trying to reduce the solo node, when you can run single node nouns, 12GB RAM only.
+
+00:21:25.000 --> 00:21:31.000
+Previously, it was, uh, 16 and 24, but they reduced, like, massively.
+
+00:21:31.000 --> 00:21:32.000
+Yeah, I caught…
+
+00:21:32.000 --> 00:21:33.000
+And I think they are trying to reduce it
+
+00:21:33.000 --> 00:21:35.000
+Uh… yeah.
+
+00:21:35.000 --> 00:21:39.000
+I can run integration tests locally, I don't have that much, I have to…
+
+00:21:39.000 --> 00:21:46.000
+have a server, so I don't… I don't think most people will be able to, like, run the integration tests.
+
+00:21:46.000 --> 00:21:47.000
+locally.
+
+00:21:47.000 --> 00:22:00.000
+I think they are trying, like, a solo team is trying, so they can reduce from 12GB current RAM, the required is 12, say they reduce from 24 to 12, now they are trying to reduce it, like,
+
+00:22:00.000 --> 00:22:13.000
+8 or 6-something. So, once they achieve that, then we can add pre-commit hook of, like, our integration. But initial stage, like, phase one, we can add our unit test, DOC, change log,
+
+00:22:13.000 --> 00:22:19.000
+And there are nearly 10 to 12 workflows that basically need to be run
+
+00:22:19.000 --> 00:22:24.000
+Without a maintainer thing.
+
+00:22:24.000 --> 00:22:25.000
+Yeah, I think, well, that all sounds like a good idea. We would just have to have someone who does it, right?
+
+00:22:25.000 --> 00:22:34.000
+Yeah.
+
+00:22:34.000 --> 00:22:35.000
+Yeah, so not. I was just thinking, I just see, like, there's, uh, NPM repository, so they are doing key, when you commit something, uh…
+
+00:22:35.000 --> 00:22:42.000
+in a safe way, and creates a plan and everything.
+
+00:22:42.000 --> 00:22:53.000
+to NPM packages, so you have to run that packages locally, build and test everything, then only you can push that PR to the repository. So, these basic checks are already taken.
+
+00:22:53.000 --> 00:22:56.000
+So…
+
+00:22:56.000 --> 00:23:03.000
+I don't remember where I see, so I can't share that. But if I see it again, I'll share it.
+
+00:23:03.000 --> 00:23:08.000
+I have something that I can share. Let me share it.
+
+00:23:08.000 --> 00:23:11.000
+Sure, like, I missed that link.
+
+00:23:11.000 --> 00:23:23.000
+Let's see… Let me check it here… let me check it here…
+
+00:23:23.000 --> 00:23:53.000
+Right.
+
+00:24:33.000 --> 00:24:46.000
+I have shared it.
+
+00:24:46.000 --> 00:24:48.000
+Yeah, so PNPM run.
+
+00:24:48.000 --> 00:24:52.000
+So it's just for lint now?
+
+00:24:52.000 --> 00:24:55.000
+So we can add more…
+
+00:24:55.000 --> 00:24:56.000
+Ah, yeah. Ha, that's it.
+
+00:24:56.000 --> 00:25:08.000
+Yeah, yeah, it's just an example. So so because because because even on this repo, we have linking tests there. So when you run them locally and they pass, it means that even.
+
+00:25:08.000 --> 00:25:21.000
+Even what… if you're committing, and these tests pass, so even if it goes up, it will just pass even. You will know that they will pass.
+
+00:25:21.000 --> 00:25:34.000
+Because at the time… at the time you reach the committing stage, and the committee is successful, then it means that your link is… your linking is what is fine. So it was just an exam.
+
+00:25:34.000 --> 00:25:37.000
+Yeah.
+
+00:25:37.000 --> 00:25:41.000
+Nice.
+
+00:25:41.000 --> 00:25:53.000
+I think other than that, I can show something else. That was the one part of the idea. Second, I think I have created an issue for the website. Sorry to share here.
+
+00:25:53.000 --> 00:25:55.000
+But I think I would be not…
+
+00:25:55.000 --> 00:25:59.000
+And, uh, meeting of that.
+
+00:25:59.000 --> 00:26:06.000
+So, if we use dark mode, so our website would be looking like this one. So I think our logo…
+
+00:26:06.000 --> 00:26:07.000
+Can you guys see my screen?
+
+00:26:07.000 --> 00:26:10.000
+Can you send the link?
+
+00:26:10.000 --> 00:26:17.000
+So, just the logo of Hiroh is, like, uh, needs some changes, else everything looks fine, like…
+
+00:26:17.000 --> 00:26:25.000
+I use dark mode, so it's, like, more preferred for developers, so I think it look much prettier in the dark mode.
+
+00:26:25.000 --> 00:26:30.000
+doing vlogs…
+
+00:26:30.000 --> 00:26:31.000
+That's the website looking in the dark mode. Even THC pics and everything is fine.
+
+00:26:31.000 --> 00:26:43.000
+Yep.
+
+00:26:43.000 --> 00:26:46.000
+I think, uh, Henry closed that, right? Like, what was his feedback?
+
+00:26:46.000 --> 00:26:52.000
+It really looks good, but yeah, I don't understand how much code he had to change and how hard it is to maintain it.
+
+00:26:52.000 --> 00:27:08.000
+Uh, it… I don't think too much code to be changed, because recently Solo has added… I've opened for them also, because I was reading their documentation, and why I… when I did not find a dark mode, so it's very hard for me, like, to read any documents and everything.
+
+00:27:08.000 --> 00:27:10.000
+So, they have added, so, like, it's low.
+
+00:27:10.000 --> 00:27:12.000
+then they have added through Copilot only, so they assigned the tissue to Copilot only.
+
+00:27:12.000 --> 00:27:15.000
+Uh, so…
+
+00:27:15.000 --> 00:27:19.000
+That exceeds.
+
+00:27:19.000 --> 00:27:20.000
+Yeah.
+
+00:27:20.000 --> 00:27:25.000
+So, so, so you're talking about the website implementation of the dark part.
+
+00:27:25.000 --> 00:27:28.000
+Yeah. No, currently I'm using an extension for the dark mode.
+
+00:27:28.000 --> 00:27:31.000
+Uh, so, uh… Hmm.
+
+00:27:31.000 --> 00:27:35.000
+But if we can have a toggle button or something, so we can just move through.
+
+00:27:35.000 --> 00:27:42.000
+So I can remove my extension from this website.
+
+00:27:42.000 --> 00:28:12.000
+Okay. Let me see, let me see… I think we… let me see here… there's something I don't… Let's check out here…
+
+00:28:13.000 --> 00:28:25.000
+Yeah. The good thing is that for next.js, it has a theming. What is theming structure it uses. So.
+
+00:28:25.000 --> 00:28:26.000
+Uh, but I think we have a…
+
+00:28:26.000 --> 00:28:27.000
+It can not be hard to do that.
+
+00:28:27.000 --> 00:28:39.000
+I think Hendrik opened a comment that says, like, uh, it was true if some pick or, like, static asset has, uh, let's suppose black background, then it
+
+00:28:39.000 --> 00:28:45.000
+focus is, like, if you enable dark mode, it gets blended into it now.
+
+00:28:45.000 --> 00:28:50.000
+So I think his concern to us that, like, the borderlines around this…
+
+00:28:50.000 --> 00:28:53.000
+or need to be taken care of.
+
+00:28:53.000 --> 00:29:03.000
+I can share that issue.
+
+00:29:03.000 --> 00:29:19.000
+And…
+
+00:29:19.000 --> 00:29:24.000
+Yeah, maybe we need to talk about this in, like, the Hiero Community Cool as well?
+
+00:29:24.000 --> 00:29:28.000
+Just to get Hendrik's opinion, because I think he closed down the issue.
+
+00:29:28.000 --> 00:29:33.000
+Which was, like, to change the hiring website into Dark Mode.
+
+00:29:33.000 --> 00:29:45.000
+I don't think he liked it for whatever reason, I don't know. Funny or so he closed it down.
+
+00:29:45.000 --> 00:30:02.000
+I think it's not his style cause even, even, even because I was once interacted with him even on the OpenMN's website. I think he doesn't like it as him. So according to his view cause.
+
+00:30:02.000 --> 00:30:09.000
+He doesn't like it much, so I think that's why he closed it.
+
+00:30:09.000 --> 00:30:11.000
+Yep, we should ask him to learn more.
+
+00:30:11.000 --> 00:30:18.000
+Um, when will we see him next, which probably will be on the community call, for sure.
+
+00:30:18.000 --> 00:30:19.000
+Um…
+
+00:30:19.000 --> 00:30:20.000
+Yeah, look, he mentioned around to ask in the marketing goal.
+
+00:30:20.000 --> 00:30:23.000
+Just…
+
+00:30:23.000 --> 00:30:33.000
+So, I think I would be not available in that call, that's why I discussed. I had already. So, if somebody has, like, can help me out to discuss with Henrik, that would be, like,
+
+00:30:33.000 --> 00:30:37.000
+I can see the recording, but yeah.
+
+00:30:37.000 --> 00:30:41.000
+Oh, yeah, yeah, okay, so, like, blog posts. I think that…
+
+00:30:41.000 --> 00:30:43.000
+might make sense?
+
+00:30:43.000 --> 00:30:48.000
+If they have pictures, you need
+
+00:30:48.000 --> 00:30:53.000
+pictures with a dark background or something.
+
+00:30:53.000 --> 00:31:08.000
+Does he have designers in place already? I thought there was a message saying that he had hired someone or maybe found someone to do kind of like a new design.
+
+00:31:08.000 --> 00:31:10.000
+Yeah, but I don't know…
+
+00:31:10.000 --> 00:31:11.000
+I think he's waiting for…
+
+00:31:11.000 --> 00:31:12.000
+Yeah.
+
+00:31:12.000 --> 00:31:15.000
+Meeting Chattan.
+
+00:31:15.000 --> 00:31:16.000
+I don't have to… Sorry.
+
+00:31:16.000 --> 00:31:17.000
+Oh.
+
+00:31:17.000 --> 00:31:21.000
+the proposals.
+
+00:31:21.000 --> 00:31:25.000
+Yeah, we just need to wait a bit longer to see.
+
+00:31:25.000 --> 00:31:28.000
+what… what is proposed.
+
+00:31:28.000 --> 00:31:36.000
+Um, but okay, great, so I think, when's the next call where we can talk about all of these things?
+
+00:31:36.000 --> 00:31:40.000
+Because some of these questions are not Python-specific.
+
+00:31:40.000 --> 00:31:47.000
+I'm just looking at the calendar.
+
+00:31:47.000 --> 00:31:49.000
+No, it's finally…
+
+00:31:49.000 --> 00:31:50.000
+I knew…
+
+00:31:50.000 --> 00:31:55.000
+Hiro, monthly maintainers, maybe you can bring it up there.
+
+00:31:55.000 --> 00:31:59.000
+Which is in half an hour. Otherwise…
+
+00:31:59.000 --> 00:32:02.000
+maybe have to wait…
+
+00:32:02.000 --> 00:32:04.000
+Till the 31st?
+
+00:32:04.000 --> 00:32:06.000
+I mean, yeah.
+
+00:32:06.000 --> 00:32:09.000
+Or…
+
+00:32:09.000 --> 00:32:15.000
+The second has a community call. That's probably, like, the safest one, hire a community call, and then we can ask Kendrick, like,
+
+00:32:15.000 --> 00:32:17.000
+a lot about…
+
+00:32:17.000 --> 00:32:20.000
+what's being proposed at the website.
+
+00:32:20.000 --> 00:32:26.000
+Um, anyway, cool, this call is just meant to be half an hour, and we've drifted into non-Python topics.
+
+00:32:26.000 --> 00:32:28.000
+So, I will suggest, um, catching up in those articles.
+
+00:32:28.000 --> 00:32:31.000
+Okay. Yeah. Okay.
+
+00:32:31.000 --> 00:32:35.000
+Bye, guys.
+
+00:32:35.000 --> 00:32:42.000
+Bye.
+
