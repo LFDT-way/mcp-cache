@@ -1,0 +1,2014 @@
+WEBVTT
+
+1
+00:03:35.320 --> 00:03:36.089
+Jay-Alexander Elliot: Yes, Sam.
+
+2
+00:03:36.400 --> 00:03:37.479
+Jay-Alexander Elliot: Thank you, Anna.
+
+3
+00:04:26.610 --> 00:04:28.140
+Samuel Smith: Hey, can you guys hear me?
+
+4
+00:04:29.730 --> 00:04:30.410
+Ryan Hansen: Yep.
+
+5
+00:04:30.760 --> 00:04:32.180
+Samuel Smith: Yeah, okay, great. Yep.
+
+6
+00:04:33.550 --> 00:04:36.619
+Samuel Smith: Guess we're, waiting for,
+
+7
+00:04:37.430 --> 00:04:46.949
+Samuel Smith: Kent and or Daniel, and or, jonathan… This is the DIDWeb S.
+
+8
+00:04:47.810 --> 00:04:52.890
+Samuel Smith: And… Dossier spec meeting.
+
+9
+00:05:11.030 --> 00:05:11.740
+Samuel Smith: Beautiful.
+
+10
+00:06:19.260 --> 00:06:22.070
+Samuel Smith: There's Jonathan, okay, we got somebody.
+
+11
+00:06:25.440 --> 00:06:26.500
+Jonathan Rayback: Yep, hi.
+
+12
+00:06:28.820 --> 00:06:30.910
+Samuel Smith: I don't see Daniel Hardman.
+
+13
+00:06:32.740 --> 00:06:34.559
+Samuel Smith: But I just texted in.
+
+14
+00:06:49.690 --> 00:06:56.280
+Samuel Smith: Give him a couple minutes, if he doesn't show up, then I guess we'll… Go to the…
+
+15
+00:06:56.780 --> 00:06:59.199
+Samuel Smith: do the Did WebS spec meeting.
+
+16
+00:07:10.590 --> 00:07:12.250
+Samuel Smith: So we got Phil…
+
+17
+00:07:34.580 --> 00:07:39.999
+Samuel Smith: Well, I didn't get a… I texted, Daniel Hardman, but I didn't get a response, so…
+
+18
+00:07:41.410 --> 00:07:47.339
+Samuel Smith: You may show up late, you may have forgotten about it, or had a conflict.
+
+19
+00:07:47.740 --> 00:07:53.890
+Samuel Smith: So maybe, Jonathan, do you want to just go ahead and start on the DidWebS stuff, and if,
+
+20
+00:07:57.510 --> 00:07:59.180
+Jonathan Rayback: Oh yeah, sure, thanks.
+
+21
+00:07:59.180 --> 00:07:59.800
+Samuel Smith: Yeah.
+
+22
+00:08:00.770 --> 00:08:02.360
+Jonathan Rayback: For some reason…
+
+23
+00:08:03.370 --> 00:08:09.320
+Jonathan Rayback: I was not thinking… I thought, wow. For some reason, I was thinking this was last week, but yeah, this is the DeGravis meeting. Okay, cool.
+
+24
+00:08:09.730 --> 00:08:11.499
+Jonathan Rayback: So Kent and I have been…
+
+25
+00:08:12.580 --> 00:08:17.860
+Jonathan Rayback: Actually, work… doing working sessions for the last week, trying to get the spec
+
+26
+00:08:18.670 --> 00:08:25.630
+Jonathan Rayback: all polished up and ready to go. I think we talked about this last time, it's probably…
+
+27
+00:08:26.480 --> 00:08:31.379
+Jonathan Rayback: a couple weeks still. We need some more work, but we've gotten some good progress.
+
+28
+00:08:31.710 --> 00:08:35.040
+Jonathan Rayback: A lot of the work that we're doing is…
+
+29
+00:08:35.919 --> 00:08:43.799
+Jonathan Rayback: Just reconciling the full set of examples and things in the spec with the actual final, kind of, version of the
+
+30
+00:08:44.039 --> 00:08:45.310
+Jonathan Rayback: requirements.
+
+31
+00:08:45.600 --> 00:08:56.030
+Jonathan Rayback: We did, work through, finally yesterday, the… Full…
+
+32
+00:08:56.760 --> 00:09:02.919
+Jonathan Rayback: life's… I don't know what the right word would be, life cycle, I guess, of… I did, WebS did, and
+
+33
+00:09:06.470 --> 00:09:10.100
+Jonathan Rayback: There was some language in the spec that was confusing, because it was…
+
+34
+00:09:11.540 --> 00:09:19.069
+Jonathan Rayback: because it wasn't fully explained. So when we thought through it, we finally figured… we kind of got it all figured out, but basically the idea is that
+
+35
+00:09:19.450 --> 00:09:22.980
+Jonathan Rayback: And I guess I'll just maybe briefly describe this now, but…
+
+36
+00:09:23.730 --> 00:09:26.319
+Jonathan Rayback: The idea is that a,
+
+37
+00:09:26.800 --> 00:09:33.489
+Jonathan Rayback: a DID… the DID document that sits at… the endpoint, did.json.
+
+38
+00:09:34.610 --> 00:09:37.429
+Jonathan Rayback: will always be a DID web, DID document.
+
+39
+00:09:38.340 --> 00:09:43.800
+Jonathan Rayback: A did web resolver would resolve that and get back a did web, did document.
+
+40
+00:09:44.270 --> 00:09:50.579
+Jonathan Rayback: And would either see… a, did WebAs Identifier?
+
+41
+00:09:52.640 --> 00:09:58.749
+Jonathan Rayback: well, would see a DidWeb S identifier that they could then upgrade to if they wanted to use a DidWeb S resolver.
+
+42
+00:10:01.160 --> 00:10:15.840
+Jonathan Rayback: a… if a DIDWeb S controller doesn't want… doesn't authorize a DID web endpoint, then they're not going to give out a DIDWeb did. So, we don't need to worry about that use case, because no one's going to do that. And if you're a did web resolver.
+
+43
+00:10:16.060 --> 00:10:22.250
+Jonathan Rayback: and somebody gives you a did web SDID, you shouldn't be using a did web resolver, you should be using a did web S resolver, so…
+
+44
+00:10:22.730 --> 00:10:34.699
+Jonathan Rayback: The DidWebS resolver, on the other hand, when it gets that did web-did document, it's gonna always transform it into a didweb SD document and, pass that through as part of the resolution process.
+
+45
+00:10:35.360 --> 00:10:38.939
+Jonathan Rayback: Which also then gives a did WebS
+
+46
+00:10:39.130 --> 00:10:41.410
+Jonathan Rayback: a person using a did WebS resolver.
+
+47
+00:10:41.530 --> 00:10:48.110
+Jonathan Rayback: a chance to, see that there's a did… an authorized did web endpoint in the… also known as…
+
+48
+00:10:48.370 --> 00:11:00.320
+Jonathan Rayback: And if they, for whatever reason, chose to downgrade to use a did web resolver, they would know that that was authorized and could do that. So, I think we have all the cases figured out, and we've clarified the language and the spec to make it clear
+
+49
+00:11:00.580 --> 00:11:02.310
+Jonathan Rayback: Why it's a did web?
+
+50
+00:11:03.170 --> 00:11:13.859
+Jonathan Rayback: did document, and so that's a lot less confusing now. But I think we finally have that exactly where we wanted it, based on our recent conversations about
+
+51
+00:11:14.000 --> 00:11:18.949
+Jonathan Rayback: authorizing a DID web endpoint explicitly using designated aliases.
+
+52
+00:11:19.760 --> 00:11:27.480
+Jonathan Rayback: That's the biggest thing that I think we've worked through. We have made some other changes. We're essentially working on, like, just the CRUD.
+
+53
+00:11:27.730 --> 00:11:31.780
+Jonathan Rayback: You know, the kind of… those four main DIDCOR…
+
+54
+00:11:31.890 --> 00:11:36.930
+Jonathan Rayback: operations right now, so we finished… the,
+
+55
+00:11:37.210 --> 00:11:44.540
+Jonathan Rayback: The read and the update, and we're just checking the others, and then we're gonna go through and finish the rest of the examples in the document.
+
+56
+00:11:45.060 --> 00:11:55.270
+Jonathan Rayback: There's some SpecUPT stuff that we need to get resolved, have all of the references to the terminology pointing to the remote repo, as opposed to the
+
+57
+00:11:55.390 --> 00:11:59.570
+Jonathan Rayback: you know, local… Local versions,
+
+58
+00:12:00.660 --> 00:12:09.439
+Jonathan Rayback: And, yeah, we'll continue to meet. You know, we're meeting, like I said, we've been meeting every day, kind of doing a little working session. We'll keep doing that until we get the…
+
+59
+00:12:09.780 --> 00:12:23.679
+Jonathan Rayback: the spec ready, and, oh, also, the, repo name has been changed, so, Kent joining me, his face reminded me that that's happened. So, the repo is now the KSWG…
+
+60
+00:12:23.970 --> 00:12:26.200
+Jonathan Rayback: repo like the other carry specs.
+
+61
+00:12:26.760 --> 00:12:33.540
+Jonathan Rayback: I think we're hoping maybe in the next couple weeks to have something we can pass on to Sam and Phil to review, and then, you know, at the next…
+
+62
+00:12:34.170 --> 00:12:41.960
+Jonathan Rayback: I think we decided last time at the next CARESTAC working group meeting before CARICOMF,
+
+63
+00:12:42.470 --> 00:12:45.430
+Jonathan Rayback: We'll want to put the…
+
+64
+00:12:46.430 --> 00:12:51.379
+Jonathan Rayback: Draft up for, just a vote from this group to pass it on to the…
+
+65
+00:12:51.710 --> 00:12:54.570
+Jonathan Rayback: the steering committee. So, look for that.
+
+66
+00:12:55.290 --> 00:12:56.779
+Jonathan Rayback: Anything I missed, Kent?
+
+67
+00:13:01.040 --> 00:13:05.940
+Kent Bull: That sounds about right. Apologies for lateness. I,
+
+68
+00:13:06.060 --> 00:13:08.959
+Kent Bull: I'd say, did you already go over…
+
+69
+00:13:09.240 --> 00:13:12.160
+Kent Bull: The transformation rule note, where we…
+
+70
+00:13:12.770 --> 00:13:14.440
+Jonathan Rayback: that did web, did document?
+
+71
+00:13:14.810 --> 00:13:17.559
+Kent Bull: Yeah, we've just been going over that.
+
+72
+00:13:17.560 --> 00:13:18.010
+Jonathan Rayback: Okay.
+
+73
+00:13:18.010 --> 00:13:18.540
+Kent Bull: Okay.
+
+74
+00:13:19.040 --> 00:13:19.760
+Kent Bull: Mmm.
+
+75
+00:13:19.760 --> 00:13:26.359
+Samuel Smith: So, can I ask… I just want to make sure I understood what you said. Can I… can I just restate or ask you? Okay, so…
+
+76
+00:13:26.360 --> 00:13:27.252
+Jonathan Rayback: Like, just like.
+
+77
+00:13:29.230 --> 00:13:33.099
+Samuel Smith: Yeah, so… so… so a given DID resolver.
+
+78
+00:13:33.520 --> 00:13:37.830
+Samuel Smith: when somebody requests a DIDWEB resolution.
+
+79
+00:13:38.020 --> 00:13:42.760
+Samuel Smith: The DID resolver will provide a DID web document.
+
+80
+00:13:43.410 --> 00:13:43.790
+Jonathan Rayback: practice.
+
+81
+00:13:43.790 --> 00:13:46.680
+Samuel Smith: DidWeb Document will have in it…
+
+82
+00:13:47.540 --> 00:13:55.520
+Samuel Smith: something that indicates that it's a DIDWEB derived from a DIDWEB S, and where is that in the document?
+
+83
+00:13:56.090 --> 00:14:03.890
+Jonathan Rayback: It's in the also known as, section. It's also, in the metadata in the… I think it's called the alternate ID.
+
+84
+00:14:04.360 --> 00:14:10.170
+Samuel Smith: Okay, alright, so, so, so if you look at the metadata, you'll see that there's an alternate ID.
+
+85
+00:14:10.310 --> 00:14:14.380
+Samuel Smith: Correct. And also known as… And if somebody…
+
+86
+00:14:14.710 --> 00:14:19.920
+Samuel Smith: surreptitiously creates a DIDWEB document.
+
+87
+00:14:20.870 --> 00:14:29.929
+Samuel Smith: And puts, did WebS did in the also known and the metadata, how does the verifier…
+
+88
+00:14:30.600 --> 00:14:33.499
+Samuel Smith: or the receiver of that did web document.
+
+89
+00:14:34.180 --> 00:14:45.420
+Samuel Smith: know that it's a designated did web, and not a spoofed DID web, because the resolver could… could be lying, right? It could be a bit… it could be a malicious resolver.
+
+90
+00:14:45.960 --> 00:14:48.129
+Kent Bull: So, could I jump in here real quick, Jonathan?
+
+91
+00:14:48.780 --> 00:14:51.420
+Jonathan Rayback: yes, sure.
+
+92
+00:14:51.800 --> 00:14:55.560
+Kent Bull: Pete, this is actually the crux of what we discussed yesterday.
+
+93
+00:14:55.980 --> 00:14:57.430
+Kent Bull: So, if it's…
+
+94
+00:14:57.830 --> 00:15:07.460
+Kent Bull: the… what that relies upon, Sam, is whether or not… you said the did web, did document. If it's just a did web consumer.
+
+95
+00:15:07.620 --> 00:15:10.960
+Kent Bull: And the resolver lies to them, they can't verify it.
+
+96
+00:15:11.450 --> 00:15:13.929
+Kent Bull: The only way to verify it.
+
+97
+00:15:14.460 --> 00:15:20.730
+Samuel Smith: But if I'm, but if I'm… if I see… so let's say that I don't know
+
+98
+00:15:21.270 --> 00:15:24.820
+Samuel Smith: somebody's given me a did web… did.
+
+99
+00:15:24.970 --> 00:15:29.939
+Samuel Smith: So I go resolve the did web-did, I get a did web document.
+
+100
+00:15:30.470 --> 00:15:45.550
+Samuel Smith: But I really want the DIDWeb S if it… there is a DIDWEBS. I just don't know that, because all I've ever been given is a DidWebDid. So now I go to a did, did resolve… I go to a did resolver, it gives me a did web document.
+
+101
+00:15:45.910 --> 00:16:01.899
+Samuel Smith: and then I see that it's got a DidWebS, also known as, or it's got an alternate ID. So then, my question was, then, what do I do at that point? I think I know what you do, but I just wanted to be clear.
+
+102
+00:16:02.000 --> 00:16:20.120
+Jonathan Rayback: you would run… you would run that did web est did through the DidWebS resolver. The did web S resolver knows it's going to get a did web-did document back, but it's going to transform it to a did-web SD document for you, and it's also going to provide you with the carry.scesar to do the… all the carry magic that you need to do the validation.
+
+103
+00:16:20.690 --> 00:16:31.480
+Samuel Smith: Okay, so that… so the one thing you said that confused me. The DIDWEB S resolver knows it's going to get a DIDWEB document back. I didn't understand that phrase. What do you mean by that?
+
+104
+00:16:31.480 --> 00:16:40.609
+Jonathan Rayback: So, at the actual, like, the static, the so-called static file, which might be actually generated, but the so-called static file that's sitting at
+
+105
+00:16:40.880 --> 00:16:47.309
+Jonathan Rayback: HTTP blah blah blah blah blah aid slash did.json is always going to be a did web deduction.
+
+106
+00:16:48.200 --> 00:16:55.269
+Jonathan Rayback: The DidWebS resolver is going to be the thing that knows that that should be transformed into a DidWebS did document, which is…
+
+107
+00:16:55.650 --> 00:17:08.139
+Jonathan Rayback: almost identical to a did web, did document, except for three fields where the identifier flips from being a didwebs to a did web, if you've authorized it, if you've authorized it to be used.
+
+108
+00:17:08.530 --> 00:17:14.829
+Samuel Smith: Okay, so… so… so the did web…
+
+109
+00:17:14.940 --> 00:17:17.929
+Samuel Smith: So that… so the… so if I have a DID…
+
+110
+00:17:18.480 --> 00:17:25.030
+Samuel Smith: So, so there is no DidWebS, did document, there's only a did web, did document.
+
+111
+00:17:25.420 --> 00:17:36.419
+Jonathan Rayback: There is a did. document, but it has to be generated by a resolver for you to get it. Yes, because we can't… It's not… Yeah, it's not sitting at did.json.
+
+112
+00:17:37.000 --> 00:17:41.610
+Jonathan Rayback: So if someone manually resolves did.json, they're always going to go to did web.
+
+113
+00:17:43.010 --> 00:17:52.099
+Jonathan Rayback: That's… that… that's, I guess, a trade-off that we have. We can't… we can't have an arbitrary document sitting there, because we don't know what resolver is going to resolve it, so we don't know what to serve up.
+
+114
+00:17:52.300 --> 00:17:53.100
+Jonathan Rayback: There's no way for us.
+
+115
+00:17:53.100 --> 00:17:53.450
+Kent Bull: So…
+
+116
+00:17:53.450 --> 00:17:55.349
+Jonathan Rayback: have, like, just a static file there.
+
+117
+00:17:57.010 --> 00:18:02.519
+Kent Bull: I think there's a simple way to put this that I talked about with Jonathan yesterday, which is…
+
+118
+00:18:03.660 --> 00:18:16.510
+Kent Bull: If you give a… if you have a DidWebS did, and you give that to a DidWebSDID resolver, you will get back, as a resolution response, the DidWebS and DID document.
+
+119
+00:18:16.510 --> 00:18:16.990
+Jonathan Rayback: Yes.
+
+120
+00:18:16.990 --> 00:18:31.709
+Kent Bull: if you have a did web did, and all you know about is did web, what you're going to get back from a did web resolver is the did web did document at the location that it expects. The signal
+
+121
+00:18:32.030 --> 00:18:35.729
+Kent Bull: or a consumer of a did web, did document.
+
+122
+00:18:36.190 --> 00:18:55.309
+Kent Bull: as long as it hasn't been lied to or maliciously modified by a resolver, the only signal to the did web consumer is the presence of the DidWebS, did, and the also known as section. And then what would happen is the entity or agent that's running the did web resolver
+
+123
+00:18:55.320 --> 00:19:03.369
+Kent Bull: that gets the DIDWebDid document would see the new protocol, the DIDWeb-S, and the also known as, and then it would hand that off
+
+124
+00:19:03.450 --> 00:19:08.350
+Kent Bull: to a DidWebS resolver to execute the DIDWebS resolution.
+
+125
+00:19:08.990 --> 00:19:19.950
+Samuel Smith: Okay, so if I have a universal did resolver, then I'm… then I'm going to submit to that resolver a didwebs did in order to get a didwebs did doc.
+
+126
+00:19:19.950 --> 00:19:20.610
+Jonathan Rayback: Correct.
+
+127
+00:19:20.780 --> 00:19:30.999
+Jonathan Rayback: Correct. Or, if the controller has authorized a did web endpoint, and has therefore given you a did web endpoint, because that controller wants
+
+128
+00:19:31.320 --> 00:19:48.750
+Jonathan Rayback: people to be able to resolve as a did web, and has explicitly authorized that, you know, with an ACDC, then you could give the Universal Resolver the did web did, and of course the Universal Resolver will see that it's a did web, did, and resolve it as a did web, not a did web S, because why would it do that? It's going to resolve the DID as it's given it.
+
+129
+00:19:49.090 --> 00:19:56.320
+Samuel Smith: Okay, okay, that's what I'm trying to be clear. All right, and so…
+
+130
+00:19:56.770 --> 00:20:00.940
+Samuel Smith: If I, on a website, want to publish
+
+131
+00:20:01.190 --> 00:20:06.560
+Samuel Smith: Did WebS, did document, how do I publish that, or is that not possible?
+
+132
+00:20:07.780 --> 00:20:20.470
+Jonathan Rayback: It is totally possible, because again, the creation of a didwebsDid document from a didwebDid document is a very simple, straightforward process that's clearly explained in the spec. There's a section in the spec
+
+133
+00:20:20.530 --> 00:20:29.240
+Jonathan Rayback: did web… did WebS transformation, and vice versa, so the steps are all very clear. So… so you could, as the controller, simply
+
+134
+00:20:29.240 --> 00:20:44.430
+Jonathan Rayback: make one. You could extract your DID document and flip a few fields and make it, and have it served as a static file. Oh, okay. Or if you wanted a dynamic file, it's easily, very easy, programmatically to do that transformation
+
+135
+00:20:44.430 --> 00:20:49.820
+Jonathan Rayback: And have both versions of the DID document available on a website, for sure.
+
+136
+00:20:50.240 --> 00:20:56.129
+Samuel Smith: So the constraint is the did.json file, Can't be ambiguous.
+
+137
+00:20:56.130 --> 00:20:56.490
+Jonathan Rayback: Yeah.
+
+138
+00:20:56.490 --> 00:20:57.469
+Samuel Smith: And it's just…
+
+139
+00:20:57.660 --> 00:21:12.339
+Samuel Smith: you had to pick either the did.json file is going to have the did web document inside of it, or it was going to have the did web S. It can't have either. Yeah. Because the spec doesn't allow it? Is that… is that what I'm reading into that?
+
+140
+00:21:12.340 --> 00:21:24.940
+Jonathan Rayback: physics, like, we can't have… we can't have an arbitrary, static document at that endpoint that doesn't… there's no… a did resolver never, like, announces itself and says, hey, by the way, I'm a did what I was Did Resolver.
+
+141
+00:21:25.010 --> 00:21:34.540
+Jonathan Rayback: And there's, like, the HTTP server never sees what kind of did it is either, because the transformation from the did to the HTTP URL happens
+
+142
+00:21:35.410 --> 00:21:52.459
+Jonathan Rayback: before, right? Before the… before it actually looks up the did.json file. So, and it looks exactly the same, whether it's a did web or a did web S. It's gonna be exactly the same path, like, it's gonna be exactly the same everything, unless the resolver announces itself. The endpoint has no way of knowing who's asking for it.
+
+143
+00:21:54.420 --> 00:22:04.419
+Samuel Smith: Well, if they ask for it by… by presenting the DidWebSDID, which has did WebS instead of did web in the… in the URN, then they know, right? But you're not…
+
+144
+00:22:04.420 --> 00:22:13.229
+Jonathan Rayback: But the server, the HTTP server that's serving up the did.json can't ever see that, because all it gets is a URL.
+
+145
+00:22:15.070 --> 00:22:17.980
+Kent Bull: But he's… in the sense that…
+
+146
+00:22:18.110 --> 00:22:20.630
+Kent Bull: Well, let me ask… add just a little bit to that.
+
+147
+00:22:20.630 --> 00:22:35.630
+Samuel Smith: Okay, yeah, yeah, yeah, yeah, so the URL… yeah, so you have a standard URL endpoint for all did.jsons, you don't have a different one for… for alternative, ones. Correct. Okay, I'm just trying to… I'm just trying to understand where the constraint is.
+
+148
+00:22:35.630 --> 00:22:36.980
+Jonathan Rayback: 100%, yeah.
+
+149
+00:22:36.980 --> 00:22:37.340
+Samuel Smith: Yeah.
+
+150
+00:22:37.340 --> 00:22:50.069
+Jonathan Rayback: The spec also describes, in painful, like, correct detail, how you take a didwebsDid and transform it into an HTTP endpoint to get the did.json.
+
+151
+00:22:50.250 --> 00:23:07.659
+Jonathan Rayback: Those rules are exactly the same as those listed in the did.web spec. A did web for a given AI… a did web did for a given AID, and a didwebsDid for the same AID will produce an identical HTTP endpoint for did.json.
+
+152
+00:23:08.550 --> 00:23:24.299
+Samuel Smith: Oh, okay. Yeah, so that's the new thing, is that there isn't a separate one, and if you want to get the DIDWeb S, then you have to do another resolution request, given that you get the DID web document, and you see the also known as, then you can go
+
+153
+00:23:24.350 --> 00:23:32.179
+Samuel Smith: But you're not getting that from the website, you're getting that from a did resolver that can resolve it, or you… or somebody would have to publish
+
+154
+00:23:33.080 --> 00:23:38.549
+Samuel Smith: a did WebS URL that says, you know, this is where you can go get
+
+155
+00:23:38.980 --> 00:23:43.440
+Samuel Smith: That, but that's… that… that's not part of the spec. Oh, Daniel's here, okay.
+
+156
+00:23:44.020 --> 00:23:49.540
+Jonathan Rayback: It's not currently. By the way, also, Kent, it would be possibly, just maybe we can put a note in the repo
+
+157
+00:23:49.760 --> 00:23:54.320
+Jonathan Rayback: I wonder if the actual form of the DID is available
+
+158
+00:23:54.880 --> 00:23:58.810
+Jonathan Rayback: We should just double-check with Marcus, about this…
+
+159
+00:23:59.110 --> 00:24:08.750
+Jonathan Rayback: in terms of, like, the resolver behavior? Because if we can, actually, tell, if a sophisticated
+
+160
+00:24:09.690 --> 00:24:16.169
+Jonathan Rayback: did document server, you know, could tell what form of the DID, then it would be better than
+
+161
+00:24:16.390 --> 00:24:22.349
+Jonathan Rayback: than what we have now. I just… we've had this constraint. So, can we just double check on that, Kent, to make sure?
+
+162
+00:24:22.470 --> 00:24:27.309
+Jonathan Rayback: I'll just… if you get a chance, throw an issue in the repo, otherwise I will here in a minute, but…
+
+163
+00:24:28.290 --> 00:24:30.160
+Kent Bull: Yeah, so are we saying that…
+
+164
+00:24:30.470 --> 00:24:34.830
+Kent Bull: If a… if there's a sophisticated DID resolver, like the Universal.
+
+165
+00:24:34.830 --> 00:24:57.290
+Jonathan Rayback: It's not a resolver, it's the server, it's the server. If there's some way… I just don't think there is any way to do it, because a DID resolver, all it does is it takes the DID, at least in this case, it takes the DID, and it resolves it into an HTTP URL, and then asks for the DID document at that endpoint, and there's absolutely no way for the server to know who's asking for it. It could be someone typing something in by hand. It might not even be a DID resolver, so I don't think there is.
+
+166
+00:24:57.290 --> 00:24:59.520
+Jonathan Rayback: But I'm just saying we should double-check.
+
+167
+00:24:59.520 --> 00:25:06.790
+Samuel Smith: So that URL… yeah, it's been a while since I looked at the URL. So the URL doesn't actually have the DID in it.
+
+168
+00:25:06.790 --> 00:25:16.730
+Jonathan Rayback: No. The very first rule of transforming the DID identifier to the HTTP URL is drop did webs and replace with HTTPS.
+
+169
+00:25:17.000 --> 00:25:27.249
+Samuel Smith: Yeah, yeah, that's right, because they're trying to… because that's when they switched… originally, DIDs were URLs, and then they switched to them to be URNs, because the…
+
+170
+00:25:27.250 --> 00:25:27.700
+Jonathan Rayback: Oh.
+
+171
+00:25:27.700 --> 00:25:33.939
+Samuel Smith: web people complained that, you know, it did, it did as a URN, it's an identifier, it's not a resource.
+
+172
+00:25:34.240 --> 00:25:36.310
+Jonathan Rayback: Yeah, correct. It is a URL.
+
+173
+00:25:36.310 --> 00:25:45.780
+Samuel Smith: That's a good question to ask, Marcus, because it's probably not the first time it's come up. Is there a normative or informative
+
+174
+00:25:45.960 --> 00:25:51.690
+Samuel Smith: transform that you can use to… to get a different type of URL that… that…
+
+175
+00:25:51.840 --> 00:25:57.199
+Samuel Smith: that, uses, probably PATH, path arguments? I mean…
+
+176
+00:25:57.200 --> 00:25:59.010
+Jonathan Rayback: No, well, it couldn't be, but…
+
+177
+00:25:59.240 --> 00:26:02.240
+Jonathan Rayback: It could be. It could also be a parameter. There could be a parameter that's a known.
+
+178
+00:26:02.240 --> 00:26:13.099
+Samuel Smith: A path parameter, that's right. There could be… it could be a path parameter, because I remember there was a long discussion when they did that switch about how… how to message
+
+179
+00:26:13.200 --> 00:26:27.510
+Samuel Smith: things like that, and there was a long discussion about path parameters and stuff like that, and what should be the normative things, and I don't know that they ever resolved it normatively, but I believe that there were discussions that said, well, informatively, you could do these things, so you should find out
+
+180
+00:26:27.870 --> 00:26:30.200
+Samuel Smith: Right now, from Marcus. Yeah.
+
+181
+00:26:30.590 --> 00:26:34.739
+Jonathan Rayback: The last thing that I was just gonna say… I'm sorry, Ken, you go ahead.
+
+182
+00:26:34.740 --> 00:26:40.899
+Kent Bull: Are we asking the question… yeah, I just want to be clear on the question that we're asking. So are we saying…
+
+183
+00:26:41.790 --> 00:26:53.750
+Jonathan Rayback: I'll… what I wanna… what I… we wanna ask Marcus is, is there any way a DID resolver can telegraph what the did… the actual DID identifier is that it's trying to resolve to an HTTP server?
+
+184
+00:26:57.870 --> 00:27:05.060
+Jonathan Rayback: Because if… if it's possible, then we can have an… we can have an out… we can have a scenario where
+
+185
+00:27:05.280 --> 00:27:08.310
+Jonathan Rayback: resolving it, did WebS, did…
+
+186
+00:27:08.570 --> 00:27:14.670
+Jonathan Rayback: always results in a, did WebS, did document, like…
+
+187
+00:27:14.910 --> 00:27:18.460
+Jonathan Rayback: Without having to do any transformation, like, actually living at that endpoint.
+
+188
+00:27:19.300 --> 00:27:20.010
+Kent Bull: You know, I'll…
+
+189
+00:27:20.010 --> 00:27:20.870
+Jonathan Rayback: a cleaner.
+
+190
+00:27:20.870 --> 00:27:31.889
+Samuel Smith: Yeah, yeah, if you put a… if you put… if you put the actual DID in… in a query parameter or in a path parameter, then… then the URL now has conveyed the actual DID.
+
+191
+00:27:32.130 --> 00:27:32.620
+Jonathan Rayback: Yep.
+
+192
+00:27:32.620 --> 00:27:36.139
+Samuel Smith: without violating the URL spec. Correct.
+
+193
+00:27:36.140 --> 00:27:37.329
+Jonathan Rayback: And then… And so…
+
+194
+00:27:38.660 --> 00:27:48.240
+Samuel Smith: And so… and so you need to find out if… if there is an… if that is an accepted practice, even if it's not normative, you might want to have an informative.
+
+195
+00:27:48.240 --> 00:27:49.440
+Jonathan Rayback: Obviously, yes.
+
+196
+00:27:49.440 --> 00:28:07.010
+Samuel Smith: Right, here's an informative option for the HTTP server to not have to do the two resolutions, you can just… you can just send a different URL, you know, from the did resolver to get back the DIDWeb SDID doc on the first try.
+
+197
+00:28:07.340 --> 00:28:08.370
+Samuel Smith: Right.
+
+198
+00:28:08.850 --> 00:28:09.490
+Jonathan Rayback: It makes us mad.
+
+199
+00:28:09.490 --> 00:28:18.039
+Kent Bull: that out really quickly. So, when retrieving the did.json, there'd be, like, a query parameter with the didwebsDid.
+
+200
+00:28:18.320 --> 00:28:18.750
+Jonathan Rayback: Perfect.
+
+201
+00:28:18.750 --> 00:28:27.290
+Kent Bull: the server, HTTP server responding wouldn't give a did-webDid document. It would give the did web SDID document.
+
+202
+00:28:27.290 --> 00:28:28.170
+Jonathan Rayback: Correct.
+
+203
+00:28:28.170 --> 00:28:42.289
+Kent Bull: So this is sort of a… the assumption would be… well, I guess we could ask, what's this? Ask Marcus, though, that sort of assumes that the person requesting… making the HTTP request has both TIDs, the DID web-est did and the DID…
+
+204
+00:28:42.760 --> 00:28:43.580
+Kent Bull: what?
+
+205
+00:28:43.580 --> 00:28:49.339
+Jonathan Rayback: I mean, it doesn't… it doesn't necessarily mean that. They may not have a did web DID,
+
+206
+00:28:49.740 --> 00:28:53.880
+Jonathan Rayback: Because the DidWeb S controller might not have authorized the DidWebDid.
+
+207
+00:28:54.030 --> 00:29:09.099
+Jonathan Rayback: But they may have the DidWebSDID, and they may, when they transform the didwebsDid into an HTTP URL, they may… again, this is entirely speculative, right? We're making up stuff literally as we're talking, and we're gonna ask about it, but, like.
+
+208
+00:29:09.100 --> 00:29:22.289
+Jonathan Rayback: It could be that after they transform it into the HTTP endpoint, there's a query parameter they can hang on the end that says, the identifier I'm trying to resolve was did WebS colon blah blah blah AID, whatever.
+
+209
+00:29:22.530 --> 00:29:26.359
+Jonathan Rayback: and the HTTP server, upon getting that, could go, oh, well.
+
+210
+00:29:26.570 --> 00:29:33.439
+Jonathan Rayback: I'm not going to serve up this did web-did document, I'm going to serve up a DidWeb-SDID document, because I've been told that that's the…
+
+211
+00:29:33.550 --> 00:29:36.449
+Jonathan Rayback: Form of the DID that this resolver's trying to resolve.
+
+212
+00:29:37.370 --> 00:29:42.339
+Kent Bull: So, let me just really quickly respond to that, and I know we're going really slow, and we're probably boring the heck.
+
+213
+00:29:42.340 --> 00:29:48.459
+Jonathan Rayback: The purpose of the call is to discuss the digital aspect, so we need to get this resolved.
+
+214
+00:29:48.460 --> 00:30:03.079
+Kent Bull: what you said there, you said that the HTTP server… HTTP server would respond with the DID that's being resolved, so that sort of implies that we already have a DID resolver involved. If a DID resolver is involved.
+
+215
+00:30:03.790 --> 00:30:05.099
+Kent Bull: We have to ask.
+
+216
+00:30:05.100 --> 00:30:08.039
+Jonathan Rayback: Not necessarily, though, Ken, not necessarily. There doesn't actually have to be a digital result.
+
+217
+00:30:08.040 --> 00:30:09.599
+Kent Bull: So, when it's not necessarily.
+
+218
+00:30:09.600 --> 00:30:10.060
+Jonathan Rayback: Good result.
+
+219
+00:30:10.580 --> 00:30:35.099
+Jonathan Rayback: This could be somebody manually resolving a DID, and just wants to, like, type in your… or whatever. Like, there are cases… I think this is where I also have felt a little uncomfortable. There are probably use cases where you want a DID document, but you don't want to… you don't have a DID resolver. Like, it is supposed to be just an internet, you know, web resource, right? Like, the DID document is just a web resource, and you should be able to theoretically get to it without having to use a resolver.
+
+220
+00:30:35.910 --> 00:30:53.500
+Kent Bull: See, this is what I believe is relevant to the spec, is to talk about the use case that you just mentioned, where somebody does not have a DID resolver, where they're saying, can I signal to the HTTP server that is serving up my did.json? Can I signal to that that I want the did.json that I'm expecting?
+
+221
+00:30:53.690 --> 00:30:56.760
+Kent Bull: Correct. And if that's the question that we're asking.
+
+222
+00:30:56.760 --> 00:30:57.080
+Jonathan Rayback: Right.
+
+223
+00:30:57.080 --> 00:31:08.210
+Kent Bull: I think this is a legitimate gap in the spec, at least to address either normatively or informatively. So, yeah, I understand the question now, and I'll write the issue, and then I'll reach out to Marcus.
+
+224
+00:31:08.210 --> 00:31:17.269
+Jonathan Rayback: It's a 100% gap in the spec, however, it may… there may be no practical resolution to this if…
+
+225
+00:31:17.540 --> 00:31:20.829
+Jonathan Rayback: the DIDCORE spec and the…
+
+226
+00:31:21.660 --> 00:31:28.850
+Jonathan Rayback: standard practice around resolution doesn't have a mechanism for this. And that's what we're asking Marcus about.
+
+227
+00:31:29.800 --> 00:31:36.910
+Kent Bull: So, if conveying… let me repeat the question, just to make sure I've captured it. If conveying the DID in the HTTP URL,
+
+228
+00:31:37.050 --> 00:31:44.579
+Kent Bull: for… a requester who's just making an HTTP request, not going through a DID resolver.
+
+229
+00:31:45.010 --> 00:31:49.740
+Kent Bull: And they convey that did WebS did, in the URL parameter.
+
+230
+00:31:50.510 --> 00:31:55.659
+Kent Bull: Is that a valid way to signal to the HTTP server that you want the DIDWeb SD doc?
+
+231
+00:31:56.250 --> 00:31:57.150
+Jonathan Rayback: Sort of
+
+232
+00:31:57.810 --> 00:32:07.540
+Jonathan Rayback: Can… the question is, literally, can you… like, is there a standardized, a normative or an informative, standardized sort of way, accepted way.
+
+233
+00:32:07.780 --> 00:32:11.220
+Jonathan Rayback: For a web-type did.
+
+234
+00:32:12.400 --> 00:32:13.820
+Jonathan Rayback: URL.
+
+235
+00:32:14.440 --> 00:32:21.589
+Jonathan Rayback: to signal to an HTTP server what form… what the actual DID identifier is.
+
+236
+00:32:22.060 --> 00:32:24.049
+Jonathan Rayback: That's probably the best way of asking it.
+
+237
+00:32:25.510 --> 00:32:26.160
+Kent Bull: Okay.
+
+238
+00:32:26.490 --> 00:32:31.629
+Jonathan Rayback: Because we could… we can make one up, by the way. Like, if we wanted to, we could literally invent one. I mean, there…
+
+239
+00:32:31.630 --> 00:32:33.119
+Kent Bull: Dude, it sounds like we can.
+
+240
+00:32:33.120 --> 00:32:39.269
+Jonathan Rayback: We could 100% just create a new part of the spec and say, there's this parameter called
+
+241
+00:32:39.400 --> 00:32:53.829
+Jonathan Rayback: whatever we want to call it, that just says… that just has the, like, the did, prefix, you know, that always passes the did prefix, and you're either gonna get did web, or you're gonna get did web S. Like, we could make that a part of our spec, and it would be totally fine, because, like.
+
+242
+00:32:54.630 --> 00:33:07.410
+Jonathan Rayback: we've already… I've had this conversation at length with Marcus and Drummond and others, like, having a query parameter on the end of a HTTP, you know, even a query parameter on the end of a DID is fine. So, like, it's fine. I think we could totally make that up if we wanted to do that.
+
+243
+00:33:07.440 --> 00:33:14.640
+Jonathan Rayback: I think it would be good to check with Marcus if there is a kind of standardized way other DID methods have kind of had this…
+
+244
+00:33:14.810 --> 00:33:19.620
+Jonathan Rayback: Issue, and is there kind of a standardized, normative, or informative way to handle it?
+
+245
+00:33:21.460 --> 00:33:28.630
+Kent Bull: So, to be clear, the use case… now, while technically we could define this, so this condition.
+
+246
+00:33:28.690 --> 00:33:44.150
+Kent Bull: And I understand it technically. I don't understand the use… any potential use cases for this, because my mind, and correct me if I'm missing something, if somebody has a DID, I'm thinking they're usually going to be in the mindset of using a DID resolver.
+
+247
+00:33:44.970 --> 00:33:52.690
+Samuel Smith: Yeah, but that's not… that's probably, but that's not… that's not the standard web definition.
+
+248
+00:33:53.280 --> 00:34:01.190
+Samuel Smith: The DID spec wants you to be able to use the web as the web. That means that once you've resolved it once.
+
+249
+00:34:02.120 --> 00:34:05.279
+Samuel Smith: and you now know the URL,
+
+250
+00:34:05.390 --> 00:34:15.879
+Samuel Smith: you may just want to be able to access the URL and not use a did resolver. The DIDR resolver was a discovery mechanism that was a crutch to bootstrap
+
+251
+00:34:16.010 --> 00:34:19.070
+Samuel Smith: dids, but once you have the URL,
+
+252
+00:34:19.280 --> 00:34:24.180
+Samuel Smith: then you can go get that resource anytime you want it, without going through a DID resolver.
+
+253
+00:34:25.750 --> 00:34:35.939
+Kent Bull: What we're describing is for that specific use case where somebody can get the DIDWeb S version of a DID document just with a regular HTTP request.
+
+254
+00:34:36.340 --> 00:34:37.199
+Jonathan Rayback: Correct.
+
+255
+00:34:37.889 --> 00:34:43.639
+Samuel Smith: Well, it also, it also means that the DID resolver, when it's given the DIDWebS,
+
+256
+00:34:43.859 --> 00:34:47.929
+Samuel Smith: can go get the DIDWeb S doc in one… one… one…
+
+257
+00:34:48.139 --> 00:34:55.029
+Samuel Smith: one request, and not… and… and not have to generate the DIDWebS stock.
+
+258
+00:34:56.179 --> 00:35:09.459
+Jonathan Rayback: So, that's an interesting point, but, like, let me ask you this too, then, CM, because Kent and I were debating this yesterday. Right now, in the spec, and this has been in the spec all along, and this topic has come up several times, and I don't know if we've ever totally resolved it, but…
+
+259
+00:35:09.949 --> 00:35:11.419
+Jonathan Rayback: Right now, in the spec.
+
+260
+00:35:12.769 --> 00:35:15.309
+Jonathan Rayback: When you do this read operation.
+
+261
+00:35:16.019 --> 00:35:20.249
+Jonathan Rayback: And again, this is assuming… this is from the point of view of an actual DID resolver.
+
+262
+00:35:21.619 --> 00:35:31.019
+Jonathan Rayback: the step for resolving a didwebsDid goes, transform the DIDWebS identifier into an HTTP
+
+263
+00:35:31.229 --> 00:35:35.289
+Jonathan Rayback: URL, resolve the HTTP URL, and retrieve
+
+264
+00:35:35.479 --> 00:35:40.769
+Jonathan Rayback: the did. The did.json file, and the carry.cesar file.
+
+265
+00:35:41.399 --> 00:35:49.639
+Jonathan Rayback: Check the carry event stream in the carry.cesar file, and make sure that everything's kosher, and everything looks good to you.
+
+266
+00:35:49.789 --> 00:36:00.489
+Jonathan Rayback: Then, transform, that carries.Cesar file into a didwebsDid document, transform the did web
+
+267
+00:36:00.719 --> 00:36:13.729
+Jonathan Rayback: did document into a DIDWebS did document, and compare the two to make sure they're identical. It's that second step of making sure that the DID document that's derived from the carry.cesar dynamically
+
+268
+00:36:13.749 --> 00:36:21.699
+Jonathan Rayback: and whatever static did.json is living at the endpoint, that those two are identical, that is a step of invalidation right now.
+
+269
+00:36:22.220 --> 00:36:24.350
+Samuel Smith: Okay, so, so here's the problem.
+
+270
+00:36:24.720 --> 00:36:28.649
+Samuel Smith: An honest Did WebS did resolver would do that.
+
+271
+00:36:29.100 --> 00:36:40.139
+Samuel Smith: A dishonest one can do whatever they feel like doing, and you can't trust it, because DID resolvers are not trustable unless you run them yourself.
+
+272
+00:36:40.140 --> 00:36:40.710
+Jonathan Rayback: F.
+
+273
+00:36:40.710 --> 00:36:47.510
+Samuel Smith: Which means that any consumer of a DITD doc must do the verification themselves.
+
+274
+00:36:48.280 --> 00:36:52.189
+Samuel Smith: Right? So, so they can't trust that that verification was done.
+
+275
+00:36:52.670 --> 00:36:59.970
+Samuel Smith: for them, unless they're running the DID resolver, so that's… so it's a special DID resolver. It's not… it's… right? So the DID spec…
+
+276
+00:37:00.090 --> 00:37:05.009
+Samuel Smith: Can't, can't assume that all did resolvers are trusted.
+
+277
+00:37:05.260 --> 00:37:07.719
+Samuel Smith: or trustable, right? Because… because…
+
+278
+00:37:07.720 --> 00:37:08.620
+Jonathan Rayback: That's correct.
+
+279
+00:37:09.130 --> 00:37:13.030
+Jonathan Rayback: That's correct. And this is where, again, yesterday, Kent asked me the question, he's like.
+
+280
+00:37:13.570 --> 00:37:18.080
+Jonathan Rayback: I mean, once you get the carried on Caesar, do you care about the DIT document anymore? Maybe now you're.
+
+281
+00:37:18.080 --> 00:37:24.139
+Samuel Smith: No, you don't. No, once you have a carry.scesar, you don't care about it, unless you're using it for discovery.
+
+282
+00:37:24.790 --> 00:37:31.079
+Jonathan Rayback: My argument is the following, though. My argument would be, if you… Because you don't have to…
+
+283
+00:37:31.250 --> 00:37:34.329
+Jonathan Rayback: You don't have to not trust every DID resolver.
+
+284
+00:37:34.540 --> 00:37:44.740
+Samuel Smith: No, no, you could run your own local DID resolver that you trust, you can do that. So you could leverage… you could leverage that if it's your own resolver, right?
+
+285
+00:37:44.740 --> 00:37:57.420
+Jonathan Rayback: And my point is this, then, if you go down that path, where either it's a resolver that you've written and are running locally, or, you know, it's a service provider that you have contractual trust in, or whatever, the point is, people can make these decisions themselves, is what I'm saying. But, like.
+
+286
+00:37:57.420 --> 00:38:06.299
+Jonathan Rayback: If you're in an organization where your infrastructure is all about DIDs, like, you know, you're aware that DID WebS exists, and you want to
+
+287
+00:38:06.430 --> 00:38:12.010
+Jonathan Rayback: like, resolve it properly and validate that the state of the DIT document at this moment is, you know.
+
+288
+00:38:12.170 --> 00:38:15.669
+Jonathan Rayback: Valid according to the event history, you know, and whatnot.
+
+289
+00:38:15.750 --> 00:38:20.290
+Jonathan Rayback: But, like, once that's all done, all you want is a DIT document, because that's all you…
+
+290
+00:38:20.290 --> 00:38:39.870
+Jonathan Rayback: that's all your infrastructure is, you know, designed to work with. It works with did web did documents, and did WebS did documents, and, you know, did check did documents, and whatever, and you've got all the parsing logic and everything, and what you really want at the end of the day, for convenience's sake, is the keys in the form of a did document. I feel like that's a legitimate use case, too. Like, you just…
+
+291
+00:38:39.870 --> 00:38:57.180
+Samuel Smith: Yeah, it's a legitimate use case, it's just not… not… it's just… it's just that you have… you have to impose on top of that what your trust policy is for what you're doing with that DID doc… right? From Carrie's perspective, a DID document is not normative for you trusting the key state because.
+
+292
+00:38:57.180 --> 00:38:57.780
+Jonathan Rayback: You have to…
+
+293
+00:38:58.160 --> 00:39:15.520
+Samuel Smith: Right? But, yeah, but… but, Daniel Hardman joined, so I don't… we're… we're… we want to give him time, because he's… he's post… this is a split meeting, so, so I didn't want to… so I just wanted to recognize Daniel. Did you, does… but…
+
+294
+00:39:16.170 --> 00:39:20.130
+Samuel Smith: so I'm not saying don't have that use case, I'm just saying that.
+
+295
+00:39:20.390 --> 00:39:22.780
+Jonathan Rayback: I think that's fine. I think we're all on the same page.
+
+296
+00:39:22.930 --> 00:39:29.939
+Samuel Smith: Yeah, so anyway, that answered my questions. I just wanted to bring up that question of.
+
+297
+00:39:30.090 --> 00:39:34.729
+Samuel Smith: Of, you know, is there a way to normatively, informatively
+
+298
+00:39:34.950 --> 00:39:46.159
+Samuel Smith: you know, telegraph in the URL that… that you'd resolve into Web S and not something… and… so that… so that… so that you get the right… right one instead of having to do a two-step.
+
+299
+00:39:47.060 --> 00:39:54.150
+Kent Bull: I actually really like that feature. This is a good discussion. That'll be easy to add to both the spec and the resolver.
+
+300
+00:39:56.250 --> 00:39:56.889
+Jonathan Rayback: Thanks, everyone.
+
+301
+00:39:56.890 --> 00:39:58.420
+Kent Bull: So, yeah, thank you.
+
+302
+00:39:59.580 --> 00:40:00.330
+Samuel Smith: Daniel.
+
+303
+00:40:00.330 --> 00:40:01.559
+Kent Bull: Yeah, go ahead.
+
+304
+00:40:02.490 --> 00:40:10.739
+Samuel Smith: I don't know… we just… yeah, I just… just… I just want to make sure he gets time. I don't know how much time he needs or wants, but…
+
+305
+00:40:11.060 --> 00:40:24.499
+Daniel Hardman (Provenant, Inc.): Thank you. I actually, thought that that discussion was quite interesting, so, I wasn't, you know, straining against the topic there. I liked it.
+
+306
+00:40:25.690 --> 00:40:36.869
+Daniel Hardman (Provenant, Inc.): what I want to say is that, since, last month, we've had, one substantive, merge of a PR, and I've opened another one.
+
+307
+00:40:37.260 --> 00:40:39.299
+Daniel Hardman (Provenant, Inc.): So there's currently a new…
+
+308
+00:40:39.690 --> 00:40:49.460
+Daniel Hardman (Provenant, Inc.): PR against the dossier spec that, might be worthy of your review, and I want to talk about the specific thing that is…
+
+309
+00:40:50.760 --> 00:40:55.480
+Daniel Hardman (Provenant, Inc.): Kind of top of mind, in the evolution of this spec.
+
+310
+00:40:55.610 --> 00:41:01.990
+Daniel Hardman (Provenant, Inc.): Let me share my screen, if I could. I think this might be interesting to people.
+
+311
+00:41:03.330 --> 00:41:14.090
+Daniel Hardman (Provenant, Inc.): This is not… what I'm showing you here is a tab in a… GitHub repo that,
+
+312
+00:41:14.350 --> 00:41:17.489
+Daniel Hardman (Provenant, Inc.): Provenant, my employer,
+
+313
+00:41:18.230 --> 00:41:33.499
+Daniel Hardman (Provenant, Inc.): maintains a repo of interesting schema things, and so in this repo, I have created a discussion about the topic of foreign artifacts, and I want to bring that to this group.
+
+314
+00:41:34.780 --> 00:41:46.079
+Daniel Hardman (Provenant, Inc.): We need a, kind of a formally defined mechanism for bridging, other artifacts into the world of ACDCs.
+
+315
+00:41:47.170 --> 00:41:57.139
+Daniel Hardman (Provenant, Inc.): So, an example of a very simple thing that we might want to do, and this… this should tie back to the dossier pretty obviously in everybody's mind, I hope.
+
+316
+00:41:57.560 --> 00:41:59.070
+Daniel Hardman (Provenant, Inc.): is a photo.
+
+317
+00:41:59.440 --> 00:42:05.579
+Daniel Hardman (Provenant, Inc.): Let's say you're an insurance adjuster, and you got called to the scene of an accident, and you're taking pictures of
+
+318
+00:42:05.940 --> 00:42:07.489
+Daniel Hardman (Provenant, Inc.): The cars.
+
+319
+00:42:08.030 --> 00:42:22.510
+Daniel Hardman (Provenant, Inc.): So you get out your phone, and you take a picture, and this picture is… maybe it's a raw file, maybe it's a JPEG, I don't know, but anyway, you take a picture, and you want to, somehow reference this in an ACDC.
+
+320
+00:42:23.600 --> 00:42:27.740
+Daniel Hardman (Provenant, Inc.): Because your ACDC is a dossier of everything you found at the crash scene.
+
+321
+00:42:29.090 --> 00:42:32.729
+Daniel Hardman (Provenant, Inc.): How do you reference that JPEG?
+
+322
+00:42:33.730 --> 00:42:40.080
+Daniel Hardman (Provenant, Inc.): And this, document here is an attempt to answer that question.
+
+323
+00:42:40.920 --> 00:42:46.890
+Daniel Hardman (Provenant, Inc.): So it says that we're going to have a schema called, Foreign Artifact.
+
+324
+00:42:47.540 --> 00:42:52.489
+Daniel Hardman (Provenant, Inc.): Or foreign artifact schema or something, and inside this schema.
+
+325
+00:42:52.850 --> 00:42:59.049
+Daniel Hardman (Provenant, Inc.): The idea is basically that, we have a field called Content Identifier.
+
+326
+00:42:59.720 --> 00:43:06.390
+Daniel Hardman (Provenant, Inc.): that, says, here's the content I'm trying to reference externally.
+
+327
+00:43:06.610 --> 00:43:21.629
+Daniel Hardman (Provenant, Inc.): we have a MIME type for that content, and then we can specify places where that content might be found, what its size is, what its file name is, what a description is, all these other things.
+
+328
+00:43:21.630 --> 00:43:33.859
+Daniel Hardman (Provenant, Inc.): what's interesting about this is I… I gave an example of a photo, and I think that's obvious, but there's a really other… other… a really interesting other category here, which is…
+
+329
+00:43:33.910 --> 00:43:35.680
+Daniel Hardman (Provenant, Inc.): Foreign credential types.
+
+330
+00:43:36.470 --> 00:43:44.369
+Daniel Hardman (Provenant, Inc.): So let's say you have… an ISO Mobile driver's license, and you want to reference it in an ACDC.
+
+331
+00:43:45.630 --> 00:43:58.279
+Daniel Hardman (Provenant, Inc.): How would you do that? I'm proposing that this same answer be applied. You basically take the mobile driver's license, and you figure out how to identify it, stably.
+
+332
+00:43:58.760 --> 00:44:03.769
+Daniel Hardman (Provenant, Inc.): And, you wrap it, using this foreign artifact wrapper.
+
+333
+00:44:05.000 --> 00:44:08.020
+Daniel Hardman (Provenant, Inc.): So, I've been showing you, this
+
+334
+00:44:08.390 --> 00:44:19.259
+Daniel Hardman (Provenant, Inc.): thing in a repo, called Public Schema, but there's actually, in the… the pull request against the dossier spec, there's now a,
+
+335
+00:44:21.150 --> 00:44:38.609
+Daniel Hardman (Provenant, Inc.): a section in the dossier that talks about this phenomenon as well. So these two things kind of go together. However, the dossier spec doesn't say normatively that you must use this particular schema. All it does is it says, when you do a wrapping.
+
+336
+00:44:38.730 --> 00:44:47.319
+Daniel Hardman (Provenant, Inc.): You must use an ACDC that has the following characteristics. So we could use a different schema than this one. This is just an example embodiment.
+
+337
+00:44:48.170 --> 00:44:49.460
+Daniel Hardman (Provenant, Inc.): Does that make sense?
+
+338
+00:44:51.980 --> 00:44:53.250
+Kent Bull: Yes,
+
+339
+00:44:54.300 --> 00:44:55.929
+Daniel Hardman (Provenant, Inc.): Okay, so…
+
+340
+00:44:56.320 --> 00:45:07.849
+Daniel Hardman (Provenant, Inc.): what I'd love to ask, people on this call is, do you think this is roughly on the right track, and do you have substantive ideas to contribute to make this better?
+
+341
+00:45:08.520 --> 00:45:10.100
+Kent Bull: Let me mention…
+
+342
+00:45:10.100 --> 00:45:11.590
+Daniel Hardman (Provenant, Inc.): Well, go ahead.
+
+343
+00:45:11.860 --> 00:45:17.209
+Kent Bull: So, I know that I think I either saw in the dossier spec
+
+344
+00:45:18.020 --> 00:45:26.109
+Kent Bull: The explicit reference to something like a citation, or either… or maybe some sort of informative language that referred to that.
+
+345
+00:45:26.420 --> 00:45:29.629
+Kent Bull: Would you be suggesting a specific
+
+346
+00:45:29.830 --> 00:45:34.769
+Kent Bull: Schema for a citation like this, or is this a different concept than a citation?
+
+347
+00:45:36.230 --> 00:45:42.319
+Daniel Hardman (Provenant, Inc.): Well, it is a citation, but it's a specialized kind of citation where we're explicitly trying to bridge
+
+348
+00:45:42.540 --> 00:45:46.239
+Daniel Hardman (Provenant, Inc.): Some semantic gaps,
+
+349
+00:45:46.590 --> 00:45:53.169
+Daniel Hardman (Provenant, Inc.): We don't want to use the kind of citation that the web is known for that is insecure.
+
+350
+00:45:53.900 --> 00:46:08.180
+Daniel Hardman (Provenant, Inc.): Where, you know, you just say, go to this location, and whatever you find there is… is what I'm citing. We want to keep the ACDC purity that says the only way you can cite something in an ACDC data graph
+
+351
+00:46:08.410 --> 00:46:13.710
+Daniel Hardman (Provenant, Inc.): Is by saying, here's a tamper-evident reference to it.
+
+352
+00:46:13.930 --> 00:46:17.749
+Daniel Hardman (Provenant, Inc.): So we prefer to cite things by said.
+
+353
+00:46:19.380 --> 00:46:24.530
+Daniel Hardman (Provenant, Inc.): And, if the thing that we're pointing to has a said, that's obvious.
+
+354
+00:46:25.060 --> 00:46:28.180
+Daniel Hardman (Provenant, Inc.): But, there are things that don't have SEDS.
+
+355
+00:46:28.400 --> 00:46:47.520
+Daniel Hardman (Provenant, Inc.): You know, if somebody is… let's say somebody is, witnessing the, the, moment when, the cardinals walk out into St. Peter's Square and announce who the new Pope is, and they take a video of it. There's no said in the video on their cell phone.
+
+356
+00:46:47.830 --> 00:46:58.070
+Daniel Hardman (Provenant, Inc.): But if they want to cite that, and a journalist wants to cite that and say, this really happened, it's not just an AI generating fake news.
+
+357
+00:46:58.310 --> 00:47:07.870
+Daniel Hardman (Provenant, Inc.): how do you cite it? And the answer has to be something that is… Worthy of the…
+
+358
+00:47:08.270 --> 00:47:17.200
+Daniel Hardman (Provenant, Inc.): same kind of trust characteristics as the rest of an ACDC graph. So… The answer here is…
+
+359
+00:47:17.390 --> 00:47:20.370
+Daniel Hardman (Provenant, Inc.): If you can generate a SED,
+
+360
+00:47:20.700 --> 00:47:23.179
+Daniel Hardman (Provenant, Inc.): For the thing that you're citing, you must.
+
+361
+00:47:23.940 --> 00:47:27.580
+Daniel Hardman (Provenant, Inc.): If you can't generate a SED, use a hash.
+
+362
+00:47:29.980 --> 00:47:39.020
+Daniel Hardman (Provenant, Inc.): Actually, I… I… let me moderate this a little bit. If the artifact you're citing
+
+363
+00:47:39.320 --> 00:47:41.790
+Daniel Hardman (Provenant, Inc.): is inherently signed.
+
+364
+00:47:43.250 --> 00:47:48.290
+Daniel Hardman (Provenant, Inc.): Then it suggests that you use the signature as the identifier for it.
+
+365
+00:47:48.900 --> 00:48:02.459
+Daniel Hardman (Provenant, Inc.): If it's… so, as an example, a W3C verifiable credential, we wouldn't hash the verifiable credential, we would use the signature on the verifiable credential as the thing that… that identifies it.
+
+366
+00:48:03.130 --> 00:48:08.940
+Daniel Hardman (Provenant, Inc.): in the current writing here, and maybe that's a bad idea. I don't know. But that's what I said.
+
+367
+00:48:10.770 --> 00:48:21.630
+Daniel Hardman (Provenant, Inc.): So you would also use that with, like, an ISOMobile driver's license or something. You would say, I'm referring to this driver's license, and this is… expands to a signature value.
+
+368
+00:48:27.030 --> 00:48:31.799
+Kent Bull: Okay, so would the… I guess the… so what I was striving at is…
+
+369
+00:48:33.100 --> 00:48:44.889
+Kent Bull: Would the citation of a foreign artifact like this, is there going to be an explicit place where the dossier spec says, okay, and then we have an array of citations.
+
+370
+00:48:45.130 --> 00:48:56.650
+Kent Bull: Or is it more flexible than that, in the sense that, like, a citation could point to a citation, could point to a citation, or is it just one level, you've got an array of citations?
+
+371
+00:48:56.890 --> 00:49:07.619
+Daniel Hardman (Provenant, Inc.): Well, the edges are the citations. The dossier is an ACDC, and each edge is a citation of some kind. In many cases, there will be a citation of another ACDC.
+
+372
+00:49:08.840 --> 00:49:18.910
+Kent Bull: Okay, so then there would be a citation, ACDC, that points to a dossier, and a particular citation would be… could be for a foreign artifact.
+
+373
+00:49:22.350 --> 00:49:33.400
+Kent Bull: And I guess would be, because, like you said, a foreign artifact is a type of citation. So this… so what this foreign artifact would be, this would be… you're essentially designing… defining the schema
+
+374
+00:49:33.710 --> 00:49:38.829
+Kent Bull: For one foreign artifact citation that would point to the dossier, or the dossier.
+
+375
+00:49:38.830 --> 00:49:42.699
+Daniel Hardman (Provenant, Inc.): It's the opposite. The dossier points to this, not the other way around.
+
+376
+00:49:42.900 --> 00:49:44.320
+Kent Bull: Okay, bye.
+
+377
+00:49:47.190 --> 00:49:58.560
+Daniel Hardman (Provenant, Inc.): So, what this does, is powerful, but it's also dangerous in a certain way. It's powerful because this gives the ACDC ecosystem
+
+378
+00:49:58.740 --> 00:50:01.970
+Daniel Hardman (Provenant, Inc.): A story about every data type,
+
+379
+00:50:02.410 --> 00:50:19.089
+Daniel Hardman (Provenant, Inc.): And that includes every other credential data type. We can say casually, yeah, yeah, yeah, you want to stick a W3C verifiable credential in something? Knock yourself out. Here's exactly how to do it. It becomes a kind of a standard, mechanism that we all know and understand well.
+
+380
+00:50:20.090 --> 00:50:25.219
+Daniel Hardman (Provenant, Inc.): But also, every other data type. You want to stick genomics in an ACDC? Here's how.
+
+381
+00:50:25.380 --> 00:50:29.059
+Daniel Hardman (Provenant, Inc.): You know, you want to stick video in an ACDC? Here's how.
+
+382
+00:50:29.380 --> 00:50:36.319
+Daniel Hardman (Provenant, Inc.): And I… I think that's quite powerful and important to the… the ecosystem.
+
+383
+00:50:36.900 --> 00:50:54.729
+Daniel Hardman (Provenant, Inc.): But the reason I said it's dangerous is that we have to communicate carefully about how the semantics get colored by this citation mechanism. If you stick a W3C verifiable credential in an ACDC,
+
+384
+00:50:55.170 --> 00:50:56.920
+Daniel Hardman (Provenant, Inc.): What are you asserting?
+
+385
+00:50:59.160 --> 00:51:08.390
+Daniel Hardman (Provenant, Inc.): the party that's creating the ACDC is not asserting the facts that were asserted by the issuer of the W3C verifiable credential.
+
+386
+00:51:09.370 --> 00:51:14.209
+Daniel Hardman (Provenant, Inc.): Only the issuer of the W3C verifiable credential would be asserting that.
+
+387
+00:51:14.390 --> 00:51:25.140
+Daniel Hardman (Provenant, Inc.): The party that does the wrapping is asserting that the… W3C verifiable credential exists, And…
+
+388
+00:51:25.270 --> 00:51:28.040
+Daniel Hardman (Provenant, Inc.): Maybe we need to say.
+
+389
+00:51:28.310 --> 00:51:34.600
+Daniel Hardman (Provenant, Inc.): Do they want the option of asserting that they verified the credential at the time they wrapped it?
+
+390
+00:51:36.100 --> 00:51:49.690
+Daniel Hardman (Provenant, Inc.): But you lose, revocation handling, like, there's no, guarantee here that the ACDC will be automatically revoked if the W3C verifiable credential is revoked.
+
+391
+00:51:50.440 --> 00:51:59.330
+Daniel Hardman (Provenant, Inc.): And… there are other, you know, subtle implications here. So… so we just need to, like.
+
+392
+00:51:59.520 --> 00:52:11.620
+Daniel Hardman (Provenant, Inc.): I feel like I'm introducing something that's quite powerful and interesting, and that it could be a nice integration story for our ecosystem, but it also needs to be described with great care.
+
+393
+00:52:19.250 --> 00:52:24.990
+Samuel Smith: So, I, I have a couple of comments on this, Daniel. I don't know if you're done talking, if you… Yeah.
+
+394
+00:52:25.670 --> 00:52:29.930
+Samuel Smith: So, my first thought is, is that since,
+
+395
+00:52:30.820 --> 00:52:37.670
+Samuel Smith: Inclusion, or wrapping some other digital artifact in an ACDC,
+
+396
+00:52:37.930 --> 00:52:48.120
+Samuel Smith: isn't making any claims about what is being wrapped. It's making a claim about the… that… that you have a wrapper
+
+397
+00:52:48.490 --> 00:52:50.970
+Samuel Smith: That conveys…
+
+398
+00:52:51.480 --> 00:52:59.880
+Samuel Smith: the internal thing, and so… so you're basically saying, hey, I'm going to transport my cargo this way.
+
+399
+00:53:00.610 --> 00:53:11.999
+Samuel Smith: The, the ACDC has something already built in it called a, mechanism for computing SEDS,
+
+400
+00:53:12.160 --> 00:53:17.749
+Samuel Smith: of any… Anything in the attributes section.
+
+401
+00:53:17.920 --> 00:53:27.520
+Samuel Smith: In the most compact form, which means that you're automatically going to compute the hash of… the cargo field.
+
+402
+00:53:27.740 --> 00:53:37.610
+Samuel Smith: whose value is whatever it is. It could be a W3VC credential. So there is a mechanism for generating a…
+
+403
+00:53:37.720 --> 00:53:44.910
+Samuel Smith: a SED of the data block that is the cargo field.
+
+404
+00:53:45.570 --> 00:53:51.470
+Daniel Hardman (Provenant, Inc.): Well, you're assuming that the field is included in the actual content of the ACDC, right?
+
+405
+00:53:52.150 --> 00:53:54.110
+Samuel Smith: Well, it's in the attribute section, so…
+
+406
+00:53:54.110 --> 00:53:57.360
+Daniel Hardman (Provenant, Inc.): No, but I'm not gonna stick a 40 gigabyte genome in the app.
+
+407
+00:53:57.360 --> 00:54:12.260
+Samuel Smith: No, that's right. If you don't put it there, then you would put… then you would put something else in the cargo section, which would be some other identifier, right? So you could attach it, and then… and then put it in there. So I'm not… I'm not… I'm just saying that that mechanism is there.
+
+408
+00:54:12.410 --> 00:54:32.350
+Samuel Smith: So that you can put anything in there as the cargo. It could be the whole thing, or it could be some other identifier. So yes, if it doesn't have a SED, then you would need a protocol for generating an identifier, and that's what you're trying to find, is what is the identifier you want to use? Do you want to generate
+
+409
+00:54:32.440 --> 00:54:47.149
+Samuel Smith: a hash of it, and say, here it is, right? And it's not… it's not a set itself, it's a hash, because it's not self-contained. We're using some other identifier that… that has a hash in it of that… that they generated, like a signature.
+
+410
+00:54:47.610 --> 00:54:53.550
+Samuel Smith: So I'm a little bit concerned about signatures. I have to look it up.
+
+411
+00:54:53.690 --> 00:55:05.510
+Samuel Smith: Because of key substitution attacks, A signature may be less… Less, secure than generating a hash.
+
+412
+00:55:05.930 --> 00:55:13.700
+Samuel Smith: Because, because the signature is… is… has a hash in it, but has some other stuff in it.
+
+413
+00:55:13.810 --> 00:55:16.109
+Samuel Smith: And I blew… and I.
+
+414
+00:55:16.910 --> 00:55:28.340
+Daniel Hardman (Provenant, Inc.): So, let me talk about that a little bit, because I wondered, and I'm not surprised to hear you say that, and we might end up discarding the signature for exactly that reason, but.
+
+415
+00:55:28.340 --> 00:55:41.400
+Samuel Smith: Yeah, I just wanted… I just… I was concerned about that, because there are attacks on signatures that aren't… that… that have weaknesses that signatures bring with them that are… that make them weaker than normal hashes, in some ways.
+
+416
+00:55:41.400 --> 00:55:50.490
+Daniel Hardman (Provenant, Inc.): Here was my reasoning, and… and this might be, an example of something that we want to discard because,
+
+417
+00:55:50.890 --> 00:56:06.499
+Daniel Hardman (Provenant, Inc.): it kind of opens a door that might be dangerous, but my reasoning was, let's take W3C, we all know that, you know, JSON-LD transformations and signatures and whatever, there's a long, colorful history about
+
+418
+00:56:06.710 --> 00:56:11.140
+Daniel Hardman (Provenant, Inc.): how you generate a signature over a W3C verifiable credential.
+
+419
+00:56:11.790 --> 00:56:23.460
+Daniel Hardman (Provenant, Inc.): One of the challenges is that you can modify the JSON of a W3C verifiable credential, and not modify the signature.
+
+420
+00:56:23.640 --> 00:56:24.510
+Daniel Hardman (Provenant, Inc.): Right?
+
+421
+00:56:24.660 --> 00:56:26.739
+Daniel Hardman (Provenant, Inc.): Like, you can have more than one.
+
+422
+00:56:26.970 --> 00:56:34.140
+Daniel Hardman (Provenant, Inc.): sequence of bytes that is valid JSON that results in the same signature.
+
+423
+00:56:34.140 --> 00:56:38.450
+Samuel Smith: Well, if you're talking about the integrity proof.
+
+424
+00:56:38.620 --> 00:56:39.190
+Daniel Hardman (Provenant, Inc.): Yeah.
+
+425
+00:56:39.420 --> 00:56:55.170
+Samuel Smith: Yeah, that's not… that's not technically a signature, it's an integrity proof. That's why you can… you can verify it, because it's using HMACs under the hood. So, yeah, it's… it's… it's problematic, right? The integrity proofs are problematic from that respect, yes.
+
+426
+00:56:55.170 --> 00:57:04.469
+Daniel Hardman (Provenant, Inc.): So, so one of the things that I worried about is what happens if you embed a W3C verifiable credential, and the embedded data
+
+427
+00:57:04.590 --> 00:57:09.540
+Daniel Hardman (Provenant, Inc.): is viewed as JSON, and a…
+
+428
+00:57:10.530 --> 00:57:15.550
+Daniel Hardman (Provenant, Inc.): you know, some kind of a JSON transformation happens that's not substantive.
+
+429
+00:57:15.740 --> 00:57:16.400
+Samuel Smith: Yep.
+
+430
+00:57:18.390 --> 00:57:22.330
+Daniel Hardman (Provenant, Inc.): You could end up in a situation where
+
+431
+00:57:22.360 --> 00:57:41.809
+Daniel Hardman (Provenant, Inc.): you have embedded something that doesn't look like the same thing anymore, and yet the intention was that it be the same thing, you know? I don't know exactly how to deal with that. If you say, look, we will simply embed the W3C credential as a sequence of bytes, and we will hash it.
+
+432
+00:57:42.130 --> 00:57:42.960
+Samuel Smith: Yep.
+
+433
+00:57:42.960 --> 00:57:48.889
+Daniel Hardman (Provenant, Inc.): You get, perfect fidelity, but you get,
+
+434
+00:57:49.770 --> 00:57:56.899
+Daniel Hardman (Provenant, Inc.): you have to make sure that it's treated as a sequence of bytes rather than as JSON at every place where
+
+435
+00:57:57.020 --> 00:57:59.559
+Daniel Hardman (Provenant, Inc.): It might be processed.
+
+436
+00:58:00.380 --> 00:58:15.659
+Samuel Smith: Yeah, so… so… so the… the… so there's really two ways to look at this problem. One is, are you treating the ACDC as purely a container? If you're treating it as purely a container, then the only one that makes sense is that you're going to hash
+
+437
+00:58:16.160 --> 00:58:17.260
+Samuel Smith: some…
+
+438
+00:58:17.570 --> 00:58:26.010
+Samuel Smith: Some digital expression, which means that's fixed, you can't change it, and you're gonna… and you're going to put the hash
+
+439
+00:58:26.200 --> 00:58:35.029
+Samuel Smith: as the value of the cargo field, and say, I'm making a commitment to this exact serialization. There's no semantic.
+
+440
+00:58:35.460 --> 00:58:45.339
+Samuel Smith: there's no semantic equivalents involved. The other interpretation is, I want the ACDC to convey some semantic
+
+441
+00:58:45.340 --> 00:59:01.429
+Samuel Smith: values that is embedded in the W3C verifiable credential, and that opens up a can of worms. Not that that can of worms can't be resolved, but it does open up a can of worms. And so, I think in some cases, the simple thing is, well.
+
+442
+00:59:01.430 --> 00:59:05.709
+Samuel Smith: we're gonna treat the ACDC as a container, it's not conveying any semantics at all.
+
+443
+00:59:05.780 --> 00:59:18.809
+Samuel Smith: And it's up to the user to… you're basically layering the protocol. You're saying, the ACDC is a layer that says, I'm going to transport something. Once I transport it, you can verify that it wasn't tampered with.
+
+444
+00:59:18.890 --> 00:59:36.899
+Samuel Smith: And then, if you want to do equivalences that say this is semantically equivalent, which is what the integrity proof says, I can have two different RDF graphs, they're semantically equivalent, and the same integrity proof will verify against both of them, so I know that I didn't lose anything semantically, even though
+
+445
+00:59:36.950 --> 00:59:46.279
+Samuel Smith: Both of them were conveyed differently in their different serializations, and… but that meant they were conveyed in two separate cases across
+
+446
+00:59:46.510 --> 01:00:02.640
+Samuel Smith: two separate ACDCs that conveyed them, so they're not the same conveyance, but at an upper layer, you can process. So I'm worried about the layer inversion of semantics and treating ACDCs as containers.
+
+447
+01:00:02.720 --> 01:00:10.769
+Samuel Smith: ACDCs are also not containers when we use them directly as credentials, so there's semantics embedded in it, and that's, you know, that's…
+
+448
+01:00:11.390 --> 01:00:25.100
+Samuel Smith: That's something we have to be careful about, right? We have to say, well, we're using this ACDC semantically as not just a container, but as something that the fields have meaning, they have semantics.
+
+449
+01:00:25.100 --> 01:00:49.670
+Samuel Smith: And when you… but when we want to cross the bridge to W3C, there's a bunch of semantic baggage that comes with that W3C credential, and I don't mean baggage in a bad way, I just mean there's, you know, it's like somebody showing up at the cruise and going, oh, you know, I've got a truckload of bags that need to get on board the ship. You know, it's not just what I'm carrying on my purse.
+
+450
+01:00:50.300 --> 01:00:58.789
+Samuel Smith: So… so… so I… so yes, there is… there is a danger there, and I'm wondering if we should make a clean separation and say, hey.
+
+451
+01:00:59.750 --> 01:01:03.899
+Samuel Smith: If you're just going to use ACDC as a container.
+
+452
+01:01:04.280 --> 01:01:21.989
+Samuel Smith: then just hash whatever it is that you're transporting, put the hash in the container, and you're done. Anything else is happening outside of the purview of the ACDC. If you want to… if you want to impose semantics, then in each case, you have to define what those semantics are.
+
+453
+01:01:23.810 --> 01:01:29.530
+Daniel Hardman (Provenant, Inc.): Yeah, I see the attractiveness of the, of the simplicity of simply saying, just hash everything.
+
+454
+01:01:30.120 --> 01:01:40.090
+Daniel Hardman (Provenant, Inc.): I, I think… that might be where we have to start. And maybe we actually say.
+
+455
+01:01:40.450 --> 01:01:44.679
+Daniel Hardman (Provenant, Inc.): you know, the ACDC is a container, and everything's hashed.
+
+456
+01:01:44.910 --> 01:02:04.499
+Daniel Hardman (Provenant, Inc.): And if you want additional intelligence, you have to introduce another layer, which says, I'm going to look at the MIME type of the thing that I hashed, and, you know, if I can tell that the MIME type is a verifiable credential, then I will impose some additional logic, but it's not something that the ACDC layer has to know anything about. That might be better.
+
+457
+01:02:06.280 --> 01:02:09.080
+Daniel Hardman (Provenant, Inc.): Okay.
+
+458
+01:02:09.080 --> 01:02:13.009
+Samuel Smith: And we… and we have a… we actually have an attachment group
+
+459
+01:02:13.490 --> 01:02:18.569
+Samuel Smith: Now, we added in the version 2 of the spec where you can, attach
+
+460
+01:02:18.850 --> 01:02:21.540
+Samuel Smith: A blindable, mind type.
+
+461
+01:02:22.080 --> 01:02:31.040
+Samuel Smith: And a… and a hash of… of the actual document, so that… so that,
+
+462
+01:02:31.380 --> 01:02:37.829
+Samuel Smith: you know, you can do it in a blinded fashion, so it's a blinded hash.
+
+463
+01:02:37.940 --> 01:02:43.339
+Samuel Smith: So you just put that in the cargo field, and then you can attach whatever you… then you attach that
+
+464
+01:02:43.530 --> 01:02:48.969
+Samuel Smith: That attachment, and then that attachment makes a cryptographic commitment
+
+465
+01:02:49.090 --> 01:02:53.209
+Samuel Smith: To some other thing which… which has a mine type.
+
+466
+01:02:53.580 --> 01:03:09.829
+Samuel Smith: And then… and then… and then however you convey that other thing, whether it's attached as well or comes through a separate channel, doesn't matter. The commitment is all verifiable at the end, and it's blindable because… because you're… you're putting a blinding factor in the hash computation.
+
+467
+01:03:10.320 --> 01:03:24.250
+Samuel Smith: Which… which is… which is left out of what you're proposing, and I think that's a valuable thing to always do when you're doing hashes of things that are… that have information that might be sensitive.
+
+468
+01:03:24.460 --> 01:03:39.140
+Samuel Smith: you… you want to have the hashes be blinded so that the only way that somebody can verify the hash is for… is to be presented with the un… to unblind it at the point of presentation, and so that at least they have some control over that.
+
+469
+01:03:39.470 --> 01:03:40.350
+Samuel Smith: So that…
+
+470
+01:03:40.390 --> 01:03:52.460
+Daniel Hardman (Provenant, Inc.): So, so, I know we need to end, but let me just ask. So, all of these things that we're talking about here would be referenced in a dossier by, an Edge.
+
+471
+01:03:52.530 --> 01:04:03.719
+Daniel Hardman (Provenant, Inc.): So you'd already have an edge that is one layer of indirection, where you're disclosing in the edge, this is the set of the ACDC that I'm gonna get to next.
+
+472
+01:04:03.720 --> 01:04:04.330
+Samuel Smith: Yes.
+
+473
+01:04:04.680 --> 01:04:05.120
+Daniel Hardman (Provenant, Inc.): You're saying…
+
+474
+01:04:05.120 --> 01:04:05.750
+Samuel Smith: Yeah.
+
+475
+01:04:05.750 --> 01:04:23.730
+Daniel Hardman (Provenant, Inc.): you want a second layer of disclosability, which is when you get to that ACDC, the ACDC says, here's the content that I'm committed to, but I'm not going to tell you what its MIME type is, or anything else about it, I'm just going to tell you its… its content hash.
+
+476
+01:04:24.130 --> 01:04:31.350
+Samuel Smith: Yeah, and that's obviously optional, but what happens is when you look at, things like…
+
+477
+01:04:31.480 --> 01:04:35.689
+Samuel Smith: Reducing vendor-to-vendor correlation.
+
+478
+01:04:36.010 --> 01:04:45.910
+Samuel Smith: in order to verify the ACDC, if the edges require you to, to, to verify the edge.
+
+479
+01:04:46.200 --> 01:04:50.730
+Samuel Smith: Then… then you… then you have to… then you have to unblind the edge hash.
+
+480
+01:04:50.880 --> 01:05:06.779
+Samuel Smith: But you don't have to unblind the content of the container to do that verification. So having that extra indirection means that you still can keep the content of the container private, even though you've correlated the container itself.
+
+481
+01:05:07.010 --> 01:05:09.430
+Samuel Smith: Because… Yeah. So…
+
+482
+01:05:09.430 --> 01:05:10.140
+Daniel Hardman (Provenant, Inc.): Get it.
+
+483
+01:05:10.740 --> 01:05:14.500
+Daniel Hardman (Provenant, Inc.): Yeah, you would… you would have… Yeah.
+
+484
+01:05:18.080 --> 01:05:18.980
+Daniel Hardman (Provenant, Inc.): Okay.
+
+485
+01:05:20.090 --> 01:05:24.079
+Samuel Smith: So it's all about… it's all about partitioning the context.
+
+486
+01:05:24.300 --> 01:05:27.139
+Samuel Smith: So that you have, a need-to-know
+
+487
+01:05:27.530 --> 01:05:34.810
+Samuel Smith: contextual partitioning, so you have this metadata that's just floating around, and when you look at it, you go, well, who needs to verify X?
+
+488
+01:05:34.870 --> 01:05:49.520
+Samuel Smith: do they need to also verify Y? That means if… if there's a difference between X and Y, then you would have a different blind… blinding factor, you know, you have another layer of blinding, because that's… that's how you…
+
+489
+01:05:49.520 --> 01:06:04.480
+Samuel Smith: That's how you manage that. I mean, and that's when I did the SPAC protocol, that became obvious that the way that you manage privacy without sacrificing security is that you have layered contexts
+
+490
+01:06:04.700 --> 01:06:05.790
+Samuel Smith: where…
+
+491
+01:06:05.990 --> 01:06:16.319
+Samuel Smith: Where you can so, you know, compartmentalize what gets… what is correlatable, and what is disclosed, and if you get, you know.
+
+492
+01:06:16.570 --> 01:06:20.759
+Samuel Smith: Enough layers to cover the end-to-end
+
+493
+01:06:20.870 --> 01:06:35.249
+Samuel Smith: transport, then… then that's all you need, and… and… and so sometimes you just need one more layer, right? And then… and then… and then you can cover… cover the… the full… the full use case without… and still do that. And sometimes.
+
+494
+01:06:35.250 --> 01:06:43.699
+Samuel Smith: You might need another layer, right, if a different use case comes up, but adding that layer is a generic way to solve the problem without
+
+495
+01:06:43.700 --> 01:06:46.309
+Samuel Smith: Throwing the baby out with the bathwater, so to speak.
+
+496
+01:06:48.340 --> 01:06:53.429
+Daniel Hardman (Provenant, Inc.): Thank you, that's really helpful. I've taken some notes. I'll go update the… Pr a little bit.
+
+497
+01:06:55.600 --> 01:06:56.530
+Daniel Hardman (Provenant, Inc.): Okay.
+
+498
+01:06:56.870 --> 01:07:01.729
+Daniel Hardman (Provenant, Inc.): I'm… I'm content. I want to declare success.
+
+499
+01:07:01.730 --> 01:07:04.659
+Samuel Smith: Okay, good discussions, good, I appreciate it.
+
+500
+01:07:06.090 --> 01:07:07.010
+Daniel Hardman (Provenant, Inc.): Alright.
+
+501
+01:07:07.650 --> 01:07:08.810
+Daniel Hardman (Provenant, Inc.): Bye.
+
+502
+01:07:08.970 --> 01:07:09.620
+Samuel Smith: Bye.
+
+503
+01:07:09.620 --> 01:07:10.290
+Kent Bull: See y'all.
+

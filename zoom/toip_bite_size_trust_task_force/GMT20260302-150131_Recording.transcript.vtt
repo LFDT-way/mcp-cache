@@ -1,0 +1,2094 @@
+WEBVTT
+
+1
+00:00:22.980 --> 00:00:24.080
+Carly Huitema (University of Guelph): So…
+
+2
+00:00:24.910 --> 00:00:39.680
+Carly Huitema (University of Guelph): So here we are at the Bite Size Trust meeting, and we are, if we are not signees of the Trust Over IP's membership agreement, then… then we can only participate as an observer, because
+
+3
+00:00:39.740 --> 00:00:52.339
+Carly Huitema (University of Guelph): we haven't signed the agreement about contributing IP away, so just a heads up, that's why that happens, and to not engage in antitrust and anti-competitiveness and stuff like that, and
+
+4
+00:00:52.580 --> 00:01:03.280
+Carly Huitema (University of Guelph): So what I'm going to be doing today, the agenda, stick to the agenda, the agenda's going to be reviewing content, where we are. So here we are with the,
+
+5
+00:01:03.600 --> 00:01:09.629
+Carly Huitema (University of Guelph): I think it's ready to publish, so we'll just finish it here. Zero knowledge proofs.
+
+6
+00:01:09.630 --> 00:01:22.929
+Audio shared by Carly Huitema (University of Guelph): Imagine Alice walks into a bar and needs to prove she's old enough to buy a drink. Today, she shows her driver's license, but that card gives away more than the bartender needs. Her full birth date, her exact age, even her home address.
+
+7
+00:01:22.990 --> 00:01:39.829
+Audio shared by Carly Huitema (University of Guelph): Digital credentials can have the same problem, and sometimes an even bigger one. A physical ID is only glanced at, but a digital one can be copied or stored perfectly. You might think, why not use a third-party service? Just let someone else check Alice's ID and send a yes or no answer.
+
+8
+00:01:39.910 --> 00:01:59.799
+Audio shared by Carly Huitema (University of Guelph): But that creates a new problem. That service learns everything about Alice, and could track her behavior every time she orders a drink. What we really need is a way for Alice to prove just one thing. That she's over the legal age, without revealing anything else. And we need that proof to be single-use, so it can't be saved, copied, or reused by someone else.
+
+9
+00:01:59.990 --> 00:02:11.809
+Audio shared by Carly Huitema (University of Guelph): That's exactly what zero-knowledge proofs make possible. With a zero-knowledge proof, Alice can prove a fact is true, like, I'm over 18, without sharing her birthdate, her address, or any other personal info.
+
+10
+00:02:11.980 --> 00:02:18.850
+Audio shared by Carly Huitema (University of Guelph): The math behind it uses probability and advanced cryptography to create a proof that's extremely unlikely to be forged.
+
+11
+00:02:18.920 --> 00:02:33.879
+Audio shared by Carly Huitema (University of Guelph): It lets the verifier be confident that Alice is telling the truth, that she really meets the requirement, while still learning absolutely nothing else about her. Zero knowledge means maximum privacy with full trust, and it's becoming a key tool in digital identity.
+
+12
+00:02:34.970 --> 00:02:36.640
+Audio shared by Carly Huitema (University of Guelph): Imagine. Sorry.
+
+13
+00:02:36.870 --> 00:02:40.050
+Scott Perry (Digital Governance Institute): Alright, so I, I, you know, I had…
+
+14
+00:02:40.440 --> 00:02:43.300
+Scott Perry (Digital Governance Institute): Couple of thoughts around just the flow of that.
+
+15
+00:02:43.770 --> 00:02:48.910
+Scott Perry (Digital Governance Institute): The example is the traditional example, so I'm fine with the example.
+
+16
+00:02:50.030 --> 00:02:52.230
+Scott Perry (Digital Governance Institute): And I'm fine with the fact
+
+17
+00:02:52.520 --> 00:02:56.910
+Scott Perry (Digital Governance Institute): That we, you know, we don't want to use a third party.
+
+18
+00:02:57.240 --> 00:03:03.170
+Scott Perry (Digital Governance Institute): But I guess at the end of the day, why do we care about the third party when… when this…
+
+19
+00:03:03.310 --> 00:03:07.709
+Scott Perry (Digital Governance Institute): construct allows… This to happen, right?
+
+20
+00:03:08.490 --> 00:03:12.349
+Scott Perry (Digital Governance Institute): You know? And this is, you know, and the focus is, it isn't…
+
+21
+00:03:12.820 --> 00:03:25.200
+Scott Perry (Digital Governance Institute): The bite-sized trust isn't why we want to use zero-knowledge proofs, it's what it is and how it can be used. The one thing that I didn't understand clearly is
+
+22
+00:03:25.400 --> 00:03:34.710
+Scott Perry (Digital Governance Institute): You raise a point that kind of lingers with me, which is it's statistically
+
+23
+00:03:35.490 --> 00:03:40.340
+Scott Perry (Digital Governance Institute): You know, the probability is statistically accurate.
+
+24
+00:03:40.980 --> 00:03:50.910
+Scott Perry (Digital Governance Institute): And… my… I guess the question that I have is, why is it statistically accurate?
+
+25
+00:03:50.940 --> 00:03:55.079
+Carly Huitema (University of Guelph): Isn't the back end that creates the near zero-knowledge proof.
+
+26
+00:03:55.230 --> 00:03:58.039
+Scott Perry (Digital Governance Institute): Actually doing a calculation?
+
+27
+00:03:58.240 --> 00:03:58.800
+Carly Huitema (University of Guelph): Nope.
+
+28
+00:03:58.800 --> 00:03:59.950
+Scott Perry (Digital Governance Institute): Yeah, it's not.
+
+29
+00:03:59.950 --> 00:04:01.710
+Carly Huitema (University of Guelph): It's a probability.
+
+30
+00:04:01.980 --> 00:04:08.520
+Carly Huitema (University of Guelph): What it's doing is that it's saying, it's, it's, it's, it's, it's…
+
+31
+00:04:08.680 --> 00:04:27.009
+Carly Huitema (University of Guelph): generating a proof and, by… by testing that, okay, I don't know how the actual algorithm works, but the… when they discuss it and describe it, you're not actually calculating the true thing. What you're doing is you're…
+
+32
+00:04:27.010 --> 00:04:46.329
+Carly Huitema (University of Guelph): they… they… they… the mathematically, it says, if this is true, you would do… you would show me this. If this is true, because the, the, like, the Alibaba's cave example, if you really knew, then the guy would come out the left door, and he comes out the left door.
+
+33
+00:04:46.330 --> 00:04:51.210
+Carly Huitema (University of Guelph): Okay, maybe he just guessed right. If you really knew, you would come out the right door.
+
+34
+00:04:51.420 --> 00:05:04.670
+Carly Huitema (University of Guelph): And the guy comes out the right door. So now you're like, okay, this is more likely that you actually do know, or, or… so… so you're, you're… and you do that, like, a thousand times, 10,000 times.
+
+35
+00:05:04.670 --> 00:05:12.860
+Carly Huitema (University of Guelph): And if the other side always does what you expect, then you're statistically more sure that they…
+
+36
+00:05:13.240 --> 00:05:26.950
+Carly Huitema (University of Guelph): actually, that the… that they're not faking about the information. So it's not that they mathematically extract out of it that one piece of information and then send it on to you, it's a statistical thing.
+
+37
+00:05:27.810 --> 00:05:35.869
+Scott Perry (Digital Governance Institute): But when I'm creating a zero-knowledge proof, I'm creating it over a specific use case.
+
+38
+00:05:35.870 --> 00:05:36.740
+Carly Huitema (University of Guelph): Yes. Right? Yes.
+
+39
+00:05:36.740 --> 00:05:40.910
+Scott Perry (Digital Governance Institute): Well, I'm not doing it over your eye color, I'm doing it out of your age.
+
+40
+00:05:41.080 --> 00:05:42.290
+Scott Perry (Digital Governance Institute): Yeah. So…
+
+41
+00:05:42.460 --> 00:05:53.550
+Carly Huitema (University of Guelph): It's still a statistical… it's still a… it's not… it's a, it's a statistical thing, not a, not a… not a fact thing.
+
+42
+00:05:53.550 --> 00:05:54.029
+Scott Perry (Digital Governance Institute): Not at all.
+
+43
+00:05:54.300 --> 00:06:00.030
+Scott Perry (Digital Governance Institute): And I guess now my next question is, is the fact that it's statistical.
+
+44
+00:06:00.030 --> 00:06:00.810
+Carly Huitema (University of Guelph): Yep.
+
+45
+00:06:01.090 --> 00:06:03.230
+Scott Perry (Digital Governance Institute): Is that relevant?
+
+46
+00:06:05.790 --> 00:06:07.799
+Carly Huitema (University of Guelph): I… I don't, because I…
+
+47
+00:06:07.800 --> 00:06:10.579
+Scott Perry (Digital Governance Institute): At a high… at a bite-sized trust level.
+
+48
+00:06:10.580 --> 00:06:12.210
+Carly Huitema (University of Guelph): Yeah, I know, it's.
+
+49
+00:06:12.210 --> 00:06:25.110
+Scott Perry (Digital Governance Institute): there is this, oh, that's the first time I actually… you've educated me, because I thought it was 100% derived from the data itself, and now you're telling me it's not, and so there is an.
+
+50
+00:06:25.110 --> 00:06:25.430
+Carly Huitema (University of Guelph): Yeah.
+
+51
+00:06:25.430 --> 00:06:27.650
+Scott Perry (Digital Governance Institute): risk.
+
+52
+00:06:27.750 --> 00:06:37.799
+Scott Perry (Digital Governance Institute): Because it is using, you know, mathematical heuristics as opposed to, you know, blank, you know, blanket facts.
+
+53
+00:06:37.800 --> 00:06:39.980
+Carly Huitema (University of Guelph): But it's still also, I mean.
+
+54
+00:06:40.420 --> 00:06:46.270
+Carly Huitema (University of Guelph): Like, all of cryptography is also a mathematical… Chance.
+
+55
+00:06:46.650 --> 00:06:48.620
+Carly Huitema (University of Guelph): It's very unlikely.
+
+56
+00:06:49.170 --> 00:06:50.030
+Carly Huitema (University of Guelph): -
+
+57
+00:06:50.030 --> 00:06:57.629
+Scott Perry (Digital Governance Institute): Well, no, I… it is, it is. I mean, we're, you know, it's… it's around the… it's a different concept.
+
+58
+00:06:57.810 --> 00:06:58.330
+Scott Perry (Digital Governance Institute): I mean…
+
+59
+00:06:58.330 --> 00:06:58.710
+Carly Huitema (University of Guelph): But if…
+
+60
+00:06:58.750 --> 00:07:11.900
+Scott Perry (Digital Governance Institute): It's around the fact that, you know, the power of computers to break the binding between the private and public key would take too long to process.
+
+61
+00:07:12.000 --> 00:07:16.379
+Carly Huitema (University of Guelph): If I… if I were to show you two things that had the same hash.
+
+62
+00:07:17.350 --> 00:07:21.020
+Carly Huitema (University of Guelph): It's not for certain that the two things are identical.
+
+63
+00:07:22.010 --> 00:07:28.609
+Carly Huitema (University of Guelph): It's just that it's extremely statistically unlikely that the two things… that the,
+
+64
+00:07:29.100 --> 00:07:36.930
+Carly Huitema (University of Guelph): extremely statistically unlikely that two different things will have generated the same hash. It's possible, it's called a collision.
+
+65
+00:07:37.730 --> 00:07:39.309
+Scott Perry (Digital Governance Institute): Right, right.
+
+66
+00:07:39.930 --> 00:07:41.030
+Carly Huitema (University of Guelph): So, let's see…
+
+67
+00:07:41.030 --> 00:07:48.670
+Scott Perry (Digital Governance Institute): That feedback is, is… you know, if I'm just trying to get an understanding of zero-knowledge proofs.
+
+68
+00:07:48.670 --> 00:07:49.550
+Carly Huitema (University of Guelph): Yeah.
+
+69
+00:07:49.550 --> 00:07:53.329
+Scott Perry (Digital Governance Institute): how much detail do I need to know about the…
+
+70
+00:07:54.020 --> 00:08:00.280
+Scott Perry (Digital Governance Institute): You know, even, you know, like you did, you know, you did public and private key.
+
+71
+00:08:00.280 --> 00:08:01.870
+Carly Huitema (University of Guelph): Did you…
+
+72
+00:08:01.870 --> 00:08:04.150
+Scott Perry (Digital Governance Institute): Mention in the public-private key?
+
+73
+00:08:04.150 --> 00:08:05.360
+Carly Huitema (University of Guelph): Yeah, about collisions.
+
+74
+00:08:05.360 --> 00:08:14.400
+Scott Perry (Digital Governance Institute): That, you know, that it would take, you know, a quantum computer X amount of time.
+
+75
+00:08:14.400 --> 00:08:15.020
+Carly Huitema (University of Guelph): Yeah.
+
+76
+00:08:15.020 --> 00:08:19.100
+Scott Perry (Digital Governance Institute): To, identify the relationship between the two keys, right?
+
+77
+00:08:19.100 --> 00:08:23.910
+Carly Huitema (University of Guelph): Yeah, yeah, yeah. I'm just… I, I…
+
+78
+00:08:24.230 --> 00:08:27.310
+Carly Huitema (University of Guelph): I waffled on that point, and I…
+
+79
+00:08:27.670 --> 00:08:30.240
+Carly Huitema (University of Guelph): The reason I left it in…
+
+80
+00:08:31.500 --> 00:08:41.340
+Carly Huitema (University of Guelph): number one, I don't want to be so factually incorrect, because it doesn't… it doesn't, it doesn't, it's not extracted from…
+
+81
+00:08:41.700 --> 00:08:43.510
+Carly Huitema (University of Guelph): the, the document.
+
+82
+00:08:43.760 --> 00:08:53.440
+Carly Huitema (University of Guelph): So you can, you can be at risk if you think it is, because then the next question is, well, if it's extracted from the document, then I can reuse it.
+
+83
+00:08:54.380 --> 00:08:56.160
+Carly Huitema (University of Guelph): But you can't reuse it.
+
+84
+00:08:57.930 --> 00:09:02.099
+Carly Huitema (University of Guelph): So that's this, yeah, so here's the script here.
+
+85
+00:09:02.770 --> 00:09:13.439
+Carly Huitema (University of Guelph): So the third-party service, single use, so it… so if it… if it were extracted from and derived from the facts, it wouldn't be single use.
+
+86
+00:09:13.870 --> 00:09:16.519
+Carly Huitema (University of Guelph): But it's because it's the statistical proof
+
+87
+00:09:17.030 --> 00:09:21.900
+Carly Huitema (University of Guelph): But I believe that's why it can't be saved, copied, or reused.
+
+88
+00:09:23.940 --> 00:09:35.519
+Carly Huitema (University of Guelph): So, and then the math behind it uses probability and advanced cryptography. So as soon as I say it's using probability, then that means that it's not…
+
+89
+00:09:36.370 --> 00:09:38.590
+Carly Huitema (University of Guelph): That they're… that it's, that…
+
+90
+00:09:38.590 --> 00:09:41.890
+Scott Perry (Digital Governance Institute): Okay. One thing I would change up front.
+
+91
+00:09:42.490 --> 00:09:51.620
+Scott Perry (Digital Governance Institute): Because it says here, but that card gives away more than the bartender needs. I would change that. I would say it… that…
+
+92
+00:09:51.620 --> 00:09:52.380
+Carly Huitema (University of Guelph): Come on, geezer.
+
+93
+00:09:52.380 --> 00:09:54.450
+Scott Perry (Digital Governance Institute): way more, I'm sorry.
+
+94
+00:09:54.610 --> 00:10:04.609
+Scott Perry (Digital Governance Institute): Because I don't give a shit about the bartender, I care more about the person. It gives more… it gives away more than the person
+
+95
+00:10:05.460 --> 00:10:18.690
+Scott Perry (Digital Governance Institute): you know, than a private person wants to convey. It's a privacy issue, not a bartender issue. The bartender doesn't give a shit whether he gets more than he wants, to be honest with you.
+
+96
+00:10:18.690 --> 00:10:19.939
+Carly Huitema (University of Guelph): Alice wanted to.
+
+97
+00:10:19.940 --> 00:10:22.030
+Scott Perry (Digital Governance Institute): It's the… it's Alice Cares.
+
+98
+00:10:22.030 --> 00:10:25.800
+Carly Huitema (University of Guelph): Okay, so, but the card gives away more than Alice, needed to share.
+
+99
+00:10:25.800 --> 00:10:29.790
+Scott Perry (Digital Governance Institute): That car gives away more than right. More than Alice?
+
+100
+00:10:30.230 --> 00:10:31.130
+Scott Perry (Digital Governance Institute): Wants to…
+
+101
+00:10:31.130 --> 00:10:31.990
+Carly Huitema (University of Guelph): Dammit!
+
+102
+00:10:32.150 --> 00:10:39.280
+Carly Huitema (University of Guelph): Well, I… there's a lot of things I don't want to provide, and sometimes I have to anyway. I didn't need to, so sometimes you.
+
+103
+00:10:39.280 --> 00:10:43.489
+Scott Perry (Digital Governance Institute): Well, but here we have a solution. We have a solution for this.
+
+104
+00:10:43.490 --> 00:10:44.510
+Carly Huitema (University of Guelph): Yeah. Yes.
+
+105
+00:10:44.510 --> 00:10:57.890
+Scott Perry (Digital Governance Institute): And I agree, we don't want to give away more, but that's the point of this, is with zero-knowledge proof, we have the ability to protect Alice's privacy.
+
+106
+00:10:57.890 --> 00:11:01.080
+Carly Huitema (University of Guelph): Yeah. And that's the… that… I don't know if that really came…
+
+107
+00:11:01.760 --> 00:11:02.879
+Scott Perry (Digital Governance Institute): you know…
+
+108
+00:11:03.070 --> 00:11:03.640
+Carly Huitema (University of Guelph): Yeah.
+
+109
+00:11:03.640 --> 00:11:10.379
+Scott Perry (Digital Governance Institute): What we need is a way for Alice to prove just one thing to protect her privacy.
+
+110
+00:11:10.910 --> 00:11:12.499
+Carly Huitema (University of Guelph): Right, right, okay.
+
+111
+00:11:12.880 --> 00:11:23.880
+Scott Perry (Digital Governance Institute): So I… I would… I would, you know, let's make this a… this is a big point on the Privacy Act of, you know, SETI is all over this, okay?
+
+112
+00:11:23.880 --> 00:11:24.630
+Carly Huitema (University of Guelph): Yeah, yeah, okay.
+
+113
+00:11:24.630 --> 00:11:32.059
+Scott Perry (Digital Governance Institute): is putting, you know, $0 proofs, because it satisfies the privacy objective.
+
+114
+00:11:32.060 --> 00:11:36.770
+Carly Huitema (University of Guelph): Okay, so what about… what we really need is a way for Alice to prove just one thing, and help.
+
+115
+00:11:36.770 --> 00:11:41.380
+Scott Perry (Digital Governance Institute): To protect her privacy of all of her information.
+
+116
+00:11:51.100 --> 00:11:54.160
+Carly Huitema (University of Guelph): That she's over the legal age without revealing anything else.
+
+117
+00:11:54.160 --> 00:11:54.620
+Scott Perry (Digital Governance Institute): Yes.
+
+118
+00:11:54.620 --> 00:12:01.819
+Carly Huitema (University of Guelph): So we need that proof to be single-use, so it can't be saved, copied, or reused. Because that was at the other point about zero-knowledge proofs.
+
+119
+00:12:01.820 --> 00:12:02.380
+Scott Perry (Digital Governance Institute): Correct.
+
+120
+00:12:02.380 --> 00:12:04.700
+Carly Huitema (University of Guelph): And you can't reuse it.
+
+121
+00:12:04.810 --> 00:12:11.179
+Carly Huitema (University of Guelph): You can't store it, and then start to, like, collect a whole bunch of things about Alice, and then rebuild her profile.
+
+122
+00:12:12.320 --> 00:12:23.499
+Carly Huitema (University of Guelph): And that's what exact… and that's exactly what zero knowledge proofs makes possible. With a zero knowledge proof, Alex can prove a fact is true. Like, I'm over 18 without sharing her birthdate, her address, or any other personal info.
+
+123
+00:12:23.500 --> 00:12:36.220
+Scott Perry (Digital Governance Institute): Yeah, so the other thing… where he says the math behind it. I would… I didn't know there was math. You jumped me right in. You would… you need an entry statement to say.
+
+124
+00:12:36.370 --> 00:12:41.469
+Scott Perry (Digital Governance Institute): Zero-knowledge proof, is backed by…
+
+125
+00:12:41.910 --> 00:12:42.390
+Carly Huitema (University of Guelph): R.
+
+126
+00:12:42.390 --> 00:12:44.900
+Scott Perry (Digital Governance Institute): ecto… You know, mathematics.
+
+127
+00:12:44.900 --> 00:12:47.170
+Carly Huitema (University of Guelph): Okay, zero knowledge.
+
+128
+00:12:51.250 --> 00:12:52.230
+Carly Huitema (University of Guelph): Proofs?
+
+129
+00:12:52.230 --> 00:12:56.809
+Scott Perry (Digital Governance Institute): This is, you know, pretty bite-sized. I think you can get a couple more sentences in there.
+
+130
+00:12:57.680 --> 00:13:00.500
+Carly Huitema (University of Guelph): Zero-knowledge proofs use probabilities.
+
+131
+00:13:00.500 --> 00:13:00.849
+Scott Perry (Digital Governance Institute): in advance.
+
+132
+00:13:00.850 --> 00:13:07.149
+Carly Huitema (University of Guelph): advanced cryptography to create a proof that's extremely unlikely to be forged.
+
+133
+00:13:07.420 --> 00:13:08.969
+Scott Perry (Digital Governance Institute): Okay, like that.
+
+134
+00:13:09.500 --> 00:13:16.259
+Carly Huitema (University of Guelph): It lets the verifier be confident Alice is telling the truth, that she merely meets her requirement while still learning absolutely nothing else about her.
+
+135
+00:13:16.620 --> 00:13:24.710
+Scott Perry (Digital Governance Institute): Right, well, while maintaining her privacy, since we're changing this, while maintaining her privacy.
+
+136
+00:13:26.720 --> 00:13:27.570
+Carly Huitema (University of Guelph): Yeah.
+
+137
+00:13:29.750 --> 00:13:37.160
+Scott Perry (Digital Governance Institute): Right, and then you really… then you… then you really nail it in the last sentence. Means maximum privacy with full trust.
+
+138
+00:13:37.550 --> 00:13:41.300
+Scott Perry (Digital Governance Institute): And it's becoming a key tool in…
+
+139
+00:13:41.900 --> 00:13:43.200
+Carly Huitema (University of Guelph): Digital identity.
+
+140
+00:13:45.420 --> 00:13:47.580
+Carly Huitema (University of Guelph): Yeah, that's where it comes down to.
+
+141
+00:13:50.170 --> 00:13:59.760
+Scott Perry (Digital Governance Institute): Well, but it's not only in digital identity. In… it's becoming a key tool in… in,
+
+142
+00:14:01.660 --> 00:14:12.319
+Scott Perry (Digital Governance Institute): data minimization, actually, in provide… and let's… let's get to a bite-sized truck… into providing only the data needed
+
+143
+00:14:13.670 --> 00:14:24.109
+Scott Perry (Digital Governance Institute): From your pers… only the personal… Pieces of information needed To exact a transaction.
+
+144
+00:14:28.630 --> 00:14:33.520
+Scott Perry (Digital Governance Institute): Because I see, and zero-knowledge proof is used, you know, way more than.
+
+145
+00:14:33.520 --> 00:14:33.890
+Carly Huitema (University of Guelph): Yeah.
+
+146
+00:14:33.890 --> 00:14:34.410
+Scott Perry (Digital Governance Institute): in.
+
+147
+00:14:34.780 --> 00:14:35.400
+Carly Huitema (University of Guelph): Yeah.
+
+148
+00:14:35.400 --> 00:14:46.530
+Scott Perry (Digital Governance Institute): Becoming a key tool in exacting only pieces… the pieces of private information needed to exact a transaction.
+
+149
+00:14:47.200 --> 00:14:47.820
+Carly Huitema (University of Guelph): Okay.
+
+150
+00:14:47.820 --> 00:14:59.509
+Scott Perry (Digital Governance Institute): a key tool in only, you know, in minimizing only the data needed To exact a transaction.
+
+151
+00:15:00.360 --> 00:15:01.629
+Scott Perry (Digital Governance Institute): queue the transaction.
+
+152
+00:15:01.950 --> 00:15:11.380
+Carly Huitema (University of Guelph): Well, let's keep it… I wanna… I wanna… I wanna… I… I wanna keep the… the wording simpler. And it's becoming a key tool in minimizing…
+
+153
+00:15:11.580 --> 00:15:16.149
+Carly Huitema (University of Guelph): minimizing the data needed to be shared.
+
+154
+00:15:21.900 --> 00:15:31.419
+Carly Huitema (University of Guelph): Okay. Zero knowledge means maximum privacy with full trust, and it's becoming a key tool in minimizing the data needed to… data needing to be shared.
+
+155
+00:15:32.050 --> 00:15:32.640
+Scott Perry (Digital Governance Institute): Right.
+
+156
+00:15:33.640 --> 00:15:35.540
+Scott Perry (Digital Governance Institute): Right, any comments, Victor?
+
+157
+00:15:41.550 --> 00:15:44.810
+Victor  Lu: Sorry, I'm not sure I signed it.
+
+158
+00:15:44.810 --> 00:15:46.630
+Carly Huitema (University of Guelph): Oh, sign the agreement, okay.
+
+159
+00:15:46.630 --> 00:15:47.479
+Victor  Lu: I'm not sure.
+
+160
+00:15:47.480 --> 00:15:48.000
+Scott Perry (Digital Governance Institute): Okay.
+
+161
+00:15:48.000 --> 00:15:50.500
+Carly Huitema (University of Guelph): All right.
+
+162
+00:15:50.500 --> 00:15:56.289
+Scott Perry (Digital Governance Institute): If I did, maybe I would know, because I would be the one to sign your agreement, so… Okay, fair enough.
+
+163
+00:15:56.290 --> 00:15:59.679
+Carly Huitema (University of Guelph): Yeah, Okay.
+
+164
+00:15:59.940 --> 00:16:03.799
+Carly Huitema (University of Guelph): Okay, so I will re-record And remake the video!
+
+165
+00:16:04.560 --> 00:16:10.160
+Carly Huitema (University of Guelph): Okay, there we go. So let's, let's go to,
+
+166
+00:16:10.630 --> 00:16:17.130
+Carly Huitema (University of Guelph): Anchor Signatures has gone through multiple revisions with the Cary people to get To get the…
+
+167
+00:16:17.130 --> 00:16:17.630
+Scott Perry (Digital Governance Institute): Okay, so…
+
+168
+00:16:17.630 --> 00:16:19.240
+Carly Huitema (University of Guelph): Yeah, fact checking, right.
+
+169
+00:16:19.240 --> 00:16:23.790
+Scott Perry (Digital Governance Institute): In other words, Scott, back off!
+
+170
+00:16:23.790 --> 00:16:29.029
+Carly Huitema (University of Guelph): But I haven't recorded… oh, no, I did record it, but I already have to… I already have to re-record it.
+
+171
+00:16:29.450 --> 00:16:39.520
+Carly Huitema (University of Guelph): So, but the facts are… the facts are right, or the facts are as verified as I'm going to get them verified. Okay, and then I'm gonna pull up the…
+
+172
+00:16:40.640 --> 00:16:44.510
+Carly Huitema (University of Guelph): I'm gonna pull up the slot. Anchored signatures, here we go.
+
+173
+00:16:51.130 --> 00:17:05.930
+Carly Huitema (University of Guelph): Imagine Alice applies… imagine Alice applies for a job and presents a digitally signed universe. That took me, like, so many takes to spit out digitally signed, without sounding like a robot.
+
+174
+00:17:05.930 --> 00:17:17.990
+Carly Huitema (University of Guelph): Imagine Alice applies for a job and presents a digitally signed university degree. The employer verifies it by checking the university's public key in its DID document, confirming that the key was legitimately issued.
+
+175
+00:17:17.990 --> 00:17:28.549
+Carly Huitema (University of Guelph): But Digital Security Best Practices says keys should rotate. Universities regularly replace their signing keys to stay secure. If an older key is later compromised.
+
+176
+00:17:28.760 --> 00:17:33.040
+Carly Huitema (University of Guelph): Oh, okay, and then this is,
+
+177
+00:17:33.140 --> 00:17:37.930
+Carly Huitema (University of Guelph): That's the verification. If an older key is later compromised.
+
+178
+00:17:38.520 --> 00:17:58.269
+Carly Huitema (University of Guelph): But universities regularly replace their signing keys to stay secure. If an older key is later compromised, an attacker could use it to create a fake degree that still appears cryptographically valid. And without more information, the employer cannot tell the difference between a legitimate key issued years ago and a fraudulent one created yesterday.
+
+179
+00:17:58.420 --> 00:18:16.960
+Carly Huitema (University of Guelph): There are a few simple ways to try and address this risk. You could try publishing when a key is compromised, but you might never learn that it was stolen, or you could reissue every single past degree with the newest key, but in practice that quickly becomes unmanageable, especially for large institutions with years of records.
+
+180
+00:18:16.960 --> 00:18:35.310
+Carly Huitema (University of Guelph): You could reduce risk by using multiple key signatures when a degree is issued. This way, multiple keys would have to be compromised to generate a fraudulent degree. Or you could incorporate a verifiable timestamp, making it more difficult to fake, but also adding complexity to issuance and verification.
+
+181
+00:18:35.750 --> 00:18:54.970
+Carly Huitema (University of Guelph): Anchored signatures are an even more secured way to address historical key compromise, and one used by Carrie. Instead of relying only on the key itself, the university keeps a tamper-evident log of every degree ever issued. Each time they sign a new credential with a given key, they add a record to a tamper-evident log.
+
+182
+00:18:55.050 --> 00:19:08.580
+Carly Huitema (University of Guelph): The Tamper-evident Log relies on distributed watchers and witnesses that collectively monitor and sign the sequence of events using anchored signatures, creating a transparent, append-only history that cannot be silently rewritten.
+
+183
+00:19:08.750 --> 00:19:17.089
+Carly Huitema (University of Guelph): If someone later tries to forge a degree with an old compromised key, the forgery won't appear in the university's historical log.
+
+184
+00:19:17.500 --> 00:19:29.799
+Carly Huitema (University of Guelph): Even though the signature is valid, the… even though the signature is valid, the credential is missing the critical anchor, proof that it was actually issued as a recorded in the university's log.
+
+185
+00:19:29.890 --> 00:19:38.849
+Carly Huitema (University of Guelph): To verify the credential, Alice's employer now checks two things, the signature and the history. If the degree is on the log, it's legitimate.
+
+186
+00:19:39.950 --> 00:19:44.620
+Scott Perry (Digital Governance Institute): Okay, I'm gonna have to… Add some… add something, context.
+
+187
+00:19:44.620 --> 00:19:45.750
+Carly Huitema (University of Guelph): Yeah, yep.
+
+188
+00:19:46.290 --> 00:20:03.820
+Scott Perry (Digital Governance Institute): Because, you know, because you got all this data from Carrie, Carrie only thinks in one way, okay? I'm an expert on X509 certificates, which are used every day. So, we need to draw the contrast that
+
+189
+00:20:04.400 --> 00:20:13.049
+Scott Perry (Digital Governance Institute): you know, anchored… anchored signatures can be done with X… you know, this is the way to do it for Verify, for a decentralized…
+
+190
+00:20:13.050 --> 00:20:13.840
+Carly Huitema (University of Guelph): Yes.
+
+191
+00:20:14.410 --> 00:20:20.859
+Scott Perry (Digital Governance Institute): Okay? And we have to be very clear about that, because I'm looking at that, and I say, well, what about X509? So…
+
+192
+00:20:20.860 --> 00:20:21.570
+Carly Huitema (University of Guelph): Okay.
+
+193
+00:20:21.570 --> 00:20:31.020
+Scott Perry (Digital Governance Institute): at the end of the day, so X509 has validity periods, Established for… for keys.
+
+194
+00:20:31.020 --> 00:20:31.420
+Carly Huitema (University of Guelph): Yep.
+
+195
+00:20:31.420 --> 00:20:32.659
+Scott Perry (Digital Governance Institute): and certificates.
+
+196
+00:20:32.660 --> 00:20:33.330
+Carly Huitema (University of Guelph): Yep.
+
+197
+00:20:33.980 --> 00:20:41.469
+Scott Perry (Digital Governance Institute): And those… You know, are tending for websites, they're tending now to get very, very short-lived.
+
+198
+00:20:41.470 --> 00:20:41.790
+Carly Huitema (University of Guelph): Yep.
+
+199
+00:20:41.790 --> 00:20:44.490
+Scott Perry (Digital Governance Institute): And that's their structure to do that.
+
+200
+00:20:44.490 --> 00:20:44.860
+Carly Huitema (University of Guelph): Yep.
+
+201
+00:20:44.860 --> 00:20:48.000
+Scott Perry (Digital Governance Institute): in the C2PA, just so you know.
+
+202
+00:20:48.410 --> 00:21:00.649
+Scott Perry (Digital Governance Institute): The… my driver, because, you know, both from the CTPA and the COG, and I'm introducing it actually today, in an hour, is that we have timestamps on everything.
+
+203
+00:21:01.150 --> 00:21:01.500
+Carly Huitema (University of Guelph): Yep.
+
+204
+00:21:01.500 --> 00:21:07.230
+Scott Perry (Digital Governance Institute): Because the timestamp proves that it is valid at the time it was signed.
+
+205
+00:21:08.170 --> 00:21:08.810
+Carly Huitema (University of Guelph): Assuming…
+
+206
+00:21:08.810 --> 00:21:12.030
+Scott Perry (Digital Governance Institute): For signatures, that's satisfactory.
+
+207
+00:21:12.030 --> 00:21:12.560
+Carly Huitema (University of Guelph): Yeah.
+
+208
+00:21:12.560 --> 00:21:13.370
+Scott Perry (Digital Governance Institute): What's happening?
+
+209
+00:21:13.370 --> 00:21:28.790
+Carly Huitema (University of Guelph): Using a verifiable timestamp, because we've all used the trick of changing the computer time in order to keep using outdated software, at least back in the day. So… so there's… so I do have the timestamp in here, and I say…
+
+210
+00:21:29.190 --> 00:21:32.199
+Scott Perry (Digital Governance Institute): I like it, you know. So, but we need to just…
+
+211
+00:21:32.380 --> 00:21:51.809
+Scott Perry (Digital Governance Institute): To distinguish, you know, that, you know, in a centralized certificate system that a university could use, they would have to, you know, get new certificates based on the validity period of this signing certificate.
+
+212
+00:21:51.990 --> 00:21:52.500
+Scott Perry (Digital Governance Institute): Okay.
+
+213
+00:21:52.500 --> 00:21:54.639
+Carly Huitema (University of Guelph): Right, okay, so I do have…
+
+214
+00:21:54.640 --> 00:22:03.889
+Scott Perry (Digital Governance Institute): They rotate… that's how… they rotate keys, and the process is driven centrally by the CA that issued it.
+
+215
+00:22:04.070 --> 00:22:18.959
+Scott Perry (Digital Governance Institute): What Carrie does and doing, and this whole thing that you're presenting, is, what if we don't have a centralized issuer, and that the university has generated his own key.
+
+216
+00:22:19.070 --> 00:22:33.030
+Scott Perry (Digital Governance Institute): to sign things. How do they prove, you know, then it leads to… how do they prove that… and the other aspect that is missing here is the fundamental risk that
+
+217
+00:22:33.220 --> 00:22:38.590
+Scott Perry (Digital Governance Institute): That signing keys in the wild have a shelf life.
+
+218
+00:22:38.710 --> 00:22:57.289
+Scott Perry (Digital Governance Institute): Yes. And you didn't drive that home, you know, that you need to rotate the keys, because the concern is that over time, a signing key may be exposed, which reduces the signer's ability to.
+
+219
+00:22:57.290 --> 00:23:02.200
+Carly Huitema (University of Guelph): to concretely say that they signed it. Right. Because the key factor is…
+
+220
+00:23:02.200 --> 00:23:05.349
+Scott Perry (Digital Governance Institute): You have to control the private key, and so…
+
+221
+00:23:05.500 --> 00:23:10.729
+Scott Perry (Digital Governance Institute): So that's the other point that needs to be kind of the… the…
+
+222
+00:23:10.760 --> 00:23:27.819
+Scott Perry (Digital Governance Institute): the intro to this to say, why do I even care about rotating keys? Okay, okay. It is addressing the fact that keys in the… over time, keys in the wild present a risk that someone else is signing on their behalf.
+
+223
+00:23:27.820 --> 00:23:32.680
+Carly Huitema (University of Guelph): Okay, so I've got, in digital security, best practices say keys should rotate.
+
+224
+00:23:32.680 --> 00:23:35.049
+Scott Perry (Digital Governance Institute): You should say why. You didn't say why.
+
+225
+00:23:35.050 --> 00:23:37.100
+Carly Huitema (University of Guelph): Okay, you just said…
+
+226
+00:23:37.100 --> 00:23:45.649
+Scott Perry (Digital Governance Institute): that you said that… best practice… So, best practice says, I should say I love Carly every time I say something.
+
+227
+00:23:45.650 --> 00:23:46.160
+Carly Huitema (University of Guelph): Excellent.
+
+228
+00:23:46.160 --> 00:23:50.209
+Scott Perry (Digital Governance Institute): Okay? It doesn't mean why, okay?
+
+229
+00:23:50.210 --> 00:23:59.370
+Carly Huitema (University of Guelph): Okay, so best… but, and I'm also trying to keep… I have to make sure I'm not going over 3 minutes, otherwise it doesn't… Okay, so…
+
+230
+00:23:59.370 --> 00:24:00.500
+Scott Perry (Digital Governance Institute): One sentence, you need.
+
+231
+00:24:00.500 --> 00:24:00.820
+Carly Huitema (University of Guelph): Yeah.
+
+232
+00:24:00.820 --> 00:24:01.390
+Scott Perry (Digital Governance Institute): That's a lemon.
+
+233
+00:24:01.390 --> 00:24:12.160
+Carly Huitema (University of Guelph): And then I say universities regularly replace their signing keys to say secure. If an older key is later compromised, an attacker could use it to create a fake degree that still appears cryptographically valid.
+
+234
+00:24:12.350 --> 00:24:20.140
+Carly Huitema (University of Guelph): And without more information, the employer cannot tell the difference between a legitimate degree issued years ago and a fraudulent one created yesterday.
+
+235
+00:24:20.330 --> 00:24:26.430
+Carly Huitema (University of Guelph): So I… all the information that you talked about is in there, but I can rejigger it to highlights.
+
+236
+00:24:26.950 --> 00:24:35.739
+Scott Perry (Digital Governance Institute): Right, so they regularly place their signing key just 2, so I… here's what I would do. So, digital signatures
+
+237
+00:24:36.550 --> 00:24:39.110
+Scott Perry (Digital Governance Institute): Digital signature .
+
+238
+00:24:39.110 --> 00:24:39.980
+Carly Huitema (University of Guelph): Digital security.
+
+239
+00:24:39.980 --> 00:24:43.379
+Scott Perry (Digital Governance Institute): practice, you could say, best practices
+
+240
+00:24:43.560 --> 00:24:48.289
+Scott Perry (Digital Governance Institute): Acquire roti- you know, changing the signing key.
+
+241
+00:24:48.570 --> 00:24:53.100
+Scott Perry (Digital Governance Institute): After a… Limited period of time.
+
+242
+00:24:53.830 --> 00:24:54.250
+Carly Huitema (University of Guelph): Shinging!
+
+243
+00:24:54.250 --> 00:25:02.170
+Scott Perry (Digital Governance Institute): to protect… To… to bind the signer to the… to the signing credential.
+
+244
+00:25:02.170 --> 00:25:05.559
+Carly Huitema (University of Guelph): Okay, I need… but I'm gonna simplify that language, so…
+
+245
+00:25:05.560 --> 00:25:09.490
+Scott Perry (Digital Governance Institute): Right, well, you throw it into your AI simplification, right?
+
+246
+00:25:09.560 --> 00:25:10.280
+Carly Huitema (University of Guelph): Best…
+
+247
+00:25:10.280 --> 00:25:11.030
+Scott Perry (Digital Governance Institute): do that.
+
+248
+00:25:11.030 --> 00:25:17.510
+Carly Huitema (University of Guelph): Yeah, best practices say signing keys should rotate to Deep.
+
+249
+00:25:18.530 --> 00:25:22.170
+Carly Huitema (University of Guelph): Signatures trustworthy and secure.
+
+250
+00:25:23.590 --> 00:25:27.140
+Scott Perry (Digital Governance Institute): to keep
+
+251
+00:25:30.190 --> 00:25:32.299
+Scott Perry (Digital Governance Institute): No, it doesn't… no.
+
+252
+00:25:32.600 --> 00:25:33.020
+Carly Huitema (University of Guelph): Okay.
+
+253
+00:25:33.020 --> 00:25:39.479
+Scott Perry (Digital Governance Institute): Because that… that's a different thing. Then you're focusing on the signature. No, it…
+
+254
+00:25:39.630 --> 00:25:54.619
+Scott Perry (Digital Governance Institute): it focuses on the… okay, sign keys to rotate to ensure that the… to consistently ensure that the signer is
+
+255
+00:25:57.110 --> 00:25:58.550
+Scott Perry (Digital Governance Institute): Legion.
+
+256
+00:25:58.550 --> 00:25:59.630
+Carly Huitema (University of Guelph): The signer is…
+
+257
+00:25:59.630 --> 00:26:00.830
+Scott Perry (Digital Governance Institute): Legitimate.
+
+258
+00:26:00.830 --> 00:26:01.789
+Carly Huitema (University of Guelph): Okay, or that…
+
+259
+00:26:01.790 --> 00:26:03.330
+Scott Perry (Digital Governance Institute): Not the signature.
+
+260
+00:26:03.330 --> 00:26:03.730
+Carly Huitema (University of Guelph): Yeah.
+
+261
+00:26:03.730 --> 00:26:07.649
+Scott Perry (Digital Governance Institute): Because it's not a signature, it's every time I sign it with.
+
+262
+00:26:07.650 --> 00:26:08.080
+Carly Huitema (University of Guelph): I knew…
+
+263
+00:26:08.080 --> 00:26:09.709
+Scott Perry (Digital Governance Institute): You know, that's why I need a new key.
+
+264
+00:26:09.710 --> 00:26:10.649
+Carly Huitema (University of Guelph): Yeah, to keep…
+
+265
+00:26:10.650 --> 00:26:19.430
+Scott Perry (Digital Governance Institute): the signer… Best practices say signing keys should rotate, To keep… to keep science…
+
+266
+00:26:19.430 --> 00:26:20.120
+Carly Huitema (University of Guelph): Do that.
+
+267
+00:26:20.120 --> 00:26:23.220
+Scott Perry (Digital Governance Institute): Designers trustworthy.
+
+268
+00:26:25.070 --> 00:26:39.519
+Scott Perry (Digital Governance Institute): Keep the act… the signing actions… yeah, to keep the signing actions of the signer trustworthy. Keep the signing actions of the signer trustworthy. I think that nails.
+
+269
+00:26:39.780 --> 00:26:51.179
+Carly Huitema (University of Guelph): Yeah, okay, but I'm gonna choke on too many signs, sign, signs. But best practices say signing keys should rotate so that the signing actions remain secure, remain.
+
+270
+00:26:51.570 --> 00:26:53.609
+Scott Perry (Digital Governance Institute): Right, okay, I'll go with that.
+
+271
+00:26:57.400 --> 00:26:58.550
+Carly Huitema (University of Guelph): says…
+
+272
+00:27:00.890 --> 00:27:02.310
+Scott Perry (Digital Governance Institute): therefore.
+
+273
+00:27:05.800 --> 00:27:10.220
+Carly Huitema (University of Guelph): Therefore, universities regularly replace their signing keys.
+
+274
+00:27:16.630 --> 00:27:17.960
+Carly Huitema (University of Guelph): Because…
+
+275
+00:27:20.580 --> 00:27:27.199
+Carly Huitema (University of Guelph): If an older key is later compromised, an attacker could use it to create a fake degree that still appears cryptographically valid.
+
+276
+00:27:27.530 --> 00:27:29.309
+Scott Perry (Digital Governance Institute): I buy that. There you go.
+
+277
+00:27:29.310 --> 00:27:30.299
+Carly Huitema (University of Guelph): Okay, so…
+
+278
+00:27:30.300 --> 00:27:31.100
+Scott Perry (Digital Governance Institute): It's like…
+
+279
+00:27:32.480 --> 00:27:51.110
+Carly Huitema (University of Guelph): Best practices says signing keys should rotate so that the signing actions remain secure. Therefore, universities regularly replace their signing keys because an older key… if an older key is later compromised, an attacker could use it to create a fake degree that still appears cryptographically valid, and without
+
+280
+00:27:51.590 --> 00:27:59.549
+Carly Huitema (University of Guelph): Without more information, the employer cannot tell the difference between a legitimate degree issued years ago and a fraudulent one created yesterday.
+
+281
+00:28:00.030 --> 00:28:06.160
+Scott Perry (Digital Governance Institute): Right. And then you go to a few ways, and one way is that
+
+282
+00:28:06.270 --> 00:28:11.049
+Scott Perry (Digital Governance Institute): If… if the university got a cent… because this isn't a carry…
+
+283
+00:28:11.160 --> 00:28:11.800
+Carly Huitema (University of Guelph): Video.
+
+284
+00:28:11.800 --> 00:28:19.169
+Scott Perry (Digital Governance Institute): Specific, yeah. Yeah, it's not, so I'm… that's why, when you said, oh, Carrie blessed it, of course they blessed it.
+
+285
+00:28:19.170 --> 00:28:22.300
+Carly Huitema (University of Guelph): Well, they were the one who were like, More people.
+
+286
+00:28:22.300 --> 00:28:34.360
+Scott Perry (Digital Governance Institute): You know, if a university got a certificate from a central certification authority, they would be required to rotate keys
+
+287
+00:28:34.640 --> 00:28:41.490
+Scott Perry (Digital Governance Institute): based on their… on the validity period of the signing certificate. That's it.
+
+288
+00:28:41.490 --> 00:28:43.289
+Carly Huitema (University of Guelph): Yeah, but that's, that's,
+
+289
+00:28:44.560 --> 00:28:52.200
+Carly Huitema (University of Guelph): It doesn't matter if it's centralized or decentralized, you still have to… you're following best practices, so you're already rotating.
+
+290
+00:28:52.620 --> 00:28:57.809
+Scott Perry (Digital Governance Institute): Okay. So then I say, so you publish when a key is compromised, but you might.
+
+291
+00:28:58.060 --> 00:29:00.580
+Carly Huitema (University of Guelph): That's assuming you even discover it.
+
+292
+00:29:00.720 --> 00:29:09.769
+Carly Huitema (University of Guelph): You can reissue, but… But that, like, decades-old, certificates and stuff like that.
+
+293
+00:29:09.770 --> 00:29:12.520
+Scott Perry (Digital Governance Institute): Anchored sig… Anchored Signatures.
+
+294
+00:29:12.520 --> 00:29:13.180
+Carly Huitema (University of Guelph): I need to…
+
+295
+00:29:13.180 --> 00:29:21.769
+Scott Perry (Digital Governance Institute): are derived from decentralized… key rotation, okay? There's no such thing as anchored
+
+296
+00:29:22.270 --> 00:29:26.319
+Scott Perry (Digital Governance Institute): There is no such thing as anchored signatures in X509. None.
+
+297
+00:29:28.260 --> 00:29:30.010
+Carly Huitema (University of Guelph): Okay.
+
+298
+00:29:30.630 --> 00:29:31.510
+Scott Perry (Digital Governance Institute): There's not.
+
+299
+00:29:31.510 --> 00:29:33.820
+Carly Huitema (University of Guelph): Yeah, no, there isn't. .
+
+300
+00:29:33.820 --> 00:29:38.649
+Scott Perry (Digital Governance Institute): Because there's no… and actually, there's no key history, okay?
+
+301
+00:29:38.650 --> 00:29:39.420
+Carly Huitema (University of Guelph): Yeah, yeah.
+
+302
+00:29:39.420 --> 00:29:44.549
+Scott Perry (Digital Governance Institute): At the end of the day, they break it. They say, look, you have to give me another key pair. That's it.
+
+303
+00:29:44.550 --> 00:29:45.520
+Carly Huitema (University of Guelph): Yeah, yeah.
+
+304
+00:29:45.770 --> 00:29:49.190
+Scott Perry (Digital Governance Institute): I don't even care about your landscape hair, I just want a new one.
+
+305
+00:29:49.820 --> 00:29:59.630
+Carly Huitema (University of Guelph): Yeah, and that's why a lot of DID methods, that's now how I see DID methods started, because DID methods don't keep the history. It's not required as part of the DID method specification.
+
+306
+00:30:00.190 --> 00:30:00.810
+Scott Perry (Digital Governance Institute): Right.
+
+307
+00:30:01.170 --> 00:30:02.440
+Carly Huitema (University of Guelph): But.
+
+308
+00:30:02.440 --> 00:30:05.300
+Scott Perry (Digital Governance Institute): what alerted… Sam.
+
+309
+00:30:05.710 --> 00:30:10.550
+Scott Perry (Digital Governance Institute): Because if we're gonna… if he was going to decentralize everything.
+
+310
+00:30:10.550 --> 00:30:13.140
+Carly Huitema (University of Guelph): And… because at the end of the day.
+
+311
+00:30:13.680 --> 00:30:16.300
+Scott Perry (Digital Governance Institute): The university is self-certifying.
+
+312
+00:30:16.510 --> 00:30:17.320
+Carly Huitema (University of Guelph): Yes.
+
+313
+00:30:17.320 --> 00:30:20.700
+Scott Perry (Digital Governance Institute): Okay? So that's why they needed some…
+
+314
+00:30:21.050 --> 00:30:30.139
+Scott Perry (Digital Governance Institute): you know, constructs like anchored signatures to create trust… a trustworthiness. If they didn't, then…
+
+315
+00:30:30.290 --> 00:30:34.149
+Scott Perry (Digital Governance Institute): all carry would not be trustworthy. Who would rely on it?
+
+316
+00:30:34.150 --> 00:30:38.179
+Carly Huitema (University of Guelph): Yeah, yeah. Because anybody can just go in and replace the key.
+
+317
+00:30:38.790 --> 00:30:40.510
+Carly Huitema (University of Guelph): Yeah, anyone, anyone, yeah.
+
+318
+00:30:40.510 --> 00:30:47.079
+Scott Perry (Digital Governance Institute): They need that anchored signature so they know clearly from the beginning.
+
+319
+00:30:47.080 --> 00:30:47.740
+Carly Huitema (University of Guelph): Yep.
+
+320
+00:30:47.740 --> 00:30:50.680
+Scott Perry (Digital Governance Institute): That… that the university is responsible.
+
+321
+00:30:51.160 --> 00:31:07.189
+Carly Huitema (University of Guelph): Yeah, and I had read other things, other ways to anchor the signatures. One of the fun ones was, you printed in the newspaper, and then that's your, that's your distributed blockchain, historical paper distributed blockchain.
+
+322
+00:31:08.640 --> 00:31:25.249
+Carly Huitema (University of Guelph): Wow. And then other ones are, are, other ones are… then you, you do a hash of the, of the… of the degrees issued, and… and put that on something like Bitcoin, because then it's anchored to that chain. You're always…
+
+323
+00:31:25.250 --> 00:31:33.380
+Carly Huitema (University of Guelph): And so… so that's why I had… I have already changed. Anchor signatures are an even more way to address historical key compromise.
+
+324
+00:31:33.440 --> 00:31:34.280
+Carly Huitema (University of Guelph): And what…
+
+325
+00:31:34.280 --> 00:31:39.260
+Scott Perry (Digital Governance Institute): like, decentralized identity.
+
+326
+00:31:39.790 --> 00:31:41.300
+Scott Perry (Digital Governance Institute): Like Harry.
+
+327
+00:31:41.630 --> 00:31:49.650
+Scott Perry (Digital Governance Institute): is by decentralized… Systems.
+
+328
+00:31:51.380 --> 00:31:52.400
+Carly Huitema (University of Guelph): Like, area.
+
+329
+00:31:52.400 --> 00:31:53.619
+Scott Perry (Digital Governance Institute): Carrie. Mike Carrie.
+
+330
+00:31:53.620 --> 00:32:03.430
+Carly Huitema (University of Guelph): Yeah. I mean, one could argue that X509… I mean, X509 is, like… If you… if you lose… Root.
+
+331
+00:32:05.480 --> 00:32:09.319
+Carly Huitema (University of Guelph): Is this correct, Scott? If you lose root on a 509 tree.
+
+332
+00:32:10.200 --> 00:32:12.539
+Carly Huitema (University of Guelph): You're pooch. You've got a big problem.
+
+333
+00:32:13.290 --> 00:32:16.400
+Scott Perry (Digital Governance Institute): You… well, you lack… you lack assurance.
+
+334
+00:32:16.670 --> 00:32:18.030
+Carly Huitema (University of Guelph): Yeah. Who is…
+
+335
+00:32:18.030 --> 00:32:34.830
+Scott Perry (Digital Governance Institute): You know, so it's just a… all it is is an endorsement. X509 chaining is just… is, you know, is just an endorsement, and you move up the chain, and the route takes overall responsibility.
+
+336
+00:32:34.830 --> 00:32:35.410
+Carly Huitema (University of Guelph): Yeah.
+
+337
+00:32:35.410 --> 00:32:37.670
+Scott Perry (Digital Governance Institute): Of… of the chain.
+
+338
+00:32:37.670 --> 00:32:38.909
+Carly Huitema (University of Guelph): Yeah, which is efficient.
+
+339
+00:32:38.910 --> 00:32:42.160
+Scott Perry (Digital Governance Institute): It's, it's, it's, it's really, informational…
+
+340
+00:32:42.160 --> 00:32:43.270
+Carly Huitema (University of Guelph): thing. Yeah.
+
+341
+00:32:43.270 --> 00:32:56.100
+Scott Perry (Digital Governance Institute): It's up to the CA to demonstrate its trustworthiness. There are private CAs every day, so it can chain perfectly up to, you know, BlackOps.com, right?
+
+342
+00:32:56.100 --> 00:32:56.710
+Carly Huitema (University of Guelph): Yep.
+
+343
+00:32:57.190 --> 00:33:07.050
+Carly Huitema (University of Guelph): Which is what you're currently doing at the low level, in the early development phase of COG. You have a… right now, your root certificate is… is on GitHub, or was, anyway.
+
+344
+00:33:07.070 --> 00:33:11.660
+Scott Perry (Digital Governance Institute): what Carrie wants to do is, we don't need a CA.
+
+345
+00:33:11.660 --> 00:33:14.540
+Carly Huitema (University of Guelph): Yeah. Involved in the university's assertion.
+
+346
+00:33:14.770 --> 00:33:15.160
+Carly Huitema (University of Guelph): Yeah.
+
+347
+00:33:15.160 --> 00:33:18.039
+Scott Perry (Digital Governance Institute): We… we want to get the CA out.
+
+348
+00:33:18.040 --> 00:33:21.519
+Carly Huitema (University of Guelph): Yeah. And we want to rely solely on the university.
+
+349
+00:33:21.810 --> 00:33:22.470
+Carly Huitema (University of Guelph): Yeah.
+
+350
+00:33:23.710 --> 00:33:25.180
+Carly Huitema (University of Guelph): Which… And, yeah.
+
+351
+00:33:25.180 --> 00:33:33.229
+Scott Perry (Digital Governance Institute): Yeah, I, you know, so I'm starting a, you know, a verifiable credential, verifiable presentation.
+
+352
+00:33:33.650 --> 00:33:35.789
+Scott Perry (Digital Governance Institute): Task Force today at COG.
+
+353
+00:33:36.150 --> 00:33:46.960
+Scott Perry (Digital Governance Institute): And we're going to… that's an everyday… a lot of people are interested, because they're all… want to get these… these types of credentials into COG Assertions.
+
+354
+00:33:47.600 --> 00:33:48.220
+Carly Huitema (University of Guelph): Right.
+
+355
+00:33:48.220 --> 00:33:58.700
+Scott Perry (Digital Governance Institute): So, I'm kicking it off, and, you know, obviously Drummond's very interested, and Eric is very… Eric Skowden's very interested, but he's not around. So I'm gonna kick it off.
+
+356
+00:33:59.160 --> 00:34:14.700
+Scott Perry (Digital Governance Institute): And, and, you know, because we need to get it going. And I let everybody know, and, you know, if you want to come, you know, the first meeting is fun for anybody. Victor, you can come, you know, if you're just listening to what we're trying to do.
+
+357
+00:34:15.159 --> 00:34:16.669
+Carly Huitema (University of Guelph): When is it again?
+
+358
+00:34:16.670 --> 00:34:25.040
+Scott Perry (Digital Governance Institute): It's, so the VC Task Force is in… is at, 10 o'clock Mountain, 9 o'clock Pacific.
+
+359
+00:34:26.320 --> 00:34:27.709
+Carly Huitema (University of Guelph): So right after this…
+
+360
+00:34:27.710 --> 00:34:39.050
+Scott Perry (Digital Governance Institute): And I put that… I put the… no, it's the… the one right after this is… is, at 9 o'clock Mountain, is my Trust Task Force at COG.
+
+361
+00:34:39.050 --> 00:34:41.579
+Carly Huitema (University of Guelph): Okay. And then, so it's 10 o'clock.
+
+362
+00:34:41.770 --> 00:34:46.350
+Scott Perry (Digital Governance Institute): Mountain time, so that would be 12 o'clock your time. Okay.
+
+363
+00:34:46.350 --> 00:34:50.400
+Carly Huitema (University of Guelph): If you, if you, if you put in a link, and I'll see over lunch that…
+
+364
+00:34:50.409 --> 00:34:56.759
+Scott Perry (Digital Governance Institute): It's already… go to, go to, you know, General and Trust Over IP. I made an announcement.
+
+365
+00:34:56.929 --> 00:35:00.049
+Carly Huitema (University of Guelph): Oh, okay, okay, on, on Discord, okay, okay.
+
+366
+00:35:00.050 --> 00:35:04.319
+Scott Perry (Digital Governance Institute): Yes. On that thing we have to move away from, yes.
+
+367
+00:35:04.320 --> 00:35:06.160
+Carly Huitema (University of Guelph): So I made, I decided…
+
+368
+00:35:06.160 --> 00:35:10.889
+Scott Perry (Digital Governance Institute): to announce it Let's see, I want to make sure it's on the general.
+
+369
+00:35:11.740 --> 00:35:16.070
+Scott Perry (Digital Governance Institute): So, it should be there, huh, if I find it, where'd it go?
+
+370
+00:35:16.590 --> 00:35:21.210
+Carly Huitema (University of Guelph): Oh, here it is, here it is. Cog.
+
+371
+00:35:21.210 --> 00:35:23.230
+Scott Perry (Digital Governance Institute): Yeah, that's it. So just click on the…
+
+372
+00:35:23.230 --> 00:35:25.620
+Carly Huitema (University of Guelph): The one at noon, okay.
+
+373
+00:35:25.620 --> 00:35:27.129
+Scott Perry (Digital Governance Institute): Right, that's the one I knew.
+
+374
+00:35:27.380 --> 00:35:29.049
+Carly Huitema (University of Guelph): Okay, so I'll put that in the chat.
+
+375
+00:35:29.540 --> 00:35:31.150
+Carly Huitema (University of Guelph): Right now, for Victor.
+
+376
+00:35:31.150 --> 00:35:31.710
+Scott Perry (Digital Governance Institute): Yep.
+
+377
+00:35:32.840 --> 00:35:39.429
+Scott Perry (Digital Governance Institute): Yeah, so I would need, I, I need, you know, I need the whole trust over IP
+
+378
+00:35:39.540 --> 00:35:42.510
+Scott Perry (Digital Governance Institute): I need all the whole community in this.
+
+379
+00:35:42.510 --> 00:35:43.030
+Carly Huitema (University of Guelph): Right.
+
+380
+00:35:43.030 --> 00:35:46.190
+Scott Perry (Digital Governance Institute): Because, you know, this is… this is…
+
+381
+00:35:46.510 --> 00:35:49.920
+Scott Perry (Digital Governance Institute): This is a… this is the use case. Yeah. This is it. Yeah.
+
+382
+00:35:49.920 --> 00:35:50.999
+Carly Huitema (University of Guelph): Yeah, I know, I know.
+
+383
+00:35:51.000 --> 00:35:54.919
+Scott Perry (Digital Governance Institute): bringing the whole VC community into the whole.
+
+384
+00:35:55.150 --> 00:36:01.680
+Carly Huitema (University of Guelph): Yeah. C2PA community. Okay, we have 5 minutes left. I wanted to do one more.
+
+385
+00:36:03.240 --> 00:36:05.230
+Scott Perry (Digital Governance Institute): Okay, yes, 5 minutes from my…
+
+386
+00:36:05.230 --> 00:36:08.000
+Carly Huitema (University of Guelph): 15 minutes. Go ahead, I'll… Yeah, okay.
+
+387
+00:36:08.000 --> 00:36:10.780
+Scott Perry (Digital Governance Institute): Because I've been verbose, I'll wait longer.
+
+388
+00:36:10.780 --> 00:36:15.870
+Carly Huitema (University of Guelph): Because then I want to start, okay, crypto… what is cryptographic binding?
+
+389
+00:36:16.320 --> 00:36:17.340
+Scott Perry (Digital Governance Institute): Yes.
+
+390
+00:36:17.620 --> 00:36:23.270
+Carly Huitema (University of Guelph): And, because somebody was like, oh, you know, I… we use it all the time.
+
+391
+00:36:24.520 --> 00:36:29.580
+Carly Huitema (University of Guelph): But then we don't… Define it so much.
+
+392
+00:36:30.340 --> 00:36:49.289
+Carly Huitema (University of Guelph): Okay, what is cryptographic binding? Binding means linking two or more things together in a way that can be verified. When something is bound, you can mathematically prove that the pieces belong together and have not been altered. Cryptographic binding uses hash functions or digital signatures to create that verifiable link.
+
+393
+00:36:49.290 --> 00:36:55.169
+Carly Huitema (University of Guelph): It ensures that if any part of the bound data changes, the binding breaks and the change becomes detectable.
+
+394
+00:36:56.820 --> 00:37:01.209
+Carly Huitema (University of Guelph): In decentralized, I don't… the timing for the slides is not up.
+
+395
+00:37:01.210 --> 00:37:19.599
+Carly Huitema (University of Guelph): In decentralized identity systems, cryptographic binding is often used to support immutability and traceability. For example, the first record of a DID document contains information about an identity, its public keys, service endpoints, and other metadata. If we apply a cryptographic hash function to that record, we generate a digest.
+
+396
+00:37:19.600 --> 00:37:26.829
+Carly Huitema (University of Guelph): That digest is a unique fingerprint of the content. Even a tiny change to the document would produce a completely different digest.
+
+397
+00:37:26.830 --> 00:37:43.079
+Carly Huitema (University of Guelph): By doing this, we have bound the contents of the DID document together. If someone modifies the record later, a referenced digest will no longer match the actual content digest. This mismatch proves that the content has been changed.
+
+398
+00:37:47.240 --> 00:37:49.010
+Carly Huitema (University of Guelph): Okay. Some… some did make.
+
+399
+00:37:49.010 --> 00:37:53.630
+Scott Perry (Digital Governance Institute): I'll let you continue. I have a one major word change, but go ahead, just one.
+
+400
+00:37:53.630 --> 00:38:07.729
+Carly Huitema (University of Guelph): Okay, some DID methods take this further by using the digest itself as part of the DID identifier. In those cases, the DID becomes self-certifying. The identifier directly verifies the integrity of its initial record.
+
+401
+00:38:07.730 --> 00:38:15.050
+Carly Huitema (University of Guelph): Binding can also continue over time. Suppose the identity rotates its keys and publishes a new version of its DID document.
+
+402
+00:38:15.050 --> 00:38:20.650
+Carly Huitema (University of Guelph): While the DID specification itself does not require cryptographic chaining between versions.
+
+403
+00:38:20.650 --> 00:38:37.759
+Carly Huitema (University of Guelph): Some did methods implement it. In methods that used hash-chain storage, such as didWebVH and DIDWEBS, the new record includes the digest of the previous record. This creates a verifiable sequence where each update is cryptographically linked to the one before.
+
+404
+00:38:38.240 --> 00:38:57.379
+Carly Huitema (University of Guelph): Now, the identity history becomes tamper-evident. If someone attempts to rewrite an earlier record, every subsequent digest in the chain would fail to verify. The binding does not prevent change, but it makes unauthorized change detectable. Well, it just makes… it makes change detectable, doesn't have to be unauthorized. Okay.
+
+405
+00:38:57.380 --> 00:38:59.529
+Carly Huitema (University of Guelph): That distinction is important.
+
+406
+00:38:59.530 --> 00:39:13.589
+Carly Huitema (University of Guelph): Cryptographic binding does not freeze data in place. Instead, it creates integrity guarantees. It allows identities to evolve, rotating keys, updating endpoints, adding services, while preserving a trustworthy, verifiable history.
+
+407
+00:39:14.050 --> 00:39:34.259
+Carly Huitema (University of Guelph): Oh, that is my last slide. In short, cryptographic binding turns identity data into verifiable state. It provides a mathematical glue that links identifiers, keys, and records together across time. Without binding, decentralized identifiers would be mutable documents. With binding, they become auditable identity systems.
+
+408
+00:39:35.180 --> 00:39:37.140
+Scott Perry (Digital Governance Institute): Okay, let's go back to the beginning.
+
+409
+00:39:37.140 --> 00:39:37.620
+Carly Huitema (University of Guelph): Yep.
+
+410
+00:39:37.620 --> 00:39:39.800
+Scott Perry (Digital Governance Institute): Maybe just more than just a word.
+
+411
+00:39:40.420 --> 00:39:41.010
+Scott Perry (Digital Governance Institute): Okay.
+
+412
+00:39:41.010 --> 00:39:41.910
+Carly Huitema (University of Guelph): Bye.
+
+413
+00:39:41.910 --> 00:39:47.170
+Scott Perry (Digital Governance Institute): The word… and so far, go to the… where's the first slide?
+
+414
+00:39:47.350 --> 00:39:49.800
+Scott Perry (Digital Governance Institute): Or, do you want to see the slide or the text?
+
+415
+00:39:50.250 --> 00:39:51.570
+Scott Perry (Digital Governance Institute): slide.
+
+416
+00:39:51.570 --> 00:39:52.490
+Carly Huitema (University of Guelph): Okay.
+
+417
+00:39:52.720 --> 00:39:54.980
+Scott Perry (Digital Governance Institute): is I want to point out the word.
+
+418
+00:39:54.980 --> 00:39:55.310
+Carly Huitema (University of Guelph): Okay.
+
+419
+00:39:55.310 --> 00:39:56.690
+Scott Perry (Digital Governance Institute): I think is incorrect.
+
+420
+00:39:57.070 --> 00:39:57.740
+Carly Huitema (University of Guelph): Okay.
+
+421
+00:39:59.510 --> 00:40:02.779
+Scott Perry (Digital Governance Institute): That's the… okay, that's the… alright. So…
+
+422
+00:40:03.250 --> 00:40:21.320
+Scott Perry (Digital Governance Institute): the… it doesn't link. That's not… linking doesn't do it, it's compare. Okay, and you alluded to it. So, basically, what… and you… and it's funny, you're… a lot of detail in the bottom, which I care less, but the actual definition…
+
+423
+00:40:21.320 --> 00:40:21.970
+Carly Huitema (University of Guelph): Oh, crypto.
+
+424
+00:40:21.970 --> 00:40:23.929
+Scott Perry (Digital Governance Institute): Graphic binding is…
+
+425
+00:40:23.930 --> 00:40:24.380
+Carly Huitema (University of Guelph): Yup.
+
+426
+00:40:24.380 --> 00:40:32.279
+Scott Perry (Digital Governance Institute): We use exact hash functions. One has been done already to create the hash.
+
+427
+00:40:32.280 --> 00:40:32.850
+Carly Huitema (University of Guelph): Yep.
+
+428
+00:40:32.850 --> 00:40:44.320
+Scott Perry (Digital Governance Institute): The other is created by use… is created by using the available public key to create the hash that is then compared.
+
+429
+00:40:44.530 --> 00:40:51.340
+Carly Huitema (University of Guelph): Yeah, that's the verification. That's the verification. Yeah. That's the verification statement.
+
+430
+00:40:52.440 --> 00:40:53.530
+Carly Huitema (University of Guelph): But the binding class.
+
+431
+00:40:53.530 --> 00:40:53.980
+Scott Perry (Digital Governance Institute): Carrying them.
+
+432
+00:40:53.980 --> 00:40:54.940
+Carly Huitema (University of Guelph): for that.
+
+433
+00:40:54.940 --> 00:40:59.650
+Scott Perry (Digital Governance Institute): Right, but that's true. That's a verification of the binding.
+
+434
+00:40:59.650 --> 00:41:00.500
+Carly Huitema (University of Guelph): Yes.
+
+435
+00:41:01.120 --> 00:41:01.840
+Carly Huitema (University of Guelph): Yes.
+
+436
+00:41:01.840 --> 00:41:05.319
+Scott Perry (Digital Governance Institute): And binding is created through the hash function.
+
+437
+00:41:05.320 --> 00:41:05.760
+Carly Huitema (University of Guelph): Yeah.
+
+438
+00:41:05.760 --> 00:41:10.589
+Scott Perry (Digital Governance Institute): where… You know, a hash activity.
+
+439
+00:41:10.930 --> 00:41:15.410
+Scott Perry (Digital Governance Institute): takes the… you know, takes… I don't know if it's the…
+
+440
+00:41:16.120 --> 00:41:25.209
+Scott Perry (Digital Governance Institute): For signing… yes, for signing, it takes the private key, so… That's… there you go. So…
+
+441
+00:41:25.330 --> 00:41:28.439
+Carly Huitema (University of Guelph): You know, now I'm getting a little lost, but I think…
+
+442
+00:41:28.440 --> 00:41:33.709
+Scott Perry (Digital Governance Institute): When I… well, yes, when you sign something, you create the hash.
+
+443
+00:41:33.800 --> 00:41:36.260
+Carly Huitema (University of Guelph): Yep.
+
+444
+00:41:37.000 --> 00:41:45.199
+Scott Perry (Digital Governance Institute): It can be verified by using its counterpart The pri- the public key.
+
+445
+00:41:45.200 --> 00:41:56.460
+Carly Huitema (University of Guelph): Yeah, so it's the hash… you have the hash of the document, and then into… you put a statement, you bind the hash of the document with your public key.
+
+446
+00:41:57.140 --> 00:41:58.879
+Carly Huitema (University of Guelph): And you generate a new hash.
+
+447
+00:41:59.790 --> 00:42:03.990
+Carly Huitema (University of Guelph): So then, so then, or,
+
+448
+00:42:04.230 --> 00:42:09.019
+Carly Huitema (University of Guelph): Oh, I have a whole slide about that. Damn it. I have a whole thing about signatures.
+
+449
+00:42:09.800 --> 00:42:17.170
+Scott Perry (Digital Governance Institute): Yeah. So, the binding, which is the key part of what I thought you were gonna say, is…
+
+450
+00:42:17.300 --> 00:42:25.630
+Scott Perry (Digital Governance Institute): Using the key pair to create a unique identifier, which is the hash.
+
+451
+00:42:26.090 --> 00:42:31.770
+Scott Perry (Digital Governance Institute): Which can then be verified without knowing the private key.
+
+452
+00:42:31.770 --> 00:42:36.019
+Carly Huitema (University of Guelph): Yeah, and that's… okay, well, that's the binding.
+
+453
+00:42:36.230 --> 00:42:42.260
+Carly Huitema (University of Guelph): Well, and it doesn't even… you don't even need… you don't even need a signature in order to bind.
+
+454
+00:42:43.310 --> 00:42:45.079
+Scott Perry (Digital Governance Institute): Right, but, you know what I mean…
+
+455
+00:42:45.080 --> 00:42:46.110
+Carly Huitema (University of Guelph): Ashes.
+
+456
+00:42:47.340 --> 00:42:50.500
+Scott Perry (Digital Governance Institute): You don't need a signature. You need…
+
+457
+00:42:51.190 --> 00:42:52.309
+Carly Huitema (University of Guelph): You need the hash.
+
+458
+00:42:53.020 --> 00:42:55.599
+Carly Huitema (University of Guelph): That's what it is. It's entirely based on the digest.
+
+459
+00:42:55.600 --> 00:42:56.490
+Scott Perry (Digital Governance Institute): Okay, so…
+
+460
+00:42:56.490 --> 00:42:57.070
+Carly Huitema (University of Guelph): skeptical.
+
+461
+00:42:57.070 --> 00:42:59.009
+Scott Perry (Digital Governance Institute): Graphic binding, no, I get that.
+
+462
+00:42:59.010 --> 00:42:59.380
+Carly Huitema (University of Guelph): It's.
+
+463
+00:42:59.380 --> 00:43:02.000
+Scott Perry (Digital Governance Institute): With cryptographic binding, you just need the hash, right?
+
+464
+00:43:02.000 --> 00:43:02.530
+Carly Huitema (University of Guelph): Yep.
+
+465
+00:43:03.940 --> 00:43:08.699
+Carly Huitema (University of Guelph): So I say, I have, I have, you know, .
+
+466
+00:43:08.700 --> 00:43:15.929
+Scott Perry (Digital Governance Institute): So it's… it's the creation of… it's the hash func… what's a hash function? You may have to explain what a hash function is.
+
+467
+00:43:15.960 --> 00:43:22.599
+Carly Huitema (University of Guelph): I have an earlier… I think I'm gonna just reference the earlier Bite Size Trust, because I do say how you calculate a digest.
+
+468
+00:43:23.300 --> 00:43:34.940
+Scott Perry (Digital Governance Institute): Right, yeah, yeah. So, it's the process of creating a hash, That establishes a… Imp…
+
+469
+00:43:35.170 --> 00:43:37.570
+Scott Perry (Digital Governance Institute): In some, you know, cases, immutable…
+
+470
+00:43:38.190 --> 00:43:38.920
+Carly Huitema (University of Guelph): Yeah.
+
+471
+00:43:38.920 --> 00:43:40.859
+Scott Perry (Digital Governance Institute): assurance.
+
+472
+00:43:42.190 --> 00:43:44.740
+Scott Perry (Digital Governance Institute): Okay, so that's the only thing I'd…
+
+473
+00:43:45.140 --> 00:43:57.359
+Carly Huitema (University of Guelph): Yeah, okay. So here I have digital signature. You take a digest of what you want to sign, you encrypt the digest with your private key to get your encrypted digest, and then you attach.
+
+474
+00:43:57.360 --> 00:43:58.120
+Scott Perry (Digital Governance Institute): There you go.
+
+475
+00:43:58.120 --> 00:44:10.059
+Carly Huitema (University of Guelph): digest to the signature. So then you have to… you have to verify the signature. Yeah, anyway, so I have… I do have a… I have a whole video on how to, how to,
+
+476
+00:44:10.430 --> 00:44:11.479
+Carly Huitema (University of Guelph): How it works, yeah.
+
+477
+00:44:11.480 --> 00:44:22.220
+Scott Perry (Digital Governance Institute): Got it. So you encrypt… that's the thing, it's, it's… it's… Yeah. Yeah, you're right, it's just the hashing, but if you want a digital signature, then you have to encrypt the…
+
+478
+00:44:22.220 --> 00:44:23.050
+Carly Huitema (University of Guelph): Yeah.
+
+479
+00:44:23.550 --> 00:44:24.460
+Scott Perry (Digital Governance Institute): Got it, okay.
+
+480
+00:44:24.460 --> 00:44:27.820
+Carly Huitema (University of Guelph): You know what? I, binding.
+
+481
+00:44:27.820 --> 00:44:30.620
+Scott Perry (Digital Governance Institute): You need to review everything, so there you go.
+
+482
+00:44:32.200 --> 00:44:38.559
+Carly Huitema (University of Guelph): Binding uses cryptographic… Ashing to regenerate.
+
+483
+00:44:39.490 --> 00:44:42.620
+Carly Huitema (University of Guelph): Digests. Digests, right. Yeah.
+
+484
+00:44:44.190 --> 00:44:46.620
+Carly Huitema (University of Guelph): Yeah.
+
+485
+00:44:46.620 --> 00:44:51.150
+Scott Perry (Digital Governance Institute): Which… which are further used for, Validation.
+
+486
+00:44:51.150 --> 00:44:58.760
+Carly Huitema (University of Guelph): Yeah, which then go downstream, yeah. Yeah, binding things together…
+
+487
+00:45:01.680 --> 00:45:06.619
+Carly Huitema (University of Guelph): I, I, I know what you're… about how… yeah, I think I'm gonna…
+
+488
+00:45:06.620 --> 00:45:14.160
+Scott Perry (Digital Governance Institute): The digest doesn't create the binding, it's the, you know, how do I know something's bound? It's the comparison.
+
+489
+00:45:14.160 --> 00:45:25.189
+Carly Huitema (University of Guelph): It supports immutability and traceability. Modifying the content breaks the binding when you compare When you compare…
+
+490
+00:45:25.190 --> 00:45:35.250
+Scott Perry (Digital Governance Institute): Yeah, and the reason why that's… see, you didn't set it up. The reason why that happens is because it breaks the hash. It changes the difference
+
+491
+00:45:35.650 --> 00:45:37.309
+Scott Perry (Digital Governance Institute): On one ash and another.
+
+492
+00:45:37.310 --> 00:45:37.960
+Carly Huitema (University of Guelph): Yeah.
+
+493
+00:45:38.590 --> 00:45:39.460
+Carly Huitema (University of Guelph): Yeah, okay.
+
+494
+00:45:39.460 --> 00:45:43.110
+Scott Perry (Digital Governance Institute): That needs to be… because I would look at, well, okay, this is…
+
+495
+00:45:43.660 --> 00:45:44.190
+Carly Huitema (University of Guelph): Modify.
+
+496
+00:45:44.190 --> 00:45:46.409
+Scott Perry (Digital Governance Institute): Why does it break the binding?
+
+497
+00:45:46.410 --> 00:45:47.240
+Carly Huitema (University of Guelph): Yeah.
+
+498
+00:45:47.240 --> 00:45:50.469
+Scott Perry (Digital Governance Institute): The binding because it changes the hash value.
+
+499
+00:45:50.470 --> 00:45:58.430
+Carly Huitema (University of Guelph): okay, so I could get rid of this. Modifying the content breaks the binding by changing.
+
+500
+00:45:58.430 --> 00:45:59.819
+Scott Perry (Digital Governance Institute): I'll be changing the…
+
+501
+00:45:59.820 --> 00:46:00.960
+Carly Huitema (University of Guelph): best value.
+
+502
+00:46:01.460 --> 00:46:05.110
+Scott Perry (Digital Governance Institute): Right. The comparable. The comparable!
+
+503
+00:46:05.110 --> 00:46:05.639
+Carly Huitema (University of Guelph): It has to be.
+
+504
+00:46:05.640 --> 00:46:05.960
+Scott Perry (Digital Governance Institute): I'm…
+
+505
+00:46:05.960 --> 00:46:07.720
+Carly Huitema (University of Guelph): Terrible, yeah, yeah.
+
+506
+00:46:08.120 --> 00:46:10.700
+Scott Perry (Digital Governance Institute): Terrible digest value.
+
+507
+00:46:11.040 --> 00:46:14.119
+Scott Perry (Digital Governance Institute): That's the key, that's the key aspect, the comparable.
+
+508
+00:46:14.120 --> 00:46:15.859
+Carly Huitema (University of Guelph): You have to be able to prepare it, yeah.
+
+509
+00:46:15.860 --> 00:46:18.650
+Scott Perry (Digital Governance Institute): Because just changing it, nothing happens.
+
+510
+00:46:18.650 --> 00:46:19.030
+Carly Huitema (University of Guelph): Everybody's there.
+
+511
+00:46:19.030 --> 00:46:24.909
+Scott Perry (Digital Governance Institute): Try to validate it by comparing, that's when you discover it's not.
+
+512
+00:46:26.100 --> 00:46:29.569
+Scott Perry (Digital Governance Institute): Yeah. You know, that it's… that… that we have a problem, Houston.
+
+513
+00:46:29.570 --> 00:46:34.819
+Carly Huitema (University of Guelph): If it digest changes in the forest, does it make a… does it even matter?
+
+514
+00:46:34.820 --> 00:46:38.409
+Scott Perry (Digital Governance Institute): Only if you validate it. Only if you… it doesn't.
+
+515
+00:46:38.850 --> 00:46:41.210
+Scott Perry (Digital Governance Institute): Unless you… unless you try to validate it.
+
+516
+00:46:41.210 --> 00:47:01.859
+Carly Huitema (University of Guelph): Which is the whole reason that Carrie uses watches and witnesses, in order to… to… to, bring that to the surface. Okay, thank you very much, Scott, for the input, and there's still, some more to go. Did come batch issuance, and then somebody said something about witnesses and watchers that clarified it for me, so I wanted to put that.
+
+517
+00:47:01.860 --> 00:47:04.580
+Scott Perry (Digital Governance Institute): topics I don't really have much input to.
+
+518
+00:47:06.210 --> 00:47:06.820
+Carly Huitema (University of Guelph): Well, back.
+
+519
+00:47:06.820 --> 00:47:07.659
+Scott Perry (Digital Governance Institute): Alright, thanks again.
+
+520
+00:47:07.660 --> 00:47:10.250
+Carly Huitema (University of Guelph): issuance will probably come up. Thank you, Scott.
+
+521
+00:47:10.250 --> 00:47:13.250
+Scott Perry (Digital Governance Institute): The session with Carly is always the highlight of my day.
+
+522
+00:47:13.250 --> 00:47:16.870
+Carly Huitema (University of Guelph): Woohoo, here we go. I'll see about coming at noon.
+
+523
+00:47:17.410 --> 00:47:18.559
+Scott Perry (Digital Governance Institute): Alright, bye.
+

@@ -1,0 +1,1445 @@
+WEBVTT
+
+00:32:57.000 --> 00:33:02.000
+sort of a real-time query and response for the data.
+
+00:33:02.000 --> 00:33:08.000
+So when we go back here, we look at the VPK protocol specification.
+
+00:33:08.000 --> 00:33:12.000
+We need to, um…
+
+00:33:12.000 --> 00:33:16.000
+Know that the use case is for a
+
+00:33:16.000 --> 00:33:18.000
+Uh, conversational speed.
+
+00:33:18.000 --> 00:33:24.000
+type of interaction, or faster than that, but we need to make sure it meets performance requirements,
+
+00:33:24.000 --> 00:33:26.000
+And we need to make sure it, um…
+
+00:33:26.000 --> 00:33:33.000
+It accommodates the fact that the chunking, embedding and scrambling happen client-side.
+
+00:33:33.000 --> 00:33:35.000
+No, server side.
+
+00:33:35.000 --> 00:33:36.000
+Okay.
+
+00:33:36.000 --> 00:33:41.000
+But at the same time, you're making the point that Bob doesn't have systems that are powerful enough to do all this stuff alone.
+
+00:33:41.000 --> 00:33:50.000
+Exactly. So we're looking for lightweight algorithms that can support the VPK protocol.
+
+00:33:50.000 --> 00:33:58.000
+And look, we wouldn't, this isn't an impossible dream. We've proposed a number of them, we've workshopped.
+
+00:33:58.000 --> 00:34:02.000
+a number of lightweight partial homomorphic algorithms.
+
+00:34:02.000 --> 00:34:09.000
+And we've benchmarked vector embedding systems, and we've got published articles on that already.
+
+00:34:09.000 --> 00:34:16.000
+So this has been a year or two's worth of research has been the precursor to this working group.
+
+00:34:16.000 --> 00:34:18.000
+Okay, so…
+
+00:34:18.000 --> 00:34:20.000
+As well as, um…
+
+00:34:20.000 --> 00:34:24.000
+The VPK protocol specification.
+
+00:34:24.000 --> 00:34:26.000
+task force.
+
+00:34:26.000 --> 00:34:31.000
+Uh, we will also kick off a task force around.
+
+00:34:31.000 --> 00:34:34.000
+Custom personal embedding.
+
+00:34:34.000 --> 00:34:38.000
+Okay, so embedding has been
+
+00:34:38.000 --> 00:34:45.000
+generalized, typically you embed using a… you go to Hugging Face and you say, okay, I'm
+
+00:34:45.000 --> 00:34:48.000
+I want to pull down an efficient
+
+00:34:48.000 --> 00:34:54.000
+embedding model, it really doesn't take a long time to embed. It's not a compute intensive.
+
+00:34:54.000 --> 00:34:56.000
+task, the models are quite small.
+
+00:34:56.000 --> 00:35:00.000
+And they take chunks of text and they transform them into vectors.
+
+00:35:00.000 --> 00:35:04.000
+Currently, embedders are generalized embedders.
+
+00:35:04.000 --> 00:35:08.000
+Um, because
+
+00:35:08.000 --> 00:35:11.000
+Both sides need to understand.
+
+00:35:11.000 --> 00:35:13.000
+the embedding format.
+
+00:35:13.000 --> 00:35:18.000
+But, in this case, the embedding format can be custom.
+
+00:35:18.000 --> 00:35:23.000
+Because the other side does not need to understand the embedding format.
+
+00:35:23.000 --> 00:35:30.000
+If both the query and the uploaded data are coming from Bob,
+
+00:35:30.000 --> 00:35:33.000
+or coming through the bulb, um…
+
+00:35:33.000 --> 00:35:35.000
+It means that Bob…
+
+00:35:35.000 --> 00:35:38.000
+can control the
+
+00:35:38.000 --> 00:35:43.000
+the embedder. And it's been shown, and this literature, um, around it, that
+
+00:35:43.000 --> 00:35:46.000
+tuning and customizing
+
+00:35:46.000 --> 00:35:49.000
+an embedded a for a knowledge domain,
+
+00:35:49.000 --> 00:35:52.000
+That's closer to the knowledge base.
+
+00:35:52.000 --> 00:35:55.000
+actually increases the accuracy.
+
+00:35:55.000 --> 00:35:58.000
+of the vector search.
+
+00:35:58.000 --> 00:36:01.000
+So that's one plus.
+
+00:36:01.000 --> 00:36:07.000
+It also means that the embedder and the parameters around the embedder become part of the secret.
+
+00:36:07.000 --> 00:36:10.000
+But only Bob knows.
+
+00:36:10.000 --> 00:36:15.000
+Bob Nerva shares that embedder structure, the embedded with Sam.
+
+00:36:15.000 --> 00:36:18.000
+Doesn't need to because both the.
+
+00:36:18.000 --> 00:36:23.000
+Query and the initial ingested documents.
+
+00:36:23.000 --> 00:36:25.000
+have gone through the same embedded.
+
+00:36:25.000 --> 00:36:28.000
+Okay, so we'll kick off a work group.
+
+00:36:28.000 --> 00:36:32.000
+to, um, uh, not a work group, a task force.
+
+00:36:32.000 --> 00:36:34.000
+to scour the literature.
+
+00:36:34.000 --> 00:36:36.000
+come up with some custom embedders,
+
+00:36:36.000 --> 00:36:40.000
+And these these become the.
+
+00:36:40.000 --> 00:36:43.000
+the secrets that bubble will. Okay.
+
+00:36:43.000 --> 00:36:51.000
+Now, there is a third task force, but it's gated at the moment. It's gated by the, uh, by the protocol.
+
+00:36:51.000 --> 00:36:58.000
+And at least we can't kick it off until we've got a VPK protocol, at least a preliminary spec.
+
+00:36:58.000 --> 00:37:06.000
+Um, 30 years ago, when I was a young engineer, NIST kicked off the AES.
+
+00:37:06.000 --> 00:37:08.000
+Call for proposals.
+
+00:37:08.000 --> 00:37:14.000
+It was when DES, the current or the previous.
+
+00:37:14.000 --> 00:37:17.000
+Encryption standard was running out of steam.
+
+00:37:17.000 --> 00:37:22.000
+It was shown to be crackable, and then we progressed to triple DES as a.
+
+00:37:22.000 --> 00:37:28.000
+A stopgap while this call for papers, call for proposals.
+
+00:37:28.000 --> 00:37:31.000
+Sixth progressed.
+
+00:37:31.000 --> 00:37:38.000
+Eventually, NIST anointed one algorithm, the Rheindahl algorithm, and that is now the AES
+
+00:37:38.000 --> 00:37:41.000
+algorithm. It was quickly standardized.
+
+00:37:41.000 --> 00:37:43.000
+And that is what's securing
+
+00:37:43.000 --> 00:37:46.000
+The internet, it's securing.
+
+00:37:46.000 --> 00:37:48.000
+e-commerce, it's securing banking.
+
+00:37:48.000 --> 00:37:54.000
+Um, so we suggest that a similar NIST-style call for proposals is needed.
+
+00:37:54.000 --> 00:37:57.000
+Uh, in order to…
+
+00:37:57.000 --> 00:37:59.000
+move, uh…
+
+00:37:59.000 --> 00:38:06.000
+VPK forward. VPK is the protocol specification, but the algorithms that conform to it.
+
+00:38:06.000 --> 00:38:10.000
+Need to be identified.
+
+00:38:10.000 --> 00:38:15.000
+Turns out that the literature is full of partial homomorphic algorithms.
+
+00:38:15.000 --> 00:38:19.000
+We at Kwai, we created a number of our own
+
+00:38:19.000 --> 00:38:23.000
+We then took it to the Society of Industrial and Applied Mathematics.
+
+00:38:23.000 --> 00:38:26.000
+And we convened a work group.
+
+00:38:26.000 --> 00:38:32.000
+at Pomona College, um, and, um, a couple more algorithms came out of that.
+
+00:38:32.000 --> 00:38:34.000
+And then, um…
+
+00:38:34.000 --> 00:38:37.000
+CKKS is probably the
+
+00:38:37.000 --> 00:38:43.000
+A gold standard for homomorphic encryption, and that's already in the Microsoft Seal library.
+
+00:38:43.000 --> 00:38:49.000
+We're looking for algorithms that are somewhere in the middle of that spectrum.
+
+00:38:49.000 --> 00:38:55.000
+That are practical to use, that can conform to the specification.
+
+00:38:55.000 --> 00:38:57.000
+And, um…
+
+00:38:57.000 --> 00:39:01.000
+And they don't need to be…
+
+00:39:01.000 --> 00:39:03.000
+They don't need to be…
+
+00:39:03.000 --> 00:39:07.000
+exhaustively, sort of, in CPA.
+
+00:39:07.000 --> 00:39:09.000
+compliant.
+
+00:39:09.000 --> 00:39:12.000
+They need to be just good enough.
+
+00:39:12.000 --> 00:39:18.000
+So it's not, we're not anointing a single algorithm like, like NIST was.
+
+00:39:18.000 --> 00:39:21.000
+Instead, what we want to do is…
+
+00:39:21.000 --> 00:39:25.000
+Qualify them when you want to benchmark them.
+
+00:39:25.000 --> 00:39:31.000
+We want to red team and stress test them, and then we can basically just put.
+
+00:39:31.000 --> 00:39:36.000
+We can just categorize the algorithms and allow the market to choose what they.
+
+00:39:36.000 --> 00:39:39.000
+I want to choose for their particular…
+
+00:39:39.000 --> 00:39:42.000
+And once again, you're only speaking of embedding algorithms here, correct?
+
+00:39:42.000 --> 00:39:46.000
+No, this, this is now the PHE moved on from embedding.
+
+00:39:46.000 --> 00:39:47.000
+Okay, so sorry.
+
+00:39:47.000 --> 00:39:50.000
+So the partial homomorphic encryption in other words.
+
+00:39:50.000 --> 00:39:56.000
+But… okay, so…
+
+00:39:56.000 --> 00:40:00.000
+Yeah, one, two, two.
+
+00:40:00.000 --> 00:40:01.000
+Yes, exactly. Yeah.
+
+00:40:01.000 --> 00:40:05.000
+That's what I'm saying. So you're separating it out, so you're… so embedding things and then rotating, transforming the embedding are two separate things. We're calling those two separate things. Yeah, okay, I… my mistake was I was calling it all as one thing. Okay, got it.
+
+00:40:05.000 --> 00:40:08.000
+Yeah. Okay, so…
+
+00:40:08.000 --> 00:40:09.000
+Yeah, go ahead.
+
+00:40:09.000 --> 00:40:17.000
+Riza, can I… can I jump in for one second and kind of do a layperson's translation? We're running into some similar stuff in the post-quantum encryption space.
+
+00:40:17.000 --> 00:40:21.000
+Wherein we know that.
+
+00:40:21.000 --> 00:40:30.000
+Quantum machines, when they exist, will be able to crack existing encryption. So it's very similar to the problem that we're talking about here, which is
+
+00:40:30.000 --> 00:40:36.000
+We want someone to be able to work with this data, but we know that maybe it's going to be crackable, right? We know they may be able to read it.
+
+00:40:36.000 --> 00:40:46.000
+So, one of the approaches that's being taken, and it's very pragmatic, and it sounds, if I'm inter… if I'm understanding you correctly, it sounds like kind of a flavor of what you're getting at.
+
+00:40:46.000 --> 00:40:49.000
+Which is to say that…
+
+00:40:49.000 --> 00:40:54.000
+We may not be able to achieve a real AES-style mathematical…
+
+00:40:54.000 --> 00:40:57.000
+like, assurance that this is uncrackable.
+
+00:40:57.000 --> 00:40:59.000
+But what we can do,
+
+00:40:59.000 --> 00:41:06.000
+is construct a solution to the problem that reduces the blast radius of any key compromise,
+
+00:41:06.000 --> 00:41:09.000
+To such an extent that it doesn't…
+
+00:41:09.000 --> 00:41:18.000
+That the value of that compromise doesn't exceed the value of the effort that goes into it. It's the same idea of putting a better lock on a door.
+
+00:41:18.000 --> 00:41:23.000
+A bad guy can still get through the lock. They're gonna be able to crack it, they're gonna be able to pick it.
+
+00:41:23.000 --> 00:41:29.000
+How long do you have? And then your surrounding mechanisms of having a camera, having an alarm,
+
+00:41:29.000 --> 00:41:31.000
+are meant to get help there that.
+
+00:41:31.000 --> 00:41:34.000
+that augments the capability of the lock.
+
+00:41:34.000 --> 00:41:35.000
+Is that kind of what you're getting at with this good enough idea? Okay.
+
+00:41:35.000 --> 00:41:41.000
+Yeah, absolutely. You're absolutely correct. It's.
+
+00:41:41.000 --> 00:41:45.000
+It's I guess the economics of hacking.
+
+00:41:45.000 --> 00:41:50.000
+You know, you would you would target a hacker would target, um.
+
+00:41:50.000 --> 00:41:53.000
+you know, a massive honeypot where
+
+00:41:53.000 --> 00:41:59.000
+I need to crack it once, and then they've got access to all the data. And the easy things, if you.
+
+00:41:59.000 --> 00:42:04.000
+If you say, well, if you hack this, you've only hacked it for one
+
+00:42:04.000 --> 00:42:08.000
+session, or for one customer, or yeah, then it's…
+
+00:42:08.000 --> 00:42:10.000
+then it's not a scalable hack for them.
+
+00:42:10.000 --> 00:42:14.000
+And it's also… the data isn't revealed in that sort of binary way. You have
+
+00:42:14.000 --> 00:42:29.000
+you know, an inference about the data. Remember, you're trying to infer what the embedding algorithm is, so as a result, the results you get are only inferences at the end anyway. You only have a certain… you can't be sure that that's what it actually says, ever, really.
+
+00:42:29.000 --> 00:42:34.000
+Your point is correct here. In fact, when we go back.
+
+00:42:34.000 --> 00:42:37.000
+Here, when…
+
+00:42:37.000 --> 00:42:40.000
+Uh, part of the protocol is
+
+00:42:40.000 --> 00:42:46.000
+Um, Bob sends scrambled vectors to Sam. Sam stores them.
+
+00:42:46.000 --> 00:42:48.000
+Later on, Alice issues a query,
+
+00:42:48.000 --> 00:42:55.000
+Bob scrambles that query knowing what the relevant key is to Sam.
+
+00:42:55.000 --> 00:43:01.000
+When Sam searches through the terabytes of records, Sam does not return the chunks.
+
+00:43:01.000 --> 00:43:04.000
+Sam returns the index.
+
+00:43:04.000 --> 00:43:07.000
+of the chunks with the similarity scores.
+
+00:43:07.000 --> 00:43:11.000
+So the data never travels back on the return wire.
+
+00:43:11.000 --> 00:43:15.000
+But the index of the database record
+
+00:43:15.000 --> 00:43:20.000
+Comes back. Sam's already got the original copy here, knows the mapping,
+
+00:43:20.000 --> 00:43:22.000
+between the original data
+
+00:43:22.000 --> 00:43:24.000
+And the the the
+
+00:43:24.000 --> 00:43:26.000
+You mean Bob does, you said Sam, you meant Bob.
+
+00:43:26.000 --> 00:43:29.000
+Sorry, sorry, you're right, Bob does. Bob knows that.
+
+00:43:29.000 --> 00:43:35.000
+And so the reordering of the records becomes part of the key material.
+
+00:43:35.000 --> 00:43:37.000
+that Bob wields.
+
+00:43:37.000 --> 00:43:38.000
+Um, and…
+
+00:43:38.000 --> 00:43:39.000
+That's almost a tokenization then, isn't it?
+
+00:43:39.000 --> 00:43:47.000
+It is, it is, yeah, and, and so even a man in the middle attack here, if Eve were to try and intercept this.
+
+00:43:47.000 --> 00:43:52.000
+Eve would not be able to glean… well, we need to… we need to rigorously.
+
+00:43:52.000 --> 00:43:56.000
+quantify what Eve can glean.
+
+00:43:56.000 --> 00:44:01.000
+And then the other strategy is to have multiple SAMs, is to shard the data.
+
+00:44:01.000 --> 00:44:03.000
+across multiple SAMs,
+
+00:44:03.000 --> 00:44:07.000
+such that you can have a different key for each one.
+
+00:44:07.000 --> 00:44:11.000
+And so, to your point, Scott, about a scalable hack,
+
+00:44:11.000 --> 00:44:16.000
+It would require massive collusion between all of these SAMs.
+
+00:44:16.000 --> 00:44:17.000
+in order to, um…
+
+00:44:17.000 --> 00:44:18.000
+No.
+
+00:44:18.000 --> 00:44:20.000
+You know, in order to, uh…
+
+00:44:20.000 --> 00:44:22.000
+Um, uh…
+
+00:44:22.000 --> 00:44:28.000
+Peace back and reconstruct the knowledge base if they did manage to.
+
+00:44:28.000 --> 00:44:29.000
+Crack one.
+
+00:44:29.000 --> 00:44:31.000
+Can I just make a point here?
+
+00:44:31.000 --> 00:44:32.000
+Yeah, go ahead, Steve.
+
+00:44:32.000 --> 00:44:36.000
+Okay, all right. So, basically, there are going to be two different types of setups.
+
+00:44:36.000 --> 00:44:41.000
+In this situation, so Bob can either keep his own, you know, chunks,
+
+00:44:41.000 --> 00:44:50.000
+So that the baseline data on his own stuff, and he's only using SAM to help him do a distributed vector search at a quicker speed,
+
+00:44:50.000 --> 00:44:57.000
+Or, you can keep those chunks with SAM, but they have to be encrypted in a different encryption…
+
+00:44:57.000 --> 00:45:04.000
+uh, methodology so that Bob can then identify them, pull them back from SAM, and then decrypt them locally.
+
+00:45:04.000 --> 00:45:06.000
+So there's those two different setups.
+
+00:45:06.000 --> 00:45:09.000
+But, yeah, that could work as well, you're right.
+
+00:45:09.000 --> 00:45:10.000
+Let me ask one question and I may be jumping ahead.
+
+00:45:10.000 --> 00:45:14.000
+Um, and so yeah.
+
+00:45:14.000 --> 00:45:22.000
+For inference to work, though, the LLMs need to be able to understand the text that's being
+
+00:45:22.000 --> 00:45:25.000
+Processed in order to do their…
+
+00:45:25.000 --> 00:45:30.000
+Um, let's say statistical analysis of where this text appears next to other text.
+
+00:45:30.000 --> 00:45:34.000
+And so understanding.
+
+00:45:34.000 --> 00:45:39.000
+Encrypted text, and how that relates to other.
+
+00:45:39.000 --> 00:45:43.000
+Unencrypted text. Sounds like the point where this falls apart. Now that's a later problem.
+
+00:45:43.000 --> 00:45:48.000
+Yeah, it's you're right. The chat completion part is a later problem.
+
+00:45:48.000 --> 00:45:55.000
+So at the moment, we're focusing on securing the entire knowledge base, not the individual chat completion.
+
+00:45:55.000 --> 00:45:58.000
+Um, requests which might reveal a little bit.
+
+00:45:58.000 --> 00:46:02.000
+Now, one way that
+
+00:46:02.000 --> 00:46:07.000
+Bob could solve that is by running an LLM locally.
+
+00:46:07.000 --> 00:46:10.000
+Um, uh, now…
+
+00:46:10.000 --> 00:46:14.000
+That he might not have sufficient compute for that.
+
+00:46:14.000 --> 00:46:19.000
+You know, he's got Moore's Law on his side, and that might not be the.
+
+00:46:19.000 --> 00:46:20.000
+The problem of scalability. But okay, so…
+
+00:46:20.000 --> 00:46:22.000
+Yeah.
+
+00:46:22.000 --> 00:46:30.000
+Um, I was speaking with Ben Gertzel at the conference and I said, okay, here's what we've solved already. We think we've solved.
+
+00:46:30.000 --> 00:46:33.000
+The retrieval part of RAG.
+
+00:46:33.000 --> 00:46:39.000
+But we haven't solved the generation part of RAG, the inference section.
+
+00:46:39.000 --> 00:46:40.000
+How would you approach it?
+
+00:46:40.000 --> 00:46:41.000
+But that's more shake
+
+00:46:41.000 --> 00:46:42.000
+And he went silent for a bit.
+
+00:46:42.000 --> 00:46:43.000
+Okay
+
+00:46:43.000 --> 00:46:46.000
+And then after the conference, he sent me a very long
+
+00:46:46.000 --> 00:46:48.000
+Your chicken waffle sandwich and fries are on paper
+
+00:46:48.000 --> 00:46:52.000
+essay on, you know, ways that he'd approach it.
+
+00:46:52.000 --> 00:46:56.000
+I think we've got some techniques within Quinnet.
+
+00:46:56.000 --> 00:46:59.000
+to approach it with our distributed LLM.
+
+00:46:59.000 --> 00:47:04.000
+Where we shard the LLM inference across multiple nodes.
+
+00:47:04.000 --> 00:47:08.000
+And we can leverage the…
+
+00:47:08.000 --> 00:47:11.000
+Unexplainability of the neural network.
+
+00:47:11.000 --> 00:47:15.000
+Uh, as you get deeper into the network, you start of where
+
+00:47:15.000 --> 00:47:19.000
+I'm gonna, um, run the first…
+
+00:47:19.000 --> 00:47:22.000
+few blocks of my, um…
+
+00:47:22.000 --> 00:47:26.000
+of the LLM inference and the last blocks.
+
+00:47:26.000 --> 00:47:29.000
+But then they follow a circuit through different nodes.
+
+00:47:29.000 --> 00:47:32.000
+Of various trust levels, and
+
+00:47:32.000 --> 00:47:35.000
+We're going to see we need to quantify
+
+00:47:35.000 --> 00:47:37.000
+Whether that is hackable,
+
+00:47:37.000 --> 00:47:42.000
+And to what level is hackable, and what level of collusion is needed.
+
+00:47:42.000 --> 00:47:45.000
+But you're right, VPK is not…
+
+00:47:45.000 --> 00:47:50.000
+At the moment, its scope is not to focus on the track completion problem. We could
+
+00:47:50.000 --> 00:47:52.000
+kick off a task force.
+
+00:47:52.000 --> 00:47:56.000
+Um, to, to solve secure inference.
+
+00:47:56.000 --> 00:47:59.000
+Uh, I think we need to
+
+00:47:59.000 --> 00:48:02.000
+get this first part, the retrieval part nailed down,
+
+00:48:02.000 --> 00:48:05.000
+And then go after secure inference, and that could be our fourth.
+
+00:48:05.000 --> 00:48:07.000
+task force, but…
+
+00:48:07.000 --> 00:48:13.000
+Rosa, I know it's an adjunct, but I'd love to read that essay. Um, you know, we've had some conversations about that, and I
+
+00:48:13.000 --> 00:48:16.000
+I don't have any core answer to…
+
+00:48:16.000 --> 00:48:19.000
+Uh, uh, the… the…
+
+00:48:19.000 --> 00:48:21.000
+Homomorphic inference.
+
+00:48:21.000 --> 00:48:22.000
+Uh, question right now.
+
+00:48:22.000 --> 00:48:23.000
+Right.
+
+00:48:23.000 --> 00:48:24.000
+Got it.
+
+00:48:24.000 --> 00:48:29.000
+Yeah, yeah, you're absolutely we don't have an answer for it, because at the moment.
+
+00:48:29.000 --> 00:48:32.000
+LLMs are written where your prompt
+
+00:48:32.000 --> 00:48:36.000
+That goes into the input layer is in clear text.
+
+00:48:36.000 --> 00:48:40.000
+And the output is in clear text. There's no mechanism for having.
+
+00:48:40.000 --> 00:48:46.000
+Encrypted weights and where you pass an encrypted prompt.
+
+00:48:46.000 --> 00:48:49.000
+And it gives you an encrypted answer back.
+
+00:48:49.000 --> 00:48:51.000
+Uh, and then you get to decrypt it.
+
+00:48:51.000 --> 00:48:52.000
+Wouldn't it be great?
+
+00:48:52.000 --> 00:48:53.000
+If I could add something here, so…
+
+00:48:53.000 --> 00:48:54.000
+Yeah, go ahead, Mitch.
+
+00:48:54.000 --> 00:49:00.000
+Part of the research that I'm doing is not on the first prompt, but
+
+00:49:00.000 --> 00:49:06.000
+There is a way that you can build, like, the opposite, the inverse of a zero-knowledge proof, where you
+
+00:49:06.000 --> 00:49:09.000
+have the prover and the verifier separated.
+
+00:49:09.000 --> 00:49:12.000
+And both of them hash, um…
+
+00:49:12.000 --> 00:49:15.000
+their understanding of that.
+
+00:49:15.000 --> 00:49:17.000
+inference or prompt.
+
+00:49:17.000 --> 00:49:24.000
+And then in the future, once trust is established between those two agents, they can just share the hashes, and they can know that each other
+
+00:49:24.000 --> 00:49:27.000
+that hash equals that full document.
+
+00:49:27.000 --> 00:49:31.000
+of information. So that kind of gets into this, like, SAM side of the
+
+00:49:31.000 --> 00:49:36.000
+um, scrambling and the hashing, but that's something I've been working on and
+
+00:49:36.000 --> 00:49:39.000
+I've built a harness around that sort of verifiability.
+
+00:49:39.000 --> 00:49:47.000
+of the knowledge and agree with a lot of the statements people have made prior that we need to focus on.
+
+00:49:47.000 --> 00:49:55.000
+Like, the… not having, like, a one-size-fits-all encryption that solves this, but being sort of iterative on
+
+00:49:55.000 --> 00:49:58.000
+Using techniques like obfuscation as well in the middle and
+
+00:49:58.000 --> 00:50:02.000
+making the bits and the bytes just, like…
+
+00:50:02.000 --> 00:50:10.000
+When you do have an attacker making the yield so low that it becomes like an economic thing, even if they've got
+
+00:50:10.000 --> 00:50:11.000
+the compute of the universe there.
+
+00:50:11.000 --> 00:50:12.000
+Mm-hmm.
+
+00:50:12.000 --> 00:50:16.000
+Don't see a point in attacking that.
+
+00:50:16.000 --> 00:50:26.000
+Right, so Mitch, I'm looking forward to that. So two things, Darren, yes, I'll.
+
+00:50:26.000 --> 00:50:27.000
+Right.
+
+00:50:27.000 --> 00:50:29.000
+If I want to… let me just tie it in correctly. So, so.
+
+00:50:29.000 --> 00:50:35.000
+Two things that I want to also mention in this call.
+
+00:50:35.000 --> 00:50:40.000
+I'd like for us to come to a decision on how we communicate using AI agents early on.
+
+00:50:40.000 --> 00:50:47.000
+Um, if there's going to be some… yeah, within the group. If there's going to be some sort of spec or repo or something like that.
+
+00:50:47.000 --> 00:50:51.000
+I've got a bunch of agents that have different protocols and…
+
+00:50:51.000 --> 00:50:52.000
+Discussion systems for governance that.
+
+00:50:52.000 --> 00:50:55.000
+Within the group.
+
+00:50:55.000 --> 00:51:01.000
+I'd happily propose, but we need to make that a discussion that we decide on. Um, early on,
+
+00:51:01.000 --> 00:51:12.000
+Uh, because things go really quickly if you start having our agents talk to each other, but then it gets into, like, a different language altogether, and we end up becoming translators in working group calls, so…
+
+00:51:12.000 --> 00:51:16.000
+Just want to put that on the table early on. Um, but I think it's important that we do.
+
+00:51:16.000 --> 00:51:21.000
+sort of build this with agents in mind in tandem.
+
+00:51:21.000 --> 00:51:27.000
+And have our agents, like, doing a weekly VPK sync of the discussions, and…
+
+00:51:27.000 --> 00:51:32.000
+pulling in our own private virtual knowledge stores, right? And…
+
+00:51:32.000 --> 00:51:35.000
+providing inference and insight in that way, so…
+
+00:51:35.000 --> 00:51:37.000
+I want to include that, um…
+
+00:51:37.000 --> 00:51:40.000
+And I think that that pretty much summarizes the…
+
+00:51:40.000 --> 00:51:42.000
+the outcomes that I… I was thinking.
+
+00:51:42.000 --> 00:51:46.000
+Mitch, I think that's really important. Um, so we do have a VPK,
+
+00:51:46.000 --> 00:51:49.000
+Workgroup channel on Slack.
+
+00:51:49.000 --> 00:51:54.000
+Um, what I'm proposing is that we develop an automation and that Slack has
+
+00:51:54.000 --> 00:51:57.000
+the sort of automation harness already.
+
+00:51:57.000 --> 00:52:01.000
+Um, and I've integrated Claude into…
+
+00:52:01.000 --> 00:52:03.000
+Slack, and so that's like a…
+
+00:52:03.000 --> 00:52:07.000
+a general integration and to take the Zoom recordings
+
+00:52:07.000 --> 00:52:13.000
+of each of our meetings, discussions, and just create summaries so they can go in.
+
+00:52:13.000 --> 00:52:16.000
+But also just…
+
+00:52:16.000 --> 00:52:18.000
+keep the follow-up going.
+
+00:52:18.000 --> 00:52:22.000
+I love what Singularity has in their Slack.
+
+00:52:22.000 --> 00:52:25.000
+group they've got, Hugo.
+
+00:52:25.000 --> 00:52:29.000
+Hugo is there automated bot that is…
+
+00:52:29.000 --> 00:52:33.000
+He's in there, it's a bit chatty.
+
+00:52:33.000 --> 00:52:38.000
+And a bit naggy and but it keeps it keeps the conversation going.
+
+00:52:38.000 --> 00:52:42.000
+And but follows up with individuals as well.
+
+00:52:42.000 --> 00:52:44.000
+Um, and I think we've got…
+
+00:52:44.000 --> 00:52:48.000
+Uh, the capability of doing the same thing.
+
+00:52:48.000 --> 00:52:50.000
+Um, with Claude and Slack.
+
+00:52:50.000 --> 00:52:51.000
+Um, uh…
+
+00:52:51.000 --> 00:52:56.000
+And also if the spec ends up in GitHub, we can…
+
+00:52:56.000 --> 00:52:57.000
+Right.
+
+00:52:57.000 --> 00:52:59.000
+follow suit of the way that GitHub discussions.
+
+00:52:59.000 --> 00:53:00.000
+Yeah.
+
+00:53:00.000 --> 00:53:03.000
+Um, can be kind of controlled by AI in a way.
+
+00:53:03.000 --> 00:53:04.000
+I've just had a good experience in the…
+
+00:53:04.000 --> 00:53:06.000
+So, so…
+
+00:53:06.000 --> 00:53:08.000
+Um, trust over IP.
+
+00:53:08.000 --> 00:53:13.000
+Working groups when that's been adopted.
+
+00:53:13.000 --> 00:53:20.000
+Yeah, so the GitHub conversations, um, and that opens it up to a broader audience, rather than the fairly closed.
+
+00:53:20.000 --> 00:53:21.000
+Yeah.
+
+00:53:21.000 --> 00:53:23.000
+internal Slack conversations.
+
+00:53:23.000 --> 00:53:25.000
+Um, and so, yeah, I've…
+
+00:53:25.000 --> 00:53:26.000
+Uh, it…
+
+00:53:26.000 --> 00:53:30.000
+Yeah, I've also had good experiences with Trust over IP GitHub discussions, so…
+
+00:53:30.000 --> 00:53:31.000
+Yeah.
+
+00:53:31.000 --> 00:53:36.000
+Okay, so GitHub's also one of the we've currently got our own GitHub repo, but
+
+00:53:36.000 --> 00:53:42.000
+This work will continue now under the Linux Foundation's GitHub.
+
+00:53:42.000 --> 00:53:47.000
+repo. That's all part of the logistics we need to set up over the next week or so.
+
+00:53:47.000 --> 00:53:53.000
+So a couple of items to… three items to follow up on.
+
+00:53:53.000 --> 00:53:56.000
+One is we should probably…
+
+00:53:56.000 --> 00:53:59.000
+take the white paper that's on the website now,
+
+00:53:59.000 --> 00:54:01.000
+And, um.
+
+00:54:01.000 --> 00:54:08.000
+Start marking that up and, and have a revised version, but now it's under the workgroup governance.
+
+00:54:08.000 --> 00:54:13.000
+And it should incorporate all of the…
+
+00:54:13.000 --> 00:54:15.000
+The recent thinking that.
+
+00:54:15.000 --> 00:54:17.000
+That white paper that's on the website.
+
+00:54:17.000 --> 00:54:19.000
+is something that was written
+
+00:54:19.000 --> 00:54:24.000
+Three months ago, maybe even six months ago. So it's a bit dated.
+
+00:54:24.000 --> 00:54:26.000
+And we can… we can bring it up to date.
+
+00:54:26.000 --> 00:54:31.000
+Yeah, and I actually just started messing around with the website a little this morning, so…
+
+00:54:31.000 --> 00:54:38.000
+get the exact text you want to describe this workgroup, because I think that needs to go on the homepage.
+
+00:54:38.000 --> 00:54:44.000
+I think you're absolutely right. I think we need to, you know, really super crisp mission statement.
+
+00:54:44.000 --> 00:54:46.000
+And.
+
+00:54:46.000 --> 00:54:53.000
+We're still in the phase where we are recruiting founder members. I'd like to get some heavy hitters.
+
+00:54:53.000 --> 00:54:57.000
+We've got a handshake agreement with OWASP to join.
+
+00:54:57.000 --> 00:55:00.000
+Um, and, uh…
+
+00:55:00.000 --> 00:55:02.000
+But that's the OWASP.
+
+00:55:02.000 --> 00:55:06.000
+LA chapter, I'd like to get the national OWASP.
+
+00:55:06.000 --> 00:55:09.000
+Um, Steve Wilson to be part of this.
+
+00:55:09.000 --> 00:55:15.000
+And then let's see if we can get, I don't know, a vector database company like Quadrant that offers Quadrant.
+
+00:55:15.000 --> 00:55:19.000
+in the cloud to be the test case to show, hey,
+
+00:55:19.000 --> 00:55:22.000
+Our vector database in the cloud operates.
+
+00:55:22.000 --> 00:55:26.000
+Perfectly when
+
+00:55:26.000 --> 00:55:28.000
+The client has got VPK running.
+
+00:55:28.000 --> 00:55:29.000
+The idea is that
+
+00:55:29.000 --> 00:55:32.000
+Yeah, it requires no accommodation by the service provider.
+
+00:55:32.000 --> 00:55:35.000
+No accommodation, no integration necessary, it just works.
+
+00:55:35.000 --> 00:55:39.000
+And, um, that would be a great test. Zero.
+
+00:55:39.000 --> 00:55:46.000
+Theresa, Jordan just had, um… I don't remember if you were there that night, but he, at the DevOps LA meetup, he had…
+
+00:55:46.000 --> 00:55:47.000
+Hunter.
+
+00:55:47.000 --> 00:55:49.000
+Yeah, yeah, exactly. Yes, he had them come.
+
+00:55:49.000 --> 00:55:57.000
+I'd love… I'd love an intro. So, Pinecone is a non-open source, I think they're closed source.
+
+00:55:57.000 --> 00:55:58.000
+Yeah.
+
+00:55:58.000 --> 00:56:02.000
+But still, it should just work. So I'd love an intro to the Pinecone guy. I think he did send me an intro, actually.
+
+00:56:02.000 --> 00:56:03.000
+Okay, good.
+
+00:56:03.000 --> 00:56:05.000
+So, I'll follow up there.
+
+00:56:05.000 --> 00:56:10.000
+Okay, so logistics, Dave Boswell and Min Yu are people to follow up with.
+
+00:56:10.000 --> 00:56:15.000
+I think Myra, if you could take on one of them, I'll take on
+
+00:56:15.000 --> 00:56:18.000
+I've got a call scheduled with Dave Boswell for tomorrow.
+
+00:56:18.000 --> 00:56:20.000
+Um, and then…
+
+00:56:20.000 --> 00:56:26.000
+Myra, I'll invite you to that call as well.
+
+00:56:26.000 --> 00:56:29.000
+But we should probably also get, um,
+
+00:56:29.000 --> 00:56:33.000
+a call with Miniu about all the other infrastructure.
+
+00:56:33.000 --> 00:56:38.000
+Logistics that of around the work group.
+
+00:56:38.000 --> 00:56:40.000
+Okay.
+
+00:56:40.000 --> 00:56:47.000
+We, we are… we are nicely at time. There's 5 minutes of Q&A left.
+
+00:56:47.000 --> 00:56:50.000
+And then and then…
+
+00:56:50.000 --> 00:56:52.000
+Next steps. Okay, so let's…
+
+00:56:52.000 --> 00:56:54.000
+Let's just dwell on the Q&A.
+
+00:56:54.000 --> 00:56:57.000
+Are there any questions?
+
+00:56:57.000 --> 00:56:59.000
+I know, Sandra, you've been silent.
+
+00:56:59.000 --> 00:57:07.000
+Throughout this does his his singularity on board with
+
+00:57:07.000 --> 00:57:19.000
+Yeah, so I was taking all in. I know that some of the team members that you're going to be talking with in 2 hours have more background, so I was trying to understand, you know, everything from from the foundations up
+
+00:57:19.000 --> 00:57:23.000
+Fantastic. Thank you so much, and I really appreciate
+
+00:57:23.000 --> 00:57:27.000
+the enthusiasm that Singularity has shown.
+
+00:57:27.000 --> 00:57:29.000
+Uh, in…
+
+00:57:29.000 --> 00:57:32.000
+In all of this, and I think we're, we're
+
+00:57:32.000 --> 00:57:35.000
+going to be doing something important for the industry.
+
+00:57:35.000 --> 00:57:38.000
+Okay, um…
+
+00:57:38.000 --> 00:57:40.000
+Let us…
+
+00:57:40.000 --> 00:57:43.000
+Let's see, who have we not heard from?
+
+00:57:43.000 --> 00:57:47.000
+Actually, Mitch, normally you, you…
+
+00:57:47.000 --> 00:57:48.000
+Hello.
+
+00:57:48.000 --> 00:57:51.000
+Perhaps, you know, a good visualization.
+
+00:57:51.000 --> 00:57:55.000
+of what we're trying to do is needed. And maybe you can just, uh…
+
+00:57:55.000 --> 00:57:58.000
+tease us with, um…
+
+00:57:58.000 --> 00:57:59.000
+the sorts of visual unrest.
+
+00:57:59.000 --> 00:58:00.000
+Yeah. Something I've been cooking recently.
+
+00:58:00.000 --> 00:58:03.000
+I'm going to stop sharing.
+
+00:58:03.000 --> 00:58:07.000
+Um, so VPK.
+
+00:58:07.000 --> 00:58:14.000
+Yeah, I'll give this one…
+
+00:58:14.000 --> 00:58:18.000
+Uh, so I've built a wiki space.
+
+00:58:18.000 --> 00:58:23.000
+And this wikispace is kind of… it's a public-private knowledge space, but
+
+00:58:23.000 --> 00:58:28.000
+There are actually two. So there's the localhost version of the federated wiki, and then there's the…
+
+00:58:28.000 --> 00:58:33.000
+public version of the wiki, which is, like, a HTML snapshot of
+
+00:58:33.000 --> 00:58:36.000
+What is a local federated wiki that
+
+00:58:36.000 --> 00:58:39.000
+is… just, yeah, wiki structure.
+
+00:58:39.000 --> 00:58:43.000
+Um, but I've actually visualized it in a way that I've…
+
+00:58:43.000 --> 00:58:45.000
+Um, given some…
+
+00:58:45.000 --> 00:58:49.000
+sort of Taurus-based geometry using these six
+
+00:58:49.000 --> 00:58:57.000
+categories. The gates is the boundary agent, skills is the delegation agent, the harness is the compute.
+
+00:58:57.000 --> 00:58:59.000
+The canon is the memory.
+
+00:58:59.000 --> 00:59:04.000
+The federation is kind of the connections, so all of us here, and then the agreements of the value
+
+00:59:04.000 --> 00:59:10.000
+Agreements are also synonymous with links in the sort of guide or the wiki space.
+
+00:59:10.000 --> 00:59:14.000
+Um, so this then creates these…
+
+00:59:14.000 --> 00:59:17.000
+sort of unique patterns.
+
+00:59:17.000 --> 00:59:20.000
+of pathways through knowledge base.
+
+00:59:20.000 --> 00:59:25.000
+And when you can generate a pathway through a knowledge base on a torus,
+
+00:59:25.000 --> 00:59:27.000
+Um, you get cool maths.
+
+00:59:27.000 --> 00:59:34.000
+And when you compress things to cool maths, then you can turn it into these sort of…
+
+00:59:34.000 --> 00:59:38.000
+um, spliced and diced information packets that Sam.
+
+00:59:38.000 --> 00:59:41.000
+is interested in trying to attack, but
+
+00:59:41.000 --> 00:59:43.000
+has a problem when attacking.
+
+00:59:43.000 --> 00:59:45.000
+Um…
+
+00:59:45.000 --> 00:59:49.000
+the transition between when it goes to like the Taurus.
+
+00:59:49.000 --> 00:59:54.000
+405D geometry, and then just the 2D map.
+
+00:59:54.000 --> 00:59:56.000
+It's also interesting to see.
+
+00:59:56.000 --> 00:59:59.000
+So you can see the boundaries are still the boundaries.
+
+00:59:59.000 --> 01:00:01.000
+The skill is still the skills.
+
+01:00:01.000 --> 01:00:04.000
+And this creates, like,
+
+01:00:04.000 --> 01:00:07.000
+a notion that you… based on where within
+
+01:00:07.000 --> 01:00:08.000
+this sort of knowledge base.
+
+01:00:08.000 --> 01:00:12.000
+That… that was some sort of dimensionality slider that you had going on there?
+
+01:00:12.000 --> 01:00:18.000
+Yeah, yeah, yeah, yeah, it's kind of… it's kind of fun, right? Here, I'll zoom in on the… so you can see the…
+
+01:00:18.000 --> 01:00:27.000
+The golden ratio moment.
+
+01:00:27.000 --> 01:00:31.000
+So, they kind of fold in on each other in order to
+
+01:00:31.000 --> 01:00:34.000
+create the…
+
+01:00:34.000 --> 01:00:36.000
+um, torus shape, so then the…
+
+01:00:36.000 --> 01:00:37.000
+The
+
+01:00:37.000 --> 01:00:38.000
+But, okay, so the torus shape has how many dimensions?
+
+01:00:38.000 --> 01:00:40.000
+Huh?
+
+01:00:40.000 --> 01:00:43.000
+I think it's 6, so…
+
+01:00:43.000 --> 01:00:44.000
+Okay.
+
+01:00:44.000 --> 01:00:46.000
+Yeah, I think it's 5 or 60 space, but…
+
+01:00:46.000 --> 01:00:49.000
+It could be wrong, you should double-check, I'm pretty sure it's 6, and then…
+
+01:00:49.000 --> 01:00:55.000
+And somehow this is smooth, so you've got fractional dimensions somehow being represented, too. Okay.
+
+01:00:55.000 --> 01:00:59.000
+Yeah. And it's about, yeah, pathing through.
+
+01:00:59.000 --> 01:01:05.000
+Um, on this dimensionality, and then changing it.
+
+01:01:05.000 --> 01:01:10.000
+in order to… so this is, like, the pattern, and all you do is share the pattern.
+
+01:01:10.000 --> 01:01:19.000
+through the knowledge base. And then the LLM is going to be able to be like, oh yeah, ABC, I can actually record the runtime, for example.
+
+01:01:19.000 --> 01:01:23.000
+this dot here. If an MCP server was observing this,
+
+01:01:23.000 --> 01:01:33.000
+I could record that I observed this pattern for a certain amount of time, which means that my agent was consuming these particular documents in this particular order.
+
+01:01:33.000 --> 01:01:36.000
+through the wikispace. Um, and that…
+
+01:01:36.000 --> 01:01:39.000
+adds to…
+
+01:01:39.000 --> 01:01:48.000
+some qualities in the governance of the data and the information and like how much you trust the agents computing the right thing on the right path.
+
+01:01:48.000 --> 01:01:49.000
+Um, so it's…
+
+01:01:49.000 --> 01:01:57.000
+Mitch, can I ask you a question?
+
+01:01:57.000 --> 01:01:58.000
+trajectories, correct, yeah.
+
+01:01:58.000 --> 01:02:02.000
+Right, so then the agents in the future, instead of just sharing hashes that point to chunks, can now share hashes that point to pathways, and so forth. You get another layer of compression and inscrutability. Got it.
+
+01:02:02.000 --> 01:02:08.000
+Yep, and then it's the trajectory based on that current state of the private knowledge base.
+
+01:02:08.000 --> 01:02:15.000
+Which then creates even more obfuscation for, like, when the knowledge base changes in the future, and we get this, like, step change in signatures being used.
+
+01:02:15.000 --> 01:02:20.000
+It's like the, well, that was only for this version. I add, like, 10 extra…
+
+01:02:20.000 --> 01:02:26.000
+wikis, and I tend to add, on average, like, 30 wikis a week to the research knowledge base. That means I'm versioning
+
+01:02:26.000 --> 01:02:28.000
+the, like, hash pathway.
+
+01:02:28.000 --> 01:02:30.000
+But there is still this, like, provenance chain.
+
+01:02:30.000 --> 01:02:34.000
+of these like trajectories through.
+
+01:02:34.000 --> 01:02:37.000
+So these are all like just…
+
+01:02:37.000 --> 01:02:40.000
+So here's an example of just a pathway through.
+
+01:02:40.000 --> 01:02:42.000
+Like, I would just hyperlink all the way through.
+
+01:02:42.000 --> 01:02:45.000
+We're past time, and I've got a 10 o'clock that I need to head to.
+
+01:02:45.000 --> 01:02:48.000
+Oh, yeah, sorry. Things get exciting.
+
+01:02:48.000 --> 01:02:49.000
+When I start showing pretty things.
+
+01:02:49.000 --> 01:02:50.000
+Mitch, before you get to this.
+
+01:02:50.000 --> 01:02:53.000
+Let's just let's just wrap quickly. Thanks so much.
+
+01:02:53.000 --> 01:02:57.000
+everybody for participating on this kickoff call.
+
+01:02:57.000 --> 01:03:03.000
+And we're confirming a weekly cadence of this meeting at this time slot, the 9 a.m.
+
+01:03:03.000 --> 01:03:09.000
+time slot, um, and, uh, you'll find it on the Linux Foundation.
+
+01:03:09.000 --> 01:03:12.000
+calendar, but it's also publicized elsewhere.
+
+01:03:12.000 --> 01:03:16.000
+Thanks so much. I will, um, distill
+
+01:03:16.000 --> 01:03:20.000
+this into some minutes, and they'll be posted in the VPK
+
+01:03:20.000 --> 01:03:23.000
+Slack channel, but I'll also email them out.
+
+01:03:23.000 --> 01:03:25.000
+to all of you. Thank you very much.
+
+01:03:25.000 --> 01:03:31.000
+I'm going to hop onto our intern group, which is waiting for me now.
+
+01:03:31.000 --> 01:03:32.000
+Okay.
+
+01:03:32.000 --> 01:03:39.000
+Just quick clarity. So a Taurus is actually two-dimensional object, lives inside a three-dimensional and four-dimensional space.
+
+01:03:39.000 --> 01:03:41.000
+Thanks so much. Okay.
+
+01:03:41.000 --> 01:03:48.000
+Keep up. It's a wrap.
+

@@ -1,0 +1,2066 @@
+WEBVTT
+
+00:19:38.000 --> 00:19:48.000
+Something like that. Um… So you can have separate arities, uh, you could possibly revoke with a smaller number than, uh, sine.
+
+00:19:48.000 --> 00:19:56.000
+Um, this… then I have this idea of a queue group, and the idea of a queue group, in my mind, was.
+
+00:19:56.000 --> 00:20:07.000
+I'm trying to qualify those who are. able to sign instead of enumerating them, or possibly in addition to enumerating them.
+
+00:20:07.000 --> 00:20:10.000
+Um, but let's start with a simpler case of just instead.
+
+00:20:10.000 --> 00:20:26.000
+Suppose you have a, um, petition. and you want to collect a certain number of signatures, but you need to know that everybody who does sign… you can't enumerate in advance everybody who can sign, but you need to know that everybody who does sign.
+
+00:20:26.000 --> 00:20:35.000
+is a registered voter in a particular region. So, um, the idea of the Q group would be that you're, um, saying.
+
+00:20:35.000 --> 00:20:42.000
+Uh, you must satisfy the following schema with ACDC-based proof in order to be a signer.
+
+00:20:42.000 --> 00:20:47.000
+Um, how would you do that, Sam, if you're not actually.
+
+00:20:47.000 --> 00:20:52.000
+I mean, I'm imagining sticking this on an edge group, but there would be no edges.
+
+00:20:52.000 --> 00:21:02.000
+Um, like you'd just say, there is an edge group, um, uh, and I'm using the QGroup operator on it, and there's a field next to it called schema.
+
+00:21:02.000 --> 00:21:11.000
+that says, here's the schema for the proof you have to satisfy, but I'm not going to actually enumerate any edges. Is that possible?
+
+00:21:11.000 --> 00:21:15.000
+Um…
+
+00:21:15.000 --> 00:21:24.000
+Well, everything's possible, but according to the spec, I don't think that that's currently allowed. I'd assume it would fail, because there's no…
+
+00:21:24.000 --> 00:21:31.000
+Well, you could have… I don't know, maybe… maybe an empty edge group, right? You…
+
+00:21:31.000 --> 00:21:33.000
+You can have an edge group, but it doesn't…
+
+00:21:33.000 --> 00:21:38.000
+It may not have any edge blocks within the edge group, so that…
+
+00:21:38.000 --> 00:21:46.000
+that, um… and we currently don't have schema on groups, we just have schema on edges.
+
+00:21:46.000 --> 00:21:52.000
+So, um, so that… that's a new functionality that's not in the spec right now.
+
+00:21:52.000 --> 00:22:00.000
+There might be another way to do that. I mean, it's not that if we decide that that's the way to do it, then we would have to, you know, revise the spec and
+
+00:22:00.000 --> 00:22:02.000
+in, you know, say, version…
+
+00:22:02.000 --> 00:22:04.000
+one of the specs says…
+
+00:22:04.000 --> 00:22:07.000
+Um, because this is changing…
+
+00:22:07.000 --> 00:22:09.000
+ACDC not changing…
+
+00:22:09.000 --> 00:22:17.000
+you know, uh, operators, because ACDC just says you have operators, and
+
+00:22:17.000 --> 00:22:24.000
+it specifies some, but it doesn't specify… it doesn't limit the operator, so…
+
+00:22:24.000 --> 00:22:29.000
+So, a compliant parser would accept any operator you gave it, it just wouldn't know what to do with it, unless you…
+
+00:22:29.000 --> 00:22:32.000
+had business logic that knew how to interpret the operator.
+
+00:22:32.000 --> 00:22:36.000
+Um, but one way to do that would be to, um…
+
+00:22:36.000 --> 00:22:41.000
+imply the qualification on your M group.
+
+00:22:41.000 --> 00:22:44.000
+by the schema of the members of the…
+
+00:22:44.000 --> 00:22:52.000
+M group, but you want… yeah, you don't want to delineate, you want to just say there's a schema.
+
+00:22:52.000 --> 00:22:58.000
+Um, so how are… so how are you… if you don't have an M group, how are you… where are the edges appearing?
+
+00:22:58.000 --> 00:23:00.000
+for the actual…
+
+00:23:00.000 --> 00:23:14.000
+endorsing members of the joint issuance, the issuing members.
+
+00:23:14.000 --> 00:23:22.000
+Actually, I guess they would be in the, um, edge group that contains the, um, queue group operator.
+
+00:23:22.000 --> 00:23:23.000
+Yeah, so then…
+
+00:23:23.000 --> 00:23:24.000
+now that I think about it… So then, no problem, okay. Yeah.
+
+00:23:24.000 --> 00:23:27.000
+No problem.
+
+00:23:27.000 --> 00:23:28.000
+All right, so… Yeah.
+
+00:23:28.000 --> 00:23:35.000
+So, can I just pick apart these questions real quick? I'm taking notes here, I just want to go back to the first question and then come back to the answer we just got to.
+
+00:23:35.000 --> 00:23:39.000
+So, what was the first question and answer on the M-group operator about…
+
+00:23:39.000 --> 00:23:40.000
+Their arity?
+
+00:23:40.000 --> 00:23:47.000
+Arity. So, I did this funky thing, um, and I thought when I did it, it was probably wrong, but I, I said.
+
+00:23:47.000 --> 00:23:53.000
+I need to somehow express that this operator has an arity associated with it.
+
+00:23:53.000 --> 00:24:05.000
+And I thought I had to stick it in the actual operator field. Sam pointed out that was wrong, so… This colon 7 construct, that will disappear. It will just be a pure operator mgroup.
+
+00:24:05.000 --> 00:24:08.000
+And there will be a field next to this operator.
+
+00:24:08.000 --> 00:24:15.000
+that expresses the arity argument of the operator, and that field will probably be called.
+
+00:24:15.000 --> 00:24:20.000
+Since it's an M group. Um, and that basically says.
+
+00:24:20.000 --> 00:24:24.000
+This is a… Basically, you're trying to construct.
+
+00:24:24.000 --> 00:24:32.000
+M of N semantics. But the M part has to be expressed in a number in a field.
+
+00:24:32.000 --> 00:24:41.000
+And the N is given by, um, simply counting the enumerated potential signers.
+
+00:24:41.000 --> 00:24:43.000
+Okay. I think I've got that.
+
+00:24:43.000 --> 00:24:54.000
+And in an ACDC edge group, there is an O field that is reserved for the M area operator for that, um…
+
+00:24:54.000 --> 00:25:03.000
+Um, Edge group, and then… and then each edge can have a unary operator, so it… so on an edge, there's also an O field, but that's…
+
+00:25:03.000 --> 00:25:08.000
+For unary operators, you can have multiple unary operators. I can't remember if…
+
+00:25:08.000 --> 00:25:13.000
+If in the edge group, if the M area operator is singular or…
+
+00:25:13.000 --> 00:25:15.000
+can be a list, but that…
+
+00:25:15.000 --> 00:25:21.000
+Yeah, so we have to note whether we have to change that syntax or not to allow more than one
+
+00:25:21.000 --> 00:25:24.000
+an area operator. I can't remember.
+
+00:25:24.000 --> 00:25:25.000
+Without looking at it, what the spec says for that.
+
+00:25:25.000 --> 00:25:28.000
+Hmm.
+
+00:25:28.000 --> 00:25:29.000
+Um, but…
+
+00:25:29.000 --> 00:25:31.000
+So, like…
+
+00:25:31.000 --> 00:25:37.000
+Go ahead.
+
+00:25:37.000 --> 00:25:42.000
+So I just… I just noted that for Daniel. That's something we have to…
+
+00:25:42.000 --> 00:25:45.000
+I haven't read the spec lately.
+
+00:25:45.000 --> 00:25:46.000
+Yeah.
+
+00:25:46.000 --> 00:25:47.000
+Okay, I'm taking a note of that. I'll check this and see.
+
+00:25:47.000 --> 00:25:51.000
+So I got that the first answer was we can just add a field,
+
+00:25:51.000 --> 00:25:56.000
+Next to the operator, on the edge, because we're… it's just a labeled property graph, so you can add another field.
+
+00:25:56.000 --> 00:25:58.000
+Now, with the Q group operator,
+
+00:25:58.000 --> 00:26:01.000
+was the question about where to put
+
+00:26:01.000 --> 00:26:08.000
+a threshold expression for each member in a group.
+
+00:26:08.000 --> 00:26:16.000
+Um, because there's not a threshold here. A queue group is… the idea here is to say, I'm going to qualify this group.
+
+00:26:16.000 --> 00:26:24.000
+Um, basically, I'm gonna let people sign only if they meet these qualifications with ACDC-based.
+
+00:26:24.000 --> 00:26:28.000
+proof. So how would you express the qualification you're after?
+
+00:26:28.000 --> 00:26:37.000
+You'd have to say, um, here's a schema that must be satisfied by.
+
+00:26:37.000 --> 00:26:38.000
+So, for example…
+
+00:26:38.000 --> 00:26:39.000
+everybody who, uh, signs this. And my example… go ahead.
+
+00:26:39.000 --> 00:26:45.000
+Oh, okay, you haven't… no, I was gonna say, for example, the schemas could specify that the signer
+
+00:26:45.000 --> 00:26:51.000
+must have… the signer's ACDC, by which they sign, must have an edge
+
+00:26:51.000 --> 00:26:53.000
+that is a VLEI.
+
+00:26:53.000 --> 00:26:58.000
+That would be a qualification. They have to be a… they have to be a…
+
+00:26:58.000 --> 00:27:02.000
+they have to have a VLEI, or it could be you have to have…
+
+00:27:02.000 --> 00:27:04.000
+and entitlement.
+
+00:27:04.000 --> 00:27:14.000
+from some authority that says that you're a citizen of a state that allows you to vote.
+
+00:27:14.000 --> 00:27:17.000
+So, to, to…
+
+00:27:17.000 --> 00:27:18.000
+Are we saying, then,
+
+00:27:18.000 --> 00:27:23.000
+I'm sorry to interrupt you, Daniel, I don't know if you… I didn't read your example, because I didn't know.
+
+00:27:23.000 --> 00:27:24.000
+Well, I…
+
+00:27:24.000 --> 00:27:25.000
+Well, that's perfect. That was exactly the kind of thing I was gonna say.
+
+00:27:25.000 --> 00:27:37.000
+Is this leading to… I think you might have already mentioned it earlier, Daniel or Sam, is this leading to defining a schema for an edge or group of… set of edges?
+
+00:27:37.000 --> 00:27:38.000
+Is that what a Q group is, saying you essentially need to have this set of edges?
+
+00:27:38.000 --> 00:27:44.000
+Well…
+
+00:27:44.000 --> 00:27:53.000
+Um… well, I mean, sort of, but the wording suggests that you're thinking about it a little differently than I am.
+
+00:27:53.000 --> 00:27:59.000
+What you're saying is, um, the edge that… any edges that you add.
+
+00:27:59.000 --> 00:28:02.000
+to this edge group that has a queue group.
+
+00:28:02.000 --> 00:28:07.000
+operator on it. Those edges must link.
+
+00:28:07.000 --> 00:28:20.000
+to proof that satisfies the following schema. That's not the same thing as saying that the edge itself has to have the schema. It's an indirection.
+
+00:28:20.000 --> 00:28:33.000
+Um, so that's what makes it different from the simple, um… way of expressing this that we already… I mean, we already have the notion this edge must be a VLEI, but what we're saying here is.
+
+00:28:33.000 --> 00:28:40.000
+This edge, um, must have. an edge itself that's a VLEI. Do you see the difference?
+
+00:28:40.000 --> 00:28:45.000
+Yes, and I guess I was asking the question from the standpoint of, like, when you use a graph database.
+
+00:28:45.000 --> 00:28:48.000
+With a graph database like Neo4j, you can have
+
+00:28:48.000 --> 00:28:52.000
+properties in the nodes or in the vertices. Sorry, the edges of the vertices.
+
+00:28:52.000 --> 00:29:02.000
+And I sort of… the question that I was asking is, are we sort of specifying that the edges themselves have a schema, or are you… or is this just saying, like you said,
+
+00:29:02.000 --> 00:29:08.000
+You're saying this edge has an edge that has this schema.
+
+00:29:08.000 --> 00:29:09.000
+Okay.
+
+00:29:09.000 --> 00:29:10.000
+It's the second.
+
+00:29:10.000 --> 00:29:15.000
+So, can I… can I make a comment, uh, Daniel, just as I'm looking at this?
+
+00:29:15.000 --> 00:29:18.000
+This is me being a little bit pedantic.
+
+00:29:18.000 --> 00:29:24.000
+Since we know that any operator that appears in the O field of an edge group is
+
+00:29:24.000 --> 00:29:27.000
+is a group operator.
+
+00:29:27.000 --> 00:29:34.000
+Um, using 3 letters to use the word group is… provides no net information.
+
+00:29:34.000 --> 00:29:42.000
+So… so it might… I might suggest that… so we already know they're already operators, right, because they're in an edge group,
+
+00:29:42.000 --> 00:29:45.000
+that it might be, like, a threshold, a revocation threshold.
+
+00:29:45.000 --> 00:29:52.000
+And a qualification threshold, you know, is saying that the way you evaluate the group is that it satisfies
+
+00:29:52.000 --> 00:29:55.000
+you know, like we have weighted average,
+
+00:29:55.000 --> 00:30:05.000
+And or the actual logical operation that you're performing, not that it's a group operator.
+
+00:30:05.000 --> 00:30:15.000
+Okay. Um, and how would you deal, uh, Sam, with the distinction between potential signers and actual signers?
+
+00:30:15.000 --> 00:30:19.000
+Um, well, well, um…
+
+00:30:19.000 --> 00:30:21.000
+Uh, uh…
+
+00:30:21.000 --> 00:30:24.000
+maybe, uh…
+
+00:30:24.000 --> 00:30:37.000
+I would probably go look at a Cesaris and think of some words that represent that idea, and then use those words instead of the word group, because we know it's a group, we just need to know
+
+00:30:37.000 --> 00:30:42.000
+potentials… potential threshold versus a signer threshold, or…
+
+00:30:42.000 --> 00:30:47.000
+or a set of signers, something like that. Not a big deal, just…
+
+00:30:47.000 --> 00:30:57.000
+No, I think you misunderstood the thrust of my question. I wasn't, um, following this, uh.
+
+00:30:57.000 --> 00:30:58.000
+Oh, oh, okay.
+
+00:30:58.000 --> 00:31:02.000
+this wasn't a follow-on to your suggestion about naming. I just assumed… Your naming was great. So I'll… I'll change the naming.
+
+00:31:02.000 --> 00:31:11.000
+But what I was asking about is. Um… let's say that 5 Supreme Court justices out of 9 do actually sign.
+
+00:31:11.000 --> 00:31:12.000
+Yeah.
+
+00:31:12.000 --> 00:31:21.000
+Um, I need 9 edges here, sort of. Um, even though only 5 of them represent signatures.
+
+00:31:21.000 --> 00:31:22.000
+Well, there's… well, there's two types of thresholds. There's M of N thresholds,
+
+00:31:22.000 --> 00:31:27.000
+Right? I somehow need to… Alright, um…
+
+00:31:27.000 --> 00:31:30.000
+Right? And then there are absolute thresholds.
+
+00:31:30.000 --> 00:31:36.000
+I just need, like, for example, to get married, I need two witnesses.
+
+00:31:36.000 --> 00:31:41.000
+I don't need two of a million witnesses, I just need two. Any two will do.
+
+00:31:41.000 --> 00:31:42.000
+or any two qualified, that's a different type of threshold from an M of N threshold.
+
+00:31:42.000 --> 00:31:46.000
+Right.
+
+00:31:46.000 --> 00:31:49.000
+Where you have a defined set,
+
+00:31:49.000 --> 00:31:55.000
+And you need any number of that set. Those are different types of thresholds.
+
+00:31:55.000 --> 00:32:03.000
+So those are different types of threshold operators. Some are just counting, you just count in, you know, and the qualification is often…
+
+00:32:03.000 --> 00:32:10.000
+How you limit the set, but it's not enumerated, so you don't have an enum… so…
+
+00:32:10.000 --> 00:32:13.000
+N is never enumerated, N is qualified.
+
+00:32:13.000 --> 00:32:17.000
+So, so I agree with the idea of qualified.
+
+00:32:17.000 --> 00:32:19.000
+But that just means that I have an edge group
+
+00:32:19.000 --> 00:32:22.000
+Where I specify
+
+00:32:22.000 --> 00:32:25.000
+in my ecosystem governments framework, potentially.
+
+00:32:25.000 --> 00:32:28.000
+Um, what, what…
+
+00:32:28.000 --> 00:32:31.000
+what the qualifications schema looks like.
+
+00:32:31.000 --> 00:32:38.000
+And then, um, and then, you know, so the… so… so this has made me think that there's a… there's a…
+
+00:32:38.000 --> 00:32:42.000
+there's a… there's a trouble that we have…
+
+00:32:42.000 --> 00:32:45.000
+with semantics in this case.
+
+00:32:45.000 --> 00:32:48.000
+Um, there's a… there's a desire…
+
+00:32:48.000 --> 00:32:58.000
+to have all of the semantic self-contained in the ACDC itself. This is… this is a natural thing for technologists to want to do.
+
+00:32:58.000 --> 00:33:07.000
+But… but experience says that that is… that is, uh, uh, for real-world applications, a practical impossibility.
+
+00:33:07.000 --> 00:33:16.000
+And so the way we've addressed that is to say, well, there's going to be something else called an ecosystem governance framework,
+
+00:33:16.000 --> 00:33:19.000
+that provides the additional semantics
+
+00:33:19.000 --> 00:33:22.000
+So that you don't have to…
+
+00:33:22.000 --> 00:33:30.000
+build all the semantics over… and make sure they're completely, fully specified in the ACDCs themselves, because then you…
+
+00:33:30.000 --> 00:33:33.000
+You start to build things that are very complex,
+
+00:33:33.000 --> 00:33:36.000
+to process.
+
+00:33:36.000 --> 00:33:49.000
+Whereas the context of an ACDC is defined by the Ecosystem governance framework, and these government framework can be extremely complex, but it isn't carried around by the ACDC.
+
+00:33:49.000 --> 00:33:56.000
+And so… and so you don't carry that burden with every transmission or presentation.
+
+00:33:56.000 --> 00:33:59.000
+You say, well, this schema…
+
+00:33:59.000 --> 00:34:02.000
+For this ACDC is, um…
+
+00:34:02.000 --> 00:34:10.000
+registered schema in this ecosystem governance framework, so anybody who's trying to process it knows they need to…
+
+00:34:10.000 --> 00:34:16.000
+They need to understand the ecosystem governance framework, which can be arbitrarily complex.
+
+00:34:16.000 --> 00:34:18.000
+And arbitrarily verbose.
+
+00:34:18.000 --> 00:34:21.000
+Because it is defining a context.
+
+00:34:21.000 --> 00:34:27.000
+But now, given the context, what information do you need to actually evaluate this ACDC?
+
+00:34:27.000 --> 00:34:33.000
+And that should be the way we look at it, otherwise we start to go down the rabbit hole of,
+
+00:34:33.000 --> 00:34:35.000
+of, well, uh…
+
+00:34:35.000 --> 00:34:40.000
+link data approaches to…
+
+00:34:40.000 --> 00:34:46.000
+to trying to resolve these things, which, um, after several years of…
+
+00:34:46.000 --> 00:34:49.000
+of working with linked data,
+
+00:34:49.000 --> 00:34:55.000
+convinced me that that was… that we needed ecosystem governance frameworks. So that's my suggestion, is to first
+
+00:34:55.000 --> 00:35:00.000
+decide, uh, for a given application,
+
+00:35:00.000 --> 00:35:06.000
+what could be in an ecosystem governance framework, which is static, it's fixed, it applies
+
+00:35:06.000 --> 00:35:10.000
+to every, every ACDC that follows that framework.
+
+00:35:10.000 --> 00:35:18.000
+And then what delta is necessary to be able to verify a given ACDC in terms
+
+00:35:18.000 --> 00:35:29.000
+that is complying with that ecosystem governance framework.
+
+00:35:29.000 --> 00:35:34.000
+It may not, it may not, yeah, so I'm… I'm not understanding the problem.
+
+00:35:34.000 --> 00:35:35.000
+or… I'm not… I don't know that I have a solution, either.
+
+00:35:35.000 --> 00:35:49.000
+I get it, but I think… Um, the line you're trying to draw doesn't apply to the specific problem that I… Um… The question I'm trying to ask is… the question I'm trying to ask is, um, how do you identify potential signers?
+
+00:35:49.000 --> 00:35:59.000
+Um, you can't say, well, I'll identify them after the fact, once the ACDC is done, I'll say, anybody who signs is one of the potential signers. That's a useless.
+
+00:35:59.000 --> 00:36:02.000
+Right. Yeah, so…
+
+00:36:02.000 --> 00:36:03.000
+So…
+
+00:36:03.000 --> 00:36:07.000
+Uh, uh… statement. So, somehow you have to identify in advance the set of potential signers.
+
+00:36:07.000 --> 00:36:11.000
+But those are not edges that contain signatures, that's just like.
+
+00:36:11.000 --> 00:36:16.000
+AIDs of potential signers that you're enumerating.
+
+00:36:16.000 --> 00:36:19.000
+Yes, so that would be… so we'd have to define…
+
+00:36:19.000 --> 00:36:25.000
+probably, uh, either… so there are two ways we could do that. One, we could define
+
+00:36:25.000 --> 00:36:27.000
+In the attribute section,
+
+00:36:27.000 --> 00:36:32.000
+an attribute that is the set of potential signers that is their AIDs.
+
+00:36:32.000 --> 00:36:37.000
+Or we can overload an edge and create a special kind of
+
+00:36:37.000 --> 00:36:39.000
+Uh, Edge Group,
+
+00:36:39.000 --> 00:36:43.000
+that doesn't actually have edges that point to other ACDCs.
+
+00:36:43.000 --> 00:36:50.000
+But it might be better to put it in the attribute section, because… because it doesn't require us to change the semantics of edges to do that.
+
+00:36:50.000 --> 00:36:56.000
+Okay, I think I like the attribute thing, so I'm gonna say that if you need to say.
+
+00:36:56.000 --> 00:36:59.000
+There's 9 Supreme Court justices that could sign this.
+
+00:36:59.000 --> 00:37:09.000
+Um, you're creating an array of, uh, 9 AIDs in the attributes section, and the M group thing here can reference it.
+
+00:37:09.000 --> 00:37:15.000
+Yeah, and you can make that… you can make that group selectively disclosable or partially disclosable,
+
+00:37:15.000 --> 00:37:25.000
+So that you can protect the privacy of those members when you're presenting the credential and tell people agree to, uh, or protect the confidentiality of that group.
+
+00:37:25.000 --> 00:37:26.000
+Um, so… and the attribute section is design… is designed for that.
+
+00:37:26.000 --> 00:37:30.000
+Yeah.
+
+00:37:30.000 --> 00:37:38.000
+Okay. Great. Well, um, this is great. I got a bunch of very useful feedback. I'm gonna go rewrite this.
+
+00:37:38.000 --> 00:37:45.000
+Um, for everybody who's not deeply involved in this, and whose eyes just glazed over for 20 minutes while we were doing this.
+
+00:37:45.000 --> 00:38:01.000
+Um, fear not, um, most of the spec is a lot more interesting than these nitty-gritty details. Um, so I'd love to have people go either review an updated version of this PR when I change it later today, or.
+
+00:38:01.000 --> 00:38:11.000
+Um, just go read the spec. Um, it's now got a certain amount of momentum and useless in what's been written, although there's plenty to do on it.
+
+00:38:11.000 --> 00:38:21.000
+And I invite anybody to participate, but I'll seed the microphone back to the Did Web S conversation. Thanks for tolerating.
+
+00:38:21.000 --> 00:38:25.000
+My interjection at the beginning.
+
+00:38:25.000 --> 00:38:26.000
+No problem.
+
+00:38:26.000 --> 00:38:27.000
+Alright?
+
+00:38:27.000 --> 00:38:35.000
+Yeah, thanks, thanks for the work.
+
+00:38:35.000 --> 00:38:37.000
+Go ahead, Jonathan. I'm gonna pull up the notes. I'll show the notes.
+
+00:38:37.000 --> 00:38:47.000
+Uh, yeah, let's just pull up the notes. Um, I mean, I think this is mostly just a sync-up. We're probably in basically the same place we would have been when we met in…
+
+00:38:47.000 --> 00:38:48.000
+December. Um…
+
+00:38:48.000 --> 00:38:49.000
+Yeah.
+
+00:38:49.000 --> 00:38:51.000
+So, the…
+
+00:38:51.000 --> 00:38:55.000
+I know there's an open PR…
+
+00:38:55.000 --> 00:39:02.000
+let's see, maybe we should do this more… in a more systematic way. Do we have any, like, specific to-dos from the last meeting we need to report on?
+
+00:39:02.000 --> 00:39:08.000
+We do, and I forgot to mention the antitrust notice at the beginning of the meeting.
+
+00:39:08.000 --> 00:39:21.000
+So, those who have signed the TYAP agreements can participate, everyone else is essentially an active observer. Do we have any new members? And I think we did, and some of them probably dropped by now.
+
+00:39:21.000 --> 00:39:23.000
+I… let's see…
+
+00:39:23.000 --> 00:39:27.000
+So, Evan and Jay, I know we've seen you in other meetings.
+
+00:39:27.000 --> 00:39:31.000
+Do you want to introduce yourselves to anybody here?
+
+00:39:31.000 --> 00:39:34.000
+Yeah, hi. Um, I'm Jay. Um, I'm…
+
+00:39:34.000 --> 00:39:37.000
+uh, one of the guys that Samuel hired.
+
+00:39:37.000 --> 00:39:45.000
+I have a background in DevOps, and I got hired to be one of the Python developers.
+
+00:39:45.000 --> 00:39:52.000
+nice to meet you.
+
+00:39:52.000 --> 00:39:57.000
+Yeah, I'm Evan. Um, I was also taken on by Sam to help out with the, uh…
+
+00:39:57.000 --> 00:39:59.000
+Perry Foundation, so…
+
+00:39:59.000 --> 00:40:01.000
+Estimate everybody.
+
+00:40:01.000 --> 00:40:04.000
+All right, cool. Okay, we'll move on.
+
+00:40:04.000 --> 00:40:08.000
+So… this note no longer…
+
+00:40:08.000 --> 00:40:18.000
+Alright, so the open items from last meeting, I was going to review all… I haven't done any of these yet. I took a nice vacation, haven't got to this work yet. So, these will be…
+
+00:40:18.000 --> 00:40:23.000
+new open… existing open items. So, to review all definitions in the document with Hank,
+
+00:40:23.000 --> 00:40:28.000
+To see if we can reference from the Carrie Suite glossary, instead of explicitly restating them.
+
+00:40:28.000 --> 00:40:34.000
+And Hank mentioned we need to claim ownership of some of the definitions, keep the defs, and anyway, update the TREFs.
+
+00:40:34.000 --> 00:40:41.000
+There's the spec update to use gray highlighting to indicate informative versus normative. I did start this a little bit, but there's a lot of work left to do.
+
+00:40:41.000 --> 00:40:44.000
+There's the spec and the implementation update.
+
+00:40:44.000 --> 00:40:48.000
+This is still needs… needs to be done. It's gonna be easy to do.
+
+00:40:48.000 --> 00:40:58.000
+We need to remove the default did web from the also known as, and make sure that the spec is clear that they did web is only expected when it is found
+
+00:40:58.000 --> 00:41:03.000
+and an AC-DC, specifically a designated alias is ACDC.
+
+00:41:03.000 --> 00:41:04.000
+And it…
+
+00:41:04.000 --> 00:41:10.000
+So, we got this backwards, and then we had a discussion on this last time, and then Sam clarified it for us.
+
+00:41:10.000 --> 00:41:12.000
+Uh, I need to understand that one.
+
+00:41:12.000 --> 00:41:14.000
+Kent.
+
+00:41:14.000 --> 00:41:25.000
+Yeah, so the discussion that we had last time, let me see if I have it here. If it did WebS, it did Doc, includes it did web, you can't trust it unless the ACDC is in the Caesar stream. So that's what it was.
+
+00:41:25.000 --> 00:41:28.000
+As the discussion last time keyed around the fact that
+
+00:41:28.000 --> 00:41:31.000
+You can't have a default
+
+00:41:31.000 --> 00:41:38.000
+did web did, because you don't know what domain up front you're committing to trust.
+
+00:41:38.000 --> 00:41:40.000
+Just by having the kel.
+
+00:41:40.000 --> 00:41:46.000
+And so there should be an explicit trust relationship between your AID,
+
+00:41:46.000 --> 00:41:48.000
+And even the Did Webb did,
+
+00:41:48.000 --> 00:41:52.000
+with a designated alias as ACDC.
+
+00:41:52.000 --> 00:42:02.000
+If I could explain a little bit, because of the way the relationship, the defined relationship between the did web did and the did web S did,
+
+00:42:02.000 --> 00:42:08.000
+Anyone can arbitrarily derive a did-webDid for any
+
+00:42:08.000 --> 00:42:11.000
+Um, you… you are in…
+
+00:42:11.000 --> 00:42:16.000
+And that may not be a permitted did web derivation.
+
+00:42:16.000 --> 00:42:22.000
+So the only way anybody knows that the DID web did is a permitted derivation.
+
+00:42:22.000 --> 00:42:30.000
+is that there is an ACDC in the CISA stream that's so designates it as a permitted derivation.
+
+00:42:30.000 --> 00:42:31.000
+Okay.
+
+00:42:31.000 --> 00:42:34.000
+And that means that although the DID web did itself is not secure
+
+00:42:34.000 --> 00:42:40.000
+Uh, at the same level, at least the fact that it exists,
+
+00:42:40.000 --> 00:42:44.000
+is permitted by the holder and not…
+
+00:42:44.000 --> 00:42:48.000
+anything on the internet could be a did web… did web div for that did web S.
+
+00:42:48.000 --> 00:42:49.000
+Sure.
+
+00:42:49.000 --> 00:42:50.000
+And so that's a… yeah, okay.
+
+00:42:50.000 --> 00:42:53.000
+So, okay, so…
+
+00:42:53.000 --> 00:42:57.000
+Um, Kent, do we have a…
+
+00:42:57.000 --> 00:43:00.000
+to do, or a task in the repo?
+
+00:43:00.000 --> 00:43:05.000
+That explains this? Because this is… this is actually a…
+
+00:43:05.000 --> 00:43:09.000
+This is a semantic change to the spec.
+
+00:43:09.000 --> 00:43:12.000
+The spec as it reads today is…
+
+00:43:12.000 --> 00:43:14.000
+Every DidWeb-S must have
+
+00:43:14.000 --> 00:43:24.000
+in the also known as field, uh, did carry and a did-web. And we're creating another level of nuance here, where we're basically saying,
+
+00:43:24.000 --> 00:43:27.000
+There might be a did web if…
+
+00:43:27.000 --> 00:43:33.000
+that's intended to be the case. If it's not… and per the…
+
+00:43:33.000 --> 00:43:36.000
+per the, um…
+
+00:43:36.000 --> 00:43:38.000
+conditions that Sam just mentioned.
+
+00:43:38.000 --> 00:43:48.000
+Um, if it's not intended, we will not include that. We need the spec to explicitly say it will not be included in the also known as,
+
+00:43:48.000 --> 00:43:51.000
+anybody at any time can just assume
+
+00:43:51.000 --> 00:43:54.000
+That I did web apps, you can get the…
+
+00:43:54.000 --> 00:44:03.000
+did.json file for a didwebs by acting like it's a did web and ignoring, like, you… anyone can do that. It's just not a relevant, endorsed…
+
+00:44:03.000 --> 00:44:14.000
+action unless the conditions have been met, in which case, then we will explicitly indicate the conditions have been met by putting in the also known S field. Is that a good way of saying it, Sam? Does that make sense?
+
+00:44:14.000 --> 00:44:20.000
+Yeah.
+
+00:44:20.000 --> 00:44:21.000
+Right.
+
+00:44:21.000 --> 00:44:27.000
+And so that… so we are… we are changing the specs, Kent, and we need to make sure we do that explicitly and go through and make sure we're consistent inside. Because as I say, right now, it's very, very clear, must have.
+
+00:44:27.000 --> 00:44:28.000
+Right.
+
+00:44:28.000 --> 00:44:32.000
+Okay, cool. That's, that's good. That works. That's fine.
+
+00:44:32.000 --> 00:44:37.000
+Yeah, I had it in my, like, date planner, my to-dos, but I'll… this is… I'm making the issue now.
+
+00:44:37.000 --> 00:44:41.000
+Mm-hmm. And then, um…
+
+00:44:41.000 --> 00:44:46.000
+The other items that we can report on, um…
+
+00:44:46.000 --> 00:44:50.000
+The last meeting, there was a decision to pull the Who Is…
+
+00:44:50.000 --> 00:44:58.000
+elements out of the spec, and Kent has a PR open for that, that I have on my to-do list to review, which I will do.
+
+00:44:58.000 --> 00:45:02.000
+And that will then clean that up.
+
+00:45:02.000 --> 00:45:04.000
+I think…
+
+00:45:04.000 --> 00:45:08.000
+at this point, then, in terms of the spec itself,
+
+00:45:08.000 --> 00:45:10.000
+It's probably…
+
+00:45:10.000 --> 00:45:19.000
+content complete, for the most part, because I believe you did merge, Kent, right? The PR that had the, um…
+
+00:45:19.000 --> 00:45:23.000
+delegation stuff in it?
+
+00:45:23.000 --> 00:45:25.000
+Yes, yeah, the, uh…
+
+00:45:25.000 --> 00:45:28.000
+The delegation stuff is there, and it works.
+
+00:45:28.000 --> 00:45:33.000
+So, what I'm trying to get at is, I think we're at the point now where
+
+00:45:33.000 --> 00:45:37.000
+We're… we're close to being able to review
+
+00:45:37.000 --> 00:45:41.000
+a feature-complete spec.
+
+00:45:41.000 --> 00:45:44.000
+And it's now not an issue of…
+
+00:45:44.000 --> 00:45:49.000
+We're not missing any features in the spec, it's just a question of polishing and fine-tuning.
+
+00:45:49.000 --> 00:45:52.000
+And then submitting for approval, or whatever.
+
+00:45:52.000 --> 00:45:58.000
+In terms of the spec. I believe that's our… would be… I think that's where we are today.
+
+00:45:58.000 --> 00:46:03.000
+So I guess that would be just reporting to the group. So, you know, it's possible that we could have this ready to…
+
+00:46:03.000 --> 00:46:07.000
+you know, go through whatever the formal review and…
+
+00:46:07.000 --> 00:46:12.000
+approval process is within the next month or two, I would think it's possible, certainly, if Ken and I can get
+
+00:46:12.000 --> 00:46:15.000
+the stuff taken care of.
+
+00:46:15.000 --> 00:46:21.000
+I'll add just a little more there. So, our pull request to the W3C did test suite has been merged.
+
+00:46:21.000 --> 00:46:22.000
+Yep.
+
+00:46:22.000 --> 00:46:23.000
+the… the other thing that we have…
+
+00:46:23.000 --> 00:46:28.000
+So hang on, Kent, can we just stop for a minute? Because this is… there are two… there are two issues. The first is…
+
+00:46:28.000 --> 00:46:32.000
+The status of the spec, a trust over IP, and I just wanna, like…
+
+00:46:32.000 --> 00:46:40.000
+punctuate this, like, I think the… we're feature complete, essentially, on the spec, and if anybody wants to take a look through the spec as it is,
+
+00:46:40.000 --> 00:46:42.000
+published online.
+
+00:46:42.000 --> 00:46:50.000
+minus the fact that the Whois stuff is coming out, like, it's feature complete, so if somebody sees something that we're missing, like, start to raise their hand now.
+
+00:46:50.000 --> 00:46:55.000
+Because I think Ken and I are operating under the assumption that it is feature complete, and we just are gonna be…
+
+00:46:55.000 --> 00:46:58.000
+doing editing and fine-tuning and, you know,
+
+00:46:58.000 --> 00:47:00.000
+blah blah blah. So, that…
+
+00:47:00.000 --> 00:47:04.000
+I'm gonna make that statement, I'm gonna pause for a minute, and then if anybody has anything to say on that…
+
+00:47:04.000 --> 00:47:08.000
+And then we're gonna move on to the status of, um…
+
+00:47:08.000 --> 00:47:14.000
+Diff Recommended Status.
+
+00:47:14.000 --> 00:47:19.000
+Sweet. So, the other thing that's in progress is diff recommended status.
+
+00:47:19.000 --> 00:47:23.000
+And in that world, there are a few… there's been some movement
+
+00:47:23.000 --> 00:47:27.000
+The first of which is what Kent's saying. We now do have…
+
+00:47:27.000 --> 00:47:31.000
+did Web S in the…
+
+00:47:31.000 --> 00:47:34.000
+W3C test suite.
+
+00:47:34.000 --> 00:47:36.000
+passing, right, Kent?
+
+00:47:36.000 --> 00:47:37.000
+That's right.
+
+00:47:37.000 --> 00:47:46.000
+Yeah. We have a couple of other items that need to happen, um, in order to have all of the boxes checked from a W3C point of view.
+
+00:47:46.000 --> 00:47:50.000
+One of which is getting conditional proof 2022.
+
+00:47:50.000 --> 00:47:59.000
+formally listed as a did method extension, that ball is in my court, um, and I will look at that now that I'm kind of back in this adddle.
+
+00:47:59.000 --> 00:48:07.000
+Um, from a process point of view, we need to schedule the second deep dive with the did…
+
+00:48:07.000 --> 00:48:10.000
+um, the diff did methods working group.
+
+00:48:10.000 --> 00:48:13.000
+Uh, Kent and I will talk, and we'll have that…
+
+00:48:13.000 --> 00:48:15.000
+Hopefully that will have happened before the next…
+
+00:48:15.000 --> 00:48:17.000
+this next meeting next month.
+
+00:48:17.000 --> 00:48:20.000
+Um, there's no reason it…
+
+00:48:20.000 --> 00:48:25.000
+can't. Like, there's… the schedule's open at diff, and we've got 4 weeks, and…
+
+00:48:25.000 --> 00:48:27.000
+You know, so if we can just get our…
+
+00:48:27.000 --> 00:48:31.000
+our eggs in a basket, or get our ducks in a row, whatever.
+
+00:48:31.000 --> 00:48:33.000
+We should be able to do that.
+
+00:48:33.000 --> 00:48:35.000
+Um, and once the second…
+
+00:48:35.000 --> 00:48:40.000
+Deep Dive has happened, the 60-day formal review period starts.
+
+00:48:40.000 --> 00:48:45.000
+And so, it would be really nice, I think Kent and I had a goal to try to have
+
+00:48:45.000 --> 00:48:49.000
+the DIF recommended status resolved before the carry comp?
+
+00:48:49.000 --> 00:48:55.000
+And I think that there still is adequate time for that, because Cariconf is, what, like, March…
+
+00:48:55.000 --> 00:48:56.000
+April.
+
+00:48:56.000 --> 00:48:57.000
+April 20…
+
+00:48:57.000 --> 00:48:59.000
+It's the first week in April? Oh, last week in April?
+
+00:48:59.000 --> 00:49:02.000
+No, it's third… uh, no, the third week in April, the 20th, week of the 20th.
+
+00:49:02.000 --> 00:49:04.000
+Okay, there's plenty, there's plenty of time.
+
+00:49:04.000 --> 00:49:10.000
+As long as we can get this taken care of before mid-February, we should be able to have it.
+
+00:49:10.000 --> 00:49:12.000
+have it in place, so…
+
+00:49:12.000 --> 00:49:15.000
+Yeah, that's 3 months from today, essentially.
+
+00:49:15.000 --> 00:49:16.000
+For the Carrie Conf.
+
+00:49:16.000 --> 00:49:21.000
+Yeah, we have about a month to get the 60-day waiting period starting.
+
+00:49:21.000 --> 00:49:25.000
+So, um, that's, I think, the, you know,
+
+00:49:25.000 --> 00:49:29.000
+Conversationally, that's the status.
+
+00:49:29.000 --> 00:49:33.000
+Am I missing anything, Kent, that we want to report on?
+
+00:49:33.000 --> 00:49:40.000
+Now, there's something minor on the spec for later, but from a did web estimated did method, this is… this is all.
+
+00:49:40.000 --> 00:49:41.000
+Okay, cool.
+
+00:49:41.000 --> 00:49:46.000
+So I want to… I want to suggest adding some additional language
+
+00:49:46.000 --> 00:49:54.000
+When you… when you talk about the ACDC that permits the DIDWeb-S,
+
+00:49:54.000 --> 00:50:00.000
+One of the things that this does is that it allows you to revoke a didwebDid,
+
+00:50:00.000 --> 00:50:05.000
+In the event, for example, that there has been a DNS hijack, and so…
+
+00:50:05.000 --> 00:50:15.000
+Without the DIDWebS, uh, having the AID, which allows you to verify that the host that is… that you're talking to is actually
+
+00:50:15.000 --> 00:50:18.000
+the real host. Um…
+
+00:50:18.000 --> 00:50:23.000
+if that has been hijacked so that they're doing an impersonation attack on the
+
+00:50:23.000 --> 00:50:26.000
+DNS host, you can revoke
+
+00:50:26.000 --> 00:50:28.000
+the DidWeb S…
+
+00:50:28.000 --> 00:50:36.000
+to did permission, which means that then people know, oh, there isn't an alias, I can't trust any host unless it is a didwebs,
+
+00:50:36.000 --> 00:50:44.000
+not a did web. And that is an important security feature that should be highlighted, because relative…
+
+00:50:44.000 --> 00:50:51.000
+to, for example, the… what is it, the group that this is getting put into at DIFF? What's it called?
+
+00:50:51.000 --> 00:50:52.000
+If recommended?
+
+00:50:52.000 --> 00:50:59.000
+DIF recommended, and what is the main base… what is the one main basis for the DIF recommended that it…
+
+00:50:59.000 --> 00:51:02.000
+has certain minimal security properties.
+
+00:51:02.000 --> 00:51:05.000
+Yeah.
+
+00:51:05.000 --> 00:51:09.000
+Well, the DIF recommended, um, criteria really
+
+00:51:09.000 --> 00:51:14.000
+it's not… it's, like, diff… at diff…
+
+00:51:14.000 --> 00:51:16.000
+we're really careful about…
+
+00:51:16.000 --> 00:51:23.000
+not making judgments about the implementation details of the DID. We want the
+
+00:51:23.000 --> 00:51:29.000
+spec and all of the materials to be clear about the guarantees they make and don't make, and allow…
+
+00:51:29.000 --> 00:51:32.000
+So that's it. So this just then becomes a…
+
+00:51:32.000 --> 00:51:33.000
+Yeah.
+
+00:51:33.000 --> 00:51:34.000
+Yes, okay, yes, but for people who are looking at it, this becomes a reason why you would use DidWebS.
+
+00:51:34.000 --> 00:51:36.000
+Correct. Correct.
+
+00:51:36.000 --> 00:51:42.000
+over any of the other ones. And certainly for the dead skid,
+
+00:51:42.000 --> 00:51:43.000
+Yeah. Yes.
+
+00:51:43.000 --> 00:51:50.000
+Which does make a statement about security, you would, right? This is also part of DidSkid. This… this is highlighting one of those security features that
+
+00:51:50.000 --> 00:51:51.000
+Uh-huh.
+
+00:51:51.000 --> 00:51:53.000
+partial implementations of CARI don't… don't… don't support.
+
+00:51:53.000 --> 00:51:55.000
+Yep, got it.
+
+00:51:55.000 --> 00:51:58.000
+So, so just… I'm just being a little bit political here.
+
+00:51:58.000 --> 00:52:02.000
+Yeah, that's just fine. Um, Kent…
+
+00:52:02.000 --> 00:52:10.000
+that… can we… is that… is that in the… so, you were just creating that issue.
+
+00:52:10.000 --> 00:52:12.000
+Yes.
+
+00:52:12.000 --> 00:52:13.000
+Yep.
+
+00:52:13.000 --> 00:52:22.000
+Can we make sure that that comment basically is in there? So, because that's basically what Sam's asking us to do is to make sure that there's a couple of sentences that we write that, like, explicitly calls out the, like,
+
+00:52:22.000 --> 00:52:24.000
+Reason for…
+
+00:52:24.000 --> 00:52:26.000
+And importance of…
+
+00:52:26.000 --> 00:52:30.000
+this particular feature of the spec.
+
+00:52:30.000 --> 00:52:31.000
+of Digital Pass.
+
+00:52:31.000 --> 00:52:36.000
+And it includes not just permitting a dead web S, but also unpermitting a previous DID web.
+
+00:52:36.000 --> 00:52:38.000
+that has been compromised.
+
+00:52:38.000 --> 00:52:41.000
+Mm-hmm.
+
+00:52:41.000 --> 00:52:44.000
+And frankly, from…
+
+00:52:44.000 --> 00:52:50.000
+From a did method point of view, it's a pretty subtle…
+
+00:52:50.000 --> 00:52:52.000
+Because, like, the only thing…
+
+00:52:52.000 --> 00:52:54.000
+that could actually happen in that case.
+
+00:52:54.000 --> 00:53:01.000
+based on the spec as it is today, and the did method spec as it is today, is you would remove the did web from the also known as?
+
+00:53:01.000 --> 00:53:04.000
+Yeah.
+
+00:53:04.000 --> 00:53:05.000
+Yep.
+
+00:53:05.000 --> 00:53:12.000
+And that's a pretty subtle distinction. I wish there were more, like, a more, like…
+
+00:53:12.000 --> 00:53:13.000
+Yeah, so…
+
+00:53:13.000 --> 00:53:16.000
+Like, other thing… I mean, this would require us filing another DID method extension, but I wish there were a field that we could add that was like, do not trust, you know?
+
+00:53:16.000 --> 00:53:19.000
+Not aliased, explicitly banned, or, you know, something like that, but…
+
+00:53:19.000 --> 00:53:23.000
+Yeah, well, I'm trying not to do… yes, that's a valid concern, but that then adds additional work and
+
+00:53:23.000 --> 00:53:26.000
+Yeah. For sure. Yeah.
+
+00:53:26.000 --> 00:53:27.000
+Yeah.
+
+00:53:27.000 --> 00:53:31.000
+delay. So, so one of the… because it is subtle, you want to at least call it out in the text and says,
+
+00:53:31.000 --> 00:53:36.000
+Which actually means, Kent, we really probably need to be explicit in the… in the, um…
+
+00:53:36.000 --> 00:53:39.000
+We need to be explicit in the verbiage in the spec, because…
+
+00:53:39.000 --> 00:53:45.000
+It's not… like, the absence of a did web in the also known as…
+
+00:53:45.000 --> 00:53:47.000
+array is…
+
+00:53:47.000 --> 00:53:54.000
+significant. It means if the did web is not explicitly listed there, you may not trust a did web.
+
+00:53:54.000 --> 00:53:55.000
+Yep, that's what it means.
+
+00:53:55.000 --> 00:53:56.000
+You must not trust the did web.
+
+00:53:56.000 --> 00:53:57.000
+You must not trust. That's right.
+
+00:53:57.000 --> 00:54:01.000
+If it's not listed in the also known as.
+
+00:54:01.000 --> 00:54:02.000
+And I guess I should say,
+
+00:54:02.000 --> 00:54:09.000
+It's not permitted for you to… it's not permitted. It's, you know, not permitted means you do not… we… this… this dis…
+
+00:54:09.000 --> 00:54:14.000
+This did Web S is not permitting you
+
+00:54:14.000 --> 00:54:15.000
+Correct.
+
+00:54:15.000 --> 00:54:16.000
+to use a did web as an alias. For whatever reason, it's not permitted.
+
+00:54:16.000 --> 00:54:17.000
+Right.
+
+00:54:17.000 --> 00:54:27.000
+Now, one cool thing we can do, because we have the old designated alias ACDC and the new one, is you can construct an allow and deny list dynamically based off of what's anchored to the KEL.
+
+00:54:27.000 --> 00:54:32.000
+The latest stuff you have, you assume, is the latest, and everything else is not allowed.
+
+00:54:32.000 --> 00:54:36.000
+Unless it's in the most current designated alias ACDC.
+
+00:54:36.000 --> 00:54:40.000
+Yeah, that's cool, but, like, from…
+
+00:54:40.000 --> 00:54:53.000
+from the point of view of, did method world, this absence or presence of a did web in the also known as array is…
+
+00:54:53.000 --> 00:54:54.000
+Right.
+
+00:54:54.000 --> 00:55:01.000
+very significant. We need to be very clear about that. It's not just that, like, if it doesn't happen to be there, somebody forgot, or whatever, like, you can't make that assumption. You have to assume if it's not there, that's an explicit choice.
+
+00:55:01.000 --> 00:55:06.000
+That means do not trust a did web.
+
+00:55:06.000 --> 00:55:07.000
+Got that.
+
+00:55:07.000 --> 00:55:09.000
+And if the… if the…
+
+00:55:09.000 --> 00:55:17.000
+if… if they're supposed to be a trusted DID web, that absolutely needs to be explicitly included in the also known as, and the operator.
+
+00:55:17.000 --> 00:55:21.000
+needs to have made that choice.
+
+00:55:21.000 --> 00:55:27.000
+So that also probably has some implications in the, um…
+
+00:55:27.000 --> 00:55:29.000
+implementa- the reference implementation, Kent.
+
+00:55:29.000 --> 00:55:33.000
+we may want to look at that, too.
+
+00:55:33.000 --> 00:55:34.000
+Okay, got it here.
+
+00:55:34.000 --> 00:55:35.000
+But we'll talk about this. You and I can talk about this. Yeah.
+
+00:55:35.000 --> 00:55:38.000
+Okay.
+
+00:55:38.000 --> 00:55:40.000
+Alright, I got all that here. Is there anything else we want to add there?
+
+00:55:40.000 --> 00:55:42.000
+Okay, cool.
+
+00:55:42.000 --> 00:55:43.000
+We've got about… okay.
+
+00:55:43.000 --> 00:55:49.000
+Yeah, no, I think that… I think this pretty much is the report, unless you have other, just, details you want to cover, Kent.
+
+00:55:49.000 --> 00:55:53.000
+No, I believe that's it. There is just one open item.
+
+00:55:53.000 --> 00:55:55.000
+for the implementation.
+
+00:55:55.000 --> 00:56:11.000
+Which is the… just what we're talking about here. I think the only other open item worth discussing about the specification is that I saw some comments from last year in April from Kevin on some things in the spec that looked a little off when I read the areas, and I agree that there need to be some changes.
+
+00:56:11.000 --> 00:56:15.000
+So, from what I can tell, you and I and whoever would like to,
+
+00:56:15.000 --> 00:56:20.000
+In the next couple of weeks here, should do a final review of the spec, clarify some languages,
+
+00:56:20.000 --> 00:56:24.000
+see if there are things that either are out of date or just need to be reworded or removed.
+
+00:56:24.000 --> 00:56:27.000
+So this need for a final edit.
+
+00:56:27.000 --> 00:56:29.000
+But constitutionally,
+
+00:56:29.000 --> 00:56:33.000
+what you said earlier, Jonathan, is accurate as far as it's feature complete.
+
+00:56:33.000 --> 00:56:34.000
+Mm-hmm.
+
+00:56:34.000 --> 00:56:36.000
+Now we just need to tighten everything up.
+
+00:56:36.000 --> 00:56:38.000
+Yeah.
+
+00:56:38.000 --> 00:56:40.000
+And that's all that I have for today.
+
+00:56:40.000 --> 00:56:42.000
+Yeah, cool.
+
+00:56:42.000 --> 00:56:50.000
+Any questions or comments from the group?
+
+00:56:50.000 --> 00:56:52.000
+Ed?
+
+00:56:52.000 --> 00:57:00.000
+Yeah, I had a non-spec question about the usage of, uh, did WebS in the context of, um…
+
+00:57:00.000 --> 00:57:05.000
+trust with a browser extension, or the use of an end user in general.
+
+00:57:05.000 --> 00:57:10.000
+This is off-topic, uh, but very interested in this, uh, if there's…
+
+00:57:10.000 --> 00:57:13.000
+people that want to hang around for…
+
+00:57:13.000 --> 00:57:16.000
+that question, that would be awesome.
+
+00:57:16.000 --> 00:57:19.000
+Okay.
+
+00:57:19.000 --> 00:57:24.000
+Does anybody else have anything before we formally close the meeting, and then we'll just…
+
+00:57:24.000 --> 00:57:27.000
+hang around to talk with Ed if we've got some…
+
+00:57:27.000 --> 00:57:32.000
+whoever's interested in that.
+
+00:57:32.000 --> 00:57:33.000
+Yeah.
+
+00:57:33.000 --> 00:57:38.000
+Can I bring up one thing? The conversation about Did Web… sparked something in my head, so… If we're saying that.
+
+00:57:38.000 --> 00:57:49.000
+you need to verify the ACDC. in the Kell to determine whether you can trust the did web or not.
+
+00:57:49.000 --> 00:57:56.000
+anyone who would be using a DIDWEB won't be looking at the Kel, and will never know whether they can trust it or not.
+
+00:57:56.000 --> 00:57:57.000
+It's the…
+
+00:57:57.000 --> 00:58:02.000
+So the fact that we're even supporting a DIDWEB means that we're.
+
+00:58:02.000 --> 00:58:03.000
+But Phil, here's the thing.
+
+00:58:03.000 --> 00:58:05.000
+adding a vulnerability, I think. Because if…
+
+00:58:05.000 --> 00:58:09.000
+from a did… in the did world, there's only one thing you need to check.
+
+00:58:09.000 --> 00:58:12.000
+And that is, is…
+
+00:58:12.000 --> 00:58:17.000
+The DidWeb explicitly listed in the also-known-as array, or not? If it's not,
+
+00:58:17.000 --> 00:58:21.000
+You don't have to do anything else, you just don't trust it.
+
+00:58:21.000 --> 00:58:22.000
+The DID method document, the did document.
+
+00:58:22.000 --> 00:58:23.000
+They did document… the DID document.
+
+00:58:23.000 --> 00:58:25.000
+of what?
+
+00:58:25.000 --> 00:58:28.000
+When you get the DID document back,
+
+00:58:28.000 --> 00:58:29.000
+if you… if you… if you just assume… so… so here's the scenario.
+
+00:58:29.000 --> 00:58:32.000
+Right, but it's…
+
+00:58:32.000 --> 00:58:38.000
+I'm just gonna assume that I can trust the did web, because this is a web-based DID method, so I'm just gonna assume I can trust the did web, I'm gonna…
+
+00:58:38.000 --> 00:58:46.000
+Um, I'm gonna resolve the did web just like I do any other did web, and I'm gonna get back the, um…
+
+00:58:46.000 --> 00:58:48.000
+did.json file.
+
+00:58:48.000 --> 00:58:50.000
+When I read that did.json file,
+
+00:58:50.000 --> 00:58:56.000
+There's gonna be also known as a ray, and there's either going to be a did web listed explicitly, the one I just resolved,
+
+00:58:56.000 --> 00:59:02.000
+in it, or not. If I resolve it, and I get a did document back that does not have the DID web
+
+00:59:02.000 --> 00:59:08.000
+URL listed in the… also known as, I go, oh shit, I can't… I can't trust this.
+
+00:59:08.000 --> 00:59:12.000
+Yeah, but if someone DNS hijacks you and serves you up a bad one, then did carry hasn't protected you at all.
+
+00:59:12.000 --> 00:59:14.000
+True, yeah, that's true.
+
+00:59:14.000 --> 00:59:15.000
+And that's a vulnerability, in my mind.
+
+00:59:15.000 --> 00:59:24.000
+No, no, yes, we'll definitely… I mean, I mean, the fact that we're… that we even have DIDWAY at Best is… we're acknowledging the fact that some people will trust
+
+00:59:24.000 --> 00:59:27.000
+I did web when they shouldn't.
+
+00:59:27.000 --> 00:59:28.000
+Yeah, yeah. I just thought I'd bring it up.
+
+00:59:28.000 --> 00:59:34.000
+And this is why I wish there were a way to explicitly list it in the DID document, but it would require us to file another document extension, you know?
+
+00:59:34.000 --> 00:59:40.000
+Well, one way we could describe it is that the DID document shows a best effort
+
+00:59:40.000 --> 00:59:46.000
+security posture. Acknowledging that there is vulnerability.
+
+00:59:46.000 --> 00:59:48.000
+Yeah. I mean, I… you're right, though, Phil.
+
+00:59:48.000 --> 00:59:54.000
+True.
+
+00:59:54.000 --> 01:00:05.000
+Everyone should just noodle on that one. If someone can come up with a solution that's, you know, a better way of dealing with it before we formalize the spec, that would be great.
+
+01:00:05.000 --> 01:00:10.000
+Well, you know, well, Phil's premises is that somebody isn't going to be…
+
+01:00:10.000 --> 01:00:11.000
+Yeah.
+
+01:00:11.000 --> 01:00:15.000
+verifying a kel, so if they're not going to be verifying a kel, they have… they… they would…
+
+01:00:15.000 --> 01:00:21.000
+The only… the intermediate posture would be that they have somebody else
+
+01:00:21.000 --> 01:00:27.000
+That is… that is serving up the DID dock.
+
+01:00:27.000 --> 01:00:29.000
+that does verify the kill,
+
+01:00:29.000 --> 01:00:33.000
+So they… they don't have to. And so the intermediate policy was, well,
+
+01:00:33.000 --> 01:00:36.000
+Um, don't trust a did web.
+
+01:00:36.000 --> 01:00:42.000
+did, unless it's from a trusted, um…
+
+01:00:42.000 --> 01:00:43.000
+Yeah.
+
+01:00:43.000 --> 01:00:45.000
+resolver. It did resolver. And then the trust it did resolver would verify the Cal.
+
+01:00:45.000 --> 01:00:51.000
+And so, uh, Did Resolver can advertise and say, we verify kells on Did WebS… didDocs.
+
+01:00:51.000 --> 01:00:52.000
+Yeah.
+
+01:00:52.000 --> 01:00:56.000
+Um, and untrusted revive resolvers would say, we don't verify tails.
+
+01:00:56.000 --> 01:01:05.000
+I mean, in a way, the reality is that if you're going to treat a digital ass like a did web, then you get precisely the security guarantees that did web gives you.
+
+01:01:05.000 --> 01:01:06.000
+Yep.
+
+01:01:06.000 --> 01:01:07.000
+So, people need to…
+
+01:01:07.000 --> 01:01:10.000
+Yeah.
+
+01:01:10.000 --> 01:01:11.000
+Yeah, you can just…
+
+01:01:11.000 --> 01:01:15.000
+But if you remember, Phil, the original reason was that we didn't want people being able to alias any
+
+01:01:15.000 --> 01:01:17.000
+did well without permission.
+
+01:01:17.000 --> 01:01:19.000
+Yeah. Mm-hmm. Right.
+
+01:01:19.000 --> 01:01:20.000
+And I look forward to the snow every day.
+
+01:01:20.000 --> 01:01:23.000
+But, you know, but now we're talking about the absence of any dead web.
+
+01:01:23.000 --> 01:01:30.000
+Um, has some meaning, but only has meaning if you have a trusted resolver that is verifying the kill.
+
+01:01:30.000 --> 01:01:33.000
+Because anybody… because an untrusted Resolver could…
+
+01:01:33.000 --> 01:01:40.000
+could put the alias in without verifying the ACDC and just put it in there and say, hey, here it is.
+
+01:01:40.000 --> 01:01:45.000
+Trust it.
+
+01:01:45.000 --> 01:01:46.000
+That's right.
+
+01:01:46.000 --> 01:01:47.000
+Yeah. Right.
+
+01:01:47.000 --> 01:01:51.000
+Yeah, that's right.
+
+01:01:51.000 --> 01:01:52.000
+Yes.
+
+01:01:52.000 --> 01:01:53.000
+Also, they could modify and hack any other field in the DID document. Like, it's no different than any other fields, right? They could give you… they're probably giving you the wrong keys, like, they're probably doing all kinds of shit, right? Like, okay.
+
+01:01:53.000 --> 01:01:54.000
+Yeah. Yep.
+
+01:01:54.000 --> 01:01:55.000
+Okay, so…
+
+01:01:55.000 --> 01:01:56.000
+Yes. If you don't have a trusted resolver, you don't have a trusted resolver, and you're…
+
+01:01:56.000 --> 01:01:58.000
+Can we make it a little bit of adhesive?
+
+01:01:58.000 --> 01:01:59.000
+Uh-huh.
+
+01:01:59.000 --> 01:02:01.000
+your SOL.
+
+01:02:01.000 --> 01:02:03.000
+I hope so.
+
+01:02:03.000 --> 01:02:04.000
+Cool, cool. Uh, any other questions or comments before we just…
+
+01:02:04.000 --> 01:02:06.000
+Yep. Okay, alright, thanks. That's it.
+
+01:02:06.000 --> 01:02:08.000
+We'll formally close the meeting, but we'll let Ed hang on for a minute.
+
+01:02:08.000 --> 01:02:11.000
+They're gonna have more… I think it's worth…
+
+01:02:11.000 --> 01:02:13.000
+Just quickly looking at our action items.
+
+01:02:13.000 --> 01:02:14.000
+Yeah, okay, cool.
+
+01:02:14.000 --> 01:02:21.000
+And I'll… I'll paste them down so the action items we had from last time, I will move them forward again, because they all still need to be done.
+
+01:02:21.000 --> 01:02:22.000
+And I'll just quickly…
+
+01:02:22.000 --> 01:02:28.000
+And I also can… we need to add a couple there, um, so I do need to… we do need to get Conditional Proof 2022.
+
+01:02:28.000 --> 01:02:32.000
+formally listed as a did method extension.
+
+01:02:32.000 --> 01:02:36.000
+I think that's… I feel like there may be one other, um…
+
+01:02:36.000 --> 01:02:42.000
+I think that's the main action item, but that action item actually has a couple of parts. So, there's a couple of things that need to happen for that to happen.
+
+01:02:42.000 --> 01:02:45.000
+But I think if we just call it that, that's fine.
+
+01:02:45.000 --> 01:02:51.000
+Um, we also need to schedule the second deep dive with the DIFD Methods Working Group.
+
+01:02:51.000 --> 01:02:57.000
+I think those are the two action items you don't have listed.
+
+01:02:57.000 --> 01:02:59.000
+Okay, got those here. Anything else?
+
+01:02:59.000 --> 01:03:02.000
+Nope.
+
+01:03:02.000 --> 01:03:07.000
+Okay, I think we're good, then. Just, you know, anybody could leave, and we could have a discussion with… with Ed.
+
+01:03:07.000 --> 01:03:09.000
+Yeah, thanks everybody for attending.
+
+01:03:09.000 --> 01:03:18.000
+Oh, yeah, and the Cary Foundation meeting at the top of the hour, there's a presentation. Hank, who… do you remember who's presenting?
+
+01:03:18.000 --> 01:03:20.000
+Ink is not here.
+
+01:03:20.000 --> 01:03:21.000
+Uh, he dropped off. Yeah, there's…
+
+01:03:21.000 --> 01:03:23.000
+Uh, it's, uh, eh…
+
+01:03:23.000 --> 01:03:26.000
+the XML-based reporting language, XBRL.
+
+01:03:26.000 --> 01:03:30.000
+Oh, ex… so anybody interested in XBRL and…
+
+01:03:30.000 --> 01:03:33.000
+ACDCs for XBRL, um…
+
+01:03:33.000 --> 01:03:34.000
+Just a… just a little ad blurb to attend the Cary Foundation community meeting that follows.
+
+01:03:34.000 --> 01:03:40.000
+I'm not sure what else to say.
+
+01:03:40.000 --> 01:03:42.000
+Cool.
+
+01:03:42.000 --> 01:03:49.000
+Is it going to be under a different link, or…?
+
+01:03:49.000 --> 01:03:50.000
+Yeah, anybody have the link?
+
+01:03:50.000 --> 01:03:51.000
+Same link as usual.
+
+01:03:51.000 --> 01:03:56.000
+Yeah, it's under… it's a different… yeah, you have to go to Linux Foundation, I'm sure, and get the right, um, meeting link.
+
+01:03:56.000 --> 01:03:57.000
+Is it through the Linux Foundation?
+
+01:03:57.000 --> 01:03:58.000
+I don't think it's through Linux Foundation.
+
+01:03:58.000 --> 01:03:59.000
+Okay.
+
+01:03:59.000 --> 01:04:02.000
+Oh, okay. Then it's definitely not this meeting link.
+
+01:04:02.000 --> 01:04:06.000
+Yeah, yeah, it's… here, let me… let me pull it up.
+
+01:04:06.000 --> 01:04:08.000
+Um…
+
+01:04:08.000 --> 01:04:09.000
+Where is that meeting?
+
+01:04:09.000 --> 01:04:13.000
+Sam, do you mind sending that to me?
+
+01:04:13.000 --> 01:04:25.000
+Yeah, I'll… I'll send it… I'll put it… I'll post it in the… in… in our text.
+
+01:04:25.000 --> 01:04:26.000
+Yeah.
+
+01:04:26.000 --> 01:04:29.000
+Okay, let's, um… I mean, in the spirit of the fact that that meeting starts in 5 minutes, Ed, what were you wanting to cover?
+
+01:04:29.000 --> 01:04:34.000
+Yeah, first of all, I appreciate your attention. So, I'm building a browser extension.
+
+01:04:34.000 --> 01:04:41.000
+Um, you know, similar to what, uh, uh, using Signify TS, similar to what, um,
+
+01:04:41.000 --> 01:04:46.000
+Polaris Web Extension, or Signify Browser TS, uh, did.
+
+01:04:46.000 --> 01:04:48.000
+Um, and uh…
+
+01:04:48.000 --> 01:04:55.000
+you know, I've been thinking about a particular… so, first of all, assume that browser extensions can be trustworthy and are a good thing for this…
+
+01:04:55.000 --> 01:04:59.000
+purpose of this conversation. There's debates against that, that's a separate debate.
+
+01:04:59.000 --> 01:05:04.000
+So, the question is, how can best an end user…
+
+01:05:04.000 --> 01:05:07.000
+of a browser experience and a browser extension.
+
+01:05:07.000 --> 01:05:11.000
+best, uh, trust the website as being authentic.
+
+01:05:11.000 --> 01:05:14.000
+And vice versa, how the website, uh,
+
+01:05:14.000 --> 01:05:20.000
+trust the user as being authentically who they are, and obviously that latter one is answered
+
+01:05:20.000 --> 01:05:29.000
+For example, by a signed presentation request and a presentation response to the website.
+
+01:05:29.000 --> 01:05:39.000
+But in terms of the user having additional guarantees that the website they're looking at is authentic, being controlled by a particular AID,
+
+01:05:39.000 --> 01:05:46.000
+Did WebS seems like a great solution for that, and this is the question.
+
+01:05:46.000 --> 01:05:54.000
+Um, you know, if we were to flip it around, uh, the browser extension could provide, um,
+
+01:05:54.000 --> 01:05:58.000
+Or could challenge the website and say, um…
+
+01:05:58.000 --> 01:06:02.000
+Show me your credential with this nonsense and other…
+
+01:06:02.000 --> 01:06:06.000
+presentation request thing, and then it responds.
+
+01:06:06.000 --> 01:06:08.000
+Just simply with assigned credential.
+
+01:06:08.000 --> 01:06:11.000
+Um, or a signed, um,
+
+01:06:11.000 --> 01:06:14.000
+AID, essentially.
+
+01:06:14.000 --> 01:06:21.000
+Um, so the question is, should it present a DidWebS instead? Is that easier to do in terms of setting up
+
+01:06:21.000 --> 01:06:27.000
+the trust of the user in the website's authenticity.
+
+01:06:27.000 --> 01:06:29.000
+I could take that.
+
+01:06:29.000 --> 01:06:31.000
+Oh, okay, go ahead, I mean, I have a…
+
+01:06:31.000 --> 01:06:33.000
+thought to, but…
+
+01:06:33.000 --> 01:06:34.000
+So, when you say simpler,
+
+01:06:34.000 --> 01:06:35.000
+Go ahead.
+
+01:06:35.000 --> 01:06:38.000
+I'm gonna say…
+
+01:06:38.000 --> 01:06:41.000
+It depends… so…
+
+01:06:41.000 --> 01:06:49.000
+There's more machinery involved, and so if you're saying, how do I establish trust in a domain? Because that's what it sounds like the question is on, is… can I trust that…
+
+01:06:49.000 --> 01:06:50.000
+Content coming from this domain.
+
+01:06:50.000 --> 01:06:54.000
+But that's not really it, is it, Ed? Is it a domain you're trying to trust, or are you just trying to trust the end user?
+
+01:06:54.000 --> 01:06:59.000
+No, no, that trustee… the website trust in the end users, we have a solution for.
+
+01:06:59.000 --> 01:07:03.000
+Mm-hmm.
+
+01:07:03.000 --> 01:07:04.000
+Okay.
+
+01:07:04.000 --> 01:07:05.000
+It's the end user trusting the domain, and the particular
+
+01:07:05.000 --> 01:07:08.000
+um, host and authority that it's, that it's, uh, seeing.
+
+01:07:08.000 --> 01:07:09.000
+Okay.
+
+01:07:09.000 --> 01:07:13.000
+That's a good… that's a good catch, Jonathan. I wasn't thinking about the other side.
+
+01:07:13.000 --> 01:07:22.000
+So let's actually be explicit here. So we're saying the way that the website trusts the user is because the website explicitly chooses to trust an AID
+
+01:07:22.000 --> 01:07:24.000
+That's coming from the browser extension.
+
+01:07:24.000 --> 01:07:25.000
+So let's make sure we have that covered.
+
+01:07:25.000 --> 01:07:29.000
+No, assigned AID with a challenge.
+
+01:07:29.000 --> 01:07:30.000
+Mm-hmm.
+
+01:07:30.000 --> 01:07:36.000
+Okay, and now the other side of it is the domain. The user wants to know, is this the authoritative website committed to
+
+01:07:36.000 --> 01:07:38.000
+by the administrator of this website.
+
+01:07:38.000 --> 01:07:39.000
+Correct.
+
+01:07:39.000 --> 01:07:44.000
+And if that's the case, then I think DidWeb-S is very well suited for that, because…
+
+01:07:44.000 --> 01:07:54.000
+You would look up the designated aliases ACDC from the CAL, or you'd look at the DID dock, or you could start from the DID dock, resolve the DID of the website would somehow offer a DID,
+
+01:07:54.000 --> 01:08:01.000
+You would pull the dead duck, and then you could use the dead duck if you wanted to do a second-level verification, you go and pull the kel and verify the designated ACDC yourself.
+
+01:08:01.000 --> 01:08:04.000
+Exactly.
+
+01:08:04.000 --> 01:08:05.000
+Exactly.
+
+01:08:05.000 --> 01:08:07.000
+However, that does…
+
+01:08:07.000 --> 01:08:14.000
+Like, you're assuming that the domain controller is hosting and running a did web… has a DidWeb as endpoint.
+
+01:08:14.000 --> 01:08:16.000
+I don't want to assume that.
+
+01:08:16.000 --> 01:08:21.000
+So then, if you're not assuming that, then I don't think you can… I mean, like, it's a great way to do it,
+
+01:08:21.000 --> 01:08:24.000
+But, like, also, the website could just have a credential that they pass, like…
+
+01:08:24.000 --> 01:08:31.000
+But if… but if you challenge it, let's just say, a presentation request with some randomness and so forth,
+
+01:08:31.000 --> 01:08:37.000
+And it has to sign a presentation request that's a little more bulletproof.
+
+01:08:37.000 --> 01:08:38.000
+And you could correlate that with the DibWeb-S.
+
+01:08:38.000 --> 01:08:45.000
+Yeah, but what I'm getting at is that, like, the purpose of any did is just discover… discovering. Discovering the…
+
+01:08:45.000 --> 01:08:52.000
+the keys, basically. That's what it's really… at its root, that's what it is, discovering the public key, you know, material.
+
+01:08:52.000 --> 01:08:59.000
+And there are lots of ways to do that, and if you don't want to assume that the domain controller is always
+
+01:08:59.000 --> 01:09:01.000
+must and always be running a…
+
+01:09:01.000 --> 01:09:05.000
+Did WebEx, you know, have a did web as endpoint and running a server, and has, like,
+
+01:09:05.000 --> 01:09:09.000
+then you just need to be more general than that.
+
+01:09:09.000 --> 01:09:11.000
+There may or may not be a DidWeb-S.
+
+01:09:11.000 --> 01:09:15.000
+Yeah, I want the host to sign a challenge.
+
+01:09:15.000 --> 01:09:16.000
+Mm-hmm. Yeah.
+
+01:09:16.000 --> 01:09:18.000
+Okay, essentially. Okay, we gotta roll off into the other meeting, but…
+
+01:09:18.000 --> 01:09:19.000
+Yeah, cool.
+
+01:09:19.000 --> 01:09:22.000
+If you have any other thoughts, feel free to discord me.
+
+01:09:22.000 --> 01:09:23.000
+Sure.
+
+01:09:23.000 --> 01:09:25.000
+Yeah, let's chat. I do have a couple. I'll catch you later.
+
+01:09:25.000 --> 01:09:26.000
+Okay, alright, bye.
+
+01:09:26.000 --> 01:09:39.000
+Great, bye.
+

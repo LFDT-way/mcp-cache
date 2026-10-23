@@ -1,0 +1,530 @@
+WEBVTT
+
+1
+00:00:18.280 --> 00:00:43.190
+Carly Huitema (University of Guelph): So, welcome to the last, bit of Bite Size Trust. It's been quiet so far, that all members participate to the agenda, which was posted on Discord. We're looking at some videos and talking about, upcoming scripts. Same old, same old, and everybody here has signed the agreements, so I'm gonna share the cryptographic binding video that I have on my computer.
+
+2
+00:00:43.520 --> 00:00:49.820
+Carly Huitema (University of Guelph): which I can't remember what we had done with, because the other one is anchored…
+
+3
+00:00:50.130 --> 00:00:58.870
+Carly Huitema (University of Guelph): commitments, and that one I, there's a link to that in Discord as well, so I think we're going to publish that. Okay, so here, I'm going to share my screen.
+
+4
+00:01:00.660 --> 00:01:07.299
+Carly Huitema (University of Guelph): Share my screen… Media Player, Share Sound.
+
+5
+00:01:08.880 --> 00:01:09.580
+Carly Huitema (University of Guelph): Okay.
+
+6
+00:01:10.100 --> 00:01:11.419
+Carly Huitema (University of Guelph): Here we go.
+
+7
+00:01:13.920 --> 00:01:23.409
+Audio shared by Carly Huitema (University of Guelph): Binding means linking two or more things together in a way that can be verified. When something is bound, you can mathematically prove that the pieces belong together and have not been altered.
+
+8
+00:01:23.630 --> 00:01:33.659
+Audio shared by Carly Huitema (University of Guelph): Cryptographic binding uses hash functions to create that verifiable link. It ensures that if any part of the bound data changes, the binding breaks, and the change becomes detectable.
+
+9
+00:01:33.740 --> 00:01:39.880
+Audio shared by Carly Huitema (University of Guelph): To detect changes, you need to know what to expect. You must find the original digest of the original binding.
+
+10
+00:01:39.880 --> 00:01:54.290
+Audio shared by Carly Huitema (University of Guelph): Then you can calculate the digest of the content you have and compare. If your calculated digest doesn't match the expected value, you know something has been changed. In decentralized identity systems, cryptographic binding is often used to support immutability and traceability.
+
+11
+00:01:54.320 --> 00:02:01.850
+Audio shared by Carly Huitema (University of Guelph): For example, the first record of a DID document contains information about an identity, its public keys, service endpoints, and other metadata.
+
+12
+00:02:01.910 --> 00:02:06.409
+Audio shared by Carly Huitema (University of Guelph): If we apply a cryptographic hash function to that record, we generate a digest.
+
+13
+00:02:06.440 --> 00:02:13.810
+Audio shared by Carly Huitema (University of Guelph): That digest is a unique fingerprint of the content. Even a tiny change to the document would produce a completely different digest.
+
+14
+00:02:13.820 --> 00:02:31.219
+Audio shared by Carly Huitema (University of Guelph): By doing this, we have bound the contents of the DID document together. If someone modifies the record later, a referenced digest will no longer match the actual content digest. The mismatch proves that the content has changed. Some DID methods take this further by using the digest itself as part of the DID identifier.
+
+15
+00:02:31.220 --> 00:02:45.079
+Audio shared by Carly Huitema (University of Guelph): In those cases, the DID becomes self-certifying. The identifier directly verifies the integrity of its initial record. Binding can also continue over time. Suppose the identity rotates its keys and publishes a new version of its DID document.
+
+16
+00:02:45.080 --> 00:02:51.870
+Audio shared by Carly Huitema (University of Guelph): While the DID specification itself does not require cryptographic chaining between versions, some DID methods implement it.
+
+17
+00:02:51.900 --> 00:03:00.149
+Audio shared by Carly Huitema (University of Guelph): In methods that use hash-change storage, such as didWebVH and didWebS, the new record includes the digest, the previous record.
+
+18
+00:03:00.150 --> 00:03:14.170
+Audio shared by Carly Huitema (University of Guelph): This creates a verifiable sequence where each update is cryptographically linked to the one before it. Now this identity history becomes tamper evident. If someone attempts to rewrite an earlier record, every subsequent digest in the chain would fail to verify.
+
+19
+00:03:14.170 --> 00:03:18.220
+Audio shared by Carly Huitema (University of Guelph): The binding does not prevent change, but it makes change detectable.
+
+20
+00:03:18.220 --> 00:03:30.749
+Audio shared by Carly Huitema (University of Guelph): That distinction is important. Cryptographic binding does not freeze data in place. Instead, it creates integrity guarantees. It allows identities to evolve, rotating keys, updating endpoints, adding services.
+
+21
+00:03:30.750 --> 00:03:39.239
+Audio shared by Carly Huitema (University of Guelph): while preserving a trustworthy, verifiable history. It provides the mathematical glue that links identifiers, keys, and records together across time.
+
+22
+00:03:39.240 --> 00:03:46.370
+Audio shared by Carly Huitema (University of Guelph): Without binding, decentralized identifiers would be mutable documents. With binding, they become auditable identity systems.
+
+23
+00:03:48.110 --> 00:03:48.940
+Scott Perry (Digital Governance Institute): Alright.
+
+24
+00:03:49.110 --> 00:03:58.249
+Scott Perry (Digital Governance Institute): So, I… I have feedback on that. So, I… I wouldn't change anything. How does that make it easy?
+
+25
+00:03:58.410 --> 00:04:02.129
+Scott Perry (Digital Governance Institute): But I would consider changing the title.
+
+26
+00:04:02.290 --> 00:04:02.730
+Carly Huitema (University of Guelph): Yep.
+
+27
+00:04:02.730 --> 00:04:10.900
+Scott Perry (Digital Governance Institute): And I would consider… having an intro, because as I listened to what you were doing, that…
+
+28
+00:04:11.020 --> 00:04:16.440
+Scott Perry (Digital Governance Institute): It's bite-sized, but it requires a certain level of knowledge.
+
+29
+00:04:16.760 --> 00:04:19.260
+Scott Perry (Digital Governance Institute): To absorb the content.
+
+30
+00:04:19.260 --> 00:04:29.089
+Carly Huitema (University of Guelph): Yes, yeah. So… so what about… it goes out like that, and it gets put in a learning pathway after a bunch of other stuff? Because I do have.
+
+31
+00:04:29.090 --> 00:04:29.610
+Scott Perry (Digital Governance Institute): Damn.
+
+32
+00:04:29.610 --> 00:04:30.610
+Carly Huitema (University of Guelph): build on…
+
+33
+00:04:31.390 --> 00:04:43.190
+Scott Perry (Digital Governance Institute): Right, but I, you know, like, I was… as you were talking, it wasn't, what is cryptographic binding? Yeah. I think, you know, it starts out that way.
+
+34
+00:04:43.190 --> 00:04:43.780
+Carly Huitema (University of Guelph): Yep.
+
+35
+00:04:43.780 --> 00:04:53.560
+Scott Perry (Digital Governance Institute): And then it quickly goes into how decentralized identifiers use cryptographic binding to… you know, it's a how.
+
+36
+00:04:53.560 --> 00:04:54.290
+Carly Huitema (University of Guelph): Right.
+
+37
+00:04:54.290 --> 00:04:55.900
+Scott Perry (Digital Governance Institute): That's really a how, right?
+
+38
+00:04:55.900 --> 00:04:59.070
+Carly Huitema (University of Guelph): Yeah, yeah. So what would you change the title to?
+
+39
+00:04:59.960 --> 00:05:10.019
+Scott Perry (Digital Governance Institute): Well, it started with how. How, you know, how dids use cryptographic binding.
+
+40
+00:05:10.680 --> 00:05:12.370
+Carly Huitema (University of Guelph): May use.
+
+41
+00:05:12.410 --> 00:05:18.910
+Scott Perry (Digital Governance Institute): Yeah, to… To…
+
+42
+00:05:18.910 --> 00:05:19.890
+Carly Huitema (University of Guelph): Or trust?
+
+43
+00:05:20.060 --> 00:05:24.079
+Carly Huitema (University of Guelph): Cryptographic bind… how DIDS may use cryptographic binding for trust.
+
+44
+00:05:24.910 --> 00:05:25.790
+Scott Perry (Digital Governance Institute): Right.
+
+45
+00:05:26.030 --> 00:05:35.089
+Scott Perry (Digital Governance Institute): For decentralized trust. How DIDS, yeah. Yeah. How DIDS use? I'd say, not may, but how they use it, you know.
+
+46
+00:05:35.090 --> 00:05:37.120
+Carly Huitema (University of Guelph): Well, they… they don't have to.
+
+47
+00:05:38.980 --> 00:05:43.839
+Carly Huitema (University of Guelph): They don't have to. There are… that's why DivWebS is so shitty. Right, right.
+
+48
+00:05:43.840 --> 00:05:44.170
+Scott Perry (Digital Governance Institute): Right, right.
+
+49
+00:05:44.170 --> 00:05:46.470
+Carly Huitema (University of Guelph): Right, right.
+
+50
+00:05:46.470 --> 00:05:51.030
+Scott Perry (Digital Governance Institute): Right, no, I get that. It doesn't have the cryptographic binding. Yeah.
+
+51
+00:05:52.550 --> 00:05:55.490
+Carly Huitema (University of Guelph): Or, how about,
+
+52
+00:05:58.940 --> 00:05:59.570
+Carly Huitema (University of Guelph): I think…
+
+53
+00:05:59.570 --> 00:06:03.120
+Scott Perry (Digital Governance Institute): I'm gonna leave it up to you, because…
+
+54
+00:06:03.480 --> 00:06:07.800
+Scott Perry (Digital Governance Institute): you were immersed in it, and I think you get where I'm coming from.
+
+55
+00:06:07.800 --> 00:06:13.689
+Carly Huitema (University of Guelph): Yeah, but I need also to make it a little bit shorter, so what about DIDS and Cryptographic binding for trust?
+
+56
+00:06:14.390 --> 00:06:15.220
+Scott Perry (Digital Governance Institute): Yes.
+
+57
+00:06:15.530 --> 00:06:25.830
+Scott Perry (Digital Governance Institute): Yeah Yeah, I think… Because I do think that the topic quickly goes to DIDs.
+
+58
+00:06:25.830 --> 00:06:26.380
+Carly Huitema (University of Guelph): Yeah.
+
+59
+00:06:26.380 --> 00:06:29.109
+Scott Perry (Digital Governance Institute): Not for the, you know.
+
+60
+00:06:29.820 --> 00:06:40.799
+Scott Perry (Digital Governance Institute): Like, a bite-sized trust would say… would spend more time on the generation of the hash and the compare function.
+
+61
+00:06:41.240 --> 00:06:41.600
+Carly Huitema (University of Guelph): Right.
+
+62
+00:06:41.600 --> 00:06:48.990
+Scott Perry (Digital Governance Institute): be the intro. Yeah. You know, how… how… how math… creates this… this…
+
+63
+00:06:48.990 --> 00:06:49.720
+Carly Huitema (University of Guelph): Yeah.
+
+64
+00:06:49.720 --> 00:06:56.270
+Scott Perry (Digital Governance Institute): This confidence that a set of… that a piece of data hasn't been changed.
+
+65
+00:06:56.270 --> 00:06:56.700
+Carly Huitema (University of Guelph): Yeah.
+
+66
+00:06:56.700 --> 00:07:03.040
+Scott Perry (Digital Governance Institute): And you just… I mean, it doesn't really… yeah, it doesn't drop down into that city.
+
+67
+00:07:03.040 --> 00:07:04.140
+Carly Huitema (University of Guelph): It does.
+
+68
+00:07:04.140 --> 00:07:05.940
+Scott Perry (Digital Governance Institute): It over… it doesn't overfly.
+
+69
+00:07:06.590 --> 00:07:07.180
+Scott Perry (Digital Governance Institute): I know.
+
+70
+00:07:07.180 --> 00:07:14.490
+Carly Huitema (University of Guelph): Okay, and I like… I like still keeping cryptographic binding In the title.
+
+71
+00:07:15.040 --> 00:07:21.499
+Scott Perry (Digital Governance Institute): Right. So if there's another one that gets a little bit more into the
+
+72
+00:07:22.430 --> 00:07:31.259
+Scott Perry (Digital Governance Institute): the mathemat… it's… I think, really, a bite size is really just that mathematical calculation. You know, you create.
+
+73
+00:07:31.260 --> 00:07:31.820
+Carly Huitema (University of Guelph): and a half.
+
+74
+00:07:31.820 --> 00:07:35.740
+Scott Perry (Digital Governance Institute): And you compare the hash, that would be… that's a bite.
+
+75
+00:07:35.880 --> 00:07:41.169
+Carly Huitema (University of Guelph): Yeah, well, now what about… let me, I haven't… I haven't looked up my old ones in so long.
+
+76
+00:07:41.430 --> 00:07:50.000
+Carly Huitema (University of Guelph): Let me see what I have, because I remember doing those videos, Oh, come on, not that.
+
+77
+00:07:51.950 --> 00:07:59.770
+Carly Huitema (University of Guelph): I'm gonna pull up… In the learning pathways, okay, so I'm gonna share that.
+
+78
+00:08:03.850 --> 00:08:09.659
+Carly Huitema (University of Guelph): Learning pathways, so I've got foundations, so I have digests here.
+
+79
+00:08:10.120 --> 00:08:12.260
+Carly Huitema (University of Guelph): And I'm just gonna skim through…
+
+80
+00:08:12.260 --> 00:08:14.330
+Audio shared by Carly Huitema (University of Guelph): When we think about trust on the internet.
+
+81
+00:08:14.760 --> 00:08:15.549
+Carly Huitema (University of Guelph): Oh, I can't.
+
+82
+00:08:15.550 --> 00:08:16.540
+Audio shared by Carly Huitema (University of Guelph): We often think of…
+
+83
+00:08:20.050 --> 00:08:29.160
+Audio shared by Carly Huitema (University of Guelph): Passwords or verification codes, but under the hood, trust relies on two powerful cryptographic tools, public-private key pairs and digital digests.
+
+84
+00:08:29.260 --> 00:08:46.489
+Audio shared by Carly Huitema (University of Guelph): A digest is a kind of digital fingerprint. It's created using a hashing algorithm, which takes any digital content, a document, a photo, even a whole dataset, and turns it into a short string of letters and numbers. No matter how large the file is, the digest is always the same fixed length.
+
+85
+00:08:47.080 --> 00:08:48.670
+Carly Huitema (University of Guelph): Okay. Yeah.
+
+86
+00:08:48.980 --> 00:08:49.720
+Carly Huitema (University of Guelph): So…
+
+87
+00:08:49.720 --> 00:08:52.320
+Scott Perry (Digital Governance Institute): That's… that's a, you know, that's…
+
+88
+00:08:52.540 --> 00:08:53.720
+Scott Perry (Digital Governance Institute): See, you didn't have to create.
+
+89
+00:08:53.720 --> 00:08:58.650
+Carly Huitema (University of Guelph): Yeah, that's good. Okay, and…
+
+90
+00:08:58.650 --> 00:09:06.720
+Scott Perry (Digital Governance Institute): Then we could use that as the intro to that learning pathway, now that we were talking… we're talking Carly talk now.
+
+91
+00:09:06.720 --> 00:09:07.710
+Carly Huitema (University of Guelph): Yeah, I know.
+
+92
+00:09:07.710 --> 00:09:16.319
+Scott Perry (Digital Governance Institute): I want to say learning pathways a lot, because I know you like hearing that. So, there you go. So, yeah, we do need, you know, this would be…
+
+93
+00:09:16.510 --> 00:09:21.950
+Scott Perry (Digital Governance Institute): Definitely the… the 101 of the topic that you just presented.
+
+94
+00:09:21.950 --> 00:09:32.390
+Carly Huitema (University of Guelph): Yeah, yeah, yeah, good, okay. Yeah, okay, good. So I… I have that, and I'll fit that into a learning… one of the later learning pathways.
+
+95
+00:09:32.460 --> 00:09:43.080
+Carly Huitema (University of Guelph): And then, in the last… I'll take 3 minutes and just read the, come on, where is it? Bite Size Trust.
+
+96
+00:09:43.170 --> 00:09:44.690
+Carly Huitema (University of Guelph): Too many…
+
+97
+00:09:44.910 --> 00:09:46.739
+Scott Perry (Digital Governance Institute): Yeah, I have a meeting.
+
+98
+00:09:46.740 --> 00:09:47.530
+Carly Huitema (University of Guelph): So you have to go.
+
+99
+00:09:47.530 --> 00:09:48.979
+Scott Perry (Digital Governance Institute): In 8 minutes, yeah.
+
+100
+00:09:48.980 --> 00:09:59.240
+Carly Huitema (University of Guelph): Okay, yeah, so you know what, let's leave that. I do have the next one. I just went through and spent… it's quite long, so I hope I.
+
+101
+00:09:59.240 --> 00:10:04.820
+Scott Perry (Digital Governance Institute): And what's the title of that? See if I have any understanding.
+
+102
+00:10:04.820 --> 00:10:14.349
+Carly Huitema (University of Guelph): I changed it from Witnesses and Watchers, which is a solution, to duplicity and impersonation and digital identity. That was when we were talking with Drummond.
+
+103
+00:10:14.350 --> 00:10:17.480
+Scott Perry (Digital Governance Institute): Alright, I do like that. I like that.
+
+104
+00:10:17.480 --> 00:10:30.859
+Carly Huitema (University of Guelph): Yeah, so duplicity is when I present two different identities and claim that they're the same, because they're to two different audiences, and impersonation is somebody else pretends to be me.
+
+105
+00:10:31.270 --> 00:10:37.739
+Carly Huitema (University of Guelph): And then, yeah, so then it talks at the beginning about, that, you know.
+
+106
+00:10:38.000 --> 00:10:56.250
+Carly Huitema (University of Guelph): Historically, we used trusted third parties, like a wedding certificate, and we created these with centralized authorities. With decentralization, we turned to blockchains. Blockchains have trade-offs. Newer identity systems now remove central authority and global consensus.
+
+107
+00:10:56.330 --> 00:11:04.609
+Carly Huitema (University of Guelph): But how do they handle impersonation? They have a model built on witnesses and watchers, and then a witness does this, and a watcher does that.
+
+108
+00:11:04.710 --> 00:11:21.829
+Carly Huitema (University of Guelph): And, that means that the identity owner keeps control, but their actions are observable. And, so it's not about preventing bad behavior, it's about, that you can detect and prove if the identity has been changed.
+
+109
+00:11:22.690 --> 00:11:25.549
+Scott Perry (Digital Governance Institute): Okay. Now… okay.
+
+110
+00:11:25.950 --> 00:11:31.339
+Scott Perry (Digital Governance Institute): So… I think all good.
+
+111
+00:11:36.170 --> 00:11:46.960
+Scott Perry (Digital Governance Institute): change that. I think you can move forward, because we did… we did go over the content. Yeah. And we, you know, and it… it works. Yep.
+
+112
+00:11:47.630 --> 00:11:54.969
+Scott Perry (Digital Governance Institute): you know… Sidebar, there's… I mean, duplicity goes back to the Bible, by the way, and
+
+113
+00:11:55.420 --> 00:12:01.700
+Scott Perry (Digital Governance Institute): I'm going back… in the wedding ceremony, it, you know, the deal was, is that…
+
+114
+00:12:01.730 --> 00:12:20.200
+Scott Perry (Digital Governance Institute): there was certain things that they did within a Jewish wedding ceremony, because someone has a veil. At the signing of the ketubah, the marriage contract, there is a, you know, you have to unveil the veil.
+
+115
+00:12:20.200 --> 00:12:21.410
+Carly Huitema (University of Guelph): And do a…
+
+116
+00:12:21.410 --> 00:12:24.729
+Scott Perry (Digital Governance Institute): And, and, and witnesses, witnesses.
+
+117
+00:12:24.730 --> 00:12:25.280
+Carly Huitema (University of Guelph): biometric.
+
+118
+00:12:25.280 --> 00:12:26.879
+Scott Perry (Digital Governance Institute): Identify the fact…
+
+119
+00:12:27.390 --> 00:12:47.110
+Scott Perry (Digital Governance Institute): the person that's getting married is the… was… was actually that person. It's very interesting, because that… she had mentioned the wedding contract. In, I think, in the Bible, someone married somebody that really wasn't the person they were intending to marry, because they didn't do the check.
+
+120
+00:12:47.510 --> 00:12:59.850
+Carly Huitema (University of Guelph): And there's a ballet where that's one of the themes. He marries the veiled woman, and it turns out that… oh, it's the one that actually loved him and not the trapped one that he wanted to marry.
+
+121
+00:12:59.850 --> 00:13:04.160
+Scott Perry (Digital Governance Institute): There you go. So, I mean, you haven't, you know, you could mention…
+
+122
+00:13:04.340 --> 00:13:05.530
+Carly Huitema (University of Guelph): The problem is.
+
+123
+00:13:05.530 --> 00:13:06.629
+Scott Perry (Digital Governance Institute): Throwing it out there.
+
+124
+00:13:06.630 --> 00:13:10.260
+Carly Huitema (University of Guelph): You know, I have to, I have to… I think I actually have to cut it down.
+
+125
+00:13:10.560 --> 00:13:11.160
+Scott Perry (Digital Governance Institute): Yeah.
+
+126
+00:13:11.160 --> 00:13:15.190
+Carly Huitema (University of Guelph): I'll be hard-freshed to get this out in 3 minutes.
+
+127
+00:13:15.190 --> 00:13:22.610
+Scott Perry (Digital Governance Institute): Carly, I'm just glad you were hanging around, waiting for someone, because obviously I, you know…
+
+128
+00:13:22.610 --> 00:13:23.300
+Carly Huitema (University of Guelph): Thanks for the feedback.
+
+129
+00:13:23.300 --> 00:13:29.410
+Scott Perry (Digital Governance Institute): You give me a spark in every morning, because I came in late, I'm still finishing my second coffee, so…
+
+130
+00:13:29.410 --> 00:13:30.350
+Carly Huitema (University of Guelph): Alright.
+
+131
+00:13:30.350 --> 00:13:32.959
+Scott Perry (Digital Governance Institute): Enjoy the rest of your day. Yep.
+
+132
+00:13:32.960 --> 00:13:34.390
+Carly Huitema (University of Guelph): Bye, you too.
+

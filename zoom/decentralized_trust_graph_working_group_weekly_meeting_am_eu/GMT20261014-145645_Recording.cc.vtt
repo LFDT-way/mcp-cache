@@ -1,0 +1,1049 @@
+WEBVTT
+
+00:06:27.000 --> 00:06:32.000
+Hi, folks.
+
+00:06:32.000 --> 00:06:45.000
+Hello
+
+00:06:45.000 --> 00:06:52.000
+We'll just give everyone a few moments to join and
+
+00:06:52.000 --> 00:07:22.000
+And then we'll get started.
+
+00:08:21.000 --> 00:08:24.000
+Okay, we're 5 minutes past the hour
+
+00:08:24.000 --> 00:08:30.000
+So let's get cracking
+
+00:08:30.000 --> 00:08:36.000
+normal antitrust policy notice, so we stick to the agenda
+
+00:08:36.000 --> 00:08:43.000
+follow all applicable antitrust and competition laws
+
+00:08:43.000 --> 00:08:48.000
+And we ask that if you're going to contribute, you are a member of
+
+00:08:48.000 --> 00:08:51.000
+The Linux Foundation
+
+00:08:51.000 --> 00:09:02.000
+Any new members who'd like to introduce themselves
+
+00:09:02.000 --> 00:09:07.000
+You can do so in the chat. You can also
+
+00:09:07.000 --> 00:09:19.000
+Add your details to our bio page, which is here
+
+00:09:19.000 --> 00:09:23.000
+Okay, so today we're not going to take time
+
+00:09:23.000 --> 00:09:37.000
+The task force report outs. They're all still updated here, or at least a couple of them are. And then in the next working group meeting, we'll really
+
+00:09:37.000 --> 00:09:40.000
+Dive deep into,
+
+00:09:40.000 --> 00:09:43.000
+task force business, and
+
+00:09:43.000 --> 00:09:47.000
+And, you know.
+
+00:09:47.000 --> 00:09:58.000
+Get a better understanding across the working group and the task forces of where we are and what needs further focus or effort
+
+00:09:58.000 --> 00:10:05.000
+So, the majority of today's call is going to be the full kit and caboodle demonstration
+
+00:10:05.000 --> 00:10:14.000
+From the team that gave the demonstration at the Plumbers Conference
+
+00:10:14.000 --> 00:10:17.000
+So, I'm gonna stop sharing
+
+00:10:17.000 --> 00:10:21.000
+to pass over to
+
+00:10:21.000 --> 00:10:27.000
+plan and Brandon and Alberto and Jeff
+
+00:10:27.000 --> 00:10:36.000
+Awesome. Thank you, Nikki. All right, let's share my screen.
+
+00:10:36.000 --> 00:10:44.000
+Sir, this is a follow along. If you would like. It is interactive
+
+00:10:44.000 --> 00:10:47.000
+I can't see chat
+
+00:10:47.000 --> 00:10:55.000
+while I'm presenting, so if you have questions, issues, please put it in chat. Brendan and Alberto and Jeff
+
+00:10:55.000 --> 00:10:59.000
+can help, or if it's something broken, just,
+
+00:10:59.000 --> 00:11:08.000
+But in verbally, so I can hear you, and we'll go through this. So please do use this QR code or go to 1st person
+
+00:11:08.000 --> 00:11:26.000
+dev, it has the instructions on how to use Keyring in particular. If you're really adventurous, you can try OpenVTC yourself. I was going to run through the presentation deck that we used at Linux Plumbers. I will skip some parts of it.
+
+00:11:26.000 --> 00:11:42.000
+And then you'll see a demonstration of OpenVTC, which is the CLI tool for the Linux kernel members who they're very explicit in their UX needs, which is it must be in the terminal and must be
+
+00:11:42.000 --> 00:11:59.000
+programmable by them, as in have triggers and hooks so they can script it and automate it for their individual workflows as they go through this. You'll then see keyring from Brendan and Alberto, which is more of a modern interpretation that most of us would use, which is a really slick
+
+00:11:59.000 --> 00:12:03.000
+Mobile interface, much, much easier
+
+00:12:03.000 --> 00:12:18.000
+To use, you'll also see parts of the VTC and some of the utilities that the verifiable trust community is providing. So hopefully you've had time to scan that QR code, grab the address
+
+00:12:18.000 --> 00:12:23.000
+We already talked about this, the two
+
+00:12:23.000 --> 00:12:39.000
+Parallopass, as you see all the interfaces you're going to see today, whether it be the personal network manager, which is the PNM command, you might see a bit of the community network manager, which is what manages the VTC from the command line
+
+00:12:39.000 --> 00:12:47.000
+You'll see open VTC, you see Keyring, you'll see browser plugins that are managing the VTA, you'll see the VTC itself
+
+00:12:47.000 --> 00:13:06.000
+The API that they're all using is all based on trust tasks. And so trust tasks is the protocol that links everything together. All of us that are participating in this demo, there's infrastructure all around the world. My VTA is sitting in Seattle somewhere
+
+00:13:06.000 --> 00:13:21.000
+I'm in Berlin right now on the laptop coming to you, Alberto and Brendan are on different coasts of us. Jeff is in France. Some of the infrastructure is in Germany. So there's no common
+
+00:13:21.000 --> 00:13:30.000
+Infrastructure stack that we're using here, it is really spread out all over the place and a lot of the components don't have a public
+
+00:13:30.000 --> 00:13:47.000
+IP address or URL that you can access, and they're not static, they move around, they change a lot. And so a lot of the design here is based on the asynchronous message bus that connects everything together in a decentralized way
+
+00:13:47.000 --> 00:14:11.000
+And brings all the pieces together as you go through. So you'll see that. I'll kind of call out where that is happening. As you're all aware, this is all happening under the Linux Foundation Decentralized Trust, Trust over IP projects, DIF, Open Wallet, Aira. There's a really good community, which many of you are representing yourselves, so big thank you to everyone for doing this.
+
+00:14:11.000 --> 00:14:32.000
+If you want to see kind of how we engage with the open source community and what's the difference between an open VTC versus a VTC. So VTC is verifiable Trust Communities, VTC is the reference build or implementation of a
+
+00:14:32.000 --> 00:14:48.000
+Capabilities of what a trust community can and should do for people who want to create a group of individuals and be able to set their own policies as to what it means to join, to stay a member and what actions you might be able to do
+
+00:14:48.000 --> 00:15:09.000
+OpenVTC is a implementation of VTC that's specific for open source communities, and particularly the Linux kernel as the first open source community there. We've had a number of outreaches already from last week, and there's some other communities that are actually fighting now
+
+00:15:09.000 --> 00:15:20.000
+To try to be the first open source community using that, which is great. So if you want to just check that out, open vctc.net, it's got a good high-level
+
+00:15:20.000 --> 00:15:40.000
+overview again. It's got links to Jeff's amazing VTA farm where you can get a VTA in literally a minute, and you can get all the QR codes for keyring for Android, iOS, different guides, etc. So open VTC.net is a good place
+
+00:15:40.000 --> 00:15:42.000
+As well, to go or direct people.
+
+00:15:42.000 --> 00:15:58.000
+Obviously, OpenBTC is the first, you know, kind of big implementation of the decentralized trust graph, and where we're testing a lot of the credential and standards work that's being developed in parallel. So.
+
+00:15:58.000 --> 00:16:13.000
+Those of you that are on some of the other standards calls, you'll know that there's a lot of activity sometimes when we have a breakthrough on the code that causes the specs to change, or vice versa, when we realize the specs can be simplified
+
+00:16:13.000 --> 00:16:31.000
+It triggers a lot of change on the code side. So again, big shout out to all the editors that have been dealing with many, many, many pull requests over the last couple of months as we get this here. And ultimately, the Decentralized trust graph is the modern replacement of
+
+00:16:31.000 --> 00:16:49.000
+the current PGP, GPT web of trust model, which has been around for 20-plus years, or even longer, but actually has a very low adoption rate. It's, you know, kind of less than 10% of commits in the Linux kernel signet. It's very cumbersome to use
+
+00:16:49.000 --> 00:16:59.000
+There's a number of risks that come with this. And so, Jim, the CEO for Linux Foundation, kind of said, look, this
+
+00:16:59.000 --> 00:17:23.000
+would be the ultimate replacement for the PGP word of trust signing party, which is how the Linux kernel do it today. I'm not going to go through all this, you've seen these before, we all have our trust agents, and they establish verifiable relationship credentials between them, and in the middle, you have your verifiable trust community, and when you join your verifiable trust community, which is also represented by VTA
+
+00:17:23.000 --> 00:17:37.000
+You get your verifiable membership credentials. It's a lot of acronyms, but it's just around who knows who and who's a member of what as you go through this. You can
+
+00:17:37.000 --> 00:17:52.000
+be kind of different types of notes. You can be a person and you kind of use this to create proof of personhood. You can be an AI agent in today's world, and you can have proof of agent hood. It also gets a membership credential
+
+00:17:52.000 --> 00:18:14.000
+Well, more importantly, you can do is you can do verified delegation credentials between the two. So my AI agent is an extension of myself. It has delegated authority. It has some rights. It can prove to either other agents or other humans as it interacts with you. Hey, I'm an agent. I'm representing Glenn
+
+00:18:14.000 --> 00:18:25.000
+Here's proof that I'm representing Glenn, here's proof of what I'm allowed to do, or maybe not allowed to do, and then you can make your own informed decisions how you interact with that. Could be an agent
+
+00:18:25.000 --> 00:18:46.000
+Could be my child, could be a delegate in a work environment, it doesn't really matter as you do this. And trust communities because they are also an identity, they can also delegate trust to others. So, an administrator, for example, can be… have some delegated admin rights for what they're doing. Vett
+
+00:18:46.000 --> 00:19:00.000
+are an example of a delegated right where you'll see this later, Alberto will enable a vetta, and then that vetta has the authority to approve someone joining the community, for example.
+
+00:19:00.000 --> 00:19:14.000
+as you go through this. And then, as you create the verifiable trust communities, they can start to recognize each other, and so they can kind of have peer relationships, or you can start creating quite complex
+
+00:19:14.000 --> 00:19:22.000
+groupings or sets of VTCs into a verifiable trust network, and no surprise, we use the same
+
+00:19:22.000 --> 00:19:36.000
+concepts for there, where a VTC would be a verified membership credential of the VTN, and all of this starts to lean heavily on the trust registries. So trust registries allow
+
+00:19:36.000 --> 00:19:59.000
+For those lookups by third parties to independently validate and verify, as well as for the members. And again, you'll see some of this in keyring and OpenVTC, where it'll actually ask us the question as part of joining the community, do I want to be seen in the public trust registry for that community as you go through it? So that's a good way, for example.
+
+00:19:59.000 --> 00:20:11.000
+If I'm an open source developer in the Linux community and I might want to be known and recognized in the Kubernetes community, for example. So that's where that functionality resides.
+
+00:20:11.000 --> 00:20:27.000
+You know, we all know there's lots of privacy and kind of easier to use. So this section was presented by Hart Montgomery, who's the CTO for the Linux Foundation Decentralized Trust organization
+
+00:20:27.000 --> 00:20:49.000
+And what he was talking about is the current web of trust actually leaks a lot of information, particularly where the key people on the Linux project are. And it also starts to map the relationships of who vetted for who. And this can be quite dangerous in a lot of communities. You know, if you're in the crypto
+
+00:20:49.000 --> 00:21:05.000
+Industry, you get kidnapped for your wallets. If you want to do phishing attacks against people, if I know who you've vetted, I can then say, hey, Glenn and Nikki know each other, so I'm going to pretend to be Nikki to try to trick Glenn, or I'm going to be Glenn and try to
+
+00:21:05.000 --> 00:21:21.000
+trick Nikki, for example, as you go through this. So this is an example where the information can be used against you. For the Linux kernel, it all starts with Linus. He then has a number of, kind of core kernel maintainers underneath him, and then
+
+00:21:21.000 --> 00:21:35.000
+That flows down where they've admitted people over time. And so each of those signatures is a link. Obviously, you can see the rock at the end. This may not be an accurate web of trust for the Linux kernel. You can do your own research
+
+00:21:35.000 --> 00:21:55.000
+and see what you do this. But in the Decentralized trust graph world, we would refer to Linus as a trust anchor. He is the… ultimately, was the owner and the creator of the Linux kernel community. He's then enabled people who he would trust as the next layer down
+
+00:21:55.000 --> 00:22:13.000
+and then giving them rights to onboard others as they go through this. And that scales pretty well, but has some problems, because as you can see here, you know that Katy Perry and Dwight are the ones that vetted The Rock, for example, and so you can get a lot of
+
+00:22:13.000 --> 00:22:29.000
+Relationship data from this graph that you might not realize. So one of the things we had is a big challenge from the Linux kernel team was they wanted a new way of vetting people who are joining the community
+
+00:22:29.000 --> 00:22:35.000
+without disclosing who vetted them. And so this is a classic zero-knowledge proof
+
+00:22:35.000 --> 00:22:51.000
+Problem. And there's lots of different ZKP methods that are out there in the industry. But for this one, effectively, we have a pool of vetters. Let's call that M. And with the community sets a policy for itself
+
+00:22:51.000 --> 00:23:07.000
+Where it's saying to join, you must have 1, 2, 3, whatever number they want, vetters from that pool vet you, and then present proof that you've been vetted by those individuals to the VTC. But we want to
+
+00:23:07.000 --> 00:23:25.000
+present that proof without actually disclosing that it was Dwight and Katie that vetted the rock. And so, to do that, the Berkeley Cryptography labs have done a lot of work, and they've developed a new form of ZKP that's extremely efficient
+
+00:23:25.000 --> 00:23:42.000
+Very small, very fast, called the predicate credentialing system. And that is what we have implemented into the VTA, VTC, and OpenVTC. So this is quite a powerful cutting-edge cryptography method, and
+
+00:23:42.000 --> 00:23:57.000
+It's possible only because what this architecture of the verifiable trust infrastructure has done is for the first time, we have two new capabilities. One is called a cryptographic helper
+
+00:23:57.000 --> 00:24:14.000
+and a cryptographic executor. And so your VTA and the VTC fulfill these new roles where independently they can do certain tasks that in the cryptographic flow, allow for some new things to occur
+
+00:24:14.000 --> 00:24:34.000
+Has anything to do with cryptography, it gets a little complicated pretty quickly, but if you want to know more, there is a link at the bottom, and this will be being presented at the cryptographic events and being peer-reviewed over the coming months and early into 2027. So very excited by this
+
+00:24:34.000 --> 00:24:51.000
+And you'll see it live. Really, what it's doing is the VTC is effectively issuing tickets to the vettes. And these tickets are a way that are unique but not traceable. And then it drip feeds these
+
+00:24:51.000 --> 00:25:07.000
+tickets to the vetters over time. So a vetter could say, I only want to do five validations a week. Another one might say I want to do 20. The VTC just drips those, you know, kind of 20 tickets to them every week
+
+00:25:07.000 --> 00:25:26.000
+The VTC does not know when a ticket is used, and you'll see this in the flow, so just listen when Alberto and Brendan, they'll talk about showing their tickets, and they're reading out some numbers. That is private to the vetter and the applicant. The VTC doesn't know, and that's
+
+00:25:26.000 --> 00:25:43.000
+protecting against some leakage or observability back to the VTC. And so this is a lot of the protection around cyber attacks, which can be quite complicated and cause lots of issues. But here you can see that the Rock and Napoleon
+
+00:25:43.000 --> 00:26:00.000
+Both got vetted by Dwight and Katie, but there's no corresponding pattern. It's effectively random data that allows the VTC to, in that zero-knowledge way, be able to say, yep, the ROC and Napoleon both have been validated by
+
+00:26:00.000 --> 00:26:07.000
+People that I know are vetters, I don't know which vetters actually did it as you go through this. So
+
+00:26:07.000 --> 00:26:17.000
+You get to configure this. Everything you're going to see is all policy driven on the VTC. The VTC is only keeping
+
+00:26:17.000 --> 00:26:32.000
+the membership record and the credentials between the Vtc and the applicant. There is nothing being sent around what you provided. So if you provided a passport or driver's license to
+
+00:26:32.000 --> 00:26:50.000
+the vetta that's between you and the vetta. There's no copy of that being kept, and it's not being sent anywhere. And then there's no evidence of who vetted you being sent back to the VTC when Pcs mode is enabled, and you'll see that in the tooling.
+
+00:26:50.000 --> 00:26:54.000
+As we go through this.
+
+00:26:54.000 --> 00:27:04.000
+As with any system, it's not foolproof. There's no such thing as a perfect system. As this photo might show you. We know the math works
+
+00:27:04.000 --> 00:27:19.000
+But it doesn't protect against what happens if there's a bad vetta. What if somebody is taking bribes or deliberately lets someone in? There's also some work to do on unlinkability. So, excuse me.
+
+00:27:19.000 --> 00:27:21.000
+What happens
+
+00:27:21.000 --> 00:27:26.000
+If a bad vetta is found, how do we know who they've let in?
+
+00:27:26.000 --> 00:27:30.000
+If it's zero knowledge proof
+
+00:27:30.000 --> 00:27:31.000
+Yes.
+
+00:27:31.000 --> 00:27:37.000
+Glennon, quick question. But isn't the idea that the vetters are random, so targeting them is going to be very difficult through this.
+
+00:27:37.000 --> 00:27:38.000
+Okay
+
+00:27:38.000 --> 00:27:40.000
+Correct. Correct. Yeah, yeah. You can still, I mean, there's still tricks
+
+00:27:40.000 --> 00:27:49.000
+No point in being corrupt because you'll never be able to say, I'm going to be the one who's going to be vetting this guy. So the bribe doesn't assure anything.
+
+00:27:49.000 --> 00:27:59.000
+That's right. Yeah. The bigger the vetting pool and the more randomized the tickets that be sent to applicants, you're right.
+
+00:27:59.000 --> 00:28:05.000
+requires quite a big conspiracy to defraud that process.
+
+00:28:05.000 --> 00:28:19.000
+All right, so let's get into a bit of a demo. So what you're going to see, we've already covered what's VTI. VTI is the umbrella term for your verifiable trust agent, the verifiable trust community
+
+00:28:19.000 --> 00:28:33.000
+your personal network manager, community network manager, trust registries, the messaging mediators did hosting services. There's a whole lot of infrastructure in there
+
+00:28:33.000 --> 00:28:54.000
+And, you know, Jeff and his team have done an awesome job of creating a VTA farm, which is on the QR codes. Please do check it out. It allows you to get a VTA without having to worry about how to install it. Just note it is for dev and test purposes, so please don't use those VTAs
+
+00:28:54.000 --> 00:29:05.000
+In production, more that they get kind of wiped, reset on a frequent basis as we do updates, as you go through this. So
+
+00:29:05.000 --> 00:29:24.000
+What we've already talked about, the relationship of OpenVTC to the community and the kind of VTA itself, which is doing all the crypto management, all of the VTI stack is built in Rust, unless you're a developer, that probably doesn't mean much
+
+00:29:24.000 --> 00:29:42.000
+It's just Rust is a very safe, memory-safe language that also has really great performance and a lot of flexibility on the platforms that it runs on. And so it's a good reference language. It's well supported, particularly in the cryptography space
+
+00:29:42.000 --> 00:29:57.000
+And we can see that we've got a lot of partners, you know, lucky to have Alberto and Brendan participating in this, Jeff, as well as the team at UC Berkeley, working on it. It's all based on DIDs
+
+00:29:57.000 --> 00:30:07.000
+I would say the reference DID for us is the DID WebVH verifiable history. We do support others
+
+00:30:07.000 --> 00:30:10.000
+Some of those are opt-in
+
+00:30:10.000 --> 00:30:28.000
+If you want to use some of these other DIDs, please just reach out to us and we'll put it on the priority list of making sure that they're tested end to end by default. There's a lot of variability and permutations of how all of the different configs come together
+
+00:30:28.000 --> 00:30:44.000
+And we are dying under testing load as we go through this. So WebVH is kind of the reference implementation, but some of these others you can bring and use as well. I'm not going to explain what DIDs are to you all. We've talked about the credentials
+
+00:30:44.000 --> 00:30:48.000
+We talked about trust tasks a little bit.
+
+00:30:48.000 --> 00:31:08.000
+I would just kind of reinforce when you look at a community, again, for the reference implementation, we support REST APIs, trust spanning protocol, did com, libP2P, there's teams working on that, which is great. There's some others looking at IRO and others
+
+00:31:08.000 --> 00:31:27.000
+You should be able to plug in any transport protocol you like. We're not exclusive. There's nothing really in there that would stop you from using whatever exotic transport messaging layer you like. The trust task kind of operate above that, and really all the trust task is
+
+00:31:27.000 --> 00:31:45.000
+is a contract between 2 entities where the first entity is asking the second one to do something on their behalf, and that is cryptographically signed, handed to the recipient. The recipient then responds with a formal response of either
+
+00:31:45.000 --> 00:31:53.000
+I can't do that task for you, or I have done that task, and as part of those task definitions
+
+00:31:53.000 --> 00:32:10.000
+We say, what are the expected side effects? So, for example, if I'm going to roll my DID keys, I would expect that in my DID document, the key public key material would change. If I notice that something else has changed
+
+00:32:10.000 --> 00:32:21.000
+That's a really good signal that something either has gone wrong, or there is a bad actor, or I've lost control of something in the system as we go through this. So for the first time, we have
+
+00:32:21.000 --> 00:32:37.000
+In the specification, a define what is expected to occur, then you can measure that, do a before and after, and measure it. And so when you see some of the demos, which we won't show today, but in the past we've done delegated trust task execution
+
+00:32:37.000 --> 00:32:55.000
+You'll see kind of a change log showing you what has occurred as you go through this. We have over five, I think it's 530 now trust tasks defined. So we, as we build the system complexity, this just continues to grow from, you know.
+
+00:32:55.000 --> 00:33:00.000
+What a joint ceremony looks like through to how do I change my name
+
+00:33:00.000 --> 00:33:12.000
+How do I present my R card to some really fun things such as how do I integrate with a Git repository for an open source community? How do I start to do chat messaging? How do I
+
+00:33:12.000 --> 00:33:21.000
+work with my AI agents and specify what an MCP endpoint is, for example. They're all trust tasks at the end of the day, and they're public.
+
+00:33:21.000 --> 00:33:26.000
+Or ceremonies, which are a set of trust tasks linked together. You should talk about that a little
+
+00:33:26.000 --> 00:33:41.000
+Yes, so ceremonies, thanks, Steve. Ceremonies, so Trust Task does one simple thing. It's you should be atomic, but you can create complex changes by creating a trust ceremony. And a trust ceremony allows you to link many trust tasks together
+
+00:33:41.000 --> 00:33:57.000
+We're joining a community, for example, is a collection of tasks and is also a set of tasks that will come back the other way about how you can then register and share some of the credentials that have been created with you. So quite a powerful concept
+
+00:33:57.000 --> 00:34:03.000
+Once you read the code, it's very easy to use, uses CodeGen we support
+
+00:34:03.000 --> 00:34:12.000
+Go, Rust, TypeScript. If you have a favorite language that you would like to see added, let us know. We can add this
+
+00:34:12.000 --> 00:34:28.000
+The security side, there's been a lot of security reviews, and again, a big shout out to Sankarshan, who's been doing risk and harm prevention reviews. We've had formal security reviews, by my own security team, as well as some others. It's
+
+00:34:28.000 --> 00:34:44.000
+never-ending, which is good. But some things that are built into VTI and open VTC is it's post-quantum, naturally, as well as supporting 0 knowledge, and the idea being is that this is a reference platform for complex
+
+00:34:44.000 --> 00:34:46.000
+systems
+
+00:34:46.000 --> 00:34:56.000
+where the cryptography is a plug and play model, and so it makes it very easy for us to take advantage of new innovations and plug them in and test them
+
+00:34:56.000 --> 00:35:12.000
+and measure and see, are they an improvement, not only from a security or a privacy perspective, but also from a UX. And so the team, we've done a lot of work trying to simplify this and make it as easy as possible
+
+00:35:12.000 --> 00:35:25.000
+while still being a reference implementation as we go through this. This is an example of the ceremony that Steve was talking about. Effectively, everything you do can be summarized as
+
+00:35:25.000 --> 00:35:46.000
+I've done something to trigger the ceremony. I want to join your community, would be an example of a trigger. The community will send back what its requirements or criterion to join that community. That allows me then to gather and collect the evidence, so I need my passport, I need to know that I know Steve, for example.
+
+00:35:46.000 --> 00:36:03.000
+I then present that back to the community as a verifiable presentation. The community then verifies all of the crypto bindings, revocations. Are they still valid? Does all the kind of math work? And effectively, it's extracting the facts
+
+00:36:03.000 --> 00:36:24.000
+from that cryptographic proof as to what is it that you're actually telling me. Once I have those facts, I then run that against an open policy agent and evaluate that as to, okay, I'm expecting you to be an adult, I'm expecting you not to be on a sanctioned country list. I expect you to have been vetted by
+
+00:36:24.000 --> 00:36:39.000
+My vetting policy, and that then feeds into what's the verdict for a joining ceremony? Am I allowing you to join? Am I denying you, or am I referring you to a manual human-reviewed task as I go through this?
+
+00:36:39.000 --> 00:36:58.000
+And ultimately, based on that verdict, there are side effects that are created. The side effects normally would be things such as credentials get issued back to you. You get a verified membership credential, verifiable relationship credential, endorsement credentials, etc. And you'll see a little bit of that
+
+00:36:58.000 --> 00:37:03.000
+As we go through this. So, enough talking
+
+00:37:03.000 --> 00:37:06.000
+Let's have a look at
+
+00:37:06.000 --> 00:37:17.000
+OpenVTC. So this is open VTC. Like I said, this is built for the Linux kernel. They live in the terminal. This is CLI based
+
+00:37:17.000 --> 00:37:36.000
+This is showing a veter, so they are already a member of a community. They have a little what's called a vetting desk that they can work with, and they have a profile. So this is just saying me that I am vetting for the first VTC community
+
+00:37:36.000 --> 00:37:53.000
+I am listed in the trust registry, so I am discoverable. My name is Bob, I can say I speak English. I am in, I don't know, I'm in Germany, I guess today. Berlin
+
+00:37:53.000 --> 00:38:07.000
+And I can set, you know, I'm only going to do this in person, I'll do it on a video call. If I know you, what are the documents I accept, my availability, how do you get a ticket, etc. So
+
+00:38:07.000 --> 00:38:13.000
+This allows you, so this allows for search and discovery so that I can ask
+
+00:38:13.000 --> 00:38:24.000
+The VTC when I join, I'm in this part of the world, I want to be vetted right now, and it will come up with the list of vetters that meet the criteria for you.
+
+00:38:24.000 --> 00:38:27.000
+It's going to need to be in a different format
+
+00:38:27.000 --> 00:38:48.000
+It needs to be doing. Okay, so let's just run through what this looks like. We're going to be a brand new person coming in. So OpenVTC straight away is saying, well, I don't know anything about you. You need to connect to your trust agent. Okay, so we're going to
+
+00:38:48.000 --> 00:39:03.000
+Go over here and this is my VTA. So it's called Glenn VTA. All of this is public information. There's nothing sensitive about this. I'm quite happy for this to be publicly known
+
+00:39:03.000 --> 00:39:06.000
+You can't do anything with it.
+
+00:39:06.000 --> 00:39:11.000
+And so I put this in here. What is going to happen now is
+
+00:39:11.000 --> 00:39:27.000
+Open VTC, which is running on my laptop here in Germany, is going to resolve that DID and figure out how to connect to the VTA, and then it's going to ask me, I need to create an access control list to allow it to connect
+
+00:39:27.000 --> 00:39:50.000
+So we'll just call this the DTG Working Group, and you can see down here, these are the instructions it's giving me. It's saying, can I ask my personal network manager to create a new trust context? A trust context is just a partition that allows you to keep things separate, otherwise it becomes a big mess in your VTA. I want to keep my personal life separate to my work life, separate to
+
+00:39:50.000 --> 00:39:53.000
+Google from Meta, for example
+
+00:39:53.000 --> 00:40:09.000
+So we're going to just copy this, and we're going to go over here and paste this in. And so what I've done is I've created an ephemeral key. And so this is a temporary key. It's only on my device. This is the public key. So again.
+
+00:40:09.000 --> 00:40:26.000
+There's nothing secret that's been copied and pasted here. It's just a classic public key infrastructure. It's going to expire in one hour, and it's saying this is going to be used for rolling the key. So my personal network manager has talked to the VTA and it's added that
+
+00:40:26.000 --> 00:40:41.000
+to it already. So I come over here, I say enter, and what you're seeing now is OpenVTC is negotiating with the VTA. We can see up here that it's rotated the keys. So I've gone from my ephemeral key to my long-term key
+
+00:40:41.000 --> 00:40:56.000
+It's figured out what protocols it's going to talk. So it's going to talk trust spanning protocol first, and didcom as a backup, which you see it's opened the TSP session. It's authorized to the VTA. Everything is looking good
+
+00:40:56.000 --> 00:41:12.000
+We're good to go. It's just going to ask, do I want to use a hardware token? Linux kernel is ultra secure, so hopefully they would say yes. I don't want an unlock code. Yes, I know that's dangerous and silly. Thank you. So now OpenVT is connected to my VTA. That's it.
+
+00:41:12.000 --> 00:41:17.000
+So nothing secret, no passwords. It was just a
+
+00:41:17.000 --> 00:41:32.000
+What's my VTA DID? Here's a temporary DID. Exchange that link, roll the identities, I'm now connected safely and securely to my VTA as we go through it. So now we're going to do a very similar approach
+
+00:41:32.000 --> 00:41:51.000
+And so what I'm going to show you is I'm going to show you a open request and then I'm going to have Alberto and Brendan show you what it looks like through keyring and they're going to show you a vetted application because to be honest, looks much better in keyring than looking at it in the terminal.
+
+00:41:51.000 --> 00:41:55.000
+We're going to join our first community. And so
+
+00:41:55.000 --> 00:42:05.000
+If we go over here, this is the first VTC. This is what we use as our official testing for the Decentralized trust graph
+
+00:42:05.000 --> 00:42:19.000
+Working groups, I can copy that DID, I put it in here. It is now asking the VTC, well, I want to join. What do I need? And this VTC is saying, well, we
+
+00:42:19.000 --> 00:42:37.000
+Want you to do vetting. You only need to be vetted by one person. They're going to check your legal name. And if you are vetted, that will count for 120 days after it's signed. So you can set all of this in any way that you want. You can also see here that for the vetters
+
+00:42:37.000 --> 00:42:54.000
+They are PCS ZKP, that's the predicate credential system that we talked about. This means that there is no loss of privacy as you go through this. Also, their post quantum compute signs crypto signatures being used in this community.
+
+00:42:54.000 --> 00:43:00.000
+We've got a couple of options. I could apply for vetting, but I'm just going to send an open request
+
+00:43:00.000 --> 00:43:16.000
+Yep, let's create a context of its own. So all it's asking me here is, do I want to publish my membership in the trust registry? So when I said earlier, there was a way for me to be known outside of the community, I'm going to say yes
+
+00:43:16.000 --> 00:43:32.000
+And what's going to happen now is OpenVTC is talking to the community. It's creating a new identity for me, which is called floor end. It's where it is there. It's submitted the join request, and I am now in a pending state.
+
+00:43:32.000 --> 00:43:41.000
+I've basically gone into the manual queue on the VTC. So if we go into the operator console
+
+00:43:41.000 --> 00:43:58.000
+I sign in as an admin. This is what a VTC looks like, and we can see here that there's actually two requests. So someone else may have tried as well, which is good. But this was me, Florend. And so I approve this
+
+00:43:58.000 --> 00:44:02.000
+As the administrator, and now
+
+00:44:02.000 --> 00:44:18.000
+I should go to active. And I am now an active member of the VTC. It's kind of as easy and simple as that. Let's approve this other one that was in there. With that, I'm going to stop sharing and hand over to Brendan and Alberto
+
+00:44:18.000 --> 00:44:21.000
+For another way of how you can join
+
+00:44:21.000 --> 00:44:39.000
+Thanks, Glenn. Thanks for giving the overview for everything and for building all the backend tooling that this is based on. So what you're going to see here is the keyring mobile side. So these are QR codes here if you want to download the mobile app yourself
+
+00:44:39.000 --> 00:44:58.000
+It doesn't show in the app stores, but you can get it through TestFlight, that kind of thing. So just wanted to add that this is extremely powerful and works for the Linux kernel example and other open source projects. But of course, we hope this gets used much more widely
+
+00:44:58.000 --> 00:45:13.000
+Which is partly why we want the mobile app, something easy to use, very accessible, that people can, you know, participate in, you know, signing up for their VTA, VTC, et cetera, and use these for their own communities
+
+00:45:13.000 --> 00:45:32.000
+So, just another, just big picture thing to say is, yes, this works for open source, but as we all know, we hope that this can help with all kinds of spam and scams and just, you know, knowing where content is coming from is going to be a big help in the future. So, I'll pass it over to Alberto, who's going to, you know, walk you through the
+
+00:45:32.000 --> 00:45:36.000
+The key ring version of what Glenn was describing.
+
+00:45:36.000 --> 00:45:56.000
+Yes, thank you, Brendan and Glenn. So usually for the for these demos that we did last week at Prague, we had a very short time on how much we can present of key rings, but since we have time in this demo, I'm just going to go over the onboarding just in case people haven't seen it. There's new people in the
+
+00:45:56.000 --> 00:46:17.000
+Working group, plus we added a few extra steps in the onboarding so you guys could see some of the newer features that are hopefully going to be released pretty soon. So this is just the regular onboarding. I think most people are already familiar with this. Of course, we added this agent slide. It just tells you about the capabilities and what you can do with it. So I'm just going to go quickly and just get started.
+
+00:46:17.000 --> 00:46:20.000
+I'm going to set up our pin
+
+00:46:20.000 --> 00:46:22.000
+Just a bunch of zeros.
+
+00:46:22.000 --> 00:46:27.000
+create PIN. Then I'm going to activate biometrics
+
+00:46:27.000 --> 00:46:49.000
+Press continue, and this is some of the newer stuff on keyring. So we've added notifications. So with notifications right now we're experimenting two things. One of them is to enable the while keyring is offline, there is a capability in there once you do a VRC exchange to actually send messages to your contacts
+
+00:46:49.000 --> 00:47:06.000
+Previously, we didn't have notifications to allow curing to wake up. Once you get a message, you would have to be on the app open to be able to see that. So hopefully in the upcoming releases, you'll be able to get messages, peer-to-peer, through DataCom
+
+00:47:06.000 --> 00:47:17.000
+So we'll say allow. So right now I'm just going to play as Bob on this side of the device. So I'm just going to say, so I'm just going to give a name
+
+00:47:17.000 --> 00:47:20.000
+So I'm just getting Bob Wallet
+
+00:47:20.000 --> 00:47:25.000
+Continue, and then I can create my art card. We've added
+
+00:47:25.000 --> 00:47:34.000
+A profile picture we can add, we can add different profile names. So I'm just going to keep it simple. I'm just going to say Bob
+
+00:47:34.000 --> 00:47:51.000
+And just call it Baker. So you can always add email organizations, but just to keep things quick here, I'll just keep those two fields which are necessary to finish the onboarding. So I'll press continue.
+
+00:47:51.000 --> 00:47:55.000
+Okay, that a few seconds just to start curing.
+
+00:47:55.000 --> 00:48:14.000
+And there we go, and then you get the nice tour guide through the different features of keyring. And then that's pretty much it. So this is the first time I'm using a keyring. And if I go to this new tab, my agent tab, I do not have an agent or a BTA connected
+
+00:48:14.000 --> 00:48:34.000
+And this is where something like the farm will come in. Of course, you can set up your own VTA and you can, you know, do that manually, or you can just go to this nice portal that Jeff and his team has implemented. You can sign up for it and you get access to create VTAs and I believe, I'm not sure, but at least in my account, we can do BTCs as well.
+
+00:48:34.000 --> 00:48:40.000
+So, I'll sign in with my passkey.
+
+00:48:40.000 --> 00:48:54.000
+Okay, and of course, if this is the first time you're entering the farm itself, this would be all empty, but as you guys can see, I have a whole bunch of VTAs and BTCs going. So I'm going to go ahead and say create BTA trust agent.
+
+00:48:54.000 --> 00:49:16.000
+And we're offered some options here, and you can choose the BTA version I want to experiment with or use. You can choose to create a Btc instead of a BTA, which gives you just other options of setting certain parameters like the mediator you want to use, or the hosting service
+
+00:49:16.000 --> 00:49:27.000
+The agent name, and of course, the community name. So in this case, I'm just going to stick it, stick with just creating a VTA. I'm just going to call this Bob Dtp.
+
+00:49:27.000 --> 00:49:32.000
+I'll say yes, use the latest code, and I'll start creating a session.
+
+00:49:32.000 --> 00:49:48.000
+So what this do is just start setting up WTA for me. If you're on the PNM CLI version that Glenn was showing, you can connect to the VTA through the CLI. But Glenn, Jeff and his team has provided a nice
+
+00:49:48.000 --> 00:50:08.000
+interface where I can scan a QR code, which will allow me… will allow keyring to connect directly to this VTA. So once I'm here, you can select what I just mentioned. You can do the PNM or the keyring side. So I'm just going to stick with keyring. If you haven't downloaded, this will take you to direct links to download keyring. And I'm just going to say generate keyring
+
+00:50:08.000 --> 00:50:19.000
+QR code for key rings, so this presents a QR code, so I'll start by scanning, and so I'm back on keyring now, and I'll say scan your agent code.
+
+00:50:19.000 --> 00:50:24.000
+First time I'm using it, so I need to give it permissions
+
+00:50:24.000 --> 00:50:39.000
+Okay, so now I'm connected and I'm just going to confirm on key inside. It's going to ask me for signing this with my biometrics. Okay, now the next thing was just to confirm that the codes match on key ring. Yes, it looks the same.
+
+00:50:39.000 --> 00:50:45.000
+So I'll press codes match. And this should take about 20 seconds
+
+00:50:45.000 --> 00:51:02.000
+As I mentioned before, that's all you really need to do. Just take a few seconds here to actually deploy the agent for us. I found this very useful for me as we're doing tests on different versions of the VTA. Don't need to, you know, constantly, you know, run
+
+00:51:02.000 --> 00:51:20.000
+You know, CLI commands on terminal and just, you know, get a VTA launched for different versions for testing. All right, so you can see here now it's pretty much done. It's running. So I could say open agent. And I have here just some basic information. And then on key ring
+
+00:51:20.000 --> 00:51:32.000
+It's pretty much done. Your agent is ready, so I'll just press done. We get an introduction on what this means, what an agent is. It holds your keys. It answers while your phone is off.
+
+00:51:32.000 --> 00:51:41.000
+That's kind of where the notifications come in. And there you go. So now I'm connected to my agent, Bob DTG. I can add more VTAs if I wanted to.
+
+00:51:41.000 --> 00:51:56.000
+So yeah, so this is just a simple setup of getting the VTA on QRank. So the next thing I'll do is go through the vetting process. So right now I'm not part of any community. So this is the same community that Glenn had
+
+00:51:56.000 --> 00:52:08.000
+joined as well, or actually interacted with. So, okay, so I… let's say I want to join this community. So back on Keering, I will select that QR code
+
+00:52:08.000 --> 00:52:14.000
+And I will say scan QR code. And I will scan that QR code to start requesting to join
+
+00:52:14.000 --> 00:52:26.000
+Okay, so now it gives me the various options. The same thing you saw on the CLI says you can get vetted or just simply ask to join. So we're going to start first with just asking to join.
+
+00:52:26.000 --> 00:52:45.000
+So I've already pre-filled this, of course, as you guys saw, with the profile name, Bob Baker, which is kind of acting as a persona for this community I want to use it. If I don't want to use Bob Baker, I can just go ahead and just press that create new profile, which will create a new persona for me where I can fill in just other information
+
+00:52:45.000 --> 00:52:58.000
+And then I'll just stick with this one for now, say continue. Every action is assigned as well. So this was going to do the same thing. And what I'll start doing is minting my persona ID.
+
+00:52:58.000 --> 00:53:14.000
+So while that persona id, I'm kind of going to switch over to a different role now and kind of act as the community manager, and I'll go into the this specific, you know, communities dashboard. So I'll switch
+
+00:53:14.000 --> 00:53:22.000
+tabs here, and I'll sign in to the dashboard. In my case, I'm using passkeys.
+
+00:53:22.000 --> 00:53:37.000
+All right, so all right, I'm signed in, and I can see I'm being I'm asking to join as easy matrix. So I'll go to join requests. And it looks like some of you guys are following along. So this is me. I'll click that
+
+00:53:37.000 --> 00:53:38.000
+And I'll say approve
+
+00:53:38.000 --> 00:53:41.000
+So yes, I want to prove this guy
+
+00:53:41.000 --> 00:53:47.000
+Okay, so then as you see there, there's a toast notification. Now it says you're a member of the first VTC.
+
+00:53:47.000 --> 00:53:50.000
+So, I can just say done.
+
+00:53:50.000 --> 00:54:05.000
+And there you go. So now this is just saying that I am part of the VTC. I remember since, you know, today and some other information. So what I'll do next is go to the members section
+
+00:54:05.000 --> 00:54:16.000
+And I can see myself here listed as a member. So the next thing I'll do is, as an admin of this community, I want to make myself in this case a veteran
+
+00:54:16.000 --> 00:54:21.000
+So, I'll grant this person the better role.
+
+00:54:21.000 --> 00:54:37.000
+And when you see something automatically happen in Keering. And there you go. There's another toast notification saying you can now vet people for the first VTC. So once that's done, I've already set up a second device here, so I'm
+
+00:54:37.000 --> 00:54:41.000
+kind of minimize this for you guys. Let's get rid of this. We don't need this.
+
+00:54:41.000 --> 00:54:56.000
+All right, so on the second device, I'm just gonna unlock my keyring. So of course, I had to unlock it because keyring does lock itself after a few minutes. I've already did the setup on this side. I've called it Alice
+
+00:54:56.000 --> 00:55:12.000
+And I've already did the profile and everything you saw just a minute ago. So what I'll do now is I want to grant access to Alice, to the community, and basically betting bidding her in to the 1st Vtc
+
+00:55:12.000 --> 00:55:22.000
+So to actually start that ceremony would be to choose open the vetting desk. So on Bob's side, which he is now a veteran, I'll press that.
+
+00:55:22.000 --> 00:55:27.000
+So I'll say new tickets, so this is what Glenn was talking about.
+
+00:55:27.000 --> 00:55:37.000
+And there's a QR code. So as naturally you might imagine on the other end, I will scan the QR code.
+
+00:55:37.000 --> 00:55:45.000
+Okay, so on Alice, I will create my identity, press that
+
+00:55:45.000 --> 00:55:55.000
+We'll give that a few seconds, and then I want to add my legal name, which is inside the profile I created and start my application.
+
+00:55:55.000 --> 00:55:59.000
+Okay, yes, I want to use this link.
+
+00:55:59.000 --> 00:56:07.000
+Alright, so now there's a session started between both parties. I'm going to do an open session on Bob's side.
+
+00:56:07.000 --> 00:56:21.000
+And now this is the code comparison, right? So we would be like in person and then I would confirm, you know, the code that is the same as the other end. I'll say codes match on both
+
+00:56:21.000 --> 00:56:23.000
+And then I will send my card
+
+00:56:23.000 --> 00:56:29.000
+I will sign that… I will sign that trust task.
+
+00:56:29.000 --> 00:56:43.000
+And then at this point, on Bob's side, and this is sort of part of the Linux kernel's process, I would check their ID to confirm this is in, you know, Alice Anderson, as I've checked
+
+00:56:43.000 --> 00:56:44.000
+Sign that.
+
+00:56:44.000 --> 00:56:57.000
+And then we're almost done. And then there's one last thing that Alice would do is she would choose whether she wants to be listed publicly on the VTC itself. So I would say, okay. And then I would say apply to join
+
+00:56:57.000 --> 00:57:02.000
+Sign that in the same way.
+
+00:57:02.000 --> 00:57:18.000
+And just in a few moments, that's it. So Alice has joined the first VTC. So as you can see, she did not go into that landing page and asked to join. She was vetted by someone else. And just to show you guys here one last time
+
+00:57:18.000 --> 00:57:33.000
+If I go back to the portal and if I go back to Alex to see what her persona ID was, which is she must have been just one second. Thought group
+
+00:57:33.000 --> 00:57:35.000
+So, if I go back to members
+
+00:57:35.000 --> 00:57:38.000
+There she is. This is the doc group
+
+00:57:38.000 --> 00:57:53.000
+So, yeah, so this is basically the full flow of the vetting process. So one more thing that's kind of fresh out the box, and I know we're running out of time. I want to go ahead and join a second community on Bob's side. This is a community set up by
+
+00:57:53.000 --> 00:58:10.000
+by Jeff, and we want to show you guys an authentication flow you can do. So I'm going to ask to join. I'm going to mint the persona. I'm going to do this really quickly. So once that's minted, it will give Jeff the opportunity to let me join
+
+00:58:10.000 --> 00:58:20.000
+And one of the cool things now we can do with keyring, and hopefully this works, I can go to the members
+
+00:58:20.000 --> 00:58:27.000
+Side here. And I'm listed as rapid decline, Jeff, if you want to let me
+
+00:58:27.000 --> 00:58:28.000
+Let me in. Oh
+
+00:58:28.000 --> 00:58:29.000
+Yeah, I approved you.
+
+00:58:29.000 --> 00:58:37.000
+Okay, perfect. So now I'm part of this other community. I get listed communities here, and I want to sign in
+
+00:58:37.000 --> 00:58:46.000
+For now, instead of signing in with like a, you know, with wallets or passkeys, I can sign in with Keyring. So I'll do the same.
+
+00:58:46.000 --> 00:58:48.000
+Scan that, yes
+
+00:58:48.000 --> 00:58:52.000
+There's going to be a code there. I'll say continue
+
+00:58:52.000 --> 00:58:58.000
+Okay, give that a few moments. Yes, it seems right. Approve.
+
+00:58:58.000 --> 00:59:07.000
+And then signed in, press continue, and now I'm signed into the community. So these are some of the newer features on Kirin.
+
+00:59:07.000 --> 00:59:14.000
+All right, I guess there's some time for maybe some questions.
+
+00:59:14.000 --> 00:59:18.000
+Yeah, we've got about 5 minutes for questions
+
+00:59:18.000 --> 00:59:23.000
+Yeah, lots of congratulations, quite rightly. It's just
+
+00:59:23.000 --> 00:59:26.000
+Awesome seeing it all work together, guys.
+
+00:59:26.000 --> 00:59:29.000
+And
+
+00:59:29.000 --> 00:59:35.000
+Yeah, I… there's… there's so much to work with here
+
+00:59:35.000 --> 00:59:42.000
+I think when we take a little bit of a stock check next week, that question about applications
+
+00:59:42.000 --> 00:59:56.000
+and community curation and things like that, because I know there's a bunch of functionality that you've not surfaced at all here. You know, there's so much going on, so it feels like a bit of
+
+00:59:56.000 --> 00:59:59.000
+Taking stock
+
+00:59:59.000 --> 01:00:06.000
+is needed, as you suggested last week, but
+
+01:00:06.000 --> 01:00:17.000
+Any questions from the floor, if you wanted to raise your hands
+
+01:00:17.000 --> 01:00:20.000
+I'm not seeing any at the moment
+
+01:00:20.000 --> 01:00:21.000
+Oh, Adam, you jump in.
+
+01:00:21.000 --> 01:00:26.000
+Annie, go ahead, Mitch.
+
+01:00:26.000 --> 01:00:27.000
+Adam, you can go first.
+
+01:00:27.000 --> 01:00:41.000
+Okay, thanks. I was just wondering, so yeah, I mean, I had the good fortune to meet Alberto for the first time at a conference in Geneva, but I'm just curious, like, how do we
+
+01:00:41.000 --> 01:00:53.000
+How do we get in touch with, with you? Where do you guys hang out? So I'm on Discord with the Decentralized Trust Graph Working Group, but is there another place that you guys
+
+01:00:53.000 --> 01:00:59.000
+chat about this, and where we can stay up to date.
+
+01:00:59.000 --> 01:01:13.000
+Most of us are on signal, so signal we use, but as that grows, we probably need to shift to Discord actually. Signal gets a bit painful.
+
+01:01:13.000 --> 01:01:22.000
+So is that something that we should try and facilitate and support in terms of perhaps
+
+01:01:22.000 --> 01:01:28.000
+The open VTC group, for example, going into
+
+01:01:28.000 --> 01:01:35.000
+Discord, or do you want to do that independently and not tie it into
+
+01:01:35.000 --> 01:01:42.000
+Have a think about it anyhow, and every… anything we can do to support that, just let us know, Glenn, okay?
+
+01:01:42.000 --> 01:01:45.000
+Yeah, yeah, I'll take it offline. Thanks, Nikki.
+
+01:01:45.000 --> 01:01:51.000
+And, meanwhile, Adam, if you
+
+01:01:51.000 --> 01:01:59.000
+DM your details to me, then I'll add you to OpenVTC on on Signal
+
+01:01:59.000 --> 01:02:07.000
+And I think there's a VTI cross-collaboration group on Signal as well
+
+01:02:07.000 --> 01:02:09.000
+Is that right?
+
+01:02:09.000 --> 01:02:11.000
+Yeah.
+
+01:02:11.000 --> 01:02:19.000
+So, yeah, thinking about the asynchronous comms and, you know, going where people are
+
+01:02:19.000 --> 01:02:28.000
+Sometimes not everyone's on signal, so on Discord. So apologies for that
+
+01:02:28.000 --> 01:02:29.000
+Yeah.
+
+01:02:29.000 --> 01:02:30.000
+Any final thoughts from anyone before we close the call?
+
+01:02:30.000 --> 01:02:45.000
+I had just a few comments. Can you hear me okay? I'm on a bit of a different… Okay, cool. So I set up Major City, which is an open VTC, and I tried doing it along the whole journey using sort of Agentic help
+
+01:02:45.000 --> 01:02:57.000
+And recorded a whole bunch of the sort of different forks in the road that I had to go through. One, just like a few comments on that journey
+
+01:02:57.000 --> 01:03:12.000
+Setting up the personal network manager, like, the AIs, they really like that. They seem to get it fairly quickly. But I think that there are… it's almost to be the person to set up
+
+01:03:12.000 --> 01:03:14.000
+the community
+
+01:03:14.000 --> 01:03:29.000
+I think we need some sort of guided experience or tour, because it was quite a lot of steps, and a little bit of iterations along the way, and these sorts of things, copying, pasting between
+
+01:03:29.000 --> 01:03:45.000
+The sort of Linux box that I decided to host it on, the PNM and then the agent responses who was walking me through it. So I think that might actually be that sort of user experience next step that we should
+
+01:03:45.000 --> 01:03:51.000
+start thinking about is sort of these guided community setup
+
+01:03:51.000 --> 01:04:06.000
+things, that we can then record a bunch of the agent runtimes along the way, and then try and compress it. Because it, yeah, it did… it… I wouldn't, like, just
+
+01:04:06.000 --> 01:04:21.000
+Casual community person who wants to start using this system, I think it would be expecting too much for them to be running multiple terminals and that sort of thing. So yeah, happy to help with that journey
+
+01:04:21.000 --> 01:04:39.000
+I recorded it in a way that it's all kind of, like, in a git as chronicles, so I can reference that when we go on that part of the journey. The other question that I have around it is my Linux box that I hosted on, it kind of needs to be on all the time
+
+01:04:39.000 --> 01:04:55.000
+It's more of like a general question. We can have multiple of these almost like community leaders that can become callback servers for hosting the VTEI or the VTC specifically for that
+
+01:04:55.000 --> 01:05:00.000
+Yeah, that's kind of where I'm at with it is
+
+01:05:00.000 --> 01:05:02.000
+I
+
+01:05:02.000 --> 01:05:19.000
+Wanna have ultimate control on my own computer with the VTC, but being able to delegate like hosting the VTC.majors.city to someone or to a server. So then it can always appear
+
+01:05:19.000 --> 01:05:28.000
+I think would be beneficial because, yeah, while I'm okay with having my machine on all the time.
+
+01:05:28.000 --> 01:05:34.000
+I decided not setting it up with the server, and I think that may have been a
+
+01:05:34.000 --> 01:05:37.000
+I don't know, there's choices and trade-offs there.
+
+01:05:37.000 --> 01:05:38.000
+It's just my general feedback.
+
+01:05:38.000 --> 01:05:39.000
+Yeah, I think
+
+01:05:39.000 --> 01:05:45.000
+Thanks, Mitch. Your VTC is still very raw. But if you look at
+
+01:05:45.000 --> 01:06:00.000
+How Jeff has simplified the VTA deployment and the QR codes and Brendan and Alberto, you know, have the onboarding flow where
+
+01:06:00.000 --> 01:06:01.000
+Okay.
+
+01:06:01.000 --> 01:06:08.000
+Keyring is a P&M in itself now, and so that's a good example of just the maturity of how the UX changes. VTC needs to now go through that same process. In terms of
+
+01:06:08.000 --> 01:06:12.000
+Hosting, you're right, a VTA and a VTC
+
+01:06:12.000 --> 01:06:27.000
+should, they don't need to, but they should be running 24 hours a day, 7 days a week. If they're not running, by the way, if they're not running, what happens is the messaging system will just queue messages, and when the VTC or VTA comes back online
+
+01:06:27.000 --> 01:06:42.000
+It will replay the messages and kind of catch back up. So don't think of it as you lose things if you're offline. It'll just be that things will occur and then kind of stop and wait until it can respond or it expires. So there are a number of hosting
+
+01:06:42.000 --> 01:07:02.000
+Capabilities coming, Mitch, so I suspect the VTA farm, it's already got some VTC hosting in it. And then here at Affinity, we'll be offering TEE, so trusted execution environment confidential compute hosting of the VTAs and VTCs. But just to give you all
+
+01:07:02.000 --> 01:07:26.000
+Just for transparency, infrastructure cost for confidential compute done the right way. It's about $200 a month. So probably okay for a VTC for a community at that price point, but probably not okay for every human, every consumer to be paying that type of money per month each
+
+01:07:26.000 --> 01:07:28.000
+Yeah, that's great.
+
+01:07:28.000 --> 01:07:30.000
+And
+
+01:07:30.000 --> 01:07:35.000
+That kind of follows what I was anticipating. I guess, like the
+
+01:07:35.000 --> 01:07:40.000
+UX of the VTA dot subdomain
+
+01:07:40.000 --> 01:07:54.000
+that going down and showing, like, a Cloudflare tunnel is the only sort of thing that maybe we could have like a
+
+01:07:54.000 --> 01:07:55.000
+Yes, yep
+
+01:07:55.000 --> 01:08:02.000
+A domain hosting reroute for when the VTC is offline to something like that instead. But yeah, it makes a lot of sense and I
+
+01:08:02.000 --> 01:08:15.000
+I get it how it works with the teas as well. I think that will be an important path for us to take and probably, in my opinion, where you start being able to commercialize these sorts of
+
+01:08:15.000 --> 01:08:18.000
+infrastructure service provider side of things.
+
+01:08:18.000 --> 01:08:36.000
+Yeah, I think the highlight last week was one of the attendees getting excited and installing it on a Raspberry Pi and then walking around showing everyone their VTA on the Raspberry Pi. So anything is possible. Again, the design is not restrictive to any hardware platform. So
+
+01:08:36.000 --> 01:08:43.000
+You can run it on a phone, you can run it on a server, you can run it on embedded hardware, you know
+
+01:08:43.000 --> 01:09:02.000
+While we focus a lot on the big VTC running on the internet, there is nothing stopping you, for example, in a disaster response situation, standing up a local VTC on a local private network, not connected to the internet, it will still work.
+
+01:09:02.000 --> 01:09:05.000
+That's, you know, really powerful
+
+01:09:05.000 --> 01:09:06.000
+Yeah.
+
+01:09:06.000 --> 01:09:12.000
+Cool. Thanks, Nikki.
+
+01:09:12.000 --> 01:09:16.000
+Thank you all very much. I know we're a few minutes over
+
+01:09:16.000 --> 01:09:23.000
+And task force leaders, watch out, because I'm going to be hounding you to prepare for
+
+01:09:23.000 --> 01:09:26.000
+next week's working group call
+
+01:09:26.000 --> 01:09:40.000
+We need to, you know, give time to the task forces to kind of take a state of the nation view of where we're up to and please all of you think about
+
+01:09:40.000 --> 01:09:45.000
+the sort of things that we should be working on next with regards to this
+
+01:09:45.000 --> 01:09:50.000
+kind of core stack and the specifications that sit behind it.
+
+01:09:50.000 --> 01:09:57.000
+So thank you guys, take care and see you next week.
+
+01:09:57.000 --> 01:10:27.000
+Bye everyone.
+

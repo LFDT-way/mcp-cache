@@ -1,0 +1,1727 @@
+WEBVTT
+
+00:15:56.000 --> 00:16:05.000
+And that also saved dramatically in terms of, uh, you know, the actual buying division.
+
+00:16:05.000 --> 00:16:08.000
+And if you have multiple hops in it,
+
+00:16:08.000 --> 00:16:14.000
+that savings is dramatic, so those are easy to, uh, for anybody to see.
+
+00:16:14.000 --> 00:16:16.000
+those great reasons, I think.
+
+00:16:16.000 --> 00:16:21.000
+Uh, so I'm getting, uh, serious people starting to
+
+00:16:21.000 --> 00:16:25.000
+Um, notice and start into doing implementations.
+
+00:16:25.000 --> 00:16:35.000
+Um, and, you know, I've been doing that for 2 years now, so there's a lot of applications being built on top of it, too.
+
+00:16:35.000 --> 00:16:42.000
+Yeah. It's a good ship.
+
+00:16:42.000 --> 00:16:53.000
+Um… so, Sam, I can dive into the first issue on the, uh, just, you know, I can explain what is in the…
+
+00:16:53.000 --> 00:16:55.000
+current document…
+
+00:16:55.000 --> 00:16:59.000
+Um, like…
+
+00:16:59.000 --> 00:17:00.000
+Exactly. Yeah.
+
+00:17:00.000 --> 00:17:01.000
+You're talking about the HPKE source. Okay, yeah, let's do that.
+
+00:17:01.000 --> 00:17:05.000
+Yeah, yeah, I will explain what is in current document,
+
+00:17:05.000 --> 00:17:10.000
+and then I think we can… I just want to make sure we don't, um…
+
+00:17:10.000 --> 00:17:13.000
+miss anything. Basically, we…
+
+00:17:13.000 --> 00:17:17.000
+initially was doing this thing on a…
+
+00:17:17.000 --> 00:17:21.000
+Um, I've seen… informational IFC,
+
+00:17:21.000 --> 00:17:23.000
+Uh, so the ITF Working Group…
+
+00:17:23.000 --> 00:17:29.000
+Since then took the base mode, only the base mode,
+
+00:17:29.000 --> 00:17:34.000
+And they've got rid of all the rest, and then they put into standard track.
+
+00:17:34.000 --> 00:17:36.000
+So that's the one we are…
+
+00:17:36.000 --> 00:17:42.000
+currently using. We don't use the informational IFC anymore, it's the stand truck.
+
+00:17:42.000 --> 00:17:45.000
+I think they're currently at version 5.
+
+00:17:45.000 --> 00:17:49.000
+I… from what I can tell, it's almost…
+
+00:17:49.000 --> 00:17:54.000
+Though I'm not saying they're getting very close to be, uh, to submit for a
+
+00:17:54.000 --> 00:17:57.000
+to become proposed standards.
+
+00:17:57.000 --> 00:18:03.000
+Um, so it's only the base mode, um, and uh, I have a…
+
+00:18:03.000 --> 00:18:09.000
+Well, I read that after we talked last time, I read the current version of the spec.
+
+00:18:09.000 --> 00:18:16.000
+And so they have different, they have different attributes that you can put
+
+00:18:16.000 --> 00:18:20.000
+in a chem to transport along with it.
+
+00:18:20.000 --> 00:18:26.000
+So while they still call it base mode, it actually is…
+
+00:18:26.000 --> 00:18:31.000
+They sort of took some of the other modes and…
+
+00:18:31.000 --> 00:18:44.000
+put some of that stuff in there so that you're not simply…
+
+00:18:44.000 --> 00:18:45.000
+Yeah, yeah. Yeah, we'll go through…
+
+00:18:45.000 --> 00:18:47.000
+You can encrypt other things besides the body. And, you know, I can't remember the column public app. They had public attributes. Yeah.
+
+00:18:47.000 --> 00:18:48.000
+All of those things.
+
+00:18:48.000 --> 00:18:50.000
+I'll go through that with you. Yeah, I'll go through with you.
+
+00:18:50.000 --> 00:18:51.000
+Yeah,
+
+00:18:51.000 --> 00:18:57.000
+And those are largely not providing any additional security
+
+00:18:57.000 --> 00:19:05.000
+that we get by following the ESSR with ECEIS, right?
+
+00:19:05.000 --> 00:19:10.000
+which is the lowest common denominator. They just doing it in a different way.
+
+00:19:10.000 --> 00:19:12.000
+Hence.
+
+00:19:12.000 --> 00:19:13.000
+Yeah.
+
+00:19:13.000 --> 00:19:17.000
+Yeah, I'll go through with this. If you look at the initial IFC
+
+00:19:17.000 --> 00:19:23.000
+The base mode has always, uh, with those things in it. So there's two
+
+00:19:23.000 --> 00:19:24.000
+Yeah.
+
+00:19:24.000 --> 00:19:31.000
+Two things you can… you can set. One is called info, they call it info, the other one is called AAD, associate…
+
+00:19:31.000 --> 00:19:32.000
+Something bigger. AAD, right? Yeah.
+
+00:19:32.000 --> 00:19:35.000
+Yeah, oh, that's what it is, yeah, the associated data. Yeah.
+
+00:19:35.000 --> 00:19:41.000
+Um, so I have a TSP message here.
+
+00:19:41.000 --> 00:19:48.000
+one in, um…
+
+00:19:48.000 --> 00:19:54.000
+So, uh… so this is the one…
+
+00:19:54.000 --> 00:19:58.000
+Back down here…
+
+00:19:58.000 --> 00:20:07.000
+Uh, be it bass, 1 and 2. Okay, so I have the first message here, I'm putting it out with a sealed box, and this is the whole thing here.
+
+00:20:07.000 --> 00:20:13.000
+And this purple highlighted one is the ciphertext right there.
+
+00:20:13.000 --> 00:20:14.000
+Okay.
+
+00:20:14.000 --> 00:20:15.000
+And it's a 125 bias.
+
+00:20:15.000 --> 00:20:19.000
+So, this one, you see a box. Okay.
+
+00:20:19.000 --> 00:20:24.000
+And, uh, so it's 125 bytes, and this is the whole thing here.
+
+00:20:24.000 --> 00:20:35.000
+And then if I decrypt it, it's basically…
+
+00:20:35.000 --> 00:20:36.000
+Yep.
+
+00:20:36.000 --> 00:20:39.000
+This is the sender ID set here. Uh, so the message itself is just Hello World, very short,
+
+00:20:39.000 --> 00:20:46.000
+And this is the sender ID, and that's how it looked like, and so this is, uh, now…
+
+00:20:46.000 --> 00:20:51.000
+Um, and you can see this portion, uh, the…
+
+00:20:51.000 --> 00:20:57.000
+or decide, oh, this portion is a 120… 116 characters here.
+
+00:20:57.000 --> 00:21:02.000
+And the sophet is the one certified bytes, so roughly, yeah, like that.
+
+00:21:02.000 --> 00:21:08.000
+The HPKE, uh, I don't believe they changed it. It's always the basement always has
+
+00:21:08.000 --> 00:21:09.000
+in it.
+
+00:21:09.000 --> 00:21:11.000
+Okay, then that's my misunderstanding.
+
+00:21:11.000 --> 00:21:16.000
+Yeah, they never changed it, uh, but it's always been there, it's just…
+
+00:21:16.000 --> 00:21:20.000
+they… because it confused that they have an auth mode.
+
+00:21:20.000 --> 00:21:21.000
+Yeah.
+
+00:21:21.000 --> 00:21:25.000
+Which is a very different and more complex, and we never use it. Okay.
+
+00:21:25.000 --> 00:21:34.000
+So, uh, so, uh, in comparison, uh, the same message, you know, I'm using HPKE, the base mode,
+
+00:21:34.000 --> 00:21:36.000
+You know, the standard track.
+
+00:21:36.000 --> 00:21:39.000
+Um, uh, version of it.
+
+00:21:39.000 --> 00:21:43.000
+And, uh, essentially what they do is deciphertext
+
+00:21:43.000 --> 00:21:48.000
+is the stakes, or the, uh…
+
+00:21:48.000 --> 00:21:51.000
+Um, yeah, the representation for the keys?
+
+00:21:51.000 --> 00:21:59.000
+And then, uh, followed by, essentially, software tests, uh, so the clear text, or the software text,
+
+00:21:59.000 --> 00:22:04.000
+And they call it the TAC, which is a 128 bits.
+
+00:22:04.000 --> 00:22:10.000
+This is basically all the sender information will go into this tag.
+
+00:22:10.000 --> 00:22:15.000
+hashed into this tag. And they just concat the three things together,
+
+00:22:15.000 --> 00:22:21.000
+So, you could've said, you know, some like 16 bytes in the very…
+
+00:22:21.000 --> 00:22:27.000
+end of it is essentially… it's not the senderVID VID itself, but it's…
+
+00:22:27.000 --> 00:22:31.000
+bonded with it is a hash value of it.
+
+00:22:31.000 --> 00:22:35.000
+And it's a fixed 16-byte, 128 bits…
+
+00:22:35.000 --> 00:22:47.000
+Um, information, and uh… unfortunately, you cannot take it out of it, so if you use HTKE, this comes with it.
+
+00:22:47.000 --> 00:22:55.000
+Yeah, but the problem is, is that if you're going to be cryptographically agile and use different.
+
+00:22:55.000 --> 00:22:56.000
+Um…
+
+00:22:56.000 --> 00:22:58.000
+Uh…
+
+00:22:58.000 --> 00:23:01.000
+sender identifiers.
+
+00:23:01.000 --> 00:23:07.000
+Because you've changed your, um…
+
+00:23:07.000 --> 00:23:15.000
+Your mechanism, you run into hard limits with that. It's not, it's no longer.
+
+00:23:15.000 --> 00:23:18.000
+It's no longer flexible. Now…
+
+00:23:18.000 --> 00:23:22.000
+You know, in Kerry, for example, right now, we're using.
+
+00:23:22.000 --> 00:23:30.000
+you know, 32-byte hashes of the inception event to generate those, but there's nothing in the carry protocol.
+
+00:23:30.000 --> 00:23:35.000
+that says you couldn't use a different hash,
+
+00:23:35.000 --> 00:23:38.000
+It was longer than that.
+
+00:23:38.000 --> 00:23:47.000
+or a different hash algorithm to generate those, or there are also subsets where you could use.
+
+00:23:47.000 --> 00:23:49.000
+You know, uh…
+
+00:23:49.000 --> 00:23:54.000
+uh, use, uh, just the public key if for
+
+00:23:54.000 --> 00:24:01.000
+It has less security, but you can still use it or for ephemeral.
+
+00:24:01.000 --> 00:24:07.000
+identifiers, such as a witness, they don't have… they don't have a Cal.
+
+00:24:07.000 --> 00:24:14.000
+use the public key because they're, um, because
+
+00:24:14.000 --> 00:24:19.000
+Hmm.
+
+00:24:19.000 --> 00:24:20.000
+Bye.
+
+00:24:20.000 --> 00:24:26.000
+So he managed is managed by the controller. So all of those allow you to be fully cryptographically agile with the center field, the sender field. It isn't arbitrarily constrained by your encryption algorithm.
+
+00:24:26.000 --> 00:24:27.000
+Right.
+
+00:24:27.000 --> 00:24:29.000
+So my concern isn't that…
+
+00:24:29.000 --> 00:24:35.000
+that ADH, I mean, sorry, the HPKE base mode.
+
+00:24:35.000 --> 00:24:36.000
+can't be used.
+
+00:24:36.000 --> 00:24:48.000
+used by stuffing the sender in that AHD field, in many cases, but it doesn't generalize.
+
+00:24:48.000 --> 00:24:52.000
+And it doesn't provide any advantage.
+
+00:24:52.000 --> 00:24:57.000
+over putting it in the main field other than.
+
+00:24:57.000 --> 00:25:09.000
+Maybe some savings of space, you know, and that's and if they and if that field, I thought that field was optional. I thought that you didn't have to populate that AHD field.
+
+00:25:09.000 --> 00:25:10.000
+That was the…
+
+00:25:10.000 --> 00:25:11.000
+The…
+
+00:25:11.000 --> 00:25:12.000
+I thought…
+
+00:25:12.000 --> 00:25:13.000
+Yeah, the…
+
+00:25:13.000 --> 00:25:15.000
+That's not optional. I thought it was optional.
+
+00:25:15.000 --> 00:25:22.000
+That's not optional, and if you have nothing go into it, I think that 16 bytes are still there.
+
+00:25:22.000 --> 00:25:23.000
+So the cost is not safe.
+
+00:25:23.000 --> 00:25:37.000
+Okay, but it's all… yeah, so 16 bytes isn't overwhelming amount, but the problem is, is that it's only… is, you know, is that it… it isn't… it's a fixed size, so it… so you…
+
+00:25:37.000 --> 00:25:54.000
+Well, actually, if it's only 16 bytes, then you can't encode a 32-byte sender ID in there and have it be fully have full cryptographic strength. So it fails from a security perspective unless it's variable length and you can be longer than 16 bytes.
+
+00:25:54.000 --> 00:25:55.000
+Uh, the…
+
+00:25:55.000 --> 00:26:01.000
+That's where I'm confused. I thought, I thought the length of that was variable depending on what you wanted to put there.
+
+00:26:01.000 --> 00:26:08.000
+the… so the numbers we… well, the algorithm we, uh, or they specified and we're currently using,
+
+00:26:08.000 --> 00:26:12.000
+Or, uh, 16 byte. I'm sure the, uh…
+
+00:26:12.000 --> 00:26:21.000
+Yeah, but you have an identifier that's 32 bytes. So you can't compress the identifier and retain full cryptographic strength.
+
+00:26:21.000 --> 00:26:22.000
+So… so…
+
+00:26:22.000 --> 00:26:25.000
+It's a hasher value, as a bond to it, not the value itself.
+
+00:26:25.000 --> 00:26:26.000
+Yes.
+
+00:26:26.000 --> 00:26:39.000
+Right, but, but if you don't transport the full value, then, then, then it, then it's not, um, full cryptographic strength so, so it's weaker and so it, so you should, we shouldn't use it.
+
+00:26:39.000 --> 00:26:46.000
+For that reason, it's very common in cryptographic algorithms to use.
+
+00:26:46.000 --> 00:26:49.000
+Small hashes.
+
+00:26:49.000 --> 00:27:01.000
+As indices.
+
+00:27:01.000 --> 00:27:02.000
+Yeah, they… the formula…
+
+00:27:02.000 --> 00:27:07.000
+have less entropy. So, you know, so 32 bytes is, you know, 256 bits of entropy. It's a large amount of entropy, right? And you can say, well, I only need 128, so I'll go with 16,
+
+00:27:07.000 --> 00:27:11.000
+Right? And you say, well, that's good enough, except that the problem is, is that.
+
+00:27:11.000 --> 00:27:18.000
+If you want to truly establish non-repudiability in all circumstances.
+
+00:27:18.000 --> 00:27:26.000
+Um, compressing a 32-byte number to a 16-byte number.
+
+00:27:26.000 --> 00:27:41.000
+It is equivalent to a groves algorithm attack on your hash because now you've taken the square root of the cryptographic entropy. And so you've.
+
+00:27:41.000 --> 00:27:56.000
+exposed yourself to potential attacks, so you can't say, because a 32-byte hash does not have 128 bits of cryptographic strength. It only has 16 128 bytes of bits of strength.
+
+00:27:56.000 --> 00:28:00.000
+Can I… yeah, can I finish…
+
+00:28:00.000 --> 00:28:01.000
+Can I…?
+
+00:28:01.000 --> 00:28:10.000
+256 bits of cryptography. It only has half that because of Groh's algorithm. So what happens is that you compress it again, and now Grove's algorithm reduces it down to 32 bits, and now you have a weak system. So, so it's okay for.
+
+00:28:10.000 --> 00:28:27.000
+It's okay for solving problems of authenticated encryption with a Diffie Hamlet key exchange, but not for signing, not when you're signing and using that as your signed identifier to make sure that they didn't lie about it.
+
+00:28:27.000 --> 00:28:33.000
+I'm a little bit concerned about it.
+
+00:28:33.000 --> 00:28:34.000
+Okay.
+
+00:28:34.000 --> 00:28:37.000
+Yeah, yeah, so let me… let me finish the, uh, the… the difference, then if we can get to the issues.
+
+00:28:37.000 --> 00:28:42.000
+Uh, um, uh, the examples I have here are 16 bytes,
+
+00:28:42.000 --> 00:28:53.000
+But, uh, it's, of course, it's tied to which algorithm you choose, and these protocols are designed to allow multiple algorithms. We have PQ algorithms, clearly it's going to be longer.
+
+00:28:53.000 --> 00:29:07.000
+But that's okay, so we'll come back to the lens issue later, right? But I want to just highlight is that it's basically that information or that bonding sits as a tag in the end of the suffix test,
+
+00:29:07.000 --> 00:29:08.000
+Yep.
+
+00:29:08.000 --> 00:29:12.000
+And then, if you look at it again, the current spec there says,
+
+00:29:12.000 --> 00:29:15.000
+Uh, the senderVID VID…
+
+00:29:15.000 --> 00:29:23.000
+can either be 4BAs, essentially a null value, or you can have the whole lens. So the test says,
+
+00:29:23.000 --> 00:29:28.000
+is now optional, because you have some version of that already in the…
+
+00:29:28.000 --> 00:29:33.000
+Um, in the encryption algorithm itself.
+
+00:29:33.000 --> 00:29:36.000
+And if you don't like that…
+
+00:29:36.000 --> 00:29:44.000
+It's a fix the cost, we're not saving anything. You could put this VID here as well, but we made it optional, it's not mandating it.
+
+00:29:44.000 --> 00:29:46.000
+And so that's what the Korean voice…
+
+00:29:46.000 --> 00:29:55.000
+Well, yeah, but you made it optional so that you could use HPKE and not pay the cost of having it in two places.
+
+00:29:55.000 --> 00:29:57.000
+Exactly, exactly. That's the purpose.
+
+00:29:57.000 --> 00:30:13.000
+Yet my argument is that it should never be optional, and you should never rely on any encryption algorithm for transmitting your sender source ID, which the point of that
+
+00:30:13.000 --> 00:30:30.000
+sender source ID is to protect you from an impersonation attack where the attacker strips the signature from the outside, not inside the encryption, the signature because you're doing encryption, then sign.
+
+00:30:30.000 --> 00:30:49.000
+They stripped the signature, and then they purport by signing with a different key that they've signed it with something that they're the source of it. And if they have any information about what the source is, then, then you can't tell that somebody didn't sign it.
+
+00:30:49.000 --> 00:31:05.000
+Now, it's a really difficult attack if you have a long enough hash of your key there. So I agree that it's a difficult attack, but the problem is, is that you now have changed the layering of your stack. Instead of saying,
+
+00:31:05.000 --> 00:31:24.000
+I take something, I put it in a payload, I encrypt it, I take off the encryption, I now have plain text. I then evaluate the plain text against my signature because the signature to make sure that the signature that it
+
+00:31:24.000 --> 00:31:39.000
+on the body was when I evaluated the signature that it did indeed use the source text that was embedded in there. That's a different layering than saying, well, I'm going to put a stub in there.
+
+00:31:39.000 --> 00:31:56.000
+I'm not going to put the source text, but the only time I put the stub in there is when I'm using this particular encryption algorithm. So what happens when I don't use that encryption algorithm, I put the stub in, now the code, the tooling that I have to use.
+
+00:31:56.000 --> 00:32:13.000
+now has a different flow to it. And so it seems like it's complicating the use case merely to try to take advantage of something that doesn't provide any net increase in security. And I guess
+
+00:32:13.000 --> 00:32:25.000
+you're saving 12 bytes because the HPKE made that additional field mandatory in base mode, which is unfortunate.
+
+00:32:25.000 --> 00:32:33.000
+So it feels like a lot of extra effort to try to support something that we don't need.
+
+00:32:33.000 --> 00:32:45.000
+That's my main concern is it doesn't it doesn't… we have to support it with… we have to support it in… we have to support.
+
+00:32:45.000 --> 00:32:52.000
+You know, sealed box because, because that's what, what's available in the wild that is FIPS approved.
+
+00:32:52.000 --> 00:33:08.000
+And there are some new stuff coming down the road that is not yet mature. None of this HPK stuff is mature. None of its FIPS approves none of it's on the schedule. It's all theoretical exploratory stuff. It'll get there someday, I'm pretty sure.
+
+00:33:08.000 --> 00:33:25.000
+But day one, it's seal box. And then, and we never need to do anything different when these new ones come down the road because we don't depend on any features other than that they do.
+
+00:33:25.000 --> 00:33:35.000
+They do the encryption with the standard stuff, this extra stuff they carry along is just extra stuff they carry along that we don't ever have to depend on.
+
+00:33:35.000 --> 00:33:43.000
+And I'm worried that by baking in that dependency of HPKE, which is still experimental.
+
+00:33:43.000 --> 00:34:00.000
+We've corrupted our protocol that TSP is not clean. It's not a clean protocol anymore. It's been corrupted with experimental stuff for experimental things that even if they were not experimental, we wouldn't need those features.
+
+00:34:00.000 --> 00:34:04.000
+That's my main concern.
+
+00:34:04.000 --> 00:34:05.000
+Okay, what…
+
+00:34:05.000 --> 00:34:16.000
+It seems like that's… it seems like, to me, that's something you would do in a version 2 once that stuff becomes hardened. Then in version 1, you just use seal box.
+
+00:34:16.000 --> 00:34:34.000
+And the simplest version of HPKE, but with warning flags around it, say, well, if you're going to do this, understand that it's subject to change and it may change yet again, right? Because it's not final yet. So they might change that 16 bytes to something else.
+
+00:34:34.000 --> 00:34:35.000
+Hmm.
+
+00:34:35.000 --> 00:34:42.000
+All of that could change and we baked, we baked stuff that isn't a standard yet into our protocol.
+
+00:34:42.000 --> 00:34:50.000
+You've essentially baked in experimental features of an RFC that isn't final yet, that is still in development.
+
+00:34:50.000 --> 00:35:09.000
+And I think that's wrong. I think we shouldn't… we shouldn't be taking that kind of a risk with the protocol. That should be, at best, something that we do in the next version of the TSP, and we shouldn't make that field optional until we really have valid use case. We could just keep the protocol simple.
+
+00:35:09.000 --> 00:35:10.000
+That…
+
+00:35:10.000 --> 00:35:21.000
+Yeah, the problem with the seal boxes is I don't know where that's going. It's not in any kind of a track for standardization, so…
+
+00:35:21.000 --> 00:35:29.000
+Um, it seems that, in the end, the two probably will merge eventually, but at the moment, it's two separate ones.
+
+00:35:29.000 --> 00:35:36.000
+Well, but sealbox is extremely mature. It's been in the wild for years. It's never been broken.
+
+00:35:36.000 --> 00:35:44.000
+Uh, so, so, so yes, you could say we don't know what where it's going, but…
+
+00:35:44.000 --> 00:35:49.000
+But at the very least, the base mode without the extra stuff,
+
+00:35:49.000 --> 00:35:54.000
+With HPKE is compatible with sealedbox.
+
+00:35:54.000 --> 00:36:05.000
+In the sense that it just does the Diffie-Hellman key exchange with an ephemeral key on the sender side.
+
+00:36:05.000 --> 00:36:13.000
+the fundamental property of HPKE that matters. This other stuff is an attempt to.
+
+00:36:13.000 --> 00:36:29.000
+you know, to basically say, well, we can do some extra trickery with our encryption to try to get a weak form of authentication, right? Because understand, HPK doesn't sign. It says, well, if you want to protect
+
+00:36:29.000 --> 00:36:39.000
+from key compromise impersonation attack, you can't do it with just HPKE. You're gonna have to sign the packet, and you're gonna have to figure out how to send.
+
+00:36:39.000 --> 00:36:53.000
+And the sender's identifier and manage the keys of the signer. So that's all on top of whatever HPK provides. So HPKE isn't by itself solving the problem.
+
+00:36:53.000 --> 00:36:57.000
+So TSP solves it by using ESSR.
+
+00:36:57.000 --> 00:37:02.000
+And, and, and so I'm just worried that, that, um,
+
+00:37:02.000 --> 00:37:18.000
+that we're gonna go to… go to ink with a version 1 of the protocol that is less mature and less stable than sealedbox. And yes, sealedbox isn't FIPS standard, but it is, by all
+
+00:37:18.000 --> 00:37:19.000
+Other metrics…
+
+00:37:19.000 --> 00:37:21.000
+Hmm.
+
+00:37:21.000 --> 00:37:34.000
+Secure, stable, and available everywhere, right? It's available everywhere. It's in lib sodium. It's been around for since 2011. So, you know,
+
+00:37:34.000 --> 00:37:49.000
+You know, and it's never been broken. And there are lots of papers that talk about ECIES and sealbox and that it works. So given that there isn't anything that we could use right now, right?
+
+00:37:49.000 --> 00:37:56.000
+If the standard is it has to be FIPS approved, there is no mechanism besides sealed box that is even close.
+
+00:37:56.000 --> 00:38:08.000
+There's no other alternative. And HPKE is less mature, less stable, and much more at risk than sealed box.
+
+00:38:08.000 --> 00:38:09.000
+And I agree.
+
+00:38:09.000 --> 00:38:12.000
+Okay, but we do want to keep both options.
+
+00:38:12.000 --> 00:38:13.000
+Um, okay.
+
+00:38:13.000 --> 00:38:21.000
+Well, no, I'm not saying we don't. I'm okay with it. I'm just saying that the more experimental features of HBKE we don't need.
+
+00:38:21.000 --> 00:38:30.000
+Because the core thing that is the same between the two is that you do an ephemeral Diffie-Hellman key exchange.
+
+00:38:30.000 --> 00:38:33.000
+To exchange the encryption key.
+
+00:38:33.000 --> 00:38:40.000
+And that's all we need. That's the only, that's the only thing we need from HPKE to be able to, for the protocol to work.
+
+00:38:40.000 --> 00:38:48.000
+And that is the lowest common denominator that is the same with ECIES and sealbox.
+
+00:38:48.000 --> 00:39:09.000
+And these other things where they're attaching these AHHD and these extra chem things and these other modes that they already threw away. Remember, they had four modes in the original draft, and now they simplified down to one, and they're still working on it, right? So that just feels wrong to me that we would be.
+
+00:39:09.000 --> 00:39:24.000
+trying to bake that into our protocol when it's not… when it's still not baked in their protocol. But we know that they're not going to throw away the… we know that they are not going to change the core idea, which is addiction.
+
+00:39:24.000 --> 00:39:32.000
+helmet Key Exchange where the sender side uses an ephemeral key, which they throw away. So there is no.
+
+00:39:32.000 --> 00:39:40.000
+vulnerability on the sender side of leaking the sender side key.
+
+00:39:40.000 --> 00:39:53.000
+And the receiver side publishes their key. And that is the basic idea of ECIS, which has been around for 20 years now.
+
+00:39:53.000 --> 00:40:08.000
+And so I'm comfortable with saying, let's just standardize on those and let's let the other stuff filter out. But by putting in extra bytes to say the sender key is optional, that becomes now a malleability attack for us.
+
+00:40:08.000 --> 00:40:19.000
+Because somebody's tooling might say, well, wait a minute, I put these optional things in, but I decided to use sealed box instead of ADH, I mean, um…
+
+00:40:19.000 --> 00:40:20.000
+Hmm.
+
+00:40:20.000 --> 00:40:36.000
+HPKE. Well, that would be broken. That's a break. And, you know, the last time I spent quite a bit of time configuring VPNs and OpenVPN has every combination of every key type and algorithm.
+
+00:40:36.000 --> 00:40:51.000
+At every stage of the VPN. And so when you're configuring that VPN and you're allowed to mix and match key types and algorithms for all the different parts, it's almost impossible for somebody to get the security right.
+
+00:40:51.000 --> 00:41:03.000
+Because it's like, well, which set do I use together? And so we now have a set where it's perfectly allowable for you to have an empty sender key in ESSR.
+
+00:41:03.000 --> 00:41:16.000
+As long as you're using HPKE and you remember to do that. So now you have to do a layer violation to enforce that, because you can't generate the body and then pass it off to the encryption algorithm.
+
+00:41:16.000 --> 00:41:19.000
+Yeah, but that cold pass is all…
+
+00:41:19.000 --> 00:41:27.000
+enclosed within TSP, because TSP presents one single
+
+00:41:27.000 --> 00:41:28.000
+Yeah.
+
+00:41:28.000 --> 00:41:42.000
+I'm talking about, I'm, yes, it is, but, but, but that, but implementations of TSP have a layer violation. And so that, and so now when you go to cryptographic agility and you say, well, we want to have different bids come down, and it's like, oh, well,
+
+00:41:42.000 --> 00:41:47.000
+You know, it's just… it's just an extra complication that doesn't.
+
+00:41:47.000 --> 00:42:02.000
+The only thing it gains us is, I guess, net some bytes because they stupidly designed the ADHD to have a fixed width, even if you don't use it, which to me sounds like a code… like a protocol smell.
+
+00:42:02.000 --> 00:42:07.000
+Right? You're going to have a fixed field that if it's empty, is still there.
+
+00:42:07.000 --> 00:42:14.000
+Why would you do that?
+
+00:42:14.000 --> 00:42:29.000
+So I strongly disagree with those changes, right? I didn't realize that you had made the center field optional, which I understand now why you would do that, but it just seems like we've overcomplicated the protocol.
+
+00:42:29.000 --> 00:42:38.000
+And we can always come back and add that other stuff in once once that stabilizes and we can say, well, okay.
+
+00:42:38.000 --> 00:42:55.000
+How do we address different sizes of sender keys? Do they allow you to have it longer for these algorithms or are they hardening the length of that field to the algorithm, which then is in cryptographically agile anymore?
+
+00:42:55.000 --> 00:43:00.000
+Or are they going to make it flexible? Well, we don't know yet, because it's not finalized.
+
+00:43:00.000 --> 00:43:07.000
+guessing and that and so I just don't think that's a I don't think that's a great idea.
+
+00:43:07.000 --> 00:43:11.000
+Okay, well, uh, this… so this is also, um…
+
+00:43:11.000 --> 00:43:17.000
+I guess tied to the, uh, the PQ algorithm is also
+
+00:43:17.000 --> 00:43:23.000
+doing the same way, so we are tied to HPK on that front.
+
+00:43:23.000 --> 00:43:26.000
+And so I found that the…
+
+00:43:26.000 --> 00:43:36.000
+ups and…
+
+00:43:36.000 --> 00:43:37.000
+Right, right.
+
+00:43:37.000 --> 00:43:40.000
+No, but you don't have to use, you don't have to use those extra things. The PQ encryption algorithms can still use just the bare mode, which is I'm going to do Diffie-Hellman key exchange.
+
+00:43:40.000 --> 00:43:41.000
+Right.
+
+00:43:41.000 --> 00:43:50.000
+Yeah, so the… yeah, the, uh, I mean, so there are two reasons I can sort of articulate, and one is, of course, saving the extra, uh, VID copy.
+
+00:43:50.000 --> 00:43:53.000
+in the plain text itself.
+
+00:43:53.000 --> 00:44:00.000
+Um, uh, the second, I guess, is related to the, uh…
+
+00:44:00.000 --> 00:44:09.000
+the standard way of how HPKE used. So, if you look at HPKE use today,
+
+00:44:09.000 --> 00:44:14.000
+In TLS, for example, TLS Hello uses it.
+
+00:44:14.000 --> 00:44:19.000
+And, uh, MLS use it in ITF standards.
+
+00:44:19.000 --> 00:44:20.000
+They…
+
+00:44:20.000 --> 00:44:28.000
+Yeah, but they're using… they're not using… but they're using it for a completely different purpose. They're not the same… they're not using it for the same reason that we're using it. They're not the same.
+
+00:44:28.000 --> 00:44:35.000
+We're using it so that we can protect the signature. HPKE doesn't know that his signature exists.
+
+00:44:35.000 --> 00:44:36.000
+Mm-hmm.
+
+00:44:36.000 --> 00:44:52.000
+So, so, so, so what you're saying is, is that ACPK is using it for something else entirely, and you're trying to repurpose HPKE to solve the different problem that HPKE doesn't know about, which means
+
+00:44:52.000 --> 00:45:01.000
+Today's PKE has no obligation in their standards process to continue to support our use, because our use is a non-standard use.
+
+00:45:01.000 --> 00:45:11.000
+So you're saying that in our protocol, we're going to use HPKE in a non-standard way. It just so happens that we can get away with it unless they change it.
+
+00:45:11.000 --> 00:45:16.000
+It is for binding the sender, so… send a key…
+
+00:45:16.000 --> 00:45:22.000
+Not to us, not… well, no, no, but not for signatures.
+
+00:45:22.000 --> 00:45:25.000
+So there's two types of encryption. There's non-reputable encryption.
+
+00:45:25.000 --> 00:45:32.000
+But all the things that ESS are checking is whether this idea, you know, equal. That's just one single check, right?
+
+00:45:32.000 --> 00:45:38.000
+It's checking it to protect the signature. It's not checking it to protect the encryption.
+
+00:45:38.000 --> 00:45:39.000
+So, so, so…
+
+00:45:39.000 --> 00:45:45.000
+Yeah, but if they… if the IDs are equal, then all the rest of the logic is identical.
+
+00:45:45.000 --> 00:45:47.000
+It's whether those are two IDs…
+
+00:45:47.000 --> 00:45:58.000
+But if they're not equal, it's only 16 bytes. The idea is 32 bytes. They're using an abbreviation. So it's not identical, not by any.
+
+00:45:58.000 --> 00:46:02.000
+The ID is a variation of it. Our idea…
+
+00:46:02.000 --> 00:46:13.000
+It doesn't matter, it's not full cryptographic strength. The entropy has been reduced. It is exposing… it is exposing us to an attack.
+
+00:46:13.000 --> 00:46:18.000
+You can't take an identifier that's cryptographically generated from a hash.
+
+00:46:18.000 --> 00:46:35.000
+Where that hash only has cryptographic strength of 128 bits, if it's a 256 bits hash, because Grove's algorithm allows you to guess
+
+00:46:35.000 --> 00:46:36.000
+So, you were thinking about…
+
+00:46:36.000 --> 00:46:38.000
+to divide… to defeat the purpose of the hash, which is collision resistance, by taking the square root of the number of bits.
+
+00:46:38.000 --> 00:46:44.000
+Yeah, you're thinking about that, the, uh, the skid value within the ID
+
+00:46:44.000 --> 00:46:49.000
+the AID or other kind of ID that's getting longer.
+
+00:46:49.000 --> 00:46:53.000
+And that…
+
+00:46:53.000 --> 00:46:55.000
+Right, right.
+
+00:46:55.000 --> 00:46:56.000
+Right. You, you, you, you miss, uh…
+
+00:46:56.000 --> 00:47:05.000
+No, I'm saying that we have IDs that are 32 bytes. They're longer than 16 bytes. So you can't… you can't preserve their cryptographic strength by abbreviating them with the 16 byte tag.
+
+00:47:05.000 --> 00:47:11.000
+That is cryptographically, that's a fallacious thing to do. It's wrong. You can't do that and maintain full crypto.
+
+00:47:11.000 --> 00:47:15.000
+But you still get a 128 bits, though.
+
+00:47:15.000 --> 00:47:24.000
+No, it's not. Okay, so if you look it up, if you go read the carry spec in the cryptographic strength section of the carry spec in the appendix.
+
+00:47:24.000 --> 00:47:25.000
+Okay.
+
+00:47:25.000 --> 00:47:29.000
+Um, cryptographic strength for hashes.
+
+00:47:29.000 --> 00:47:38.000
+is that the hash needs to be twice as long as the cryptographic strength you need, because there are algorithms that allow you to take
+
+00:47:38.000 --> 00:47:56.000
+a hash and reduce its collision resistance to the square root of the number of bits, which means it's the half the number of bits. So in order to have 128 bits of cryptographic strength of Carlisian resistance of a hash, the hash
+
+00:47:56.000 --> 00:47:57.000
+Okay.
+
+00:47:57.000 --> 00:48:07.000
+Cash must be 30 256 bits. So it takes 256 bits to get 128 bits of strength. If I shorten the hash to 128 bits, then I only have 64 bits of collision resistance.
+
+00:48:07.000 --> 00:48:09.000
+Right, so I see…
+
+00:48:09.000 --> 00:48:10.000
+I see that.
+
+00:48:10.000 --> 00:48:16.000
+Because so we've now reduced our strength to less than cryptographic strength by doing that. What they're doing is
+
+00:48:16.000 --> 00:48:25.000
+Yeah, I see… I see the argument that this will constrain our choice of ID. So, if our ID landscape
+
+00:48:25.000 --> 00:48:27.000
+Even more, you know…
+
+00:48:27.000 --> 00:48:28.000
+Yeah.
+
+00:48:28.000 --> 00:48:31.000
+Well, they… but yeah, but they already are too long. They're already 32 byte.
+
+00:48:31.000 --> 00:48:33.000
+Yeah.
+
+00:48:33.000 --> 00:48:34.000
+Yeah. Yeah.
+
+00:48:34.000 --> 00:48:40.000
+Right? We're already too long. I can't… so if you do that, I can't use carry with this. So it becomes useless to me.
+
+00:48:40.000 --> 00:48:55.000
+I honestly just say, well, okay, I can't do that. I can't do it that way. I have to use it in a different mode because it's already, it violates Carrie's principle of every cryptographic operation must be on the order of 128 bits. That means hashes.
+
+00:48:55.000 --> 00:49:02.000
+to be 30 have to be 128 bits. That means hashes have to be 256 bits.
+
+00:49:02.000 --> 00:49:03.000
+It's
+
+00:49:03.000 --> 00:49:05.000
+Yeah, yeah, yeah, I'm less… I'm hearing that, uh…
+
+00:49:05.000 --> 00:49:09.000
+that entanglement.
+
+00:49:09.000 --> 00:49:14.000
+And you're in Tangkama argument, I also see it, too, that if we…
+
+00:49:14.000 --> 00:49:20.000
+Sort of, uh, because they may not see this as a high priority, and uh, you know, we…
+
+00:49:20.000 --> 00:49:26.000
+Because they might say, look, you're encrypting data, 64 bits of entropy is good enough.
+
+00:49:26.000 --> 00:49:27.000
+Right, right.
+
+00:49:27.000 --> 00:49:43.000
+For encrypting data, because you're not using that identifier for signatures which have a see, a digital signature has to is 64 bytes.
+
+00:49:43.000 --> 00:49:45.000
+Ah.
+
+00:49:45.000 --> 00:49:46.000
+Right.
+
+00:49:46.000 --> 00:49:49.000
+The reason a digital signature 64 bytes is that the collision resistance of the signature has to be protected no matter the corpus.
+
+00:49:49.000 --> 00:49:50.000
+Mm-hmm.
+
+00:49:50.000 --> 00:50:06.000
+When I send encrypted data, I'm going to rotate my encryption keys every so many gigabytes of encrypted data because the corpus weakens my encryption key.
+
+00:50:06.000 --> 00:50:14.000
+Right.
+
+00:50:14.000 --> 00:50:15.000
+Yes, yes.
+
+00:50:15.000 --> 00:50:18.000
+But digital signatures don't have any fixed corpus that they can point to. So that means that you intend to be able to sign all the data that you would ever sign. You have to be able to sign without.
+
+00:50:18.000 --> 00:50:19.000
+Yes. Yes.
+
+00:50:19.000 --> 00:50:33.000
+changing your signing key. That's why signatures are 64 bytes, you know, 512 bits because the collision resistance, they have to have a full 32 byte hash in there, plus the other stuff.
+
+00:50:33.000 --> 00:50:57.000
+so that they never have to worry about having the corpus of the stuff you sign allow them to discover your private key.
+
+00:50:57.000 --> 00:50:58.000
+Yes.
+
+00:50:58.000 --> 00:51:00.000
+So the purpose of the sender in the thing is because we're using that for identifying the key state for the signatures, not for a tag that we're going to use ephemerally for encrypted data.
+
+00:51:00.000 --> 00:51:07.000
+Right, and so this, uh…
+
+00:51:07.000 --> 00:51:08.000
+Exactly.
+
+00:51:08.000 --> 00:51:25.000
+64 bits is good enough for encrypted data because you're just going to rotate your encryption key on a regular basis, but you're not going to rotate your signing key on a regular basis. Your signing key needs to last for a much longer period of time than a few minutes.
+
+00:51:25.000 --> 00:51:26.000
+Yes.
+
+00:51:26.000 --> 00:51:27.000
+Yeah, yeah, yeah. I think the, uh, sort of unentangled encryption portion and the signature portion is also important to us. And they may not see it that way, right?
+
+00:51:27.000 --> 00:51:28.000
+They won't see it that way. They will go, well, that's not…
+
+00:51:28.000 --> 00:51:31.000
+Yeah, yeah, yeah, yeah. I can buy into that, yeah, yeah.
+
+00:51:31.000 --> 00:51:32.000
+Okay, okay.
+
+00:51:32.000 --> 00:51:36.000
+Yeah, yeah, yeah, yeah, I think that argument makes sense to me.
+
+00:51:36.000 --> 00:51:37.000
+Okay.
+
+00:51:37.000 --> 00:51:44.000
+Uh, so that… so that doesn't mean that we'll need to change the language to make this
+
+00:51:44.000 --> 00:51:48.000
+Um, replied again, rather than optional.
+
+00:51:48.000 --> 00:51:51.000
+Yes, yeah, that's all you have to change, just make that record again.
+
+00:51:51.000 --> 00:51:53.000
+Yeah. Um…
+
+00:51:53.000 --> 00:52:00.000
+And it just means that when you're using the current iteration of HPKE, because they have this fixed 16 byte
+
+00:52:00.000 --> 00:52:06.000
+attachment that we have that overhead, but that might change.
+
+00:52:06.000 --> 00:52:11.000
+If I were, and we might even ask them to make it zero.
+
+00:52:11.000 --> 00:52:14.000
+or optionally zero. There's no reason it needs to be fixed.
+
+00:52:14.000 --> 00:52:19.000
+Yeah, yeah, that… you mean the tag itself, right?
+
+00:52:19.000 --> 00:52:20.000
+Yeah, if the tag…
+
+00:52:20.000 --> 00:52:22.000
+is that tag is basically a bunch of, uh…
+
+00:52:22.000 --> 00:52:25.000
+information, um, the caller can ask,
+
+00:52:25.000 --> 00:52:27.000
+and then they simply hash it.
+
+00:52:27.000 --> 00:52:31.000
+Well, you said it was fixed, I thought it was, I thought it was your choice.
+
+00:52:31.000 --> 00:52:36.000
+I read the spec, I thought you didn't have to use it, and then there weren't 16 bytes.
+
+00:52:36.000 --> 00:52:37.000
+Well…
+
+00:52:37.000 --> 00:52:41.000
+So there's no overhead.
+
+00:52:41.000 --> 00:52:42.000
+Oh, .
+
+00:52:42.000 --> 00:52:46.000
+I can double-check again, I read everything that says, well, that's the reason I want to make it optional, so I don't want to pay this price twice.
+
+00:52:46.000 --> 00:52:54.000
+Yeah, I didn't think you had to pay that. I thought you didn't have to use it. But I could be wrong. My, you know, I could have been reading it with the assumption
+
+00:52:54.000 --> 00:52:55.000
+Yeah.
+
+00:52:55.000 --> 00:52:57.000
+Okay, I would take that also as an action item. I'll double-check it again.
+
+00:52:57.000 --> 00:53:08.000
+Um, I'll read that the new version. They have a…
+
+00:53:08.000 --> 00:53:09.000
+Thank you, Megas.
+
+00:53:09.000 --> 00:53:11.000
+But if it is fixed, then that's an opportunity for us to go to the working group and suggest that they shouldn't make it fixed, that it should be optional.
+
+00:53:11.000 --> 00:53:15.000
+It is just a… you know, attachment, or a concatenation, right?
+
+00:53:15.000 --> 00:53:17.000
+Yeah, why, why, why would, why, yeah.
+
+00:53:17.000 --> 00:53:19.000
+You can throw that away, right?
+
+00:53:19.000 --> 00:53:34.000
+You should be able to, yes, so, so the fact that it's fixed is required even though you're not using it seems like a really bad… that's like a protocol design smell. I'm going to have 16 bytes of empty zeros that I'm going to send with every packet, even if I'm not using it.
+
+00:53:34.000 --> 00:53:38.000
+Okay.
+
+00:53:38.000 --> 00:53:43.000
+Okay. Okay.
+
+00:53:43.000 --> 00:53:44.000
+Okay.
+
+00:53:44.000 --> 00:53:53.000
+Why would anybody do that, that designing a protocol unless they think bytes are free, right? Usually, because you would just… all you need is one bit to stuff someplace to say, do I have it or not, right? So, at worst,
+
+00:53:53.000 --> 00:54:04.000
+Worst, you have one bite, right? If you have to line them byte boundaries, or four bytes if you have to line on word boundaries, but not 16, not four words.
+
+00:54:04.000 --> 00:54:05.000
+Next, right?
+
+00:54:05.000 --> 00:54:07.000
+Yeah, yeah, yeah.
+
+00:54:07.000 --> 00:54:09.000
+Yeah.
+
+00:54:09.000 --> 00:54:17.000
+Okay, so… I think I took some notes then, um, I'm okay with this, uh, resolution.
+
+00:54:17.000 --> 00:54:18.000
+Okay.
+
+00:54:18.000 --> 00:54:28.000
+Uh, it does… it doesn't mean what part to keep is a little bit longer, but I think they're okay. I'm gonna go check with Glenn again, ask him to, um, go, um…
+
+00:54:28.000 --> 00:54:31.000
+Um, do a revision with me…
+
+00:54:31.000 --> 00:54:38.000
+And you have a carrier implementation, uh, something we could check? Is that something…
+
+00:54:38.000 --> 00:54:46.000
+Um, I, I, I don't have it in a…
+
+00:54:46.000 --> 00:54:47.000
+Okay.
+
+00:54:47.000 --> 00:54:51.000
+in a form where we can check just yet, because I've been… I've been putting all my effort into the SETI stuff over the last few weeks, so I haven't.
+
+00:54:51.000 --> 00:54:58.000
+Right.
+
+00:54:58.000 --> 00:54:59.000
+Right.
+
+00:54:59.000 --> 00:55:01.000
+So it's kind of been sitting on the sideline for a while. We do use ESSR a lot, but not the full TSP.
+
+00:55:01.000 --> 00:55:02.000
+Okay, okay.
+
+00:55:02.000 --> 00:55:07.000
+So there's lots of implementations of the ESSR method.
+
+00:55:07.000 --> 00:55:21.000
+And like most of the inner, inner communications between wallets and agents and stuff like that now and the carry protocol stack, they're all using ESSR. They're just not using TSP with the routed mode and stuff like that.
+
+00:55:21.000 --> 00:55:29.000
+The core stuff, you know, with the, so we're using like the Caesar codes for sending the ESSR packet, but not the, not…
+
+00:55:29.000 --> 00:55:37.000
+Okay, so this, this, I mean…
+
+00:55:37.000 --> 00:55:38.000
+Yeah.
+
+00:55:38.000 --> 00:55:40.000
+The most of the testing we do are just a simple direction… direct mode. Routing mode is always optional thing, right?
+
+00:55:40.000 --> 00:55:41.000
+Yeah, yeah, yeah. So, I'm more interested to make sure direct mode can interoperate, and we are doing the same way, yeah.
+
+00:55:41.000 --> 00:55:48.000
+Yeah, so anyway, so we're using… we're using it in non-routed mode. Yeah, we're using it non-routed mode, yeah, yeah.
+
+00:55:48.000 --> 00:55:55.000
+Yeah.
+
+00:55:55.000 --> 00:55:56.000
+Okay.
+
+00:55:56.000 --> 00:55:58.000
+Um, so let me know, you know, if, uh, if anything we can do, I can do, and it would be nice.
+
+00:55:58.000 --> 00:56:12.000
+Yeah, so yeah, so if you change that, that will resolve my… my major constraint… my major thing. And I… and the thing on the appraisable… appraisable, Section 2, you talk about, without using the term appraisable.
+
+00:56:12.000 --> 00:56:30.000
+about, you know, about verifiable IDs and a root of trust and some stuff like that. So it talks about some of the considerations, but appraisable is a term of art that's well defined and is in spec.
+
+00:56:30.000 --> 00:56:31.000
+Okay.
+
+00:56:31.000 --> 00:56:39.000
+specifications. And so I thought that would add
+
+00:56:39.000 --> 00:56:40.000
+Sure.
+
+00:56:40.000 --> 00:56:46.000
+strength and clarity to what we mean when we talk about like in section two where you say.
+
+00:56:46.000 --> 00:56:47.000
+Yeah.
+
+00:56:47.000 --> 00:56:49.000
+Let's see. Vid general requirements.
+
+00:56:49.000 --> 00:56:54.000
+Uh, it must support key rotation, verification of the provenance of its key state, right?
+
+00:56:54.000 --> 00:56:55.000
+Yeah.
+
+00:56:55.000 --> 00:57:04.000
+So appraisable says there's two types of appraisable. And so there's static appraisability.
+
+00:57:04.000 --> 00:57:05.000
+And there's dynamic appraisability.
+
+00:57:05.000 --> 00:57:06.000
+Right.
+
+00:57:06.000 --> 00:57:13.000
+So verification, the prosemannance of its key state is that a static or a dynamic provenance.
+
+00:57:13.000 --> 00:57:15.000
+Right. Yeah.
+
+00:57:15.000 --> 00:57:20.000
+Right? A dynamic provenance says that you can verify.
+
+00:57:20.000 --> 00:57:24.000
+The current key state in the wild.
+
+00:57:24.000 --> 00:57:25.000
+Um,
+
+00:57:25.000 --> 00:57:30.000
+uh, without trusting a third party, because you have access. That's why
+
+00:57:30.000 --> 00:57:34.000
+It's called appraisability. You can see the base.
+
+00:57:34.000 --> 00:57:46.000
+for that key state. So like in the case of Carrie, that key event log provides you an appraisable, a dynamically appraisable.
+
+00:57:46.000 --> 00:58:02.000
+provenance of the key state. And I think did WebVH because it uses essentially copies carries mechanism, you know, provides that provide that as well. But none of the other ones in the wild have dynamic appraisability.
+
+00:58:02.000 --> 00:58:03.000
+Right.
+
+00:58:03.000 --> 00:58:07.000
+The provenance of the key state is hidden. It's opaque.
+
+00:58:07.000 --> 00:58:08.000
+Right.
+
+00:58:08.000 --> 00:58:14.000
+You have to trust a third party. They can make an assertion that says, oh, this is how we got the key state.
+
+00:58:14.000 --> 00:58:25.000
+You can't independently verify it. And so, you know, that is where then
+
+00:58:25.000 --> 00:58:26.000
+So this section…
+
+00:58:26.000 --> 00:58:27.000
+And the trust in the…
+
+00:58:27.000 --> 00:58:32.000
+In a sense, say, dynamic applicability is a requirement.
+
+00:58:32.000 --> 00:58:33.000
+Yeah, yeah, yeah, I understand, I understand.
+
+00:58:33.000 --> 00:58:34.000
+Well, it's not clear that that's what it's saying. I think that's what the intent was. Yeah.
+
+00:58:34.000 --> 00:58:42.000
+So, if I could… what I could do then, I will edit the introduction, you know, first paragraph, first two paragraphs,
+
+00:58:42.000 --> 00:58:49.000
+And insert that term specifically into it. Will that resolve the, uh, the issue?
+
+00:58:49.000 --> 00:58:52.000
+Well, the problem is, is that he
+
+00:58:52.000 --> 00:59:01.000
+rotation by itself isn't doesn't provide any security.
+
+00:59:01.000 --> 00:59:02.000
+Mm-hmm.
+
+00:59:02.000 --> 00:59:11.000
+Um, there are lots of ways to do key rotation, and many of them are, um, know better than not key rotation.
+
+00:59:11.000 --> 00:59:22.000
+If, for example, the way you do a key rotation is that you assign the rotation request with your current signing keys.
+
+00:59:22.000 --> 00:59:39.000
+then you haven't… you've actually complicated your key state, and you have not added any security at all, because if you're signing keys are compromised, then the first thing the compromiser is going to do is do a key rotation to keys
+
+00:59:39.000 --> 00:59:45.000
+Yes.
+
+00:59:45.000 --> 00:59:48.000
+Yes.
+
+00:59:48.000 --> 00:59:49.000
+Yes.
+
+00:59:49.000 --> 00:59:54.000
+that they control. So you've actually weakened your security because you now have a way for them to gain control that you can't gain back. As long as you're using the same set of signing keys, you can fight for who has control at any point in time. But as soon as you add a key rotation mechanism,
+
+00:59:54.000 --> 01:00:08.000
+that is enabled by signing keys, then they can rotate away from you, and it's actually worse. So your rotation, so the only types of rotation that actually work are if you have a completely different infrastructure and different keys for rotation keys, right?
+
+01:00:08.000 --> 01:00:09.000
+Yes.
+
+01:00:09.000 --> 01:00:24.000
+Now you have two infrastructures you have to provenance or you use pre-rotation where it's the same infrastructure, but you're splitting the authority and allowing yourself to have one time rotation keys, right? You still have two sets of keys.
+
+01:00:24.000 --> 01:00:41.000
+And compromising the signing keys doesn't allow you to compromise the rotation keys. So you have to compromise the rotation key infrastructure. So it's just saying that it allows key rotation doesn't actually is wrong. That is not strong enough.
+
+01:00:41.000 --> 01:00:42.000
+Yes, yes.
+
+01:00:42.000 --> 01:00:50.000
+It needs to… it needs… the rotation key infrastructure needs to not share a common mode fault.
+
+01:00:50.000 --> 01:00:51.000
+Right.
+
+01:00:51.000 --> 01:00:57.000
+Which fault is a compromise of the signing key cannot result in a compromise of the rotation authority.
+
+01:00:57.000 --> 01:00:58.000
+Yeah, yeah, I'm…
+
+01:00:58.000 --> 01:01:01.000
+That is a hard requirement, otherwise there's no point.
+
+01:01:01.000 --> 01:01:02.000
+I am, uh, doing some…
+
+01:01:02.000 --> 01:01:06.000
+And so without specifying that.
+
+01:01:06.000 --> 01:01:18.000
+We don't, we've, we're allowing people to do really stupid stuff and still be compliant.
+
+01:01:18.000 --> 01:01:19.000
+Yeah.
+
+01:01:19.000 --> 01:01:21.000
+You're right. So, um, so here's a trend of choice. So there is a prison still there, but it's not clear enough, and so I would like to go…
+
+01:01:21.000 --> 01:01:26.000
+If not, enforcement mechanism, but at least make the intent clear.
+
+01:01:26.000 --> 01:01:27.000
+Yeah, yeah.
+
+01:01:27.000 --> 01:01:38.000
+Well, the problem is they're using the term appraisal without describing it as a term of art, right? You should reference the trusted computer groups where they define appraisable.
+
+01:01:38.000 --> 01:01:39.000
+Okay.
+
+01:01:39.000 --> 01:01:47.000
+roots of trust and say, we use this in the sense that they use the term because someone looks at it and says the dictionary definition of appraisal is generally just says you can look at something and know something about it, right? In real estate, it means something.
+
+01:01:47.000 --> 01:01:51.000
+Yeah.
+
+01:01:51.000 --> 01:01:59.000
+Yeah.
+
+01:01:59.000 --> 01:02:00.000
+Yeah, I'll put a…
+
+01:02:00.000 --> 01:02:01.000
+The term of art in real estate, right? It's a term of art in the Trusted Computing Group. So if we're going to use it as their definition, we need to reference that and say.
+
+01:02:01.000 --> 01:02:09.000
+Yeah. I'll put a reference normative reference, how about that, into, uh,
+
+01:02:09.000 --> 01:02:10.000
+Yeah.
+
+01:02:10.000 --> 01:02:13.000
+into this notion, so that way, because otherwise, we cannot go…
+
+01:02:13.000 --> 01:02:16.000
+sort of lists in some way.
+
+01:02:16.000 --> 01:02:17.000
+Yeah, that's right.
+
+01:02:17.000 --> 01:02:22.000
+So, the easier way is just to say it and put that notion on the document, right?
+
+01:02:22.000 --> 01:02:25.000
+Yeah, and it's not just appraisable, it's dynamically appraisable.
+
+01:02:25.000 --> 01:02:26.000
+Yeah, yeah, yeah, I do have that.
+
+01:02:26.000 --> 01:02:29.000
+Because they define static and dynamic appraisability.
+
+01:02:29.000 --> 01:02:40.000
+Yeah, yeah. So I'm doing a, uh, a, uh, formal analysis on this, and this dynamic, uh, appraisability actually is in the…
+
+01:02:40.000 --> 01:02:46.000
+Uh, sort of the foundation assumption I have to make in order to go prove the rest of it.
+
+01:02:46.000 --> 01:02:53.000
+Yeah, no, I'm… yeah, it's clear from the language that you're trying to describe it without using the term.
+
+01:02:53.000 --> 01:02:54.000
+But somehow it…
+
+01:02:54.000 --> 01:03:04.000
+So, I would take that, uh, uh, just make it very clear, we have a formal normative reference about that particular term.
+
+01:03:04.000 --> 01:03:05.000
+Yeah.
+
+01:03:05.000 --> 01:03:07.000
+And I think that at least we are…
+
+01:03:07.000 --> 01:03:10.000
+conceptually very clear and consistent, right?
+
+01:03:10.000 --> 01:03:11.000
+Yeah, yeah, yeah.
+
+01:03:11.000 --> 01:03:23.000
+Yeah, yeah, I agree. And the sentence you had there on it must be rotation is not specific enough because there are good forms of key rotation and bad forms of key rotation.
+
+01:03:23.000 --> 01:03:24.000
+I mean…
+
+01:03:24.000 --> 01:03:27.000
+Yeah, yeah. And it seems like we are getting closer into this, uh,
+
+01:03:27.000 --> 01:03:28.000
+Yeah.
+
+01:03:28.000 --> 01:03:32.000
+The idea of what that looked like.
+
+01:03:32.000 --> 01:03:34.000
+Yeah. Okay.
+
+01:03:34.000 --> 01:03:39.000
+Now, now you've also added a secure computing environment.
+
+01:03:39.000 --> 01:03:42.000
+Um, .
+
+01:03:42.000 --> 01:03:45.000
+That's okay.
+
+01:03:45.000 --> 01:03:51.000
+Um, because you don't say that it must be a trusted execution environment, which is a term of art.
+
+01:03:51.000 --> 01:03:52.000
+Um, uh…
+
+01:03:52.000 --> 01:03:54.000
+Yeah.
+
+01:03:54.000 --> 01:03:58.000
+uh uh
+
+01:03:58.000 --> 01:04:00.000
+So, so…
+
+01:04:00.000 --> 01:04:12.000
+So dynamic appraisability allows you to determine whether the other party is operating in a sufficiently secure environment.
+
+01:04:12.000 --> 01:04:14.000
+Right.
+
+01:04:14.000 --> 01:04:15.000
+Right.
+
+01:04:15.000 --> 01:04:23.000
+Right. And so… and so sufficiently secure is something that is evaluated not on the part of the sender, but on the part of the receiver. Do I trust? Right.
+
+01:04:23.000 --> 01:04:26.000
+Of course, yeah.
+
+01:04:26.000 --> 01:04:30.000
+Yeah, yeah, yeah, and that's also… appraisal means it's the person appraising it.
+
+01:04:30.000 --> 01:04:31.000
+Yeah.
+
+01:04:31.000 --> 01:04:35.000
+And so that seems to be lost in here, right? Yeah, sufficiently secure for the other party to trust, right?
+
+01:04:35.000 --> 01:04:36.000
+Right? Because…
+
+01:04:36.000 --> 01:04:40.000
+Exactly. Yeah, you cannot declare yourself untrustworthy.
+
+01:04:40.000 --> 01:04:41.000
+Yeah.
+
+01:04:41.000 --> 01:04:45.000
+Yeah. Don't take my word for it. Here, evaluate it yourself, right? That's the point, right?
+
+01:04:45.000 --> 01:04:56.000
+Yeah, yeah. Yeah, yeah, yeah, yeah.
+
+01:04:56.000 --> 01:04:57.000
+Exactly.
+
+01:04:57.000 --> 01:05:13.000
+Because otherwise then we go back, we, we just, we're just back to where PKI is right now, which is just trust me, I'm a certificate authority, just trust me. I'm, you know, I've got a 509 certificate that's the certs the key state without you having any way to verify
+
+01:05:13.000 --> 01:05:14.000
+Yeah, yeah, yeah, yeah.
+
+01:05:14.000 --> 01:05:25.000
+that came about or where that cert came from. Just trust me, right? That's the problem because yeah, all these trusted third parties and relying parties are now broken. I mean, cyber AI attacks know how to exploit them now.
+
+01:05:25.000 --> 01:05:26.000
+you know, with ease, right?
+
+01:05:26.000 --> 01:05:31.000
+Well, it was, um, sort of a, you know, what do you call it, emperor's closer.
+
+01:05:31.000 --> 01:05:32.000
+Yes.
+
+01:05:32.000 --> 01:05:35.000
+Yeah, it's just a Noah as a poking at it before.
+
+01:05:35.000 --> 01:05:38.000
+Yeah, well, it took resources, and now it's so cheap to poke at it that
+
+01:05:38.000 --> 01:05:42.000
+No, it's so cheap, you know, ain't nobody…
+
+01:05:42.000 --> 01:05:48.000
+Can freely do it, yeah.
+
+01:05:48.000 --> 01:05:54.000
+Yeah, definitely.
+
+01:05:54.000 --> 01:05:55.000
+Yeah.
+
+01:05:55.000 --> 01:06:05.000
+Anybody, yeah, a lot of times it's just like, well, they just didn't bother to get around to it because there were better targets of opportunity, right? Why, why go after X when Y is worth 10, 10 times as much? X is still vulnerable, but it's just not susceptible to attack because
+
+01:06:05.000 --> 01:06:08.000
+Yeah, yeah, yeah.
+
+01:06:08.000 --> 01:06:09.000
+Yeah.
+
+01:06:09.000 --> 01:06:12.000
+You haven't harvested all of the easy… all of the really valuable stuff yet. You'll get to it eventually, and as the cost of AI come down, then the spread will just…
+
+01:06:12.000 --> 01:06:17.000
+It'll just spread. And at some point, it'll reach a tipping point to where, um…
+
+01:06:17.000 --> 01:06:22.000
+The cost of the AI to break the crypto will be.
+
+01:06:22.000 --> 01:06:30.000
+enough that none of these, um…
+
+01:06:30.000 --> 01:06:31.000
+Mm-hmm.
+
+01:06:31.000 --> 01:06:33.000
+Shared secret-based security systems will survive because they just be able to break everything all the time.
+
+01:06:33.000 --> 01:06:40.000
+Mm-hmm, because there are… I think there are, um, avoiding a bunch of problems that, you know,
+
+01:06:40.000 --> 01:06:46.000
+somehow they just draw an arbitrary line and say, oh, the rest of it is secure.
+
+01:06:46.000 --> 01:06:47.000
+Yeah, and it's not.
+
+01:06:47.000 --> 01:06:49.000
+Right? Yeah, I'm smart.
+
+01:06:49.000 --> 01:06:50.000
+Um, okay, so…
+
+01:06:50.000 --> 01:06:54.000
+Okay, I'm sorry, I'm sorry to beat you up about that, but, you know, just…
+
+01:06:54.000 --> 01:07:04.000
+No, no, no, this is a good discussion. I think we're good. So, these are the two ones I can go close.
+
+01:07:04.000 --> 01:07:05.000
+Okay.
+
+01:07:05.000 --> 01:07:09.000
+And, um, uh, can I… so I'm gonna put on the end… the meeting minutes here.
+
+01:07:09.000 --> 01:07:18.000
+These two items here, and then, um, we will probably ask the working group then to do approval on email, so they don't have to meet again.
+
+01:07:18.000 --> 01:07:19.000
+Yeah.
+
+01:07:19.000 --> 01:07:21.000
+Yeah, yeah, I don't want to slow things down, but those are…
+
+01:07:21.000 --> 01:07:29.000
+Yeah, yeah, and I think the, uh, ideally, we want to, sometime soon enough, that we will do some kind of a testing.
+
+01:07:29.000 --> 01:07:31.000
+Uh, to, you know…
+
+01:07:31.000 --> 01:07:32.000
+Yeah.
+
+01:07:32.000 --> 01:07:37.000
+Yeah, so that way, uh, we know for sure that there's no more surprises coming out of it.
+
+01:07:37.000 --> 01:07:41.000
+Okay, great.
+
+01:07:41.000 --> 01:07:42.000
+Yep.
+
+01:07:42.000 --> 01:07:48.000
+Alright, um, anyone, um, have other comments, anything before we formally close the meeting?
+
+01:07:48.000 --> 01:07:51.000
+I will go update the minutes right away…
+
+01:07:51.000 --> 01:07:54.000
+This is a way over my head as you realize one thing. But
+
+01:07:54.000 --> 01:08:14.000
+Well, you can feel more comfortable, so we're actually doing, you know, thorough evaluations. It's not a routine to…
+
+01:08:14.000 --> 01:08:15.000
+Yeah, yeah.
+
+01:08:15.000 --> 01:08:16.000
+I just noted Drummond's note to say, you know, that there was some sort of vote taking and welcome people to come and sit in on it. So here I am sitting in
+
+01:08:16.000 --> 01:08:19.000
+Okay,
+
+01:08:19.000 --> 01:08:20.000
+Yes.
+
+01:08:20.000 --> 01:08:23.000
+Nice to see you. And it was a very engaging conversation for sure. Great stuff.
+
+01:08:23.000 --> 01:08:29.000
+Thank you, thank you. And Daniel, I saw you have a hands up with this.
+
+01:08:29.000 --> 01:08:30.000
+Yeah, I got to jump to another meeting, but that is great.
+
+01:08:30.000 --> 01:08:40.000
+Oh, no, it was a thumbs up. You know, thank you for doing this. I, too, was, yeah, glad to listen in, but it was way over my head as well.
+
+01:08:40.000 --> 01:08:43.000
+Yeah, if you, uh…
+
+01:08:43.000 --> 01:08:49.000
+Uh, one something… a sleep aid or something, there is a test vector in the end.
+
+01:08:49.000 --> 01:08:55.000
+Um, the PQ test vectors are very nice. I challenge anybody who can…
+
+01:08:55.000 --> 01:08:57.000
+Do it without AI.
+
+01:08:57.000 --> 01:08:58.000
+Yeah.
+
+01:08:58.000 --> 01:09:05.000
+Yeah, yeah, yeah. Alright, well, thank you for, um, for attending, and this is great.
+
+01:09:05.000 --> 01:09:11.000
+Um, I'm gonna go follow up on those two points, and I think we are then on the way to get a…
+
+01:09:11.000 --> 01:09:17.000
+working group, and then, um, the, you know, make it a formal document.
+
+01:09:17.000 --> 01:09:18.000
+Thank you.
+
+01:09:18.000 --> 01:09:20.000
+Very good. Thank you. Bye.
+
+01:09:20.000 --> 01:09:27.000
+Cheers.
+

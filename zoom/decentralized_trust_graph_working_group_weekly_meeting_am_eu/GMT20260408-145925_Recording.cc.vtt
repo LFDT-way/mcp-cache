@@ -1,0 +1,1151 @@
+WEBVTT
+
+00:06:07.000 --> 00:06:17.000
+Any other announcements if folks want to share?
+
+00:06:17.000 --> 00:06:18.000
+Go ahead, Brendan.
+
+00:06:18.000 --> 00:06:38.000
+Um, I had one, uh, Drummond. So I think the many of you know that Alberto and I work for the Applied Social Media Lab at Harvard University, and we have a digital identity symposium coming up next week. It was decided that it should be in person only. So I'm sorry about that for the many of you who are.
+
+00:06:38.000 --> 00:06:49.000
+Not in the area, but for those of you who are, I'm going to just copy into the Zoom chat the invitation, and there is a RSVP link.
+
+00:06:49.000 --> 00:07:05.000
+At the bottom, and we'd love to have any of you join us, um, who would be interested in doing so. So that's in the Cambridge area in Boston. Looks like it's a little too big for me to post directly into the chat, but I will.
+
+00:07:05.000 --> 00:07:21.000
+um, get it into the, uh, into the document here. Um, but it's on, uh, let me… what I'll do is, um, I'll take a minute after I'm done speaking here to just chop it into some smaller chunks, so you can see the text, and then the RSVP link so.
+
+00:07:21.000 --> 00:07:22.000
+Perfect, yes, and I can put more info into the notes, too, as well.
+
+00:07:22.000 --> 00:07:30.000
+Um, be there. Oh, and I should, of course, note that Drummond is one of the speakers. So that's also very much worth mentioning.
+
+00:07:30.000 --> 00:07:36.000
+Super glad to be going and, uh, seeing, uh, you're gonna be the the.
+
+00:07:36.000 --> 00:07:43.000
+SML wallet that you've shown before is going to be featured, so I'm really looking forward to that.
+
+00:07:43.000 --> 00:07:53.000
+Yes, they… that's also been rebranded as Keyring. Again, that was something that was just decided, but it's the same thing. Don't worry. Asml Wallet is the same thing as Keyring now, okay?
+
+00:07:53.000 --> 00:07:59.000
+Ah, ok, Q-Ring is going to be the new, new name for it, alright, fantastic, uh.
+
+00:07:59.000 --> 00:08:01.000
+Excellent.
+
+00:08:01.000 --> 00:08:05.000
+Any other announcements, uh, before we go to the, uh, the, uh
+
+00:08:05.000 --> 00:08:10.000
+Uh, Ethereum Foundation team, uh…
+
+00:08:10.000 --> 00:08:22.000
+Oh, good, you're gonna go ahead and put that in there. All right, uh, if there's not, let's go ahead now and, uh, introduce, um, the, uh, the team. Um, I'm assuming you're going to want to present, so I will, uh,
+
+00:08:22.000 --> 00:08:25.000
+Stop sharing and uh…
+
+00:08:25.000 --> 00:08:33.000
+Uh, and I don't know, Zoe, do you want to make the introductions, or how do you want to proceed here?
+
+00:08:33.000 --> 00:08:39.000
+Yeah, I'm happy to do the introductions. Thanks for having the team here today. Can you all see my screen?
+
+00:08:39.000 --> 00:08:49.000
+Yes, indeed, that looks, that looks great. And one question, is this a presentation you can share with us? Uh, not necessarily right now, but just until we can put in the notes or
+
+00:08:49.000 --> 00:08:51.000
+Or we're not, it's just I'm just asking.
+
+00:08:51.000 --> 00:09:02.000
+Yes, definitely. We'll share it with everyone afterwards, and there are links and QR codes for external links to other resources that might be of interest to you.
+
+00:09:02.000 --> 00:09:04.000
+Fantastic, thank you.
+
+00:09:04.000 --> 00:09:22.000
+Cool. So with me today, I have Vivian, who is the technical team leader of CK ID team. I have Vikash Rushi, who is the lead developer on the project, and Nicole, who is a PM for some of our integration projects in Taiwan.
+
+00:09:22.000 --> 00:09:31.000
+And just a quick overview of our agenda today. We'll introduce PSC as our team. We'll talk a little bit about OpenAC, the construction.
+
+00:09:31.000 --> 00:09:39.000
+um, do some brief comparisons to other ZKP schemes, including BPS Plus and Longfellow.
+
+00:09:39.000 --> 00:09:55.000
+And then we'll present some benchmarks for the performance of our work, and then introduce some, like, features that we've been thinking about, and then we would also love to open up the floor for questions or any comments you guys have for us.
+
+00:09:55.000 --> 00:10:12.000
+So yeah, to begin with, what is PSE? Pse is an R&D lab for applied zero knowledge proofs. We've been around for the last seven years under different names. We used to be called Applied ZK.
+
+00:10:12.000 --> 00:10:27.000
+privacy and scaling exploration shortly after that, but we recently rebranded to Privacy Stewards of Ethereum. Uh, we're a team of researchers, cryptographers, and developers, and some of our previous work includes, uh, development of.
+
+00:10:27.000 --> 00:10:51.000
+zklibraries, software developer toolkits for mobile approving, Semaphore, which is an anonymous signaling protocol, as well as client-side proving benchmarking, and FHE and MPC research. So all the work we do is open source, it's a public good, and we're a non-profit, fully funded by the Ethereum Foundation.
+
+00:10:51.000 --> 00:11:06.000
+So some existing deployments of ZKs that include some of PSC's work in the past include some of these examples I've listed here. So it is like.
+
+00:11:06.000 --> 00:11:16.000
+a fairly widely deployed technology, including $47 billion secured in L2 solutions that use zero-knowledge proofs.
+
+00:11:16.000 --> 00:11:32.000
+And Semaphore, which is a protocol that was created by a PSE is actually in production now with 37.7 million users with Worldcoin and the foundation there. There is also a lot of identity deployments.
+
+00:11:32.000 --> 00:11:46.000
+Um, including ZK Passport, which you might have heard of, um, ZK Login, Provado ID, um, and also anonymous voting apps deployed in production, both in Georgia and Russia.
+
+00:11:46.000 --> 00:11:57.000
+So yeah, beyond identity data, we want to make an effort to say that this ZKs are useful for any type of design data, and can be used for many applications.
+
+00:11:57.000 --> 00:12:01.000
+um, and data provenance, as well as business use cases.
+
+00:12:01.000 --> 00:12:18.000
+So a little bit on OpenAC. The main motivation for it was the cryptographer's feedback on the EUDI for the use of SD jots and salted hashes being not unlinkable. So we started this work.
+
+00:12:18.000 --> 00:12:32.000
+I think early last year, um, and the main reason for that was for that cryptographer's feedback and preventing verifier issuer tracking.
+
+00:12:32.000 --> 00:12:50.000
+As well as verify or verifier tracking. Um, so for the last year, we've been working on the OpenAC implementation. In a short line, it's an open and lightweight anonymous credential system that takes a SDJot and creates a proof on top of it.
+
+00:12:50.000 --> 00:12:56.000
+Um, it's compatible with existing systems, so existing, um, did NVC formats.
+
+00:12:56.000 --> 00:13:11.000
+And it provides unlinkability to credentials. Our first iteration of it provided age verification, and it also has best-in-class proving time, and we're currently working on generalized predicates.
+
+00:13:11.000 --> 00:13:27.000
+We published at OpenAIC white paper, which I'll link towards the end of the presentation, but it describes the generic ZKID construction. And the main thing to take away that is that it's modular in its components, so the underlying proof system can be switched out.
+
+00:13:27.000 --> 00:13:35.000
+Um, for… for the future, particularly with like the context of like post-quantum upgrades.
+
+00:13:35.000 --> 00:13:46.000
+And one thing that I think stands out for our solution compared to many others is we mapped it directly to the EDI high-level requirements.
+
+00:13:46.000 --> 00:13:59.000
+Um, we've also done a lot of standardization efforts with the… both the W3C working groups. We did a draft of a PCS.
+
+00:13:59.000 --> 00:14:20.000
+draft for ZKPs at the IETF. Um, we've also worked with Linux Foundation, and at the moment, we are one of three profiles selected for the Etsy document that we're writing, um, a profile for for Panace. We've also done a bunch of revocation research, which Vivian will talk about shortly.
+
+00:14:20.000 --> 00:14:24.000
+Uh, and then I'm gonna stop sharing my screen so that Vivian can share hers and continue.
+
+00:14:24.000 --> 00:14:34.000
+Yes.
+
+00:14:34.000 --> 00:14:40.000
+Yep, can you all see my screen?
+
+00:14:40.000 --> 00:14:41.000
+No, we can see it, yeah, looks good.
+
+00:14:41.000 --> 00:15:04.000
+Yeah. Okay, good. Good. Um… I'm gonna talk now a bit more about OpenAC. And OpenAC uses standard cryptography, for example, Spartan 2 is field agnostic, but OpenAss standardizes on the 256 and also P256 is NIST.
+
+00:15:04.000 --> 00:15:20.000
+standardized, and also is a standardized ACDSA P256. Here I'm going to show a quick demo, and I'm going to pause the video so that you can all understand a bit more. And right now.
+
+00:15:20.000 --> 00:15:32.000
+We have a demo, which is an application for a phone and mobile application, and… it looks like this. This is like the demo to show the flow.
+
+00:15:32.000 --> 00:15:45.000
+and you open the application, and this is what it looks like. And to start, it will unzip some data. That's why you see here some data. The app size is almost 60 megabytes.
+
+00:15:45.000 --> 00:16:04.000
+And then… In this phase, it will start running some setup for the keys for the CK part that is going to use after. So you can close the app, and it's gonna it's running in the background. So no credential yet, just the app after it. It is installed.
+
+00:16:04.000 --> 00:16:22.000
+It's running this. Pre-processing for the setup to use CK after, and and then now the system is ready to receive a credential, and right now it's receiving a credential. This is what what it looks like when you receive a credential in your phone, you will.
+
+00:16:22.000 --> 00:16:45.000
+You were from this following processes. You will from the… prepares, prepare process. I'm gonna explain that both processes at the end prepare and show. But I'm gonna show you what it looks like now, and the prepared process is running. And what is doing that? This is just preparing.
+
+00:16:45.000 --> 00:16:50.000
+So that is more efficient to to generate the proofs after when the verifier wants to.
+
+00:16:50.000 --> 00:16:58.000
+ask for something. And what happened here after the preprocessing is finished.
+
+00:16:58.000 --> 00:17:06.000
+Then the verifier can start asking about the credential, and you can start to generate the the proofs.
+
+00:17:06.000 --> 00:17:16.000
+and we see that the proof was generated quickly because we did some preprocessing before, and that's why it's faster to compute the proof after.
+
+00:17:16.000 --> 00:17:35.000
+So this is the… Like the demo, and the demo is using CK Mob Pro to port the ROS code to mobile with Flutter, and the user experience is improved in the setup and prepare phase, because, as you saw in the at the beginning, you can just close the app and everything is running.
+
+00:17:35.000 --> 00:17:44.000
+Under the hood, so you only have to open the app to actually generate the proof when the verifier is asking for something.
+
+00:17:44.000 --> 00:17:58.000
+Here is the complete flow, and I'm gonna explain what is happening so that you can understand. So there are 3 components. They share the holder and the verifier. And this 1st part.
+
+00:17:58.000 --> 00:18:13.000
+is related to device pending, and I'm gonna explain a bit more during the presentation. This part here is for device binding, and also there is device binding here too. Device binding is the property to make sure that the holder contain.
+
+00:18:13.000 --> 00:18:28.000
+The holder contains the prudential in the same device that they used to issue the credential. So this way is this is important for the also the verifier to ask to the right holder with the right.
+
+00:18:28.000 --> 00:18:45.000
+device and the right credential. And this then in the how is device binding performed? I'm going to explain it more later. But it's just the the user will use the holder public key.
+
+00:18:45.000 --> 00:19:01.000
+So to bound it to the credential and then send the credential to the holder. At this point the holder will contain the credential and the issuer use the holder public key for the credential. And now, when the holder contains the credential, they can start.
+
+00:19:01.000 --> 00:19:16.000
+They will in the device. You saw the 1st process of repair. That's what is running in the under the hood in the device. So it's doing some preprocessing, and the the verifier can start to.
+
+00:19:16.000 --> 00:19:28.000
+to request for, for example, age verification or any other property about the from this credential. And when the verifier request from a.
+
+00:19:28.000 --> 00:19:47.000
+something from the credential, then the show part is going to start to happen, and the holder will run in the device the show step, the show phase, and… After this is done, there will be a CK proof approved if they are.
+
+00:19:47.000 --> 00:20:05.000
+In this case, older than 18 or not? And we'll send the proof to the verifier. So the verifier then will just verify the proof and check if they are older than 18 or not without any knowing anything else, the verifier know anything about the credential.
+
+00:20:05.000 --> 00:20:12.000
+They will… they will only know that the holder is older than 18 in this case.
+
+00:20:12.000 --> 00:20:18.000
+and and just that, and that the proof is successfully verified or not.
+
+00:20:18.000 --> 00:20:33.000
+So this is the original generic CKSNAR architecture. So for some context, the issue will contain the the message contain the the attributes, the name, address, and other attributes. And there's also signature. So then the holder.
+
+00:20:33.000 --> 00:20:43.000
+We'll use this signature to validate it. And here is where the CK part happens and the.
+
+00:20:43.000 --> 00:20:52.000
+where the holder will… say the credential attributes and use the verifier.
+
+00:20:52.000 --> 00:21:02.000
+request to create the CK proof, and then we'll output the CK proof and the and the public outputs and the outputs, so that the.
+
+00:21:02.000 --> 00:21:20.000
+Reliant Parry, the verifier in this case, will be able to verify the proof and use this output to decide what they want to do. For example, in the case of page verification, they will verify the proof, and with the output will be if it's true or not, that they are alternating, and then they will decide what they want to do with.
+
+00:21:20.000 --> 00:21:39.000
+With that information. And one of the, as I mentioned before, one of the features is device binding. And this is a relationship between the issuer and holder to make sure that all the that the holder contain their credential in their device, and then the.
+
+00:21:39.000 --> 00:21:46.000
+Also, the reliant party will use the session ID is a way to make sure that the holder.
+
+00:21:46.000 --> 00:21:58.000
+Here is check that the holder contains the credential that was issued to their device, and they are using… they are creating the CK proof for this specific request from the.
+
+00:21:58.000 --> 00:22:04.000
+from the verifier at that specific time.
+
+00:22:04.000 --> 00:22:19.000
+So the main two faces in OpenSE are prepare and Show. In prepare. This is the phase that is running under the hood when the user, in this case, the holder gets the credential.
+
+00:22:19.000 --> 00:22:32.000
+And what is happening here is parsing the the document like parsing the credential, doing some hashing and signature verification that can all always happen.
+
+00:22:32.000 --> 00:22:48.000
+Offline, the user doesn't need to be online, and that happens in the background. And then there is the show phase. The show phase is the one that happens at presentation time, which is the moment that the holder is generating the CK proof, because the verifier requester.
+
+00:22:48.000 --> 00:22:59.000
+something from the credential, and this is the part where the selected disclosure is going to happen, and the Cp for.
+
+00:22:59.000 --> 00:23:13.000
+for the verifier will be generated. There is a free blind process that I'm going to mention, because you're going to see benchmark. But what is… what this process is doing is to making sure that.
+
+00:23:13.000 --> 00:23:29.000
+Proofs are unlinkable, so to give privacy and things like that. So I'm gonna mention… I'm mentioning this here, so that… because you are going to see benchmark that is, yeah, the main two faces that you saw in the… Our prepared show that the ones that you.
+
+00:23:29.000 --> 00:23:37.000
+We'll see more, but under the hood, there is always happening pre-blind to make sure that to keep privacy.
+
+00:23:37.000 --> 00:23:53.000
+The OpenIC design is modular because it can support any type of document any signed data. Right now it supports SDJWT, but it can also support like Mdl and support any other type of data, because the parsing layer.
+
+00:23:53.000 --> 00:23:59.000
+is… is independent. So you just have to implement that part and the other.
+
+00:23:59.000 --> 00:24:04.000
+Prior to like the the other logic is still the same.
+
+00:24:04.000 --> 00:24:25.000
+I'm going to mention some things related to. similar approaches. And for example, there is the BBS and BBS Plus, Lonefellow, Crescent, and also OpenAC, and regarding issue modification, for example, some solutions will require like BBS and BBS+.
+
+00:24:25.000 --> 00:24:40.000
+will require easier modification and then OpenAC doesn't require that. And this means that the Azure will need to change their sign in algorithm or something like that.
+
+00:24:40.000 --> 00:24:56.000
+Also, the offline phase, so to optimize presentation time, there are these 2 phases, and there are some solutions that want to do these 2 phases, and then they will do everything every time they they want to prove something. And regarding the the setup.
+
+00:24:56.000 --> 00:25:07.000
+Like, uh, some solutions require a trusted setup, and OpenAC doesn't require that. And which is better for privacy in general.
+
+00:25:07.000 --> 00:25:18.000
+to… it's better to not require trusted setup. and features like device binding some solutions will integrate it, and some others won't.
+
+00:25:18.000 --> 00:25:33.000
+And as I mentioned before, Bbs and Mbbs sharp in this case require both changes to the user signing algorithm. And, for example, in Lonefellow, they they combine both, and then there is no this offline phase.
+
+00:25:33.000 --> 00:25:51.000
+And… Our salon fellow is implemented with low lever CK circuit code, so it's more difficult for developers to use it and to develop with this. And it lacks of support of generalized predicates right now.
+
+00:25:51.000 --> 00:26:06.000
+And for OpenAC, these are some benchmarks. The proven time is 99 milliseconds for blind and 30 milliseconds and verification time is 30 milliseconds. This is proving that you are older than 18.
+
+00:26:06.000 --> 00:26:14.000
+And this is when the verifier is asking if you're all dying, these are the benchmarks that they.
+
+00:26:14.000 --> 00:26:22.000
+They will get if you run… that statement.
+
+00:26:22.000 --> 00:26:37.000
+Regarding provocation. So provocation is a very important part of an identity system, and it's the process that allows an issuer to invalidate a previously issued credential so that the verifiers can detect that this credential is no longer valid.
+
+00:26:37.000 --> 00:26:53.000
+So right now, after with a lot of research on different solutions and deep research on medical tree-based approaches here in this QR code, you can see the full blog post and.
+
+00:26:53.000 --> 00:27:07.000
+We also with the decentralized identity foundation. We also… we are also collaborating on this report focus on different solutions for revocation.
+
+00:27:07.000 --> 00:27:13.000
+You can check it here in this QR code. And so far for popularity.
+
+00:27:13.000 --> 00:27:30.000
+For performance, and… pre-outward solution, so it looks like no membership proofing a list of provoke credentials using Merkle trees is a very good solution for real world applications, real world implementation, and that's why we… we are…
+
+00:27:30.000 --> 00:27:45.000
+We are going to integrate soon in OpenAC. Regarding generalized pretty case, this is an important feature for the identity solutions, because.
+
+00:27:45.000 --> 00:28:00.000
+Sometimes you want to ask more things about a credentials. You just you don't want to ask about one attribute. Sometimes you want to ask more, and and this is the idea of generalized predicates to ask anything about anything you want about a credential.
+
+00:28:00.000 --> 00:28:23.000
+And also combine different things and create logical expressions and make… make it easier for verifiers to to be able to request information while keeping privacy. And some examples of predicates are age verification like you are older than 18. For example, they can also request French proofs like I want.
+
+00:28:23.000 --> 00:28:34.000
+So now, if the annual income in euros from that person is between 30k and 60k, or also membership. If the residency countries.
+
+00:28:34.000 --> 00:28:50.000
+In… it's part of a list of no membership if the residency country is not part of the list, and some other more complex expressions, like if you have been working for more than 2 years, and you're annually coming Europe is.
+
+00:28:50.000 --> 00:29:03.000
+between 50km, 100K or your account balance in Euros is… more than 10K. Things like that, so you will be able to create more complex expressions.
+
+00:29:03.000 --> 00:29:09.000
+And in this QR code and in this link, you can check the full.
+
+00:29:09.000 --> 00:29:25.000
+design a more detail about more details about the implementation, because we implemented it recently, and the flow is just taking the expression and turn it into a more simple sequence, so that is CK friendly.
+
+00:29:25.000 --> 00:29:42.000
+And then everything will be checked, and it will only return true or false. So the verifier will only know if it's true or false, the full statement. They will know if this was true, this part was false. They will only know if the full expression is true or false.
+
+00:29:42.000 --> 00:30:03.000
+So, for regarding developer considerations for OpenAC. the level to understanding and to use it is minimal for developers, so it's very developer friendly, and the time for integration is less than two weeks, and it's mobile friendly, because the demo was also.
+
+00:30:03.000 --> 00:30:14.000
+created with OpenAC is mobile friendly, compatible with existing document types and libraries, and the developer experience is easier now with the SDKs, because he's going to talk about that.
+
+00:30:14.000 --> 00:30:24.000
+in the presentation, and also that OpenSE is using SiriCom, which is the most popular and used CKDSL right now.
+
+00:30:24.000 --> 00:30:30.000
+I'm going to stop sharing so that Vikash can continue.
+
+00:30:30.000 --> 00:30:32.000
+Yeah.
+
+00:30:32.000 --> 00:30:38.000
+Yeah, let me go…
+
+00:30:38.000 --> 00:30:47.000
+Okay. Hmm.
+
+00:30:47.000 --> 00:30:54.000
+I think I was not able to share the screen because, like, someone is… someone is already sharing the screen. Maybe, uh…
+
+00:30:54.000 --> 00:30:56.000
+Yeah.
+
+00:30:56.000 --> 00:31:04.000
+Yeah, so whoever's sharing, if they can stop sharing, which occasionally there's a Zoom bug that you can't stop sharing,
+
+00:31:04.000 --> 00:31:07.000
+Um, hopefully that's not the case.
+
+00:31:07.000 --> 00:31:13.000
+Yes, yes, I didn't say how to. Yeah, it it didn't.
+
+00:31:13.000 --> 00:31:17.000
+You said stop sharing and it's still, and it's still sharing.
+
+00:31:17.000 --> 00:31:18.000
+Ooh.
+
+00:31:18.000 --> 00:31:21.000
+Let me stop sharing. Yes, let me try to share it again and see if I it can stop sharing.
+
+00:31:21.000 --> 00:31:22.000
+See if it unsticks.
+
+00:31:22.000 --> 00:31:24.000
+Oh, this might not…
+
+00:31:24.000 --> 00:31:25.000
+Yes.
+
+00:31:25.000 --> 00:31:31.000
+we've had this problem before. Sometimes you have to leave the whole meeting in order to stop the sharing.
+
+00:31:31.000 --> 00:31:32.000
+Yeah.
+
+00:31:32.000 --> 00:31:33.000
+Remember…
+
+00:31:33.000 --> 00:31:34.000
+Okay.
+
+00:31:34.000 --> 00:31:42.000
+Oh, maybe Vivian, you can just keep going and Vikash can present off the screen.
+
+00:31:42.000 --> 00:31:43.000
+If you, if you can present.
+
+00:31:43.000 --> 00:31:44.000
+Okay, yeah, I can just do that, let me… Let me go.
+
+00:31:44.000 --> 00:31:49.000
+Um…
+
+00:31:49.000 --> 00:31:52.000
+Those slides, that's fine.
+
+00:31:52.000 --> 00:31:58.000
+Yep, yep. I think that's way better. So yeah.
+
+00:31:58.000 --> 00:32:20.000
+Since we talked about, like, developer, like, experience and all, so Openac uses this language called circum, which is, like, widely popular in all of the ecosystem, which is also very granular and very intuitive at like developers can easily understand it. So we made this simple SDK, which is a wrapper of the entire openac.
+
+00:32:20.000 --> 00:32:36.000
+flow where you could just download the package and try to perform all the OpenAC flows, something like you could do presentation flows, you could do verification flows, and one of the things which we try to, like, abstract away is, like, develop, uh.
+
+00:32:36.000 --> 00:32:52.000
+obstructive ways, like the entire… the cryptography parts of it. So, the… we try to abstract most of the cryptography, hard ZK parts of it, and try to make it as intuitive as possible. And the entire SDK runs in inside, like, your backend, uh.
+
+00:32:52.000 --> 00:33:21.000
+node servers, or, like, the… even in the web browsers as well. So, you could install with, uh, npm OpenAC SDK. So, for the following slides… So one of the research, one of the research ideas we are pursuing was, like, making the existing open AC post-quantum, meaning the existing approaches and our OpenAC heavily relies on elliptic curve assumptions.
+
+00:33:21.000 --> 00:33:44.000
+Meaning any good quantum computer can break this assumption in the near future. So we would like to start this research on making the components of the entire OpenAC post-quantum, and there are, like, UDI ecosystem is also moving towards post-quantum readiness. There are, like, discussions going on. How do we implement and what are the characteristics of the.
+
+00:33:44.000 --> 00:33:59.000
+approaches as well. So, in the following to that, like NIST also finalized, like, post-quantum standard algorithms as well. So, yeah, so in the following slide, uh.
+
+00:33:59.000 --> 00:34:14.000
+So even even though we are perceiving post-quantum, we don't want to trade up. We don't want to trade off with the existing properties of OpenAC, which are like transparent setups and post quantum randomizable proofs, meaning if you just put the entire stack into.
+
+00:34:14.000 --> 00:34:32.000
+post-quantum, we might lose like few of the properties, which are very essential to any ID ecosystem or like EUDI. So, the ideal goal for the entire research for making OpenEC post-quantum, that could have all of these properties. The first one would be transparent setup, meaning.
+
+00:34:32.000 --> 00:34:48.000
+no trusted ceremony or no third-party randomness trusted assumption, and obviously proofs will be post-quantum, and re-randomizable rules, meaning people can be compute a really efficient, uh, they can pre-compute the proofs and also.
+
+00:34:48.000 --> 00:35:03.000
+which could have, like, unlinkable presentations as well. And the third one would be issuer compatibility, and we don't want to change existing issuer algorithms or, like, any data formats, and we want to keep the stack as modular as possible, and then we want to switch into entire post-quantum.
+
+00:35:03.000 --> 00:35:20.000
+So, the third one would be cheaper rebinding, meaning you could do efficient pre-computation of the proofs instead of computing the entire proof. And the last two would be the additive homomorphis in commitments, meaning you could efficiently link between commitments and have the unlinkable property.
+
+00:35:20.000 --> 00:35:29.000
+And we wanted to achieve 128-bit post-quantum security. So these are targets we are perceiving this research direction in the following months.
+
+00:35:29.000 --> 00:35:37.000
+Yep.
+
+00:35:37.000 --> 00:35:40.000
+Yeah, I think so. You can share your screen.
+
+00:35:40.000 --> 00:35:41.000
+Oh, sure. Um… Can you reshare your screen?
+
+00:35:41.000 --> 00:35:46.000
+No.
+
+00:35:46.000 --> 00:35:47.000
+Okay, yeah, I can…
+
+00:35:47.000 --> 00:35:54.000
+Just for the last Thanks.
+
+00:35:54.000 --> 00:36:24.000
+Um, so yeah, just to summarize the main points that OpenAC is offering is that it's secured by construction, no trust that the setup is required, which is one of the basic requirements for the Edi. Um… It's modular and generic in construction, so it can support any arbitrary signed data. And I see in the questions, yeah, somebody also asked if it supports JSON-LD. At the moment, we don't have support for it, but it's definitely something we can add.
+
+00:36:25.000 --> 00:36:33.000
+Um, it's optimized for multi-VC linking. Um, compatible with the EDI high-level requirements.
+
+00:36:33.000 --> 00:36:47.000
+provides device binding support. As Vivian also mentioned, there's expressiveness of predicates. It's also, yeah, under MIT license and open source.
+
+00:36:47.000 --> 00:37:04.000
+So yeah, we are still working on it for the next three to six months, we're going to add support for multi-VC linking, so the ability to create a proof out of two separate verifiable credentials.
+
+00:37:04.000 --> 00:37:18.000
+Um, and predicates on top of that. We're exploring post-quantum solutions, uh, we're adding more features like revocation, um, and then we also saw from the first person's projects, you guys are using, um, ED25519.
+
+00:37:18.000 --> 00:37:33.000
+So we're providing support for that for the VRC signatures. We also do MDoc support. There's also a large initiative right now to do a revision to DID Ether.
+
+00:37:33.000 --> 00:37:50.000
+Um, and we're currently writing, um, the Etsy profile for their standardization process. Um, and we're also exploring different methods for public registries and data infrastructure on Ethereum.
+
+00:37:50.000 --> 00:38:01.000
+Next slide. So yeah, we've provided a bunch of links. This OpenAC Studio that Nicole put together is a no-code, easy to demonstration.
+
+00:38:01.000 --> 00:38:18.000
+Uh, of, like, what kind of features you can put together and add together from OpenAC. Uh, so if you're interested, um, you can have a look at that. We also have the print paper, as well as the full implementation on GitHub, um, open sourced.
+
+00:38:18.000 --> 00:38:33.000
+So yeah, we're really curious to hear from you if you're working on identity use case and how we can iterate OpenAC to work for you. If you see any additional requirements, feel free to reach out to our team. Or if you have.
+
+00:38:33.000 --> 00:38:43.000
+challenges or blockers for adoption, we'd love to hear about those too, and just generally, uh, be helpful.
+
+00:38:43.000 --> 00:38:54.000
+I see there's a few questions in… The chats. So thanks for answering some of these, Nicole. Do we still have time? If we do, we can maybe answer a few. Otherwise we can move on.
+
+00:38:54.000 --> 00:39:07.000
+We intentionally wanted to give you the balance of the agenda is pretty flexible, so we want to give, yeah, yeah, you're getting a lot of, it was…
+
+00:39:07.000 --> 00:39:11.000
+I'm just going to say, very comprehensive presentation, um,
+
+00:39:11.000 --> 00:39:16.000
+The reason you're getting a bunch of questions is this is a key piece of, uh…
+
+00:39:16.000 --> 00:39:21.000
+of DTG architecture, and so we really, uh, appreciate it.
+
+00:39:21.000 --> 00:39:30.000
+I definitely want to take as much time for questions as folks want to take, and the team can handle. I know it's getting late for you.
+
+00:39:30.000 --> 00:39:32.000
+In Hong Kong, but, um…
+
+00:39:32.000 --> 00:39:37.000
+But yeah, it would be great if, I think you've already, uh, I think…
+
+00:39:37.000 --> 00:39:43.000
+Folks were queuing their questions. I was trying to do the same thing. You've already covered the one about JSON-LDE.
+
+00:39:43.000 --> 00:39:48.000
+support. We are starting out with our credential formats, as you've seen.
+
+00:39:48.000 --> 00:39:51.000
+defined in, um, uh, WC…
+
+00:39:51.000 --> 00:39:54.000
+W3C VC 2.0,
+
+00:39:54.000 --> 00:39:58.000
+Um, but you've already said that's something that you're working on.
+
+00:39:58.000 --> 00:40:03.000
+Um, so that's excellent. Um, Steve, you had a question?
+
+00:40:03.000 --> 00:40:12.000
+Um, uh, about if, if using predic instances return true if all true or false, if any false, and it looks like
+
+00:40:12.000 --> 00:40:14.000
+Was that already answered?
+
+00:40:14.000 --> 00:40:20.000
+You can expand… if you can expand more on that, but the idea is that.
+
+00:40:20.000 --> 00:40:27.000
+It will evaluate any logical expression. So it will contain any logical operator and or not.
+
+00:40:27.000 --> 00:40:32.000
+And it will just return the final result. If the full expression.
+
+00:40:32.000 --> 00:40:42.000
+evaluates to true or false, it won't return all the small expressions, just the full expression. If everything evaluates to true or false.
+
+00:40:42.000 --> 00:40:44.000
+Right, classic. Okay.
+
+00:40:44.000 --> 00:40:48.000
+Um, I'm gonna… I'm realizing there are also hands up, so I'm gonna, um…
+
+00:40:48.000 --> 00:40:53.000
+let's go to those, and then we'll go back to the chat. So, Christian, go ahead.
+
+00:40:53.000 --> 00:40:58.000
+I'm usually the guy who shows up asking about interoperability on these calls, um…
+
+00:40:58.000 --> 00:41:04.000
+I have a did method, they have a DID method. Everybody's got DID methods. Are you looking at being…
+
+00:41:04.000 --> 00:41:10.000
+flexible with the provenance of the verifiable credentials.
+
+00:41:10.000 --> 00:41:13.000
+Like, can you take a credential that's been recorded on…
+
+00:41:13.000 --> 00:41:16.000
+outside of Ethereum, for example,
+
+00:41:16.000 --> 00:41:23.000
+And it has all the information to validate it, and could you incorporate in your process
+
+00:41:23.000 --> 00:41:26.000
+So that a credential and a method that does not support
+
+00:41:26.000 --> 00:41:32.000
+zero knowledge today could still issue a credential, and through your wallets and tools, you could
+
+00:41:32.000 --> 00:41:40.000
+read that and prove it to a… with zero knowledge to a third party.
+
+00:41:40.000 --> 00:41:57.000
+Yeah, we're… we're actually completely agnostic to… to whatchain. It's like, it's not even on-chain at the moment. All OpenAC does is that it takes a verifiable credential. At the moment, it's a nestyJot, but it can support any VC.
+
+00:41:57.000 --> 00:41:58.000
+And it will create a proof over whatever predicate you set, and it will present it as a verifiable presentation. So yeah, completely agnostic to whatever did method or whatever chain or… or whatever, um, use case you have for it.
+
+00:41:58.000 --> 00:42:15.000
+Question.
+
+00:42:15.000 --> 00:42:19.000
+That's… that's fantastic. Marcus, go ahead.
+
+00:42:19.000 --> 00:42:38.000
+Uh, yes, thank you for the presentation. Very interesting. I I have a question about key types. I I think you mentioned you did this with P256 keys. But my understanding is Ethereum natively uses secpic 1.
+
+00:42:38.000 --> 00:43:06.000
+Okay, so how… how exactly does OpenAC work with Ethereum and the second question you you said you're adapting this for ED 25 5 1 9 keys. I'm… Curious how difficult is that or how easy is it to adapt OpenAC approach to other key types like ED25519?
+
+00:43:06.000 --> 00:43:23.000
+Yeah, I would take this question. So for the context, like Ethereum uses like K1 curve, let's call it K1, and we are using P256 curve and the general procedure is like whenever the signing algorithm, the whenever.
+
+00:43:23.000 --> 00:43:42.000
+issuer has, like, a different set of signing algorithms, and we are, like, completely independent from all of the… you could theoretically use… theoretically use any signing algorithms, and we could able to prove these statements inside ZK. So, these statements are, like, uh, they're not related to Ethereum's, uh, different curve.
+
+00:43:42.000 --> 00:43:56.000
+But the construction we are using is completely independent, meaning let's say, if there is a new signing algorithm and which we wanted to use, you could use that in the current OpenEC stack.
+
+00:43:56.000 --> 00:44:05.000
+So…
+
+00:44:05.000 --> 00:44:14.000
+Marcus, did that answer your question?
+
+00:44:14.000 --> 00:44:15.000
+Yeah.
+
+00:44:15.000 --> 00:44:23.000
+I think so. It also answers my second question about ET25549, right? You said that the stack is independent of the signing algorithm, so you could use any one. Okay, I understand. Thank you.
+
+00:44:23.000 --> 00:44:28.000
+Very is very interesting. Uh, okay, Brendan, go ahead.
+
+00:44:28.000 --> 00:44:44.000
+Um, no, this is great, and I see all the thought that's gone into trying to make this broadly usable, and I appreciate that. Just a question. I'm not a Zk expert, but I'm aware that there is a trade-off space of, you know, performance.
+
+00:44:44.000 --> 00:45:04.000
+Covering different use cases, etc. Could you describe, you know, where you've kind of located yourself in the trade-off space, and if there's certain things that are less available or not as ideal in order to achieve all these wonderful aims that you're tackling here?
+
+00:45:04.000 --> 00:45:25.000
+Yeah, I think the main considerations we had was the selection of the underlying pre-system that open AC uses at the moment, and the three dimensions would be proof size, proof time, and then also RAN consumption. And since we're optimizing for mobile devices, that was a large consideration.
+
+00:45:25.000 --> 00:45:48.000
+in the initial selection of Spartan for the proof system, that's… That's the main consideration we had. And if you're interested in the comparison of the work that we did for I think we… I think we benchmarked something like 20 CKVMs over SHAR-256, and they're also available here.
+
+00:45:48.000 --> 00:46:00.000
+Um, so yeah, we took that research work and then, uh, selected the appropriate system, proof system for OpenAC.
+
+00:46:00.000 --> 00:46:01.000
+Super, yeah, this, I know this is…
+
+00:46:01.000 --> 00:46:04.000
+Wonderful. Thank you.
+
+00:46:04.000 --> 00:46:13.000
+I mean, I've been learning about this area for quite a while, and there's still all kinds of questions that I have about it, and this is as comprehensive a presentation that I've seen.
+
+00:46:13.000 --> 00:46:24.000
+So I will ask one additional question just because of talking with other folks that are very interested in the space.
+
+00:46:24.000 --> 00:46:31.000
+It's particularly interesting, you know, you are aiming and wanting to meet the EUDI requirements.
+
+00:46:31.000 --> 00:46:35.000
+Um, uh, there's one of our…
+
+00:46:35.000 --> 00:46:46.000
+Uh, participants, the Seros Foundation, have you been talking with the folks at Ceros Leaf, Johansen and his team about OpenAC?
+
+00:46:46.000 --> 00:46:57.000
+Um, I don't think so. Is it Johannes the same Johannes that wrote some of the Etsy documents or is it different, Johannes?
+
+00:46:57.000 --> 00:47:05.000
+Ah, so it's, uh, Leif Johansson, um, is the executive director of Siros, um, and he's, uh
+
+00:47:05.000 --> 00:47:14.000
+Uh, but one of the folks he's working with, if you talk to Peter Altman with the Swedish government team.
+
+00:47:14.000 --> 00:47:20.000
+Oh, yeah, uh, Cirrus Foundation we haven't talked to, but Peter, we've been talking to for the Etsy profiling, yes.
+
+00:47:20.000 --> 00:47:26.000
+Yes, ok, good, good, that was what, uh, I know that Peter is sort of at the center of that, uh, discussion.
+
+00:47:26.000 --> 00:47:31.000
+Um, if you satisfy him, you will satisfy the Siros team, so…
+
+00:47:31.000 --> 00:47:39.000
+Ah, good, good. I just wanted to… that's… that would be a huge, huge win there. That'd be fantastic.
+
+00:47:39.000 --> 00:47:43.000
+Um, okay, uh, Rezak, go ahead.
+
+00:47:43.000 --> 00:47:50.000
+So, um, the, uh, my question in the comments was, for complex data types, do you support similarity scores?
+
+00:47:50.000 --> 00:47:54.000
+So, uh, let's say, for instance, an address
+
+00:47:54.000 --> 00:47:57.000
+is a complex data type, and…
+
+00:47:57.000 --> 00:48:02.000
+Um, someone asserts they live at this address, but you have on record
+
+00:48:02.000 --> 00:48:06.000
+The same address, but some of the fields might be slightly different.
+
+00:48:06.000 --> 00:48:08.000
+Um, how do you…
+
+00:48:08.000 --> 00:48:17.000
+resolve that, um, do you require, um, in the, uh, in the proof, to construct some boolean,
+
+00:48:17.000 --> 00:48:20.000
+expression, um, or do you support
+
+00:48:20.000 --> 00:48:23.000
+the vector representation of data, so you can have
+
+00:48:23.000 --> 00:48:26.000
+Um, uh, similarity…
+
+00:48:26.000 --> 00:48:33.000
+comparisons.
+
+00:48:33.000 --> 00:48:44.000
+I don't think we support that yet, but that's interesting to understand as a use case if you… if you're seeing that repetitively come up.
+
+00:48:44.000 --> 00:48:59.000
+Yeah. Okay, so that was… and that leads me on to… I saw in one of your slides, you said fully homomorphic encryption. Can you expand upon that?
+
+00:48:59.000 --> 00:49:17.000
+So the intuition was like there are like the work we do specifically, which is like zero knowledge proofs. The another type of work which we do is like FHE, which is also known as fully encryption. So, which lets you do computation on encrypted data.
+
+00:49:17.000 --> 00:49:29.000
+Meaning, let's say I have A and I have B and encrypt the form of A into some ciphertext and B into some ciphertext, and you could theoretically do all sorts of.
+
+00:49:29.000 --> 00:49:45.000
+computations like addition, multiplication, all of these things, with homomorphic encryption. I think in one of the slides, which we mentioned was additive homomorphism, meaning, uh, let's say I have some proof, and I have, like, some commitments, uh, within the proof, meaning I am above 18, and things like this.
+
+00:49:45.000 --> 00:49:57.000
+Let's say I could, instead of, like, sharing the entire thing, we could, like, theoretically do all of the additive homomorphism things within the proof itself. So I think that should answer your question.
+
+00:49:57.000 --> 00:50:04.000
+Right, and you have algorithms that are fully homomorphic?
+
+00:50:04.000 --> 00:50:09.000
+Yes, we do have some algorithm, but which we are… we didn't integrate it within OpenAC right now.
+
+00:50:09.000 --> 00:50:11.000
+Okay, are they published yet? Um, we're tracking this whole space to see what
+
+00:50:11.000 --> 00:50:15.000
+Yeah.
+
+00:50:15.000 --> 00:50:17.000
+algorithms are open.
+
+00:50:17.000 --> 00:50:20.000
+And are available. Hope.
+
+00:50:20.000 --> 00:50:33.000
+Yeah, I think there are, like, widely open source repos, such as sunscreen, Zama has this, like, FHE libraries, which is, like, concrete ML. So that lets you do, like, all of this encrypted computations right now.
+
+00:50:33.000 --> 00:50:35.000
+Okay.
+
+00:50:35.000 --> 00:50:36.000
+Thank you.
+
+00:50:36.000 --> 00:50:38.000
+Yeah.
+
+00:50:38.000 --> 00:50:46.000
+Excellent. As you can see, we got, you know, a lot of folks with a lot of interest. I'm checking here. Do we have any other hands up?
+
+00:50:46.000 --> 00:50:51.000
+Uh, no, and I'm just checking, do we get everything, uh, from the, uh…
+
+00:50:51.000 --> 00:50:53.000
+from the, uh, chat.
+
+00:50:53.000 --> 00:51:01.000
+Um, I did ask about user experience, and Zoe, thank you for that excellent, excellent answer.
+
+00:51:01.000 --> 00:51:11.000
+You can tell your… the depth of your experience in this area. It's great to see, you know, a whole team working on this.
+
+00:51:11.000 --> 00:51:16.000
+Um, I guarantee we will be back to you with…
+
+00:51:16.000 --> 00:51:26.000
+Uh, a lot more. Um, we are, uh, planning on starting a ZKP, uh, task force, um, and this was a wonderful kickoff, uh, for
+
+00:51:26.000 --> 00:51:29.000
+Uh, for doing that. So, so, um…
+
+00:51:29.000 --> 00:51:34.000
+I'm going to do one last call for any other questions for the, uh…
+
+00:51:34.000 --> 00:51:39.000
+OpenAC team.
+
+00:51:39.000 --> 00:51:41.000
+Uh, we do have one more, uh, Jorge, go ahead.
+
+00:51:41.000 --> 00:51:47.000
+Yeah, if I can ask a question, uh, in the slides, uh, one of the bullet points mentioned that
+
+00:51:47.000 --> 00:51:51.000
+OpenAFE doesn't require, uh,
+
+00:51:51.000 --> 00:51:55.000
+Trust handoff, or trust negotiation?
+
+00:51:55.000 --> 00:52:01.000
+Can you elaborate on that? Like, does that mean that there's no, uh, trust registry, or data exchange?
+
+00:52:01.000 --> 00:52:03.000
+to issue the credential, I guess I'm wondering if you can elaborate on what you mean by that.
+
+00:52:03.000 --> 00:52:09.000
+Eat.
+
+00:52:09.000 --> 00:52:10.000
+Yes, Seth, yes, that was it, yes.
+
+00:52:10.000 --> 00:52:21.000
+Yes, like trusted setup, you mean? Yeah. Yes. So trusted setup is a process that some proving system will require. Proving system is what is used to create the CK proof.
+
+00:52:21.000 --> 00:52:41.000
+And some brewing system will require a trusted setup. And what is a trusted setup? A trusted setup is a process to secure the system. So, for example, for Gross 16, you need to run a process in so that many people will add randomness, like we will add values.
+
+00:52:41.000 --> 00:52:52.000
+And as long as one person is honest in this process, the full process is secure, and the proving system is secure.
+
+00:52:52.000 --> 00:53:01.000
+So some proven system will require this process and others won't. So we always want to use proving system that.
+
+00:53:01.000 --> 00:53:19.000
+don't require this process, because it requires you need to do to run this process asking people to add randomness, and then do this. And some processes, some promises and will require this, for example, gross system will require this for every circuit you have.
+
+00:53:19.000 --> 00:53:39.000
+And other will require just one universal. like Blanc, and… but you still need to do this process. So in our case, like for OpenAC, you don't need to do to run this process. People don't need to add a randomness to secure the system. The system is secure by default. So.
+
+00:53:39.000 --> 00:53:43.000
+You don't need to run any process to secure the system.
+
+00:53:43.000 --> 00:53:59.000
+Yeah, so just to elaborate a little bit more, it's a design constraint of the underlying proof system that is selected for the ZKPC scheme. So yeah, it's just important, I guess, to understand that.
+
+00:53:59.000 --> 00:54:05.000
+the scheme that is selected must not require trusted setup.
+
+00:54:05.000 --> 00:54:08.000
+Okay.
+
+00:54:08.000 --> 00:54:09.000
+Understood, thank you.
+
+00:54:09.000 --> 00:54:10.000
+And now OpenAC does not require it.
+
+00:54:10.000 --> 00:54:13.000
+Yes, I, uh…
+
+00:54:13.000 --> 00:54:26.000
+Going back to my days at Eve and it was a real trade-off about needing trusted setup. And so you've gone way down the road from what we were at the initial, what's currently a non-creds and that's
+
+00:54:26.000 --> 00:54:28.000
+That's a huge advance.
+
+00:54:28.000 --> 00:54:38.000
+Um, excellent. Well, so much for trying to, uh, you know, get you back to bed early. I suspected there would be a whole bunch of
+
+00:54:38.000 --> 00:54:43.000
+Really good calls. Um, I cannot thank you enough.
+
+00:54:43.000 --> 00:54:49.000
+For taking the time, um, at both to, you know, analyze what, uh, uh, you know, where we're going and what we needed.
+
+00:54:49.000 --> 00:54:54.000
+Alright, and what we will need, and to share your expertise with us, it's really deeply appreciated.
+
+00:54:54.000 --> 00:55:01.000
+As I said, we will absolutely be back with you, and a shout out and thank you to Otto for introducing you to us.
+
+00:55:01.000 --> 00:55:04.000
+Um, and uh…
+
+00:55:04.000 --> 00:55:07.000
+Yeah, again, thanks. Thanks very much.
+
+00:55:07.000 --> 00:55:11.000
+Um, we… we will, uh…
+
+00:55:11.000 --> 00:55:18.000
+We'll be back at you soon. But in the meantime, if you have any questions, anything comes up, just let me know, and uh.
+
+00:55:18.000 --> 00:55:23.000
+We'll, uh… oh, and thank you for these links. I will add them, Zoe, to the, uh…
+
+00:55:23.000 --> 00:55:26.000
+Uh, to the notes here.
+
+00:55:26.000 --> 00:55:30.000
+Uh, I've been trying to… it's been difficult because there's so many things to, uh…
+
+00:55:30.000 --> 00:55:32.000
+to cover here.
+
+00:55:32.000 --> 00:55:41.000
+Um, and uh, I hope we didn't in the end, end out interfering with your sleep too much.
+
+00:55:41.000 --> 00:55:47.000
+Oh, no problem. I'm just gonna drop one more link for the presentation for anybody who wants to.
+
+00:55:47.000 --> 00:55:48.000
+Yes.
+
+00:55:48.000 --> 00:55:55.000
+Oh, perfect! That is… that is… that is just what we needed, um, and there are folks I know that were not able to, uh, attend the call today who
+
+00:55:55.000 --> 00:56:01.000
+were telling me, oh, please make sure to get a link. Of course, they can't listen to the recording as well.
+
+00:56:01.000 --> 00:56:07.000
+Um, and uh… I'm certain we, as I… I will say, um,
+
+00:56:07.000 --> 00:56:19.000
+Our next agenda item is simply that we're planning, we have five current task forces, each which has their own dedicated repo, so we can have discussions, issues as they're working on any specifications.
+
+00:56:19.000 --> 00:56:21.000
+And, uh, what we're going to, uh…
+
+00:56:21.000 --> 00:56:31.000
+uh, be doing is, uh, the proposals for two more of the ZKP Task Force, and then one on user experience, because that is critical to everything we're doing here.
+
+00:56:31.000 --> 00:56:37.000
+So, um, we definitely would love to have you be a part of that ZKP Task Force.
+
+00:56:37.000 --> 00:56:44.000
+One of the reasons for the repos and the emphasis on GitHub is asynchronous collaboration, because we can't
+
+00:56:44.000 --> 00:56:47.000
+Do all of this on real-time calls.
+
+00:56:47.000 --> 00:56:57.000
+So I will definitely be back in touch, Zoe, with you and your team about as we get that stood up so we can continue to collaborate there. If that's something that
+
+00:56:57.000 --> 00:57:01.000
+Uh, would be, uh, of interest to your team.
+
+00:57:01.000 --> 00:57:08.000
+Yeah, definitely. I'm just gonna drop my signal handle in case anybody wants to get in touch with the team, so feel free to reach out.
+
+00:57:08.000 --> 00:57:14.000
+That is the shortest signal handle I've ever seen. It's excellent.
+
+00:57:14.000 --> 00:57:25.000
+Ah, fantastic. Thank you very much. Uh, and thank you to your whole team. Um, that was one of the best presentations on ZKP, um, it's ever seen.
+
+00:57:25.000 --> 00:57:29.000
+So I really, really deeply appreciate it.
+
+00:57:29.000 --> 00:57:40.000
+Alright, I'm going to quickly, we just have 4 minutes left, so yeah, you're getting lots of thumbs up and hearts, and well-deserved all the way around, and…
+
+00:57:40.000 --> 00:57:42.000
+Again, I hope you're able to…
+
+00:57:42.000 --> 00:57:44.000
+Sleep well tonight.
+
+00:57:44.000 --> 00:57:51.000
+Um, okay, in our last couple minutes, uh, again, uh, this is just… we wanted to give everyone a heads up, um, we're, we're
+
+00:57:51.000 --> 00:57:57.000
+Prepared now to, uh, we talked last week about the ZKP Task Force and why we wanted to, uh,
+
+00:57:57.000 --> 00:58:03.000
+I think we just saw the illustration of how badly and timely it is to get that started.
+
+00:58:03.000 --> 00:58:13.000
+Um, we do have the CIROS team, uh, the Berkeley team, Hart Montgomery, uh, the CTO at LFD Decentralized Trust, all very interested in getting that going.
+
+00:58:13.000 --> 00:58:18.000
+So we'll get that underway, get the repos, um, set up for that one, and also the charter.
+
+00:58:18.000 --> 00:58:21.000
+And again, the other one that now…
+
+00:58:21.000 --> 00:58:29.000
+Keeps coming up as, uh, UX, um, and even though we may not have folks ready to pile into that, I want to get the repo.
+
+00:58:29.000 --> 00:58:34.000
+set up and have that there so as discussions start to come up in the UX area,
+
+00:58:34.000 --> 00:58:38.000
+We have a discussion area, just so…
+
+00:58:38.000 --> 00:58:40.000
+For the, um…
+
+00:58:40.000 --> 00:58:44.000
+OpenAC team, again, we're emphasizing, um,
+
+00:58:44.000 --> 00:58:54.000
+Uh, we do have Discord channels that are used both for trusted repeating. We can set up Discord channels for any of the
+
+00:58:54.000 --> 00:59:05.000
+task forces, but we're emphasizing having discussions on the repos dedicated to those task forces. Plus, we have one, a general one for general discussions.
+
+00:59:05.000 --> 00:59:09.000
+So we'll go ahead and get those set up, um…
+
+00:59:09.000 --> 00:59:23.000
+Lastly, very briefly, uh, we are still slowly making progress thanks to Jeff Turk on the template specification. Still not done yet, but finally in this next week, it should get done.
+
+00:59:23.000 --> 00:59:27.000
+So we can start getting that first credentials spec out.
+
+00:59:27.000 --> 00:59:34.000
+And the very last thing is, I just want to remind everyone, um, trust ROP has now a semi-annual all-members meeting.
+
+00:59:34.000 --> 00:59:40.000
+And it will be a week from today, um, in the.
+
+00:59:40.000 --> 00:59:43.000
+2 o'clock time slots, um, Pacific.
+
+00:59:43.000 --> 00:59:45.000
+2100 UTC.
+
+00:59:45.000 --> 00:59:57.000
+Um, and we will be reporting out several… Martine and I on behalf of the Decentralized Trust Graph Working Group, all the working groups will be, uh,
+
+00:59:57.000 --> 01:00:04.000
+Uh, just sharing highlights of their work, and with a special emphasis on what is going on in the marketplace.
+
+01:00:04.000 --> 01:00:08.000
+Um, you know, how is… how is… are we starting to have an impact?
+
+01:00:08.000 --> 01:00:12.000
+And where's this going? So we're going to do this just twice a year.
+
+01:00:12.000 --> 01:00:14.000
+Uh, right before the annual…
+
+01:00:14.000 --> 01:00:18.000
+Internet identity workshop, Agentic Internet Workshop meetings,
+
+01:00:18.000 --> 01:00:22.000
+And, uh, folks will be talking about what sessions they plan to have
+
+01:00:22.000 --> 01:00:25.000
+at those conferences so you can help get prepared.
+
+01:00:25.000 --> 01:00:29.000
+And I will tell the, uh…
+
+01:00:29.000 --> 01:00:35.000
+Uh, I'm actually going to add a slide to what we're, uh, what I was planning to present.
+
+01:00:35.000 --> 01:00:43.000
+To highlight, uh, the, uh, uh, you know, this presentation by the OpenAC team, it was that good, and I want folks to know
+
+01:00:43.000 --> 01:00:45.000
+We are, um…
+
+01:00:45.000 --> 01:00:47.000
+actively on that key piece.
+
+01:00:47.000 --> 01:00:57.000
+Um, and I will point out to you that it was part of our charter since it was emphasized so well in the original personhood credentials paper in August 19, 2024.
+
+01:00:57.000 --> 01:01:02.000
+And, uh, I'm just really glad that you're doing the work you are, because
+
+01:01:02.000 --> 01:01:10.000
+A lot of folks said that was going to be the hardest part of actually making personhood credentials possible for the internet. And, uh…
+
+01:01:10.000 --> 01:01:13.000
+You're helping prove that we can do that.
+
+01:01:13.000 --> 01:01:30.000
+And with that, uh, we will, uh, we're done next week, uh, we will have Martina, hopefully she's feeling better. We'll go back into the interaction architecture diagram work. I'm having some fascinating discussions with her that we will also be putting on the GitHub repos.
+
+01:01:30.000 --> 01:01:37.000
+And then I'll actually be doing that from the airports on the way to Cambridge for.
+
+01:01:37.000 --> 01:01:39.000
+The, um, um…
+
+01:01:39.000 --> 01:01:42.000
+Harvard ASML, um, event.
+
+01:01:42.000 --> 01:01:48.000
+So we'll look forward to that, and with that, we're at time. So again, a big thank you to the OpenAC team.
+
+01:01:48.000 --> 01:01:57.000
+Um, and I hope you sleep well.
+
+01:01:57.000 --> 01:01:58.000
+Our pleasure, really, it's truly awesome.
+
+01:01:58.000 --> 01:02:00.000
+Thank you very much for having us.
+
+01:02:00.000 --> 01:02:05.000
+Yeah, yeah, that's it. I love those.
+
+01:02:05.000 --> 01:02:09.000
+Yeah, the you can get the full…
+
+01:02:09.000 --> 01:02:19.000
+Full set of those. All right, very good. Well, talk to everyone soon.
+
+01:02:19.000 --> 01:02:39.000
+Hey
+

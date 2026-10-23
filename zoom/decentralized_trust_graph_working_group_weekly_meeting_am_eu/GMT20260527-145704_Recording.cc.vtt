@@ -1,0 +1,935 @@
+WEBVTT
+
+00:20:41.000 --> 00:20:42.000
+This is
+
+00:20:42.000 --> 00:20:57.000
+data integrity proofs. It's generic enough in that it doesn't really matter what you're using, you know, whether you're using DIDs, what DIDs, VIDs, X509, who cares? It kind of works with anything
+
+00:20:57.000 --> 00:21:13.000
+We haven't implemented across two transports already rest and didcom. Those of you that have built APIs in the past, one of the challenges is you end up with kind of an API endpoint for every task
+
+00:21:13.000 --> 00:21:23.000
+That you do, you know, slash account slash delete slash account slash list slash account slash get slash account slash new. And that becomes
+
+00:21:23.000 --> 00:21:26.000
+Quite unwieldy at scale.
+
+00:21:26.000 --> 00:21:43.000
+With Trust House, you actually end up with one API. So trust tasks, or in the DIDCOM world, if you understand how the protocols work, you can just have a single envelope type, and then sort out the trust tasks underneath this.
+
+00:21:43.000 --> 00:21:51.000
+The second thing it does in the envelope layer is there is the concept of implied proof, not direct proof.
+
+00:21:51.000 --> 00:22:03.000
+So if you are delivering content over a standard REST API, even though it's protected by SSL or TLS, that's not proof of ownership of
+
+00:22:03.000 --> 00:22:19.000
+Who actually created it or owned it. But if you deliver via a signed Didcom message, there is proof that the sender is who they say they are as you go through this. And so, instead of having to double sign things, you can imply proof from an outer wrapper
+
+00:22:19.000 --> 00:22:23.000
+If it meets. And so there's a lot of kind of
+
+00:22:23.000 --> 00:22:42.000
+tech in allowing how that works as you go through it. This is now being used. VTA has been switched across to using trust tasks. It's working really well. The Uri, if you've looked at other specs, there's nothing really unique about it. Use a standard URIs
+
+00:22:42.000 --> 00:22:56.000
+There's a namespace, there's an operations path, and then just a major minor version number as you go through this. There's over 70 trust tasks defined already, and I'll show you what they look like. But
+
+00:22:56.000 --> 00:22:58.000
+really kind of
+
+00:22:58.000 --> 00:23:09.000
+works well as we've been doing breaking changes, being able to use the URIs and the version numbers is actually working really quite well as we go through this.
+
+00:23:09.000 --> 00:23:22.000
+There's at the moment only 2 return types. There will be a third one. It's either a success, and it's a generic success, and all responses
+
+00:23:22.000 --> 00:23:37.000
+That are okay. Always just actually the URL with a hash response fragment on the end. So really simple. You don't need to define another type. It's just implied that it's got hash response. It's there. Or is an error reject
+
+00:23:37.000 --> 00:23:51.000
+And the error reject is its own type and gives a lot of metadata if you want it. It is okay to silently fail, but most tasks you probably want something to come back saying what it is.
+
+00:23:51.000 --> 00:24:09.000
+They'll share this. So to give you an example, this is the auth challenge. So what you'll see when I show you the authentication challenge is it's actually made up of three trust tasks. That's it. That is all you need to do authentication in this world
+
+00:24:09.000 --> 00:24:20.000
+You can see auth challenge on the left. It's pretty simple. Who's the audience that will come through this and the response is just a hash response and some information coming back.
+
+00:24:20.000 --> 00:24:36.000
+The authenticate or slash authenticate is actually the most used trust task in the VTI landscape already. The mediator uses it, VTA uses it, did hosting services use it, open VTC uses it.
+
+00:24:36.000 --> 00:24:55.000
+PNM, VTC, CNM, they all use it. It's like Dr. Seuss acronym salad there as you go through this. The specs themselves, so the trust tasks, they are, if you look at the raw file, it's a kind of markdown language
+
+00:24:55.000 --> 00:25:07.000
+But they are meant to be read by machines and they get translated to a human view as you go through it. So, for example.
+
+00:25:07.000 --> 00:25:15.000
+If we look back at this, where is our
+
+00:25:15.000 --> 00:25:21.000
+Okay. If you look at trust tasks, for example, here, you can see them all
+
+00:25:21.000 --> 00:25:36.000
+But if we go into the registry and just click on one, they're very human readable. They kind of get rendered nicely as you go through this. They've got all of the information you need the response. There's links to different shared schemas, for example.
+
+00:25:36.000 --> 00:25:54.000
+It's all designed for humans first. If you actually load this same URL as an application slash JSON content type, it will actually render radically different. It will render for a JSON LD format as we go through this, which is quite nice
+
+00:25:54.000 --> 00:25:55.000
+So
+
+00:25:55.000 --> 00:26:07.000
+Super easy. Everything works when you see the usage. You can click on the actual type. It'll take you straight to the spec document. It's self-contained.
+
+00:26:07.000 --> 00:26:18.000
+It's working really well. We have 71 specs over 11, 12 categories as we go through. If there was one ask from everyone here is please
+
+00:26:18.000 --> 00:26:27.000
+read the site, have a look at some of the specs. They have been built by one single owner
+
+00:26:27.000 --> 00:26:43.000
+He's not very good at doing spec documents, so there's going to be inconsistencies, and I actually kind of deliberately so, some of them I know have breaking definitions, by design. You can go find the Easter eggs. And the reason for that
+
+00:26:43.000 --> 00:26:57.000
+Is to force a uplevel on a spec from 0.1 to 0.2 or 1.0 as you go through this. So the design there is to actually test that the rolling up works as you go through it.
+
+00:26:57.000 --> 00:27:14.000
+There is CodeGen as part of trust tasks, so Cogen takes those documents and will actually create Rust libraries and TypeScript, JavaScript libraries for you. This is a really powerful feature because for the first time compared to some of the other stacks doing this
+
+00:27:14.000 --> 00:27:29.000
+Code is synchronized to the specification documents. They can't drift. One of the big problems is people will quite happily write spec versions 2, 3, 4, 5 versions ahead of the actual implementation code
+
+00:27:29.000 --> 00:27:41.000
+This keeps it in lockstep every time a spec gets published, we run the code gen as part of the Ci, and then publish the specs. Now this does mean you'll end up with
+
+00:27:41.000 --> 00:27:59.000
+hundreds if not thousands and thousands of versions. It's okay. We're using version control as it's meant to in modern systems as you go through this. And again, this has been really good from my perspective as I build this. Trust tasks are now the canonical source of truth
+
+00:27:59.000 --> 00:28:16.000
+And then every system, because again, it's a decentralized distributed architecture of components talking to each other, they all look at the trust task specification as what is truth, and if there is a disagreement or there is something they cannot do.
+
+00:28:16.000 --> 00:28:29.000
+then you change the spec, bump it, and off you go again as you go through it. So this part is working really, really well. These are some of the libraries that are out there. They're all published. You can go to crates.io for
+
+00:28:29.000 --> 00:28:45.000
+Rust or NPM for trust tasks. It just works really easily. All your structs, error handling you'll see here there's trust task did come and https. These have the bindings out of the box for you
+
+00:28:45.000 --> 00:29:03.000
+What this means is it will auto populate missing fields based on the wrapper of the transport on your behalf, which is again really, really easy developer convenience as you go through it. In terms of how to use them, they're really, really simple
+
+00:29:03.000 --> 00:29:09.000
+This here is a service. I'm not going to go through all the codes, but this has everything you need
+
+00:29:09.000 --> 00:29:21.000
+to register and start accepting trust tasks, and on the client side, it's as simple as this is using the code gen. You're creating a new trust task. We're going to create a payload
+
+00:29:21.000 --> 00:29:37.000
+Grant, what it is, send it, and then wait for the outcome back, and it's either going to be a payload or an error as you go through it. So it's very, very simple, has simplified the development of these greatly.
+
+00:29:37.000 --> 00:29:46.000
+All right, I'm going to not go through the swim lanes. I think it's time for a bit of a demo as we go through this. So as we built
+
+00:29:46.000 --> 00:29:48.000
+VTA
+
+00:29:48.000 --> 00:30:05.000
+One of the challenges we had was… it's great that it was doing key management, great that it was doing DIDs, it was great that it could do authentication within the VTC, VTI landscape, but what it couldn't do
+
+00:30:05.000 --> 00:30:12.000
+Was authenticate you in your browser. And the reality is most of us live in the browser.
+
+00:30:12.000 --> 00:30:28.000
+are authenticating to other third parties as we go through it. So if we look at this, this is the DID hosting site. It's a classic web page. There's nothing really special about it. When you set it up
+
+00:30:28.000 --> 00:30:43.000
+It will ask you, do you want to register with a passkey? You do kind of an invite URL, you copy that invite URL and paste it into your browser, and it will run you through a passkey registration process, and then you can log into the website.
+
+00:30:43.000 --> 00:30:59.000
+Just like this. There's nothing special here. It's just web authn and what it really proves is it's just proving that this browser accepted the invite. It makes no attestation of
+
+00:30:59.000 --> 00:31:19.000
+who I am, that it went to the right person, or anything like this. You can see here, I'm not going to go through all the details, but this is where you can see DIDs that we use for VTA VTC testing. And what I want you to notice is just remember the name Glenn-VTA. That's my personal VTA
+
+00:31:19.000 --> 00:31:30.000
+Those of you, you can take screenshots and try to talk to it if you like. Good luck. But that's my VTA. And when we go into the access control
+
+00:31:30.000 --> 00:31:46.000
+You'll see that there's three entries, and I kind of want you to try to remember the… there's actually really two server one is this is a distributed system. So we're talking to a control plane, and this is one of the hosting servers that is actually delivering
+
+00:31:46.000 --> 00:31:53.000
+The DIDs when they're requested. So it's a service. It doesn't have any rights.
+
+00:31:53.000 --> 00:32:08.000
+This is the account I just logged in, enrolled via passkey invite. You can see it's a DID example. There is no PKI for this. There is nothing there apart from the specific invite that came through and linked it
+
+00:32:08.000 --> 00:32:13.000
+And then my VTA down here has
+
+00:32:13.000 --> 00:32:20.000
+An access rule saying it's an admin to this site known by the DID.
+
+00:32:20.000 --> 00:32:31.000
+All the access control is, is the public DID. There's no other kind of secret information behind this whatsoever. So if we log out of this
+
+00:32:31.000 --> 00:32:36.000
+And we go back over here.
+
+00:32:36.000 --> 00:32:42.000
+What we're going to do is we're going to install the plugin
+
+00:32:42.000 --> 00:32:54.000
+If I click on the right button. So it's just running local to me. So this is the VTA wallet. It just did a fresh install. And now if we go and log in
+
+00:32:54.000 --> 00:33:08.000
+And refresh this. You see that the site is actually already detected that there is the wallet sitting here. We haven't done anything with it yet. But if I try to log in, for example, as this
+
+00:33:08.000 --> 00:33:27.000
+It's just going to give me errors. There's nothing here. So let's have a look at what the browser is going to do. So we just pinned it so it's easy to find. Right now. So my browser has no identity information in this context. It has no key information. The first thing it's trying to do
+
+00:33:27.000 --> 00:33:34.000
+is establish a connection to my VTA. So, what we're going to do
+
+00:33:34.000 --> 00:33:45.000
+is over here, we've got the personal network manager, and you can see I've got a number of VTAs, but I'm going to just grab the DID
+
+00:33:45.000 --> 00:33:49.000
+for my Glenn VTA that we saw before
+
+00:33:49.000 --> 00:34:00.000
+We're going to put it in here and we're going to say, let the VTA derive context within the VTA, there are a number of different partitions or trust contexts that keep things separate.
+
+00:34:00.000 --> 00:34:17.000
+So it's going to go and it's just created within the browser an ephemeral DID that is used for temporary connection. And it's basically saying to me, can you give this ephemeral DID access to your VTA
+
+00:34:17.000 --> 00:34:37.000
+So this is what this command does. Personal network manager. Can you create an ACL for this ephemeral temporary DID with the role admin, and it's going to expire in one hour, use it or lose it as you go through this. So I'm in Singapore, my VTA is in the US, my mediator is somewhere else
+
+00:34:37.000 --> 00:34:52.000
+It's bouncing around globally. That's why it's a little slow. But it has created the ACL. Again, this DID, it's just public, no secrets, nothing sensitive. You are seeing you can copy and paste this, you can post it on YouTube
+
+00:34:52.000 --> 00:35:12.000
+There is no sensitive information here that anyone can use to try to get access to this. This is really one of the strengths of it. So now my VTA has an access rule saying this DID can connect. So now it is connecting and you'll notice here it's actually using transport did comment a little bit too quick
+
+00:35:12.000 --> 00:35:25.000
+And it's loaded all of my trust contexts, and it's saying which trust context do I want to use for this profile of the wallet. So we're going to click VTA and
+
+00:35:25.000 --> 00:35:38.000
+Now, it is swapping across and now it has, you can see here, the wallet's long-term identity has been rolled to a new key that is derived from the VTA. So the VTA
+
+00:35:38.000 --> 00:35:41.000
+A is now in control of the
+
+00:35:41.000 --> 00:35:57.000
+Key within the browser. It has rolled the key automatically. We're going to encrypt this locally because while it's all protected within the browser, if we write it to disk, you can see it. So we use PRF and a local passkey
+
+00:35:57.000 --> 00:36:14.000
+And now, this is encrypted. So, our wallet is now authorized at this VTA. You can see our whole wallet ID, and if we click on load entries, there is nothing in the vault yet that is connecting any of my identities to the Reliant
+
+00:36:14.000 --> 00:36:18.000
+Party here, which is this. So if we click on this
+
+00:36:18.000 --> 00:36:33.000
+It comes up saying no DID self-issued vault entries pinned. So let's create one, and this is how easy it is. So this server is also known by a DID, which is there. So we've just copied that DID
+
+00:36:33.000 --> 00:36:47.000
+We are going to load the entries again. We're going to add our first entry. So, it can do password logins, but it can also do DID self-issued. So, let's call this did hosting for the DTG…
+
+00:36:47.000 --> 00:37:07.000
+ETG working group. We're using the context that we put in our relying party is WebVH Storm WS, which matches the domain up here. We're going to copy our VTA address. So in this case, and just for the demo, I'm going to use my actual VTA, which would be an example of
+
+00:37:07.000 --> 00:37:19.000
+my persona DID, not a community or relationship DID, if you start using the DTG language. It's automatically derived the key. We save this
+
+00:37:19.000 --> 00:37:26.000
+And now, what is happening in the VTA is that there is now a login link
+
+00:37:26.000 --> 00:37:42.000
+between the relying party, known as WebVH Stormws, and my Persona DID within the VTA. No key information from either of these two entities is in my browser. The browser only has
+
+00:37:42.000 --> 00:38:01.000
+The information for this DID that is there to proxy now into the VTA. So if we click on this, we should be able to authenticate in and you'll notice I didn't have to do anything. There was no pop-ups. This is just here for debug purposes, showing what actually happened with the challenge
+
+00:38:01.000 --> 00:38:03.000
+The self
+
+00:38:03.000 --> 00:38:16.000
+issued OpenID provider token, the verification bearer tokens and everything that came in. And like magic, I am logged into the site as you go through it, and this worked
+
+00:38:16.000 --> 00:38:22.000
+Because my VTA was already on the allow list. So, we can do something else now
+
+00:38:22.000 --> 00:38:24.000
+So the next thing might be
+
+00:38:24.000 --> 00:38:26.000
+What about
+
+00:38:26.000 --> 00:38:43.000
+If I don't want to use the VTA or my VTA is down and I want to have some backup for this. So what you can do here is you can log in directly from the wallet. So this, again, is a pop-up being delivered via didcom injection into the browser
+
+00:38:43.000 --> 00:38:58.000
+And you can see it's resolving the storm WS with BH Storm WS. It's actually doing a whole bunch of checks, making sure everything matches, and it's going to sign in as my wallet address, apiK. So
+
+00:38:58.000 --> 00:39:05.000
+If we click on approve, it's going to come back saying challenge failed. You are forbidden.
+
+00:39:05.000 --> 00:39:24.000
+I'm forbidden because there's actually no access control link on the other side allowing me to do this. So we will log in back in again using the VTA. Thank you. We're going to go to access. We're going to grab our holder DIDK. So it's copied
+
+00:39:24.000 --> 00:39:28.000
+We just copy that there. We're going to make it an admin
+
+00:39:28.000 --> 00:39:47.000
+We add the entry. Now, one of the things that I'm kind of glossing over is all of the interactions with this website are using trust tasks. So when I just clicked add entry, what actually happened is my browser created trust task, signed it with its own
+
+00:39:47.000 --> 00:40:07.000
+Key from the VTA and then sent that to the back end of the did hosting service. So everything is being authorized, not only to the website, but through to the API and every task as assigned task as you go through this. So there's my DID key. It is there
+
+00:40:07.000 --> 00:40:12.000
+If we log out, and now we're going to log back in
+
+00:40:12.000 --> 00:40:21.000
+And we're magically in. So this example is one website, three different methods of logging in
+
+00:40:21.000 --> 00:40:39.000
+Logging in using a traditional web authent, nothing to do with the world of SSI. And then two methods, one using native browser directly, where it's using a key within the browser. I don't need my VTA, or a fully proxied, nothing leaves the VTA in terms of key material
+
+00:40:39.000 --> 00:40:57.000
+And the VTA is proxying and signing everything on my behalf as I go through it. And as you saw, it works from a performance perspective really nice. And we can test this and see whether I'm telling the truth. If I remove my ACL, I'm going to get an error, hopefully.
+
+00:40:57.000 --> 00:41:02.000
+Yep, there we go. So I actually just got a trust task error
+
+00:41:02.000 --> 00:41:10.000
+Saying that the permission denied only admin callers can enumerate the ACL and it's not a retrievable.
+
+00:41:10.000 --> 00:41:14.000
+So if we log out
+
+00:41:14.000 --> 00:41:17.000
+And I tried to come in, it's going to give me a 403
+
+00:41:17.000 --> 00:41:20.000
+Because I'm forbidden
+
+00:41:20.000 --> 00:41:29.000
+You can also do some other things. You can add more than one VTA. So if we go back to
+
+00:41:29.000 --> 00:41:35.000
+here, and we're going to have another VTA
+
+00:41:35.000 --> 00:41:37.000
+For local
+
+00:41:37.000 --> 00:41:40.000
+And just use that. I'm going to switch to it
+
+00:41:40.000 --> 00:41:52.000
+and I put it in, it's again, I can add more VTAs, copy the command, add myself to the access control list for this VTA.
+
+00:41:52.000 --> 00:41:54.000
+It's added
+
+00:41:54.000 --> 00:41:55.000
+Connect
+
+00:41:55.000 --> 00:42:01.000
+This one only has one context. It's got two now, so add that to VTA.
+
+00:42:01.000 --> 00:42:18.000
+And now we encrypt this one again. So each VTA has its own encryption, again, limiting the attack surface that comes through. And now I can jump back and forth between my two here. And
+
+00:42:18.000 --> 00:42:39.000
+already has because again, state is held in the VTA. It already has a did self-issue. Now, this will not work because we don't have an access control for that VTA. So auth challenge failed. So again, we're going to log in with our passkey as a way of getting around this
+
+00:42:39.000 --> 00:42:47.000
+And now you can start seeing some of the fun that you can do. So we're going to
+
+00:42:47.000 --> 00:42:53.000
+Grab our local. So you can see here, this is Glen local, make it an admin
+
+00:42:53.000 --> 00:42:56.000
+Add the entry, log out
+
+00:42:56.000 --> 00:42:58.000
+Log in
+
+00:42:58.000 --> 00:43:04.000
+And I'm back in again as Glenn local. I can log out. I can switch
+
+00:43:04.000 --> 00:43:12.000
+Switch back to Glenn. This is now using the one in the US
+
+00:43:12.000 --> 00:43:29.000
+And I'm back in. So this is proving the VTA by proxy. There is no API, no domain did come natively within the browser plugin, no secrets being stored here whatsoever, and I can move these things around
+
+00:43:29.000 --> 00:43:34.000
+to my heart's content as I go through this. So
+
+00:43:34.000 --> 00:43:47.000
+I'm not going to go through this in detail, but what you saw on the onboarding was the wallet plugin, talking through the mediator to the VTA itself and getting data back on the wallet
+
+00:43:47.000 --> 00:43:57.000
+where the wallet was logging in itself, the browser page to the wallet plugin to the relying party, which is the website, back again, no VTA in the path.
+
+00:43:57.000 --> 00:44:02.000
+It's as simple as kind of these 3 commands. Challenge
+
+00:44:02.000 --> 00:44:17.000
+Sign the challenge, which proves ownership of the credentials. This gets you to access level 1 and a refresh. What happens when the tokens do this? This is all you need and these are defined trust tasks as you go through it.
+
+00:44:17.000 --> 00:44:32.000
+You can, in the proxy, this is where the VTA is doing it, or you can see here is the browser page, wallet plugin. It's then talking to the VTA itself to the relying party, and back again. So you saw all of those demos
+
+00:44:32.000 --> 00:44:38.000
+Notice there's not really any difference in the UX, which was a big part of this.
+
+00:44:38.000 --> 00:44:40.000
+You can do the wallet VTA login
+
+00:44:40.000 --> 00:44:58.000
+The other thing that was happening, which you didn't see, but was happening when I was adding the ACLs, is I was actually up-leveling. So in authentication systems, there's often a concept of level 1, level 2. Level 1 means I can do things like list things, but if I try to make a change
+
+00:44:58.000 --> 00:45:15.000
+It's going to ask for additional authentication. That's often where you see, you know, can you do a biometric check, for example, or a liveness test that bumps you up to access level 2. That is fully supported as well. And what this starts to unlock for us
+
+00:45:15.000 --> 00:45:19.000
+is when you start thinking about authentication
+
+00:45:19.000 --> 00:45:31.000
+as an asynchronous programmable message bus, because that's actually what we've turned it into, I can start to do if this, then that policy of the authentication flow
+
+00:45:31.000 --> 00:45:47.000
+So depending on the site, I may use different biometric providers. I may actually say, I don't care. I'm not going to use biometric. I'm just going to have the VTA auto sign it because it's low risk. As I travel to different countries, and I can't receive OTP
+
+00:45:47.000 --> 00:46:15.000
+Because I'm on a different telco network, and my phone number doesn't work. I can have my VTA start to use different methods of proving interaction or upleveling of the authentication flow. And you start looking at things such as my terms, for example, just talking to Ben earlier
+
+00:46:15.000 --> 00:46:19.000
+architecture that you just can't do on
+
+00:46:19.000 --> 00:46:33.000
+Yeah, kind of systems of today as you go through it. I'm not going to talk about the error model. We've talked about, you know, it's one envelope, irrespective of the transport method. I can put this in an email if I really wanted to. All the specs
+
+00:46:33.000 --> 00:46:50.000
+get turned into code automatically, and they're all strongly typed. VTA can be off the critical path. You know, if you're on a plane, VTA is offline, you can still do things. It supports multiple VTAs, which again, in the decentralized trust graph
+
+00:46:50.000 --> 00:47:01.000
+An entity should have at least one or more VTAs, and that's a complex topic, but I'll just leave it at that for now. Your personas
+
+00:47:01.000 --> 00:47:10.000
+They stay within your control, you get to define what they are. They are not cascading in the secrets behind it are not
+
+00:47:10.000 --> 00:47:21.000
+leaving the VTA at all. And things like step up or elevation of privilege, it's just another trust task as you go through this. So
+
+00:47:21.000 --> 00:47:37.000
+I think it's, you know, very exciting what the VTA is doing now. It's for the first time, it's having some real utility and starting to be used in kind of normal interactions instead of kind of system to system and what we were doing with this
+
+00:47:37.000 --> 00:47:44.000
+But I do strongly encourage you, please check out trust tasks. You can have a look
+
+00:47:44.000 --> 00:47:59.000
+At the flows, but having a look at things like the authentication and just getting your head around it and just feedback on is it working? Is it not working?
+
+00:47:59.000 --> 00:48:05.000
+Trust tasks are deliberately designed to be very, very simple. I have deliberately
+
+00:48:05.000 --> 00:48:20.000
+not touched anything that's about the decentralized trust graph credentials. I've left that open for others to think about, you know, how do you… I know, I think in one of the chat groups, you talked about what's the ceremony? What's the ceremony of creating a relationship? What's the ceremony
+
+00:48:20.000 --> 00:48:24.000
+of membership, what does that mean?
+
+00:48:24.000 --> 00:48:40.000
+Trust tasks can support the underlying of it, but you build on top of that the more complex rules of engagement. And that's really where the VTC comes in as your governance and policy layer that will allow that to occur with
+
+00:48:40.000 --> 00:48:45.000
+the decentralized TrustGraph credentials as you go through it. So with that
+
+00:48:45.000 --> 00:48:56.000
+I'm going to pause there because I know that was a lot of information, but you're one of the first ones to see an entirely new way of doing auth in a secure way
+
+00:48:56.000 --> 00:49:00.000
+With freedom
+
+00:49:00.000 --> 00:49:21.000
+Very cool. I grabbed some screen chats, a few, but there was a lot there. Thank you, Glenn. We have 14 minutes left to pummel Glenn with questions or feedback
+
+00:49:21.000 --> 00:49:22.000
+Any hands up?
+
+00:49:22.000 --> 00:49:31.000
+Well, I mean, this is exactly what I need. I mean, this pairs perfectly with the ceremonies that I'm creating in the AIM group right now.
+
+00:49:31.000 --> 00:49:35.000
+Uh, you know, for agents interacting with each other, you know,
+
+00:49:35.000 --> 00:49:40.000
+negotiation, you know, putting the terms in there, starting with
+
+00:49:40.000 --> 00:49:43.000
+with, uh, intent casting, the terms to then
+
+00:49:43.000 --> 00:49:49.000
+you know, going to negotiation, to agreement, to, you know, ongoing compliance. It's just…
+
+00:49:49.000 --> 00:49:51.000
+It's fantastic stuff.
+
+00:49:51.000 --> 00:49:52.000
+Yeah, thanks, Steve.
+
+00:49:52.000 --> 00:49:57.000
+And Mozilla needs to know about this stuff immediately, and make every, you know,
+
+00:49:57.000 --> 00:50:03.000
+interaction, every turn, a trust task within their browser. It just… it's obvious.
+
+00:50:03.000 --> 00:50:08.000
+Yeah, it's I'm biased, but as I build with it, it is
+
+00:50:08.000 --> 00:50:12.000
+Very powerful. On the AI side, we've
+
+00:50:12.000 --> 00:50:31.000
+Design this to be very AI friendly. So one of the big problems with AI agents is you don't want to give them any secrets or passwords, because who knows what they do with it. All it takes is one prompt injection. When you use VTA as proxy, that is the safest way for AI agents to log in on your behalf without
+
+00:50:31.000 --> 00:50:46.000
+Any visibility, actually, of what those secrets or how they got it, you kind of pass that back and forth as you go through it. So that flow works equally well for AI or humans in interactive. And one of the terminology we use
+
+00:50:46.000 --> 00:51:03.000
+And I'll kind of just plant this with you. Things that are non-interactive, like services, we call them services, things that are interactive, like browsers or applications. We're calling them the kind of companions to the VTA as a way of just separating out that there's actually different behavioral
+
+00:51:03.000 --> 00:51:09.000
+Patterns and flows in how the VTA actually operates and works with those as they go through it. But yeah, thank you, Steve.
+
+00:51:09.000 --> 00:51:13.000
+Tim
+
+00:51:13.000 --> 00:51:19.000
+Yeah, can you hear me okay? My machine decided not to cooperate with me. Uh, MS Teams was.
+
+00:51:19.000 --> 00:51:20.000
+And I had to shut it down, so, um…
+
+00:51:20.000 --> 00:51:22.000
+You sound fine, Tim. You sound good.
+
+00:51:22.000 --> 00:51:27.000
+Okay. Yeah, super presentation, I really enjoyed it.
+
+00:51:27.000 --> 00:51:33.000
+you know, I've been working in a different area, but I'm seeing all the same patterns, so…
+
+00:51:33.000 --> 00:51:42.000
+A lot to digest. Again, I… Drama had mentioned it, I'm working quite closely with the Nostra Protocol that has some different assumptions, so…
+
+00:51:42.000 --> 00:51:48.000
+Um, my plan is to really crosswalk it, walk what you work that I'm…
+
+00:51:48.000 --> 00:51:52.000
+doing, I guess, some of my initial observations is…
+
+00:51:52.000 --> 00:51:59.000
+you know, there's a close alignment or assumptions that there are APIs, there are domains, or URIs and that.
+
+00:51:59.000 --> 00:52:05.000
+It really ties you to the existing infrastructure, which isn't necessarily bad, but there's just some other…
+
+00:52:05.000 --> 00:52:08.000
+work, um, that's being done that's kind of
+
+00:52:08.000 --> 00:52:13.000
+Saying that those assumptions might need to be revisited. So, um…
+
+00:52:13.000 --> 00:52:16.000
+My plan is to really explore, like, I…
+
+00:52:16.000 --> 00:52:25.000
+I'm looking at this and saying, okay, you're reaching the exact same conclusions and observations, um, that I've been seeing over the past while.
+
+00:52:25.000 --> 00:52:33.000
+But I'm kind of expressing it in a bit of a different way based on some of the models that I've been, um, and protocols that I've been working with. So I just wanted to…
+
+00:52:33.000 --> 00:52:37.000
+Just wanted to point that out, that, um…
+
+00:52:37.000 --> 00:52:42.000
+Like, the patterns are sound, um, there may be different implementation approaches, and…
+
+00:52:42.000 --> 00:52:43.000
+That's something that I'm exploring.
+
+00:52:43.000 --> 00:52:55.000
+Yep, so on that one, Tim, this is where the power of trust task being transport agnostic are. If there are alternative
+
+00:52:55.000 --> 00:52:56.000
+Yep.
+
+00:52:56.000 --> 00:53:13.000
+peer to peer, let's just call it transport that not rely on DNS domain names. It all works out of the box. It's just another transport binding. So what I showed you then actually was not using any domain names. It was using all the DIDs and routing
+
+00:53:13.000 --> 00:53:15.000
+Yeah.
+
+00:53:15.000 --> 00:53:16.000
+So…
+
+00:53:16.000 --> 00:53:17.000
+Across things and was changing. There's Yeah, it's very cool, but I see it's going the same direction.
+
+00:53:17.000 --> 00:53:23.000
+So, the parallel I see is that what you're talking as trust tasks,
+
+00:53:23.000 --> 00:53:27.000
+get encapsulated into what are called JSON RPC messages that basically have all the data.
+
+00:53:27.000 --> 00:53:29.000
+Yeah.
+
+00:53:29.000 --> 00:53:38.000
+And that actually gets signed, and as you said, it's transport agnostic, so I want to dig into that and look at the fundamental differences, and I'm quite…
+
+00:53:38.000 --> 00:53:41.000
+happy to compare notes with you. Like, I think…
+
+00:53:41.000 --> 00:53:45.000
+The assumptions are just the base… I think what you called it, like, the…
+
+00:53:45.000 --> 00:53:46.000
+we're trying to solve a first-order problem here.
+
+00:53:46.000 --> 00:53:48.000
+Hmm.
+
+00:53:48.000 --> 00:53:53.000
+Uh, we might not have the first-order primitives 100% nailed down yet, and that's kind of where my head is at. So, no, totally appreciate it.
+
+00:53:53.000 --> 00:53:56.000
+Yep. The other thing I'd say is
+
+00:53:56.000 --> 00:54:02.000
+Topic that comes up a lot relating to this is, you know, zero-knowledge proof.
+
+00:54:02.000 --> 00:54:17.000
+Trust Has are deliberately designed to be easily turned into ZK presentations. So the idea being, if I'm the one requesting a task, of course I get to see the task and I store that within my VTA. But when somebody else comes along and Drummond says, you know, I want to audit that
+
+00:54:17.000 --> 00:54:30.000
+I take that and turn that into a ZK proof, and then present that across as you go through it. So, again, this is that first layer of protection, and as you build the second layer
+
+00:54:30.000 --> 00:54:32.000
+Correct.
+
+00:54:32.000 --> 00:54:33.000
+Correct
+
+00:54:33.000 --> 00:54:34.000
+Right, that makes sense, because you're being as granular as possible, so you can easily turn that into ZKPs. Right, okay.
+
+00:54:34.000 --> 00:54:44.000
+And if you match the two up from both sides, you now have proof that a task was done by both parties.
+
+00:54:44.000 --> 00:54:50.000
+Yeah, that's a very good point.
+
+00:54:50.000 --> 00:54:53.000
+So, Glenn.
+
+00:54:53.000 --> 00:55:01.000
+Watching you configure it, you know, the VTA as obviously an expert in what's going on underneath
+
+00:55:01.000 --> 00:55:04.000
+Do you anticipate that
+
+00:55:04.000 --> 00:55:17.000
+Through, you know, continued work on this, we're gonna get it to the point where adding the extension and configuring it is something that, you know, more like an ordinary mortal is going to be able to do
+
+00:55:17.000 --> 00:55:28.000
+Yeah, yeah, I think, I mean, the browser plugin you're seeing is days old. So it will get better
+
+00:55:28.000 --> 00:55:46.000
+What's missing is, you know, there's no VTA UX, for example, there's no PNM UX. It's all the focus has been on just getting this working end-to-end. And this kind of, you know, as Apple would say.
+
+00:55:46.000 --> 00:55:47.000
+Oh, yeah.
+
+00:55:47.000 --> 00:56:01.000
+This is the worst version you'll ever see of it. It will just continue to get better as you go through it. I've stayed away from things like, you know, people have asked, why don't you do the QR codes? I don't know about you, but I find QR codes are not easier. It's a pain in the butt sometimes when you're on different devices trying to do this
+
+00:56:01.000 --> 00:56:10.000
+Copying and pasting actually works pretty easily as you go through it. But if you play with it and you
+
+00:56:10.000 --> 00:56:21.000
+get started with it. If you've got ideas, one of the things I like about the architecture of VTI overall is it doesn't force one method onto you.
+
+00:56:21.000 --> 00:56:43.000
+You can actually have different ways of doing the same thing. It's just different UX flows, different front ends as you go through it. At the end of the day, as long as it's converting it into that very simple information that you saw, which is just your DID on both sides, and then it's doing DID auth and matching the public keys between the two, that's all it needs. So however you choose to do that.
+
+00:56:43.000 --> 00:56:47.000
+It will work off those two very basic primitives.
+
+00:56:47.000 --> 00:56:53.000
+That does make a lot of sense. It's ironic. I'm seeing
+
+00:56:53.000 --> 00:56:58.000
+Yeah, I'm not seeing Marcus Sabidello on this call, but the
+
+00:56:58.000 --> 00:57:05.000
+What you're doing with what we originally called did off is just baking it into everything. And that makes
+
+00:57:05.000 --> 00:57:14.000
+Makes total sense. That's, like, exactly what was anticipated, but
+
+00:57:14.000 --> 00:57:15.000
+By the way
+
+00:57:15.000 --> 00:57:21.000
+You know, a long time ago. So I'm curious, well, Darryl's put his hand up, so I'm going to let him go next and then see if there's still time for one more question after that. Go ahead, Darrell.
+
+00:57:21.000 --> 00:57:31.000
+Cool. So I think one of the things, as Glenn indicated, the initial bootstrapping is kind of ugly right now, right? It's for the technical, it's for the
+
+00:57:31.000 --> 00:57:37.000
+It's for the people who are not… who are not ordinary mortals, as you use the term Drummond.
+
+00:57:37.000 --> 00:57:43.000
+We're going to get to the point, though, where it becomes normal and easy. Question for you, Glenn
+
+00:57:43.000 --> 00:57:56.000
+One of the things that we did years and years ago, which I think it's even in the SSI book, is talk about the need for a fiduciary to do the things for you that really normal mortals aren't going to do.
+
+00:57:56.000 --> 00:58:04.000
+Key management being one, recovery, backup. So backup recovery, recovery becomes an attack vector.
+
+00:58:04.000 --> 00:58:12.000
+Onboarding of some… if a telco is involved in it and has access to your keys, it's a problem. Where do you see that, or is it too early to even think on that?
+
+00:58:12.000 --> 00:58:15.000
+No, it's a good question. So
+
+00:58:15.000 --> 00:58:20.000
+It kind of actually goes to what Tim was talking about
+
+00:58:20.000 --> 00:58:23.000
+We don't think about today when you
+
+00:58:23.000 --> 00:58:26.000
+stand something up on the internet today
+
+00:58:26.000 --> 00:58:43.000
+Most of the time you don't think about things like DNS and routing and all these technologies. They're just there, right? And they're there because Google and Apple and Facebook and everybody else provides it really easy because once you're behind that namespace
+
+00:58:43.000 --> 00:58:48.000
+It's Hotel California, you can't check out of it. You cannot, you know, move beyond it.
+
+00:58:48.000 --> 00:58:49.000
+Yeah.
+
+00:58:49.000 --> 00:59:17.000
+The problem in the SSI world is you have to kind of stand… if you take a privacy-first approach, then I've got to host my own DID somewhere. I've got to host my own messaging relay, I have to host my VTA. And you're just seeing all the raw ingredients. Those of you
+
+00:59:17.000 --> 00:59:18.000
+Yep.
+
+00:59:18.000 --> 00:59:24.000
+It might be using the internet as long as I have and probably longer. Remember the early days of the internet, right? Like it was a pain in the backside editing resolve.conf and adding the name servers by IP address to resolve things and stand up Apache web servers and then troubleshoot what was happening.
+
+00:59:24.000 --> 00:59:27.000
+We are at that point
+
+00:59:27.000 --> 00:59:43.000
+To give you an idea of where I think I want to go with VTA, is that I want to get to a provable point where you could go to your telco or some trusted provider and just say, give me a VTA. And they will give you a VTA
+
+00:59:43.000 --> 01:00:06.000
+That is an empty shell, but it is already integrated to deadcom, it's got a DID, it's got some key space, it's kind of in its own infrastructure. But there's a special button you press that effectively takes that shell of a VTA and resets and reboots the VTA.
+
+01:00:06.000 --> 01:00:07.000
+Right.
+
+01:00:07.000 --> 01:00:21.000
+And when it reboots, the only person that ever saw the key information was you, not the provider. And so we have this working within trusted execution environments, which is confidential computing architectures, where even if you get physical access
+
+01:00:21.000 --> 01:00:28.000
+Yeah.
+
+01:00:28.000 --> 01:00:29.000
+Yep.
+
+01:00:29.000 --> 01:00:36.000
+With root to the hardware, you cannot get the keys out of it. You know, it starts becoming a hardware management service, HMS. We have that running. If you saw on my screen the Illuminati VTA, that is an example of that one. And we've had security researchers
+
+01:00:36.000 --> 01:00:37.000
+Yeah.
+
+01:00:37.000 --> 01:00:46.000
+hammering it for a month plus now. They have not got a single key out of it. So that's where I think it will get easier, is this kind of provable proof
+
+01:00:46.000 --> 01:00:50.000
+just give me a VTA.
+
+01:00:50.000 --> 01:00:51.000
+Right
+
+01:00:51.000 --> 01:01:01.000
+provision it, I didn't have to do anything, and then I effectively reset it into my own space. And then I can, over time, if I want to use my own relay, I want to use something else, everything is designed to be portable, and you just move it around depending on
+
+01:01:01.000 --> 01:01:03.000
+how paranoid you are, which brings me right back to the starting
+
+01:01:03.000 --> 01:01:06.000
+Yeah.
+
+01:01:06.000 --> 01:01:09.000
+position of the paranoid android
+
+01:01:09.000 --> 01:01:15.000
+If you're that paranoid, go for it. If you're 99.9% of the population
+
+01:01:15.000 --> 01:01:18.000
+trust it. But if you don't like your provider, you can move it from one provider to another.
+
+01:01:18.000 --> 01:01:20.000
+Awesome.
+
+01:01:20.000 --> 01:01:24.000
+Thank you
+
+01:01:24.000 --> 01:01:27.000
+That's
+
+01:01:27.000 --> 01:01:32.000
+Hope your super intelligence proven to spend you
+
+01:01:32.000 --> 01:01:38.000
+All right, we have 2 minutes left. Is there any
+
+01:01:38.000 --> 01:01:48.000
+Any final questions for besides just, you know, massive applause.
+
+01:01:48.000 --> 01:01:55.000
+I'll finish maybe if there isn't any other one, with this question. So Glenn, when you decided
+
+01:01:55.000 --> 01:02:01.000
+to undertake, hey, essentially VTA integration browser. How could this become
+
+01:02:01.000 --> 01:02:06.000
+You know, something that is, you know.
+
+01:02:06.000 --> 01:02:18.000
+In my view, you're right on a progression to the same place where when I was at Gen, we were going with the Smart Vault, which was, it's a smart replacement for a password manager.
+
+01:02:18.000 --> 01:02:23.000
+How is this changing your view, Glenn, of
+
+01:02:23.000 --> 01:02:28.000
+what decentralized trust graph adoption might look like
+
+01:02:28.000 --> 01:02:33.000
+I wouldn't say it's changing it. I think
+
+01:02:33.000 --> 01:02:38.000
+But I think, look, I'll be frank with you. I think the problem decentralized trust graph will have
+
+01:02:38.000 --> 01:02:41.000
+Until you have
+
+01:02:41.000 --> 01:02:45.000
+a network that is using it at any form of scale
+
+01:02:45.000 --> 01:02:56.000
+It's… and I mean this with all respect, it's an academic exercise in trying to create specification and how it will operate. So what I'm trying to do is
+
+01:02:56.000 --> 01:03:08.000
+push as quickly as we can to get VTCs so that you have real world, and this is where the Linux Foundation is just key for this, because, you know, they're kind of sitting there going, we will use this.
+
+01:03:08.000 --> 01:03:24.000
+If that gives real world examples, like what does it mean to join the Linux community? What does membership mean? What does vouching mean within that community? What does it mean to be a maintainer versus a collaborator? These are all things that are defined
+
+01:03:24.000 --> 01:03:35.000
+Already today, we just have to now turn those into policy in this world, and then bring that into DTG and say, hey, do the ceremonies and the tasks that we're creating
+
+01:03:35.000 --> 01:03:38.000
+Do they fit this real world already here or if we
+
+01:03:38.000 --> 01:03:51.000
+gone down, and again, this is a sin of the SSI world solved all these crazy complex exceptional use cases. And boy, big brains love to do this
+
+01:03:51.000 --> 01:04:06.000
+And those exceptional use cases in reality never really happen. And 99% of the common use case, it's like reinventing XML, to be blunt. It's painful to use, and there's a reason why it got usurped by simpler standards
+
+01:04:06.000 --> 01:04:09.000
+So that's what it's changed for me, Drummond is
+
+01:04:09.000 --> 01:04:24.000
+Using this stuff, it becomes self-evident, whether it's adding value or it's not. VTA is adding value. Our own engineers in Affinity are switching across using VTA on the backplane because it's easier. And what's interesting is the feature they like
+
+01:04:24.000 --> 01:04:39.000
+is that what I didn't show you, there's an audit log in the VTA that tracks every single thing that you've done. That's what they like. They like the fact that now they have one place to go to see what happened and what was accessing everything. Trust tasks. As a developer
+
+01:04:39.000 --> 01:04:57.000
+Oh my God, defining my APIs now as a trust task so much simpler because I don't worry about how it's going to support whatever the next flavor of transport delivery is. It's just common. The third thing that it's proving is the concept of the VTCs
+
+01:04:57.000 --> 01:05:12.000
+And again, you know, shout out to Martina. If you read her architecture guide, one of the things that stood out really strongly was the concept that there are PVTAs, personal VTAs, and community VTAs. And it's the same VTA
+
+01:05:12.000 --> 01:05:20.000
+But serving two wildly different use cases. By the way, the authentication flows I showed you
+
+01:05:20.000 --> 01:05:26.000
+The primitives and the tasks are exactly the same, whether that's me as an individual
+
+01:05:26.000 --> 01:05:36.000
+using them, or the community itself using them to authenticate within and without the community. So what you're seeing, Drummond, is we are, for the first time.
+
+01:05:36.000 --> 01:05:43.000
+Having maximum reuse out of these very simple components. DIDs, DID auth
+
+01:05:43.000 --> 01:05:44.000
+messaging
+
+01:05:44.000 --> 01:05:56.000
+Trust tasks, data integrity proof. It's all the very common building blocks, and those of you that aren't on the tech build chat, you'll see. I'm not going to lie. You know there is
+
+01:05:56.000 --> 01:06:07.000
+bugs and things we are finding in DID spec, all these low-level things, because we're now using them end-to-end, and it's flushing all of those out, and every single time we find one of these issues and fix it.
+
+01:06:07.000 --> 01:06:25.000
+All the other things that are built on top of it all get more robust and more robust and more. And that's what's allowing us to move very, very quickly and have actually a very, very stable installation or something that is pretty cutting edge. No one else has brought this type of messaging into the browser like this for an auth flow
+
+01:06:25.000 --> 01:06:42.000
+That's fantastic. And thank you enormously, Glenn, for this. I hope it's really made an impression on everyone in the TTG working group. Thank you for staying up late to do that. It was
+
+01:06:42.000 --> 01:06:45.000
+super valuable, and we will bounce back. Go ahead
+
+01:06:45.000 --> 01:06:57.000
+Hey. Hey, I just… I… I just wanna hear and say tomorrow, one hour later than this, we are going to be discussing these various and how to sequence these trust tasks into something
+
+01:06:57.000 --> 01:07:00.000
+building on top of this, and the AIM working group.
+
+01:07:00.000 --> 01:07:02.000
+So please join me.
+
+01:07:02.000 --> 01:07:05.000
+Perfect. We will plan to be there.
+
+01:07:05.000 --> 01:07:20.000
+All right. Thank you, Glenn. You can get some sleep now. And folks, you know, open VTC, go check it out. And we'll rock and roll, by the way, Brendan and I will miss next week's meeting because we're going to be
+
+01:07:20.000 --> 01:07:28.000
+giving a talk on the decentralized source graph at the Future and Review Conference. But Martina and
+
+01:07:28.000 --> 01:07:35.000
+Nikki will still be holding it. I think the main subject will be the architecture guide.
+
+01:07:35.000 --> 01:07:46.000
+So thank you everyone and off to your next meetings. Really appreciate it. Thank you again, Glenn.
+
+01:07:46.000 --> 01:08:16.000
+Biol
+

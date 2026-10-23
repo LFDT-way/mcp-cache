@@ -1,0 +1,1542 @@
+WEBVTT
+
+1
+00:01:29.490 --> 00:01:31.020
+Carly Huitema (University of Guelph): Hello, Sankarshan!
+
+2
+00:01:32.000 --> 00:01:33.410
+Sankarshan: And no conduct.
+
+3
+00:01:34.320 --> 00:01:37.820
+Carly Huitema (University of Guelph): Good morning! Well, or evening, I suppose.
+
+4
+00:01:38.400 --> 00:01:40.720
+Sankarshan: Today's evening, but good day to you.
+
+5
+00:01:41.210 --> 00:01:48.720
+Carly Huitema (University of Guelph): Thanks. I'm just pulling up my… documentation here.
+
+6
+00:01:54.650 --> 00:01:58.459
+Carly Huitema (University of Guelph): Okay, so that is the ongoing work.
+
+7
+00:02:01.310 --> 00:02:04.480
+Carly Huitema (University of Guelph): This is… Shoot.
+
+8
+00:02:05.590 --> 00:02:09.039
+Carly Huitema (University of Guelph): Who is doing the trustless again? Dan?
+
+9
+00:02:13.160 --> 00:02:17.940
+Sankarshan: Who is doing the trust list? It's Daniel Glintz at the HDX.
+
+10
+00:02:18.840 --> 00:02:21.419
+Carly Huitema (University of Guelph): Yeah, Daniel, okay.
+
+11
+00:02:21.680 --> 00:02:29.569
+Carly Huitema (University of Guelph): So that's the link to his trustless. I'm hoping that he's going to come here today, that we can discuss.
+
+12
+00:02:29.960 --> 00:02:32.880
+Carly Huitema (University of Guelph): About harmonizing work.
+
+13
+00:02:34.710 --> 00:02:41.500
+Carly Huitema (University of Guelph): Because, yeah, cause I… either that, or I'm just gonna need to go ahead with, hello, Scott!
+
+14
+00:02:55.780 --> 00:02:59.989
+Carly Huitema (University of Guelph): And I still am never happy with my X509 script.
+
+15
+00:03:01.900 --> 00:03:08.389
+Carly Huitema (University of Guelph): I need to, maybe with Scott being here, I can,
+
+16
+00:03:08.960 --> 00:03:11.380
+Carly Huitema (University of Guelph): To talk about that a bit more, but…
+
+17
+00:03:11.660 --> 00:03:14.529
+Carly Huitema (University of Guelph): then I wanted to finish,
+
+18
+00:03:14.920 --> 00:03:28.820
+Carly Huitema (University of Guelph): Unless Daniel comes to talk about the Trustlets thing, then I'm just going to, share here the, script, and then…
+
+19
+00:03:29.040 --> 00:03:33.150
+Carly Huitema (University of Guelph): Do I have slides for this one? I think I have slides for this one as well.
+
+20
+00:03:33.390 --> 00:03:36.140
+Carly Huitema (University of Guelph): But I didn't go ahead and record the video yet.
+
+21
+00:03:36.360 --> 00:03:37.210
+Carly Huitema (University of Guelph): I don't…
+
+22
+00:03:44.580 --> 00:03:49.570
+Carly Huitema (University of Guelph): Apologies, will I just find it on my… Computer.
+
+23
+00:03:51.930 --> 00:03:53.070
+Carly Huitema (University of Guelph): Oh my gosh.
+
+24
+00:04:13.490 --> 00:04:14.730
+Carly Huitema (University of Guelph): That's stress.
+
+25
+00:04:15.740 --> 00:04:20.420
+Carly Huitema (University of Guelph): Simplicity and impersonation. Okay, I have a slide deck for that one. Okay.
+
+26
+00:04:22.240 --> 00:04:33.310
+Carly Huitema (University of Guelph): So I will share my screen with the slides, and then go through the thing, and then if we think it's good, then I'm going to record it and distribute it.
+
+27
+00:04:34.240 --> 00:04:36.030
+Carly Huitema (University of Guelph): I hope it's good.
+
+28
+00:04:37.660 --> 00:04:52.500
+Carly Huitema (University of Guelph): There we go. Duplicity and impersonation in digital identity. When we build… when we build digital identity systems, we assume one entity controls one identity through a valid chain of cryptographic keys.
+
+29
+00:04:53.170 --> 00:05:02.949
+Carly Huitema (University of Guelph): Keys may rotate over time, but the history of control should remain consistent. Two major risks threaten that assumption, impersonation and duplicity.
+
+30
+00:05:03.310 --> 00:05:04.550
+Carly Huitema (University of Guelph): I don't see…
+
+31
+00:05:05.600 --> 00:05:13.560
+Carly Huitema (University of Guelph): Impersonation happens when someone steals your keys. They can act as you and continue updating your identity, even though you've lost control.
+
+32
+00:05:15.960 --> 00:05:30.479
+Carly Huitema (University of Guelph): Duplicity is different. It happens when the identity owner creates two conflicting versions of their own history, showing one version to one party and another version elsewhere. Both appear valid independently, but they cannot both be true.
+
+33
+00:05:31.130 --> 00:05:34.590
+Carly Huitema (University of Guelph): Traditionally, we solve these problems.
+
+34
+00:05:35.060 --> 00:05:52.360
+Carly Huitema (University of Guelph): Traditionally, we solve these problems using trusted third parties. A wedding certificate, for example, includes witnesses who independently confirm what happened. Later, blockchains extended this idea by acting as global… as a global witness. Everyone shares the same history.
+
+35
+00:05:56.260 --> 00:06:04.240
+Carly Huitema (University of Guelph): New decentralized identity systems like DidWebVH and DidWebS use a different model based on watchers and witnesses.
+
+36
+00:06:04.960 --> 00:06:19.900
+Carly Huitema (University of Guelph): Witnesses are selected by the identity owner. Whenever the identity changes, witnesses record the event and issue cryptographic receipts proving they observed it. They don't control the identity, they simply provide an independent record of history.
+
+37
+00:06:21.700 --> 00:06:31.579
+Carly Huitema (University of Guelph): This helps both impersonation and duplicity. Conflicting histories or suspicious changes become visible because witnesses have recorded what they actually saw.
+
+38
+00:06:32.430 --> 00:06:45.100
+Carly Huitema (University of Guelph): Watchers add another layer. They are chosen by the verifier, not the identity owner. Watchers compare an identity's history against witness records and look for inconsistencies.
+
+39
+00:06:45.420 --> 00:07:04.469
+Carly Huitema (University of Guelph): Together, witnesses and watchers create decentralized accountability. Instead of relying on a central authority, trust comes from transparent records and independent verification. The goal is not to prevent every attack in advance, but to ensure that impersonation or duplicity can be detected and proven when it occurs.
+
+40
+00:07:06.740 --> 00:07:13.369
+Carly Huitema (University of Guelph): So, that's the… the Bite-Size Trust for Duplicity and impersonation.
+
+41
+00:07:15.990 --> 00:07:26.770
+Carly Huitema (University of Guelph): So, if there's not something glaring in it, then I would like to move ahead. Oh, shoot! Did I? Yeah, okay, I shared the screen. Stop share.
+
+42
+00:07:26.930 --> 00:07:28.830
+Carly Huitema (University of Guelph): Okay.
+
+43
+00:07:28.830 --> 00:07:32.339
+Scott Perry (Digital Governance Institute): The only issue I have with that, because I was listening.
+
+44
+00:07:32.380 --> 00:07:33.400
+Carly Huitema (University of Guelph): Yeah, it's…
+
+45
+00:07:33.400 --> 00:07:35.339
+Scott Perry (Digital Governance Institute): You know, it seems like they're people.
+
+46
+00:07:35.470 --> 00:07:41.640
+Scott Perry (Digital Governance Institute): But, the watchers and the witnesses are not people watching. They're automated…
+
+47
+00:07:42.180 --> 00:07:47.790
+Scott Perry (Digital Governance Institute): They're automated, processes, and so that… You know, that's a.
+
+48
+00:07:47.790 --> 00:07:52.190
+Carly Huitema (University of Guelph): Okay, controlled… controlled by, ultimately, somebody. I mean, it's not…
+
+49
+00:07:52.370 --> 00:07:59.899
+Carly Huitema (University of Guelph): Somebody else controls that witness and watcher system. It's not that the identity owner spun up a.
+
+50
+00:07:59.900 --> 00:08:08.730
+Scott Perry (Digital Governance Institute): Yeah, I mean, you know, I just don't want it to construe that people are, you know, standing by on the ready, you know, they're not.
+
+51
+00:08:09.140 --> 00:08:19.090
+Carly Huitema (University of Guelph): I, I agree, and I have a… so I have a spot, then, where I think it would be easy to add something really short in here, so here we are.
+
+52
+00:08:19.470 --> 00:08:23.910
+Carly Huitema (University of Guelph): Use a different model based on witnesses and watchers.
+
+53
+00:08:26.480 --> 00:08:35.200
+Carly Huitema (University of Guelph): independent, automated systems, That help,
+
+54
+00:08:37.559 --> 00:08:47.869
+Carly Huitema (University of Guelph): That help with trust. Keep it simple. And then go into… witnesses are selected by the identity owner, watchers are chosen by the verifier.
+
+55
+00:08:48.750 --> 00:08:59.110
+Carly Huitema (University of Guelph): So, new decentralized identity systems, like DidWebVH and DidWebS, use a different model based on witnesses and watchers, independent automated systems that help with trust.
+
+56
+00:08:59.360 --> 00:09:00.970
+Carly Huitema (University of Guelph): That helped build trust.
+
+57
+00:09:01.900 --> 00:09:02.560
+Scott Perry (Digital Governance Institute): Very interesting.
+
+58
+00:09:05.030 --> 00:09:07.369
+Carly Huitema (University of Guelph): Good. Any other comments from anyone?
+
+59
+00:09:12.750 --> 00:09:16.669
+Carly Huitema (University of Guelph): Okay, go once… Going twice…
+
+60
+00:09:17.890 --> 00:09:23.640
+Carly Huitema (University of Guelph): And then I'm going to… so I'm gonna record and release that sometime, this week.
+
+61
+00:09:25.720 --> 00:09:36.610
+Carly Huitema (University of Guelph): I say that before I looked at my calendar, so let's hope it's not a busy week. It's a busy week. Okay, then. Kevin.
+
+62
+00:09:36.950 --> 00:09:38.220
+Carly Huitema (University of Guelph): Hello!
+
+63
+00:09:38.330 --> 00:09:45.520
+Carly Huitema (University of Guelph): Are… are you connected with… Dan's Trustlet?
+
+64
+00:09:52.040 --> 00:10:01.740
+Carly Huitema (University of Guelph): Does anyone know if Dan is coming, or any, any more information about his, his trusslet model here?
+
+65
+00:10:01.970 --> 00:10:08.610
+Carly Huitema (University of Guelph): This is the, he had a nice little, shoot.
+
+66
+00:10:09.280 --> 00:10:17.610
+Carly Huitema (University of Guelph): Yeah, he had a… he has a nice little, System for, for,
+
+67
+00:10:18.060 --> 00:10:25.910
+Carly Huitema (University of Guelph): putting up a script and… and soliciting opinions, kind of like the GitHub,
+
+68
+00:10:26.060 --> 00:10:35.790
+Carly Huitema (University of Guelph): kind of like a GitHub issues and comments thing, and I don't have the technology experience to implement something like that, but…
+
+69
+00:10:36.940 --> 00:10:42.710
+Carly Huitema (University of Guelph): Yeah, I mean, it looks nicer than my, my current version of,
+
+70
+00:10:44.410 --> 00:10:56.869
+Carly Huitema (University of Guelph): having a meeting and running, running it all into a, into… while you can watch, this is my, governance. So, we like that one, so I'm going to move that down to…
+
+71
+00:10:57.410 --> 00:11:00.290
+Carly Huitema (University of Guelph): Ready for video generation.
+
+72
+00:11:06.120 --> 00:11:17.250
+Carly Huitema (University of Guelph): So… Okay, I guess nobody knows how, how Dan did that, that, trtracelet thing.
+
+73
+00:11:18.940 --> 00:11:21.310
+Carly Huitema (University of Guelph): Did everyone see it by chance?
+
+74
+00:11:27.930 --> 00:11:29.760
+Carly Huitema (University of Guelph): So, yeah, okay.
+
+75
+00:11:32.410 --> 00:11:33.790
+Carly Huitema (University of Guelph): Yeah, okay
+
+76
+00:11:33.900 --> 00:11:44.880
+Carly Huitema (University of Guelph): So he had, yeah, thank you, Sankarshan. So yeah, he had a meeting recording. He did walk through in the Human Experience Task Force last week, I think?
+
+77
+00:11:45.710 --> 00:11:49.390
+Carly Huitema (University of Guelph): And, yeah, certainly I want to…
+
+78
+00:11:49.900 --> 00:11:53.349
+Carly Huitema (University of Guelph): do more with that. Okay, then,
+
+79
+00:11:53.890 --> 00:11:57.049
+Carly Huitema (University of Guelph): Can anyone… does anyone know enough about
+
+80
+00:11:57.500 --> 00:12:00.260
+Carly Huitema (University of Guelph): Because I have this thing about DidCom.
+
+81
+00:12:00.980 --> 00:12:12.789
+Carly Huitema (University of Guelph): And I'd like to talk about DIDCOM, especially now, then… well, what I really want to talk about is the trust, shoot, what's Wayne Jing's, TSP?
+
+82
+00:12:12.790 --> 00:12:13.230
+Sankarshan: spending.
+
+83
+00:12:14.550 --> 00:12:23.540
+Carly Huitema (University of Guelph): Yeah, I'd like to talk about that protocol, or… but I can't highlight why… it…
+
+84
+00:12:23.830 --> 00:12:27.139
+Carly Huitema (University of Guelph): what improvements it offers on DIDCOM.
+
+85
+00:12:28.990 --> 00:12:34.059
+Carly Huitema (University of Guelph): Because I'm sure that's… that's everybody's question. Does anybody here happen to know?
+
+86
+00:12:35.160 --> 00:12:42.369
+Carly Huitema (University of Guelph): why TSP, what, what TSP improves upon, did call.
+
+87
+00:12:47.150 --> 00:12:58.420
+Sankarshan: not in excruciating detail, but I think we could go back to Wenjing and request him to write it up so that it can be turned into a script for VSD.
+
+88
+00:12:59.140 --> 00:12:59.980
+Carly Huitema (University of Guelph): Right, okay.
+
+89
+00:12:59.980 --> 00:13:03.060
+Sankarshan: Because… because this topic has come up previously.
+
+90
+00:13:03.350 --> 00:13:08.100
+Sankarshan: that it should be part of an outreach package when TSP is being…
+
+91
+00:13:08.360 --> 00:13:12.419
+Sankarshan: the… it's been published and talked about, so…
+
+92
+00:13:12.420 --> 00:13:13.600
+Carly Huitema (University of Guelph): Yeah, okay.
+
+93
+00:13:14.050 --> 00:13:23.239
+Carly Huitema (University of Guelph): Okay, so I would like to then do… so I will talk with Wenjing, because I would like some Bite-Size Trust to coincide with Wenjing's TSP release.
+
+94
+00:13:23.820 --> 00:13:29.060
+Carly Huitema (University of Guelph): Because it's in… he hasn't released… it's for comment, right? For version 3?
+
+95
+00:13:29.440 --> 00:13:33.789
+Sankarshan: Yes, there's a revision 3 that's out for public comments.
+
+96
+00:13:34.010 --> 00:13:43.080
+Sankarshan: And, okay. Hopefully, very quickly leading through the customer IP process into the 1.0.
+
+97
+00:13:43.480 --> 00:13:44.670
+Sankarshan: implementation.
+
+98
+00:13:45.330 --> 00:13:46.140
+Carly Huitema (University of Guelph): Okay.
+
+99
+00:13:46.810 --> 00:13:53.510
+Carly Huitema (University of Guelph): Okay, okay, okay, so going for a 1.0… yes, okay, so if we're going for a 1.0 release, we definitely want to have
+
+100
+00:13:53.940 --> 00:14:02.430
+Carly Huitema (University of Guelph): So then, should I talk about DidCom first, and have a video about DidCom? Have a video, or should I just talk about
+
+101
+00:14:02.800 --> 00:14:05.229
+Carly Huitema (University of Guelph): TSP, and what it does?
+
+102
+00:14:06.050 --> 00:14:08.380
+Carly Huitema (University of Guelph): And then have a… yeah?
+
+103
+00:14:08.570 --> 00:14:10.300
+Sankarshan: My instinct was that
+
+104
+00:14:10.420 --> 00:14:21.620
+Sankarshan: it makes sense to coincide a Bite-Size DSP with the release, and then a follow-up of where it
+
+105
+00:14:22.370 --> 00:14:32.580
+Sankarshan: Of contrasting it with DITCOM, assuming that at that point, Wenjing and Sam Smith, I believe, there are the TSP, spec offer, would be okay,
+
+106
+00:14:33.670 --> 00:14:37.530
+Sankarshan: having that written up as well. So that way, I think…
+
+107
+00:14:37.900 --> 00:14:40.740
+Sankarshan: Given in that there is already a TSP,
+
+108
+00:14:40.840 --> 00:14:54.759
+Sankarshan: substantive document out, you are not blocked on the TSP content to be created, but instead you can look at that registry and decide how you want to frame it.
+
+109
+00:14:54.960 --> 00:14:56.190
+Sankarshan: Or Bite-Size.
+
+110
+00:14:56.920 --> 00:14:58.500
+Carly Huitema (University of Guelph): Okay, okay.
+
+111
+00:14:59.750 --> 00:15:09.920
+Carly Huitema (University of Guelph): Okay, okay, but that… that's gonna require me talking with Wenjing and Sam, and Sam can't just still.
+
+112
+00:15:11.570 --> 00:15:18.600
+Carly Huitema (University of Guelph): Because he immediately dives into the important technical details about why it works.
+
+113
+00:15:19.240 --> 00:15:26.770
+Carly Huitema (University of Guelph): Or if he has… if he can distill, he can't. He hasn't… I haven't seen it yet. Every time I try and…
+
+114
+00:15:27.150 --> 00:15:35.260
+Carly Huitema (University of Guelph): Or perhaps he feels he is distilling, but he hasn't brought it down far enough. Okay, which is what I want to try and do. Okay.
+
+115
+00:15:35.710 --> 00:15:40.850
+Carly Huitema (University of Guelph): Does somebody have the link right now,
+
+116
+00:15:41.080 --> 00:15:46.370
+Carly Huitema (University of Guelph): to help me… I mean, I could try and find it, the… for the TSP review.
+
+117
+00:15:46.770 --> 00:15:51.790
+Sankarshan: Yeah, it is. I'll pull it up for you, because it got posted across a whole bunch of.
+
+118
+00:15:52.430 --> 00:15:53.240
+Carly Huitema (University of Guelph): Okay.
+
+119
+00:15:53.240 --> 00:15:58.910
+Sankarshan: AIC settings. Let's added to the… Zoom chat, yes.
+
+120
+00:15:58.910 --> 00:16:00.000
+Carly Huitema (University of Guelph): Okay, thank you.
+
+121
+00:16:05.700 --> 00:16:06.770
+Carly Huitema (University of Guelph): Okay.
+
+122
+00:16:18.740 --> 00:16:20.620
+Carly Huitema (University of Guelph): If you were…
+
+123
+00:16:22.620 --> 00:16:30.140
+Carly Huitema (University of Guelph): If you were to talk about Tia, so I'm gonna come back to my script, or Kevin, because Kevin knows this stuff, if Kevin is here.
+
+124
+00:16:30.320 --> 00:16:35.950
+Carly Huitema (University of Guelph): So… I'm… Yeah, how… In point form.
+
+125
+00:16:36.580 --> 00:16:46.170
+Carly Huitema (University of Guelph): And not a comparison to… not a comparison to, DidCom, but just in its own right. What would be…
+
+126
+00:16:46.530 --> 00:16:53.210
+Carly Huitema (University of Guelph): a, or a Sankarshan and anyone else, what would be, like, the four points
+
+127
+00:16:54.330 --> 00:16:59.349
+Carly Huitema (University of Guelph): of what TSP does. Or what, what… oh, okay, let me, let me try this.
+
+128
+00:16:59.510 --> 00:17:00.870
+Carly Huitema (University of Guelph): A different way.
+
+129
+00:17:01.130 --> 00:17:04.560
+Carly Huitema (University of Guelph): What risk does TSP address?
+
+130
+00:17:06.609 --> 00:17:09.729
+Carly Huitema (University of Guelph): What problem is it solving? What is it fixing?
+
+131
+00:17:11.810 --> 00:17:19.869
+Kevin Triplett: I know… I know Broadway is trying to be agnostic about what is carrying, so it's trying to be as wide as possible to…
+
+132
+00:17:20.400 --> 00:17:26.819
+Kevin Triplett: to avoid, painting us into a corner.
+
+133
+00:17:27.089 --> 00:17:27.910
+Kevin Triplett: Where…
+
+134
+00:17:29.280 --> 00:17:36.840
+Kevin Triplett: Where, somebody comes up with a new, a new protocol or a new thing that needs to be carried by the trust protocols.
+
+135
+00:17:37.290 --> 00:17:39.049
+Kevin Triplett: That's the only thing I know.
+
+136
+00:17:39.510 --> 00:17:40.220
+Carly Huitema (University of Guelph): It's most affordable.
+
+137
+00:17:40.610 --> 00:17:41.270
+Carly Huitema (University of Guelph): What?
+
+138
+00:17:41.610 --> 00:17:42.040
+Kevin Triplett: Yeah.
+
+139
+00:17:42.040 --> 00:17:49.070
+Carly Huitema (University of Guelph): Agnostic about Which makes it… Or attempting to make it anyway.
+
+140
+00:17:49.070 --> 00:17:49.610
+Kevin Triplett: Zach.
+
+141
+00:17:49.610 --> 00:17:49.940
+Carly Huitema (University of Guelph): Yeah.
+
+142
+00:17:49.940 --> 00:17:51.210
+Kevin Triplett: crew. That's it.
+
+143
+00:17:51.210 --> 00:17:52.050
+Carly Huitema (University of Guelph): Okay.
+
+144
+00:17:53.060 --> 00:18:00.640
+Carly Huitema (University of Guelph): Anything else about what… what is the… what risk is it addressing? What problem is it solving?
+
+145
+00:18:04.290 --> 00:18:16.800
+Kevin Triplett: I know that Wenching and Sam always get into some debate about security. Is it secure enough? Yeah. Which is, surprising to me, but, because I didn't think that TSB had that responsibility, but
+
+146
+00:18:17.220 --> 00:18:17.990
+Kevin Triplett: Love it.
+
+147
+00:18:18.430 --> 00:18:22.200
+Kevin Triplett: Sankarshan, Sankarshan might have more about that.
+
+148
+00:18:22.690 --> 00:18:23.490
+Carly Huitema (University of Guelph): Okay.
+
+149
+00:18:25.450 --> 00:18:26.300
+Kevin Triplett: Sankarshan.
+
+150
+00:18:29.500 --> 00:18:31.800
+Sankarshan: Sorry, I got distracted.
+
+151
+00:18:32.120 --> 00:18:36.929
+Carly Huitema (University of Guelph): Yeah, no problem. We're just trying to think about what would be the… what risk is,
+
+152
+00:18:37.260 --> 00:18:41.000
+Carly Huitema (University of Guelph): What problem or what risk, in general.
+
+153
+00:18:41.000 --> 00:18:41.620
+Sankarshan: I'll…
+
+154
+00:18:42.380 --> 00:18:52.079
+Sankarshan: I'll kind of highlight two things that would be very obviously jumping out at you when you are reading through the spec that is out there, the Division 3. One is that
+
+155
+00:18:52.190 --> 00:19:03.690
+Sankarshan: the TSP authors have, very intentionally resisted it as an antivalent or analog to TCPI, which means that it is very, very,
+
+156
+00:19:04.490 --> 00:19:08.990
+Sankarshan: substantive, and it's also very, very agnostic, which Kevin mentioned.
+
+157
+00:19:10.030 --> 00:19:15.379
+Carly Huitema (University of Guelph): Okay, so, I'm sorry, I… It cut out at the beginning, in the middle…
+
+158
+00:19:15.380 --> 00:19:20.150
+Sankarshan: It is there at the beginning of this, published page that you have.
+
+159
+00:19:20.580 --> 00:19:21.450
+Carly Huitema (University of Guelph): Okay.
+
+160
+00:19:22.320 --> 00:19:25.929
+Carly Huitema (University of Guelph): So, we talked about the agnostic, about what protocol.
+
+161
+00:19:26.090 --> 00:19:30.390
+Carly Huitema (University of Guelph): In attempts to make it future-proof, and… oh, not the trusslets. Where is it.
+
+162
+00:19:30.390 --> 00:19:42.559
+Sankarshan: And then, if you… if you scroll all the way down to a chapter 11, that has a little bit of detail of the, security-related considerations that…
+
+163
+00:19:42.710 --> 00:19:51.030
+Sankarshan: the ESP authors want to highlight. It's very sparse, I don't know why it is so sparse. Ideally, it should be a bit more, but anyway, this is…
+
+164
+00:19:51.160 --> 00:19:52.519
+Sankarshan: The beginning of it.
+
+165
+00:19:53.060 --> 00:20:03.090
+Carly Huitema (University of Guelph): Okay, every message and at the sender's choice is confidentiality. Okay, so authenticity. So this is… so the risk is that…
+
+166
+00:20:03.280 --> 00:20:09.630
+Carly Huitema (University of Guelph): You're getting a message from someone who claims to be someone, but you don't know if they are that someone.
+
+167
+00:20:11.500 --> 00:20:12.820
+Carly Huitema (University of Guelph): That's the risk.
+
+168
+00:20:15.100 --> 00:20:29.969
+Kevin Triplett: There's one more I remember, and this is one of the reasons why, at the beginning, when I found out about Trust over IP, I thought, oh, that's cool. We're trying to avoid the metadata of correlation between who's talking to who.
+
+169
+00:20:30.230 --> 00:20:38.140
+Kevin Triplett: And, currently that's, the timing. So, if somebody sends a packet, and it arrives at an endpoint.
+
+170
+00:20:38.570 --> 00:20:49.109
+Kevin Triplett: roughly the same time, there's a correlation there. Oh, this person must have talked to this person. We don't know what they said, or what was going on, but obviously these two endpoints are connected somehow.
+
+171
+00:20:49.450 --> 00:20:52.549
+Kevin Triplett: So there's a randomness in the timing?
+
+172
+00:20:52.700 --> 00:21:00.200
+Kevin Triplett: And we're trying to get that under the radar, so people don't notice who could change that.
+
+173
+00:21:00.380 --> 00:21:05.929
+Kevin Triplett: The other one is, packet size, and this one's a little more difficult problem, is…
+
+174
+00:21:06.350 --> 00:21:23.939
+Kevin Triplett: The packet size also correlates. Oh, the packet size is the same leaving this endpoint, arriving at this endpoint. Maybe they're connected. So again, it's like… it's like disassembling the packet and then reassembling it in different size packets to even do that. That's possible.
+
+175
+00:21:24.420 --> 00:21:24.930
+Carly Huitema (University of Guelph): Really?
+
+176
+00:21:24.930 --> 00:21:34.980
+Kevin Triplett: Yeah, that's possible, but, so it's, it's… there are ways the TSB could obfuscate who's talking to who.
+
+177
+00:21:35.840 --> 00:21:37.690
+Carly Huitema (University of Guelph): Okay, I'll say…
+
+178
+00:21:37.690 --> 00:21:38.340
+Kevin Triplett: Excellent.
+
+179
+00:21:39.510 --> 00:21:41.060
+Carly Huitema (University of Guelph): Hey, yeah, -
+
+180
+00:21:47.990 --> 00:21:56.650
+Kevin Triplett: And of course, now that's in the meeting notes, so that can be discovered, so we're not applying so much under the radar anymore. But there you are.
+
+181
+00:21:56.650 --> 00:22:04.969
+Carly Huitema (University of Guelph): Yeah, but I'm sure anyone who's gonna… I… yeah, if the… if the specification talks about it, then it's gonna be understood about 2…
+
+182
+00:22:05.410 --> 00:22:06.720
+Carly Huitema (University of Guelph): Bye.
+
+183
+00:22:15.190 --> 00:22:16.070
+Carly Huitema (University of Guelph): Hey!
+
+184
+00:22:21.950 --> 00:22:25.249
+Carly Huitema (University of Guelph): Because there's, the nesting and,
+
+185
+00:22:25.770 --> 00:22:32.980
+Carly Huitema (University of Guelph): Nesting… yeah, I remember about the nesting, so that you can't read who is… who is sending it to who.
+
+186
+00:22:37.580 --> 00:22:38.640
+Carly Huitema (University of Guelph): Okay?
+
+187
+00:22:40.680 --> 00:22:43.880
+Carly Huitema (University of Guelph): And then what do you need in order to… so you need a DID.
+
+188
+00:22:44.450 --> 00:22:47.530
+Carly Huitema (University of Guelph): You must know, or you have a… it's a VID.
+
+189
+00:22:47.650 --> 00:22:49.290
+Carly Huitema (University of Guelph): You must have a VID.
+
+190
+00:22:52.960 --> 00:22:58.339
+Carly Huitema (University of Guelph): Which is why, because that's Sam Smith's, identities are VIDs, not…
+
+191
+00:22:58.480 --> 00:23:03.509
+Carly Huitema (University of Guelph): necessarily dids. I mean, I talk a lot about DIDs, but… okay.
+
+192
+00:23:07.770 --> 00:23:13.880
+Carly Huitema (University of Guelph): Okay, so then… so let me come back to the… the script.
+
+193
+00:23:14.620 --> 00:23:19.100
+Carly Huitema (University of Guelph): So we're having Authenticates who is Speaking… Err.
+
+194
+00:23:25.970 --> 00:23:27.879
+Carly Huitema (University of Guelph): I guess it's impersonation.
+
+195
+00:23:29.310 --> 00:23:36.140
+Carly Huitema (University of Guelph): Because it's not duplicity, because if you have it, If you're in control, right?
+
+196
+00:23:41.230 --> 00:23:47.269
+Carly Huitema (University of Guelph): Any other, like, okay, And I'm going to put this into an AI.
+
+197
+00:23:48.690 --> 00:23:51.820
+Carly Huitema (University of Guelph): And spit out something, and then we can have a look at that.
+
+198
+00:23:52.800 --> 00:23:59.359
+Carly Huitema (University of Guelph): And then… and then I can connect with Wen Jing. Or is the TSP meeting happening this week?
+
+199
+00:24:11.080 --> 00:24:14.839
+Kevin Triplett: I can't… I can't remember if they scheduled something…
+
+200
+00:24:15.160 --> 00:24:16.959
+Kevin Triplett: I know last week was special.
+
+201
+00:24:19.710 --> 00:24:20.560
+Carly Huitema (University of Guelph): Yes.
+
+202
+00:24:29.250 --> 00:24:33.390
+Kevin Triplett: It looks like the regular meeting schedule On Wednesday.
+
+203
+00:24:34.520 --> 00:24:35.490
+Kevin Triplett: So, bro.
+
+204
+00:24:35.490 --> 00:24:36.719
+Lyn Brooks (dHub Group): It's on the calendar.
+
+205
+00:24:38.300 --> 00:24:39.000
+Kevin Triplett: Is it?
+
+206
+00:24:44.790 --> 00:24:47.109
+Carly Huitema (University of Guelph): And I'm finding the source.
+
+207
+00:25:49.940 --> 00:25:58.210
+Carly Huitema (University of Guelph): Okay, so I'm about to share with you the… I put our conversation, our discussion points in.
+
+208
+00:26:01.100 --> 00:26:03.999
+Carly Huitema (University of Guelph): And into,
+
+209
+00:26:08.780 --> 00:26:10.290
+Carly Huitema (University of Guelph): Into the script.
+
+210
+00:26:11.590 --> 00:26:15.320
+Carly Huitema (University of Guelph): Just to get a… Come on.
+
+211
+00:26:16.510 --> 00:26:19.770
+Carly Huitema (University of Guelph): get something. So then here, let me start with that.
+
+212
+00:26:20.770 --> 00:26:29.130
+Carly Huitema (University of Guelph): I'll read it out, and then we… and then I… and then maybe I can bring it to Wenjing to see if we can get further.
+
+213
+00:26:29.600 --> 00:26:31.360
+Carly Huitema (University of Guelph): Okay, so we have…
+
+214
+00:26:32.350 --> 00:26:46.849
+Carly Huitema (University of Guelph): Trust spanning protocol. Trust for the way we communicate. When we communicate online, how do we know who we're actually communicating with? The internet is very good at moving messages from one place to another, but moving a message isn't the same as knowing who is on the other end.
+
+215
+00:26:46.850 --> 00:27:06.470
+Carly Huitema (University of Guelph): The Trust Spanning Protocol, or TSP, is designed to provide that missing layer of trust. First, TSP authenticates the parties communicating. This helps protect against impersonation by providing a way to establish that a message really comes from the party it claims to come from, and is intended for the party receiving it.
+
+216
+00:27:06.510 --> 00:27:24.580
+Carly Huitema (University of Guelph): Second, TSP is agnostic about the underlying network transport. It doesn't tie trusted communication to a particular network protocol or technology. This means trust can span different networks and transport mechanisms, helping make the protocol useful as the communication landscape evolves.
+
+217
+00:27:24.580 --> 00:27:28.339
+Carly Huitema (University of Guelph): But there is another part… important part of trust, privacy.
+
+218
+00:27:28.340 --> 00:27:39.839
+Carly Huitema (University of Guelph): Even if the content of a message is protected, information about the communication itself can reveal a lot. Knowing who is talking to whom and when can create a valuable trail of metadata.
+
+219
+00:27:39.930 --> 00:27:44.940
+Carly Huitema (University of Guelph): TSP includes mechanisms designed to make that kind of correlation more difficult.
+
+220
+00:27:44.980 --> 00:27:56.079
+Carly Huitema (University of Guelph): By using techniques such as nested messages and intermediary routing, the way a message travels can be altered so that an observer has less ability to connect the sender and recipient.
+
+221
+00:27:56.080 --> 00:28:06.590
+Carly Huitema (University of Guelph): The result is a protocol designed around three important principles. Know who you're communicating with, don't depend on a particular network, and protect information about the communication itself.
+
+222
+00:28:06.590 --> 00:28:15.339
+Carly Huitema (University of Guelph): That's the goal of the Trust Spanning Protocol, providing a foundation for trusted communication that can work across networks, across technologies, and into the future.
+
+223
+00:28:17.350 --> 00:28:19.710
+Carly Huitema (University of Guelph): So… Feedback.
+
+224
+00:28:28.270 --> 00:28:38.689
+Carly Huitema (University of Guelph): Because this is, this is, to me, I mean, this is from the bits and pieces when I have seen TSP being discussed, and when we discussed it here, and…
+
+225
+00:28:38.970 --> 00:28:52.370
+Carly Huitema (University of Guelph): and stuff like that. I think this is hitting on the stuff that I remember, and then I can bring it to Wenjing and see if he has another point that he wants to bring. But to this group, how did it sound to you?
+
+226
+00:29:08.070 --> 00:29:13.430
+Carly Huitema (University of Guelph): So it's… Authentication, Agnostic about the transport.
+
+227
+00:29:13.620 --> 00:29:17.459
+Carly Huitema (University of Guelph): And then the metadata privacy, that was what we had discussed.
+
+228
+00:29:25.490 --> 00:29:34.729
+Kevin Triplett: The one that kind of tripped me up was, TSP doesn't do the authentication, it passes that on to, as I understand it,
+
+229
+00:29:34.930 --> 00:29:38.329
+Kevin Triplett: to… or does it? Maybe it does,
+
+230
+00:29:38.330 --> 00:29:39.530
+Carly Huitema (University of Guelph): I don't know. I don't know.
+
+231
+00:29:39.530 --> 00:29:40.420
+Kevin Triplett: ambitions.
+
+232
+00:29:40.970 --> 00:29:45.710
+Carly Huitema (University of Guelph): But I, I mean, but this is exactly why,
+
+233
+00:29:54.110 --> 00:30:06.359
+Carly Huitema (University of Guelph): They use verifiable identifiers… A foundational prerequisite for TSP is that they must be in secure computing environment.
+
+234
+00:30:10.870 --> 00:30:15.569
+Carly Huitema (University of Guelph): It cannot instantiate trust where none exists. That is also a good point.
+
+235
+00:30:16.030 --> 00:30:21.420
+Carly Huitema (University of Guelph): Vids function as identifiers…
+
+236
+00:30:26.590 --> 00:30:31.390
+Carly Huitema (University of Guelph): Nested messages, routed messages for metadata privacy…
+
+237
+00:30:44.210 --> 00:30:48.310
+Sankarshan: If you are using a specific set of
+
+238
+00:30:48.840 --> 00:30:53.099
+Sankarshan: questions to frame how you would like to present yesterday?
+
+239
+00:30:53.240 --> 00:30:55.349
+Sankarshan: I think it might be best to…
+
+240
+00:30:56.070 --> 00:31:00.600
+Sankarshan: sort of reach out to Venjing and discuss those questions, and…
+
+241
+00:31:00.850 --> 00:31:10.880
+Sankarshan: then it is a lot more, precise in terms of how he thinks it is what everyone's, trying to frame it for the audience.
+
+242
+00:31:10.880 --> 00:31:11.550
+Carly Huitema (University of Guelph): Yep.
+
+243
+00:31:12.230 --> 00:31:17.360
+Carly Huitema (University of Guelph): And, and these, these, because I don't think DIDS, did calm…
+
+244
+00:31:18.400 --> 00:31:25.010
+Carly Huitema (University of Guelph): I don't think DidCom does this whole thing of, the message routing.
+
+245
+00:31:25.510 --> 00:31:35.109
+Carly Huitema (University of Guelph): and the different types of metadata protection. I'm not sure, but I don't think it does. And then, so that might be…
+
+246
+00:31:36.240 --> 00:31:39.800
+Carly Huitema (University of Guelph): the details that I can get from Wenjing. Okay, so what I will do…
+
+247
+00:31:40.260 --> 00:31:43.089
+Carly Huitema (University of Guelph): is I will take that first script.
+
+248
+00:31:43.530 --> 00:31:45.349
+Carly Huitema (University of Guelph): I will write to Wen Jing.
+
+249
+00:31:46.040 --> 00:31:48.050
+Carly Huitema (University of Guelph): And I will ask…
+
+250
+00:31:49.030 --> 00:31:59.430
+Carly Huitema (University of Guelph): I will point out that we want this to co… we want to have some TSP videos to release at the same time as the specification version 1.
+
+251
+00:31:59.680 --> 00:32:05.419
+Carly Huitema (University of Guelph): So that we can have… we can increase its, reach and impact.
+
+252
+00:32:06.520 --> 00:32:09.970
+Carly Huitema (University of Guelph): And then I just need to find out when Munching is meeting next.
+
+253
+00:32:13.560 --> 00:32:18.339
+Carly Huitema (University of Guelph): I mean, he's got his AI and Human Trust working group, but I don't think I can…
+
+254
+00:32:20.780 --> 00:32:22.380
+Carly Huitema (University of Guelph): Oh, that's my job.
+
+255
+00:32:22.380 --> 00:32:23.630
+Sankarshan: Close to you, Anthony.
+
+256
+00:32:24.830 --> 00:32:26.030
+Carly Huitema (University of Guelph): Sorry, say again?
+
+257
+00:32:26.530 --> 00:32:31.200
+Sankarshan: The AI and Human Trust thing is on Thursday, I believe.
+
+258
+00:32:31.200 --> 00:32:38.060
+Carly Huitema (University of Guelph): Yeah, but I don't think I could come in and, take it over for, TSP.
+
+259
+00:32:38.500 --> 00:32:40.909
+Carly Huitema (University of Guelph): It does, it, it does… yeah?
+
+260
+00:32:41.110 --> 00:32:43.049
+Sankarshan: Probably won't work out that way.
+
+261
+00:32:43.530 --> 00:32:48.440
+Carly Huitema (University of Guelph): Yeah, and I… looking through, I don't think he has any TSP meetings.
+
+262
+00:32:49.550 --> 00:32:58.589
+Sankarshan: So there was this… only one TSP meeting that was specially reviewed last week, because it was the review that needed to happen. Otherwise…
+
+263
+00:32:58.590 --> 00:32:58.980
+Carly Huitema (University of Guelph): Okay.
+
+264
+00:32:58.980 --> 00:33:04.529
+Sankarshan: The… Coordinate asynchronously of meetings, and…
+
+265
+00:33:04.750 --> 00:33:09.440
+Carly Huitema (University of Guelph): Okay, okay, so I will read out to Wenjing, I will…
+
+266
+00:33:09.690 --> 00:33:17.549
+Carly Huitema (University of Guelph): advertise the opportunity about promoting TSP at the same time as to get some videos ready for version 1.0.
+
+267
+00:33:18.250 --> 00:33:23.690
+Carly Huitema (University of Guelph): I will show them that intro spec, and then… the intro script.
+
+268
+00:33:23.930 --> 00:33:32.409
+Carly Huitema (University of Guelph): To check to see if it's missing any key points, and then get some ideas from him about the next script to work on.
+
+269
+00:33:32.830 --> 00:33:46.110
+Carly Huitema (University of Guelph): So that I… maybe I… maybe… I mean, at the… at the minimum, I want 1 and maybe three or four, going into little features about TSP that is not,
+
+270
+00:33:46.110 --> 00:34:03.049
+Sankarshan: Yeah, given that TSP fundamentally is going to be consumed by the VTC effort that's ongoing, so there is a very rich consumer-facing set of stories that can emerge out of, like, wise
+
+271
+00:34:03.500 --> 00:34:12.500
+Sankarshan: Because… I mean, if… nobody bothers to think about TCP, right? So, TSP has the…
+
+272
+00:34:12.940 --> 00:34:23.129
+Sankarshan: Chance of becoming that kind of a boring underlying protocol that nobody wants to know, but it's critical to the functioning of everything that is around us.
+
+273
+00:34:23.489 --> 00:34:24.840
+Sankarshan: Yep.
+
+274
+00:34:25.770 --> 00:34:26.289
+Carly Huitema (University of Guelph): Yeah, you're right.
+
+275
+00:34:26.290 --> 00:34:33.759
+Sankarshan: VTC consumption, there is an opportunity to also tie in the larger Trust over IP ecosystem development story.
+
+276
+00:34:34.110 --> 00:34:43.439
+Sankarshan: That kind of is a more stronger narrative that makes sense to anybody who's not as teamly technical as Kevin or others who are in there.
+
+277
+00:34:44.110 --> 00:34:58.080
+Carly Huitema (University of Guelph): Okay, so that's a good idea. So… so what… so what is, like, what does VT… Sorry, what does TSP do? Like, the… the definition kind of thing, like the highlight points, which is the intro one.
+
+278
+00:34:58.080 --> 00:35:06.649
+Carly Huitema (University of Guelph): I could talk about some features, perhaps some features. I don't have to say that they're not done by DIDCOM, but I could…
+
+279
+00:35:07.070 --> 00:35:10.989
+Carly Huitema (University of Guelph): highlight features that aren't done by DIDCOM, and people…
+
+280
+00:35:11.330 --> 00:35:17.729
+Carly Huitema (University of Guelph): who know DidCom can look at that and say, oh, DidCom doesn't do that, and they could figure that. I don't need to…
+
+281
+00:35:18.350 --> 00:35:19.649
+Carly Huitema (University of Guelph): hammer that I.
+
+282
+00:35:19.650 --> 00:35:32.040
+Sankarshan: Even if people who know DATCOM want to come up and debate that, oh, but DATCOM does that, what's the special thing you are doing? I would notch it up to… that means you have watched a video and you have an opinion, you're welcome.
+
+283
+00:35:33.370 --> 00:35:34.740
+Carly Huitema (University of Guelph): Right.
+
+284
+00:35:36.560 --> 00:35:43.959
+Carly Huitema (University of Guelph): Okay, and then, and then, and then, who, where would, and then, and then, where would,
+
+285
+00:35:44.160 --> 00:35:46.990
+Carly Huitema (University of Guelph): Where would, TSP be used?
+
+286
+00:35:47.850 --> 00:36:02.219
+Carly Huitema (University of Guelph): And then, the problem is, it's like, nobody knows what a VTC… nobody knows VTCs, so you can't be like, hey, it's used in VTCs. Yeah, okay, what's a VTC? And there's a whole video about…
+
+287
+00:36:02.220 --> 00:36:10.200
+Sankarshan: Yes, I mean, we have a whole bunch of acronym-heavy projects underway at TrustVoIQ at this point, don't we?
+
+288
+00:36:12.580 --> 00:36:14.350
+Carly Huitema (University of Guelph): We have a whole bunch of what? Sorry.
+
+289
+00:36:14.350 --> 00:36:26.730
+Sankarshan: Sorry, I have a very noisy environment. I was just saying that we have a whole bunch of acronym-heavy projects going that don't make much sense to those who are not following our projects closely.
+
+290
+00:36:27.270 --> 00:36:32.299
+Carly Huitema (University of Guelph): Yeah, yeah, yeah, yeah, yeah, yeah. So, okay, so…
+
+291
+00:36:32.800 --> 00:36:51.529
+Carly Huitema (University of Guelph): But then the TSP, then I can introduce a verifiable trust community, which then gets us into a whole bunch of other videos that the Trustlets were starting on, and stuff like that. We've always been talking about, and Drummond always talks about needing the next set of,
+
+292
+00:36:52.780 --> 00:37:01.290
+Carly Huitema (University of Guelph): of videos about, trust communities. The problem there is I'd have to be fairly general, because…
+
+293
+00:37:01.430 --> 00:37:04.540
+Carly Huitema (University of Guelph): A lot of it is still half-baked.
+
+294
+00:37:04.920 --> 00:37:21.249
+Carly Huitema (University of Guelph): Like, you know, you're like, yeah, it's all figured out, and then you start implementing, and then you're realizing that there's a whole bunch of stuff that's not yet quite figured out, and then… or a bunch of details that you still need to figure out. Okay.
+
+295
+00:37:21.250 --> 00:37:26.040
+Sankarshan: I think… One of the things that… If you…
+
+296
+00:37:26.180 --> 00:37:44.079
+Sankarshan: draw out these story arcs, and then go back to this project and say, when do you think you will have a stable release about which I can build this video and release it to the public? That way, you are not always chasing a fluid
+
+297
+00:37:44.200 --> 00:37:54.440
+Sankarshan: code base. You are changing a milestone, and that allows you to also calibrate dates, because if a milestone slips, it means your video
+
+298
+00:37:54.640 --> 00:37:57.950
+Sankarshan: Production pipeline also slips accordingly.
+
+299
+00:37:58.400 --> 00:37:58.760
+Carly Huitema (University of Guelph): Yep.
+
+300
+00:37:58.760 --> 00:38:03.680
+Sankarshan: I think, I think you will end up being one of the, key…
+
+301
+00:38:04.030 --> 00:38:12.130
+Sankarshan: I wouldn't want to say blockers, but more a forcing function, so to speak, for all these projects to realize that they need a definite date
+
+302
+00:38:12.280 --> 00:38:15.559
+Sankarshan: And the stable release and all of that to put on the board.
+
+303
+00:38:16.260 --> 00:38:23.630
+Carly Huitema (University of Guelph): Yeah, okay, yeah, yeah, yeah, that's a… that's a good, that's a good point. I can… okay, so I'm going to…
+
+304
+00:38:24.700 --> 00:38:32.929
+Carly Huitema (University of Guelph): I'm going to… I could… I could include a teaser video about verifiable Trust Communities and TSP.
+
+305
+00:38:33.130 --> 00:38:39.460
+Carly Huitema (University of Guelph): And then leave that, where in the future, when they go to a V1 release.
+
+306
+00:38:39.880 --> 00:38:43.790
+Carly Huitema (University of Guelph): or something else, then I can,
+
+307
+00:38:45.110 --> 00:38:57.259
+Carly Huitema (University of Guelph): Yeah, okay, good. So, I think we're done here, unless somebody else wants to bring something up, but I got good feedback on duplicity impersonation, I'm gonna work on that and release it.
+
+308
+00:38:57.750 --> 00:39:04.730
+Carly Huitema (University of Guelph): the… we talked about the points for the TSP, the V1 release, I will connect with Wenjing.
+
+309
+00:39:05.160 --> 00:39:17.900
+Carly Huitema (University of Guelph): And then I will mention to ask Drummond about a VTC V1 release as well, to do the set. That's a good point to stress that the Bite-Size Trust videos that come out are going to be coming out
+
+310
+00:39:18.070 --> 00:39:20.260
+Carly Huitema (University of Guelph): Bons signing with a VT1.
+
+311
+00:39:24.050 --> 00:39:24.970
+Carly Huitema (University of Guelph): Okay.
+
+312
+00:39:26.310 --> 00:39:28.859
+Sankarshan: Yeah, that's a great point from Lynn, actually.
+
+313
+00:39:34.460 --> 00:39:38.349
+Carly Huitema (University of Guelph): How would I… how would I… so… so how would I use that?
+
+314
+00:39:39.980 --> 00:39:45.990
+Carly Huitema (University of Guelph): Or, or I'm contributing… Bite-Size Trust is contributing to strengthening, literacy.
+
+315
+00:39:50.520 --> 00:40:08.069
+Lyn Brooks (dHub Group): Yeah, I don't know, really. I just threw that in as, you know, from my viewpoint of, I really like this Bite-Size Trust business, and, trying to connect it to individuals that aren't deep into the knowledge about what's going on.
+
+316
+00:40:08.170 --> 00:40:14.919
+Lyn Brooks (dHub Group): So, which I think you addressed very well, and so I just tried to frame it around
+
+317
+00:40:15.680 --> 00:40:23.669
+Lyn Brooks (dHub Group): you know, certain ideas. I don't think it helps much, Carly, but anyway. Yeah.
+
+318
+00:40:23.680 --> 00:40:28.280
+Carly Huitema (University of Guelph): No, but I mean, like, I mean, I mean, that's the, that's, like, the…
+
+319
+00:40:28.910 --> 00:40:35.039
+Carly Huitema (University of Guelph): Something that is successful needs to be more than just…
+
+320
+00:40:36.790 --> 00:40:40.550
+Carly Huitema (University of Guelph): More than just running away with a single technical point.
+
+321
+00:40:42.930 --> 00:40:43.460
+Carly Huitema (University of Guelph): Yeah.
+
+322
+00:40:43.460 --> 00:40:48.730
+Lyn Brooks (dHub Group): Yeah, the bigger, you know, sure, from the higher level view or something.
+
+323
+00:40:49.010 --> 00:40:50.370
+Carly Huitema (University of Guelph): Yeah, yeah, yeah.
+
+324
+00:40:50.750 --> 00:41:00.039
+Carly Huitema (University of Guelph): And that, like, embedding inclusion, I'd like to see that, how it always keeps coming up in the VTC community and stuff.
+
+325
+00:41:00.680 --> 00:41:01.450
+Lyn Brooks (dHub Group): Oh.
+
+326
+00:41:02.250 --> 00:41:18.940
+Sankarshan: I… before we go, I'll… I just wanted to ask, has everyone, or any one of you, had the opportunity to watch the, DTG meeting recordings for… of the one that happened, for the
+
+327
+00:41:19.400 --> 00:41:20.900
+Sankarshan: APAC time zone.
+
+328
+00:41:22.460 --> 00:41:26.419
+Carly Huitema (University of Guelph): I have not watched any DTG APEC recordings.
+
+329
+00:41:26.730 --> 00:41:33.989
+Sankarshan: Let me try and get the, thing, if it is up.
+
+330
+00:41:34.570 --> 00:41:35.899
+Sankarshan: There's some benefit.
+
+331
+00:41:36.960 --> 00:41:40.839
+Sankarshan: I don't… I don't see this right now, but
+
+332
+00:41:41.890 --> 00:41:43.780
+Sankarshan: The last one was on the…
+
+333
+00:41:44.200 --> 00:41:52.340
+Sankarshan: 8th, right? So the APAC one would be on 8th or 9th. I don't see that on the YouTube yet.
+
+334
+00:41:54.030 --> 00:41:54.900
+Sankarshan: But…
+
+335
+00:41:54.900 --> 00:42:03.949
+Carly Huitema (University of Guelph): Is it in the… is it on the, yeah, because it's supposed to be an auto pipeline, for that, ugh, and I… I've lost my,
+
+336
+00:42:04.240 --> 00:42:07.530
+Carly Huitema (University of Guelph): LFX, where you have your own,
+
+337
+00:42:09.770 --> 00:42:14.579
+Carly Huitema (University of Guelph): I can see the calendar, but I can't see my own personal…
+
+338
+00:42:15.320 --> 00:42:15.680
+Sankarshan: lifted.
+
+339
+00:42:15.680 --> 00:42:20.089
+Carly Huitema (University of Guelph): And then… because then where you can go and look back to find recordings, and I can't find it.
+
+340
+00:42:20.090 --> 00:42:23.970
+Sankarshan: The reason I brought it up is because…
+
+341
+00:42:24.160 --> 00:42:33.600
+Sankarshan: That happened last Thursday in my time zone, so late Wednesday, I think, in the US, west time zone, or evening of yesterday.
+
+342
+00:42:33.740 --> 00:42:35.569
+Carly Huitema (University of Guelph): Right to…
+
+343
+00:42:36.740 --> 00:42:44.260
+Sankarshan: And it was, it was attended by a large group of folks out of New Zealand.
+
+344
+00:42:44.660 --> 00:42:50.330
+Sankarshan: who had a very nice walkthrough of how they see the entire DTG work being
+
+345
+00:42:50.480 --> 00:42:55.099
+Sankarshan: made available at scale to the people of New Zealand through the various services.
+
+346
+00:42:55.380 --> 00:42:55.880
+Sankarshan: And…
+
+347
+00:42:55.880 --> 00:42:56.390
+Carly Huitema (University of Guelph): Yeah.
+
+348
+00:42:56.390 --> 00:43:01.299
+Sankarshan: The reason I… and the reason it resonates with what Lyn just posted is…
+
+349
+00:43:01.690 --> 00:43:10.090
+Sankarshan: technology needs to be communicated through some central themes that humans can relate to, right? Otherwise, it's… I mean, we can always…
+
+350
+00:43:10.410 --> 00:43:27.339
+Sankarshan: view technology as the deep technical parts of, this is better, that thing has… that feature has improved, this capability is innovative. Or the other thing is, here is a kind of experience that was not possible in digital world, and now it is possible to us.
+
+351
+00:43:27.500 --> 00:43:31.750
+Sankarshan: And… and I think that the TSP, VTC,
+
+352
+00:43:32.210 --> 00:43:49.680
+Sankarshan: The DPG parts of what we are doing in Trust over IP allow us to communicate that story from that level, which is less of technology, more of what the interfacing of humans, agents, and trust is around, so…
+
+353
+00:43:49.860 --> 00:43:52.949
+Sankarshan: Perhaps this is… this is a way we could…
+
+354
+00:43:53.080 --> 00:44:00.740
+Sankarshan: Build the story arcs and see whether we can get some of these, spec authors and maintainers to also provide inputs that
+
+355
+00:44:00.950 --> 00:44:06.389
+Sankarshan: are less technical, because they've already written the technical parts, right? It's not that we have to reiterate what they.
+
+356
+00:44:06.390 --> 00:44:07.180
+Carly Huitema (University of Guelph): Right.
+
+357
+00:44:08.700 --> 00:44:10.230
+Carly Huitema (University of Guelph): Yeah, okay.
+
+358
+00:44:10.770 --> 00:44:16.100
+Carly Huitema (University of Guelph): Yeah, and I… oh, I did find the schedule, but I don't see the… can,
+
+359
+00:44:17.800 --> 00:44:23.769
+Carly Huitema (University of Guelph): Do you want to quickly… Send an email about,
+
+360
+00:44:24.210 --> 00:44:27.279
+Carly Huitema (University of Guelph): Okay, you know what, Olive will just do it, and I think that's…
+
+361
+00:44:33.080 --> 00:44:40.460
+Sankarshan: Yeah, I think Fry mentioned that it is still manual, the publication, and it kind of gets backlogged on and off, so…
+
+362
+00:44:40.460 --> 00:44:42.730
+Carly Huitema (University of Guelph): Okay, so which one…
+
+363
+00:44:47.270 --> 00:44:47.929
+Sankarshan: Oh, hi, Ross.
+
+364
+00:44:47.930 --> 00:44:57.240
+Carly Huitema (University of Guelph): interested in seeing. It was the… it was the ACHAC Decentralized, trustworth, the Central DTG Working Group.
+
+365
+00:44:57.750 --> 00:44:58.280
+Sankarshan: Yep.
+
+366
+00:44:58.970 --> 00:45:00.670
+Carly Huitema (University of Guelph): And then what date?
+
+367
+00:45:03.260 --> 00:45:05.630
+Sankarshan: It's probably the 8th or the 9th.
+
+368
+00:45:07.140 --> 00:45:07.870
+Carly Huitema (University of Guelph): Okay.
+
+369
+00:45:13.330 --> 00:45:13.930
+Sankarshan: The problem?
+
+370
+00:45:13.930 --> 00:45:16.240
+Carly Huitema (University of Guelph): 9th, Wednesday, Wednesday the 9th.
+
+371
+00:45:16.240 --> 00:45:25.709
+Sankarshan: Wednesday or Thursday. The problem of not having these published in some sequential order is that the dates on YouTube get messed up, so…
+
+372
+00:45:25.710 --> 00:45:27.439
+Carly Huitema (University of Guelph): Yeah, yeah, yeah.
+
+373
+00:45:33.480 --> 00:45:47.599
+Sankarshan: All right, I have to go now, and drop off, but this was very nice. If there's anything that, you would like me to elaborate on terms of themes or story arcs that we discussed today?
+
+374
+00:45:47.800 --> 00:45:53.170
+Sankarshan: Please let me know, and I'll try my best to, like, write it out so that you can also consider it.
+
+375
+00:45:53.580 --> 00:45:54.230
+Sankarshan: Critically.
+
+376
+00:45:54.900 --> 00:46:05.450
+Carly Huitema (University of Guelph): I will need to connect with you about that, that kind of broader story impact, but at first I'm going to go and see that video from, New Zealand on the APAC call.
+
+377
+00:46:06.760 --> 00:46:12.620
+Carly Huitema (University of Guelph): I just wrote to support Linux to ask them to put the video up, and then I'll watch it.
+
+378
+00:46:12.930 --> 00:46:18.179
+Carly Huitema (University of Guelph): And then, that would be the way to approach the introduction of the VTCs, then.
+
+379
+00:46:18.180 --> 00:46:18.770
+Sankarshan: Thank you.
+
+380
+00:46:19.630 --> 00:46:21.450
+Carly Huitema (University of Guelph): Good. Thank you so much, everyone!
+
+381
+00:46:22.400 --> 00:46:23.010
+Sankarshan: Bye.
+
+382
+00:46:23.030 --> 00:46:23.760
+Carly Huitema (University of Guelph): Goodbye!
+
+383
+00:46:24.690 --> 00:46:25.430
+Lyn Brooks (dHub Group): Bye.
+
+384
+00:46:25.630 --> 00:46:26.490
+Lyn Brooks (dHub Group): Cheers.
+
+385
+00:46:29.480 --> 00:46:30.490
+Kevin Triplett: Thanks, bye.
+

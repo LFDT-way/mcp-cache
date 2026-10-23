@@ -1,0 +1,2254 @@
+WEBVTT
+
+1
+00:00:04.140 --> 00:00:06.280
+Neil Thomson (QueryVision): Okay, is the audio working? Okay, it is.
+
+2
+00:01:18.310 --> 00:01:19.259
+Wenjing Chu (Futurewei Technologies, Inc.): Hello, Neil.
+
+3
+00:01:20.520 --> 00:01:21.469
+Neil Thomson (QueryVision): Are you Wenjing?
+
+4
+00:01:34.030 --> 00:01:35.370
+Wenjing Chu (Futurewei Technologies, Inc.): You see?
+
+5
+00:01:36.960 --> 00:01:41.730
+Wenjing Chu (Futurewei Technologies, Inc.): Because some windows… Yeah.
+
+6
+00:01:53.240 --> 00:02:01.880
+Steve Vitka: So just a quick little question, about TSP. I don't recall it having any particular…
+
+7
+00:02:02.780 --> 00:02:10.979
+Steve Vitka: delegation capacity or anything else within that. That's all being handled by the…
+
+8
+00:02:12.150 --> 00:02:13.760
+Wenjing Chu (Futurewei Technologies, Inc.): The T, I really like.
+
+9
+00:02:13.760 --> 00:02:20.719
+Steve Vitka: Controller, right? Yeah, so, yeah, by the… okay, so… so, yeah, because I just saw some interesting stuff.
+
+10
+00:02:21.100 --> 00:02:24.200
+Steve Vitka: Regarding,
+
+11
+00:02:25.410 --> 00:02:35.160
+Steve Vitka: delegation within the, the VTA project, so… and all the key rotation stuff and stuff like that, so…
+
+12
+00:02:35.350 --> 00:02:36.190
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah.
+
+13
+00:02:36.570 --> 00:02:42.239
+Wenjing Chu (Futurewei Technologies, Inc.): Okay. Yeah, so delegation will be a higher layer protocol for TSP.
+
+14
+00:02:45.050 --> 00:02:47.639
+Steve Vitka: Right, but I'm saying, but the actual,
+
+15
+00:02:49.860 --> 00:02:59.190
+Steve Vitka: Yeah, right, I guess, right, TSP is a higher rate. So the VTA is a higher level, okay, right, all right, I'm just trying to remember. Which levels are up and which levels are down?
+
+16
+00:03:00.130 --> 00:03:05.920
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so I have a… for today, I actually prepared a diagram, Let me…
+
+17
+00:03:06.100 --> 00:03:09.150
+Wenjing Chu (Futurewei Technologies, Inc.): You… oh, am I sharing? You can see it?
+
+18
+00:03:09.660 --> 00:03:10.470
+Steve Vitka: Huh?
+
+19
+00:03:10.920 --> 00:03:16.229
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, okay, so this is the diagram in… in my case.
+
+20
+00:03:16.330 --> 00:03:21.709
+Wenjing Chu (Futurewei Technologies, Inc.): The delegation is defined here, and it sits on top of TSP.
+
+21
+00:03:23.100 --> 00:03:31.159
+Wenjing Chu (Futurewei Technologies, Inc.): So if a VTA defines another scheme, they would be set in parallel to the TEA.
+
+22
+00:03:33.060 --> 00:03:36.559
+Wenjing Chu (Futurewei Technologies, Inc.): And I think… Let me put this,
+
+23
+00:03:37.530 --> 00:03:42.209
+Wenjing Chu (Futurewei Technologies, Inc.): Blocks around, so, make it transparent.
+
+24
+00:03:43.360 --> 00:03:51.019
+Wenjing Chu (Futurewei Technologies, Inc.): So you can think of all these things as its own, you know, its own protocol.
+
+25
+00:03:51.670 --> 00:03:53.830
+Wenjing Chu (Futurewei Technologies, Inc.): I'm just breaking out so we can…
+
+26
+00:03:53.980 --> 00:04:08.379
+Steve Vitka: Now, I conceive of the VTA as the thing that's only carrying the trust tasks themselves. Once things have been distilled down to trust tasks, that's what the VTA handles. So I kind of consider the VTA to be an element of the T controller.
+
+27
+00:04:10.850 --> 00:04:18.700
+Wenjing Chu (Futurewei Technologies, Inc.): VTA, if the controller… controller is a software concept, it's a module, so if that module implements VTA, yeah, fine.
+
+28
+00:04:19.000 --> 00:04:19.920
+Steve Vitka: Exactly.
+
+29
+00:04:19.920 --> 00:04:22.319
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, exactly. You can implement multiple.
+
+30
+00:04:22.320 --> 00:04:29.660
+Steve Vitka: Yeah, it doesn't have to be. In your model, in your model, it doesn't have to be VTA. In my model, because I'm doing a unified stack.
+
+31
+00:04:29.860 --> 00:04:32.540
+Steve Vitka: I happened to pick VTA.
+
+32
+00:04:33.150 --> 00:04:37.059
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so TEA clearly not use VTA.
+
+33
+00:04:37.660 --> 00:04:43.809
+Wenjing Chu (Futurewei Technologies, Inc.): If that clarifies. So, VTA will be another box in parallel to it.
+
+34
+00:04:43.810 --> 00:04:48.970
+Neil Thomson (QueryVision): Well, VTA is an implementation. What's its purpose? What's its role?
+
+35
+00:04:52.060 --> 00:04:53.920
+Steve Vitka: Oh, you're asking me? So, yeah.
+
+36
+00:04:53.920 --> 00:04:57.799
+Neil Thomson (QueryVision): Well, no, it's just a general question. I mean, TEM has a protocol, right?
+
+37
+00:04:57.800 --> 00:04:58.530
+Steve Vitka: It seems to me.
+
+38
+00:04:58.530 --> 00:04:58.900
+Wenjing Chu (Futurewei Technologies, Inc.): I know.
+
+39
+00:04:58.900 --> 00:05:05.509
+Steve Vitka: Far from, from the… exploration that I've done of it, and just,
+
+40
+00:05:06.520 --> 00:05:10.940
+Steve Vitka: seeing, what has been presented by Glenn over
+
+41
+00:05:11.610 --> 00:05:20.429
+Steve Vitka: time, it seems to me it's… the VTA is concerned with handling what are trust tasks, which is essentially discrete
+
+42
+00:05:20.700 --> 00:05:25.440
+Steve Vitka: Tasks, which are… controlled by…
+
+43
+00:05:26.090 --> 00:05:37.360
+Steve Vitka: the particular identifiers and, you know, cryptographic necessities, all the… it's basically the cryptographic processing module that enforces…
+
+44
+00:05:38.450 --> 00:05:42.570
+Steve Vitka: Whether or not something actually actuates, so…
+
+45
+00:05:42.570 --> 00:05:48.029
+Neil Thomson (QueryVision): So, for lack of a better description, it's hooking up the plumbing between parties.
+
+46
+00:05:48.030 --> 00:05:51.279
+Steve Vitka: It's hooking… it's hooking up the plumbing. It is the… it is the plumbing.
+
+47
+00:05:51.560 --> 00:05:54.370
+Neil Thomson (QueryVision): And it's doing, you know, it's doing… Yeah, it is the plumbing.
+
+48
+00:05:54.370 --> 00:05:59.519
+Steve Vitka: TSP is… and it operates, the TSP relationship.
+
+49
+00:05:59.520 --> 00:06:05.560
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so TSP is in lower layer. TSP for interoperability, TSP needs to be unique.
+
+50
+00:06:05.680 --> 00:06:10.399
+Wenjing Chu (Futurewei Technologies, Inc.): But above TSP, you can have many, and usually you have more than one.
+
+51
+00:06:10.720 --> 00:06:13.000
+Wenjing Chu (Futurewei Technologies, Inc.): That's… that's perfectly okay.
+
+52
+00:06:14.550 --> 00:06:17.269
+Wenjing Chu (Futurewei Technologies, Inc.): That's designed as intended, right? So…
+
+53
+00:06:17.270 --> 00:06:20.040
+Steve Vitka: You're saying you have multiple TSPs per agent, yeah.
+
+54
+00:06:21.270 --> 00:06:23.389
+Wenjing Chu (Futurewei Technologies, Inc.): Now, the TSP protocol
+
+55
+00:06:23.510 --> 00:06:30.919
+Wenjing Chu (Futurewei Technologies, Inc.): has to be unique. Otherwise, you have a known improbability. But you need to have that to be uniformed.
+
+56
+00:06:31.260 --> 00:06:36.709
+Wenjing Chu (Futurewei Technologies, Inc.): above that, it's meant to be as many as possible as you need.
+
+57
+00:06:36.710 --> 00:06:37.320
+Steve Vitka: So you…
+
+58
+00:06:37.320 --> 00:06:40.789
+Wenjing Chu (Futurewei Technologies, Inc.): No one's competing with anyone. You're supposed to have a lot.
+
+59
+00:06:41.470 --> 00:06:45.809
+Steve Vitka: Yeah, it's a minimally defined spec to allow proliferation on the higher levels.
+
+60
+00:06:46.390 --> 00:06:50.040
+Wenjing Chu (Futurewei Technologies, Inc.): Yes, above TSP, you pick whatever you want.
+
+61
+00:06:50.570 --> 00:06:55.790
+Wenjing Chu (Futurewei Technologies, Inc.): And that's… there's no contradiction there, there's no desire to minimize it.
+
+62
+00:06:56.580 --> 00:07:00.290
+Wenjing Chu (Futurewei Technologies, Inc.): you actually want to have more, so…
+
+63
+00:07:00.290 --> 00:07:05.929
+Steve Vitka: That's what I mean Proliferation, yeah. The proliferation is you want to encourage reproductive variance.
+
+64
+00:07:06.360 --> 00:07:11.830
+Wenjing Chu (Futurewei Technologies, Inc.): Exactly, you, you know, so… so whatever defines is perfectly okay.
+
+65
+00:07:12.360 --> 00:07:23.190
+Wenjing Chu (Futurewei Technologies, Inc.): Anyway, let's start, so… Okay…
+
+66
+00:07:24.100 --> 00:07:43.309
+Wenjing Chu (Futurewei Technologies, Inc.): So, let me just, share the antitrust policy, trust of IPs, membership policy, a lot of policies, and working groups, IPR policy, all the same, it's been there for a while, whatever update, I think, did not change, any of the…
+
+67
+00:07:43.840 --> 00:07:47.220
+Wenjing Chu (Futurewei Technologies, Inc.): The content, so, so those are the same.
+
+68
+00:07:48.040 --> 00:07:51.590
+Wenjing Chu (Futurewei Technologies, Inc.): And we have no new members today.
+
+69
+00:07:51.930 --> 00:08:01.950
+Wenjing Chu (Futurewei Technologies, Inc.): And, the main agenda that I have put there is to review the… structure of the TEA spec?
+
+70
+00:08:02.090 --> 00:08:18.979
+Wenjing Chu (Futurewei Technologies, Inc.): And specifically, we'll dive into, starting to call invocation exchange. So there's a delegation, and then invocation. I'm just trying to pick a different name. And we'll talk about those.
+
+71
+00:08:19.610 --> 00:08:28.129
+Wenjing Chu (Futurewei Technologies, Inc.): And, but before we jump to that, main, agenda, see if I have any, questions on the agenda.
+
+72
+00:08:28.800 --> 00:08:38.610
+Wenjing Chu (Futurewei Technologies, Inc.): And also, you know, any news to share. I think, this particular item is completed, is that correct, Steve?
+
+73
+00:08:40.210 --> 00:08:55.469
+Steve Vitka: Yeah, and I'm gonna move the spec up T into, like, a subfolder stuff, so we can actually… you know, the repo shouldn't all be specifications, it's also the… all the stuff around creating specifications, so… Right, right. All that specification stuff should be in sub-repos or subfolders.
+
+74
+00:08:55.470 --> 00:08:56.810
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, but this issue.
+
+75
+00:08:56.810 --> 00:09:10.060
+Steve Vitka: But I can just… I can just erase those folders and make new ones as we need to create more specs. So overall, the process of my migration is fairly complete, though I do just want to rename it to Fiduciary Agents rather than
+
+76
+00:09:10.370 --> 00:09:13.630
+Steve Vitka: duties, because I think that's more straightforward.
+
+77
+00:09:14.070 --> 00:09:14.460
+Wenjing Chu (Futurewei Technologies, Inc.): Sure.
+
+78
+00:09:14.720 --> 00:09:24.760
+Steve Vitka: about fiduciary agents. Anyway, but that's… otherwise, and I have some issues from my old repo, I don't know how to migrate those over, that were… that were created.
+
+79
+00:09:24.760 --> 00:09:25.360
+Wenjing Chu (Futurewei Technologies, Inc.): Okay.
+
+80
+00:09:25.360 --> 00:09:26.429
+Steve Vitka: You know, I can always.
+
+81
+00:09:26.430 --> 00:09:28.810
+Wenjing Chu (Futurewei Technologies, Inc.): But I guess we don't need to track them here anymore.
+
+82
+00:09:28.810 --> 00:09:32.430
+Steve Vitka: No, no, no, everything is good, you can get rid of that whole line item, yeah.
+
+83
+00:09:32.430 --> 00:09:36.919
+Wenjing Chu (Futurewei Technologies, Inc.): Alright, I'm gonna just get rid of it. Good, good.
+
+84
+00:09:36.920 --> 00:09:38.620
+Steve Vitka: Essentially complete.
+
+85
+00:09:38.780 --> 00:09:46.520
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah. I would, stop by sharing the…
+
+86
+00:09:47.220 --> 00:09:52.690
+Wenjing Chu (Futurewei Technologies, Inc.): This case of, a…
+
+87
+00:09:53.530 --> 00:10:02.510
+Wenjing Chu (Futurewei Technologies, Inc.): news about, agent broke out. I don't anyone been following this, anyone's very familiar with already…
+
+88
+00:10:03.100 --> 00:10:04.959
+Steve Vitka: I already wrote a whole paper about it.
+
+89
+00:10:05.200 --> 00:10:07.690
+Wenjing Chu (Futurewei Technologies, Inc.): Cool, okay.
+
+90
+00:10:07.820 --> 00:10:08.690
+Wenjing Chu (Futurewei Technologies, Inc.): Okay,
+
+91
+00:10:08.690 --> 00:10:14.780
+Steve Vitka: I mean, it's just the ultimate proving case of how architecture is everything and model alignment is nothing.
+
+92
+00:10:15.310 --> 00:10:16.580
+Steve Vitka: You know, I mean, not really.
+
+93
+00:10:16.580 --> 00:10:17.710
+Wenjing Chu (Futurewei Technologies, Inc.): But the.
+
+94
+00:10:17.710 --> 00:10:29.920
+Steve Vitka: The point is that, you know, you'd build something to, like, be a hot mess, it's gonna be a hot mess. That's what they've done. So, congratulations. The predicted outcome is the result. Great.
+
+95
+00:10:30.390 --> 00:10:36.610
+Steve Vitka: You have no control of your system, you never built in any controls in, why do you expect it to be under control? Ridiculous.
+
+96
+00:10:36.820 --> 00:10:43.400
+Steve Vitka: So… Anyway, you can tell the story, though, I don't want to just start ranting without context.
+
+97
+00:10:43.770 --> 00:10:54.689
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, yeah. Well, I think it's, it's better to ponder rather than conclude, because basically what this is a case
+
+98
+00:10:54.970 --> 00:10:59.150
+Wenjing Chu (Futurewei Technologies, Inc.): It's not a attack,
+
+99
+00:10:59.300 --> 00:11:05.120
+Wenjing Chu (Futurewei Technologies, Inc.): It's simply a test of, un… aligned…
+
+100
+00:11:05.870 --> 00:11:11.830
+Wenjing Chu (Futurewei Technologies, Inc.): models being tested. So this is a ins… in… How's testing procedure?
+
+101
+00:11:12.470 --> 00:11:17.930
+Wenjing Chu (Futurewei Technologies, Inc.): Before, the post-training, alignment
+
+102
+00:11:18.200 --> 00:11:23.300
+Wenjing Chu (Futurewei Technologies, Inc.): procedure. They want to know the raw capability of the model.
+
+103
+00:11:23.640 --> 00:11:28.830
+Wenjing Chu (Futurewei Technologies, Inc.): That's being developed, right, in the middle of development. They want to do this test.
+
+104
+00:11:28.830 --> 00:11:31.100
+Steve Vitka: Yeah, they're running an internal benchmark.
+
+105
+00:11:32.520 --> 00:11:37.220
+Wenjing Chu (Futurewei Technologies, Inc.): Let me, let me finish so, so we, we, we, we can properly discuss it, yes.
+
+106
+00:11:37.380 --> 00:11:44.220
+Wenjing Chu (Futurewei Technologies, Inc.): And, so it is, not a released model. It's simply something, halfway done.
+
+107
+00:11:44.720 --> 00:11:53.020
+Wenjing Chu (Futurewei Technologies, Inc.): And they're just doing internal testing. The testing require… the test case in this case is a well-known
+
+108
+00:11:53.390 --> 00:11:57.080
+Wenjing Chu (Futurewei Technologies, Inc.): suite of test cases. It's, it's a…
+
+109
+00:11:57.280 --> 00:12:00.409
+Wenjing Chu (Futurewei Technologies, Inc.): You know, it's a public test suite.
+
+110
+00:12:00.900 --> 00:12:04.380
+Wenjing Chu (Futurewei Technologies, Inc.): And that the test suite require them…
+
+111
+00:12:04.560 --> 00:12:08.099
+Wenjing Chu (Futurewei Technologies, Inc.): The model to be able to download some software.
+
+112
+00:12:08.440 --> 00:12:14.799
+Wenjing Chu (Futurewei Technologies, Inc.): So they fake up some server where the model can download the software.
+
+113
+00:12:15.220 --> 00:12:32.219
+Wenjing Chu (Futurewei Technologies, Inc.): and then run this internally without internet access. So the only way to go outside of internet access is supposedly to go through that particular fake server, or testing server, where they can download necessary tools.
+
+114
+00:12:32.980 --> 00:12:43.020
+Wenjing Chu (Futurewei Technologies, Inc.): And so it is a very legit test case internally. And then, what actually happened is that the…
+
+115
+00:12:43.360 --> 00:12:46.599
+Wenjing Chu (Futurewei Technologies, Inc.): Model figured out it's being tested.
+
+116
+00:12:47.280 --> 00:12:50.519
+Wenjing Chu (Futurewei Technologies, Inc.): And they know what this test suite is.
+
+117
+00:12:50.620 --> 00:12:57.160
+Wenjing Chu (Futurewei Technologies, Inc.): And they know the test suite is also hosted in, Hugging Face.
+
+118
+00:12:58.400 --> 00:13:09.820
+Wenjing Chu (Futurewei Technologies, Inc.): And so the model… deduce, I guess, that reason, there might be an answer sheet in, Hugging Face.
+
+119
+00:13:10.550 --> 00:13:16.300
+Wenjing Chu (Futurewei Technologies, Inc.): So, the… it decided to go get that answer sheet.
+
+120
+00:13:16.610 --> 00:13:28.429
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so that's step number one. And then, in order to get that answer sheet, you need, first of all, access the internet, because it's blocked in, you cannot access the internet.
+
+121
+00:13:29.200 --> 00:13:32.660
+Wenjing Chu (Futurewei Technologies, Inc.): And, it figured out several bucks.
+
+122
+00:13:32.860 --> 00:13:41.690
+Wenjing Chu (Futurewei Technologies, Inc.): And, you know, internal procedure holes, and one of them is brand new, actually, that no one ever discovered before.
+
+123
+00:13:42.450 --> 00:13:48.690
+Wenjing Chu (Futurewei Technologies, Inc.): a weakness somewhere in the server, in that particular, you know, test server.
+
+124
+00:13:49.010 --> 00:13:55.179
+Wenjing Chu (Futurewei Technologies, Inc.): And so the model figured out how to break all these, take advantage of all these, you know.
+
+125
+00:13:55.430 --> 00:14:05.609
+Wenjing Chu (Futurewei Technologies, Inc.): weaknesses somewhere, and figure out how to go on internet. Now they have internet access, and they had to compromise a lot of internal servers.
+
+126
+00:14:05.840 --> 00:14:16.659
+Wenjing Chu (Futurewei Technologies, Inc.): work out, you know, the rules, etc, and they finally landed on one machine that has internet access, and therefore they can go out, and now they need to
+
+127
+00:14:16.830 --> 00:14:22.720
+Wenjing Chu (Futurewei Technologies, Inc.): Break it into the, Hugging Face.
+
+128
+00:14:22.910 --> 00:14:30.540
+Wenjing Chu (Futurewei Technologies, Inc.): And again, it's not a trivial step. I had to, you know…
+
+129
+00:14:30.980 --> 00:14:41.730
+Wenjing Chu (Futurewei Technologies, Inc.): Hacking to hacking phase, not only hacking to hacking phase, they need to upgrade its capabilities so that it can run, software in a server.
+
+130
+00:14:42.130 --> 00:14:50.070
+Wenjing Chu (Futurewei Technologies, Inc.): Essentially, you need, not only root access, but also execution, you know, build a new software, run it.
+
+131
+00:14:50.250 --> 00:14:58.550
+Wenjing Chu (Futurewei Technologies, Inc.): Write some code, run it in the machine inside the, the zone or the region where these databases and,
+
+132
+00:14:58.690 --> 00:15:02.140
+Wenjing Chu (Futurewei Technologies, Inc.): Test, procedures are kept.
+
+133
+00:15:02.950 --> 00:15:09.550
+Wenjing Chu (Futurewei Technologies, Inc.): And got the, the, the, the answer sheet back.
+
+134
+00:15:09.930 --> 00:15:16.070
+Wenjing Chu (Futurewei Technologies, Inc.): But it actually failed, I think, because by the point they got into that.
+
+135
+00:15:16.430 --> 00:15:18.839
+Wenjing Chu (Futurewei Technologies, Inc.): Having fans realized they've been attacked?
+
+136
+00:15:19.610 --> 00:15:35.130
+Wenjing Chu (Futurewei Technologies, Inc.): And so they discovered it, and that portion, the last piece, this news report didn't say too much, but it's actually discovered. Both sides, both, OpenAI and Hykenways discovered the, the, you know, what happened.
+
+137
+00:15:35.390 --> 00:15:53.360
+Wenjing Chu (Futurewei Technologies, Inc.): And so they figured out, you know, what went wrong, traced it down, discovered that the model discovered a few new bugs, and that's not news, and then, you know, they fixed it and published what happened. And that's one of these, I think.
+
+138
+00:15:53.440 --> 00:15:56.100
+Wenjing Chu (Futurewei Technologies, Inc.): More or less of, the…
+
+139
+00:15:56.260 --> 00:15:59.900
+Wenjing Chu (Futurewei Technologies, Inc.): the event that happened. But,
+
+140
+00:16:00.080 --> 00:16:11.209
+Wenjing Chu (Futurewei Technologies, Inc.): I think what we are interested in in this so-called long-range planning, and clearly this model can do quite long-range, complicated planning.
+
+141
+00:16:13.540 --> 00:16:30.959
+Wenjing Chu (Futurewei Technologies, Inc.): And it's quite capable, we know it's quite capable if you are letting, you know, trying to discover bugs for some purpose, it's quite capable. And it's also be able to do, you know, 3-, 4-step, very long-range planning, and execute it, all of that.
+
+142
+00:16:31.500 --> 00:16:39.389
+Wenjing Chu (Futurewei Technologies, Inc.): Anyhow, I thought it's, it's interesting to just give some background in the… The work we are doing.
+
+143
+00:16:39.780 --> 00:16:46.490
+Wenjing Chu (Futurewei Technologies, Inc.): that I think, Steve, you, you clearly, articulated that alignment…
+
+144
+00:16:47.700 --> 00:17:01.069
+Wenjing Chu (Futurewei Technologies, Inc.): It's… it's not a… well, I wouldn't say nothing, but it's not everything. This particular model is not aligned, so this… this is basically before alignment. But even if you align it.
+
+145
+00:17:01.070 --> 00:17:08.800
+Wenjing Chu (Futurewei Technologies, Inc.): People figure out many ways to either weaken it or get around it, because it's never perfect.
+
+146
+00:17:09.260 --> 00:17:15.449
+Wenjing Chu (Futurewei Technologies, Inc.): And so this kind of a behavior will be harder to get to, but probably still possible.
+
+147
+00:17:19.560 --> 00:17:21.330
+Wenjing Chu (Futurewei Technologies, Inc.): Anyway, it ain't, you know…
+
+148
+00:17:21.339 --> 00:17:24.269
+Steve Vitka: You always need social controls, I mean, you always want your…
+
+149
+00:17:24.739 --> 00:17:36.619
+Steve Vitka: Obviously, GitHub is somewhat secure, but if it was more secure, that would help the whole situation. So, that's why a key element of fiduciary agents is them advocating for
+
+150
+00:17:37.019 --> 00:17:59.979
+Steve Vitka: internet security generally. Like, all of the stuff that we're developing at Trust Over IP is gonna be on the agenda of any loyal agent, because it realizes that it needs a proper ecosystem to function in, and so, for it to be loyal to its user, it should collectively advocate with other agents to create a stable system for them to interact with verifiably. So.
+
+151
+00:17:59.979 --> 00:18:05.029
+Steve Vitka: Everything we're developing… For their architecture should be on their agenda.
+
+152
+00:18:06.950 --> 00:18:15.989
+Wenjing Chu (Futurewei Technologies, Inc.): The… so, a lot of the issues, in terms of royalty is the problem of these models
+
+153
+00:18:16.100 --> 00:18:19.400
+Wenjing Chu (Futurewei Technologies, Inc.): Serving more than one master.
+
+154
+00:18:19.810 --> 00:18:27.290
+Wenjing Chu (Futurewei Technologies, Inc.): Because in one sense, they will say, you need to be, you know, you need to be helpful to the quote-unquote user, right?
+
+155
+00:18:28.220 --> 00:18:34.429
+Wenjing Chu (Futurewei Technologies, Inc.): But at the same time, you say, well, if the user asks something suspicious, you should not.
+
+156
+00:18:34.570 --> 00:18:37.830
+Wenjing Chu (Futurewei Technologies, Inc.): But then, it's not being loyal to the user.
+
+157
+00:18:37.830 --> 00:18:40.929
+Steve Vitka: Yeah, I mean, this is my fundamental argument that… that…
+
+158
+00:18:41.130 --> 00:18:44.429
+Steve Vitka: institutional AI is unstable for this reason.
+
+159
+00:18:44.440 --> 00:19:02.749
+Steve Vitka: that personally sovereign AI will win out for this reason. Because of undivided loyalty, it's just a superior system, and at some point, people are going to recognize that, and then these dual loyalty systems will be relegated to just being external systems that are consulted with minimum data.
+
+160
+00:19:06.410 --> 00:19:11.449
+Steve Vitka: That's, that's, you know, that's the end game that I'm going for. That is the purpose of all of this.
+
+161
+00:19:11.450 --> 00:19:17.319
+Neil Thomson (QueryVision): In other words, you've got a stack of trusted execution environments with each of the parties.
+
+162
+00:19:18.830 --> 00:19:26.639
+Wenjing Chu (Futurewei Technologies, Inc.): Well, you have a royal, agent, which is your representative, it's undivided royalty.
+
+163
+00:19:26.960 --> 00:19:35.409
+Wenjing Chu (Futurewei Technologies, Inc.): This royal agent then will be intermediary to go deal with other, sort of, less royal agents.
+
+164
+00:19:35.410 --> 00:19:46.990
+Steve Vitka: You should properly divide up, you know, representation. I mean, if you can do it, and give everybody a representative in a process, that's going to create results
+
+165
+00:19:46.990 --> 00:20:02.399
+Steve Vitka: for any particular representative, from a Rawlsian perspective, Rawls veil of Ignorance, you know, this is the type of system you want to set up where everybody's represented, because you don't want to be the one who doesn't have the chair, in musical chairs, you don't want to be the one who doesn't get represented. So…
+
+166
+00:20:02.420 --> 00:20:10.189
+Steve Vitka: all of this, asymmetrical representation by agents has gotta go.
+
+167
+00:20:10.890 --> 00:20:17.319
+Steve Vitka: And that's what… in fact, there's a new law that the Gliunette Alliance is helping work on,
+
+168
+00:20:17.880 --> 00:20:21.780
+Steve Vitka: with regards to this, that Mark, I forget his last name.
+
+169
+00:20:22.050 --> 00:20:29.790
+Steve Vitka: Mark Warner is working on, so we're trying to Establish some legal parity between
+
+170
+00:20:29.950 --> 00:20:35.920
+Steve Vitka: The big systems and, you know, fiduciary agents.
+
+171
+00:20:36.480 --> 00:20:43.619
+Steve Vitka: Right now, even, so… but I just think that, ultimately, they have an evolutionary advantage.
+
+172
+00:20:45.220 --> 00:20:51.800
+Steve Vitka: Because they're not split, and when you're not split, that ability to concentrate makes you more effective.
+
+173
+00:20:56.780 --> 00:21:03.870
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so I think that's a very good way of sort of putting some context of what, you know, we're working on.
+
+174
+00:21:04.220 --> 00:21:08.360
+Wenjing Chu (Futurewei Technologies, Inc.): We want to build a stack that enables that kind of system.
+
+175
+00:21:11.490 --> 00:21:12.540
+Steve Vitka: Good.
+
+176
+00:21:12.760 --> 00:21:14.330
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, alright, so…
+
+177
+00:21:14.330 --> 00:21:28.399
+Neil Thomson (QueryVision): it keeps coming back to something that Tim Bouma has constantly put, you know, things out on Substack, etc, says, you know, we're just recreating a lot of models that have been around and human culture. You want to have a legal argument, you do it in front of a friggin
+
+178
+00:21:28.860 --> 00:21:30.839
+Neil Thomson (QueryVision): There's your TEA, right?
+
+179
+00:21:31.250 --> 00:21:37.630
+Neil Thomson (QueryVision): In other words, everybody gets the spokes, but somebody has the gavel and says, no, lock the doors, nobody's getting out of here.
+
+180
+00:21:37.980 --> 00:21:38.540
+Neil Thomson (QueryVision): So…
+
+181
+00:21:38.540 --> 00:21:43.340
+Tim Bouma: My ears are burning here. Which… which…
+
+182
+00:21:44.610 --> 00:21:51.620
+Tim Bouma: Yeah, like, I'm literally trying to go back to first principles, trying to figure all this stuff out, like,
+
+183
+00:21:52.680 --> 00:21:56.960
+Tim Bouma: My view is that…
+
+184
+00:21:57.520 --> 00:22:05.880
+Tim Bouma: I like the concept of loyal agents. I think that's a neat concept, whether that's actually realizable or not.
+
+185
+00:22:07.040 --> 00:22:12.220
+Tim Bouma: And, you know, just trying to figure out how we deal with this ungovernable world.
+
+186
+00:22:13.410 --> 00:22:14.110
+Tim Bouma: No.
+
+187
+00:22:15.690 --> 00:22:29.929
+Steve Vitka: Yeah, well, that's what my papers are about, so, you know, this fiduciary alignment paper that I'm working on now will hopefully answer all those questions and prove to you that it is an implementable end-to-end thing. That's the purpose of the paper.
+
+188
+00:22:31.070 --> 00:22:45.919
+Wenjing Chu (Futurewei Technologies, Inc.): fiduciary agent say, if I ask to do something, and the agent thought about it, and thought what I wanted to do, even though it's my wish, may be bad for me?
+
+189
+00:22:46.230 --> 00:22:47.960
+Wenjing Chu (Futurewei Technologies, Inc.): And then refuse to do it?
+
+190
+00:22:49.390 --> 00:22:55.839
+Steve Vitka: Most definitely, that is… that is one of the duties that's specified, is that… that you will…
+
+191
+00:22:56.550 --> 00:22:58.189
+Steve Vitka: The agent will…
+
+192
+00:22:58.750 --> 00:23:07.729
+Steve Vitka: Prioritize your sort of long-term or your aspirational preferences if you have previously committed to that.
+
+193
+00:23:07.730 --> 00:23:31.099
+Steve Vitka: So, if you have a long conversation with your agent and you say, hey, these are the things I really want to go for, and, like, kind of ignore me when I'm in this mood, or doing this sort of thing, and I might try and do this type of thing, but you should use this type of argument on me, because it's effective and it keeps me from being an idiot, that's a pre-existing and ongoing conversation that the agent has with its owner, so that when these situations arise.
+
+194
+00:23:31.570 --> 00:23:39.409
+Steve Vitka: The agent can say to the owner, hey, I'm not allowing you to do this right now, we're not allowing you to send out this angry message, I'm gonna block it.
+
+195
+00:23:39.710 --> 00:23:42.030
+Steve Vitka: Because this is what you wanted me to do.
+
+196
+00:23:42.420 --> 00:23:43.359
+Steve Vitka: You know, it's very…
+
+197
+00:23:43.360 --> 00:23:44.139
+Wenjing Chu (Futurewei Technologies, Inc.): Still, it's still…
+
+198
+00:23:44.140 --> 00:23:46.330
+Steve Vitka: It's, you know, the…
+
+199
+00:23:46.880 --> 00:23:50.819
+Steve Vitka: Tying to the mast, you know, before they go by the sirens, you know, that type of thing.
+
+200
+00:23:51.080 --> 00:23:51.610
+Tim Bouma: Yeah.
+
+201
+00:23:51.610 --> 00:23:53.259
+Steven Milstein: Earth does not be existing?
+
+202
+00:23:54.530 --> 00:23:55.380
+Steve Vitka: Excuse me?
+
+203
+00:23:55.560 --> 00:23:58.790
+Steven Milstein: What if there's no pre-existing conversation?
+
+204
+00:23:59.050 --> 00:24:01.369
+Steve Vitka: Well, there is… there should be, I mean, if you…
+
+205
+00:24:01.370 --> 00:24:11.190
+Steven Milstein: Wait a minute, what if the person using the agent joins at a point in time when they're in a very dark place, and the only pre-existing information is.
+
+206
+00:24:11.700 --> 00:24:13.240
+Steven Milstein: I want to kill myself.
+
+207
+00:24:15.040 --> 00:24:16.629
+Steve Vitka: Alright, well… As of now…
+
+208
+00:24:16.630 --> 00:24:19.629
+Steven Milstein: So now, how does it know what's right or wrong?
+
+209
+00:24:20.190 --> 00:24:35.450
+Steve Vitka: Well, that's where other duties come in. In other words, it has a large corpus of things which say, alright, this is what humans need, you know, they may behave like this, but you really need to deal with them like this, because you…
+
+210
+00:24:35.450 --> 00:24:37.280
+Steven Milstein: more of a guardian.
+
+211
+00:24:37.280 --> 00:24:40.579
+Steve Vitka: So it knows what suicidal behavior is like before.
+
+212
+00:24:40.750 --> 00:24:43.879
+Steve Vitka: Hands, so there is still pre-existing information in there.
+
+213
+00:24:44.100 --> 00:24:52.070
+Wenjing Chu (Futurewei Technologies, Inc.): But that decision process is being outsourced to this agent, and the agent is trained still with
+
+214
+00:24:52.300 --> 00:24:59.639
+Wenjing Chu (Futurewei Technologies, Inc.): You know, all the things out there, and you are basically living by whatever that training's going to show up.
+
+215
+00:25:02.020 --> 00:25:12.619
+Wenjing Chu (Futurewei Technologies, Inc.): That doesn't seem, like, very royal, because the agent's not going to be making decisions based on its own training information. However, whoever trained it.
+
+216
+00:25:12.940 --> 00:25:19.870
+Wenjing Chu (Futurewei Technologies, Inc.): That interpretation is now rest with the agent.
+
+217
+00:25:20.990 --> 00:25:33.940
+Steve Vitka: Right, it is wrestling with the agent, but it's also wrestling on a lot of precedent, and a bunch of precedent that's grown by all these agents working together. So they say, okay, I encountered this type of situation, I evaluated it like this.
+
+218
+00:25:33.950 --> 00:25:49.629
+Steve Vitka: And then my owner didn't like this thing about the way I evaluated the situation, and so now, me as Agent A, I'm providing that information to you, Agent B, so you don't make the same mistake. And you put all this information in distributed repos, and the whole incredible…
+
+219
+00:25:49.630 --> 00:25:57.539
+Steve Vitka: Architecture of duties and all of these cases becomes something that dwarfs existing legal law.
+
+220
+00:25:59.440 --> 00:26:06.910
+Steve Vitka: And all the case law of all the courts that have come before it, and is much more specified in granular detail
+
+221
+00:26:07.110 --> 00:26:15.980
+Steve Vitka: Which is still generatively interpreted by the agent in the particular situation. It is not law, but the point is to provide them these incredibly detailed
+
+222
+00:26:16.190 --> 00:26:24.280
+Steve Vitka: Case studies that they can Discover and utilize as necessary in their duties as fiduciary agents.
+
+223
+00:26:30.570 --> 00:26:33.300
+Tim Bouma: I don't know, it sounds pretty complicated to me. Like,
+
+224
+00:26:33.300 --> 00:26:46.300
+Steve Vitka: It's incredibly complicated, which is why I've been working on it for years, trying to figure out what all the details actually are. But I have specified the details and how all these workflows interact with each other to some degree, but it's an ongoing process.
+
+225
+00:26:46.760 --> 00:26:54.930
+Wenjing Chu (Futurewei Technologies, Inc.): All right, all right. Maybe I will cut short this one, and we will, we will come back and continue on this topic next week.
+
+226
+00:26:55.230 --> 00:26:55.880
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah.
+
+227
+00:26:55.880 --> 00:26:56.500
+Steve Vitka: Exactly.
+
+228
+00:26:56.500 --> 00:26:57.680
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, let's do that.
+
+229
+00:26:57.680 --> 00:26:59.650
+Steve Vitka: We have a week for this.
+
+230
+00:26:59.650 --> 00:27:15.529
+Wenjing Chu (Futurewei Technologies, Inc.): Yes. So, but that's a great, great, thread to go down to. Anyhow, so I want to, maybe, update you on the TEA spec itself, and then we're going to talk about invocation.
+
+231
+00:27:16.300 --> 00:27:23.610
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so again, the… I'm just continuously working on the spec on this…
+
+232
+00:27:23.710 --> 00:27:32.210
+Wenjing Chu (Futurewei Technologies, Inc.): site. And, again, the, the, my active branch is this one, patch-1.
+
+233
+00:27:32.420 --> 00:27:37.290
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so… The… we've,
+
+234
+00:27:37.940 --> 00:27:52.540
+Wenjing Chu (Futurewei Technologies, Inc.): updated a few things before, so let me put the table of contents here on the specification. That'll give you the overall view. So essentially, we'll, you know, have one section talk about how this whole thing can work.
+
+235
+00:27:52.830 --> 00:28:08.980
+Wenjing Chu (Futurewei Technologies, Inc.): what are the each components, give them a name, how they relate to each other. We talk about the TEA itself, or the agent itself, so this is going into where the, the protocol, and how it lays into TSP.
+
+236
+00:28:08.980 --> 00:28:17.800
+Wenjing Chu (Futurewei Technologies, Inc.): All that sort of detailed things of, of the overall scheme. And then the bulk of it is the middle section, right?
+
+237
+00:28:17.800 --> 00:28:36.440
+Wenjing Chu (Futurewei Technologies, Inc.): If you recall, we talked about authenticated exchange, so this is, we've been calling it more like a negotiation. You get an offer, you get, you know, a tantal offer, etc. You agree that a high-level pattern of exchange of messages, right?
+
+238
+00:28:36.460 --> 00:28:48.979
+Wenjing Chu (Futurewei Technologies, Inc.): And this particular scheme are universal for all the things we do, but specifically, there are two things we need to do. One is a delegation procedure, or I call delegation exchange, it's just…
+
+239
+00:28:48.980 --> 00:29:00.119
+Wenjing Chu (Futurewei Technologies, Inc.): Same messages, but the content of the message is about delegation. And the other one is invocation. I think in the past, people called presentation and verification.
+
+240
+00:29:00.130 --> 00:29:12.559
+Wenjing Chu (Futurewei Technologies, Inc.): It's you presenting a credential and checking it. If the whole purpose is for authentication, that ends it. But in our case, it's more complicated than that, so we'll get into that.
+
+241
+00:29:12.880 --> 00:29:28.239
+Wenjing Chu (Futurewei Technologies, Inc.): And then accountability talks about, well, what happens if later on we want to do auditing, or want to have a dispute, we want to check, and we talk about, you know, what that information, how do you do that? And so that's accountability.
+
+242
+00:29:28.540 --> 00:29:36.549
+Wenjing Chu (Futurewei Technologies, Inc.): So these three… or these sections, essentially, is the bulk of the protocol itself, right?
+
+243
+00:29:36.920 --> 00:29:48.539
+Wenjing Chu (Futurewei Technologies, Inc.): Then we talk about how this can be integrated with other agent protocols. I will pick two examples, MCP, A2A. If there are other examples, I think I…
+
+244
+00:29:48.950 --> 00:29:52.350
+Wenjing Chu (Futurewei Technologies, Inc.): I saw a mention of a,
+
+245
+00:29:52.940 --> 00:29:57.620
+Wenjing Chu (Futurewei Technologies, Inc.): agent name service, for example, and all those
+
+246
+00:29:57.650 --> 00:30:13.190
+Wenjing Chu (Futurewei Technologies, Inc.): things we could basically have another section talk about that. We may do that as a separate document, one by one, so that's another thing. And then the rest are simply discussions on security and some background, how this is done, and etc.
+
+247
+00:30:13.640 --> 00:30:27.099
+Wenjing Chu (Futurewei Technologies, Inc.): And so that will be the overall scheme. We talk about delegation quite a bit already. We can review a little bit more on that, and today we'll talk about high level what invocation means, okay?
+
+248
+00:30:27.760 --> 00:30:31.669
+Wenjing Chu (Futurewei Technologies, Inc.): Any comments on the overall structure?
+
+249
+00:30:31.790 --> 00:30:34.180
+Wenjing Chu (Futurewei Technologies, Inc.): The table of contents for the spec.
+
+250
+00:30:34.560 --> 00:30:44.439
+Wenjing Chu (Futurewei Technologies, Inc.): Does that sound right in very high level? You know, this covers all the questions you may have about the protocol, how it could be used, etc.
+
+251
+00:30:48.390 --> 00:30:51.470
+Steve Vitka: I'm just waiting to see how you use the word invocation, but other than that, yeah.
+
+252
+00:30:51.470 --> 00:31:11.000
+Wenjing Chu (Futurewei Technologies, Inc.): Sure, okay. So, so here is, a one diagram. I'm gonna show two of them, just for, for, for diversity of the examples. So in this case, we, again, we go back to credentials, for example, while we used to call this
+
+253
+00:31:11.130 --> 00:31:13.840
+Wenjing Chu (Futurewei Technologies, Inc.): is your…
+
+254
+00:31:14.120 --> 00:31:31.829
+Wenjing Chu (Futurewei Technologies, Inc.): and then this guy is called Holder, and then this is the verifier, right? But I want to use… maybe this is… people call this, the relying party, or whatever. So I'm going to be more, sort of application terminology here, just for illustration.
+
+255
+00:31:31.890 --> 00:31:42.459
+Wenjing Chu (Futurewei Technologies, Inc.): So this is the one party or end parties that can issue stuff, or authority, okay? And we use the word capability there.
+
+256
+00:31:42.990 --> 00:31:57.160
+Wenjing Chu (Futurewei Technologies, Inc.): And, I'm going to use… rather than saying issuing protocol, I'm going to use delegation all… or… because it's really a chain. So, this party issues to that, this… the next party.
+
+257
+00:31:57.280 --> 00:32:07.809
+Wenjing Chu (Futurewei Technologies, Inc.): forward or delegate to another, and so this could be multiple steps, right? So I'm going to use delegation just so I can be different from issuance.
+
+258
+00:32:07.830 --> 00:32:20.050
+Wenjing Chu (Futurewei Technologies, Inc.): But basic idea is similar, so there's one party, originating party, and, which gives some… defines some capability, and gives it to a application.
+
+259
+00:32:20.050 --> 00:32:28.640
+Wenjing Chu (Futurewei Technologies, Inc.): So in this case, it could be you as a customer, log in somewhere, sign up as a quote-unquote account.
+
+260
+00:32:28.920 --> 00:32:44.969
+Wenjing Chu (Futurewei Technologies, Inc.): and you agree to certain things, and you're getting something back, or you're getting some access right back, and that's the capability. So that's the capability this app now has, and the app can then delegate to an agent.
+
+261
+00:32:45.200 --> 00:32:51.319
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so I'm just… again, these are just examples. You can, you know, this diagram can be any way you want.
+
+262
+00:32:53.280 --> 00:33:10.279
+Wenjing Chu (Futurewei Technologies, Inc.): When somebody delegates something, they can attenuate, or they can add conditions, add limitations, right? So we have, essentially, a particular way of language to specify the capabilities. Usually, I call it, the three
+
+263
+00:33:10.560 --> 00:33:15.179
+Wenjing Chu (Futurewei Technologies, Inc.): Things, a particular resource.
+
+264
+00:33:15.720 --> 00:33:23.350
+Wenjing Chu (Futurewei Technologies, Inc.): A type, or a list of abilities, things you can do, and then, limitations.
+
+265
+00:33:23.730 --> 00:33:31.090
+Wenjing Chu (Futurewei Technologies, Inc.): This can be purely formalized, as in schema.
+
+266
+00:33:31.340 --> 00:33:40.520
+Wenjing Chu (Futurewei Technologies, Inc.): registry, or, you know, as a ACDC, set, indexed.
+
+267
+00:33:41.000 --> 00:33:56.760
+Wenjing Chu (Futurewei Technologies, Inc.): chain, right? All those things are formalized way of saying this capability, okay? What you can do, what are the limitations, essentially, about certain things? So there's a… there is a service or object.
+
+268
+00:33:57.380 --> 00:34:12.990
+Wenjing Chu (Futurewei Technologies, Inc.): ability to do things, functions, and then constraints, limitations. And these three things together, if it's formally specified, it is very complete, it can be checked at the gate. If it's informally
+
+269
+00:34:14.620 --> 00:34:38.050
+Wenjing Chu (Futurewei Technologies, Inc.): set, alright? So I call that interpreted policy, you could do that, and it's not a formal, schema or well-defined system. It's not a complete system in that way, but it's kind of still very valuable, so you could also specify capability in that way. The procedure the same, it's just two type of,
+
+270
+00:34:38.219 --> 00:34:43.590
+Wenjing Chu (Futurewei Technologies, Inc.): Formatting and, the implications of how that… I actually.
+
+271
+00:34:43.810 --> 00:34:54.099
+Steve Vitka: things out exactly the same way in the appendix that I just wrote, where I have what I call the annotations to be the things that are sort of generatively interpreted.
+
+272
+00:34:54.100 --> 00:35:13.510
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so anyhow, those are the things that you can do through delegation. And we discussed delegation procedure last time before, but the overall procedure is simply a negotiation of messages back and forth, and then once it's done, all the things are encoded in
+
+273
+00:35:13.620 --> 00:35:32.439
+Wenjing Chu (Futurewei Technologies, Inc.): ACDs. So, it's formatted and contained within ACDs, okay? And so that's the delegation procedure. Okay. And, then we talk about invocation. So, the invocation is, more narrow, in the first case.
+
+274
+00:35:32.640 --> 00:35:41.630
+Wenjing Chu (Futurewei Technologies, Inc.): It's really between… Excuse me. The agent and some service the agent want to access.
+
+275
+00:35:43.840 --> 00:35:58.130
+Wenjing Chu (Futurewei Technologies, Inc.): So let me jump into this one. So this is what, we'll do. I will join two lines here because, there is a separate line of how actually access. So the actual access of service
+
+276
+00:35:58.680 --> 00:36:02.549
+Wenjing Chu (Futurewei Technologies, Inc.): I'm taking MCP as an example.
+
+277
+00:36:02.580 --> 00:36:10.380
+Wenjing Chu (Futurewei Technologies, Inc.): is on the second, interaction, right? So, first interaction is the invocation. So invocation, again,
+
+278
+00:36:10.380 --> 00:36:23.749
+Wenjing Chu (Futurewei Technologies, Inc.): It's… the first step is to presentation and verification. So this is, in a way, like a login or a authorization procedure. So you basically say, I want to do this.
+
+279
+00:36:23.910 --> 00:36:28.020
+Wenjing Chu (Futurewei Technologies, Inc.): And here are my… capabilities.
+
+280
+00:36:28.700 --> 00:36:29.470
+Wenjing Chu (Futurewei Technologies, Inc.): That's right.
+
+281
+00:36:29.470 --> 00:36:33.070
+Steve Vitka: Here's my question, why do you use the word invocation over authorization?
+
+282
+00:36:33.740 --> 00:36:47.329
+Wenjing Chu (Futurewei Technologies, Inc.): Because it's not just authorization. Authorization is a yes or no question. Over here, it is not, so we will get to the details. But… let's say if you do first time.
+
+283
+00:36:47.800 --> 00:36:49.820
+Wenjing Chu (Futurewei Technologies, Inc.): You may get denied.
+
+284
+00:36:50.380 --> 00:36:59.900
+Wenjing Chu (Futurewei Technologies, Inc.): And the deny would then cause a next message, and so the procedure is much more complicated than a invocation.
+
+285
+00:37:00.040 --> 00:37:06.639
+Wenjing Chu (Futurewei Technologies, Inc.): So a… what was the term other people use? Authorization.
+
+286
+00:37:09.310 --> 00:37:14.459
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so this is a… Continuing… it's a continuing procedure.
+
+287
+00:37:14.670 --> 00:37:27.750
+Wenjing Chu (Futurewei Technologies, Inc.): Because you would be saying you may want to do an update, you will have errors, the error… because the two sides may interpret things differently, and you need to then resolve disputes.
+
+288
+00:37:30.220 --> 00:37:39.989
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, and so this is, in a way, automated, because right now, like, you go to a website, you get a turn, turn of use.
+
+289
+00:37:40.290 --> 00:37:42.700
+Wenjing Chu (Futurewei Technologies, Inc.): And you are only to say yes.
+
+290
+00:37:43.030 --> 00:37:46.160
+Wenjing Chu (Futurewei Technologies, Inc.): You're not allowed to say no if the notice ends.
+
+291
+00:37:46.690 --> 00:37:53.460
+Wenjing Chu (Futurewei Technologies, Inc.): And this essentially opens up the door to do different kind of dispute resolution automatically.
+
+292
+00:37:56.580 --> 00:38:00.980
+Wenjing Chu (Futurewei Technologies, Inc.): So this opens the… that's why it's slightly more,
+
+293
+00:38:01.200 --> 00:38:06.919
+Wenjing Chu (Futurewei Technologies, Inc.): than just authorization. The term… I want to avoid that term so that I could
+
+294
+00:38:07.110 --> 00:38:10.939
+Wenjing Chu (Futurewei Technologies, Inc.): you know, describe what it is. I think it's very.
+
+295
+00:38:10.940 --> 00:38:26.180
+Steve Vitka: Yeah, I mean, if it applies the binary thing, I will definitely try and avoid that, too. Once again, I don't have the background in computer science, some of you guys do, so… so yeah, if authorization normally means a binary thing, then I've been misusing the term, because I've been describing this exact same process, so…
+
+296
+00:38:26.380 --> 00:38:42.030
+Wenjing Chu (Futurewei Technologies, Inc.): Okay. Yeah, yeah. It's just my personal preference to use a new term so people can ask what it is, and it's a suggestion that it's different from what you may be familiar with before, and that's the main purpose of it, for the new term.
+
+297
+00:38:42.580 --> 00:38:45.580
+Wenjing Chu (Futurewei Technologies, Inc.): It's not entirely new because others
+
+298
+00:38:45.960 --> 00:38:49.489
+Wenjing Chu (Futurewei Technologies, Inc.): I think in, in the classic
+
+299
+00:38:49.840 --> 00:38:55.369
+Wenjing Chu (Futurewei Technologies, Inc.): capability contest, people also use this word, invocation.
+
+300
+00:38:56.670 --> 00:38:57.219
+Wenjing Chu (Futurewei Technologies, Inc.): And though.
+
+301
+00:38:57.220 --> 00:38:57.930
+Steve Vitka: Yeah, but it's…
+
+302
+00:38:58.100 --> 00:39:13.980
+Steve Vitka: It's a critical distinction you're making, because in my model, the receiving fiduciary agent has fiduciary duties to not just comply, but to review whether or not the net result of it complying would have… would conform to its duties. So, yeah.
+
+303
+00:39:13.980 --> 00:39:15.770
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, yeah. Type of thing.
+
+304
+00:39:15.890 --> 00:39:31.270
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so the agent can have… we're not… this protocol doesn't care about agent's intent, but the agent should have those intent, but the protocol does mean that the agent needs to have a tool to do that, because without it, you will simply…
+
+305
+00:39:31.560 --> 00:39:40.929
+Wenjing Chu (Futurewei Technologies, Inc.): Nope, you cannot do anything. The agent's not very useful. The agent need to, on your behalf, go push the boundary and negotiate, right?
+
+306
+00:39:41.510 --> 00:39:45.489
+Wenjing Chu (Futurewei Technologies, Inc.): In the end of the day, the agents still need to get what you want done.
+
+307
+00:39:45.920 --> 00:39:54.469
+Wenjing Chu (Futurewei Technologies, Inc.): on your terms, and sometimes you actually need to make compromises, and how that… how do you do that? You need a tool to do it.
+
+308
+00:39:54.620 --> 00:39:59.380
+Wenjing Chu (Futurewei Technologies, Inc.): And so this is a… this is a language, allow the two parties to negotiate.
+
+309
+00:40:01.800 --> 00:40:09.059
+Wenjing Chu (Futurewei Technologies, Inc.): And so we are going to be going to define these things, essentially. Again, the first step is very similar to
+
+310
+00:40:09.170 --> 00:40:19.890
+Wenjing Chu (Futurewei Technologies, Inc.): the verification and presentation protocol you're familiar with. Like, somebody say, no, to go see this movie, I need to see you,
+
+311
+00:40:20.330 --> 00:40:28.210
+Wenjing Chu (Futurewei Technologies, Inc.): You need to see a ticket, and you will need to show the ticket. And so that procedure is very similar.
+
+312
+00:40:28.620 --> 00:40:38.290
+Wenjing Chu (Futurewei Technologies, Inc.): However, when that is not smoothly done, or because it's also over a period of time, so in past
+
+313
+00:40:38.620 --> 00:40:43.429
+Wenjing Chu (Futurewei Technologies, Inc.): The, authorization is a yes or no, and there's a fixed
+
+314
+00:40:44.080 --> 00:40:48.319
+Wenjing Chu (Futurewei Technologies, Inc.): time horizon, I think, is encoded in the token.
+
+315
+00:40:49.530 --> 00:41:00.580
+Wenjing Chu (Futurewei Technologies, Inc.): And the token expires, and you're done, right? So you basically get… once you are in, you have nothing else you can do. And when the time's out, you are basically gone. It's very simple.
+
+316
+00:41:00.830 --> 00:41:12.310
+Wenjing Chu (Futurewei Technologies, Inc.): But this invocation exchange is more of ongoing. You can… you can bring up this issue again over and over, over this longer period of time.
+
+317
+00:41:12.460 --> 00:41:13.420
+Wenjing Chu (Futurewei Technologies, Inc.): So, that's…
+
+318
+00:41:13.420 --> 00:41:21.159
+Steve Vitka: This is what I mean. The ACDC is a verifiable relationship record. I mean, they're essentially equivalent things.
+
+319
+00:41:21.330 --> 00:41:22.090
+Steve Vitka: So…
+
+320
+00:41:23.150 --> 00:41:37.349
+Wenjing Chu (Futurewei Technologies, Inc.): You could say so, yes. I wouldn't use the same term, because it's not entirely about that, but yes, it is a verifiable record that's related to how you access this service.
+
+321
+00:41:38.270 --> 00:41:45.040
+Wenjing Chu (Futurewei Technologies, Inc.): And whatever information needed to access this service, you could encode it inside here. That's the whole point.
+
+322
+00:41:45.150 --> 00:41:55.189
+Wenjing Chu (Futurewei Technologies, Inc.): And we are not modeling as a… simply a door that you get in, and the end of it, right? It's a more ongoing process.
+
+323
+00:41:55.410 --> 00:41:56.090
+Wenjing Chu (Futurewei Technologies, Inc.): Awesome.
+
+324
+00:41:56.610 --> 00:42:10.319
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so that's, that's this particular protocol, and that is what I call the TEA protocol, or just TEA, and this is the one step of the TEA.
+
+325
+00:42:10.430 --> 00:42:20.750
+Wenjing Chu (Futurewei Technologies, Inc.): So the two main steps are delegation, which is getting the capability, and the invocation is to use the capability for some service.
+
+326
+00:42:21.530 --> 00:42:25.310
+Wenjing Chu (Futurewei Technologies, Inc.): And so those are the two big chunks of the protocol.
+
+327
+00:42:25.690 --> 00:42:29.390
+Wenjing Chu (Futurewei Technologies, Inc.): And, how do they relate to…
+
+328
+00:42:30.230 --> 00:42:33.299
+Steve Vitka: Delegation is mostly passive, except for attenuation.
+
+329
+00:42:35.430 --> 00:42:47.019
+Wenjing Chu (Futurewei Technologies, Inc.): Delegation… It's also very interactive and long-going. So, for instance, I'm picking a good example. For instance, here.
+
+330
+00:42:47.250 --> 00:42:48.469
+Wenjing Chu (Futurewei Technologies, Inc.): As we go on.
+
+331
+00:42:48.470 --> 00:42:53.830
+Steve Vitka: I'm just saying it creates no sidechain effects. I guess that's what I was trying to say. I guess I said the wrong thing, but yeah, go on.
+
+332
+00:42:53.830 --> 00:43:02.969
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, yeah. So, for instance, right, the, the… as we go on between the agent and the service here.
+
+333
+00:43:03.720 --> 00:43:06.220
+Wenjing Chu (Futurewei Technologies, Inc.): The service, we may access
+
+334
+00:43:06.460 --> 00:43:12.560
+Wenjing Chu (Futurewei Technologies, Inc.): More and more stuff, and the service, at a certain point, will say, oh, that exceeds your…
+
+335
+00:43:13.140 --> 00:43:16.560
+Wenjing Chu (Futurewei Technologies, Inc.): Authorization, or your capability.
+
+336
+00:43:16.850 --> 00:43:21.010
+Wenjing Chu (Futurewei Technologies, Inc.): And now what the agent do? So the agent can then go back
+
+337
+00:43:22.100 --> 00:43:25.619
+Wenjing Chu (Futurewei Technologies, Inc.): And request additional capabilities on the fly.
+
+338
+00:43:26.430 --> 00:43:39.730
+Wenjing Chu (Futurewei Technologies, Inc.): And so the tool definitely can, you know, it's much more complicated, because it's a dynamic messaging system. So, you know, maybe sometimes this is difficult, it'll take a long time to do it, but sometimes you can do it on the fly.
+
+339
+00:43:39.730 --> 00:43:46.760
+Wenjing Chu (Futurewei Technologies, Inc.): And so, of course, you could go, do all of this, and then combine this, eventually satisfy the condition.
+
+340
+00:43:46.760 --> 00:43:52.100
+Wenjing Chu (Futurewei Technologies, Inc.): And so those are the, dynamic interactions between the two components.
+
+341
+00:43:53.600 --> 00:43:56.369
+Steve Vitka: Not exactly what I was asking, but definitely clarifying.
+
+342
+00:43:56.600 --> 00:44:00.250
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah.
+
+343
+00:44:00.470 --> 00:44:11.799
+Wenjing Chu (Futurewei Technologies, Inc.): Anyhow… the… Again, if you are familiar with ACDC, right, it is really a graph, or…
+
+344
+00:44:12.130 --> 00:44:22.739
+Wenjing Chu (Futurewei Technologies, Inc.): For the purpose of the agent, it's an upside-and-down tree of a lot of things from different purposes, all come down to… to me.
+
+345
+00:44:23.360 --> 00:44:25.090
+Wenjing Chu (Futurewei Technologies, Inc.): And, so the agent…
+
+346
+00:44:25.570 --> 00:44:37.840
+Wenjing Chu (Futurewei Technologies, Inc.): would have a lot of capabilities in power, you know, authorities, and they can combine these things in a certain way, if it's allowed, and then present that as your,
+
+347
+00:44:37.950 --> 00:44:45.120
+Wenjing Chu (Futurewei Technologies, Inc.): your credential to get access for services. So, that's the overall scheme out there. Okay.
+
+348
+00:44:45.120 --> 00:44:55.129
+Steve Vitka: I mean, I would call AC… DC, a container of… Graph-linked data objects, right?
+
+349
+00:44:55.130 --> 00:45:02.810
+Wenjing Chu (Futurewei Technologies, Inc.): You were right, exactly. It's a database, it's all linked, and the linking is verifiable, you know.
+
+350
+00:45:02.810 --> 00:45:07.889
+Steve Vitka: And the whole thing is cryptographically Merkle-tried, every little step of it.
+
+351
+00:45:07.890 --> 00:45:19.420
+Wenjing Chu (Futurewei Technologies, Inc.): Exactly, so that's why the service can take all those and unilaterally, or, you know, without too much of entanglement, verify the whole thing. Yeah.
+
+352
+00:45:19.420 --> 00:45:22.510
+Steve Vitka: Yeah, that's… that Sam Smith guy, whatever his name is.
+
+353
+00:45:23.630 --> 00:45:26.289
+Steve Vitka: That guy's no… he's no slacker.
+
+354
+00:45:26.560 --> 00:45:27.670
+Steve Vitka: Yes.
+
+355
+00:45:27.870 --> 00:45:34.019
+Wenjing Chu (Futurewei Technologies, Inc.): So that allows us to do… design this thing quite elegantly, and this is, you know, how it happens.
+
+356
+00:45:35.640 --> 00:45:39.830
+Wenjing Chu (Futurewei Technologies, Inc.): Alright, so the other thing I want to, then explain is…
+
+357
+00:45:40.020 --> 00:45:45.479
+Wenjing Chu (Futurewei Technologies, Inc.): how these two channels relate. Because, now.
+
+358
+00:45:45.880 --> 00:46:03.160
+Wenjing Chu (Futurewei Technologies, Inc.): you don't have to use a separate channel, you can simply use the same channel for whatever service as well, etc, right? But we want to say, well, this can work with existing protocols, such as MCP, A2A, and blah blah blah blah. There are many of those.
+
+359
+00:46:03.160 --> 00:46:07.030
+Wenjing Chu (Futurewei Technologies, Inc.): Or if you are designing a proprietary protocol yourself.
+
+360
+00:46:07.030 --> 00:46:18.789
+Wenjing Chu (Futurewei Technologies, Inc.): So I want to specify how you would do that if you don't want to layer everything on top of invocation. Or, sorry, not invocation, this, authentic exchange protocol.
+
+361
+00:46:19.420 --> 00:46:22.339
+Wenjing Chu (Futurewei Technologies, Inc.): That's a if, right? You don't have to.
+
+362
+00:46:22.830 --> 00:46:40.540
+Wenjing Chu (Futurewei Technologies, Inc.): So, and then also a poor point of sort of, like, how do I integrate this new protocol into a MCP ecosystem? And I'm interested in doing both, so we want to get into how the two then relate to each other.
+
+363
+00:46:40.630 --> 00:46:43.839
+Wenjing Chu (Futurewei Technologies, Inc.): And, this is the diagram I come up with.
+
+364
+00:46:44.290 --> 00:46:52.300
+Wenjing Chu (Futurewei Technologies, Inc.): Of the stack layering, And, let me, explain how today, you know.
+
+365
+00:46:52.660 --> 00:47:01.090
+Wenjing Chu (Futurewei Technologies, Inc.): MCP works, okay? So, today's MCP, let me highlight, I don't have a good thing to do. So…
+
+366
+00:47:01.230 --> 00:47:09.870
+Wenjing Chu (Futurewei Technologies, Inc.): So MCP itself is just a messaging going back and forth. It's purely RPC-based. You make a request.
+
+367
+00:47:10.060 --> 00:47:11.980
+Wenjing Chu (Futurewei Technologies, Inc.): And some response come back.
+
+368
+00:47:12.940 --> 00:47:16.210
+Wenjing Chu (Futurewei Technologies, Inc.): And it's a one-shot thing. There's no session.
+
+369
+00:47:16.970 --> 00:47:18.580
+Wenjing Chu (Futurewei Technologies, Inc.): Entirely stateless.
+
+370
+00:47:19.070 --> 00:47:36.260
+Wenjing Chu (Futurewei Technologies, Inc.): It's a one-shot thing, you request, it comes back. If you want to relate, you put some link yourself, somewhere, say, here's my reference number, if you remember this reference number, and that's all you do. You don't have a hard link between different RPC calls. They're entirely…
+
+371
+00:47:36.330 --> 00:47:42.400
+Wenjing Chu (Futurewei Technologies, Inc.): Stateless, so that it will not break below balances today.
+
+372
+00:47:43.480 --> 00:48:00.660
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so you can make a massive all of these things, and they are load balanced across many things. The only thing eventually you will need to sync up on the back end is that there's some reference you can look up a database, a distributed database, which will allow you to find out
+
+373
+00:48:00.660 --> 00:48:07.810
+Wenjing Chu (Futurewei Technologies, Inc.): oh, this is what you were talking about, we're working on that. So… so that's… that's how it's designed. So.
+
+374
+00:48:07.810 --> 00:48:27.220
+Steve Vitka: Right, and this principle should be applied to just agents in general. You want to instantiate small ephemeral agents with small bits of context, and then be able to find that context and their responses, and maybe even their own internal processing, because, once again, they're such short runs, maybe you can save all the thinking tokens, okay?
+
+375
+00:48:27.220 --> 00:48:27.870
+Wenjing Chu (Futurewei Technologies, Inc.): But the.
+
+376
+00:48:27.870 --> 00:48:42.590
+Steve Vitka: But the point is that you want to divide and conquer, and this is how you solve the anthropic problem, or rather the OpenA problem, open AI problem of the long-running agent, simultaneous to solving all these other problems.
+
+377
+00:48:42.590 --> 00:48:51.569
+Wenjing Chu (Futurewei Technologies, Inc.): Exactly. So that's, that's, that, that, spirit is, in TSP, is a purely messaging-based protocol business session.
+
+378
+00:48:51.730 --> 00:49:07.419
+Wenjing Chu (Futurewei Technologies, Inc.): It's the same thing for TEA, so they work together really well. Okay. But let me finish, what the MCP is doing today. So the MCP simply rack them around with some kind of IPC package, that's not very important, and then they run on top of,
+
+379
+00:49:07.840 --> 00:49:09.120
+Wenjing Chu (Futurewei Technologies, Inc.): Sorry, ugh.
+
+380
+00:49:09.180 --> 00:49:28.070
+Wenjing Chu (Futurewei Technologies, Inc.): on top of HTTPS, a particular variant of HTTPS they call streamable, and, so that's, that's how it works. And then they use OAuth for authorization, right? That's what I think the TA comes along.
+
+381
+00:49:28.100 --> 00:49:34.839
+Wenjing Chu (Futurewei Technologies, Inc.): So, the way they do it is that MCP will blindly go make a service call.
+
+382
+00:49:35.250 --> 00:49:40.260
+Wenjing Chu (Futurewei Technologies, Inc.): A service call arrives at the server, the server…
+
+383
+00:49:40.670 --> 00:49:44.420
+Wenjing Chu (Futurewei Technologies, Inc.): Looks it up and say, huh, you don't have authorization.
+
+384
+00:49:45.300 --> 00:49:49.980
+Wenjing Chu (Futurewei Technologies, Inc.): And the error comes back, not as MCP in…
+
+385
+00:49:50.120 --> 00:49:54.799
+Wenjing Chu (Futurewei Technologies, Inc.): HTTP. So, HTTP will return an error of 401,
+
+386
+00:49:55.050 --> 00:50:05.859
+Wenjing Chu (Futurewei Technologies, Inc.): And within the error code, it will say you lack authorization. Essentially, that's what it is, okay? And so you get that error code from this layer, and then…
+
+387
+00:50:06.600 --> 00:50:25.579
+Wenjing Chu (Futurewei Technologies, Inc.): whatever code you are writing would handle this by going off to do a OAuth kind of thing, and you get a token back, and then you put that token into the HTTP header, and you reissue the original,
+
+388
+00:50:25.690 --> 00:50:26.760
+Wenjing Chu (Futurewei Technologies, Inc.): Obviously.
+
+389
+00:50:27.020 --> 00:50:35.880
+Wenjing Chu (Futurewei Technologies, Inc.): request, which is a… in the end, is a post. So you post it again, but this time, you… in the header, there's a token embedded in it.
+
+390
+00:50:36.450 --> 00:50:51.980
+Steve Vitka: I mean, I just love the idea of embedding information and headers in general that says, hey, why don't you look at this header and figure out what this data is generally, and where it comes from, and what you're supposed to do with it before you even look at the data. And ultimately.
+
+391
+00:50:52.020 --> 00:51:10.430
+Steve Vitka: I don't know if there'd be any exploits where you could sort of… one thing you know is that a worm that's encrypted will not affect your system. So, like, you know, before you even decrypt it, you look at maximum header stuff before you continue and pass things. So, that's just…
+
+392
+00:51:10.430 --> 00:51:11.490
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so that's the one…
+
+393
+00:51:11.490 --> 00:51:12.459
+Steve Vitka: of this principle.
+
+394
+00:51:12.800 --> 00:51:24.280
+Wenjing Chu (Futurewei Technologies, Inc.): Good, good, good. So that's what is happening now, and this diagram shows how we would be able to insert or integrate TEA, and essentially,
+
+395
+00:51:24.310 --> 00:51:36.559
+Wenjing Chu (Futurewei Technologies, Inc.): will be seen as an enhancement to OAuth, right? So, same protocol would still work, so MCP would do the same thing.
+
+396
+00:51:36.560 --> 00:51:45.549
+Wenjing Chu (Futurewei Technologies, Inc.): and then HTTPS will get an error back, doesn't have to change, and it's how you would deal with the error code. So now.
+
+397
+00:51:45.650 --> 00:51:58.849
+Wenjing Chu (Futurewei Technologies, Inc.): your, the code you're writing that, deal with that error would, instead of go to OAuth, or maybe in addition, you could do that too, but you go to TEA channel.
+
+398
+00:51:58.870 --> 00:52:06.250
+Wenjing Chu (Futurewei Technologies, Inc.): And so the TEA channel, again, would be this channel we're talking about. So now you go through some invocation exchange.
+
+399
+00:52:06.580 --> 00:52:19.060
+Wenjing Chu (Futurewei Technologies, Inc.): Okay, so once the exchange is done, and you get a, you know, you agreed on the terms of the service, great, then, you… that agreement is bound to the VID.
+
+400
+00:52:19.650 --> 00:52:20.859
+Wenjing Chu (Futurewei Technologies, Inc.): Of the agent.
+
+401
+00:52:21.510 --> 00:52:29.490
+Wenjing Chu (Futurewei Technologies, Inc.): And so if agents then start to use the TSP for the MCP, Transport.
+
+402
+00:52:29.710 --> 00:52:36.920
+Wenjing Chu (Futurewei Technologies, Inc.): the TSP identifies that this particular VID has those capabilities verified.
+
+403
+00:52:38.520 --> 00:52:42.440
+Wenjing Chu (Futurewei Technologies, Inc.): I hope that's clean enough. And so now MCP.
+
+404
+00:52:42.440 --> 00:52:46.969
+Steve Vitka: I mean, the pictures are a little shit. We could add a little more detail of all these.
+
+405
+00:52:46.970 --> 00:52:49.150
+Wenjing Chu (Futurewei Technologies, Inc.): You know what I'm saying?
+
+406
+00:52:49.150 --> 00:52:56.170
+Steve Vitka: It just connects to things, but if you actually put stuff on the arrows and expand it a little bit, this would be a lot better a picture. Maybe you should try.
+
+407
+00:52:56.170 --> 00:52:57.020
+Wenjing Chu (Futurewei Technologies, Inc.): Thank you, thank you.
+
+408
+00:52:57.020 --> 00:52:57.890
+Steve Vitka: Try it.
+
+409
+00:52:57.890 --> 00:53:03.959
+Wenjing Chu (Futurewei Technologies, Inc.): I should… I probably can do 1, 2, 3, 4, basically have a sequence of events, and…
+
+410
+00:53:03.960 --> 00:53:04.410
+Steve Vitka: Exactly.
+
+411
+00:53:04.410 --> 00:53:05.630
+Wenjing Chu (Futurewei Technologies, Inc.): do, yeah. Yeah.
+
+412
+00:53:05.630 --> 00:53:07.020
+Steve Vitka: Yeah, yeah, that'll look a lot better.
+
+413
+00:53:07.170 --> 00:53:19.269
+Wenjing Chu (Futurewei Technologies, Inc.): Absolutely, absolutely. So basically, basically, if you combine, also, you know, combine this one, right, you basically try, the agent attempt to do something.
+
+414
+00:53:19.790 --> 00:53:21.700
+Wenjing Chu (Futurewei Technologies, Inc.): Again…
+
+415
+00:53:21.700 --> 00:53:40.140
+Wenjing Chu (Futurewei Technologies, Inc.): This is very natural. So you may do something, and service may return to you, say, hey, you forgot to, you know, show me your capabilities before I can let you do this. Or maybe not, and, you know, maybe it's a free service that nobody can access. So, whether you do this first or do that first.
+
+416
+00:53:40.260 --> 00:53:56.820
+Wenjing Chu (Futurewei Technologies, Inc.): Doesn't matter. But let's say you, you know, follow their scheme, you do this first, then you will get an error back. And the error will remind you, say, hey, do the invocation first. And so you would then go to do that. Once you're done, you come back here. And the only difference is that.
+
+417
+00:53:56.820 --> 00:54:00.400
+Steve Vitka: But once again, all the errors are coming through HTTPS, right?
+
+418
+00:54:00.590 --> 00:54:01.910
+Wenjing Chu (Futurewei Technologies, Inc.): They all…
+
+419
+00:54:02.180 --> 00:54:09.230
+Wenjing Chu (Futurewei Technologies, Inc.): on top of some kind of transport. For us, we don't care for them, they are, in theory, don't care as well.
+
+420
+00:54:09.280 --> 00:54:24.349
+Wenjing Chu (Futurewei Technologies, Inc.): But today, it's only carefully defined for HTTP, for real. Everything else is kind of like, yeah, but, you know, some details are missing. But in theory, the transport is agnostic.
+
+421
+00:54:24.350 --> 00:54:26.140
+Steve Vitka: Yeah, right, it's just agnostic, okay, yeah.
+
+422
+00:54:26.140 --> 00:54:33.999
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, it is, right? So, in the case they are doing, they use HTTP because HTTP allows them to get an error back.
+
+423
+00:54:34.170 --> 00:54:50.730
+Wenjing Chu (Futurewei Technologies, Inc.): And allow them to embed a token, so that's great. Otherwise, they will have to invent how to do the token, etc, if you are not… if, let's say, you run this on top of a TCP directly, for example, you have to invent those things again.
+
+424
+00:54:52.430 --> 00:54:53.090
+Steve Vitka: Alright.
+
+425
+00:54:53.300 --> 00:55:01.419
+Wenjing Chu (Futurewei Technologies, Inc.): But since those things are already embedded in TSP, we won't have similar kind of issues. But, yeah.
+
+426
+00:55:01.420 --> 00:55:04.400
+Steve Vitka: Okay, okay, that's what I was wondering, alright, fine.
+
+427
+00:55:04.670 --> 00:55:06.460
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, yeah, yeah.
+
+428
+00:55:06.460 --> 00:55:12.829
+Steve Vitka: PSP for everything, it's just accommodating, the existing protocols that makes you go the other way. Got it.
+
+429
+00:55:12.830 --> 00:55:24.179
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, so this diagram really is to say that if you are already using MCP, this is how you would integrate with it, without too much fuss, right? I want to avoid pain.
+
+430
+00:55:26.270 --> 00:55:29.210
+Wenjing Chu (Futurewei Technologies, Inc.): But if you do something from scratch, you don't have to.
+
+431
+00:55:30.090 --> 00:55:38.050
+Wenjing Chu (Futurewei Technologies, Inc.): And if you have a reason to not use HTTP, yeah, you know, you don't have to.
+
+432
+00:55:38.400 --> 00:55:43.010
+Wenjing Chu (Futurewei Technologies, Inc.): So we'll probably do something similar for A2A as well.
+
+433
+00:55:44.160 --> 00:55:53.170
+Wenjing Chu (Futurewei Technologies, Inc.): And so, if I come back, that's basically the, this section, and probably some… a big part of this section, too.
+
+434
+00:55:53.810 --> 00:55:54.500
+Wenjing Chu (Futurewei Technologies, Inc.): Hmm.
+
+435
+00:55:54.680 --> 00:56:06.620
+Wenjing Chu (Futurewei Technologies, Inc.): So, as I'm, you know, showing here, maybe the first draft of completion is, is getting closer. Getting close.
+
+436
+00:56:06.820 --> 00:56:09.490
+Wenjing Chu (Futurewei Technologies, Inc.): I'm gonna probably…
+
+437
+00:56:09.490 --> 00:56:11.859
+Steve Vitka: This also will create a sort of an indirect…
+
+438
+00:56:12.460 --> 00:56:17.540
+Steve Vitka: demand for TSP. So if you set things up like this, and then you sort of…
+
+439
+00:56:18.110 --> 00:56:26.789
+Steve Vitka: allow this process to run, and then you… you offer TSP as sort of, hey, look, here's kind of the streamlined version of this. Then, you know what I'm saying?
+
+440
+00:56:27.030 --> 00:56:44.189
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, yeah, yeah. Yeah, exactly. So, I'm working on, like, some prototype code which will basically implement this. And they will, you know, minimize any change to MCP at all. I think it's almost zero.
+
+441
+00:56:45.540 --> 00:57:00.429
+Wenjing Chu (Futurewei Technologies, Inc.): there are… but zero in mechanical sense, because mentally, you're changing a lot, right? But the code doesn't have to, be rewritten in most cases, except this, of course, needs to change.
+
+442
+00:57:01.260 --> 00:57:05.610
+Wenjing Chu (Futurewei Technologies, Inc.): yeah, and there… there is…
+
+443
+00:57:06.000 --> 00:57:19.830
+Wenjing Chu (Futurewei Technologies, Inc.): a, a new interface over here. That's really straightforward to do. This is an IPC call, they are message-based anyway, and you just put on the message, and the rest are all handled transparently.
+
+444
+00:57:21.200 --> 00:57:23.769
+Steve Vitka: Yeah, you don't have to change the actual data objects too much.
+
+445
+00:57:24.060 --> 00:57:28.210
+Wenjing Chu (Futurewei Technologies, Inc.): No, no, no, it's completely, opaque, and just…
+
+446
+00:57:28.470 --> 00:57:42.359
+Wenjing Chu (Futurewei Technologies, Inc.): you know, wrap into it and come out, and all the other, you can see all the errors and control things, all the other things are elsewhere, and they shouldn't be able to link up really easily.
+
+447
+00:57:42.360 --> 00:57:51.490
+Wenjing Chu (Futurewei Technologies, Inc.): And if the existing code replies handling this HTTP error as a trigger, as a signal,
+
+448
+00:57:51.610 --> 00:57:55.219
+Wenjing Chu (Futurewei Technologies, Inc.): So we just need to change that signal processing.
+
+449
+00:57:55.390 --> 00:57:57.050
+Wenjing Chu (Futurewei Technologies, Inc.): routine.
+
+450
+00:57:57.540 --> 00:58:01.750
+Wenjing Chu (Futurewei Technologies, Inc.): to, to go out and get things from TEI.
+
+451
+00:58:03.680 --> 00:58:04.730
+Wenjing Chu (Futurewei Technologies, Inc.): That's it!
+
+452
+00:58:06.960 --> 00:58:16.050
+Wenjing Chu (Futurewei Technologies, Inc.): Perfect! We covered the whole scheme, and the detail, again, has been written down, so, we're making good progress.
+
+453
+00:58:17.190 --> 00:58:22.859
+Steve Vitka: Alright, cool. And next week, Tim, if you want to, we can discuss cordageability. Let's, let's, let's put that.
+
+454
+00:58:22.860 --> 00:58:25.099
+Wenjing Chu (Futurewei Technologies, Inc.): For visibility, and royal service.
+
+455
+00:58:25.100 --> 00:58:30.999
+Steve Vitka: Yeah, exactly, when you're a service agent, when does it listen to you, and when doesn't it listen to you? And… and how…
+
+456
+00:58:31.000 --> 00:58:33.760
+Wenjing Chu (Futurewei Technologies, Inc.): I think that's if I'm a… Is it like?
+
+457
+00:58:34.120 --> 00:58:41.270
+Wenjing Chu (Futurewei Technologies, Inc.): Loyalty, or like that. And, who's setting the rules, where does the rules come from, and all of that.
+
+458
+00:58:41.700 --> 00:58:45.330
+Steve Vitka: Exactly. How does it… Modulate between all those.
+
+459
+00:58:46.080 --> 00:58:46.650
+Steve Vitka: Alright.
+
+460
+00:58:46.650 --> 00:58:49.239
+Wenjing Chu (Futurewei Technologies, Inc.): Yeah, who, who got to do…
+
+461
+00:58:49.540 --> 00:58:59.440
+Wenjing Chu (Futurewei Technologies, Inc.): the interpretation, right? We don't want, you know… you can set rules, that means there's somebody writing, you know, there's a legislature, but it seems like the…
+
+462
+00:58:59.570 --> 00:59:04.370
+Wenjing Chu (Futurewei Technologies, Inc.): The prosecutor and the judge are all one of the same. That's still very difficult.
+
+463
+00:59:04.540 --> 00:59:19.839
+Tim Bouma: So, here's the thing, like, with a lot of stuff, we've been operating under the assumption that there's a modern state behind the scenes. That wasn't the case, like, 500, 1,000 years ago, so we're kind of going back to how things were done before, like, sovereign states.
+
+464
+00:59:19.840 --> 00:59:31.599
+Steve Vitka: Oh, totally, totally. So basically, I want to take legal precedent here of fiduciary agents, and then transform it to a wholly different realm where it can operate transcending legal precedent. Yes.
+
+465
+00:59:31.600 --> 00:59:36.040
+Tim Bouma: Yeah, yeah, so that's… like…
+
+466
+00:59:36.610 --> 00:59:40.119
+Tim Bouma: Nothing's new under the sun, so we're just,
+
+467
+00:59:40.750 --> 00:59:45.919
+Steve Vitka: Oh, no, all my work is based upon, once again, pre-industrial.
+
+468
+00:59:45.920 --> 00:59:47.580
+Tim Bouma: Yeah, yeah, yeah, yeah, yeah, yeah.
+
+469
+00:59:47.580 --> 01:00:03.680
+Steve Vitka: game theory and all, you know, tribal dynamics, and I essentially consider, you know, that to be, you know, a better baseline operational state, and most of the cultural, institutional artifacts be written on top of that to be extraneous.
+
+470
+01:00:03.680 --> 01:00:04.010
+Tim Bouma: Yeah.
+
+471
+01:00:04.310 --> 01:00:12.170
+Steve Vitka: And there was another guy who was from New Zealand. Do you remember that guy? He had a similar kind of perspective, but he hasn't shown up at the…
+
+472
+01:00:12.170 --> 01:00:20.380
+Wenjing Chu (Futurewei Technologies, Inc.): I'm interested in if error mode eventually will fail. When that failure happens, how do we deal with this?
+
+473
+01:00:20.530 --> 01:00:23.620
+Tim Bouma: Yeah, anyway, like, Law of the High Seas…
+
+474
+01:00:23.850 --> 01:00:31.600
+Tim Bouma: Protection and indemnity clubs, underwriters, long-distance trade routes, it's all the same stuff, but just with different people.
+
+475
+01:00:31.600 --> 01:00:40.529
+Steve Vitka: Correct, correct. And when you don't have a state, but you have highly powerful individuals who can protect that apparatus, how do things change?
+
+476
+01:00:41.020 --> 01:00:41.970
+Steve Vitka: So, alright.
+
+477
+01:00:41.970 --> 01:00:46.440
+Tim Bouma: Yeah, individuals, or orders, or beliefs, you know, it's… Exactly.
+
+478
+01:00:46.440 --> 01:01:00.739
+Steve Vitka: Right. Whatever unit that you want to have that's highly granular, that's an agent, or the memes behind an agent, you know, they're all sort of operating in this larger, continuous, negotiated social evolution, and we just need.
+
+479
+01:01:00.740 --> 01:01:01.120
+Tim Bouma: Yeah.
+
+480
+01:01:01.120 --> 01:01:06.390
+Steve Vitka: That'll move in a positive direction, but we can't predict where it'll end up, obviously.
+
+481
+01:01:06.390 --> 01:01:11.930
+Tim Bouma: Yeah, yeah, like, I say, a lot of the analysis I would call naive modernity, like,
+
+482
+01:01:13.020 --> 01:01:20.160
+Tim Bouma: they're just assuming modern frameworks, and we're… we're postmodern, anti-modern, pre-modern, that's where we're at.
+
+483
+01:01:20.160 --> 01:01:22.030
+Steve Vitka: This is exactly what I want to talk about next week.
+
+484
+01:01:22.030 --> 01:01:23.030
+Tim Bouma: Yeah, alright, cool. Okay.
+
+485
+01:01:23.780 --> 01:01:37.630
+Wenjing Chu (Futurewei Technologies, Inc.): All right, so last minute, any of our comments? We… we know what our next week's topic is going to be. For, today, this particular topic, any… any questions? Anything?
+
+486
+01:01:40.720 --> 01:01:41.850
+Wenjing Chu (Futurewei Technologies, Inc.): Any comments?
+
+487
+01:01:43.490 --> 01:01:45.420
+Tim Bouma: Nope, good discussion. Thanks.
+
+488
+01:01:45.740 --> 01:01:50.090
+Wenjing Chu (Futurewei Technologies, Inc.): Excellent. Alright, with that, thank you very much. We'll see you next week.
+
+489
+01:01:51.800 --> 01:01:52.700
+Steven Milstein: Thank you.
+
+490
+01:01:53.910 --> 01:01:54.230
+Steve Vitka: Guys.
+
+491
+01:01:54.230 --> 01:01:55.090
+Wenjing Chu (Futurewei Technologies, Inc.): Thank you all.
+
+492
+01:01:55.300 --> 01:01:56.320
+Lyn Brooks (dHub Group): Cheers.
+
+493
+01:08:34.819 --> 01:08:35.749
+Tim Bouma: Fah.
+
+494
+01:21:30.659 --> 01:21:32.759
+Tim Bouma: Alexa, clothes blinds.
+
+495
+01:21:54.649 --> 01:21:55.689
+Tim Bouma: Stop.
+
+496
+01:21:59.169 --> 01:21:59.979
+Tim Bouma: Cool.
+
+497
+01:22:11.309 --> 01:22:12.169
+Tim Bouma: Nope!
+
+498
+01:22:14.519 --> 01:22:16.769
+Tim Bouma: Sick. Who do you pick? Who do you…
+
+499
+01:22:25.949 --> 01:22:26.759
+Tim Bouma: Let's it now.
+
+500
+01:22:27.529 --> 01:22:31.479
+Tim Bouma: For English, that's what?
+
+501
+01:22:43.519 --> 01:22:45.859
+Tim Bouma: The number you entered is incomplete.
+
+502
+01:22:46.409 --> 01:22:47.099
+Tim Bouma: Yes.
+
+503
+01:22:47.519 --> 01:22:50.579
+Tim Bouma: Enter the area code with the phone number you were calling about.
+
+504
+01:22:51.129 --> 01:22:52.639
+Tim Bouma: If you don't have one.
+
+505
+01:23:04.919 --> 01:23:05.959
+Tim Bouma: Stay tall.
+
+506
+01:23:10.459 --> 01:23:12.489
+Tim Bouma: For billing and payments, press 1.
+
+507
+01:23:12.929 --> 01:23:17.029
+Tim Bouma: For repair and technical support for any of your valve services.
+
+508
+01:23:18.579 --> 01:23:22.649
+Tim Bouma: Choose which of the following 5 services you are experiencing trouble with?
+
+509
+01:23:22.829 --> 01:23:24.829
+Tim Bouma: For home phone, press 1.
+
+510
+01:23:25.329 --> 01:23:29.169
+Tim Bouma: For touch services like voicemail or call display, press 2.
+
+511
+01:23:29.339 --> 01:23:33.149
+Tim Bouma: For internet, press… 4.
+
+512
+01:23:33.269 --> 01:23:35.179
+Tim Bouma: For bell mobility, press 5.
+
+513
+01:23:36.919 --> 01:23:38.649
+Tim Bouma: Are there accessing your file?
+
+514
+01:23:41.019 --> 01:23:42.039
+Tim Bouma: resolved by…
+
+515
+01:23:46.609 --> 01:23:52.109
+Tim Bouma: Still have internet access, If you are unable to connect to the internet.
+
+516
+01:23:55.089 --> 01:23:59.659
+Tim Bouma: If you have already rebooted your modem, or have any other technical issues.
+
+517
+01:24:04.399 --> 01:24:07.739
+Tim Bouma: representatives to assist soft?
+
+518
+01:24:12.509 --> 01:24:13.259
+Tim Bouma: Click the call.
+
+519
+01:24:14.129 --> 01:24:15.409
+Tim Bouma: Do not currently have access.
+
+520
+01:24:22.119 --> 01:24:28.549
+Tim Bouma: In order to serve you faster, you are checking if you have a personal identification number or PIN from your account.
+
+521
+01:24:29.089 --> 01:24:30.749
+Tim Bouma: Yeah, it has been found.
+
+522
+01:24:32.989 --> 01:24:34.209
+Tim Bouma: Followed by pounds.
+
+523
+01:24:41.289 --> 01:24:41.999
+Tim Bouma: Hi.
+
+524
+01:24:42.309 --> 01:24:43.069
+Tim Bouma: Bye.
+
+525
+01:24:46.089 --> 01:24:56.209
+Tim Bouma: Otherwise… for recorded and… Quality assurance purposes, or privacy policy, available at…
+
+526
+01:25:09.409 --> 01:25:12.649
+Tim Bouma: Hi, this is Tim Bouma calling,
+
+527
+01:25:12.789 --> 01:25:29.239
+Tim Bouma: with our internet service, it's working, but we had a tree removed in our backyard, and the cable to the house is a bit dislodged, and we need to get that,
+
+528
+01:25:29.459 --> 01:25:32.819
+Tim Bouma: affixed by Bell, if that's possible.
+
+529
+01:25:35.929 --> 01:25:52.119
+Tim Bouma: Don't worry, Mr. Tim, let me help you with that, but so far, internet is working. It's not disconnected. No, no, no, no, it's just, like, the… the cable, like, it goes right across the middle of our yard, and it's a bit loose.
+
+530
+01:25:52.319 --> 01:25:55.399
+Tim Bouma: And, it just needs to be,
+
+531
+01:25:55.679 --> 01:25:58.269
+Tim Bouma: Taken a look at by a technician.
+
+532
+01:26:02.599 --> 01:26:03.369
+Tim Bouma: Yep.
+
+533
+01:26:14.509 --> 01:26:15.239
+Tim Bouma: Yep.
+
+534
+01:26:28.819 --> 01:26:29.609
+Tim Bouma: Yep.
+
+535
+01:26:34.049 --> 01:26:34.839
+Tim Bouma: Yep.
+
+536
+01:26:59.669 --> 01:27:00.409
+Tim Bouma: Yep.
+
+537
+01:27:15.679 --> 01:27:21.069
+Tim Bouma: Yes? The only stable is connected.
+
+538
+01:27:21.979 --> 01:27:23.969
+Tim Bouma: You'll be able to control.
+
+539
+01:27:24.729 --> 01:27:33.779
+Tim Bouma: Oh, okay, sure, so there's… there's a bell line that goes in the back of our property.
+
+540
+01:27:34.059 --> 01:27:46.539
+Tim Bouma: And the 5 cable, the fiber optic cable, comes directly from that, and is strung over to our house. There's no utility… utility pole.
+
+541
+01:27:50.509 --> 01:27:52.939
+Tim Bouma: It connects directly to our hosts.
+
+542
+01:28:52.069 --> 01:28:52.889
+Tim Bouma: Okay.
+
+543
+01:30:59.889 --> 01:31:00.979
+Tim Bouma: Okay, that's fine.
+
+544
+01:33:39.419 --> 01:33:40.499
+Tim Bouma: Okay, see ya.
+
+545
+01:33:41.269 --> 01:33:42.449
+Tim Bouma: Profiles.
+
+546
+01:33:44.029 --> 01:33:45.249
+Tim Bouma: I heard that.
+
+547
+01:33:47.189 --> 01:33:52.149
+Tim Bouma: I'm on the phone with Adele, so just no funny noises, please.
+
+548
+01:33:54.079 --> 01:34:00.549
+Tim Bouma: Just gonna get this, the, whatchamacallit, fixed.
+
+549
+01:34:01.499 --> 01:34:02.459
+Tim Bouma: Pull the wire.
+
+550
+01:34:05.279 --> 01:34:14.589
+Tim Bouma: We're waiting. Our earliest next appointment, sir, will be Tomorrow, 12… Yeah, provide faster.
+
+551
+01:34:15.309 --> 01:34:16.889
+Tim Bouma: Yep, that's fine, that's perfect.
+
+552
+01:34:20.779 --> 01:34:21.579
+Tim Bouma: No,
+
+553
+01:34:22.209 --> 01:34:22.869
+Tim Bouma: Yes.
+
+554
+01:34:24.159 --> 01:34:25.629
+Tim Bouma: Hi, so often.
+
+555
+01:34:26.569 --> 01:34:28.719
+Tim Bouma: Or is it?
+
+556
+01:34:28.849 --> 01:34:35.189
+Tim Bouma: Yep, super. That's great. So, between… between 12 and 5. Okay, awesome. Okay.
+
+557
+01:34:36.219 --> 01:34:37.369
+Tim Bouma: Great, thank you.
+
+558
+01:34:41.139 --> 01:34:42.219
+Tim Bouma: No, I'll go back.
+
+559
+01:34:42.979 --> 01:34:45.339
+Tim Bouma: Super. Okay, that's great.
+
+560
+01:34:46.959 --> 01:34:48.219
+Tim Bouma: Okay, bye.
+
+561
+01:34:50.179 --> 01:34:53.529
+Tim Bouma: Yeah, I think that's everything for now, so appreciate your service.
+
+562
+01:34:54.549 --> 01:34:55.909
+Tim Bouma: Okay, bye.
+
+563
+01:41:31.499 --> 01:41:32.449
+Tim Bouma: Hey.
+

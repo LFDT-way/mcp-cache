@@ -1,0 +1,678 @@
+WEBVTT
+
+1
+00:02:12.300 --> 00:02:13.440
+Reza Rassool: There we go.
+
+2
+00:02:13.720 --> 00:02:15.800
+Reza Rassool: Good morning, happy Monday.
+
+3
+00:02:16.110 --> 00:02:16.750
+Sulimon Sattari: What it…
+
+4
+00:02:17.470 --> 00:02:18.330
+Darren Warner: Good morning.
+
+5
+00:02:20.050 --> 00:02:20.730
+John Vaccaro (Kwaai): Morning.
+
+6
+00:02:21.070 --> 00:02:21.880
+Reza Rassool: Yay.
+
+7
+00:02:22.160 --> 00:02:25.480
+Reza Rassool: Have a… an uneventful weekend, I hope.
+
+8
+00:02:26.820 --> 00:02:27.740
+Steve Vitka: Yeah.
+
+9
+00:02:27.850 --> 00:02:28.720
+Steve Vitka: Sure.
+
+10
+00:02:29.080 --> 00:02:29.600
+Reza Rassool: Thank you.
+
+11
+00:02:29.600 --> 00:02:41.950
+Steve Vitka: Well, starting yet another book, an uneventful weekend. I have a bad, bad case of Jensen's Paradox. The more I discover I can do with AI, the more I can discover that I can do with AI.
+
+12
+00:02:43.000 --> 00:02:45.450
+Steve Vitka: I'm just… it's just… it's…
+
+13
+00:02:46.150 --> 00:03:01.049
+Reza Rassool: Okay, so we got a few updates, let's see. I spoke with Darren last week. We were talking about something separate about the trust tasks.
+
+14
+00:03:02.730 --> 00:03:14.680
+Reza Rassool: the lib P2P bindings for Truster, so maybe we can talk a bit about that, because it does have, it does have relevance to the lib… the,
+
+15
+00:03:15.650 --> 00:03:21.529
+Reza Rassool: the protocol for VPK, we want to at least use, you know, similar,
+
+16
+00:03:21.590 --> 00:03:33.180
+Reza Rassool: guiding, similar overall, structure and, and guiding principles. We don't want to reinvent wheels. So, in… in implementing the…
+
+17
+00:03:33.180 --> 00:03:45.719
+Reza Rassool: LibP2B bindings, Darren's going to be learning a lot about the way in which the protocol is structured, and we want to use, we use that learning in the VPK
+
+18
+00:03:45.760 --> 00:03:54.819
+Reza Rassool: Protocol. And then the other thing I'd like to talk about is just give you a teaser of Sulimon's latest research, and what we'll do is we'll
+
+19
+00:03:55.130 --> 00:04:14.329
+Reza Rassool: we'll give Sulimon some more time to report on that further, and that is, enhancements or findings in optimization of CKKS, which is one of the key, homomorphic encryption algorithms.
+
+20
+00:04:14.500 --> 00:04:17.849
+Reza Rassool: That, that we want to use. Okay.
+
+21
+00:04:17.850 --> 00:04:25.039
+Steve Vitka: And also, Darren, I mean, Wenjing said he was gonna reach out to you, he's the, the Trust Spanning Protocol author.
+
+22
+00:04:25.330 --> 00:04:26.600
+Darren Warner: Yes. Okay.
+
+23
+00:04:26.600 --> 00:04:33.059
+Steve Vitka: And so I told him to just have a conversation with you, because I said you were looking too much at the implementation and not the paper itself.
+
+24
+00:04:34.850 --> 00:04:39.850
+Steve Vitka: So yeah, I don't know, yeah. Are you on…
+
+25
+00:04:40.150 --> 00:04:44.000
+Steve Vitka: the Discord server or anything like that for Trusted IP yet?
+
+26
+00:04:44.000 --> 00:04:47.259
+Darren Warner: I'm not, no, I'm in the Kuala,
+
+27
+00:04:47.260 --> 00:04:47.650
+Steve Vitka: Yeah.
+
+28
+00:04:47.650 --> 00:04:57.690
+Darren Warner: Various black groups, but, yeah, I'll go and hunt it down and, and sign up. It's usually my son that's on Discord, but I do have an account.
+
+29
+00:04:57.690 --> 00:05:02.429
+Steve Vitka: Well, yeah, I mean, whatever way, what's the best way for him to get in contact with you? Just through email, then?
+
+30
+00:05:02.590 --> 00:05:06.120
+Darren Warner: Yeah, maybe start by email, and
+
+31
+00:05:07.530 --> 00:05:24.010
+Darren Warner: Look, I mean, you know, it's… doesn't really matter, right? Whatever communication medium is easiest, they're all pretty much the same at the end of the day. We might want to, you know, put aside some time to talk about it, just, you know, figure out our schedules, but either way works.
+
+32
+00:05:24.870 --> 00:05:27.060
+Steve Vitka: Yeah, this is just for initial contact, so…
+
+33
+00:05:27.060 --> 00:05:27.540
+Darren Warner: Yep.
+
+34
+00:05:27.540 --> 00:05:30.349
+Steve Vitka: So, yeah, email sounds better than Discord. Okay.
+
+35
+00:05:32.360 --> 00:05:33.150
+Reza Rassool: Okay.
+
+36
+00:05:34.710 --> 00:05:42.110
+Reza Rassool: Darren, do you want to talk more about, About your, your,
+
+37
+00:05:42.380 --> 00:05:48.870
+Reza Rassool: research into the… into the first, LibP2P bindings for trust tasks.
+
+38
+00:05:49.570 --> 00:06:13.850
+Darren Warner: Yeah, well, I mean, based off our conversation, it does seem like there is potentially a lot of crossover there, and but when you're trying to define a protocol, it's… it's one thing writing code and making stuff works. When you get to the point of writing a protocol, that's when you really want two things talking to each other, because that's what exercises the protocol. Otherwise, it's just…
+
+39
+00:06:13.850 --> 00:06:16.050
+Darren Warner: Documenting and implementation.
+
+40
+00:06:16.150 --> 00:06:31.830
+Darren Warner: And so, certainly in terms of, enhancing, Quinnet and adding the, the trusted task layer.
+
+41
+00:06:31.830 --> 00:06:42.710
+Darren Warner: over the top, for, for inference, for, for RAG, and for the implementation of VPK that is in there currently.
+
+42
+00:06:42.710 --> 00:06:56.710
+Darren Warner: And then, you know, moving that to… I don't have a clear picture of what this new body of work looks like yet, but I think in terms of pure VPK,
+
+43
+00:06:56.790 --> 00:06:59.830
+Darren Warner: In my mind, at least, it sounds like a…
+
+44
+00:06:59.880 --> 00:07:15.600
+Darren Warner: an implementation likely on the top of, on the top of, TSP, or enhancing, TSP. And in fact, it was… and I'm trying to… I'm racking my mind now, I've just had, sorry,
+
+45
+00:07:15.600 --> 00:07:32.110
+Darren Warner: My daughter's just gone back to OSU, so this weekend was filled up with dealing with a lot of stuff, and logistics for her, so I'm just kind of remembering, some of our conversation last week, and I know when I did look at some of the TSP implementation, it is based on
+
+46
+00:07:32.110 --> 00:07:35.529
+Darren Warner: A, oh, boy.
+
+47
+00:07:35.750 --> 00:07:49.690
+Darren Warner: I've drawn a blank now. I think it's over the top of HTTPS, I thought it was on top of another layer, on that. But at a cursory look, I wondered whether there is a way of utilizing
+
+48
+00:07:49.690 --> 00:07:58.119
+Darren Warner: the TSP project, and this is where a conversation with Wenj would be very useful. Pulling out… utilizing the…
+
+49
+00:07:58.430 --> 00:08:04.859
+Darren Warner: The messaging, establishing, that's it, establishing the, trust.
+
+50
+00:08:04.860 --> 00:08:29.210
+Darren Warner: between two different parties, is something that, of course, is a part of VPK. It's something that we could utilize within VPK, within, Quinnet, but what I would want to do is then provide a different transport layer, to that project. And I don't know what state TSP is in to be able to do that. I do see some transport code in there.
+
+51
+00:08:29.680 --> 00:08:34.189
+Darren Warner: So, Reza, sorry, a little all over the place, I'm still kind of gathering my thoughts this early on a Monday.
+
+52
+00:08:34.190 --> 00:08:40.790
+Steve Vitka: Like I said, I think you'll find out, if you look at the paper itself, that really goes into their aspirations for transport, I think.
+
+53
+00:08:40.799 --> 00:09:03.059
+Darren Warner: Right, right. Yeah, and so, yeah, that might just be the difference between, you know, aspiration and implementation. And so that's where having a conversation with Wayne, seeing what his vision is for, implementing the transport layer, and how… what, you know, what kind of abstraction, if anything, would be in that project would be incredibly useful.
+
+54
+00:09:05.020 --> 00:09:06.510
+Steve Vitka: Alright, I'll pass it on.
+
+55
+00:09:07.260 --> 00:09:08.140
+Darren Warner: Awesome.
+
+56
+00:09:08.410 --> 00:09:15.430
+Reza Rassool: Okay, so progress made on the, Protocol, we…
+
+57
+00:09:15.900 --> 00:09:21.960
+Reza Rassool: we, we, we said there were going to be 3 task force, 2 we kicked off already, so the protocol,
+
+58
+00:09:22.120 --> 00:09:38.919
+Reza Rassool: The personal embedded, Mitch, Mitchens, is not on the call, and then we're gonna wait to kick off the third one, which is the call for proposals for the actual algorithms that go inside the, VPK.
+
+59
+00:09:38.960 --> 00:09:44.239
+Reza Rassool: Now, we had a range of algorithms, some that are homegrown ones, you all remember, you know, we…
+
+60
+00:09:44.300 --> 00:09:55.169
+Reza Rassool: It was maybe 2 years ago we started dabbling with dimensional scrambling, with, noise algorithms, and then we had a workshop with,
+
+61
+00:09:55.470 --> 00:10:13.770
+Reza Rassool: with, the Society of Industrial Applied Mathematics at Pomona College, and, we came away with two extra algorithms, which are a bit stronger, the die-hard one in Rome. But then from the literature, CKKS is a proper cryptographic
+
+62
+00:10:13.810 --> 00:10:22.319
+Reza Rassool: library, it stands for Chong, Kim, Kim, and Song, and it's also part of the,
+
+63
+00:10:22.790 --> 00:10:28.450
+Reza Rassool: the Microsoft SEAL library, and it's truly homomorphic. So…
+
+64
+00:10:30.130 --> 00:10:39.249
+Reza Rassool: Maybe, Solomon, you can give us an update, just a brief update, in advance of a more detailed talk that you'll give in a couple of weeks.
+
+65
+00:10:39.250 --> 00:10:44.340
+Sulimon Sattari: Yeah, yeah, sure. Yeah, I'll talk for a couple minutes about, So…
+
+66
+00:10:44.470 --> 00:10:53.310
+Sulimon Sattari: CKKS is likely the algorithm, you know, for RAG that we found to be the most secure.
+
+67
+00:10:53.650 --> 00:10:59.770
+Sulimon Sattari: And the only reasonably secure one that I think we found, as far as homomorphic encryption for RAG,
+
+68
+00:10:59.910 --> 00:11:06.480
+Sulimon Sattari: And, we implemented it, we're gonna, we're gonna make this repo. I think the repo is public, but I haven't updated it in a while.
+
+69
+00:11:06.660 --> 00:11:09.300
+Sulimon Sattari: But, you know, we're gonna…
+
+70
+00:11:09.690 --> 00:11:19.210
+Sulimon Sattari: set it up so that people can benchmark different algorithms, different parameters, things like that. And, we originally… we have a paper that we're submitting
+
+71
+00:11:19.560 --> 00:11:29.730
+Sulimon Sattari: That's a draft, and, originally, our narrative was that, well, CKKS is extremely slow. I found it to be, like, 6,000 times slower than
+
+72
+00:11:30.010 --> 00:11:35.469
+Sulimon Sattari: they're just doing… doing the query otherwise.
+
+73
+00:11:35.850 --> 00:11:47.210
+Sulimon Sattari: But it turned out, as some reviewers noted to us, that we hadn't really fully done our homework on how to optimize CKKS, so we've optimized it, and it's kind of clever, because CKKS takes the…
+
+74
+00:11:47.960 --> 00:11:51.230
+Sulimon Sattari: Vectors, and it converts them to a polynomial.
+
+75
+00:11:51.540 --> 00:11:57.700
+Sulimon Sattari: and you… one of the parameters is what is the degree of that polynomial? How many… how many polynomial degrees do you need?
+
+76
+00:11:57.900 --> 00:12:05.880
+Sulimon Sattari: to, to put this… to… to encode… encrypt this… this vector. And,
+
+77
+00:12:07.190 --> 00:12:11.489
+Sulimon Sattari: You gotta choose that polynomial correctly, but it also turns out
+
+78
+00:12:11.840 --> 00:12:17.999
+Sulimon Sattari: If you run this… if you can do this polynomial conversion for every single chunk in your document.
+
+79
+00:12:18.280 --> 00:12:21.700
+Sulimon Sattari: That's a lot of extra work, so you're…
+
+80
+00:12:21.860 --> 00:12:25.290
+Sulimon Sattari: You're solving this big polynomial so many times.
+
+81
+00:12:25.840 --> 00:12:33.939
+Sulimon Sattari: Whereas… and then doing the encryption on that, I think that's the part that's the most costly. So, whereas now, for the whole corpus.
+
+82
+00:12:34.470 --> 00:12:41.209
+Sulimon Sattari: We, we… Put the whole corpus into the…
+
+83
+00:12:41.610 --> 00:12:51.299
+Sulimon Sattari: polynomial encrypted once, because the dot product doesn't… doesn't really depend from coordinate to coordinate, so you can…
+
+84
+00:12:51.580 --> 00:12:53.050
+Sulimon Sattari: Still,
+
+85
+00:12:53.380 --> 00:13:10.190
+Sulimon Sattari: do it on the whole corpus, and then that's… that's just a lot faster. So now, the good news is now, like, we can implement CKKS, it'll probably not slow things down… it'll slow things down significantly, but it's not gonna slow down the RAG portion to… to completely…
+
+86
+00:13:10.190 --> 00:13:19.589
+Sulimon Sattari: you know, impractically slow. So now we're only, like, 16 or 17 times slower, and I think we can still optimize even further. And so CKS becomes a viable
+
+87
+00:13:19.900 --> 00:13:25.920
+Sulimon Sattari: homework encryption algorithm, both through security and speed, and I'll be reporting more on that next week.
+
+88
+00:13:26.850 --> 00:13:42.409
+Reza Rassool: Okay. Well, that's really good news, because, we got a lot of pushback to say, hey, dimensional scrambling isn't really encryption, it's a mapping, and it could be reversed. It's complex to reverse, but eventually, if you have sufficient samples.
+
+89
+00:13:42.410 --> 00:13:53.850
+Reza Rassool: If you're able to mount a clear text attack… now, we say you can't mount a clear text attack because… because of the way we do search by index. However.
+
+90
+00:13:53.850 --> 00:14:07.120
+Reza Rassool: the academic reviewers of our papers have said, yeah, that's not a… that's… that's not cryptography. And so we really had to come back with a response. Now.
+
+91
+00:14:07.850 --> 00:14:26.839
+Reza Rassool: CKKS has been red-teamed and has been deemed to be cryptographically secure. So what, Solomon's done is he's managed to find the, optimizations for it. So it brings it down into the realm where it's
+
+92
+00:14:26.870 --> 00:14:31.740
+Reza Rassool: 17 times more expensive than an embedded.
+
+93
+00:14:31.930 --> 00:14:42.529
+Reza Rassool: So the embedding process, I think we were measuring it relative to the embedding, I'm not sure. That 65,000 was relative to embedding the vector.
+
+94
+00:14:42.530 --> 00:14:47.640
+Sulimon Sattari: Mostly, yeah, because dimensional scrambling didn't take much, so we were comparing the whole… yeah.
+
+95
+00:14:48.210 --> 00:14:57.920
+Reza Rassool: Yeah, so when you think that embedding is going to be something that's done locally, you know, it's basically 3 microseconds per vector, great.
+
+96
+00:14:57.920 --> 00:15:10.769
+Reza Rassool: it's… that's doable, and it can be done locally. Now you've got an extra thing to scramble it to… to encrypt the vectors, and with CKS, so that's going to just take a bit more.
+
+97
+00:15:10.770 --> 00:15:13.710
+Sulimon Sattari: And I think the other thing that I don't think anyone is…
+
+98
+00:15:14.320 --> 00:15:21.920
+Sulimon Sattari: done before. The one more point I'll be reporting next week is that we're measuring the security benefit now of
+
+99
+00:15:22.510 --> 00:15:35.870
+Sulimon Sattari: noise injection. Because before, noise injection, we were just like, yeah, we add a certain amount of noise, and… but we don't know, so I… I implemented the Vect2Text attack, which converts embeddings into text, and so we… now we have
+
+100
+00:15:35.980 --> 00:15:45.280
+Sulimon Sattari: you know, Parameters that reviewers will be happier about to actually measure the cryptographic, benefit of noise injection.
+
+101
+00:15:46.020 --> 00:15:46.530
+Reza Rassool: Okay.
+
+102
+00:15:46.530 --> 00:15:49.139
+Steve Vitka: Okay, so my question is, though.
+
+103
+00:15:49.910 --> 00:15:59.680
+Steve Vitka: I mean, it sounds like it's moving in the right direction, but is this still overkill for the average vanilla user whose data isn't worth remapping to get to?
+
+104
+00:15:59.900 --> 00:16:06.510
+Steve Vitka: You know, as long as, once again, the honeypot is less valuable than the cost to go through the door.
+
+105
+00:16:06.510 --> 00:16:25.789
+Reza Rassool: Yeah, I mean, it's going to become like HTTPS, where you just say, just do it for everything. And you could say, well, I don't really care, I want to… I can send it over an insecure pipe, I don't care. But the tradition now is… is just every single
+
+106
+00:16:26.910 --> 00:16:28.430
+Reza Rassool: Pipe.
+
+107
+00:16:28.430 --> 00:16:38.229
+Steve Vitka: I know, I get it. I mean, ideally it would be that way, but it's just, you know, what is going to be the cost of compute? I really don't have a ballpark of how these two are going to compare, you know.
+
+108
+00:16:38.230 --> 00:16:42.580
+Reza Rassool: Well, as, as I said, so, so,
+
+109
+00:16:42.850 --> 00:16:50.539
+Reza Rassool: Embedding takes about 3… between 3 and 6 microseconds, per… vector on my.
+
+110
+00:16:50.540 --> 00:16:54.799
+Steve Vitka: Right. And rotating and shifting and all that stuff takes practically no time, too.
+
+111
+00:16:54.800 --> 00:17:00.590
+Reza Rassool: practically no time, you know, the… the… the sort of Mac… my Mac Mini, the… the…
+
+112
+00:17:00.710 --> 00:17:12.320
+Reza Rassool: I think we can actually accelerate it even further when you start using the, the, what's it, the SIMDA architecture, the,
+
+113
+00:17:12.480 --> 00:17:16.030
+Reza Rassool: The… the sort of,
+
+114
+00:17:16.420 --> 00:17:28.789
+Reza Rassool: the large… the ways where you can do vector manipulation in the processor itself, so I don't think we've even gone to the level of.
+
+115
+00:17:28.790 --> 00:17:34.600
+Steve Vitka: Yeah, well, we're getting besides the point. The point is that it's… that we may have a market for quick…
+
+116
+00:17:34.710 --> 00:17:38.510
+Steve Vitka: Fast, somewhat secure, parallel search.
+
+117
+00:17:38.930 --> 00:17:39.630
+Reza Rassool: Yeah.
+
+118
+00:17:40.010 --> 00:17:51.080
+Steve Vitka: In other words, not super ultra-secure, but, like, sort of secure, like… in other words, for them to go in there and exfiltrate all your data is gonna take…
+
+119
+00:17:51.080 --> 00:18:03.909
+Steve Vitka: way too much effort. You know, maybe get a little thing here or there, but, you know, who gives a rat's ass? Because you can now parallel search over your peers, and the whole process of doing that is just, like…
+
+120
+00:18:04.240 --> 00:18:18.809
+Steve Vitka: You know, now it doesn't have a big front-end, you know, thing that you have to grind on to set it up, is what I'm… I'm just worried about that, like, you know, it's like, okay, you gotta commit all these resources just to get the system set up.
+
+121
+00:18:19.020 --> 00:18:24.539
+Sulimon Sattari: Are you suggesting, like, the dimensional scrambling and noise injection could be good enough for… is that the…
+
+122
+00:18:24.870 --> 00:18:25.480
+Sulimon Sattari: I think that…
+
+123
+00:18:25.480 --> 00:18:28.650
+Steve Vitka: good enough for me. I would never, ever acquire anything.
+
+124
+00:18:28.650 --> 00:18:31.250
+Sulimon Sattari: Well, I think that's…
+
+125
+00:18:31.250 --> 00:18:31.650
+Steve Vitka: Right.
+
+126
+00:18:31.650 --> 00:18:39.360
+Sulimon Sattari: I think if I… if we showed you how easily that gets hacked by knowing one vector, it might be not as…
+
+127
+00:18:39.610 --> 00:18:45.139
+Sulimon Sattari: Like, if you know just, like, one pair, that they somehow figured out…
+
+128
+00:18:45.140 --> 00:19:03.599
+Steve Vitka: But you can still approximate that pair through a clear text attack. Unless… if you're actually given the key, of course, you can open the lock. Duh. Okay? But, you know, if they don't actually have the actual process itself, then they're still only going to be able to estimate that, you know, embedding and whatever.
+
+129
+00:19:03.600 --> 00:19:04.090
+Reza Rassool: Yeah.
+
+130
+00:19:04.390 --> 00:19:07.259
+Steve Vitka: So, I'm not worried about it.
+
+131
+00:19:07.260 --> 00:19:10.229
+Reza Rassool: We made that argument, and the reviewers said, yeah.
+
+132
+00:19:10.230 --> 00:19:11.690
+Steve Vitka: But once again, these are a bunch of academics.
+
+133
+00:19:11.690 --> 00:19:12.810
+Reza Rassool: Corrections, that's…
+
+134
+00:19:12.810 --> 00:19:15.259
+Steve Vitka: And I'm trying to be… Use their voice here.
+
+135
+00:19:15.260 --> 00:19:26.999
+Reza Rassool: Steve, Steve, the way that they said that security by obscurity, and it's basically null and void. So we have to get over that hurdle to get the paper published.
+
+136
+00:19:27.210 --> 00:19:28.590
+Reza Rassool: We, we have to do…
+
+137
+00:19:28.590 --> 00:19:41.029
+Steve Vitka: It's all about the paper. I agree with what you're doing with the paper. I have no objections there. I'm just saying I want to keep, on one hand, this balanced in my mind with the eventual consumer product that we're trying to produce. That's all.
+
+138
+00:19:41.220 --> 00:19:52.020
+Reza Rassool: Now, you're absolutely right, and so if you're thinking about implementing this, let's say, on an embedded systems processor, you might compromise and say, well, I'm gonna… I'm gonna do something that's… that's good enough.
+
+139
+00:19:52.140 --> 00:19:57.290
+Reza Rassool: The, the, the…
+
+140
+00:19:57.860 --> 00:20:07.939
+Reza Rassool: So, so let's, let's get the paper, done, because that's gonna get us to a level of, of credibility, and then we, then we can move
+
+141
+00:20:08.450 --> 00:20:19.469
+Reza Rassool: we can move on from there. The other thing that emerged from last week's talk is flipping the whole script and looking at it from the point of view of the vendor.
+
+142
+00:20:19.720 --> 00:20:37.500
+Reza Rassool: So, a well-meaning vendor that says, I want to offer services, I want to offer infrastructure, I don't want to also carry the liability of having your corporate intellectual property, or my service, or your personal data on there.
+
+143
+00:20:37.560 --> 00:20:46.399
+Reza Rassool: So… because if you look at it from the point of view of cybersecurity insurance, which is becoming more and more expensive,
+
+144
+00:20:46.880 --> 00:20:52.470
+Reza Rassool: These, these companies that just want to provide infrastructure now can,
+
+145
+00:20:52.800 --> 00:21:11.190
+Reza Rassool: almost indemnify themselves from the, the liability of carrying customers' data by saying, you must scramble it, you must use a VPK, and don't give us the keys. So I think that's a… that… Scott Bly said, wow, that flips the narrative.
+
+146
+00:21:11.450 --> 00:21:14.820
+Steve Vitka: Yeah, yeah, that does. If you can get it to that point, that's fantastic.
+
+147
+00:21:14.820 --> 00:21:17.729
+Reza Rassool: We need to… we need to move in that direction.
+
+148
+00:21:18.060 --> 00:21:21.090
+Reza Rassool: Okay, so…
+
+149
+00:21:21.090 --> 00:21:29.400
+Reza Rassool: Let me suggest that in these calls, if we finish all the things that we want to talk about, we need not stay on for the full hour.
+
+150
+00:21:29.400 --> 00:21:42.689
+Reza Rassool: that we can call it at, let's say, the half hour. So let's just discuss those three points there, make sure we've exhausted it. One was Darren's protocol. Darren, the next steps are you should probably speak with Wenjin.
+
+151
+00:21:42.920 --> 00:21:45.900
+Reza Rassool: And,
+
+152
+00:21:46.300 --> 00:21:56.889
+Reza Rassool: Separately, you're going to be talking maybe with Glenn Gore, I don't know, when we get, regarding the lib P2P bindings,
+
+153
+00:21:57.890 --> 00:22:00.320
+Reza Rassool: And then,
+
+154
+00:22:00.600 --> 00:22:08.370
+Reza Rassool: Well, I'll reach out to Mitch. He's been off the calls for the last two, three weeks. I don't know what he's busy with.
+
+155
+00:22:08.590 --> 00:22:19.930
+Reza Rassool: Solomon, do… when do you think we should have a bigger talk about your explorations into optimizing CKKS?
+
+156
+00:22:20.190 --> 00:22:22.210
+Reza Rassool: Would next week be good?
+
+157
+00:22:22.210 --> 00:22:23.740
+Sulimon Sattari: I think next week's good, yeah.
+
+158
+00:22:23.740 --> 00:22:31.190
+Reza Rassool: Fantastic. Okay, so we'll allocate maybe 10-20 minutes for you to go through the optimization. Okay.
+
+159
+00:22:31.340 --> 00:22:46.139
+Reza Rassool: Well, I… And then the… the third thing, the thing about flipping the narrative, what I'm gonna do is I'll take that on, and I'll see if I can write up something about flipping the narrative, and and…
+
+160
+00:22:46.260 --> 00:22:58.820
+Reza Rassool: use that as maybe a go-to-market strategy, of getting more companies. We had early conversations with Western Digital, about, hey, how do we
+
+161
+00:22:58.840 --> 00:23:06.649
+Reza Rassool: put these primitives, if we come up with something like CKKS, how do we get that closer to the storage device?
+
+162
+00:23:08.100 --> 00:23:22.360
+Reza Rassool: This is actually for consumer-grade or business-grade systems, where you've got your local storage, you want to scramble it on the way out as you send it to a cloud service provider, and so have those,
+
+163
+00:23:22.360 --> 00:23:29.499
+Reza Rassool: But I have the processing really tightly coupled to your local, like, a smart NAS device or something like that.
+
+164
+00:23:30.450 --> 00:23:38.020
+Reza Rassool: Okay, let's… let's keep it short and sweet, we don't need to… we can give you back the remainder of the hour.
+
+165
+00:23:39.050 --> 00:23:41.260
+Reza Rassool: Okay. Everyone good?
+
+166
+00:23:41.570 --> 00:23:42.250
+Reza Rassool: That's great.
+
+167
+00:23:42.790 --> 00:23:43.670
+Reza Rassool: Okay.
+
+168
+00:23:44.080 --> 00:23:46.259
+Reza Rassool: Catch you later. Thanks. Bye.
+
+169
+00:23:46.260 --> 00:23:46.960
+Darren Warner: Bye-bye.
+

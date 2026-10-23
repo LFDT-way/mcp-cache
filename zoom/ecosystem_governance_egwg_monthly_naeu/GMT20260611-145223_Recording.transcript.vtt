@@ -1,0 +1,1234 @@
+WEBVTT
+
+1
+00:00:22.780 --> 00:00:23.650
+Carly Huitema (University of Guelph): Hey.
+
+2
+00:00:24.540 --> 00:00:27.519
+Eric Drury (Forth Consulting): So I read the, the, antitrust policy?
+
+3
+00:00:27.520 --> 00:00:29.459
+Carly Huitema (University of Guelph): Yeah, it's a mouthful.
+
+4
+00:00:30.440 --> 00:00:33.850
+Eric Drury (Forth Consulting): Right, so we'll start, yeah, we'll start today's meeting, the…
+
+5
+00:00:34.180 --> 00:00:38.510
+Eric Drury (Forth Consulting): Trust over IP Ecosystem and Governance Working Group, welcome.
+
+6
+00:00:38.550 --> 00:00:52.090
+Eric Drury (Forth Consulting): Antitrust policy notice. Linux Foundation meetings involve participation by industry competitors, and it is the intention of the Linux Foundation to conduct all of its activities in accordance with applicable antitrust and competition laws.
+
+7
+00:00:52.090 --> 00:01:05.429
+Eric Drury (Forth Consulting): It is therefore extremely important that attendees adhere to meeting agendas and be aware of and not participate in any activities that are prohibited under applicable U.S. state, federal, or foreign antitrust and competition laws.
+
+8
+00:01:06.050 --> 00:01:17.679
+Eric Drury (Forth Consulting): Examples of types of actions that are prohibited at Linux Foundation meetings and in connection with Linux Foundation activities are described in the Linux Foundation antitrust policy available at
+
+9
+00:01:18.510 --> 00:01:34.730
+Eric Drury (Forth Consulting): Linuxfoundation.org slash antitrust dash policy. If you have questions about these matters, please contact your company counsel, or if you are a member of the Linux Foundation, feel free to contact Andrew Updegrove of the firm of Gessmer Updogrove LLP, which provides legal counsel to the Linux Foundation.
+
+10
+00:01:34.730 --> 00:01:39.170
+Eric Drury (Forth Consulting): Wow, okay, that's a mouthful. Yeah, so I think from now on, do we just, like, show the text on the screen?
+
+11
+00:01:39.170 --> 00:01:58.880
+Carly Huitema (University of Guelph): just show it, yeah. So, and with that, wonderful, antitrust policy notice, update, we have started the recording, announcements is… one is that I'm going to be stepping down as co-chair on September 1st, so…
+
+12
+00:01:58.880 --> 00:02:03.029
+Carly Huitema (University of Guelph): It's been a great run. I've enjoyed Ecosystem Foundry.
+
+13
+00:02:03.120 --> 00:02:10.160
+Carly Huitema (University of Guelph): now ecosystem and governance, and and if someone else wants to come and step up, by all means.
+
+14
+00:02:10.340 --> 00:02:11.689
+Carly Huitema (University of Guelph): Come and join.
+
+15
+00:02:11.890 --> 00:02:29.179
+Carly Huitema (University of Guelph): And, but there are still 3 excellent co-chairs, so Eric and Steven and Mackie. Did I miss someone? I don't think I missed any. Good. So we have those 3 co-chairs, and we don't have any upcoming presentations, we are hitting the summer pause.
+
+16
+00:02:29.310 --> 00:02:45.230
+Carly Huitema (University of Guelph): Which isn't quite a pause, because we like to do more relaxed writing work, and Mackie, can speak to that and, advertise the next, work that is coming out of this, working group.
+
+17
+00:02:46.790 --> 00:02:55.729
+Carly Huitema (University of Guelph): So then, Mackie, maybe you can put in the chat what you're looking for, and then at the end, if we have time, we can do another promo for that.
+
+18
+00:02:55.730 --> 00:02:57.850
+Makki Elfatih (Hkdolts): I don't… yep.
+
+19
+00:02:57.970 --> 00:03:01.169
+Carly Huitema (University of Guelph): I don't think there is a Governance Architecture Task Force update.
+
+20
+00:03:01.740 --> 00:03:05.339
+Carly Huitema (University of Guelph): Bite Size Tr… Bite Size Trust…
+
+21
+00:03:05.840 --> 00:03:11.530
+Carly Huitema (University of Guelph): So… and this is one of the reasons I wanted to step down as co-chair, is so that I…
+
+22
+00:03:12.110 --> 00:03:24.160
+Carly Huitema (University of Guelph): can carve out some work for Bite-sized Trust. We still have an ongoing script and, are looking at, like, doing comparisons with X509, and existing, trust architecture.
+
+23
+00:03:24.190 --> 00:03:38.209
+Carly Huitema (University of Guelph): Then, today, we're going to hear from Keyring, and they've been very active. If you are a part of the decentralized trust working group here at… it's a joint group between Trust Over IP and DIFF.
+
+24
+00:03:38.360 --> 00:03:43.990
+Carly Huitema (University of Guelph): And they have been working on the credentials in order to build a trust graph.
+
+25
+00:03:44.080 --> 00:03:48.219
+Carly Huitema (University of Guelph): Which, is a way, like,
+
+26
+00:03:48.220 --> 00:04:04.820
+Carly Huitema (University of Guelph): how we talk about it in Bite Size Trust is that one way to have, trust expressed is through a hierarchical system, where you might have a trust registry, which says, under these governance rules, we have accredited the following members as meeting those requirements.
+
+27
+00:04:04.870 --> 00:04:23.920
+Carly Huitema (University of Guelph): But that's not the only way that one can gain reputation and trust. And that would be the peer-to-peer relationship credentials, where you're gaining reputational trust through the interaction, and that can be mapped out in a trust graph. So they are going to be talking about some of the tooling
+
+28
+00:04:23.920 --> 00:04:33.639
+Carly Huitema (University of Guelph): that can support that other way of building reputation and trust within a community. Alberto and Brendan, was that a good introduction?
+
+29
+00:04:33.760 --> 00:04:52.389
+Carly Huitema (University of Guelph): Okay, excellent. So… so… oh, I better show my title slide. So, there, today we will be hearing from Alberto and Brendan, and they are going to be talking about Keyring, the technologies that are underpinning the work of a decentralized trust graph, so…
+
+30
+00:04:52.500 --> 00:04:54.029
+Carly Huitema (University of Guelph): Ready to take it away?
+
+31
+00:04:55.010 --> 00:05:19.429
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Yes, indeed, thank you so much. It's great to be with you. We're grateful to Trust Over IP for, you know, all your work in setting the foundations for so many of these important conversations, and we're enjoying and finding the participation in the Decentralized Trust Graph Working Group, you know, very… it's very productive, very collegial, and I feel like we're getting a lot done there.
+
+32
+00:05:21.690 --> 00:05:46.680
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And I just also wanted to comment, I think it's funny, I know it's different meanings of the word trust, but to have to start a meeting with an antitrust message at the start of the trust over IP meetings. So, I understand they're different, but it seems kind of strange. But thanks for your interest, and yeah, we want to talk about our mobile app Keyring, and how this
+
+33
+00:05:46.680 --> 00:05:55.099
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): This is, You know, hopefully contributing to the bootstrapping, the decentralized trust graph. Next slide, please.
+
+34
+00:05:56.310 --> 00:06:18.010
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, this is our product team. Alberto and I are engineers. We also work with Yahaira, our product manager, and Nicole Brennan, our designer. A lot of folks have had very kind things to say about the design. We've put a lot of effort into making Keyring not just following the protocol, the credentials.
+
+35
+00:06:18.010 --> 00:06:21.839
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): But trying to make it easy to use and understand. Next slide.
+
+36
+00:06:23.350 --> 00:06:33.819
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So we're just going to give you a little bit of context of our starting point, which might be interesting for you. Alberto and I are with the Applied Social Media Lab at Harvard University.
+
+37
+00:06:33.820 --> 00:06:57.840
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And the social media in that phrase is not just things like Instagram or Facebook, you know, even things like a GitHub repo is a kind of social media, a collaborative space where people are, you know, sharing information, working on joint content, etc. So we think of that very broadly. So we'll talk about the problem, why it matters, we'll talk about our solution.
+
+38
+00:06:57.870 --> 00:07:05.130
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): where we're at today and where we're going, and then we'll leave some time for Q&A. So, next slide, please.
+
+39
+00:07:06.190 --> 00:07:10.210
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, give you a little motivation for this, if you go to the next slide.
+
+40
+00:07:11.170 --> 00:07:23.030
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, again, our starting point is social media. This is more broadly applicable, but just to give you a sense of some of the problems where we feel like this could be helpful.
+
+41
+00:07:23.030 --> 00:07:37.399
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, proof of personhood. Obviously, the rise of, agentic content, agentic actors online is very important. You know, who's a real person? Who's not? So we believe that this work can help to contribute to that.
+
+42
+00:07:37.400 --> 00:07:55.070
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Also, content provenance. If we have a decentralized trust graph, we might be able to understand better, how content is flowing from actor to actor. You know, it could be from person to person, or from organization to organization, might help with that.
+
+43
+00:07:55.070 --> 00:08:08.880
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Age assurance is another big topic these days. You know, various folks want to protect our young people online, and how do we do that best? The current solutions are pretty privacy-invasive.
+
+44
+00:08:08.880 --> 00:08:14.820
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And, you know, that's also concerning, you know, for, for children.
+
+45
+00:08:15.340 --> 00:08:40.279
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Related to the content provenance is misinformation and contested information, you know, just having additional trust signals for credibility. And with the current solutions, we have centralized data stores, which are honeypots, you know, for hackers and abuse and misuse, either by, you know, external actors or by, the companies themselves that hold that,
+
+46
+00:08:40.280 --> 00:08:41.220
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): that data.
+
+47
+00:08:41.500 --> 00:08:55.260
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And then finally, our networks have been mostly contained within walled gardens of particular social media platforms, like LinkedIn, Facebook, etc.
+
+48
+00:08:55.260 --> 00:09:17.050
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And so that leads to a lock-in that a lot of users don't prefer. So if we can liberate our trust graph, make it more user-controlled and portable, that's going to have some benefits for user choice online. On the right side is just a personhood credentials paper some of you might be familiar with, came out
+
+49
+00:09:17.050 --> 00:09:35.189
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): In 2024, that just flagging the importance, of figuring out personhood online. Some of the authors were from, OpenAI and a whole bunch of other authors. And so, just again, giving us a little bit of context there. Next slide, please.
+
+50
+00:09:36.260 --> 00:09:42.989
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, at our social media lab, our belief, and I think this, hopefully will resonate with some of your perspectives.
+
+51
+00:09:42.990 --> 00:09:57.109
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Online trust can be restored by building unified, user-centered systems where individuals own and control their digital identities. So, the key part is individuals owning and controlling their digital identities. Next slide, please.
+
+52
+00:09:57.780 --> 00:10:15.130
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So our vision, just to advance digital identity in a responsible and ethical way, and a mission of building these systems. And we're an applied social media lab, so we do research, but we also build practical implementations, reference apps, things like that. Next slide.
+
+53
+00:10:16.280 --> 00:10:41.239
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Some of the principles, just to let you know, these guiding principles, we've tried to put them into our work. So, security, of course, portability, I mentioned that, making the trust graph something that people can, own and manage themselves. Interoperable, so, of course, we're working with, the open, the decentralized Trust Graph Working Group on Interoperable standards.
+
+54
+00:10:41.240 --> 00:10:46.099
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): We're contributing to those conversations. Privacy preserving.
+
+55
+00:10:46.100 --> 00:10:50.339
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And the usability, point that I mentioned earlier. Next slide.
+
+56
+00:10:51.250 --> 00:11:04.379
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So now I'll talk a little bit about our solution. At the top, you know, just kind of, this is your kind of marketing slide, if you will. So verified, private, portable, these are things that we want to preserve.
+
+57
+00:11:04.380 --> 00:11:12.460
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): In the photo there, you see some folks using, a keyring, and so just imagine you're in the setting, so for the first time.
+
+58
+00:11:13.470 --> 00:11:15.689
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Two people can meet face-to-face.
+
+59
+00:11:16.570 --> 00:11:19.439
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Verify each other through their own devices.
+
+60
+00:11:20.450 --> 00:11:23.550
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And walk away with portable proof of that connection.
+
+61
+00:11:24.940 --> 00:11:27.510
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): No company or government in the middle.
+
+62
+00:11:28.110 --> 00:11:47.139
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And we're trying to do this in a privacy-preserving way. So, this is, this is kind of, you know, in a nutshell, what we've tried to do with Keyring. And so we'll be doing a demo later so you can see this in action, but that's, that's the intent. By the way, there will be Q&A
+
+63
+00:11:47.140 --> 00:11:58.200
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Time later, but since we're not such a huge group, if there's any questions as we're going through this, feel free to raise your hand, but hopefully they'll be answered as we go as well.
+
+64
+00:11:58.570 --> 00:12:20.190
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Engineering contributions. So, one of the key things that we're noticing, starting from a social media lens, which is different than folks that deal with, say, like, identity for financial companies and financial transactions, is that it's very obvious that social media has a graduated, progressive
+
+65
+00:12:20.190 --> 00:12:39.550
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): environment of trust. You know, you know, for example, to access a social media platform, it might be appropriate to just demonstrate personhood, but maybe as your content is getting viral, maybe you're putting out posts about an election, then maybe there's additional
+
+66
+00:12:39.550 --> 00:12:52.900
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): kind of proof points that are needed to say, oh, is this person actually from the country whose election they're commenting on? You know, this is the kind of thing that might help with misinformation, etc. So we're looking at,
+
+67
+00:12:52.900 --> 00:13:17.570
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): layers or signals of trust, and how those can be combined, in hopefully reasonably flexible ways, to levels of assurance. So, trust signals feeding up into levels of assurance, and so that's what we've tried to do with Keyring and show how that might work. So we have 3 layers, in particular, that we have, started with. So this is just a starting point.
+
+68
+00:13:18.030 --> 00:13:21.770
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): We hope to add additional trust signals as we go.
+
+69
+00:13:21.770 --> 00:13:39.669
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So the first one is the device biometrics. So these are the local biometrics on your phone, and this proves that the device owner authorized the exchange. The next one is an in-person connection, so this is the kind of intent and consent angle, so the two people met and chose to.
+
+70
+00:13:39.670 --> 00:13:41.409
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Chose to connect.
+
+71
+00:13:41.770 --> 00:13:59.910
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And, a witnessed context. So, this is the third part. So, in the decentralized trust graph working group, we're talking about trust is always in the context of some trust community. So this is a tool that allows a trust community to, to talk about
+
+72
+00:13:59.910 --> 00:14:23.570
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): or to basically attest to exchanges that happen in their context to add additional trust. So again, privacy-preserving, no centralized storage required. I see a question from Scott in the chat. What standards are levels of assurance based? So, you know, the intent is… this is where the work is ongoing, because this is a different model than
+
+73
+00:14:23.570 --> 00:14:33.529
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): If you're looking at IAL3 or things like this, you know, these kind of NIST standards, et cetera, for identity, this is what's really started in the
+
+74
+00:14:33.540 --> 00:14:40.999
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): This, you know, really hard-edged financial world where you better know, really, really sure, you know, who's who.
+
+75
+00:14:41.000 --> 00:15:03.969
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And so, this is a conversation that we want to have, we want to do research on, we want to engage with all of you on, of how do we build up levels of assurance that are meaningful? You know, so what would be an appropriate level of assurance that can be produced in a flexible way without centralized biometrics or government documents having to be exposed?
+
+76
+00:15:03.970 --> 00:15:14.330
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): for proof of personhood, you know? And what are these graduated levels of trust that, are appropriate for a wide range of use cases online? So…
+
+77
+00:15:14.590 --> 00:15:25.640
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Just to reference, yes, we're aware, of course, that there are these standards out there, and we wanted to look more flexibly about how to build up to that.
+
+78
+00:15:25.640 --> 00:15:42.079
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And so, you know, we're… our lab is under the Berkman Klein Center for Internet and Society, and so that's a place where, code, and, law and, government come together, so there's a chance to have conversations if.
+
+79
+00:15:42.080 --> 00:15:56.500
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): If there needs to be different regulations, etc. So, we're trying to work within the existing regulations as much as possible, but there might be conversations to be had as we move into this more user-centered world.
+
+80
+00:15:56.500 --> 00:16:15.289
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): where we might need more flexible ways to, to verify things. I'll just give one other example, I think that helps people. If you think of the I-9 form, if you're in the United States, this is the, employment, you know, it's an employment form that's from the government that's required.
+
+81
+00:16:15.290 --> 00:16:18.790
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And it has columns, where you need to…
+
+82
+00:16:19.040 --> 00:16:27.110
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Say, either you choose one document from column A, or you choose one document from column B and one document from column C.
+
+83
+00:16:27.110 --> 00:16:50.200
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And so what this tries to do is give people flexibility, but still roll up to a level of assurance. And so, this is a model that's out there in the world that we are using for some guidance about how different trust signals can be layered and combined, to get the levels of assurance we need. So, this, sort of addressing Scott's question, adding some context there. Next slide, please.
+
+84
+00:16:51.740 --> 00:17:09.679
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So I think most folks are probably familiar with the device biometrics, even if they're not using them. You use your face or your fingerprint to unlock your device, and it is possible to use that unlock to generate a certificate chain that can add an attestation
+
+85
+00:17:09.680 --> 00:17:19.889
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): to a credential. So, that's what we've tried to do here, to leverage that device attestation, to the relationship credentials, which we'll talk about in a little bit.
+
+86
+00:17:20.400 --> 00:17:24.510
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): so that's one of the trust signals. If you go to the next slide…
+
+87
+00:17:25.760 --> 00:17:50.459
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): The second one is the in-person connections. So, this is the standard QR code exchange, that folks are often familiar with from LinkedIn, or Signal, etc, like this, how to make a connection. So, this is the other one. So then, the… the two folks issue a relationship credential, one to the other. So Alice issues one to Bob, Bob issues one to Alice.
+
+88
+00:17:50.460 --> 00:17:57.680
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): We're following the standard, protocol, that's being developed in the decentralized Trust Graph Working Group.
+
+89
+00:17:57.680 --> 00:18:02.889
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And, then each wallet stores those credentials. Eric, you had a question?
+
+90
+00:18:02.890 --> 00:18:12.010
+Eric Drury (Forth Consulting): Yeah, sorry, if you go back to Layer 1, sorry, is there… what is the actual credential that is being… this initial credential that's being signed?
+
+91
+00:18:12.640 --> 00:18:22.669
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Yeah, and so in this one, so this is the work of the Decentralized Trust Graph Working Group, so there is a verifiable relationship credential. So, yes, go ahead.
+
+92
+00:18:23.050 --> 00:18:28.449
+Eric Drury (Forth Consulting): Right, but, I mean, but at this moment, there's… what's the relationship between you and your phone?
+
+93
+00:18:30.190 --> 00:18:32.809
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): When you say, what's your relationship with you and your father?
+
+94
+00:18:32.810 --> 00:18:45.970
+Eric Drury (Forth Consulting): relationship, if it's a relationship credential, and sorry, I'm not completely up to speed, but, because when you're exchanging relationship credentials in Layer 2, there's a relationship between two people, but here…
+
+95
+00:18:45.970 --> 00:18:46.430
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Yes.
+
+96
+00:18:46.430 --> 00:18:52.549
+Eric Drury (Forth Consulting): you're signing a relationship credential, but there's only one party in this… in this, right? Yes.
+
+97
+00:18:52.550 --> 00:19:16.670
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Yeah, so we're… we're talking… these get combined real-time at the same time. So, for example, you'll see the demo, Alberto's gonna walk you through it, but basically in the process of doing the relationship credential exchange, so that's the core credential that we're exchanging with Keyring right now, that relationship credential, is that the biometric unlock at the moment of exchange
+
+98
+00:19:16.810 --> 00:19:22.339
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Adds an attestation to that relationship credential before it's sent to the other party.
+
+99
+00:19:22.340 --> 00:19:23.250
+Eric Drury (Forth Consulting): Gotcha. Okay.
+
+100
+00:19:23.250 --> 00:19:24.420
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Does that make sense?
+
+101
+00:19:24.420 --> 00:19:25.539
+Eric Drury (Forth Consulting): Yeah, that's it. Thank you.
+
+102
+00:19:25.910 --> 00:19:26.780
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Yep.
+
+103
+00:19:28.560 --> 00:19:34.259
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And so, yeah, this will… we'll do a demo of how this all works in practice in a minute.
+
+104
+00:19:34.260 --> 00:19:52.230
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So again, QR code exchange, that's to demonstrate the kind of intent and consent of the two parties. One thing, I know this is a more sophisticated audience, I'll flag. We do not have strict co-locality proof at this point, but that's on our roadmap. You know, in theory, someone could.
+
+105
+00:19:52.230 --> 00:20:09.859
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): show a QR code on a screen, and, you know, it would not be in person. So we're well aware of that. We're looking at using things like NFC, you know, tap, or a Bluetooth connection, various methods to really ensure that two people are in the same place, so that would be a fourth
+
+106
+00:20:09.860 --> 00:20:16.320
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): layer of a trust signal that we could add on top of this. But the intent is that this be used in person.
+
+107
+00:20:16.540 --> 00:20:17.920
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Next layer
+
+108
+00:20:18.530 --> 00:20:25.600
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So the final one, and this is… this is where we leverage the community, context. So, for example.
+
+109
+00:20:26.250 --> 00:20:41.880
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): let's say, the Berkman Client Center, or the Trust Over IP, they can run a witness service, that could happen at an event. Let's say we have an in-person event together, a conference, it's a Linux Foundation event, something like that.
+
+110
+00:20:42.040 --> 00:21:04.769
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And so the trust community can add another trust signal onto that relationship credential exchange, and to say, this credential exchange happened in a certain context. So, point 4 there, it can say, basically, this exchange was observed by the trust over IP witness at the Linux Foundation event on such and such a date.
+
+111
+00:21:04.770 --> 00:21:29.669
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, that adds this trust community, additional trust signal to the relationship credential exchange. So again, this is just another trust signal that says, okay, this is really something that happened. And so the witness will issue a witness credential to each participant to say, yes, indeed, this relationship credential was, exchanged, kind of in this particular context.
+
+112
+00:21:29.670 --> 00:21:37.519
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, the, yeah, we can, we can talk some more about that. You'll see that, demonstrated
+
+113
+00:21:37.860 --> 00:21:41.080
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And the, if you go to the next slide…
+
+114
+00:21:43.100 --> 00:22:02.389
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, again, for folks who may not be participating in the decentralized Trust Graph Working Group, I'll just go through these quickly. There's currently 7 types of credentials that we're looking at, and we're working with 3 of them in Keyring now, and have the intent to work with the other ones in time.
+
+115
+00:22:02.390 --> 00:22:08.459
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, as I mentioned, the key one is the relationship credential exchange. Alice knows Bob, Bob knows Alice.
+
+116
+00:22:08.490 --> 00:22:16.760
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): The witness credential, which I just described, it adds that, trust community stamp, that can add additional trust there.
+
+117
+00:22:16.880 --> 00:22:35.200
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): An R-Card sounds funny, but it's something very familiar. It's basically just a digital business card, and since this is meant to work in context other than business, that's why we called it R-card, or relationship card. So this is the human-readable data that two folks choose to exchange when they're connecting.
+
+118
+00:22:35.200 --> 00:22:42.800
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): The one thing I will say, again, since this audience is more technical, is the relationship credentials by design.
+
+119
+00:22:42.960 --> 00:22:47.679
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Use pairwise private decentralized identifiers, meaning
+
+120
+00:22:47.880 --> 00:23:00.770
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): I'm going to create a new identifier for myself every time I connect with another person, whether we're in the same trust community or not. So this is intended to make things non-correlatable by default.
+
+121
+00:23:00.770 --> 00:23:23.399
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): unlinkable. And, and so then you have this choice about what to disclose. So the R card says, this is what I want this human to know. Our persona credential is another layer on top of that, which says, I'm going to actually give you a stable identifier to link to this transaction. I'll give you my public, like, work identifier, if you will.
+
+122
+00:23:23.400 --> 00:23:32.910
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And I can then link that to this relationship exchange to prove, allow you to prove that, you've met me in a public or semi-public persona.
+
+123
+00:23:33.150 --> 00:23:48.819
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Endorsement credentials are just to add kind of vouching and endorsements of different kinds that can be shared. Invitation and membership credential are related to the trust community. Okay, you know, how do people get added to a trust community, you know, with an invitation credential?
+
+124
+00:23:48.820 --> 00:23:56.500
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And the membership credential is what the trust community issues back to an individual to say, yes, you are indeed a part of this trust community. So…
+
+125
+00:23:56.500 --> 00:24:13.460
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): The key thing, we're ensuring that these are compatible with privacy-preserving zero-knowledge proof, techniques, so that these can be… these credentials can be combined and, you know, you can provide proofs of different types without exposing all of the details.
+
+126
+00:24:13.460 --> 00:24:19.630
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, you can see there's a link there for the credential spec, and that's still a work in progress.
+
+127
+00:24:20.400 --> 00:24:26.009
+Eric Drury (Forth Consulting): Vernon, sorry, is it true that the, of the seven types.
+
+128
+00:24:27.370 --> 00:24:33.019
+Eric Drury (Forth Consulting): The sixth after relationship cannot exist without the first relationship credential.
+
+129
+00:24:33.310 --> 00:24:36.370
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Yeah, Alberto, if you could just go back to the previous one, just for a minute.
+
+130
+00:24:37.210 --> 00:24:46.389
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, yes, so, there's two things to point out, is that the ones that create an edge, if you will, you know, we're talking about a decentralized trust graph.
+
+131
+00:24:46.510 --> 00:25:03.620
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, it's the relationship credential and the membership credential which create edges in the graph. So that creates the structure to say… and again, relationship can… we're starting with a person-to-person lens, but it could be organization to organization.
+
+132
+00:25:03.620 --> 00:25:23.120
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So that's intended to be sort of peer-level connections. And then the membership credentials are more containing, kind of relationships, to say, I'm within this trust community, or this department is within this organization, etc. So those are the two that kind of determine the structure of the graph.
+
+133
+00:25:23.120 --> 00:25:35.230
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And, the other, you know, the invitation is a mechanism to get you in, and the others are basically kind of annotations, that are added to those edges. Does that make sense?
+
+134
+00:25:36.430 --> 00:25:45.339
+Eric Drury (Forth Consulting): Yeah, yeah, yeah, and you kind of… and that… are they linked credentials, or like you said, just sort of another layer built on… like, you have that first relationship credential.
+
+135
+00:25:45.500 --> 00:25:51.060
+Eric Drury (Forth Consulting): And, and then that R-card builds on that. Is that a separate… that's a credential?
+
+136
+00:25:51.330 --> 00:25:53.560
+Eric Drury (Forth Consulting): It's a separate credential, and the persona
+
+137
+00:25:54.050 --> 00:25:58.890
+Eric Drury (Forth Consulting): links back to the relationship credential, so are they… are they all linked, or…
+
+138
+00:25:59.410 --> 00:26:23.910
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Yes, and so these, these pairwise, private, decentralized identifiers that we make, for, you know, establishing our relationship, again, the idea is that that's just between us, nobody else knows about it, you know, etc. And, and then the, the idea is that we link to those identifiers, so the subject identifier or the issuer identifier.
+
+139
+00:26:23.910 --> 00:26:41.290
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And we can, annotate the credentials that way. The credentials are very simple in their structure, if you look at them on the, in the repo there. But yes, so we use those DIDs to link these other, kind of annotation credentials on top.
+
+140
+00:26:41.710 --> 00:26:42.250
+Eric Drury (Forth Consulting): Okay.
+
+141
+00:26:43.770 --> 00:26:45.450
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Okay, great, good questions.
+
+142
+00:26:47.040 --> 00:26:58.279
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So just as far as how we're trying to operate and how we're trying to contribute to the ecosystem, so we're collaborating, you know, to advance new standards, as we're just talking about.
+
+143
+00:26:58.280 --> 00:27:13.929
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): We're trying to innovate, you know, think of them as protocols or mechanisms, trust signals, etc. How these can combine into levels of assurance that are meaningful in different contexts, trying to innovate in these areas.
+
+144
+00:27:13.930 --> 00:27:16.030
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Doing proofs of concept.
+
+145
+00:27:16.330 --> 00:27:26.540
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And then we're also working on open source, and so Keyring is open source. We'll give you the links later. And so, it's a reference application.
+
+146
+00:27:26.540 --> 00:27:39.729
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): We have not yet modularized the relationship credential component into an SDK, but that's on our roadmap. We want to make these… this open source available and usable to folks.
+
+147
+00:27:40.430 --> 00:27:58.690
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And, and then finally, you know, contributing to user-centered, actual apps. So ones that we built, and, other ones for… that folks are… are based on our, our work. So that's kind of how we're hoping to contribute. If you go to the next slide.
+
+148
+00:28:00.080 --> 00:28:21.650
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): This is a little bit of the context and thank you slide, so… and also it links to, to our GitHub repos. So, everything we do is open source and built on open protocols and open standards. So, thank you to all of you who have been contributing in various different ways, to this ecosystem.
+
+149
+00:28:21.650 --> 00:28:33.379
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): You know, from the standard level up to the open source, our keyring is based off of the Bifault, wallet and, the BCGov wallet.
+
+150
+00:28:33.380 --> 00:28:50.050
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): And so that leverages Credo, inside. And, yeah, and then using standards that, you know, W33C, verifiable credentials, and, etc. So, we'll make these slides available,
+
+151
+00:28:50.050 --> 00:29:03.189
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): To you, so that, you know, if you want to reference them later, I'll copy the link into the chat here if anybody wants to put them in the notes. So they're available, and you can get these QR codes later.
+
+152
+00:29:03.630 --> 00:29:04.890
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Next slide.
+
+153
+00:29:05.240 --> 00:29:20.689
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So just, I'm gonna pass it over to Alberto now. He'll talk a little bit about, the UX and design work that he especially collaborated on with our designer, Nicole, and then walk right into a live demo for you. So, I'll pass it over to Alberto.
+
+154
+00:29:21.240 --> 00:29:34.369
+Alberto Leon (ASML at Harvard): Thank you, Brendan, and hello, everyone. So yeah, just to talk through some of the key considerations when, designing, curing, I will say and, you know, re-emphasize what Brendan said.
+
+155
+00:29:34.370 --> 00:29:48.659
+Alberto Leon (ASML at Harvard): Lots of the UI components are coming from the open source space, so, you know, great work over the years from, like, Bifold and the BCGov community as well. We also followed their, you know, their architecture when building the wallet.
+
+156
+00:29:48.730 --> 00:29:57.990
+Alberto Leon (ASML at Harvard): And, you know, most of these wallets, have this organization to wallet issuance processes, right? So…
+
+157
+00:29:58.080 --> 00:30:22.000
+Alberto Leon (ASML at Harvard): you know, we kind of just emphasize within those components and the flow of the app to actually, you know, really try to narrow in more of that peer-to-peer, you know, issuance and verification. So, one of the first things, you know, I think this goes for, like, any app, mostly.
+
+158
+00:30:22.000 --> 00:30:45.969
+Alberto Leon (ASML at Harvard): is, you know, the usability, you know, intuitive, easy to use, so basically your grandma can use it. Transparency, when we talk about trust, and when we talk about, you know, sensitive things that's being exchanged, we want to give users, you know, plenty of transparency, letting them know, you know, through an onboarding experience, a tour guide through the different features and tasks.
+
+159
+00:30:45.970 --> 00:30:58.400
+Alberto Leon (ASML at Harvard): what did, you know, what is being done and why, and always adding that, you know, again, transparency to the user. And then empowerment, of course.
+
+160
+00:30:58.400 --> 00:31:15.439
+Alberto Leon (ASML at Harvard): So we really wanted to make sure that, you know, even before you do a relationship, creating a relationship with another user, we wanted to make sure that, you know, they can authorize that. So they have biometrics on, you know, before the…
+
+161
+00:31:15.440 --> 00:31:23.449
+Alberto Leon (ASML at Harvard): It's created, and these credentials are exchanged, they need to authorize that through, the biometric unlock.
+
+162
+00:31:23.450 --> 00:31:46.480
+Alberto Leon (ASML at Harvard): So, see, these are just some of the key considerations. I'm just glossing over this, but again, a shout out to Nicole Brennan, our senior UX UI designer. This was, you know, thought of very much during the process. So, for us, it's very important that as we look at identity and trust and, you know.
+
+163
+00:31:46.480 --> 00:31:53.450
+Alberto Leon (ASML at Harvard): And a new landscape, that it's also, you know, meaningful for the user in terms of the experience of how you use the app.
+
+164
+00:31:54.500 --> 00:31:57.389
+Alberto Leon (ASML at Harvard): Alright, so to get into the demo,
+
+165
+00:31:58.060 --> 00:32:05.160
+Alberto Leon (ASML at Harvard): I'm gonna exit out of the slide here for a moment, and I'm actually going to put this in presenter view.
+
+166
+00:32:05.480 --> 00:32:20.970
+Alberto Leon (ASML at Harvard): So, on your right-hand side, I have two wallets running. And by the way, by the end of the presentation, we'll provide some QR codes to download the actual wallets. If you guys want to test this out, they'll be available.
+
+167
+00:32:20.990 --> 00:32:34.900
+Alberto Leon (ASML at Harvard): And again, happy to get feedback. We've been iterating as we present at different events, you know, different group… working group meetings, and always happy to, you know, receive feedback. So…
+
+168
+00:32:35.270 --> 00:32:43.980
+Alberto Leon (ASML at Harvard): So I'm gonna take you what it looks like to actually, you know, you know, what it looks like to start, curing for the first time.
+
+169
+00:32:43.980 --> 00:32:58.539
+Alberto Leon (ASML at Harvard): So I'm gonna open this up on my iOS device, and the very first thing you'll see here is just a welcome message, you know, which is telling you what this app is about. There's a simple link here where we, you know.
+
+170
+00:32:58.540 --> 00:33:22.590
+Alberto Leon (ASML at Harvard): talk more about the project, it's just under the Applied Social Media website, the inspiration behind it, sort of what everyone just saw during the presentation. One thing, and one of the great things about working with open source is we are inheriting, you know, some of the existing features and work that's already been done. Even though what you're about to see is a peer-to-peer exchange with another wallet.
+
+171
+00:33:22.810 --> 00:33:28.269
+Alberto Leon (ASML at Harvard): This also still accepts organization, credentials.
+
+172
+00:33:28.270 --> 00:33:53.229
+Alberto Leon (ASML at Harvard): So, if this, for example, this wallet, you know, was capable of, you know, holding a mock driver, mobile driver's license, you know, that typical organization to user flow, you know, that's still possible here. We have, other packages, like Anon credits within Keyring, that's also usable here, if you want to, you know, do some zero-knowledge proofs, so all of that is
+
+173
+00:33:53.230 --> 00:34:00.509
+Alberto Leon (ASML at Harvard): still available from the app. Again, this is, you know, the great advantage of, you know, building on top of open source.
+
+174
+00:34:00.810 --> 00:34:13.870
+Alberto Leon (ASML at Harvard): And then here, the next slide, it's just telling you you can also create trusted connections. So this is kind of the highlight of Kiering, where, you know, you can start creating your network, and, you know, you go to an event.
+
+175
+00:34:13.870 --> 00:34:28.199
+Alberto Leon (ASML at Harvard): You know, you meet someone, you know, or you trust someone, or you know who they are. You would do a ceremony, which is basically the same ceremony you would do for a signal and exchange,
+
+176
+00:34:28.199 --> 00:34:31.169
+Alberto Leon (ASML at Harvard): You know, credentials, and so you can start building your graph.
+
+177
+00:34:31.550 --> 00:34:56.030
+Alberto Leon (ASML at Harvard): And again, we secure the wallet with a PIN code, with an optional biometrics, and so once you get through these slides, you can just press get started, and then it will start the, sort of the onboarding experience and getting your wallet set up. So, you have, create a PIN, so this is gonna unlock your wallet, so this is very similar to, like, you know, your phone, just, you know, simple six-digit
+
+178
+00:34:56.030 --> 00:35:01.970
+Alberto Leon (ASML at Harvard): pin, so I'll say continue. I will enter a ran…
+
+179
+00:35:01.970 --> 00:35:04.580
+Alberto Leon (ASML at Harvard): a random pin code, create the PIN.
+
+180
+00:35:04.800 --> 00:35:24.300
+Alberto Leon (ASML at Harvard): And then I have the option to enable biometrics, and I'll kind of pause here for a moment, because this is, this does two things. So, the very first thing is this will allow me to get access to my wallet through the biometrics, but also it will allow me to sign
+
+181
+00:35:24.410 --> 00:35:31.410
+Alberto Leon (ASML at Harvard): the relationships through the authorization of that, so that device attestation that Brendan was talking about.
+
+182
+00:35:31.410 --> 00:35:47.650
+Alberto Leon (ASML at Harvard): We, of course, added this as something optional. We learned as people started to use curing, not everyone will trust the biometrics on their device, so we're not requiring it, so this is always open to users to choose.
+
+183
+00:35:47.650 --> 00:35:54.469
+Alberto Leon (ASML at Harvard): to enable this permission or not. So I'm gonna enable this so I can show you the full experience.
+
+184
+00:35:54.670 --> 00:35:56.969
+Alberto Leon (ASML at Harvard): And then I get to name my wallet, so…
+
+185
+00:35:57.000 --> 00:36:21.030
+Alberto Leon (ASML at Harvard): we are working with, things like DidCon, to create those initial connections, and, you know, people put here a username or their initials. What this represents is that initial connection to another wallet. So, before I actually create the relationship, it'll say, hey, you know, a username or AL is connecting and wants to create a relationship. So.
+
+186
+00:36:21.030 --> 00:36:37.609
+Alberto Leon (ASML at Harvard): Once I confirm that I do want to exchange my own, you know, R-card or business information, as this example will show, then it will, you know, reveal the, you know, my actual, my actual name.
+
+187
+00:36:37.820 --> 00:36:57.660
+Alberto Leon (ASML at Harvard): So I'll press continue, and this is what I was talking about, that R card, or that digital business card. And this is, of course, scalable. We just added some basic fields here, and I can start filling that in, so I could say Alberto, and then my last name, put in an email.
+
+188
+00:36:58.070 --> 00:37:01.490
+Alberto Leon (ASML at Harvard): And then I will add,
+
+189
+00:37:01.900 --> 00:37:12.790
+Alberto Leon (ASML at Harvard): an organization, so I'll say part of the Applied Social Media Lab. And then I'll press continue, and the wallet will start to initiate.
+
+190
+00:37:15.950 --> 00:37:33.109
+Alberto Leon (ASML at Harvard): Give that a couple of seconds, and there you go. So, I've, you know, I started my wallet, and you get a tour guide, you get a small presentation on different features of the wallet itself. Right now, it's telling me I'm in my contacts tab, and it's explaining that
+
+191
+00:37:33.110 --> 00:37:46.160
+Alberto Leon (ASML at Harvard): as I start creating relationships, I will get a list of contacts of people that I've met, with additional information to go with that. So I'll press next here, and on the top right, you have,
+
+192
+00:37:46.460 --> 00:38:08.620
+Alberto Leon (ASML at Harvard): an icon here that kind of represents that context you're connected with, or that trusted community, which Brendan has mentioned, and I'll demonstrate that next. But actually, for that, let me just take you quickly through the tabs here. So, this is the contacts tab. This is where the list of connections I make.
+
+193
+00:38:08.620 --> 00:38:23.140
+Alberto Leon (ASML at Harvard): As I create connections, I can also message them through DITCOM. I have a QR code right in the middle of the tab bar, which is, again, just, one party's gonna either generate a QR code or scan one.
+
+194
+00:38:23.140 --> 00:38:25.130
+Alberto Leon (ASML at Harvard): And then I have a wallet.
+
+195
+00:38:25.500 --> 00:38:47.879
+Alberto Leon (ASML at Harvard): The wallet is going to hold those organizational credentials, or perhaps even those membership credentials that Brendan was mentioning. And then menu. Menu has some basic stuff. Again, we want to give the users the ability to kind of disable, re-enable different features. Of course, the biometric unlock is one, you know.
+
+196
+00:38:47.880 --> 00:38:59.470
+Alberto Leon (ASML at Harvard): I can opt out of that and prefer to use the PIN code. I can secure the exchanges, and what that means is device attesting, through that,
+
+197
+00:38:59.610 --> 00:39:21.009
+Alberto Leon (ASML at Harvard): through some X509 certificates, chains of trust. I also can report back to the contacts that I'm connected to. This reporting feature is mostly there to kind of show you a cool UI effect of how graphs form. We've been… you'll see that in a minute, but we've been going to different events.
+
+198
+00:39:21.010 --> 00:39:30.789
+Alberto Leon (ASML at Harvard): And as people, you know, start connecting to the community, we kind of show a graph of the connections, and all this is done
+
+199
+00:39:30.920 --> 00:39:54.759
+Alberto Leon (ASML at Harvard): Using pseudonymous names and temporary DIDs. So it's not tied into that original DID that Brendan mentioned. And yeah, some other basic configurations of the wallet. So, to go through a simple example, let's say, you know, these two wallets are in person, and I'm at the Trust Over IP, you know, community event.
+
+200
+00:39:54.850 --> 00:39:57.229
+Alberto Leon (ASML at Harvard): So we also have this…
+
+201
+00:39:57.390 --> 00:40:06.160
+Alberto Leon (ASML at Harvard): This, service running. And what this is, is my way to onboard onto the community.
+
+202
+00:40:06.160 --> 00:40:21.700
+Alberto Leon (ASML at Harvard): So, what users would do, and this is what we've done in previous events, like IIW, and even for our own launch event, we've done this as well. We put up a QR code somewhere in the room, and we have people at, you know, at, you know, as they come in, they will
+
+203
+00:40:21.700 --> 00:40:37.049
+Alberto Leon (ASML at Harvard): you know, we would ask them, you know, hey, you know, you can start, you know, creating trusted connections. And the very first step is to kind of onboard this… we're calling this the witness, but you could also see this as onboarding onto a community.
+
+204
+00:40:37.050 --> 00:40:47.280
+Alberto Leon (ASML at Harvard): So, I'm gonna go ahead and just scan this, QR code here. So I'm gonna press scan. This is the first time I'm using it, so I have to give it camera permissions.
+
+205
+00:40:48.230 --> 00:40:49.920
+Alberto Leon (ASML at Harvard): Scan it over…
+
+206
+00:40:50.430 --> 00:41:09.499
+Alberto Leon (ASML at Harvard): And there you go. So, I've onboarded to the community, the Trust over IP ecosystem and Governance Working Group, and it gives me a brief, welcome, right? So, you'll notice there it's creating a pseudonymous name for me, and this is all, of course.
+
+207
+00:41:09.540 --> 00:41:16.569
+Alberto Leon (ASML at Harvard): not, sharing any delicate information. This is mostly to, as I go through the demo.
+
+208
+00:41:16.570 --> 00:41:33.469
+Alberto Leon (ASML at Harvard): Here I am in the graph, it's to be able to do this. Again, I could turn this off where I wanted to. I don't have to, you know, show myself up in the graph, but again, it's using all everything synonymously. So I'm here in this space, in this, this first one within the community.
+
+209
+00:41:33.470 --> 00:41:52.640
+Alberto Leon (ASML at Harvard): And yeah, so here we go. I'll go back here for a moment and show you guys. So now there's a green indicator on the top right, which means I'm connected to some sort of community, and here's that community with some, you know, more technical details. And as I connect to different communities, I will generate a list of those communities.
+
+210
+00:41:52.910 --> 00:42:04.859
+Alberto Leon (ASML at Harvard): So, the next thing to do is actually take the other wallet and actually onboard that one as well, but I've already done that before the call, so I won't have to take you guys through that again.
+
+211
+00:42:04.860 --> 00:42:13.130
+Alberto Leon (ASML at Harvard): So I'm gonna start this, and just briefly here, this is what I meant by the… you can choose to unlock with biometrics or pen.
+
+212
+00:42:13.130 --> 00:42:15.880
+Alberto Leon (ASML at Harvard): So, I will unlock this.
+
+213
+00:42:16.100 --> 00:42:17.600
+Alberto Leon (ASML at Harvard): with my pin.
+
+214
+00:42:17.790 --> 00:42:31.020
+Alberto Leon (ASML at Harvard): And what I'll do next is basically what you just saw. I am at the same event, at the Trust Over IP event, and I will go ahead and scan the same QR code, so I'll say scan.
+
+215
+00:42:31.570 --> 00:42:37.450
+Alberto Leon (ASML at Harvard): Give it permissions… Scan the QR code…
+
+216
+00:42:37.450 --> 00:42:40.630
+Eric Drury (Forth Consulting): Or both contacts have to be, connected to the witness.
+
+217
+00:42:41.410 --> 00:43:00.279
+Alberto Leon (ASML at Harvard): Not necessarily. All those layers that Brendan mentioned are optional, it's just that because you're within a context, it'll provide a different signal of trust. And some might have that opinion of it's stronger to have, you know, that context when you exchange credentials.
+
+218
+00:43:00.360 --> 00:43:16.070
+Alberto Leon (ASML at Harvard): So, so now, same as before, you can see here in the graph, now I have two nodes within the community, and, you know, I get the same, the same message, and that will be listed in my,
+
+219
+00:43:16.200 --> 00:43:21.089
+Alberto Leon (ASML at Harvard): Witness, icon. Or, community icon.
+
+220
+00:43:21.160 --> 00:43:45.029
+Alberto Leon (ASML at Harvard): And just really briefly here, if I go to messages, I can see I'm connected to that community. And sort of one of the things, just to highlight really quickly, this is kind of fresh out of the box, and we've been, you know, experimenting and seeing how, you know, people react to certain, you know, features, is this… this actually has some AI capabilities where I can ask it about the community itself.
+
+221
+00:43:45.300 --> 00:43:54.040
+Alberto Leon (ASML at Harvard): And it will, give me, you know, an answer within the context of hearing. So I could say, like, what is,
+
+222
+00:43:54.660 --> 00:43:56.940
+Alberto Leon (ASML at Harvard): Trust over IP.
+
+223
+00:43:59.620 --> 00:44:03.499
+Alberto Leon (ASML at Harvard): And it'll give me some, you know, information about,
+
+224
+00:44:03.510 --> 00:44:08.819
+Alberto Leon (ASML at Harvard): Trust over IP and how it relates to the, you know, the decentralized trust working graph.
+
+225
+00:44:08.820 --> 00:44:33.500
+Alberto Leon (ASML at Harvard): and how we're using those specs for building keyring. You can imagine later on how this could be, you know, I can talk up to the, you know, my community and ask it questions, or about the event, you know, who is speaking at the event, for example. So anyways, so going back to the actual exchange, so now that I have both, parties, onboarded on, and then on
+
+226
+00:44:33.500 --> 00:44:38.529
+Alberto Leon (ASML at Harvard): One, I have a John Doe onboarded, and then the other one I'm onboarded as myself.
+
+227
+00:44:38.800 --> 00:44:48.049
+Alberto Leon (ASML at Harvard): I will go and start that… that ceremony that everyone's very familiar with, which is, on one side, I will generate a QR code.
+
+228
+00:44:53.170 --> 00:44:55.760
+Alberto Leon (ASML at Harvard): Alright, and then the other one, I will scan it.
+
+229
+00:45:01.980 --> 00:45:11.949
+Alberto Leon (ASML at Harvard): So now it's saying, hey, this wallet is trying to connect. Do you want to confirm the relationship? I will confirm with, biometrics.
+
+230
+00:45:12.550 --> 00:45:14.130
+Alberto Leon (ASML at Harvard): on both ends…
+
+231
+00:45:16.140 --> 00:45:24.630
+Alberto Leon (ASML at Harvard): And then now there's that exchange happening in live time, and that community is attesting to that relationship.
+
+232
+00:45:24.630 --> 00:45:39.890
+Alberto Leon (ASML at Harvard): So, I can decide to accept or not. And now I can see John Doe's information. So, I get two banners, because, John has decided to actually sign it with, device attestation.
+
+233
+00:45:39.940 --> 00:45:50.880
+Alberto Leon (ASML at Harvard): And, the trust over IP community has, verified or witnessed the relationship. Again, nothing is being revealed to the actual witness.
+
+234
+00:45:50.880 --> 00:46:04.020
+Alberto Leon (ASML at Harvard): It's just as we add context to it. So I can see, okay, when this was issued, the name, his email, and some more specific, did information. So I could go ahead and accept this one.
+
+235
+00:46:05.130 --> 00:46:07.520
+Alberto Leon (ASML at Harvard): And I actually could do the same on the other end.
+
+236
+00:46:09.590 --> 00:46:10.809
+Alberto Leon (ASML at Harvard): Press done.
+
+237
+00:46:11.800 --> 00:46:22.510
+Alberto Leon (ASML at Harvard): And there you go, so I have now, John Doe in my contacts list, and as you see in the graph there to your left, you have, two nodes that are now connected.
+
+238
+00:46:22.510 --> 00:46:39.680
+Alberto Leon (ASML at Harvard): Again, this is sort of more the marketing side of things. We really want to show people the value of this, you know, of, you know, how, you know, how your graph starts to grow as you connect, like, at an in-person event, which is what we've been doing mostly.
+
+239
+00:46:39.960 --> 00:46:43.890
+Alberto Leon (ASML at Harvard): So going back to the slides for a moment…
+
+240
+00:46:44.940 --> 00:46:48.870
+Alberto Leon (ASML at Harvard): And actually, if I… if I press this, just to show you guys one more thing…
+
+241
+00:46:48.870 --> 00:47:11.110
+Alberto Leon (ASML at Harvard): I have now John Doe in my contact details, I can see his email, the organization he's part of, and the witness record, or the community record. You know, it was at this event, and it was witnessed by, you know, the Trust Over IP Ecosystem and Governance Working Group, and, you know, I can even, you know, message Joe and say, kind of say, like, hey.
+
+242
+00:47:11.640 --> 00:47:16.759
+Alberto Leon (ASML at Harvard): And I can see that message, I'll go there in from… from myself.
+
+243
+00:47:17.070 --> 00:47:18.160
+Alberto Leon (ASML at Harvard): So, just real quickly.
+
+244
+00:47:18.900 --> 00:47:20.900
+Eric Drury (Forth Consulting): Sorry, my colleagues just had…
+
+245
+00:47:20.900 --> 00:47:22.600
+Carly Huitema (University of Guelph): Yeah, just really quick.
+
+246
+00:47:24.230 --> 00:47:46.249
+Carly Huitema (University of Guelph): witnessed by, the Ecosystem and Governance Working Group, but of course, you're a presenter here and not part of our governance team, that is actually, here to witness it. Like, I could say, witnessed by whatever. So I can see here a connection to, like, you could add value with trust registries that, that you can.
+
+247
+00:47:46.250 --> 00:47:55.080
+Carly Huitema (University of Guelph): Add reputation in order to increase the value of your witnesses and official standing and stuff.
+
+248
+00:47:55.520 --> 00:47:58.110
+Alberto Leon (ASML at Harvard): Yes, yes, that's exactly right, Carly.
+
+249
+00:47:58.110 --> 00:48:22.169
+Alberto Leon (ASML at Harvard): Again, within the lab, you know, we of course do research, but we also build things, so at least for me personally, it's really great to get people, with something to work with, but it starts opening these questions, and then that's some of these questions that we are having at DTG, and yeah, that's… there's a whole governance
+
+250
+00:48:22.170 --> 00:48:35.779
+Alberto Leon (ASML at Harvard): set of questions when we're talking about connecting to communities and what are their rules. But yes, absolutely, you know, that's, that's something that's, being discussed, yes. Awesome.
+
+251
+00:48:35.900 --> 00:48:38.039
+Alberto Leon (ASML at Harvard): And that's Eric, go ahead.
+
+252
+00:48:38.820 --> 00:48:42.580
+Eric Drury (Forth Consulting): I had a question on the… when you're setting up your wallet, you…
+
+253
+00:48:43.090 --> 00:48:55.150
+Eric Drury (Forth Consulting): I'm trying to figure out how important it is, the name you give your wallet. Well, because the other person sees that name when they're making the connection, but after that, they never have to see that again.
+
+254
+00:48:55.150 --> 00:49:03.929
+Eric Drury (Forth Consulting): Is that correct? So, I mean, this might be when you're, taking them through that first setup, your wallet.
+
+255
+00:49:04.060 --> 00:49:09.639
+Eric Drury (Forth Consulting): Letting them know, you know, you're stuck with this name of the wallet forever, and so be really…
+
+256
+00:49:09.820 --> 00:49:19.509
+Eric Drury (Forth Consulting): And, you know, have good intention with what you call it, or it doesn't matter, because it's only used in a person-to-person contact, and after that, it sort of disappears.
+
+257
+00:49:20.070 --> 00:49:42.649
+Alberto Leon (ASML at Harvard): Yeah, you can change it if you wanted to. It's hidden right now within the wallet, but you can definitely change it to whatever you want. If I chose to, I can use my real name if I'm comfortable with that. Again, we're trying to really focus on, you know, having some wallet name available, but without exposing too much.
+
+258
+00:49:42.650 --> 00:49:55.859
+Alberto Leon (ASML at Harvard): But once you connect and create that relationship, basically the wallet name doesn't matter as much, because now you've confirmed the relationship, and now I can see John Doe as, you know, as the person on the other end.
+
+259
+00:49:55.860 --> 00:50:03.969
+Eric Drury (Forth Consulting): Right, because in the initial connection says AD is connecting with JL, and… but because you're there in person, I guess you can… it's not so important.
+
+260
+00:50:04.760 --> 00:50:07.360
+Alberto Leon (ASML at Harvard): Yes, that's exactly right. Carly?
+
+261
+00:50:07.620 --> 00:50:23.420
+Carly Huitema (University of Guelph): Yeah, just real quick, perhaps this might be a useful idea to test out. When I, years ago, I had a bank thingy, and every time I logged in, they would show me the images that I had picked during account setup.
+
+262
+00:50:23.710 --> 00:50:36.150
+Carly Huitema (University of Guelph): And I'm pretty sure that was so that I would know that I was connecting to the correct thing and not something fraudulent. So perhaps instead of, perhaps instead of an organization, or your wallet name, or something like that.
+
+263
+00:50:36.190 --> 00:50:50.329
+Carly Huitema (University of Guelph): Maybe something less representational, like, oh, do you see the picture of a cat and a beaver? And, and then you would be like, oh yeah, yeah, I see it, okay, that's right, you're connecting to me, something like that. I don't know.
+
+264
+00:50:50.520 --> 00:50:53.200
+Carly Huitema (University of Guelph): I just… record that workflow.
+
+265
+00:50:53.780 --> 00:50:58.140
+Alberto Leon (ASML at Harvard): No, no, I've definitely seen those before in different login systems.
+
+266
+00:50:58.140 --> 00:51:15.070
+Alberto Leon (ASML at Harvard): And yeah, I wish, my, our designer, Nicole, was here. I think she would actually like that, because, it's, we're putting a lot of thought on, you know, new ways to just make this more pleasant for people, just easy to use. As we think about.
+
+267
+00:51:15.070 --> 00:51:28.399
+Alberto Leon (ASML at Harvard): You know, this way of connecting and, you know, this decentralized world, it's really, we have to think out of the box sometimes and, you know, you know, take people from one framework to another.
+
+268
+00:51:28.590 --> 00:51:41.540
+Alberto Leon (ASML at Harvard): So, yeah, definitely, that's, that's, thank you, Carly, for, suggesting that. So… so yeah, so just to go back to the presentation here,
+
+269
+00:51:43.100 --> 00:52:07.810
+Alberto Leon (ASML at Harvard): So here, I won't go through this. So, like I said, there's like a… or I'll just gloss over really quickly. You know, either party can have, you know, could be within the community or, you know, outside the community. You can have biometrics on or off. So these are just going through the different permutations. In the graph, it would show differently, different colors, like, oh, one side did not have
+
+270
+00:52:07.810 --> 00:52:16.759
+Alberto Leon (ASML at Harvard): Biometrics, so it'll be, like, a more coral color, just to show people the different trusting that we can generate, depending on what you… what you enable on your device.
+
+271
+00:52:17.080 --> 00:52:34.099
+Alberto Leon (ASML at Harvard): And this is kind of what that looks like. At the end, you know, you get these badges in your contacts list, you know, like, Nicole Brennan was connected to that context and had her biometrics enabled. Yahira just had, was just connected to the
+
+272
+00:52:34.200 --> 00:52:46.810
+Alberto Leon (ASML at Harvard): to the community, and then John Doe, he's… I still was able to connect with him, it's just that he doesn't have these other badges. So, you know, some people might say that's another form of trust.
+
+273
+00:52:47.820 --> 00:52:53.089
+Alberto Leon (ASML at Harvard): Alright, so I'll pass it back to Brennan to talk, sort of, about the explorations.
+
+274
+00:52:54.150 --> 00:53:01.059
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Yeah, I know we're getting low on time, so I'll just go through this very quickly, but we have looked at, providing
+
+275
+00:53:01.060 --> 00:53:24.119
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): evidence of these credentials onto social media platforms. Blue Sky is an example, it's open source, we're able to customize it. We could add these, relationship, credentials as kind of verifications onto followers, following. So, you know, this is how it can start to integrate into our social media environments and other environments.
+
+276
+00:53:24.120 --> 00:53:49.080
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Next one, yeah, we… I mentioned earlier, we can… we want to explore proof of personhood with these type of credentials in combination with others, content provenance, age assurance, building progressive identity assurance for folks without, primary credentials, the, quote, breeder documents, you know, how do you bootstrap an identity if you're, houseless or a refugee, etc.
+
+277
+00:53:49.080 --> 00:54:04.100
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): some of these can help with that, most likely. Fraud detection signals, etc. Alberto mentioned the Agentic stuff that we're experimenting with that might help with matchmaking or other trust community tasks. If you go to the next slide.
+
+278
+00:54:04.860 --> 00:54:15.380
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): I just want to get to the Q&A. This is our team. These are in the slides. We welcome you to reach out with suggestions, thoughts, comments, etc.
+
+279
+00:54:15.380 --> 00:54:39.279
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): We'll have some Q&A, and as we do, we'll leave up the QR codes for the app if you want to download it. It's easiest to try if you have someone else in your environment who can also download it, but as I mentioned, we're happy to, you know, do a… set up a demo with you if you'd like, but you can download it and check it out. So, thanks for your interest. I know we had some questions as we went, but we do have just 2 minutes left.
+
+280
+00:54:39.280 --> 00:54:42.820
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): For, any remaining questions. Thanks for your interest.
+
+281
+00:54:44.090 --> 00:54:49.350
+Eric Drury (Forth Consulting): I had one question on the… and yeah, thanks. First of all, it's… well, Mackie, I'll let you go. I've got your hand up.
+
+282
+00:54:50.230 --> 00:54:55.550
+Makki Elfatih (Hkdolts): Yeah, no issues at all. You know, you can go ahead, Eric, if you'd like, and then I'll jump in.
+
+283
+00:54:55.550 --> 00:54:58.280
+Eric Drury (Forth Consulting): Well, okay, just very quickly, and you don't have to…
+
+284
+00:54:58.420 --> 00:55:02.600
+Eric Drury (Forth Consulting): answered, but I was just wondering, the reporting
+
+285
+00:55:04.000 --> 00:55:12.090
+Eric Drury (Forth Consulting): the name reporting. It's like reporting who, and it does it… to me, I'm wondering if you guys have had discussions on the name of that specific thing, because
+
+286
+00:55:12.250 --> 00:55:15.390
+Eric Drury (Forth Consulting): It just doesn't… it doesn't seem,
+
+287
+00:55:15.940 --> 00:55:22.730
+Eric Drury (Forth Consulting): to be exactly what you're portraying. You're portraying a graph, you're portraying relationships, you're portraying, you know, some sort of visualization of your personal graph.
+
+288
+00:55:23.440 --> 00:55:30.450
+Eric Drury (Forth Consulting): reporting seems like, who am I reporting to? What am I reporting? And so, I was just wondering if you've had conversations about that specific
+
+289
+00:55:30.830 --> 00:55:31.389
+Eric Drury (Forth Consulting): Topic.
+
+290
+00:55:31.390 --> 00:55:50.310
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): We can talk about it. It's reporting to your trust community, you know, just, who you're… you know, it's basically just to create a stable identifier. There probably is a better way to describe it. A stable identifier just within that trust community for sharing that information. So, yeah, there might be a better way, so thank you.
+
+291
+00:55:52.100 --> 00:55:53.030
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Mackie?
+
+292
+00:55:53.520 --> 00:56:05.320
+Makki Elfatih (Hkdolts): Yeah, actually, I just wanted to ask, in terms of tracking any threats and harms, so do you currently have a log for that? So, for example, the top 5 issues,
+
+293
+00:56:05.550 --> 00:56:17.849
+Makki Elfatih (Hkdolts): that, you know, like, users are facing at the moment, like, even if it was on a test mode at this stage. I think this will be important to at least, you know, start sharing some of the lessons that we can
+
+294
+00:56:17.850 --> 00:56:31.920
+Makki Elfatih (Hkdolts): you know, think about broadly as well in the trust over IP. So, you know, we're engaged over the next period on defining a tool that would help, you know, creators be able to better understand
+
+295
+00:56:31.920 --> 00:56:37.709
+Makki Elfatih (Hkdolts): you know, technical and non-technical risks, so I think it will be good to,
+
+296
+00:56:37.720 --> 00:56:47.629
+Makki Elfatih (Hkdolts): You know, maybe share some of those lessons, so that we can also help you and help other, entities better, navigate such, you know,
+
+297
+00:56:47.780 --> 00:56:51.369
+Makki Elfatih (Hkdolts): At least the recurring issues, we can think about that.
+
+298
+00:56:52.170 --> 00:56:57.079
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): Absolutely, that sounds great. Yes, I would love to connect, have those conversations.
+
+299
+00:56:57.080 --> 00:57:12.520
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): There is a threat and harms group within the decentralized Trust Graph Working Group who has been thinking through some of those generally, and we're also thinking about, you know, getting feedback from our users. So, yeah, would love to be engaged with that. Thank you for that suggestion.
+
+300
+00:57:13.610 --> 00:57:14.530
+Makki Elfatih (Hkdolts): Excellent.
+
+301
+00:57:16.760 --> 00:57:19.920
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): So, I think we're at time. Pass back it to you, Carly.
+
+302
+00:57:19.920 --> 00:57:20.880
+Carly Huitema (University of Guelph): Awesome!
+
+303
+00:57:20.880 --> 00:57:42.630
+Carly Huitema (University of Guelph): So, thank you very much. This was a fantastic presentation, and I'm looking forward to getting it up onto the YouTube channel, and sharing the link in our Discord so that everyone else can share it around. So, thank you again to our presenters, Alberto and Brendan, and I'm looking forward to seeing the evolution. The progress is going so quickly, so it's been really great to watch.
+
+304
+00:57:43.810 --> 00:57:44.480
+Eric Drury (Forth Consulting): Thanks for having me.
+
+305
+00:57:44.600 --> 00:57:49.240
+Brendan Miller (Applied Social Media Lab at the Berkman Klein Center for Internet & Society): to share, and looking forward to collaborating, so let's stay in touch.
+
+306
+00:57:49.240 --> 00:57:54.839
+Carly Huitema (University of Guelph): Excellent. Thank you very much, everyone, and we will see everyone in two weeks for the next meeting.
+
+307
+00:57:54.960 --> 00:57:58.290
+Makki Elfatih (Hkdolts): Congratulations, team. Looks great, thank you, bye-bye.
+
+308
+00:57:59.800 --> 00:58:00.670
+Carly Huitema (University of Guelph): Bye!
+
